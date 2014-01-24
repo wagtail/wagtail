@@ -8,7 +8,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         page_content_type, created = orm['contenttypes.contenttype'].objects.get_or_create(
-            model='page', app_label='core', defaults={'name': 'page'})
+            model='page', app_label='wagtailcore', defaults={'name': 'page'})
 
         root = orm['wagtailcore.page'].objects.create(
             title="Root",
