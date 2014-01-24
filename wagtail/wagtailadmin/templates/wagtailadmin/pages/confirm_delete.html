@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Delete {{ page.title }}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Delete <span>{{ page.title }}</span></h1>
+    </header>
+
+    <div class="nice-padding">
+        <p>Are you sure you want to delete this page? {% if descendant_count %}This will also delete {{ descendant_count }} subpage{{ descendant_count|pluralize }}.{% endif %}</p>
+        {% if page.live %}
+            <p>Alternatively you can unpublish the page. This removes the page from public view and you can edit or publish it again later.</p>
+        {% endif %}
+        <form action="{% url 'wagtailadmin_pages_delete' page.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete it" class="serious {% if page.live %}button-secondary{% endif %}"> {% if page.live %}<a href="{% url 'wagtailadmin_pages_unpublish' page.id %}" class="button">Unpublish it</a>{% endif %}
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Select a new parent page for {{ page_to_move.title }}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block content %}
+    <header>
+        <h1>Select a new parent page for <span>{{ page_to_move.title }}</span></h1>
+
+        <ul class="breadcrumb">
+            <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">Home</a></li>
+            {% for page in viewed_page.get_ancestors %}
+                <li><a href="{% url 'wagtailadmin_pages_move_choose_destination' page_to_move.id page.id %}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </header>
+
+    <div class="nice-padding">
+        {% include "wagtailadmin/pages/list.html" with moving=1 allow_navigation=1 pages=child_pages parent_page=viewed_page %}
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Move {{ page.title }}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block content %}
+    <header>
+        <h1>Move <span>{{ page_to_move.title }}</span></h1>
+    </header>
+
+    <div class="nice-padding">
+        {% if page_to_move.is_leaf %}
+            <p>Are you sure you want to move this page into '{{ destination.title }}'?</p>
+        {% else %}
+            <p>Are you sure you want to move this page and all of its children into '{{ destination.title }}'?</p>
+        {% endif %}
+
+        <form action="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id destination.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes, move this page">
+        </form>
+    </div>
+{% endblock %}

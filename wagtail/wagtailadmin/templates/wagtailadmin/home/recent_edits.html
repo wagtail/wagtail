@@ -1,0 +1,33 @@
+{% if last_edits %}
+    <div class="panel nice-padding row-flush">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>Your most recent edits</h2>
+            <table class="listing">
+                <col />
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">Title</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for revision in last_edits %}
+                        <tr>
+                            <td class="title">
+                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="Edit this page">{{ revision.page.title }}</a></h2>
+                                <ul class="actions">
+                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}">Preview</a></li>
+                                </ul>
+                            </td>
+                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }}</div></td>
+                            <td><span class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}

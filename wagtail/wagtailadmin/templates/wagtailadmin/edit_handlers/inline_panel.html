@@ -1,0 +1,14 @@
+{{ self.formset.management_form }}
+<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+    {% for child in self.children %}
+        {% include "wagtailadmin/edit_handlers/inline_panel_child.html" %}
+    {% endfor %}
+</ul>
+
+<script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    {% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+</script>
+
+<p class="add">
+    <a class="icon icon-plus-inverse" id="id_{{ self.formset.prefix }}-ADD" value="Add">Add {{ self.heading|lower }}</a>
+</p>

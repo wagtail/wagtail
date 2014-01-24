@@ -1,0 +1,14 @@
+<header>
+    <h1>Choose a page</h1>
+</header>
+{% include 'wagtailadmin/chooser/_search_form.html' %}
+
+<div class="nice-padding">
+    {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
+
+    <div class="page-results">
+        {# content in here will be replaced by live search results #}
+
+        {% include 'wagtailadmin/chooser/_search_results.html' %}
+    </div>
+</div>

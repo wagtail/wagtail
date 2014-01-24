@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Create a new page{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block content %}
+    <header>
+        <h1>Create a new page</h1>
+    </header>
+
+    <div class="nice-padding">
+        <p>Your new page will be saved in the <em>top level</em> of your website. You can move it after saving.</p>
+        
+        {% if all_page_types %}
+            <ul class="listing">
+                {% for content_type in all_page_types %}
+                    <li><a href="{% url 'wagtailadmin_pages_select_location' content_type.app_label content_type.model %}" class="icon icon-plus-inverse">{{ content_type.model_class.get_verbose_name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

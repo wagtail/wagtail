@@ -1,0 +1,39 @@
+<div class="nice-padding">
+    {% if pages %}
+        {% if is_searching %}
+            <h2>{{ pages.paginator.count }} match{{ pages.paginator.count|pluralize:"es" }}</h2>
+        {% endif %}
+
+        {% include "wagtailadmin/pages/list.html" with show_parent=1 allow_navigation=0 %}
+
+        <div class="pagination">
+            <p>Page {{ pages.number }} of {{ pages.paginator.num_pages }}.</p>
+            <ul>
+                <li class="prev">
+                    {% if pages.has_previous %}
+                        {% if is_searching %}
+                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ search_query|urlencode }}&amp;p={{ pages.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                        {% else %}
+                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+                <li class="next">
+                    {% if pages.has_next %}
+                        {% if is_searching %}
+                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ search_query|urlencode }}&amp;p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                        {% else %}
+                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    {% else %}
+        {% if is_searching %}
+            <p>Sorry, no pages match <em>"{{ search_query }}"</em></p>
+        {% else %}
+            <p>Enter a search term above</p>
+        {% endif %}
+    {% endif %}
+</div>

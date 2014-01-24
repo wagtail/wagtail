@@ -1,0 +1,18 @@
+{% if not is_searching %}
+    <h2>Explorer</h2>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'wagtailadmin_explore_root' %}?{{ querystring }}" class="icon icon-home text-replace navigate-pages">Home</a></li>
+        {% for page in parent_page.get_ancestors %}
+            <li><a href="{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}" class="navigate-pages" >{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <h2>{{ pages.count }} search match{{ pages.count|pluralize:"es" }}</h2>
+{% endif %}
+
+{% if is_searching %}
+    {% include "wagtailadmin/pages/list.html" with choosing=1 show_parent=1 pages=pages parent_page=parent_page %}
+{% else %}
+    {% include "wagtailadmin/pages/list.html" with choosing=1 allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
+{% endif %}

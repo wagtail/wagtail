@@ -1,0 +1,16 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Unpublish {{ page.title }}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block content %}
+    <header>
+        <h1>Unpublish <span>{{ page.title }}</span></h1>
+    </header>
+
+    <div class="nice-padding">
+        <p>Are you sure you want to unpublish this page?</p>
+        <form action="{% url 'wagtailadmin_pages_unpublish' page.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes, unpublish it">
+        </form>
+    </div>
+{% endblock %}

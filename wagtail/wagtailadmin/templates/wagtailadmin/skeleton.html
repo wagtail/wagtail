@@ -1,0 +1,58 @@
+<!doctype html>
+{% load compress %}
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Verdant - {% block titletag %}{% endblock %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+    {% block css %}{# Block defined for timing breakdowns in django debug toolbar - not expected to be overridden #}
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitter:400,700" /> 
+        
+        {% compress css %}
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/normalize.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/jquery.timepicker.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/core.less" type="text/less" />
+        {% endcompress %}
+
+        {% block extra_css %}{% endblock %}
+    {% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+    <!--[if lt IE 9]>
+        <p class="browsermessage">You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a>.</p>
+    <![endif]-->
+
+    <div class="wrapper">
+       {% block furniture %}{% endblock %}
+    </div>
+
+    {% block js %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        {% compress js %}
+            {% comment %}
+                Core JS includes (for inclusion on all pages) to be specified here
+            {% endcomment %}
+
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-ui-1.10.3.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.timepicker.min.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.autosize.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-modal.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>
+            <script src="{{ STATIC_URL }}wagtailadmin/js/core.js"></script>
+        {% endcompress %}
+        
+        {% block extra_js %}{% endblock %}
+    {% endblock %}
+</body>
+</html>

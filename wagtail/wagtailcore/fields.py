@@ -6,7 +6,7 @@ from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 
 class RichTextArea(Textarea):
     def get_panel(self):
-        from verdantadmin.edit_handlers import RichTextFieldPanel
+        from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
         return RichTextFieldPanel
 
     def render(self, name, value, attrs=None):

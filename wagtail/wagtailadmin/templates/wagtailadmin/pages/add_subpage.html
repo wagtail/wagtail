@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/base.html" %}
+{% load meta_description %}
+
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block titletag %}Create a page in {{ parent_page.title }}{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Create a page in <span>{{ parent_page.title }}</span></h1>
+    </header>
+
+    <div class="nice-padding">
+        <p>Choose which type of page you'd like to create.</p>
+
+        {% if all_page_types %}
+            <ul class="listing">
+                {% for content_type in all_page_types %}
+                    <li>
+                        <div class="row row-flush">
+                            <div class="col6">
+                                <a href="{% url 'wagtailadmin_pages_create' content_type.app_label content_type.model parent_page.id %}" class="icon icon-plus-inverse">{{ content_type.model_class.get_verbose_name }}</a>
+                            </div>
+
+                            <small class="col6" style="text-align:right">
+                                {{ content_type|meta_description }}
+                                <a href="{% url 'wagtailadmin_pages_type_use' content_type.app_label content_type.model %}" class="nolink">Pages using {{ content_type.model_class.get_verbose_name }}</a>
+                            </small>
+                            
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

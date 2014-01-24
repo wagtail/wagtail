@@ -1,0 +1,141 @@
+@import "../variables.less";
+
+.hallotoolbar{
+    position:absolute;
+    left:5.83%;
+}
+.hallotoolbar.affixed{
+    position:fixed;
+    left:5.83%;
+    margin-left:140px;
+}
+
+.richtext {
+    min-height:50px;
+    overflow: hidden;
+
+    /* Resetting various html tags that have been messed with by Verdant's main css */
+    h1{
+        text-transform:none;
+    }
+    h2 {
+        text-transform:none;
+        display:block !important;
+    }
+    h1 span {
+        font-weight: normal;
+        color: inherit;
+    }
+    *:before,
+    *:after{
+        display:none;
+    }
+
+    ol,
+    ul {
+        margin: 1em 0;
+        padding: 0 0 0 40px;
+    }
+    li{
+        display:list-item !important;
+    }
+    ul li{
+        list-style-type:disc !important;
+    }
+    ol li{
+        list-style-type:decimal !important;
+    }
+
+    /* Delete controls on embedded blocks with contenteditable="false" */
+    .rich-text-deletable {
+        position: relative;
+        a.delete-control {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            display: none;
+
+            &:before{
+                background-color:rgba(255,255,255,0.8);
+            }
+            &:hover:before{
+                background-color:white;
+            }
+        }
+    }
+    &.inEditMode {
+        .rich-text-deletable a.delete-control {
+            display: block;
+        }
+    }
+
+    /* === CSS BELOW THIS POINT IS CUSTOM TO RCA === */
+    /* TODO: find extensible way for developers to style rich text to suit their implementation, without making changes to anything within wagtailadmin */
+
+    h1,h2,h3,h4,h5,h6{
+        font-family:inherit;
+    }
+    h1{} /* shouldn't be used */
+
+    h2 {
+        font-size: 2em;
+        line-height: 1.2em;
+        padding-top:0.5em;
+        border-top:1px solid #CCC;
+	clear:both
+    }
+    h3 {
+        font-size: 1.7em;
+        line-height: 1.194em;
+    }
+    h4 {
+        font-size: 1.5em;
+        line-height: 1.267em;
+    }
+    h5 {
+        /* used for large body text, not really heading */
+        font-size: 1.200em;
+        line-height: 1.278em;
+    }
+
+    hr {
+        border-bottom: 1px solid #ccc;
+        border-top: none;
+	border-left: none;
+    }
+
+    /*
+    These styles correspond to the image formats defined in verdantimages/formats.py,
+    so that images displayed in the rich text field receive more or less the same
+    styling that they would receive on the site front-end.
+    TODO: when we implement a mechanism to configure the image format list on a
+    per-installation / per-site basis, we'll need a way to insert the corresponding
+    CSS here.
+    */
+
+    .bodytext-image {
+        margin-top: 3px; /* close as possible to match line-height space above p */
+        img {
+            width:100%;
+        }
+        figcaption {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+        &.small {
+            max-width: 45%;
+        }
+        &.left {
+            float: left;
+            margin-right: 16px;
+        }
+        &.right {
+            float: right;
+            margin-left: 16px;
+        }
+    }
+
+}

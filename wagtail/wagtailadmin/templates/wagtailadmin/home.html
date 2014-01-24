@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/base.html" %}
+{% load gravatar compress %}
+{% block titletag %}Dashboard{% endblock %}
+{% block bodyclass %}homepage{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/layouts/home.less" type="text/less" />
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <header class="merged">
+        <div class="row row-flush">
+            {% if user.email %}
+                <div class="col1">
+                    <div class="avatar icon icon-user"><a href="http://gravatar.com" title="Change or set your Gravatar"><img src="{% gravatar_url user.email %}" /></a></div>
+                </div>
+            {% endif %}
+            <div class="col10">
+                <h1>Welcome to the Verdant CMS for {{ site_name }}</h1> 
+                <h2>{{ user.get_full_name|default:user.username }}</h2>
+            </div>
+        </div>
+    </header>
+
+    {% if panels %}
+        {% for panel in panels %}
+            {{ panel.render }}
+        {% endfor %}
+    {% else %}
+        <p>This is your dashboard on which helpful information about content you've created will be displayed.</p>
+    {% endif %}
+
+{% endblock %}

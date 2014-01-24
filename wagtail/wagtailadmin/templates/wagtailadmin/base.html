@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load wagtailadmin_nav %}
+
+{% block furniture %}
+    <div id="nav-toggle" data-afteropen="Collapse" class="icon icon-verdant text-replace">Menu</div>
+    <div class="nav-wrapper">
+        <div class="inner">
+            <a href="{% url 'wagtailadmin_home' %}" class="logo"><em>V</em><span>erdant</span></a>
+            {% main_nav %}
+        </div>
+
+        <nav class="explorer">
+            <ul class="dl-menu">
+                {% explorer_nav %}
+            </ul>
+        </nav>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

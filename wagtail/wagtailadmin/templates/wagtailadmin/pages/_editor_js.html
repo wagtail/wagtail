@@ -1,0 +1,39 @@
+{% load compress %}
+
+{% comment %}
+    Javascript declarations to be included on the 'create page' and 'edit page' views
+{% endcomment %}
+
+{% compress js %}
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/rangy-core.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/hallo.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/expanding_formset.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-verdant-toolbar.js"></script>
+    <script type="text/coffeescript" src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-verdantlink.coffee"></script>
+    <script type="text/coffeescript" src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-hr.coffee"></script>
+    <script type="text/coffeescript" src="{{ STATIC_URL }}verdantimages/js/hallo-plugins/hallo-verdantimage.coffee"></script>
+    <script type="text/coffeescript" src="{{ STATIC_URL }}verdantembeds/js/hallo-plugins/hallo-verdantembeds.coffee"></script>
+    <script type="text/coffeescript" src="{{ STATIC_URL }}verdantdocs/js/hallo-plugins/hallo-verdantdoclink.coffee"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/page-editor.js"></script>
+
+    {% comment %}
+        TODO: have a mechanism to specify this include (and hallo-verdantimage.coffee)
+        within the verdantimages app -
+        ideally wagtailadmin shouldn't have to know anything at all about verdantimages
+        TODO: a method of injecting these sorts of things on demand when the modal is spawned.
+    {% endcomment %}
+    <script src="{{ STATIC_URL }}wagtailadmin/js/page-chooser.js"></script>
+    <script src="{{ STATIC_URL }}verdantimages/js/image-chooser.js"></script>
+    <script src="{{ STATIC_URL }}verdantdocs/js/document-chooser.js"></script>
+    <script src="{{ STATIC_URL }}verdantsnippets/js/snippet-chooser.js"></script>
+{% endcompress %}
+
+<script>
+    (function() {
+        function fixPrefix(str) {return str;}
+
+        {{ edit_handler.render_js }}
+    })();
+</script>

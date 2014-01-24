@@ -1,0 +1,446 @@
+/* General listings, like for pages, images or snippets */
+ul.listing{
+    .unlist();
+}
+
+.listing{
+    margin-bottom:2em;
+    ul&{
+        border-top:1px dashed @color-input-border;
+        margin-bottom:2em;
+    }
+    ul{
+        .unlist();
+    }
+    > li{
+        padding:1em 0;
+        border-bottom:1px dashed @color-input-border;
+    }
+
+    h3{
+        margin:0;
+        font-size:0.95em;
+    }
+
+    table&{
+        width:100%;
+    }
+   
+    td, th{
+        padding:1.5em 1em;
+    }
+
+    &.small td, th{
+        padding:0.6em 1em;
+    }
+
+    thead{
+        color: @color-grey-2;
+        border-bottom:1px solid @color-grey-4;
+        
+        th{
+            font-size:0.85em;
+            text-align:left;
+            font-weight:normal;
+            white-space: nowrap;
+            text-transform:uppercase;
+        }
+        th.children{
+            border:0;
+        }
+
+        th a{
+            text-decoration:none;
+            color:inherit;
+            position:relative;
+
+            &.icon:after{
+                opacity:0.5;
+                right:0;
+            }
+        }
+
+        .dropdown{
+            padding:0;
+        }
+        .dropdown-toggle{
+            display:block;
+            padding:1.5em;
+        }
+        .dropdown:hover,
+        .dropdown.open{
+            .box-shadow(0px 0px 3px 0 rgba(0,0,0,0.2));
+            background-color:white;
+            margin-left:-@grid-gutter-width * 2;
+        }
+    }
+
+    &.full-width td:first-child,
+    &.full-width th:first-child{
+        .push-padding(@grid-content-indent);
+    }
+
+    &.full-width{
+        margin-bottom:-3em; /* this negates the padding added to the bottom of .content */
+    }
+    &.full-width th{
+        background-color:@color-thead-bg;
+    }
+
+    .table-headers{
+        border-bottom:1px solid  @color-grey-4
+    }
+
+    tbody{
+        border-bottom:1px dashed @color-input-border;
+    }
+    tbody tr{
+        border-top:1px dashed @color-input-border;
+        &:first-child{
+            border-top:1px dashed @color-input-border;
+        }
+        
+    }
+    &.full-width tbody{
+        border:0;
+    }
+    &.full-width tbody tr:hover{
+        background-color:#FDFDFD;
+    }
+    &.chooser tr.can-choose:hover{
+        background-color:@color-teal;
+        color:white;
+
+        a,a:hover{
+            color:white;
+        }
+        .status-tag{
+            border-color:white;
+            color:white;
+        }
+    }
+
+    &.small tbody tr{
+        font-size:1em;
+    }
+
+
+    .divider{
+        text-transform:uppercase;
+        font-size:0.8em;
+        background-color:@color-grey-3;
+        td{
+           
+           padding-top:0.5em;
+           padding-bottom:0.5em;
+        }
+    }
+
+    &.full-width .divider td{
+        .push-padding(@grid-content-indent);
+    }
+
+    .index {
+        background-color:@color-header-bg;
+        .title h2{
+            font-size:1.2em; 
+        }
+        a{
+            color:auto;
+        }
+    }
+
+
+    /* specific columns */
+    .bulk{
+        padding-right:0;
+
+        label{
+            font-size:1em;
+            display:block;
+            width:100%;
+            position:relative;
+        }
+        label span{
+            .visuallyhidden();
+        }
+        input{
+            margin-top:3px;
+            
+        }
+       
+    }
+    .title{
+        h2{
+            text-transform:none;
+            margin:0;
+            font-size:1.1em;
+            font-weight:700;
+            color:@color-grey-2;
+            line-height:1.5em;
+        
+            a{
+                color:inherit;
+                text-decoration:none;
+                display: block;
+
+                &:hover{
+                    color:@color-link;
+                }
+            }
+        }
+    }
+
+    .actions{
+        margin-top:0.5em;
+        text-transform:uppercase;
+        font-size:0.85em;
+
+        a{
+            text-decoration:none;
+        }    
+
+        li{
+            display:inline-block;
+            padding:0 0.5em;
+            border-left:1px solid @color-grey-3;
+            line-height:1em;
+            
+            &:first-child{
+                border:0;
+                padding-left:0;
+            }
+            &.no-border{
+                border:0;
+            }
+        }
+
+        .button-small{
+            font-size:1em;
+            padding:0.6em 1.2em;
+            margin-right:1em;
+
+            &:before{
+                font-size:1.7em;
+            }
+        }
+    }
+
+    .moderate-actions form{
+        float:left;
+        margin:0 1em 1em 0;
+    }
+
+    .children,
+    .no-children{
+        padding:0 !important;
+        border-left:1px dashed @color-input-border;
+        &:hover{
+            background-color:@color-header-bg;
+        }
+    }
+    .children a,
+    .no-children a{
+        color:@color-grey-3;
+        display:block;
+        padding:2em 0;       
+    }
+
+    .children a{
+        display:block;
+        &:before{
+            font-size:3rem;
+        }
+    }
+    .no-children a{
+        display:block;
+        &:before{
+            font-size:1.5rem;
+        }
+    }
+    &.small .children a:before{
+        font-size:30px;
+    }    
+
+    .ord{
+        padding-left:10px !important;
+    }
+    th.ord a:before{
+        width:1em;
+        font-size:15px;
+    }
+    th.ord a:hover:before{
+        color:@color-teal;
+    }
+    .handle{
+        cursor:move;
+        width:20px;
+
+        &:before{
+            font-size:20px;
+            color:@color-grey-3;
+            width:1em;
+        }
+        &:hover:before{
+            color:@color-text-base;
+        }
+    }
+
+    .ui-sortable-helper{
+        border:1px dashed @color-input-border;
+        border-width:1px 0;
+        
+
+        td{
+            display:none;
+           
+        }
+        .ord,.title{
+            display:table-cell;
+        }
+        .ord{
+           
+        }
+    }
+    .dropzone{
+        height:80px;
+        background-color:@color-grey-1;
+
+        &:hover{
+            background-color:@color-grey-1;
+        }
+        td{
+            padding: 0 !important;
+        }
+    }
+
+
+    td.children:hover{
+        background-color:@color-teal;
+
+        a:before{
+            color:white;
+        }
+    }
+
+    table .no-results-message{
+        .push-padding(@grid-content-indent);
+    }
+
+    .inactive h2{
+        opacity:0.5;
+    }
+}
+
+
+.pagination{
+    text-align:center;
+    p{
+        margin:0;
+    }
+    ul{
+        .unlist();
+    }
+    ul{
+        margin-top:-1.7em;
+    }
+    li{
+        line-height:1em;
+    }
+    .prev{
+        float:left;
+    }
+    .next{
+        float:right;
+    } 
+}
+
+@media screen and (min-width: @breakpoint-mobile){
+    .listing{
+        &.horiz > li{
+           float:left;
+        }
+        &.images {
+            .clearfix();
+            border: 1px solid @color-grey-4;
+            border-width:0 0 0 1px !important;
+
+            > li{
+                padding:@grid-gutter-width/2;
+                width:200px;
+                height:220px;
+                text-align:center;
+                margin-top:-1px;
+                border:1px solid @color-grey-4;
+                border-width:1px 1px 1px 0px;               
+
+                .image{
+                    text-align:center;
+                    height:180px;
+                   
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        height: 100%;
+                        vertical-align: middle;
+                        margin-right: -0.25em;
+                    }
+
+                    img{
+                        border:3px solid transparent;
+                        display:inline-block;
+                        vertical-align: middle;
+                    }
+                }
+
+                &:hover{
+                    background-color:#FDFDFD;
+
+                    img{
+                        border-color:@color-teal;
+                    }
+                }
+            }
+            a{
+                color:inherit;
+            }
+            
+        } 
+        .actions{
+           visibility: hidden;
+        }
+        .index .actions{
+            visibility:visible;
+        }
+        td:hover .actions{
+            visibility:visible;
+        }
+        .no-children {
+            border-color:transparent;
+        }
+        .no-children a{
+            color:@color-teal;
+            opacity:0;
+        }
+        .no-children:hover{
+            border-color:@color-input-border;
+            a{opacity:1;}
+        }
+    }
+   
+}
+
+
+/* Transitions */
+.listing {
+    thead .dropdown ul{
+        .transition(none);
+    }
+    .children, .no-children{
+        .transition(background-color 0.2s ease);
+    }
+    .children a,
+    .no-children a{
+        .transition(all 0.2s ease);
+    }
+}

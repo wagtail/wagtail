@@ -1,0 +1,56 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load compress %}
+{% block titletag %}Sign in{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/layouts/login.less" type="text/less" />
+    {% endcompress %}
+{% endblock %}
+
+{% block furniture %}
+<form action="{% url 'django.contrib.auth.views.login' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <h1>Sign in to <span>V</span>erdant</h1>
+
+    {% if form.errors %}
+        <div class="messages">
+            <ul>
+                <li class="error">Your username and password didn't match. Please try again.</li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <ul class="fields">
+        <li class="full">
+            <div class="field icon icon-user">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+        </li>
+        <li class="full">
+            <div class="field icon icon-password">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            {% comment %}
+                Removed until functionality exists
+                <p class="help"><a href="#">Forgotten it?</a></p>
+            {% endcomment %}
+        </li>
+        {% comment %}
+            Removed until functionality exists
+            <li class="checkbox">
+                <div class="field">
+                    <label><input type="checkbox" /> Remember me</label>
+                </div>
+            </li>
+        {% endcomment %}
+        <li>
+            <input type="submit" value="Sign in"/>
+        </li>
+    </ul>
+</form>
+{% endblock %}

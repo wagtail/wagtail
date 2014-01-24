@@ -1,0 +1,29 @@
+<div class="pagination">
+    <p>Page {{ items.number }} of {{ items.paginator.num_pages }}.</p>
+    <ul>
+        <li class="prev">
+            {% if items.has_previous %}
+                {% if is_ajax %}
+                    <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                {% elif is_searching %}
+                    <a href="{% url linkurl %}?q={{ search_query|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                {% elif is_ajax %}
+                    
+                {% else %}
+                    <a href="{% url linkurl %}?p={{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                {% endif %}
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if items.has_next %}
+                {% if is_ajax %}
+                    <a href="#" data-page="{{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                {% elif is_searching %}
+                    <a href="{% url linkurl %}?q={{ search_query|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                {% else %}
+                    <a href="{% url linkurl %}?p={{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                {% endif %}
+            {% endif %}
+        </li>
+    </ul>
+</div>

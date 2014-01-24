@@ -1,0 +1,19 @@
+{% load compress %}
+
+{% comment %}
+    CSS declarations to be included on the 'create page' and 'edit page' views
+{% endcomment %}
+
+{% comment %}
+    TODO: have a mechanism to specify this include within the verdantimages app -
+    ideally wagtailadmin shouldn't have to know anything at all about verdantimages
+{% endcomment %}
+
+{% compress css %}
+    <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}wagtailadmin/css/layouts/page-editor.less">
+    <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}wagtailadmin/css/panels/rich-text.less">
+
+    {# we'll want tag-it included, for the benefit of any modals that use it, like images. #}
+    {# TODO: a method of injecting these sorts of things on demand when the modal is spawned #}
+    <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/jquery.tagit.css">
+{% endcompress %}

@@ -1,0 +1,136 @@
+.avatar{
+    .border-radius(100%);
+    position:relative;
+    display:inline-block;
+    width:50px;
+    height:50px;
+
+    &:before{
+        .border-radius(100%);
+        color:@color-grey-3;
+        border: 2px solid @color-grey-3;
+        text-align:center;
+        display:block;
+        width:42px;
+        height:42px;
+        margin:2px 0 0 2px;
+        line-height:42px;
+        position:absolute;
+        z-index:1;
+        left:0;
+    }
+    a{
+        position:absolute;
+        z-index:2;
+        left:0;
+        display:block;
+        width:100%;
+        height:50px;
+    }
+    img{
+        .border-radius(100%);
+    }
+    &:hover{
+        &:before{
+            color:@color-teal;
+            border-color:@color-teal;
+        }
+    }
+}
+
+.media-placeholder {
+    width: 600px;
+    height: 400px;
+    background-color: #CCC;
+    padding: 5px;
+    h3, p {
+        margin: 0;
+    }
+    img {
+        max-width: 350px;
+        max-height: 350px;
+        margin: 20px;
+    }
+}
+
+/* Displays "timesince" formatted date with full date on hover */
+.human-readable-date{
+    overflow:hidden;
+    display:block;
+    position:relative;
+
+    &:before{
+        position:absolute;
+        display:none;
+        content:attr(title);
+    }
+
+    &:hover{
+        visibility:hidden;
+
+        &:before{
+            visibility:visible;
+            display:block;
+        }
+    }
+}
+
+/* makes a link look like regular text */
+.nolink{
+    color:@color-text-base;
+}
+
+/* Status tags */
+.status-tag{
+    text-align:center;
+    display:inline-block;
+    .border-radius(2px);
+    text-transform:uppercase;
+    padding:0em 0.5em;
+    border:1px solid @color-grey-3;
+    color:@color-grey-3;
+    -webkit-font-smoothing: auto;
+    font-size:0.80em;
+    margin:0 0.5em;
+    
+    &.primary{
+        color:@color-grey-2;
+        border:1px solid @color-grey-2;
+    }
+}
+
+/* tags */
+.tag{
+    background-color:@color-teal;
+    padding-right:0.5em;
+    padding:0.2em 0.5em;
+    color:white;
+    line-height:2em;
+    white-space: nowrap;
+    .border-radius(2px);
+    
+
+    &:before{
+        font-family:verdant;
+        display:inline-block;
+        color:white;
+        content:"u";
+        padding-right:0.5em;
+    }
+    a&:hover{
+        background-color:@color-teal-darker;
+        color:white;
+    }
+
+    .taglist &{
+        margin-right:0.8em;
+    }
+}
+.taglist {
+    font-size:0.9em;
+    line-height:2.4em;
+    h3{
+        display:inline;
+        margin-right:1em;
+    }
+}

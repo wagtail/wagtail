@@ -1,0 +1,47 @@
+{% if page_revisions_for_moderation %}
+    <div class="panel nice-padding row-flush">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>Pages awaiting moderation</h2>
+            <table class="listing">
+                <col />
+                <col width="15%"/>
+                <col width="15%"/>
+                <col width="30%"/>
+                <thead>
+                    <tr>
+                        <th class="title">Title</th>
+                        <th>Date</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for revision in page_revisions_for_moderation %}
+                        <tr>
+                            <td class="title">
+                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="Edit this page">{{ revision.page.title }}</a></h2>
+                                <ul class="actions">
+                                    <li>
+                                         <form action="{% url 'wagtailadmin_pages_approve_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="button button-small" value="Approve">
+                                        </form>
+                                    </li>
+                                    <li class="no-border">
+                                        <form action="{% url 'wagtailadmin_pages_reject_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="button button-small button-secondary no" value="Reject">
+                                        </form>
+                                    </li>
+                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">Preview</a></li>
+                                </ul>
+                            </td>
+                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div></td>
+                            <td>{{ revision.user.get_full_name }}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}

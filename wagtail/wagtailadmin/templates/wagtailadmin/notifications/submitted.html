@@ -1,0 +1,5 @@
+The page "{{ revision.page|safe }}" has been submitted for moderation
+The page "{{ revision.page|safe }}" has been submitted for moderation.
+
+You can preview the page here: {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}
+You can edit the page here: {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}

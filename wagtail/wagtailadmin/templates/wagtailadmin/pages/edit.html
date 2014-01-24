@@ -1,0 +1,77 @@
+{% extends "wagtailadmin/base.html" %}
+{% load page_permissions %}
+
+{% block titletag %}Editing {{ page.title }}{% endblock %}
+{% block bodyclass %}menu-explorer  page-editor{% endblock %}
+
+{% block content %}
+    <header class="merged tab-merged">
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1>Editing <span>{{ page.title }}</span></h1>
+            </div>
+            <div class="right col3">
+                 Status: {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% if errors_debug %}
+    <!--
+        Error messages:
+        {{ errors_debug }}
+    -->
+    {% endif %}
+
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+    
+        {% page_permissions page as page_perms %}
+        <footer>
+            <ul>
+                <li class="actions">
+                    <div class="dropdown dropup match-width">
+                        <input type="submit" value="Save draft" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul role="menu">
+                            {% if page_perms.can_unpublish %}
+                                <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">Unpublish</a></li>
+                            {% endif %}
+                            {% if page_perms.can_delete %}
+                                <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">Delete</a></li>
+                            {% endif %}
+                            {% if page_perms.can_publish %}
+                                <li><input type="submit" name="action-publish" value="Publish" class="button" /></li>
+                            {% endif %}
+                            <li><input type="submit" name="action-submit" value="Submit for moderation" class="button" /></li>
+                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="verdant_preview_{{ page.id }}" value="Preview" class="button" /></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="notices">
+
+                </li>
+                <li class="meta">
+                   
+                    <span class="modified">
+                        {% if page.get_latest_revision %}
+                            Last modified: {{ page.get_latest_revision.created_at }}
+                            {% if page.get_latest_revision.user %}
+                                by {{ page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.username }}
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}

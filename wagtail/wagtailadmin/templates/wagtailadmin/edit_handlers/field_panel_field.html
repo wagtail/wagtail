@@ -1,0 +1,18 @@
+<div class="field">
+    {% if field_type != "boolean_field" %}{{ field.label_tag }}{% endif %}
+    {% block form_field %}
+        {{ field }}
+    {% endblock %}
+    {% if field_type = "boolean_field" %}{{ field.label_tag }}{% endif %}
+</div>
+
+{% if field.errors %}
+    <p class="error-message">
+        {% for error in field.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+{% if field.help_text %}
+    <p class="help">{{ field.help_text }}</p>
+{% endif %}

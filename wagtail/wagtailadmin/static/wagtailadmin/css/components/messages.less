@@ -1,0 +1,54 @@
+.messages{
+    position:relative;
+    
+    z-index:5;
+    
+    background-color:@color-grey-5;
+
+    ul{
+        .unlist();
+        margin-left:-15px;
+        padding-left:10px;
+        position:relative;
+        top:-100px;
+
+        &:before{
+            content: "";
+            height: 0;
+            width: 0;
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            border-top: 15px solid #000;
+            border-left: 15px solid transparent;
+        }
+    }
+    li{
+        .nice-padding;
+        padding-top:1.3em;
+        padding-bottom:1.3em;
+        color:white;
+    }
+    .error{
+        background-color:@color-red;
+    }
+    .warning{
+        background-color:@color-orange;
+    }
+    .success{
+        background-color:@color-teal-dark;
+    }
+}
+.ready .messages ul{
+    .transition-immediate(~"top 0.5s ease, max-height 1.2s ease");
+    top:0px;
+}
+.messages.new ul{
+    .transition-immediate(none);
+    top:-100px;
+}
+.messages.appear ul{
+    .transition-immediate(~"top 0.5s ease, max-height 1.2s ease");
+    top:0;
+}

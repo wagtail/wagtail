@@ -1,0 +1,21 @@
+{% if allow_external_link or allow_email_link or current == 'external' or current == 'email' %}
+    <p class="link-types">
+        {% if current == 'internal' %}
+            <b>Internal link</b>
+        {% else %}
+            <a href="{% url 'wagtailadmin_choose_page' %}?{{ querystring }}">Internal link</a>
+        {% endif %}
+
+        {% if current == 'external' %}
+            | <b>External link</b>
+        {% elif allow_external_link %}
+            | <a href="{% url 'wagtailadmin_choose_page_external_link' %}?{{ querystring }}">External link</a>
+        {% endif %}
+
+        {% if current == 'email' %}
+            | <b>Email link</b>
+        {% elif allow_email_link %}
+            | <a href="{% url 'wagtailadmin_choose_page_email_link' %}?{{ querystring }}">Email link</a>
+        {% endif %}
+    </p>
+{% endif %}
