@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
+
+{% block chooser_class %}snippet-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <span class="title">{% if is_chosen %}{{ item }}{% endif %}</span>
+{% endblock %}
+
+{% block choose_another_button_label %}Choose another {{ snippet_type_name }}{% endblock %}
+{% block choose_button_label %}Choose {{ snippet_type_name }}{% endblock %}

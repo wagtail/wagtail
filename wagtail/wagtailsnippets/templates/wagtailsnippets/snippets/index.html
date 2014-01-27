@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}Snippets{% endblock %}
+{% block bodyclass %}menu-snippets{% endblock %}
+{% block content %}
+    <header>
+        <h1>Snippets</h1>
+    </header>
+    <div class="nice-padding">
+        <ul class="listing">
+            {% for name, description, content_type in snippet_types %}
+                <li>
+                    <div class="row row-flush">
+                        <a href="{% url 'wagtailsnippets_list' content_type.app_label content_type.model %}" class="col6">
+                            {{ name|capfirst }} 
+                        </a>
+                        <small class="col6">{{ description }}</small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

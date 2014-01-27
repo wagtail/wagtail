@@ -1,0 +1,36 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Editing {{ snippet_type_name}} - {{ instance }}{% endblock %}
+{% block bodyclass %}menu-snippets{% endblock %}
+{% block content %}
+    <header>
+        <h1>Editing <span>{{ snippet_type_name }} - {{ instance }}</span></h1>
+    </header>
+
+    <form action="{% url 'wagtailsnippets_edit' content_type.app_label content_type.model instance.id %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+    
+        <footer>
+            <ul>
+                <li class="actions">
+                    <div class="dropdown dropup match-width">
+                        <input type="submit" value="Save" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul role="menu">
+                            <li><a href="{% url 'wagtailsnippets_delete' content_type.app_label content_type.model instance.id %}" class="shortcut">Delete</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}

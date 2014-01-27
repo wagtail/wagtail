@@ -1,0 +1,24 @@
+<table class="listing">
+    <col />
+    <col  />
+    <col width="16%" />
+    <thead>
+        <tr class="table-headers">
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for snippet in items %}
+            <tr>
+                <td class="title">
+                    {% if choosing %}
+                        <h2><a class="snippet-choice" href="{% url 'wagtailsnippets_chosen' content_type.app_label content_type.model snippet.id %}">{{ snippet }}</a></h2>
+                        
+                    {% else %}
+                        <h2><a href="{% url 'wagtailsnippets_edit' content_type.app_label content_type.model snippet.id %}">{{ snippet }}</a></h2>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
