@@ -1,0 +1,71 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Documents{% endblock %}
+{% block bodyclass %}menu-documents{% endblock %}
+{% block extra_js %}
+    <script>
+        $('#id_q').on('input', function() {
+            clearTimeout($.data(this, 'timer'));
+            var wait = setTimeout(search, 200);
+            $(this).data('timer', wait);
+        });
+        $('a.suggested-tag').click(function() {
+            $('#id_q').val($(this).text());
+            search();
+            return false;
+        })
+
+        var search_current_index = 0;
+        var search_next_index = 0;
+
+        function search () {
+            search_next_index++;
+            var index = search_next_index;
+            $.ajax({
+                url: "{% url 'wagtaildocs_index' %}",
+                data: {q: $('#id_q').val()},
+                success: function(data, status) {
+                    if (index > search_current_index) {
+                        search_current_index = index;
+                        $('#document-results').html(data);
+                    }
+                },
+            });
+        };
+    </script>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1>Documents</h1>
+            </div>
+            <div class="right col3">
+                <a href="{% url 'wagtaildocs_add_document' %}" class="button icon icon-plus-inverse">Add a document</a>
+            </div>
+        </div>
+    </header>
+
+    <form class="search-bar full-width" action="{% url 'wagtaildocs_index' %}" method="get">
+        <ul class="fields">
+            {% for field in form %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+            {% endfor %}
+            <li class="submit"><input type="submit" value="Search" /></li>
+            {% if popular_tags %}
+                <li class="taglist">
+                    <h3>Popular tags</h3>
+                    {% for tag in popular_tags %}
+                        <a class="suggested-tag tag" href="{% url 'wagtaildocs_search' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                    {% endfor %}
+                </li>
+            {% endif %}
+        </ul>
+    </form>
+
+    <div class="nice-padding">
+        <div id="document-results" class="documents">
+            {% include "wagtaildocs/documents/results.html" %}
+        </div>
+    </div>
+{% endblock %}

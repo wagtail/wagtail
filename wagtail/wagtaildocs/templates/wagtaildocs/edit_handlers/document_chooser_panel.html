@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
+
+{% block chooser_class %}document-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <span class="title">{{ document.title }}</span>
+{% endblock %}
+
+{% block clear_button_label %}Clear choice{% endblock %}
+{% block choose_another_button_label %}Choose another document{% endblock %}
+{% block choose_button_label %}Choose a document{% endblock %}

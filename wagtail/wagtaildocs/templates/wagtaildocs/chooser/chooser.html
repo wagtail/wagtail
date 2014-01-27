@@ -1,0 +1,39 @@
+<header class="merged tab-merged">
+    <h1>Choose a document</h1>
+</header>
+
+{% if uploadform %}
+    <ul class="tab-nav merged">
+        <li><a href="#search" class="active">Search</a></li>
+        <li><a href="#upload">Upload</a></li>
+    </ul>
+{% endif %}
+
+<div class="tab-content">
+    <section id="search" class="active nice-padding">
+        <form class="document-search search-bar" action="{% url 'wagtaildocs_chooser' %}" method="GET">
+            <ul class="fields">
+                {% for field in searchform %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li class="submit"><input type="submit" value="Search" /></li>
+            </ul>
+        </form>
+        <div id="search-results" class="listing documents">
+            {% include "wagtaildocs/chooser/results.html" %}
+        </div>
+    </section>
+    {% if uploadform %}
+        <section id="upload" class="nice-padding">
+            <form class="document-upload" action="{% url 'wagtaildocs_chooser_upload' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <ul class="fields">
+                    {% for field in uploadform %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endfor %}
+                    <li><input type="submit" value="Save" /></li>
+                </ul>
+            </form>
+        </section>
+    {% endif %}
+</div>

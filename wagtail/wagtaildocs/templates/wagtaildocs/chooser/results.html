@@ -1,0 +1,13 @@
+{% if documents %}
+    {% if is_searching %}
+        <h2>{{ documents.paginator.count }} match{{ documents.paginator.count|pluralize:"es" }}</h2>
+    {% else %}
+        <h2>Latest documents</h2>
+    {% endif %}
+
+    {% include "wagtaildocs/documents/list.html" with choosing=1 %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_ajax=1 %}
+{% else %}
+    <p>Sorry, no documents match "<em>{{ search_query }}</em>"
+{% endif %}

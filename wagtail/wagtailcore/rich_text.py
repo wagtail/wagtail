@@ -1,6 +1,5 @@
 from django.utils.html import escape
 
-from bs4 import BeautifulSoup
 import re  # parsing HTML with regexes LIKE A BOSS.
 
 from wagtail.wagtailcore.whitelist import Whitelister
@@ -12,7 +11,7 @@ from wagtail.wagtailcore.models import Page
 from verdantimages.models import get_image_model
 from verdantimages.formats import get_image_format
 
-from verdantdocs.models import Document
+from wagtail.wagtaildocs.models import Document
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
 # of 'special' HTML elements in rich text - ones which we do not want to include

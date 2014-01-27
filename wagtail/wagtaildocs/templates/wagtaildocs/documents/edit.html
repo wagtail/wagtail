@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/base.html" %}
+{% load image_tags %}
+{% block titletag %}Editing {{ document.title }}{% endblock %}
+{% block bodyclass %}menu-documents{% endblock %}
+{% block extra_css %}
+    {% include "wagtailadmin/shared/tag_field_css.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/shared/tag_field_js.html" %}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Editing <span>{{ document.title }}</span></h1>
+    </header>
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtaildocs_edit_document' document.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% if field.name == 'file' %}
+                        {% include "wagtaildocs/documents/_file_field.html" %}
+                    {% else %}
+                        {% include "wagtailadmin/shared/field_as_li.html" %}
+                    {% endif %}
+                {% endfor %}
+                <li><input type="submit" value="Save" /> <a href="{% url 'wagtaildocs_delete_document' document.id %}" class="button button-secondary no">Delete document</a></li>
+            </ul>
+        </form>
+
+        
+    </div>
+{% endblock %}

@@ -49,9 +49,9 @@ def main_nav(context):
         menu_items.append(
             MenuItem('Images', urlresolvers.reverse('verdantimages_index'), classnames='icon icon-image', order=300)
         )
-    if user.has_perm('verdantdocs.add_document'):
+    if user.has_perm('wagtaildocs.add_document'):
         menu_items.append(
-            MenuItem('Documents', urlresolvers.reverse('verdantdocs_index'), classnames='icon icon-doc-full-inverse', order=400)
+            MenuItem('Documents', urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
         )
 
     if user_can_edit_snippets(user):
