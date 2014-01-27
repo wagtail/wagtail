@@ -61,7 +61,7 @@ def main_nav(context):
 
     if user.has_module_perms('auth'):
         menu_items.append(
-            MenuItem('Users', urlresolvers.reverse('verdantusers_index'), classnames='icon icon-user', order=600)
+            MenuItem('Users', urlresolvers.reverse('wagtailusers_index'), classnames='icon icon-user', order=600)
         )
 
     for fn in hooks.get_hooks('construct_main_menu'):

@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Users{% endblock %}
+{% block bodyclass %}menu-users{% endblock %}
+{% block content %}
+    <header class="merged">
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1>Users</h1>
+            </div>
+            <div class="right col3">
+                <a href="{% url 'wagtailusers_create' %}" class="button icon icon-plus-inverse">Add a user</a>
+            </div>
+        </div>
+    </header>
+    <table class="listing full-width">
+        <thead>
+            <tr>
+                <th class="name">Name</a></th>
+                <th class="username">Username</th>
+                <th class="level">Level</th>
+                <th class="status">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td class="title">
+                        <h2><a href="{% url 'wagtailusers_edit' user.id %}">{{ user.get_full_name|default:user.username }}</a></h2>
+                    </td>
+                    <td class="username">{{ user.username }}</td>
+                    <td class="level">{% if user.is_superuser %}Admin{% endif %}</td>
+                    <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</div></td>
+                </li>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
