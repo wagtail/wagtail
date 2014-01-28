@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 # extend Django's UserCreationForm with an 'is_superuser' field
 class UserCreationForm(BaseUserCreationForm):
+    
+    required_css_class = "required"
     is_superuser = forms.BooleanField(label=_("Administrator"), required=False,
         help_text=_("If ticked, this user has the ability to manage user accounts.")
     )
@@ -35,6 +37,8 @@ class UserCreationForm(BaseUserCreationForm):
 # Largely the same as django.contrib.auth.forms.UserCreationForm, but with enough subtle changes
 # (to make password non-required) that it isn't worth inheriting...
 class UserEditForm(forms.ModelForm):
+    required_css_class = "required"
+
     error_messages = {
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),

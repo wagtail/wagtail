@@ -1,0 +1,2 @@
+Please follow the link below to reset your password
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}

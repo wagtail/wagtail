@@ -1,5 +1,5 @@
 {% load fieldtype %}
-<li class="{{ field|fieldtype }} {% if field.errors %}error{% endif %}">
+<li class="{{ field.css_classes }} {{ field|fieldtype }} {% if field.errors %}error{% endif %}">
     <div class="field">
         {% if field|fieldtype != "boolean_field" %}{{ field.label_tag }}{% endif %}
         {% block form_field %}

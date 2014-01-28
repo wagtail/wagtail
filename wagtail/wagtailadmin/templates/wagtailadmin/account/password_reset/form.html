@@ -1,0 +1,43 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load compress %}
+{% block titletag %}Reset password{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/layouts/login.less" type="text/less" />
+    {% endcompress %}
+{% endblock %}
+
+{% block furniture %}
+    <div class="content-wrapper">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Reset your password</h1>
+
+            <p>Enter your email address in the box below</p>
+
+            {% if form.non_field_errors %}
+                <div class="messages">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li class="error">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <ul class="fields">
+                <li>
+                    <div class="field">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+                </li>
+                <li class="submit">
+                    <input type="submit" value="Reset password"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
