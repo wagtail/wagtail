@@ -45,9 +45,9 @@ def main_nav(context):
     request = context['request']
     user = request.user
 
-    if user.has_perm('verdantimages.add_image'):
+    if user.has_perm('wagtailimages.add_image'):
         menu_items.append(
-            MenuItem('Images', urlresolvers.reverse('verdantimages_index'), classnames='icon icon-image', order=300)
+            MenuItem('Images', urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
         )
     if user.has_perm('wagtaildocs.add_document'):
         menu_items.append(

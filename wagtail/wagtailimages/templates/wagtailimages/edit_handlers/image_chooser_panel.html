@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
+{% load image_tags %}
+
+{% block chooser_class %}image-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <div class="preview-image">
+        {% if image %}
+            {% image image max-130x130 %}
+        {% else %}
+            <img>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block clear_button_label %}Clear image{% endblock %}
+{% block choose_another_button_label %}Choose another image{% endblock %}
+{% block choose_button_label %}Choose an image{% endblock %}

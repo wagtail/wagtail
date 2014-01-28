@@ -1,0 +1,29 @@
+{% load image_tags ellipsistrim %}
+
+{% if images %}
+    {% if is_searching %}
+        <h2>{{ images.paginator.count }} match{{ images.paginator.count|pluralize:"es" }}</h2>
+    {% else %}
+        <h2>Latest images</h2>
+    {% endif %}
+
+    <ul class="listing horiz images">
+        {% for image in images %}
+            <li>
+                <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
+                    <div class="image">{% image image max-165x165 %}</div>
+                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching search_query=search_query linkurl="wagtailimages_index" %}
+
+{% else %}
+    {% if is_searching %}
+        <p>Sorry, no images match "<em>{{ search_query }}</em>"</p>
+    {% else %}
+        <p>You've not uploaded any images. Why not <a href="{% url 'wagtailimages_add_image' %}">add one now</a>?</p>
+    {% endif %}
+{% endif %}

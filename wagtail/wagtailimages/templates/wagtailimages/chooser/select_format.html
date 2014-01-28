@@ -1,0 +1,22 @@
+{% load image_tags %}
+
+<header>
+    <h1>Choose a format</h1>
+</header>
+
+<div class="row row-flush nice-padding">
+    <div class="col6">
+        {% image image max-800x600 %}
+    </div>
+    <div class="col6">
+        <form action="{% url 'wagtailimages_chooser_select_format' image.id %}" method="POST">
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li><input type="submit" value="Insert image" /></li>
+            </ul>
+        </form>
+    </div>
+</div>

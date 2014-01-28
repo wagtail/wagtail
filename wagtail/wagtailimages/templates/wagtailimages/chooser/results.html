@@ -1,0 +1,22 @@
+{% load image_tags ellipsistrim %}
+
+{% if images %}
+    {% if is_searching %}
+        <h2>{{ images.paginator.count }} match{{ images.paginator.count|pluralize:"es" }}</h2>
+    {% else %}
+        <h2>Latest images</h2>
+    {% endif %}
+    
+    <ul class="listing horiz images chooser">
+        {% for image in images %}
+            <li>
+                <a class="image-choice" href="{% if will_select_format %}{% url 'wagtailimages_chooser_select_format' image.id %}{% else %}{% url 'wagtailimages_image_chosen' image.id %}{% endif %}">
+                    <div class="image">{% image image max-165x165 %}</div>
+                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_ajax=1 %}
+{% endif %}

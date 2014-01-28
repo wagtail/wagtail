@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/base.html" %}
+{% load image_tags %}
+{% block titletag %}Delete image{% endblock %}
+{% block bodyclass %}menu-images{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Delete image</h1>
+    </header>
+    <div class="row row-flush nice-padding">
+        <div class="col6">
+            {% image image max-800x600 %}
+        </div>
+        <div class="col6">
+            <p>Are you sure you want to delete this image?</p>
+            <form action="{% url 'wagtailimages_delete_image' image.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Yes, delete" class="serious" />
+            </form>
+        </div>
+    </div>
+{% endblock %}
