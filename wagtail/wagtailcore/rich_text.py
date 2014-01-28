@@ -83,7 +83,7 @@ class MediaEmbedHandler(object):
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation.
         """
-        from verdantembeds import format
+        from wagtail.wagtailembeds import format
         if for_editor:
             return format.embed_to_editor_html(attrs['url'])
         else:
