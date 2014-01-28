@@ -23,7 +23,15 @@ class Migration(DataMigration):
         moderators_group.permissions.add(add_permission, change_permission, delete_permission)
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        image_content_type = orm['contenttypes.ContentType'].objects.get(
+            model='image', app_label='wagtailimages')
+        image_permissions = orm['auth.permission'].objects.filter(content_type=image_content_type)
+
+        editors_group = orm['auth.group'].objects.get(name='Editors')
+        editors_group.permissions.remove(*image_permissions)
+
+        moderators_group = orm['auth.group'].objects.get(name='Moderators')
+        moderators_group.permissions.remove(*image_permissions)
 
     models = {
         u'auth.group': {
