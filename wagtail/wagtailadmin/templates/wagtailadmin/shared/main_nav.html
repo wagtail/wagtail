@@ -11,7 +11,7 @@
             <li><a href="{% url 'wagtailadmin_pages_select_type' %}" class="icon teal icon-plus-inverse">New page</a></li>
         {% endcomment %}
         <li class="footer">
-            <div class="avatar icon icon-user"><a href="{% url 'verdantadmin_account' %}" title="Account settings">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% else %}Account{% endif %}</a></div>
+            <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="Account settings">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% else %}Account{% endif %}</a></div>
             <a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>
         </li>
         {% if request.user.is_superuser %} {# for now, 'More' links will be superuser-only #}
