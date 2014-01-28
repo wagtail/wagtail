@@ -1,0 +1,19 @@
+{% load image_tags ellipsistrim%}
+
+<header class="merged">
+    <h1>Insert embed</h1>
+</header>
+
+<div class="tab-content">
+    <section id="form" class="active nice-padding">
+        <form class="embed-form" action="{% url 'wagtailembeds_chooser_upload' %}" method="POST">
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li><input type="submit" value="Insert" /></li>
+            </ul>
+        </form>
+    </section>
+</div>
