@@ -13,7 +13,7 @@ REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
     # Get redirects
-    redirects = models.Redirect.get_for_site(site=request.site)
+    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
 
     # Render template
     return render(request, "wagtailredirects/index.html", {
