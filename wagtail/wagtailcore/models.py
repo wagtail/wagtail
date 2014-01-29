@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from treebeard.mp_tree import MP_Node
 from cluster.models import ClusterableModel
-from verdantsearch import Indexed, Searcher
+from wagtail.wagtailsearch import Indexed, Searcher
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
 

@@ -1,0 +1,43 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Add editors pick{% endblock %}
+{% block content %}
+    <header>
+        <h1>Add editors pick</h1>
+    </header>
+
+    <div class="nice-padding">
+        <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like "<em>giving</em>".</p>
+
+        <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
+
+        <form action="{% url 'wagtailsearch_editorspicks_add' %}" method="POST">
+            {% csrf_token %}
+
+            <ul class="fields">
+                <li>
+                    {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}   
+                </li>
+                <li>
+                    {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.html" with formset=editors_pick_formset only %}
+                </li>
+                <li><input type="submit" value="Save" /></li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script type="text/javascript">
+        {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
+        {% include "wagtailsearch/queries/chooser_field.js" only %}
+
+        (function() {
+            createQueryChooser('{{ query_form.query_string.auto_id }}');
+        })();
+    </script>
+{% endblock %}
