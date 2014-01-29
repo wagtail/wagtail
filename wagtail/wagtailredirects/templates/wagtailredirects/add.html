@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Add redirect{% endblock %}
+{% block content %}
+    <header>
+        <h1>Add redirect</h1>
+    </header>
+
+    <form action="{% url 'wagtailredirects_add_redirect' %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+
+        <div class="nice-padding">
+            <input type="submit" value="Save" />
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}

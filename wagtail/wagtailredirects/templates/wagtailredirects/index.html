@@ -1,0 +1,50 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Redirects{% endblock %}
+{% block bodyclass %}page-explorer{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1>Redirects</h1>
+            </div>
+            <div class="right col3">
+                <a href="{% url 'wagtailredirects_add_redirect' %}" class="button icon icon-plus-inverse">Add redirect</a>
+            </div>
+        </div>
+    </header>
+
+    <table class="listing full-width">
+        <col />
+        <col width="40%"/>
+        <col />
+        <thead>
+            <tr>
+                <th class="title">From</th>
+                <th>To</th>
+                <th class="type">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if redirects %}
+                {% for redirect in redirects %}
+                    <tr>
+                        <td class="title">
+                            <h2><a href="{% url 'wagtailredirects_edit_redirect' redirect.id %}" title="Edit this redirect">{{ redirect.title }}</a></h2>
+                        </td>
+                        <td>
+                            {% if redirect.redirect_page %}
+                                <a href="{% url 'wagtailadmin_pages_edit' redirect.redirect_page.id %}" class="nolink">{{ redirect.redirect_page.title }}</a>
+                            {% else %}
+                                {{ redirect.link }}
+                            {% endif %}
+                        </td>
+                        <td class="type"><div class="status-tag {% if redirect.get_is_permanent_display = "permanent" %}primary{% endif %}">{{ redirect.get_is_permanent_display }}</div></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="3" class="no-results-message"><p>No redirects have been added. Why not <a href="{% url 'wagtailredirects_add_redirect' %}">add one</a>?</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
