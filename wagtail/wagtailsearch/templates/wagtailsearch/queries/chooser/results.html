@@ -1,0 +1,27 @@
+<table class="listing chooser">
+    <col />
+    <col width="40%"/>
+    <col />
+    <thead>
+        <tr>
+            <th class="title">Terms</th>
+            <th>Views (past week)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if queries %}
+            {% for query in queries %}
+                <tr class="can-choose">
+                    <td class="title">
+                        <h2><a class="choose-query" href="#{{ query.id }}" data-id="{{ query.id }}" data-querystring="{{ query.query_string }}">{{ query.query_string }}</a></h2>
+                    </td>
+                    <td>{{ query.hits }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="3" class="no-results-message"><p>No results found</p></td></tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_ajax=1 %}

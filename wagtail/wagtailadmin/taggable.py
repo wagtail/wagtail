@@ -2,7 +2,7 @@ from taggit.models import Tag
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from verdantsearch import Indexed, Search
+from wagtail.wagtailsearch import Indexed, Search
 
 
 class TagSearchable(Indexed):

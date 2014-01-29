@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}Delete {{ query.query_string }}{% endblock %}
+{% block content %}
+    <header>
+        <h1>Delete <span>{{ query.query_string }}</span></h1>
+    </header>
+    <div class="nice-padding">       
+        <p>Are you sure you want to delete all editors picks for this search term?</p>
+        <form action="{% url 'wagtailsearch_editorspicks_delete' query.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes, delete" class="serious" />
+        </form>
+    </div>
+{% endblock %}

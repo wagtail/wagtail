@@ -1,0 +1,27 @@
+<li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+    <ul class="controls">
+        <li class="icon text-replace teal icon-arrow-up-big inline-child-move-up" id="{{ form.prefix }}-move-up">Move up</li>
+        <li class="icon text-replace teal icon-arrow-down-big inline-child-move-down" id="{{ form.prefix }}-move-down">Move down</li>
+        <li class="icon text-replace teal icon-cross" id="{{ form.DELETE.id_for_label }}-button">Delete</li>
+    </ul>
+
+    <fieldset>
+        <legend>Editors pick</legend>
+        <ul class="fields">
+            <li class="model_choice_field">
+                {% if form.instance.page %}
+                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True only %}
+                {% else %}
+                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page is_chosen=False only %}
+                {% endif %}
+            </li>
+            <li class="char_field">
+                {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.description only %}
+            </li>
+        </ul>
+
+        {{ form.id }}
+        {{ form.ORDER }}
+        {{ form.DELETE }}
+    </fieldset>
+</li>
