@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search{% if search_results %} Results{% endif %}</title>
+</head>
+<body>
+    <h1>Search{% if search_results %} Results{% endif %}</h1>
+
+    <form action="{% url 'wagtailsearch_search' %}" method="get">
+        <input type="text" name="q"{% if query_string %} value="{{ query_string }}"{% endif %}>
+        <input type="submit" value="Search">
+    </form>
+
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li><a href="{{ result.specific.url }}">{{ result.specific }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/edit_handlers/field_panel_field.html" %}
+
+{% block form_field %}
+   <div class="chooser searchterm-chooser">
+       {{ field }}
+
+       <input id="{{ field.auto_id }}-chooser" type="button" class="button-secondary searchterms-chooser" value="Choose from popular search terms">
+    </div>
+{% endblock %}
