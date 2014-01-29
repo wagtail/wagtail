@@ -19,7 +19,7 @@
             <li class="more">
                 <a href="#" class="icon icon-arrow-down">More</a>
                 <ul>
-                    <li class="menu-redirects"><a href="{% url 'verdantredirects_index' %}" class="icon icon-redirect">Redirects</a></li>
+                    <li class="menu-redirects"><a href="{% url 'wagtailredirects_index' %}" class="icon icon-redirect">Redirects</a></li>
                     <li class="menu-editorspicks"><a href="{% url 'verdantsearch_editorspicks_index' %}">Editors Picks</a></li>
                     {% get_wagtailadmin_tab_urls as wagtailadmin_tab_urls %}
                     {% for name, title in wagtailadmin_tab_urls %}

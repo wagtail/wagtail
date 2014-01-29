@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Editing {{ redirect.title }}{% endblock %}
+{% block content %}
+    <header>
+        <h1>Editing <span>{{ redirect.title }}</span></h1>
+    </header>
+
+    <form action="{% url 'wagtailredirects_edit_redirect' redirect.id %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+
+        <div class="nice-padding">
+            <input type="submit" value="Save" />
+            <a href="{% url 'wagtailredirects_delete_redirect' redirect.id %}" class="button button-secondary no">Delete redirect</a>
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
