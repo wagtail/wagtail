@@ -13,7 +13,7 @@ import copy
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
-from cluster.forms import ClusterForm, ClusterFormMetaclass
+from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.forms import TagWidget
 
 import re
