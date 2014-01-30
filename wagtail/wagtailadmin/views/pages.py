@@ -334,7 +334,7 @@ def preview_on_edit(request, page_id):
         request.META.pop('HTTP_X_REQUESTED_WITH', None)  # Make this request appear to the page's serve method as a non-ajax one, as they will often implement custom behaviour for XHR
         response = page.serve(request)
 
-        response['X-Verdant-Preview'] = 'ok'
+        response['X-Wagtail-Preview'] = 'ok'
         return response
 
     else:
@@ -344,7 +344,7 @@ def preview_on_edit(request, page_id):
             'page': page,
             'edit_handler': edit_handler,
         })
-        response['X-Verdant-Preview'] = 'error'
+        response['X-Wagtail-Preview'] = 'error'
         return response
 
 @login_required
@@ -371,7 +371,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         # as a front-end GET request
         response = page.serve(request)
 
-        response['X-Verdant-Preview'] = 'ok'
+        response['X-Wagtail-Preview'] = 'ok'
         return response
 
     else:
@@ -384,7 +384,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'parent_page': parent_page,
             'edit_handler': edit_handler,
         })
-        response['X-Verdant-Preview'] = 'error'
+        response['X-Wagtail-Preview'] = 'error'
         return response
 
 def preview_placeholder(request):

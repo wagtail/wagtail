@@ -235,7 +235,7 @@ $(function() {
             $(this).data('action'),
             $('#page-edit-form').serialize(),
             function(data, textStatus, request) {
-                if (request.getResponseHeader('X-Verdant-Preview') == 'ok') {
+                if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
                     previewWindow.document.open();
                     previewWindow.document.write(data);
                     previewWindow.document.close();
