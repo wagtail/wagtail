@@ -54,7 +54,7 @@ class Search(object):
     def __init__(self):
         # Get settings
         self.es_urls = getattr(settings, "WAGTAILSEARCH_ES_URLS", ["http://localhost:9200"])
-        self.es_index = getattr(settings, "WAGTAILSEARCH_ES_INDEX", "verdant")
+        self.es_index = getattr(settings, "WAGTAILSEARCH_ES_INDEX", "wagtail")
 
         # Get ElasticSearch interface
         self.es = get_es(urls=self.es_urls)

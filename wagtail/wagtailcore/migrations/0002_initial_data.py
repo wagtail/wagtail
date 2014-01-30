@@ -21,7 +21,7 @@ class Migration(DataMigration):
         )
 
         homepage = orm['wagtailcore.page'].objects.create(
-            title="Welcome to your new Verdant site!",
+            title="Welcome to your new Wagtail site!",
             slug='home',
             content_type=page_content_type,
             path='00010001',
