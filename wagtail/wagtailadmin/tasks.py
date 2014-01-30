@@ -57,8 +57,8 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     email_content = '\n'.join(rendered_template[1:])
 
     # Get from email
-    if hasattr(settings, 'VERDANTADMIN_NOTIFICATION_FROM_EMAIL'):
-        from_email = settings.VERDANTADMIN_NOTIFICATION_FROM_EMAIL
+    if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+        from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
     elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
         from_email = settings.DEFAULT_FROM_EMAIL
     else:
