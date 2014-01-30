@@ -110,7 +110,7 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
-class VerdantAdminModelFormMetaclass(ClusterFormMetaclass):
+class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
     # Override the behaviour of the regular ModelForm metaclass -
     # which handles the translation of model fields to form fields -
     # to use our own formfield_for_dbfield function to do that translation.
@@ -126,12 +126,12 @@ class VerdantAdminModelFormMetaclass(ClusterFormMetaclass):
         if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
             attrs['formfield_callback'] = formfield_for_dbfield
 
-        new_class = super(VerdantAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
+        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-VerdantAdminModelForm = VerdantAdminModelFormMetaclass('VerdantAdminModelForm', (ClusterForm,), {})
+WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', (ClusterForm,), {})
 
-# Now, any model forms built off VerdantAdminModelForm instead of ModelForm should pick up
+# Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
 
 
@@ -166,7 +166,7 @@ def get_form_for_model(model, fields=None, exclude=None, formsets=None, exclude_
         'Meta': type('Meta', (object,), attrs)
     }
 
-    return VerdantAdminModelFormMetaclass(class_name, (VerdantAdminModelForm,), form_class_attrs)
+    return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
