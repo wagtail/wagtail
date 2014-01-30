@@ -45,7 +45,7 @@
                                 <li><input type="submit" name="action-publish" value="Publish" class="button" /></li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="Submit for moderation" class="button" /></li>
-                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="verdant_preview_{{ page.id }}" value="Preview" class="button" /></li>
+                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ page.id }}" value="Preview" class="button" /></li>
                         </ul>
                     </div>
                 </li>

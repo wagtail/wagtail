@@ -65,7 +65,7 @@ def home(request):
         fn(request, panels)
 
     return render(request, "wagtailadmin/home.html", {
-        'site_name': settings.VERDANT_SITE_NAME,
+        'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
         'user':request.user
     })

@@ -1,7 +1,7 @@
-# plugin for hallo.js to allow inserting links using Verdant's page chooser
+# plugin for hallo.js to allow inserting links using Wagtail's page chooser
 
 (($) ->
-    $.widget "IKS.halloverdantdoclink",
+    $.widget "IKS.hallowagtaildoclink",
         options:
             uuid: ''
             editable: null

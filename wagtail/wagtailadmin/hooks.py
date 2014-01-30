@@ -19,7 +19,7 @@ def search_for_hooks():
     if not _searched_for_hooks:
         for app_module in settings.INSTALLED_APPS:
             try:
-                import_module('%s.verdant_hooks' % app_module)
+                import_module('%s.wagtail_hooks' % app_module)
             except ImportError:
                 continue
 
