@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(
-    name='Wagtail',
+    name='wagtail',
     version='0.1',
     description='Django-based content management system',
     author='Matthew Westcott',
