@@ -1,8 +1,13 @@
 from django.conf.urls import patterns, url
+from django.conf import settings
 from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 
 urlpatterns = patterns('django.contrib.auth.views',
-    url(r'^login/$', 'login', {'template_name': 'wagtailadmin/login.html', 'authentication_form': LoginForm}),
+    url(r'^login/$', 'login', {
+        'template_name': 'wagtailadmin/login.html',
+        'authentication_form': LoginForm,
+        'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
+    }),
     url(r'^logout/$', 'logout', {'next_page': '/admin/login/'}),
 
     # Password reset

@@ -17,15 +17,17 @@
                 </small>
                 
             </li>
-            <li class="row row-flush">
-                <div class="col6">
-                    <a href="{% url 'wagtailadmin_account_change_password' %}" class="button button-primary">Change password</a>
-                </div>
+            {% if show_change_password %}
+                <li class="row row-flush">
+                    <div class="col6">
+                        <a href="{% url 'wagtailadmin_account_change_password' %}" class="button button-primary">Change password</a>
+                    </div>
 
-                <small class="col6">
-                    Change the password you use to log in.
-                </small>
-            </li>
+                    <small class="col6">
+                        Change the password you use to log in.
+                    </small>
+                </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

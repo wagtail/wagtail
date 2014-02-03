@@ -36,7 +36,9 @@
                         {{ form.password.label_tag }}
                         {{ form.password }}
                     </div>
-                    <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                    {% if show_password_reset %}
+                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                    {% endif %}
                 </li>
                 {% comment %}
                     Removed until functionality exists
