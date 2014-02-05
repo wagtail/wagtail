@@ -4,7 +4,7 @@
             <div class="col">
                 <h1>{{ title }} <span>{{ subtitle }}</span></h1>
             </div>
-            {% if search_form %}
+            {% if search_url %}
                 <form class="col search-bar" action="{% url search_url %}" method="get">
                     <ul class="fields">
                         {% for field in search_form %}

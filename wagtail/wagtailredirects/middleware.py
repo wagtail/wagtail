@@ -2,7 +2,6 @@ from django import http
 
 import models
 
-
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py
 class RedirectMiddleware(object):
     def process_response(self, request, response):

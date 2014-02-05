@@ -2,42 +2,42 @@
 {% block titletag %}Redirects{% endblock %}
 {% block bodyclass %}menu-redirects{% endblock %}
 
+{% block extra_js %}
+    <script>
+        $('#id_q').on('input', function() {
+            clearTimeout($.data(this, 'timer'));
+            var wait = setTimeout(search, 200);
+            $(this).data('timer', wait);
+        });
+
+        var search_current_index = 0;
+        var search_next_index = 0;
+
+        function search () {
+            search_next_index++;
+            var index = search_next_index;
+            $.ajax({
+                url: "{%url 'verdantredirects_index' %}",
+                data: {q: $('#id_q').val()},
+                success: function(data, status) {
+                    console.log('here')
+                    if (index > search_current_index) {
+                        search_current_index = index;
+                        $('#redirects-results').html(data);
+                    }
+                },
+            });
+        };
+    </script>
+{% endblock %}
+
 {% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Redirects" add_link="wagtailredirects_add_redirect" add_text="Add redirect" search_url="wagtailredirects_index" %}
 
-    {% include "wagtailadmin/shared/header.html" with title="Redirects" merged=1 add_link="wagtailredirects_add_redirect" add_text="Add redirect" %}
-
-    <table class="listing full-width">
-        <col />
-        <col width="40%"/>
-        <col />
-        <thead>
-            <tr>
-                <th class="title">From</th>
-                <th>To</th>
-                <th class="type">Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if redirects %}
-                {% for redirect in redirects %}
-                    <tr>
-                        <td class="title">
-                            <h2><a href="{% url 'wagtailredirects_edit_redirect' redirect.id %}" title="Edit this redirect">{{ redirect.title }}</a></h2>
-                        </td>
-                        <td>
-                            {% if redirect.redirect_page %}
-                                <a href="{% url 'wagtailadmin_pages_edit' redirect.redirect_page.id %}" class="nolink">{{ redirect.redirect_page.title }}</a>
-                            {% else %}
-                                {{ redirect.link }}
-                            {% endif %}
-                        </td>
-                        <td class="type"><div class="status-tag {% if redirect.get_is_permanent_display = "permanent" %}primary{% endif %}">{{ redirect.get_is_permanent_display }}</div></td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr><td colspan="3" class="no-results-message"><p>No redirects have been added. Why not <a href="{% url 'wagtailredirects_add_redirect' %}">add one</a>?</td></tr>
-            {% endif %}
-        </tbody>
-    </table>
+    <div class="nice-padding">
+        <div id="redirects-results" class="redirects">
+            {% include "wagtailredirects/results.html" %}
+        </div>
+    </div>
     
 {% endblock %}

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
+
 from wagtail.wagtailadmin.edit_handlers import ObjectList
+from wagtailadmin.forms import SearchForm
 
 import models
 import forms
@@ -12,14 +14,56 @@ REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
 
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
-    # Get redirects
-    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
+    p = request.GET.get("p", 1)
+    q = None
+    is_searching = False
+
+    if 'q' in request.GET:
+        form = SearchForm(request.GET, placeholder_suffix="redirects")
+        if form.is_valid():
+            q = form.cleaned_data['q']
+            is_searching = True
+
+            redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page').filter(old_path__icontains=q)
+    
+    if not is_searching:
+        # Get redirects
+        redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
+        form = SearchForm(placeholder_suffix="redirects")
+
+    if 'ordering' in request.GET:
+        ordering = request.GET['ordering']  
+
+        if ordering in ['old_path',]:
+            if ordering != 'old_path':
+                redirects = redirects.order_by(ordering)   
+    else:
+        ordering = 'old_path'
+
+    paginator = Paginator(redirects, 20)
+
+    try:
+        redirects = paginator.page(p)
+    except PageNotAnInteger:
+        redirects = paginator.page(1)
+    except EmptyPage:
+        redirects = paginator.page(paginator.num_pages)
 
     # Render template
-    return render(request, "wagtailredirects/index.html", {
-        'redirects': redirects,
-    })
-
+    if request.is_ajax():
+        return render(request, "wagtailredirects/results.html", {
+            'ordering':ordering,
+            'redirects': redirects,
+            'is_searching': is_searching,
+            'search_query': q,
+        })
+    else:
+        return render(request, "wagtailredirects/index.html", {
+            'ordering': ordering,
+            'search_form': form,
+            'redirects': redirects,
+            'is_searching': is_searching,
+        })
 
 @permission_required('wagtailredirects.change_redirect')
 def edit(request, redirect_id):

@@ -1,15 +1,52 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from wagtail.wagtailsearch import models, forms
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from wagtailsearch import models, forms
+from wagtailadmin.forms import SearchForm
 
 @login_required
-def index(request):
-    # Select only queries with editors picks
-    queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
-    return render(request, 'wagtailsearch/editorspicks/index.html', {
-        'queries': queries,
-    })
+def index(request):  
+    q = None
+    p = request.GET.get("p", 1)
+    is_searching = False
+
+    if 'q' in request.GET:
+        form = SearchForm(request.GET, placeholder_suffix="editor's picks")
+        if form.is_valid():
+            q = form.cleaned_data['q']
+            is_searching = True
+
+            queries = models.Query.objects.filter(editors_picks__isnull=False).distinct().filter(query_string__icontains=q)
+    
+    if not is_searching:
+        # Select only queries with editors picks
+        queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
+        form = SearchForm(placeholder_suffix="editor's picks")
+
+    paginator = Paginator(queries, 20)
+
+    try:
+        queries = paginator.page(p)
+    except PageNotAnInteger:
+        queries = paginator.page(1)
+    except EmptyPage:
+        queries = paginator.page(paginator.num_pages)
+
+    if request.is_ajax():
+        return render(request, "wagtailsearch/editorspicks/results.html", {
+            'queries': queries,
+            'is_searching': is_searching,
+            'search_query': q,
+        })
+    else:
+        return render(request, 'wagtailsearch/editorspicks/index.html', {
+            'is_searching': is_searching,
+            'queries': queries,
+            'search_query': q,
+            'search_form': form,
+        })
 
 
 def save_editorspicks(query, new_query, editors_pick_formset):

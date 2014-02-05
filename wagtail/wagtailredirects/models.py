@@ -3,7 +3,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Page
 
 
 class Redirect(models.Model):
-    old_path = models.CharField("Redirect from",max_length=255, unique=True, db_index=True)
+    old_path = models.CharField("Redirect from", max_length=255, unique=True, db_index=True)
     site = models.ForeignKey('wagtailcore.Site', null=True, blank=True, related_name='redirects', db_index=True, editable=False)
     is_permanent = models.BooleanField("Permanent", default=True, help_text="Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead.")
     redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name="Redirect to a page", null=True, blank=True)
