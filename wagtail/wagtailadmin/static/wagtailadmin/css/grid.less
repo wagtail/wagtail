@@ -49,8 +49,6 @@
     .border-box();
 
     width: 100%*(@x / @grid-columns);
-    /*padding-right: @padding;
-    padding-left: @padding;*/
 }
 
 /* Push adds left padding */
@@ -69,20 +67,14 @@
     padding-right: 100%*(@offset / @grid-columns);
 }
 
-.row{
-    .row();
-}
-.row-flush{
-    .row-flush();
-}
+/* only used in places where padding not applied to same elements as row or row-flush 
+ * most of the time this class should be applied directly to the html elements */
+.nice-padding(){
+    padding-left:20px;
+    padding-right:20px;
 
-/* must come after row/row-flush */
-.nice-padding{
-    .push-padding(@grid-content-indent);
-    .pull-padding(@grid-content-indent);
+    @media screen and (min-width: @breakpoint-mobile){
+        padding-left:50px;
+        padding-right:50px;
+    }
 }
-.nice-margin{
-    .push(@grid-content-indent);
-    .pull(@grid-content-indent);
-}
-

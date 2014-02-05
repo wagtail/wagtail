@@ -35,18 +35,18 @@
 {% endblock %}
 
 {% block content %}
-    <header>
+    <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col9">
                 <h1>Documents</h1>
             </div>
             <div class="right col3">
-                <a href="{% url 'wagtaildocs_add_document' %}" class="button icon icon-plus-inverse">Add a document</a>
+                <a href="{% url 'wagtaildocs_add_document' %}" class="button bicolor icon icon-plus">Add a document</a>
             </div>
         </div>
     </header>
 
-    <form class="search-bar full-width" action="{% url 'wagtaildocs_index' %}" method="get">
+    <form class="search-bar full-width nice-padding" action="{% url 'wagtaildocs_index' %}" method="get">
         <ul class="fields">
             {% for field in form %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

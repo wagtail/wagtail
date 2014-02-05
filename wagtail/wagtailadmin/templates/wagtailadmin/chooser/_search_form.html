@@ -1,4 +1,4 @@
-<form class="search-bar full-width" action="{% url 'wagtailadmin_choose_page' %}?{{ querystring }}" method="get">
+<form class="search-bar full-width nice-padding" action="{% url 'wagtailadmin_choose_page' %}?{{ querystring }}" method="get">
     <ul class="fields">
         {% for field in search_form %}
             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

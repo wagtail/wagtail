@@ -2,13 +2,13 @@
 {% block titletag %}Snippets {{ snippet_type_name_plural|capfirst }}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
-    <header>
+    <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col9">
                 <h1>Snippets <span>{{ snippet_type_name_plural|capfirst }}</span></h1>
             </div>
             <div class="right col3">
-                <a href="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" class="button icon icon-plus-inverse">Add {{ snippet_type_name }}</a>
+                <a href="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" class="button bicolor icon icon-plus">Add {{ snippet_type_name }}</a>
                 {# TODO: figure out a way of saying "Add a/an [foo]" #}
             </div>
         </div>

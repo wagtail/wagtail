@@ -10,8 +10,10 @@
 .object{
     background:url(/static/wagtailadmin/images/bg-editor-diag.svg);
     position:relative;
-    border:1px solid @color-grey-4;
-    border-width:1px 0 0 0;
+    /*border:1px solid @color-grey-4;
+    border-width:1px 0 0 0;*/
+    overflow:hidden;
+    .nice-padding();
 
     &:first-child{
         border:0;
@@ -26,7 +28,6 @@
         padding-top:4em;
         padding-left:0;
         padding-right:0;
-        max-width:1024px;
     }
 
     .object-help{
@@ -71,7 +72,7 @@
             top:0px;
             height:3.2em;
             left:0px;
-            width:3em;
+            width:3.3em;
             background-color:@color-grey-3;
             padding:0;
             margin:0;
@@ -79,9 +80,10 @@
         }
     }
 
-    &.has-content, &.single-field, #promote &{
-        .push-padding(@grid-content-indent);
-        padding-right:@grid-gutter-width/2;    }
+    &.empty > h2, &.empty.single-field label{
+        margin:0;
+        border-bottom:1px solid white;
+    }
 
     &.single-field{
         h2, .object-help{
@@ -121,7 +123,7 @@
         }
 
         input, textarea, .richtext{
-            .nice-padding;
+            .nice-padding();
             .pull-padding(2);
             font-family:Bitter, Georgia, serif;
             .border-radius(0px);
@@ -134,8 +136,7 @@
 
         
         .error-message{
-            .push(@grid-content-indent);
-            .pull(@grid-content-indent);
+            .nice-padding();
             padding-bottom:2em;
         }
 
@@ -156,17 +157,19 @@
 
     .multiple{
         .transition(max-height 5s ease);
-        height:0px;
+        padding-top:4em;
+        height:auto;
 
         > li{
             background-color:white;
             padding:1em;
-            margin-bottom:2em;
+            margin-bottom:1em;
             border:1px solid @color-grey-5;
         }
 
         fieldset{
             padding-top:0;
+            padding-bottom:0;
         }
 
         &.moving{
@@ -177,10 +180,59 @@
             width:100%;
         }
     }
-    &.has-content .multiple{
-        padding-top:4em;
-        height:auto;
-    }  
+
+    /* removes top padding from multiples used within another panel */
+    .fields .multiple{
+        padding-top:0;
+    }
+
+    .add{
+        cursor:pointer;
+    }
+
+    &.empty{
+        border-bottom:1px solid white;
+
+        > h2, &.single-field label{
+            margin:0;
+            border-bottom:1px solid white;
+        }
+
+        /* wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields */
+        .add{
+            .transition(background-color 0.2s ease);
+            position:relative;
+            z-index:2;
+            top:0px;
+            left:0px;
+            width:3.3em;
+            background-color:@color-teal;
+            padding:0;
+            margin:0 0 0 -50px;
+            cursor:pointer;
+
+            a{
+                font-size: 0em;
+                line-height: 0;
+                overflow: visible;
+                display:block;
+            
+                &:before{
+                    position:relative;
+                    color:white;
+                    padding:0;
+                    line-height:2.6em; /* specific height required as parent 'a' has no height */
+                    font-size:1rem;
+                    width:100%;
+                }
+            }
+        }
+
+        .multiple{
+            padding:0;
+            height:0px;
+        }
+    }
 }   
 
 /* styles applied to an element as it is being reordered */
@@ -189,46 +241,6 @@
     padding-bottom:0.5em;
 }
 
-/* wrapper around add button for mutliple objects */
-.add{
-    position:relative;
-    z-index:2;
-    top:0px;
-    left:0px;
-    width:3em;
-    background-color:@color-teal-darker;
-    padding:0;
-    margin:0;
-    cursor:pointer;
-
-    a{
-        font-size: 0em;
-        line-height: 0;
-        overflow: hidden;
-    }
-
-    a:before{
-        color:white;
-        padding:0.65em 0;
-        font-size:1.1rem;
-    }
-}
-
-.has-content .add{
-    z-index:1;
-    padding:inherit;
-    cursor:pointer;
-    margin-top:0;
-    margin-bottom:0;
-    padding-top:2.5em;
-    padding-bottom:2em;
-
-    a{
-        font-size: inherit;
-        line-height: inherit;
-        overflow: hidden;
-    }
-}
 
 /* Object controls */
 .controls{
@@ -264,8 +276,8 @@
 
 @media screen and (min-width: @breakpoint-mobile){
     .page-editor .tab-nav li{
-        .column(2);
+        .column(3);
         padding:0;
-        min-width:110px;
+        max-width:210px;
     }
 }

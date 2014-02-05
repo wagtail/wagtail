@@ -8,6 +8,13 @@
         border:1px solid @color-grey-4;
         border-width:1px 1px 0px 1px;
         text-align:center;
+        background-color:@color-grey-5;
+        border-top:0.3em solid @color-grey-3;
+
+        &.active{
+            background-color:white;
+            border-top:0.3em solid @color-grey-1;  
+        }
     }
     a{
         outline:none;
@@ -16,11 +23,9 @@
         font-weight:700;
         font-size:1.2em;
         text-decoration:none;
-        background-color:@color-grey-5;
         display:block;
-        padding:0 1em;
+        padding:0 50px;
         color:@color-grey-2;
-        border-top:0.3em solid @color-grey-3;
         border-bottom:1px solid transparent;
 
         &:hover{
@@ -29,10 +34,8 @@
         }
 
         &.active{
-            background-color:white;
-            .box-shadow(none);
+           
             color:@color-grey-1;
-            border-top:0.3em solid @color-grey-1;
             border-bottom:2px solid white;
             margin-bottom:-1px;
             z-index:1;
@@ -56,8 +59,6 @@
         }
     }
 }
-
-
 
 @media screen and (min-width: @breakpoint-mobile){
     .tab-nav li{

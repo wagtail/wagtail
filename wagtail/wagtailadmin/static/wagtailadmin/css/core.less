@@ -372,7 +372,6 @@ body.explorer-open .nav-main{
 }
 
 header{
-    .nice-padding();
     padding-top:2em;
     padding-bottom:1em;
     background-color: @color-grey-5;
@@ -557,6 +556,15 @@ footer, .logo{
     }                
 }
 
+.row{
+    .clearfix();
+}
+
+.nice-padding{
+    padding-left:20px;
+    padding-right:20px;
+}
+
 @media screen and (min-width: @breakpoint-mobile){
     .col1{
         .column(1);
@@ -593,6 +601,18 @@ footer, .logo{
     }
     .col12{
         .column(12);
+    }
+
+    .row{
+        .row();
+    }
+    .row-flush{
+        .row-flush();
+    }
+
+    .nice-padding{
+        padding-left:50px;
+        padding-right:50px;
     }
 
     body{
@@ -703,7 +723,6 @@ footer, .logo{
     header{
         padding-top:2em;
         padding-bottom:2em;
-        .nice-padding();
     }
     footer{
         width:80%;

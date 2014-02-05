@@ -52,14 +52,14 @@ input, textarea, select, .richtext, .tagit{
     width:100%;
     border:1px dashed @color-input-border;
     padding:1.2em;
-    background-color:white;
+    background-color:@color-fieldset-hover;
     -webkit-appearance: none;
     color:@color-text-input;
     font-size:1.1em;
     outline:none;
 
     &:hover{
-        background-color:@color-fieldset-hover;
+        background-color:white;
     }
     &:focus{
         border-color: darken(@color-input-focus, 40%);
@@ -136,39 +136,42 @@ input[type=checkbox]:checked:before{
     color:@color-teal;
 }
 
+/* Core button style */
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    .border-radius(2px);
+    .border-radius(3px);
     width:auto;
-    padding:0.6em 1.2em;
+    padding:0.7em 1em;
     border:none;
     background-color: @color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
-    font-size:1em;
+    font-size:0.9em;
     white-space: nowrap;
     position:relative;
     -webkit-font-smoothing: auto;
     vertical-align: middle;
     line-height:1em;
     display:inline-block;
-
-    &.icon:before{
-        font-size:1.5em;
-    }
-    &.icon.text-replace:before{
-        font-size:auto;
-    }
+    overflow:hidden;
+    position:relative;
 
     &.button-small{
-        font-size:0.85em;
-        padding:1em 1.8em;
+        font-size:0.95em;
     }
 
     &.button-secondary{
         border:1px solid @color-button;
         color:@color-button;
-        background-color:transparent;
+        background-color:white;
+    }
+
+    &.icon:before{
+        font-size:1.5em;
+    }
+
+    &.icon.text-replace:before{
+        font-size:auto;
     }
     
     &:hover{
@@ -206,10 +209,30 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
     }  
 
-    /* special consideration for buttons with icons in them, to make them smaller */
-    &.icon{
-        padding:1em 2.4em;
-        padding:0.6em 1.2em;
+    &.bicolor{
+        padding-left:3.5em;
+
+        &:before{
+            font-size:1.2em;
+            position:absolute;
+            left:0;
+            top:0;
+            width:2em;
+            line-height:2em;
+            height:100%;
+            text-align:center;    
+            background-color:rgba(0,0,0,0.3);
+            display:block;
+        }
+    }
+
+    &.button-small.bicolor{
+        padding-left:3em;
+
+        &:before{
+            width:2em;
+            font-size:1.2em;
+        }
     }
 
     + input[type=submit],
@@ -617,10 +640,19 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 @media screen and (min-width: @breakpoint-mobile){
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
-        padding:1.3em 2.2em;
+        padding:0.8em 1.4em;
 
-        &.icon{
-            padding:1em 2.4em;
+        &.button-small{
+            
+        }
+
+        &.bicolor{
+            padding-left:3.5em;
+
+            &:before{
+                width:2.2em;
+                line-height:2.2em;
+            }
         }
     }
 }

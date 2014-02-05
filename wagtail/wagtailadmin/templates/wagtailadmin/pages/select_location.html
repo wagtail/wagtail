@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% block titletag %}Where do you want to create a {{ content_type.model_class.get_verbose_name }}{% endblock %}
 {% block content %}
-    <header>
+    <header class="nice-padding">>
         <h1>Where do you want to create this {{ content_type.model_class.get_verbose_name }}?</h1>
     </header>
     <ul>
