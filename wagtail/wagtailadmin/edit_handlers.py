@@ -632,8 +632,13 @@ def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 Page.content_panels = [
-    FieldPanel('title'),
-    FieldPanel('slug'),
+    FieldPanel('title', classname="full title"),
 ]
 Page.promote_panels = [
+    MultiFieldPanel([
+        FieldPanel('slug'),
+        FieldPanel('seo_title'),
+        FieldPanel('show_in_menus'),
+        FieldPanel('search_description'),
+    ], 'Common page configuration'),
 ]
