@@ -152,7 +152,8 @@
 
         .error,
         .error input,
-        .error textarea{
+        .error textarea,
+        .error .richtext{
             background-color:@color-input-error-bg;
         }
     }
@@ -163,6 +164,10 @@
     &.title textarea{
         font-size:2em;
         padding-top:2em;
+    }
+    &.title input{
+        padding-top:1.5em;
+        padding-bottom:1.5em;
     }
 
     .multiple{
