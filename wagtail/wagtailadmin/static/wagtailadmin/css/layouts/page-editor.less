@@ -98,7 +98,7 @@
         h2, .object-help{
             display:none; /* The field label is used instead */
         }
-    }    
+    }
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     &.full{
@@ -158,44 +158,23 @@
         }
     }
 
-
-
     &.title input,
     &.title textarea{
         font-size:2em;
         padding-top:2em;
     }
+
     &.title input{
         padding-top:1.5em;
         padding-bottom:1.5em;
     }
-
+    
     .multiple{
-        .transition(max-height 10s ease);
         padding:4.5em 0 0 0;
-        max-height:10000px;
-        max-width:1024px - 50px;
-        overflow:hidden;
-
-        > li{
-            position:relative;
-            background-color:white;
-            padding:1em 2em;
-            margin-bottom:1em;
-            border:1px solid @color-grey-5;
-        }
 
         fieldset{
             padding-top:0;
             padding-bottom:0;
-        }
-
-        &.moving{
-            position:relative;
-        }
-        li.moving{
-            position:absolute;
-            width:100%;
         }
     }
 
@@ -209,9 +188,8 @@
     }
 
     .add{
-        cursor:pointer;
+        padding-top:1em;
         margin-bottom:3em;
-        clear:both;
     }
 
     &.empty{
@@ -265,51 +243,6 @@
     padding-top:1em;
     padding-bottom:0.5em;
 }
-
-
-/* Object controls */
-.controls{
-    position:absolute;
-    right:1em;
-    top:1em;
-    color:@color-grey-2;
-    overflow:hidden;
-    .border-radius(2px);
-    
-    li{
-        background-color: @color-grey-3;
-        float:left;
-        cursor:pointer;
-        margin-right:1px;
-
-        &:last-child{
-            margin-right:0;
-        }
-    }
-
-    .icon{
-        padding:0.3em;
-    }
-
-    .icon:before{
-        vertical-align:middle;
-        line-height:2em;
-    }
-    .icon:hover{
-        background-color:@color-teal;
-
-        &:before{
-            color:white;
-        }
-    }
-    .icon-bin:hover{
-        background-color:@color-red;
-    }
-    .disabled{
-        display:none;
-    }
-}
-
 
 @media screen and (min-width: @breakpoint-mobile){
     .object{

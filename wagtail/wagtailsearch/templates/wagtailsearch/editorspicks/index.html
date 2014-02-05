@@ -3,18 +3,8 @@
 {% block bodyclass %}page-explorer{% endblock %}
 
 {% block content %}
-    <header>
-        <div class="row row-flush">
-            <div class="left col9">
-                <h1>Editor's Search Picks</h1>
-            </div>
-            <div class="right col3">
-                <a href="{% url 'wagtailsearch_editorspicks_add' %}" class="button icon icon-plus-inverse">Add new editors pick</a>
-            </div>
-        </div>
-    </header>
-
-
+    {% include "wagtailadmin/shared/header.html" with title="Editor's search picks" add_link="wagtailsearch_editorspicks_add" add_text="Add new editor's pick" %}
+    
     <table class="listing full-width">
         <col />
         <col width="40%"/>

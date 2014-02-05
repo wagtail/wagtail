@@ -249,20 +249,22 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 }
 
-/* multiple-item forms where groups of fields can be added */
-.multiple {
-
+.multiple{
+    .transition(max-height 10s ease);
+    padding:0;
+    max-height:10000px;
+    max-width:1024px - 50px;
+    overflow:hidden;
 
     > li{
         position:relative;
-        border-bottom: 1px solid @color-input-border;
-    
-        &:first-child fieldset{
-            padding-top:0;
-        }
+        background-color:white;
+        padding:1em 1.5em;
+        margin-bottom:1em;
+        border:1px solid lighten(@color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
+        .border-radius(2px);
     }
 
-    /* styles applied to an element as it is being reordered */
     &.moving{
         position:relative;
     }
@@ -271,26 +273,35 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         width:100%;
     }
 
+    fieldset{
+        padding-top:0;
+        padding-bottom:0;
+    }
+
     /* Object controls */
     .controls{
         position:absolute;
-        right:0;
-        top:2em;
-        text-transform:uppercase;
+        right:1em;
+        top:1em;
         color:@color-grey-2;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
         overflow:hidden;
-        line-height:0em;
+        .border-radius(2px);
         
         li{
-            background-color: @color-grey-4;
-            display:inline-block;
+            background-color: @color-grey-3;
+            float:left;
             cursor:pointer;
+            margin-right:1px;
+
+            &:last-child{
+                margin-right:0;
+            }
         }
+
         .icon{
             padding:0.3em;
         }
+
         .icon:before{
             vertical-align:middle;
             line-height:2em;
@@ -302,23 +313,25 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
                 color:white;
             }
         }
+        .icon-bin:hover{
+            background-color:@color-red;
+        }
         .disabled{
             display:none;
         }
     }
-    > li:first-child .controls{
-        top:0;
-    }
+
 }
 
 /* wrapper around add button for mutliple objects */
-p.add{
+.add{
     font-weight:700;
     cursor:pointer;
     margin-top:0;
     margin-bottom:0;
-    padding-top:2.5em;
+    padding-top:1em;
     padding-bottom:2em;
+    clear:both;
 }
 
 /* Other text */
