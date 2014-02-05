@@ -57,7 +57,7 @@ def index(request):
         })
     else:
         return render(request, "wagtailimages/images/index.html", {
-            'form': form,
+            'search_form': form,
             'images': images,
             'is_searching': is_searching,
             'popular_tags': Image.popular_tags(),

@@ -1,13 +1,13 @@
-<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if form %}hasform{% endif %}">
+<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     <div class="row row-flush">
-        <div class="left col{% if form %}6{% else %}9{% endif %}">
+        <div class="left col{% if search_form %}6{% else %}9{% endif %}">
             <h1>{{ title }} <span>{{ subtitle }}</span></h1>
         </div>
-        {% if form %}
+        {% if search_form %}
             <div class="left col3">
                 <form class="search-bar" action="{% url search_url %}" method="get">
                     <ul class="fields">
-                        {% for field in form %}
+                        {% for field in search_form %}
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                         {% endfor %}
                         <li class="submit"><input type="submit" value="Search" /></li>
