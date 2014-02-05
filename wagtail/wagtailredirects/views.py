@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
-from wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.forms import SearchForm
 
 import models
 import forms

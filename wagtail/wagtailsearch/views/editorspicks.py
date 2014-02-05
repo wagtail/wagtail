@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from wagtail.wagtailsearch import models, forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from wagtailsearch import models, forms
-from wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch import models, forms
+from wagtail.wagtailadmin.forms import SearchForm
 
 @login_required
 def index(request):  
