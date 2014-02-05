@@ -139,5 +139,19 @@
             margin-left: 16px;
         }
     }
+}
 
+@media screen and (min-width: @breakpoint-desktop-larger){
+    .hallotoolbar{
+        margin:0 auto;
+        position:absolute;
+        left:-@menu-width;
+        right:0;
+        z-index:5;
+        margin-top:3em;
+    }
+    .hallotoolbar.affixed{
+        position:fixed;
+        margin:0 auto;
+    }
 }
