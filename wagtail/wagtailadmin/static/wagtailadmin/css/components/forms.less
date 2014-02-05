@@ -575,7 +575,10 @@ ul.inline li:first-child, li.inline:first-child{
         }
         .field input{
             padding-left:3em;
-            background-color:white;
+
+            &:focus{
+                background-color:white;
+            }
         }
         .field:before{
             position:absolute;
@@ -619,11 +622,16 @@ ul.inline li:first-child, li.inline:first-child{
             }
             .field input{
                 padding:0.4em 1.4em 0.4em 2em;
+
+                 &:focus{
+                    background-color:white;
+                }
             }
             .field:before{
                 font-size:1.4em;
                 top:0.45em;
             }
+
         }
     }
 }
