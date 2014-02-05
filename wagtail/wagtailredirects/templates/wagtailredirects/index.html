@@ -1,9 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
 {% block titletag %}Redirects{% endblock %}
-{% block bodyclass %}page-explorer{% endblock %}
+{% block bodyclass %}menu-redirects{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Redirects" add_link="wagtailredirects_add_redirect" add_text="Add redirect" %}
+
+    {% include "wagtailadmin/shared/header.html" with title="Redirects" merged=1 add_link="wagtailredirects_add_redirect" add_text="Add redirect" %}
 
     <table class="listing full-width">
         <col />

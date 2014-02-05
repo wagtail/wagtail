@@ -9,14 +9,9 @@
         width:48%;
         float:left;
         border:1px solid @color-grey-4;
-        border-width:1px 1px 0px 1px;
+        border-width:0px 1px;
         background-color:@color-grey-5;
-        border-top:0.3em solid @color-grey-3;
-
-        &.active{
-            background-color:white;
-            border-top:0.3em solid @color-grey-1;  
-        }
+        margin-right:2px;
     }
     a{
         outline:none;
@@ -29,15 +24,17 @@
         padding:0 20px;
         color:@color-grey-2;
         border-bottom:1px solid transparent;
+        border-top:0.3em solid @color-grey-3;
 
         &:hover{
             color:inherit;
             border-top-color:@color-grey-3;
         }
-
     }
 
     li.active a{
+        background-color:white;
+        border-top:0.3em solid @color-grey-1;  
         border-bottom:2px solid white;
         margin-bottom:-1px;
     }
