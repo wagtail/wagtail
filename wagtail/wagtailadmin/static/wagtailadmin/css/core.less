@@ -125,12 +125,23 @@ img{
     .logo{
         display:block;
         margin:2em auto;
-        text-align:center;
+        text-align:left;
         text-decoration:none;
         color:white;
+        padding: 0.9em 1.2em;
+        margin:0;
+        font-size:0.9em;
+        -webkit-font-smoothing: auto;
         
+        span{
+            text-transform:uppercase;
+        }
+
         img{
+            width:20px;
+            float:left;
             border:0;
+            margin-right:1em;
         }
     }
 
@@ -153,8 +164,8 @@ img{
     }
 
     .nav-main{
-        position:absolute;
-        top: 150px;
+       
+        top: 43px;
         bottom: 0px;
         overflow: auto;
         width:100%;
@@ -318,7 +329,7 @@ img{
 
     .explorer{
         position:absolute;
-        margin-top:149px; /* same as .nav-main minus 1 pixel for border */
+        margin-top:70px;
         font-size:0.9em;
     }
 
@@ -391,7 +402,7 @@ header{
     }
 
     h1{
-        line-height:1.7em;
+       padding:0.2em 0;
     }
 
     .left, .right{
@@ -691,6 +702,19 @@ footer, .logo{
             width:@menu-width;
         }
     }
+        .logo{
+            margin:2em auto;
+            text-align:center;
+
+            span{
+                display:none;
+            }
+            img{
+                width:80px;
+                float:none;
+                margin:auto;
+            }
+        }
 
     .content{
         border-top:0;
@@ -703,6 +727,8 @@ footer, .logo{
     }
 
     .nav-main{
+        position:absolute;
+        top: 150px;
         margin-bottom: 116px; /* WARNING: magic number - the height of the .footer */
 
         .footer{
@@ -740,6 +766,7 @@ footer, .logo{
         position: absolute;
         top:0;
         left:99%;
+        margin-top:149px; /* same as .nav-main minus 1 pixel for border */
     }
     .dl-menu {
         position: absolute;
