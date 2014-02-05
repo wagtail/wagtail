@@ -2,11 +2,6 @@
 @import "../mixins.less";
 @import "../grid.less";
 
-.page-editor .tab-nav li{
-    .column(6);
-    padding:0;
-}
-
 .object{
     background:url(/static/wagtailadmin/images/bg-editor-diag.svg);
     position:relative;
@@ -24,24 +19,36 @@
     }        
 
     fieldset{
-        .column(10);
         padding-top:4em;
         padding-left:0;
         padding-right:0;
     }
 
     .object-help{
-        .column(2);
         display:block;
-        position:absolute;
+        position:relative;
         z-index:1;
-        right:0;
-        top:0;
+        top:1em;
         padding-right:@grid-gutter-width/2;
-        float:right;
         margin-top:4em;
-        text-align:right;
         opacity:0;
+        padding-left:3em;
+
+        &:before{
+            display:block;
+            float:left;
+            content:"?";
+            border:1px solid @color-grey-2;
+            color:@color-grey-2;
+            .border-radius(100%);
+            height:15px;
+            width:15px;
+            line-height:15px;
+            text-align:center;
+            font-size:1.1em;
+            margin-left:-2em;
+            margin-top:0.3em;
+        }
     }
 
     &:hover .object-help{
@@ -93,9 +100,6 @@
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     &.full{
-        padding-left:0px;
-        padding-right:0px;
-
         h2{
             display:none; /* The field label is used instead */
         }
@@ -107,7 +111,7 @@
         fieldset{
             display:block;
             float:none;
-            width:auto;
+            
             padding:3.2em 0 0 0;
 
             .help{
@@ -157,12 +161,14 @@
 
     .multiple{
         .transition(max-height 5s ease);
-        padding-top:4em;
+        padding:4em 0 0 0;
         height:auto;
+        max-width:1024px - 50px;
 
         > li{
+            position:relative;
             background-color:white;
-            padding:1em;
+            padding:2em;
             margin-bottom:1em;
             border:1px solid @color-grey-5;
         }
@@ -188,6 +194,8 @@
 
     .add{
         cursor:pointer;
+        margin-bottom:3em;
+        clear:both;
     }
 
     &.empty{
@@ -245,18 +253,27 @@
 /* Object controls */
 .controls{
     position:absolute;
-    right:@grid-gutter-width/2;
-    text-transform:uppercase;
+    right:1em;
+    top:1em;
     color:@color-grey-2;
+    overflow:hidden;
+    .border-radius(2px);
     
     li{
         background-color: @color-grey-3;
-        display:inline-block;
+        float:left;
         cursor:pointer;
+        margin-right:1px;
+
+        &:last-child{
+            margin-right:0;
+        }
     }
+
     .icon{
         padding:0.3em;
     }
+
     .icon:before{
         vertical-align:middle;
         line-height:2em;
@@ -268,6 +285,9 @@
             color:white;
         }
     }
+    .icon-bin:hover{
+        background-color:@color-red;
+    }
     .disabled{
         display:none;
     }
@@ -275,9 +295,41 @@
 
 
 @media screen and (min-width: @breakpoint-mobile){
-    .page-editor .tab-nav li{
-        .column(3);
-        padding:0;
-        max-width:210px;
+    .object{
+        fieldset{
+            max-width:1024px;
+            .column(10);
+            padding-left:0;
+            padding-right:0;
+        }
+
+        .object-help{
+            .column(2);
+            display:block;
+            position:absolute;
+            z-index:1;
+            right:0;
+            top:1em;
+            padding-right:@grid-gutter-width/2;
+            float:right;
+            margin-top:4em;
+            opacity:0;
+            padding-left:3em;
+        }
+
+        &.full{
+            fieldset{
+                .column(11);
+                margin-left:-50px;
+                margin-right:-50px;
+                padding-left:0;
+                padding-right:0;
+            }
+        }
+        .multiple{
+            .column(10);
+            padding-left:0;
+            padding-right:0;
+        }
     }
 }

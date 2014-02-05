@@ -34,9 +34,11 @@ legend{
 }
 
 label{
-    font-weight:normal;
+    font-weight:bold;
+    color:@color-grey-1;
+    font-size:1.1em;
     display:block;
-    padding:0 0 0.5em 0;
+    padding:0 0 0.7em 0;
     line-height:1em;
 
     .checkbox &,
@@ -414,23 +416,18 @@ ul.inline li:first-child, li.inline:first-child{
     }
     .unchosen, .chosen{
         position:relative;
-        padding-left:@thumbnail-width+15;
 
         &:before{
+            vertical-align:middle;
             font-family:verdant;
             content:"";
-            position:absolute;
-            top:0;
-            left:0;
-            margin-top:auto;
-            margin-bottom:auto;
-            display:inline-block;
-            opacity:0.1;
-            font-size:7.5em;
-            line-height:1em;
-        }
-        &:hover:before{
-            opacity:0.2;
+            position:relative;
+            display:block;
+            float:left;
+            color:@color-grey-3;
+            line-height:0.85em;
+            font-size:2.5em;
+            margin-right:0.3em;
         }
     }
     .unchosen {
@@ -445,7 +442,7 @@ ul.inline li:first-child, li.inline:first-child{
 
     input[type=button]{
         font-size:0.85em;
-        padding:0.9em 1.4em;
+        padding:0.5em 0.5em;
     }
 }
 
@@ -454,79 +451,56 @@ ul.inline li:first-child, li.inline:first-child{
 .snippet-chooser,
 .document-chooser {
     .unchosen, .chosen{
-        height:100px;
-
         &:before{
-            content:"c";
-            left:0.2em;
+            content:"b";
+            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
         }
     }
     .chosen{
-        &:before{
-            content:"b";
-        }
         .title{
-            z-index:0;
-            float: left;
-            margin-left: -146px;
-            width: 126px;
-            max-height: 40px;
-            overflow: hidden;
-            font-size: 0.7em;
-            padding: 30px 10px 0px 10px;
-            display: block;
-            top: 0px;
-            position: absolute;
-            line-height: 1.4em;
-            text-align: center;
-            color: black;
-            white-space:nowrap;
-            text-overflow:ellipsis;
+            color: @color-grey-1;
+            display:block;
+            padding-left:3em;
         }
-        &:hover .title{
+        .actions{
+            clear:both;
+            padding-top:0.6em;
         }
     }
 }
 
 .snippet-chooser {
-    .unchosen:before,
-    .chosen:before{
-        content:"D";
+    .unchosen, .chosen{
+        &:before{
+            content:"D";
+        }
     }
 }
 
 .document-chooser {
     .unchosen, .chosen{
-        height:100px;
-
         &:before{
             content:"h";
-            left:0.2em;
         }
-    }
-    .chosen:before{
-        content:"r";
     }
 }
 
 .image-chooser {
     .unchosen, .chosen{
-        .clearfix;
-        min-height:95px;
-
         &:before{
             content:"o";
-            font-size:120px;
-            line-height:97px;
         }
     }
-    .chosen{        
+    .chosen{
+        padding-left:@thumbnail-width;   
+
         &:before{
             content:"";
         }
         .preview-image{
             float:left;
-            margin-left:-(@thumbnail-width)-15;
+            margin-left:-(@thumbnail-width);
+            margin-right:1em;
         }
     }
 }
@@ -628,15 +602,15 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     .transition(~"background-color 0.2s ease, color 0.2s ease");
 }
 .help{
-    /* TODO: This transitionmakes the browser go nuts and the left menu jerk around. Find way to solve */
     .transition(opacity 0.2s ease);
 }
+/*
 .chooser {
     .unchosen:before, .chosen:before{
         .transition(opacity 0.3s ease);
     }
 }
-
+*/
 @media screen and (min-width: @breakpoint-mobile){
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
