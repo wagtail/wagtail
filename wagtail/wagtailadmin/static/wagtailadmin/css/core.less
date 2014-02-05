@@ -13,7 +13,7 @@
 @import "components/formatters.less";
 
 html{
-    background-color:@color-grey-5;
+    background:url(/static/verdantadmin/images/bg-body.svg);
     height:100%;
 }
 
@@ -25,7 +25,6 @@ body{
     color:@color-text-base;
     overflow-x: hidden;
     position: relative;
-    background:@color-grey-5;
 
     &.reordering{
         overflow:visible;
@@ -433,7 +432,6 @@ header{
 footer{
     .row();
     background: @color-grey-1;
-    background: rgba(0,0,0,0.7);
     position:fixed;
     bottom:0;
     padding:0.5em;
@@ -648,6 +646,7 @@ footer, .logo{
     .content-wrapper{
         -webkit-transform:none;
         transform:none;
+        border-bottom-right-radius: 5px;
     }
 
     .nav-wrapper{
@@ -801,11 +800,10 @@ footer, .logo{
     }
 }
 
-@media screen and (min-width: @breakpoint-desktop-larger){
+@media screen and (min-width: 90em){
     .wrapper{
         /*background-color:@color-grey-5;*/
         max-width:@breakpoint-desktop-larger;
-        border-right:1px solid @color-grey-4;
     }
     .nav-wrapper{
         .box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
