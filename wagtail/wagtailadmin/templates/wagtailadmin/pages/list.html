@@ -49,10 +49,13 @@
                         {% endif %}
                         <ul class="actions">
                             {% if parent_page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_add_subpage' parent_page.id %}" class="button button-small icon white icon-plus-inverse">Add child page</a></li>
+                                <li><a href="{% url 'verdantadmin_pages_add_subpage' parent_page.id %}" class="button button-small icon white icon-plus-inverse">Add child page</a></li>
+                            {% endif %}
+                            {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
+                                <li><a href="{% url 'verdantadmin_pages_edit' parent_page.id %}">Edit</a></li>
                             {% endif %}
                             {% if parent_page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_view_draft' parent_page.id %}" target="_blank">View draft</a></li>
+                                <li><a href="{% url 'verdantadmin_pages_view_draft' parent_page.id %}" target="_blank">View draft</a></li>
                             {% endif %}
                             {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
                                 <li><a href="{{ parent_page.url }}" target="_blank">View live</a></li>
@@ -164,6 +167,9 @@
                             <ul class="actions">
                                 {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">View draft</a></li>
+                                {% endif %}
+                                {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
+                                    <li><a href="{% url 'verdantadmin_pages_edit' page.id %}" title="Edit this page">Edit</a></li>
                                 {% endif %}
                                 {% if page.live and 'view_live' not in hide_actions|default:'' %}
                                     <li><a href="{{ page.url }}" target="_blank">View live</a></li>

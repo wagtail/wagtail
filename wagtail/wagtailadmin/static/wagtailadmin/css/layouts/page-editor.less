@@ -7,60 +7,92 @@
     padding:0;
 }
 
-.objects{
-    .object{
-        .push-padding(@grid-content-indent);
-        padding-right:@grid-gutter-width/2;
-        position:relative;
-        border:1px solid @color-grey-4;
-        border-width:1px 0 0 0;
+.object{
+    background:url(/static/wagtailadmin/images/bg-editor-diag.svg);
+    position:relative;
+    border:1px solid @color-grey-4;
+    border-width:1px 0 0 0;
 
-        &:first-child{
-            border:0;
-        }
-
-        &.focused{
-            border-color: darken(@color-input-focus, 40%);
-        }        
-
-        fieldset{
-            .column(10);
-            padding-left:0;
-        }
-
-        .object-help{
-            .column(2);
-            display:block;
-            position:absolute;
-            z-index:1;
-            right:0;
-            top:0;
-            padding-right:@grid-gutter-width/2;
-            float:right;
-            margin-top:4em;
-            text-align:right;
-            opacity:0;
-        }
-
-        &:hover .object-help{
-            opacity:1;
-        }
-    }    
-
-    .preview{
-        padding-top:1em;
-        padding-bottom:0.5em;
+    &:first-child{
+        border:0;
     }
 
-    .single-field{
+    &.focused{
+        border-color: darken(@color-input-focus, 40%);
+    }        
+
+    fieldset{
+        .column(10);
+        padding-top:4em;
+        padding-left:0;
+        padding-right:0;
+        max-width:1024px;
+    }
+
+    .object-help{
+        .column(2);
+        display:block;
+        position:absolute;
+        z-index:1;
+        right:0;
+        top:0;
+        padding-right:@grid-gutter-width/2;
+        float:right;
+        margin-top:4em;
+        text-align:right;
+        opacity:0;
+    }
+
+    &:hover .object-help{
+        opacity:1;
+    }
+
+    > h2, &.single-field label{
+        -webkit-font-smoothing: auto;
+        .border-radius(2px);
+        background-color:lighten(@color-grey-4, 5%);
+        text-transform:uppercase;
+        padding:0.9em 0 0.9em 4em;
+        font-size:1em;
+        margin:0 0 0.2em 0;
+        line-height:1.5em;
+        font-weight:normal;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        z-index:1;
+
+        &:before{
+            content:"";
+            display:block;
+            position:absolute;
+            z-index:2;
+            top:0px;
+            height:3.2em;
+            left:0px;
+            width:3em;
+            background-color:@color-grey-3;
+            padding:0;
+            margin:0;
+            cursor:pointer;
+        }
+    }
+
+    &.has-content, &.single-field, #promote &{
+        .push-padding(@grid-content-indent);
+        padding-right:@grid-gutter-width/2;    }
+
+    &.single-field{
         h2, .object-help{
             display:none; /* The field label is used instead */
         }
-    }
+    }    
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
-    .full{
-        padding:0;
+    &.full{
+        padding-left:0px;
+        padding-right:0px;
 
         h2{
             display:none; /* The field label is used instead */
@@ -74,7 +106,7 @@
             display:block;
             float:none;
             width:auto;
-            padding:0;
+            padding:3.2em 0 0 0;
 
             .help{
                 display:none;
@@ -114,40 +146,121 @@
         }
     }
 
-    .object > h2, .single-field label{
-        -webkit-font-smoothing: auto;
-        .border-radius(2px);
-        background-color:@color-grey-4;
-        text-transform:uppercase;
-        padding:2px 5px;
-        position:absolute;
-        top:0;
-        left:0;
-        font-size:0.85em;
-        z-index:1;
-        margin:0 0 0.2em 0;
-        line-height:1.5em;
-        font-weight:normal;
-    }
 
-    .title input,
-    .title textarea{
+
+    &.title input,
+    &.title textarea{
         font-size:2em;
         padding-top:2em;
     }
 
-    .multiple > li{
-        border-bottom: 1px dashed @color-input-border;
-    }
+    .multiple{
+        .transition(max-height 5s ease);
+        height:0px;
 
-    .multiple .controls{
-        top:auto;
-        -webkit-border-radius: 0 0 3px 3px;
-        border-radius: 0 0 3px 3px;
-    }
+        > li{
+            background-color:white;
+            padding:1em;
+            margin-bottom:2em;
+            border:1px solid @color-grey-5;
+        }
 
-    
+        fieldset{
+            padding-top:0;
+        }
+
+        &.moving{
+            position:relative;
+        }
+        li.moving{
+            position:absolute;
+            width:100%;
+        }
+    }
+    &.has-content .multiple{
+        padding-top:4em;
+        height:auto;
+    }  
+}   
+
+/* styles applied to an element as it is being reordered */
+.preview{
+    padding-top:1em;
+    padding-bottom:0.5em;
 }
+
+/* wrapper around add button for mutliple objects */
+.add{
+    position:relative;
+    z-index:2;
+    top:0px;
+    left:0px;
+    width:3em;
+    background-color:@color-teal-darker;
+    padding:0;
+    margin:0;
+    cursor:pointer;
+
+    a{
+        font-size: 0em;
+        line-height: 0;
+        overflow: hidden;
+    }
+
+    a:before{
+        color:white;
+        padding:0.65em 0;
+        font-size:1.1rem;
+    }
+}
+
+.has-content .add{
+    z-index:1;
+    padding:inherit;
+    cursor:pointer;
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:2.5em;
+    padding-bottom:2em;
+
+    a{
+        font-size: inherit;
+        line-height: inherit;
+        overflow: hidden;
+    }
+}
+
+/* Object controls */
+.controls{
+    position:absolute;
+    right:@grid-gutter-width/2;
+    text-transform:uppercase;
+    color:@color-grey-2;
+    
+    li{
+        background-color: @color-grey-3;
+        display:inline-block;
+        cursor:pointer;
+    }
+    .icon{
+        padding:0.3em;
+    }
+    .icon:before{
+        vertical-align:middle;
+        line-height:2em;
+    }
+    .icon:hover{
+        background-color:@color-teal;
+
+        &:before{
+            color:white;
+        }
+    }
+    .disabled{
+        display:none;
+    }
+}
+
 
 @media screen and (min-width: @breakpoint-mobile){
     .page-editor .tab-nav li{

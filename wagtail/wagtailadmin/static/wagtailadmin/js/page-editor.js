@@ -82,9 +82,17 @@ function initTagField(id, autocompleteUrl) {
 function InlinePanel(opts) {
     var self = {};
 
+    self.setHasContent = function(){
+        self.formsUl.parent().addClass('has-content')
+    };
+
     self.initChildControls = function (prefix) {
         var childId = 'inline_child_' + prefix;
         var deleteInputId = 'id_' + prefix + '-DELETE';
+
+        //mark container as having children to identify fields in use from those not
+        self.setHasContent();
+
         $('#' + deleteInputId + '-button').click(function() {
             /* set 'deleted' form field to true */
             $('#' + deleteInputId).val('1');
