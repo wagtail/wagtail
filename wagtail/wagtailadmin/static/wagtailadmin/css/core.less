@@ -1,8 +1,3 @@
-/*
-min z-index: 1;
-max z-index: 5;
-*/
-
 @import "variables.less";
 @import "mixins.less";
 @import "grid.less";
@@ -362,20 +357,21 @@ body.nav-open #nav-toggle{
     }
 }
 
-body.explorer-open .explorer{
-    display:block;
-    border-top:1px solid rgba(200,200,200,0.1);
-
-    &:before{
-        position:absolute;
-        top:-3em;
-        content:"Close explorer";
-        padding:0.9em;
+body.explorer-open {
+    .nav-main{
+        display:none;
     }
-}
+    .explorer{
+        display:block;
+        border-top:1px solid rgba(200,200,200,0.1);
 
-body.explorer-open .nav-main{
-    display:none;
+        &:before{
+            position:absolute;
+            top:-3em;
+            content:"Close explorer";
+            padding:0.9em;
+        }
+    }
 }
 
 header{
@@ -490,21 +486,6 @@ footer{
     background: @color-grey-1;
 }
 
-
-/* Z-indexes */
-#nav-toggle{
-    z-index:5;
-}
-.nav-wrapper{
-    z-index:2;
-}
-.content-wrapper{
-    z-index:3;
-}
-footer, .logo{
-    z-index:1;
-}
-
 .breadcrumb{
     .unlist();
     .clearfix();
@@ -591,6 +572,22 @@ footer, .logo{
     padding-right:20px;
 }
 
+
+/* Z-indexes */
+#nav-toggle{
+    z-index:5;
+}
+.nav-wrapper{
+    z-index:2;
+}
+.content-wrapper{
+    z-index:3;
+}
+footer, .logo{
+    z-index:1;
+}
+
+
 @media screen and (min-width: @breakpoint-mobile){
     .col1{
         .column(1);
@@ -649,7 +646,6 @@ footer, .logo{
         margin:0 0 0 -150px;
     }
     .content-wrapper{
-        z-index:0;
         -webkit-transform:none;
         transform:none;
     }
@@ -662,6 +658,7 @@ footer, .logo{
         width:@menu-width;
         margin-left: -@menu-width;
         
+
         .inner{ 
             height:100%;
             position:fixed;
@@ -682,9 +679,6 @@ footer, .logo{
     .nav-main{
         margin-bottom: 116px; /* WARNING: magic number - the height of the .footer */
 
-        li{
-            z-index:1;
-        }
         .footer{
             padding-top:1em;
             background-color:@color-grey-1;
@@ -692,7 +686,6 @@ footer, .logo{
             width:@menu-width - 7;
             bottom:0;
             text-align:center;
-            z-index:2;
         }
         .avatar{
             display:block;
@@ -720,7 +713,6 @@ footer, .logo{
     .explorer {
         width: 400px;
         position: absolute;
-        z-index:@explorer-z-index;
         top:0;
         left:99%;
     }
@@ -729,25 +721,30 @@ footer, .logo{
     }
 
     /* UN-set the transformations used on mobile */
-    body.nav-open .content-wrapper{
-        position:relative;
-        transform: none;
-        -webkit-transform: none;       
+    body.nav-open{
+        .content-wrapper{
+            position:relative;
+            transform: none;
+            -webkit-transform: none;       
+        }
+        .nav-wrapper{
+            margin-left: -@menu-width;
+        }
+        .nav-wrapper,
+        .nav-main{
+            width:@menu-width;
+        }
     }
-    body.nav-open .nav-wrapper{
-        margin-left: -@menu-width;
-    }
-    body.nav-open .nav-wrapper,
-    body.nav-open .nav-main{
-        width:@menu-width;
-    }
-
-    body.explorer-open .explorer:before{
-        display:none;
-    }
-    body.explorer-open .nav-main{
-        display:block;
-    }
+  
+    body.explorer-open {
+       
+        .explorer:before{
+            display:none;
+        }
+        .nav-main{
+            display:block;
+        }
+    }    
 
     header{
         padding-top:1.5em;
@@ -785,6 +782,22 @@ footer, .logo{
     footer{
         width:80%;
         margin-left:50px;
+    }
+
+    /* Z-indexes */
+    .nav-main{
+        li{
+            z-index:1;
+        }
+        .footer{
+            z-index:2;
+        }
+    }
+    .explorer {
+        z-index:@explorer-z-index;
+    }
+    .nav-wrapper{
+        z-index:auto; /* allows overspill of messages banner onto left menu, but also explorer to spill over main content */
     }
 }
 
