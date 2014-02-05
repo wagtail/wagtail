@@ -4,9 +4,27 @@
     <col width="16%" />
     <thead>
         <tr class="table-headers">
-            <th>Title</th>
+            <th>
+                Title
+                {% if not is_searching %}
+                    {% if ordering == "title" %}
+                        <a href="{% url 'verdantdocs_index' %}" class="icon icon-arrow-down-after teal"></a>
+                    {% else %}
+                        <a href="{% url 'verdantdocs_index' %}?ordering=title" class="icon icon-arrow-down-after"></a>
+                    {% endif %}
+                {% endif %}
+            </th>
             <th>File</th>
-            <th>Uploaded</th>
+            <th>
+                Uploaded
+                {% if not is_searching %}
+                    {% if ordering == "-created_at" %}
+                        <a href="{% url 'verdantdocs_index' %}" class="icon icon-arrow-down-after teal"></a>
+                    {% else %}
+                        <a href="{% url 'verdantdocs_index' %}?ordering=-created_at" class="icon icon-arrow-down-after"></a>
+                    {% endif %}
+                {% endif %}
+            </th>
         </tr>
     </thead>
     <tbody>

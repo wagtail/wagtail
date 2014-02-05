@@ -29,6 +29,7 @@ body{
     color:@color-text-base;
     overflow-x: hidden;
     position: relative;
+    background:@color-grey-5;
 
     &.reordering{
         overflow:visible;
@@ -387,20 +388,27 @@ header{
         margin:0;
     }
 
+    .left, .right{
+        width:50%;
+    }
+
     .left{
         float:left;
-        width:50%;
 
         .hasform &:first-child{
             padding-bottom:0.5em;
             float:none;
         }
-
     }
-    .second{
-        clear:both;
+    .col{
+        float:left;
+        margin-right:2em;
+    }
+    .search-bar input{
+        width:auto;
     }
     .right{
+        text-align:right;
         float:right;
     }
 
@@ -413,6 +421,9 @@ header{
     }
     &.merged.no-border{
         padding-bottom:0;
+    }
+    &.hasform h1{
+        margin-top:0.2em;
     }
 }
 
@@ -428,8 +439,7 @@ footer{
     background: rgba(0,0,0,0.7);
     position:fixed;
     bottom:0;
-    height:3.4em;
-    padding:0.3em;
+    padding:0.5em;
     width:90%;
     margin:0 5%;
     color:white;
@@ -458,10 +468,11 @@ footer{
         line-height:3.5em;
         font-size:0.85em;
 
-        span{
+        p{  
+            margin:0;
             margin-right:@grid-gutter-width;
-        }
-        
+            white-space: nowrap;
+        }        
     }
 }
 
@@ -661,9 +672,7 @@ footer, .logo{
         border-top:0;
         background-color:none;
         padding-top:0;
-    }
-
-   
+    } 
 
     #nav-toggle{
         display:none;
@@ -779,24 +788,17 @@ footer, .logo{
 }
 
 @media screen and (min-width: @breakpoint-desktop-larger){
-    body{
-        margin:0;
-        background:#DDD;
-    }   
     .wrapper{
-        background-color:@color-grey-5;
+        /*background-color:@color-grey-5;*/
         max-width:@breakpoint-desktop-larger;
-        margin:0 auto;
+        border-right:1px solid @color-grey-4;
     }
     .nav-wrapper{
-        position:relative;
-        left:auto;
         .box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
 
         .inner{
             background:@color-grey-1;
             .box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-
         }
     }
 

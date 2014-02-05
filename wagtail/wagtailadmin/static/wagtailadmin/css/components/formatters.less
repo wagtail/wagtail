@@ -28,12 +28,36 @@
         height:50px;
     }
     img{
+        z-index:2;
+        position:relative;
         .border-radius(100%);
+        border:0;
     }
-    &:hover{
+    &:hover:before{
+        color:@color-teal;
+        border-color:@color-teal;
+    }
+
+    &.small{
+        vertical-align:middle;
+        margin:0 0.5em;
+        width:25px;
+        height:25px;
+
         &:before{
-            color:@color-teal;
-            border-color:@color-teal;
+            margin:1px 0 0 1px;
+            width:22px;
+            height:22px;
+            line-height:22px;
+            border-width:1px;
+            font-size:1em;
+        }
+        img{
+            border:0;
+        }
+        &:hover:before{
+            color:@color-grey-3;
+            border-color:@color-grey-3;
         }
     }
 }

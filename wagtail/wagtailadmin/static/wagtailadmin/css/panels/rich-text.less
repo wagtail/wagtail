@@ -1,15 +1,20 @@
 @import "../variables.less";
+@import "../mixins.less";
 
 .hallotoolbar{
     position:absolute;
     left:50px;
     z-index:5;
     margin-top:3em;
+    margin-left:4px;
 }
 .hallotoolbar.affixed{
     position:fixed;
     margin-left:140px;
     margin-top:0;
+}
+.hallotoolbar button{
+    .border-radius(0);
 }
 
 .richtext {
@@ -142,7 +147,7 @@
 }
 
 @media screen and (min-width: @breakpoint-desktop-larger){
-    .hallotoolbar{
+   /* .hallotoolbar{
         margin:0 auto;
         position:absolute;
         left:-@menu-width;
@@ -153,5 +158,5 @@
     .hallotoolbar.affixed{
         position:fixed;
         margin:0 auto;
-    }
+    }*/
 }

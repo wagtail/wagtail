@@ -1,8 +1,6 @@
 {% if documents %}
     {% if is_searching %}
-        <h2>{{ documents|length }} match{{ documents|pluralize:"es" }}</h2>
-    {% else %}
-        <h2>Latest documents</h2>
+        <h2>{{ paginator.count }} match{{ paginator|pluralize:"es" }}</h2>
     {% endif %}
 
     {% include "wagtaildocs/documents/list.html" %}

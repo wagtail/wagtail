@@ -326,7 +326,6 @@ ul.listing{
     }
 }
 
-
 .pagination{
     text-align:center;
     p{
@@ -347,6 +346,12 @@ ul.listing{
     .next{
         float:right;
     } 
+}
+
+.listing.full-width + .pagination{
+    margin-top: 3em;
+    border-top: 1px dashed #d9d9d9;
+    padding:2em 50px 0 50px;
 }
 
 @media screen and (min-width: @breakpoint-mobile){

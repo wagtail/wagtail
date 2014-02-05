@@ -1,8 +1,8 @@
 @import "../variables.less";
 @import "../mixins.less";
 @import "../grid.less";
-.page-editor .content{
-    padding-bottom:5em;
+.page-editor .content-wrapper{
+    margin-bottom:10em;
 }
 .object{
     background:url(/static/wagtailadmin/images/bg-editor-diag.svg);
@@ -60,7 +60,7 @@
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
         .border-radius(2px);
-        background-color:lighten(@color-grey-4, 5%);
+        background-color:@color-grey-3; // lighten(@color-grey-4, 5%);
         text-transform:uppercase;
         padding:0.9em 0 0.9em 4em;
         font-size:1em;
@@ -74,15 +74,19 @@
         z-index:1;
 
         &:before{
-            content:"";
+            font-family:verdant;
+            text-transform:none;
+            content:"q";
+            text-align:center;
             display:block;
             position:absolute;
             z-index:2;
+            font-size:2em;
             top:0px;
-            height:3.2em;
+            line-height:1.7em;
             left:0px;
-            width:3.3em;
-            /*background-color:@color-grey-3;*/
+            width:1.7em;
+            opacity:0.15;
             padding:0;
             margin:0;
             cursor:pointer;
@@ -133,18 +137,18 @@
             .pull-padding(2);
             font-family:Bitter, Georgia, serif;
             .border-radius(0px);
-            border:0;
+           
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
             line-height:1.6em;
+            border-width:0 1px;
         }
 
         .richtext{
             padding-top:3em; /* to provide space for editor buttons */
         }
 
-        
         .error-message{
             .nice-padding();
             padding-bottom:2em;
@@ -269,8 +273,7 @@
         &.full{
             fieldset{
                 .column(11);
-                margin-left:-50px;
-                margin-right:-50px;
+               
                 padding-left:0;
                 padding-right:0;
             }
