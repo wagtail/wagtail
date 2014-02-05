@@ -8,7 +8,7 @@
 .objects{
     margin-top:-1em;
     padding-top:1em;
-    background:url(@{static-root}bg-editor-diag.svg);
+    background:url(@{static-root}bg-dark-diag.svg);
 }
 .object{  
 
@@ -66,11 +66,11 @@
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
         .border-radius(2px);
-        background-color:@color-grey-3; // lighten(@color-grey-4, 5%);
+        background:@color-grey-3 url(@{static-root}bg-light-diag.svg);
         text-transform:uppercase;
         padding:0.9em 0 0.9em 4em;
         font-size:1em;
-        margin:0 25px 0.2em 25px;
+        margin:0 0 0.2em 0;
         line-height:1.5em;
         font-weight:normal;
         position:absolute;
@@ -78,6 +78,7 @@
         left:0;
         right:0;
         z-index:1;
+        text-shadow:1px 1px 1px rgba(255,255,255,0.5);
 
         &:before{
             font-family:verdant;
@@ -200,7 +201,7 @@
         border-bottom:1px solid white;
 
         > h2, &.single-field label{
-            margin:0 25px;
+            margin:0 0;
             border-bottom:1px solid white;
         }
 
@@ -210,7 +211,7 @@
             position:relative;
             z-index:2;
             top:0px;
-            left:25px;
+            left:0px;
             width:3.3em;
             background-color:@color-teal;
             padding:0;
