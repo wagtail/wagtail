@@ -3,7 +3,7 @@
 {% block titletag %}Delete {{ query.query_string }}{% endblock %}
 {% block content %}
 
-    {% include "verdantadmin/shared/header.html" with title="Delete" subtitle=query.query_string %}
+    {% include "wagtailadmin/shared/header.html" with title="Delete" subtitle=query.query_string %}
 
     <div class="nice-padding">       
         <p>Are you sure you want to delete all editors picks for this search term?</p>

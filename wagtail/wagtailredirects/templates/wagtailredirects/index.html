@@ -17,7 +17,7 @@
             search_next_index++;
             var index = search_next_index;
             $.ajax({
-                url: "{%url 'verdantredirects_index' %}",
+                url: "{%url 'wagtailredirects_index' %}",
                 data: {q: $('#id_q').val()},
                 success: function(data, status) {
                     console.log('here')

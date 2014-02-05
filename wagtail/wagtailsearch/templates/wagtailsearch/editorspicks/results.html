@@ -1,0 +1,15 @@
+{% if queries %}
+    {% if is_searching %}
+        <h2>{{ queries|length }} match{{ queries|pluralize:"es" }}</h2>
+    {% endif %}
+
+    {% include "wagtailsearch/editorspicks/list.html" %}
+
+	{% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearch_editorspicks_index" %}
+{% else %}
+ 	{% if is_searching %}
+         <p>Sorry, no editor's picks match "<em>{{ search_query }}</em>"
+    {% else %}
+        <p>No editor's picks have been created. Why not <a href="{% url 'wagtailsearch_editorspicks_add' %}">add one</a>?</p>
+    {% endif %}
+{% endif %}

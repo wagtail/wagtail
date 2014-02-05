@@ -17,7 +17,7 @@
             search_next_index++;
             var index = search_next_index;
             $.ajax({
-                url: "{%url 'verdantsearch_editorspicks_index' %}",
+                url: "{%url 'wagtailsearch_editorspicks_index' %}",
                 data: {q: $('#id_q').val()},
                 success: function(data, status) {
                     console.log('here')
@@ -36,7 +36,7 @@
 
      <div class="nice-padding">
         <div id="editorspicks-results" class="redirects">
-            {% include "verdantsearch/editorspicks/results.html" %}
+            {% include "wagtailsearch/editorspicks/results.html" %}
         </div>
     </div>
 {% endblock %}

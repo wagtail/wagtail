@@ -2,7 +2,7 @@
 {% block titletag %}Editing {{ query.query_string }}{% endblock %}
 {% block content %}
     
-    {% include "verdantadmin/shared/header.html" with title="Editing" subtitle=query.query_string %}
+    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=query.query_string %}
 
     <form action="{% url 'wagtailsearch_editorspicks_edit' query.id %}" method="POST" class="nice-padding">
         {% csrf_token %}
