@@ -1,19 +1,20 @@
 .tab-nav{
     .clearfix();
-    border:1px solid @color-grey-4;
-    border-width:0 0 1px 1px;
     padding:0;
 
     li{
         list-style-type:none;
         width:48%;
         float:left;
-        border:1px solid @color-grey-4;
-        border-width:0px 1px;
-        background-color:@color-grey-5;
-        margin-right:2px;
+        padding:0;
+
+        &:before,&:after{
+            display:none;
+        }
     }
     a{
+        .transition(border-color 0.2s ease);
+        background-color:@color-grey-4;
         outline:none;
         line-height:3em;
         text-transform:uppercase;
@@ -23,21 +24,19 @@
         display:block;
         padding:0 20px;
         color:@color-grey-2;
+        border-top:0.3em solid darken(@color-grey-4,0%);
         border-bottom:1px solid transparent;
-        border-top:0.3em solid @color-grey-3;
-        margin:0 -1px;
 
         &:hover{
             color:inherit;
-            border-top-color:@color-grey-3;
+            border-top-color:@color-grey-2;
         }
     }
 
     li.active a{
+        color:@color-grey-1;
         background-color:white;
-        border-top:0.3em solid @color-grey-1;  
-        border-bottom:2px solid white;
-        margin-bottom:-1px;
+        border-top:0.3em solid @color-grey-1;      
     }
 
     /* For cases where tab-nav should merge with header */
@@ -59,10 +58,9 @@
 
 @media screen and (min-width: @breakpoint-mobile){
     .tab-nav li{
-        float:none;
         width:auto;
         padding:0;
-        display:inline-block;
+        margin-left:0.5em;
     }
 
     .tab-nav a{
@@ -71,9 +69,6 @@
 
     .modal-content .tab-nav li{
         padding:0;
-        min-width:110px;
-    }
-    .modal-content .tab-nav li{
         min-width:0;
     }
 }

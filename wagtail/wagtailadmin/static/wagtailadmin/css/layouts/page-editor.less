@@ -6,15 +6,10 @@
 }
 
 .objects{
-    margin-top:-1em;
-    padding-top:1em;
     background:url(@{static-root}bg-dark-diag.svg);
 }
 .object{  
-
     position:relative;
-    /*border:1px solid @color-grey-4;
-    border-width:1px 0 0 0;*/
     overflow:hidden;
     .nice-padding();
 
@@ -65,11 +60,10 @@
 
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
-        .border-radius(2px);
         background:@color-grey-3 url(@{static-root}bg-light-diag.svg);
         text-transform:uppercase;
         padding:0.9em 0 0.9em 4em;
-        font-size:1em;
+        font-size:0.95em;
         margin:0 0 0.2em 0;
         line-height:1.5em;
         font-weight:normal;
@@ -79,6 +73,7 @@
         right:0;
         z-index:1;
         text-shadow:1px 1px 1px rgba(255,255,255,0.5);
+        .box-shadow(0 0 7px 0 rgba(0,0,0,0.4));
 
         &:before{
             font-family:verdant;
@@ -90,13 +85,23 @@
             z-index:2;
             font-size:2em;
             top:0px;
-            line-height:1.7em;
+            line-height:1.6em;
             left:0px;
             width:1.7em;
             opacity:0.15;
             padding:0;
             margin:0;
             cursor:pointer;
+        }
+    }
+
+    .richtext{
+        padding-top:1em; /* to provide space for editor buttons */
+        padding-bottom:1em;
+
+        &.inEditMode{
+            padding-top:5em; /* to provide space for editor buttons */
+            padding-bottom:2em;
         }
     }
 
@@ -108,6 +113,8 @@
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     &.full{
+        padding-left:0;
+
         h2{
             display:none; /* The field label is used instead */
         }
@@ -136,10 +143,8 @@
 
         input, textarea, .richtext{
             .nice-padding();
-            .pull-padding(2);
-            font-family:Bitter, Georgia, serif;
             .border-radius(0px);
-           
+            font-family:Bitter, Georgia, serif;           
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
@@ -149,6 +154,12 @@
 
         .richtext{
             padding-top:3em; /* to provide space for editor buttons */
+            padding-bottom:3em;
+
+            &.inEditMode{
+                padding-top:5em; /* to provide space for editor buttons */
+                padding-bottom:5em;
+            }
         }
 
         .error-message{
@@ -228,7 +239,7 @@
                     position:relative;
                     color:white;
                     padding:0;
-                    line-height:1.9em; /* specific height required as parent 'a' has no height */
+                    line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;
                     width:100%;
                     background-color:transparent;
@@ -242,6 +253,7 @@
         }
     }
 }   
+
 
 /* styles applied to an element as it is being reordered */
 .preview{
@@ -278,6 +290,9 @@
                
                 padding-left:0;
                 padding-right:0;
+            }
+            input, textarea, .richtext{
+                border-width:0 1px;
             }
         }
         .multiple{

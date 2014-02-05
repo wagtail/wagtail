@@ -141,12 +141,30 @@ ul.listing{
     }
 
     .index {
+        color:white;
         background-color:@color-header-bg;
+
         .title h2{
-            font-size:1.2em; 
+            font-size:1.2em;
+            color:white;
+            opacity:1;
+            a{
+                .transition(opacity 0.2s ease);
+            }
+            a:hover{
+                opacity:0.7;
+                color:white;
+            }
         }
         a{
             color:auto;
+        }
+        .actions{
+            margin-top:1.5em;
+            
+            a{
+                color:white;
+            }
         }
     }
 
@@ -230,7 +248,7 @@ ul.listing{
         padding:0 !important;
         border-left:1px dashed @color-input-border;
         &:hover{
-            background-color:@color-header-bg;
+            background-color:@color-grey-5;
         }
     }
     .children a,

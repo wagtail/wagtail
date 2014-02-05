@@ -219,6 +219,7 @@ img{
             font-size:0.9em;
             font-weight:400;
             white-space:nowrap;
+            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
             &:before{
                 margin-right:0.3em;
@@ -319,7 +320,8 @@ img{
 
     .explorer{
         position:absolute;
-        margin-top:150px; /* same as .nav-main */
+        margin-top:149px; /* same as .nav-main minus 1 pixel for border */
+        font-size:0.9em;
     }
 
 .content-wrapper{
@@ -377,12 +379,11 @@ header{
     padding-top:1.5em;
     padding-bottom:1em;
     background-color: @color-header-bg;
-    border-bottom:1px solid @color-grey-4;
     margin-bottom:2em;
+    color:white;
 
     h1, h2{
         margin:0;
-        color:white;
     }
 
     .left, .right{
@@ -403,6 +404,7 @@ header{
     }
     .search-bar input{
         width:auto;
+        border-width:0;
     }
     .right{
         text-align:right;
@@ -432,6 +434,8 @@ header{
 
 footer{
     .row();
+    .border-radius(3px 3px 0 0);
+    .box-shadow(0px 0px 2px rgba(255,255,255,0.5));
     background: @color-grey-1;
     position:fixed;
     bottom:0;
@@ -514,7 +518,7 @@ footer{
             text-overflow:ellipsis;
             overflow:hidden;
             line-height:1.6em;
-            text-shadow: 1px 1px 0 white;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
         }
 
         &:after, &:before{
@@ -537,6 +541,7 @@ footer{
 
             a{
                 color:white;
+                text-shadow:none;
             }
         }         
         &:hover:after {
@@ -821,7 +826,7 @@ footer, .logo{
     }
 }
 
-/* Transitions */
+/* Transitions (resolution agnostic) */
 .content-wrapper,
 .nav-main,
 #nav-toggle,
