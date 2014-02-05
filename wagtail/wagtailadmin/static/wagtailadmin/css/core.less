@@ -390,7 +390,8 @@ header{
         float:left;
         margin-right:1em;
         width:50%;
-        &:first-child{
+
+        .hasform &:first-child{
             padding-bottom:0.5em;
             float:none;
         }
@@ -748,7 +749,15 @@ footer, .logo{
                 padding-bottom:0;
                 float:left;
             }
-
+        }
+        .col3{
+            .col3();
+        }
+        .col6{
+            .col6();
+        }
+        .col9{
+            .col9();
         }
     }
     footer{

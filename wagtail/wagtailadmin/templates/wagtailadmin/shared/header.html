@@ -1,6 +1,6 @@
-<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %}">
+<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if form %}hasform{% endif %}">
     <div class="row row-flush">
-        <div class="left col6">
+        <div class="left col{% if form %}6{% else %}9{% endif %}">
             <h1>{{ title }} <span>{{ subtitle }}</span></h1>
         </div>
         {% if form %}
