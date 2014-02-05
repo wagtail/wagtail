@@ -144,8 +144,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     .border-radius(3px);
     width:auto;
     padding:0.7em 1em;
-    border:none;
     background-color: @color-button;
+    border:1px solid @color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
@@ -214,6 +214,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }  
 
     &.bicolor{
+        border:0;
         padding-left:3.5em;
 
         &:before{
