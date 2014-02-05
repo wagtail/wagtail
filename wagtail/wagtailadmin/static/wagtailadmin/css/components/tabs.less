@@ -5,7 +5,9 @@
     padding:0;
 
     li{
-        display:inline-block;
+        list-style-type:none;
+        width:48%;
+        float:left;
         border:1px solid @color-grey-4;
         border-width:1px 1px 0px 1px;
         background-color:@color-grey-5;
@@ -24,7 +26,7 @@
         font-size:1.2em;
         text-decoration:none;
         display:block;
-        padding:0 50px;
+        padding:0 20px;
         color:@color-grey-2;
         border-bottom:1px solid transparent;
 
@@ -59,7 +61,14 @@
 
 @media screen and (min-width: @breakpoint-mobile){
     .tab-nav li{
+        float:none;
+        width:auto;
         padding:0;
+        display:inline-block;
+    }
+
+    .tab-nav a{
+        padding:0 50px;
     }
 
     .modal-content .tab-nav li{
