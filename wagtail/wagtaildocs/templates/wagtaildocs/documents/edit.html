@@ -11,9 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <h1>Editing <span>{{ document.title }}</span></h1>
-    </header>
+    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=document.title %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtaildocs_edit_document' document.id %}" method="POST" enctype="multipart/form-data">

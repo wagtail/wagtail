@@ -1,8 +1,6 @@
 {% load image_tags ellipsistrim%}
 
-<header class="merged tab-merged nice-padding">
-    <h1>Choose an image</h1>
-</header>
+{% include "wagtailadmin/shared/header.html" with title="Choose an image" merged=1 tabbed=1 %}
 
 {% if uploadform %}
     <ul class="tab-nav merged">

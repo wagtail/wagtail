@@ -2,9 +2,8 @@
 {% block titletag %}Delete {{ snippet_type_name}} - {{ instance }}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>Delete <span>{{ snippet_type_name }} - {{ instance }}</span></h1>
-    </header>
+
+    {% include "verdantadmin/shared/header.html" with title="Delete" subtitle=instance %}
 
     <div class="nice-padding">
         <p>Are you sure you want to delete this {{ snippet_type_name }}?</p>
@@ -13,4 +12,5 @@
             <input type="submit" value="Yes, delete" class="serious" />
         </form>
     </div>
+    
 {% endblock %}

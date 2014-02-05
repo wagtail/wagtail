@@ -8,11 +8,11 @@
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
         });
-        $('a.suggested-tag').click(function() {
-            $('#id_q').val($(this).text());
-            search();
-            return false;
-        })
+        // $('a.suggested-tag').click(function() {
+        //     $('#id_q').val($(this).text());
+        //     search();
+        //     return false;
+        // })
 
         var search_current_index = 0;
         var search_next_index = 0;
@@ -35,33 +35,7 @@
 {% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <div class="row row-flush">
-            <div class="left col9">
-                <h1>Documents</h1>
-            </div>
-            <div class="right col3">
-                <a href="{% url 'wagtaildocs_add_document' %}" class="button bicolor icon icon-plus">Add a document</a>
-            </div>
-        </div>
-    </header>
-
-    <form class="search-bar full-width nice-padding" action="{% url 'wagtaildocs_index' %}" method="get">
-        <ul class="fields">
-            {% for field in form %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-            {% endfor %}
-            <li class="submit"><input type="submit" value="Search" /></li>
-            {% if popular_tags %}
-                <li class="taglist">
-                    <h3>Popular tags</h3>
-                    {% for tag in popular_tags %}
-                        <a class="suggested-tag tag" href="{% url 'wagtaildocs_search' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                    {% endfor %}
-                </li>
-            {% endif %}
-        </ul>
-    </form>
+    {% include "wagtailadmin/shared/header.html" with title="Documents" add_link="wagtaildocs_add_document" add_text="Add a document" search_url="wagtaildocs_index" %}
 
     <div class="nice-padding">
         <div id="document-results" class="documents">

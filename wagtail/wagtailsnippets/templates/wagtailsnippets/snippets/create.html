@@ -2,10 +2,8 @@
 {% block titletag %}New  {{ snippet_type_name}}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>New <span>{{ snippet_type_name }}</span></h1>
-    </header>
 
+    {% include "wagtailadmin/shared/header.html" with title="New" subtitle=snippet_type_name %}
 
     <form action="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" method="POST">
         {% csrf_token %}

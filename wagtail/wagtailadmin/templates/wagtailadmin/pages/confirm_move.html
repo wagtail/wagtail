@@ -2,9 +2,7 @@
 {% block titletag %}Move {{ page.title }}{% endblock %}
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>Move <span>{{ page_to_move.title }}</span></h1>
-    </header>
+    {% include "wagtailadmin/shared/header.html" with title="Move" subtitle=page_to_move.title %}
 
     <div class="nice-padding">
         {% if page_to_move.is_leaf %}

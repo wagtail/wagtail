@@ -388,6 +388,13 @@ header{
 
     .left{
         float:left;
+        margin-right:1em;
+        width:50%;
+        &:first-child{
+            padding-bottom:0.5em;
+            float:none;
+        }
+
     }
     .right{
         float:right;
@@ -577,7 +584,7 @@ footer, .logo{
         .column(2);
     }
     .col3{
-        .column(3);
+        .column(3) !important;
     }
     .col4{
         .column(4);
@@ -732,6 +739,17 @@ footer, .logo{
     header{
         padding-top:1.5em;
         padding-bottom:1.5em;
+
+        .left{
+            float:left;
+            margin-right:0;
+
+            &:first-child{
+                padding-bottom:0;
+                float:left;
+            }
+
+        }
     }
     footer{
         width:80%;

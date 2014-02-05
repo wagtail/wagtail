@@ -3,9 +3,9 @@
 {% block titletag %}Snippets{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>Snippets</h1>
-    </header>
+
+    {% include "verdantadmin/shared/header.html" with title="Snippets" %}
+
     <div class="nice-padding">
         <ul class="listing">
             {% for name, description, content_type in snippet_types %}

@@ -2,16 +2,9 @@
 {% block titletag %}Users{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block content %}
-    <header class="merged nice-padding">
-        <div class="row row-flush">
-            <div class="left col9">
-                <h1>Users</h1>
-            </div>
-            <div class="right col3">
-                <a href="{% url 'wagtailusers_create' %}" class="button bicolor icon icon-plus">Add a user</a>
-            </div>
-        </div>
-    </header>
+
+    {% include "wagtailadmin/shared/header.html" with title="Users" merged=1 add_link="wagtailusers_create" add_text="Add a user" %}
+
     <table class="listing full-width">
         <thead>
             <tr>

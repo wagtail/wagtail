@@ -597,6 +597,26 @@ ul.inline li:first-child, li.inline:first-child{
             white-space: nowrap
         }
     }
+
+    header &{
+        margin:0;
+        padding:0;
+        .fields{
+            li{
+                padding:0;
+            }
+            .field{
+                padding:0;
+            }
+            .field input{
+                padding:0.4em 1.4em 0.4em 2em;
+            }
+            .field:before{
+                font-size:1.4em;
+                top:0.45em;
+            }
+        }
+    }
 }
 
 /* Transitions */

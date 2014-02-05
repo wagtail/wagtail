@@ -5,9 +5,7 @@
 {% block titletag %}Create a page in {{ parent_page.title }}{% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <h1>Create a page in <span>{{ parent_page.title }}</span></h1>
-    </header>
+    {% include "verdantadmin/shared/header.html" with title="Create a page in" subtitle=parent_page.title %}
 
     <div class="nice-padding">
         <p>Choose which type of page you'd like to create.</p>

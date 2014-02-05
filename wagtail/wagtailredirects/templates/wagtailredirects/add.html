@@ -1,9 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% block titletag %}Add redirect{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>Add redirect</h1>
-    </header>
+
+    {% include "wagtailadmin/shared/header.html" with title="Add redirect" %}
 
     <form action="{% url 'wagtailredirects_add_redirect' %}" method="POST">
         {% csrf_token %}
@@ -13,6 +12,7 @@
             <input type="submit" value="Save" />
         </div>
     </form>
+    
 {% endblock %}
 
 {% block extra_css %}

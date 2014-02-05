@@ -1,9 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% block titletag %}Where do you want to create a {{ content_type.model_class.get_verbose_name }}{% endblock %}
 {% block content %}
-    <header class="nice-padding">>
-        <h1>Where do you want to create this {{ content_type.model_class.get_verbose_name }}?</h1>
-    </header>
+	{% include "wagtailadmin/shared/header.html" with title="Where do you want to create this" subtitle=content_type.model_class.get_verbose_name %}
+
     <ul>
         {% for page in parent_pages %}
             <li><a href="{% url 'wagtailadmin_pages_create' content_type.app_label content_type.model page.id %}">{{ page.title }}</a></li>

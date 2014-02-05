@@ -2,9 +2,8 @@
 {% block titletag %}Unpublish {{ page.title }}{% endblock %}
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
-    <header class="nice-padding">
-        <h1>Unpublish <span>{{ page.title }}</span></h1>
-    </header>
+
+    {% include "wagtailadmin/shared/header.html" with title="Unpublish" subtitle=page.title %}
 
     <div class="nice-padding">
         <p>Are you sure you want to unpublish this page?</p>

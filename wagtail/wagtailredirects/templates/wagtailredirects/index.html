@@ -3,16 +3,7 @@
 {% block bodyclass %}page-explorer{% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <div class="row row-flush">
-            <div class="left col9">
-                <h1>Redirects</h1>
-            </div>
-            <div class="right col3">
-                <a href="{% url 'wagtailredirects_add_redirect' %}" class="button bicolor icon icon-plus">Add redirect</a>
-            </div>
-        </div>
-    </header>
+    {% include "wagtailadmin/shared/header.html" with title="Redirects" add_link="wagtailredirects_add_redirect" add_text="Add redirect" %}
 
     <table class="listing full-width">
         <col />
@@ -47,4 +38,5 @@
             {% endif %}
         </tbody>
     </table>
+    
 {% endblock %}

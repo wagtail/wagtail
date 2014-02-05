@@ -83,7 +83,6 @@ function InlinePanel(opts) {
     var self = {};
 
     self.setHasContent = function(){
-        console.log($('> li:visible', self.formsUl));
         if($('li:visible', self.formsUl).length){
             self.formsUl.parent().removeClass('empty');
         }else{

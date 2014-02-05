@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 
 class SearchForm(forms.Form):
-    q = forms.CharField(label="Search term")
+    q = forms.CharField(label="Search term", widget=forms.TextInput(attrs={'placeholder': 'Search'}))
 
 
 class ExternalLinkChooserForm(forms.Form):

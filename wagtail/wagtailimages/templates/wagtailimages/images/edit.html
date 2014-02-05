@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <h1>Editing <span>{{ image.title }}</span></h1>
-    </header>
+    
+    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=image.title %}
+    
     <div class="row row-flush nice-padding">
        
         <div class="col7">

@@ -38,37 +38,12 @@
 {% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <div class="row row-flush">
-            <div class="left col9">
-                <h1>Images</h1>
-            </div>
-            <div class="right col3">
-                <a href="{% url 'wagtailimages_add_image' %}" class="button bicolor icon icon-plus">Add an image</a>
-            </div>
-        </div>
-    </header>
-
-    <form class="search-bar full-width nice-padding" action="{% url 'wagtailimages_index' %}" method="get">
-        <ul class="fields">
-            {% for field in form %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-            {% endfor %}
-            <li class="submit"><input type="submit" value="Search" /></li>
-            {% if popular_tags %}
-                <li class="taglist">
-                    <h3>Popular tags</h3>
-                    {% for tag in popular_tags %}
-                        <a class="suggested-tag tag" href="{% url 'wagtailimages_search_image' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                    {% endfor %}
-                </li>
-            {% endif %}
-        </ul>
-    </form>
+    {% include "wagtailadmin/shared/header.html" with title="Images" add_link="wagtailimages_add_image" add_text="Add an image" search_url="wagtailimages_index" %}
 
     <div class="nice-padding">
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}
         </div>
     </div>
+    
 {% endblock %}
