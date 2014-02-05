@@ -22,7 +22,7 @@ function makeRichTextEditable(id) {
         plugins: {
             'halloformat': {},
             'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-            'hallolists': {},
+            'hallolists': {}, 
             'hallohr': {},
             'halloreundo': {},
             'hallowagtailimage': {},
@@ -200,6 +200,7 @@ function InlinePanel(opts) {
                 $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount);
             }
             self.updateMoveButtonDisabledStates();
+            
             opts.onAdd(fixPrefix);
         }
     });

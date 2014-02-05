@@ -388,7 +388,6 @@ header{
 
     .left{
         float:left;
-        margin-right:1em;
         width:50%;
 
         .hasform &:first-child{
@@ -397,9 +396,11 @@ header{
         }
 
     }
+    .second{
+        clear:both;
+    }
     .right{
         float:right;
-        text-align:right;
     }
 
     /* For case where content below header should merge with it */
@@ -585,7 +586,7 @@ footer, .logo{
         .column(2);
     }
     .col3{
-        .column(3) !important;
+        .column(3);
     }
     .col4{
         .column(4);
@@ -750,8 +751,18 @@ footer, .logo{
                 float:left;
             }
         }
+        .second{
+            clear:none;
+
+            .right, .left{
+                float:right;
+            }
+        }
         .col3{
             .col3();
+        }
+        .col3.addbutton{
+            width:auto;
         }
         .col6{
             .col6();

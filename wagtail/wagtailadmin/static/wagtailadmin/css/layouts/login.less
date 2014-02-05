@@ -7,12 +7,14 @@ html{
     height:100%;
 }
 body{
-    padding:0 5%;
+    margin-left: 0px;
     height:100%;
-    color:white;
-    margin:0;
+}
+.wrapper{
+    max-width:none;
 }
 h1{
+    .nice-padding();
     font-weight:300;
     font-size:2em;
     line-height:1em;
@@ -31,68 +33,24 @@ h1{
         vertical-align: -15%;
     }
 }
-.content-wrapper{
+form{
     width:100%;
-    float:none;
-    background:none;
-    border:0;
-}
-.fields{
-    .unlist();
-   
-    li.full{
-        overflow:hidden;
-        position:relative;
-        padding:0;
-        margin-bottom:1px;
-        
-        label{
-            display:none;
-        }
-        input{
-            border:0;
-        }
-
-        label{
-            .border-radius(2px);
-            text-transform:uppercase;
-            padding:2px 5px;
-            position:absolute;
-            top:0;
-            left:0;
-            margin-top:-1px;
-            font-size:0.7em;
-            z-index:1;
-            margin:0.2em 0;
-            line-height:1.5em;
-            font-weight:normal;
-        }
-        input{
-            .border-radius(0px);
-            font-weight:300;
-            border:0;
-            padding-top:1.5em;
-            padding-bottom:1.5em;
-            font-size:1.6em;
-            line-height:1.6em;
-        }
+    ul{
+        .unlist();
     }
-    li:first-child input{
-        border-top:0;
+    .fields li{
+        .nice-padding();
+        padding-top:1em;
+        padding-bottom:1em;
     }
-    .checkbox{
+    .fields .checkbox{
         padding-top:2em;
         padding-bottom:2em;
     }
-    .field{
-        padding:0;
-    }
-
-    .field.icon:before{
-        display:none;
-    }
 }
-
+label{
+    color:white;
+}
 input[type=submit]{
     font-size:1.5em;
     padding:1.1em 2.4em;
@@ -102,7 +60,58 @@ input[type=checkbox]:before{
     color:#555;
     border:1px solid #555;
 }
+.fields{
+    max-width:100%;
+}
+.fields li.full{
+    position:relative;
+    padding:0;
+    
+    label{
+        display:none;
+    }
+    input{
+        border-top: 1px dashed @color-input-border;
+    }
+}
+.fields li:first-child input{
+    border-top:0;
+}
 
+.field{
+    padding:0;
+}
+.field.icon:before{
+    display:none;
+}
+
+
+.full label{
+    .border-radius(2px);
+    text-transform:uppercase;
+    padding:2px 5px;
+    position:absolute;
+    top:0;
+    left:0;
+    margin-top:-1px;
+    font-size:0.7em;
+    z-index:1;
+    margin:0.2em 0;
+    line-height:1.5em;
+    font-weight:normal;
+}
+
+/* Special full-width, one-off fields i.e a single text or textarea input */
+.full input{
+    .nice-padding;
+    .border-radius(0px);
+    font-weight:300;
+    border:0;
+    padding-top:1.5em;
+    padding-bottom:1.5em;
+    font-size:1.6em;
+    line-height:1.6em;
+}
 .help{
     opacity:1;
     position:absolute;
@@ -115,7 +124,6 @@ input[type=checkbox]:before{
 @media screen and (min-width: @breakpoint-mobile){
     body{
         font-size:85%;
-        padding:0 10%;
     }
 
     /* centres login form vertically */
@@ -130,43 +138,50 @@ input[type=checkbox]:before{
             margin-left:-4px;
         }
     }
-    .content-wrapper{
+    form{
         width:100%;
         display:inline-block;
         vertical-align: middle;
+
+        .fields li{
+            padding-left:10%;
+        }
     }
 
     h1{
+        padding-left:10%;
         font-weight:300;
         font-size:4em;
         line-height:1em;
     }
-    .fields{
-        .field.icon:before{
-            display:inline-block;
-            position: absolute;
-            color:@color-grey-4;
-            border: 2px solid @color-grey-4;
-            border-radius: 100%;
-            width: 1em;
-            padding: 0.3em;
-            left: 12%;
-            margin-left: -25px;
-            margin-top: -25px;
-            top: 50%;            
-        }
-        .full{
-            margin:0 -13%;
-        }
-        .full input{
-            padding-left:15%;
-        }
-        .submit{
-            margin-top:2em;
-        }
+    .full input{
+        padding-left:10%;
+    }
+    .field.icon:before{
+        display:inline-block;
+        position: absolute;
+        color:@color-grey-4;
+        border: 2px solid @color-grey-4;
+        border-radius: 100%;
+        width: 1em;
+        padding: 0.3em;
+        left: 12%;
+        margin-left: 80px;
+        margin-left: -25px;
+        top: 50%;
+        margin-top: -18px;
+    }
+    .full input{
+        padding-left:15%;
     }
 
-    .messages{
-        margin:0 -13%
+    .messages li{
+        padding-left:11%;
+    }
+}
+
+@media screen and (min-width: @breakpoint-mobile){
+    body, .wrapper{
+        background-color:@color-grey-1;
     }
 }
