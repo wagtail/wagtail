@@ -1,7 +1,9 @@
 @import "../variables.less";
 @import "../mixins.less";
 @import "../grid.less";
-
+.page-editor .content{
+    padding-bottom:5em;
+}
 .object{
     background:url(/static/wagtailadmin/images/bg-editor-diag.svg);
     position:relative;
@@ -80,7 +82,7 @@
             height:3.2em;
             left:0px;
             width:3.3em;
-            background-color:@color-grey-3;
+            /*background-color:@color-grey-3;*/
             padding:0;
             margin:0;
             cursor:pointer;
@@ -138,6 +140,10 @@
             line-height:1.6em;
         }
 
+        .richtext{
+            padding-top:3em; /* to provide space for editor buttons */
+        }
+
         
         .error-message{
             .nice-padding();
@@ -160,15 +166,16 @@
     }
 
     .multiple{
-        .transition(max-height 5s ease);
-        padding:4em 0 0 0;
-        height:auto;
+        .transition(max-height 10s ease);
+        padding:4.5em 0 0 0;
+        max-height:10000px;
         max-width:1024px - 50px;
+        overflow:hidden;
 
         > li{
             position:relative;
             background-color:white;
-            padding:2em;
+            padding:1em 2em;
             margin-bottom:1em;
             border:1px solid @color-grey-5;
         }
@@ -233,8 +240,8 @@
                     position:relative;
                     color:white;
                     padding:0;
-                    line-height:2.6em; /* specific height required as parent 'a' has no height */
-                    font-size:1rem;
+                    line-height:1.9em; /* specific height required as parent 'a' has no height */
+                    font-size:1.4rem;
                     width:100%;
                 }
             }
@@ -242,7 +249,7 @@
 
         .multiple{
             padding:0;
-            height:0px;
+            max-height:0px;
         }
     }
 }   

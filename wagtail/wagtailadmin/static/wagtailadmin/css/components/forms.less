@@ -30,7 +30,7 @@ legend{
 }
 
 .field{
-    padding:0 0 0.5em 0;
+    padding:0 0 0.6em 0;
 }
 
 label{
@@ -38,7 +38,7 @@ label{
     color:@color-grey-1;
     font-size:1.1em;
     display:block;
-    padding:0 0 0.7em 0;
+    padding:0 0 0.8em 0;
     line-height:1em;
 
     .checkbox &,
@@ -57,7 +57,8 @@ input, textarea, select, .richtext, .tagit{
     background-color:@color-fieldset-hover;
     -webkit-appearance: none;
     color:@color-text-input;
-    font-size:1.1em;
+    font-size:1.2em;
+    font-weight:300;
     outline:none;
 
     &:hover{
@@ -450,12 +451,6 @@ ul.inline li:first-child, li.inline:first-child{
 .page-chooser,
 .snippet-chooser,
 .document-chooser {
-    .unchosen, .chosen{
-        &:before{
-            content:"b";
-            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
-        }
-    }
     .chosen{
         .title{
             color: @color-grey-1;
@@ -469,6 +464,14 @@ ul.inline li:first-child, li.inline:first-child{
     }
 }
 
+.page-chooser{
+    .unchosen, .chosen{
+        &:before{
+            content:"b";
+            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
+        }
+    }
+}
 .snippet-chooser {
     .unchosen, .chosen{
         &:before{
@@ -480,7 +483,7 @@ ul.inline li:first-child, li.inline:first-child{
 .document-chooser {
     .unchosen, .chosen{
         &:before{
-            content:"h";
+            content:"r";
         }
     }
 }

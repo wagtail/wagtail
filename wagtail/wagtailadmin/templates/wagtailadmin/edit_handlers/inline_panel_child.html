@@ -1,10 +1,10 @@
 <li id="inline_child_{{ child.form.prefix }}">
     <ul class="controls">
         {% if can_order %}
-            <li class="icon text-replace teal icon-order-up inline-child-move-up" id="{{ child.form.prefix }}-move-up">Move up</li>
-            <li class="icon text-replace teal icon-order-down inline-child-move-down" id="{{ child.form.prefix }}-move-down">Move down</li>
+            <li class="icon text-replace white icon-order-up inline-child-move-up" id="{{ child.form.prefix }}-move-up">Move up</li>
+            <li class="icon text-replace white icon-order-down inline-child-move-down" id="{{ child.form.prefix }}-move-down">Move down</li>
         {% endif %}
-        <li class="icon text-replace teal icon-bin" id="{{ child.form.DELETE.id_for_label }}-button">Delete</li>
+        <li class="icon text-replace white icon-bin" id="{{ child.form.DELETE.id_for_label }}-button">Delete</li>
     </ul>
     {{ child.render_form_content }}
 </li>
