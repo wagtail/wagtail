@@ -116,7 +116,6 @@ ul.listing{
         }
         .status-tag{
             border-color:white;
-            color:white;
         }
     }
 
@@ -141,19 +140,16 @@ ul.listing{
     }
 
     .index {
-        color:white;
-        background-color:@color-header-bg;
+        background-color:@color-grey-4;
 
         .title h2{
             font-size:1.2em;
-            color:white;
             opacity:1;
             a{
                 .transition(opacity 0.2s ease);
             }
             a:hover{
                 opacity:0.7;
-                color:white;
             }
         }
         a{
@@ -167,13 +163,33 @@ ul.listing{
             }
             a{
                 color:white;
+
+                &:hover{
+                    color:@color-teal-dark;
+                }
+            }
+
+            .button{
+                background-color:@color-teal-darker;
+
+                &:hover{
+                    color:white;
+                    background:@color-teal-dark;
+                }
             }
         }
-        .button{
-            background-color:@color-teal-darker;
 
-            &:hover{
-                background:@color-teal-dark;
+    }
+
+    .page-explorer & .index{
+        color:white;
+        background-color:@color-header-bg;
+
+        .title h2{
+            color:white;
+
+            a:hover{
+                color:white;
             }
         }
     }
@@ -466,9 +482,7 @@ ul.listing{
             padding-left:50px;
         }
     }
-   
 }
-
 
 /* Transitions */
 .listing {

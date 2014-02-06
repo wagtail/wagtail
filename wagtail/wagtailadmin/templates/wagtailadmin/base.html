@@ -2,7 +2,6 @@
 {% load wagtailadmin_nav %}
 
 {% block furniture %}
-    <div id="nav-toggle" data-afteropen="Collapse" class="icon text-replace">Menu</div>
     <div class="nav-wrapper">
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>Dashboard</span></a>
@@ -17,6 +16,7 @@
     </div>
 
     <div class="content-wrapper">
+        <div id="nav-toggle" data-afteropen="Collapse" class="icon text-replace">Menu</div>
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">
