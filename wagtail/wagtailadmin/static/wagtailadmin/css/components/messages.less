@@ -1,26 +1,13 @@
 .messages{
     position:relative;
     z-index:5;
-    background-color:@color-grey-5;
+    background-color:@color-grey-1;
 
     ul{
         .unlist();
-        margin-left:-15px;
         padding-left:10px;
         position:relative;
         top:-100px;
-
-        &:before{
-            content: "";
-            height: 0;
-            width: 0;
-            display: block;
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            border-top: 15px solid #000;
-            border-left: 15px solid transparent;
-        }
     }
     li{
         .nice-padding;
@@ -49,4 +36,24 @@
 .messages.appear ul{
     .transition-immediate(~"top 0.5s ease, max-height 1.2s ease");
     top:0;
+}
+
+@media screen and (min-width: @breakpoint-mobile){
+    .messages{
+        ul{
+            margin-left:-15px;
+
+            &:before{
+                content: "";
+                height: 0;
+                width: 0;
+                display: block;
+                position: absolute;
+                bottom: -15px;
+                left: 0;
+                border-top: 15px solid #000;
+                border-left: 15px solid transparent;
+            }
+        }
+    }
 }

@@ -73,7 +73,14 @@
                     {% endif %}
                 </td>
                 <td class="type">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
-                <td class="status"><span class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</span></td>
+                <td class="status">
+                    {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
+                        <a href="{{ parent_page.url }}" target="_blank" class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</a>
+                    {% else %}
+                        <span class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</span>
+                    {% endif %}
+                    
+                </td>
                 <td></td>
             </tr>
             <tr class="divider"><td colspan="100%">Child pages</td></tr>
@@ -165,11 +172,11 @@
                         </h2>
                         {% if not moving and not choosing %}
                             <ul class="actions">
-                                {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">View draft</a></li>
-                                {% endif %}
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="Edit this page">Edit</a></li>
+                                {% endif %}
+                                {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
+                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">View draft</a></li>
                                 {% endif %}
                                 {% if page.live and 'view_live' not in hide_actions|default:'' %}
                                     <li><a href="{{ page.url }}" target="_blank">View live</a></li>
@@ -193,7 +200,13 @@
                         <td class="parent"><a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a></td>
                     {% endif %}
                     <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
-                    <td class="status"><span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span></td>
+                    <td class="status">
+                        {% if page.live and 'view_live' not in hide_actions|default:'' %}
+                             <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
+                        {% else %}
+                             <span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span>
+                        {% endif %}
+                    </td>
                     <td class="{% if allow_navigation %}{% if choosing %}{% if page.can_descend %} children{% endif%}{% elif moving %}{% if page.can_descend %} children{% endif%}{% elif allow_navigation and page.is_navigable %} children{% else %}no-children{% endif %}{% endif %}">
                         {% if allow_navigation %}
                             {% if moving %}

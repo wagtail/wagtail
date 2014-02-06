@@ -339,7 +339,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 }
 .help{
     color:@color-grey-2;
-    opacity:0;
 }
 
 /* permanently show checkbox/radio help as they have no focus state */
@@ -656,6 +655,9 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 }
 */
 @media screen and (min-width: @breakpoint-mobile){
+    .help{
+        opacity:1;
+    }
     .fields{
         max-width:800px;
     }
