@@ -1,5 +1,7 @@
+import sys
+import os
+
 from modelcluster.models import ClusterableModel
-from treebeard.mp_tree import MP_Node
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
@@ -12,6 +14,14 @@ from django.contrib.auth.models import Group
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
 from wagtail.wagtailsearch import Indexed, Searcher
+
+
+# hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
+# based on http://stackoverflow.com/questions/17211078/how-to-temporarily-modify-sys-path-in-python
+treebeard_path = os.path.join(os.path.dirname(__file__), '..', 'vendor', 'django-treebeard')
+sys.path.insert(0, treebeard_path)
+from treebeard.mp_tree import MP_Node
+sys.path.pop(0)
 
 
 class SiteManager(models.Manager):
