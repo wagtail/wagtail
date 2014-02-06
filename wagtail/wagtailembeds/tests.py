@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from .embeds import get_embed
 
+
 class TestEmbeds(TestCase):
     def test_get_embed(self):
         # This test will fail if the video is removed or the title is changed
