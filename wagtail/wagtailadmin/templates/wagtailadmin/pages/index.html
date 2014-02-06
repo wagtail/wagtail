@@ -7,12 +7,17 @@
     <header class="merged no-border nice-padding">
         <h1>Explorer</h1>
 
-        <ul class="breadcrumb">
-            <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">Home</a></li>
-            {% for page in parent_page.get_ancestors %}
-                <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% if not parent_page.is_root %}
+            <ul class="breadcrumb">
+                {% for page in parent_page.get_ancestors %}
+                    {% if page.is_root %}
+                        <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">Home</a></li>
+                    {% else %}
+                        <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
     </header>
    
     <form id="page-reorder-form">
