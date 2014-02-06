@@ -6,9 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 
 # extend Django's UserCreationForm with an 'is_superuser' field
 class UserCreationForm(BaseUserCreationForm):
-    
+
     required_css_class = "required"
-    is_superuser = forms.BooleanField(label=_("Administrator"), required=False,
+    is_superuser = forms.BooleanField(
+        label=_("Administrator"),
+        required=False,
         help_text=_("If ticked, this user has the ability to manage user accounts.")
     )
     first_name = forms.CharField(required=True)
@@ -43,26 +45,32 @@ class UserEditForm(forms.ModelForm):
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
-    username = forms.RegexField(label=_("Username"), max_length=30,
+    username = forms.RegexField(
+        label=_("Username"),
+        max_length=30,
         regex=r'^[\w.@+-]+$',
-        help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+        help_text=_("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
         error_messages={
-            'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+            'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")
+        })
 
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
 
-    password1 = forms.CharField(label=_("Password"), required=False,
+    password1 = forms.CharField(
+        label=_("Password"),
+        required=False,
         widget=forms.PasswordInput,
         help_text=_("Leave blank if not changing."))
-    password2 = forms.CharField(label=_("Password confirmation"), required=False,
+    password2 = forms.CharField(
+        label=_("Password confirmation"), required=False,
         widget=forms.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
 
-    is_superuser = forms.BooleanField(label=_("Administrator"), required=False,
+    is_superuser = forms.BooleanField(
+        label=_("Administrator"),
+        required=False,
         help_text=_("Administrators have the ability to manage user accounts.")
     )
 

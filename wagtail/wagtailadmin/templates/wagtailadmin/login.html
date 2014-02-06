@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <form action="{% url 'django.contrib.auth.views.login' %}" method="post">
+    <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}" />
         <h1>Sign in to Wagtail</h1>
@@ -52,4 +52,12 @@
             </li>
         </ul>
     </form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(function(){
+        $('form input[name=username]').focus();
+    })
+</script>
 {% endblock %}

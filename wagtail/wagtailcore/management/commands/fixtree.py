@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from wagtail.wagtailcore.models import Page
 
+
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         problems_found = False

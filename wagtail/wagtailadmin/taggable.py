@@ -1,7 +1,9 @@
 from taggit.models import Tag
+
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Q
+from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from wagtail.wagtailsearch import Indexed, Search
 
 
@@ -53,7 +55,6 @@ class TagSearchable(Indexed):
         # prefetch_related('tagged_items__tag') in the above search method, so that we can
         # output the list of tags on each result without doing a further query
         return [tagged_item.tag for tagged_item in self.tagged_items.all()]
-
 
     @classmethod
     def popular_tags(cls):

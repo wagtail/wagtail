@@ -1,13 +1,14 @@
+import json
+
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 
-import json
-
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.wagtailadmin.forms import SearchForm
+
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
-from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailimages.formats import get_image_format
 
 
@@ -28,6 +29,7 @@ def get_image_json(image):
         }
     })
 
+
 @login_required
 def chooser(request):
     Image = get_image_model()
@@ -43,10 +45,10 @@ def chooser(request):
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
-            
+
             # page number
             p = request.GET.get("p", 1)
-            
+
             images = Image.search(q, results_per_page=10, page=p)
 
             is_searching = True
@@ -62,11 +64,11 @@ def chooser(request):
                 images = paginator.page(1)
             except EmptyPage:
                 images = paginator.page(paginator.num_pages)
-            
+
             is_searching = False
 
         return render(request, "wagtailimages/chooser/results.html", {
-            'images': images, 
+            'images': images,
             'is_searching': is_searching,
             'will_select_format': request.GET.get('select_format')
         })
@@ -83,11 +85,10 @@ def chooser(request):
             images = paginator.page(1)
         except EmptyPage:
             images = paginator.page(paginator.num_pages)
-        
 
-    return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',{
-        'images': images, 
-        'uploadform': uploadform, 
+    return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
+        'images': images,
+        'uploadform': uploadform,
         'searchform': searchform,
         'is_searching': False,
         'will_select_format': request.GET.get('select_format'),

@@ -4,6 +4,7 @@ from wagtail.wagtailimages.models import Filter
 
 register = template.Library()
 
+
 @register.tag(name="image")
 def image(parser, token):
     args = token.split_contents()
@@ -24,6 +25,7 @@ def image(parser, token):
 
     else:
         raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
+
 
 class ImageNode(template.Node):
     def __init__(self, image_var_name, filter_spec, output_var_name=None):

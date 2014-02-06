@@ -4,10 +4,14 @@ from django.conf import settings
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailadmin import hooks
+
+from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+
+from wagtail.wagtaildocs.models import Document
+
+from wagtail.wagtailimages.models import get_image_model
+
 
 # Panels for the homepage
 class SiteSummaryPanel(object):
@@ -24,6 +28,7 @@ class SiteSummaryPanel(object):
             'total_docs': Document.objects.count(),
         }, RequestContext(self.request))
 
+
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200
@@ -38,6 +43,7 @@ class PagesForModerationPanel(object):
             'page_revisions_for_moderation': self.page_revisions_for_moderation,
         }, RequestContext(self.request))
 
+
 class RecentEditsPanel(object):
     name = 'recent_edits'
     order = 300
@@ -51,6 +57,7 @@ class RecentEditsPanel(object):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
             'last_edits': self.last_edits,
         }, RequestContext(self.request))
+
 
 @login_required
 def home(request):
@@ -67,7 +74,7 @@ def home(request):
     return render(request, "wagtailadmin/home.html", {
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
-        'user':request.user
+        'user': request.user
     })
 
 

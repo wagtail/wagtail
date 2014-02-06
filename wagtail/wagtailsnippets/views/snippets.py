@@ -7,11 +7,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from wagtail.wagtailsnippets.models import get_snippet_content_types
-from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
+from wagtail.wagtailsnippets.models import get_snippet_content_types
+from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
+
+
 # == Helper functions ==
+
 
 def get_snippet_type_name(content_type):
     """ e.g. given the 'advert' content type, return ('Advert', 'Adverts') """
@@ -22,6 +25,7 @@ def get_snippet_type_name(content_type):
         force_text(opts.verbose_name_plural)
     )
 
+
 def get_snippet_type_description(content_type):
     """ return the meta description of the class associated with the given content type """
     opts = content_type.model_class()._meta
@@ -29,6 +33,7 @@ def get_snippet_type_description(content_type):
         return force_text(opts.description)
     except:
         return ''
+
 
 def get_content_type_from_url_params(app_name, model_name):
     """
@@ -45,7 +50,10 @@ def get_content_type_from_url_params(app_name, model_name):
 
     return content_type
 
+
 SNIPPET_EDIT_HANDLERS = {}
+
+
 def get_snippet_edit_handler(model):
     if model not in SNIPPET_EDIT_HANDLERS:
         panels = extract_panel_definitions_from_model_class(model)
@@ -55,7 +63,9 @@ def get_snippet_edit_handler(model):
 
     return SNIPPET_EDIT_HANDLERS[model]
 
+
 # == Views ==
+
 
 @login_required
 def index(request):
@@ -128,6 +138,7 @@ def create(request, content_type_app_name, content_type_model_name):
         'snippet_type_name': snippet_type_name,
         'edit_handler': edit_handler,
     })
+
 
 @login_required
 def edit(request, content_type_app_name, content_type_model_name, id):

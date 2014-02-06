@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 
+
 @permission_required('auth.change_user')
 def index(request):
     p = request.GET.get("p", 1)
@@ -35,6 +36,7 @@ def index(request):
         'ordering': ordering,
     })
 
+
 @permission_required('auth.change_user')
 def create(request):
     if request.POST:
@@ -51,6 +53,7 @@ def create(request):
     return render(request, 'wagtailusers/create.html', {
         'form': form,
     })
+
 
 @permission_required('auth.change_user')
 def edit(request, user_id):

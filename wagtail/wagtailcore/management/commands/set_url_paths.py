@@ -2,6 +2,7 @@ from django.core.management.base import NoArgsCommand
 
 from wagtail.wagtailcore.models import Page
 
+
 class Command(NoArgsCommand):
     def set_subtree(self, root, root_path):
         root.url_path = root_path

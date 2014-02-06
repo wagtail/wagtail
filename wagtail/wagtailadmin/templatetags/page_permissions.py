@@ -1,7 +1,9 @@
 from django import template
+
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 register = template.Library()
+
 
 @register.assignment_tag(takes_context=True)
 def page_permissions(context, page):

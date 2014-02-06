@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from wagtail.wagtailcore.models import Page
+
 from indexed import Indexed
 from searcher import Searcher
 import datetime
@@ -79,7 +79,7 @@ class EditorsPick(models.Model):
     page = models.ForeignKey('wagtailcore.Page')
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     description = models.TextField(blank=True)
-    
+
     class Meta:
         ordering = ('sort_order', )
 

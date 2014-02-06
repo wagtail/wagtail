@@ -1,13 +1,14 @@
+from celery.decorators import task
+
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
-from celery.decorators import task
-from wagtail.wagtailcore.models import PageRevision
-
-
 from django.contrib.auth.models import Permission
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+
+from wagtail.wagtailcore.models import PageRevision
+
 
 def users_with_permission(permission, include_superusers=True):
     # Get user model
@@ -36,13 +37,13 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         recipients = users_with_permission('wagtailcore.publish_page')
     elif notification == 'approved' or notification == 'rejected':
         # Get submitter
-       recipients = [revision.user]
+        recipients = [revision.user]
     else:
         return
 
     # Get list of email addresses
     email_addresses = [
-        recipient.email for recipient in recipients 
+        recipient.email for recipient in recipients
         if recipient.email and recipient.id != excluded_user_id
     ]
 

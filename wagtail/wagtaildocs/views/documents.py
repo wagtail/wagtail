@@ -4,9 +4,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 
+from wagtail.wagtailadmin.forms import SearchForm
+
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
-from wagtail.wagtailadmin.forms import SearchForm
 
 
 @permission_required('wagtaildocs.add_document')
@@ -15,7 +16,7 @@ def index(request):
     q = None
     p = request.GET.get("p", 1)
     is_searching = False
-    
+
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder_suffix="documents")
         if form.is_valid():
@@ -39,13 +40,12 @@ def index(request):
             documents = documents.filter(uploaded_by_user=request.user)
         form = SearchForm(placeholder_suffix="documents")
 
-
     if 'ordering' in request.GET:
-        ordering = request.GET['ordering']  
+        ordering = request.GET['ordering']
 
         if ordering in ['title', '-created_at']:
             if ordering != '-created_at':
-                documents = documents.order_by(ordering)   
+                documents = documents.order_by(ordering)
     else:
         ordering = '-created_at'
 
@@ -61,14 +61,14 @@ def index(request):
 
     if request.is_ajax():
         return render(request, "wagtaildocs/documents/results.html", {
-            'ordering':ordering,
+            'ordering': ordering,
             'documents': documents,
             'is_searching': is_searching,
             'search_query': q,
         })
     else:
         return render(request, "wagtaildocs/documents/index.html", {
-            'ordering':ordering,
+            'ordering': ordering,
             'search_form': form,
             'documents': documents,
             'popular_tags': Document.popular_tags(),

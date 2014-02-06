@@ -1,7 +1,10 @@
+import json
+
+from taggit.models import Tag
+
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from taggit.models import Tag
-import json
+
 
 @login_required
 def autocomplete(request):

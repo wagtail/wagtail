@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 
 import models
-import forms
 
 
 REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
+
 
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
@@ -25,18 +25,18 @@ def index(request):
             is_searching = True
 
             redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page').filter(old_path__icontains=q)
-    
+
     if not is_searching:
         # Get redirects
         redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
         form = SearchForm(placeholder_suffix="redirects")
 
     if 'ordering' in request.GET:
-        ordering = request.GET['ordering']  
+        ordering = request.GET['ordering']
 
-        if ordering in ['old_path',]:
+        if ordering in ['old_path', ]:
             if ordering != 'old_path':
-                redirects = redirects.order_by(ordering)   
+                redirects = redirects.order_by(ordering)
     else:
         ordering = 'old_path'
 
@@ -52,7 +52,7 @@ def index(request):
     # Render template
     if request.is_ajax():
         return render(request, "wagtailredirects/results.html", {
-            'ordering':ordering,
+            'ordering': ordering,
             'redirects': redirects,
             'is_searching': is_searching,
             'search_query': q,
@@ -64,6 +64,7 @@ def index(request):
             'redirects': redirects,
             'is_searching': is_searching,
         })
+
 
 @permission_required('wagtailredirects.change_redirect')
 def edit(request, redirect_id):

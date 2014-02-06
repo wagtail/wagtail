@@ -1,3 +1,9 @@
+import StringIO
+import os.path
+
+import PIL.Image
+from taggit.managers import TaggableManager
+
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist, ValidationError
 from django.db import models
@@ -5,12 +11,6 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
-
-import StringIO
-import PIL.Image
-import os.path
-
-from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages import image_ops
@@ -24,7 +24,7 @@ class AbstractImage(models.Model, TagSearchable):
         filename = self.file.field.storage.get_valid_name(filename)
 
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i)<128 else '_') for i in filename)
+        filename = "".join((i if ord(i) < 128 else '_') for i in filename)
 
         while len(os.path.join(folder_name, filename)) >= 95:
             prefix, dot, extension = filename.rpartition('.')
@@ -75,6 +75,7 @@ class AbstractImage(models.Model, TagSearchable):
 
     def is_portrait(self):
         return (self.width < self.height)
+
     def is_landscape(self):
         return (self.height < self.width)
 
@@ -100,7 +101,8 @@ class AbstractImage(models.Model, TagSearchable):
             return False
 
     class Meta:
-        abstract=True
+        abstract = True
+
 
 class Image(AbstractImage):
     pass
@@ -216,7 +218,7 @@ class AbstractRendition(models.Model):
         )
 
     class Meta:
-        abstract=True
+        abstract = True
 
 
 class Rendition(AbstractRendition):
@@ -226,6 +228,7 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter'),
         )
+
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=Rendition)

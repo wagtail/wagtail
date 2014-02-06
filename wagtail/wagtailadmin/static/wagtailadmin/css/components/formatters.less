@@ -5,20 +5,6 @@
     width:50px;
     height:50px;
 
-    &:before{
-        .border-radius(100%);
-        color:@color-grey-3;
-        border: 2px solid @color-grey-3;
-        text-align:center;
-        display:block;
-        width:42px;
-        height:42px;
-        margin:2px 0 0 2px;
-        line-height:42px;
-        position:absolute;
-        z-index:1;
-        left:0;
-    }
     a{
         position:absolute;
         z-index:2;
@@ -33,9 +19,24 @@
         .border-radius(100%);
         border:0;
     }
+
+    &:before{
+        .border-radius(100%);
+        color:@color-grey-3;
+        border: 2px solid @color-grey-3;
+        text-align:center;
+        display:block;
+        width:42px;
+        height:42px;
+        margin:2px 0 0 2px;
+        line-height:42px;
+        position:absolute;
+        z-index:1;
+        left:0;
+    }
     &:hover:before{
-        color:@color-teal;
-        border-color:@color-teal;
+        color:@color-grey-3;
+        border-color:@color-grey-3;
     }
 
     &.small{

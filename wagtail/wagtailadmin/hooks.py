@@ -8,12 +8,15 @@ _hooks = {}
 #    def construct_main_menu(menu_items):
 #        ...
 
+
 def register(hook_name, fn):
     if hook_name not in _hooks:
         _hooks[hook_name] = []
     _hooks[hook_name].append(fn)
 
 _searched_for_hooks = False
+
+
 def search_for_hooks():
     global _searched_for_hooks
     if not _searched_for_hooks:

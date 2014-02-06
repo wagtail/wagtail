@@ -1,4 +1,5 @@
 from django.db import models
+
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 
 

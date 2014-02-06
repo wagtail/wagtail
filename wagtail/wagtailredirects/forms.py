@@ -4,7 +4,7 @@ import models
 
 
 class RedirectForm(forms.ModelForm):
-	required_css_class = "required"
-	
-	class Meta:
-		model = models.Redirect
+    required_css_class = "required"
+
+    class Meta:
+        model = models.Redirect

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.utils.importlib import import_module
 from django.utils.html import escape
 
+
 class Format(object):
     def __init__(self, name, label, classnames, filter_spec):
         self.name = name
@@ -40,11 +41,13 @@ class Format(object):
 FORMATS = []
 FORMATS_BY_NAME = {}
 
+
 def register_image_format(format):
     if format.name in FORMATS_BY_NAME:
         raise KeyError("Image format '%s' is already registered" % format.name)
     FORMATS_BY_NAME[format.name] = format
     FORMATS.append(format)
+
 
 def unregister_image_format(format_name):
     global FORMATS
@@ -60,15 +63,20 @@ def unregister_image_format(format_name):
     except KeyError:
         raise KeyError("Image format '%s' is not registered" % format_name)
 
+
 def get_image_formats():
     search_for_image_formats()
     return FORMATS
+
 
 def get_image_format(name):
     search_for_image_formats()
     return FORMATS_BY_NAME[name]
 
+
 _searched_for_image_formats = False
+
+
 def search_for_image_formats():
     global _searched_for_image_formats
     if not _searched_for_image_formats:

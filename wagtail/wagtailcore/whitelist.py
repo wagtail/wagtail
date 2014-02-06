@@ -8,6 +8,7 @@ from urlparse import urlparse
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
 
+
 def check_url(url_string):
     # TODO: more paranoid checks (urlparse doesn't catch "jav\tascript:alert('XSS')")
     url = urlparse(url_string)
@@ -45,6 +46,7 @@ def attribute_rule(allowed_attrs):
     return fn
 
 allow_without_attributes = attribute_rule({})
+
 
 class Whitelister(object):
     element_rules = {

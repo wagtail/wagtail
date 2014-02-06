@@ -1,6 +1,6 @@
 from django.core.management.base import NoArgsCommand
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+
 from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.search import Search
 
@@ -18,8 +18,8 @@ class Command(NoArgsCommand):
 
         # Add all objects to object set and detect any duplicates
         # Duplicates are caused when both a model and a derived model are indexed
-        # Eg, StudentPage inherits from Page and both of these models are indexed
-        # If we were to add all objects from both models into the index, all the StudentPages will have two entries
+        # Eg, if BlogPost inherits from Page and both of these models are indexed
+        # If we were to add all objects from both models into the index, all the BlogPosts will have two entries
         for model in indexed_models:
             # Get toplevel content type
             toplevel_content_type = model.indexed_get_toplevel_content_type()
@@ -28,7 +28,7 @@ class Command(NoArgsCommand):
             for obj in model.objects.all():
                 # Check if this object has an "object_indexed" function
                 if hasattr(obj, "object_indexed"):
-                    if obj.object_indexed() == False:
+                    if obj.object_indexed() is False:
                         continue
 
                 # Get key for this object
@@ -38,7 +38,7 @@ class Command(NoArgsCommand):
                 if key in object_set:
                     # Conflict, work out who should get this space
                     # The object with the longest content type string gets the space
-                    # Eg, "wagtailcore.Page-rca.StudentPage" kicks out "wagtailcore.Page"
+                    # Eg, "wagtailcore.Page-myapp.BlogPost" kicks out "wagtailcore.Page"
                     if len(obj.indexed_get_content_type()) > len(object_set[key].indexed_get_content_type()):
                         # Take the spot
                         object_set[key] = obj
