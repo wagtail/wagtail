@@ -5,7 +5,7 @@ possibly after several navigation steps
 
 function ModalWorkflow(opts) {
     /* options passed in 'opts':
-        'url' (required): initial 
+        'url' (required): initial
         'responses' (optional): dict of callbacks to be called when the modal content
             calls modal.respond(callbackName, params)
     */

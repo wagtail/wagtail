@@ -48,7 +48,7 @@ function insertRichTextDeleteControl(elem) {
         $(elem).fadeOut(function() {
             $(elem).remove();
         });
-    })
+    });
 }
 
 function initDateChoosers(context) {
@@ -143,11 +143,11 @@ function InlinePanel(opts) {
         if (opts.canOrder) {
             forms = self.formsUl.children('li:visible');
             forms.each(function(i) {
-                $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i == 0).toggleClass('enabled', i != 0);
-                $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i == forms.length - 1).toggleClass('enabled', i != forms.length - 1);
+                $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
+                $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
             });
         }
-    }
+    };
 
     self.animateSwap = function(item1, item2){
         var parent = self.formsUl;
@@ -174,8 +174,8 @@ function InlinePanel(opts) {
         }, 200, function(){
             parent.removeClass('moving').removeAttr('style');
             children.removeClass('moving').removeAttr('style');
-        })
-    }
+        });
+    };
 
     buildExpandingFormset(opts.formsetPrefix, {
         onAdd: function(formCount) {
@@ -214,7 +214,7 @@ function initSlugAutoPopulate(){
 function initSlugCleaning(){
     $('#id_slug').on('keyup blur', function(){
         $(this).val(cleanForSlug($(this).val()));
-    })
+    });
 }
 
 $(function() {
