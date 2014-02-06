@@ -1,0 +1,17 @@
+[run]
+branch = True
+source = treebeard
+parallel = True
+
+[paths]
+source =
+  ./
+  *\workspace\django-treebeard\tox_db\*\tox_django\*\tox_python\*\os\windows/
+  */jobs/django-treebeard/workspace/TOX_DB/*/TOX_DJANGO/*/TOX_PYTHON/*/os/osx/
+  */workspace/django-treebeard/TOX_DB/*/TOX_DJANGO/*/TOX_PYTHON/*/os/linux/
+
+[report]
+omit =
+    */tests/*
+    */numconv.py
+precision = 2
