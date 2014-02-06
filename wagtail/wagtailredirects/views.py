@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
+
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 
 import models
-import forms
 
 
 REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
+
 
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
