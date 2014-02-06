@@ -1,24 +1,32 @@
 from django.conf.urls import patterns, url
 from django.conf import settings
+
 from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 
-urlpatterns = patterns('django.contrib.auth.views',
-    url(r'^login/$', 'login', {
-        'template_name': 'wagtailadmin/login.html',
-        'authentication_form': LoginForm,
-        'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
-    }),
+
+urlpatterns = patterns(
+    'django.contrib.auth.views',
+    url(
+        r'^login/$', 'login', {
+            'template_name': 'wagtailadmin/login.html',
+            'authentication_form': LoginForm,
+            'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
+        }
+    ),
     url(r'^logout/$', 'logout', {'next_page': '/admin/login/'}),
 
     # Password reset
-    url(r'^password_reset/$', 'password_reset', {
-        'template_name': 'wagtailadmin/account/password_reset/form.html',
-        'email_template_name': 'wagtailadmin/account/password_reset/email.txt',
-        'subject_template_name': 'wagtailadmin/account/password_reset/email_subject.txt',
-        'password_reset_form': PasswordResetForm,
-    }, name='password_reset'),
+    url(
+        r'^password_reset/$', 'password_reset', {
+            'template_name': 'wagtailadmin/account/password_reset/form.html',
+            'email_template_name': 'wagtailadmin/account/password_reset/email.txt',
+            'subject_template_name': 'wagtailadmin/account/password_reset/email_subject.txt',
+            'password_reset_form': PasswordResetForm,
+        }, name='password_reset'
+    ),
     url(r'^password_reset/done/$', 'password_reset_done', {'template_name': 'wagtailadmin/account/password_reset/done.html'}, name='password_reset_done'),
-    url(r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(
+        r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         'password_reset_confirm',
         {'template_name': 'wagtailadmin/account/password_reset/confirm.html'},
         name='password_reset_confirm',
@@ -26,7 +34,8 @@ urlpatterns = patterns('django.contrib.auth.views',
     url(r'^password_reset/complete/$', 'password_reset_complete', {'template_name': 'wagtailadmin/account/password_reset/complete.html'}, name='password_reset_complete'),
 )
 
-urlpatterns += patterns('wagtail.wagtailadmin.views',
+urlpatterns += patterns(
+    'wagtail.wagtailadmin.views',
     url(r'^$', 'home.home', name='wagtailadmin_home'),
 
     url(r'^failwhale/$', 'home.error_test', name='wagtailadmin_error_test'),
@@ -50,7 +59,7 @@ urlpatterns += patterns('wagtail.wagtailadmin.views',
     url(r'^pages/(\d+)/delete/$', 'pages.delete', name='wagtailadmin_pages_delete'),
     url(r'^pages/(\d+)/unpublish/$', 'pages.unpublish', name='wagtailadmin_pages_unpublish'),
 
-     url(r'^pages/search/$', 'pages.search', name='wagtailadmin_pages_search'),
+    url(r'^pages/search/$', 'pages.search', name='wagtailadmin_pages_search'),
 
     url(r'^pages/(\d+)/move/$', 'pages.move_choose_destination', name='wagtailadmin_pages_move'),
     url(r'^pages/(\d+)/move/(\d+)/$', 'pages.move_choose_destination', name='wagtailadmin_pages_move_choose_destination'),

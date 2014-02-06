@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 
+
 class SearchForm(forms.Form):
     q = forms.CharField(label="Search term")
 
@@ -9,12 +10,15 @@ class SearchForm(forms.Form):
 class ExternalLinkChooserForm(forms.Form):
     url = forms.URLField(required=True)
 
+
 class ExternalLinkChooserWithLinkTextForm(forms.Form):
     url = forms.URLField(required=True)
     link_text = forms.CharField(required=True)
 
+
 class EmailLinkChooserForm(forms.Form):
     email_address = forms.EmailField(required=True)
+
 
 class EmailLinkChooserWithLinkTextForm(forms.Form):
     email_address = forms.EmailField(required=True)
@@ -50,7 +54,7 @@ class PasswordResetForm(PasswordResetForm):
 
             if not found_non_ldap_user:
                 # All found users are LDAP users, give error message
-               raise forms.ValidationError("Sorry, you cannot reset your password here as your user account is managed by another server.")
+                raise forms.ValidationError("Sorry, you cannot reset your password here as your user account is managed by another server.")
         else:
             # No user accounts exist
             raise forms.ValidationError("This email address is not recognised.")

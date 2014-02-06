@@ -4,9 +4,11 @@ from django.http import Http404
 from django.utils.http import urlencode
 from django.contrib.auth.decorators import login_required
 
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
+
+from wagtail.wagtailcore.models import Page
+
 
 def get_querystring(request):
     return urlencode({
@@ -16,12 +18,12 @@ def get_querystring(request):
         'prompt_for_link_text': request.GET.get('prompt_for_link_text', ''),
     })
 
+
 @login_required
 def browse(request, parent_page_id=None):
     page_type = request.GET.get('page_type') or 'wagtailcore.page'
     content_type_app_name, content_type_model_name = page_type.split('.')
 
-    q = None
     is_searching = False
 
     try:
@@ -34,10 +36,10 @@ def browse(request, parent_page_id=None):
         search_form = SearchForm(request.GET)
         if search_form.is_valid() and search_form.cleaned_data['q']:
             pages = desired_class.objects.exclude(
-                depth=1 # never include root
+                depth=1  # never include root
             ).filter(title__icontains=search_form.cleaned_data['q'])[:10]
             is_searching = True
-    
+
     if not is_searching:
         if parent_page_id:
             parent_page = get_object_or_404(Page, id=parent_page_id)
@@ -68,8 +70,7 @@ def browse(request, parent_page_id=None):
             'is_searching': is_searching
         })
 
-        
-    return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',{
+    return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
         'querystring': get_querystring(request),
@@ -78,6 +79,7 @@ def browse(request, parent_page_id=None):
         'search_form': search_form,
         'is_searching': False
     })
+
 
 @login_required
 def external_link(request):
@@ -91,7 +93,8 @@ def external_link(request):
     if request.POST:
         form = form_class(request.POST)
         if form.is_valid():
-            return render_modal_workflow(request,
+            return render_modal_workflow(
+                request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': form.cleaned_data['url'],
@@ -101,7 +104,8 @@ def external_link(request):
     else:
         form = form_class()
 
-    return render_modal_workflow(request,
+    return render_modal_workflow(
+        request,
         'wagtailadmin/chooser/external_link.html', 'wagtailadmin/chooser/external_link.js',
         {
             'querystring': get_querystring(request),
@@ -109,6 +113,7 @@ def external_link(request):
             'form': form,
         }
     )
+
 
 @login_required
 def email_link(request):
@@ -122,7 +127,8 @@ def email_link(request):
     if request.POST:
         form = form_class(request.POST)
         if form.is_valid():
-            return render_modal_workflow(request,
+            return render_modal_workflow(
+                request,
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': 'mailto:' + form.cleaned_data['email_address'],
@@ -132,7 +138,8 @@ def email_link(request):
     else:
         form = form_class()
 
-    return render_modal_workflow(request,
+    return render_modal_workflow(
+        request,
         'wagtailadmin/chooser/email_link.html', 'wagtailadmin/chooser/email_link.js',
         {
             'querystring': get_querystring(request),

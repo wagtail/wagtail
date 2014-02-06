@@ -1,10 +1,11 @@
 from django import template
 from django.core import urlresolvers
 
-from wagtail.wagtailcore.models import get_navigation_menu_items
-
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.menu import MenuItem
+
+from wagtail.wagtailcore.models import get_navigation_menu_items
+
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
 
 register = template.Library()

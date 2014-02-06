@@ -1,3 +1,10 @@
+import copy
+import re
+import datetime
+
+from taggit.forms import TagWidget
+from modelcluster.forms import ClusterForm, ClusterFormMetaclass
+
 from django.template.loader import render_to_string
 from django.template.defaultfilters import addslashes
 from django.utils.safestring import mark_safe
@@ -8,16 +15,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
 from django.core.urlresolvers import reverse
 
-import copy
-
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass
-from taggit.forms import TagWidget
-
-import re
-import datetime
 
 
 class FriendlyDateInput(forms.DateInput):
@@ -135,8 +135,10 @@ WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', 
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
 
 
-def get_form_for_model(model, fields=None, exclude=None, formsets=None, exclude_formsets=None,
-    widgets=None):
+def get_form_for_model(
+    model,
+    fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
+):
 
     # django's modelform_factory with a bit of custom behaviour
     # (dealing with Treebeard's tree-related fields that really should have
@@ -216,10 +218,12 @@ class EditHandler(object):
     # the top-level edit handler is responsible for providing a form class that can produce forms
     # acceptable to the edit handler
     _form_class = None
+
     @classmethod
     def get_form_class(cls, model):
         if cls._form_class is None:
-            cls._form_class = get_form_for_model(model,
+            cls._form_class = get_form_for_model(
+                model,
                 formsets=cls.required_formsets(), widgets=cls.widget_overrides())
         return cls._form_class
 
@@ -231,7 +235,6 @@ class EditHandler(object):
         if not form:
             raise ValueError("EditHandler did not receive a form object")
         self.form = form
-
 
     # Heading / help text to display to the user
     heading = ""
@@ -250,7 +253,6 @@ class EditHandler(object):
         <ul class="fields">
         """
         return ""
-
 
     def field_type(self):
         """
@@ -315,6 +317,7 @@ class BaseCompositeEditHandler(EditHandler):
     Concrete subclasses must attach a 'children' property
     """
     _widget_overrides = None
+
     @classmethod
     def widget_overrides(cls):
         if cls._widget_overrides is None:
@@ -327,6 +330,7 @@ class BaseCompositeEditHandler(EditHandler):
         return cls._widget_overrides
 
     _required_formsets = None
+
     @classmethod
     def required_formsets(cls):
         if cls._required_formsets is None:
@@ -360,8 +364,10 @@ class BaseCompositeEditHandler(EditHandler):
 
         return result
 
+
 class BaseTabbedInterface(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
+
 
 def TabbedInterface(children):
     return type('_TabbedInterface', (BaseTabbedInterface,), {'children': children})
@@ -369,6 +375,7 @@ def TabbedInterface(children):
 
 class BaseObjectList(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
+
 
 def ObjectList(children, heading=""):
     return type('_ObjectList', (BaseObjectList,), {
@@ -379,6 +386,7 @@ def ObjectList(children, heading=""):
 
 class BaseMultiFieldPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/multi_field_panel.html"
+
 
 def MultiFieldPanel(children, heading=""):
     return type('_MultiFieldPanel', (BaseMultiFieldPanel,), {
@@ -402,7 +410,7 @@ class BaseFieldPanel(EditHandler):
             return "single-field"
 
     def field_type(self):
-        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)        
+        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
 
     def field_classnames(self):
         classname = self.field_type()
@@ -414,11 +422,12 @@ class BaseFieldPanel(EditHandler):
         return classname
 
     object_template = "wagtailadmin/edit_handlers/field_panel_object.html"
+
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
             'self': self,
             'field_content': self.render_as_field(show_help_text=False),
-        }))        
+        }))
 
     def render_js(self):
         try:
@@ -429,8 +438,8 @@ class BaseFieldPanel(EditHandler):
 
         return mark_safe(js_func(self.bound_field.id_for_label))
 
-
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
+
     def render_as_field(self, show_help_text=True):
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
@@ -440,6 +449,7 @@ class BaseFieldPanel(EditHandler):
 
     def rendered_fields(self):
         return [self.field_name]
+
 
 def FieldPanel(field_name, classname=None):
     return type('_FieldPanel', (BaseFieldPanel,), {
@@ -451,6 +461,7 @@ def FieldPanel(field_name, classname=None):
 class BaseRichTextFieldPanel(BaseFieldPanel):
     def render_js(self):
         return mark_safe("makeRichTextEditable(fixPrefix('%s'));" % self.bound_field.id_for_label)
+
 
 def RichTextFieldPanel(field_name):
     return type('_RichTextFieldPanel', (BaseRichTextFieldPanel,), {
@@ -498,11 +509,13 @@ class BaseChooserPanel(BaseFieldPanel):
     def render_js(self):
         return mark_safe("%s(fixPrefix('%s'));" % (self.js_function_name, self.bound_field.id_for_label))
 
+
 class BasePageChooserPanel(BaseChooserPanel):
     field_template = "wagtailadmin/edit_handlers/page_chooser_panel.html"
     object_type_name = "page"
 
     _target_content_type = None
+
     @classmethod
     def target_content_type(cls):
         if cls._target_content_type is None:
@@ -540,6 +553,7 @@ class BasePageChooserPanel(BaseChooserPanel):
             (parent.id if parent else 'null'),
         ))
 
+
 def PageChooserPanel(field_name, page_type=None):
     return type('_PageChooserPanel', (BasePageChooserPanel,), {
         'field_name': field_name,
@@ -558,6 +572,7 @@ class BaseInlinePanel(EditHandler):
             return extract_panel_definitions_from_model_class(cls.related.model, exclude=[cls.related.field.name])
 
     _child_edit_handler_class = None
+
     @classmethod
     def get_child_edit_handler_class(cls):
         if cls._child_edit_handler_class is None:
@@ -577,7 +592,6 @@ class BaseInlinePanel(EditHandler):
             return {cls.relation_name: overrides}
         else:
             return {}
-
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
@@ -606,6 +620,7 @@ class BaseInlinePanel(EditHandler):
         self.empty_child = child_edit_handler_class(instance=empty_form.instance, form=empty_form)
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
+
     def render(self):
         return mark_safe(render_to_string(self.template, {
             'self': self,
@@ -613,11 +628,13 @@ class BaseInlinePanel(EditHandler):
         }))
 
     js_template = "wagtailadmin/edit_handlers/inline_panel.js"
+
     def render_js(self):
         return mark_safe(render_to_string(self.js_template, {
             'self': self,
             'can_order': self.formset.can_order,
         }))
+
 
 def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
     rel = getattr(base_model, relation_name).related

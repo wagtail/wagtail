@@ -1,8 +1,9 @@
+import json
+
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
-import json
 
 def render_modal_workflow(request, html_template, js_template, template_vars={}):
     """"

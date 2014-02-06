@@ -3,16 +3,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.template.loader import render_to_string
 from django.template import RequestContext
-
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wagtail.wagtailadmin import tasks, hooks
+
+from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 
 
 @login_required
@@ -32,9 +32,6 @@ def index(request, parent_page_id=None):
             pages = pages.order_by(ordering)
     else:
         ordering = 'title'
-    
-    # if ordering == 'ord':    
-    #     messages.warning(request, "You are now able to reorder pages. Click 'Save order' when you've finished")
 
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
@@ -61,7 +58,7 @@ def select_type(request):
 
     return render(request, 'wagtailadmin/pages/select_type.html', {
         'page_types': page_types,
-        'all_page_types':all_page_types
+        'all_page_types': all_page_types
     })
 
 
@@ -79,6 +76,7 @@ def add_subpage(request, parent_page_id):
         'page_types': page_types,
         'all_page_types': all_page_types,
     })
+
 
 @login_required
 def select_location(request, content_type_app_name, content_type_model_name):
@@ -110,6 +108,7 @@ def select_location(request, content_type_app_name, content_type_model_name):
             'page_class': page_class,
             'parent_pages': parent_pages,
         })
+
 
 @login_required
 def content_type_use(request, content_type_app_name, content_type_model_name):
@@ -275,7 +274,6 @@ def edit(request, page_id):
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
-
     # Check for revisions still undergoing moderation and warn
     if latest_revision and latest_revision.submitted_for_moderation:
         messages.warning(request, "This page is currently awaiting moderation")
@@ -285,6 +283,7 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
     })
+
 
 @login_required
 def delete(request, page_id):
@@ -309,10 +308,12 @@ def delete(request, page_id):
         'descendant_count': page.get_descendant_count()
     })
 
+
 @login_required
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     return page.serve(request)
+
 
 @login_required
 def preview_on_edit(request, page_id):
@@ -346,6 +347,7 @@ def preview_on_edit(request, page_id):
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
+
 
 @login_required
 def preview_on_create(request, content_type_app_name, content_type_model_name, parent_page_id):
@@ -387,6 +389,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         response['X-Wagtail-Preview'] = 'error'
         return response
 
+
 def preview_placeholder(request):
     """
     The HTML of a previewed page is written to the destination browser window using document.write.
@@ -410,6 +413,7 @@ def preview_placeholder(request):
     """
     return render(request, 'wagtailadmin/pages/preview_placeholder.html')
 
+
 @login_required
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id)
@@ -426,6 +430,7 @@ def unpublish(request, page_id):
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
     })
+
 
 @login_required
 def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
@@ -456,6 +461,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         'child_pages': child_pages,
     })
 
+
 @login_required
 def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
@@ -477,6 +483,7 @@ def move_confirm(request, page_to_move_id, destination_id):
         'destination': destination,
     })
 
+
 @login_required
 def set_page_position(request, page_to_move_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
@@ -495,7 +502,7 @@ def set_page_position(request, page_to_move_id):
             try:
                 position_page = parent_page.get_children()[int(position)]
             except IndexError:
-                pass # No page in this position
+                pass  # No page in this position
 
         # Move page
 
@@ -511,7 +518,10 @@ def set_page_position(request, page_to_move_id):
 
     return HttpResponse('')
 
+
 PAGE_EDIT_HANDLERS = {}
+
+
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
         PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
@@ -540,11 +550,11 @@ def search(request):
             # Pagination
             paginator = Paginator(pages, 20)
             try:
-                pages =  paginator.page(p)
+                pages = paginator.page(p)
             except PageNotAnInteger:
-                pages =  paginator.page(1)
+                pages = paginator.page(1)
             except EmptyPage:
-                pages =  paginator.page(paginator.num_pages)
+                pages = paginator.page(paginator.num_pages)
     else:
         form = SearchForm()
 
@@ -580,6 +590,7 @@ def approve_moderation(request, revision_id):
 
     return redirect('wagtailadmin_home')
 
+
 @login_required
 def reject_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
@@ -597,6 +608,7 @@ def reject_moderation(request, revision_id):
         tasks.send_notification.delay(revision.id, 'rejected', request.user.id)
 
     return redirect('wagtailadmin_home')
+
 
 @login_required
 def preview_for_moderation(request, revision_id):
