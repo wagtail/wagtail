@@ -1,6 +1,8 @@
-from __future__ import division # Use true division
-from .embeds import get_embed
+from __future__ import division  # Use true division
+
 from django.utils.html import escape
+
+from .embeds import get_embed
 
 
 def embed_to_frontend_html(url):

@@ -1,6 +1,6 @@
-import re
 from django import template
 from django.utils.safestring import mark_safe
+
 from wagtail.wagtailembeds.embeds import get_embed
 
 

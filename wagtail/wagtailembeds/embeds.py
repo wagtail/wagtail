@@ -1,6 +1,8 @@
 from datetime import datetime
-from django.conf import settings
 from embedly import Embedly
+
+from django.conf import settings
+
 from .models import Embed
 
 
@@ -23,8 +25,17 @@ def get_embed(url, max_width=None):
         return None
 
     # Save result to database
-    row, created = Embed.objects.get_or_create(url=url, max_width=max_width,
-                defaults={'type': oembed.type, 'title': oembed.title, 'thumbnail_url': oembed.thumbnail_url, 'width': oembed.width, 'height': oembed.height})
+    row, created = Embed.objects.get_or_create(
+        url=url,
+        max_width=max_width,
+        defaults={
+            'type': oembed.type,
+            'title': oembed.title,
+            'thumbnail_url': oembed.thumbnail_url,
+            'width': oembed.width,
+            'height': oembed.height
+        }
+    )
 
     if oembed.type == 'photo':
         html = '<img src="%s" />' % (oembed.url, )
