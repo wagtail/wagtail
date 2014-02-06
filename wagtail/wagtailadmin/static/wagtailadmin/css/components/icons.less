@@ -1,12 +1,19 @@
 @font-face {
-    font-family: "verdant";
-    src:url("@{css-root}fonts/verdant.eot");
-    src:url("@{css-root}fonts/verdant.eot?#iefix") format("embedded-opentype"),
-        url("@{css-root}fonts/verdant.ttf") format("truetype"),
-        url("@{css-root}fonts/verdant.svg#verdant") format("svg"),
-        url("@{css-root}fonts/verdant.woff") format("woff");
+    font-family: "wagtail";
+    src:url("@{css-root}fonts/wagtail.eot");
+    src:url("@{css-root}fonts/wagtail.eot?#iefix") format("embedded-opentype"),
+        url("@{css-root}fonts/wagtail.ttf") format("truetype"),
+        url("@{css-root}fonts/wagtail.svg#wagtail") format("svg"),
+        url("@{css-root}fonts/wagtail.woff") format("woff");
     font-weight: normal;
     font-style: normal;
+}
+/* fix to make chrome on windows use svg, which renders better */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: 'wagtail';
+            src: url("@{css-root}fonts/wagtail.svg#wagtail") format("svg"),
+    }
 }
 
 .icon.teal{
@@ -21,7 +28,7 @@
 .hallotoolbar [class^="icon-"],
 .hallotoolbar [class*=" icon-"]:before,
 .hallotoolbar [class^="icon-"]:before{
-    font-family: "verdant";
+    font-family: "wagtail";
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -146,8 +153,11 @@
 .icon-snippet:before {
     content: "D";
 }
-.icon-verdant:before {
+.icon-wagtail:before {
     content: "V";
+}
+.icon-wagtail-inverse:before {
+    content: "0";
 }
 .icon-bold:before{
     content:"C";
@@ -209,6 +219,15 @@
 .icon-grip:before{
     content:"U";
 }
+.icon-order-down:before{
+    content:"X";
+}
+.icon-order-up:before{
+    content:"Y";
+}
+.icon-bin:before{
+    content:"Z";
+}
 
 .icon.text-replace{
     font-size:0em;
@@ -221,5 +240,6 @@
         width:100%;
         line-height:1.2em;
         text-align:center;
+        vertical-align:0;
     }
 }

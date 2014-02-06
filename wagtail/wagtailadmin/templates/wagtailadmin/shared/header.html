@@ -1,0 +1,25 @@
+<header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+    <div class="row">
+        <div class="left">
+            <div class="col">
+                <h1>{{ title }} <span>{{ subtitle }}</span></h1>
+            </div>
+            {% if search_url %}
+                <form class="col search-bar" action="{% url search_url %}" method="get">
+                    <ul class="fields">
+                        {% for field in search_form %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% endfor %}
+                        <li class="submit"><input type="submit" value="Search" /></li>
+                    </ul>
+                </form>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if add_link %}
+                <div class="addbutton">
+                    <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>
+                </div>
+            {% endif %}
+    </div>
+</header>

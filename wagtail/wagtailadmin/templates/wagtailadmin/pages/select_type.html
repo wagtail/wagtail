@@ -2,9 +2,8 @@
 {% block titletag %}Create a new page{% endblock %}
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
-    <header>
-        <h1>Create a new page</h1>
-    </header>
+
+    {% include "wagtailadmin/shared/header.html" with title="Create a new page" %}
 
     <div class="nice-padding">
         <p>Your new page will be saved in the <em>top level</em> of your website. You can move it after saving.</p>

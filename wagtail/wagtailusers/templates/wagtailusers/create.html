@@ -3,12 +3,11 @@
 {% block titletag %}Add user{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block content %}
-    <header class="merged tab-merged">
-        <h1>Add user</h1>
-    </header>
+
+    {% include "wagtailadmin/shared/header.html" with title="Add user" merged=1 tabbed=1 %}
 
     <ul class="tab-nav merged">
-        <li><a href="#account" class="active">Account</a></li>
+        <li class="active"><a href="#account">Account</a></li>
         <li><a href="#roles">Roles</a></li>
     </ul>   
 

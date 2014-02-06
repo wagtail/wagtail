@@ -14,6 +14,11 @@ $(function(){
     // Enable toggle to open/close nav
     $('#nav-toggle').click(function(){
         $('body').toggleClass('nav-open');
+        if(!$('body').hasClass('nav-open')){
+            $('body').addClass('nav-closed');
+        }else{
+            $('body').removeClass('nav-closed');
+        }
     });
 
     // Enable swishy section navigation menu

@@ -87,10 +87,20 @@
 .modal-body {
     position: relative;
     padding-bottom:2em;
+
+    header{
+        padding-right:100px;
+    }
 }
 
 @media screen and (min-width: @breakpoint-mobile) {
     .modal-dialog {
         padding:0px 0 2em @menu-width;
+    }
+}
+@media screen and (min-width: @breakpoint-desktop-larger){
+    .modal-dialog {
+        max-width:@breakpoint-desktop-larger;
+        padding:0 0 2em 0;
     }
 }

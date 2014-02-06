@@ -19,7 +19,7 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET)
+        form = SearchForm(request.GET, placeholder_suffix="images")
         if form.is_valid():
             q = form.cleaned_data['q']
 
@@ -39,7 +39,7 @@ def index(request):
         if not request.user.has_perm('wagtailimages.change_image'):
             # restrict to the user's own images
             images = images.filter(uploaded_by_user=request.user)
-        form = SearchForm()
+        form = SearchForm(placeholder_suffix="images")
 
     if not is_searching:
         paginator = Paginator(images, 20)
@@ -59,7 +59,7 @@ def index(request):
         })
     else:
         return render(request, "wagtailimages/images/index.html", {
-            'form': form,
+            'search_form': form,
             'images': images,
             'is_searching': is_searching,
             'popular_tags': Image.popular_tags(),

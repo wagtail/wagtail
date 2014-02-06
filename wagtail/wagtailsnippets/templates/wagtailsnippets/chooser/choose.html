@@ -1,6 +1,4 @@
-<header>
-    <h1>Choose <span>{{ snippet_type_name }}</span></h1>
-</header>
+{% include "wagtailadmin/shared/header.html" with title="Choose" subtitle=snippet_type_name %}
 
 <div class="nice-padding">
     {% include "wagtailsnippets/snippets/list.html" with choosing=1 %}

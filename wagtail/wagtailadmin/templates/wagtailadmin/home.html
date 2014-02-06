@@ -10,15 +10,15 @@
 {% endblock %}
 
 {% block content %}
-    <header class="merged">
+    <header class="merged nice-padding">
         <div class="row row-flush">
             {% if user.email %}
                 <div class="col1">
-                    <div class="avatar icon icon-user"><a href="http://gravatar.com" title="Change or set your Gravatar"><img src="{% gravatar_url user.email %}" /></a></div>
+                    <div class="avatar icon icon-user"><img src="{% gravatar_url user.email %}" /></div>
                 </div>
             {% endif %}
             <div class="col10">
-                <h1>Welcome to the Verdant CMS for {{ site_name }}</h1> 
+                <h1>Welcome to the {{ site_name }} Wagtail CMS</h1> 
                 <h2>{{ user.get_full_name|default:user.username }}</h2>
             </div>
         </div>

@@ -1,10 +1,8 @@
-<header class="merged tab-merged">
-    <h1>Choose a document</h1>
-</header>
+{% include "wagtailadmin/shared/header.html" with title="Choose a document" tabbed=1 merged=1 %}
 
 {% if uploadform %}
     <ul class="tab-nav merged">
-        <li><a href="#search" class="active">Search</a></li>
+        <li class="active"><a href="#search">Search</a></li>
         <li><a href="#upload">Upload</a></li>
     </ul>
 {% endif %}

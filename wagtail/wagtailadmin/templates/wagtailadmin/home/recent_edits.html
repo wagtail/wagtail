@@ -1,5 +1,5 @@
 {% if last_edits %}
-    <div class="panel nice-padding row-flush">{# TODO try moving these classes onto the section tag #}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
         <section>
             <h2>Your most recent edits</h2>
             <table class="listing">
@@ -19,7 +19,12 @@
                             <td class="title">
                                 <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="Edit this page">{{ revision.page.title }}</a></h2>
                                 <ul class="actions">
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}">Preview</a></li>
+                                    {% if revision.page.has_unpublished_changes %}
+                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" target="_blank">View draft</a></li>
+                                    {% endif %}
+                                    {% if revision.page.live %}
+                                        <li><a href="{{ revision.page.url }}" target="_blank">View live</a></li>
+                                    {% endif %}
                                 </ul>
                             </td>
                             <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }}</div></td>

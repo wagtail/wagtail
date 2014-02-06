@@ -1,9 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% block titletag %}Editing {{ query.query_string }}{% endblock %}
 {% block content %}
-    <header>
-        <h1>Editing <span>{{ query.query_string }}</span></h1>
-    </header>
+    
+    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=query.query_string %}
 
     <form action="{% url 'wagtailsearch_editorspicks_edit' query.id %}" method="POST" class="nice-padding">
         {% csrf_token %}

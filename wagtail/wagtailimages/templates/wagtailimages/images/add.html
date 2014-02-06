@@ -11,9 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <header>
-        <h1>Add image</h1>
-    </header>
+    {% include "wagtailadmin/shared/header.html" with title="Add image" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtailimages_add_image' %}" method="POST" enctype="multipart/form-data">

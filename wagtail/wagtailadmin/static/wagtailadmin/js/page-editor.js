@@ -22,7 +22,7 @@ function makeRichTextEditable(id) {
         plugins: {
             'halloformat': {},
             'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-            'hallolists': {},
+            'hallolists': {}, 
             'hallohr': {},
             'halloreundo': {},
             'hallowagtailimage': {},
@@ -82,15 +82,28 @@ function initTagField(id, autocompleteUrl) {
 function InlinePanel(opts) {
     var self = {};
 
+    self.setHasContent = function(){
+        if($('li:visible', self.formsUl).length){
+            self.formsUl.parent().removeClass('empty');
+        }else{
+            self.formsUl.parent().addClass('empty');
+        }
+    };
+
     self.initChildControls = function (prefix) {
         var childId = 'inline_child_' + prefix;
         var deleteInputId = 'id_' + prefix + '-DELETE';
+
+        //mark container as having children to identify fields in use from those not
+        self.setHasContent();
+
         $('#' + deleteInputId + '-button').click(function() {
             /* set 'deleted' form field to true */
             $('#' + deleteInputId).val('1');
-            $('#' + childId).fadeOut(function() {
+            $('#' + childId).slideUp(function() {
                 self.updateMoveButtonDisabledStates();
-            });
+                self.setHasContent();
+            });            
         });
         if (opts.canOrder) {
             $('#' + prefix + '-move-up').click(function() {
@@ -187,6 +200,7 @@ function InlinePanel(opts) {
                 $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount);
             }
             self.updateMoveButtonDisabledStates();
+            
             opts.onAdd(fixPrefix);
         }
     });

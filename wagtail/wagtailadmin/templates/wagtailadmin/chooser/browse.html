@@ -1,7 +1,4 @@
-<header>
-    <h1>Choose a page</h1>
-</header>
-{% include 'wagtailadmin/chooser/_search_form.html' %}
+{% include "wagtailadmin/shared/header.html" with title="Choose a page" search_url="wagtailadmin_choose_page" %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}

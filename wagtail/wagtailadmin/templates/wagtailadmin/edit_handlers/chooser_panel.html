@@ -15,14 +15,16 @@
         <div class="chosen">
             {% block chosen_state_view %}{% endblock %}
 
-            {% if not field.field.required %}
-                <input type="button" class="button-secondary action-clear" value="{% block clear_button_label %}Clear choice{% endblock %}">
-            {% endif %}
-            <input type="button" class="button-secondary action-choose" value="{% block choose_another_button_label %}Choose another item{% endblock %}">
+            <div class="actions">
+                {% if not field.field.required %}
+                    <input type="button" class="button-secondary action-clear" value="{% block clear_button_label %}Clear choice{% endblock %}">
+                {% endif %}
+                <input type="button" class="button-secondary action-choose" value="{% block choose_another_button_label %}Choose another item{% endblock %}">
+            </div>
         </div>
 
         <div class="unchosen">
-            <input type="button" class="action-choose" value="{% block choose_button_label %}Choose an item{% endblock %}">
+            <input type="button" class="action-choose button-secondary" value="{% block choose_button_label %}Choose an item{% endblock %}">
         </div>
 
     </div>

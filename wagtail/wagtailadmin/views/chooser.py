@@ -65,7 +65,7 @@ def browse(request, parent_page_id=None):
     if is_searching:
         return render(request, 'wagtailadmin/chooser/_search_results.html', {
             'querystring': get_querystring(request),
-            'search_form': search_form,
+            'searchform': search_form,
             'pages': pages,
             'is_searching': is_searching
         })

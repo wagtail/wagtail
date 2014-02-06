@@ -1,6 +1,6 @@
 <ul class="tab-nav merged">
     {% for child in self.children %}
-        <li><a href="#{{ child.heading|slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a></li>
+        <li class="{% if forloop.first %}active{% endif %}"><a href="#{{ child.heading|slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a></li>
     {% endfor %}
 </ul>
 

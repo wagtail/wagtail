@@ -10,7 +10,7 @@
                 {% elif is_ajax %}
                     
                 {% else %}
-                    <a href="{% url linkurl %}?p={{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                    <a href="{% url linkurl %}?p={{ items.previous_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-left">Previous</a>
                 {% endif %}
             {% endif %}
         </li>
@@ -21,7 +21,7 @@
                 {% elif is_searching %}
                     <a href="{% url linkurl %}?q={{ search_query|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
                 {% else %}
-                    <a href="{% url linkurl %}?p={{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                    <a href="{% url linkurl %}?p={{ items.next_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-right-after">Next</a>
                 {% endif %}
             {% endif %}
         </li>

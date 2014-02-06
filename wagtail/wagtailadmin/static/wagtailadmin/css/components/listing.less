@@ -77,7 +77,7 @@ ul.listing{
 
     &.full-width td:first-child,
     &.full-width th:first-child{
-        .push-padding(@grid-content-indent);
+        padding-left:20px;
     }
 
     &.full-width{
@@ -116,7 +116,6 @@ ul.listing{
         }
         .status-tag{
             border-color:white;
-            color:white;
         }
     }
 
@@ -137,16 +136,61 @@ ul.listing{
     }
 
     &.full-width .divider td{
-        .push-padding(@grid-content-indent);
+        padding-left:20px;
     }
 
     .index {
-        background-color:@color-header-bg;
+        background-color:@color-grey-4;
+
         .title h2{
-            font-size:1.2em; 
+            font-size:1.2em;
+            opacity:1;
+            a{
+                .transition(opacity 0.2s ease);
+            }
+            a:hover{
+                opacity:0.7;
+            }
         }
         a{
             color:auto;
+        }
+        .actions{
+            margin-top:1.5em;
+            
+            li{
+                border-color:@color-teal-darker;
+            }
+            a{
+                color:white;
+
+                &:hover{
+                    color:@color-teal-dark;
+                }
+            }
+
+            .button{
+                background-color:@color-teal-darker;
+
+                &:hover{
+                    color:white;
+                    background:@color-teal-dark;
+                }
+            }
+        }
+
+    }
+
+    .page-explorer & .index{
+        color:white;
+        background-color:@color-header-bg;
+
+        .title h2{
+            color:white;
+
+            a:hover{
+                color:white;
+            }
         }
     }
 
@@ -182,7 +226,6 @@ ul.listing{
             a{
                 color:inherit;
                 text-decoration:none;
-                display: block;
 
                 &:hover{
                     color:@color-link;
@@ -192,7 +235,7 @@ ul.listing{
     }
 
     .actions{
-        margin-top:0.5em;
+        margin-top:0.8em;
         text-transform:uppercase;
         font-size:0.85em;
 
@@ -202,7 +245,7 @@ ul.listing{
 
         li{
             display:inline-block;
-            padding:0 0.5em;
+            padding:0 0.5em 0 0.8em;
             border-left:1px solid @color-grey-3;
             line-height:1em;
             
@@ -216,13 +259,7 @@ ul.listing{
         }
 
         .button-small{
-            font-size:1em;
-            padding:0.6em 1.2em;
             margin-right:1em;
-
-            &:before{
-                font-size:1.7em;
-            }
         }
     }
 
@@ -236,7 +273,7 @@ ul.listing{
         padding:0 !important;
         border-left:1px dashed @color-input-border;
         &:hover{
-            background-color:@color-header-bg;
+            background-color:@color-grey-5;
         }
     }
     .children a,
@@ -324,14 +361,13 @@ ul.listing{
     }
 
     table .no-results-message{
-        .push-padding(@grid-content-indent);
+        padding-left:20px;
     }
 
     .inactive h2{
         opacity:0.5;
     }
 }
-
 
 .pagination{
     text-align:center;
@@ -355,6 +391,12 @@ ul.listing{
     } 
 }
 
+.listing.full-width + .pagination{
+    margin-top: 3em;
+    border-top: 1px dashed #d9d9d9;
+    padding:2em 50px 0 50px;
+}
+
 @media screen and (min-width: @breakpoint-mobile){
     .listing{
         &.horiz > li{
@@ -366,7 +408,7 @@ ul.listing{
             border-width:0 0 0 1px !important;
 
             > li{
-                padding:@grid-gutter-width/2;
+                padding:1.3em;
                 width:200px;
                 height:220px;
                 text-align:center;
@@ -387,7 +429,7 @@ ul.listing{
                     }
 
                     img{
-                        border:3px solid transparent;
+                        
                         display:inline-block;
                         vertical-align: middle;
                     }
@@ -426,10 +468,21 @@ ul.listing{
             border-color:@color-input-border;
             a{opacity:1;}
         }
-    }
-   
-}
 
+        table .no-results-message{
+            padding-left:50px;
+        }
+
+        &.full-width td:first-child,
+        &.full-width th:first-child{
+            padding-left:50px;
+        }
+
+        &.full-width .divider td{
+            padding-left:50px;
+        }
+    }
+}
 
 /* Transitions */
 .listing {

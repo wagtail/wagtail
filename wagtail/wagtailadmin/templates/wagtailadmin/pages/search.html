@@ -36,11 +36,11 @@
 {% endblock %}
 
 {% block content %}
-    <header>
+    <header class="nice-padding">
         <h1>Search</h1>
     </header>
 
-    <form class="search-bar full-width" action="{% url 'wagtailadmin_pages_search' %}" method="get">
+    <form class="search-bar full-width nice-padding" action="{% url 'wagtailadmin_pages_search' %}" method="get">
         <ul class="fields">
             {% for field in form %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

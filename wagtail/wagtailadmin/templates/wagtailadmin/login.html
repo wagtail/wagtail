@@ -10,48 +10,54 @@
 {% endblock %}
 
 {% block furniture %}
-    <div class="content-wrapper">
-        <form action="{% url 'django.contrib.auth.views.login' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}" />
-            <h1>Sign in to <span>V</span>erdant</h1>
+    <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <h1>Sign in to Wagtail</h1>
 
-            {% if form.errors %}
-                <div class="messages">
-                    <ul>
-                        <li class="error">Your username and password didn't match. Please try again.</li>
-                    </ul>
+        {% if form.errors %}
+            <div class="messages">
+                <ul>
+                    <li class="error">Your username and password didn't match. Please try again.</li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <ul class="fields">
+            <li class="full">
+                <div class="field icon icon-user">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
                 </div>
-            {% endif %}
+            </li>
+            <li class="full">
+                <div class="field icon icon-password">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                </div>
+                {% if show_password_reset %}
+                    <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                {% endif %}
+            </li>
+            {% comment %}
+                Removed until functionality exists
+                <li class="checkbox">
+                    <div class="field">
+                        <label><input type="checkbox" /> Remember me</label>
+                    </div>
+                </li>
+            {% endcomment %}
+            <li class="submit">
+                <input type="submit" value="Sign in"/>
+            </li>
+        </ul>
+    </form>
+{% endblock %}
 
-            <ul class="fields">
-                <li class="full">
-                    <div class="field icon icon-user">
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                    </div>
-                </li>
-                <li class="full">
-                    <div class="field icon icon-password">
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                    </div>
-                    {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
-                    {% endif %}
-                </li>
-                {% comment %}
-                    Removed until functionality exists
-                    <li class="checkbox">
-                        <div class="field">
-                            <label><input type="checkbox" /> Remember me</label>
-                        </div>
-                    </li>
-                {% endcomment %}
-                <li class="submit">
-                    <input type="submit" value="Sign in"/>
-                </li>
-            </ul>
-        </form>
-    </div>
+{% block extra_js %}
+<script>
+    $(function(){
+        $('form input[name=username]').focus();
+    })
+</script>
 {% endblock %}

@@ -1,16 +1,25 @@
 @import "../variables.less";
+@import "../mixins.less";
 
 .hallotoolbar{
     position:absolute;
-    left:5.83%;
+    left:50px;
+    z-index:5;
+    margin-top:4em;
+    margin-left:0em;
 }
 .hallotoolbar.affixed{
     position:fixed;
-    left:5.83%;
     margin-left:140px;
+    margin-top:0;
+}
+.hallotoolbar button{
+    .border-radius(0);
 }
 
 .richtext {
+    font-family:Bitter, Georgia, serif;
+    padding-top:4em;
     min-height:50px;
     overflow: hidden;
 
@@ -64,6 +73,7 @@
         }
     }
     &.inEditMode {
+
         .rich-text-deletable a.delete-control {
             display: block;
         }
@@ -137,5 +147,19 @@
             margin-left: 16px;
         }
     }
+}
 
+@media screen and (min-width: @breakpoint-desktop-larger){
+   /* .hallotoolbar{
+        margin:0 auto;
+        position:absolute;
+        left:-@menu-width;
+        right:0;
+        z-index:5;
+        margin-top:3em;
+    }
+    .hallotoolbar.affixed{
+        position:fixed;
+        margin:0 auto;
+    }*/
 }

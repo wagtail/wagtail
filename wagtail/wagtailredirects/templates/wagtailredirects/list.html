@@ -1,0 +1,38 @@
+<table class="listing">
+    <col width="50%"/>
+    <col width="40%"/>
+    <col />
+    <thead>
+        <tr>
+            <th class="title">
+                From
+                {% if not is_searching %}
+                    {% if ordering == "old_path" %}
+                        <a href="{% url 'wagtailredirects_index' %}" class="icon icon-arrow-down-after teal"></a>
+                    {% else %}
+                        <a href="{% url 'wagtailredirects_index' %}?ordering=old_path" class="icon icon-arrow-down-after"></a>
+                    {% endif %}
+                {% endif %}
+            </th>
+            <th>To</th>
+            <th class="type">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for redirect in redirects %}
+            <tr>
+                <td class="title">
+                    <h2><a href="{% url 'wagtailredirects_edit_redirect' redirect.id %}" title="Edit this redirect">{{ redirect.title }}</a></h2>
+                </td>
+                <td>
+                    {% if redirect.redirect_page %}
+                        <a href="{% url 'wagtailadmin_pages_edit' redirect.redirect_page.id %}" class="nolink">{{ redirect.redirect_page.title }}</a>
+                    {% else %}
+                        {{ redirect.link }}
+                    {% endif %}
+                </td>
+                <td class="type"><div class="status-tag {% if redirect.get_is_permanent_display = "permanent" %}primary{% endif %}">{{ redirect.get_is_permanent_display }}</div></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

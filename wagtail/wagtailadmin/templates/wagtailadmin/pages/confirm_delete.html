@@ -3,9 +3,7 @@
 {% block bodyclass %}menu-explorer{% endblock %}
 
 {% block content %}
-    <header>
-        <h1>Delete <span>{{ page.title }}</span></h1>
-    </header>
+    {% include "wagtailadmin/shared/header.html" with title="Delete" subtitle=page.title %}
 
     <div class="nice-padding">
         <p>Are you sure you want to delete this page? {% if descendant_count %}This will also delete {{ descendant_count }} subpage{{ descendant_count|pluralize }}.{% endif %}</p>
