@@ -165,11 +165,11 @@
                         </h2>
                         {% if not moving and not choosing %}
                             <ul class="actions">
-                                {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">View draft</a></li>
-                                {% endif %}
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="Edit this page">Edit</a></li>
+                                {% endif %}
+                                {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
+                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">View draft</a></li>
                                 {% endif %}
                                 {% if page.live and 'view_live' not in hide_actions|default:'' %}
                                     <li><a href="{{ page.url }}" target="_blank">View live</a></li>
