@@ -11,6 +11,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     object_type_name = 'item'
 
     _content_type = None
+
     @classmethod
     def content_type(cls):
         if cls._content_type is None:
@@ -37,6 +38,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
             content_type.app_label,
             content_type.model,
         ))
+
 
 def SnippetChooserPanel(field_name, snippet_type):
     return type('_SnippetChooserPanel', (BaseSnippetChooserPanel,), {

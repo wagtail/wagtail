@@ -1,10 +1,12 @@
+import json
+
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-import json
-
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
+
 
 @login_required
 def choose(request, content_type_app_name, content_type_model_name):
@@ -14,7 +16,8 @@ def choose(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
-    return render_modal_workflow(request,
+    return render_modal_workflow(
+        request,
         'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
         {
             'content_type': content_type,
@@ -22,6 +25,7 @@ def choose(request, content_type_app_name, content_type_model_name):
             'items': items,
         }
     )
+
 
 @login_required
 def chosen(request, content_type_app_name, content_type_model_name, id):
@@ -34,7 +38,8 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
         'string': unicode(item),
     })
 
-    return render_modal_workflow(request,
+    return render_modal_workflow(
+        request,
         None, 'wagtailsnippets/chooser/chosen.js',
         {
             'snippet_json': snippet_json,
