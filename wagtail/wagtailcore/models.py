@@ -340,12 +340,33 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return self.get_siblings().exclude(id=self.id)
 
     @property
-    def url(self):
+    def full_url(self):
+        """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 return root_url + self.url_path[len(root_path) - 1:]
 
+    @property
+    def url(self):
+        """
+        Return the 'most appropriate' URL for referring to this page from the pages we serve,
+        within the Wagtail backend and actual website templates;
+        this is the local URL (starting with '/') if we're only running a single site
+        (i.e. we know that whatever the current page is being served from, this link will be on the
+        same domain), and the full URL (with domain) if not.
+        Return None if the page is not routable.
+        """
+        root_paths = Site.get_site_root_paths()
+        for (id, root_path, root_url) in Site.get_site_root_paths():
+            if self.url_path.startswith(root_path):
+                return ('' if len(root_paths) == 1 else root_url) + self.url_path[len(root_path) - 1:]
+
     def relative_url(self, current_site):
+        """
+        Return the 'most appropriate' URL for this page taking into account the site we're currently on;
+        a local URL if the site matches, or a fully qualified one otherwise.
+        Return None if the page is not routable.
+        """
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
