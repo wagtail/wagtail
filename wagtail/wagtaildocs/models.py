@@ -1,11 +1,11 @@
+import os.path
+
+from taggit.managers import TaggableManager
+
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.core.urlresolvers import reverse
-
-import os.path
-
-from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 
@@ -47,6 +47,7 @@ class Document(models.Model, TagSearchable):
             return True
         else:
             return False
+
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=Document)

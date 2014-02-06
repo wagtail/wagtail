@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 from wagtail.wagtaildocs.models import Document
 
+
 def serve(request, document_id, document_filename):
     doc = get_object_or_404(Document, id=document_id)
     wrapper = FileWrapper(doc.file)

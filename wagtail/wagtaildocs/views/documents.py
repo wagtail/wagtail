@@ -4,9 +4,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 
+from wagtail.wagtailadmin.forms import SearchForm
+
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
-from wagtail.wagtailadmin.forms import SearchForm
 
 
 @permission_required('wagtaildocs.add_document')
@@ -15,7 +16,7 @@ def index(request):
     q = None
     p = request.GET.get("p", 1)
     is_searching = False
-    
+
     if 'q' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
