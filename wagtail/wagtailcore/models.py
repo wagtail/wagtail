@@ -137,7 +137,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
     __metaclass__ = PageBase
 
     title = models.CharField(max_length=255, help_text="The page title as you'd like it to be seen by the public")
-    slug = models.SlugField()
+    slug = models.SlugField(help_text="The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
