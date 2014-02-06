@@ -3,21 +3,20 @@ from celery.decorators import task
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib.auth.models import Permission
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-from wagtail.wagtailcore.models import PageRevision
+from wagtail.wagtailcore.models import PageRevision, GroupPagePermission
 
 
-def users_with_permission(permission, include_superusers=True):
+def users_with_page_permission(page, permission_type, include_superusers=True):
     # Get user model
     User = get_user_model()
 
-    # Get users with this permission
-    permission_app, permission_codename = permission.split('.')
-    perm = Permission.objects.get(content_type__app_label=permission_app, codename=permission_codename)
-    q = Q(groups__permissions=perm) | Q(user_permissions=perm)
+    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
+    ancestors_and_self = list(page.get_ancestors()) + [page]
+    perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
+    q = Q(groups__page_permissions=perm)
 
     # Include superusers
     if include_superusers:
@@ -34,7 +33,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
-        recipients = users_with_permission('wagtailcore.publish_page')
+        recipients = users_with_page_permission(revision.page, 'publish')
     elif notification == 'approved' or notification == 'rejected':
         # Get submitter
         recipients = [revision.user]
