@@ -5,7 +5,7 @@ class Indexed(object):
     @classmethod
     def indexed_get_parent(cls, require_model=True):
         for base in cls.__bases__:
-            if issubclass(base, Indexed) and (issubclass(base, models.Model) or require_model == False):
+            if issubclass(base, Indexed) and (issubclass(base, models.Model) or require_model is False):
                 return base
 
     @classmethod
@@ -29,7 +29,7 @@ class Indexed(object):
             return parent.indexed_get_content_type()
         else:
             # At toplevel, return this content type
-            return  (cls._meta.app_label + "_" + cls.__name__).lower()
+            return (cls._meta.app_label + "_" + cls.__name__).lower()
 
     @classmethod
     def indexed_get_indexed_fields(cls):

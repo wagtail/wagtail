@@ -1,6 +1,7 @@
-from search import Search
-import models
 from django.test import TestCase
+
+import models
+from search import Search
 
 
 class TestSearch(TestCase):
@@ -36,11 +37,9 @@ class TestSearch(TestCase):
         results = s.search("World", models.SearchTest)
         self.assertEqual(len(results), 1)
 
-
         # Searcher search
         results = models.SearchTest.title_search("Hello")
         self.assertEqual(len(results), 3)
-
 
         # Ordinary search on child
         results = s.search("Hello", models.SearchTestChild)

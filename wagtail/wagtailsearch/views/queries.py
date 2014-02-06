@@ -1,9 +1,10 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+
 from wagtail.wagtailsearch import models
 
 
@@ -39,15 +40,16 @@ def chooser(request, get_results=False):
     # Render
     if get_results:
         return render(request, "wagtailsearch/queries/chooser/results.html", {
-            'queries': queries, 
+            'queries': queries,
             'is_searching': is_searching,
         })
     else:
-        return render_modal_workflow(request, 'wagtailsearch/queries/chooser/chooser.html', 'wagtailsearch/queries/chooser/chooser.js',{
+        return render_modal_workflow(request, 'wagtailsearch/queries/chooser/chooser.html', 'wagtailsearch/queries/chooser/chooser.js', {
             'queries': queries,
             'searchform': searchform,
             'is_searching': False,
         })
+
 
 def chooserresults(request):
     return chooser(request, get_results=True)

@@ -1,6 +1,6 @@
 from django.core.management.base import NoArgsCommand
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+
 from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.search import Search
 

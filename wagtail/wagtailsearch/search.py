@@ -1,9 +1,12 @@
-from indexed import Indexed
-from django.db import models
-from django.conf import settings
+import string
+
 from pyelasticsearch.exceptions import ElasticHttpNotFoundError
 from elasticutils import get_es, S
-import string
+
+from django.db import models
+from django.conf import settings
+
+from indexed import Indexed
 
 
 class SearchResults(object):
@@ -153,7 +156,7 @@ class Search(object):
 
         # Check if this object has an "object_indexed" function
         if hasattr(obj, "object_indexed"):
-            if obj.object_indexed() == False:
+            if obj.object_indexed() is False:
                 return False
         return True
 
@@ -203,7 +206,7 @@ class Search(object):
         try:
             self.es.delete(self.es_index, obj.indexed_get_content_type(), doc_id)
         except ElasticHttpNotFoundError:
-            pass # Document doesn't exist, ignore this exception
+            pass  # Document doesn't exist, ignore this exception
 
     def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
         # Model must be a descendant of Indexed and be a django model

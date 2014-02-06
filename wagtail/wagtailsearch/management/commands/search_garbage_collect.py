@@ -1,4 +1,5 @@
 from django.core.management.base import NoArgsCommand
+
 from wagtail.wagtailsearch import models
 
 

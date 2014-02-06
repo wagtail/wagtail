@@ -1,6 +1,6 @@
-from django.dispatch import Signal
 from django.db.models.signals import post_save, post_delete
 from django.db import models
+
 from search import Search
 from indexed import Indexed
 
