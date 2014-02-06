@@ -16,7 +16,6 @@
     </div>
 
     <div class="content-wrapper">
-        <div id="nav-toggle" data-afteropen="Collapse" class="icon text-replace">Menu</div>
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">
@@ -28,6 +27,8 @@
                     </ul>
                 {% endif %}
             </div>
+
+            <div id="nav-toggle" class="icon text-replace">Menu</div>
 
             {% block content %}{% endblock %}
         </div>

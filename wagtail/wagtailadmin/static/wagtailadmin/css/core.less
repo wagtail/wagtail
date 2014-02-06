@@ -13,7 +13,7 @@
 @import "components/formatters.less";
 
 html{
-    background:@color-grey-4; //url(~"@{static-root}bg-body.svg");
+    background:@color-grey-4;
     height:100%;
 }
 
@@ -117,7 +117,7 @@ img{
     position:relative;
     background: @color-grey-1;
     margin-left: -100%;
-    width: 80%;
+    width: 180px;
     float: left;
     height:100%;
     min-height:800px;
@@ -331,18 +331,21 @@ img{
 
 .content-wrapper{
     width:100%;
+    height:100%; /* this has no effect on desktop, but on mobile it helps aesthetics of menu popout action */
     float: right;
     position: relative;
-    background-color:white;
-    border-bottom:1px solid @color-grey-4;
+    background-color:@color-grey-4;
+    border-bottom:1px solid @color-grey-3;
+
    /* transform: translate3d(0,0,0);
     -webkit-transform: translate3d(0,0,0);*/
 }
     .content{
         .row();
+        background:white;
         border-top:0px solid @color-grey-5; /* this top border provides space for the floating logo to toggle the menu */
         padding-bottom:4em;
-         position:relative; /* yuk. necessary for positions for jquery ui widgets */
+        position:relative; /* yuk. necessary for positions for jquery ui widgets */
     }
 
 body.nav-open .nav-wrapper{
@@ -350,8 +353,8 @@ body.nav-open .nav-wrapper{
 }
 
 body.nav-open .content-wrapper{
-    transform: translate3d(80%,0,0);
-    -webkit-transform: translate3d(80%,0,0);
+    transform: translate3d(180px,0,0);
+    -webkit-transform: translate3d(180px,0,0);
 
     position:fixed;
 }
@@ -364,9 +367,19 @@ body.nav-closed footer{
 }
 
 body.explorer-open {
+    .nav-wrapper{
+        width:80%;
+    }
     .nav-main{
         display:none;
     }
+    .content-wrapper{
+        transform: translate3d(80%,0,0);
+        -webkit-transform: translate3d(80%,0,0);
+
+        position:fixed;
+    }
+
     .explorer{
         display:block;
         border-top:1px solid rgba(200,200,200,0.1);
@@ -398,10 +411,10 @@ header{
        padding:0.2em 0;
     }
 
-    .left, .right{
-        width:50%;
+    .col{
+        float:left;
+        margin-right:2em;
     }
-
     .left{
         float:left;
 
@@ -410,15 +423,12 @@ header{
             float:none;
         }
     }
-    .col{
-        float:left;
-        margin-right:2em;
-    }
-    .search-bar input{
-        .border-radius(3px);
-        width:auto;
-        border-width:0;
-    }
+
+        .search-bar input{
+            .border-radius(3px);
+            width:auto;
+            border-width:0;
+        }
     .right{
         text-align:right;
         float:right;
@@ -517,6 +527,7 @@ footer{
 
     font-size:0.85em;
     margin-top:1.5em !important;
+    margin-left:-30px;
    
     li {
         display: block;
@@ -619,7 +630,7 @@ footer{
     z-index:3;
 }
 footer, .logo{
-    z-index:1;
+    z-index:100;
 }
 
 
@@ -781,12 +792,20 @@ footer, .logo{
     }
   
     body.explorer-open {
-       
+        .nav-wrapper{
+            width:@menu-width;
+        }
         .explorer:before{
             display:none;
         }
         .nav-main{
             display:block;
+        }
+        .content-wrapper{
+            transform: none;
+            -webkit-transform: none;
+
+            position:relative;
         }
     }    
 
@@ -826,6 +845,10 @@ footer, .logo{
     footer{
         width:80%;
         margin-left:50px;
+    }
+
+    .breadcrumb{
+        margin-left:0;
     }
 
     /* Z-indexes */

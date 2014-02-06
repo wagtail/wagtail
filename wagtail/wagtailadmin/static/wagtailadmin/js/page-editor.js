@@ -231,12 +231,20 @@ function initSlugCleaning(){
     });
 }
 
+function initErrorDetection(){
+    $('.error-message').each(function(){
+        var parentSection = $(this).closest('section');
+
+        $('.tab-nav a[href=#'+ parentSection.attr('id') +']').addClass('errors');
+    })
+}
+
 $(function() {
     initDateChoosers();
     initTimeChoosers();
     initSlugAutoPopulate();
     initSlugCleaning();
-
+    initErrorDetection();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);

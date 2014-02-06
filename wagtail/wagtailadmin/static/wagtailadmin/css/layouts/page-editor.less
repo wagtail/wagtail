@@ -34,7 +34,7 @@
         top:1em;
         padding-right:@grid-gutter-width/2;
         margin-top:4em;
-        opacity:0;
+        opacity:1;
         padding-left:3em;
 
         &:before{
@@ -113,8 +113,6 @@
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     &.full{
-        padding-left:0;
-
         h2{
             display:none; /* The field label is used instead */
         }
@@ -127,7 +125,6 @@
             display:block;
             float:none;
             
-            padding:3.2em 0 0 0;
 
             .help{
                 display:none;
@@ -137,9 +134,7 @@
             padding:0;
         }
 
-        .field{
-            padding:0;
-        }
+       
 
         input, textarea, .richtext{
             .nice-padding();
@@ -149,7 +144,7 @@
             padding-bottom:2em;
             font-size:1.2em;
             line-height:1.6em;
-            border-width:0 1px;
+            
         }
 
         .richtext{
@@ -287,12 +282,14 @@
         &.full{
             fieldset{
                 .column(11);
-               
-                padding-left:0;
-                padding-right:0;
+                margin-left:-51px;
+                padding:3.2em 0 0 0;
             }
             input, textarea, .richtext{
                 border-width:0 1px;
+            }
+            .field{
+                padding:0;
             }
         }
         .multiple{
