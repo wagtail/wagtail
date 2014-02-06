@@ -1,0 +1,38 @@
+{% if result_hidden_fields %}
+    <div class="hiddenfields"> {# DIV for HTML validation #}
+        {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
+{% endif %}
+{% if results %}
+    <table cellspacing="0" id="result_list">
+        <thead>
+        <tr>
+            {% for header in result_headers %}
+                <th{{ header.class_attrib }}>
+                {% if header.sortable %}<a href="{{ header.url }}"
+                                           {% if header.tooltip %}title="{{ header.tooltip }}"{% endif %}>{% endif %}
+                {{ header.text|capfirst }}
+                {% if header.sortable %}</a>{% endif %}</th>{% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for node_id, parent_id, node_level, has_children, result in results %}
+            <tr id="node-{{ node_id }}-id" class="{% cycle 'row1' 'row2' %}"
+                level="{{ node_level }}" children-num="{{ children_num }}"
+                parent="{{ parent_id }}" node="{{ node_id }}">
+                {% for item in result %}
+                    {% if forloop.counter == 1 %}
+                        {% for spacer in item.depth %}<span class="grab">&nbsp;
+                            </span>{% endfor %}
+                    {% endif %}
+                    {{ item }}
+                {% endfor %}</tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <input type="hidden" id="has-filters" value="{{ filtered|yesno:"1,0" }}"/>
+    <script>
+        var MOVE_NODE_ENDPOINT = 'move/';
+    </script>
+{% endif %}
+

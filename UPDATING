@@ -1,0 +1,16 @@
+This file documents problems you may encounter when upgrading django-treebeard
+(potential backward incompatible changes).
+
+20081117:
+
+    Cleaned __init__.py, if you need Node you'll have to call it from it's
+    original location (treebeard.models.Node instead of treebeard.Node). Also
+    exceptions have been moved to treebeard.exceptions.
+
+
+
+20100316:
+
+    Queryset ordering in NS/MP trees is now enforced by the library. Previous
+    ordering settings in META no longer work.
+
