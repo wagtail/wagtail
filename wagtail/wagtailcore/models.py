@@ -1,16 +1,17 @@
+from modelcluster.models import ClusterableModel
+from treebeard.mp_tree import MP_Node
+
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
 from django.shortcuts import render
 from django.core.cache import cache
-
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
-from treebeard.mp_tree import MP_Node
-from modelcluster.models import ClusterableModel
-from wagtail.wagtailsearch import Indexed, Searcher
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
+
+from wagtail.wagtailsearch import Indexed, Searcher
 
 
 class SiteManager(models.Manager):
@@ -76,6 +77,8 @@ class Site(models.Model):
 
 PAGE_MODEL_CLASSES = []
 _PAGE_CONTENT_TYPES = []
+
+
 def get_page_types():
     global _PAGE_CONTENT_TYPES
     if len(_PAGE_CONTENT_TYPES) != len(PAGE_MODEL_CLASSES):
@@ -84,8 +87,11 @@ def get_page_types():
         ]
     return _PAGE_CONTENT_TYPES
 
+
 LEAF_PAGE_MODEL_CLASSES = []
 _LEAF_PAGE_CONTENT_TYPE_IDS = []
+
+
 def get_leaf_page_content_type_ids():
     global _LEAF_PAGE_CONTENT_TYPE_IDS
     if len(_LEAF_PAGE_CONTENT_TYPE_IDS) != len(LEAF_PAGE_MODEL_CLASSES):
@@ -94,8 +100,11 @@ def get_leaf_page_content_type_ids():
         ]
     return _LEAF_PAGE_CONTENT_TYPE_IDS
 
+
 NAVIGABLE_PAGE_MODEL_CLASSES = []
 _NAVIGABLE_PAGE_CONTENT_TYPE_IDS = []
+
+
 def get_navigable_page_content_type_ids():
     global _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
     if len(_NAVIGABLE_PAGE_CONTENT_TYPE_IDS) != len(NAVIGABLE_PAGE_MODEL_CLASSES):
@@ -103,6 +112,7 @@ def get_navigable_page_content_type_ids():
             ContentType.objects.get_for_model(cls).id for cls in NAVIGABLE_PAGE_MODEL_CLASSES
         ]
     return _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -420,6 +430,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
+
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are a non-leaf type (indicating that they *could* have children),
@@ -487,6 +498,7 @@ class SubmittedRevisionsManager(models.Manager):
     def get_query_set(self):
         return super(SubmittedRevisionsManager, self).get_query_set().filter(submitted_for_moderation=True)
 
+
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
@@ -537,6 +549,7 @@ PAGE_PERMISSION_TYPE_CHOICES = [
     ('publish', 'Publish'),
 ]
 
+
 class GroupPagePermission(models.Model):
     group = models.ForeignKey(Group, related_name='page_permissions')
     page = models.ForeignKey('Page', related_name='group_permissions')
@@ -579,6 +592,7 @@ class UserPagePermissionsProxy(object):
         """Return a PagePermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
+
 
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):

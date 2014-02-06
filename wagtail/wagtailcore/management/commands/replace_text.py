@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import models
+
 from wagtail.wagtailcore.models import PageRevision, get_page_types
 
 
@@ -14,6 +15,7 @@ def replace_in_model(model, from_text, to_text):
 
     if updated_fields:
         model.save(update_fields=updated_fields)
+
 
 class Command(BaseCommand):
     def handle(self, from_text, to_text, **options):

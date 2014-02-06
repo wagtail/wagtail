@@ -4,6 +4,7 @@ from south.modelsinspector import add_introspection_rules
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 
+
 class RichTextArea(Textarea):
     def get_panel(self):
         from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel

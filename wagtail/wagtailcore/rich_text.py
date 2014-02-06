@@ -1,9 +1,11 @@
-from django.utils.html import escape
-
 import re  # parsing HTML with regexes LIKE A BOSS.
+
+from django.utils.html import escape
 
 from wagtail.wagtailcore.whitelist import Whitelister
 from wagtail.wagtailcore.models import Page
+
+from wagtail.wagtaildocs.models import Document
 
 # FIXME: we don't really want to import wagtailimages within core.
 # For that matter, we probably don't want core to be concerned about translating
@@ -11,7 +13,6 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 
-from wagtail.wagtaildocs.models import Document
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
 # of 'special' HTML elements in rich text - ones which we do not want to include
@@ -187,6 +188,7 @@ FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
 FIND_EMBED_TAG = re.compile(r'<embed(\b[^>]*)/>')
 FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
 
+
 def extract_attrs(attr_string):
     """
     helper method to extract tag attributes as a dict. Does not escape HTML entities!
@@ -195,6 +197,7 @@ def extract_attrs(attr_string):
     for name, val in FIND_ATTRS.findall(attr_string):
         attributes[name] = val
     return attributes
+
 
 def expand_db_html(html, for_editor=False):
     """
