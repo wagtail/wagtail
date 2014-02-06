@@ -1,5 +1,6 @@
 from PIL import Image
 
+
 def resize(image, size):
     """
     resize image to the requested size, using highest quality settings

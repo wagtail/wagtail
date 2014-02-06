@@ -4,9 +4,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required, login_required
 from django.core.exceptions import PermissionDenied
 
+from wagtail.wagtailadmin.forms import SearchForm
+
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
-from wagtail.wagtailadmin.forms import SearchForm
+
 
 @permission_required('wagtailimages.add_image')
 def index(request):
@@ -144,7 +146,7 @@ def search(request):
     images = []
     q = None
     is_searching = False
-    
+
     if 'q' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
