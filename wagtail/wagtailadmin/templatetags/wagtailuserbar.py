@@ -1,13 +1,17 @@
 from django import template
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.utils.html import format_html, format_html_join
 
 register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, cssfile=""):
+def wagtailuserbar(context, cssfile=None):
     try:
-        items = ''.join(["<li>%s</li>" % item for item in context['request'].userbar])
+        items = format_html_join('', '<li>{0}</li>', [(item,) for item in context['request'].userbar])
         context.hasuserbar = True
-        return """<link rel="stylesheet" href="%s" /><ul id="wagtail-userbar">%s</ul>""" % (cssfile, items)
+        if not cssfile:
+            cssfile = staticfiles_storage.url('wagtailadmin/css/wagtail-userbar.css')
+        return format_html('<link rel="stylesheet" href="{0}" /><ul id="wagtail-userbar">{1}</ul>', cssfile, items)
     except AttributeError:
         return ''
