@@ -566,7 +566,7 @@ def search(request):
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
-            'form': form,
+            'search_form': form,
             'pages': pages,
             'is_searching': is_searching,
             'search_query': q,

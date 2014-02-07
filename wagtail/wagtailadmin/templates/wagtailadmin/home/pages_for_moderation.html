@@ -4,16 +4,15 @@
             <h2>Pages awaiting moderation</h2>
             <table class="listing">
                 <col />
-                <col width="15%"/>
-                <col width="15%"/>
+                <col />
                 <col width="15%"/>
                 <col width="15%"/>
                 <thead>
                     <tr>
                         <th class="title">Title</th>
+                        <th>Parent</th>
                         <th>Date</th>
                         <th>Author</th>
-                        <th>Parent</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,10 +37,9 @@
                                     <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">Preview</a></li>
                                 </ul>
                             </td>
-                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div></td>
-                            <td>{{ revision.user.get_full_name }}</td>
                             <td><a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.title }}</a></td>
-                            
+                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div></td>
+                            <td>{{ revision.user.get_full_name }}</td>                            
                         </tr>
                     {% endfor %}
                 </tbody>
