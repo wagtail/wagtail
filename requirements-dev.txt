@@ -1,0 +1,5 @@
+# Requirements essentail for developing wagtail (not needed to run it)
+
+# For coverage and PEP8 linting
+coverage==3.7.1
+flake8==2.1.0
