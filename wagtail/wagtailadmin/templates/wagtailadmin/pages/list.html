@@ -74,7 +74,7 @@
                 </td>
                 <td class="type">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
                 <td class="status">
-                    {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
+                    {% if not choosing and parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
                         <a href="{{ parent_page.url }}" target="_blank" class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</a>
                     {% else %}
                         <span class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</span>
@@ -201,7 +201,7 @@
                     {% endif %}
                     <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
                     <td class="status">
-                        {% if page.live and 'view_live' not in hide_actions|default:'' %}
+                        {% if not choosing and page.live and 'view_live' not in hide_actions|default:'' %}
                              <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
                         {% else %}
                              <span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span>
