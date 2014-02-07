@@ -6,12 +6,14 @@
                 <col />
                 <col width="15%"/>
                 <col width="15%"/>
-                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
                 <thead>
                     <tr>
                         <th class="title">Title</th>
                         <th>Date</th>
                         <th>Author</th>
+                        <th>Parent</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +40,7 @@
                             </td>
                             <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div></td>
                             <td>{{ revision.user.get_full_name }}</td>
+                            <td><a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.title }}</a></td>
                             
                         </tr>
                     {% endfor %}
