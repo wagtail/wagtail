@@ -4,6 +4,7 @@ SNIPPET_MODELS = []
 
 SNIPPET_CONTENT_TYPES = None
 
+
 def get_snippet_content_types():
     global SNIPPET_CONTENT_TYPES
     if SNIPPET_CONTENT_TYPES is None:
@@ -13,6 +14,7 @@ def get_snippet_content_types():
         ]
 
     return SNIPPET_CONTENT_TYPES
+
 
 def register_snippet(model):
     if model not in SNIPPET_MODELS:

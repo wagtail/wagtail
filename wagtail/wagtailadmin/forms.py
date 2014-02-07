@@ -8,8 +8,9 @@ class SearchForm(forms.Form):
         placeholder_suffix = kwargs.pop('placeholder_suffix', "")
         super(SearchForm, self).__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': 'Search ' + placeholder_suffix}
-    
+
     q = forms.CharField(label="Search term", widget=forms.TextInput())
+
 
 class ExternalLinkChooserForm(forms.Form):
     url = forms.URLField(required=True)
