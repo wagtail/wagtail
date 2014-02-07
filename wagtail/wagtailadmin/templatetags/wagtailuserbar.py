@@ -12,6 +12,6 @@ def wagtailuserbar(context, cssfile=None):
         context.hasuserbar = True
         if not cssfile:
             cssfile = staticfiles_storage.url('wagtailadmin/css/wagtail-userbar.css')
-        return format_html('<link rel="stylesheet" href="{0}" /><ul id="wagtail-userbar">{1}</ul>', cssfile, items)
+        return format_html('<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400" /><link rel="stylesheet" href="{0}" /><ul id="wagtail-userbar">{1}</ul>', cssfile, items)
     except AttributeError:
         return ''
