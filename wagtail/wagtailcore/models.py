@@ -630,6 +630,7 @@ class PagePermissionTester(object):
         self.user = user_perms.user
         self.user_perms = user_perms
         self.page = page
+        self.page_is_root = page.depth == 1 # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = set(
@@ -645,14 +646,14 @@ class PagePermissionTester(object):
     def can_edit(self):
         if not self.user.is_active:
             return False
-        if self.page.is_root():  # root node is not a page and can never be edited, even by superusers
+        if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
         return self.user.is_superuser or ('edit' in self.permissions) or ('add' in self.permissions and self.page.owner_id == self.user.id)
 
     def can_delete(self):
         if not self.user.is_active:
             return False
-        if self.page.is_root():  # root node is not a page and can never be deleted, even by superusers
+        if self.page_is_root:  # root node is not a page and can never be deleted, even by superusers
             return False
 
         if self.user.is_superuser or ('publish' in self.permissions):
@@ -677,7 +678,7 @@ class PagePermissionTester(object):
     def can_unpublish(self):
         if not self.user.is_active:
             return False
-        if (not self.page.live) or self.page.is_root():
+        if (not self.page.live) or self.page_is_root:
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -685,7 +686,7 @@ class PagePermissionTester(object):
     def can_publish(self):
         if not self.user.is_active:
             return False
-        if self.page.is_root():
+        if self.page_is_root:
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
