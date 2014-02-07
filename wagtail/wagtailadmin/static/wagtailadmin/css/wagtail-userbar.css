@@ -1,3 +1,5 @@
+/* NB: This embedding format references ttf/eo/svg files that don't exist. 
+This is a deliberate means of forcing the browser to use the base64 encoded woff instead. Somehow. */
 @font-face {
     font-family: 'wagtailuserbar';
     src: url('wagtailuserbar.eot');
