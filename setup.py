@@ -1,9 +1,20 @@
 #!/usr/bin/env python
 
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup
+
+
+# Hack to prevent stupid TypeError: 'NoneType' object is not callable error on
+# exit of python setup.py test # in multiprocessing/util.py _exit_function when
+# running python setup.py test (see
+# http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
+try:
+    import multiprocessing
+except ImportError:
+    pass
+
 
 setup(
     name='wagtail',
@@ -12,7 +23,8 @@ setup(
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
     url='http://wagtail.io/',
-    packages=['wagtail'],
+    packages=find_packages(),
+    include_package_data=True,
     license='BSD',
     long_description=open('README.rst').read(),
     classifiers=[
@@ -41,4 +53,5 @@ setup(
         "lxml>=3.3.0",
         "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
     ],
+    zip_safe=False,
 )
