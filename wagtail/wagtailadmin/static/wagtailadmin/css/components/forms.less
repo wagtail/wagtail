@@ -61,6 +61,14 @@ input, textarea, select, .richtext, .tagit{
     font-weight:300;
     outline:none;
 
+    /* what the hell firefox? Spare us your opinions */
+    &::-moz-focus-inner {
+        padding: 0 !important; 
+        border: 0 !important;
+        margin-top:-3px !important; 
+        margin-bottom: -2px !important; 
+    }
+
     &:hover{
         background-color:white;
     }
@@ -155,6 +163,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     overflow:hidden;
     position:relative;
     font-weight:normal;
+    -moz-appearance: none;
+    -moz-box-sizing:content-box;
 
     &.button-small{
         font-size:0.95em;
