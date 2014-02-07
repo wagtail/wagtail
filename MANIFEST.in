@@ -1,4 +1,4 @@
-include LICENSE README.rst CHANGELOG.txt
+include LICENSE *.rst *.txt
 recursive-include wagtail *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
