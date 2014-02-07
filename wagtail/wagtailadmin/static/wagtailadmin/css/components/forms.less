@@ -15,10 +15,7 @@ fieldset{
     border:0;
     padding:0 0 2em 0;
     margin:0;
-    /* position:relative; See if we can get away without this */
 }
-
-
 
 legend{
     .visuallyhidden();
@@ -529,8 +526,7 @@ ul.inline li:first-child, li.inline:first-child{
     }
 }
 
-/* Tags */
-
+/* taggit tagging */
 .tagit{
     padding:0.6em 1.2em;
 
@@ -657,13 +653,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 .help{
     .transition(opacity 0.2s ease);
 }
-/*
-.chooser {
-    .unchosen:before, .chosen:before{
-        .transition(opacity 0.3s ease);
-    }
-}
-*/
+
 @media screen and (min-width: @breakpoint-mobile){
     .help{
         opacity:1;
@@ -675,10 +665,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
         padding:0.75em 1.4em;
-
-        &.button-small{
-            
-        }
 
         &.bicolor{
             padding-left:3.5em;
