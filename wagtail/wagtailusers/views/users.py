@@ -14,11 +14,11 @@ def index(request):
     users = User.objects.order_by('last_name', 'first_name')
 
     if 'ordering' in request.GET:
-        ordering = request.GET['ordering']  
+        ordering = request.GET['ordering']
 
         if ordering in ['name', 'username']:
             if ordering != 'name':
-                users = users.order_by(ordering)   
+                users = users.order_by(ordering)
     else:
         ordering = 'name'
 

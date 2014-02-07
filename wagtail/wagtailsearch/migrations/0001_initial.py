@@ -56,7 +56,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'wagtailsearch', ['SearchTestChild'])
 
-
     def backwards(self, orm):
         # Removing unique constraint on 'QueryDailyHits', fields ['query', 'date']
         db.delete_unique(u'wagtailsearch_querydailyhits', ['query_id', 'date'])
@@ -75,7 +74,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'SearchTestChild'
         db.delete_table(u'wagtailsearch_searchtestchild')
-
 
     models = {
         u'auth.group': {

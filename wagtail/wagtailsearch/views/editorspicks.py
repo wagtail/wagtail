@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from wagtail.wagtailsearch import models, forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
 
+
 @login_required
-def index(request):  
+def index(request):
     q = None
     p = request.GET.get("p", 1)
     is_searching = False
@@ -20,7 +20,7 @@ def index(request):
             is_searching = True
 
             queries = models.Query.objects.filter(editors_picks__isnull=False).distinct().filter(query_string__icontains=q)
-    
+
     if not is_searching:
         # Select only queries with editors picks
         queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
