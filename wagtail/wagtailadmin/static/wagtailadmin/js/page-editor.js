@@ -209,7 +209,11 @@ function InlinePanel(opts) {
 }
 
 function cleanForSlug(val){
-    return val.replace(/\s/g,"-").replace(/[^A-Za-z0-9\-]/g,"").toLowerCase();
+    if(URLify!=undefined) { // Check to be sure that URLify function exists
+        return URLify(val, val.length);
+    } else { // If not just do the "replace"
+        return val.replace(/\s/g,"-").replace(/[^A-Za-z0-9\-]/g,"").toLowerCase();
+    }
 }
 
 function initSlugAutoPopulate(){
