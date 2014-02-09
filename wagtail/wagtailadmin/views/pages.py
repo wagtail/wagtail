@@ -342,8 +342,9 @@ def preview_on_edit(request, page_id):
         request.META.pop('HTTP_X_REQUESTED_WITH', None)
         try:
             response = page.serve(request)
-        except:
-            response = render(request, 'wagtailadmin/preview_error.html')
+        except Exception as e:
+            response = render(request, 'wagtailadmin/preview_error.html',
+                              {'e_message': str(e), 'e_class': str(e.__class__)})
         response['X-Wagtail-Preview'] = 'ok'
         return response
 
