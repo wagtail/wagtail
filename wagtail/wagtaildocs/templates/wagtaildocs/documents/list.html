@@ -10,7 +10,7 @@
                     {% if ordering == "title" %}
                         <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>
                     {% else %}
-                        <a href="{% url 'wagtailddocs_index' %}?ordering=title" class="icon icon-arrow-down-after"></a>
+                        <a href="{% url 'wagtaildocs_index' %}?ordering=title" class="icon icon-arrow-down-after"></a>
                     {% endif %}
                 {% endif %}
             </th>
@@ -19,9 +19,9 @@
                 Uploaded
                 {% if not is_searching %}
                     {% if ordering == "-created_at" %}
-                        <a href="{% url 'wagtailddocs_index' %}" class="icon icon-arrow-down-after teal"></a>
+                        <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>
                     {% else %}
-                        <a href="{% url 'wagtailddocs_index' %}?ordering=-created_at" class="icon icon-arrow-down-after"></a>
+                        <a href="{% url 'wagtaildocs_index' %}?ordering=-created_at" class="icon icon-arrow-down-after"></a>
                     {% endif %}
                 {% endif %}
             </th>
