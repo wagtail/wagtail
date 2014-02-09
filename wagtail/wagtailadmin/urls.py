@@ -11,9 +11,9 @@ urlpatterns = patterns(
             'template_name': 'wagtailadmin/login.html',
             'authentication_form': LoginForm,
             'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
-        }
+        } , name='wagtailadmin_login'
     ),
-    url(r'^logout/$', 'logout', {'next_page': '/admin/login/'}),
+    url(r'^logout/$', 'logout', {'next_page': 'wagtailadmin_login'}),
 
     # Password reset
     url(
