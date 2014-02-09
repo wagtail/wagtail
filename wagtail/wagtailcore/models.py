@@ -25,15 +25,18 @@ sys.path.pop(0)
 
 
 class SiteManager(models.Manager):
+
     def get_by_natural_key(self, hostname):
         return self.get(hostname=hostname)
 
 
 class Site(models.Model):
     hostname = models.CharField(max_length=255, unique=True, db_index=True)
-    port = models.IntegerField(default=80, help_text="Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).")
+    port = models.IntegerField(
+        default=80, help_text="Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).")
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text="If true, this site will handle requests for all other hostnames that do not have a site entry of their own")
+    is_default_site = models.BooleanField(
+        default=False, help_text="If true, this site will handle requests for all other hostnames that do not have a site entry of their own")
 
     def natural_key(self):
         return (self.hostname,)
@@ -49,7 +52,8 @@ class Site(models.Model):
             # find a Site matching this specific hostname
             return Site.objects.get(hostname=hostname)
         except Site.DoesNotExist:
-            # failing that, look for a catch-all Site. If that fails, let the Site.DoesNotExist propagate back to the caller
+            # failing that, look for a catch-all Site. If that fails, let the
+            # Site.DoesNotExist propagate back to the caller
             return Site.objects.get(is_default_site=True)
 
     @property
@@ -125,6 +129,7 @@ def get_navigable_page_content_type_ids():
 
 
 class PageBase(models.base.ModelBase):
+
     """Metaclass for Page"""
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
@@ -157,7 +162,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
     __metaclass__ = PageBase
 
     title = models.CharField(max_length=255, help_text="The page title as you'd like it to be seen by the public")
-    slug = models.SlugField(help_text="The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+    slug = models.SlugField(
+        help_text="The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
@@ -166,8 +172,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     url_path = models.CharField(max_length=255, blank=True, editable=False)
     owner = models.ForeignKey('auth.User', null=True, blank=True, editable=False, related_name='owned_pages')
 
-    seo_title = models.CharField("Page title", max_length=255, blank=True, help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
-    show_in_menus = models.BooleanField(default=False, help_text="Whether a link to this page will appear in automatically generated menus")
+    seo_title = models.CharField("Page title", max_length=255, blank=True,
+                                 help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
+    show_in_menus = models.BooleanField(
+        default=False, help_text="Whether a link to this page will appear in automatically generated menus")
     search_description = models.TextField(blank=True)
 
     indexed_fields = {
@@ -221,7 +229,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return self.url_path
 
-    @transaction.commit_on_success  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
+    # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
+    @transaction.commit_on_success
     def save(self, *args, **kwargs):
         update_descendant_url_paths = False
 
@@ -526,6 +535,7 @@ class Orderable(models.Model):
 
 
 class SubmittedRevisionsManager(models.Manager):
+
     def get_query_set(self):
         return super(SubmittedRevisionsManager, self).get_query_set().filter(submitted_for_moderation=True)
 
@@ -588,8 +598,10 @@ class GroupPagePermission(models.Model):
 
 
 class UserPagePermissionsProxy(object):
+
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
+
     def __init__(self, user):
         self.user = user
 
@@ -605,7 +617,8 @@ class UserPagePermissionsProxy(object):
         if self.user.is_superuser:
             return PageRevision.submitted_revisions.all()
 
-        # get the list of pages for which they have direct publish permission (i.e. they can publish any page within this subtree)
+        # get the list of pages for which they have direct publish permission
+        # (i.e. they can publish any page within this subtree)
         publishable_pages = [perm.page for perm in self.permissions if perm.permission_type == 'publish']
         if not publishable_pages:
             return PageRevision.objects.none()
@@ -626,11 +639,12 @@ class UserPagePermissionsProxy(object):
 
 
 class PagePermissionTester(object):
+
     def __init__(self, user_perms, page):
         self.user = user_perms.user
         self.user_perms = user_perms
         self.page = page
-        self.page_is_root = page.depth == 1 # Equivalent to page.is_root()
+        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = set(

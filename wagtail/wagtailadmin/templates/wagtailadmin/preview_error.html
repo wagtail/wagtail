@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load compress %}
+{% block titletag %}Preview Error{% endblock %}
+{% block bodyclass %}Error{% endblock %}
+
+{% block furniture %}
+        <h1>Server Error</h1>
+        <div class="messages">
+            <ul>
+                <li class="error">Check Your Template Syntax</li>
+                <li class="error">Check Your Views</li>
+            </ul>
+        </div>
+{% endblock %}
