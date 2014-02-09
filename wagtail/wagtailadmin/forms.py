@@ -46,7 +46,9 @@ class PasswordResetForm(PasswordResetForm):
 
         # Find users of this email address
         UserModel = get_user_model()
-        email = cleaned_data['email']
+        email = cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError("Please fill your email address.")
         active_users = UserModel._default_manager.filter(email__iexact=email, is_active=True)
 
         if active_users.exists():

@@ -15,8 +15,6 @@
             {% csrf_token %}
             <h1>Reset your password</h1>
 
-            <p>Enter your email address in the box below</p>
-
             {% if form.non_field_errors %}
                 <div class="messages">
                     <ul>
@@ -28,6 +26,7 @@
             {% endif %}
 
             <ul class="fields">
+                <li>Enter your email address in the box below</li>
                 <li>
                     <div class="field">
                         {{ form.email.label_tag }}
