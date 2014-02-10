@@ -11,17 +11,18 @@
 
 {% block furniture %}
     <div class="content-wrapper">
+
+        {% if form.errors %}
+            <div class="messages">
+                <ul>
+                    <li class="error">The passwords do not match. Please try again.</li>
+                </ul>
+            </div>
+        {% endif %}
+      
         <form method="post">
             {% csrf_token %}
             <h1>Set your new password</h1>
-
-            {% if form.errors %}
-                <div class="messages">
-                    <ul>
-                        <li class="error">The passwords do not match. Please try again.</li>
-                    </ul>
-                </div>
-            {% endif %}
 
             <ul class="fields">
                 <li>

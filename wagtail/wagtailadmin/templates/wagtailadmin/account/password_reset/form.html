@@ -11,22 +11,22 @@
 
 {% block furniture %}
     <div class="content-wrapper">
-        <form method="post">
+        {% if form.non_field_errors %}
+            <div class="messages">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li class="error">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post" novalidate>
             {% csrf_token %}
             <h1>Reset your password</h1>
-
-            {% if form.non_field_errors %}
-                <div class="messages">
-                    <ul>
-                        {% for error in form.non_field_errors %}
-                            <li class="error">{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+            <p>Enter your email address in the box below</p>            
 
             <ul class="fields">
-                <li>Enter your email address in the box below</li>
                 <li>
                     <div class="field">
                         {{ form.email.label_tag }}

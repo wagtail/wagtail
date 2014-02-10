@@ -10,11 +10,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}" />
-        <h1>Sign in to Wagtail</h1>
-
+    <div class="content-wrapper">
         {% if form.errors %}
             <div class="messages">
                 <ul>
@@ -23,35 +19,42 @@
             </div>
         {% endif %}
 
-        <ul class="fields">
-            <li class="full">
-                <div class="field icon icon-user">
-                    {{ form.username.label_tag }}
-                    {{ form.username }}
-                </div>
-            </li>
-            <li class="full">
-                <div class="field icon icon-password">
-                    {{ form.password.label_tag }}
-                    {{ form.password }}
-                </div>
-                {% if show_password_reset %}
-                    <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
-                {% endif %}
-            </li>
-            {% comment %}
-                Removed until functionality exists
-                <li class="checkbox">
-                    <div class="field">
-                        <label><input type="checkbox" /> Remember me</label>
+        <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <h1>Sign in to Wagtail</h1>
+
+          
+            <ul class="fields">
+                <li class="full">
+                    <div class="field icon icon-user">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
                     </div>
                 </li>
-            {% endcomment %}
-            <li class="submit">
-                <input type="submit" value="Sign in"/>
-            </li>
-        </ul>
-    </form>
+                <li class="full">
+                    <div class="field icon icon-password">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                    </div>
+                    {% if show_password_reset %}
+                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                    {% endif %}
+                </li>
+                {% comment %}
+                    Removed until functionality exists
+                    <li class="checkbox">
+                        <div class="field">
+                            <label><input type="checkbox" /> Remember me</label>
+                        </div>
+                    </li>
+                {% endcomment %}
+                <li class="submit">
+                    <input type="submit" value="Sign in"/>
+                </li>
+            </ul>
+        </form>
+    </div>
 {% endblock %}
 
 {% block extra_js %}
