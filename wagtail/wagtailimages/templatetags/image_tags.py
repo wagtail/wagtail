@@ -1,6 +1,6 @@
 from django import template
 
-from wagtail.wagtailimages.models import Filter, Rendition
+from wagtail.wagtailimages.models import Filter
 
 register = template.Library()
 
@@ -51,6 +51,7 @@ class ImageNode(template.Node):
             # create the resized version of a non-existent image. Since this is a
             # bit catastrophic for a missing image, we'll substitute a dummy
             # Rendition object so that we just output a broken link instead.
+            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
             rendition = Rendition(image=image, width=0, height=0)
             rendition.file.name = 'not-found'
 
