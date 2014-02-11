@@ -1,5 +1,5 @@
 .tab-nav{
-    .clearfix();
+    @include clearfix();
     padding:0;
 
     li{
@@ -13,8 +13,8 @@
         }
     }
     a{
-        .transition(border-color 0.2s ease);
-        background-color:@color-grey-4;
+        @include transition(border-color 0.2s ease);
+        background-color:$color-grey-4;
         outline:none;
         line-height:3em;
         text-transform:uppercase;
@@ -23,29 +23,29 @@
         text-decoration:none;
         display:block;
         padding:0 20px;
-        color:@color-grey-2;
-        border-top:0.3em solid darken(@color-grey-4,0%);
+        color:$color-grey-2;
+        border-top:0.3em solid darken($color-grey-4,0%);
         border-bottom:1px solid transparent;
 
         &:hover{
             color:inherit;
-            border-top-color:@color-grey-2;
+            border-top-color:$color-grey-2;
         }
     }
 
     a.errors{
-        color:@color-red !important;
+        color:$color-red !important;
     }
 
     li.active a{
-        color:@color-grey-1;
+        color:$color-grey-1;
         background-color:white;
-        border-top:0.3em solid @color-grey-1;      
+        border-top:0.3em solid $color-grey-1;      
     }
 
     /* For cases where tab-nav should merge with header */
     &.merged{
-        background-color:@color-header-bg;
+        background-color:$color-header-bg;
         margin-top:0;
     }
 }
@@ -60,7 +60,7 @@
     }
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .tab-nav li{
         width:auto;
         padding:0;

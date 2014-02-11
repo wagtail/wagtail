@@ -1,4 +1,4 @@
-@zindex-modal-background: 500;
+$zindex-modal-background: 500;
 
 // Kill the scroll on the body
 .modal-open {
@@ -12,7 +12,7 @@
 
 // Container that the modal scrolls within
 .modal {
-    .border-box();
+    @include border-box();
     display: none;
     overflow: auto;
     overflow-y: scroll;
@@ -21,17 +21,17 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: @zindex-modal-background;
+    z-index: $zindex-modal-background;
 }
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
-    .border-box();
+    @include border-box();
     margin-left: auto;
     margin-right: auto;
     width: auto;
     padding: 0px;
-    z-index: (@zindex-modal-background + 10);
+    z-index: ($zindex-modal-background + 10);
     height:90%;
     width:85%;
     
@@ -46,8 +46,8 @@
 
 // Actual modal
 .modal-content {
-    .border-box();
-    .border-radius(3px);
+    @include border-box();
+    @include border-radius(3px);
     width:98.70%;
     position: relative;
     background-color: white;
@@ -66,7 +66,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: (@zindex-modal-background - 10);
+    z-index: ($zindex-modal-background - 10);
     background-color: black;
     // Fade for backdrop
     &.fade { opacity:0; }
@@ -93,14 +93,14 @@
     }
 }
 
-@media screen and (min-width: @breakpoint-mobile) {
+@media screen and (min-width: $breakpoint-mobile) {
     .modal-dialog {
-        padding:0px 0 2em @menu-width;
+        padding:0px 0 2em $menu-width;
     }
 }
-@media screen and (min-width: @breakpoint-desktop-larger){
+@media screen and (min-width: $breakpoint-desktop-larger){
     .modal-dialog {
-        max-width:@breakpoint-desktop-larger;
+        max-width:$breakpoint-desktop-larger;
         padding:0 0 2em 0;
     }
 }

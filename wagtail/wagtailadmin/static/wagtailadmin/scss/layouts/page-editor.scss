@@ -1,24 +1,25 @@
-@import "../variables.less";
-@import "../mixins.less";
-@import "../grid.less";
+@import "variables.scss";
+@import "mixins.scss";
+@import "grid.scss";
+
 .page-editor .content-wrapper{
     margin-bottom:10em;
 }
 
 .objects{
-    background:url(~"@{static-root}bg-dark-diag.svg");
+    background:url("#{$static-root}bg-dark-diag.svg");
 }
 .object{  
     position:relative;
     overflow:hidden;
-    .nice-padding();
+    @include nice-padding();
 
     &:first-child{
         border:0;
     }
 
     &.focused{
-        border-color: darken(@color-input-focus, 40%);
+        border-color: darken($color-input-focus, 40%);
     }        
 
     fieldset{
@@ -32,7 +33,7 @@
         position:relative;
         z-index:1;
         top:1em;
-        padding-right:@grid-gutter-width/2;
+        padding-right:$grid-gutter-width/2;
         margin-top:4em;
         opacity:1;
         padding-left:3em;
@@ -41,9 +42,9 @@
             display:block;
             float:left;
             content:"?";
-            border:1px solid @color-grey-2;
-            color:@color-grey-2;
-            .border-radius(100%);
+            border:1px solid $color-grey-2;
+            color:$color-grey-2;
+            @include border-radius(100%);
             height:15px;
             width:15px;
             line-height:15px;
@@ -60,7 +61,7 @@
 
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
-        background:@color-grey-3;
+        background:$color-grey-3;
         text-transform:uppercase;
         padding:0.9em 0 0.9em 4em;
         font-size:0.95em;
@@ -73,7 +74,7 @@
         right:0;
         z-index:1;
         text-shadow:1px 1px 1px rgba(255,255,255,0.5);
-        .box-shadow(0 0 7px 0 rgba(0,0,0,0.4));
+        @include box-shadow(0 0 7px 0 rgba(0,0,0,0.4));
 
         &:before{
             font-family:wagtail;
@@ -137,8 +138,8 @@
        
 
         input, textarea, .richtext{
-            .nice-padding();
-            .border-radius(0px);
+            @include nice-padding();
+            @include border-radius(0px);
             font-family:Bitter, Georgia, serif;           
             padding-top:2em;
             padding-bottom:2em;
@@ -158,7 +159,7 @@
         }
 
         .error-message{
-            .nice-padding();
+            @include nice-padding();
             padding-bottom:2em;
         }
 
@@ -166,7 +167,7 @@
         .error input,
         .error textarea,
         .error .richtext{
-            background-color:@color-input-error-bg;
+            background-color:$color-input-error-bg;
         }
     }
 
@@ -213,13 +214,13 @@
 
         /* wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields */
         .add{
-            .transition(background-color 0.2s ease);
+            @include transition(background-color 0.2s ease);
             position:relative;
             z-index:2;
             top:0px;
             left:0px;
             width:3.3em;
-            background-color:@color-teal;
+            background-color:$color-teal;
             padding:0;
             margin:0 0 0 -20px;
             cursor:pointer;
@@ -256,23 +257,23 @@
     padding-bottom:0.5em;
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .object{
         fieldset{
             max-width:1024px;
-            .column(10);
+            @include column(10);
             padding-left:0;
             padding-right:0;
         }
 
         .object-help{
-            .column(2);
+            @include column(2);
             display:block;
             position:absolute;
             z-index:1;
             right:0;
             top:1em;
-            padding-right:@grid-gutter-width/2;
+            padding-right:$grid-gutter-width/2;
             float:right;
             margin-top:4em;
             opacity:0;
@@ -281,7 +282,7 @@
 
         &.full{
             fieldset{
-                .column(11);
+                @include column(11);
                 margin-left:-51px;
                 padding:3.2em 0 0 0;
             }
@@ -293,7 +294,7 @@
             }
         }
         .multiple{
-            .column(10);
+            @include column(10);
             padding-left:0;
             padding-right:0;
         }

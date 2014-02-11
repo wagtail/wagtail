@@ -1,20 +1,20 @@
 /* General listings, like for pages, images or snippets */
 ul.listing{
-    .unlist();
+    @include unlist();
 }
 
 .listing{
     margin-bottom:2em;
     ul&{
-        border-top:1px dashed @color-input-border;
+        border-top:1px dashed $color-input-border;
         margin-bottom:2em;
     }
     ul{
-        .unlist();
+        @include unlist();
     }
     > li{
         padding:1em 0;
-        border-bottom:1px dashed @color-input-border;
+        border-bottom:1px dashed $color-input-border;
     }
 
     h3{
@@ -35,8 +35,8 @@ ul.listing{
     }
 
     thead{
-        color: @color-grey-2;
-        border-bottom:1px solid @color-grey-4;
+        color: $color-grey-2;
+        border-bottom:1px solid $color-grey-4;
         
         th{
             font-size:0.85em;
@@ -69,9 +69,9 @@ ul.listing{
         }
         .dropdown:hover,
         .dropdown.open{
-            .box-shadow(0px 0px 3px 0 rgba(0,0,0,0.2));
+            @include box-shadow(0px 0px 3px 0 rgba(0,0,0,0.2));
             background-color:white;
-            margin-left:-@grid-gutter-width * 2;
+            margin-left:-$grid-gutter-width * 2;
         }
     }
 
@@ -84,20 +84,20 @@ ul.listing{
         margin-bottom:-3em; /* this negates the padding added to the bottom of .content */
     }
     &.full-width th{
-        background-color:@color-thead-bg;
+        background-color:$color-thead-bg;
     }
 
     .table-headers{
-        border-bottom:1px solid  @color-grey-4
+        border-bottom:1px solid  $color-grey-4
     }
 
     tbody{
-        border-bottom:1px dashed @color-input-border;
+        border-bottom:1px dashed $color-input-border;
     }
     tbody tr{
-        border-top:1px dashed @color-input-border;
+        border-top:1px dashed $color-input-border;
         &:first-child{
-            border-top:1px dashed @color-input-border;
+            border-top:1px dashed $color-input-border;
         }
         
     }
@@ -108,7 +108,7 @@ ul.listing{
         background-color:#FDFDFD;
     }
     &.chooser tr.can-choose:hover{
-        background-color:@color-teal;
+        background-color:$color-teal;
         color:white;
 
         a,a:hover{
@@ -127,7 +127,7 @@ ul.listing{
     .divider{
         text-transform:uppercase;
         font-size:0.8em;
-        background-color:@color-grey-3;
+        background-color:$color-grey-3;
         td{
            
            padding-top:0.5em;
@@ -140,13 +140,13 @@ ul.listing{
     }
 
     .index {
-        background-color:@color-grey-4;
+        background-color:$color-grey-4;
 
         .title h2{
             font-size:1.2em;
             opacity:1;
             a{
-                .transition(opacity 0.2s ease);
+                @include transition(opacity 0.2s ease);
             }
             a:hover{
                 opacity:0.7;
@@ -159,22 +159,22 @@ ul.listing{
             margin-top:1.8em;
             
             li{
-                border-color:@color-teal-darker;
+                border-color:$color-teal-darker;
             }
             a{
                 color:white;
 
                 &:hover{
-                    color:@color-teal-dark;
+                    color:$color-teal-dark;
                 }
             }
 
             .button{
-                background-color:@color-teal-darker;
+                background-color:$color-teal-darker;
 
                 &:hover{
                     color:white;
-                    background:@color-teal-dark;
+                    background:$color-teal-dark;
                 }
             }
         }
@@ -182,7 +182,7 @@ ul.listing{
 
     .page-explorer & .index{
         color:white;
-        background-color:@color-header-bg;
+        background-color:$color-header-bg;
 
         .title h2{
             color:white;
@@ -206,7 +206,7 @@ ul.listing{
             position:relative;
         }
         label span{
-            .visuallyhidden();
+            @include visuallyhidden();
         }
         input{
             margin-top:3px;
@@ -220,7 +220,7 @@ ul.listing{
             margin:0;
             font-size:1.1em;
             font-weight:700;
-            color:@color-grey-2;
+            color:$color-grey-2;
             line-height:1.5em;
         
             a{
@@ -228,7 +228,7 @@ ul.listing{
                 text-decoration:none;
 
                 &:hover{
-                    color:@color-link;
+                    color:$color-link;
                 }
             }
         }
@@ -246,7 +246,7 @@ ul.listing{
         li{
             display:inline-block;
             padding:0 0.5em 0 0.8em;
-            border-left:1px solid @color-grey-3;
+            border-left:1px solid $color-grey-3;
             line-height:1em;
             
             &:first-child{
@@ -271,14 +271,14 @@ ul.listing{
     .children,
     .no-children{
         padding:0 !important;
-        border-left:1px dashed @color-input-border;
+        border-left:1px dashed $color-input-border;
         &:hover{
-            background-color:@color-grey-5;
+            background-color:$color-grey-5;
         }
     }
     .children a,
     .no-children a{
-        color:@color-grey-3;
+        color:$color-grey-3;
         display:block;
         padding:2em 0;       
     }
@@ -307,7 +307,7 @@ ul.listing{
         font-size:15px;
     }
     th.ord a:hover:before{
-        color:@color-teal;
+        color:$color-teal;
     }
     .handle{
         cursor:move;
@@ -315,16 +315,16 @@ ul.listing{
 
         &:before{
             font-size:20px;
-            color:@color-grey-3;
+            color:$color-grey-3;
             width:1em;
         }
         &:hover:before{
-            color:@color-text-base;
+            color:$color-text-base;
         }
     }
 
     .ui-sortable-helper{
-        border:1px dashed @color-input-border;
+        border:1px dashed $color-input-border;
         border-width:1px 0;
         
 
@@ -341,10 +341,10 @@ ul.listing{
     }
     .dropzone{
         height:80px;
-        background-color:@color-grey-1;
+        background-color:$color-grey-1;
 
         &:hover{
-            background-color:@color-grey-1;
+            background-color:$color-grey-1;
         }
         td{
             padding: 0 !important;
@@ -353,7 +353,7 @@ ul.listing{
 
 
     td.children:hover{
-        background-color:@color-teal;
+        background-color:$color-teal;
 
         a:before{
             color:white;
@@ -375,7 +375,7 @@ ul.listing{
         margin:0;
     }
     ul{
-        .unlist();
+        @include unlist();
     }
     ul{
         margin-top:-1.7em;
@@ -397,14 +397,14 @@ ul.listing{
     padding:2em 50px 0 50px;
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .listing{
         &.horiz > li{
            float:left;
         }
         &.images {
-            .clearfix();
-            border: 1px solid @color-grey-4;
+            @include clearfix();
+            border: 1px solid $color-grey-4;
             border-width:0 0 0 1px !important;
 
             > li{
@@ -413,7 +413,7 @@ ul.listing{
                 height:220px;
                 text-align:center;
                 margin-top:-1px;
-                border:1px solid @color-grey-4;
+                border:1px solid $color-grey-4;
                 border-width:1px 1px 1px 0px;               
 
                 .image{
@@ -439,7 +439,7 @@ ul.listing{
                     background-color:#FDFDFD;
 
                     img{
-                        border-color:@color-teal;
+                        border-color:$color-teal;
                     }
                 }
             }
@@ -461,11 +461,11 @@ ul.listing{
             border-color:transparent;
         }
         .no-children a{
-            color:@color-teal;
+            color:$color-teal;
             opacity:0;
         }
         .no-children:hover{
-            border-color:@color-input-border;
+            border-color:$color-input-border;
             a{opacity:1;}
         }
 
@@ -487,13 +487,13 @@ ul.listing{
 /* Transitions */
 .listing {
     thead .dropdown ul{
-        .transition(none);
+        @include transition(none);
     }
     .children, .no-children{
-        .transition(background-color 0.2s ease);
+        @include transition(background-color 0.2s ease);
     }
     .children a,
     .no-children a{
-        .transition(all 0.2s ease);
+        @include transition(all 0.2s ease);
     }
 }

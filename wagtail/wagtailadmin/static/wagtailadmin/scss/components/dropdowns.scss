@@ -1,14 +1,14 @@
 .dropdown{
     position:relative;
-    .clearfix();
+    @include clearfix();
 
     .dropdown-toggle{
         cursor:pointer;
     }
 
     ul{
-        .unlist();
-        background-color:@color-teal;
+        @include unlist();
+        background-color:$color-teal;
         position:absolute;
         overflow:hidden;
         top:100%;
@@ -37,7 +37,7 @@
             font-weight:normal;
 
             &:hover{
-                background-color:@color-teal-darker;
+                background-color:$color-teal-darker;
             }
             &.icon{
                 padding-right:5em;
@@ -73,7 +73,7 @@
     }
 
     &.open ul{
-        .box-shadow(0px 3px 3px 0 rgba(0,0,0,0.2));
+        @include box-shadow(0px 3px 3px 0 rgba(0,0,0,0.2));
         opacity:1;
         left:0;
         display:block;
@@ -90,14 +90,14 @@
 
 
     &.dropup ul{
-        .box-shadow(0px -3px 3px 0 rgba(0,0,0,0.2));
+        @include box-shadow(0px -3px 3px 0 rgba(0,0,0,0.2));
         top:auto;
         bottom:100%;
     }
 
     input[type=button], input[type=submit], button{
         padding:1em 0;
-        .border-radius(0);
+        @include border-radius(0);
         display:block;
         width:100%;
         text-align:left;
@@ -109,7 +109,7 @@
         float:left;
 
         &:hover{
-            background-color:@color-teal-darker;
+            background-color:$color-teal-darker;
         }
     }
 
@@ -126,11 +126,11 @@
         }
 
         &:hover{
-            background-color:@color-teal-darker;
+            background-color:$color-teal-darker;
         }
     }
     &.open > .button + .dropdown-toggle{
-        background-color:@color-teal-darker;
+        background-color:$color-teal-darker;
     }
 }
 
@@ -143,10 +143,10 @@
         }
       
         a{
-            color:@color-grey-2;
+            color:$color-grey-2;
 
             &:hover{
-                background-color:@color-grey-3;
+                background-color:$color-grey-3;
             }
         }
     }
@@ -160,7 +160,7 @@ h2 .dropdown{
 
     .dropdown-toggle{
         padding:0.5em 0;
-        border-right:1px solid @color-grey-3;
+        border-right:1px solid $color-grey-3;
 
         /* icon */
         &:before{
@@ -170,13 +170,13 @@ h2 .dropdown{
             text-align:left;
         }
         &:hover{
-            background-color:@color-teal;
+            background-color:$color-teal;
             border-color:transparent;
         }
     }
     &.open{
         .dropdown-toggle{
-            background-color:@color-teal;
+            background-color:$color-teal;
         }
 
         ul{
@@ -185,14 +185,14 @@ h2 .dropdown{
     }
 
     .dropdown-toggle:hover{
-        background-color:@color-grey-3;
+        background-color:$color-grey-3;
         &:before{
             color:white;
             opacity:1;
         }
     }
     &.open .dropdown-toggle:before{
-        background-color:@color-teal;
+        background-color:$color-teal;
         color:white;
         opacity:1;
     }
@@ -202,7 +202,7 @@ h2 .dropdown{
 
 footer .actions .dropdown-toggle{
     text-transform:uppercase;
-    background-color:@color-teal;
+    background-color:$color-teal;
     line-height:3em;
     color:white;
     padding-left:1em;
@@ -222,5 +222,5 @@ footer .actions .dropdown ul li{
 
 /* Transitions */
 .dropdown ul{
-    .transition(opacity 0.2s linear);
+    @include transition(opacity 0.2s linear);
 }

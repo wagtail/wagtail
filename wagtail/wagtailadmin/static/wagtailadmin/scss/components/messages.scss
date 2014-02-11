@@ -1,10 +1,10 @@
 .messages{
     position:relative;
     z-index:5;
-    background-color:@color-grey-1;
+    background-color:$color-grey-1;
 
     ul{
-        .unlist();
+        @include unlist();
         padding-left:10px;
         position:relative;
         top:-100px;
@@ -17,27 +17,27 @@
         color:white;
     }
     .error{
-        background-color:@color-red;
+        background-color:$color-red;
     }
     .warning{
-        background-color:@color-orange;
+        background-color:$color-orange;
     }
     .success{
-        background-color:@color-teal-dark;
+        background-color:$color-teal-dark;
     }
 }
 .ready .messages ul,
 .messages.appear ul{
-    .transition-immediate(~"top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease");
+    @include transition-immediate("top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease");
     opacity:1;
     top:0;
 }
 .messages.new ul{
-    .transition-immediate(none);
+    @include transition-immediate(none);
     top:-100px;
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .messages{
         ul{
             margin-left:-15px;
