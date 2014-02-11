@@ -13,8 +13,11 @@ def get_embed(url, max_width=None):
     except Embed.DoesNotExist:
         pass
 
-    # Call embedly API
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    try:
+        # Call embedly API
+        client = Embedly(key=settings.EMBEDLY_KEY)
+    except AttributeError:
+        return None
     if max_width is not None:
         oembed = client.oembed(url, maxwidth=max_width, better=False)
     else:

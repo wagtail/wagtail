@@ -1,7 +1,7 @@
 from django.forms.util import ErrorList
+from django.conf import settings
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-
 from wagtail.wagtailembeds.forms import EmbedForm
 from wagtail.wagtailembeds.format import embed_to_editor_html
 
@@ -27,7 +27,10 @@ def chooser_upload(request):
                 )
             else:
                 errors = form._errors.setdefault('url', ErrorList())
-                errors.append('This URL is not recognised')
+                if not hasattr(settings, 'EMBEDLY_KEY'):
+                    errors.append('Please set EMBEDLY_KEY in your settings')
+                else:
+                    errors.append('This URL is not recognised')
                 return render_modal_workflow(request, 'wagtailembeds/chooser/chooser.html', 'wagtailembeds/chooser/chooser.js', {
                     'form': form,
                 })
