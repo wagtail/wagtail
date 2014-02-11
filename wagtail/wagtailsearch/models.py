@@ -52,7 +52,7 @@ class Query(models.Model):
         query_string = ''.join([c for c in query_string if c not in string.punctuation])
 
         # Remove double spaces
-        ' '.join(query_string.split())
+        query_string = ' '.join(query_string.split())
 
         return query_string
 
