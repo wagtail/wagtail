@@ -16,8 +16,10 @@ class Query(models.Model):
 
         super(Query, self).save(*args, **kwargs)
 
-    def add_hit(self):
-        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=timezone.now().date())
+    def add_hit(self, date=None):
+        if date is None:
+            date = timezone.now().date()
+        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=date)
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 
@@ -41,6 +43,7 @@ class Query(models.Model):
 
     @classmethod
     def get_most_popular(cls, date_since=None):
+        # TODO: Implement date_since
         return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
 
     @staticmethod
