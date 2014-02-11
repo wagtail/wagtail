@@ -1,8 +1,7 @@
 from django.core.management.base import NoArgsCommand
 from django.db import models
 
-from wagtail.wagtailsearch.indexed import Indexed
-from wagtail.wagtailsearch.search import Search
+from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class Command(NoArgsCommand):
@@ -46,8 +45,8 @@ class Command(NoArgsCommand):
                     # Space free, take it
                     object_set[key] = obj
 
-        # Search object
-        s = Search()
+        # Search backend
+        s = get_search_backend()
 
         # Reset the index
         print "Reseting index"

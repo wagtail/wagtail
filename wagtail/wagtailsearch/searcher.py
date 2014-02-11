@@ -1,4 +1,4 @@
-from search import Search
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class Searcher(object):
@@ -10,5 +10,5 @@ class Searcher(object):
         def dosearch(query_string, **kwargs):
             search_kwargs = dict(model=cls, fields=self.fields, filters=self.filters)
             search_kwargs.update(kwargs)
-            return Search().search(query_string, **search_kwargs)
+            return get_search_backend().search(query_string, **search_kwargs)
         return dosearch
