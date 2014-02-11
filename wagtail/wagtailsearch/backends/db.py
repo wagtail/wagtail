@@ -32,6 +32,10 @@ class DBSearch(BaseSearch):
         if not terms:
             return model.objects.none()
 
+        # Get fields
+        if fields is None:
+            fields = model.indexed_get_indexed_fields().keys()
+
         # Start will all objects
         query = model.objects.all()
 
@@ -42,7 +46,7 @@ class DBSearch(BaseSearch):
         # Filter by terms
         for term in terms:
             term_query = None
-            for field_name in model.indexed_get_indexed_fields().keys():
+            for field_name in fields:
                 field_filter = {'%s__icontains' % field_name: term}
                 if term_query is None:
                     term_query = models.Q(**field_filter)
