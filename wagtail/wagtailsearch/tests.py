@@ -6,11 +6,36 @@ import unittest
 import models
 from wagtail.wagtailsearch.backends import get_search_backend
 
+from wagtail.wagtailsearch.backends.base import InvalidSearchBackendError
+from wagtail.wagtailsearch.backends.db import DBSearch
+from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+from django.conf import settings
+
+def find_backend(cls):
+    if not hasattr(settings, 'WAGTAILSEARCH_BACKENDS') and cls == DBSearch:
+        return 'default'
+
+    for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
+        if isinstance(get_search_backend(backend), cls):
+            return backend
+
 
 class TestSearch(TestCase):
-    def test_search(self):
+    def test_backend_loader(self):
+        # Test DB backend import
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+        self.assertIsInstance(db, DBSearch)
+
+        # Test Elastic search backend import
+        elasticsearch = get_search_backend(backend='wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch')
+        self.assertIsInstance(elasticsearch, ElasticSearch)
+
+        # Test loading a non existant backend
+        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
+
+    def test_search(self, backend='default'):
         # Get search backend and reset the index
-        s = get_search_backend()
+        s = get_search_backend(backend=backend)
         s.reset_index()
 
         # Create a couple of objects and add them to the index
@@ -52,8 +77,16 @@ class TestSearch(TestCase):
         results = models.SearchTestChild.title_search("Hello")
         self.assertEqual(len(results), 1)
 
-    def test_backend_loader(self):
-        pass
+    def test_db_backend(self):
+        self.test_search(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+
+    def test_elastic_search_backend(self):
+        backend = find_backend(ElasticSearch)
+
+        if backend is not None:
+            self.test_search(backend)
+        else:
+            print "WARNING: Cannot find an ElasticSearch search backend in configuration. Not testing."
 
     def test_hit_counter(self):
         # Add 10 hits to hello query
