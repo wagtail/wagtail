@@ -6,11 +6,11 @@ from wagtail.wagtailsearch import models
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         # Clean daily hits
-        print "Cleaning daily hits records... ",
+        self.stdout.write("Cleaning daily hits records... ")
         models.QueryDailyHits.garbage_collect()
-        print "Done"
+        self.stdout.write("Done")
 
         # Clean queries
-        print "Cleaning query records... ",
+        self.stdout.write("Cleaning query records... ")
         models.Query.garbage_collect()
-        print "Done"
+        self.stdout.write("Done")

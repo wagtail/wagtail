@@ -6,14 +6,8 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 class Command(BaseCommand):
     def handle(self, backend='default', **options):
-        # Check of we need to be quiet
-        quiet = False
-        if 'quiet' in options and options['quiet']:
-            quiet = True
-
         # Print info
-        if not quiet:
-            print "Getting object list"
+        self.stdout.write("Getting object list")
 
         # Get list of indexed models
         indexed_models = [model for model in models.get_models() if issubclass(model, Indexed)]
@@ -55,27 +49,21 @@ class Command(BaseCommand):
         s = get_search_backend(backend=backend)
 
         # Reset the index
-        if not quiet:
-            print "Reseting index"
+        self.stdout.write("Reseting index")
         s.reset_index()
 
         # Add types
-        if not quiet:
-            print "Adding types"
+        self.stdout.write("Adding types")
         for model in indexed_models:
             s.add_type(model)
 
         # Add objects to index
-        if not quiet:
-            print "Adding objects"
+        self.stdout.write("Adding objects")
         results = s.add_bulk(object_set.values())
-
-        # Print results
-        if not quiet and results:
+        if results:
             for result in results:
-                print result[0], result[1]
+                self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
-        if not quiet:
-            print "Refreshing index"
+        self.stdout.write("Refreshing index")
         s.refresh_index()
