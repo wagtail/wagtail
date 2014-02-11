@@ -76,6 +76,23 @@ class TestSearch(TestCase):
         results = s.search("Hello", models.SearchTest)
         self.assertEqual(len(results), 3)
 
+        # Retrieve single result
+        self.assertIsInstance(results[0], models.SearchTest)
+
+        # Retrieve results through iteration
+        iterations = 0
+        for result in results:
+            self.assertIsInstance(result, models.SearchTest)
+            iterations += 1
+        self.assertEqual(iterations, 3)
+
+        # Retrieve results through slice
+        iterations = 0
+        for result in results[:]:
+            self.assertIsInstance(result, models.SearchTest)
+            iterations += 1
+        self.assertEqual(iterations, 3)
+
         # Ordinary search on "World"
         results = s.search("World", models.SearchTest)
         self.assertEqual(len(results), 1)
