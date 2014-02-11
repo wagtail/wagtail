@@ -1,13 +1,13 @@
 from django.test import TestCase
 
 import models
-from search import Search
+from wagtail.wagtailsearch.backends import get_search_backend()
 
 
 class TestSearch(TestCase):
     def test_search(self):
-        # Create search interface and reset the index
-        s = Search()
+        # Create search backend and reset the index
+        s = get_search_backend()
         s.reset_index()
 
         # Create a couple of objects and add them to the index
