@@ -1,13 +1,19 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db import models
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
-class Command(NoArgsCommand):
-    def handle_noargs(self, **options):
+class Command(BaseCommand):
+    def handle(self, backend='default', **options):
+        # Check of we need to be quiet
+        quiet = False
+        if 'quiet' in options and options['quiet']:
+            quiet = True
+
         # Print info
-        print "Getting object list"
+        if not quiet:
+            print "Getting object list"
 
         # Get list of indexed models
         indexed_models = [model for model in models.get_models() if issubclass(model, Indexed)]
@@ -46,21 +52,30 @@ class Command(NoArgsCommand):
                     object_set[key] = obj
 
         # Search backend
-        s = get_search_backend()
+        s = get_search_backend(backend=backend)
 
         # Reset the index
-        print "Reseting index"
+        if not quiet:
+            print "Reseting index"
         s.reset_index()
 
         # Add types
-        print "Adding types"
+        if not quiet:
+            print "Adding types"
         for model in indexed_models:
             s.add_type(model)
 
         # Add objects to index
-        print "Adding objects"
-        s.add_bulk(object_set.values())
+        if not quiet:
+            print "Adding objects"
+        results = s.add_bulk(object_set.values())
+
+        # Print results
+        if not quiet and results:
+            for result in results:
+                print result[0], result[1]
 
         # Refresh index
-        print "Refreshing index"
+        if not quiet:
+            print "Refreshing index"
         s.refresh_index()

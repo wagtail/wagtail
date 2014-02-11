@@ -178,9 +178,11 @@ class ElasticSearch(BaseSearch):
             type_set[obj_type].append(obj.indexed_build_document())
 
         # Loop through each type and bulk add them
+        results = []
         for type_name, type_objects in type_set.items():
-            print type_name, len(type_objects)
+            results.append((type_name, len(type_objects)))
             self.es.bulk_index(self.es_index, type_name, type_objects)
+        return results
 
     def delete(self, obj):
         # Object must be a decendant of Indexed and be a django model
