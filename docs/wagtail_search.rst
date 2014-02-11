@@ -1,0 +1,4 @@
+Search
+======
+
+Something about search.
