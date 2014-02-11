@@ -4,7 +4,9 @@
 
 from importlib import import_module
 from django.utils import six
+import sys
 from django.conf import settings
+from base import InvalidSearchBackendError
 
 
 # Pinched from django 1.7 source code.
@@ -45,8 +47,13 @@ def get_search_backend(backend='default', **kwargs):
         # Try to get the WAGTAILSEARCH_BACKENDS entry for the given backend name first
         conf = WAGTAILSEARCH_BACKENDS[backend]
     except KeyError:
-        raise InvalidSearchBackendError("Could not find backend '%s': %s" % (
-            backend, e))
+        try:
+            # Trying to import the given backend, in case it's a dotted path
+            import_string(backend)
+        except ImportError as e:
+            raise InvalidSearchBackendError("Could not find backend '%s': %s" % (
+                backend, e))
+        params = kwargs
     else:
         # Backend is a conf entry
         params = conf.copy()
