@@ -21,6 +21,9 @@ class Query(models.Model):
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 
+    def __unicode__(self):
+        return self.query_string
+
     @property
     def hits(self):
         return self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']

@@ -1,12 +1,12 @@
 from django.test import TestCase
 
 import models
-from wagtail.wagtailsearch.backends import get_search_backend()
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class TestSearch(TestCase):
     def test_search(self):
-        # Create search backend and reset the index
+        # Get search backend and reset the index
         s = get_search_backend()
         s.reset_index()
 
@@ -48,3 +48,35 @@ class TestSearch(TestCase):
         # Searcher search on child
         results = models.SearchTestChild.title_search("Hello")
         self.assertEqual(len(results), 1)
+
+    def test_hit_counter(self):
+        # Add 10 hits to hello query
+        for i in range(10):
+            models.Query.get("Hello").add_hit()
+
+        # Check that each hit was registered
+        self.assertEqual(models.Query.get("Hello").hits, 10)
+
+    def test_query_string_normalisation(self):
+        # Get a query
+        query = models.Query.get("Hello World!")
+
+        # Check queries that should be the same
+        self.assertEqual(query, models.Query.get("Hello World"))
+        self.assertEqual(query, models.Query.get("Hello  World!!"))
+        self.assertEqual(query, models.Query.get("hello world"))
+        self.assertEqual(query, models.Query.get("Hello' world"))
+
+        # Check queries that should be different
+        self.assertNotEqual(query, models.Query.get("HelloWorld"))
+        self.assertNotEqual(query, models.Query.get("Hello orld!!"))
+        self.assertNotEqual(query, models.Query.get("Hello"))
+
+    def test_popularity(self):
+        pass
+
+    def test_editors_picks(self):
+        pass
+
+    def test_garbage_collect(self):
+        pass
