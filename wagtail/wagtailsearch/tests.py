@@ -5,7 +5,9 @@ from django.conf import settings
 
 import datetime
 import unittest
+from StringIO import StringIO
 
+from wagtail.wagtailcore import models as core_models
 from wagtail.wagtailsearch import models
 from wagtail.wagtailsearch.backends import get_search_backend
 
@@ -79,7 +81,7 @@ class TestSearch(TestCase):
         self.assertEqual(len(results), 1)
 
         # Searcher search
-        results = models.SearchTest.title_search("Hello")
+        results = models.SearchTest.title_search("Hello", backend=backend)
         self.assertEqual(len(results), 3)
 
         # Ordinary search on child
@@ -87,14 +89,14 @@ class TestSearch(TestCase):
         self.assertEqual(len(results), 1)
 
         # Searcher search on child
-        results = models.SearchTestChild.title_search("Hello")
+        results = models.SearchTestChild.title_search("Hello", backend=backend)
         self.assertEqual(len(results), 1)
 
         # Reset the index, this should clear out the index (but doesn't have to!)
         s.reset_index()
 
         # Run update_index command
-        management.call_command('update_index', backend, interactive=False, quiet=True)
+        management.call_command('update_index', backend, interactive=False, stdout=StringIO())
 
         # Should have results again now
         results = s.search("Hello", models.SearchTest)
@@ -111,7 +113,7 @@ class TestSearch(TestCase):
         else:
             print "WARNING: Cannot find an ElasticSearch search backend in configuration. Not testing."
 
-    def test_hit_counter(self):
+    def test_query_hit_counter(self):
         # Add 10 hits to hello query
         for i in range(10):
             models.Query.get("Hello").add_hit()
@@ -134,7 +136,7 @@ class TestSearch(TestCase):
         self.assertNotEqual(query, models.Query.get("Hello orld!!"))
         self.assertNotEqual(query, models.Query.get("Hello"))
 
-    def test_popularity(self):
+    def test_query_popularity(self):
         # Add 3 hits to unpopular query
         for i in range(3):
             models.Query.get("unpopular query").add_hit()
@@ -172,7 +174,7 @@ class TestSearch(TestCase):
         self.assertEqual(popular_queries[2], models.Query.get("little popular query"))
 
     @unittest.expectedFailure # Time based popularity isn't implemented yet
-    def test_popularity_over_time(self):
+    def test_query_popularity_over_time(self):
         today = timezone.now().date()
         two_days_ago = today - datetime.timedelta(days=2)
         a_week_ago = today - datetime.timedelta(days=7)
@@ -211,7 +213,51 @@ class TestSearch(TestCase):
         self.assertEqual(past_week_popular_queries[1], models.Query.get("old popular query"))
 
     def test_editors_picks(self):
-        pass
+        # Get root page
+        root = core_models.Page.objects.first()
+
+        # Create an editors pick to the root page
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page=root,
+            sort_order=0,
+            description="First editors pick",
+        )
+
+        # Get editors pick
+        self.assertEqual(models.Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(models.Query.get("root page").editors_picks.first().page, root)
+
+        # Create a couple more editors picks to test the ordering
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page=root,
+            sort_order=2,
+            description="Last editors pick",
+        )
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page=root,
+            sort_order=1,
+            description="Middle editors pick",
+        )
+
+        # Check
+        self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
+        self.assertEqual(models.Query.get("root page").editors_picks.first().description, "First editors pick")
+        self.assertEqual(models.Query.get("root page").editors_picks.last().description, "Last editors pick")
+
+        # Add editors pick with different terms
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page 2"),
+            page=root,
+            sort_order=0,
+            description="Other terms",
+        )
+
+        # Check
+        self.assertEqual(models.Query.get("root page 2").editors_picks.count(), 1)
+        self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
 
     def test_garbage_collect(self):
         pass
