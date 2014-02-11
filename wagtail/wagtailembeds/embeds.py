@@ -13,15 +13,18 @@ def get_embed(url, max_width=None):
     except Embed.DoesNotExist:
         pass
 
-    # Call embedly API
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    try:
+        # Call embedly API
+        client = Embedly(key=settings.EMBEDLY_KEY)
+    except AttributeError:
+        return None
     if max_width is not None:
         oembed = client.oembed(url, maxwidth=max_width, better=False)
     else:
         oembed = client.oembed(url, better=False)
 
     # Check for error
-    if oembed.error:
+    if oembed.get('error'):
         return None
 
     # Save result to database
@@ -29,18 +32,18 @@ def get_embed(url, max_width=None):
         url=url,
         max_width=max_width,
         defaults={
-            'type': oembed.type,
-            'title': oembed.title,
-            'thumbnail_url': oembed.thumbnail_url,
-            'width': oembed.width,
-            'height': oembed.height
+            'type': oembed['type'],
+            'title': oembed['title'],
+            'thumbnail_url': oembed.get('thumbnail_url'),
+            'width': oembed.get('width'),
+            'height': oembed.get('height')
         }
     )
 
-    if oembed.type == 'photo':
-        html = '<img src="%s" />' % (oembed.url, )
+    if oembed['type'] == 'photo':
+        html = '<img src="%s" />' % (oembed['url'], )
     else:
-        html = oembed.html
+        html = oembed.get('html')
 
     if html:
         row.html = html
