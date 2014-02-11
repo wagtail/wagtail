@@ -47,6 +47,13 @@ class DBSearch(BaseSearch):
         for term in terms:
             term_query = None
             for field_name in fields:
+                # Check if the field exists (this will filter out indexed callables)
+                try:
+                    model._meta.get_field_by_name(field_name)
+                except:
+                    continue
+
+                # Filter on this field
                 field_filter = {'%s__icontains' % field_name: term}
                 if term_query is None:
                     term_query = models.Q(**field_filter)
