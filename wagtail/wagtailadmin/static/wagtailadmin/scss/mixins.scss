@@ -80,6 +80,9 @@
         width: auto; 
     }
 }
+.visuallyhidden{
+    @include visuallyhidden;
+}
 
 @mixin visuallyvisible{
     clip:none;
@@ -88,4 +91,8 @@
     margin:auto;
     overflow:visible;
     position:initial;
+}
+
+.visuallyvisible{
+    @include visuallyvisible;
 }
