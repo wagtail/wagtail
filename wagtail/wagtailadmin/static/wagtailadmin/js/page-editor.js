@@ -257,10 +257,12 @@ $(function() {
     /* Set up behaviour of preview button */
     $('#action-preview').click(function() {
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
-        $.post(
-            $(this).data('action'),
-            $('#page-edit-form').serialize(),
-            function(data, textStatus, request) {
+
+        $.ajax({
+            type: "POST",
+            url: $(this).data('action'),
+            data: $('#page-edit-form').serialize(),
+            success: function(data, textStatus, request) {
                 if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
                     previewWindow.document.open();
                     previewWindow.document.write(data);
@@ -271,7 +273,17 @@ $(function() {
                     document.write(data);
                     document.close();
                 }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                /* If an error occurs, display it in the preview window so that
+                we aren't just showing the spinner forever. We preserve the original
+                error output rather than giving a 'friendly' error message so that
+                developers can debug template errors. (On a production site, we'd
+                typically be serving a friendly custom 500 page anyhow.) */
+                previewWindow.document.open();
+                previewWindow.document.write(xhr.responseText);
+                previewWindow.document.close();
             }
-        );
+        });
     });
 });
