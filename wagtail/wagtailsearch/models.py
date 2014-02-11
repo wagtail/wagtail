@@ -16,10 +16,15 @@ class Query(models.Model):
 
         super(Query, self).save(*args, **kwargs)
 
-    def add_hit(self):
-        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=timezone.now().date())
+    def add_hit(self, date=None):
+        if date is None:
+            date = timezone.now().date()
+        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=date)
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
+
+    def __unicode__(self):
+        return self.query_string
 
     @property
     def hits(self):
@@ -38,6 +43,7 @@ class Query(models.Model):
 
     @classmethod
     def get_most_popular(cls, date_since=None):
+        # TODO: Implement date_since
         return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
 
     @staticmethod
@@ -49,7 +55,7 @@ class Query(models.Model):
         query_string = ''.join([c for c in query_string if c not in string.punctuation])
 
         # Remove double spaces
-        ' '.join(query_string.split())
+        query_string = ' '.join(query_string.split())
 
         return query_string
 
@@ -90,9 +96,17 @@ class SearchTest(models.Model, Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
 
-    indexed_fields = ("title", "content")
+    indexed_fields = ("title", "content", "callable_indexed_field")
 
     title_search = Searcher(["title"])
+
+    def object_indexed(self):
+        if self.title == "Don't index me!":
+            return False
+        return True
+
+    def callable_indexed_field(self):
+        return "Callable"
 
 
 class SearchTestChild(SearchTest):
