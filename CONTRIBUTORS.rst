@@ -1,4 +1,3 @@
-
 Original Authors
 ================
 
@@ -13,3 +12,5 @@ Contributors
 * Balazs Endresz balazs.endresz@torchbox.com
 * Neal Todd neal.todd@torchbox.com
 * Paul Hallett (twilio) hello@phalt.co
+* Tom Dyson
+* Serafeim Papastefanos
