@@ -96,9 +96,17 @@ class SearchTest(models.Model, Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
 
-    indexed_fields = ("title", "content")
+    indexed_fields = ("title", "content", "callable_indexed_field")
 
     title_search = Searcher(["title"])
+
+    def object_indexed(self):
+        if self.title == "Don't index me!":
+            return False
+        return True
+
+    def callable_indexed_field(self):
+        return "Callable"
 
 
 class SearchTestChild(SearchTest):

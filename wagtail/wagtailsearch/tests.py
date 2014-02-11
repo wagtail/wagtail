@@ -1,15 +1,18 @@
 from django.test import TestCase
 from django.utils import timezone
+from django.core import management
+from django.conf import settings
+
 import datetime
 import unittest
 
-import models
+from wagtail.wagtailsearch import models
 from wagtail.wagtailsearch.backends import get_search_backend
 
 from wagtail.wagtailsearch.backends.base import InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-from django.conf import settings
+
 
 def find_backend(cls):
     if not hasattr(settings, 'WAGTAILSEARCH_BACKENDS') and cls == DBSearch:
@@ -21,6 +24,11 @@ def find_backend(cls):
 
 
 class TestSearch(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestSearch, self).__init__(*args, **kwargs)
+
+        self.backends_tested = []
+
     def test_backend_loader(self):
         # Test DB backend import
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
@@ -34,6 +42,11 @@ class TestSearch(TestCase):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
 
     def test_search(self, backend='default'):
+        # Don't test the same backend more than once!
+        if backend in self.backends_tested:
+            return
+        self.backends_tested.append(backend)
+
         # Get search backend and reset the index
         s = get_search_backend(backend=backend)
         s.reset_index()
@@ -61,7 +74,7 @@ class TestSearch(TestCase):
         results = s.search("Hello", models.SearchTest)
         self.assertEqual(len(results), 3)
 
-          # Ordinary search on "World"
+        # Ordinary search on "World"
         results = s.search("World", models.SearchTest)
         self.assertEqual(len(results), 1)
 
@@ -76,6 +89,16 @@ class TestSearch(TestCase):
         # Searcher search on child
         results = models.SearchTestChild.title_search("Hello")
         self.assertEqual(len(results), 1)
+
+        # Reset the index, this should clear out the index (but doesn't have to!)
+        s.reset_index()
+
+        # Run update_index command
+        management.call_command('update_index', backend, interactive=False, quiet=True)
+
+        # Should have results again now
+        results = s.search("Hello", models.SearchTest)
+        self.assertEqual(len(results), 3)
 
     def test_db_backend(self):
         self.test_search(backend='wagtail.wagtailsearch.backends.db.DBSearch')
@@ -191,4 +214,7 @@ class TestSearch(TestCase):
         pass
 
     def test_garbage_collect(self):
+        pass
+
+    def test_suggestions(self):
         pass
