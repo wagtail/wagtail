@@ -42,7 +42,6 @@ setup(
         "Django>=1.6.1",
         "South>=0.8.4",
         "django-compressor>=1.3",
-        "django-celery>=3.1.1",
         "django-modelcluster>=0.1",
         "elasticutils>=0.8.2",
         "pyelasticsearch>=0.6.1",
