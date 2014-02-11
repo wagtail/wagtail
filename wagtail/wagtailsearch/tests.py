@@ -17,8 +17,11 @@ from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
 
 
 def find_backend(cls):
-    if not hasattr(settings, 'WAGTAILSEARCH_BACKENDS') and cls == DBSearch:
-        return 'default'
+    if not hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+        if cls == DBSearch:
+            return 'default'
+        else:
+            return
 
     for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
         if isinstance(get_search_backend(backend), cls):
