@@ -4,7 +4,7 @@ function createPageChooser(id, pageType, openAtParentId) {
     var input = $('#' + id);
 
     $('.action-choose', chooserElement).click(function() {
-        var initialUrl = window.page_chooser;
+        var initialUrl = window.chooserUrls.pageChooser;
         if (openAtParentId) {
             initialUrl += openAtParentId + '/';
         }

@@ -25,7 +25,7 @@
                 lastSelection = widget.options.editable.getSelection()
                 insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last()
                 ModalWorkflow
-                    url: window.embeds_chooser
+                    url: window.chooserUrls.embedsChooser
                     responses:
                         embedChosen: (embedData) ->
                             elem = $(embedData).get(0)

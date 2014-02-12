@@ -24,7 +24,7 @@
             button.on "click", (event) ->
                 lastSelection = widget.options.editable.getSelection()
                 ModalWorkflow
-                    url: window.document_chooser
+                    url: window.chooserUrls.documentChooser
                     responses:
                         documentChosen: (docData) ->
                             a = document.createElement('a')

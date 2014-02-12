@@ -5,7 +5,7 @@ function createImageChooser(id) {
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
-            'url': window.image_chooser,
+            'url': window.chooserUrls.imageChooser,
             'responses': {
                 'imageChosen': function(imageData) {
                     input.val(imageData.id);
