@@ -5,7 +5,7 @@ function createImageChooser(id) {
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
-            'url': '/admin/images/chooser/', /* TODO: don't hard-code this, as it may be changed in urls.py */
+            'url': window.image_chooser,
             'responses': {
                 'imageChosen': function(imageData) {
                     input.val(imageData.id);

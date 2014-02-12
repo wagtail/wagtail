@@ -24,7 +24,7 @@
             button.on "click", (event) ->
                 lastSelection = widget.options.editable.getSelection()
                 ModalWorkflow
-                    url: '/admin/documents/chooser/' # TODO: don't hard-code this, as it may be changed in urls.py
+                    url: window.document_chooser
                     responses:
                         documentChosen: (docData) ->
                             a = document.createElement('a')

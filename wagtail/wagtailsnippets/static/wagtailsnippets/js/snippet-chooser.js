@@ -5,7 +5,7 @@ function createSnippetChooser(id, contentType) {
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
-            'url': '/admin/snippets/choose/' + contentType + '/', /* TODO: don't hard-code this, as it may be changed in urls.py */
+            'url': window.snippet_chooser + contentType + '/',  
             'responses': {
                 'snippetChosen': function(snippetData) {
                     input.val(snippetData.id);

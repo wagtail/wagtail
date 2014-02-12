@@ -5,6 +5,7 @@ urlpatterns = patterns(
     'wagtail.wagtailsnippets.views',
     url(r'^$', 'snippets.index', name='wagtailsnippets_index'),
 
+    url(r'^choose/$', 'chooser.choose', name='wagtailsnippets_choose_generic'),
     url(r'^choose/(\w+)/(\w+)/$', 'chooser.choose', name='wagtailsnippets_choose'),
     url(r'^choose/(\w+)/(\w+)/(\d+)/$', 'chooser.chosen', name='wagtailsnippets_chosen'),
 

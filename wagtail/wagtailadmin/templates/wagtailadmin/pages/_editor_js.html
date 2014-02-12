@@ -29,6 +29,13 @@
     <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
+    <script type='text/javascript'>
+        window.document_chooser='{% url "wagtaildocs_chooser" %}';
+        window.image_chooser='{% url "wagtailimages_chooser" %}';
+        window.embeds_chooser='{% url "wagtailembeds_chooser" %}';
+        window.page_chooser='{% url "wagtailadmin_choose_page" %}';
+        window.snippet_chooser='{% url "wagtailsnippets_choose_generic" %}';
+    </script>
 {% endcompress %}
 
 <script>
