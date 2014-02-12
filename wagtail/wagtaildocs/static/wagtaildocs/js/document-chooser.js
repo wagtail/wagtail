@@ -5,7 +5,7 @@ function createDocumentChooser(id) {
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
-            'url': '/admin/documents/chooser/', /* TODO: don't hard-code this, as it may be changed in urls.py */
+            'url': window.document_chooser,
             'responses': {
                 'documentChosen': function(docData) {
                     input.val(docData.id);
