@@ -1,15 +1,16 @@
-import string
+from django.db import models
+from django.conf import settings
 
 from pyelasticsearch.exceptions import ElasticHttpNotFoundError
 from elasticutils import get_es, S
 
-from django.db import models
-from django.conf import settings
+from wagtail.wagtailsearch.backends.base import BaseSearch
+from wagtail.wagtailsearch.indexed import Indexed
 
-from indexed import Indexed
+import string
 
 
-class SearchResults(object):
+class ElasticSearchResults(object):
     def __init__(self, model, query, prefetch_related=[]):
         self.model = model
         self.query = query
@@ -53,11 +54,13 @@ class SearchResults(object):
         return self.count
 
 
-class Search(object):
-    def __init__(self):
+class ElasticSearch(BaseSearch):
+    def __init__(self, params):
+        super(ElasticSearch, self).__init__(params)
+
         # Get settings
-        self.es_urls = getattr(settings, "WAGTAILSEARCH_ES_URLS", ["http://localhost:9200"])
-        self.es_index = getattr(settings, "WAGTAILSEARCH_ES_INDEX", "wagtail")
+        self.es_urls = params.get('URLS', ['http://localhost:9200'])
+        self.es_index = params.get('INDEX', 'wagtail')
 
         # Get ElasticSearch interface
         self.es = get_es(urls=self.es_urls)
@@ -145,24 +148,9 @@ class Search(object):
     def refresh_index(self):
         self.es.refresh(self.es_index)
 
-    def can_be_indexed(self, obj):
-        # Object must be a decendant of Indexed and be a django model
-        if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
-            return False
-
-        # Check if this objects model has opted out of indexing
-        if not obj.__class__.indexed:
-            return False
-
-        # Check if this object has an "object_indexed" function
-        if hasattr(obj, "object_indexed"):
-            if obj.object_indexed() is False:
-                return False
-        return True
-
     def add(self, obj):
         # Make sure the object can be indexed
-        if not self.can_be_indexed(obj):
+        if not self.object_can_be_indexed(obj):
             return
 
         # Build document
@@ -176,7 +164,7 @@ class Search(object):
         type_set = {}
         for obj in obj_list:
             # Object must be a decendant of Indexed and be a django model
-            if not self.can_be_indexed(obj):
+            if not self.object_can_be_indexed(obj):
                 continue
 
             # Get object type
@@ -190,9 +178,11 @@ class Search(object):
             type_set[obj_type].append(obj.indexed_build_document())
 
         # Loop through each type and bulk add them
+        results = []
         for type_name, type_objects in type_set.items():
-            print type_name, len(type_objects)
+            results.append((type_name, len(type_objects)))
             self.es.bulk_index(self.es_index, type_name, type_objects)
+        return results
 
     def delete(self, obj):
         # Object must be a decendant of Indexed and be a django model
@@ -243,4 +233,4 @@ class Search(object):
             query = query.filter(**filters)
 
         # Return search results
-        return SearchResults(model, query, prefetch_related=prefetch_related)
+        return ElasticSearchResults(model, query, prefetch_related=prefetch_related)

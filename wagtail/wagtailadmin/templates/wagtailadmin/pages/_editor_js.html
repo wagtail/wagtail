@@ -31,6 +31,16 @@
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 {% endcompress %}
 
+<script type='text/javascript'>
+    window.chooserUrls = {
+        'documentChooser': '{% url "wagtaildocs_chooser" %}',
+        'imageChooser': '{% url "wagtailimages_chooser" %}',
+        'embedsChooser': '{% url "wagtailembeds_chooser" %}',
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
+        'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
+    };
+</script>
+
 <script>
     (function() {
         function fixPrefix(str) {return str;}

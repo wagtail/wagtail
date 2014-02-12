@@ -25,24 +25,23 @@ def search(request):
 
         # Pagination
         paginator = Paginator(search_results, 10)
-        if paginator is not None:
-            try:
-                search_results = paginator.page(page)
-            except PageNotAnInteger:
-                search_results = paginator.page(1)
-            except EmptyPage:
-                search_results = paginator.page(paginator.num_pages)
-        else:
-            search_results = None
+        try:
+            search_results = paginator.page(page)
+        except PageNotAnInteger:
+            search_results = paginator.page(1)
+        except EmptyPage:
+            search_results = paginator.page(paginator.num_pages)
     else:
         query = None
         search_results = None
 
     # Render
+    template_name = None
     if request.is_ajax():
-        template_name = getattr(settings, "WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX", "wagtailsearch/search_results.html")
-    else:
-        template_name = getattr(settings, "WAGTAILSEARCH_RESULTS_TEMPLATE", "wagtailsearch/search_results.html")
+        template_name = getattr(settings, 'WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX', None)
+    if template_name is None:
+        template_name = getattr(settings, 'WAGTAILSEARCH_RESULTS_TEMPLATE', 'wagtailsearch/search_results.html')
+
     return render(request, template_name, dict(query_string=query_string, search_results=search_results, is_ajax=request.is_ajax(), query=query))
 
 

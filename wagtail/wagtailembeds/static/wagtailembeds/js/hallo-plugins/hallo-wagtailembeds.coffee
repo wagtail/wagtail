@@ -25,7 +25,7 @@
                 lastSelection = widget.options.editable.getSelection()
                 insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last()
                 ModalWorkflow
-                    url: '/admin/embeds/chooser/' # TODO: don't hard-code this, as it may be changed in urls.py
+                    url: window.chooserUrls.embedsChooser
                     responses:
                         embedChosen: (embedData) ->
                             elem = $(embedData).get(0)

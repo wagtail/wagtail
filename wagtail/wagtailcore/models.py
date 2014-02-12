@@ -248,11 +248,20 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
         cursor = connection.cursor()
-        cursor.execute("""
-            UPDATE wagtailcore_page
-            SET url_path = %s || substring(url_path from %s)
-            WHERE path LIKE %s AND id <> %s
-        """, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
+        if connection.vendor == 'sqlite':
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path = %s || substr(url_path, %s)
+                WHERE path LIKE %s AND id <> %s
+            """
+        else:
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path = %s || substring(url_path from %s)
+                WHERE path LIKE %s AND id <> %s
+            """
+        cursor.execute(update_statement, 
+            [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     def object_indexed(self):
         # Exclude root node from index
