@@ -25,7 +25,7 @@
                 lastSelection = widget.options.editable.getSelection()
                 insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last()
                 ModalWorkflow
-                    url: '/admin/images/chooser/?select_format=true' # TODO: don't hard-code this, as it may be changed in urls.py
+                    url: window.image_chooser+'?select_format=true'
                     responses:
                         imageChosen: (imageData) ->
                             elem = $(imageData.html).get(0)
