@@ -1,12 +1,18 @@
 from datetime import datetime
-from embedly import Embedly
+
 
 from django.conf import settings
 
 from .models import Embed
 
+import os
+module_dir = os.path.dirname(__file__)  # get current directory
+file_path = os.path.join(module_dir, 'endpoints.json')
+print file_path
+print open(file_path).read()
 
-def get_embed(url, max_width=None):
+
+def get_embed_embedly(url, max_width=None):
     # Check database
     try:
         return Embed.objects.get(url=url, max_width=max_width)
@@ -52,3 +58,18 @@ def get_embed(url, max_width=None):
 
     # Return new embed
     return row
+
+def get_embed_oembed(url, max_width=None):
+    pass
+    
+get_embed = get_embed_oembed    
+try:
+    from embedly import Embedly
+    if hasattr(settings,'EMBEDLY_KEY'):
+        get_embed = get_embed_embedly
+except:
+    pass
+        
+print get_embed
+
+        
