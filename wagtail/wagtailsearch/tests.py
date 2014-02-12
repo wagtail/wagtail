@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import Client
 from django.utils import timezone
 from django.core import management
 from django.conf import settings
@@ -28,9 +29,9 @@ def find_backend(cls):
             return backend
 
 
-class TestSearch(TestCase):
+class TestBackend(TestCase):
     def __init__(self, *args, **kwargs):
-        super(TestSearch, self).__init__(*args, **kwargs)
+        super(TestBackend, self).__init__(*args, **kwargs)
 
         self.backends_tested = []
 
@@ -46,7 +47,14 @@ class TestSearch(TestCase):
         # Test loading a non existant backend
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
 
-    def test_search(self, backend='default'):
+        # Test something that isn't a backend
+        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")
+
+    def test_search(self, backend=None):
+        # Don't run this test directly (this will be called from other tests)
+        if backend is None:
+            raise unittest.SkipTest()
+
         # Don't test the same backend more than once!
         if backend in self.backends_tested:
             return
@@ -112,6 +120,22 @@ class TestSearch(TestCase):
         results = models.SearchTestChild.title_search("Hello", backend=backend)
         self.assertEqual(len(results), 1)
 
+        # Delete a record
+        testc.delete()
+        results = s.search("Hello", models.SearchTest)
+        # TODO: FIXME Deleting records doesn't seem to be deleting them from the index! (but they still get deleted on update_index)
+        #self.assertEqual(len(results), 2)
+
+        # Try to index something that shouldn't be indexed
+        # TODO: This currently fails on the DB backend
+        if not isinstance(s, DBSearch):
+            testd = models.SearchTest()
+            testd.title = "Don't index me!"
+            testd.save()
+            s.add(testd)
+            results = s.search("Don't", models.SearchTest)
+            self.assertEqual(len(results), 0)
+
         # Reset the index, this should clear out the index (but doesn't have to!)
         s.reset_index()
 
@@ -120,7 +144,7 @@ class TestSearch(TestCase):
 
         # Should have results again now
         results = s.search("Hello", models.SearchTest)
-        self.assertEqual(len(results), 3)
+        self.assertEqual(len(results), 2)
 
     def test_db_backend(self):
         self.test_search(backend='wagtail.wagtailsearch.backends.db.DBSearch')
@@ -131,7 +155,7 @@ class TestSearch(TestCase):
         if backend is not None:
             self.test_search(backend)
         else:
-            print "WARNING: Cannot find an ElasticSearch search backend in configuration. Not testing."
+            raise unittest.SkipTest("Cannot find an ElasticSearch search backend in configuration.")
 
     def test_query_hit_counter(self):
         # Add 10 hits to hello query
@@ -144,6 +168,9 @@ class TestSearch(TestCase):
     def test_query_string_normalisation(self):
         # Get a query
         query = models.Query.get("Hello World!")
+
+        # Check that it it stored correctly
+        self.assertEqual(str(query), "hello world")
 
         # Check queries that should be the same
         self.assertEqual(query, models.Query.get("Hello World"))
@@ -280,7 +307,88 @@ class TestSearch(TestCase):
         self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
 
     def test_garbage_collect(self):
-        pass
+        # Call garbage collector command
+        management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
 
-    def test_suggestions(self):
-        pass
+
+def get_default_host():
+    from wagtail.wagtailcore.models import Site
+    return Site.objects.filter(is_default_site=True).first().root_url.split('://')[1]
+
+
+def get_search_page_test_data():
+    params_list = []
+    params_list.append({})
+
+    for query in ['', 'Hello', "'", '%^W&*$']:
+        params_list.append({'q': query})
+
+    for page in ['-1', '0', '1', '99999', 'Not a number']:
+        params_list.append({'q': 'Hello', 'p': page})
+
+    return params_list
+
+
+class TestFrontend(TestCase):
+    def setUp(self):
+        s = get_search_backend()
+
+        # Stick some documents into the index
+        testa = models.SearchTest()
+        testa.title = "Hello World"
+        testa.save()
+        s.add(testa)
+
+        testb = models.SearchTest()
+        testb.title = "Hello"
+        testb.save()
+        s.add(testb)
+
+        testc = models.SearchTestChild()
+        testc.title = "Hello"
+        testc.save()
+        s.add(testc)
+
+    def test_views(self):
+        c = Client()
+
+        # Test urls
+        for url in ['/search/', '/search/suggest/']:
+            for params in get_search_page_test_data():
+                r = c.get(url, params, HTTP_HOST=get_default_host())
+                self.assertEqual(r.status_code, 200)
+
+            # Try an extra one with AJAX
+            r = c.get(url, HTTP_HOST=get_default_host(), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            self.assertEqual(r.status_code, 200)
+
+
+class TestAdmin(TestCase):
+    def setUp(self):
+        # Create a user
+        from django.contrib.auth.models import User
+        User.objects.create_superuser(username='test', email='test@email.com', password='password')
+
+        # Setup client
+        self.c = Client()
+        self.c.login(username='test', password='password')
+
+    def test_editors_picks(self):
+        # Test index
+        for params in get_search_page_test_data():
+            r = self.c.get('/admin/search/editorspicks/', params, HTTP_HOST=get_default_host())
+            self.assertEqual(r.status_code, 200)
+
+        # Try an extra one with AJAX
+        r = self.c.get('/admin/search/editorspicks/', HTTP_HOST=get_default_host(), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(r.status_code, 200)
+
+
+    def test_queries_chooser(self):
+        for params in get_search_page_test_data():
+            r = self.c.get('/admin/search/queries/chooser/', params, HTTP_HOST=get_default_host())
+            self.assertEqual(r.status_code, 200)
+
+        # Try an extra one with AJAX
+        r = self.c.get('/admin/search/queries/chooser/', HTTP_HOST=get_default_host(), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(r.status_code, 200)
