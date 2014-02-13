@@ -21,7 +21,7 @@ Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!f
 
 Getting started
 ~~~~~~~~~~~~~~~
-To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions. `Serafeim Papastefanos <https://github.com/spapas>`_ has kindly written a `tutorial <https://gist.github.com/tomdyson/8974456>`_ with all the steps to build a simple Wagtail site from scratch.
+To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions. `Serafeim Papastefanos <https://github.com/spapas>`_ has written a `tutorial <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_ with all the steps to build a simple Wagtail site from scratch.
 
 Contributing
 ~~~~~~~~~~~~
