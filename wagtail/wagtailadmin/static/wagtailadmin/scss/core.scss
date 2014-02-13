@@ -1,16 +1,16 @@
-@import "variables.scss";
-@import "mixins.scss";
-@import "grid.scss";
+@import "/wagtailadmin/scss/variables.scss";
+@import "/wagtailadmin/scss/mixins.scss";
+@import "/wagtailadmin/scss/grid.scss";
 
-@import "components/explorer.scss";
-@import "components/icons.scss";
-@import "components/tabs.scss";
-@import "components/dropdowns.scss";
-@import "components/modals.scss";
-@import "components/forms.scss";
-@import "components/listing.scss";
-@import "components/messages.scss";
-@import "components/formatters.scss";
+@import "/wagtailadmin/scss/components/explorer.scss";
+@import "/wagtailadmin/scss/components/icons.scss";
+@import "/wagtailadmin/scss/components/tabs.scss";
+@import "/wagtailadmin/scss/components/dropdowns.scss";
+@import "/wagtailadmin/scss/components/modals.scss";
+@import "/wagtailadmin/scss/components/forms.scss";
+@import "/wagtailadmin/scss/components/listing.scss";
+@import "/wagtailadmin/scss/components/messages.scss";
+@import "/wagtailadmin/scss/components/formatters.scss";
 
 html{
     background:$color-grey-4;
@@ -823,16 +823,16 @@ footer, .logo{
             }
         }
         .col3{
-            .col3();
+            @include col3();
         }
         .col3.addbutton{
             width:auto;
         }
         .col6{
-            .col6();
+            @include col6();
         }
         .col9{
-            .col9();
+            @include col9();
         }
     }
     footer{
