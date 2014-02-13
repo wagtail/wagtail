@@ -371,7 +371,8 @@ class TestAdmin(TestCase):
 
         # Setup client
         self.c = Client()
-        self.c.login(username='test', password='password')
+        login = self.c.login(username='test', password='password')
+        self.assertEqual(login, True)
 
     def test_editors_picks(self):
         # Test index

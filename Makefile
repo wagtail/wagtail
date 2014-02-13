@@ -15,7 +15,7 @@ lint:
 	flake8 wagtail
 
 test:
-	python setup.py test
+	python runtests.py
 
 test-all:
 	tox
