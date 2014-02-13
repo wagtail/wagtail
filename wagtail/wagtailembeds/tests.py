@@ -1,6 +1,6 @@
-from django.test import TestCasez
+from django.test import TestCase
 
-from .embeds import get_embed
+#from .embeds import get_embed
 
 
 class TestEmbeds(TestCase):
