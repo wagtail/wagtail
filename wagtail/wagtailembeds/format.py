@@ -2,21 +2,24 @@ from __future__ import division  # Use true division
 
 from django.utils.html import escape
 
-from .embeds import get_embed
+from .embeds.embed import get_embed
 
 
 def embed_to_frontend_html(url):
-    embed = get_embed(url)
-    if embed is not None:
-        # Work out ratio
-        if embed.width and embed.height:
-            ratio = str(embed.height / embed.width * 100) + "%"
-        else:
-            ratio = "0"
+    try:
+        embed = get_embed(url)
+        if embed is not None:
+            # Work out ratio
+            if embed.width and embed.height:
+                ratio = str(embed.height / embed.width * 100) + "%"
+            else:
+                ratio = "0"
 
-        # Build html
-        return '<div style="padding-bottom: %s;" class="responsive-object">%s</div>' % (ratio, embed.html)
-    else:
+            # Build html
+            return '<div style="padding-bottom: %s;" class="responsive-object">%s</div>' % (ratio, embed.html)
+        else:
+            return ''
+    except:
         return ''
 
 

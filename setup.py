@@ -45,7 +45,6 @@ setup(
         "django-modelcluster>=0.1",
         "elasticutils>=0.8.2",
         "pyelasticsearch>=0.6.1",
-        "Embedly>=0.5.0",
         "django-taggit==0.10",
         "Pillow>=2.3.0",
         "beautifulsoup4>=4.3.2",
