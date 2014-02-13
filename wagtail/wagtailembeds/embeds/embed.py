@@ -1,16 +1,11 @@
 from datetime import datetime
-
-
 from django.conf import settings
+from ..models import Embed
+import oembed_api
 
-from .models import Embed
-
-import os
-module_dir = os.path.dirname(__file__)  # get current directory
-file_path = os.path.join(module_dir, 'endpoints.json')
-print file_path
-print open(file_path).read()
-
+class EmbedlyException(Exception): pass
+class AccessDeniedEmbedlyException(Exception): pass
+class NotFoundEmbedlyException(Exception): pass
 
 def get_embed_embedly(url, max_width=None):
     # Check database
@@ -19,11 +14,8 @@ def get_embed_embedly(url, max_width=None):
     except Embed.DoesNotExist:
         pass
 
-    try:
-        # Call embedly API
-        client = Embedly(key=settings.EMBEDLY_KEY)
-    except AttributeError:
-        return None
+    client = Embedly(key=settings.EMBEDLY_KEY)
+    
     if max_width is not None:
         oembed = client.oembed(url, maxwidth=max_width, better=False)
     else:
@@ -31,9 +23,28 @@ def get_embed_embedly(url, max_width=None):
 
     # Check for error
     if oembed.get('error'):
-        return None
+        if oembed['error_code'] in [401,403]:
+            raise AccessDeniedEmbedlyException
+        elif oembed['error_code'] == 404:
+            raise NotFoundEmbedlyException
+        else:
+            raise EmbedlyException
 
-    # Save result to database
+    return save_embed(url, max_width, oembed)
+    
+
+def get_embed_oembed(url, max_width=None):
+    # Check database
+    try:
+        return Embed.objects.get(url=url, max_width=max_width)
+    except Embed.DoesNotExist:
+        pass
+
+    oembed = oembed_api.get_embed_oembed(url, max_width)
+    return save_embed(url, max_width, oembed)
+    
+   
+def save_embed(url, max_width, oembed):
     row, created = Embed.objects.get_or_create(
         url=url,
         max_width=max_width,
@@ -56,20 +67,14 @@ def get_embed_embedly(url, max_width=None):
         row.last_updated = datetime.now()
         row.save()
 
-    # Return new embed
     return row
 
-def get_embed_oembed(url, max_width=None):
-    pass
-    
+# As a default use oembed
 get_embed = get_embed_oembed    
 try:
     from embedly import Embedly
+    # if EMBEDLY_KEY is set and embedly library found the use embedly
     if hasattr(settings,'EMBEDLY_KEY'):
         get_embed = get_embed_embedly
 except:
     pass
-        
-print get_embed
-
-        

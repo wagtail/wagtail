@@ -43,7 +43,6 @@ setup(
         "South>=0.8.4",
         "django-compressor>=1.3",
         "django-modelcluster>=0.1",
-        "Embedly>=0.5.0",
         "django-taggit>=0.11.2",
         "Pillow>=2.3.0",
         "beautifulsoup4>=4.3.2",
