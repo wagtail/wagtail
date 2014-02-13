@@ -29,7 +29,6 @@ class GravatarUrlNode(template.Node):
 
         default = "blank"
         size = int(self.size) * 2 # requested at retina size by default and scaled down at point of use with css
-        print size;
 
         gravatar_url = "//www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
         gravatar_url += urllib.urlencode({'s': str(size), 'd': default})
