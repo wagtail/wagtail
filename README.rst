@@ -9,6 +9,8 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Tightly integrated search (with an `Elasticsearch <http://www.elasticsearch.org/>`_ backend for production)
 * Strong document and image management
 * Wide support for embedded content
+* Simple, configurable permissions
+* Support for tree-based content organisation
 * Optional preview->submit->approve workflow
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
 * Tests! But not enough; we're working hard to improve this
