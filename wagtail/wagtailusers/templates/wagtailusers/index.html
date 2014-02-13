@@ -2,51 +2,40 @@
 {% load gravatar %}
 {% block titletag %}Users{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
-{% block content %}
+{% block extra_js %}
+    <script>
+        $('#id_q').on('input', function() {
+            clearTimeout($.data(this, 'timer'));
+            var wait = setTimeout(search, 200);
+            $(this).data('timer', wait);
+        });
 
-    {% include "wagtailadmin/shared/header.html" with title="Users" add_link="wagtailusers_create" add_text="Add a user" %}
+        var search_current_index = 0;
+        var search_next_index = 0;
+
+        function search () {
+            search_next_index++;
+            var index = search_next_index;
+            $.ajax({
+                url: "{% url 'wagtailusers_index' %}",
+                data: {q: $('#id_q').val()},
+                success: function(data, status) {
+                    if (index > search_current_index) {
+                        search_current_index = index;
+                        $('#user-results').html(data);
+                    }
+                },
+            });
+        };
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Users" add_link="wagtailusers_create" add_text="Add a user" search_url="wagtailusers_index" %}
 
     <div class="nice-padding">
-        <table class="listing">
-            <thead>
-                <tr>
-                    <th class="name">
-                        Name  
-                        {% if ordering == "name" %}
-                            <a href="{% url 'wagtailusers_index' %}" class="icon icon-arrow-down-after teal"></a>
-                        {% else %}
-                            <a href="{% url 'wagtailusers_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
-                        {% endif %}
-                    </th>
-                    <th class="username">
-                        Username
-                        {% if ordering == "username" %}
-                            <a href="{% url 'wagtailusers_index' %}" class="icon icon-arrow-down-after teal"></a>
-                        {% else %}
-                            <a href="{% url 'wagtailusers_index' %}?ordering=username" class="icon icon-arrow-down-after"></a>
-                        {% endif %}
-                    </th>
-                    <th class="level">Level</th>
-                    <th class="status">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td class="title">
-                            <h2>
-                                <span class="avatar small icon icon-user"><img src="{% gravatar_url user.email 25 %}" /></span>
-                                <a href="{% url 'wagtailusers_edit' user.id %}">{{ user.get_full_name|default:user.username }}</a>
-                            </h2>
-                        </td>
-                        <td class="username">{{ user.username }}</td>
-                        <td class="level">{% if user.is_superuser %}Admin{% endif %}</td>
-                        <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</div></td>
-                    </li>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {% include "wagtailadmin/shared/pagination_nav.html" with items=users linkurl="wagtailusers_index" %}
+        <div id="user-results" class="users">
+            {% include "wagtailusers/results.html" %}
+        </div>
     </div>
 {% endblock %}
