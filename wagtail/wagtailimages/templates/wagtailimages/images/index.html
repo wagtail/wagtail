@@ -5,35 +5,11 @@
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_js %}
     <script>
-        $('#id_q').on('input', function() {
-            clearTimeout($.data(this, 'timer'));
-            var wait = setTimeout(search, 200);
-            $(this).data('timer', wait);
-        });
-        $('a.suggested-tag').click(function() {
-            $('#id_q').val($(this).text());
-            search();
-            return false;
-        })
-
-        // These variables keep track of ajax requests to prevent an older request from replacing a new one
-        var search_current_index = 0;
-        var search_next_index = 0;
-
-        function search () {
-            search_next_index++;
-            var index = search_next_index;
-            $.ajax({
-                url: "{% url 'wagtailimages_index' %}",
-                data: {q: $('#id_q').val()},
-                success: function(data, status) {
-                    if (index > search_current_index) {
-                        search_current_index = index;
-                        $('#image-results').html(data);
-                    }
-                },
-            });
-        };
+        window.headerSearch = {
+            url: "{% url 'wagtailimages_index' %}",
+            termInput: "#id_q",
+            targetOutput: "#image-results"
+        }
     </script>
 {% endblock %}
 

@@ -106,4 +106,29 @@ $(function(){
     $('#menu-search').bind('focus click', function(){
         $(this).addClass('focussed');
     });
+
+    /* Header search behaviour */
+    var search_current_index = 0;
+    var search_next_index = 0;
+
+    $(window.headerSearch.termInput).on('input', function() {
+        clearTimeout($.data(this, 'timer'));
+        var wait = setTimeout(search, 200);
+        $(this).data('timer', wait);
+    });   
+
+    function search () {
+        search_next_index++;
+        var index = search_next_index;
+        $.ajax({
+            url: window.headerSearch.url,
+            data: {q: $(window.headerSearch.termInput).val()},
+            success: function(data, status) {
+                if (index > search_current_index) {
+                    search_current_index = index;
+                    $(window.headerSearch.targetOutput).html(data);
+                }
+            },
+        });
+    };
 });

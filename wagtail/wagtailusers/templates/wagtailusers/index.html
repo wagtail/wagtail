@@ -4,29 +4,11 @@
 {% block bodyclass %}menu-users{% endblock %}
 {% block extra_js %}
     <script>
-        $('#id_q').on('input', function() {
-            clearTimeout($.data(this, 'timer'));
-            var wait = setTimeout(search, 200);
-            $(this).data('timer', wait);
-        });
-
-        var search_current_index = 0;
-        var search_next_index = 0;
-
-        function search () {
-            search_next_index++;
-            var index = search_next_index;
-            $.ajax({
-                url: "{% url 'wagtailusers_index' %}",
-                data: {q: $('#id_q').val()},
-                success: function(data, status) {
-                    if (index > search_current_index) {
-                        search_current_index = index;
-                        $('#user-results').html(data);
-                    }
-                },
-            });
-        };
+        window.headerSearch = {
+            url: "{% url 'wagtailusers_index' %}",
+            termInput: "#id_q",
+            targetOutput: "#user-results"
+        }
     </script>
 {% endblock %}
 
