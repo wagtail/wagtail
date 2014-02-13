@@ -52,7 +52,10 @@ class ImageEmbedHandler(object):
             format = get_image_format(attrs['format'])
 
             if for_editor:
-                return format.image_to_editor_html(image, attrs['alt'])
+                try:
+                    return format.image_to_editor_html(image, attrs['alt'])
+                except:
+                    return ''
             else:
                 return format.image_to_html(image, attrs['alt'])
 
