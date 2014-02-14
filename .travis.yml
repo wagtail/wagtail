@@ -15,7 +15,7 @@ install: python setup.py install
 before_script:
   - psql -c 'create database wagtaildemo_test;' -U postgres
 # Run the tests
-script: python runtest.py
+script: python runtests.py
 # Who to notify about build results
 notifications:
   email:
