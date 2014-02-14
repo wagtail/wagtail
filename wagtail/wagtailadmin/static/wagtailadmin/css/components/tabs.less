@@ -14,6 +14,7 @@
         }
     }
     a{
+        .box-shadow(inset 0px -2px 3px 0 rgba(0,0,0,0.1));
         .transition(border-color 0.2s ease);
         background-color:@color-grey-4;
         outline:none;
@@ -26,7 +27,6 @@
         padding:0 20px;
         color:@color-grey-2;
         border-top:0.3em solid darken(@color-grey-4,0%);
-        border-bottom:1px solid transparent;
 
         &:hover{
             color:inherit;
@@ -57,6 +57,7 @@
     }
 
     li.active a{
+        .box-shadow(none);
         color:@color-grey-1;
         background-color:white;
         border-top:0.3em solid @color-grey-1;      
