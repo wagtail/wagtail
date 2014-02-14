@@ -15,28 +15,34 @@ class Migration(SchemaMigration):
         # Adding model 'Query'
         db.create_table(u'wagtailsearch_query', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('query_string', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('query_string', self.gf('django.db.models.fields.CharField')
+             (unique=True, max_length=255)),
         ))
         db.send_create_signal(u'wagtailsearch', ['Query'])
 
         # Adding model 'QueryDailyHits'
         db.create_table(u'wagtailsearch_querydailyhits', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(related_name='daily_hits', to=orm['wagtailsearch.Query'])),
+            ('query', self.gf('django.db.models.fields.related.ForeignKey')
+             (related_name='daily_hits', to=orm['wagtailsearch.Query'])),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('hits', self.gf('django.db.models.fields.IntegerField')(default=0)),
         ))
         db.send_create_signal(u'wagtailsearch', ['QueryDailyHits'])
 
-        # Adding unique constraint on 'QueryDailyHits', fields ['query', 'date']
+        # Adding unique constraint on 'QueryDailyHits', fields ['query',
+        # 'date']
         db.create_unique(u'wagtailsearch_querydailyhits', ['query_id', 'date'])
 
         # Adding model 'EditorsPick'
         db.create_table(u'wagtailsearch_editorspick', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(related_name='editors_picks', to=orm['wagtailsearch.Query'])),
-            ('page', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['wagtailcore.Page'])),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('query', self.gf('django.db.models.fields.related.ForeignKey')
+             (related_name='editors_picks', to=orm['wagtailsearch.Query'])),
+            ('page', self.gf('django.db.models.fields.related.ForeignKey')
+             (to=orm['wagtailcore.Page'])),
+            ('sort_order', self.gf('django.db.models.fields.IntegerField')
+             (null=True, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
         ))
         db.send_create_signal(u'wagtailsearch', ['EditorsPick'])
@@ -51,13 +57,16 @@ class Migration(SchemaMigration):
 
         # Adding model 'SearchTestChild'
         db.create_table(u'wagtailsearch_searchtestchild', (
-            (u'searchtest_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['wagtailsearch.SearchTest'], unique=True, primary_key=True)),
+            (u'searchtest_ptr', self.gf('django.db.models.fields.related.OneToOneField')
+             (to=orm[
+                 'wagtailsearch.SearchTest'], unique=True, primary_key=True)),
             ('extra_content', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal(u'wagtailsearch', ['SearchTestChild'])
 
     def backwards(self, orm):
-        # Removing unique constraint on 'QueryDailyHits', fields ['query', 'date']
+        # Removing unique constraint on 'QueryDailyHits', fields ['query',
+        # 'date']
         db.delete_unique(u'wagtailsearch_querydailyhits', ['query_id', 'date'])
 
         # Deleting model 'Query'
