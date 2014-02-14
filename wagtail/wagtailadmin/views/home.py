@@ -52,7 +52,6 @@ class RecentEditsPanel(object):
         self.request = request
         # Last n edited pages
         self.last_edits = PageRevision.objects.raw('SELECT id, max(created_at), page_id FROM wagtailcore_pagerevision group by page_id order by max(created_at) desc' )[:5]
-        print self.last_edits
     def render(self):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
             'last_edits': self.last_edits,
