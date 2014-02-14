@@ -39,3 +39,4 @@ def login_wrapper(request, **kwargs):
         return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         return login(request, **kwargs)
+        
