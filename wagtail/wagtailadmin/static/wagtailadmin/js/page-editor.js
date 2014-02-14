@@ -236,11 +236,23 @@ function initSlugCleaning(){
 }
 
 function initErrorDetection(){
+    var errorSections = {};
+
+    // first count up all the errors
     $('.error-message').each(function(){
         var parentSection = $(this).closest('section');
 
-        $('.tab-nav a[href=#'+ parentSection.attr('id') +']').addClass('errors');
-    })
+        if(!errorSections[parentSection.attr('id')]){
+            errorSections[parentSection.attr('id')] = 0;
+        }
+
+        errorSections[parentSection.attr('id')] = errorSections[parentSection.attr('id')]+1;
+    });
+
+    // now identify them on each tab
+    for(var index in errorSections) {
+        $('.tab-nav a[href=#'+ index +']').addClass('errors').attr('data-count', errorSections[index]);
+    }    
 }
 
 $(function() {
