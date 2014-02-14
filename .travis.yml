@@ -27,7 +27,7 @@ notifications:
     on_failure: always
   webhooks:
     urls:
-      - https://torchbox.slack.com/services/hooks/travis?token=oipXYppdokKobS8KXIRcOBIl
+      - secure: "dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM="
     on_success: change
     on_failure: always
 
