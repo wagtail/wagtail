@@ -1,2 +1,2 @@
 from .models import Embed
-from .embeds.embed import get_embed
+from .embeds import get_embed
