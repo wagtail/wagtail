@@ -26,16 +26,19 @@
         background-color:@color-teal-dark;
     }
 }
+
+.messages.new ul{
+    .transition-immediate(none);
+    top:-100px;
+}
+
 .ready .messages ul,
 .messages.appear ul{
     .transition-immediate(~"top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease");
     opacity:1;
     top:0;
 }
-.messages.new ul{
-    .transition-immediate(none);
-    top:-100px;
-}
+
 
 @media screen and (min-width: @breakpoint-mobile){
     .messages{
