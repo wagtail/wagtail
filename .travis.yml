@@ -25,4 +25,9 @@ notifications:
       - wagtail-ci@torchbox.com
     on_success: change
     on_failure: always
+  webhooks:
+    urls:
+      - https://torchbox.slack.com/services/hooks/travis?token=Qs4aYF1Y5wJZAF797PKHShBI
+    on_success: change
+    on_failure: always
 
