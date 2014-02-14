@@ -6,6 +6,8 @@
 Wagtail CMS
 ===========
 
+.. image:: http://i.imgur.com/4pbWQ35.png
+
 Wagtail is a Django content management system built originally for the `Royal College of Art <http://www.rca.ac.uk/>`_ and focused on flexibility and user experience. Its features include:
 
 * A fast, attractive editor interface
