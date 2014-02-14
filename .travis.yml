@@ -1,0 +1,25 @@
+# Python releases to test
+language: python
+python:
+  - 2.7
+# Django releases
+env:
+  - DJANGO_VERSION=Django==1.6.1
+# Services
+services:
+  - redis-server
+  - elasticsearch
+# Package installation
+install: python setup.py install
+# Pre-test configuration
+before_script:
+  - psql -c 'create database wagtaildemo_test;' -U postgres
+# Run the tests
+script: python runtest.py
+# Who to notify about build results
+notifications:
+  email:
+    recipients:
+      - wagtail-ci@torchbox.com
+    on_success: change
+    on_failure: always
