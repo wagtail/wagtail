@@ -2,7 +2,6 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.views import login
 
 
 def account(request):
@@ -32,10 +31,3 @@ def change_password(request):
         'form': form,
         'can_change_password': can_change_password,
     })
-
-# Wrap login view to prevent logged in users accessing the page
-def login_wrapper(request, **kwargs):
-    if request.user.is_authenticated():
-        return redirect(settings.LOGIN_REDIRECT_URL)
-    else:
-        return login(request, **kwargs)
