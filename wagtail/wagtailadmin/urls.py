@@ -6,6 +6,13 @@ from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 
 urlpatterns = patterns(
     'django.contrib.auth.views',
+    url(
+        r'^login/$', 'login', {
+            'template_name': 'wagtailadmin/login.html',
+            'authentication_form': LoginForm,
+            'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
+        } , name='wagtailadmin_login'
+    ),
     url(r'^logout/$', 'logout', {'next_page': 'wagtailadmin_login'}),
 
     # Password reset
@@ -72,11 +79,4 @@ urlpatterns += patterns(
 
     url(r'^account/$', 'account.account', name='wagtailadmin_account'),
     url(r'^account/change_password/$', 'account.change_password', name='wagtailadmin_account_change_password'),
-    url(
-        r'^login/$', 'account.login_wrapper', {
-            'template_name': 'wagtailadmin/login.html',
-            'authentication_form': LoginForm,
-            'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
-        } , name='wagtailadmin_login'
-    ),
 )
