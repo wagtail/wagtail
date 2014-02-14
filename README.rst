@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/torchbox/wagtail.png?branch=master)](https://travis-ci.org/torchbox/wagtail)
+|BuildStatus|_
+
+.. |BuildStatus| image:: https://travis-ci.org/torchbox/wagtail.png?branch=master
+.. _BuildStatus: https://travis-ci.org/torchbox/wagtail
 
 Wagtail CMS
 ===========
