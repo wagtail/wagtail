@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -80,6 +81,7 @@ def add(request):
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
 
             if save_editorspicks(query, query, editors_pick_formset):
+                messages.success(request, "Editor's picks for '%s' created." % query)
                 return redirect('wagtailsearch_editorspicks_index')
         else:
             editors_pick_formset = forms.EditorsPickFormSet()
@@ -107,6 +109,7 @@ def edit(request, query_id):
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
 
             if save_editorspicks(query, new_query, editors_pick_formset):
+                messages.success(request, "Editor's picks for '%s' updated." % new_query)
                 return redirect('wagtailsearch_editorspicks_index')
     else:
         query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
