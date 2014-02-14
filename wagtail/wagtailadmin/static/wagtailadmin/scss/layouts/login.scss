@@ -2,7 +2,8 @@
 @import "/wagtailadmin/scss/mixins.scss";
 @import "/wagtailadmin/scss/grid.scss";
 
-$desktop-padding: 100px;
+// overrides default nice padding defined in variables.scss
+$desktop-nice-padding: 100px;
 
 html, body, .content-wrapper{
     background-color:$color-grey-1;
@@ -22,7 +23,8 @@ body{
     border:0;
 }
 .wrapper{
-    @include nice-padding();
+    padding-left:$mobile-nice-padding;
+    padding-right:$mobile-nice-padding;
     max-width:none;
 }
 
@@ -101,8 +103,9 @@ form{
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     .full input{
-        @include nice-padding();
         @include border-radius(0px);
+        padding-left:$mobile-nice-padding;
+        padding-right:$mobile-nice-padding;
         font-weight:300;
         border:0;
         padding-top:1.5em;
@@ -136,7 +139,6 @@ form{
     }
 }
 
-
 @media screen and (min-width: $breakpoint-mobile){
     .content-wrapper{
         float:none;
@@ -150,7 +152,7 @@ form{
     .wrapper{
         position:relative;
         height:100%;
-        padding:0 $desktop-padding;
+        padding:0 $desktop-nice-padding;
         
         &:before {
             content: '';
@@ -173,16 +175,16 @@ form{
         border-radius: 100%;
         width: 1em;
         padding: 0.3em;
-        left: $desktop-padding;
+        left: $desktop-nice-padding;
         margin-top: -1em;
         top: 50%;
     }
 
     .full{
-        margin:0 -$desktop-padding;
+        margin:0 -$desktop-nice-padding;
         
         input{
-            padding-left:$desktop-padding + 50px;
+            padding-left:($desktop-nice-padding + 50px);
         }
     }
 }

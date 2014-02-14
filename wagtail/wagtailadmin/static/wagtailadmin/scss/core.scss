@@ -608,8 +608,8 @@ footer{
 }
 
 .nice-padding{
-    padding-left:20px;
-    padding-right:20px;
+    padding-left:$mobile-nice-padding;
+    padding-right:$mobile-nice-padding;
 }
 
 
@@ -674,8 +674,8 @@ footer, .logo{
     }
 
     .nice-padding{
-        padding-left:50px;
-        padding-right:50px;
+        padding-left:$desktop-nice-padding;
+        padding-right:$desktop-nice-padding;
     }
 
     body{

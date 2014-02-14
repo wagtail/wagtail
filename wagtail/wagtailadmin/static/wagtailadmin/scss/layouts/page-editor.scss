@@ -135,8 +135,6 @@
             padding:0;
         }
 
-       
-
         input, textarea, .richtext{
             @include nice-padding();
             @include border-radius(0px);
@@ -144,8 +142,7 @@
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
-            line-height:1.6em;
-            
+            line-height:1.6em;   
         }
 
         .richtext{

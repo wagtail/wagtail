@@ -68,12 +68,12 @@ $padding: $grid-gutter-width*0.5;
 
 /* only used in places where padding not applied to same elements as row or row-flush 
  * most of the time this class should be applied directly to the html elements */
-@mixin nice-padding(){
-    padding-left:20px;
-    padding-right:20px;
+@mixin nice-padding{
+    padding-left: $mobile-nice-padding;
+    padding-right: $mobile-nice-padding;
 
     @media screen and (min-width: $breakpoint-mobile){
-        padding-left:50px;
-        padding-right:50px;
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
     }
 }

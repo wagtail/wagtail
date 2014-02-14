@@ -5,15 +5,12 @@
 
     ul{
         @include unlist();
-        padding-left:10px;
         position:relative;
         top:-100px;
         opacity:0;
     }
     li{
-        .nice-padding;
-        padding-top:1.3em;
-        padding-bottom:1.3em;
+        padding: 1.3em $mobile-nice-padding;
         color:white;
     }
     .error{
@@ -38,21 +35,24 @@
 }
 
 @media screen and (min-width: $breakpoint-mobile){
-    .messages{
-        ul{
-            margin-left:-15px;
+    .messages ul{
+        padding-left:0;
+        margin-left:-15px;
 
-            &:before{
-                content: "";
-                height: 0;
-                width: 0;
-                display: block;
-                position: absolute;
-                bottom: -15px;
-                left: 0;
-                border-top: 15px solid #000;
-                border-left: 15px solid transparent;
-            }
+        li{
+            padding-left:$desktop-nice-padding;
+            padding-right:$desktop-nice-padding;
+        }
+        &:before{
+            content: "";
+            height: 0;
+            width: 0;
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            border-top: 15px solid #000;
+            border-left: 15px solid transparent;
         }
     }
 }
