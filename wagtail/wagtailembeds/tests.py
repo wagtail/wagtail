@@ -1,13 +1,45 @@
 from django.test import TestCase
-
-#from .embeds import get_embed
+from unittest import skip
+from wagtail.wagtailembeds import get_embed
 
 
 class TestEmbeds(TestCase):
-    # FIXME: test currently depends on a valid EMBEDLY_KEY being set - we don't particularly
-    # want to put one in runtests.py. See https://github.com/torchbox/wagtail/issues/26 for
-    # progress on eliminating Embedly as a dependency
-    def DISABLEDtest_get_embed(self):
-        # This test will fail if the video is removed or the title is changed
-        embed = get_embed('http://www.youtube.com/watch?v=S3xAeTmsJfg')
-        self.assertEqual(embed.title, 'Animation: Ferret dance (A series of tubes)')
+    def setUp(self):
+        self.hit_count = 0
+
+    def test_get_embed(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+
+        # Check that the embed is correct
+        self.assertEqual(embed.title, "Test: www.test.com/1234")
+        self.assertEqual(embed.type, 'video')
+        self.assertEqual(embed.width, 400)
+
+        # Check that there has only been one hit to the backend
+        self.assertEqual(self.hit_count, 1)
+
+        # Look for the same embed again and check the hit count hasn't increased
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 1)
+
+        # Look for a different embed, hit count should increase
+        embed = get_embed('www.test.com/4321', max_width=400, finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # Look for the same embed with a different width, this should also increase hit count
+        embed = get_embed('www.test.com/4321', finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 3)
+
+    def dummy_finder(self, url, max_width=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'thumbnail_url': '',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+        }
