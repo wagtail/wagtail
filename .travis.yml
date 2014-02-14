@@ -12,7 +12,7 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 pyelasticsearch
+  - pip install psycopg2 pyelasticsearch elasticutils
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
