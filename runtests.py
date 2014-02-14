@@ -26,6 +26,18 @@ if not settings.configured:
         TEMPLATE_CONTEXT_PROCESSORS=global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
             'django.core.context_processors.request',
         ),
+        MIDDLEWARE_CLASSES=(
+            'django.middleware.common.CommonMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+            'wagtail.wagtailcore.middleware.SiteMiddleware',
+
+            'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+        ),
         INSTALLED_APPS=[
             'django.contrib.contenttypes',
             'django.contrib.sessions',
