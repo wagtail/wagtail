@@ -10,7 +10,9 @@ services:
   - redis-server
   - elasticsearch
 # Package installation
-install: python setup.py install
+install:
+  - python setup.py install
+  - pip install psycopg2
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo_test;' -U postgres
@@ -23,3 +25,4 @@ notifications:
       - wagtail-ci@torchbox.com
     on_success: change
     on_failure: always
+
