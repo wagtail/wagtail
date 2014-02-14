@@ -4,30 +4,11 @@
 
 {% block extra_js %}
     <script>
-        $('#id_q').on('input', function() {
-            clearTimeout($.data(this, 'timer'));
-            var wait = setTimeout(search, 200);
-            $(this).data('timer', wait);
-        });
-
-        var search_current_index = 0;
-        var search_next_index = 0;
-
-        function search () {
-            search_next_index++;
-            var index = search_next_index;
-            $.ajax({
-                url: "{%url 'wagtailsearch_editorspicks_index' %}",
-                data: {q: $('#id_q').val()},
-                success: function(data, status) {
-                    console.log('here')
-                    if (index > search_current_index) {
-                        search_current_index = index;
-                        $('#editorspicks-results').html(data);
-                    }
-                },
-            });
-        };
+        window.headerSearch = {
+            url: "{% url 'wagtailsearch_editorspicks_index' %}",
+            termInput: "#id_q",
+            targetOutput: "#editorspicks-results"
+        }
     </script>
 {% endblock %}
 

@@ -1,0 +1,15 @@
+{% if users %}
+    {% if is_searching %}
+        <h2>{{ users|length }} match{{ users|pluralize:"es" }}</h2>
+    {% endif %}
+
+    {% include "wagtailusers/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_index" %}
+{% else %}
+    {% if is_searching %}
+         <p>Sorry, no users match "<em>{{ search_query }}</em>"
+    {% else %}
+        <p>There are no users configured. Why not <a href="{% url 'wagtailusers_create' %}">add some</a>?</p>
+    {% endif %}
+{% endif %}

@@ -15,11 +15,13 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
 * Tests! But not enough; we're working hard to improve this
 
-Find out more at `wagtail.io <http://wagtail.io/>`_. 
+Find out more at `wagtail.io <http://wagtail.io/>`_.
+
+Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 Getting started
 ~~~~~~~~~~~~~~~
-To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions.
+To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions. `Serafeim Papastefanos <https://github.com/spapas>`_ has written a `tutorial <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_ with all the steps to build a simple Wagtail site from scratch.
 
 Contributing
 ~~~~~~~~~~~~

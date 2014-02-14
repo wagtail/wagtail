@@ -378,6 +378,7 @@ li.focused > .help{
     color:$color-red;
     clear:both;
 }
+
 .error input, .error textarea, .error select, .error .tagit{
     border-color:$color-red;
     background-color:$color-input-error-bg;
@@ -562,7 +563,7 @@ ul.inline li:first-child, li.inline:first-child{
 }
 
 
-/* search bars  (search integrated into header area) */
+/* search bars (search integrated into header area) */
 .search-bar{
     margin-top:-2em;
     padding-top:1em;

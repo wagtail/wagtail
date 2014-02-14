@@ -156,6 +156,7 @@ form{
         
         &:before {
             content: '';
+            width:0px;
             display: inline-block;
             height: 100%;
             vertical-align: middle;

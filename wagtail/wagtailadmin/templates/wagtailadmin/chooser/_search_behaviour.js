@@ -1,6 +1,7 @@
 modal.ajaxifyForm($('form.search-bar', modal.body));
 
 var searchUrl = $('form.search-bar', modal.body).attr('action');
+
 function search() {
     $.ajax({
         url: searchUrl,
@@ -12,6 +13,7 @@ function search() {
     });
     return false;
 }
+
 $('#id_q', modal.body).on('input', function() {
     clearTimeout($.data(this, 'timer'));
     var wait = setTimeout(search, 200);

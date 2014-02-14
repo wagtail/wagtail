@@ -1,4 +1,4 @@
-{
+OEMBED_ENDPOINTS = {
     "https://speakerdeck.com/oembed.{format}": [
         "^http(?:s)?://speakerdeck\\.com/.+$"
     ],
@@ -293,3 +293,29 @@
         "^http(?:s)?://ifttt\\.com/recipes/.+$"
     ]
 }
+
+
+# Compile endpoints into regular expression objects
+import re
+
+def compile_endpoints():
+    endpoints = {}
+    for endpoint in OEMBED_ENDPOINTS.keys():
+        endpoint_key = endpoint.replace('{format}', 'json')
+
+        endpoints[endpoint_key] = []
+        for pattern in OEMBED_ENDPOINTS[endpoint]:
+            endpoints[endpoint_key].append(re.compile(pattern))
+
+    return endpoints
+
+OEMBED_ENDPOINTS_COMPILED = compile_endpoints()
+
+
+def get_oembed_provider(url):
+    for endpoint in OEMBED_ENDPOINTS_COMPILED.keys():
+        for pattern in OEMBED_ENDPOINTS_COMPILED[endpoint]:
+            if re.match(pattern, url):
+                return endpoint
+
+    return
