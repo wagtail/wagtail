@@ -2,4 +2,6 @@
 
 # For coverage and PEP8 linting
 coverage==3.7.1
+elasticutils==0.8.2
 flake8==2.1.0
+pyelasticsearch==0.6.1
