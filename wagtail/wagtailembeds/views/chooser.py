@@ -25,7 +25,6 @@ def chooser_upload(request):
             error = None
             try:
                 embed_html = embed_to_editor_html(form.cleaned_data['url'])
-                print embed_html
                 return render_modal_workflow(
                     request, None, 'wagtailembeds/chooser/embed_chosen.js',
                     {'embed_html': embed_html}
