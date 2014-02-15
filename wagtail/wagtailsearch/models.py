@@ -96,8 +96,9 @@ class EditorsPick(models.Model):
 class SearchTest(models.Model, Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
+    live = models.BooleanField(default=False)
 
-    indexed_fields = ("title", "content", "callable_indexed_field")
+    indexed_fields = ("title", "content", "callable_indexed_field", "live")
 
     title_search = Searcher(["title"])
 
