@@ -28,7 +28,8 @@ class Query(models.Model):
 
     @property
     def hits(self):
-        return self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']
+        hits = self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']
+        return hits if hits else 0
 
     @classmethod
     def garbage_collect(cls):
