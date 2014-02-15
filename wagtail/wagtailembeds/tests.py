@@ -7,28 +7,39 @@ class TestEmbeds(TestCase):
     def setUp(self):
         self.hit_count = 0
 
-    def test_get_embed(self):
-        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+    def test_get_embed_title(self):
+        self.assertEqual(self.dummy_embed().title, "Test: www.test.com/1234",
+                         "Check that the embed title is correct")
 
-        # Check that the embed is correct
-        self.assertEqual(embed.title, "Test: www.test.com/1234")
-        self.assertEqual(embed.type, 'video')
-        self.assertEqual(embed.width, 400)
+    def test_get_embed_type(self):
+        self.assertEqual(self.dummy_embed().type, "video", "Check that the embed type is correct")
 
-        # Check that there has only been one hit to the backend
-        self.assertEqual(self.hit_count, 1)
+    def test_get_embed_width(self):
+        self.assertEqual(self.dummy_embed().width, 400, "Check that the embed type is correct")
 
-        # Look for the same embed again and check the hit count hasn't increased
-        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
-        self.assertEqual(self.hit_count, 1)
+    def test_get_embed_hit_count_hit(self):
+        self.dummy_embed()
+        self.assertEqual(self.hit_count, 1, "Check that there has only been one hit to the backend")
 
-        # Look for a different embed, hit count should increase
-        embed = get_embed('www.test.com/4321', max_width=400, finder=self.dummy_finder)
-        self.assertEqual(self.hit_count, 2)
+    def test_get_embed_hit_count_stasis(self):
+        self.dummy_embed()
+        self.dummy_embed()
+        self.assertEqual(self.hit_count, 1,
+                         "Look for the same embed again and check the hit count hasn't increased")
 
-        # Look for the same embed with a different width, this should also increase hit count
-        embed = get_embed('www.test.com/4321', finder=self.dummy_finder)
-        self.assertEqual(self.hit_count, 3)
+    def test_get_multiple_embed_hit_count_change(self):
+        self.dummy_embed()
+        self.dummy_embed(4321)
+        self.assertEqual(self.hit_count, 2, "Look for a different embed, hit count should increase")
+
+    def test_get_embed_width_hit_count_change(self):
+        self.dummy_embed(4321)
+        self.dummy_embed(4321, None)
+        self.assertEqual(self.hit_count, 2,
+                         "Look for the same embed with a different width, this should also increase hit count")
+
+    def dummy_embed(self, num=1234, max_width=400):
+        return get_embed('www.test.com/%d' % num, max_width=max_width, finder=self.dummy_finder)
 
     def dummy_finder(self, url, max_width=None):
         # Up hit count
