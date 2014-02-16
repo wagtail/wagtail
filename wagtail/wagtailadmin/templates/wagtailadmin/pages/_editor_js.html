@@ -28,9 +28,18 @@
     <script src="{{ STATIC_URL }}wagtailimages/js/image-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
+    <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 {% endcompress %}
 
 <script>
+    window.chooserUrls = {
+        'documentChooser': '{% url "wagtaildocs_chooser" %}',
+        'imageChooser': '{% url "wagtailimages_chooser" %}',
+        'embedsChooser': '{% url "wagtailembeds_chooser" %}',
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
+        'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
+    };
+
     (function() {
         function fixPrefix(str) {return str;}
 

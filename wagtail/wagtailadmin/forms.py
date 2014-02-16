@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
@@ -41,12 +42,16 @@ class LoginForm(AuthenticationForm):
 
 
 class PasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(label=_("Enter your email address to reset your password"), max_length=254)
+
     def clean(self):
         cleaned_data = super(PasswordResetForm, self).clean()
 
         # Find users of this email address
         UserModel = get_user_model()
-        email = cleaned_data['email']
+        email = cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError("Please fill your email address.")
         active_users = UserModel._default_manager.filter(email__iexact=email, is_active=True)
 
         if active_users.exists():

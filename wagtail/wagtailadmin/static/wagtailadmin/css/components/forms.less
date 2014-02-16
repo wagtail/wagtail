@@ -223,12 +223,12 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         padding-left:3.5em;
 
         &:before{
-            font-size:1.2em;
+            font-size:1rem;
             position:absolute;
             left:0;
             top:0;
             width:2em;
-            line-height:2.3em;
+            line-height:2em;
             height:100%;
             text-align:center;    
             background-color:rgba(0,0,0,0.2);
@@ -241,7 +241,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
         &:before{
             width:2em;
-            font-size:1.2em;
+            font-size:0.9rem;
+            line-height:2em;
         }
     }
 
@@ -377,7 +378,8 @@ li.focused > .help{
     color:@color-red;
     clear:both;
 }
-.error input[type=text], .error input[type=email], .error input[type=tel], .error textarea, .error select, .error .tagit{
+
+.error input, .error textarea, .error select, .error .tagit{
     border-color:@color-red;
     background-color:@color-input-error-bg;
 }
@@ -561,7 +563,7 @@ ul.inline li:first-child, li.inline:first-child{
 }
 
 
-/* search bars  (search integrated into header area) */
+/* search bars (search integrated into header area) */
 .search-bar{
     margin-top:-2em;
     padding-top:1em;
@@ -635,7 +637,7 @@ ul.inline li:first-child, li.inline:first-child{
                 }
             }
             .field:before{
-                font-size:1.4em;
+                font-size:1.1rem;
                 top:0.45em;
             }
 
@@ -671,7 +673,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
             &:before{
                 width:2.2em;
-                line-height:2.35em;
+                line-height:2.15em;
             }
         }
     }

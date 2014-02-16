@@ -33,7 +33,6 @@ body{
 
 h1,h2,h3,h4,h5,h6{
     font-weight:normal;
-    -webkit-font-smoothing: auto;
 }
 
 h1{
@@ -64,6 +63,7 @@ h2{
     }
 }
 a{
+    outline:none;
     color:@color-link;
     text-decoration:none;
 
@@ -525,15 +525,15 @@ footer{
     .unlist();
     .clearfix();
 
+    padding-top:0.2em;
     font-size:0.85em;
-    margin-top:1.5em !important;
-    margin-left:-30px;
+    margin-bottom:-4px; /* negates the 4px margin on the bottom of each LI, used to make it wrap nicely */
    
     li {
         display: block;
         float: left;
-        background: @color-grey-3;
-        padding: 0.5em 1em 0.5em 2em;
+        background: @color-teal-darker;
+        padding: 0.4em 1em 0.4em 2em;
         position: relative;
         margin: 0 4px 4px 0; 
         text-decoration: none;
@@ -544,57 +544,51 @@ footer{
         line-height:1.5em;
 
         a{
-            color:@color-grey-2;
+            color:white;
             display:block;
             max-width:25em;
             white-space: nowrap;
             text-overflow:ellipsis;
             overflow:hidden;
             line-height:1.6em;
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            
         }
 
         &:after, &:before{
             content: "";
-            border-top: 1.3em solid transparent;
-            border-bottom: 1.3em solid transparent;
+            border-top: 1.2em solid transparent;
+            border-bottom: 1.2em solid transparent;
         }
         &:after {            
-            border-left: 1em solid @color-grey-3;
+            border-left: 1em solid @color-teal-darker;
             position: absolute; right: -0.9em; top: 0;
             z-index: 1;
         }
-         &:before {  
+        &:before {  
             border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
         } 
         &:hover {
-            background: @color-teal-darker;
-
-            a{
-                color:white;
-                text-shadow:none;
-            }
+            background: @color-teal-dark;
         }         
         &:hover:after {
-            border-left-color: @color-teal-darker;
+            border-left-color: @color-teal-dark;
         }
 
         &:first-child {
-            padding:0.5em;
+            padding:0.4em;
             .border-radius(3px 0px 0px 3px);
 
             &:before{
                 display:none;
                 width:1em;
-
             }
             a {
                 width:2em;
                 font-size:1em;
                 &:before{
                     line-height:1em;
-                    font-size:1.7em;
+                    font-size:1.15rem;
                     line-height:0.95em;
                 }
             }
@@ -845,10 +839,6 @@ footer, .logo{
     footer{
         width:80%;
         margin-left:50px;
-    }
-
-    .breadcrumb{
-        margin-left:0;
     }
 
     /* Z-indexes */

@@ -41,9 +41,9 @@
 
                     if lastSelection.collapsed
                         # TODO: don't hard-code this, as it may be changed in urls.py
-                        url = '/admin/choose-page/?allow_external_link=true&allow_email_link=true&prompt_for_link_text=true'
+                        url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true&prompt_for_link_text=true'
                     else
-                        url = '/admin/choose-page/?allow_external_link=true&allow_email_link=true'
+                        url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true'
 
                     ModalWorkflow
                         url: url

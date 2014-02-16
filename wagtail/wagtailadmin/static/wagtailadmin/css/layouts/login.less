@@ -2,19 +2,31 @@
 @import "../mixins.less";
 @import "../grid.less";
 
-html{
+@desktop-padding: 100px;
+
+html, body, .content-wrapper{
     background-color:@color-grey-1;
+    color:@color-grey-3;
+}
+
+html{
     height:100%;
 }
+
 body{
     margin-left: 0px;
     height:100%;
 }
+
+.content-wrapper{
+    border:0;
+}
 .wrapper{
+    .nice-padding();
     max-width:none;
 }
+
 h1{
-    .nice-padding();
     font-weight:300;
     font-size:2em;
     line-height:1em;
@@ -27,125 +39,132 @@ form{
     ul{
         .unlist();
     }
-    .fields li{
-        .nice-padding();
-        padding-top:1em;
-        padding-bottom:1em;
-    }
-    .fields .checkbox{
-        padding-top:2em;
-        padding-bottom:2em;
-    }
 }
-label{
-    color:white;
-}
-input[type=submit]{
-    font-size:1.5em;
-    padding:1.1em 2.4em;
-}
-input[type=checkbox]:before{
-    background-color:#333;
-    color:#555;
-    border:1px solid #555;
-}
-.fields{
-    max-width:100%;
-}
-.fields li.full{
-    position:relative;
-    padding:0;
-    
     label{
-        display:none;
+        color:white;
     }
-    input{
-        border-top: 1px dashed @color-input-border;
+    input[type=submit]{
+        font-size:1.5em;
+        padding:1.1em 2.4em;
     }
-}
-.fields li:first-child input{
-    border-top:0;
-}
+    input[type=checkbox]:before{
+        background-color:#333;
+        color:#555;
+        border:1px solid #555;
+    }
+    .fields{
+        max-width:none;
+    }
+        .fields li{
+            padding:1em 0;
 
-.field{
-    padding:0;
-}
-.field.icon:before{
-    display:none;
-}
+            &.full{
+                position:relative;
+                padding:0;
+                
+                label{
+                    display:none;
+                }
+                input{
+                    border-top: 1px dashed @color-input-border;
+                }
+            }
+            &:first-child input{
+                border:0;
+            }
+        }
+        .fields .checkbox{
+            padding-top:2em;
+            padding-bottom:2em;
+        }
+        .field{
+            padding:0;
+        }
+        .field.icon:before{
+            display:none;
+        }
 
+    .full label{
+        .border-radius(2px);
+        text-transform:uppercase;
+        padding:2px 5px;
+        position:absolute;
+        top:0;
+        left:0;
+        margin-top:-1px;
+        font-size:0.7em;
+        z-index:1;
+        margin:0.2em 0;
+        line-height:1.5em;
+        font-weight:normal;
+    }
 
-.full label{
-    .border-radius(2px);
-    text-transform:uppercase;
-    padding:2px 5px;
-    position:absolute;
-    top:0;
-    left:0;
-    margin-top:-1px;
-    font-size:0.7em;
-    z-index:1;
-    margin:0.2em 0;
-    line-height:1.5em;
-    font-weight:normal;
-}
+    /* Special full-width, one-off fields i.e a single text or textarea input */
+    .full input{
+        .nice-padding();
+        .border-radius(0px);
+        font-weight:300;
+        border:0;
+        padding-top:1.5em;
+        padding-bottom:1.5em;
+        font-size:1.6em;
+        line-height:1.6em;
+    }
+    .help{
+        opacity:1;
+        position:absolute;
+        font-size:1.3em;
+        top:50%;
+        margin-top:-0.5em;
+        right:5%;
+    }
 
-/* Special full-width, one-off fields i.e a single text or textarea input */
-.full input{
-    .nice-padding;
-    .border-radius(0px);
-    font-weight:300;
-    border:0;
-    padding-top:1.5em;
-    padding-bottom:1.5em;
-    font-size:1.6em;
-    line-height:1.6em;
-}
-.help{
-    opacity:1;
-    position:absolute;
-    font-size:1.3em;
-    top:50%;
-    margin-top:-0.5em;
-    right:5%;
+.messages{
+    margin:1em 0;
+    z-index:5;
+
+    ul{
+        margin:0;
+
+        &:before{
+            display:none;
+        }
+
+        li{
+            .border-radius(3px);
+        }
+    }
 }
 
 @media screen and (min-width: @breakpoint-mobile){
-    body{
-        font-size:85%;
+    .content-wrapper{
+        float:none;
+        height:auto;
+        width:100%;
+        display:inline-block;
+        vertical-align: middle;
     }
 
     /* centres login form vertically */
     .wrapper{
+        position:relative;
         height:100%;
+        padding:0 @desktop-padding;
         
         &:before {
             content: '';
+            width:0px;
             display: inline-block;
             height: 100%;
             vertical-align: middle;
-            margin-left:-4px;
+            margin-left:-0.4em;
         }
     }
-    form{
-        width:100%;
-        display:inline-block;
-        vertical-align: middle;
-
-        .fields li{
-            padding-left:10%;
-        }
-    }
-
+    
     h1{
-        padding-left:10%;
-        font-weight:300;
         font-size:4em;
-        line-height:1em;
     }
-    .full input{
-        padding-left:10%;
-    }
+
     .field.icon:before{
         display:inline-block;
         position: absolute;
@@ -154,23 +173,16 @@ input[type=checkbox]:before{
         border-radius: 100%;
         width: 1em;
         padding: 0.3em;
-        left: 12%;
-        margin-left: 80px;
-        margin-left: -25px;
+        left: @desktop-padding;
+        margin-top: -1em;
         top: 50%;
-        margin-top: -18px;
-    }
-    .full input{
-        padding-left:15%;
     }
 
-    .messages li{
-        padding-left:11%;
-    }
-}
-
-@media screen and (min-width: @breakpoint-mobile){
-    body, .wrapper{
-        background-color:@color-grey-1;
+    .full{
+        margin:0 -@desktop-padding;
+        
+        input{
+            padding-left:@desktop-padding + 50px;
+        }
     }
 }

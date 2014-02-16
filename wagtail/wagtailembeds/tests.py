@@ -1,10 +1,68 @@
 from django.test import TestCase
-
-from .embeds import get_embed
+from django.test.client import Client
+from wagtail.wagtailembeds import get_embed
 
 
 class TestEmbeds(TestCase):
+    def setUp(self):
+        self.hit_count = 0
+
     def test_get_embed(self):
-        # This test will fail if the video is removed or the title is changed
-        embed = get_embed('http://www.youtube.com/watch?v=S3xAeTmsJfg')
-        self.assertEqual(embed.title, 'Animation: Ferret dance (A series of tubes)')
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+
+        # Check that the embed is correct
+        self.assertEqual(embed.title, "Test: www.test.com/1234")
+        self.assertEqual(embed.type, 'video')
+        self.assertEqual(embed.width, 400)
+
+        # Check that there has only been one hit to the backend
+        self.assertEqual(self.hit_count, 1)
+
+        # Look for the same embed again and check the hit count hasn't increased
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 1)
+
+        # Look for a different embed, hit count should increase
+        embed = get_embed('www.test.com/4321', max_width=400, finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # Look for the same embed with a different width, this should also increase hit count
+        embed = get_embed('www.test.com/4321', finder=self.dummy_finder)
+        self.assertEqual(self.hit_count, 3)
+
+    def dummy_finder(self, url, max_width=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'thumbnail_url': '',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+        }
+
+
+def get_default_host():
+    from wagtail.wagtailcore.models import Site
+    return Site.objects.filter(is_default_site=True).first().root_url.split('://')[1]
+
+
+class TestChooser(TestCase):
+    def setUp(self):
+        # Create a user
+        from django.contrib.auth.models import User
+        User.objects.create_superuser(username='test', email='test@email.com', password='password')
+
+        # Setup client
+        self.c = Client()
+        login = self.c.login(username='test', password='password')
+        self.assertEqual(login, True)
+
+    def test_chooser(self):
+        r = self.c.get('/admin/embeds/chooser/', HTTP_HOST=get_default_host())
+        self.assertEqual(r.status_code, 200)
+
+        # TODO: Test submitting

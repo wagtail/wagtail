@@ -42,7 +42,18 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
-        rendition = image.get_rendition(self.filter)
+        try:
+            rendition = image.get_rendition(self.filter)
+        except IOError:
+            # It's fairly routine for people to pull down remote databases to their
+            # local dev versions without retrieving the corresponding image files.
+            # In such a case, we would get an IOError at the point where we try to
+            # create the resized version of a non-existent image. Since this is a
+            # bit catastrophic for a missing image, we'll substitute a dummy
+            # Rendition object so that we just output a broken link instead.
+            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
+            rendition = Rendition(image=image, width=0, height=0)
+            rendition.file.name = 'not-found'
 
         if self.output_var_name:
             # return the rendition object in the given variable

@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from wagtail.wagtailsearch import Indexed, Search
+from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class TagSearchable(Indexed):
@@ -33,10 +33,11 @@ class TagSearchable(Indexed):
     @classmethod
     def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):
         # Run search query
+        search_backend = get_search_backend()
         if prefetch_tags:
-            results = Search().search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)
+            results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)
         else:
-            results = Search().search(q, cls, filters=filters)
+            results = search_backend.search(q, cls, filters=filters)
 
         # If results_per_page is set, return a paginator
         if results_per_page is not None:
