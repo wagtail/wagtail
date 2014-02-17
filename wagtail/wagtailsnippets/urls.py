@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 
 
-urlpatterns = patterns('wagtail.wagtailsnippets.views',
+urlpatterns = patterns(
+    'wagtail.wagtailsnippets.views',
     url(r'^$', 'snippets.index', name='wagtailsnippets_index'),
 
     url(r'^choose/$', 'chooser.choose', name='wagtailsnippets_choose_generic'),

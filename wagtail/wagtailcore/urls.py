@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('wagtail.wagtailcore.views',
+urlpatterns = patterns(
+    'wagtail.wagtailcore.views',
     # All front-end views are handled through Wagtail's core.views.serve mechanism.
     # Here we match a (possibly empty) list of path segments, each followed by
     # a '/'. If a trailing slash is not present, we leave CommonMiddleware to
