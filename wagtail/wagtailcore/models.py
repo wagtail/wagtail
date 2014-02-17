@@ -523,7 +523,7 @@ def get_navigation_menu_items():
         return root_children
     except IndexError:
         # what, we don't even have a root node? Fine, just return an empty list...
-        []
+        return []
 
 
 class Orderable(models.Model):
