@@ -141,35 +141,3 @@ def delete(request, document_id):
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
     })
-
-
-@permission_required('wagtaildocs.add_document')
-def search(request):
-    documents = []
-    q = None
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            is_searching = True
-            documents = Document.search(q, results_per_page=20, prefetch_tags=True)
-    else:
-        form = SearchForm()
-
-    if request.is_ajax():
-        return render(request, "wagtaildocs/documents/results.html", {
-            'documents': documents,
-            'is_searching': is_searching,
-            'search_query': q
-        })
-    else:
-        return render(request, "wagtaildocs/documents/index.html", {
-            'form': form,
-            'documents': documents,
-            'is_searching': True,
-            'search_query': q,
-            'popular_tags': Document.popular_tags(),
-        })
