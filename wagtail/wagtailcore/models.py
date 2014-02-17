@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.core.cache import cache
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
+from django.conf import settings
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
@@ -164,7 +165,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
     live = models.BooleanField(default=True, editable=False)
     has_unpublished_changes = models.BooleanField(default=False, editable=False)
     url_path = models.CharField(max_length=255, blank=True, editable=False)
-    owner = models.ForeignKey('auth.User', null=True, blank=True, editable=False, related_name='owned_pages')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, related_name='owned_pages')
 
     seo_title = models.CharField("Page title", max_length=255, blank=True, help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
     show_in_menus = models.BooleanField(default=False, help_text="Whether a link to this page will appear in automatically generated menus")
@@ -543,7 +544,7 @@ class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey('auth.User', null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
 
     objects = models.Manager()
