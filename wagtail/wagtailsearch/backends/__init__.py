@@ -10,7 +10,8 @@ from base import InvalidSearchBackendError
 
 
 # Pinched from django 1.7 source code.
-# TODO: Replace this with "from django.utils.module_loading import import_string" when django 1.7 is released
+# TODO: Replace this with "from django.utils.module_loading import import_string"
+# when django 1.7 is released
 def import_string(dotted_path):
     """
     Import a dotted module path and return the attribute/class designated by the
@@ -32,7 +33,6 @@ def import_string(dotted_path):
         six.reraise(ImportError, ImportError(msg), sys.exc_info()[2])
 
 
-
 def get_search_backend(backend='default', **kwargs):
     # Get configuration
     default_conf = {
@@ -40,7 +40,8 @@ def get_search_backend(backend='default', **kwargs):
             'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
         },
     }
-    WAGTAILSEARCH_BACKENDS = getattr(settings, 'WAGTAILSEARCH_BACKENDS', default_conf)
+    WAGTAILSEARCH_BACKENDS = getattr(
+        settings, 'WAGTAILSEARCH_BACKENDS', default_conf)
 
     # Try to find the backend
     try:

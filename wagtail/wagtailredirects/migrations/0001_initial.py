@@ -15,19 +15,21 @@ class Migration(SchemaMigration):
         # Adding model 'Redirect'
         db.create_table(u'wagtailredirects_redirect', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('old_path', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255, db_index=True)),
-            ('site', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='redirects', null=True, to=orm['wagtailcore.Site'])),
+            ('old_path', self.gf('django.db.models.fields.CharField')
+             (unique=True, max_length=255, db_index=True)),
+            ('site', self.gf('django.db.models.fields.related.ForeignKey')
+             (blank=True, related_name='redirects', null=True, to=orm['wagtailcore.Site'])),
             ('is_permanent', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('redirect_page', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='+', null=True, to=orm['wagtailcore.Page'])),
-            ('redirect_link', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('redirect_page', self.gf('django.db.models.fields.related.ForeignKey')
+             (blank=True, related_name='+', null=True, to=orm['wagtailcore.Page'])),
+            ('redirect_link', self.gf('django.db.models.fields.URLField')
+             (max_length=200, blank=True)),
         ))
         db.send_create_signal(u'wagtailredirects', ['Redirect'])
-
 
     def backwards(self, orm):
         # Deleting model 'Redirect'
         db.delete_table(u'wagtailredirects_redirect')
-
 
     models = {
         u'contenttypes.contenttype': {

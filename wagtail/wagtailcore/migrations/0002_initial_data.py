@@ -2,11 +2,14 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
-from django.db import models
+from django.db import models, connection
+from django.db.transaction import set_autocommit
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
+        if connection.vendor == 'sqlite':
+            set_autocommit(True)    
         page_content_type, created = orm['contenttypes.contenttype'].objects.get_or_create(
             model='page', app_label='wagtailcore', defaults={'name': 'page'})
 

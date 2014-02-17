@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import sys, os, shutil
+import sys
+import os
+import shutil
 
 from django.conf import settings, global_settings
 from django.core.management import execute_from_command_line
@@ -19,7 +21,7 @@ if not settings.configured:
         ROOT_URLCONF='wagtail.tests.urls',
         STATIC_URL='/static/',
         STATIC_ROOT=STATIC_ROOT,
-        STATICFILES_FINDERS = (
+        STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
         ),
@@ -72,4 +74,3 @@ def runtests():
 
 if __name__ == '__main__':
     runtests()
-
