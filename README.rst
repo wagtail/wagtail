@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.org/torchbox/wagtail.png?branch=master   :target: https://travis-ci.org/torchbox/wagtail
+.. image:: https://api.travis-ci.org/torchbox/wagtail.png?branch=master   :target: https://travis-ci.org/torchbox/wagtail
 
 Wagtail CMS
 ===========
