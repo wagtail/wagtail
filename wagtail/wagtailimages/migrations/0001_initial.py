@@ -19,32 +19,36 @@ class Migration(SchemaMigration):
             ('file', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('width', self.gf('django.db.models.fields.IntegerField')()),
             ('height', self.gf('django.db.models.fields.IntegerField')()),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')
+             (auto_now_add=True, blank=True)),
+            ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')
+             (to=orm['auth.User'], null=True, blank=True)),
         ))
         db.send_create_signal(u'wagtailimages', ['Image'])
 
         # Adding model 'Filter'
         db.create_table(u'wagtailimages_filter', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('spec', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
+            ('spec', self.gf('django.db.models.fields.CharField')
+             (max_length=255, db_index=True)),
         ))
         db.send_create_signal(u'wagtailimages', ['Filter'])
 
         # Adding model 'Rendition'
         db.create_table(u'wagtailimages_rendition', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('filter', self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', to=orm['wagtailimages.Filter'])),
+            ('filter', self.gf('django.db.models.fields.related.ForeignKey')
+             (related_name='+', to=orm['wagtailimages.Filter'])),
             ('file', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('width', self.gf('django.db.models.fields.IntegerField')()),
             ('height', self.gf('django.db.models.fields.IntegerField')()),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(related_name='renditions', to=orm['wagtailimages.Image'])),
+            ('image', self.gf('django.db.models.fields.related.ForeignKey')
+             (related_name='renditions', to=orm['wagtailimages.Image'])),
         ))
         db.send_create_signal(u'wagtailimages', ['Rendition'])
 
         # Adding unique constraint on 'Rendition', fields ['image', 'filter']
         db.create_unique(u'wagtailimages_rendition', ['image_id', 'filter_id'])
-
 
     def backwards(self, orm):
         # Removing unique constraint on 'Rendition', fields ['image', 'filter']
@@ -58,7 +62,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Rendition'
         db.delete_table(u'wagtailimages_rendition')
-
 
     models = {
         u'auth.group': {
