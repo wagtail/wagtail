@@ -22,6 +22,7 @@ class TestRedirects(TestCase):
 
         # Test against equivilant paths
         self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')) # The exact same URL
+        self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html?foo=Bar&Baz=quux2')) # Scheme, hostname and port ignored
         self.assertEqual(path, normalise_path('Hello/world.html?foo=Bar&Baz=quux2')) # Leading slash can be omitted
         self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
