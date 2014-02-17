@@ -19,7 +19,7 @@ before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
 # Run the tests
 script:
-  coverage run --source=wagtail python runtests.py
+  coverage run --source=wagtail runtests.py
 after_success:
   coveralls
 # Who to notify about build results
