@@ -49,11 +49,27 @@ class BackendTests(object):
         # Should return no results
         self.assertEqual(len(results), 0)
 
+    def test_search(self):
+        # Get results for "Hello"
+        results = self.backend.search("Hello", models.SearchTest)
+
+        # Should return three results
+        self.assertEqual(len(results), 3)
+
+        # Get results for "World"
+        results = self.backend.search("World", models.SearchTest)
+
+        # Should return two results
+        self.assertEqual(len(results), 2)
+
+    @unittest.skip("Need something to prefetch")
     def test_prefetch_related(self):
         # Get results
-        results = self.backend.search("Hello", models.SearchTest, prefetch_related=['content_type'])
+        results = self.backend.search("Hello", models.SearchTest, prefetch_related=['prefetch_field'])
 
-        # Only testing that this doesn't crash!
+        # Test both single result and multiple result (different code for each), only checking that this doesnt crash
+        single_result = results[0]
+        multi_result = results[:2]
 
     def test_object_indexed(self):
         # Attempt to index something that the models.SearchTest.object_indexed command says should be blocked
@@ -80,57 +96,39 @@ class BackendTests(object):
         # Should return two results
         self.assertEqual(len(results), 2)
 
-    def test_results_len(self):
-        # Get results
-        results = self.backend.search("Hello", models.SearchTest)
-
-        # Should return three results
-        self.assertEqual(len(results), 3)
-
-    def test_results2_len(self):
-        # Get results for "World" terms
-        results = self.backend.search("World", models.SearchTest)
-
-        # Should return two results
-        self.assertEqual(len(results), 2)
-
-    def test_single_result_type(self):
+    def test_single_result(self):
         # Get a single result
         result = self.backend.search("Hello", models.SearchTest)[0]
 
         # Check that the result is a SearchTest object
         self.assertIsInstance(result, models.SearchTest)
 
-    def test_sliced_results_len(self):
+    def test_sliced_results(self):
         # Get results and slice them
         sliced_results = self.backend.search("Hello", models.SearchTest)[1:3]
 
         # Slice must have a length of 2
         self.assertEqual(len(sliced_results), 2)
 
-    def test_sliced_results_type(self):
-        # Get results and slice them
-        sliced_results = self.backend.search("Hello", models.SearchTest)[1:3]
-
+        # Check that the results are SearchTest objects
         for result in sliced_results:
-            # Check that the result is a SearchTest object
             self.assertIsInstance(result, models.SearchTest)
 
-    def test_searcher_len(self):
+    def test_searcher(self):
         # Get results from searcher
         results = models.SearchTest.title_search("Hello")
 
         # Should return three results, just like before
         self.assertEqual(len(results), 3)
 
-    def test_child_results_len(self):
+    def test_child_model(self):
         # Get results for child model
         results = self.backend.search("Hello", models.SearchTestChild)
 
         # Should return one object
         self.assertEqual(len(results), 1)
 
-    def test_child_searcher_results_len(self):
+    def test_child_model_searcher(self):
         # Get results for child model
         results = self.backend.search("Hello", models.SearchTestChild)
 
@@ -186,8 +184,8 @@ class TestDBBackend(TestCase, BackendTests):
         super(TestDBBackend, self).test_callable_indexed_field()
 
     @unittest.skip("")
-    def test_searcher_len(self):
-        super(TestDBBackend, self).test_searcher_len()
+    def test_searcher(self):
+        super(TestDBBackend, self).test_searcher()
 
 
 class TestElasticSearchBackend(TestCase, BackendTests):
