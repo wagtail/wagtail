@@ -4,7 +4,45 @@ from wagtail.wagtailsearch import models
 
 
 class TestEditorsPicks(TestCase):
-    pass
+    def test_editors_pick_create(self):
+        # Create an editors pick to the root page
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page_id=1,
+            sort_order=0,
+            description="First editors pick",
+        )
+
+        # Check
+        self.assertEqual(models.Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(models.Query.get("root page").editors_picks.first().page_id, 1)
+
+    def test_editors_pick_ordering(self):
+        # Add 3 editors picks in a different order to their sort_order values
+        # They should be ordered by their sort order values and not their insertion order
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page_id=1,
+            sort_order=0,
+            description="First editors pick",
+        )
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page_id=1,
+            sort_order=2,
+            description="Last editors pick",
+        )
+        models.EditorsPick.objects.create(
+            query=models.Query.get("root page"),
+            page_id=1,
+            sort_order=1,
+            description="Middle editors pick",
+        )
+
+        # Check
+        self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
+        self.assertEqual(models.Query.get("root page").editors_picks.first().description, "First editors pick")
+        self.assertEqual(models.Query.get("root page").editors_picks.last().description, "Last editors pick")
 
 
 class TestEditorsPicksIndexView(TestCase):
