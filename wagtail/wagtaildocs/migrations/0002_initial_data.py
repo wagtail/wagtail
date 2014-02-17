@@ -2,11 +2,14 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
-from django.db import models
+from django.db import models, connection
+from django.db.transaction import set_autocommit
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
+        if connection.vendor == 'sqlite':
+            set_autocommit(True)
         document_content_type, created = orm['contenttypes.ContentType'].objects.get_or_create(
             model='document', app_label='wagtaildocs', defaults={'name': 'document'})
         add_permission, created = orm['auth.permission'].objects.get_or_create(
