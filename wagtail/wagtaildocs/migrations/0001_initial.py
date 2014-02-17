@@ -17,16 +17,16 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('file', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')
+             (auto_now_add=True, blank=True)),
+            ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')
+             (to=orm['auth.User'], null=True, blank=True)),
         ))
         db.send_create_signal(u'wagtaildocs', ['Document'])
-
 
     def backwards(self, orm):
         # Deleting model 'Document'
         db.delete_table(u'wagtaildocs_document')
-
 
     models = {
         u'auth.group': {

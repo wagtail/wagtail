@@ -13,6 +13,7 @@ def root_dir():
 
 
 class pytest_test(test):
+
     def finalize_options(self):
         test.finalize_options(self)
         self.test_args = []
