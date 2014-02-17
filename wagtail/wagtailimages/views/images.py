@@ -138,38 +138,3 @@ def add(request):
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
     })
-
-
-@permission_required('wagtailimages.add_image')
-def search(request):
-    Image = get_image_model()
-    images = []
-    q = None
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            # page number
-            p = request.GET.get("p", 1)
-            is_searching = True
-            images = Image.search(q, results_per_page=20, page=p)
-    else:
-        form = SearchForm()
-
-    if request.is_ajax():
-        return render(request, "wagtailimages/images/results.html", {
-            'images': images,
-            'is_searching': is_searching,
-            'search_query': q,
-        })
-    else:
-        return render(request, "wagtailimages/images/index.html", {
-            'form': form,
-            'images': images,
-            'is_searching': is_searching,
-            'popular_tags': Image.popular_tags(),
-            'search_query': q,
-        })
