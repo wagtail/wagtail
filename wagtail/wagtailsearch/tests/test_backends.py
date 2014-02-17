@@ -3,7 +3,9 @@ from django.conf import settings
 from django.core import management
 import unittest
 from wagtail.wagtailsearch import models, get_search_backend
+from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+from wagtail.wagtailsearch.backends import InvalidSearchBackendError
 from StringIO import StringIO
 
 
@@ -213,4 +215,16 @@ class TestElasticSearchBackend(TestCase, BackendTests):
 
 
 class TestBackendLoader(TestCase):
-    pass
+    def test_db_backend_import(self):
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+        self.assertIsInstance(db, DBSearch)
+
+    def test_elasticsearch_backend_import(self):
+        elasticsearch = get_search_backend(backend='wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch')
+        self.assertIsInstance(elasticsearch, ElasticSearch)
+
+    def test_nonexistant_backend_import(self):
+        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
+
+    def test_invalid_backend_import(self):
+        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")
