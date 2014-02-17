@@ -9,14 +9,16 @@ class TestSearchView(TestCase):
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    def test_search_status_code(self):
-        self.assertEqual(self.get({'q': "Hello"}).status_code, 200)
+    def test_search(self):
+        response = self.get({'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
 
-    def test_search_template_context(self):
-        self.assertEqual(self.get({'q': "Hello"}).context['query_string'], "Hello")
-
-    def test_page_status_code(self):
-        self.assertEqual(self.get({'p': '1'}).status_code, 200)
+    def test_pagination(self):
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
 
 
 class TestSuggestionsView(TestCase):
@@ -26,5 +28,6 @@ class TestSuggestionsView(TestCase):
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    def test_search_status_code(self):
-        self.assertEqual(self.get({'q': "Hello"}).status_code, 200)
+    def test_search(self):
+        response = self.get({'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
