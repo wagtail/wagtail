@@ -1,8 +1,14 @@
 from django.test import TestCase
+from django import template
 from django.contrib.auth.models import User, Group, Permission
+from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailimages.models import get_image_model
-from django.core.urlresolvers import reverse
+from wagtail.wagtailimages.templatetags import image_tags
+
+
+def get_test_image_file():
+    return 'wagtail/wagtailimages/static/wagtailimages/images/test.png'
 
 
 Image = get_image_model()
@@ -13,8 +19,7 @@ class TestImage(TestCase):
         # Create an image for running tests on
         self.image = Image.objects.create(
             title="Test image",
-            width=640,
-            height=480,
+            file=get_test_image_file(),
         )
 
     def test_is_portrait(self):
@@ -40,8 +45,7 @@ class TestImagePermissions(TestCase):
         self.image = Image.objects.create(
             title="Test image",
             uploaded_by_user=self.owner,
-            width=640,
-            height=480,
+            file=get_test_image_file(),
         )
 
     def test_administrator_can_edit(self):
@@ -55,6 +59,66 @@ class TestImagePermissions(TestCase):
 
     def test_user_cant_edit(self):
         self.assertFalse(self.image.is_editable_by_user(self.user))
+
+
+class TestRenditions(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_minification(self):
+        rendition = self.image.get_rendition('width-400')
+
+        # Check size
+        self.assertEqual(rendition.width, 400)
+        self.assertEqual(rendition.height, 300)
+
+    def test_resize_to_max(self):
+        rendition = self.image.get_rendition('max-100x100')
+
+        # Check size
+        self.assertEqual(rendition.width, 100)
+        self.assertEqual(rendition.height, 75)
+
+    def test_resize_to_min(self):
+        rendition = self.image.get_rendition('min-120x120')
+
+        # Check size
+        self.assertEqual(rendition.width, 160)
+        self.assertEqual(rendition.height, 120)
+
+    def test_cache(self):
+        # Get two renditions with the same filter
+        first_rendition = self.image.get_rendition('width-400')
+        second_rendition = self.image.get_rendition('width-400')
+
+        # Check that they are the same object
+        self.assertEqual(first_rendition, second_rendition)
+
+
+class TestImageTag(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def render_image_tag(self, image, filter_spec):
+        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + '%}')
+        context = template.Context({'image_obj': image})
+        return temp.render(context)
+
+    def test_image_tag(self):
+        result = self.render_image_tag(self.image, 'width-400')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('alt="Test image"' in result)
 
 
 ## ===== ADMIN VIEWS =====
@@ -110,6 +174,40 @@ class TestImageAddView(TestCase):
         self.assertEqual(self.get().status_code, 200)
 
 
+class TestImageEditView(TestCase):
+    def setUp(self):
+        login(self.client)
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages_edit_image', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+
+    def test_status_code(self):
+        self.assertEqual(self.get().status_code, 200)
+
+
+class TestImageDeleteView(TestCase):
+    def setUp(self):
+        login(self.client)
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages_delete_image', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+
+    def test_status_code(self):
+        self.assertEqual(self.get().status_code, 200)
+
+
 class TestImageChooserView(TestCase):
     def setUp(self):
         login(self.client)
@@ -130,6 +228,23 @@ class TestImageChooserView(TestCase):
         for page in pages:
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
+
+
+class TestImageChooserChosenView(TestCase):
+    def setUp(self):
+        login(self.client)
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+
+    def test_status_code(self):
+        self.assertEqual(self.get().status_code, 200)
 
 
 class TestImageChooserUploadView(TestCase):
