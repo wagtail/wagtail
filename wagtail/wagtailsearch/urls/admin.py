@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, url
 
 
-urlpatterns = patterns(
-    "wagtail.wagtailsearch.views",
+urlpatterns = patterns("wagtail.wagtailsearch.views",
     url(r"^editorspicks/$", "editorspicks.index", name="wagtailsearch_editorspicks_index"),
     url(r"^editorspicks/add/$", "editorspicks.add", name="wagtailsearch_editorspicks_add"),
     url(r"^editorspicks/(\d+)/$", "editorspicks.edit", name="wagtailsearch_editorspicks_edit"),

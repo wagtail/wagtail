@@ -4,8 +4,7 @@ from django.conf import settings
 from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 
 
-urlpatterns = patterns(
-    'django.contrib.auth.views',
+urlpatterns = patterns('django.contrib.auth.views',
     url(
         r'^login/$', 'login', {
             'template_name': 'wagtailadmin/login.html',
@@ -34,8 +33,7 @@ urlpatterns = patterns(
     url(r'^password_reset/complete/$', 'password_reset_complete', {'template_name': 'wagtailadmin/account/password_reset/complete.html'}, name='password_reset_complete'),
 )
 
-urlpatterns += patterns(
-    'wagtail.wagtailadmin.views',
+urlpatterns += patterns('wagtail.wagtailadmin.views',
     url(r'^$', 'home.home', name='wagtailadmin_home'),
 
     url(r'^failwhale/$', 'home.error_test', name='wagtailadmin_error_test'),

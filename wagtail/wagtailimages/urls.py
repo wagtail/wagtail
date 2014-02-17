@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, url
 
 
-urlpatterns = patterns(
-    'wagtail.wagtailimages.views',
+urlpatterns = patterns('wagtail.wagtailimages.views',
     url(r'^$', 'images.index', name='wagtailimages_index'),
     url(r'^(\d+)/$', 'images.edit', name='wagtailimages_edit_image'),
     url(r'^(\d+)/delete/$', 'images.delete', name='wagtailimages_delete_image'),
