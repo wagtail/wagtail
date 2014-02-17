@@ -1,14 +1,40 @@
 from django.test import TestCase
 from wagtail.wagtaildocs import models
-
-
-class TestDocument(TestCase):
-    pass # TODO: Write some tests
-
-
 from wagtail.wagtailcore.models import Site
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 
+# TODO: Test serve view
+
+
+class TestDocumentPermissions(TestCase):
+    def setUp(self):
+        # Create some user accounts for testing permissions
+        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
+        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
+        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.editor.groups.add(Group.objects.get(name='Editors'))
+        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+
+        # Owner user must have the add_document permission
+        self.owner.user_permissions.add(Permission.objects.get(codename='add_document'))
+
+        # Create a document for running tests on
+        self.document = models.Document.objects.create(title="Test document", uploaded_by_user=self.owner)
+
+    def test_administrator_can_edit(self):
+        self.assertTrue(self.document.is_editable_by_user(self.administrator))
+
+    def test_editor_can_edit(self):
+        self.assertTrue(self.document.is_editable_by_user(self.editor))
+
+    def test_owner_can_edit(self):
+        self.assertTrue(self.document.is_editable_by_user(self.owner))
+
+    def test_user_cant_edit(self):
+        self.assertFalse(self.document.is_editable_by_user(self.user))
+
+
+## ===== ADMIN VIEWS =====
 
 def get_default_host():
     return Site.objects.filter(is_default_site=True).first().root_url.split('://')[1]
