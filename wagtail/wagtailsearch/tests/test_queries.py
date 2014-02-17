@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
+from .utils import get_default_host, login
 from StringIO import StringIO
 import unittest
 
@@ -137,3 +138,14 @@ class TestGarbageCollectCommand(TestCase):
         management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
 
     # TODO: Test that this command is acctually doing its job
+
+
+class TestQueryChooserView(TestCase):
+    def setUp(self):
+        login(self.client)
+
+    def get(self, params={}):
+        return self.client.get('/admin/search/queries/chooser/', params, HTTP_HOST=get_default_host())
+
+    def test_status_code(self):
+        self.assertEqual(self.get().status_code, 200)
