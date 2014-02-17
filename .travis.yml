@@ -13,11 +13,15 @@ services:
 install:
   - python setup.py install
   - pip install psycopg2 pyelasticsearch elasticutils
+  - pip install coveralls
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
 # Run the tests
-script: python runtests.py
+script:
+  coverage run --source=wagtail python runtests.py
+after_success:
+  coveralls
 # Who to notify about build results
 notifications:
   email:
