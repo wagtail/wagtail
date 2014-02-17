@@ -26,23 +26,31 @@ class TestHitCounter(TestCase):
 
 
 class TestQueryStringNormalisation(TestCase):
-    base_query = "Hello World!"
-    base_query_normalised = "hello world"
-    equivilant_queries = ["Hello World", "Hello  World!!", "hello world", "Hello' world"]
-    different_queries = ["HelloWorld", "Hello orld!!", "Hello"]
-
     def setUp(self):
-        self.query = models.Query.get(self.base_query)
+        self.query = models.Query.get("Hello World!")
 
     def test_normalisation(self):
-        self.assertEqual(str(self.query), self.base_query_normalised)
+        self.assertEqual(str(self.query), "hello world")
 
     def test_equivilant_queries(self):
-        for query in self.equivilant_queries:
+        queries = [
+            "Hello World",
+            "Hello  World!!",
+            "hello world",
+            "Hello' world",
+        ]
+
+        for query in queries:
             self.assertEqual(self.query, models.Query.get(query))
 
     def test_different_queries(self):
-        for query in self.different_queries:
+        queries = [
+            "HelloWorld",
+            "Hello orld!!",
+            "Hello",
+        ]
+
+        for query in queries:
             self.assertNotEqual(self.query, models.Query.get(query))
 
 
@@ -83,7 +91,6 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], models.Query.get("unpopular query"))
         self.assertEqual(popular_queries[1], models.Query.get("popular query"))
         self.assertEqual(popular_queries[2], models.Query.get("little popular query"))
-
 
     @unittest.expectedFailure # Time based popularity isn't implemented yet
     def test_query_popularity_over_time(self):
@@ -128,3 +135,5 @@ class TestQueryPopularity(TestCase):
 class TestGarbageCollectCommand(TestCase):
     def test_garbage_collect_command(self):
         management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
+
+    # TODO: Test that this command is acctually doing its job
