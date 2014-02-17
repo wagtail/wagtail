@@ -11,6 +11,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+from django.conf import settings
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages import image_ops
@@ -40,7 +41,7 @@ class AbstractImage(models.Model, TagSearchable):
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_by_user = models.ForeignKey('auth.User', null=True, blank=True, editable=False)
+    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
 
     tags = TaggableManager(help_text=None, blank=True)
 

@@ -16,20 +16,24 @@ class Migration(SchemaMigration):
         db.create_table(u'wagtailembeds_embed', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('max_width', self.gf('django.db.models.fields.SmallIntegerField')(null=True, blank=True)),
+            ('max_width', self.gf('django.db.models.fields.SmallIntegerField')
+             (null=True, blank=True)),
             ('type', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('html', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('title', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('thumbnail_url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
-            ('width', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('height', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('last_updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('thumbnail_url', self.gf('django.db.models.fields.URLField')
+             (max_length=200, null=True, blank=True)),
+            ('width', self.gf('django.db.models.fields.IntegerField')
+             (null=True, blank=True)),
+            ('height', self.gf('django.db.models.fields.IntegerField')
+             (null=True, blank=True)),
+            ('last_updated', self.gf('django.db.models.fields.DateTimeField')
+             (auto_now=True, blank=True)),
         ))
         db.send_create_signal(u'wagtailembeds', ['Embed'])
 
         # Adding unique constraint on 'Embed', fields ['url', 'max_width']
         db.create_unique(u'wagtailembeds_embed', ['url', 'max_width'])
-
 
     def backwards(self, orm):
         # Removing unique constraint on 'Embed', fields ['url', 'max_width']
@@ -37,7 +41,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Embed'
         db.delete_table(u'wagtailembeds_embed')
-
 
     models = {
         u'wagtailembeds.embed': {
