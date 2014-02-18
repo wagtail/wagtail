@@ -60,8 +60,7 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
-        ],
-        COMPRESS_ENABLED=False,
+        ]
     )
 
 
