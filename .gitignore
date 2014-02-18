@@ -4,3 +4,4 @@
 /dist/
 /MANIFEST
 /wagtail.egg-info/
+/docs/_build/
