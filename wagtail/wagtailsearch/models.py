@@ -28,7 +28,8 @@ class Query(models.Model):
 
     @property
     def hits(self):
-        return self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']
+        hits = self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']
+        return hits if hits else 0
 
     @classmethod
     def garbage_collect(cls):
@@ -95,8 +96,9 @@ class EditorsPick(models.Model):
 class SearchTest(models.Model, Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
+    live = models.BooleanField(default=False)
 
-    indexed_fields = ("title", "content", "callable_indexed_field")
+    indexed_fields = ("title", "content", "callable_indexed_field", "live")
 
     title_search = Searcher(["title"])
 

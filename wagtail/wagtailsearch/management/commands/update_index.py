@@ -5,7 +5,7 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class Command(BaseCommand):
-    def handle(self, backend='default', **options):
+    def handle(self, **options):
         # Print info
         self.stdout.write("Getting object list")
 
@@ -46,7 +46,10 @@ class Command(BaseCommand):
                     object_set[key] = obj
 
         # Search backend
-        s = get_search_backend(backend=backend)
+        if 'backend' in options:
+            s = options['backend']
+        else:
+            s = get_search_backend()
 
         # Reset the index
         self.stdout.write("Reseting index")
