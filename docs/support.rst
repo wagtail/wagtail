@@ -14,4 +14,4 @@ If you think you've found a bug in Wagtail, or you'd like to suggest a new featu
 Torchbox
 ~~~~~~~~
 
-Finally, if you have a query which isn't relevant for either of the above forums, feel free to contact the Wagtail team at Torchbox directly, on `hello@wagtail.io <mailto:hello@wagtail.io>`_.
+Finally, if you have a query which isn't relevant for either of the above forums, feel free to contact the Wagtail team at Torchbox directly, on `hello@wagtail.io <mailto:hello@wagtail.io>`_ or `@wagtailcms <http://twitter.com/wagtailcms>`_.
