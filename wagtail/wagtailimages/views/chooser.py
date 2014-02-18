@@ -70,6 +70,7 @@ def chooser(request):
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
             'is_searching': is_searching,
+            'query_string': q,
             'will_select_format': request.GET.get('select_format')
         })
     else:
@@ -91,6 +92,7 @@ def chooser(request):
         'uploadform': uploadform,
         'searchform': searchform,
         'is_searching': False,
+        'query_string': q,
         'will_select_format': request.GET.get('select_format'),
         'popular_tags': Image.popular_tags(),
     })

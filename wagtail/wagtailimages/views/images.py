@@ -27,14 +27,14 @@ def index(request):
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder_suffix="images")
         if form.is_valid():
-            q = form.cleaned_data['q']
+            query_string = form.cleaned_data['q']
 
             is_searching = True
             if not request.user.has_perm('wagtailimages.change_image'):
                 # restrict to the user's own images
-                images = Image.search(q, filters={'uploaded_by_user_id': request.user.id})
+                images = Image.search(query_string, filters={'uploaded_by_user_id': request.user.id})
             else:
-                images = Image.search(q)
+                images = Image.search(query_string)
     else:
         form = SearchForm(placeholder_suffix="images")
 
