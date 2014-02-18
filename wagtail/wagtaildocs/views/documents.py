@@ -12,68 +12,63 @@ from wagtail.wagtaildocs.forms import DocumentForm
 
 @permission_required('wagtaildocs.add_document')
 def index(request):
+    # Get documents
+    documents = Document.objects.all()
 
-    q = None
-    p = request.GET.get("p", 1)
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="documents")
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            is_searching = True
-            if not request.user.has_perm('wagtaildocs.change_document'):
-                # restrict to the user's own documents
-                documents = Document.search(q, results_per_page=20, page=p, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                documents = Document.search(q, results_per_page=20, page=p)
-        else:
-            documents = Document.objects.order_by('-created_at')
-            if not request.user.has_perm('wagtaildocs.change_document'):
-                # restrict to the user's own documents
-                documents = documents.filter(uploaded_by_user=request.user)
-    else:
-        documents = Document.objects.order_by('-created_at')
-        if not request.user.has_perm('wagtaildocs.change_document'):
-            # restrict to the user's own documents
-            documents = documents.filter(uploaded_by_user=request.user)
-        form = SearchForm(placeholder_suffix="documents")
-
-    if 'ordering' in request.GET:
+    # Ordering
+    if 'ordering' in request.GET and request.GET['ordering'] in ['title', '-created_at']:
         ordering = request.GET['ordering']
-
-        if ordering in ['title', '-created_at']:
-            if ordering != '-created_at':
-                documents = documents.order_by(ordering)
     else:
         ordering = '-created_at'
+    documents = documents.order_by(ordering)
 
-    if not is_searching:
-        paginator = Paginator(documents, 20)
+    # Permissions
+    if not request.user.has_perm('wagtaildocs.change_document'):
+        # restrict to the user's own documents
+        documents = documents.filter(uploaded_by_user=request.user)
 
-        try:
-            documents = paginator.page(p)
-        except PageNotAnInteger:
-            documents = paginator.page(1)
-        except EmptyPage:
-            documents = paginator.page(paginator.num_pages)
+    # Search
+    query_string = None
+    if 'q' in request.GET:
+        form = SearchForm(request.GET, placeholder_suffix='documents')
+        if form.is_valid():
+            query_string = form.cleaned_data['q']
+            if not request.user.has_perm('wagtaildocs.change_document'):
+                # restrict to the user's own documents
+                documents = Document.search(query_string, filters={'uploaded_by_user_id': request.user.id})
+            else:
+                documents = Document.search(query_string)
+    else:
+        form = SearchForm(placeholder_suffix='documents')
 
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(documents, 20)
+
+    try:
+        documents = paginator.page(p)
+    except PageNotAnInteger:
+        documents = paginator.page(1)
+    except EmptyPage:
+        documents = paginator.page(paginator.num_pages)
+
+    # Create response
     if request.is_ajax():
-        return render(request, "wagtaildocs/documents/results.html", {
+        return render(request, 'wagtaildocs/documents/results.html', {
             'ordering': ordering,
             'documents': documents,
-            'is_searching': is_searching,
-            'search_query': q,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
         })
     else:
-        return render(request, "wagtaildocs/documents/index.html", {
+        return render(request, 'wagtaildocs/documents/index.html', {
             'ordering': ordering,
-            'search_form': form,
             'documents': documents,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
+
+            'search_form': form,
             'popular_tags': Document.popular_tags(),
-            'is_searching': is_searching,
-            'search_query': q,
         })
 
 
@@ -141,35 +136,3 @@ def delete(request, document_id):
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
     })
-
-
-@permission_required('wagtaildocs.add_document')
-def search(request):
-    documents = []
-    q = None
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            is_searching = True
-            documents = Document.search(q, results_per_page=20, prefetch_tags=True)
-    else:
-        form = SearchForm()
-
-    if request.is_ajax():
-        return render(request, "wagtaildocs/documents/results.html", {
-            'documents': documents,
-            'is_searching': is_searching,
-            'search_query': q
-        })
-    else:
-        return render(request, "wagtaildocs/documents/index.html", {
-            'form': form,
-            'documents': documents,
-            'is_searching': True,
-            'search_query': q,
-            'popular_tags': Document.popular_tags(),
-        })
