@@ -14,10 +14,16 @@ from wagtail.wagtailimages.forms import get_image_form
 def index(request):
     Image = get_image_model()
 
-    q = None
-    p = request.GET.get("p", 1)
-    is_searching = False
+    # Get images
+    images = Image.objects.order_by('-created_at')
 
+    # Permissions
+    if not request.user.has_perm('wagtailimages.change_image'):
+        # restrict to the user's own images
+        images = images.filter(uploaded_by_user=request.user)
+
+    # Search
+    query_string = None
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder_suffix="images")
         if form.is_valid():
@@ -26,44 +32,38 @@ def index(request):
             is_searching = True
             if not request.user.has_perm('wagtailimages.change_image'):
                 # restrict to the user's own images
-                images = Image.search(q, results_per_page=20, page=p, filters={'uploaded_by_user_id': request.user.id})
+                images = Image.search(q, filters={'uploaded_by_user_id': request.user.id})
             else:
-                images = Image.search(q, results_per_page=20, page=p)
-        else:
-            images = Image.objects.order_by('-created_at')
-            if not request.user.has_perm('wagtailimages.change_image'):
-                # restrict to the user's own images
-                images = images.filter(uploaded_by_user=request.user)
+                images = Image.search(q)
     else:
-        images = Image.objects.order_by('-created_at')
-        if not request.user.has_perm('wagtailimages.change_image'):
-            # restrict to the user's own images
-            images = images.filter(uploaded_by_user=request.user)
         form = SearchForm(placeholder_suffix="images")
 
-    if not is_searching:
-        paginator = Paginator(images, 20)
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(images, 20)
 
-        try:
-            images = paginator.page(p)
-        except PageNotAnInteger:
-            images = paginator.page(1)
-        except EmptyPage:
-            images = paginator.page(paginator.num_pages)
+    try:
+        images = paginator.page(p)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
 
+    # Create response
     if request.is_ajax():
-        return render(request, "wagtailimages/images/results.html", {
+        return render(request, 'wagtailimages/images/results.html', {
             'images': images,
-            'is_searching': is_searching,
-            'search_query': q,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
         })
     else:
-        return render(request, "wagtailimages/images/index.html", {
-            'search_form': form,
+        return render(request, 'wagtailimages/images/index.html', {
             'images': images,
-            'is_searching': is_searching,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
+
+            'search_form': form,
             'popular_tags': Image.popular_tags(),
-            'search_query': q,
         })
 
 
@@ -138,38 +138,3 @@ def add(request):
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
     })
-
-
-@permission_required('wagtailimages.add_image')
-def search(request):
-    Image = get_image_model()
-    images = []
-    q = None
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            # page number
-            p = request.GET.get("p", 1)
-            is_searching = True
-            images = Image.search(q, results_per_page=20, page=p)
-    else:
-        form = SearchForm()
-
-    if request.is_ajax():
-        return render(request, "wagtailimages/images/results.html", {
-            'images': images,
-            'is_searching': is_searching,
-            'search_query': q,
-        })
-    else:
-        return render(request, "wagtailimages/images/index.html", {
-            'form': form,
-            'images': images,
-            'is_searching': is_searching,
-            'popular_tags': Image.popular_tags(),
-            'search_query': q,
-        })
