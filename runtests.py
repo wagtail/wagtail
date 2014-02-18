@@ -46,6 +46,7 @@ if not settings.configured:
             'django.contrib.auth',
             'django.contrib.messages',
             'django.contrib.staticfiles',
+            'django.contrib.admin',
 
             'taggit',
             'south',
