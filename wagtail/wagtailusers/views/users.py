@@ -72,7 +72,7 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '%s' created.").format(user))
+            messages.success(request, _("User '{0}' created.").format(user))
             return redirect('wagtailusers_index')
         else:
             messages.error(request, _("The user could not be created due to errors.") )
@@ -91,7 +91,7 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '%s' updated.").format(user))
+            messages.success(request, _("User '{0}' updated.").format(user))
             return redirect('wagtailusers_index')
         else:
             messages.error(request, _("The user could not be saved due to errors."))

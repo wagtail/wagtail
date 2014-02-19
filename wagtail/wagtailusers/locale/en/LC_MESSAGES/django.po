@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 14:35+0200\n"
+"POT-Creation-Date: 2014-02-19 20:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: .\forms.py:50 .\templates\wagtailusers\list.html.py:15
+#: .\forms.py:50 .\templates\wagtailusers\list.html:15
 msgid "Username"
 msgstr ""
 
@@ -76,70 +76,70 @@ msgstr ""
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
 
-#: .\templates\wagtailusers\create.html.py:8
-#: .\templates\wagtailusers\create.html.py:35
+#: .\templates\wagtailusers\create.html:4
+#: .\templates\wagtailusers\create.html:8
+#: .\templates\wagtailusers\create.html:35
 msgid "Add user"
 msgstr ""
 
-#: .\templates\wagtailusers\create.html.py:12
-#: .\templates\wagtailusers\edit.html.py:12
+#: .\templates\wagtailusers\create.html:12
+#: .\templates\wagtailusers\edit.html:12
 msgid "Account"
 msgstr ""
 
-#: .\templates\wagtailusers\create.html.py:13
-#: .\templates\wagtailusers\create.html.py:28
-#: .\templates\wagtailusers\edit.html.py:13
+#: .\templates\wagtailusers\create.html:13
+#: .\templates\wagtailusers\create.html:28
+#: .\templates\wagtailusers\edit.html:13
 msgid "Roles"
 msgstr ""
 
-#: .\templates\wagtailusers\edit.html.py:4
-#: .\templates\wagtailusers\edit.html.py:8
+#: .\templates\wagtailusers\edit.html:4 .\templates\wagtailusers\edit.html:8
 msgid "Editing"
 msgstr ""
 
-#: .\templates\wagtailusers\edit.html.py:37
+#: .\templates\wagtailusers\edit.html:30 .\templates\wagtailusers\edit.html:37
 msgid "Save"
 msgstr ""
 
-#: .\templates\wagtailusers\index.html.py:4
-#: .\templates\wagtailusers\index.html.py:17
+#: .\templates\wagtailusers\index.html:4
+#: .\templates\wagtailusers\index.html:17
 msgid "Users"
 msgstr ""
 
-#: .\templates\wagtailusers\index.html.py:18
+#: .\templates\wagtailusers\index.html:18
 msgid "Add a user"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:7
+#: .\templates\wagtailusers\list.html:7
 msgid "Name"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:22
+#: .\templates\wagtailusers\list.html:22
 msgid "Level"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:23
+#: .\templates\wagtailusers\list.html:23
 msgid "Status"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:36
+#: .\templates\wagtailusers\list.html:36
 msgid "Admin"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:37
+#: .\templates\wagtailusers\list.html:37
 msgid "Active"
 msgstr ""
 
-#: .\templates\wagtailusers\list.html.py:37
+#: .\templates\wagtailusers\list.html:37
 msgid "Inactive"
 msgstr ""
 
-#: .\templates\wagtailusers\results.html.py:12
+#: .\templates\wagtailusers\results.html:12
 #, python-format
 msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
 msgstr ""
 
-#: .\templates\wagtailusers\results.html.py:15
+#: .\templates\wagtailusers\results.html:15
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
@@ -147,8 +147,7 @@ msgid ""
 msgstr ""
 
 #: .\views\users.py:75
-#, python-format
-msgid "User '%s' created."
+msgid "User '{0}' created."
 msgstr ""
 
 #: .\views\users.py:78
@@ -156,8 +155,7 @@ msgid "The user could not be created due to errors."
 msgstr ""
 
 #: .\views\users.py:94
-#, python-format
-msgid "User '%s' updated."
+msgid "User '{0}' updated."
 msgstr ""
 
 #: .\views\users.py:97
