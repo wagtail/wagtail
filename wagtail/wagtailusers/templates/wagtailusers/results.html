@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if users %}
     {% if is_searching %}
         <h2>{{ users|length }} match{{ users|pluralize:"es" }}</h2>
@@ -8,8 +9,9 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_index" %}
 {% else %}
     {% if is_searching %}
-         <p>Sorry, no users match "<em>{{ search_query }}</em>"
+         <p>{% blocktrans %}Sorry, no users match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
     {% else %}
-        <p>There are no users configured. Why not <a href="{% url 'wagtailusers_create' %}">add some</a>?</p>
+        {% url 'wagtailusers_create' as wagtailusers_create_url %}
+        <p>{% blocktrans %}There are no users configured. Why not <a href="{{ wagtailusers_create_url }}">add some</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

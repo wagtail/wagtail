@@ -1,9 +1,10 @@
+{% load i18n %}
 {% load gravatar %}
 <table class="listing">
     <thead>
         <tr>
             <th class="name">
-                Name  
+                {% trans "Name" %}
                 {% if ordering == "name" %}
                     <a href="{% url 'wagtailusers_index' %}" class="icon icon-arrow-down-after teal"></a>
                 {% else %}
@@ -11,15 +12,15 @@
                 {% endif %}
             </th>
             <th class="username">
-                Username
+                {% trans "Username" %}
                 {% if ordering == "username" %}
                     <a href="{% url 'wagtailusers_index' %}" class="icon icon-arrow-down-after teal"></a>
                 {% else %}
                     <a href="{% url 'wagtailusers_index' %}?ordering=username" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
-            <th class="level">Level</th>
-            <th class="status">Status</th>
+            <th class="level">{% trans "Level" %}</th>
+            <th class="status">{% trans "Status" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -32,8 +33,8 @@
                     </h2>
                 </td>
                 <td class="username">{{ user.username }}</td>
-                <td class="level">{% if user.is_superuser %}Admin{% endif %}</td>
-                <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</div></td>
+                <td class="level">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
+                <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
             </li>
         {% endfor %}
     </tbody>
