@@ -1,3 +1,4 @@
+{% load i18n %}
 {{ formset.management_form }}
 <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
     {% for form in formset.forms %}
@@ -10,5 +11,5 @@
 </script>
 
 <p class="add">
-    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add">Add recommended page</a>
+    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add">{% trans "Add recommended page" %}</a>
 </p>

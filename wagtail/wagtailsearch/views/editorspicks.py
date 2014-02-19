@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
@@ -81,7 +82,7 @@ def add(request):
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
 
             if save_editorspicks(query, query, editors_pick_formset):
-                messages.success(request, "Editor's picks for '%s' created." % query)
+                messages.success(request, _("Editor's picks for '{0}' created.").format(query))
                 return redirect('wagtailsearch_editorspicks_index')
         else:
             editors_pick_formset = forms.EditorsPickFormSet()
@@ -109,7 +110,7 @@ def edit(request, query_id):
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
 
             if save_editorspicks(query, new_query, editors_pick_formset):
-                messages.success(request, "Editor's picks for '%s' updated." % new_query)
+                messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query))
                 return redirect('wagtailsearch_editorspicks_index')
     else:
         query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
@@ -128,6 +129,7 @@ def delete(request, query_id):
 
     if request.POST:
         query.editors_picks.all().delete()
+        messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearch_editorspicks_index')
 
     return render(request, 'wagtailsearch/editorspicks/confirm_delete.html', {

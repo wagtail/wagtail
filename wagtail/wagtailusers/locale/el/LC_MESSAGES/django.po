@@ -4,12 +4,13 @@
 #
 # Translators:
 # serafeim <serafeim@torchbox.com>, 2014
+# serafeim <serafeim@torchbox.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 14:36+0200\n"
-"PO-Revision-Date: 2014-02-19 12:36+0000\n"
+"POT-Creation-Date: 2014-02-20 00:14+0200\n"
+"PO-Revision-Date: 2014-02-19 21:48+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
 "el/)\n"
@@ -49,7 +50,7 @@ msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο 
 msgid "The two password fields didn't match."
 msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
-#: .\forms.py:50 .\templates\wagtailusers\list.html.py:15
+#: .\forms.py:50 .\templates\wagtailusers\list.html:15
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
@@ -86,72 +87,85 @@ msgid "Administrators have the ability to manage user accounts."
 msgstr ""
 "Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
 
-#: .\templates\wagtailusers\create.html.py:8
-#: .\templates\wagtailusers\create.html.py:35
+#: .\templates\wagtailusers\create.html:4
+#: .\templates\wagtailusers\create.html:8
+#: .\templates\wagtailusers\create.html:35
 msgid "Add user"
 msgstr "Προσθήκη χρήστη"
 
-#: .\templates\wagtailusers\create.html.py:12
-#: .\templates\wagtailusers\edit.html.py:12
+#: .\templates\wagtailusers\create.html:12
+#: .\templates\wagtailusers\edit.html:12
 msgid "Account"
 msgstr "Λογαριασμός"
 
-#: .\templates\wagtailusers\create.html.py:13
-#: .\templates\wagtailusers\create.html.py:28
-#: .\templates\wagtailusers\edit.html.py:13
+#: .\templates\wagtailusers\create.html:13
+#: .\templates\wagtailusers\create.html:28
+#: .\templates\wagtailusers\edit.html:13
 msgid "Roles"
 msgstr "Ρόλοι"
 
-#: .\templates\wagtailusers\edit.html.py:4
-#: .\templates\wagtailusers\edit.html.py:8
+#: .\templates\wagtailusers\edit.html:4 .\templates\wagtailusers\edit.html:8
 msgid "Editing"
 msgstr "Διόρθωση"
 
-#: .\templates\wagtailusers\edit.html.py:37
+#: .\templates\wagtailusers\edit.html:30 .\templates\wagtailusers\edit.html:37
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: .\templates\wagtailusers\index.html.py:4
-#: .\templates\wagtailusers\index.html.py:17
+#: .\templates\wagtailusers\index.html:4
+#: .\templates\wagtailusers\index.html:17
 msgid "Users"
 msgstr "Χρήστες"
 
-#: .\templates\wagtailusers\index.html.py:18
+#: .\templates\wagtailusers\index.html:18
 msgid "Add a user"
 msgstr "Προσθήκη χρήστη"
 
-#: .\templates\wagtailusers\list.html.py:7
+#: .\templates\wagtailusers\list.html:7
 msgid "Name"
 msgstr "Όνομα"
 
-#: .\templates\wagtailusers\list.html.py:22
+#: .\templates\wagtailusers\list.html:22
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: .\templates\wagtailusers\list.html.py:23
+#: .\templates\wagtailusers\list.html:23
 msgid "Status"
 msgstr "Κατάσταση"
 
-#: .\templates\wagtailusers\list.html.py:36
+#: .\templates\wagtailusers\list.html:36
 msgid "Admin"
 msgstr "Διαχειριστής"
 
-#: .\templates\wagtailusers\list.html.py:37
+#: .\templates\wagtailusers\list.html:37
 msgid "Active"
 msgstr "Ενεργός"
 
-#: .\templates\wagtailusers\list.html.py:37
+#: .\templates\wagtailusers\list.html:37
 msgid "Inactive"
 msgstr "Μη ενεργός"
 
-#: .\templates\wagtailusers\results.html.py:12
+#: .\templates\wagtailusers\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\wagtailusers\results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
 msgstr ""
 "Λυπούμαστε, δε βρέθηκαν χρήστες που να ταιριάζουν με το \"<em>%(search_query)"
 "s</em>\""
 
-#: .\templates\wagtailusers\results.html.py:15
+#: .\templates\wagtailusers\results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
@@ -161,18 +175,16 @@ msgstr ""
 "\">προσθέσετε μερικούς</a>?"
 
 #: .\views\users.py:75
-#, python-format
-msgid "User '%s' created."
-msgstr "Ο χρήστης '%s' δημιουργήθηκε."
+msgid "User '{0}' created."
+msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
 #: .\views\users.py:78
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
 #: .\views\users.py:94
-#, python-format
-msgid "User '%s' updated."
-msgstr "Τα στοιχεία του χρήστη '%s' ενημερώθηκαν."
+msgid "User '{0}' updated."
+msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
 #: .\views\users.py:97
 msgid "The user could not be saved due to errors."

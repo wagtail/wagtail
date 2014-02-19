@@ -1,7 +1,13 @@
 {% load i18n %}
 {% if users %}
     {% if is_searching %}
-        <h2>{{ users|length }} match{{ users|pluralize:"es" }}</h2>
+        <h2>
+        {% blocktrans count counter=users|length %}
+            There is one match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
     {% endif %}
 
     {% include "wagtailusers/list.html" %}
