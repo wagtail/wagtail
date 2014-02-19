@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching linkurl="wagtaildocs_index" %}
 {% else %}
     {% if is_searching %}
-         <p>Sorry, no documents match "<em>{{ search_query }}</em>"
+         <p>Sorry, no documents match "<em>{{ query_string }}</em>"
     {% else %}
         <p>You haven't uploaded any documents. Why not <a href="{% url 'wagtaildocs_add_document' %}">upload one now</a>?</p>
     {% endif %}
