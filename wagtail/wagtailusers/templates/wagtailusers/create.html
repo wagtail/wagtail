@@ -1,14 +1,16 @@
 {% extends "wagtailadmin/base.html" %}
 {% load image_tags %}
-{% block titletag %}Add user{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Add user" %}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title="Add user" merged=1 tabbed=1 %}
+    {% trans "Add user" as add_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 %}
 
     <ul class="tab-nav merged">
-        <li class="active"><a href="#account">Account</a></li>
-        <li><a href="#roles">Roles</a></li>
+        <li class="active"><a href="#account">{% trans "Account" %}</a></li>
+        <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>   
 
     <form action="{% url 'wagtailusers_create' %}" method="POST">
@@ -23,14 +25,14 @@
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
                     
-                    <li><a href="#roles" class="button lowpriority tab-toggle icon icon-arrow-right-after" />Roles</a></li>
+                    <li><a href="#roles" class="button lowpriority tab-toggle icon icon-arrow-right-after" />{% trans "Roles" %}</a></li>
                 </ul>
             </section>
             <section id="roles" class="nice-padding">
                 <ul class="fields">
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
-                    <li><input type="submit" value="Add user" /></li>
+                    <li><input type="submit" value='{% trans "Add user" %}' /></li>
                 </ul>
             </section>
         </div>

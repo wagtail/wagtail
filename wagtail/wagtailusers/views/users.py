@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
@@ -71,10 +72,10 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "User '%s' created." % user)
+            messages.success(request, _("User '{0}' created.").format(user))
             return redirect('wagtailusers_index')
         else:
-            messages.error(request, "The user could not be created due to errors.")
+            messages.error(request, _("The user could not be created due to errors.") )
     else:
         form = UserCreationForm()
 
@@ -90,10 +91,10 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "User '%s' updated." % user)
+            messages.success(request, _("User '{0}' updated.").format(user))
             return redirect('wagtailusers_index')
         else:
-            messages.error(request, "The user could not be saved due to errors.")
+            messages.error(request, _("The user could not be saved due to errors."))
     else:
         form = UserEditForm(instance=user)
 

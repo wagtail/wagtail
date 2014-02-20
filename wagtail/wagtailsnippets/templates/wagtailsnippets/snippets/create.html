@@ -1,9 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}New  {{ snippet_type_name}}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}New  {{ snippet_type_name}}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="New" subtitle=snippet_type_name %}
+    {% trans "New" as new_str %}
+    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=snippet_type_name %}
 
     <form action="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" method="POST">
         {% csrf_token %}
@@ -13,7 +14,7 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup match-width">
-                        <div><input type="submit" value="Save" /></div>
+                        <div><input type="submit" value="{% trans 'Save' %}" /></div>
                     </div>
                 </li>
             </ul>

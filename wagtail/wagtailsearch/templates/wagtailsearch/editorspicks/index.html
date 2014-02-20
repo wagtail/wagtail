@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}Search Terms{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Search Terms" %}{% endblock %}
 {% block bodyclass %}menu-editorspicks{% endblock %}
 
 {% block extra_js %}
@@ -13,7 +14,9 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Editor's search picks" add_link="wagtailsearch_editorspicks_add" add_text="Add new editor's pick" search_url="wagtailsearch_editorspicks_index" %}
+    {% trans "Editor's search picks" as sp_title_str %}
+    {% trans "Add new editor's pick" as sp_text_str %}
+    {% include "wagtailadmin/shared/header.html" with title=sp_title_str add_link="wagtailsearch_editorspicks_add" add_text=sp_text_str search_url="wagtailsearch_editorspicks_index" %}
 
      <div class="nice-padding">
         <div id="editorspicks-results" class="redirects">
