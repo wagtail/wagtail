@@ -14,6 +14,7 @@ from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
@@ -76,16 +77,77 @@ class FriendlyTimeField(forms.CharField):
             return datetime.time(hour=hour, minute=minute)
         else:
             raise ValidationError("Please type a valid time")
+            
+
+class LocalizedDateInput(forms.DateInput):
+    """
+    A custom DateInput widget that formats localized dates
+    and adds class="friendly_date" to be picked up by jquery datepicker.
+    """
+    def __init__(self, attrs=None):
+        default_attrs = {'class': 'localized_date', 'localize':True}
+        if attrs:
+            default_attrs.update(attrs)
+
+        super(LocalizedDateInput, self).__init__(attrs=default_attrs)
 
 
-FORM_FIELD_OVERRIDES = {
-    models.DateField: {'widget': FriendlyDateInput},
-    models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
-}
+class LocalizedTimeInput(forms.TimeInput):
+    """
+    A custom TimeInput widget that formats dates as "5.30pm"
+    and adds class="friendly_time" to be picked up by jquery timepicker.
+    """
+    def __init__(self, attrs=None):
+        default_attrs = {'class': 'localized_time'}
+        if attrs:
+            default_attrs.update(attrs)
+        # Just use 24-hour format
+        super(LocalizedTimeInput, self).__init__(attrs=default_attrs, format='%H:%M')
+
+
+class LocalizedTimeField(forms.CharField):
+    def to_python(self, time_string):
+        # Check if the string is blank
+        if not time_string:
+            return None
+
+        # Look for time in the string
+        expr = re.compile("^(?P<hour>\d+)(?:(?:.|:)(?P<minute>\d+))?")
+        match = expr.match(time_string.lower())
+        if match:
+            # Pull out values from string
+            hour_string, minute_string= match.groups()
+
+            # Convert hours and minutes to integers
+            hour = int(hour_string)
+            if minute_string:
+                minute = int(minute_string)
+            else:
+                minute = 0
+            if hour>=24 or hour < 0 or minute >=60 or minute < 0:
+                raise ValidationError("Please type a valid time")            
+                
+            return datetime.time(hour=hour, minute=minute)
+        else:
+            raise ValidationError("Please type a valid time")            
+
+
+if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
+    FORM_FIELD_OVERRIDES = {
+        models.DateField: {'widget': LocalizedDateInput},
+        models.TimeField: {'widget': LocalizedTimeInput, 'form_class': LocalizedTimeField},
+    }
+else: # Fall back to friendly date/time            
+    FORM_FIELD_OVERRIDES = {
+        models.DateField: {'widget': FriendlyDateInput},
+        models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
+    }
 
 WIDGET_JS = {
-    FriendlyDateInput: (lambda id: "initDateChooser(fixPrefix('%s'));" % id),
-    FriendlyTimeInput: (lambda id: "initTimeChooser(fixPrefix('%s'));" % id),
+    FriendlyDateInput: (lambda id: "initFriendlyDateChooser(fixPrefix('%s'));" % id),
+    FriendlyTimeInput: (lambda id: "initFriendlyTimeChooser(fixPrefix('%s'));" % id),
+    LocalizedDateInput: (lambda id: "initLocalizedDateChooser(fixPrefix('%s'));" % id),
+    LocalizedTimeInput: (lambda id: "initLocalizedTimeChooser(fixPrefix('%s'));" % id),
     RichTextArea: (lambda id: "makeRichTextEditable(fixPrefix('%s'));" % id),
     TagWidget: (
         lambda id: "initTagField(fixPrefix('%s'), '%s');" % (
