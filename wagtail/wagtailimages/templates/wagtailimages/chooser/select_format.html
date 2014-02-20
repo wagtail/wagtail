@@ -1,6 +1,7 @@
 {% load image_tags %}
-
-{% include "wagtailadmin/shared/header.html" with title="Choose a format" %}
+{% load i18n %}
+{% trans "Choose a format" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str %}
 
 <div class="row row-flush nice-padding">
     <div class="col6">
@@ -13,7 +14,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><input type="submit" value="Insert image" /></li>
+                <li><input type="submit" value="{% trans 'Insert image' %}" /></li>
             </ul>
         </form>
     </div>

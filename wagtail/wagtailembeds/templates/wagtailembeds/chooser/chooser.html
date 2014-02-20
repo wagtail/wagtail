@@ -1,6 +1,7 @@
 {% load image_tags ellipsistrim%}
-
-{% include "wagtailadmin/shared/header.html" with title="Insert embed" merged=1 %}
+{% load i18n %}
+{% trans "Insert embed" as ins_emb_str %}
+{% include "wagtailadmin/shared/header.html" with title=ins_emb_str merged=1 %}
 
 <div class="tab-content">
     <section id="form" class="active nice-padding">
@@ -10,7 +11,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><input type="submit" value="Insert" /></li>
+                <li><input type="submit" value="{% trans 'Insert' %}" /></li>
             </ul>
         </form>
     </section>

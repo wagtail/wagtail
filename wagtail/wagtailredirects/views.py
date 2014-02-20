@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import ugettext  as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
@@ -75,10 +76,10 @@ def edit(request, redirect_id):
         form = form_class(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             form.save()
-            messages.success(request, "Redirect '%s' updated." % theredirect.title)
+            messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
-            messages.error(request, "The redirect could not be saved due to errors.")
+            messages.error(request, _("The redirect could not be saved due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
         form = form_class(instance=theredirect)
@@ -96,7 +97,7 @@ def delete(request, redirect_id):
 
     if request.POST:
         theredirect.delete()
-        messages.success(request, "Redirect '%s' deleted." % theredirect.title)
+        messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects_index')
 
     return render(request, "wagtailredirects/confirm_delete.html", {
@@ -116,10 +117,10 @@ def add(request):
             theredirect.site = request.site
             theredirect.save()
 
-            messages.success(request, "Redirect '%s' added." % theredirect.title)
+            messages.success(request, _("Redirect '{0} added.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
-            messages.error(request, "The redirect could not be created due to errors.")
+            messages.error(request, _("The redirect could not be created due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
         form = form_class()
