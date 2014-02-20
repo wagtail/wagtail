@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.test.client import Client
+from wagtail.tests.utils import login, get_host
 from wagtail.wagtailembeds import get_embed
 
 
@@ -45,24 +46,13 @@ class TestEmbeds(TestCase):
         }
 
 
-def get_default_host():
-    from wagtail.wagtailcore.models import Site
-    return Site.objects.filter(is_default_site=True).first().root_url.split('://')[1]
-
-
 class TestChooser(TestCase):
     def setUp(self):
-        # Create a user
-        from django.contrib.auth.models import User
-        User.objects.create_superuser(username='test', email='test@email.com', password='password')
-
-        # Setup client
-        self.c = Client()
-        login = self.c.login(username='test', password='password')
-        self.assertEqual(login, True)
+        # login
+        login(self.client)
 
     def test_chooser(self):
-        r = self.c.get('/admin/embeds/chooser/', HTTP_HOST=get_default_host())
+        r = self.client.get('/admin/embeds/chooser/', HTTP_HOST=get_host())
         self.assertEqual(r.status_code, 200)
 
         # TODO: Test submitting

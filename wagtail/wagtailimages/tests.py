@@ -2,7 +2,7 @@ from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
-from wagtail.wagtailcore.models import Site
+from wagtail.tests.utils import login, get_host
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
@@ -123,24 +123,13 @@ class TestImageTag(TestCase):
 
 ## ===== ADMIN VIEWS =====
 
-def get_default_host():
-    return Site.objects.filter(is_default_site=True).first().root_url.split('://')[1]
-
-
-def login(client):
-    # Create a user
-    User.objects.create_superuser(username='test', email='test@email.com', password='password')
-
-    # Login
-    client.login(username='test', password='password')
-
 
 class TestImageIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_index'), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_index'), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -168,7 +157,7 @@ class TestImageAddView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_add_image'), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_add_image'), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -185,7 +174,7 @@ class TestImageEditView(TestCase):
         )
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_edit_image', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_edit_image', args=(self.image.id,)), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -202,7 +191,7 @@ class TestImageDeleteView(TestCase):
         )
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_delete_image', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_delete_image', args=(self.image.id,)), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -213,7 +202,7 @@ class TestImageChooserView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_chooser'), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_chooser'), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -241,7 +230,7 @@ class TestImageChooserChosenView(TestCase):
         )
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -252,7 +241,7 @@ class TestImageChooserUploadView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages_chooser_upload'), params, HTTP_HOST=get_default_host())
+        return self.client.get(reverse('wagtailimages_chooser_upload'), params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
