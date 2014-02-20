@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
@@ -123,11 +124,14 @@ def create(request, content_type_app_name, content_type_model_name):
 
             messages.success(
                 request,
-                "%s '%s' created." % (capfirst(get_snippet_type_name(content_type)[0]), instance)
+                _("{snippet_type} '{instance}' created.").format(
+                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]), 
+                    instance=instance
+                )
             )
             return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
         else:
-            messages.error(request, "The snippet could not be created due to errors.")
+            messages.error(request, _("The snippet could not be created due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
     else:
         form = form_class(instance=instance)
@@ -161,11 +165,14 @@ def edit(request, content_type_app_name, content_type_model_name, id):
 
             messages.success(
                 request,
-                "%s '%s' updated." % (capfirst(snippet_type_name), instance)
+                _("{snippet_type} '{instance}' updated.").format(
+                    snippet_type=capfirst(snippet_type_name), 
+                    instance=instance
+                )
             )
             return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
         else:
-            messages.error(request, "The snippet could not be saved due to errors.")
+            messages.error(request, _("The snippet could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
     else:
         form = form_class(instance=instance)
@@ -194,7 +201,10 @@ def delete(request, content_type_app_name, content_type_model_name, id):
         instance.delete()
         messages.success(
             request,
-            "%s '%s' deleted." % (capfirst(snippet_type_name), instance)
+            _("{snippet_type} '{instance}' deleted.").format(
+                snippet_type=capfirst(snippet_type_name), 
+                instance=instance
+            )
         )
         return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
 

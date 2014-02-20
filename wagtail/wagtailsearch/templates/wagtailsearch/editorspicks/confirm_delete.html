@@ -1,15 +1,15 @@
 {% extends "wagtailadmin/base.html" %}
-
-{% block titletag %}Delete {{ query.query_string }}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Delete {{ query.query_string }}{% endblocktrans %}{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="Delete" subtitle=query.query_string %}
+    {% trans "Delete" as delete_str %}
+    {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=query.query_string %}
 
     <div class="nice-padding">       
-        <p>Are you sure you want to delete all editors picks for this search term?</p>
+        <p>{% trans "Are you sure you want to delete all editors picks for this search term?" %}</p>
         <form action="{% url 'wagtailsearch_editorspicks_delete' query.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="Yes, delete" class="serious" />
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
         </form>
     </div>
 {% endblock %}
