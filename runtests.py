@@ -61,7 +61,13 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
-        ]
+        ],
+        WAGTAILSEARCH_BACKENDS = {
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+                'RUN_TESTS': True,
+            }
+        }
     )
 
 
