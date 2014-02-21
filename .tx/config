@@ -1,6 +1,18 @@
 [main]
 host = https://www.transifex.com
 
+[wagtail.wagtailadmin]
+file_filter = wagtail/wagtailadmin/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/wagtailadmin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[wagtail.wagtailcore]
+file_filter = wagtail/wagtailcore/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/wagtailcore/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
 [wagtail.wagtaildocs]
 file_filter = wagtail/wagtaildocs/locale/<lang>/LC_MESSAGES/django.po
 source_file = wagtail/wagtaildocs/locale/en/LC_MESSAGES/django.po

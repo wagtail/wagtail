@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:19+0200\n"
+"POT-Creation-Date: 2014-02-21 17:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: .\models.py:22
+msgid "Title"
+msgstr ""
+
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
+msgstr ""
+
+#: .\models.py:41
+msgid "File"
+msgstr ""
+
+#: .\models.py:47
+msgid "Tags"
 msgstr ""
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
@@ -107,7 +119,7 @@ msgstr ""
 
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
-msgid "Editing image %(image.title)s"
+msgid "Editing image %(title)s"
 msgstr ""
 
 #: .\templates\wagtailimages\images\edit.html:15
@@ -125,9 +137,10 @@ msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
 msgstr ""
 
 #: .\templates\wagtailimages\images\results.html:34
+#, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href=\"wagtailimages_add_image_url"
-"\">add one now</a>?"
+"You've not uploaded any images. Why not <a href=\"%"
+"(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
 
 #: .\views\images.py:92

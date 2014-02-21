@@ -18,6 +18,6 @@
          <p>{% blocktrans %}Sorry, no redirects match "<em>{{ search_query }}</em>"{% endblocktrans %}
     {% else %}
         {% url 'wagtailredirects_add_redirect' as wagtailredirects_add_redirect_url %}
-        <p>{% blocktrans %}No redirects have been created. Why not <a href="wagtailredirects_add_redirect_url">add one</a>?{% endblocktrans %}</p>
+        <p>{% blocktrans %}No redirects have been created. Why not <a href="{{ wagtailredirects_add_redirect_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

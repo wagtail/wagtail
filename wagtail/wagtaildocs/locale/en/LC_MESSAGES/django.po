@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:56+0200\n"
+"POT-Creation-Date: 2014-02-21 17:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,7 @@ msgstr ""
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format
-msgid "Delete %(document.title)s"
+msgid "Delete %(title)s"
 msgstr ""
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:6
@@ -104,7 +104,7 @@ msgstr ""
 
 #: .\templates\wagtaildocs\documents\edit.html:4
 #, python-format
-msgid "Editing %(document.title)s"
+msgid "Editing %(title)s"
 msgstr ""
 
 #: .\templates\wagtaildocs\documents\edit.html:15

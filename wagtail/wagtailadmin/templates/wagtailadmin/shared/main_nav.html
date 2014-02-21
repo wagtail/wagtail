@@ -1,5 +1,5 @@
 {% load gravatar wagtailadmin_nav %}
-
+{% load i18n %}
 <nav class="nav-main">
     <ul>
         {% for menu_item in menu_items %}
@@ -8,18 +8,18 @@
 
         {% comment %}
             {# TODO: make this work #}
-            <li><a href="{% url 'wagtailadmin_pages_select_type' %}" class="icon teal icon-plus-inverse">New page</a></li>
+            <li><a href="{% url 'wagtailadmin_pages_select_type' %}" class="icon teal icon-plus-inverse">{% trans 'New page' %}</a></li>
         {% endcomment %}
         <li class="footer">
-            <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="Account settings">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>
+            <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Account settings' %}">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>
             <a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>
         </li>
         {% if request.user.is_superuser %} {# for now, 'More' links will be superuser-only #}
             <li class="more">
-                <a href="#" class="icon icon-arrow-down">More</a>
+                <a href="#" class="icon icon-arrow-down">{% trans 'More' %}</a>
                 <ul>
-                    <li class="menu-redirects"><a href="{% url 'wagtailredirects_index' %}" class="icon icon-redirect">Redirects</a></li>
-                    <li class="menu-editorspicks"><a href="{% url 'wagtailsearch_editorspicks_index' %}">Editors Picks</a></li>
+                    <li class="menu-redirects"><a href="{% url 'wagtailredirects_index' %}" class="icon icon-redirect">{% trans 'Redirects' %}</a></li>
+                    <li class="menu-editorspicks"><a href="{% url 'wagtailsearch_editorspicks_index' %}">{% trans 'Editors Picks' %}</a></li>
                     {% get_wagtailadmin_tab_urls as wagtailadmin_tab_urls %}
                     {% for name, title in wagtailadmin_tab_urls %}
                         <li class="menu-{{ title|slugify }}"><a href="{% url name %}" class="icon icon-{{name}}">{{ title }}</a></li>

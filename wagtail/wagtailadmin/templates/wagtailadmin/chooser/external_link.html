@@ -1,4 +1,6 @@
-{% include "wagtailadmin/shared/header.html" with title="Add an external link" %}
+{% load i18n %}
+{% trans "Add an external link" as add_str %}
+{% include "wagtailadmin/shared/header.html" with title=add_str %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='external' %}
@@ -9,7 +11,7 @@
             {% for field in form %}
                 {% include "wagtailadmin/shared/field_as_li.html" %}
             {% endfor %}
-            <li><input type="submit" value="Insert link" /></li>
+            <li><input type="submit" value="{% trans 'Insert link' %}" /></li>
         </ul>
     </form>
 </div>

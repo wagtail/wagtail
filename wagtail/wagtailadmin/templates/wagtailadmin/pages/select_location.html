@@ -1,7 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}Where do you want to create a {{ content_type.model_class.get_verbose_name }}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}Where do you want to create a {{ page_type }}{% endblocktrans %}{% endblock %}
 {% block content %}
-	{% include "wagtailadmin/shared/header.html" with title="Where do you want to create this" subtitle=content_type.model_class.get_verbose_name %}
+    {% trans "Where do you want to create this" as where_str %}
+	{% include "wagtailadmin/shared/header.html" with title=where_str subtitle=content_type.model_class.get_verbose_name %}
 
     <ul>
         {% for page in parent_pages %}

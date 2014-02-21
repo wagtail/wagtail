@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 20:59+0200\n"
+"POT-Creation-Date: 2014-02-21 17:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,12 +82,12 @@ msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:3
 #, python-format
-msgid "Snippets %(snippet_type_name_plural|capfirst)s"
+msgid "Snippets %(snippet_type_name_plural)s"
 msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:10
 #, python-format
-msgid "Snippets <span>%(snippet_type_name_plural|capfirst)s</span>"
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
 msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:13
