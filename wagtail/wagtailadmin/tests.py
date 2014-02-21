@@ -1,16 +1,14 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class TestPageSearch(TestCase):
+    def test_root_can_appear_in_search_results(self):
+        User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.client.login(username='test', password='password')
+
+        response = self.client.get('/admin/pages/search/?q=roo')
+        self.assertEqual(response.status_code, 200)
+        # 'pages' list in the response should contain root
+        results = response.context['pages']
+        self.assertTrue(any([r.slug == 'root' for r in results]))

@@ -197,7 +197,13 @@
                         {% endif %}
                     </td>
                     {% if show_parent %}
-                        <td class="parent"><a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a></td>
+                        {% with page.get_parent as parent %}
+                            <td class="parent">
+                                {% if parent %}
+                                    <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.title }}</a>
+                                {% endif %}
+                            </td>
+                        {% endwith %}
                     {% endif %}
                     <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
                     <td class="status">
