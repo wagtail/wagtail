@@ -4,7 +4,6 @@ from django.core import management
 import unittest
 from wagtail.wagtailsearch import models, get_search_backend
 from wagtail.wagtailsearch.backends.db import DBSearch
-from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
 from StringIO import StringIO
 
@@ -190,6 +189,12 @@ class TestDBBackend(TestCase, BackendTests):
 
 class TestElasticSearchBackend(TestCase, BackendTests):
     def find_elasticsearch_backend(self):
+        try:
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+        except ImportError:
+            # skip this test if we don't have the requirements for ElasticSearch installed
+            raise unittest.SkipTest
+
         if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
             for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
                 # Check that the backend is an elastic search backend
@@ -218,6 +223,12 @@ class TestBackendLoader(TestCase):
         self.assertIsInstance(db, DBSearch)
 
     def test_elasticsearch_backend_import(self):
+        try:
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+        except ImportError:
+            # skip this test if we don't have the requirements for ElasticSearch installed
+            raise unittest.SkipTest
+
         elasticsearch = get_search_backend(backend='wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch')
         self.assertIsInstance(elasticsearch, ElasticSearch)
 
