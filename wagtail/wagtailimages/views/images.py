@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required, login_required
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -88,10 +89,10 @@ def edit(request, image_id):
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
             form.save()
-            messages.success(request, "Image '%s' updated." % image.title)
+            messages.success(request, _("Image '{0}' updated.").format(image.title))
             return redirect('wagtailimages_index')
         else:
-            messages.error(request, "The image could not be saved due to errors.")
+            messages.error(request, _("The image could not be saved due to errors."))
     else:
         form = ImageForm(instance=image)
 
@@ -110,7 +111,7 @@ def delete(request, image_id):
 
     if request.POST:
         image.delete()
-        messages.success(request, "Image '%s' deleted." % image.title)
+        messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages_index')
 
     return render(request, "wagtailimages/images/confirm_delete.html", {
@@ -128,10 +129,10 @@ def add(request):
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
             form.save()
-            messages.success(request, "Image '%s' added." % image.title)
+            messages.success(request, _("Image '{0}' added.").format(image.title))
             return redirect('wagtailimages_index')
         else:
-            messages.error(request, "The image could not be created due to errors.")
+            messages.error(request, _("The image could not be created due to errors."))
     else:
         form = ImageForm()
 

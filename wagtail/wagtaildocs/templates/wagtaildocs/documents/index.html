@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
+{% load i18n %}
 {% block titletag %}Documents{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_js %}
@@ -12,7 +13,9 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Documents" add_link="wagtaildocs_add_document" add_text="Add a document" search_url="wagtaildocs_index" %}
+    {% trans "Documents" as doc_str %}
+    {% trans "Add a document" as add_doc_str %}
+    {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs_add_document" add_text=add_doc_str search_url="wagtaildocs_index" %}
 
     <div class="nice-padding">
         <div id="document-results" class="documents">

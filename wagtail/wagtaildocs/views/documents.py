@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -79,10 +80,10 @@ def add(request):
         form = DocumentForm(request.POST, request.FILES, instance=doc)
         if form.is_valid():
             form.save()
-            messages.success(request, "Document '%s' added." % doc.title)
+            messages.success(request, _("Document '{0}' added.").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
-            messages.error(request, "The document could not be saved due to errors.")
+            messages.error(request, _("The document could not be saved due to errors."))
     else:
         form = DocumentForm()
 
@@ -108,10 +109,10 @@ def edit(request, document_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
             doc = form.save()
-            messages.success(request, "Document '%s' updated" % doc.title)
+            messages.success(request, _("Document '{0}' updated").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
-            messages.error(request, "The document could not be saved due to errors.")
+            messages.error(request, _("The document could not be saved due to errors."))
     else:
         form = DocumentForm(instance=doc)
 
@@ -130,7 +131,7 @@ def delete(request, document_id):
 
     if request.POST:
         doc.delete()
-        messages.success(request, "Document '%s' deleted." % doc.title)
+        messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs_index')
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {

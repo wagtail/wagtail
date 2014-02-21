@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
 {% load image_tags %}
+{% load i18n %}
 
 {% block chooser_class %}image-chooser{% endblock %}
 
@@ -13,6 +14,6 @@
     </div>
 {% endblock %}
 
-{% block clear_button_label %}Clear image{% endblock %}
-{% block choose_another_button_label %}Choose another image{% endblock %}
-{% block choose_button_label %}Choose an image{% endblock %}
+{% block clear_button_label %}{% trans "Clear image" %}{% endblock %}
+{% block choose_another_button_label %}{% trans "Choose another image" %}{% endblock %}
+{% block choose_button_label %}{% trans "Choose an image" %}{% endblock %}
