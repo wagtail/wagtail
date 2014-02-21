@@ -17,6 +17,8 @@ class BackendTests(object):
     def load_test_data(self):
         # Reset the index
         self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
 
         # Create a test database
         testa = models.SearchTest()
@@ -145,14 +147,6 @@ class BackendTests(object):
         results = self.backend.search("Hello", models.SearchTest)
         self.assertEqual(len(results), 2)
 
-    def test_reset_index(self):
-        # Reset the index, this should clear out the index
-        self.backend.reset_index()
-
-        # Check that there are no results
-        results = self.backend.search("Hello", models.SearchTest)
-        self.assertEqual(len(results), 0)
-
     def test_update_index_command(self):
         # Reset the index, this should clear out the index
         self.backend.reset_index()
@@ -169,10 +163,6 @@ class TestDBBackend(TestCase, BackendTests):
     def setUp(self):
         self.backend = get_search_backend('wagtail.wagtailsearch.backends.db.DBSearch')
         self.load_test_data()
-
-    @unittest.expectedFailure
-    def test_reset_index(self):
-        super(TestDBBackend, self).test_reset_index()
 
     @unittest.expectedFailure
     def test_object_indexed(self):
