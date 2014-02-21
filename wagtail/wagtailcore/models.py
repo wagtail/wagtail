@@ -45,12 +45,14 @@ class Site(models.Model):
     @staticmethod
     def find_for_request(request):
         """Find the site object responsible for responding to this HTTP request object"""
-        hostname = request.META['HTTP_HOST'].split(':')[0]
         try:
+            hostname = request.META['HTTP_HOST'].split(':')[0]
             # find a Site matching this specific hostname
             return Site.objects.get(hostname=hostname)
-        except Site.DoesNotExist:
-            # failing that, look for a catch-all Site. If that fails, let the Site.DoesNotExist propagate back to the caller
+        except (Site.DoesNotExist, KeyError):
+            # If no matching site exists, or request does not specify an HTTP_HOST (which
+            # will often be the case for the Django test client), look for a catch-all Site.
+            # If that fails, let the Site.DoesNotExist propagate back to the caller
             return Site.objects.get(is_default_site=True)
 
     @property
