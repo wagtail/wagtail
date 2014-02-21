@@ -15,6 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils.translation import ugettext as _, ugettext_lazy as __
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
@@ -76,7 +77,7 @@ class FriendlyTimeField(forms.CharField):
 
             return datetime.time(hour=hour, minute=minute)
         else:
-            raise ValidationError("Please type a valid time")
+            raise ValidationError(_("Please type a valid time"))
             
 
 class LocalizedDateInput(forms.DateInput):
@@ -125,11 +126,11 @@ class LocalizedTimeField(forms.CharField):
             else:
                 minute = 0
             if hour>=24 or hour < 0 or minute >=60 or minute < 0:
-                raise ValidationError("Please type a valid time")            
+                raise ValidationError(_("Please type a valid time"))
                 
             return datetime.time(hour=hour, minute=minute)
         else:
-            raise ValidationError("Please type a valid time")            
+            raise ValidationError(_("Please type a valid time") )
 
 
 if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
@@ -719,5 +720,5 @@ Page.promote_panels = [
         FieldPanel('seo_title'),
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
-    ], 'Common page configuration'),
+    ], __('Common page configuration')),
 ]

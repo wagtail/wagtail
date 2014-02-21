@@ -1,13 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans %}Snippets {{ snippet_type_name_plural|capfirst }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with snippet_type_name_plural=snippet_type_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
 
     <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col9">
-                <h1>{% blocktrans %}Snippets <span>{{ snippet_type_name_plural|capfirst }}</span>{% endblocktrans %}</h1>
+                <h1>{% blocktrans with snippet_type_name_plural=snippet_type_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
                 <a href="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" class="button bicolor icon icon-plus">{% blocktrans %}Add {{ snippet_type_name }}{% endblocktrans %}</a>

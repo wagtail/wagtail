@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block bodyclass %}menu-redirects{% endblock %}
-{% block titletag %}{% blocktrans %}Delete redirect {{ redirect.title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=redirect.title %}Delete redirect {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Delete" as delete_str %}
     {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=redirect.title %}

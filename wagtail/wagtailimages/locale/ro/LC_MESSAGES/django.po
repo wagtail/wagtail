@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-20 22:19+0200\n"
-"PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 10:55+0000\n"
+"Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,16 +83,16 @@ msgstr ""
 #: .\templates\wagtailimages\images\add.html:4
 #: .\templates\wagtailimages\images\index.html:19
 msgid "Add an image"
-msgstr ""
+msgstr "Adaugă o imagine"
 
 #: .\templates\wagtailimages\images\add.html:15
 msgid "Add image"
-msgstr ""
+msgstr "Adaugă imagine"
 
 #: .\templates\wagtailimages\images\add.html:25
 #: .\templates\wagtailimages\images\edit.html:33
 msgid "Save"
-msgstr ""
+msgstr "Salveză"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:4
 #: .\templates\wagtailimages\images\confirm_delete.html:8
@@ -105,7 +106,7 @@ msgstr ""
 
 #: .\templates\wagtailimages\images\confirm_delete.html:19
 msgid "Yes, delete"
-msgstr ""
+msgstr "Da, șterge"
 
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
@@ -114,12 +115,12 @@ msgstr ""
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
-msgstr ""
+msgstr "Editare"
 
 #: .\templates\wagtailimages\images\index.html:5
 #: .\templates\wagtailimages\images\index.html:18
 msgid "Images"
-msgstr ""
+msgstr "Imagini"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
@@ -150,4 +151,4 @@ msgstr ""
 
 #: .\views\images.py:135
 msgid "The image could not be created due to errors."
-msgstr ""
+msgstr "Imaginea nu a fost creată din cauza erorilor."

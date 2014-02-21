@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
@@ -32,9 +33,9 @@ class SiteManager(models.Manager):
 
 class Site(models.Model):
     hostname = models.CharField(max_length=255, unique=True, db_index=True)
-    port = models.IntegerField(default=80, help_text="Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).")
+    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text="If true, this site will handle requests for all other hostnames that do not have a site entry of their own")
+    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
     def natural_key(self):
         return (self.hostname,)
@@ -159,8 +160,8 @@ class PageBase(models.base.ModelBase):
 class Page(MP_Node, ClusterableModel, Indexed):
     __metaclass__ = PageBase
 
-    title = models.CharField(max_length=255, help_text="The page title as you'd like it to be seen by the public")
-    slug = models.SlugField(help_text="The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+    title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
+    slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
@@ -169,8 +170,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
     url_path = models.CharField(max_length=255, blank=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, related_name='owned_pages')
 
-    seo_title = models.CharField("Page title", max_length=255, blank=True, help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
-    show_in_menus = models.BooleanField(default=False, help_text="Whether a link to this page will appear in automatically generated menus")
+    seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
+    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
     indexed_fields = {
@@ -404,7 +405,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                     if model:
                         res.append(model)
                     else:
-                        raise NameError("name '%s' (used in subpage_types list) is not defined " % page_type)
+                        raise NameError(_("name '%s' (used in subpage_types list) is not defined.").format(page_type))
 
                 else:
                     # assume it's already a model class

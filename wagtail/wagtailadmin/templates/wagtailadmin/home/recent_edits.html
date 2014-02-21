@@ -1,30 +1,31 @@
+{% load i18n %}
 {% if last_edits %}
     <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
         <section>
-            <h2>Your most recent edits</h2>
+            <h2>{% trans "Your most recent edits" %}</h2>
             <table class="listing">
                 <col />
                 <col width="15%"/>
                 <col width="15%"/>
                 <thead>
                     <tr>
-                        <th class="title">Title</th>
-                        <th>Date</th>
-                        <th>Status</th>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Status" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for revision in last_edits %}
                         <tr>
                             <td class="title">
-                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="Edit this page">{{ revision.page.title }}</a></h2>
+                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a></h2>
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" target="_blank">Edit</a></li>
                                     {% if revision.page.has_unpublished_changes %}
-                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" target="_blank">View draft</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" target="_blank">{% trans 'View draft' %}</a></li>
                                     {% endif %}
                                     {% if revision.page.live %}
-                                        <li><a href="{{ revision.page.url }}" target="_blank">View live</a></li>
+                                        <li><a href="{{ revision.page.url }}" target="_blank">{% trans 'View live' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>

@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
+{% load i18n %}
 {% block titletag %}Sign in{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
@@ -14,7 +15,7 @@
         {% if form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">Your username and password didn't match. Please try again.</li>
+                    <li class="error">{% trans "Your username and password didn't match. Please try again." %}</li>
                 </ul>
             </div>
         {% endif %}
@@ -45,12 +46,12 @@
                     Removed until functionality exists
                     <li class="checkbox">
                         <div class="field">
-                            <label><input type="checkbox" /> Remember me</label>
+                            <label><input type="checkbox" />{% trans "Remember me" %}</label>
                         </div>
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <input type="submit" value="Sign in"/>
+                    <input type="submit" value={% trans '"Sign in' %}"/>
                 </li>
             </ul>
         </form>

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
-
+from django.utils.translation import ugettext as _ 
 
 def account(request):
     return render(request, 'wagtailadmin/account/account.html', {
@@ -20,7 +20,7 @@ def change_password(request):
             if form.is_valid():
                 form.save()
 
-                messages.success(request, "Your password has been changed successfully!")
+                messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')
         else:
             form = SetPasswordForm(request.user)
