@@ -4,12 +4,13 @@
 # 
 # Translators:
 # zerolab, 2014
+# zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-19 20:59+0200\n"
-"PO-Revision-Date: 2014-02-19 23:08+0000\n"
+"PO-Revision-Date: 2014-02-21 14:34+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +140,7 @@ msgstr "Inactiv"
 #: .\templates\wagtailusers\results.html:12
 #, python-format
 msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
-msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivesc cu nici un utilizator"
+msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un utilizator"
 
 #: .\templates\wagtailusers\results.html:15
 #, python-format
@@ -154,7 +155,7 @@ msgstr "Utilizatorul '{0}' a fost creat."
 
 #: .\views\users.py:78
 msgid "The user could not be created due to errors."
-msgstr "Utilizatorul nu a fost creat din cauze erorilor."
+msgstr "Utilizatorul nu a fost creat din cauza erorilor."
 
 #: .\views\users.py:94
 msgid "User '{0}' updated."

@@ -4,12 +4,13 @@
 # 
 # Translators:
 # zerolab, 2014
+# zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-19 20:59+0200\n"
-"PO-Revision-Date: 2014-02-19 23:08+0000\n"
+"PO-Revision-Date: 2014-02-21 10:54+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +111,7 @@ msgstr "{snippet_type} '{instance}' a fost creat."
 
 #: .\views\snippets.py:134
 msgid "The snippet could not be created due to errors."
-msgstr "Fragmentul nu a fost creat din cauze erorilor."
+msgstr "Fragmentul nu a fost creat din cauza erorilor."
 
 #: .\views\snippets.py:168
 msgid "{snippet_type} '{instance}' updated."

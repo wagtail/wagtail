@@ -1,4 +1,6 @@
-{% include "wagtailadmin/shared/header.html" with title="Choose a page" %}
+{% load i18n %}
+{% trans "Choose a page" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}

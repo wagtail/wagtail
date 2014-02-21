@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 21:32+0200\n"
+"POT-Creation-Date: 2014-02-21 17:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: .\templates\wagtailredirects\confirm_delete.html:4
 #, python-format
-msgid "Delete redirect %(redirect.title)s"
+msgid "Delete redirect %(title)s"
 msgstr ""
 
 #: .\templates\wagtailredirects\confirm_delete.html:6
@@ -88,7 +88,7 @@ msgstr ""
 
 #: .\templates\wagtailredirects\edit.html:4
 #, python-format
-msgid "Editing %(redirect.title)s"
+msgid "Editing %(title)s"
 msgstr ""
 
 #: .\templates\wagtailredirects\edit.html:6
@@ -106,6 +106,10 @@ msgstr ""
 
 #: .\templates\wagtailredirects\list.html:18
 msgid "To"
+msgstr ""
+
+#: .\templates\wagtailredirects\list.html:19
+msgid "Type"
 msgstr ""
 
 #: .\templates\wagtailredirects\list.html:26
@@ -135,7 +139,8 @@ msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
 msgstr ""
 
 #: .\templates\wagtailredirects\results.html:21
+#, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"wagtailredirects_add_redirect_url\">add one</a>?"
+"No redirects have been created. Why not <a href=\"%"
+"(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""

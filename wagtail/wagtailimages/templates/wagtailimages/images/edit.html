@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load image_tags %}
 {% load i18n %}
-{% block titletag %}{% blocktrans %}Editing image {{ image.title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
