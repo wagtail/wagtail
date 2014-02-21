@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="wagtail-moderator-controls">
     <div class="message">
-        <p>{% blocktrans with title=revision.page.title submitted_by=revision.user.get_full_name|default:revision.user.username submitted_on=revision.created_at|date:"Y-M-d H:i" %}
+        <p>{% blocktrans with title=revision.page.title submitted_by=revision.user.get_full_name|default:revision.user.username submitted_on=revision.created_at|date:"Y-m-d H:i" %}
             Previewing '{{ title }}', submitted by {{ submitted_by }} on {{ submitted_on }}.
         {% endblocktrans %}</p>
     </div>
