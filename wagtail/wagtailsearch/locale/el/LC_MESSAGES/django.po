@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 23:22+0200\n"
-"PO-Revision-Date: 2014-02-20 06:56+0000\n"
+"POT-Creation-Date: 2014-02-22 19:04+0200\n"
+"PO-Revision-Date: 2014-02-22 17:15+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -56,8 +56,8 @@ msgstr "Αποθήκευση"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:3
 #, python-format
-msgid "Delete %(query.query_string)s"
-msgstr "Διαγραφή %(query.query_string)s"
+msgid "Delete %(query)s"
+msgstr "Διαγραφή %(query)s"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:5
 #: .\templates\wagtailsearch\editorspicks\edit.html:20
@@ -76,8 +76,8 @@ msgstr "Ναι, να διαγραφεί"
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:3
 #, python-format
-msgid "Editing %(query.query_string)s"
-msgstr "Διόρθωση του %(query.query_string)s"
+msgid "Editing %(query)s"
+msgstr "Επεξεργασία %(query)s"
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:5
 msgid "Editing"
@@ -104,19 +104,37 @@ msgid "Editors picks"
 msgstr "Επιλογές συντακτών"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:10
+#: .\templates\wagtailsearch\queries\chooser\results.html:9
 msgid "Views (past week)"
 msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:17
+msgid "Edit this pick"
+msgstr "Διόρθωση"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:23
 msgid "None"
 msgstr "Καμία"
 
-#: .\templates\wagtailsearch\editorspicks\results.html:11
+#: .\templates\wagtailsearch\editorspicks\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
+msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
+
+#: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(search_query)s</em>\""
 msgstr "Λυπούμαστε, δεν υπάρχουν όροι αναζήτησης που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
 
-#: .\templates\wagtailsearch\editorspicks\results.html:14
+#: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format
 msgid ""
 "No editor's picks have been created. Why not <a "
@@ -138,6 +156,22 @@ msgstr "Επιλογή συντακτών"
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_formset.html:14
 msgid "Add recommended page"
 msgstr "Προσθήκη προτεινόμενης σελίδας"
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:2
+msgid "Popular search terms"
+msgstr "Δημοφιλείς όροι αναζήτησης"
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:10
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:8
+msgid "Terms"
+msgstr "Όροι"
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:23
+msgid "No results found"
+msgstr "Δε βρέθηκαν αποτελέσματα"
 
 #: .\views\editorspicks.py:85
 msgid "Editor's picks for '{0}' created."

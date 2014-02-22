@@ -34,7 +34,7 @@
                                             <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
                                         </form>
                                     </li>
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}">Edit</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}">{% trans 'Edit' %}</a></li>
                                     <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 21:32+0200\n"
-"PO-Revision-Date: 2014-02-21 14:36+0000\n"
-"Last-Translator: zerolab\n"
+"POT-Creation-Date: 2014-02-22 19:04+0200\n"
+"PO-Revision-Date: 2014-02-22 17:05+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,8 +73,8 @@ msgstr "Salvează"
 
 #: .\templates\wagtailredirects\confirm_delete.html:4
 #, python-format
-msgid "Delete redirect %(redirect.title)s"
-msgstr "Șterge redirecționarea %(redirect.title)s"
+msgid "Delete redirect %(title)s"
+msgstr ""
 
 #: .\templates\wagtailredirects\confirm_delete.html:6
 msgid "Delete"
@@ -90,8 +90,8 @@ msgstr "Da, șterge"
 
 #: .\templates\wagtailredirects\edit.html:4
 #, python-format
-msgid "Editing %(redirect.title)s"
-msgstr "Editare %(redirect.title)s"
+msgid "Editing %(title)s"
+msgstr ""
 
 #: .\templates\wagtailredirects\edit.html:6
 msgid "Editing"
@@ -108,6 +108,10 @@ msgstr "Redirecționări"
 
 #: .\templates\wagtailredirects\list.html:18
 msgid "To"
+msgstr ""
+
+#: .\templates\wagtailredirects\list.html:19
+msgid "Type"
 msgstr ""
 
 #: .\templates\wagtailredirects\list.html:26
@@ -138,7 +142,8 @@ msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
 msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o redirecționare"
 
 #: .\templates\wagtailredirects\results.html:21
+#, python-format
 msgid ""
 "No redirects have been created. Why not <a "
-"href=\"wagtailredirects_add_redirect_url\">add one</a>?"
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""

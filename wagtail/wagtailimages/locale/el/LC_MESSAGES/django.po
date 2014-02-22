@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:19+0200\n"
-"PO-Revision-Date: 2014-02-20 21:50+0000\n"
+"POT-Creation-Date: 2014-02-22 19:04+0200\n"
+"PO-Revision-Date: 2014-02-22 17:13+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,21 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: .\models.py:22
+msgid "Title"
+msgstr "Τίτλος"
+
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
-msgstr ""
+msgstr "Πρέπει να ανεβάσετε αρχείο εικόνας τύπου gif, gpeg ή png."
+
+#: .\models.py:41
+msgid "File"
+msgstr "Αρχείο"
+
+#: .\models.py:47
+msgid "Tags"
+msgstr "Ετικέτες"
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
@@ -35,11 +47,11 @@ msgstr "Αναζήτηση"
 #: .\templates\wagtailimages\chooser\chooser.html:9
 #: .\templates\wagtailimages\chooser\chooser.html:43
 msgid "Upload"
-msgstr ""
+msgstr "Ανέβασμα"
 
 #: .\templates\wagtailimages\chooser\chooser.html:23
 msgid "Popular tags"
-msgstr ""
+msgstr "Δημοφιλείς ετικέτες"
 
 #: .\templates\wagtailimages\chooser\results.html:6
 #: .\templates\wagtailimages\images\results.html:6
@@ -61,7 +73,7 @@ msgstr "Τελευταίες εικόνες"
 
 #: .\templates\wagtailimages\chooser\select_format.html:3
 msgid "Choose a format"
-msgstr ""
+msgstr "Επιλογή τύπου"
 
 #: .\templates\wagtailimages\chooser\select_format.html:17
 msgid "Insert image"
@@ -69,7 +81,7 @@ msgstr "Εισαγωγή εικόνας"
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:17
 msgid "Clear image"
-msgstr ""
+msgstr "καθαρισμός εικόνας"
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:18
 msgid "Choose another image"
@@ -101,7 +113,7 @@ msgstr "Διαγραφή εικόνας"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:16
 msgid "Are you sure you want to delete this image?"
-msgstr "Είστε σίγουροι ότι θέλετε να διαγραφεί αυτή η εικόνα;"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτή η εικόνα;"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:19
 msgid "Yes, delete"
@@ -109,8 +121,8 @@ msgstr "Ναι, να διαγραφεί"
 
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
-msgid "Editing image %(image.title)s"
-msgstr ""
+msgid "Editing image %(title)s"
+msgstr "Επεξεργασία εικόνας %(title)s"
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
@@ -124,13 +136,14 @@ msgstr "Εικόνες"
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Λυπούμαστε, δεν υπάρχουν εικόνες που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
+#, python-format
 msgid ""
 "You've not uploaded any images. Why not <a "
-"href=\"wagtailimages_add_image_url\">add one now</a>?"
-msgstr ""
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Δεν υπάρχουν εικόνες. Θέλετε να <a href=\"%(wagtailimages_add_image_url)s\">προσθέσετε μερικές</a>;"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

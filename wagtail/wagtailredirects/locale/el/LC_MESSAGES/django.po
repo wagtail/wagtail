@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 21:32+0200\n"
-"PO-Revision-Date: 2014-02-20 21:11+0000\n"
+"POT-Creation-Date: 2014-02-22 19:04+0200\n"
+"PO-Revision-Date: 2014-02-22 17:14+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Μόνιμη"
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
-msgstr ""
+msgstr "Συνιστώμενο. Με τις μόνιμες ανακατευθύνσεις οι μηχανές αναζήτησης \"ξεχνούν\" την παλαιά σελίδα (\"Ανακατεύθυνση από\") και πλέον χρησιμοποιούν τη νέα σελίδα."
 
 #: .\models.py:13
 msgid "Redirect to a page"
@@ -38,7 +38,7 @@ msgstr "Ανακατεύθυνση σε σελίδα"
 
 #: .\models.py:14
 msgid "Redirect to any URL"
-msgstr ""
+msgstr "Ανακατεύθυση σε κάποια διεύθυση"
 
 #: .\views.py:79
 msgid "Redirect '{0}' updated."
@@ -46,25 +46,25 @@ msgstr "Η ανακατεύθυνση '{0}' αποθηκεύθηκε."
 
 #: .\views.py:82
 msgid "The redirect could not be saved due to errors."
-msgstr ""
+msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
 #: .\views.py:100
 msgid "Redirect '{0}' deleted."
-msgstr ""
+msgstr "Η ανακατεύθυνση '{0}' διαγράφηκε."
 
 #: .\views.py:120
 msgid "Redirect '{0} added."
-msgstr ""
+msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 
 #: .\views.py:123
 msgid "The redirect could not be created due to errors."
-msgstr ""
+msgstr "Δεν ήταν δυνατή η δημιουργία της ανακατεύθυνσης."
 
 #: .\templates\wagtailredirects\add.html:3
 #: .\templates\wagtailredirects\add.html:6
 #: .\templates\wagtailredirects\index.html:18
 msgid "Add redirect"
-msgstr ""
+msgstr "Προσθήκη ανακατεύθυνσης"
 
 #: .\templates\wagtailredirects\add.html:14
 #: .\templates\wagtailredirects\edit.html:14
@@ -73,8 +73,8 @@ msgstr "Αποθήκευση"
 
 #: .\templates\wagtailredirects\confirm_delete.html:4
 #, python-format
-msgid "Delete redirect %(redirect.title)s"
-msgstr ""
+msgid "Delete redirect %(title)s"
+msgstr "Διαγραφή της ανακατεύθυνσης %(title)s"
 
 #: .\templates\wagtailredirects\confirm_delete.html:6
 msgid "Delete"
@@ -82,7 +82,7 @@ msgstr "Διαγραφή"
 
 #: .\templates\wagtailredirects\confirm_delete.html:10
 msgid "Are you sure you want to delete this redirect?"
-msgstr ""
+msgstr "Θέλετε πράγματι να διαγράψετε αυτή την ανακατεύθυνση;"
 
 #: .\templates\wagtailredirects\confirm_delete.html:13
 msgid "Yes, delete"
@@ -90,8 +90,8 @@ msgstr "Ναι, να διαγραφεί"
 
 #: .\templates\wagtailredirects\edit.html:4
 #, python-format
-msgid "Editing %(redirect.title)s"
-msgstr ""
+msgid "Editing %(title)s"
+msgstr "Επεξεργασία της %(title)s"
 
 #: .\templates\wagtailredirects\edit.html:6
 msgid "Editing"
@@ -99,24 +99,28 @@ msgstr "Διόρθωση"
 
 #: .\templates\wagtailredirects\edit.html:15
 msgid "Delete redirect"
-msgstr ""
+msgstr "Διαγραφή ανακατεύθυνσης"
 
 #: .\templates\wagtailredirects\index.html:3
 #: .\templates\wagtailredirects\index.html:17
 msgid "Redirects"
-msgstr ""
+msgstr "Ανακατευθύνει"
 
 #: .\templates\wagtailredirects\list.html:18
 msgid "To"
-msgstr ""
+msgstr "Σε"
+
+#: .\templates\wagtailredirects\list.html:19
+msgid "Type"
+msgstr "Τύπος"
 
 #: .\templates\wagtailredirects\list.html:26
 msgid "Edit this redirect"
-msgstr ""
+msgstr "Διόρθωση της ανακατεύθυνσης"
 
 #: .\templates\wagtailredirects\list.html:35
 msgid "primary"
-msgstr ""
+msgstr "Πρωτεύουσα"
 
 #: .\templates\wagtailredirects\results.html:5
 #, python-format
@@ -128,16 +132,17 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\nΒρέθηκα ένα αποτέλεσμα"
+msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
 
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Λυπούμαστε, δε βρέθηκαν ανακατευθύνσεις που να ταιριάζουν με το \"<em>%(search_query)s</em>\" "
 
 #: .\templates\wagtailredirects\results.html:21
+#, python-format
 msgid ""
 "No redirects have been created. Why not <a "
-"href=\"wagtailredirects_add_redirect_url\">add one</a>?"
-msgstr ""
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr "Δεν υπάρχουν ανακατευθύνσεις. Θέλετε να <a href=\"%(wagtailredirects_add_redirect_url)s\">προσθέσετε μερικές</a>;"

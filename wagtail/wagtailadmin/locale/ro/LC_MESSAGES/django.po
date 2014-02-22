@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 17:37+0200\n"
-"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"POT-Creation-Date: 2014-02-22 19:55+0200\n"
+"PO-Revision-Date: 2014-02-22 17:57+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: .\forms.py:12
 msgid "Search term"
-msgstr ""
+msgstr "Termen de căutare"
 
 #: .\forms.py:44
 msgid "Enter your email address to reset your password"
@@ -47,6 +48,10 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
+#: .\templates\wagtailadmin\base.html:31
+msgid "Menu"
+msgstr ""
+
 #: .\templates\wagtailadmin\home.html:22
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -58,21 +63,30 @@ msgid ""
 "created will be displayed."
 msgstr ""
 
+#: .\templates\wagtailadmin\login.html:4
+#: .\templates\wagtailadmin\login.html:55
+msgid "Sign in"
+msgstr ""
+
 #: .\templates\wagtailadmin\login.html:18
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
-#: .\templates\wagtailadmin\login.html:55
-msgid "\"Sign in"
+#: .\templates\wagtailadmin\login.html:26
+msgid "Sign in to Wagtail"
+msgstr ""
+
+#: .\templates\wagtailadmin\login.html:42
+msgid "Forgotten it?"
 msgstr ""
 
 #: .\templates\wagtailadmin\account\account.html:4
 msgid "Account"
-msgstr ""
+msgstr "Cont"
 
 #: .\templates\wagtailadmin\account\account.html:11
 msgid "Set gravatar"
-msgstr ""
+msgstr "Setează gravatar"
 
 #: .\templates\wagtailadmin\account\account.html:15
 msgid ""
@@ -82,6 +96,7 @@ msgid ""
 msgstr ""
 
 #: .\templates\wagtailadmin\account\account.html:23
+#: .\templates\wagtailadmin\account\change_password.html:4
 msgid "Change password"
 msgstr ""
 
@@ -90,7 +105,7 @@ msgid "Change the password you use to log in."
 msgstr ""
 
 #: .\templates\wagtailadmin\account\change_password.html:16
-msgid "Change"
+msgid "Change Password"
 msgstr ""
 
 #: .\templates\wagtailadmin\account\change_password.html:19
@@ -111,12 +126,12 @@ msgstr ""
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:16
 msgid "Login"
-msgstr ""
+msgstr "Autentificare"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:4
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:26
 msgid "Set your new password"
-msgstr ""
+msgstr "Setează parola nouă"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:19
 msgid "The passwords do not match. Please try again."
@@ -124,7 +139,7 @@ msgstr ""
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:15
 msgid "Check your email"
-msgstr ""
+msgstr "Verifică-ți e-mailul"
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:16
 msgid "A link to reset your password has been emailed to you."
@@ -160,10 +175,12 @@ msgstr ""
 #: .\templates\wagtailadmin\chooser\_search_form.html:7
 #: .\templates\wagtailadmin\pages\search.html:3
 #: .\templates\wagtailadmin\pages\search.html:16
+#: .\templatetags\wagtailadmin_nav.py:44
 msgid "Search"
-msgstr ""
+msgstr "Căutare"
 
 #: .\templates\wagtailadmin\chooser\_search_results.html:3
+#: .\templatetags\wagtailadmin_nav.py:43
 msgid "Explorer"
 msgstr ""
 
@@ -171,7 +188,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\index.html:15
 #: .\templates\wagtailadmin\pages\move_choose_destination.html:10
 msgid "Home"
-msgstr ""
+msgstr "Acasă"
 
 #: .\templates\wagtailadmin\chooser\_search_results.html:13
 #, python-format
@@ -220,11 +237,11 @@ msgstr ""
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:5
 msgid "Move up"
-msgstr ""
+msgstr "Deplasează în sus"
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:6
 msgid "Move down"
-msgstr ""
+msgstr "Deplasează în jos"
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:8
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
@@ -232,7 +249,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\list.html:68
 #: .\templates\wagtailadmin\pages\list.html:189
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:12
 msgid "Choose another page"
@@ -246,7 +263,7 @@ msgstr ""
 #: .\templates\wagtailadmin\home\recent_edits.html:12
 #: .\templates\wagtailadmin\pages\list.html:102
 msgid "Title"
-msgstr ""
+msgstr "Titlu"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:14
 #: .\templates\wagtailadmin\pages\list.html:22
@@ -272,15 +289,23 @@ msgstr ""
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:28
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:12
 msgid "Approve"
-msgstr ""
+msgstr "Aprobă"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:34
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:17
 msgid "Reject"
+msgstr "Respinge"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:37
+#: .\templates\wagtailadmin\home\recent_edits.html:23
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
+#: .\templates\wagtailadmin\pages\list.html:56
+#: .\templates\wagtailadmin\pages\list.html:177
+msgid "Edit"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:38
-#: .\templates\wagtailadmin\pages\create.html:23
+#: .\templates\wagtailadmin\pages\create.html:24
 #: .\templates\wagtailadmin\pages\edit.html:42
 msgid "Preview"
 msgstr ""
@@ -293,13 +318,13 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\list.html:25
 #: .\templates\wagtailadmin\pages\list.html:129
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:25
 #: .\templates\wagtailadmin\pages\list.html:59
 #: .\templates\wagtailadmin\pages\list.html:180
 msgid "View draft"
-msgstr ""
+msgstr "Vezi ciornă"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:28
 #: .\templates\wagtailadmin\pages\list.html:62
@@ -404,12 +429,6 @@ msgid ""
 "        "
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
-#: .\templates\wagtailadmin\pages\list.html:56
-#: .\templates\wagtailadmin\pages\list.html:177
-msgid "Edit"
-msgstr ""
-
 #: .\templates\wagtailadmin\pages\add_subpage.html:6
 #, python-format
 msgid "Create a page in %(title)s"
@@ -421,6 +440,11 @@ msgstr ""
 
 #: .\templates\wagtailadmin\pages\add_subpage.html:13
 msgid "Choose which type of page you'd like to create."
+msgstr ""
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:26
+#, python-format
+msgid "Pages using %(page_type)s"
 msgstr ""
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:3
@@ -473,14 +497,14 @@ msgstr ""
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:11
 #, python-format
-msgid "Are you sure you want to move this page into '%(destination.title)s'?"
+msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr ""
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:13
 #, python-format
 msgid ""
 "Are you sure you want to move this page and all of its children into "
-"'%(destination.title)s'?"
+"'%(title)s'?"
 msgstr ""
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:18
@@ -516,16 +540,20 @@ msgstr ""
 msgid "New %(page_type)s"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\create.html:20
-msgid "Save as draft"
+#: .\templates\wagtailadmin\pages\create.html:9
+msgid "New"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\create.html:25
+#: .\templates\wagtailadmin\pages\create.html:21
+msgid "Save as draft"
+msgstr "Salvează ca ciornă"
+
+#: .\templates\wagtailadmin\pages\create.html:26
 #: .\templates\wagtailadmin\pages\edit.html:39
 msgid "Publish"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\create.html:27
+#: .\templates\wagtailadmin\pages\create.html:28
 #: .\templates\wagtailadmin\pages\edit.html:41
 msgid "Submit for moderation"
 msgstr ""
@@ -542,6 +570,10 @@ msgstr ""
 
 #: .\templates\wagtailadmin\pages\edit.html:15
 msgid "Status:"
+msgstr "Status:"
+
+#: .\templates\wagtailadmin\pages\edit.html:29
+msgid "Save draft"
 msgstr ""
 
 #: .\templates\wagtailadmin\pages\edit.html:52
@@ -562,7 +594,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\list.html:24
 #: .\templates\wagtailadmin\pages\list.html:117
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: .\templates\wagtailadmin\pages\list.html:53
 #: .\templates\wagtailadmin\pages\list.html:195
@@ -576,7 +608,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\list.html:95
 #: .\templates\wagtailadmin\pages\list.html:97
 msgid "Order"
-msgstr ""
+msgstr "Ordine"
 
 #: .\templates\wagtailadmin\pages\list.html:97
 msgid "Enable ordering of child pages"
@@ -586,37 +618,37 @@ msgstr ""
 msgid "Drag"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:215
-#: .\templates\wagtailadmin\pages\list.html:219
+#: .\templates\wagtailadmin\pages\list.html:221
+#: .\templates\wagtailadmin\pages\list.html:225
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:215
-#: .\templates\wagtailadmin\pages\list.html:219
-#: .\templates\wagtailadmin\pages\list.html:223
+#: .\templates\wagtailadmin\pages\list.html:221
+#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:229
 msgid "Explore"
-msgstr ""
+msgstr "Explorează"
 
-#: .\templates\wagtailadmin\pages\list.html:223
+#: .\templates\wagtailadmin\pages\list.html:229
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:231
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:231
 msgid "Add subpage"
-msgstr ""
+msgstr "Adaugă subpagină"
 
-#: .\templates\wagtailadmin\pages\list.html:234
+#: .\templates\wagtailadmin\pages\list.html:240
 msgid "No pages have been created."
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:234
+#: .\templates\wagtailadmin\pages\list.html:240
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr ""
@@ -700,6 +732,10 @@ msgstr ""
 
 #: .\templates\wagtailadmin\shared\main_nav.html:15
 msgid "Account settings"
+msgstr "Setări cont"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:16
+msgid "Log out"
 msgstr ""
 
 #: .\templates\wagtailadmin\shared\main_nav.html:20
@@ -708,7 +744,7 @@ msgstr ""
 
 #: .\templates\wagtailadmin\shared\main_nav.html:22
 msgid "Redirects"
-msgstr ""
+msgstr "Redirecționări"
 
 #: .\templates\wagtailadmin\shared\main_nav.html:23
 msgid "Editors Picks"
@@ -717,6 +753,22 @@ msgstr ""
 #: .\templates\wagtailadmin\shared\pagination_nav.html:3
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
+msgstr ""
+
+#: .\templatetags\wagtailadmin_nav.py:52
+msgid "Images"
+msgstr ""
+
+#: .\templatetags\wagtailadmin_nav.py:56
+msgid "Documents"
+msgstr ""
+
+#: .\templatetags\wagtailadmin_nav.py:61
+msgid "Snippets"
+msgstr ""
+
+#: .\templatetags\wagtailadmin_nav.py:66
+msgid "Users"
 msgstr ""
 
 #: .\views\account.py:23
@@ -747,7 +799,7 @@ msgstr ""
 
 #: .\views\pages.py:192
 msgid "Page '{0}' created."
-msgstr ""
+msgstr "Pagina '{0}' a fost creată."
 
 #: .\views\pages.py:201
 msgid "The page could not be created due to errors."
@@ -755,7 +807,7 @@ msgstr ""
 
 #: .\views\pages.py:259
 msgid "Page '{0}' updated."
-msgstr ""
+msgstr "Pagina '{0}' a fost actualizată."
 
 #: .\views\pages.py:268
 msgid "The page could not be saved due to validation errors"
@@ -767,7 +819,7 @@ msgstr ""
 
 #: .\views\pages.py:298
 msgid "Page '{0}' deleted."
-msgstr ""
+msgstr "Pagina '{0}' a fost ștearsă."
 
 #: .\views\pages.py:428
 msgid "Page '{0}' unpublished."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 17:37+0200\n"
+"POT-Creation-Date: 2014-02-22 19:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,32 +29,32 @@ msgid ""
 "have a site entry of their own"
 msgstr ""
 
-#: .\models.py:161
+#: .\models.py:163
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: .\models.py:162
+#: .\models.py:164
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: .\models.py:171
+#: .\models.py:173
 msgid "Page title"
 msgstr ""
 
-#: .\models.py:171
+#: .\models.py:173
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
 
-#: .\models.py:172
+#: .\models.py:174
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: .\models.py:406
+#: .\models.py:408
 #, python-format
 msgid "name '%s' (used in subpage_types list) is not defined."
 msgstr ""

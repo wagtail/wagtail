@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:19+0200\n"
-"PO-Revision-Date: 2014-02-20 21:34+0000\n"
+"POT-Creation-Date: 2014-02-21 17:37+0200\n"
+"PO-Revision-Date: 2014-02-22 12:34+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: .\forms.py:11
 msgid "Please enter a valid URL"
-msgstr ""
+msgstr "Παρακαλώ εισάγετε μια διεύθυνση"
 
 #: .\forms.py:15
 msgid "URL"
-msgstr ""
+msgstr "Διεύθυνση"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:3
 msgid "Insert embed"
-msgstr ""
+msgstr "Εισαγωγή ενσωμάτωσης"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:14
 msgid "Insert"
@@ -38,14 +38,14 @@ msgstr "Εισαγωγή"
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
-msgstr ""
+msgstr "Φαίνεται να υπάρχει πρόβλημα με το API key σας για το Embedly. Παρακαλώ ελέγξατε τις ρυθμίσεις."
 
 #: .\views\chooser.py:36
 msgid "Cannot find an embed for this URL."
-msgstr ""
+msgstr "Δε βρέθηκε τρόπος ενσωμάτωσης για τη διεύθυνση αυτή."
 
 #: .\views\chooser.py:38
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
-msgstr ""
+msgstr "Φαίνεται να υπάρχει πρόβλημα με το Embedly - παρακαλώ δοκιμάστε αργότερα."
