@@ -115,21 +115,7 @@ class BackendTests(object):
         for result in sliced_results:
             self.assertIsInstance(result, models.SearchTest)
 
-    def test_searcher(self):
-        # Get results from searcher
-        results = models.SearchTest.title_search("Hello")
-
-        # Should return three results, just like before
-        self.assertEqual(len(results), 3)
-
     def test_child_model(self):
-        # Get results for child model
-        results = self.backend.search("Hello", models.SearchTestChild)
-
-        # Should return one object
-        self.assertEqual(len(results), 1)
-
-    def test_child_model_searcher(self):
         # Get results for child model
         results = self.backend.search("Hello", models.SearchTestChild)
 
@@ -171,10 +157,6 @@ class TestDBBackend(TestCase, BackendTests):
     @unittest.expectedFailure
     def test_callable_indexed_field(self):
         super(TestDBBackend, self).test_callable_indexed_field()
-
-    @unittest.skip("")
-    def test_searcher(self):
-        super(TestDBBackend, self).test_searcher()
 
 
 class TestElasticSearchBackend(TestCase, BackendTests):
