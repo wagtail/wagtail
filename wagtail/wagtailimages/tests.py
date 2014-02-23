@@ -8,7 +8,14 @@ from wagtail.wagtailimages.templatetags import image_tags
 
 
 def get_test_image_file():
-    return 'wagtail/wagtailimages/static/wagtailimages/images/test.png'
+    from StringIO import StringIO
+    from PIL import Image
+    from django.core.files.images import ImageFile
+
+    f = StringIO()
+    image = Image.new('RGB', (640, 480), 'white')
+    image.save(f, 'PNG')
+    return ImageFile(f, name='test.png')
 
 
 Image = get_image_model()
