@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .utils import get_default_host, login
+from wagtail.tests.utils import login, get_host
 from wagtail.wagtailsearch import models
 
 
@@ -50,7 +50,7 @@ class TestEditorsPicksIndexView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/admin/search/editorspicks/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -72,7 +72,7 @@ class TestEditorsPicksAddView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/add/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/admin/search/editorspicks/add/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -87,7 +87,7 @@ class TestEditorsPicksEditView(TestCase):
         self.query.editors_picks.create(page_id=1, description="Root page")
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -102,7 +102,7 @@ class TestEditorsPicksDeleteView(TestCase):
         self.query.editors_picks.create(page_id=1, description="Root page")
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)

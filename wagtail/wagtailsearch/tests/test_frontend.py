@@ -1,10 +1,10 @@
 from django.test import TestCase
-from .utils import get_default_host
+from wagtail.tests.utils import get_host
 
 
 class TestSearchView(TestCase):
     def get(self, params={}):
-        return self.client.get('/search/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/search/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -23,7 +23,7 @@ class TestSearchView(TestCase):
 
 class TestSuggestionsView(TestCase):
     def get(self, params={}):
-        return self.client.get('/search/suggest/', params, HTTP_HOST=get_default_host())
+        return self.client.get('/search/suggest/', params, HTTP_HOST=get_host())
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
