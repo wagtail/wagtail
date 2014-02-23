@@ -64,7 +64,8 @@ if not settings.configured:
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
             'wagtail.tests',
-        ]
+        ],
+        WAGTAIL_SITE_NAME='Test Site'
     )
 
 
