@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
-from wagtail.tests.utils import login, get_host
+from wagtail.tests.utils import login
 from StringIO import StringIO
 import unittest
 
@@ -145,7 +145,7 @@ class TestQueryChooserView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/search/queries/chooser/', params, HTTP_HOST=get_host())
+        return self.client.get('/admin/search/queries/chooser/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
