@@ -182,7 +182,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         },
         'live': {
             'type': 'boolean',
-            'analyzer': 'simple',
+            'index': 'not_analyzed',
         },
     }
 
