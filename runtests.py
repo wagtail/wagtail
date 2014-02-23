@@ -8,6 +8,7 @@ from django.core.management import execute_from_command_line
 
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
+MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 
 if not settings.configured:
     settings.configure(
@@ -21,6 +22,7 @@ if not settings.configured:
         ROOT_URLCONF='wagtail.tests.urls',
         STATIC_URL='/static/',
         STATIC_ROOT=STATIC_ROOT,
+        MEDIA_ROOT=MEDIA_ROOT,
         STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
@@ -72,6 +74,7 @@ def runtests():
         execute_from_command_line(argv)
     finally:
         shutil.rmtree(STATIC_ROOT, ignore_errors=True)
+        shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
 if __name__ == '__main__':
