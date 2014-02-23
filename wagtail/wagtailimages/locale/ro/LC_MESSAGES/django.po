@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:04+0200\n"
-"PO-Revision-Date: 2014-02-22 17:05+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-22 22:51+0000\n"
+"Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,38 +20,38 @@ msgstr ""
 
 #: .\models.py:22
 msgid "Title"
-msgstr ""
+msgstr "Titlu"
 
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
-msgstr ""
+msgstr "Format nevalid. Încearcă un fișier gif, jpeg sau png în schimb."
 
 #: .\models.py:41
 msgid "File"
-msgstr ""
+msgstr "Fișier"
 
 #: .\models.py:47
 msgid "Tags"
-msgstr ""
+msgstr "Etichete"
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
 msgid "Choose an image"
-msgstr ""
+msgstr "Selectează imagine"
 
 #: .\templates\wagtailimages\chooser\chooser.html:8
 #: .\templates\wagtailimages\chooser\chooser.html:20
 msgid "Search"
-msgstr ""
+msgstr "Căutare"
 
 #: .\templates\wagtailimages\chooser\chooser.html:9
 #: .\templates\wagtailimages\chooser\chooser.html:43
 msgid "Upload"
-msgstr ""
+msgstr "Încărcare"
 
 #: .\templates\wagtailimages\chooser\chooser.html:23
 msgid "Popular tags"
-msgstr ""
+msgstr "Etichete populare"
 
 #: .\templates\wagtailimages\chooser\results.html:6
 #: .\templates\wagtailimages\images\results.html:6
@@ -64,33 +64,34 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\nExistă o potrivire"
+msgstr[1] "\nSunt %(counter)s potriviri"
+msgstr[2] "\nSunt %(counter)s potriviri"
 
 #: .\templates\wagtailimages\chooser\results.html:13
+#: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
-msgstr ""
+msgstr "Imagini recente"
 
 #: .\templates\wagtailimages\chooser\select_format.html:3
 msgid "Choose a format"
-msgstr ""
+msgstr "Selectează un format"
 
 #: .\templates\wagtailimages\chooser\select_format.html:17
 msgid "Insert image"
-msgstr ""
+msgstr "Inserează imagine"
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:17
 msgid "Clear image"
-msgstr ""
+msgstr "Curăță imaginea"
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:18
 msgid "Choose another image"
-msgstr ""
+msgstr "Alege altă imagine"
 
 #: .\templates\wagtailimages\images\_file_field.html:6
 msgid "Change image:"
-msgstr ""
+msgstr "Schimbă imaginea:"
 
 #: .\templates\wagtailimages\images\add.html:4
 #: .\templates\wagtailimages\images\index.html:19
@@ -110,11 +111,11 @@ msgstr "Salveză"
 #: .\templates\wagtailimages\images\confirm_delete.html:8
 #: .\templates\wagtailimages\images\edit.html:33
 msgid "Delete image"
-msgstr ""
+msgstr "Șterge imagine"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:16
 msgid "Are you sure you want to delete this image?"
-msgstr ""
+msgstr "Sigur doriți să ștergeți această imagine?"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:19
 msgid "Yes, delete"
@@ -123,7 +124,7 @@ msgstr "Da, șterge"
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
 msgid "Editing image %(title)s"
-msgstr ""
+msgstr "Editare imagine %(title)s"
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
@@ -137,30 +138,30 @@ msgstr "Imagini"
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o imagine"
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format
 msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
+msgstr "Nu ai încărcat nici o imagine. De să nu <a href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."
-msgstr ""
+msgstr "Imaginea '{0}' a fost actualizată."
 
 #: .\views\images.py:95
 msgid "The image could not be saved due to errors."
-msgstr ""
+msgstr "Imaginea nu a fost salvată din cauza erorilor."
 
 #: .\views\images.py:114
 msgid "Image '{0}' deleted."
-msgstr ""
+msgstr "Imaginea '{0}' a fost ștearsă."
 
 #: .\views\images.py:132
 msgid "Image '{0}' added."
-msgstr ""
+msgstr "Imaginea '{0}' a fost adăugată."
 
 #: .\views\images.py:135
 msgid "The image could not be created due to errors."

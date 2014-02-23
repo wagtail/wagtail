@@ -4,13 +4,14 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 17:38+0200\n"
-"PO-Revision-Date: 2014-02-22 17:05+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:23+0000\n"
+"Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,9 +147,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Są %(counter)s dopasowania\n        "
+msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailusers\results.html:18
 #, python-format

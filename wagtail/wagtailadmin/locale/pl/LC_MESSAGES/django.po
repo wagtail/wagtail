@@ -4,13 +4,14 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-22 17:57+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-23 10:22+0000\n"
+"Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgstr "Kokpit"
 
 #: .\templates\wagtailadmin\base.html:31
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: .\templates\wagtailadmin\home.html:22
 #, python-format
@@ -66,7 +67,7 @@ msgstr "To jest twój kokpit, na którym będą wyświetlane pomocne informacje 
 #: .\templates\wagtailadmin\login.html:4
 #: .\templates\wagtailadmin\login.html:55
 msgid "Sign in"
-msgstr ""
+msgstr "Zaloguj się"
 
 #: .\templates\wagtailadmin\login.html:18
 msgid "Your username and password didn't match. Please try again."
@@ -74,11 +75,11 @@ msgstr "Nazwa użytkownika lub hasło są niepoprawne Proszę spróbować ponown
 
 #: .\templates\wagtailadmin\login.html:26
 msgid "Sign in to Wagtail"
-msgstr ""
+msgstr "Zaloguj się do Wagtaila"
 
 #: .\templates\wagtailadmin\login.html:42
 msgid "Forgotten it?"
-msgstr ""
+msgstr "Nie pamiętasz?"
 
 #: .\templates\wagtailadmin\account\account.html:4
 msgid "Account"
@@ -106,7 +107,7 @@ msgstr "Zmień hasło, którego używasz do logowania."
 
 #: .\templates\wagtailadmin\account\change_password.html:16
 msgid "Change Password"
-msgstr ""
+msgstr "Zmień hasło"
 
 #: .\templates\wagtailadmin\account\change_password.html:19
 msgid ""
@@ -200,9 +201,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Są %(counter)s dopasowania\n        "
+msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailadmin\chooser\browse.html:2
 #: .\templates\wagtailadmin\chooser\search.html:2
@@ -212,7 +213,7 @@ msgstr "Wybierz stronę"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:2
 msgid "Add an email link"
-msgstr ""
+msgstr "Dodaj link emaila"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:14
 #: .\templates\wagtailadmin\chooser\external_link.html:14
@@ -346,9 +347,9 @@ msgid_plural ""
 "\n"
 "                <span>%(total_pages)s</span> Pages\n"
 "            "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n                <span>%(total_pages)s</span> Strona\n            "
+msgstr[1] "\n                <span>%(total_pages)s</span> Strony\n            "
+msgstr[2] "\n                <span>%(total_pages)s</span> Stron\n            "
 
 #: .\templates\wagtailadmin\home\site_summary.html:13
 #, python-format
@@ -360,9 +361,9 @@ msgid_plural ""
 "\n"
 "                <span>%(total_images)s</span> Images\n"
 "            "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n                <span>%(total_images)s</span> Obraz\n            "
+msgstr[1] "\n                <span>%(total_images)s</span> Obrazy\n            "
+msgstr[2] "\n                <span>%(total_images)s</span> Obrazów\n            "
 
 #: .\templates\wagtailadmin\home\site_summary.html:20
 #, python-format
@@ -374,9 +375,9 @@ msgid_plural ""
 "\n"
 "                <span>%(total_docs)s</span> Documents\n"
 "            "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n                <span>%(total_docs)s</span> Dokument\n            "
+msgstr[1] "\n                <span>%(total_docs)s</span> Dokumenty\n            "
+msgstr[2] "\n                <span>%(total_docs)s</span> Dokumentów\n            "
 
 #: .\templates\wagtailadmin\notifications\approved.html:1
 #, python-format
@@ -445,7 +446,7 @@ msgstr "Wybierz typ strony, którą chcesz stworzyć."
 #: .\templates\wagtailadmin\pages\add_subpage.html:26
 #, python-format
 msgid "Pages using %(page_type)s"
-msgstr ""
+msgstr "Strony używające %(page_type)s"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:3
 #, python-format
@@ -466,9 +467,9 @@ msgid_plural ""
 "\n"
 "                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n                    Zostanie usunięta również jedna strona podrzędna\n                "
+msgstr[1] "\n                    Zostaną usunięte również %(descendant_count)s strony podrzędne.\n                "
+msgstr[2] "\n                    Zostanie usuniętych również %(descendant_count)s stron podrzędnych.\n                "
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:22
 msgid ""
@@ -498,14 +499,14 @@ msgstr "Przesuń"
 #: .\templates\wagtailadmin\pages\confirm_move.html:11
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
-msgstr ""
+msgstr "Czy na pewno chcesz przesunąć tę stronę do '%(title)s'?"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:13
 #, python-format
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
+msgstr "Czy na pewno chcesz przesunąć tę stronę i wszystkie strony podrzędne do '%(title)s'?"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:18
 msgid "Yes, move this page"
@@ -542,7 +543,7 @@ msgstr "Nowa %(page_type)s"
 
 #: .\templates\wagtailadmin\pages\create.html:9
 msgid "New"
-msgstr ""
+msgstr "Nowy"
 
 #: .\templates\wagtailadmin\pages\create.html:21
 msgid "Save as draft"
@@ -574,7 +575,7 @@ msgstr "Status:"
 
 #: .\templates\wagtailadmin\pages\edit.html:29
 msgid "Save draft"
-msgstr ""
+msgstr "Zapisz szkic"
 
 #: .\templates\wagtailadmin\pages\edit.html:52
 #, python-format
@@ -673,9 +674,9 @@ msgid_plural ""
 "\n"
 "                    There are %(counter)s matches\n"
 "                "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n                    Jedno dopasowanie\n                "
+msgstr[1] "\n                    Są %(counter)s dopasowania\n                "
+msgstr[2] "\n                    Jest %(counter)s dopasowań\n                "
 
 #: .\templates\wagtailadmin\pages\search_results.html:17
 #, python-format
@@ -704,7 +705,7 @@ msgstr "Naprzód"
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
 msgid "Sorry, no pages match <em>\"%(search_query)s\"</em>"
-msgstr ""
+msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(search_query)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
@@ -736,7 +737,7 @@ msgstr "Ustawienia konta"
 
 #: .\templates\wagtailadmin\shared\main_nav.html:16
 msgid "Log out"
-msgstr ""
+msgstr "Wyloguj się"
 
 #: .\templates\wagtailadmin\shared\main_nav.html:20
 msgid "More"
@@ -753,23 +754,23 @@ msgstr "Wybór redakcji"
 #: .\templates\wagtailadmin\shared\pagination_nav.html:3
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
-msgstr ""
+msgstr "Strona %(page_num)s z %(total_pages)s."
 
 #: .\templatetags\wagtailadmin_nav.py:52
 msgid "Images"
-msgstr ""
+msgstr "Obrazy"
 
 #: .\templatetags\wagtailadmin_nav.py:56
 msgid "Documents"
-msgstr ""
+msgstr "Dokumenty"
 
 #: .\templatetags\wagtailadmin_nav.py:61
 msgid "Snippets"
-msgstr ""
+msgstr "Snippets"
 
 #: .\templatetags\wagtailadmin_nav.py:66
 msgid "Users"
-msgstr ""
+msgstr "Użytkownicy"
 
 #: .\views\account.py:23
 msgid "Your password has been changed successfully!"
@@ -795,44 +796,44 @@ msgstr "Strona '{0}' została opublikowana."
 
 #: .\views\pages.py:189 .\views\pages.py:256
 msgid "Page '{0}' submitted for moderation."
-msgstr ""
+msgstr "Przesłano stronę '{0}' do przeglądu."
 
 #: .\views\pages.py:192
 msgid "Page '{0}' created."
-msgstr ""
+msgstr "Stworzono stronę '{0}'."
 
 #: .\views\pages.py:201
 msgid "The page could not be created due to errors."
-msgstr ""
+msgstr "Strona nie mogła zostać stworzona z powodu błędów."
 
 #: .\views\pages.py:259
 msgid "Page '{0}' updated."
-msgstr ""
+msgstr "Uaktualniono stronę '{0}'."
 
 #: .\views\pages.py:268
 msgid "The page could not be saved due to validation errors"
-msgstr ""
+msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 
 #: .\views\pages.py:280
 msgid "This page is currently awaiting moderation"
-msgstr ""
+msgstr "Ta strona oczekuje na przejrzenie."
 
 #: .\views\pages.py:298
 msgid "Page '{0}' deleted."
-msgstr ""
+msgstr "Usunięto stronę '{0}'."
 
 #: .\views\pages.py:428
 msgid "Page '{0}' unpublished."
-msgstr ""
+msgstr "Odpublikowano stronę '{0}'."
 
 #: .\views\pages.py:479
 msgid "Page '{0}' moved."
-msgstr ""
+msgstr "Przesunięto stronę '{0}'."
 
 #: .\views\pages.py:584 .\views\pages.py:602 .\views\pages.py:621
 msgid "The page '{0}' is not currently awaiting moderation."
-msgstr ""
+msgstr "Strona '{0}' nie oczekuje na przejrzenie."
 
 #: .\views\pages.py:608
 msgid "Page '{0}' rejected for publication."
-msgstr ""
+msgstr "Strona '{0}' została odrzucona."

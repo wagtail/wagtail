@@ -4,12 +4,13 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:19+0200\n"
-"PO-Revision-Date: 2014-02-21 11:37+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:22+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +29,7 @@ msgstr "URL"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:3
 msgid "Insert embed"
-msgstr ""
+msgstr "Wstaw osadzenie"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:14
 msgid "Insert"
@@ -42,7 +43,7 @@ msgstr "Wygląda na to, że jest problem z Twoim embedly API key. Sprawdź prosz
 
 #: .\views\chooser.py:36
 msgid "Cannot find an embed for this URL."
-msgstr ""
+msgstr "Nie można znaleźć osadzenia dla tego URLa."
 
 #: .\views\chooser.py:38
 msgid ""

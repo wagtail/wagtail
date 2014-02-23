@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 17:38+0200\n"
-"PO-Revision-Date: 2014-02-22 17:05+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 14:16+0000\n"
+"Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "Nume"
 
 #: .\forms.py:46
 msgid "A user with that username already exists."
-msgstr "Un alt utilizator cu acest nume există deja."
+msgstr "Un utilizator cu acest nume există deja."
 
 #: .\forms.py:47
 msgid "The two password fields didn't match."
@@ -53,7 +53,7 @@ msgstr "Nume utlizator"
 
 #: .\forms.py:53
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Necesar. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
+msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
 
 #: .\forms.py:55
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
@@ -123,7 +123,7 @@ msgstr "Nivel"
 
 #: .\templates\wagtailusers\list.html:23
 msgid "Status"
-msgstr "Status"
+msgstr "Stare"
 
 #: .\templates\wagtailusers\list.html:36
 msgid "Admin"
@@ -147,9 +147,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\nExistă o potrivire"
+msgstr[1] "\nSunt %(counter)s potriviri"
+msgstr[2] "\nSunt %(counter)s potriviri"
 
 #: .\templates\wagtailusers\results.html:18
 #, python-format
@@ -161,7 +161,7 @@ msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_create_url)s\">add some</a>?"
-msgstr "Nu există nici un utilizator. De ce sa nu <a href=\"%(wagtailusers_create_url)s\">adăugați unii</a>?"
+msgstr "Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_create_url)s\">adăugați câțiva</a>?"
 
 #: .\views\users.py:75
 msgid "User '{0}' created."

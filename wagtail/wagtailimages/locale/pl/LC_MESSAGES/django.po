@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:04+0200\n"
-"PO-Revision-Date: 2014-02-22 17:05+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:22+0000\n"
+"Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: .\models.py:22
 msgid "Title"
-msgstr ""
+msgstr "Tytuł"
 
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
@@ -29,11 +29,11 @@ msgstr "Niepoprawny format obrazu. Użyj proszę jednego z następujących forma
 
 #: .\models.py:41
 msgid "File"
-msgstr ""
+msgstr "Plik"
 
 #: .\models.py:47
 msgid "Tags"
-msgstr ""
+msgstr "Tagi"
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
@@ -70,6 +70,7 @@ msgstr[1] "\n            Znaleziono %(counter)s dopasowania\n        "
 msgstr[2] "\n            Znaleziono %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailimages\chooser\results.html:13
+#: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
 msgstr "Ostatnie obrazy"
 
@@ -124,7 +125,7 @@ msgstr "Tak, usuń"
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
 msgid "Editing image %(title)s"
-msgstr ""
+msgstr "Edycja obrazu %(title)s"
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
@@ -145,7 +146,7 @@ msgstr "Przepraszamy, żaden obraz nie pasuje do \"<em>%(search_query)s</em>\""
 msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
+msgstr "Nie przesłano żadnych obrazów. Czemu nie  <a href=\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."
