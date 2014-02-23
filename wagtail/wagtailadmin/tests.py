@@ -1,6 +1,6 @@
 from django.test import TestCase
 import unittest
-from wagtail.tests.models import TestPage
+from wagtail.tests.models import EventPage
 from wagtail.tests.utils import login, get_host
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
@@ -12,7 +12,7 @@ class TestPageExplorer(TestCase):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = TestPage()
+        self.child_page = EventPage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.root_page.add_child(self.child_page)
@@ -41,7 +41,7 @@ class TestPageCreation(TestCase):
 
     @unittest.expectedFailure # For some reason, this returns a 302...
     def test_select_location_testpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('tests', 'testpage')), HTTP_HOST=get_host())
+        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('tests', 'eventpage')), HTTP_HOST=get_host())
         self.assertEqual(response.status_code, 200)
 
     def test_select_location_nonexistanttype(self):
@@ -61,7 +61,7 @@ class TestPageCreation(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_create_testpage_root(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'testpage', self.root_page.id)), HTTP_HOST=get_host())
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'eventpage', self.root_page.id)), HTTP_HOST=get_host())
         self.assertEqual(response.status_code, 200)
 
     def test_create_testpage_nonexistantparent(self):
@@ -80,7 +80,7 @@ class TestPageEditDelete(TestCase):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = TestPage()
+        self.child_page = EventPage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.root_page.add_child(self.child_page)
