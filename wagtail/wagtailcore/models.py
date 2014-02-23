@@ -184,6 +184,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
             'type': 'boolean',
             'index': 'not_analyzed',
         },
+        'path': {
+            'type': 'string',
+            'index': 'not_analyzed',
+        },
     }
 
     search_name = None
@@ -373,11 +377,15 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
 
     @classmethod
-    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[]):
+    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
         # Filters
         filters = extra_filters.copy()
         if not show_unpublished:
             filters['live'] = True
+
+        # Path
+        if path:
+            filters['path__startswith'] = path
 
         # Fields
         fields = None

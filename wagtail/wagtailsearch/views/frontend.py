@@ -15,7 +15,7 @@ def search(request):
 
     # Search
     if query_string != "":
-        search_results = models.Page.search(query_string)
+        search_results = models.Page.search(query_string, path=request.site.root_page.path)
 
         # Get query object
         query = Query.get(query_string)
@@ -50,7 +50,7 @@ def suggest(request):
 
     # Search
     if query_string != "":
-        search_results = models.Page.search(query_string, search_title_only=True)[:5]
+        search_results = models.Page.search(query_string, search_title_only=True, path=request.site.root_page.path)[:5]
 
         # Get list of suggestions
         suggestions = []
