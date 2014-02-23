@@ -73,7 +73,8 @@ if not settings.configured:
                 'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
                 'RUN_TESTS': True,
             }
-        }
+        },
+        WAGTAIL_SITE_NAME='Test Site'
     )
 
 
