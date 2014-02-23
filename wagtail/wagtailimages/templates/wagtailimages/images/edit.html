@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load image_tags %}
-{% block titletag %}Editing image {{ image.title }}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
@@ -11,8 +12,8 @@
 {% endblock %}
 
 {% block content %}
-    
-    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=image.title %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title %}
     
     <div class="row row-flush nice-padding">
        
@@ -29,7 +30,7 @@
                         {% endif %}
 
                     {% endfor %}
-                    <li><input type="submit" value="Save" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">Delete image</a></li>
+                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
             

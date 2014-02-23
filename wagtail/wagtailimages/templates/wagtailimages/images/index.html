@@ -1,7 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% load image_tags ellipsistrim %}
+{% load i18n %}
 
-{% block titletag %}Images{% endblock %}
+{% block titletag %}{% trans "Images" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_js %}
     <script>
@@ -14,7 +15,9 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Images" add_link="wagtailimages_add_image" add_text="Add an image" search_url="wagtailimages_index" %}
+    {% trans "Images" as im_str %}
+    {% trans "Add an image" as add_img_str %}
+    {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages_add_image" add_text=add_img_str search_url="wagtailimages_index" %}
 
     <div class="nice-padding">
         <div id="image-results">

@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-19 23:22+0200\n"
+"PO-Revision-Date: 2014-02-21 10:12+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: .\forms.py:8
+msgid "Search term(s)/phrase"
+msgstr "Frazy wyszukiwania"
+
+#: .\forms.py:9
+msgid ""
+"Enter the full search string to match. An \n"
+"        exact match is required for your Editors Picks to be \n"
+"        displayed, wildcards are NOT allowed."
+msgstr "Wprowadź pełną frazę wyszukania do porównania.\n        Dokładne porównanie jest wymagane żeby twoje \n        wybory redakcji były wyświetlone, symbol \n        wieloznaczności jest niedozwolony."
+
+#: .\templates\wagtailsearch\editorspicks\add.html:3
+#: .\templates\wagtailsearch\editorspicks\add.html:5
+msgid "Add editor's pick"
+msgstr "Dodaj wybór redakcji"
+
+#: .\templates\wagtailsearch\editorspicks\add.html:9
+msgid ""
+"\n"
+"        <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
+"        "
+msgstr "\n        <p>Wybór redakcji służy do polecania stron, które normalnie niekoniecznie pojawiają sie wysoko w wynikach wyszukiwania. Np. polecanie głównej strony z darowiznami użytkownikom szukającym mniej pasujących wyrażeń jak np. \"<em>oferować</em>\".</p>\n        "
+
+#: .\templates\wagtailsearch\editorspicks\add.html:12
+msgid ""
+"\n"
+"        <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
+"        "
+msgstr "\n        <p>Pole \"Frazy wyszukiwania\" musi zawierać pełne i dokładne wyszukanie dla którego chcesz wyświetlić polecanie wyniki, <em>razem z</em> wszystkimi literówkami/błędami użytkownika. W celu ułatwienia możesz wybrać z fraz wyszukiwania popularnych wśród użytkowników Twojej strony</p>\n        "
+
+#: .\templates\wagtailsearch\editorspicks\add.html:25
+#: .\templates\wagtailsearch\editorspicks\edit.html:19
+msgid "Save"
+msgstr "Zapisz"
+
+#: .\templates\wagtailsearch\editorspicks\confirm_delete.html:3
+#, python-format
+msgid "Delete %(query.query_string)s"
+msgstr "Usuń %(query.query_string)s"
+
+#: .\templates\wagtailsearch\editorspicks\confirm_delete.html:5
+#: .\templates\wagtailsearch\editorspicks\edit.html:20
+#: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:6
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\templates\wagtailsearch\editorspicks\confirm_delete.html:9
+msgid ""
+"Are you sure you want to delete all editors picks for this search term?"
+msgstr "Czy na pewno chcesz usunąć wszystkie wybory redakcji dla tych fraz wyszukiwania?"
+
+#: .\templates\wagtailsearch\editorspicks\confirm_delete.html:12
+msgid "Yes, delete"
+msgstr "Tak, usuń"
+
+#: .\templates\wagtailsearch\editorspicks\edit.html:3
+#, python-format
+msgid "Editing %(query.query_string)s"
+msgstr "Edytujesz %(query.query_string)s"
+
+#: .\templates\wagtailsearch\editorspicks\edit.html:5
+msgid "Editing"
+msgstr "Edytujesz"
+
+#: .\templates\wagtailsearch\editorspicks\index.html:3
+msgid "Search Terms"
+msgstr "Frazy wyszukiwania"
+
+#: .\templates\wagtailsearch\editorspicks\index.html:17
+msgid "Editor's search picks"
+msgstr "Wybory redakcji dla wyszukiwania"
+
+#: .\templates\wagtailsearch\editorspicks\index.html:18
+msgid "Add new editor's pick"
+msgstr "Dodaj nowy wybór redakcji"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:8
+msgid "Search term(s)"
+msgstr "Frazy wyszukiwania"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:9
+msgid "Editors picks"
+msgstr "Wybór redakcji"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:10
+msgid "Views (past week)"
+msgstr "Odsłony (poprzedni tydzień)"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:23
+msgid "None"
+msgstr "Brak"
+
+#: .\templates\wagtailsearch\editorspicks\results.html:11
+#, python-format
+msgid "Sorry, no editor's picks match \"<em>%(search_query)s</em>\""
+msgstr "Przepraszamy, żaden wybór redakcji nie pasuje do \"<em>%(search_query)s</em>\""
+
+#: .\templates\wagtailsearch\editorspicks\results.html:14
+#, python-format
+msgid ""
+"No editor's picks have been created. Why not <a "
+"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+msgstr "Nie stworzono żadnego wyboru redakcji. Czemu nie <a href=\"%(wagtailsearch_editorspicks_add_url)s\">dodać jakiegoś</a>?"
+
+#: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:4
+msgid "Move up"
+msgstr "Przesuń w górę"
+
+#: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:5
+msgid "Move down"
+msgstr "Przesuń w dół"
+
+#: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:10
+msgid "Editors pick"
+msgstr "Wybór redakcji"
+
+#: .\templates\wagtailsearch\editorspicks\includes\editorspicks_formset.html:14
+msgid "Add recommended page"
+msgstr "Dodaj polecaną stronę"
+
+#: .\views\editorspicks.py:85
+msgid "Editor's picks for '{0}' created."
+msgstr "Stworzono wybór redakcji dla '{0}'"
+
+#: .\views\editorspicks.py:113
+msgid "Editor's picks for '{0}' updated."
+msgstr "Zaktualizowano wybór redakcji dla '{0}'."
+
+#: .\views\editorspicks.py:132
+msgid "Editor's picks deleted."
+msgstr "Usunięto wybór redakcji."

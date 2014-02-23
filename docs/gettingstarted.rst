@@ -53,7 +53,6 @@ run the following commands::
     createdb -Upostgres wagtaildemo
     ./manage.py syncdb
     ./manage.py migrate
-    ./manage.py createsuperuser
     ./manage.py runserver
 
 SQLite support

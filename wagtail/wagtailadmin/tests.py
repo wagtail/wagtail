@@ -95,3 +95,17 @@ class TestPageEditDelete(TestCase):
     def test_delete(self):
          response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), HTTP_HOST=get_host())
          self.assertEqual(response.status_code, 200)
+
+
+class TestPageSearch(TestCase):
+    def setUp(self):
+        # Login
+        login(self.client)
+
+    def test_root_can_appear_in_search_results(self):
+        response = self.client.get('/admin/pages/search/?q=roo')
+        self.assertEqual(response.status_code, 200)
+        # 'pages' list in the response should contain root
+        results = response.context['pages']
+        self.assertTrue(any([r.slug == 'root' for r in results]))
+

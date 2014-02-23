@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
-{% block titletag %}Set your new password{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Set your new password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -15,14 +16,14 @@
         {% if form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">The passwords do not match. Please try again.</li>
+                    <li class="error">{% trans "The passwords do not match. Please try again." %}</li>
                 </ul>
             </div>
         {% endif %}
       
         <form method="post">
             {% csrf_token %}
-            <h1>Set your new password</h1>
+            <h1>{% trans "Set your new password" %}</h1>
 
             <ul class="fields">
                 <li>
@@ -38,7 +39,7 @@
                   </div>
                 </li>
                 <li class="submit">
-                    <input type="submit" value="Reset password"/>
+                    <input type="submit" value="{% trans 'Reset password' %}"/>
                 </li>
             </ul>
         </form>

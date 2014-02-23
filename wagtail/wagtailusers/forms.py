@@ -13,7 +13,7 @@ class UserCreationForm(BaseUserCreationForm):
         required=False,
         help_text=_("If ticked, this user has the ability to manage user accounts.")
     )
-    
+
     email = forms.EmailField(required=True, label=_("Email"))
     first_name = forms.CharField(required=True, label=_("First Name"))
     last_name = forms.CharField(required=True, label=_("Last Name"))

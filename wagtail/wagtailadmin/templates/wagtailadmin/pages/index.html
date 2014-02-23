@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
+{% load i18n %}
 {% load page_permissions %}
-{% block titletag %}Exploring {{ parent_page.title }}{% endblock %}
+{% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
             <ul class="breadcrumb">
                 {% for page in parent_page.get_ancestors %}
                     {% if page.is_root %}
-                        <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">Home</a></li>
+                        <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
                     {% else %}
                         <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.title }}</a></li>
                     {% endif %}

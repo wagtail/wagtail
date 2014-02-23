@@ -1,4 +1,4 @@
-The page "{{ revision.page.title|safe }}" has been rejected
-The page "{{ revision.page.title|safe }}" has been rejected.
+{% load i18n %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected{% endblocktrans %}
+{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
 
-You can edit the page here: {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}
+{% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}

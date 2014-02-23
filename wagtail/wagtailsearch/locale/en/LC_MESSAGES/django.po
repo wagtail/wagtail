@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 23:22+0200\n"
+"POT-Creation-Date: 2014-02-21 17:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:3
 #, python-format
-msgid "Delete %(query.query_string)s"
+msgid "Delete %(query)s"
 msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:5
@@ -78,7 +78,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:3
 #, python-format
-msgid "Editing %(query.query_string)s"
+msgid "Editing %(query)s"
 msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:5
@@ -106,19 +106,37 @@ msgid "Editors picks"
 msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\list.html:10
+#: .\templates\wagtailsearch\queries\chooser\results.html:9
 msgid "Views (past week)"
+msgstr ""
+
+#: .\templates\wagtailsearch\editorspicks\list.html:17
+msgid "Edit this pick"
 msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\list.html:23
 msgid "None"
 msgstr ""
 
-#: .\templates\wagtailsearch\editorspicks\results.html:11
+#: .\templates\wagtailsearch\editorspicks\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(search_query)s</em>\""
 msgstr ""
 
-#: .\templates\wagtailsearch\editorspicks\results.html:14
+#: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format
 msgid ""
 "No editor's picks have been created. Why not <a href=\"%"
@@ -139,6 +157,22 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_formset.html:14
 msgid "Add recommended page"
+msgstr ""
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:2
+msgid "Popular search terms"
+msgstr ""
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:10
+msgid "Search"
+msgstr ""
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:8
+msgid "Terms"
+msgstr ""
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:23
+msgid "No results found"
 msgstr ""
 
 #: .\views\editorspicks.py:85

@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}Redirects{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Redirects" %}{% endblock %}
 {% block bodyclass %}menu-redirects{% endblock %}
 
 {% block extra_js %}
@@ -13,7 +14,9 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Redirects" add_link="wagtailredirects_add_redirect" add_text="Add redirect" search_url="wagtailredirects_index" %}
+    {% trans "Redirects" as redirects_str %}
+    {% trans "Add redirect" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=redirects_str add_link="wagtailredirects_add_redirect" add_text=add_str search_url="wagtailredirects_index" %}
 
     <div class="nice-padding">
         <div id="redirects-results" class="redirects">

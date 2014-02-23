@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 20:59+0200\n"
+"POT-Creation-Date: 2014-02-21 17:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,12 +134,25 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: .\templates\wagtailusers\results.html:12
+#: .\templates\wagtailusers\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\wagtailusers\results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
 msgstr ""
 
-#: .\templates\wagtailusers\results.html:15
+#: .\templates\wagtailusers\results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"

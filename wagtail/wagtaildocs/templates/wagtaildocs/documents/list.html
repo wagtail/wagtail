@@ -1,3 +1,4 @@
+{% load i18n %}
 <table class="listing">
     <col />
     <col  />
@@ -5,7 +6,7 @@
     <thead>
         <tr class="table-headers">
             <th>
-                Title
+                {% trans "Title" %}
                 {% if not is_searching %}
                     {% if ordering == "title" %}
                         <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>
@@ -14,9 +15,9 @@
                     {% endif %}
                 {% endif %}
             </th>
-            <th>File</th>
+            <th>{% trans "File" %}</th>
             <th>
-                Uploaded
+                {% trans "Uploaded" %}
                 {% if not is_searching %}
                     {% if ordering == "-created_at" %}
                         <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>

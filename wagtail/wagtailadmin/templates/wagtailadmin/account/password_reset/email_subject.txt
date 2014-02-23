@@ -1,1 +1,2 @@
-Password reset
+{% load i18n %}
+{% trans "Password reset" %}
