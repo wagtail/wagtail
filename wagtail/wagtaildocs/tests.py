@@ -1,6 +1,6 @@
 from django.test import TestCase
 from wagtail.wagtaildocs import models
-from wagtail.tests.utils import login, get_host
+from wagtail.tests.utils import login
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 
@@ -43,7 +43,7 @@ class TestDocumentIndexView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_index'), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_index'), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -71,7 +71,7 @@ class TestDocumentAddView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_add_document'), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_add_document'), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -85,7 +85,7 @@ class TestDocumentEditView(TestCase):
         self.document = models.Document.objects.create(title="Test document")
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -99,7 +99,7 @@ class TestDocumentDeleteView(TestCase):
         self.document = models.Document.objects.create(title="Test document")
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -110,7 +110,7 @@ class TestDocumentChooserView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_chooser'), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_chooser'), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -135,7 +135,7 @@ class TestDocumentChooserChosenView(TestCase):
         self.document = models.Document.objects.create(title="Test document")
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -146,7 +146,7 @@ class TestDocumentChooserUploadView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_chooser_upload'), params, HTTP_HOST=get_host())
+        return self.client.get(reverse('wagtaildocs_chooser_upload'), params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)

@@ -8,10 +8,6 @@ def get_default_site():
     return Site.objects.filter(is_default_site=True).first()
 
 
-def get_default_host():
-    return get_default_site().root_url.split('://')[1]
-
-
 class TestRedirects(TestCase):
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
@@ -51,7 +47,7 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = c.get('/redirectme/', HTTP_HOST=get_default_host())
+        r = c.get('/redirectme/')
 
         # Check that we were redirected
         self.assertEqual(r.status_code, 301)
@@ -66,7 +62,7 @@ class TestRedirects(TestCase):
         redirect.save()
 
         # Navigate to it
-        r = c.get('/redirectme/', HTTP_HOST=get_default_host())
+        r = c.get('/redirectme/')
 
         # Check that we were redirected temporarily
         self.assertEqual(r.status_code, 302)

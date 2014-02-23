@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test.client import Client
-from wagtail.tests.utils import login, get_host
+from wagtail.tests.utils import login
 from wagtail.wagtailembeds import get_embed
 
 
@@ -52,7 +52,7 @@ class TestChooser(TestCase):
         login(self.client)
 
     def test_chooser(self):
-        r = self.client.get('/admin/embeds/chooser/', HTTP_HOST=get_host())
+        r = self.client.get('/admin/embeds/chooser/')
         self.assertEqual(r.status_code, 200)
 
         # TODO: Test submitting
