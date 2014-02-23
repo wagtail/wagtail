@@ -1,16 +1,27 @@
 from django.db.models.signals import post_save, post_delete
 from django.db import models
+from django.conf import settings
 
 from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
+def get_search_backends():
+    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+        for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
+            yield get_search_backend(backend)
+    else:
+        yield get_search_backend('default')
+
+
 def post_save_signal_handler(instance, **kwargs):
-    get_search_backend().add(instance)
+    for backend in get_search_backends():
+        backend.add(instance)
 
 
 def post_delete_signal_handler(instance, **kwargs):
-    get_search_backend().delete(instance)
+    for backend in get_search_backends():
+        backend.delete(instance)
 
 
 def register_signal_handlers():
