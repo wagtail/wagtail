@@ -72,17 +72,6 @@ class BackendTests(object):
         single_result = results[0]
         multi_result = results[:2]
 
-    def test_object_indexed(self):
-        # Attempt to index something that the models.SearchTest.object_indexed command says should be blocked
-        test = models.SearchTest()
-        test.title = "Don't index me!"
-        test.save()
-        self.backend.refresh_index()
-
-        # Try to search for this record, It shouldn't be in the index
-        results = self.backend.search("Don't index me!", models.SearchTest)
-        self.assertEqual(len(results), 0)
-
     def test_callable_indexed_field(self):
         # Get results
         results = self.backend.search("Callable", models.SearchTest)
@@ -149,10 +138,6 @@ class TestDBBackend(TestCase, BackendTests):
     def setUp(self):
         self.backend = get_search_backend('wagtail.wagtailsearch.backends.db.DBSearch')
         self.load_test_data()
-
-    @unittest.expectedFailure
-    def test_object_indexed(self):
-        super(TestDBBackend, self).test_object_indexed()
 
     @unittest.expectedFailure
     def test_callable_indexed_field(self):

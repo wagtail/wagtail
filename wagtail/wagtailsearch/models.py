@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 from indexed import Indexed
-from searcher import Searcher
 import datetime
 import string
 
@@ -99,13 +98,6 @@ class SearchTest(models.Model, Indexed):
     live = models.BooleanField(default=False)
 
     indexed_fields = ("title", "content", "callable_indexed_field", "live")
-
-    title_search = Searcher(["title"])
-
-    def object_indexed(self):
-        if self.title == "Don't index me!":
-            return False
-        return True
 
     def callable_indexed_field(self):
         return "Callable"

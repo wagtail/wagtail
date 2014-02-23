@@ -261,12 +261,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
         cursor.execute(update_statement, 
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
-    def object_indexed(self):
-        # Exclude root node from index
-        if self.depth == 1:
-            return False
-        return True
-
     @property
     def specific(self):
         """

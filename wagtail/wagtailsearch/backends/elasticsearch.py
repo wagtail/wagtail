@@ -121,10 +121,6 @@ class ElasticSearch(BaseSearch):
         self.es.create_index(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
-        # Make sure that the model is indexed
-        if not model.indexed:
-            return
-
         # Get type name
         content_type = model.indexed_get_content_type()
 
