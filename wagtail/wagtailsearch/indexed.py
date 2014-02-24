@@ -75,4 +75,3 @@ class Indexed(object):
         return doc
 
     indexed_fields = ()
-    indexed = True

@@ -15,7 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
-from wagtail.wagtailsearch import Indexed, Searcher
+from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 # hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
@@ -182,17 +182,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
         },
         'live': {
             'type': 'boolean',
-            'analyzer': 'simple',
+            'index': 'not_analyzed',
+        },
+        'path': {
+            'type': 'string',
+            'index': 'not_analyzed',
         },
     }
-
-    search_backend = Searcher(None)
-    search_frontend = Searcher(None, filters=dict(live=True))
-
-    title_search_backend = Searcher(['title'])
-    title_search_frontend = Searcher(['title'], filters=dict(live=True))
-
-    search_name = None
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -266,12 +262,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
             """
         cursor.execute(update_statement, 
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
-
-    def object_indexed(self):
-        # Exclude root node from index
-        if self.depth == 1:
-            return False
-        return True
 
     @property
     def specific(self):
@@ -383,6 +373,26 @@ class Page(MP_Node, ClusterableModel, Indexed):
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
+
+    @classmethod
+    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+        # Filters
+        filters = extra_filters.copy()
+        if not show_unpublished:
+            filters['live'] = True
+
+        # Path
+        if path:
+            filters['path__startswith'] = path
+
+        # Fields
+        fields = None
+        if search_title_only:
+            fields = ['title']
+
+        # Search
+        s = get_search_backend()
+        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
     def clean_subpage_types(cls):

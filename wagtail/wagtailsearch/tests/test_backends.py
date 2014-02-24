@@ -17,6 +17,8 @@ class BackendTests(object):
     def load_test_data(self):
         # Reset the index
         self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
 
         # Create a test database
         testa = models.SearchTest()
@@ -70,17 +72,6 @@ class BackendTests(object):
         single_result = results[0]
         multi_result = results[:2]
 
-    def test_object_indexed(self):
-        # Attempt to index something that the models.SearchTest.object_indexed command says should be blocked
-        test = models.SearchTest()
-        test.title = "Don't index me!"
-        test.save()
-        self.backend.refresh_index()
-
-        # Try to search for this record, It shouldn't be in the index
-        results = self.backend.search("Don't index me!", models.SearchTest)
-        self.assertEqual(len(results), 0)
-
     def test_callable_indexed_field(self):
         # Get results
         results = self.backend.search("Callable", models.SearchTest)
@@ -113,21 +104,7 @@ class BackendTests(object):
         for result in sliced_results:
             self.assertIsInstance(result, models.SearchTest)
 
-    def test_searcher(self):
-        # Get results from searcher
-        results = models.SearchTest.title_search("Hello")
-
-        # Should return three results, just like before
-        self.assertEqual(len(results), 3)
-
     def test_child_model(self):
-        # Get results for child model
-        results = self.backend.search("Hello", models.SearchTestChild)
-
-        # Should return one object
-        self.assertEqual(len(results), 1)
-
-    def test_child_model_searcher(self):
         # Get results for child model
         results = self.backend.search("Hello", models.SearchTestChild)
 
@@ -144,14 +121,6 @@ class BackendTests(object):
         # Check that there are only two results
         results = self.backend.search("Hello", models.SearchTest)
         self.assertEqual(len(results), 2)
-
-    def test_reset_index(self):
-        # Reset the index, this should clear out the index
-        self.backend.reset_index()
-
-        # Check that there are no results
-        results = self.backend.search("Hello", models.SearchTest)
-        self.assertEqual(len(results), 0)
 
     def test_update_index_command(self):
         # Reset the index, this should clear out the index
@@ -171,20 +140,8 @@ class TestDBBackend(TestCase, BackendTests):
         self.load_test_data()
 
     @unittest.expectedFailure
-    def test_reset_index(self):
-        super(TestDBBackend, self).test_reset_index()
-
-    @unittest.expectedFailure
-    def test_object_indexed(self):
-        super(TestDBBackend, self).test_object_indexed()
-
-    @unittest.expectedFailure
     def test_callable_indexed_field(self):
         super(TestDBBackend, self).test_callable_indexed_field()
-
-    @unittest.skip("")
-    def test_searcher(self):
-        super(TestDBBackend, self).test_searcher()
 
 
 class TestElasticSearchBackend(TestCase, BackendTests):

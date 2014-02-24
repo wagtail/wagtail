@@ -17,14 +17,6 @@ class BaseSearch(object):
         if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
             return False
 
-        # Check if this objects model has opted out of indexing
-        if not obj.__class__.indexed:
-            return False
-
-        # Check if this object has an "object_indexed" function
-        if hasattr(obj, "object_indexed"):
-            if obj.object_indexed() is False:
-                return False
         return True
 
     def reset_index(self):

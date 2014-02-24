@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-from pyelasticsearch.exceptions import ElasticHttpNotFoundError
 from elasticutils import get_es, S
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
@@ -70,7 +69,7 @@ class ElasticSearch(BaseSearch):
         # Delete old index
         try:
             self.es.delete_index(self.es_index)
-        except ElasticHttpNotFoundError:
+        except:
             pass
 
         # Settings
@@ -122,10 +121,6 @@ class ElasticSearch(BaseSearch):
         self.es.create_index(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
-        # Make sure that the model is indexed
-        if not model.indexed:
-            return
-
         # Get type name
         content_type = model.indexed_get_content_type()
 
@@ -195,7 +190,7 @@ class ElasticSearch(BaseSearch):
         # Delete document
         try:
             self.es.delete(self.es_index, obj.indexed_get_content_type(), doc_id)
-        except ElasticHttpNotFoundError:
+        except:
             pass  # Document doesn't exist, ignore this exception
 
     def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
