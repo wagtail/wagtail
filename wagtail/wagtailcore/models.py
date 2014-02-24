@@ -190,8 +190,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
         },
     }
 
-    search_name = None
-
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
