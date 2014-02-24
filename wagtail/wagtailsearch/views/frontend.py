@@ -11,7 +11,7 @@ from wagtail.wagtailsearch.models import Query
 
 def search(
         request,
-        template='wagtailsearch/search_results.html', 
+        template=None,
         template_ajax=None,
         results_per_page=10,
         use_json=False,
@@ -21,6 +21,21 @@ def search(
         extra_filters={},
         path=None,
     ):
+
+    # Get default templates
+    if template is None:
+        if hasattr(settings, 'WAGTAILSEARCH_RESULTS_TEMPLATE'):
+            template = settings.WAGTAILSEARCH_RESULTS_TEMPLATE
+        else:
+            template = 'wagtailsearch/search_results.html'
+
+    if template_ajax is None:
+        if hasattr(settings, 'WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX'):
+            template_ajax = settings.WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX
+        else:
+            template_ajax = template
+
+    # Get query string and page from GET paramters
     query_string = request.GET.get('q', '')
     page = request.GET.get('p', 1)
 
