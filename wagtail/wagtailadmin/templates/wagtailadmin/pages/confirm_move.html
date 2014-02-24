@@ -8,9 +8,9 @@
 
     <div class="nice-padding">
         {% if page_to_move.is_leaf %}
-            <p>{% blocktrans %}Are you sure you want to move this page into '{{ destination.title }}'?{% endblocktrans %}</p>
+            <p>{% blocktrans with title=destination.title %}Are you sure you want to move this page into '{{ title }}'?{% endblocktrans %}</p>
         {% else %}
-            <p>{% blocktrans %}Are you sure you want to move this page and all of its children into '{{ destination.title }}'?{% endblocktrans %}</p>
+            <p>{% blocktrans with title=destination.title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}</p>
         {% endif %}
 
         <form action="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id destination.id %}" method="POST">

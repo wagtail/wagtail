@@ -1,5 +1,6 @@
 from django import template
 from django.core import urlresolvers
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -39,8 +40,8 @@ def get_wagtailadmin_tab_urls():
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     menu_items = [
-        MenuItem('Explorer', '#', classnames='icon icon-folder-open-inverse dl-trigger', order=100),
-        MenuItem('Search', urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
+        MenuItem(_('Explorer'), '#', classnames='icon icon-folder-open-inverse dl-trigger', order=100),
+        MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
     ]
 
     request = context['request']
@@ -48,21 +49,21 @@ def main_nav(context):
 
     if user.has_perm('wagtailimages.add_image'):
         menu_items.append(
-            MenuItem('Images', urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
+            MenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
         )
     if user.has_perm('wagtaildocs.add_document'):
         menu_items.append(
-            MenuItem('Documents', urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
+            MenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
         )
 
     if user_can_edit_snippets(user):
         menu_items.append(
-            MenuItem('Snippets', urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
+            MenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
         )
 
     if user.has_module_perms('auth'):
         menu_items.append(
-            MenuItem('Users', urlresolvers.reverse('wagtailusers_index'), classnames='icon icon-user', order=600)
+            MenuItem(_('Users'), urlresolvers.reverse('wagtailusers_index'), classnames='icon icon-user', order=600)
         )
 
     for fn in hooks.get_hooks('construct_main_menu'):

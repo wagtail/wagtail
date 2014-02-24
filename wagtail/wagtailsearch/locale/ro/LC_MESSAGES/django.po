@@ -4,12 +4,13 @@
 # 
 # Translators:
 # zerolab, 2014
+# zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 23:22+0200\n"
-"PO-Revision-Date: 2014-02-19 23:10+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-22 22:50+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -55,8 +56,8 @@ msgstr "Salvează"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:3
 #, python-format
-msgid "Delete %(query.query_string)s"
-msgstr "Șterge %(query.query_string)s"
+msgid "Delete %(query)s"
+msgstr "Șterge %(query)s"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:5
 #: .\templates\wagtailsearch\editorspicks\edit.html:20
@@ -75,8 +76,8 @@ msgstr "Da, șterge"
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:3
 #, python-format
-msgid "Editing %(query.query_string)s"
-msgstr "Editare %(query.query_string)s"
+msgid "Editing %(query)s"
+msgstr "Editare %(query)s"
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:5
 msgid "Editing"
@@ -103,24 +104,43 @@ msgid "Editors picks"
 msgstr "Selecții editoriale"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:10
+#: .\templates\wagtailsearch\queries\chooser\results.html:9
 msgid "Views (past week)"
 msgstr "Vizualizări (săptămâna trecută)"
+
+#: .\templates\wagtailsearch\editorspicks\list.html:17
+msgid "Edit this pick"
+msgstr "Editează selecția"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:23
 msgid "None"
 msgstr "Nici una"
 
-#: .\templates\wagtailsearch\editorspicks\results.html:11
+#: .\templates\wagtailsearch\editorspicks\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nExistă o potrivire"
+msgstr[1] "\nSunt %(counter)s potriviri"
+msgstr[2] "\nSunt %(counter)s potriviri"
+
+#: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(search_query)s</em>\""
 msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o selecție editorială"
 
-#: .\templates\wagtailsearch\editorspicks\results.html:14
+#: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format
 msgid ""
 "No editor's picks have been created. Why not <a "
 "href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr "Nu a fost creată nici o selecție editorială. De ce n-ai <a href=\"%(wagtailsearch_editorspicks_add_url)s\">adauga una</a>?"
+msgstr "Nu a fost creată nici o selecție editorială. De ce să nu <a href=\"%(wagtailsearch_editorspicks_add_url)s\">adăugați una</a>?"
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:4
 msgid "Move up"
@@ -137,6 +157,22 @@ msgstr "Selecție editorială"
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_formset.html:14
 msgid "Add recommended page"
 msgstr "Adaugă pagină recomandată"
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:2
+msgid "Popular search terms"
+msgstr "Termeni populari de căutare"
+
+#: .\templates\wagtailsearch\queries\chooser\chooser.html:10
+msgid "Search"
+msgstr "Căutare"
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:8
+msgid "Terms"
+msgstr "Termeni"
+
+#: .\templates\wagtailsearch\queries\chooser\results.html:23
+msgid "No results found"
+msgstr "Nu sunt rezultate"
 
 #: .\views\editorspicks.py:85
 msgid "Editor's picks for '{0}' created."

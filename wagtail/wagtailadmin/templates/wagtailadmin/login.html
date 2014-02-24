@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
 {% load i18n %}
-{% block titletag %}Sign in{% endblock %}
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -23,7 +23,7 @@
         <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
-            <h1>Sign in to Wagtail</h1>
+            <h1>{% trans "Sign in to Wagtail" %}</h1>
 
           
             <ul class="fields">
@@ -39,7 +39,7 @@
                         {{ form.password }}
                     </div>
                     {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
                 {% comment %}
@@ -51,7 +51,7 @@
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <input type="submit" value={% trans '"Sign in' %}"/>
+                    <input type="submit" value="{% trans 'Sign in' %}"/>
                 </li>
             </ul>
         </form>

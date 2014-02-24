@@ -4,12 +4,13 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:19+0200\n"
-"PO-Revision-Date: 2014-02-21 12:33+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:22+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +19,21 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: .\models.py:22
+msgid "Title"
+msgstr "Tytuł"
+
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
 msgstr "Niepoprawny format obrazu. Użyj proszę jednego z następujących formatów: gif, jpeg lub png."
+
+#: .\models.py:41
+msgid "File"
+msgstr "Plik"
+
+#: .\models.py:47
+msgid "Tags"
+msgstr "Tagi"
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
@@ -52,11 +65,12 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Znaleziono %(counter)s dopasowania\n        "
+msgstr[2] "\n            Znaleziono %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailimages\chooser\results.html:13
+#: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
 msgstr "Ostatnie obrazy"
 
@@ -110,8 +124,8 @@ msgstr "Tak, usuń"
 
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
-msgid "Editing image %(image.title)s"
-msgstr "Edycja obrazu %(image.title)s"
+msgid "Editing image %(title)s"
+msgstr "Edycja obrazu %(title)s"
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
@@ -128,10 +142,11 @@ msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
 msgstr "Przepraszamy, żaden obraz nie pasuje do \"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
+#, python-format
 msgid ""
 "You've not uploaded any images. Why not <a "
-"href=\"wagtailimages_add_image_url\">add one now</a>?"
-msgstr "Nie przesłano żadnych obrazów. Czemu nie  <a href=\"wagtailimages_add_image_url\">dodać jednego teraz</a>?"
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Nie przesłano żadnych obrazów. Czemu nie  <a href=\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

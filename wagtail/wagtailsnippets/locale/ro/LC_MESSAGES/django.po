@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 20:59+0200\n"
-"PO-Revision-Date: 2014-02-21 10:54+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 14:19+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -85,13 +85,13 @@ msgstr "Titlu"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:3
 #, python-format
-msgid "Snippets %(snippet_type_name_plural|capfirst)s"
-msgstr "Fragmente %(snippet_type_name_plural|capfirst)s"
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragmente %(snippet_type_name_plural)s"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:10
 #, python-format
-msgid "Snippets <span>%(snippet_type_name_plural|capfirst)s</span>"
-msgstr "Fragmente <span>%(snippet_type_name_plural|capfirst)s</span>"
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Fragmente <span>%(snippet_type_name_plural)s</span>"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:13
 #, python-format
@@ -103,7 +103,7 @@ msgstr "Adaugă %(snippet_type_name)s"
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr "Nu au fost create nici un %(snippet_type_name_plural)s. De nu ai <a href=\"%(wagtailsnippets_create_url)s\">adăuga unul</a>?"
+msgstr "Nu au fost create %(snippet_type_name_plural)s. De să nu <a href=\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
 
 #: .\views\snippets.py:127
 msgid "{snippet_type} '{instance}' created."
@@ -123,4 +123,4 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 
 #: .\views\snippets.py:204
 msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' a fost eliminat."
+msgstr "{snippet_type} '{instance}' a fost șters."

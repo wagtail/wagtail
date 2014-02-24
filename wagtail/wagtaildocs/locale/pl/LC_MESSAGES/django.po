@@ -4,12 +4,13 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:56+0200\n"
-"PO-Revision-Date: 2014-02-21 13:02+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:21+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +62,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Są %(counter)s dopasowania\n        "
+msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 
 #: .\templates\wagtaildocs\chooser\results.html:12
 msgid "Latest documents"
@@ -89,8 +90,8 @@ msgstr "Dodaj dokument"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format
-msgid "Delete %(document.title)s"
-msgstr "Usuń %(document.title)s"
+msgid "Delete %(title)s"
+msgstr "Usuń %(title)s"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:6
 #: .\templates\wagtaildocs\documents\edit.html:29
@@ -107,8 +108,8 @@ msgstr "Tak, usuń"
 
 #: .\templates\wagtaildocs\documents\edit.html:4
 #, python-format
-msgid "Editing %(document.title)s"
-msgstr "Edycja %(document.title)s"
+msgid "Editing %(title)s"
+msgstr "Edycja %(title)s"
 
 #: .\templates\wagtaildocs\documents\edit.html:15
 msgid "Editing"
@@ -132,7 +133,7 @@ msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr ""
+msgstr "Nie przesłano żadnych dokumentów. Czemu nie  <a href=\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"

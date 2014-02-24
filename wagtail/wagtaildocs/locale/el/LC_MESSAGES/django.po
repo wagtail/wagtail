@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 22:56+0200\n"
-"PO-Revision-Date: 2014-02-20 21:50+0000\n"
+"POT-Creation-Date: 2014-02-22 19:03+0200\n"
+"PO-Revision-Date: 2014-02-22 17:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Αρχείο"
 
 #: .\models.py:21
 msgid "Tags"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:2
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:11
@@ -71,7 +71,7 @@ msgstr "Τελευταία έγγραφα"
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"
@@ -88,8 +88,8 @@ msgstr "Προσθήκη εγγράφου"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format
-msgid "Delete %(document.title)s"
-msgstr ""
+msgid "Delete %(title)s"
+msgstr "Διαγραφή %(title)s"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:6
 #: .\templates\wagtaildocs\documents\edit.html:29
@@ -98,7 +98,7 @@ msgstr "Διαγραφή εγγράφου"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
-msgstr "Είστε σίγουροι ότι θέλετε να διαγραφεί αυτό το έγγραφο;"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το έγγραφο;"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:13
 msgid "Yes, delete"
@@ -106,8 +106,8 @@ msgstr "Ναι, να διαγραφεί"
 
 #: .\templates\wagtaildocs\documents\edit.html:4
 #, python-format
-msgid "Editing %(document.title)s"
-msgstr ""
+msgid "Editing %(title)s"
+msgstr "Διόρθωση %(title)s"
 
 #: .\templates\wagtaildocs\documents\edit.html:15
 msgid "Editing"
@@ -119,23 +119,23 @@ msgstr "Έγγραφα"
 
 #: .\templates\wagtaildocs\documents\list.html:20
 msgid "Uploaded"
-msgstr ""
+msgstr "Ανεβασμένο"
 
 #: .\templates\wagtaildocs\documents\results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtaildocs\documents\results.html:21
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr ""
+msgstr "Δεν υπάρχουν έγγραφα. Θέλετε να <a href=\"%(wagtaildocs_add_document_url)s\">ανεβάσετε μερικά</a>;"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"
-msgstr ""
+msgstr "Καθαρισμός επιλογής"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:10
 msgid "Choose another document"
@@ -143,7 +143,7 @@ msgstr "Επιλογή άλλου εγγράφου"
 
 #: .\views\documents.py:83
 msgid "Document '{0}' added."
-msgstr ""
+msgstr "Το έγγραφο '{0}' προστέθηκε."
 
 #: .\views\documents.py:86 .\views\documents.py:115
 msgid "The document could not be saved due to errors."
@@ -151,8 +151,8 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφ
 
 #: .\views\documents.py:112
 msgid "Document '{0}' updated"
-msgstr ""
+msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
 
 #: .\views\documents.py:134
 msgid "Document '{0}' deleted."
-msgstr ""
+msgstr "Το έγγραφο '{0}' διαγράφηκε."

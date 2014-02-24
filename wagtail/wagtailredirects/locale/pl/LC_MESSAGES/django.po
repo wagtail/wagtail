@@ -4,12 +4,13 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 21:32+0200\n"
-"PO-Revision-Date: 2014-02-21 12:13+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:22+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -73,8 +74,8 @@ msgstr "Zapisz"
 
 #: .\templates\wagtailredirects\confirm_delete.html:4
 #, python-format
-msgid "Delete redirect %(redirect.title)s"
-msgstr "Usuń przekierowanie %(redirect.title)s"
+msgid "Delete redirect %(title)s"
+msgstr "Usuń przekierowanie %(title)s"
 
 #: .\templates\wagtailredirects\confirm_delete.html:6
 msgid "Delete"
@@ -90,8 +91,8 @@ msgstr "Tak, usuń"
 
 #: .\templates\wagtailredirects\edit.html:4
 #, python-format
-msgid "Editing %(redirect.title)s"
-msgstr "Edytujesz %(redirect.title)s"
+msgid "Editing %(title)s"
+msgstr "Edycja %(title)s"
 
 #: .\templates\wagtailredirects\edit.html:6
 msgid "Editing"
@@ -109,6 +110,10 @@ msgstr "Przekierowania"
 #: .\templates\wagtailredirects\list.html:18
 msgid "To"
 msgstr "Do"
+
+#: .\templates\wagtailredirects\list.html:19
+msgid "Type"
+msgstr "Typ"
 
 #: .\templates\wagtailredirects\list.html:26
 msgid "Edit this redirect"
@@ -128,17 +133,18 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Są %(counter)s dopasowania\n        "
+msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtailredirects\results.html:21
+#, python-format
 msgid ""
 "No redirects have been created. Why not <a "
-"href=\"wagtailredirects_add_redirect_url\">add one</a>?"
-msgstr "Żadne przekierowanie nie zostało stworzone. Czemu nie <a href=\"wagtailredirects_add_redirect_url\">dodać jednego</a>?"
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr "Nie zostały stworzone żadne przekierowania. Czemu nie <a href=\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"

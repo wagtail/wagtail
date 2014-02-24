@@ -4,12 +4,13 @@
 # 
 # Translators:
 # utek <mail@utek.pl>, 2014
+# utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 20:59+0200\n"
-"PO-Revision-Date: 2014-02-21 11:14+0000\n"
+"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"PO-Revision-Date: 2014-02-23 10:23+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -136,12 +137,26 @@ msgstr "Aktywny"
 msgid "Inactive"
 msgstr "Nieaktywny"
 
-#: .\templates\wagtailusers\results.html:12
+#: .\templates\wagtailusers\results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Są %(counter)s dopasowania\n        "
+msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
+
+#: .\templates\wagtailusers\results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
 msgstr "Przepraszamy, nie ma użytkowników pasujących do: \"<em>%(search_query)s</em>\""
 
-#: .\templates\wagtailusers\results.html:15
+#: .\templates\wagtailusers\results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
