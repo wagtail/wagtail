@@ -4,7 +4,7 @@
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
     <header class="nice-padding">
-        <h1>{% blocktrans title=page_to_move.title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
+        <h1>{% blocktrans with title=page_to_move.title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
 
         <ul class="breadcrumb">
             <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
