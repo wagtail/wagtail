@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
@@ -92,7 +92,7 @@ def add(request):
     })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -122,7 +122,7 @@ def edit(request, document_id):
     })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 

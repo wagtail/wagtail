@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -9,7 +9,7 @@ from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def index(request):
     q = None
     p = request.GET.get("p", 1)
@@ -70,7 +70,7 @@ def save_editorspicks(query, new_query, editors_pick_formset):
         return False
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def add(request):
     if request.POST:
         # Get query
@@ -96,7 +96,7 @@ def add(request):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def edit(request, query_id):
     query = get_object_or_404(models.Query, id=query_id)
 
@@ -123,7 +123,7 @@ def edit(request, query_id):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def delete(request, query_id):
     query = get_object_or_404(models.Query, id=query_id)
 

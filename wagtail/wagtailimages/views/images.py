@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
@@ -68,7 +68,7 @@ def index(request):
         })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form()
@@ -102,7 +102,7 @@ def edit(request, image_id):
     })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 

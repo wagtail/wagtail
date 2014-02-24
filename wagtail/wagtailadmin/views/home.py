@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.conf import settings
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -64,7 +64,7 @@ class RecentEditsPanel(object):
         }, RequestContext(self.request))
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def home(request):
 
     panels = [

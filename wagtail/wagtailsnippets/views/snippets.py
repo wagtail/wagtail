@@ -4,7 +4,7 @@ from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
@@ -68,7 +68,7 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def index(request):
     snippet_types = [
         (
@@ -84,7 +84,7 @@ def index(request):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
 def list(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     if not user_can_edit_snippet_type(request.user, content_type):
@@ -103,7 +103,7 @@ def list(request, content_type_app_name, content_type_model_name):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
 def create(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     if not user_can_edit_snippet_type(request.user, content_type):
@@ -144,7 +144,7 @@ def create(request, content_type_app_name, content_type_model_name):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
 def edit(request, content_type_app_name, content_type_model_name, id):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     if not user_can_edit_snippet_type(request.user, content_type):
@@ -186,7 +186,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
 def delete(request, content_type_app_name, content_type_model_name, id):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     if not user_can_edit_snippet_type(request.user, content_type):
