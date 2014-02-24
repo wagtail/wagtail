@@ -14,3 +14,12 @@ Contributors
 * Paul Hallett (twilio) hello@phalt.co
 * Tom Dyson
 * Serafeim Papastefanos
+
+Translators
+===========
+
+* Catalan: David Llop
+* German: Karl Sander
+* Greek: Serafeim Papastefanos
+* Polish: Łukasz Bołdys
+* Romainian: Dan Braghis
