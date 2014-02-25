@@ -16,7 +16,7 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="editor's picks")
+        form = SearchForm(request.GET, placeholder=_("Search editor's picks"))
         if form.is_valid():
             q = form.cleaned_data['q']
             is_searching = True
@@ -26,7 +26,7 @@ def index(request):
     if not is_searching:
         # Select only queries with editors picks
         queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
-        form = SearchForm(placeholder_suffix="editor's picks")
+        form = SearchForm(placeholder=_("Search editor's picks"))
 
     paginator = Paginator(queries, 20)
 

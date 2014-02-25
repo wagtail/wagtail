@@ -26,7 +26,7 @@ def index(request):
     # Search
     query_string = None
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="images")
+        form = SearchForm(request.GET, placeholder=_("Search images"))
         if form.is_valid():
             query_string = form.cleaned_data['q']
 
@@ -37,7 +37,7 @@ def index(request):
             else:
                 images = Image.search(query_string)
     else:
-        form = SearchForm(placeholder_suffix="images")
+        form = SearchForm(placeholder=_("Search images"))
 
     # Pagination
     p = request.GET.get('p', 1)

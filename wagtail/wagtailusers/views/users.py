@@ -18,14 +18,14 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="users")
+        form = SearchForm(request.GET, placeholder=_("Search users"))
         if form.is_valid():
             q = form.cleaned_data['q']
 
             is_searching = True
-            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))       
+            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
     else:
-        form = SearchForm(placeholder_suffix="users")
+        form = SearchForm(placeholder=_("Search users"))
 
     if not is_searching:
         users = User.objects

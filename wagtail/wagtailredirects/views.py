@@ -20,7 +20,7 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="redirects")
+        form = SearchForm(request.GET, placeholder=_("Search redirects"))
         if form.is_valid():
             q = form.cleaned_data['q']
             is_searching = True
@@ -30,7 +30,7 @@ def index(request):
     if not is_searching:
         # Get redirects
         redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
-        form = SearchForm(placeholder_suffix="redirects")
+        form = SearchForm(placeholder=_("Search redirects"))
 
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
