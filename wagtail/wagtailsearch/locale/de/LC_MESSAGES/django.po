@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# jspielmann <j@spielmannsolutions.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-23 20:04+0000\n"
-"Last-Translator: karlsander <karlsander@gmail.com>\n"
+"PO-Revision-Date: 2014-02-25 17:58+0000\n"
+"Last-Translator: jspielmann <j@spielmannsolutions.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
-msgstr "Geben sie den vollständigen Suchbegriff ein.Um ihre Redaktionsempfehlungen anzuzeigen, wird eine genaue Übereinstimmung benötigt.Wildcards sind NICHT erlaubt."
+msgstr "Geben Sie den vollständigen Suchbegriff ein! Um Ihre Redaktionsempfehlungen anzuzeigen wird eine genaue Übereinstimmung benötigt. Wildcards sind NICHT erlaubt."
 
 #: .\templates\wagtailsearch\editorspicks\add.html:3
 #: .\templates\wagtailsearch\editorspicks\add.html:5
@@ -38,14 +39,14 @@ msgid ""
 "\n"
 "        <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
 "        "
-msgstr "\n        <p>Redaktionsempfehlungen sind eine Möglichkeit, bestimmte Seiten zu empfehlen die von sich aus nicht sehr weit oben in den Suchergebnissen auftauchen würden. So könnte zum Beispiel ihre Spendenseite auftauchen wenn nach dem Suchbegriff \"<em>unterstützen</em>\" gesucht wird.</p>\n        "
+msgstr "\n        <p>Redaktionsempfehlungen sind eine Möglichkeit, bestimmte Seiten zu empfehlen die von sich aus nicht sehr weit oben in den Suchergebnissen auftauchen würden. So könnte zum Beispiel Ihre Spendenseite auftauchen wenn nach dem Suchbegriff \"<em>unterstützen</em>\" gesucht wird.</p>\n        "
 
 #: .\templates\wagtailsearch\editorspicks\add.html:12
 msgid ""
 "\n"
 "        <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
 "        "
-msgstr "\n        <p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen sie den vollständigen und genauen Suchbegriff, inklusive eventueller Rechtschreibfehler, eingeben, für den sie Seiten empfehlen möchten. Zur Unterstützung können sie aus häufig verwendeten Suchbegriffen wählen.</p>\n        "
+msgstr "\n        <p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen Sie den vollständigen und genauen Suchbegriff, inklusive eventueller Rechtschreibfehler, eingeben, für den Sie Seiten empfehlen möchten. Zur Unterstützung können Sie aus häufig verwendeten Suchbegriffen wählen.</p>\n        "
 
 #: .\templates\wagtailsearch\editorspicks\add.html:25
 #: .\templates\wagtailsearch\editorspicks\edit.html:19
@@ -66,7 +67,7 @@ msgstr "Löschen"
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:9
 msgid ""
 "Are you sure you want to delete all editors picks for this search term?"
-msgstr "Sind sie sicher, dass sie alle Redaktionsempfehlungen für diesen Suchbegriff löschen wollen?"
+msgstr "Sind Sie sicher, dass Sie alle Redaktionsempfehlungen für diesen Suchbegriff löschen wollen?"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:12
 msgid "Yes, delete"
@@ -137,7 +138,7 @@ msgstr "Es wurde leider keine Redaktionsempfehlung zum Suchbegriff \"<em>%(searc
 msgid ""
 "No editor's picks have been created. Why not <a "
 "href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr "Sie haben noch keine Redaktionsempfehlungen erstellt.<a href=\"%(wagtailsearch_editorspicks_add_url)s\">Erstellen sie jetzt eine.</a>"
+msgstr "Sie haben noch keine Redaktionsempfehlungen erstellt. <a href=\"%(wagtailsearch_editorspicks_add_url)s\">Erstellen Sie doch jetzt eine!</a>"
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:4
 msgid "Move up"
