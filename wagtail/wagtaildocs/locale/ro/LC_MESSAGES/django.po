@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-22 22:50+0000\n"
+"PO-Revision-Date: 2014-02-24 22:33+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Selectează document"
 #: .\templates\wagtaildocs\chooser\chooser.html:7
 #: .\templates\wagtaildocs\chooser\chooser.html:19
 msgid "Search"
-msgstr "Căutare"
+msgstr "Căută"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:8
 msgid "Upload"
@@ -125,14 +125,14 @@ msgstr "Încărcat"
 #: .\templates\wagtaildocs\documents\results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivesc cu nici un document"
+msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un document"
 
 #: .\templates\wagtaildocs\documents\results.html:21
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Nu ai încărcat nici un document. De ce să nu <a href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+msgstr "Nu ați încărcat nici un document. De ce să nu <a href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"

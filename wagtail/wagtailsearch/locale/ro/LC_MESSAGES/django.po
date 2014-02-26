@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-22 22:50+0000\n"
+"PO-Revision-Date: 2014-02-24 22:21+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
-msgstr "Introduceți șirul complet de căutare. \nEste nevoie de potrivire exactă pentru a afișa selecții \neditoriale. Metacaractere NU sunt permise."
+msgstr "Introduceți șirul complet de căutare. \nEste nevoie de o potrivire exactă pentru a afișa selecțiile \ndvs. editoriale. Metacaractere NU sunt permise."
 
 #: .\templates\wagtailsearch\editorspicks\add.html:3
 #: .\templates\wagtailsearch\editorspicks\add.html:5
@@ -40,14 +40,14 @@ msgid ""
 "\n"
 "        <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
 "        "
-msgstr "\n<p>Selecțiile editoriale sunt mijloace de recomandare de pagini particulare ce pot să nu apară la începutul rezultatelor de căutare în mod natural. De exemplu, recomandarea paginii de donații utilizatorilor care au căutat termeni mai puțin specifici ca  \"<em>dare</em>\".</p>"
+msgstr "\n<p>Selecțiile editoriale sunt mijloace de recomandare de pagini ce pot să nu apară la începutul rezultatelor de căutare în mod natural. De exemplu, recomandarea paginii de donații utilizatorilor care au căutat termeni mai puțin specifici ca \"<em>dare</em>\".</p>"
 
 #: .\templates\wagtailsearch\editorspicks\add.html:12
 msgid ""
 "\n"
 "        <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
 "        "
-msgstr "\n<p>Câmpul \"Termeni/frază de căutare\" de mai jos trebuie să conțină șirul exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de căutare populari printre utilizatorii sitului Dvstră.</p>"
+msgstr "\n<p>Câmpul \"Termeni/frază de căutare\" de mai jos trebuie să conțină șirul exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de căutare populari printre utilizatorii sitului dvs.</p>"
 
 #: .\templates\wagtailsearch\editorspicks\add.html:25
 #: .\templates\wagtailsearch\editorspicks\edit.html:19
@@ -106,7 +106,7 @@ msgstr "Selecții editoriale"
 #: .\templates\wagtailsearch\editorspicks\list.html:10
 #: .\templates\wagtailsearch\queries\chooser\results.html:9
 msgid "Views (past week)"
-msgstr "Vizualizări (săptămâna trecută)"
+msgstr "Vizualizări (ultima săptămână)"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:17
 msgid "Edit this pick"
@@ -176,7 +176,7 @@ msgstr "Nu sunt rezultate"
 
 #: .\views\editorspicks.py:85
 msgid "Editor's picks for '{0}' created."
-msgstr "Selecția editorială pentru '{0}' a fost creată."
+msgstr "Selecțiile editoriale pentru '{0}' au fost create."
 
 #: .\views\editorspicks.py:113
 msgid "Editor's picks for '{0}' updated."
@@ -184,4 +184,4 @@ msgstr "Selecțiile editoriale pentru '{0}' au fost actualizate."
 
 #: .\views\editorspicks.py:132
 msgid "Editor's picks deleted."
-msgstr "Selecții editoriale au fost șterse"
+msgstr "Selecțiile editoriale au fost șterse"

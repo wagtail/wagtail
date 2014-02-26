@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-22 22:49+0000\n"
+"PO-Revision-Date: 2014-02-24 23:02+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Introduceți adresa de e-mail."
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr "Ne pare rău, dar nu puteți reseta parola aici din căci contul de utilizator este gestionat de un alt server."
+msgstr "Ne pare rău, dar nu puteți reseta parola aici. Contul dvs. de utilizator este gestionat de un alt server."
 
 #: .\forms.py:69
 msgid "This email address is not recognised."
@@ -61,7 +61,7 @@ msgstr "Bine ați venit la %(site_name)s Wagtail CMS"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr "Aici va fi afișată informație utilă despre conținutul pe care l-ați creat."
+msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
 #: .\templates\wagtailadmin\login.html:4
 #: .\templates\wagtailadmin\login.html:55
@@ -93,12 +93,12 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "Avatarul, oferit de Gravatar, este legat de adresa dvs. de e-mail. Puteți seta un avatar pentru orice număr de adrese e-mail folosite având un cont Gravatar."
+msgstr "Avatarul este oferit de Gravatar și este legat de adresa dvs. de e-mail. Având un cont Gravatar, puteți seta un avatar pentru orice număr de adrese e-mail folosite."
 
 #: .\templates\wagtailadmin\account\account.html:23
 #: .\templates\wagtailadmin\account\change_password.html:4
 msgid "Change password"
-msgstr "Schimbați parola"
+msgstr "Schimbă parola"
 
 #: .\templates\wagtailadmin\account\account.html:27
 msgid "Change the password you use to log in."
@@ -111,7 +111,7 @@ msgstr "Schimbă parola"
 #: .\templates\wagtailadmin\account\change_password.html:19
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr "Parola nu poate fi schimbată aici. Contactați administratorul sitului."
+msgstr "Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii sitului."
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:4
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:42
@@ -139,7 +139,7 @@ msgstr "Parolele nu corespund. Vă rugăm să încercați din nou."
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:15
 msgid "Check your email"
-msgstr "Verifică-ți e-mailul"
+msgstr "Verificăți contul de e-mail"
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:16
 msgid "A link to reset your password has been emailed to you."
@@ -155,7 +155,7 @@ msgstr "Resetarea parolei"
 
 #: .\templates\wagtailadmin\account\password_reset\form.html:27
 msgid "Reset your password"
-msgstr "Resetați parola"
+msgstr "Resetează parola"
 
 #: .\templates\wagtailadmin\chooser\_link_types.html:5
 #: .\templates\wagtailadmin\chooser\_link_types.html:7
@@ -170,7 +170,7 @@ msgstr "Link extern"
 #: .\templates\wagtailadmin\chooser\_link_types.html:17
 #: .\templates\wagtailadmin\chooser\_link_types.html:19
 msgid "Email link"
-msgstr "Link de e-mail"
+msgstr "Link e-mail"
 
 #: .\templates\wagtailadmin\chooser\_search_form.html:7
 #: .\templates\wagtailadmin\pages\search.html:3
@@ -212,7 +212,7 @@ msgstr "Selectează o pagină"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:2
 msgid "Add an email link"
-msgstr "Adaugă un link de e-mail"
+msgstr "Adaugă un link e-mail"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:14
 #: .\templates\wagtailadmin\chooser\external_link.html:14
@@ -432,11 +432,11 @@ msgstr "\nExaminare '%(title)s', trimisă de %(submitted_by)s pe data de %(submi
 #: .\templates\wagtailadmin\pages\add_subpage.html:6
 #, python-format
 msgid "Create a page in %(title)s"
-msgstr "Creați pagină în %(title)s"
+msgstr "Crează o pagină în %(title)s"
 
 #: .\templates\wagtailadmin\pages\add_subpage.html:9
 msgid "Create a page in"
-msgstr "Creați pagină în"
+msgstr "Crează pagină în"
 
 #: .\templates\wagtailadmin\pages\add_subpage.html:13
 msgid "Choose which type of page you'd like to create."
@@ -450,7 +450,7 @@ msgstr "Pagini de tip %(page_type)s"
 #: .\templates\wagtailadmin\pages\confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
-msgstr "Ștergeți %(title)s"
+msgstr "Șterge %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:12
 msgid "Are you sure you want to delete this page?"
@@ -466,9 +466,9 @@ msgid_plural ""
 "\n"
 "                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] "\nAcest lucru va șterge și o subpagină."
-msgstr[1] "\nAcest lucru va șterge %(descendant_count)s subpagini."
-msgstr[2] "\nAcest lucru va șterge %(descendant_count)s subpagini."
+msgstr[0] "\nAceastă acțiune va șterge și o subpagină."
+msgstr[1] "\nAceastă acțiune va șterge %(descendant_count)s subpagini."
+msgstr[2] "\nAceastă acțiune va șterge %(descendant_count)s subpagini."
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:22
 msgid ""
@@ -487,7 +487,7 @@ msgstr "Anulează publicarea"
 #: .\templates\wagtailadmin\pages\confirm_move.html:3
 #, python-format
 msgid "Move %(title)s"
-msgstr "Mutați %(title)s"
+msgstr "Mută %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:6
 #: .\templates\wagtailadmin\pages\list.html:65
@@ -514,7 +514,7 @@ msgstr "Da, mută această pagină"
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:3
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Anulați publicarea %(title)s"
+msgstr "Anulează publicarea %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
@@ -556,7 +556,7 @@ msgstr "Publică"
 #: .\templates\wagtailadmin\pages\create.html:28
 #: .\templates\wagtailadmin\pages\edit.html:41
 msgid "Submit for moderation"
-msgstr "Trimiți pentru moderare"
+msgstr "Trimite pentru moderare"
 
 #: .\templates\wagtailadmin\pages\edit.html:5
 #, python-format
@@ -708,7 +708,7 @@ msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o 
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
-msgstr "Introduceți termeni de căutare mai sus"
+msgstr "Introduceți termenii de căutare mai sus"
 
 #: .\templates\wagtailadmin\pages\select_location.html:3
 #, python-format
@@ -777,13 +777,13 @@ msgstr "Parola a fost schimbată cu succes!"
 
 #: .\views\pages.py:99
 msgid "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
-msgstr "Ne pare rău, dar nu aveți nivel de acces pentru a crea pagini de tipul <em>'{0}'</em>."
+msgstr "Ne pare rău, dar nu aveți nivelul de acces potrivit pentru a crea pagini de tipul <em>'{0}'</em>."
 
 #: .\views\pages.py:103
 msgid ""
 "Pages of this type can only be created as children of <em>'{0}'</em>. This "
 "new page will be saved there."
-msgstr "Paginile de acest tip pot fi create numai ca dependente de <em>'{0}'</em>. Această pagină va fi salvată acolo."
+msgstr "Paginile de acest tip pot fi create numai ca fiind dependente de <em>'{0}'</em>. Această pagină va fi salvată acolo."
 
 #: .\views\pages.py:166
 msgid "This slug is already in use"

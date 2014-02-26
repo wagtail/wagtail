@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-23 10:23+0000\n"
+"PO-Revision-Date: 2014-02-25 12:58+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Administrator"
 
 #: .\forms.py:14
 msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Zaznaczone oznacza, że użytkownik ma możliwość zarządzania kontami użytkownika"
+msgstr "Zaznaczone oznacza, że użytkownik ma możliwość zarządzania kontami użytkowników"
 
 #: .\forms.py:17 .\forms.py:58
 msgid "Email"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-23 10:22+0000\n"
+"PO-Revision-Date: 2014-02-25 12:55+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -483,7 +483,7 @@ msgstr "Usuń"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:26
 msgid "Unpublish it"
-msgstr "Od publikuj"
+msgstr "Cofnij publikację"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:3
 #, python-format
@@ -515,14 +515,14 @@ msgstr "Tak, przesuń tę stronę"
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:3
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Od publikuj %(title)s"
+msgstr "Cofnij publikację %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
 #: .\templates\wagtailadmin\pages\list.html:71
 #: .\templates\wagtailadmin\pages\list.html:192
 msgid "Unpublish"
-msgstr "Od publikuj"
+msgstr "Cofnij publikację"
 
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:10
 msgid "Are you sure you want to unpublish this page?"
@@ -530,7 +530,7 @@ msgstr "Czy na pewno chcesz cofnąć publikację tej strony?"
 
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:13
 msgid "Yes, unpublish it"
-msgstr "Tak, od publikuj"
+msgstr "Tak, cofnij publikację"
 
 #: .\templates\wagtailadmin\pages\content_type_use.html:7
 msgid "Pages using"
@@ -766,7 +766,7 @@ msgstr "Dokumenty"
 
 #: .\templatetags\wagtailadmin_nav.py:61
 msgid "Snippets"
-msgstr "Snippets"
+msgstr "Snippety"
 
 #: .\templatetags\wagtailadmin_nav.py:66
 msgid "Users"
@@ -824,7 +824,7 @@ msgstr "Usunięto stronę '{0}'."
 
 #: .\views\pages.py:428
 msgid "Page '{0}' unpublished."
-msgstr "Odpublikowano stronę '{0}'."
+msgstr "Cofnięto publikację strony '{0}'."
 
 #: .\views\pages.py:479
 msgid "Page '{0}' moved."

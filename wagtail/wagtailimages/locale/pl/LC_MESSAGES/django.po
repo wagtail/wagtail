@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-23 10:22+0000\n"
+"PO-Revision-Date: 2014-02-25 18:50+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgstr[2] "\n            Znaleziono %(counter)s dopasowań\n        "
 #: .\templates\wagtailimages\chooser\results.html:13
 #: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
-msgstr "Ostatnie obrazy"
+msgstr "Najnowsze obrazy"
 
 #: .\templates\wagtailimages\chooser\select_format.html:3
 msgid "Choose a format"

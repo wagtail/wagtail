@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# jspielmann <j@spielmannsolutions.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-23 19:37+0000\n"
-"Last-Translator: karlsander <karlsander@gmail.com>\n"
+"PO-Revision-Date: 2014-02-25 17:29+0000\n"
+"Last-Translator: jspielmann <j@spielmannsolutions.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +66,7 @@ msgstr[1] "\n            Es gibt %(counter)s Ergebnisse\n        "
 
 #: .\templates\wagtaildocs\chooser\results.html:12
 msgid "Latest documents"
-msgstr "Neuste Dokumente"
+msgstr "Neueste Dokumente"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
@@ -97,7 +98,7 @@ msgstr "Dokument löschen"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
-msgstr "Sind sie sicher, dass sie dieses Dokument löschen wollen?"
+msgstr "Sind Sie sicher, dass Sie dieses Dokument löschen wollen?"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:13
 msgid "Yes, delete"
@@ -130,11 +131,11 @@ msgstr "Es gibt leider keine Dokumente zum Suchbegriff \"<em>%(query_string)s</e
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Sie haben noch keine Dokumente hochgeladen.<a href=\"%(wagtaildocs_add_document_url)s\">Laden sie jetzt eins hoch.</a>"
+msgstr "Sie haben noch keine Dokumente hochgeladen.<a href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"
-msgstr "Auswahl zurücksetzten"
+msgstr "Auswahl zurücksetzen"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:10
 msgid "Choose another document"
