@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-22 22:51+0000\n"
+"PO-Revision-Date: 2014-02-24 22:26+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Titlu"
 
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
-msgstr "Format nevalid. Încearcă un fișier gif, jpeg sau png în schimb."
+msgstr "Format nevalid. Încercați un fișier gif, jpeg sau png în schimb."
 
 #: .\models.py:41
 msgid "File"
@@ -145,7 +145,7 @@ msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o 
 msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "Nu ai încărcat nici o imagine. De să nu <a href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+msgstr "Nu ați încărcat nici o imagine. De să nu <a href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

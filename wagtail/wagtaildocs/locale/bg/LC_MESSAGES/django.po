@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# LyuboslavPetrov <petrov.lyuboslav@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-22 23:20+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-24 20:11+0000\n"
+"Last-Translator: LyuboslavPetrov <petrov.lyuboslav@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,35 +20,35 @@ msgstr ""
 
 #: .\models.py:16 .\templates\wagtaildocs\documents\list.html:9
 msgid "Title"
-msgstr ""
+msgstr "Заглавие"
 
 #: .\models.py:17 .\templates\wagtaildocs\documents\list.html:18
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: .\models.py:21
 msgid "Tags"
-msgstr ""
+msgstr "Тагове"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:2
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:11
 msgid "Choose a document"
-msgstr ""
+msgstr "Изберете документ"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:7
 #: .\templates\wagtaildocs\chooser\chooser.html:19
 msgid "Search"
-msgstr ""
+msgstr "Търсене"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:8
 msgid "Upload"
-msgstr ""
+msgstr "Качване"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:34
 #: .\templates\wagtaildocs\documents\add.html:25
 #: .\templates\wagtaildocs\documents\edit.html:29
 msgid "Save"
-msgstr ""
+msgstr "Запази"
 
 #: .\templates\wagtaildocs\chooser\results.html:5
 #: .\templates\wagtaildocs\documents\results.html:5
@@ -60,98 +61,98 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n            Има едно съвпадение\n        "
+msgstr[1] "\nИма %(counter)s съвпадения"
 
 #: .\templates\wagtaildocs\chooser\results.html:12
 msgid "Latest documents"
-msgstr ""
+msgstr "Последни документи"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "Няма съвпадение на документи с <em>\"%(search_query)s\"</em>"
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"
-msgstr ""
+msgstr "Промени документ:"
 
 #: .\templates\wagtaildocs\documents\add.html:4
 #: .\templates\wagtaildocs\documents\index.html:17
 msgid "Add a document"
-msgstr ""
+msgstr "Добави документ"
 
 #: .\templates\wagtaildocs\documents\add.html:15
 msgid "Add document"
-msgstr ""
+msgstr "Добави документ"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
-msgstr ""
+msgstr "Изтрийте %(title)s"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:6
 #: .\templates\wagtaildocs\documents\edit.html:29
 msgid "Delete document"
-msgstr ""
+msgstr "Изтрий документ"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
-msgstr ""
+msgstr "Сигурен ли сте, че искате да изтриете документа?"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:13
 msgid "Yes, delete"
-msgstr ""
+msgstr "Да, изтрий го"
 
 #: .\templates\wagtaildocs\documents\edit.html:4
 #, python-format
 msgid "Editing %(title)s"
-msgstr ""
+msgstr "Редакция на %(title)s"
 
 #: .\templates\wagtaildocs\documents\edit.html:15
 msgid "Editing"
-msgstr ""
+msgstr "Редактиране"
 
 #: .\templates\wagtaildocs\documents\index.html:16
 msgid "Documents"
-msgstr ""
+msgstr "Документи"
 
 #: .\templates\wagtaildocs\documents\list.html:20
 msgid "Uploaded"
-msgstr ""
+msgstr "Качени"
 
 #: .\templates\wagtaildocs\documents\results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Няма съвпадение на документи с <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtaildocs\documents\results.html:21
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr ""
+msgstr "Не сте качили никакви документи. Защо не <a href=\"%(wagtaildocs_add_document_url)s\">качите един сега</a>?"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"
-msgstr ""
+msgstr "Изчисти избора"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:10
 msgid "Choose another document"
-msgstr ""
+msgstr "Избери друг документ"
 
 #: .\views\documents.py:83
 msgid "Document '{0}' added."
-msgstr ""
+msgstr "Документ '{0}' добавен."
 
 #: .\views\documents.py:86 .\views\documents.py:115
 msgid "The document could not be saved due to errors."
-msgstr ""
+msgstr "Документа не бе запазен поради грешки."
 
 #: .\views\documents.py:112
 msgid "Document '{0}' updated"
-msgstr ""
+msgstr "Документа '{0}' е обновен."
 
 #: .\views\documents.py:134
 msgid "Document '{0}' deleted."
-msgstr ""
+msgstr "Документа '{0}' е изтрит."
