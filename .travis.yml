@@ -35,3 +35,4 @@ notifications:
     on_success: change
     on_failure: always
 
+# bump Travis: 1
