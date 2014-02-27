@@ -5,9 +5,14 @@ from django.utils.translation import ugettext as _, ugettext_lazy as __
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        _placeholder = kwargs.pop('placeholder', None)
         placeholder_suffix = kwargs.pop('placeholder_suffix', "")
         super(SearchForm, self).__init__(*args, **kwargs)
-        self.fields['q'].widget.attrs = {'placeholder': 'Search ' + placeholder_suffix}
+        if _placeholder is not None:
+            placeholder = _placeholder
+        else:
+            placeholder = 'Search {}'.format(placeholder_suffix)
+        self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
 

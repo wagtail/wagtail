@@ -31,7 +31,7 @@ def index(request):
     # Search
     query_string = None
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix='documents')
+        form = SearchForm(request.GET, placeholder=_("Search documents"))
         if form.is_valid():
             query_string = form.cleaned_data['q']
             if not request.user.has_perm('wagtaildocs.change_document'):
@@ -40,7 +40,7 @@ def index(request):
             else:
                 documents = Document.search(query_string)
     else:
-        form = SearchForm(placeholder_suffix='documents')
+        form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
     p = request.GET.get('p', 1)
