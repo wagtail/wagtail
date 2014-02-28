@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+#
+# Translators: Lihan Li <lilihan.it@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
@@ -19,35 +21,35 @@ msgstr ""
 
 #: .\models.py:16 .\templates\wagtaildocs\documents\list.html:9
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: .\models.py:17 .\templates\wagtaildocs\documents\list.html:18
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 #: .\models.py:21
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:2
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:11
 msgid "Choose a document"
-msgstr ""
+msgstr "选择一个文档"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:7
 #: .\templates\wagtaildocs\chooser\chooser.html:19
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:8
 msgid "Upload"
-msgstr ""
+msgstr "上传"
 
 #: .\templates\wagtaildocs\chooser\chooser.html:34
 #: .\templates\wagtaildocs\documents\add.html:25
 #: .\templates\wagtaildocs\documents\edit.html:29
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: .\templates\wagtaildocs\chooser\results.html:5
 #: .\templates\wagtaildocs\documents\results.html:5
@@ -61,68 +63,75 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
+"\n"
+"            有%(counter)s个匹配\n"
+"        "
+msgstr[1] ""
+"\n"
+"            有1个匹配\n"
+"        "
 
 #: .\templates\wagtaildocs\chooser\results.html:12
 msgid "Latest documents"
-msgstr ""
+msgstr "最新文档"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "对不起，没有文档匹配\"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"
-msgstr ""
+msgstr "修改文档："
 
 #: .\templates\wagtaildocs\documents\add.html:4
 #: .\templates\wagtaildocs\documents\index.html:17
 msgid "Add a document"
-msgstr ""
+msgstr "添加一份文档"
 
 #: .\templates\wagtaildocs\documents\add.html:15
 msgid "Add document"
-msgstr ""
+msgstr "添加文档"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
-msgstr ""
+msgstr "删除%(title)s"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:6
 #: .\templates\wagtaildocs\documents\edit.html:29
 msgid "Delete document"
-msgstr ""
+msgstr "删除文档"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
-msgstr ""
+msgstr "你确定你要删除这份文档吗？"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:13
 msgid "Yes, delete"
-msgstr ""
+msgstr "是的，删除"
 
 #: .\templates\wagtaildocs\documents\edit.html:4
 #, python-format
 msgid "Editing %(title)s"
-msgstr ""
+msgstr "编辑%(title)s"
 
 #: .\templates\wagtaildocs\documents\edit.html:15
 msgid "Editing"
-msgstr ""
+msgstr "编辑"
 
 #: .\templates\wagtaildocs\documents\index.html:16
 msgid "Documents"
-msgstr ""
+msgstr "文档"
 
 #: .\templates\wagtaildocs\documents\list.html:20
 msgid "Uploaded"
-msgstr ""
+msgstr "已上传"
 
 #: .\templates\wagtaildocs\documents\results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtaildocs\documents\results.html:21
 #, python-format
@@ -130,27 +139,29 @@ msgid ""
 "You haven't uploaded any documents. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
+"你没有上传任何文档。 为什么不 <a "
+"href=\"%(wagtaildocs_add_document_url)s\">上传一份</a>?"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:9
 msgid "Clear choice"
-msgstr ""
+msgstr "清除选择"
 
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:10
 msgid "Choose another document"
-msgstr ""
+msgstr "选择另外一份文档"
 
 #: .\views\documents.py:83
 msgid "Document '{0}' added."
-msgstr ""
+msgstr "文档'{0}'已添加"
 
 #: .\views\documents.py:86 .\views\documents.py:115
 msgid "The document could not be saved due to errors."
-msgstr ""
+msgstr "有错，文档无法保存。"
 
 #: .\views\documents.py:112
 msgid "Document '{0}' updated"
-msgstr ""
+msgstr "文档'{0}'已更新"
 
 #: .\views\documents.py:134
 msgid "Document '{0}' deleted."
-msgstr ""
+msgstr "文档'{0}'已删除"
