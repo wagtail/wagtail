@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\models.py:16 .\templates\wagtaildocs\documents\list.html:9
 msgid "Title"
@@ -64,11 +64,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            有%(counter)s个匹配\n"
+"            有1个匹配\n"
 "        "
 msgstr[1] ""
 "\n"
-"            有1个匹配\n"
+"            有%(counter)s个匹配\n"
 "        "
 
 #: .\templates\wagtaildocs\chooser\results.html:12

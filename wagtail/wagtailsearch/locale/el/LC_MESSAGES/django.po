@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:04+0200\n"
-"PO-Revision-Date: 2014-02-22 17:15+0000\n"
+"POT-Creation-Date: 2014-02-28 17:54+0200\n"
+"PO-Revision-Date: 2014-02-28 16:00+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -172,6 +172,10 @@ msgstr "Όροι"
 #: .\templates\wagtailsearch\queries\chooser\results.html:23
 msgid "No results found"
 msgstr "Δε βρέθηκαν αποτελέσματα"
+
+#: .\views\editorspicks.py:19 .\views\editorspicks.py:29
+msgid "Search editor's picks"
+msgstr "Αναζήτηση επιλογών συντακτών"
 
 #: .\views\editorspicks.py:85
 msgid "Editor's picks for '{0}' created."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,25 +20,25 @@ msgstr ""
 msgid "Please type a valid time"
 msgstr ""
 
-#: .\forms.py:12
+#: .\forms.py:17
 msgid "Search term"
 msgstr ""
 
-#: .\forms.py:44
+#: .\forms.py:49
 msgid "Enter your email address to reset your password"
 msgstr ""
 
-#: .\forms.py:53
+#: .\forms.py:58
 msgid "Please fill your email address."
 msgstr ""
 
-#: .\forms.py:66
+#: .\forms.py:71
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr ""
 
-#: .\forms.py:69
+#: .\forms.py:74
 msgid "This email address is not recognised."
 msgstr ""
 

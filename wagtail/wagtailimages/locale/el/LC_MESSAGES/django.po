@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:04+0200\n"
-"PO-Revision-Date: 2014-02-22 17:13+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 16:01+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,7 @@ msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
 msgstr[1] "\n            Βρέθηκαν %(counter)s αποτελέσματα\n        "
 
 #: .\templates\wagtailimages\chooser\results.html:13
+#: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
 msgstr "Τελευταίες εικόνες"
 
@@ -144,6 +145,10 @@ msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr "Δεν υπάρχουν εικόνες. Θέλετε να <a href=\"%(wagtailimages_add_image_url)s\">προσθέσετε μερικές</a>;"
+
+#: .\views\images.py:29 .\views\images.py:40
+msgid "Search images"
+msgstr "Αναζήτηση εικόνων"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

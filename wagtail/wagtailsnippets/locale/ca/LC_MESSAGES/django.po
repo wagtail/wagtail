@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-24 21:43+0000\n"
+"POT-Creation-Date: 2014-02-28 17:54+0200\n"
+"PO-Revision-Date: 2014-02-26 21:30+0000\n"
 "Last-Translator: Lloople <d.lloople@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr "Editant"
 
 #: .\templates\wagtailsnippets\snippets\index.html:3
 msgid "Snippets"
-msgstr ""
+msgstr "Fragments"
 
 #: .\templates\wagtailsnippets\snippets\list.html:8
 msgid "Title"
@@ -85,12 +85,12 @@ msgstr "Títol"
 #: .\templates\wagtailsnippets\snippets\type_index.html:3
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
-msgstr ""
+msgstr "Fragments %(snippet_type_name_plural)s"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:10
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr ""
+msgstr "Fragments <span>%(snippet_type_name_plural)s</span>"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:13
 #, python-format
@@ -102,24 +102,24 @@ msgstr "Afegeix %(snippet_type_name)s"
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
+msgstr "No s'ha creat cap %(snippet_type_name_plural)s. Per què no <a href=\"%(wagtailsnippets_create_url)s\">afeixes un</a>?"
 
 #: .\views\snippets.py:127
 msgid "{snippet_type} '{instance}' created."
-msgstr ""
+msgstr "{snippet_type} '{instance}' creat."
 
 #: .\views\snippets.py:134
 msgid "The snippet could not be created due to errors."
-msgstr ""
+msgstr "El fragment no s'ha pogut crear degut a errors."
 
 #: .\views\snippets.py:168
 msgid "{snippet_type} '{instance}' updated."
-msgstr ""
+msgstr "{snippet_type} '{instance}' actualitzat."
 
 #: .\views\snippets.py:175
 msgid "The snippet could not be saved due to errors."
-msgstr ""
+msgstr "El fragment no s'ha pogut desar degut a errors."
 
 #: .\views\snippets.py:204
 msgid "{snippet_type} '{instance}' deleted."
-msgstr ""
+msgstr "{snippet_type} '{instance}' esborrat."

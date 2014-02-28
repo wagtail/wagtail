@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:03+0200\n"
-"PO-Revision-Date: 2014-02-22 17:12+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 16:00+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,10 @@ msgstr "Καθαρισμός επιλογής"
 #: .\templates\wagtaildocs\edit_handlers\document_chooser_panel.html:10
 msgid "Choose another document"
 msgstr "Επιλογή άλλου εγγράφου"
+
+#: .\views\documents.py:34 .\views\documents.py:43
+msgid "Search documents"
+msgstr "Αναζήτηση εγγράφων"
 
 #: .\views\documents.py:83
 msgid "Document '{0}' added."

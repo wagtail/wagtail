@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-26 13:41+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 15:56+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,10 @@ msgstr ""
 
 #: .\models.py:14
 msgid "Redirect to any URL"
+msgstr ""
+
+#: .\views.py:23 .\views.py:33
+msgid "Search redirects"
 msgstr ""
 
 #: .\views.py:79

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"POT-Creation-Date: 2014-02-28 17:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,6 +173,10 @@ msgstr ""
 
 #: .\templates\wagtailsearch\queries\chooser\results.html:23
 msgid "No results found"
+msgstr ""
+
+#: .\views\editorspicks.py:19 .\views\editorspicks.py:29
+msgid "Search editor's picks"
 msgstr ""
 
 #: .\views\editorspicks.py:85
