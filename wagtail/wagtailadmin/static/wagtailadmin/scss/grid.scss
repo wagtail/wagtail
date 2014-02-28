@@ -1,4 +1,4 @@
-/* Utility variable — you should never need to modify this */
+/* Utility variable - you should never need to modify this */
 $gridsystem_width: $grid-columns * 1px;
 $padding: $grid-gutter-width*0.5;
 
@@ -60,7 +60,7 @@ $padding: $grid-gutter-width*0.5;
 
 /* Pull adds right padding */
 @mixin pull($offset:1, $grid-columns:$grid-columns) {
-    margin-right: 100%*(@offset / $grid-columns);
+    margin-right: 100%*($offset / $grid-columns);
 }
 @mixin pull-padding($offset:1, $grid-columns:$grid-columns){
     padding-right: 100%*($offset / $grid-columns);

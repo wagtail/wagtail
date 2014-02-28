@@ -5,10 +5,12 @@ ul.listing{
 
 .listing{
     margin-bottom:2em;
+    /* FIXME: needs converting to valid SASS
     ul&{
         border-top:1px dashed $color-input-border;
         margin-bottom:2em;
     }
+    */
     ul{
         @include unlist();
     }
@@ -22,9 +24,11 @@ ul.listing{
         font-size:0.95em;
     }
 
+    /* FIXME: needs converting to valid SASS
     table&{
         width:100%;
     }
+    */
    
     td, th{
         padding:1.5em 1em;

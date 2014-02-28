@@ -130,11 +130,13 @@
         background:white
     }
 
+    /* FIXME: needs converting to valid SASS
     a&:hover,
     a&.primary:hover{
         border-color:$color-teal;
         color:$color-teal;
     }
+    */
 }
 
 /* free tagging tags from taggit */
@@ -155,10 +157,12 @@
         content:"u";
         padding-right:0.5em;
     }
+    /* FIXME: needs converting to valid SASS
     a&:hover{
         background-color:$color-teal-darker;
         color:white;
     }
+    */
 
     .taglist &{
         margin-right:0.8em;

@@ -535,13 +535,12 @@ ul.inline li:first-child, li.inline:first-child{
     .tagit-choice{
         border:0;
     }
-
-    ul& input[type="text"]{
-        padding: 0.2em 0.5em !important; /* having to use important, FML*/
-    }
-    ul& li.tagit-choice-editable{
-        padding:0 23px 0 0 !important; /* having to use important, FML*/
-    }
+}
+ul.tagit input[type="text"]{
+    padding: 0.2em 0.5em !important; /* having to use important, FML*/
+}
+ul.tagit li.tagit-choice-editable{
+    padding:0 23px 0 0 !important; /* having to use important, FML*/
 }
 
 .tagit-close{
