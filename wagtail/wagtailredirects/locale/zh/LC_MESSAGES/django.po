@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+#
+# Translators: Lihan Li <lilihan.it@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
@@ -19,107 +21,109 @@ msgstr ""
 
 #: .\models.py:10
 msgid "Redirect from"
-msgstr ""
+msgstr "转向始处"
 
 #: .\models.py:12
 msgid "Permanent"
-msgstr ""
+msgstr "永久"
 
 #: .\models.py:12
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
+"推荐. 永久页面转向确保搜索引擎忘记老页面"
+"(转向始处) 并且索引新页面."
 
 #: .\models.py:13
 msgid "Redirect to a page"
-msgstr ""
+msgstr "转向到一个页面"
 
 #: .\models.py:14
 msgid "Redirect to any URL"
-msgstr ""
+msgstr "转向到任何一个URL"
 
 #: .\views.py:79
 msgid "Redirect '{0}' updated."
-msgstr ""
+msgstr "转向 '{0}' 已更新"
 
 #: .\views.py:82
 msgid "The redirect could not be saved due to errors."
-msgstr ""
+msgstr "由于多个错误，转向设置无法保存。"
 
 #: .\views.py:100
 msgid "Redirect '{0}' deleted."
-msgstr ""
+msgstr "转向 '{0}' 已删除"
 
 #: .\views.py:120
 msgid "Redirect '{0} added."
-msgstr ""
+msgstr "转向 '{0}' 已添加"
 
 #: .\views.py:123
 msgid "The redirect could not be created due to errors."
-msgstr ""
+msgstr "由于多个错误，转向设置无法创建。"
 
 #: .\templates\wagtailredirects\add.html:3
 #: .\templates\wagtailredirects\add.html:6
 #: .\templates\wagtailredirects\index.html:18
 msgid "Add redirect"
-msgstr ""
+msgstr "添加转向"
 
 #: .\templates\wagtailredirects\add.html:14
 #: .\templates\wagtailredirects\edit.html:14
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: .\templates\wagtailredirects\confirm_delete.html:4
 #, python-format
 msgid "Delete redirect %(title)s"
-msgstr ""
+msgstr "删除转向%(title)s"
 
 #: .\templates\wagtailredirects\confirm_delete.html:6
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: .\templates\wagtailredirects\confirm_delete.html:10
 msgid "Are you sure you want to delete this redirect?"
-msgstr ""
+msgstr "你确定你想删除这个转向？"
 
 #: .\templates\wagtailredirects\confirm_delete.html:13
 msgid "Yes, delete"
-msgstr ""
+msgstr "是的， 删除"
 
 #: .\templates\wagtailredirects\edit.html:4
 #, python-format
 msgid "Editing %(title)s"
-msgstr ""
+msgstr "编辑 %(title)s"
 
 #: .\templates\wagtailredirects\edit.html:6
 msgid "Editing"
-msgstr ""
+msgstr "编辑"
 
 #: .\templates\wagtailredirects\edit.html:15
 msgid "Delete redirect"
-msgstr ""
+msgstr "删除转向"
 
 #: .\templates\wagtailredirects\index.html:3
 #: .\templates\wagtailredirects\index.html:17
 msgid "Redirects"
-msgstr ""
+msgstr "转向"
 
 #: .\templates\wagtailredirects\list.html:18
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: .\templates\wagtailredirects\list.html:19
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: .\templates\wagtailredirects\list.html:26
 msgid "Edit this redirect"
-msgstr ""
+msgstr "编辑这个转向"
 
 #: .\templates\wagtailredirects\list.html:35
 msgid "primary"
-msgstr ""
+msgstr "主要"
 
 #: .\templates\wagtailredirects\results.html:5
 #, python-format
@@ -132,11 +136,18 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
+"\n"
+"            这里有 %(counter)s 个匹配\n"
+"        "
+msgstr[1] ""
+"\n"
+"            这里有一个匹配\n"
+"        "
 
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
-msgstr ""
+msgstr "读不起，没有转向匹配\"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtailredirects\results.html:21
 #, python-format
@@ -144,3 +155,5 @@ msgid ""
 "No redirects have been created. Why not <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
+"没有任何已保存的转向。为什么不 <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">添加一个</a>?"
