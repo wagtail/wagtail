@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+#
+# Translators: Lihan Li <lilihan.it@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
@@ -19,32 +21,34 @@ msgstr ""
 
 #: .\forms.py:11
 msgid "Please enter a valid URL"
-msgstr ""
+msgstr "请输入有效的URL"
 
 #: .\forms.py:15
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:3
 msgid "Insert embed"
-msgstr ""
+msgstr "插入 embed"
 
 #: .\templates\wagtailembeds\chooser\chooser.html:14
 msgid "Insert"
-msgstr ""
+msgstr "插入"
 
 #: .\views\chooser.py:34
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
-msgstr ""
+msgstr "embedly API 密匙有问题。请检查设置。"
 
 #: .\views\chooser.py:36
 msgid "Cannot find an embed for this URL."
-msgstr ""
+msgstr "在这个URL中无法找到embed"
 
 #: .\views\chooser.py:38
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
+"在嵌入这个URL的时候，Embedly似乎有错。"
+"请稍后再试."
