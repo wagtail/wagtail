@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-26 00:10+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 15:55+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Título"
 
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
-msgstr "No es una formato válido de imagen. Por favor usa en su lugar un archivo gif, jpeg o png."
+msgstr "No es un formato válido de imagen. Por favor, usa en su lugar un archivo gif, jpeg o png."
 
 #: .\models.py:41
 msgid "File"
@@ -138,7 +138,7 @@ msgstr "Imágenes"
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr "Lo sentimos, no hay coincidencias en las imágenes \"<em>%(search_query)s</em>\""
+msgstr "Lo sentimos, ninguna imagen contiene \"<em>%(search_query)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format
@@ -146,6 +146,10 @@ msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr "No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s\">añadir una ahora</a>?"
+
+#: .\views\images.py:29 .\views\images.py:40
+msgid "Search images"
+msgstr ""
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

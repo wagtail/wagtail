@@ -137,6 +137,7 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
+msgstr[1] ""
 
 #: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format

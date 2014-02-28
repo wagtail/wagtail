@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-24 22:36+0000\n"
-"Last-Translator: tomdyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2014-02-28 17:54+0200\n"
+"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/wagtail/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -158,6 +158,10 @@ msgstr ""
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_create_url)s\">add some</a>?"
+msgstr ""
+
+#: .\views\users.py:21 .\views\users.py:28
+msgid "Search users"
 msgstr ""
 
 #: .\views\users.py:75

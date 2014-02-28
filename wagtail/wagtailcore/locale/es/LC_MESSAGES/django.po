@@ -4,13 +4,16 @@
 # 
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# unaizalakain <unai@gisa-elkartea.org>, 2014
 # unaizalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-25 19:31+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-27 09:22+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +60,7 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
-#: .\models.py:408
+#: .\models.py:418
 #, python-format
 msgid "name '%s' (used in subpage_types list) is not defined."
 msgstr "nombre '%s' (usado en la lista de subpage_types) no está definido."

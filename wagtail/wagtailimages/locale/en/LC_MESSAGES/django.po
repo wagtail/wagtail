@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,6 +142,10 @@ msgstr ""
 msgid ""
 "You've not uploaded any images. Why not <a href=\"%"
 "(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+
+#: .\views\images.py:29 .\views\images.py:40
+msgid "Search images"
 msgstr ""
 
 #: .\views\images.py:92

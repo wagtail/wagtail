@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: .\models.py:408
+#: .\models.py:418
 #, python-format
 msgid "name '%s' (used in subpage_types list) is not defined."
 msgstr ""

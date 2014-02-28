@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\models.py:10
 msgid "Redirect from"
@@ -137,11 +137,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            这里有 %(counter)s 个匹配\n"
+"            这里有一个匹配\n"
 "        "
 msgstr[1] ""
 "\n"
-"            这里有一个匹配\n"
+"            这里有 %(counter)s 个匹配\n"
 "        "
 
 #: .\templates\wagtailredirects\results.html:18

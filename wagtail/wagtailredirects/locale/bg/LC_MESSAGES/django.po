@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-24 20:48+0000\n"
-"Last-Translator: LyuboslavPetrov <petrov.lyuboslav@gmail.com>\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,10 @@ msgstr "Пренасочване към страница"
 #: .\models.py:14
 msgid "Redirect to any URL"
 msgstr "Пренасочване към URL"
+
+#: .\views.py:23 .\views.py:33
+msgid "Search redirects"
+msgstr ""
 
 #: .\views.py:79
 msgid "Redirect '{0}' updated."

@@ -4,12 +4,13 @@
 # 
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-25 20:06+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-27 09:34+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +43,7 @@ msgstr "Parece que hay un problema con tu clave de API de embedly. Por favor com
 
 #: .\views\chooser.py:36
 msgid "Cannot find an embed for this URL."
-msgstr "No puedo encontrar un embed para esta URL."
+msgstr "No se puede encontrar un embed para esta URL."
 
 #: .\views\chooser.py:38
 msgid ""

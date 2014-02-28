@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 17:38+0200\n"
-"PO-Revision-Date: 2014-02-22 17:17+0000\n"
+"POT-Creation-Date: 2014-02-28 17:54+0200\n"
+"PO-Revision-Date: 2014-02-28 16:00+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,10 @@ msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_create_url)s\">add some</a>?"
 msgstr "Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s\">προσθέσετε μερικούς</a>?"
+
+#: .\views\users.py:21 .\views\users.py:28
+msgid "Search users"
+msgstr "Αναζήτηση χρηστών"
 
 #: .\views\users.py:75
 msgid "User '{0}' created."

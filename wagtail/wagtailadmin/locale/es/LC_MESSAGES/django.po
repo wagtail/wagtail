@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-26 09:00+0000\n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-27 09:05+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,27 +21,27 @@ msgstr ""
 
 #: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
 msgid "Please type a valid time"
-msgstr "Escribe una fecha válida por favor"
+msgstr "Por favor, escribe una hora válida"
 
-#: .\forms.py:12
+#: .\forms.py:17
 msgid "Search term"
 msgstr "Término de búsqueda"
 
-#: .\forms.py:44
+#: .\forms.py:49
 msgid "Enter your email address to reset your password"
-msgstr "Escribe tu dirección de correo para restaurar tu contraseña"
+msgstr "Escribe tu dirección de correo para restablecer tu contraseña"
 
-#: .\forms.py:53
+#: .\forms.py:58
 msgid "Please fill your email address."
 msgstr "Rellena tu dirección de correo por favor."
 
-#: .\forms.py:66
+#: .\forms.py:71
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr "Perdón, no puedes restablecer tu contraseña aquí porque tu cuenta es gestionada por otro servidor."
+msgstr "Lo sentimos, no puedes restablecer tu contraseña aquí porque tu cuenta es gestionada por otro servidor."
 
-#: .\forms.py:69
+#: .\forms.py:74
 msgid "This email address is not recognised."
 msgstr "No se reconoce la dirección de correo."
 
@@ -51,7 +51,7 @@ msgstr "Panel de control"
 
 #: .\templates\wagtailadmin\base.html:31
 msgid "Menu"
-msgstr "Menu"
+msgstr "Menú"
 
 #: .\templates\wagtailadmin\home.html:22
 #, python-format
@@ -71,7 +71,7 @@ msgstr "Iniciar sesión"
 
 #: .\templates\wagtailadmin\login.html:18
 msgid "Your username and password didn't match. Please try again."
-msgstr "Tu usuario y contraseña no concuerdan. Por favor, inténtalo de nuevo."
+msgstr "Tu usuario y contraseña no coinciden. Por favor, inténtalo de nuevo."
 
 #: .\templates\wagtailadmin\login.html:26
 msgid "Sign in to Wagtail"
@@ -79,7 +79,7 @@ msgstr "Iniciar sesión en Wagtail"
 
 #: .\templates\wagtailadmin\login.html:42
 msgid "Forgotten it?"
-msgstr "Lo has olvidado?"
+msgstr "¿La has olvidado?"
 
 #: .\templates\wagtailadmin\account\account.html:4
 msgid "Account"
@@ -136,27 +136,27 @@ msgstr "Establece tu nueva contraseña"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:19
 msgid "The passwords do not match. Please try again."
-msgstr "Las contraseñas no concuerdan. Por favor, inténtalo de nuevo."
+msgstr "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:15
 msgid "Check your email"
-msgstr "Revisa tu email"
+msgstr "Revisa tu correo electrónico"
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:16
 msgid "A link to reset your password has been emailed to you."
-msgstr "Se te ha enviado por correo un enlace para restablecer tu contraseña."
+msgstr "Un enlace para restablecer tu contraseña, te ha sido enviado por correo electrónico."
 
 #: .\templates\wagtailadmin\account\password_reset\email.txt:2
 msgid "Please follow the link below to reset your password"
-msgstr "Por favor, sigue el enlace posterior para restablecer tu contraseña"
+msgstr "Por favor, sigue el enlace de abajo para restablecer tu contraseña"
 
 #: .\templates\wagtailadmin\account\password_reset\email_subject.txt:2
 msgid "Password reset"
-msgstr "Restablecimiento de contraseña"
+msgstr "Restablecer contraseña"
 
 #: .\templates\wagtailadmin\account\password_reset\form.html:27
 msgid "Reset your password"
-msgstr "Restablece tu contraseña"
+msgstr "Restablecer tu contraseña"
 
 #: .\templates\wagtailadmin\chooser\_link_types.html:5
 #: .\templates\wagtailadmin\chooser\_link_types.html:7
@@ -171,7 +171,7 @@ msgstr "Enlace externo"
 #: .\templates\wagtailadmin\chooser\_link_types.html:17
 #: .\templates\wagtailadmin\chooser\_link_types.html:19
 msgid "Email link"
-msgstr "Enlace de correo"
+msgstr "Enlace de correo electrónico"
 
 #: .\templates\wagtailadmin\chooser\_search_form.html:7
 #: .\templates\wagtailadmin\pages\search.html:3
@@ -212,7 +212,7 @@ msgstr "Elige una página"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:2
 msgid "Add an email link"
-msgstr "Añade un enlace de email"
+msgstr "Añade un enlace de correo electrónico"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:14
 #: .\templates\wagtailadmin\chooser\external_link.html:14
@@ -225,7 +225,7 @@ msgstr "Añade un enlace externo"
 
 #: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:20
 msgid "Clear choice"
-msgstr "Borrar elección"
+msgstr "Borrar selección"
 
 #: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:22
 msgid "Choose another item"
@@ -237,11 +237,11 @@ msgstr "Elige un elemento"
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:5
 msgid "Move up"
-msgstr "Moverse arriba"
+msgstr "Subir"
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:6
 msgid "Move down"
-msgstr "Moverse abajo"
+msgstr "Bajar"
 
 #: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:8
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
@@ -249,7 +249,7 @@ msgstr "Moverse abajo"
 #: .\templates\wagtailadmin\pages\list.html:68
 #: .\templates\wagtailadmin\pages\list.html:189
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Eliminar"
 
 #: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:12
 msgid "Choose another page"
@@ -289,7 +289,7 @@ msgstr "Editar esta página"
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:28
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:12
 msgid "Approve"
-msgstr "Aprovar"
+msgstr "Aprobar"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:34
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:17
@@ -308,7 +308,7 @@ msgstr "Editar"
 #: .\templates\wagtailadmin\pages\create.html:24
 #: .\templates\wagtailadmin\pages\edit.html:42
 msgid "Preview"
-msgstr "Prever"
+msgstr "Previsualizar"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:5
 msgid "Your most recent edits"
@@ -407,16 +407,16 @@ msgstr "Puedes editar la página aquí:"
 #: .\templates\wagtailadmin\notifications\submitted.html:1
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "La página \"%(page)s\" ha sido entregada para ser moderada"
+msgstr "La página \"%(page)s\" ha sido enviada para ser moderada"
 
 #: .\templates\wagtailadmin\notifications\submitted.html:2
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "La página \"%(page)s\" ha sido entregada para ser moderada."
+msgstr "La página \"%(page)s\" ha sido enviada para ser moderada."
 
 #: .\templates\wagtailadmin\notifications\submitted.html:4
 msgid "You can preview the page here:"
-msgstr "Puedes prever la página aquí:"
+msgstr "Puedes previsualizar la página aquí:"
 
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:4
 #, python-format
@@ -424,7 +424,7 @@ msgid ""
 "\n"
 "            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
 "        "
-msgstr "\n            Previendo '%(title)s', enviado por %(submitted_by)s en %(submitted_on)s.\n        "
+msgstr "\n            Previsualizando '%(title)s', enviada por %(submitted_by)s en %(submitted_on)s.\n        "
 
 #: .\templates\wagtailadmin\pages\add_subpage.html:6
 #, python-format
@@ -447,11 +447,11 @@ msgstr "Páginas usando %(page_type)s"
 #: .\templates\wagtailadmin\pages\confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
-msgstr "Borrar %(title)s"
+msgstr "Eliminar %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:12
 msgid "Are you sure you want to delete this page?"
-msgstr "Estás seguro de querer borrar esta página?"
+msgstr "¿Seguro que quieres eliminar esta página?"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:14
 #, python-format
@@ -464,7 +464,7 @@ msgid_plural ""
 "                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
 msgstr[0] "\n                    Esto también borrará otra subpágina.\n                "
-msgstr[1] "\n                    Esto también borrará %(descendant_count)s subpáginas más.\n                "
+msgstr[1] "\n                    Esto también eliminará %(descendant_count)s subpáginas más.\n                "
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:22
 msgid ""
@@ -474,11 +474,11 @@ msgstr "Otra opción es no publicar la página. Esto no permite que el público 
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:26
 msgid "Delete it"
-msgstr "Bórralo"
+msgstr "Elimínalo"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:26
 msgid "Unpublish it"
-msgstr "No lo publiques"
+msgstr "No publicar"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:3
 #, python-format
@@ -501,7 +501,7 @@ msgstr "Estás seguro de que quieres mover esta página a dentro de '%(title)s'?
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr "Estás seguro de que quieres mover esta página y todas sus páginas descendientes a dentro de '%(title)s'?"
+msgstr "Estás seguro de que quieres mover esta página y todas sus páginas hijas a '%(title)s'?"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:18
 msgid "Yes, move this page"
@@ -525,7 +525,7 @@ msgstr "Estás seguro de que no quieres publicar esta página?"
 
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:13
 msgid "Yes, unpublish it"
-msgstr "Sí, no lo publiques"
+msgstr "Sí, no publicar"
 
 #: .\templates\wagtailadmin\pages\content_type_use.html:7
 msgid "Pages using"
@@ -595,11 +595,11 @@ msgstr "Tipo"
 #: .\templates\wagtailadmin\pages\list.html:53
 #: .\templates\wagtailadmin\pages\list.html:195
 msgid "Add child page"
-msgstr "Añadir página descendiente"
+msgstr "Añadir página hija"
 
 #: .\templates\wagtailadmin\pages\list.html:95
 msgid "Disable ordering of child pages"
-msgstr "Deshabilitar organización de páginas descendientes"
+msgstr "Deshabilitar organización de páginas hijas"
 
 #: .\templates\wagtailadmin\pages\list.html:95
 #: .\templates\wagtailadmin\pages\list.html:97
@@ -608,7 +608,7 @@ msgstr "Orden"
 
 #: .\templates\wagtailadmin\pages\list.html:97
 msgid "Enable ordering of child pages"
-msgstr "Habilitar organización de páginas descendientes"
+msgstr "Habilitar organización de páginas hijas"
 
 #: .\templates\wagtailadmin\pages\list.html:150
 msgid "Drag"
@@ -629,12 +629,12 @@ msgstr "Explorar"
 #: .\templates\wagtailadmin\pages\list.html:229
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
-msgstr "Explorar páginas descendientes de '%(title)s'"
+msgstr "Explorar páginas hijas de '%(title)s'"
 
 #: .\templates\wagtailadmin\pages\list.html:231
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Añadir página descendiente a '%(title)s'"
+msgstr "Añadir página hija a '%(title)s'"
 
 #: .\templates\wagtailadmin\pages\list.html:231
 msgid "Add subpage"
@@ -703,7 +703,7 @@ msgstr "Lo sentimos, ninguna página contiene <em>\"%(search_query)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
-msgstr "Rellena el término de búsqueda de arriba"
+msgstr "Introduce el término de búsqueda arriba"
 
 #: .\templates\wagtailadmin\pages\select_location.html:3
 #, python-format
@@ -768,7 +768,7 @@ msgstr "Usuarios"
 
 #: .\views\account.py:23
 msgid "Your password has been changed successfully!"
-msgstr "Tu contraseña ha sido cambiada con éxito!"
+msgstr "¡Tu contraseña ha sido cambiada con éxito!"
 
 #: .\views\pages.py:99
 msgid "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
@@ -778,7 +778,7 @@ msgstr "Lo sentimos, no tienes permiso para crear una página de tipo <em>'{0}'<
 msgid ""
 "Pages of this type can only be created as children of <em>'{0}'</em>. This "
 "new page will be saved there."
-msgstr "Páginas de este tipo solo pueden ser creadas como descendientes de <em>'{0}'</em>. Esta nueva página será guardada ahí."
+msgstr "Páginas de este tipo solo pueden ser creadas como hijas de <em>'{0}'</em>. Esta nueva página será guardada ahí."
 
 #: .\views\pages.py:166
 msgid "This slug is already in use"
@@ -814,7 +814,7 @@ msgstr "La página está a la espera de ser moderada"
 
 #: .\views\pages.py:298
 msgid "Page '{0}' deleted."
-msgstr "Página '{0}' borrada."
+msgstr "Página '{0}' eliminada."
 
 #: .\views\pages.py:428
 msgid "Page '{0}' unpublished."
