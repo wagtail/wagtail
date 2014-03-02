@@ -95,6 +95,11 @@ class RelatedLink(LinkFields):
         abstract = True
 
 
+# Simple page
+class SimplePage(Page):
+    content = models.TextField()
+
+
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):

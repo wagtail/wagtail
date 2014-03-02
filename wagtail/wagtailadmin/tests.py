@@ -1,6 +1,6 @@
 from django.test import TestCase
 import unittest
-from wagtail.tests.models import EventPage
+from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
@@ -22,7 +22,7 @@ class TestPageExplorer(TestCase):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = EventPage()
+        self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.root_page.add_child(self.child_page)
@@ -79,12 +79,68 @@ class TestPageCreation(TestCase):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(100000, )))
         self.assertEqual(response.status_code, 404)
 
-    def test_create_testpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'eventpage', self.root_page.id)))
+    def test_create_simplepage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_simplepage_post(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the page and check it
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        self.assertEqual(page.title, post_data['title'])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+
+    def test_create_simplepage_post_publish(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the page and check it
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        self.assertEqual(page.title, post_data['title'])
+        self.assertIsInstance(page, SimplePage)
+        self.assertTrue(page.live)
+
+    def test_create_simplepage_post_existingslug(self):
+        # This tests the existing slug checking on page save
+
+        # Create a page
+        self.child_page = SimplePage()
+        self.child_page.title = "Hello world!"
+        self.child_page.slug = "hello-world"
+        self.root_page.add_child(self.child_page)
+
+        # Attempt to create a new one with the same slug
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should not be redirected (as the save should fail)
         self.assertEqual(response.status_code, 200)
 
     def test_create_nonexistantparent(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'testpage', 100000)))
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', 100000)))
         self.assertEqual(response.status_code, 404)
 
     @unittest.expectedFailure # FIXME: Crashes!
@@ -93,13 +149,77 @@ class TestPageCreation(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestPageEditDelete(TestCase):
+class TestPageEdit(TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = EventPage()
+        self.child_page = SimplePage()
+        self.child_page.title = "Hello world!"
+        self.child_page.slug = "hello-world"
+        self.child_page.live = True
+        self.root_page.add_child(self.child_page)
+        self.child_page.save_revision()
+
+        # Add event page (to test edit handlers)
+        self.event_page = EventPage()
+        self.event_page.title = "Event page"
+        self.event_page.slug = "event-page"
+        self.root_page.add_child(self.event_page)
+
+        # Login
+        login(self.client)
+
+    def test_edit_page(self):
+        # Tests that the edit page loads
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+    def test_edit_post(self):
+        # Tests simple editing
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+    
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+    def test_edit_post_publish(self):
+        # Tests publish from edit page
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+    
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the page was edited
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertEqual(child_page_new.title, post_data['title'])
+
+        # The page shouldn't have "has_unpublished_changes" flag set
+        self.assertFalse(child_page_new.has_unpublished_changes)
+
+
+class TestPageDelete(TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.root_page.add_child(self.child_page)
@@ -107,13 +227,19 @@ class TestPageEditDelete(TestCase):
         # Login
         login(self.client)
 
-    def test_edit(self):
-        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
-        self.assertEqual(response.status_code, 200)
-
     def test_delete(self):
         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_post(self):
+        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the page is gone
+        self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
 
 
 class TestPageSearch(TestCase):
@@ -152,18 +278,18 @@ class TestPageMove(TestCase):
         self.root_page = Page.objects.get(id=2)
 
         # Create two sections
-        self.section_a = EventPage()
+        self.section_a = SimplePage()
         self.section_a.title = "Section A"
         self.section_a.slug = "section-a"
         self.root_page.add_child(self.section_a)
 
-        self.section_b = EventPage()
+        self.section_b = SimplePage()
         self.section_b.title = "Section B"
         self.section_b.slug = "section-b"
         self.root_page.add_child(self.section_b)
 
         # Add test page into section A
-        self.test_page = EventPage()
+        self.test_page = SimplePage()
         self.test_page.title = "Hello world!"
         self.test_page.slug = "hello-world"
         self.section_a.add_child(self.test_page)
