@@ -2,6 +2,8 @@ from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from wagtail.tests.utils import login
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
@@ -166,8 +168,29 @@ class TestImageAddView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_add_image'), params)
 
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages_add_image'), post_data)
+
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
+
+    def test_add(self):
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Should redirect back to index
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
 
 
 class TestImageEditView(TestCase):
@@ -183,8 +206,23 @@ class TestImageEditView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_edit_image', args=(self.image.id,)), params)
 
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
+
+    def test_edit(self):
+        response = self.post({
+            'title': "Edited",
+        })
+
+        # Should redirect back to index
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the image was edited
+        image = Image.objects.get(id=self.image.id)
+        self.assertEqual(image.title, "Edited")
 
 
 class TestImageDeleteView(TestCase):
@@ -200,8 +238,23 @@ class TestImageDeleteView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_delete_image', args=(self.image.id,)), params)
 
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailimages_delete_image', args=(self.image.id,)), post_data)
+
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
+
+    def test_delete(self):
+        response = self.post({
+            'hello': 'world'
+        })
+
+        # Should redirect back to index
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the image was deleted
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 0)
 
 
 class TestImageChooserView(TestCase):
