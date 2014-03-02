@@ -37,7 +37,7 @@ class TestPageExplorer(TestCase):
         self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
 
 
-class TestPageCreation(TestCase):
+class TestPageSelectTypeLocation(TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -62,19 +62,28 @@ class TestPageCreation(TestCase):
         response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('wagtailimages', 'image')))
         self.assertEqual(response.status_code, 404)
 
-    def test_add_subpage_root(self):
+
+class TestPageCreation(TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        login(self.client)
+
+    def test_add_subpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-    def test_add_subpage_nonexistant(self):
+    def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(100000, )))
         self.assertEqual(response.status_code, 404)
 
-    def test_create_testpage_root(self):
+    def test_create_testpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'eventpage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
 
-    def test_create_testpage_nonexistantparent(self):
+    def test_create_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'testpage', 100000)))
         self.assertEqual(response.status_code, 404)
 
