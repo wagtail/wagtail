@@ -3,11 +3,6 @@ from django.test.client import Client
 from wagtail.wagtailredirects import models
 
 
-def get_default_site():
-    from wagtail.wagtailcore.models import Site
-    return Site.objects.filter(is_default_site=True).first()
-
-
 class TestRedirects(TestCase):
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
@@ -16,13 +11,13 @@ class TestRedirects(TestCase):
         # Create a path
         path = normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')
 
-        # Test against equivilant paths
+        # Test against equivalant paths
         self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')) # The exact same URL
         self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html?foo=Bar&Baz=quux2')) # Scheme, hostname and port ignored
         self.assertEqual(path, normalise_path('Hello/world.html?foo=Bar&Baz=quux2')) # Leading slash can be omitted
         self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html?Baz=quux2&foo=Bar')) # Order of query string paramters are ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html?Baz=quux2&foo=Bar')) # Order of query string parameters are ignored
 
         # Test against different paths
         self.assertNotEqual(path, normalise_path('/hello/world.html?foo=Bar&Baz=quux2')) # 'hello' is lowercase
@@ -43,7 +38,7 @@ class TestRedirects(TestCase):
         c = Client()
 
         # Create a redirect
-        redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto', site=get_default_site())
+        redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto')
         redirect.save()
 
         # Navigate to it
@@ -58,7 +53,7 @@ class TestRedirects(TestCase):
         c = Client()
 
         # Create a redirect
-        redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto', site=get_default_site(), is_permanent=False)
+        redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto', is_permanent=False)
         redirect.save()
 
         # Navigate to it
