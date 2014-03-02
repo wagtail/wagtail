@@ -162,7 +162,6 @@ class TestPageMove(TestCase):
         # Login
         login(self.client)
 
-    @unittest.expectedFailure # TODO: Fix crash
     def test_page_move(self):
          response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
          self.assertEqual(response.status_code, 200)
