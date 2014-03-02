@@ -99,12 +99,12 @@ class TestPageEditDelete(TestCase):
         login(self.client)
 
     def test_edit(self):
-         response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
-         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPageSearch(TestCase):
@@ -163,13 +163,13 @@ class TestPageMove(TestCase):
         login(self.client)
 
     def test_page_move(self):
-         response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_page_move_confirm(self):
-         response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
+        self.assertEqual(response.status_code, 200)
 
     def test_page_set_page_position(self):
-         response = self.client.get(reverse('wagtailadmin_pages_set_page_position', args=(self.test_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_set_page_position', args=(self.test_page.id, )))
+        self.assertEqual(response.status_code, 200)
