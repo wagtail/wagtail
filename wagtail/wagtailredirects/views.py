@@ -15,36 +15,27 @@ REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
 
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
-    p = request.GET.get("p", 1)
-    q = None
-    is_searching = False
+    page = request.GET.get('p', 1)
+    query_string = request.GET.get('q', "")
+    ordering = request.GET.get('ordering', 'old_path')
 
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search redirects"))
-        if form.is_valid():
-            q = form.cleaned_data['q']
-            is_searching = True
+    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
 
-            redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page').filter(old_path__icontains=q)
+    # Search
+    if query_string:
+        redirects = redirects.filter(old_path__icontains=query_string)
 
-    if not is_searching:
-        # Get redirects
-        redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
-        form = SearchForm(placeholder=_("Search redirects"))
-
-    if 'ordering' in request.GET:
-        ordering = request.GET['ordering']
-
-        if ordering in ['old_path', ]:
-            if ordering != 'old_path':
-                redirects = redirects.order_by(ordering)
-    else:
+    # Ordering (A bit useless at the moment as only 'old_path' is allowed)
+    if ordering not in ['old_path']:
         ordering = 'old_path'
 
-    paginator = Paginator(redirects, 20)
+    if ordering != 'old_path':
+        redirects = redirects.order_by(ordering)
 
+    # Pagination
+    paginator = Paginator(redirects, 20)
     try:
-        redirects = paginator.page(p)
+        redirects = paginator.page(page)
     except PageNotAnInteger:
         redirects = paginator.page(1)
     except EmptyPage:
@@ -55,15 +46,14 @@ def index(request):
         return render(request, "wagtailredirects/results.html", {
             'ordering': ordering,
             'redirects': redirects,
-            'is_searching': is_searching,
-            'query_string': q,
+            'query_string': query_string,
         })
     else:
         return render(request, "wagtailredirects/index.html", {
             'ordering': ordering,
-            'search_form': form,
             'redirects': redirects,
-            'is_searching': is_searching,
+            'query_string': query_string,
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")),
         })
 
 

@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if redirects %}
-    {% if is_searching %}
+    {% if query_string %}
         <h2>
         {% blocktrans count counter=redirects|length %}
             There is one match
@@ -12,9 +12,9 @@
 
     {% include "wagtailredirects/list.html" %}
 
-	{% include "wagtailadmin/shared/pagination_nav.html" with items=redirects is_searching=is_searching linkurl="wagtailredirects_index" %}
+	{% include "wagtailadmin/shared/pagination_nav.html" with items=redirects is_searching=query_string linkurl="wagtailredirects_index" %}
 {% else %}
- 	{% if is_searching %}
+ 	{% if query_string %}
          <p>{% blocktrans %}Sorry, no redirects match "<em>{{ query_string }}</em>"{% endblocktrans %}
     {% else %}
         {% url 'wagtailredirects_add_redirect' as wagtailredirects_add_redirect_url %}
