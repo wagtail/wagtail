@@ -137,8 +137,8 @@ msgstr "Imagini"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
-msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici o imagine"
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format

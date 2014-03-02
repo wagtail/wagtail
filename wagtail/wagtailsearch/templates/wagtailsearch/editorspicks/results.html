@@ -15,7 +15,7 @@
 	{% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearch_editorspicks_index" %}
 {% else %}
  	{% if is_searching %}
-         <p>{% blocktrans %}Sorry, no editor's picks match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+         <p>{% blocktrans %}Sorry, no editor's picks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsearch_editorspicks_add' as wagtailsearch_editorspicks_add_url %}
         <p>{% blocktrans %}No editor's picks have been created. Why not <a href="{{ wagtailsearch_editorspicks_add_url }}">add one</a>?{% endblocktrans %}</p>

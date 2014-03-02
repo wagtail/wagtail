@@ -41,13 +41,13 @@ def index(request):
         return render(request, "wagtailsearch/editorspicks/results.html", {
             'queries': queries,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
         })
     else:
         return render(request, 'wagtailsearch/editorspicks/index.html', {
             'is_searching': is_searching,
             'queries': queries,
-            'search_query': q,
+            'query_string': q,
             'search_form': form,
         })
 

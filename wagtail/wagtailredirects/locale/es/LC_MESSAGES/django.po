@@ -142,8 +142,8 @@ msgstr[1] "\n            Hay %(counter)s coincidencias\n        "
 
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
-msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
-msgstr "Lo sentimos, ninguna redirección contiene \"<em>%(search_query)s</em>\""
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "Lo sentimos, ninguna redirección contiene \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailredirects\results.html:21
 #, python-format

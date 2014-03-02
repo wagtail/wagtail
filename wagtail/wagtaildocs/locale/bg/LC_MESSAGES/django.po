@@ -70,8 +70,8 @@ msgstr "Последни документи"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
-msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr "Няма съвпадение на документи с <em>\"%(search_query)s\"</em>"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Няма съвпадение на документи с <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"

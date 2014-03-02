@@ -139,7 +139,7 @@ msgstr[1] ""
 
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
-msgid "Sorry, no redirects match \"<em>%(search_query)s</em>\""
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 
 #: .\templates\wagtailredirects\results.html:21

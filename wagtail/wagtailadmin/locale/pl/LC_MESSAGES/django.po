@@ -704,8 +704,8 @@ msgstr "Naprzód"
 
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
-msgid "Sorry, no pages match <em>\"%(search_query)s\"</em>"
-msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(search_query)s\"</em>"
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"

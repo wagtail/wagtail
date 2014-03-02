@@ -130,8 +130,8 @@ msgstr[1] "\n            Es gibt %(counter)s Ergebnisse\n        "
 
 #: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
-msgid "Sorry, no editor's picks match \"<em>%(search_query)s</em>\""
-msgstr "Es wurde leider keine Redaktionsempfehlung zum Suchbegriff \"<em>%(search_query)s</em>\" gefunden"
+msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
+msgstr "Es wurde leider keine Redaktionsempfehlung zum Suchbegriff \"<em>%(query_string)s</em>\" gefunden"
 
 #: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format

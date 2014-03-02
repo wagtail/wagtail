@@ -15,7 +15,7 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_index" %}
 {% else %}
     {% if is_searching %}
-         <p>{% blocktrans %}Sorry, no users match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+         <p>{% blocktrans %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailusers_create' as wagtailusers_create_url %}
         <p>{% blocktrans %}There are no users configured. Why not <a href="{{ wagtailusers_create_url }}">add some</a>?{% endblocktrans %}</p>

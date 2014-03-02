@@ -563,14 +563,14 @@ def search(request):
         return render(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
         })
 
 

@@ -56,7 +56,7 @@ def index(request):
             'ordering': ordering,
             'redirects': redirects,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
         })
     else:
         return render(request, "wagtailredirects/index.html", {

@@ -697,8 +697,8 @@ msgstr "Επόμενο"
 
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
-msgid "Sorry, no pages match <em>\"%(search_query)s\"</em>"
-msgstr "Δε βρέθηκαν σελίδες που να ταιριάζουν με το <em>\"%(search_query)s\"</em>"
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Δε βρέθηκαν σελίδες που να ταιριάζουν με το <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"

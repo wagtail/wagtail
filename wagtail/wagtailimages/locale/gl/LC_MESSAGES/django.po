@@ -137,8 +137,8 @@ msgstr "Imaxes"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
-msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr "Sentímolo, ningunha imaxe contén \"<em>%(search_query)s</em>\""
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Sentímolo, ningunha imaxe contén \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format

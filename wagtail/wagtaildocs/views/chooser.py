@@ -51,7 +51,7 @@ def chooser(request):
 
         return render(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
-            'search_query': q,
+            'query_string': q,
             'is_searching': is_searching,
         })
     else:
