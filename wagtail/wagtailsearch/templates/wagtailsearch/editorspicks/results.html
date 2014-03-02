@@ -12,9 +12,9 @@
 
     {% include "wagtailsearch/editorspicks/list.html" %}
 
-	{% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearch_editorspicks_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearch_editorspicks_index" %}
 {% else %}
- 	{% if is_searching %}
+    {% if is_searching %}
          <p>{% blocktrans %}Sorry, no editor's picks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsearch_editorspicks_add' as wagtailsearch_editorspicks_add_url %}
