@@ -1,9 +1,33 @@
 from django.test import TestCase
+from django.http import HttpRequest
+
 from wagtail.wagtailcore.models import Page, Site
 
 
 class TestRouting(TestCase):
     fixtures = ['test.json']
+
+    def test_find_site_for_request(self):
+        default_site = Site.objects.get(is_default_site=True)
+        events_page = Page.objects.get(url_path='/home/events/')
+        events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+
+        # requests without a Host: header should be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        self.assertEqual(Site.find_for_request(request), default_site)
+
+        # requests with a known Host: header should be directed to the specific site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = 'events.example.com'
+        self.assertEqual(Site.find_for_request(request), events_site)
+
+        # requests with an unrecognised Host: header should be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = 'unknown.example.com'
+        self.assertEqual(Site.find_for_request(request), default_site)
 
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
