@@ -1,14 +1,16 @@
 {% extends "wagtailadmin/base.html" %}
+{% load i18n %}
 {% load meta_description %}
 
 {% block bodyclass %}menu-explorer{% endblock %}
-{% block titletag %}Create a page in {{ parent_page.title }}{% endblock %}
+{% block titletag %}{% blocktrans with title=parent_page.title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Create a page in" subtitle=parent_page.title %}
+    {% trans "Create a page in" as create_str %}
+    {% include "wagtailadmin/shared/header.html" with title=create_str subtitle=parent_page.title %}
 
     <div class="nice-padding">
-        <p>Choose which type of page you'd like to create.</p>
+        <p>{% trans "Choose which type of page you'd like to create." %}</p>
 
         {% if all_page_types %}
             <ul class="listing">
@@ -21,7 +23,7 @@
 
                             <small class="col6" style="text-align:right">
                                 {{ content_type|meta_description }}
-                                <a href="{% url 'wagtailadmin_pages_type_use' content_type.app_label content_type.model %}" class="nolink">Pages using {{ content_type.model_class.get_verbose_name }}</a>
+                                <a href="{% url 'wagtailadmin_pages_type_use' content_type.app_label content_type.model %}" class="nolink">{% blocktrans with page_type=content_type.model_class.get_verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
                             </small>
                             
                         </div>

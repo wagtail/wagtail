@@ -1,12 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}Create a new page{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Create a new page" %}{% endblock %}
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="Create a new page" %}
+    {% trans "Create a new page" as create_str %}
+    {% include "wagtailadmin/shared/header.html" with title=create_str %}
 
     <div class="nice-padding">
-        <p>Your new page will be saved in the <em>top level</em> of your website. You can move it after saving.</p>
+        <p>{% trans "Your new page will be saved in the <em>top level</em> of your website. You can move it after saving." %}</p>
         
         {% if all_page_types %}
             <ul class="listing">

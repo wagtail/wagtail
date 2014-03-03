@@ -1,13 +1,33 @@
 #!/usr/bin/env python
-import sys, os, shutil
+import sys
+import os
+import shutil
 
 from django.conf import settings, global_settings
 from django.core.management import execute_from_command_line
 
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
+MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 
 if not settings.configured:
+
+    try:
+        import elasticutils
+        has_elasticsearch = True
+    except ImportError:
+        has_elasticsearch = False
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        }
+    }
+    if has_elasticsearch:
+        WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        }
+
     settings.configure(
         DATABASES={
             'default': {
@@ -19,12 +39,25 @@ if not settings.configured:
         ROOT_URLCONF='wagtail.tests.urls',
         STATIC_URL='/static/',
         STATIC_ROOT=STATIC_ROOT,
-        STATICFILES_FINDERS = (
+        MEDIA_ROOT=MEDIA_ROOT,
+        STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
         ),
         TEMPLATE_CONTEXT_PROCESSORS=global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
             'django.core.context_processors.request',
+        ),
+        MIDDLEWARE_CLASSES=(
+            'django.middleware.common.CommonMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+            'wagtail.wagtailcore.middleware.SiteMiddleware',
+
+            'wagtail.wagtailredirects.middleware.RedirectMiddleware',
         ),
         INSTALLED_APPS=[
             'django.contrib.contenttypes',
@@ -32,6 +65,7 @@ if not settings.configured:
             'django.contrib.auth',
             'django.contrib.messages',
             'django.contrib.staticfiles',
+            'django.contrib.admin',
 
             'taggit',
             'south',
@@ -46,7 +80,10 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
-        ]
+            'wagtail.tests',
+        ],
+        WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
+        WAGTAIL_SITE_NAME='Test Site'
     )
 
 
@@ -56,8 +93,8 @@ def runtests():
         execute_from_command_line(argv)
     finally:
         shutil.rmtree(STATIC_ROOT, ignore_errors=True)
+        shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
 if __name__ == '__main__':
     runtests()
-

@@ -1,17 +1,18 @@
 {% extends "wagtailadmin/base.html" %}
+{% load i18n %}
 {% block bodyclass %}menu-redirects{% endblock %}
-{% block titletag %}Editing {{ redirect.title }}{% endblock %}
+{% block titletag %}{% blocktrans with title=redirect.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="Editing" subtitle=redirect.title %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title %}
 
     <form action="{% url 'wagtailredirects_edit_redirect' redirect.id %}" method="POST" class="nice-padding">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
         <div>
-            <input type="submit" value="Save" />
-            <a href="{% url 'wagtailredirects_delete_redirect' redirect.id %}" class="button button-secondary no">Delete redirect</a>
+            <input type="submit" value="{% trans 'Save' %}" />
+            <a href="{% url 'wagtailredirects_delete_redirect' redirect.id %}" class="button button-secondary no">{% trans "Delete redirect" %}</a>
         </div>
     </form>
     

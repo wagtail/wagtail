@@ -11,13 +11,15 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+from django.conf import settings
+from django.utils.translation import ugettext_lazy  as _
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages import image_ops
 
 
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name=_('Title') )
 
     def get_upload_to(self, filename):
         folder_name = 'original_images'
@@ -34,15 +36,15 @@ class AbstractImage(models.Model, TagSearchable):
     def file_extension_validator(ffile):
         extension = ffile.name.split(".")[-1].lower()
         if extension not in ["gif", "jpg", "jpeg", "png"]:
-            raise ValidationError("Not a valid image format. Please use a gif, jpeg or png file instead.")
+            raise ValidationError(_("Not a valid image format. Please use a gif, jpeg or png file instead."))
 
-    file = models.ImageField(upload_to=get_upload_to, width_field='width', height_field='height', validators=[file_extension_validator])
+    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[file_extension_validator])
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_by_user = models.ForeignKey('auth.User', null=True, blank=True, editable=False)
+    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
 
-    tags = TaggableManager(help_text=None, blank=True)
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
     indexed_fields = {
         'uploaded_by_user_id': {

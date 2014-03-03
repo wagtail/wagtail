@@ -1,8 +1,8 @@
 {% extends "wagtailadmin/shared/field_as_li.html" %}
-
+{% load i18n %}
 {% block form_field %}
-    <a href="{{MEDIA_URL}}images/{{ image.file }}" class="icon icon-image">{{ image.filename }}</a><br /><br />
+    <span class="icon icon-image">{{ image.filename }}</span><br /><br />
 
-    Change image:
+    {% trans "Change image:" %}
     {{ field }}
 {% endblock %}

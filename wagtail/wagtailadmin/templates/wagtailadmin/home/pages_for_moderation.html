@@ -1,7 +1,8 @@
+{% load i18n %}
 {% if page_revisions_for_moderation %}
     <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
         <section>
-            <h2>Pages awaiting moderation</h2>
+            <h2>{% trans 'Pages awaiting moderation' %}</h2>
             <table class="listing">
                 <col />
                 <col />
@@ -9,32 +10,32 @@
                 <col width="15%"/>
                 <thead>
                     <tr>
-                        <th class="title">Title</th>
-                        <th>Parent</th>
-                        <th>Date</th>
-                        <th>Author</th>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Parent" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Author" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for revision in page_revisions_for_moderation %}
                         <tr>
                             <td class="title">
-                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="Edit this page">{{ revision.page.title }}</a></h2>
+                                <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a></h2>
                                 <ul class="actions">
                                     <li>
                                          <form action="{% url 'wagtailadmin_pages_approve_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
-                                            <input type="submit" class="button button-small" value="Approve">
+                                            <input type="submit" class="button button-small" value="{% trans 'Approve' %}">
                                         </form>
                                     </li>
                                     <li class="no-border">
                                         <form action="{% url 'wagtailadmin_pages_reject_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
-                                            <input type="submit" class="button button-small button-secondary no" value="Reject">
+                                            <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
                                         </form>
                                     </li>
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}">Edit</a></li>
-                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">Preview</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}">{% trans 'Edit' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>
                             <td><a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.title }}</a></td>

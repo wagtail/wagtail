@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
-{% block titletag %}Sign in{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -14,7 +15,7 @@
         {% if form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">Your username and password didn't match. Please try again.</li>
+                    <li class="error">{% trans "Your username and password didn't match. Please try again." %}</li>
                 </ul>
             </div>
         {% endif %}
@@ -22,7 +23,7 @@
         <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
-            <h1>Sign in to Wagtail</h1>
+            <h1>{% trans "Sign in to Wagtail" %}</h1>
 
           
             <ul class="fields">
@@ -38,19 +39,19 @@
                         {{ form.password }}
                     </div>
                     {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgotten it?</a></p>
+                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
                 {% comment %}
                     Removed until functionality exists
                     <li class="checkbox">
                         <div class="field">
-                            <label><input type="checkbox" /> Remember me</label>
+                            <label><input type="checkbox" />{% trans "Remember me" %}</label>
                         </div>
                     </li>
                 {% endcomment %}
                 <li class="submit">
-                    <input type="submit" value="Sign in"/>
+                    <input type="submit" value="{% trans 'Sign in' %}"/>
                 </li>
             </ul>
         </form>

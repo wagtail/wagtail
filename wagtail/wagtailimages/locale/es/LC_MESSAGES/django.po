@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-28 17:53+0200\n"
+"PO-Revision-Date: 2014-02-28 15:55+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\models.py:22
+msgid "Title"
+msgstr "Título"
+
+#: .\models.py:39
+msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
+msgstr "No es un formato válido de imagen. Por favor, usa en su lugar un archivo gif, jpeg o png."
+
+#: .\models.py:41
+msgid "File"
+msgstr "Archivo"
+
+#: .\models.py:47
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: .\templates\wagtailimages\chooser\chooser.html:3
+#: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
+msgid "Choose an image"
+msgstr "Seleccionar una imagen"
+
+#: .\templates\wagtailimages\chooser\chooser.html:8
+#: .\templates\wagtailimages\chooser\chooser.html:20
+msgid "Search"
+msgstr "Buscar"
+
+#: .\templates\wagtailimages\chooser\chooser.html:9
+#: .\templates\wagtailimages\chooser\chooser.html:43
+msgid "Upload"
+msgstr "Subir"
+
+#: .\templates\wagtailimages\chooser\chooser.html:23
+msgid "Popular tags"
+msgstr "Etiquetas populares"
+
+#: .\templates\wagtailimages\chooser\results.html:6
+#: .\templates\wagtailimages\images\results.html:6
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\n            Hay una coincidencia\n        "
+msgstr[1] "\n            Hay %(counter)s coincidencias\n        "
+
+#: .\templates\wagtailimages\chooser\results.html:13
+#: .\templates\wagtailimages\images\results.html:13
+msgid "Latest images"
+msgstr "Últimas imágenes"
+
+#: .\templates\wagtailimages\chooser\select_format.html:3
+msgid "Choose a format"
+msgstr "Selecciona un formato"
+
+#: .\templates\wagtailimages\chooser\select_format.html:17
+msgid "Insert image"
+msgstr "Insertar imagen"
+
+#: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:17
+msgid "Clear image"
+msgstr "Borrar imagen"
+
+#: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:18
+msgid "Choose another image"
+msgstr "Seleccionar otra imagen"
+
+#: .\templates\wagtailimages\images\_file_field.html:6
+msgid "Change image:"
+msgstr "Cambiar imagen:"
+
+#: .\templates\wagtailimages\images\add.html:4
+#: .\templates\wagtailimages\images\index.html:19
+msgid "Add an image"
+msgstr "Añadir una imagen"
+
+#: .\templates\wagtailimages\images\add.html:15
+msgid "Add image"
+msgstr "Añadir imagen"
+
+#: .\templates\wagtailimages\images\add.html:25
+#: .\templates\wagtailimages\images\edit.html:33
+msgid "Save"
+msgstr "Guardar"
+
+#: .\templates\wagtailimages\images\confirm_delete.html:4
+#: .\templates\wagtailimages\images\confirm_delete.html:8
+#: .\templates\wagtailimages\images\edit.html:33
+msgid "Delete image"
+msgstr "Eliminar imagen"
+
+#: .\templates\wagtailimages\images\confirm_delete.html:16
+msgid "Are you sure you want to delete this image?"
+msgstr "¿Seguro que quieres eliminar esta imagen?"
+
+#: .\templates\wagtailimages\images\confirm_delete.html:19
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+#: .\templates\wagtailimages\images\edit.html:4
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Editando imagen %(title)s"
+
+#: .\templates\wagtailimages\images\edit.html:15
+msgid "Editing"
+msgstr "Editando"
+
+#: .\templates\wagtailimages\images\index.html:5
+#: .\templates\wagtailimages\images\index.html:18
+msgid "Images"
+msgstr "Imágenes"
+
+#: .\templates\wagtailimages\images\results.html:31
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Lo sentimos, ninguna imagen contiene \"<em>%(query_string)s</em>\""
+
+#: .\templates\wagtailimages\images\results.html:34
+#, python-format
+msgid ""
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s\">añadir una ahora</a>?"
+
+#: .\views\images.py:29 .\views\images.py:40
+msgid "Search images"
+msgstr ""
+
+#: .\views\images.py:92
+msgid "Image '{0}' updated."
+msgstr "Imagen '{0}' actualizada."
+
+#: .\views\images.py:95
+msgid "The image could not be saved due to errors."
+msgstr "La imagen no puedo ser guardada debido a errores"
+
+#: .\views\images.py:114
+msgid "Image '{0}' deleted."
+msgstr "Imagen '{0}' eliminada."
+
+#: .\views\images.py:132
+msgid "Image '{0}' added."
+msgstr "Imagen '{0}' añadida."
+
+#: .\views\images.py:135
+msgid "The image could not be created due to errors."
+msgstr "La imagen no pudo ser creada debido a errores."

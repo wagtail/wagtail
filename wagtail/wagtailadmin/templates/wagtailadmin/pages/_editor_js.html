@@ -1,8 +1,10 @@
 {% load compress %}
+{% load localize %}
 
 {% comment %}
     Javascript declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
+
 
 {% compress js %}
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/rangy-core.js"></script>
@@ -31,6 +33,12 @@
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 {% endcompress %}
 
+{% comment %}
+    We should put it outside of compress because it is a remote script. If we
+    wanted to put it inside compress we should download each translation file
+    and include it in wagtailadmin/js/vendor/
+{% endcomment %}
+{% get_localized_datepicker_js %}
 <script>
     window.chooserUrls = {
         'documentChooser': '{% url "wagtaildocs_chooser" %}',
@@ -39,7 +47,10 @@
         'pageChooser': '{% url "wagtailadmin_choose_page" %}',
         'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
     };
-
+    
+    {% get_date_format_override as format_override %}
+    window.overrideDateInputFormat ='{{ format_override }}';
+    
     (function() {
         function fixPrefix(str) {return str;}
 

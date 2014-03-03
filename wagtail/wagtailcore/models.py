@@ -10,10 +10,12 @@ from django.shortcuts import render
 from django.core.cache import cache
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
-from wagtail.wagtailsearch import Indexed, Searcher
+from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 # hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
@@ -31,9 +33,9 @@ class SiteManager(models.Manager):
 
 class Site(models.Model):
     hostname = models.CharField(max_length=255, unique=True, db_index=True)
-    port = models.IntegerField(default=80, help_text="Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).")
+    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text="If true, this site will handle requests for all other hostnames that do not have a site entry of their own")
+    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
     def natural_key(self):
         return (self.hostname,)
@@ -44,12 +46,14 @@ class Site(models.Model):
     @staticmethod
     def find_for_request(request):
         """Find the site object responsible for responding to this HTTP request object"""
-        hostname = request.META['HTTP_HOST'].split(':')[0]
         try:
+            hostname = request.META['HTTP_HOST'].split(':')[0]
             # find a Site matching this specific hostname
             return Site.objects.get(hostname=hostname)
-        except Site.DoesNotExist:
-            # failing that, look for a catch-all Site. If that fails, let the Site.DoesNotExist propagate back to the caller
+        except (Site.DoesNotExist, KeyError):
+            # If no matching site exists, or request does not specify an HTTP_HOST (which
+            # will often be the case for the Django test client), look for a catch-all Site.
+            # If that fails, let the Site.DoesNotExist propagate back to the caller
             return Site.objects.get(is_default_site=True)
 
     @property
@@ -156,18 +160,18 @@ class PageBase(models.base.ModelBase):
 class Page(MP_Node, ClusterableModel, Indexed):
     __metaclass__ = PageBase
 
-    title = models.CharField(max_length=255, help_text="The page title as you'd like it to be seen by the public")
-    slug = models.SlugField(help_text="The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
+    title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
+    slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
     live = models.BooleanField(default=True, editable=False)
     has_unpublished_changes = models.BooleanField(default=False, editable=False)
     url_path = models.CharField(max_length=255, blank=True, editable=False)
-    owner = models.ForeignKey('auth.User', null=True, blank=True, editable=False, related_name='owned_pages')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, related_name='owned_pages')
 
-    seo_title = models.CharField("Page title", max_length=255, blank=True, help_text="Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
-    show_in_menus = models.BooleanField(default=False, help_text="Whether a link to this page will appear in automatically generated menus")
+    seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
+    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
     indexed_fields = {
@@ -178,17 +182,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
         },
         'live': {
             'type': 'boolean',
-            'analyzer': 'simple',
+            'index': 'not_analyzed',
+        },
+        'path': {
+            'type': 'string',
+            'index': 'not_analyzed',
         },
     }
-
-    search_backend = Searcher(None)
-    search_frontend = Searcher(None, filters=dict(live=True))
-
-    title_search_backend = Searcher(['title'])
-    title_search_frontend = Searcher(['title'], filters=dict(live=True))
-
-    search_name = None
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -262,12 +262,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
             """
         cursor.execute(update_statement, 
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
-
-    def object_indexed(self):
-        # Exclude root node from index
-        if self.depth == 1:
-            return False
-        return True
 
     @property
     def specific(self):
@@ -381,6 +375,26 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
 
     @classmethod
+    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+        # Filters
+        filters = extra_filters.copy()
+        if not show_unpublished:
+            filters['live'] = True
+
+        # Path
+        if path:
+            filters['path__startswith'] = path
+
+        # Fields
+        fields = None
+        if search_title_only:
+            fields = ['title']
+
+        # Search
+        s = get_search_backend()
+        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+
+    @classmethod
     def clean_subpage_types(cls):
         """
             Returns the list of subpage types, with strings converted to class objects
@@ -401,7 +415,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                     if model:
                         res.append(model)
                     else:
-                        raise NameError("name '%s' (used in subpage_types list) is not defined " % page_type)
+                        raise NameError(_("name '%s' (used in subpage_types list) is not defined.").format(page_type))
 
                 else:
                     # assume it's already a model class
@@ -522,7 +536,7 @@ def get_navigation_menu_items():
         return root_children
     except IndexError:
         # what, we don't even have a root node? Fine, just return an empty list...
-        []
+        return []
 
 
 class Orderable(models.Model):
@@ -543,7 +557,7 @@ class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey('auth.User', null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
 
     objects = models.Manager()

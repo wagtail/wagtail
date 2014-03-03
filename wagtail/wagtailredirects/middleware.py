@@ -20,7 +20,7 @@ class RedirectMiddleware(object):
             if redirect.is_permanent:
                 return http.HttpResponsePermanentRedirect(redirect.link)
             else:
-                return http.HttpResponseTemporaryRedirect(redirect.link)
+                return http.HttpResponseRedirect(redirect.link)
         except:
             pass
 

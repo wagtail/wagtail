@@ -1,17 +1,18 @@
 {% extends "wagtailadmin/base.html" %}
 {% load page_permissions %}
 {% load gravatar %}
-{% block titletag %}Editing {{ page.title }}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer  page-editor{% endblock %}
 
 {% block content %}
     <header class="merged tab-merged nice-padding">
         <div class="row row-flush">
             <div class="left col9">
-                <h1>Editing <span>{{ page.title }}</span></h1>
+                <h1>{% blocktrans with title=page.title %}Editing <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
-                 Status: {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
+                 {% trans "Status:" %} {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
             </div>
         </div>
     </header>
@@ -25,20 +26,20 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup match-width">
-                        <input type="submit" value="Save draft" class="button" />
+                        <input type="submit" value="{% trans 'Save draft' %}" class="button" />
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
                             {% if page_perms.can_unpublish %}
-                                <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">Unpublish</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                             {% endif %}
                             {% if page_perms.can_delete %}
-                                <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">Delete</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
                             {% endif %}
                             {% if page_perms.can_publish %}
-                                <li><input type="submit" name="action-publish" value="Publish" class="button" /></li>
+                                <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
                             {% endif %}
-                            <li><input type="submit" name="action-submit" value="Submit for moderation" class="button" /></li>
-                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ page.id }}" value="Preview" class="button" /></li>
+                            <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ page.id }}" value="{% trans 'Preview' %}" class="button" /></li>
                         </ul>
                     </div>
                 </li>
@@ -48,9 +49,9 @@
                 <li class="meta">
                     <p class="modified">
                         {% if page.get_latest_revision %}
-                            Last modified: {{ page.get_latest_revision.created_at }}
+                            {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
                             {% if page.get_latest_revision.user %}
-                                by {{ page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.username }}
+                                {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.username %}by {{ modified_by }}{% endblocktrans %}
                                 {% if request.user.email %}
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}

@@ -1,0 +1,832 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# serafeim <serafeim@torchbox.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-22 19:55+0200\n"
+"PO-Revision-Date: 2014-02-22 17:59+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
+msgid "Please type a valid time"
+msgstr "Συμπληρώσατε ώρα"
+
+#: .\forms.py:12
+msgid "Search term"
+msgstr "Όρος αναζήτησης"
+
+#: .\forms.py:44
+msgid "Enter your email address to reset your password"
+msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
+
+#: .\forms.py:53
+msgid "Please fill your email address."
+msgstr "Συμπληρώσατε τη διεύθυνση email σας."
+
+#: .\forms.py:66
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "Λυπούμαστε, δε μπορείτε να αλλάξετε τον κωδικό σας διότι το λογαριασμό χρήστη σας τον διαχειρίζεται ένας διαφορετικός εξυπηρετητής."
+
+#: .\forms.py:69
+msgid "This email address is not recognised."
+msgstr "Δε βρέθηκε το email."
+
+#: .\templates\wagtailadmin\base.html:7 .\templates\wagtailadmin\home.html:4
+msgid "Dashboard"
+msgstr "Πίνακας ελέγχου"
+
+#: .\templates\wagtailadmin\base.html:31
+msgid "Menu"
+msgstr "Μενού"
+
+#: .\templates\wagtailadmin\home.html:22
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Καλώς ήρθατε στο %(site_name)s Wagtail CMS"
+
+#: .\templates\wagtailadmin\home.html:33
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές με το περιεχόμενου που έχετε δημιουργήσει."
+
+#: .\templates\wagtailadmin\login.html:4
+#: .\templates\wagtailadmin\login.html:55
+msgid "Sign in"
+msgstr "Είσοδος"
+
+#: .\templates\wagtailadmin\login.html:18
+msgid "Your username and password didn't match. Please try again."
+msgstr "Το όνομα χρήση και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+
+#: .\templates\wagtailadmin\login.html:26
+msgid "Sign in to Wagtail"
+msgstr "Είσοδος στο Wagtail"
+
+#: .\templates\wagtailadmin\login.html:42
+msgid "Forgotten it?"
+msgstr "Ξέχασα τον κωδικό μου"
+
+#: .\templates\wagtailadmin\account\account.html:4
+msgid "Account"
+msgstr "Λογαριασμός"
+
+#: .\templates\wagtailadmin\account\account.html:11
+msgid "Set gravatar"
+msgstr "Ορισμός gravatar"
+
+#: .\templates\wagtailadmin\account\account.html:15
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr "Η εικόνα σας παρέχετε από το Gravatar και συσχετίζεται με τη διεύθυνση email σας. Με το λογαριασμό σας στο Gravatar μπορείτε να δημιουργήσετε εικόνα και για τις άλλες διευθύνσεις email που έχετε."
+
+#: .\templates\wagtailadmin\account\account.html:23
+#: .\templates\wagtailadmin\account\change_password.html:4
+msgid "Change password"
+msgstr "Αλλαγή κωδικού"
+
+#: .\templates\wagtailadmin\account\account.html:27
+msgid "Change the password you use to log in."
+msgstr "Αλλάξτε τον κωδικό σας"
+
+#: .\templates\wagtailadmin\account\change_password.html:16
+msgid "Change Password"
+msgstr "Αλλαγή κωδικού"
+
+#: .\templates\wagtailadmin\account\change_password.html:19
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:4
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:42
+#: .\templates\wagtailadmin\account\password_reset\done.html:4
+#: .\templates\wagtailadmin\account\password_reset\form.html:37
+msgid "Reset password"
+msgstr "Ανανέωση κωδικού"
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:15
+msgid "Password change successful"
+msgstr "Επιτυχής αλλαγή κωδικού"
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:16
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:4
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:26
+msgid "Set your new password"
+msgstr "Δημιουργήστε το νέο σας κωδικό"
+
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:19
+msgid "The passwords do not match. Please try again."
+msgstr "Οι κωδικοί δε ταιριάζουν. Παρακαλούμε δοκιμάστε ξανά."
+
+#: .\templates\wagtailadmin\account\password_reset\done.html:15
+msgid "Check your email"
+msgstr "Ελέγξατε το email σας"
+
+#: .\templates\wagtailadmin\account\password_reset\done.html:16
+msgid "A link to reset your password has been emailed to you."
+msgstr "Μια σύνδεση για ανανέωση του κωδικού σας έχει σταλεί στο email σας."
+
+#: .\templates\wagtailadmin\account\password_reset\email.txt:2
+msgid "Please follow the link below to reset your password"
+msgstr "Παρακαλούμε ακολουθήστε τη σύνδεση παρακάτω για να ανανεώσετε τον κωδικό σας"
+
+#: .\templates\wagtailadmin\account\password_reset\email_subject.txt:2
+msgid "Password reset"
+msgstr "Ανανέωση κωδικού"
+
+#: .\templates\wagtailadmin\account\password_reset\form.html:27
+msgid "Reset your password"
+msgstr "Ανανεώστε τον κωδικό σας"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:5
+#: .\templates\wagtailadmin\chooser\_link_types.html:7
+msgid "Internal link"
+msgstr "Εσωτερική σύνδεση"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:11
+#: .\templates\wagtailadmin\chooser\_link_types.html:13
+msgid "External link"
+msgstr "Εξωτερική σύνδεση"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:17
+#: .\templates\wagtailadmin\chooser\_link_types.html:19
+msgid "Email link"
+msgstr "Σύνδεση με email"
+
+#: .\templates\wagtailadmin\chooser\_search_form.html:7
+#: .\templates\wagtailadmin\pages\search.html:3
+#: .\templates\wagtailadmin\pages\search.html:16
+#: .\templatetags\wagtailadmin_nav.py:44
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:3
+#: .\templatetags\wagtailadmin_nav.py:43
+msgid "Explorer"
+msgstr "Εξερευνητής"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:5
+#: .\templates\wagtailadmin\pages\index.html:15
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:10
+msgid "Home"
+msgstr "Αρχή"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:13
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
+msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
+
+#: .\templates\wagtailadmin\chooser\browse.html:2
+#: .\templates\wagtailadmin\chooser\search.html:2
+#: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:13
+msgid "Choose a page"
+msgstr "Επιλογή σελίδας"
+
+#: .\templates\wagtailadmin\chooser\email_link.html:2
+msgid "Add an email link"
+msgstr "Προσθήκη σύνδεσης σε email"
+
+#: .\templates\wagtailadmin\chooser\email_link.html:14
+#: .\templates\wagtailadmin\chooser\external_link.html:14
+msgid "Insert link"
+msgstr "Εισαγωγή σύνδεσης"
+
+#: .\templates\wagtailadmin\chooser\external_link.html:2
+msgid "Add an external link"
+msgstr "Προσθήκη εξωτερικής σύνδεσης"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:20
+msgid "Clear choice"
+msgstr "Διαγραφή επιλογής"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:22
+msgid "Choose another item"
+msgstr "Επιλογή διαφορετικού αντικειμένου"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:27
+msgid "Choose an item"
+msgstr "Επιλέξατε αντικείμενο"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:5
+msgid "Move up"
+msgstr "Μετακίνηση πάνω"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:6
+msgid "Move down"
+msgstr "Μετακίνηση κάτω"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:8
+#: .\templates\wagtailadmin\pages\confirm_delete.html:7
+#: .\templates\wagtailadmin\pages\edit.html:36
+#: .\templates\wagtailadmin\pages\list.html:68
+#: .\templates\wagtailadmin\pages\list.html:189
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:12
+msgid "Choose another page"
+msgstr "Επιλογή διαφορετικής σελίδας"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:5
+msgid "Pages awaiting moderation"
+msgstr "Σελίδες προς έλεγχο"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:13
+#: .\templates\wagtailadmin\home\recent_edits.html:12
+#: .\templates\wagtailadmin\pages\list.html:102
+msgid "Title"
+msgstr "Τίτλος"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:14
+#: .\templates\wagtailadmin\pages\list.html:22
+msgid "Parent"
+msgstr "Πατρική"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:15
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:16
+msgid "Author"
+msgstr "Συγγραφέας"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:23
+#: .\templates\wagtailadmin\home\recent_edits.html:21
+#: .\templates\wagtailadmin\pages\list.html:168
+#: .\templates\wagtailadmin\pages\list.html:177
+msgid "Edit this page"
+msgstr "Διόρθωση της σελίδας"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:28
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:12
+msgid "Approve"
+msgstr "Έγκριση"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:34
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:17
+msgid "Reject"
+msgstr "Απόρριψη"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:37
+#: .\templates\wagtailadmin\home\recent_edits.html:23
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
+#: .\templates\wagtailadmin\pages\list.html:56
+#: .\templates\wagtailadmin\pages\list.html:177
+msgid "Edit"
+msgstr "Διόρθωση"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:38
+#: .\templates\wagtailadmin\pages\create.html:24
+#: .\templates\wagtailadmin\pages\edit.html:42
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:5
+msgid "Your most recent edits"
+msgstr "Οι πιο πρόσφατες διορθώσεις σας"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:14
+#: .\templates\wagtailadmin\pages\list.html:25
+#: .\templates\wagtailadmin\pages\list.html:129
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:25
+#: .\templates\wagtailadmin\pages\list.html:59
+#: .\templates\wagtailadmin\pages\list.html:180
+msgid "View draft"
+msgstr "Εμφάνιση προσχεδίου"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:28
+#: .\templates\wagtailadmin\pages\list.html:62
+#: .\templates\wagtailadmin\pages\list.html:183
+msgid "View live"
+msgstr "Εμφάνιση στο site"
+
+#: .\templates\wagtailadmin\home\site_summary.html:3
+msgid "Site summary"
+msgstr "Κατάσταση site"
+
+#: .\templates\wagtailadmin\home\site_summary.html:6
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_pages)s</span> Page\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_pages)s</span> Pages\n"
+"            "
+msgstr[0] "\n<span>%(total_pages)s</span> Σελίδα"
+msgstr[1] "\n<span>%(total_pages)s</span> Σελίδες"
+
+#: .\templates\wagtailadmin\home\site_summary.html:13
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_images)s</span> Image\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_images)s</span> Images\n"
+"            "
+msgstr[0] "\n<span>%(total_images)s</span> Εικόνα"
+msgstr[1] "\n<span>%(total_images)s</span> Εικόνες"
+
+#: .\templates\wagtailadmin\home\site_summary.html:20
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_docs)s</span> Document\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_docs)s</span> Documents\n"
+"            "
+msgstr[0] "\n\n<span>%(total_docs)s</span> Έγγραφο"
+msgstr[1] "\n\n<span>%(total_docs)s</span> Έγγραφα"
+
+#: .\templates\wagtailadmin\notifications\approved.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε"
+
+#: .\templates\wagtailadmin\notifications\approved.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε."
+
+#: .\templates\wagtailadmin\notifications\approved.html:4
+msgid "You can view the page here:"
+msgstr "Μπορείτε να δείτε τη σελίδα εδώ:"
+
+#: .\templates\wagtailadmin\notifications\rejected.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
+
+#: .\templates\wagtailadmin\notifications\rejected.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε."
+
+#: .\templates\wagtailadmin\notifications\rejected.html:4
+#: .\templates\wagtailadmin\notifications\submitted.html:5
+msgid "You can edit the page here:"
+msgstr "Μπορείτε να διορθώστε τη σελίδα εδώ:"
+
+#: .\templates\wagtailadmin\notifications\submitted.html:1
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
+
+#: .\templates\wagtailadmin\notifications\submitted.html:2
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο."
+
+#: .\templates\wagtailadmin\notifications\submitted.html:4
+msgid "You can preview the page here:"
+msgstr "Μπορείτε να τη δείτε εδώ:"
+
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:4
+#, python-format
+msgid ""
+"\n"
+"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
+"        "
+msgstr "\n            Προεπισκόπηση της '%(title)s', που δημιουργήθηκε από τον %(submitted_by)s στις %(submitted_on)s.\n        "
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:6
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Δημιουργία σελίδας στο %(title)s"
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:9
+msgid "Create a page in"
+msgstr "Δημιουργία σελίδας στο"
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:13
+msgid "Choose which type of page you'd like to create."
+msgstr "Επιλέξατε ποιο τύπο σελίδας θέλετε να δημιουργήσετε."
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:26
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Σελίδες που χρησιμοποιούν το %(page_type)s"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Διαγραφή %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:12
+msgid "Are you sure you want to delete this page?"
+msgstr "Θέλετε να διαγράψετε τη σελίδα;"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:14
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
+"                "
+msgstr[0] "\n                    Επίσης θα διαγραφεί και μια ακόμα σελίδα.\n                "
+msgstr[1] "\n                    Επίσης θα διαγραφούν και %(descendant_count)s ακόμα σελίδες.\n                "
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:22
+msgid ""
+"Alternatively you can unpublish the page. This removes the page from public "
+"view and you can edit or publish it again later."
+msgstr "Εναλλακτικά μπορείτε να αποεκδόσετε τη σελίδα ώστε να μην εμφανίζεται στο κοινό. Στη συνέχεια μπορείτε να τη διορθώστε και να την εκδόσετε ."
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:26
+msgid "Delete it"
+msgstr "Διαγραφή"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:26
+msgid "Unpublish it"
+msgstr "Απο-έκδοση"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:3
+#, python-format
+msgid "Move %(title)s"
+msgstr "Μετακίνηση της %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:6
+#: .\templates\wagtailadmin\pages\list.html:65
+#: .\templates\wagtailadmin\pages\list.html:186
+msgid "Move"
+msgstr "Μετακίνηση"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:11
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Είστε σίγουρος ότι θέλετε να μετακινήσετε τη σελίδα στο  '%(title)s';"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:13
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "Είστε σίγουρος ότι θέλετε να μετακινήσετε τη σελίδα και όλα τα παιδιά της στο  '%(title)s';"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:18
+msgid "Yes, move this page"
+msgstr "Ναι, να μετακινηθεί"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:3
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Απόεκδοστε τη σελίδα %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
+#: .\templates\wagtailadmin\pages\edit.html:33
+#: .\templates\wagtailadmin\pages\list.html:71
+#: .\templates\wagtailadmin\pages\list.html:192
+msgid "Unpublish"
+msgstr "Αποέκδοση"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:10
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Είστε σίγουρος ότι θέλετε να αποεκδόσετε αυτή τη σελίδα;"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:13
+msgid "Yes, unpublish it"
+msgstr "Ναι, να αποεκδοθεί"
+
+#: .\templates\wagtailadmin\pages\content_type_use.html:7
+msgid "Pages using"
+msgstr "Οι σελίδες που το χρησιμοποιούν"
+
+#: .\templates\wagtailadmin\pages\create.html:5
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Νέα %(page_type)s"
+
+#: .\templates\wagtailadmin\pages\create.html:9
+msgid "New"
+msgstr "Νέο"
+
+#: .\templates\wagtailadmin\pages\create.html:21
+msgid "Save as draft"
+msgstr "Αποθήκευση σαν προσχέδιο"
+
+#: .\templates\wagtailadmin\pages\create.html:26
+#: .\templates\wagtailadmin\pages\edit.html:39
+msgid "Publish"
+msgstr "Έκδοση"
+
+#: .\templates\wagtailadmin\pages\create.html:28
+#: .\templates\wagtailadmin\pages\edit.html:41
+msgid "Submit for moderation"
+msgstr "Υποβολή για έλεγχο"
+
+#: .\templates\wagtailadmin\pages\edit.html:5
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Διόρθωση %(title)s"
+
+#: .\templates\wagtailadmin\pages\edit.html:12
+#, python-format
+msgid "Editing <span>%(title)s</span>"
+msgstr "Διόρθωση <span>%(title)s</span>"
+
+#: .\templates\wagtailadmin\pages\edit.html:15
+msgid "Status:"
+msgstr "Κατάσταση:"
+
+#: .\templates\wagtailadmin\pages\edit.html:29
+msgid "Save draft"
+msgstr "Αποθήκευση πρόχειρου"
+
+#: .\templates\wagtailadmin\pages\edit.html:52
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Τελευταία τροποποίηση: %(last_mod)s"
+
+#: .\templates\wagtailadmin\pages\edit.html:54
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "από %(modified_by)s"
+
+#: .\templates\wagtailadmin\pages\index.html:4
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Εξερεύνηση %(title)s"
+
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:117
+msgid "Type"
+msgstr "Τύπος"
+
+#: .\templates\wagtailadmin\pages\list.html:53
+#: .\templates\wagtailadmin\pages\list.html:195
+msgid "Add child page"
+msgstr "Προσθήκη σελίδας-παιδί"
+
+#: .\templates\wagtailadmin\pages\list.html:95
+msgid "Disable ordering of child pages"
+msgstr "Απενεργοποίηση ταξινόμησης σελίδων - παιδιά"
+
+#: .\templates\wagtailadmin\pages\list.html:95
+#: .\templates\wagtailadmin\pages\list.html:97
+msgid "Order"
+msgstr "Σειρά"
+
+#: .\templates\wagtailadmin\pages\list.html:97
+msgid "Enable ordering of child pages"
+msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παιδιά"
+
+#: .\templates\wagtailadmin\pages\list.html:150
+msgid "Drag"
+msgstr "Τραβήξτε"
+
+#: .\templates\wagtailadmin\pages\list.html:221
+#: .\templates\wagtailadmin\pages\list.html:225
+#, python-format
+msgid "Explorer subpages of '%(title)s'"
+msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
+
+#: .\templates\wagtailadmin\pages\list.html:221
+#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:229
+msgid "Explore"
+msgstr "Εξερεύνηση"
+
+#: .\templates\wagtailadmin\pages\list.html:229
+#, python-format
+msgid "Explorer child pages of '%(title)s'"
+msgstr "Εξερεύνηση σελίδων - παιδιά της '%(title)s'"
+
+#: .\templates\wagtailadmin\pages\list.html:231
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
+
+#: .\templates\wagtailadmin\pages\list.html:231
+msgid "Add subpage"
+msgstr "Προσθήκη υποσελίδας"
+
+#: .\templates\wagtailadmin\pages\list.html:240
+msgid "No pages have been created."
+msgstr "Δεν έχουν δημιουργηθεί σελίδες."
+
+#: .\templates\wagtailadmin\pages\list.html:240
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
+msgstr "Θέλετε να <a href=\"%(add_page_url)s\">προσθέσετε μία</a>;"
+
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:3
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Επιλογή πατρικής σελίδας για την %(title)s"
+
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:7
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Επιλογή νέας πατρικής σελίδας για την <span>%(title)s</span>"
+
+#: .\templates\wagtailadmin\pages\search_results.html:6
+#, python-format
+msgid ""
+"\n"
+"                    There is one match\n"
+"                "
+msgid_plural ""
+"\n"
+"                    There are %(counter)s matches\n"
+"                "
+msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
+msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
+
+#: .\templates\wagtailadmin\pages\search_results.html:17
+#, python-format
+msgid ""
+"\n"
+"                Page %(page_number)s of %(num_pages)s.\n"
+"            "
+msgstr "\nΣελίδα %(page_number)s of %(num_pages)s."
+
+#: .\templates\wagtailadmin\pages\search_results.html:24
+#: .\templates\wagtailadmin\pages\search_results.html:26
+#: .\templates\wagtailadmin\shared\pagination_nav.html:8
+#: .\templates\wagtailadmin\shared\pagination_nav.html:10
+#: .\templates\wagtailadmin\shared\pagination_nav.html:14
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+#: .\templates\wagtailadmin\pages\search_results.html:33
+#: .\templates\wagtailadmin\pages\search_results.html:35
+#: .\templates\wagtailadmin\shared\pagination_nav.html:21
+#: .\templates\wagtailadmin\shared\pagination_nav.html:23
+#: .\templates\wagtailadmin\shared\pagination_nav.html:25
+msgid "Next"
+msgstr "Επόμενο"
+
+#: .\templates\wagtailadmin\pages\search_results.html:43
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Δε βρέθηκαν σελίδες που να ταιριάζουν με το <em>\"%(query_string)s\"</em>"
+
+#: .\templates\wagtailadmin\pages\search_results.html:45
+msgid "Enter a search term above"
+msgstr "Εισάγετε όρο αναζήτησης"
+
+#: .\templates\wagtailadmin\pages\select_location.html:3
+#, python-format
+msgid "Where do you want to create a %(page_type)s"
+msgstr "Πού θέλετε να δημιουργήσετε τη σελίδα %(page_type)s"
+
+#: .\templates\wagtailadmin\pages\select_location.html:5
+msgid "Where do you want to create this"
+msgstr "Πού θέλετε να δημιουργήσετε τη σελίδα"
+
+#: .\templates\wagtailadmin\pages\select_type.html:3
+#: .\templates\wagtailadmin\pages\select_type.html:6
+msgid "Create a new page"
+msgstr "Δημιουργία νέας σελίδας"
+
+#: .\templates\wagtailadmin\pages\select_type.html:10
+msgid ""
+"Your new page will be saved in the <em>top level</em> of your website. You "
+"can move it after saving."
+msgstr "Η νέα σας σελίδα θα αποθηκευθεί στο <em>κορυφαίο επίπεδο</em> του website σας. Μπορείτε να τη μετακινήσετε μετά την αποθήκευση."
+
+#: .\templates\wagtailadmin\shared\main_nav.html:15
+msgid "Account settings"
+msgstr "Επιλογές λογαριασμού"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:16
+msgid "Log out"
+msgstr "Αποσύνδεση"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:20
+msgid "More"
+msgstr "Περισσότερα"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:22
+msgid "Redirects"
+msgstr "Ανακατεθύνσεις"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:23
+msgid "Editors Picks"
+msgstr "Επιλογές συντακτών"
+
+#: .\templates\wagtailadmin\shared\pagination_nav.html:3
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+
+#: .\templatetags\wagtailadmin_nav.py:52
+msgid "Images"
+msgstr "Εικόνες"
+
+#: .\templatetags\wagtailadmin_nav.py:56
+msgid "Documents"
+msgstr "Έγγραφα"
+
+#: .\templatetags\wagtailadmin_nav.py:61
+msgid "Snippets"
+msgstr "Snippets"
+
+#: .\templatetags\wagtailadmin_nav.py:66
+msgid "Users"
+msgstr "Χρήστες"
+
+#: .\views\account.py:23
+msgid "Your password has been changed successfully!"
+msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
+
+#: .\views\pages.py:99
+msgid "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση σε σελίδες τύπου <em>'{0}'</em>"
+
+#: .\views\pages.py:103
+msgid ""
+"Pages of this type can only be created as children of <em>'{0}'</em>. This "
+"new page will be saved there."
+msgstr "Σελίδες του συγκεκριμένου τύπου μπορούν να δημιουργηθούν μόνο σαν παιδιά του <em>'{0}'</em>. Οπότε η νέα σελίδα θα αποθηκευθεί εκεί."
+
+#: .\views\pages.py:166
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+#: .\views\pages.py:187 .\views\pages.py:254 .\views\pages.py:589
+msgid "Page '{0}' published."
+msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
+
+#: .\views\pages.py:189 .\views\pages.py:256
+msgid "Page '{0}' submitted for moderation."
+msgstr "Η σελίδα '{0}' στάλθηκε προς έλεγχο."
+
+#: .\views\pages.py:192
+msgid "Page '{0}' created."
+msgstr "Η σελίδα '{0}' δημιουργήθηκε."
+
+#: .\views\pages.py:201
+msgid "The page could not be created due to errors."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της σελίδας."
+
+#: .\views\pages.py:259
+msgid "Page '{0}' updated."
+msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
+
+#: .\views\pages.py:268
+msgid "The page could not be saved due to validation errors"
+msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
+
+#: .\views\pages.py:280
+msgid "This page is currently awaiting moderation"
+msgstr "Η σελίδα δεν είναι προς έλεγχο"
+
+#: .\views\pages.py:298
+msgid "Page '{0}' deleted."
+msgstr "Έγινε διαγραφή της σελίδας '{0}'."
+
+#: .\views\pages.py:428
+msgid "Page '{0}' unpublished."
+msgstr "Έγινε αποδημοσίευση της '{0}'."
+
+#: .\views\pages.py:479
+msgid "Page '{0}' moved."
+msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
+
+#: .\views\pages.py:584 .\views\pages.py:602 .\views\pages.py:621
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
+
+#: .\views\pages.py:608
+msgid "Page '{0}' rejected for publication."
+msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκε."

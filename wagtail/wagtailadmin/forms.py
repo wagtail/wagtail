@@ -1,16 +1,20 @@
-from django.utils.translation import ugettext, ugettext_lazy as _
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-
+from django.utils.translation import ugettext as _, ugettext_lazy as __
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        _placeholder = kwargs.pop('placeholder', None)
         placeholder_suffix = kwargs.pop('placeholder_suffix', "")
         super(SearchForm, self).__init__(*args, **kwargs)
-        self.fields['q'].widget.attrs = {'placeholder': 'Search ' + placeholder_suffix}
+        if _placeholder is not None:
+            placeholder = _placeholder
+        else:
+            placeholder = 'Search {}'.format(placeholder_suffix)
+        self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
-    q = forms.CharField(label="Search term", widget=forms.TextInput())
+    q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
 
 
 class ExternalLinkChooserForm(forms.Form):
@@ -34,10 +38,10 @@ class EmailLinkChooserWithLinkTextForm(forms.Form):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
-        widget=forms.TextInput(attrs={'placeholder': "Enter your username"}),
+        widget=forms.TextInput(attrs={'placeholder': __("Enter your username")}),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': "Enter password"}),
+        widget=forms.PasswordInput(attrs={'placeholder': __("Enter password")}),
     )
 
 
@@ -51,7 +55,7 @@ class PasswordResetForm(PasswordResetForm):
         UserModel = get_user_model()
         email = cleaned_data.get('email')
         if not email:
-            raise forms.ValidationError("Please fill your email address.")
+            raise forms.ValidationError(_("Please fill your email address."))
         active_users = UserModel._default_manager.filter(email__iexact=email, is_active=True)
 
         if active_users.exists():
@@ -64,9 +68,9 @@ class PasswordResetForm(PasswordResetForm):
 
             if not found_non_ldap_user:
                 # All found users are LDAP users, give error message
-                raise forms.ValidationError("Sorry, you cannot reset your password here as your user account is managed by another server.")
+                raise forms.ValidationError(_("Sorry, you cannot reset your password here as your user account is managed by another server."))
         else:
             # No user accounts exist
-            raise forms.ValidationError("This email address is not recognised.")
+            raise forms.ValidationError(_("This email address is not recognised."))
 
         return cleaned_data

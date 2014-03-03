@@ -5,12 +5,6 @@ ul.listing{
 
 .listing{
     margin-bottom:2em;
-    /* FIXME: needs converting to valid SASS
-    ul&{
-        border-top:1px dashed $color-input-border;
-        margin-bottom:2em;
-    }
-    */
     ul{
         @include unlist();
     }
@@ -23,12 +17,6 @@ ul.listing{
         margin:0;
         font-size:0.95em;
     }
-
-    /* FIXME: needs converting to valid SASS
-    table&{
-        width:100%;
-    }
-    */
    
     td, th{
         padding:1.5em 1em;
@@ -377,6 +365,13 @@ ul.listing{
     .inactive h2{
         opacity:0.5;
     }
+}
+ul.listing{
+    border-top:1px dashed $color-input-border;
+    margin-bottom:2em;
+}
+table.listing{
+    width:100%;
 }
 
 .pagination{

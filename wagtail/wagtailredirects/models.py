@@ -1,14 +1,17 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 
+from urlparse import urlparse
+
 
 class Redirect(models.Model):
-    old_path = models.CharField("Redirect from", max_length=255, unique=True, db_index=True)
+    old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, unique=True, db_index=True)
     site = models.ForeignKey('wagtailcore.Site', null=True, blank=True, related_name='redirects', db_index=True, editable=False)
-    is_permanent = models.BooleanField("Permanent", default=True, help_text="Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead.")
-    redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name="Redirect to a page", null=True, blank=True)
-    redirect_link = models.URLField("Redirect to any URL", blank=True)
+    is_permanent = models.BooleanField(verbose_name=_("Permanent"), default=True, help_text=_("Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead.") )
+    redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name=_("Redirect to a page"), null=True, blank=True)
+    redirect_link = models.URLField(verbose_name=_("Redirect to any URL"), blank=True)
 
     @property
     def title(self):
@@ -35,29 +38,28 @@ class Redirect(models.Model):
             return cls.objects.all()
 
     @staticmethod
-    def normalise_path(full_path):
-        # Split full_path into path and query_string
-        try:
-            question_mark = full_path.index('?')
-            path = full_path[:question_mark]
-            query_string = full_path[question_mark:]
-        except ValueError:
-            path = full_path
-            query_string = ''
+    def normalise_path(url):
+        # Parse url
+        url_parsed = urlparse(url)
 
-        # Check that the path has content before normalising
-        if path is None or path == '':
-            return query_string
-
-        # Make sure theres a '/' at the beginning
-        if path[0] != '/':
+        # Path must start with / but not end with /
+        path = url_parsed[2]
+        if not path.startswith('/'):
             path = '/' + path
 
-        # Make sure theres not a '/' at the end
-        if path[-1] == '/':
+        if path.endswith('/'):
             path = path[:-1]
 
-        return path + query_string
+        # Query string components must be sorted alphabetically
+        query_string = url_parsed[4]
+        query_string_components = query_string.split('&')
+        query_string = '&'.join(sorted(query_string_components))
+
+        # Add query string to path
+        if query_string:
+            path = path + '?' + query_string
+
+        return path
 
     def clean(self):
         # Normalise old path

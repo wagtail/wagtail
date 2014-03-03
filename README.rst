@@ -1,5 +1,16 @@
+.. image:: https://travis-ci.org/torchbox/wagtail.png?branch=master
+    :target: https://travis-ci.org/torchbox/wagtail
+
+.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master
+    :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
+
+.. image:: https://pypip.in/v/wagtail/badge.png
+    :target: https://crate.io/packages/wagtail/
+
 Wagtail CMS
 ===========
+
+.. image:: http://i.imgur.com/4pbWQ35.png
 
 Wagtail is a Django content management system built originally for the `Royal College of Art <http://www.rca.ac.uk/>`_ and focused on flexibility and user experience. Its features include:
 
@@ -15,7 +26,7 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
 * Tests! But not enough; we're working hard to improve this
 
-Find out more at `wagtail.io <http://wagtail.io/>`_.
+Find out more at `wagtail.io <http://wagtail.io/>`_. Documentation is at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_.
 
 Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 

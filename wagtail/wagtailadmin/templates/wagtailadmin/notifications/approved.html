@@ -1,4 +1,4 @@
-The page "{{ revision.page.title|safe }}" has been approved
-The page "{{ revision.page.title|safe }}" has been approved.
+{% load i18n %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved{% endblocktrans %}
+{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}
 
-You can view the page here: {{ revision.page.full_url }}
+{% trans "You can view the page here:" %} {{ revision.page.full_url }}

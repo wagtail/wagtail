@@ -1,28 +1,30 @@
 {% extends "wagtailadmin/base.html" %}
-
+{% load i18n %}
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Account" %}
+    {% trans "Account" as account_str %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str %}
 
     <div class="nice-padding">
         <ul class="listing">
             <li class="row row-flush">
                 <div class="col6">
-                    <a href="http://gravatar.com" class="button button-primary">Set gravatar</a>
+                    <a href="http://gravatar.com" class="button button-primary">{% trans "Set gravatar" %}</a>
                 </div>
 
                 <small class="col6">
-                    Your avatar image is provided by Gravatar and is connected to your email address. With a Gravatar account you can set an avatar for any number of other email addresses you use.
+                    {% trans "Your avatar image is provided by Gravatar and is connected to your email address. With a Gravatar account you can set an avatar for any number of other email addresses you use." %}
+                    
                 </small>
                 
             </li>
             {% if show_change_password %}
                 <li class="row row-flush">
                     <div class="col6">
-                        <a href="{% url 'wagtailadmin_account_change_password' %}" class="button button-primary">Change password</a>
+                        <a href="{% url 'wagtailadmin_account_change_password' %}" class="button button-primary">{% trans "Change password" %}</a>
                     </div>
 
                     <small class="col6">
-                        Change the password you use to log in.
+                        {% trans "Change the password you use to log in." %}
                     </small>
                 </li>
             {% endif %}

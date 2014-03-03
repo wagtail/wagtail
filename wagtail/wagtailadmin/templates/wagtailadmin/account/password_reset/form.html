@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
-{% block titletag %}Reset password{% endblock %}
+{% load i18n %}
+{% block titletag %}{ trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -23,7 +24,7 @@
 
         <form method="post" novalidate>
             {% csrf_token %}
-            <h1>Reset your password</h1>
+            <h1>{% trans "Reset your password" %}</h1>
 
             <ul class="fields">
                 <li>
@@ -33,7 +34,7 @@
                     </div>
                 </li>
                 <li class="submit">
-                    <input type="submit" value="Reset password"/>
+                    <input type="submit" value="{% trans 'Reset password' %}"/>
                 </li>
             </ul>
         </form>

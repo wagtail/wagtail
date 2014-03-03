@@ -1,11 +1,12 @@
 {% load image_tags ellipsistrim%}
-
-{% include "wagtailadmin/shared/header.html" with title="Choose an image" merged=1 tabbed=1 %}
+{% load i18n %}
+{% trans "Choose an image" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 %}
 
 {% if uploadform %}
     <ul class="tab-nav merged">
-        <li class="active"><a href="#search" >Search</a></li>
-        <li><a href="#upload">Upload</a></li>
+        <li class="active"><a href="#search" >{% trans "Search" %}</a></li>
+        <li><a href="#upload">{% trans "Upload" %}</a></li>
     </ul>
 {% endif %}
 
@@ -16,12 +17,12 @@
                 {% for field in searchform %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="Search" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
                 {% if popular_tags %}
                     <li class="taglist">
-                        <h3>Popular tags</h3>
+                        <h3>{% trans 'Popular tags' %}</h3>
                         {% for tag in popular_tags %}
-                            <a class="suggested-tag tag" href="{% url 'wagtailimages_search_image' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                            <a class="suggested-tag tag" href="{% url 'wagtailimages_index' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
                         {% endfor %}
                     </li>
                 {% endif %}
@@ -39,7 +40,7 @@
                     {% for field in uploadform %}
                         {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                     {% endfor %}
-                    <li><input type="submit" value="Upload" /></li>
+                    <li><input type="submit" value="{% trans 'Upload' %}" /></li>
                 </ul>
             </form>
         </section>

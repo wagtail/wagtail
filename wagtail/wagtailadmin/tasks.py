@@ -41,7 +41,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     if include_superusers:
         q |= Q(is_superuser=True)
 
-    return User.objects.filter(q).distinct()
+    return User.objects.filter(is_active=True).filter(q).distinct()
 
 
 @task

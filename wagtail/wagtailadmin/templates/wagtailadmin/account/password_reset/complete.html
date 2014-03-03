@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/skeleton.html" %}
 {% load compress %}
-{% block titletag %}Reset password{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
@@ -11,7 +12,7 @@
 
 {% block furniture %}
     <div class="content-wrapper">
-        <h1>Password change successful</h1>
-        <p><a href="{% url 'django.contrib.auth.views.login' %}" class="button button-primary">Login</a></p>
+        <h1>{% trans "Password change successful" %}</h1>
+        <p><a href="{% url 'django.contrib.auth.views.login' %}" class="button button-primary">{% trans "Login" %}</a></p>
     </div>
 {% endblock %}

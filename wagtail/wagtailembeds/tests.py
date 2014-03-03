@@ -1,5 +1,6 @@
 from django.test import TestCase
-from unittest import skip
+from django.test.client import Client
+from wagtail.tests.utils import login
 from wagtail.wagtailembeds import get_embed
 
 
@@ -43,3 +44,15 @@ class TestEmbeds(TestCase):
             'height': 480,
             'html': "<p>Blah blah blah</p>",
         }
+
+
+class TestChooser(TestCase):
+    def setUp(self):
+        # login
+        login(self.client)
+
+    def test_chooser(self):
+        r = self.client.get('/admin/embeds/chooser/')
+        self.assertEqual(r.status_code, 200)
+
+        # TODO: Test submitting

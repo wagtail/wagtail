@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
-
+{% load i18n %}
 {% comment %}
     TODO: make it possible to specify button labels that are better tuned to the
         particular use case: e.g. "Choose an author", "Choose a location"
@@ -9,5 +9,5 @@
     <span class="title">{{ page.title }}</span>
 {% endblock %}
 
-{% block choose_another_button_label %}Choose another page{% endblock %}
-{% block choose_button_label %}Choose a page{% endblock %}
+{% block choose_another_button_label %}{% trans "Choose another page" %}{% endblock %}
+{% block choose_button_label %}{% trans "Choose a page" %}{% endblock %}

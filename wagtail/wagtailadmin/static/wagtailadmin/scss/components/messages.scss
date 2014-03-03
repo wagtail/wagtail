@@ -5,12 +5,15 @@
 
     ul{
         @include unlist();
+        padding-left:10px;
         position:relative;
         top:-100px;
         opacity:0;
     }
     li{
-        padding: 1.3em $mobile-nice-padding;
+        @include .nice-padding;
+        padding-top:1.3em;
+        padding-bottom:1.3em;
         color:white;
     }
     .error{
@@ -23,20 +26,21 @@
         background-color:$color-teal-dark;
     }
 }
+
+.messages.new ul{
+    @include transition-immediate(none);
+    top:-100px;
+}
+
 .ready .messages ul,
 .messages.appear ul{
     @include transition-immediate("top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease");
     opacity:1;
     top:0;
 }
-.messages.new ul{
-    @include transition-immediate(none);
-    top:-100px;
-}
 
 @media screen and (min-width: $breakpoint-mobile){
     .messages ul{
-        padding-left:0;
         margin-left:-15px;
 
         li{

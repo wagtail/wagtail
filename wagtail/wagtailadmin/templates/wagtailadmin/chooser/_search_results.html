@@ -1,14 +1,21 @@
+{% load i18n %}
 {% if not is_searching %}
-    <h2>Explorer</h2>
+    <h2>{% trans "Explorer" %}</h2>
     <ul class="breadcrumb">
-        <li><a href="{% url 'wagtailadmin_explore_root' %}?{{ querystring }}" class="icon icon-home text-replace navigate-pages">Home</a></li>
+        <li><a href="{% url 'wagtailadmin_explore_root' %}?{{ querystring }}" class="icon icon-home text-replace navigate-pages">{% trans "Home" %}</a></li>
         {% for page in parent_page.get_ancestors %}
             <li><a href="{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}" class="navigate-pages" >{{ page.title }}</a></li>
         {% endfor %}
     </ul>
 
 {% else %}
-    <h2>{{ pages.count }} search match{{ pages.count|pluralize:"es" }}</h2>
+    <h2>
+        {% blocktrans count counter=pages.count %}
+            There is one match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+    </h2>
 {% endif %}
 
 {% if is_searching %}

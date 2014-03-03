@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
@@ -11,7 +11,7 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def chooser(request):
     if request.user.has_perm('wagtaildocs.add_document'):
         uploadform = DocumentForm()
@@ -51,7 +51,7 @@ def chooser(request):
 
         return render(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
-            'search_query': q,
+            'query_string': q,
             'is_searching': is_searching,
         })
     else:
@@ -76,7 +76,7 @@ def chooser(request):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def document_chosen(request, document_id):
     document = get_object_or_404(Document, id=document_id)
 

@@ -13,9 +13,10 @@ class UserCreationForm(BaseUserCreationForm):
         required=False,
         help_text=_("If ticked, this user has the ability to manage user accounts.")
     )
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+
+    email = forms.EmailField(required=True, label=_("Email"))
+    first_name = forms.CharField(required=True, label=_("First Name"))
+    last_name = forms.CharField(required=True, label=_("Last Name"))
 
     class Meta:
         model = User
@@ -54,9 +55,9 @@ class UserEditForm(forms.ModelForm):
             'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")
         })
 
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True, label=_("Email"))
+    first_name = forms.CharField(required=True, label=_("First Name"))
+    last_name = forms.CharField(required=True, label=_("Last Name"))
 
     password1 = forms.CharField(
         label=_("Password"),

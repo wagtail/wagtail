@@ -1,19 +1,21 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}Move {{ page.title }}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.title %}Move {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Move" subtitle=page_to_move.title %}
+    {% trans "Move" as move_str %}
+    {% include "wagtailadmin/shared/header.html" with title=move_str subtitle=page_to_move.title %}
 
     <div class="nice-padding">
         {% if page_to_move.is_leaf %}
-            <p>Are you sure you want to move this page into '{{ destination.title }}'?</p>
+            <p>{% blocktrans with title=destination.title %}Are you sure you want to move this page into '{{ title }}'?{% endblocktrans %}</p>
         {% else %}
-            <p>Are you sure you want to move this page and all of its children into '{{ destination.title }}'?</p>
+            <p>{% blocktrans with title=destination.title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}</p>
         {% endif %}
 
         <form action="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id destination.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" value="Yes, move this page">
+            <input type="submit" value="{% trans 'Yes, move this page' %}">
         </form>
     </div>
 {% endblock %}

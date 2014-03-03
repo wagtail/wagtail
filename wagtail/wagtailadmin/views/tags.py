@@ -3,10 +3,10 @@ import json
 from taggit.models import Tag
 
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def autocomplete(request):
     term = request.GET.get('term', None)
     if term:

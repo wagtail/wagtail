@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import ugettext  as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
@@ -14,36 +15,27 @@ REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
 
 @permission_required('wagtailredirects.change_redirect')
 def index(request):
-    p = request.GET.get("p", 1)
-    q = None
-    is_searching = False
+    page = request.GET.get('p', 1)
+    query_string = request.GET.get('q', "")
+    ordering = request.GET.get('ordering', 'old_path')
 
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="redirects")
-        if form.is_valid():
-            q = form.cleaned_data['q']
-            is_searching = True
+    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
 
-            redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page').filter(old_path__icontains=q)
+    # Search
+    if query_string:
+        redirects = redirects.filter(old_path__icontains=query_string)
 
-    if not is_searching:
-        # Get redirects
-        redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
-        form = SearchForm(placeholder_suffix="redirects")
-
-    if 'ordering' in request.GET:
-        ordering = request.GET['ordering']
-
-        if ordering in ['old_path', ]:
-            if ordering != 'old_path':
-                redirects = redirects.order_by(ordering)
-    else:
+    # Ordering (A bit useless at the moment as only 'old_path' is allowed)
+    if ordering not in ['old_path']:
         ordering = 'old_path'
 
-    paginator = Paginator(redirects, 20)
+    if ordering != 'old_path':
+        redirects = redirects.order_by(ordering)
 
+    # Pagination
+    paginator = Paginator(redirects, 20)
     try:
-        redirects = paginator.page(p)
+        redirects = paginator.page(page)
     except PageNotAnInteger:
         redirects = paginator.page(1)
     except EmptyPage:
@@ -54,15 +46,14 @@ def index(request):
         return render(request, "wagtailredirects/results.html", {
             'ordering': ordering,
             'redirects': redirects,
-            'is_searching': is_searching,
-            'search_query': q,
+            'query_string': query_string,
         })
     else:
         return render(request, "wagtailredirects/index.html", {
             'ordering': ordering,
-            'search_form': form,
             'redirects': redirects,
-            'is_searching': is_searching,
+            'query_string': query_string,
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")),
         })
 
 
@@ -75,10 +66,10 @@ def edit(request, redirect_id):
         form = form_class(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             form.save()
-            messages.success(request, "Redirect '%s' updated." % theredirect.title)
+            messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
-            messages.error(request, "The redirect could not be saved due to errors.")
+            messages.error(request, _("The redirect could not be saved due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
         form = form_class(instance=theredirect)
@@ -96,7 +87,7 @@ def delete(request, redirect_id):
 
     if request.POST:
         theredirect.delete()
-        messages.success(request, "Redirect '%s' deleted." % theredirect.title)
+        messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects_index')
 
     return render(request, "wagtailredirects/confirm_delete.html", {
@@ -116,10 +107,10 @@ def add(request):
             theredirect.site = request.site
             theredirect.save()
 
-            messages.success(request, "Redirect '%s' added." % theredirect.title)
+            messages.success(request, _("Redirect '{0} added.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
-            messages.error(request, "The redirect could not be created due to errors.")
+            messages.error(request, _("The redirect could not be created due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
     else:
         form = form_class()

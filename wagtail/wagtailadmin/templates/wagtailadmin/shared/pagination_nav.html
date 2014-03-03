@@ -1,27 +1,28 @@
+{% load i18n %}
 <div class="pagination">
-    <p>Page {{ items.number }} of {{ items.paginator.num_pages }}.</p>
+    <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     <ul>
         <li class="prev">
             {% if items.has_previous %}
                 {% if is_ajax %}
-                    <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                    <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% elif is_searching %}
-                    <a href="{% url linkurl %}?q={{ search_query|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">Previous</a>
+                    <a href="{% url linkurl %}?q={{ query_string|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% elif is_ajax %}
                     
                 {% else %}
-                    <a href="{% url linkurl %}?p={{ items.previous_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-left">Previous</a>
+                    <a href="{% url linkurl %}?p={{ items.previous_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% endif %}
             {% endif %}
         </li>
         <li class="next">
             {% if items.has_next %}
                 {% if is_ajax %}
-                    <a href="#" data-page="{{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                    <a href="#" data-page="{{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% elif is_searching %}
-                    <a href="{% url linkurl %}?q={{ search_query|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">Next</a>
+                    <a href="{% url linkurl %}?q={{ query_string|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% else %}
-                    <a href="{% url linkurl %}?p={{ items.next_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-right-after">Next</a>
+                    <a href="{% url linkurl %}?p={{ items.next_page_number }}&ordering={{ ordering }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% endif %}
             {% endif %}
         </li>

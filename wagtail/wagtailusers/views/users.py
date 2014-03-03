@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+
+User = get_user_model()
 
 @permission_required('auth.change_user')
 def index(request):
@@ -15,14 +18,14 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="users")
+        form = SearchForm(request.GET, placeholder=_("Search users"))
         if form.is_valid():
             q = form.cleaned_data['q']
 
             is_searching = True
-            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))       
+            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
     else:
-        form = SearchForm(placeholder_suffix="users")
+        form = SearchForm(placeholder=_("Search users"))
 
     if not is_searching:
         users = User.objects
@@ -51,7 +54,7 @@ def index(request):
         return render(request, "wagtailusers/results.html", {
             'users': users,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
             'ordering': ordering,
         })
     else:
@@ -60,7 +63,7 @@ def index(request):
             'users': users,
             'is_searching': is_searching,
             'ordering': ordering,
-            'search_query': q,
+            'query_string': q,
         })
 
 @permission_required('auth.change_user')
@@ -69,10 +72,10 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "User '%s' created." % user)
+            messages.success(request, _("User '{0}' created.").format(user))
             return redirect('wagtailusers_index')
         else:
-            messages.error(request, "The user could not be created due to errors.")
+            messages.error(request, _("The user could not be created due to errors.") )
     else:
         form = UserCreationForm()
 
@@ -88,10 +91,10 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "User '%s' updated." % user)
+            messages.success(request, _("User '{0}' updated.").format(user))
             return redirect('wagtailusers_index')
         else:
-            messages.error(request, "The user could not be saved due to errors.")
+            messages.error(request, _("The user could not be saved due to errors."))
     else:
         form = UserEditForm(instance=user)
 

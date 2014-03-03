@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load gravatar compress %}
-{% block titletag %}Dashboard{% endblock %}
+{% load i18n %}
+{% block titletag %}{% trans "Dashboard" %}{% endblock %}
 {% block bodyclass %}homepage{% endblock %}
 
 {% block extra_css %}
@@ -18,7 +19,7 @@
                 </div>
             {% endif %}
             <div class="col10">
-                <h1>Welcome to the {{ site_name }} Wagtail CMS</h1> 
+                <h1>{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}</h1> 
                 <h2>{{ user.get_full_name|default:user.username }}</h2>
             </div>
         </div>
@@ -29,7 +30,7 @@
             {{ panel.render }}
         {% endfor %}
     {% else %}
-        <p>This is your dashboard on which helpful information about content you've created will be displayed.</p>
+        <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
     {% endif %}
 
 {% endblock %}

@@ -6,17 +6,19 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.utils.translation import ugettext_lazy  as _
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 
 
 class Document(models.Model, TagSearchable):
-    title = models.CharField(max_length=255)
-    file = models.FileField(upload_to='documents')
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
+    file = models.FileField(upload_to='documents' , verbose_name=_('File'))
     created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_by_user = models.ForeignKey('auth.User', null=True, blank=True, editable=False)
+    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
 
-    tags = TaggableManager(help_text=None, blank=True)
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
     indexed_fields = {
         'uploaded_by_user_id': {

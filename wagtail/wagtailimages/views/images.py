@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -14,60 +15,60 @@ from wagtail.wagtailimages.forms import get_image_form
 def index(request):
     Image = get_image_model()
 
-    q = None
-    p = request.GET.get("p", 1)
-    is_searching = False
+    # Get images
+    images = Image.objects.order_by('-created_at')
 
+    # Permissions
+    if not request.user.has_perm('wagtailimages.change_image'):
+        # restrict to the user's own images
+        images = images.filter(uploaded_by_user=request.user)
+
+    # Search
+    query_string = None
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder_suffix="images")
+        form = SearchForm(request.GET, placeholder=_("Search images"))
         if form.is_valid():
-            q = form.cleaned_data['q']
+            query_string = form.cleaned_data['q']
 
             is_searching = True
             if not request.user.has_perm('wagtailimages.change_image'):
                 # restrict to the user's own images
-                images = Image.search(q, results_per_page=20, page=p, filters={'uploaded_by_user_id': request.user.id})
+                images = Image.search(query_string, filters={'uploaded_by_user_id': request.user.id})
             else:
-                images = Image.search(q, results_per_page=20, page=p)
-        else:
-            images = Image.objects.order_by('-created_at')
-            if not request.user.has_perm('wagtailimages.change_image'):
-                # restrict to the user's own images
-                images = images.filter(uploaded_by_user=request.user)
+                images = Image.search(query_string)
     else:
-        images = Image.objects.order_by('-created_at')
-        if not request.user.has_perm('wagtailimages.change_image'):
-            # restrict to the user's own images
-            images = images.filter(uploaded_by_user=request.user)
-        form = SearchForm(placeholder_suffix="images")
+        form = SearchForm(placeholder=_("Search images"))
 
-    if not is_searching:
-        paginator = Paginator(images, 20)
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(images, 20)
 
-        try:
-            images = paginator.page(p)
-        except PageNotAnInteger:
-            images = paginator.page(1)
-        except EmptyPage:
-            images = paginator.page(paginator.num_pages)
+    try:
+        images = paginator.page(p)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
 
+    # Create response
     if request.is_ajax():
-        return render(request, "wagtailimages/images/results.html", {
+        return render(request, 'wagtailimages/images/results.html', {
             'images': images,
-            'is_searching': is_searching,
-            'search_query': q,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
         })
     else:
-        return render(request, "wagtailimages/images/index.html", {
-            'search_form': form,
+        return render(request, 'wagtailimages/images/index.html', {
             'images': images,
-            'is_searching': is_searching,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
+
+            'search_form': form,
             'popular_tags': Image.popular_tags(),
-            'search_query': q,
         })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form()
@@ -88,10 +89,10 @@ def edit(request, image_id):
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
             form.save()
-            messages.success(request, "Image '%s' updated." % image.title)
+            messages.success(request, _("Image '{0}' updated.").format(image.title))
             return redirect('wagtailimages_index')
         else:
-            messages.error(request, "The image could not be saved due to errors.")
+            messages.error(request, _("The image could not be saved due to errors."))
     else:
         form = ImageForm(instance=image)
 
@@ -101,7 +102,7 @@ def edit(request, image_id):
     })
 
 
-@login_required  # more specific permission tests are applied within the view
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -110,7 +111,7 @@ def delete(request, image_id):
 
     if request.POST:
         image.delete()
-        messages.success(request, "Image '%s' deleted." % image.title)
+        messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages_index')
 
     return render(request, "wagtailimages/images/confirm_delete.html", {
@@ -128,48 +129,13 @@ def add(request):
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
             form.save()
-            messages.success(request, "Image '%s' added." % image.title)
+            messages.success(request, _("Image '{0}' added.").format(image.title))
             return redirect('wagtailimages_index')
         else:
-            messages.error(request, "The image could not be created due to errors.")
+            messages.error(request, _("The image could not be created due to errors."))
     else:
         form = ImageForm()
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
     })
-
-
-@permission_required('wagtailimages.add_image')
-def search(request):
-    Image = get_image_model()
-    images = []
-    q = None
-    is_searching = False
-
-    if 'q' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
-
-            # page number
-            p = request.GET.get("p", 1)
-            is_searching = True
-            images = Image.search(q, results_per_page=20, page=p)
-    else:
-        form = SearchForm()
-
-    if request.is_ajax():
-        return render(request, "wagtailimages/images/results.html", {
-            'images': images,
-            'is_searching': is_searching,
-            'search_query': q,
-        })
-    else:
-        return render(request, "wagtailimages/images/index.html", {
-            'form': form,
-            'images': images,
-            'is_searching': is_searching,
-            'popular_tags': Image.popular_tags(),
-            'search_query': q,
-        })

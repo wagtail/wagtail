@@ -182,7 +182,7 @@ form{
     }
 
     .full{
-        margin:0 -$desktop-nice-padding;
+        margin:0px (-$desktop-nice-padding);
         
         input{
             padding-left:($desktop-nice-padding + 50px);

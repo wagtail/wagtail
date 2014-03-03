@@ -55,21 +55,52 @@ function initDateChoosers(context) {
     $('input.friendly_date', context).datepicker({
         dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
     });
+    
+    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
+        $('input.localized_date', context).datepicker({
+            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        });
+    } else {
+        $('input.localized_date', context).datepicker({
+            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        });
+    }
+    
 }
-function initDateChooser(id) {
+function initFriendlyDateChooser(id) {
     $('#' + id).datepicker({
         dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
     });
+}
+function initLocalizedDateChooser(id) {
+    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
+        $('#' + id).datepicker({
+            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        });
+    } else {
+        $('#' + id).datepicker({
+            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        });
+    }
+    
 }
 
 function initTimeChoosers(context) {
     $('input.friendly_time', context).timepicker({
         timeFormat: 'g.ia'
     });
+    $('input.localized_time', context).timepicker({
+        timeFormat: 'H:i', maxTime: '23:59'
+    });
 }
-function initTimeChooser(id) {
+function initFriendlyTimeChooser(id) {
     $('#' + id).timepicker({
         timeFormat: 'g.ia'
+    });
+}
+function initLocalizedTimeChooser(id) {
+    $('#' + id).timepicker({
+        timeFormat: 'H:i', maxTime: '23:59'
     });
 }
 
@@ -236,11 +267,23 @@ function initSlugCleaning(){
 }
 
 function initErrorDetection(){
+    var errorSections = {};
+
+    // first count up all the errors
     $('.error-message').each(function(){
         var parentSection = $(this).closest('section');
 
-        $('.tab-nav a[href=#'+ parentSection.attr('id') +']').addClass('errors');
-    })
+        if(!errorSections[parentSection.attr('id')]){
+            errorSections[parentSection.attr('id')] = 0;
+        }
+
+        errorSections[parentSection.attr('id')] = errorSections[parentSection.attr('id')]+1;
+    });
+
+    // now identify them on each tab
+    for(var index in errorSections) {
+        $('.tab-nav a[href=#'+ index +']').addClass('errors').attr('data-count', errorSections[index]);
+    }    
 }
 
 $(function() {

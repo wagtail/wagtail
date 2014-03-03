@@ -39,7 +39,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        "Django>=1.6.1",
+        "Django>=1.6.2",
         "South>=0.8.4",
         "django-compressor>=1.3",
         "django-modelcluster>=0.1",
@@ -48,7 +48,6 @@ setup(
         "beautifulsoup4>=4.3.2",
         "lxml>=3.3.0",
         "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
-        "requests==2.2.1",
     ],
     zip_safe=False,
 )

@@ -1,0 +1,97 @@
+[
+{
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Root",
+        "numchild": 1,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 1,
+        "content_type": [
+            "wagtailcore",
+            "page"
+        ],
+        "path": "0001",
+        "url_path": "/",
+        "slug": "root"
+    }
+},
+
+{
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Welcome to the Wagtail test site!",
+        "numchild": 1,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010001",
+        "url_path": "/home/",
+        "slug": "home"
+    }
+},
+
+{
+    "pk": 3,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Events",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010001",
+        "url_path": "/home/events/",
+        "slug": "events"
+    }
+},
+{
+    "pk": 3,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "Look at our lovely events."
+    }
+},
+
+{
+    "pk": 4,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Christmas",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010001",
+        "url_path": "/home/events/christmas/",
+        "slug": "christmas"
+    }
+},
+{
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "public",
+        "location": "The North Pole",
+        "body": "<p>Chestnuts roasting on an open fire</p>",
+        "cost": "Free"
+    }
+},
+
+{
+    "pk": 1,
+    "model": "wagtailcore.site",
+    "fields": {
+        "root_page": 2,
+        "hostname": "localhost",
+        "port": 80,
+        "is_default_site": true
+    }
+}
+]

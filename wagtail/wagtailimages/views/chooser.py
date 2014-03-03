@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
@@ -30,7 +30,7 @@ def get_image_json(image):
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def chooser(request):
     Image = get_image_model()
 
@@ -70,6 +70,7 @@ def chooser(request):
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
             'is_searching': is_searching,
+            'query_string': q,
             'will_select_format': request.GET.get('select_format')
         })
     else:
@@ -91,12 +92,13 @@ def chooser(request):
         'uploadform': uploadform,
         'searchform': searchform,
         'is_searching': False,
+        'query_string': q,
         'will_select_format': request.GET.get('select_format'),
         'popular_tags': Image.popular_tags(),
     })
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def image_chosen(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -140,7 +142,7 @@ def chooser_upload(request):
     )
 
 
-@login_required
+@permission_required('wagtailadmin.access_admin')
 def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 

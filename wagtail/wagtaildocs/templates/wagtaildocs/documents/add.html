@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
+{% load i18n %}
 {% load image_tags %}
-{% block titletag %}Add a document{% endblock %}
+{% block titletag %}{% trans "Add a document" %}{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_css %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
@@ -11,7 +12,8 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Add document" %}
+    {% trans "Add document" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str  %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtaildocs_add_document' %}" method="POST" enctype="multipart/form-data">
@@ -20,7 +22,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><input type="submit" value="Save" /></li>
+                <li><input type="submit" value="{% trans 'Save' %}" /></li>
             </ul>
         </form>
     </div>
