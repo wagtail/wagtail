@@ -18,8 +18,15 @@ Contributors
 Translators
 ===========
 
+* Basque: Unai Zalakain
+* Bulgarian: Lyuboslav Petrov
 * Catalan: David Llop
+* Chinese: Victoria Chan
+* French: Sylvain Fankhauser
+* Galician: fooflare
 * German: Karl Sander
 * Greek: Serafeim Papastefanos
+* Mongolian: Delgermurun Purevkhuuu
 * Polish: Łukasz Bołdys
 * Romainian: Dan Braghis
+* Spanish: Unai Zalakain, fooflare
