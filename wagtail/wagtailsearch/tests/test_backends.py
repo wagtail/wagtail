@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
 import unittest
@@ -14,6 +15,20 @@ register_signal_handlers()
 
 
 class BackendTests(object):
+    # To test a specific backend, subclass BackendTests and define self.backend_path.
+
+    def setUp(self):
+        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
+        for (backend_name, backend_conf) in settings.WAGTAILSEARCH_BACKENDS.iteritems():
+            if backend_conf['BACKEND'] == self.backend_path:
+                self.backend = get_search_backend(backend_name)
+                break
+        else:
+            # no conf entry found - skip tests for this backend
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+
+        self.load_test_data()
+
     def load_test_data(self):
         # Reset the index
         self.backend.reset_index()
@@ -134,60 +149,29 @@ class BackendTests(object):
         self.assertEqual(len(results), 3)
 
 
-class TestDBBackend(TestCase, BackendTests):
-    def setUp(self):
-        self.backend = get_search_backend('wagtail.wagtailsearch.backends.db.DBSearch')
-        self.load_test_data()
+class TestDBBackend(BackendTests, TestCase):
+    backend_path = 'wagtail.wagtailsearch.backends.db.DBSearch'
 
     @unittest.expectedFailure
     def test_callable_indexed_field(self):
         super(TestDBBackend, self).test_callable_indexed_field()
 
 
-class TestElasticSearchBackend(TestCase, BackendTests):
-    def find_elasticsearch_backend(self):
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-        except ImportError:
-            # skip this test if we don't have the requirements for ElasticSearch installed
-            raise unittest.SkipTest
-
-        if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
-            for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
-                # Check that the backend is an elastic search backend
-                if not isinstance(get_search_backend(backend), ElasticSearch):
-                    continue
-
-                # Check that tests are allowed on this backend
-                if 'RUN_TESTS' not in settings.WAGTAILSEARCH_BACKENDS[backend]:
-                    continue
-                if settings.WAGTAILSEARCH_BACKENDS[backend]['RUN_TESTS'] is not True:
-                    continue
-
-                return backend
-
-        # Backend not found
-        raise unittest.SkipTest("Could not find an ElasticSearch backend")
-
-    def setUp(self):
-        self.backend = get_search_backend(self.find_elasticsearch_backend())
-        self.load_test_data()
+class TestElasticSearchBackend(BackendTests, TestCase):
+    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
 
 
+@override_settings(WAGTAILSEARCH_BACKENDS={
+    'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
+})
 class TestBackendLoader(TestCase):
-    def test_db_backend_import(self):
-        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+    def test_import_by_name(self):
+        db = get_search_backend(backend='default')
         self.assertIsInstance(db, DBSearch)
 
-    def test_elasticsearch_backend_import(self):
-        try:
-            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
-        except ImportError:
-            # skip this test if we don't have the requirements for ElasticSearch installed
-            raise unittest.SkipTest
-
-        elasticsearch = get_search_backend(backend='wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch')
-        self.assertIsInstance(elasticsearch, ElasticSearch)
+    def test_import_by_path(self):
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
+        self.assertIsInstance(db, DBSearch)
 
     def test_nonexistant_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')

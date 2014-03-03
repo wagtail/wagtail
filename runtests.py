@@ -11,6 +11,23 @@ STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 
 if not settings.configured:
+
+    try:
+        import elasticutils
+        has_elasticsearch = True
+    except ImportError:
+        has_elasticsearch = False
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        }
+    }
+    if has_elasticsearch:
+        WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        }
+
     settings.configure(
         DATABASES={
             'default': {
@@ -65,15 +82,7 @@ if not settings.configured:
             'wagtail.wagtailredirects',
             'wagtail.tests',
         ],
-        WAGTAILSEARCH_BACKENDS = {
-            'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
-            },
-            'elasticsearch': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-                'RUN_TESTS': True,
-            }
-        },
+        WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
         WAGTAIL_SITE_NAME='Test Site'
     )
 
