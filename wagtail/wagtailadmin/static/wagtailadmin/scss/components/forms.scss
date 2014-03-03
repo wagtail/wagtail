@@ -649,7 +649,7 @@ fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
 }
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    @include transition("background-color 0.2s ease, color 0.2s ease");
+    @include transition(background-color 0.2s ease, color 0.2s ease);
 }
 .help{
     @include transition(opacity 0.2s ease);

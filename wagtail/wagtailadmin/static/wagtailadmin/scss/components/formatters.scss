@@ -129,14 +129,11 @@
         border:1px solid $color-grey-2;
         background:white
     }
-
-    /* FIXME: needs converting to valid SASS
-    a&:hover,
-    a&.primary:hover{
-        border-color:$color-teal;
-        color:$color-teal;
-    }
-    */
+}
+a.status-tag:hover,
+a.status-tag.primary:hover{
+    border-color:$color-teal;
+    color:$color-teal;
 }
 
 /* free tagging tags from taggit */
@@ -157,17 +154,17 @@
         content:"u";
         padding-right:0.5em;
     }
-    /* FIXME: needs converting to valid SASS
-    a&:hover{
-        background-color:$color-teal-darker;
-        color:white;
-    }
-    */
 
     .taglist &{
         margin-right:0.8em;
     }
 }
+a.tag:hover{
+    background-color:$color-teal-darker;
+    color:white;
+}
+
+
 .taglist {
     font-size:0.9em;
     line-height:2.4em;

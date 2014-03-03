@@ -11,7 +11,7 @@
         opacity:0;
     }
     li{
-        @include .nice-padding;
+        @include nice-padding;
         padding-top:1.3em;
         padding-bottom:1.3em;
         color:white;
@@ -34,7 +34,7 @@
 
 .ready .messages ul,
 .messages.appear ul{
-    @include transition-immediate("top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease");
+    @include transition-immediate(top 0.5s ease, opacity 0.5s ease, max-height 1.2s ease);
     opacity:1;
     top:0;
 }
