@@ -28,5 +28,5 @@ Translators
 * Greek: Serafeim Papastefanos
 * Mongolian: Delgermurun Purevkhuuu
 * Polish: Łukasz Bołdys
-* Romainian: Dan Braghis
+* Romanian: Dan Braghis
 * Spanish: Unai Zalakain, fooflare
