@@ -37,7 +37,7 @@ class TestPageExplorer(TestCase):
         self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
 
 
-class TestPageCreation(TestCase):
+class TestPageSelectTypeLocation(TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -62,19 +62,28 @@ class TestPageCreation(TestCase):
         response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('wagtailimages', 'image')))
         self.assertEqual(response.status_code, 404)
 
-    def test_add_subpage_root(self):
+
+class TestPageCreation(TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        login(self.client)
+
+    def test_add_subpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-    def test_add_subpage_nonexistant(self):
+    def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(100000, )))
         self.assertEqual(response.status_code, 404)
 
-    def test_create_testpage_root(self):
+    def test_create_testpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'eventpage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
 
-    def test_create_testpage_nonexistantparent(self):
+    def test_create_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'testpage', 100000)))
         self.assertEqual(response.status_code, 404)
 
@@ -99,12 +108,12 @@ class TestPageEditDelete(TestCase):
         login(self.client)
 
     def test_edit(self):
-         response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
-         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
 
 class TestPageSearch(TestCase):
@@ -121,7 +130,7 @@ class TestPageSearch(TestCase):
     def test_search(self):
         response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['search_query'], "Hello")
+        self.assertEqual(response.context['query_string'], "Hello")
 
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
@@ -162,15 +171,14 @@ class TestPageMove(TestCase):
         # Login
         login(self.client)
 
-    @unittest.expectedFailure # TODO: Fix crash
     def test_page_move(self):
-         response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
+        self.assertEqual(response.status_code, 200)
 
     def test_page_move_confirm(self):
-         response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
+        self.assertEqual(response.status_code, 200)
 
     def test_page_set_page_position(self):
-         response = self.client.get(reverse('wagtailadmin_pages_set_page_position', args=(self.test_page.id, )))
-         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('wagtailadmin_pages_set_page_position', args=(self.test_page.id, )))
+        self.assertEqual(response.status_code, 200)

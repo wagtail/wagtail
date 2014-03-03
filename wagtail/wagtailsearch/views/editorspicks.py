@@ -11,27 +11,19 @@ from wagtail.wagtailadmin.forms import SearchForm
 
 @permission_required('wagtailadmin.access_admin')
 def index(request):
-    q = None
-    p = request.GET.get("p", 1)
-    is_searching = False
+    page = request.GET.get('p', 1)
+    query_string = request.GET.get('q', "")
 
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search editor's picks"))
-        if form.is_valid():
-            q = form.cleaned_data['q']
-            is_searching = True
+    queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
 
-            queries = models.Query.objects.filter(editors_picks__isnull=False).distinct().filter(query_string__icontains=q)
+    # Search
+    if query_string:
+        queries = queries.filter(query_string__icontains=query_string)
 
-    if not is_searching:
-        # Select only queries with editors picks
-        queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
-        form = SearchForm(placeholder=_("Search editor's picks"))
-
+    # Pagination
     paginator = Paginator(queries, 20)
-
     try:
-        queries = paginator.page(p)
+        queries = paginator.page(page)
     except PageNotAnInteger:
         queries = paginator.page(1)
     except EmptyPage:
@@ -40,15 +32,13 @@ def index(request):
     if request.is_ajax():
         return render(request, "wagtailsearch/editorspicks/results.html", {
             'queries': queries,
-            'is_searching': is_searching,
-            'search_query': q,
+            'query_string': query_string,
         })
     else:
         return render(request, 'wagtailsearch/editorspicks/index.html', {
-            'is_searching': is_searching,
             'queries': queries,
-            'search_query': q,
-            'search_form': form,
+            'query_string': query_string,
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search editor's picks")),
         })
 
 

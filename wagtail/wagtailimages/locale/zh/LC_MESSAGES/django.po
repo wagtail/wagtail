@@ -142,8 +142,8 @@ msgstr "图片"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
-msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr "对不起，没有图片匹配 \"<em>%(search_query)s</em>\""
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有图片匹配 \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format

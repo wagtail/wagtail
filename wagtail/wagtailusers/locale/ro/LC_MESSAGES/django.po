@@ -153,8 +153,8 @@ msgstr[2] "\nSunt %(counter)s potriviri"
 
 #: .\templates\wagtailusers\results.html:18
 #, python-format
-msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
-msgstr "Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un utilizator"
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un utilizator"
 
 #: .\templates\wagtailusers\results.html:21
 #, python-format

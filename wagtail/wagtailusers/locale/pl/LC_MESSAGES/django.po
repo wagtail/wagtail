@@ -153,8 +153,8 @@ msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 
 #: .\templates\wagtailusers\results.html:18
 #, python-format
-msgid "Sorry, no users match \"<em>%(search_query)s</em>\""
-msgstr "Przepraszamy, nie ma użytkowników pasujących do: \"<em>%(search_query)s</em>\""
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Przepraszamy, nie ma użytkowników pasujących do: \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailusers\results.html:21
 #, python-format

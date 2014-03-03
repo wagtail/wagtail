@@ -16,5 +16,5 @@
 
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_ajax=1 %}
 {% else %}
-    <p>{% blocktrans %}Sorry, no documents match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+    <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
 {% endif %}

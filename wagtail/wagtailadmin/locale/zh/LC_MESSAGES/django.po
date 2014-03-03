@@ -717,8 +717,8 @@ msgstr "往后"
 
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
-msgid "Sorry, no pages match <em>\"%(search_query)s\"</em>"
-msgstr "对不起，没有页面匹配<em>\"%(search_query)s\"</em>"
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "对不起，没有页面匹配<em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"

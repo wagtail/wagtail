@@ -54,7 +54,7 @@ def index(request):
         return render(request, "wagtailusers/results.html", {
             'users': users,
             'is_searching': is_searching,
-            'search_query': q,
+            'query_string': q,
             'ordering': ordering,
         })
     else:
@@ -63,7 +63,7 @@ def index(request):
             'users': users,
             'is_searching': is_searching,
             'ordering': ordering,
-            'search_query': q,
+            'query_string': q,
         })
 
 @permission_required('auth.change_user')

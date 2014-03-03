@@ -71,8 +71,8 @@ msgstr "Últimos documentos"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
-msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr "Sentímolo, ningún documento contén \"<em>%(search_query)s</em>\""
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"

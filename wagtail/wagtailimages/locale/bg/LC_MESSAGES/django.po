@@ -136,8 +136,8 @@ msgstr "Изображения"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
-msgid "Sorry, no images match \"<em>%(search_query)s</em>\""
-msgstr "Няма съвпадение на Изображения с <em>\"%(search_query)s\"</em>"
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Няма съвпадение на Изображения с <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format

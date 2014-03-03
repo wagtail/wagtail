@@ -72,8 +72,8 @@ msgstr "Najnowsze dokumenty"
 
 #: .\templates\wagtaildocs\chooser\results.html:19
 #, python-format
-msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(search_query)s</em>\""
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtaildocs\documents\_file_field.html:5
 msgid "Change document:"
