@@ -1,4 +1,4 @@
-# Production-ready Wagtail installation, tested on Ubuntu 13.04
+# Production-ready Wagtail installation, tested on Ubuntu 13.10
 # Tom Dyson and Neal Todd
 
 PROJECT=mywagtail
