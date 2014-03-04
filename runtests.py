@@ -82,6 +82,9 @@ if not settings.configured:
             'wagtail.wagtailredirects',
             'wagtail.tests',
         ],
+        PASSWORD_HASHERS=(
+            'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
+        ),
         WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
         WAGTAIL_SITE_NAME='Test Site'
     )
