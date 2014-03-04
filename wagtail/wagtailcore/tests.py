@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.http import HttpRequest
+from django.http import HttpRequest, Http404
 
 from wagtail.wagtailcore.models import Page, Site
 
@@ -62,3 +62,30 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
+
+    def test_request_routing(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        request = HttpRequest()
+        request.path = '/events/christmas/'
+        response = homepage.route(request, ['events', 'christmas'])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h1>Christmas</h1>')
+        self.assertContains(response, '<h2>Event</h2>')
+
+    def test_route_to_unknown_page_returns_404(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        request = HttpRequest()
+        request.path = '/events/quinquagesima/'
+        with self.assertRaises(Http404):
+            homepage.route(request, ['events', 'quinquagesima'])
+
+    def test_route_to_unpublished_page_returns_404(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        request = HttpRequest()
+        request.path = '/events/tentative-unpublished-event/'
+        with self.assertRaises(Http404):
+            homepage.route(request, ['events', 'tentative-unpublished-event'])

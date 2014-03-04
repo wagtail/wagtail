@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 1,
+        "numchild": 2,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -80,6 +80,33 @@
         "audience": "public",
         "location": "The North Pole",
         "body": "<p>Chestnuts roasting on an open fire</p>",
+        "cost": "Free"
+    }
+},
+
+{
+    "pk": 5,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Tentative Unpublished Event",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": false,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010002",
+        "url_path": "/home/events/tentative-unpublished-event/",
+        "slug": "tentative-unpublished-event"
+    }
+},
+{
+    "pk": 5,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-07-04",
+        "audience": "public",
+        "location": "The moon",
+        "body": "<p>I haven't worked out the details yet, but it's going to have cake and ponies</p>",
         "cost": "Free"
     }
 },
