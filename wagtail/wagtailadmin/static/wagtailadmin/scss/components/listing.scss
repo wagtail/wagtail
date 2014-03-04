@@ -99,6 +99,9 @@ ul.listing{
     &.full-width tbody tr:hover{
         background-color:#FDFDFD;
     }
+    &.chooser tr.can-choose a{
+        @include transition(none);
+    }
     &.chooser tr.can-choose:hover{
         background-color:$color-teal;
         color:white;
