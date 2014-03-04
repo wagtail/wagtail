@@ -25,13 +25,12 @@ fi
 echo "Please come back in a few minutes, when we'll need you to create an admin account."
 sleep 5
 
-aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
 aptitude -y install postgresql-server-dev-all python-dev libxml2-dev libxslt-dev libjpeg62-dev
 
 aptitude -y install npm
 ln -s /usr/bin/nodejs /usr/bin/node
-npm install -g coffee-script less
+npm install -g less
 
 perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
 service postgresql reload
