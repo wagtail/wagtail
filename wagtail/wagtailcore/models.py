@@ -742,7 +742,7 @@ class PagePermissionTester(object):
 
     def can_move_to(self, destination):
         # reject the logically impossible cases first
-        if self.page == destination or destination.is_child_of(self.page):
+        if self.page == destination or destination.is_descendant_of(self.page):
             return False
 
         # and shortcut the trivial 'everything' / 'nothing' permissions

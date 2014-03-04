@@ -69,7 +69,8 @@
         "content_type": ["tests", "eventpage"],
         "path": "0001000100010001",
         "url_path": "/home/events/christmas/",
-        "slug": "christmas"
+        "slug": "christmas",
+        "owner": 2
     }
 },
 {
@@ -96,7 +97,8 @@
         "content_type": ["tests", "eventpage"],
         "path": "0001000100010002",
         "url_path": "/home/events/tentative-unpublished-event/",
-        "slug": "tentative-unpublished-event"
+        "slug": "tentative-unpublished-event",
+        "owner": 2
     }
 },
 {
@@ -112,6 +114,34 @@
 },
 
 {
+    "pk": 6,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Someone Else's Event",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": false,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010003",
+        "url_path": "/home/events/someone-elses-event/",
+        "slug": "someone-elses-event",
+        "owner": 3
+    }
+},
+{
+    "pk": 6,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-07-04",
+        "audience": "private",
+        "location": "The moon",
+        "body": "<p>your name's not down, you're not coming in</p>",
+        "cost": "Free (but not for you)"
+    }
+},
+
+{
     "pk": 1,
     "model": "wagtailcore.site",
     "fields": {
@@ -119,6 +149,141 @@
         "hostname": "localhost",
         "port": 80,
         "is_default_site": true
+    }
+},
+
+{
+    "pk": 3,
+    "model": "auth.group",
+    "fields": {
+        "name": "Event editors",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"],
+            ["add_image", "wagtailimages", "image"],
+            ["change_image", "wagtailimages", "image"],
+            ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
+    "pk": 4,
+    "model": "auth.group",
+    "fields": {
+        "name": "Event moderators",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"],
+            ["add_image", "wagtailimages", "image"],
+            ["change_image", "wagtailimages", "image"],
+            ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
+    "pk": 1,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event editors"],
+        "page": 3,
+        "permission_type": "add"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event moderators"],
+        "page": 3,
+        "permission_type": "add"
+    }
+},
+{
+    "pk": 3,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event moderators"],
+        "page": 3,
+        "permission_type": "edit"
+    }
+},
+{
+    "pk": 4,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event moderators"],
+        "page": 3,
+        "permission_type": "publish"
+    }
+},
+
+{
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+        "username": "superuser",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "groups": [
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "superuser@example.com"
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+        "username": "eventeditor",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Event editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "eventeditor@example.com"
+    }
+},
+{
+    "pk": 3,
+    "model": "auth.user",
+    "fields": {
+        "username": "eventmoderator",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Event moderators"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "eventmoderator@example.com"
+    }
+},
+{
+    "pk": 4,
+    "model": "auth.user",
+    "fields": {
+        "username": "inactiveuser",
+        "first_name": "",
+        "last_name": "",
+        "is_active": false,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Event moderators"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "inactiveuser@example.com"
     }
 }
 ]
