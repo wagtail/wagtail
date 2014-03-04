@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
 
 from wagtail.wagtailcore.models import Page, Site
@@ -78,9 +78,6 @@ class TestRouting(TestCase):
         used_template = response.resolve_template(response.template_name)
         self.assertEqual(used_template.name, 'tests/event_page.html')
 
-        self.assertContains(response, '<h1>Christmas</h1>')
-        self.assertContains(response, '<h2>Event</h2>')
-
     def test_route_to_unknown_page_returns_404(self):
         homepage = Page.objects.get(url_path='/home/')
 
@@ -96,3 +93,48 @@ class TestRouting(TestCase):
         request.path = '/events/tentative-unpublished-event/'
         with self.assertRaises(Http404):
             homepage.route(request, ['events', 'tentative-unpublished-event'])
+
+
+class TestServeView(TestCase):
+    fixtures = ['test.json']
+
+    def test_serve(self):
+        c = Client()
+        response = c.get('/events/christmas/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(response.context['self'], christmas_page)
+
+        self.assertContains(response, '<h1>Christmas</h1>')
+        self.assertContains(response, '<h2>Event</h2>')
+
+    def test_serve_unknown_page_returns_404(self):
+        c = Client()
+        response = c.get('/events/quinquagesima/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_serve_unpublished_page_returns_404(self):
+        c = Client()
+        response = c.get('/events/tentative-unpublished-event/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_serve_with_multiple_sites(self):
+        events_page = Page.objects.get(url_path='/home/events/')
+        events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+
+        c = Client()
+        response = c.get('/christmas/', HTTP_HOST='events.example.com')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(response.context['self'], christmas_page)
+
+        self.assertContains(response, '<h1>Christmas</h1>')
+        self.assertContains(response, '<h2>Event</h2>')
+
+        # same request to the default host should return a 404
+        c = Client()
+        response = c.get('/christmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
