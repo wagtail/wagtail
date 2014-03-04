@@ -6,11 +6,11 @@ from modelcluster.models import ClusterableModel
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
-from django.shortcuts import render
 from django.core.cache import cache
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
+from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
@@ -326,7 +326,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return revision.as_page_object()
 
     def serve(self, request):
-        return render(request, self.template, {
+        return TemplateResponse(request, self.template, {
             'self': self
         })
 

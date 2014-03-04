@@ -3,6 +3,8 @@ from django.http import HttpRequest, Http404
 
 from wagtail.wagtailcore.models import Page, Site
 
+from wagtail.tests.models import EventPage
+
 
 class TestRouting(TestCase):
     fixtures = ['test.json']
@@ -65,12 +67,17 @@ class TestRouting(TestCase):
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
 
         request = HttpRequest()
         request.path = '/events/christmas/'
         response = homepage.route(request, ['events', 'christmas'])
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context_data['self'], christmas_page)
+        used_template = response.resolve_template(response.template_name)
+        self.assertEqual(used_template.name, 'tests/event_page.html')
+
         self.assertContains(response, '<h1>Christmas</h1>')
         self.assertContains(response, '<h2>Event</h2>')
 
