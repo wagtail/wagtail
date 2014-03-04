@@ -99,8 +99,7 @@ class TestServeView(TestCase):
     fixtures = ['test.json']
 
     def test_serve(self):
-        c = Client()
-        response = c.get('/events/christmas/')
+        response = self.client.get('/events/christmas/')
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
@@ -111,21 +110,18 @@ class TestServeView(TestCase):
         self.assertContains(response, '<h2>Event</h2>')
 
     def test_serve_unknown_page_returns_404(self):
-        c = Client()
-        response = c.get('/events/quinquagesima/')
+        response = self.client.get('/events/quinquagesima/')
         self.assertEqual(response.status_code, 404)
 
     def test_serve_unpublished_page_returns_404(self):
-        c = Client()
-        response = c.get('/events/tentative-unpublished-event/')
+        response = self.client.get('/events/tentative-unpublished-event/')
         self.assertEqual(response.status_code, 404)
 
     def test_serve_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
-        events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+        Site.objects.create(hostname='events.example.com', root_page=events_page)
 
-        c = Client()
-        response = c.get('/christmas/', HTTP_HOST='events.example.com')
+        response = self.client.get('/christmas/', HTTP_HOST='events.example.com')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
