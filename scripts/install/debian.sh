@@ -35,14 +35,6 @@ aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
 aptitude -y install postgresql-server-dev-all python-dev libxml2-dev libxslt-dev libjpeg62-dev
 
-wget -nv http://nodejs.org/dist/v0.10.20/node-v0.10.20.tar.gz
-tar xzf node-v0.10.20.tar.gz
-cd node-v0.10.20
-./configure && make -s && make -s install
-cd ..
-rm -r node-v0.10.20 node-v0.10.20.tar.gz
-npm install -g less
-
 perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
 service postgresql reload
 
