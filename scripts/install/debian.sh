@@ -1,7 +1,9 @@
 # Production-configured Wagtail installation
 # (secure services/account for full production use).
-# Tested on Ubuntu 13.10.
+# Tested on Debian 7.0.
 # Tom Dyson and Neal Todd
+
+# NB: Ensure the system locale is okay before running (dpkg-reconfigure locales).
 
 PROJECT=mywagtail
 PROJECT_ROOT=/usr/local/django
@@ -33,8 +35,12 @@ aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
 aptitude -y install postgresql-server-dev-all python-dev libxml2-dev libxslt-dev libjpeg62-dev
 
-aptitude -y install npm
-ln -s /usr/bin/nodejs /usr/bin/node
+wget -nv http://nodejs.org/dist/v0.10.20/node-v0.10.20.tar.gz
+tar xzf node-v0.10.20.tar.gz
+cd node-v0.10.20
+./configure && make -s && make -s install
+cd ..
+rm -r node-v0.10.20 node-v0.10.20.tar.gz
 npm install -g less
 
 perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
@@ -109,12 +115,10 @@ EOF
 mkdir -p /etc/uwsgi/vassals/
 ln -s $PROJECT_ROOT/$PROJECT/uwsgi_conf.ini /etc/uwsgi/vassals/
 
-cat << EOF > /etc/init/uwsgi.conf
-description "uwsgi for wagtail"
-start on runlevel [2345]
-stop on runlevel [06]
-exec uwsgi --emperor /etc/uwsgi/vassals
-EOF
+curl -o /etc/init.d/uwsgi https://gist.githubusercontent.com/nealtodd/9364691/raw/43f0bdb1304995ab73e3d22e62e14111d40d4e90/uwsgi-init.d
+mkdir /var/log/uwsgi
+chmod 755 /etc/init.d/uwsgi
+update-rc.d uwsgi defaults
 
 service uwsgi start
 service nginx restart
