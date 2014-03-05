@@ -42,6 +42,7 @@ setup(
         "Django>=1.6.2",
         "South>=0.8.4",
         "django-compressor>=1.3",
+        "django-libsass>=0.1",
         "django-modelcluster>=0.1",
         "django-taggit>=0.11.2",
         "Pillow>=2.3.0",
