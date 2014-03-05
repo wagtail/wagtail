@@ -115,7 +115,7 @@ EOF
 mkdir -p /etc/uwsgi/vassals/
 ln -s $PROJECT_ROOT/$PROJECT/uwsgi_conf.ini /etc/uwsgi/vassals/
 
-curl -o /etc/init.d/uwsgi https://gist.githubusercontent.com/nealtodd/9364691/raw/43f0bdb1304995ab73e3d22e62e14111d40d4e90/uwsgi-init.d
+curl -o /etc/init.d/uwsgi https://raw.github.com/torchbox/wagtail/master/scripts/install/uwsgi-init.d
 mkdir /var/log/uwsgi
 chmod 755 /etc/init.d/uwsgi
 update-rc.d uwsgi defaults
