@@ -1,6 +1,6 @@
-@import "../variables.less";
-@import "../mixins.less";
-@import "../grid.less";
+@import "../variables.scss";
+@import "../mixins.scss";
+@import "../grid.scss";
 
 h1{
     font-weight:300;
@@ -25,24 +25,24 @@ header{
 }
 
 .summary{
-    .row();
-    background-color:@color-grey-5;
+    @include row();
+    background-color:$color-grey-5;
     margin-bottom:2em;
 
     h2{
-        .visuallyhidden();
+        @include visuallyhidden();
     }
     ul{
-        .unlist();
+        @include unlist();
         width:100%;
     }
     li{
-        .column(4);
+        @include column(4);
         padding-top:3em;
         padding-bottom:3em;
     
         &:first-child{
-            .push-padding(@grid-content-indent);
+            @include push-padding($grid-content-indent);
         }
     }
 

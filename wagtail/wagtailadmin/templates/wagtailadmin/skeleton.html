@@ -18,10 +18,10 @@
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitter:400,700" /> 
         
         {% compress css %}
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/normalize.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/jquery.timepicker.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/core.less" type="text/less" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/normalize.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.timepicker.css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/core.scss" type="text/x-scss" />
         {% endcompress %}
 
         {% block extra_css %}{% endblock %}

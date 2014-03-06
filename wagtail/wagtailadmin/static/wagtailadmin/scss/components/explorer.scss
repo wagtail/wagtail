@@ -4,7 +4,7 @@ max z-index: unknown;
 */
 
 
-@explorer-z-index:500;
+$explorer-z-index:500;
 
 .explorer {
     pointer-events:none;
@@ -21,7 +21,7 @@ max z-index: unknown;
     perspective-origin: 50% 200%;
     
     ul {
-        background: @color-grey-1;
+        background: $color-grey-1;
         padding: 0;
         margin:0;
         list-style: none;
@@ -32,7 +32,7 @@ max z-index: unknown;
 
     li {
         position: relative;
-        border-top:1px solid @color-grey-1-1;
+        border-top:1px solid $color-grey-1-1;
 
         &:first-child{
             border-top:0;
@@ -57,7 +57,7 @@ max z-index: unknown;
         }
 
         &:hover{
-            background:@color-teal-dark;
+            background:$color-teal-dark;
             color:white;
         }
     }
@@ -69,14 +69,14 @@ max z-index: unknown;
 
     .children{
         position:absolute;
-        z-index:@explorer-z-index + 1;
+        z-index:$explorer-z-index + 1;
         right:0;
         top:0;
         width:4em;
         text-align:center;
         height:100%;
         color:white;
-        background-color:@color-grey-1;
+        background-color:$color-grey-1;
         cursor:pointer;
         border-left:1px solid rgba(255,255,255,0.2);
         
@@ -85,7 +85,7 @@ max z-index: unknown;
         }
 
         &:hover{
-            background:@color-teal-dark;
+            background:$color-teal-dark;
         }
     }
     .dl-subviewopen > .children,
@@ -918,8 +918,8 @@ max z-index: unknown;
 
 /* Transitions */ 
 .children{
-    .transition(all 0.2s linear);
+    @include transition(all 0.2s linear);
 }
 .dl-menu.dl-menu-toggle {
-    .transition(all 0.3s ease);
+    @include transition(all 0.3s ease);
 }

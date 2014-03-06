@@ -1,12 +1,13 @@
-@import "../variables.less";
-@import "../mixins.less";
-@import "../grid.less";
+@import "../variables.scss";
+@import "../mixins.scss";
+@import "../grid.scss";
 
-@desktop-padding: 100px;
+// overrides default nice padding defined in variables.scss
+$desktop-nice-padding: 100px;
 
 html, body, .content-wrapper{
-    background-color:@color-grey-1;
-    color:@color-grey-3;
+    background-color:$color-grey-1;
+    color:$color-grey-3;
 }
 
 html{
@@ -22,7 +23,8 @@ body{
     border:0;
 }
 .wrapper{
-    .nice-padding();
+    padding-left:$mobile-nice-padding;
+    padding-right:$mobile-nice-padding;
     max-width:none;
 }
 
@@ -37,7 +39,7 @@ h1{
 form{
     width:100%;
     ul{
-        .unlist();
+        @include unlist();
     }
 }
     label{
@@ -66,7 +68,7 @@ form{
                     display:none;
                 }
                 input{
-                    border-top: 1px dashed @color-input-border;
+                    border-top: 1px dashed $color-input-border;
                 }
             }
             &:first-child input{
@@ -85,7 +87,7 @@ form{
         }
 
     .full label{
-        .border-radius(2px);
+        @include border-radius(2px);
         text-transform:uppercase;
         padding:2px 5px;
         position:absolute;
@@ -101,8 +103,9 @@ form{
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     .full input{
-        .nice-padding();
-        .border-radius(0px);
+        @include border-radius(0px);
+        padding-left:$mobile-nice-padding;
+        padding-right:$mobile-nice-padding;
         font-weight:300;
         border:0;
         padding-top:1.5em;
@@ -131,12 +134,12 @@ form{
         }
 
         li{
-            .border-radius(3px);
+            @include border-radius(3px);
         }
     }
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .content-wrapper{
         float:none;
         height:auto;
@@ -149,7 +152,7 @@ form{
     .wrapper{
         position:relative;
         height:100%;
-        padding:0 @desktop-padding;
+        padding:0 $desktop-nice-padding;
         
         &:before {
             content: '';
@@ -168,21 +171,21 @@ form{
     .field.icon:before{
         display:inline-block;
         position: absolute;
-        color:@color-grey-4;
-        border: 2px solid @color-grey-4;
+        color:$color-grey-4;
+        border: 2px solid $color-grey-4;
         border-radius: 100%;
         width: 1em;
         padding: 0.3em;
-        left: @desktop-padding;
+        left: $desktop-nice-padding;
         margin-top: -1em;
         top: 50%;
     }
 
     .full{
-        margin:0 -@desktop-padding;
+        margin:0px (-$desktop-nice-padding);
         
         input{
-            padding-left:@desktop-padding + 50px;
+            padding-left:($desktop-nice-padding + 50px);
         }
     }
 }

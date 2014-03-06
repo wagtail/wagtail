@@ -1,5 +1,5 @@
-@import "../variables.less";
-@import "../mixins.less";
+@import "../variables.scss";
+@import "../mixins.scss";
 
 .hallotoolbar{
     position:absolute;
@@ -14,7 +14,7 @@
     margin-top:0;
 }
 .hallotoolbar button{
-    .border-radius(0);
+    @include border-radius(0);
 }
 
 .richtext {
@@ -149,11 +149,11 @@
     }
 }
 
-@media screen and (min-width: @breakpoint-desktop-larger){
+@media screen and (min-width: $breakpoint-desktop-larger){
    /* .hallotoolbar{
         margin:0 auto;
         position:absolute;
-        left:-@menu-width;
+        left:-$menu-width;
         right:0;
         z-index:5;
         margin-top:3em;

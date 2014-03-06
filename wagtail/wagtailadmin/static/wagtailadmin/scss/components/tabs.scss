@@ -1,5 +1,5 @@
 .tab-nav{
-    .clearfix();
+    @include clearfix();
     padding:0;
 
     li{
@@ -14,9 +14,9 @@
         }
     }
     a{
-        .box-shadow(inset 0px -2px 3px 0 rgba(0,0,0,0.1));
-        .transition(border-color 0.2s ease);
-        background-color:@color-grey-4;
+        @include transition(border-color 0.2s ease);
+        @include box-shadow(inset 0px -2px 3px 0 rgba(0,0,0,0.1));
+        background-color:$color-grey-4;
         outline:none;
         line-height:3em;
         text-transform:uppercase;
@@ -25,29 +25,30 @@
         text-decoration:none;
         display:block;
         padding:0 20px;
-        color:@color-grey-2;
-        border-top:0.3em solid darken(@color-grey-4,0%);
+        color:$color-grey-2;
+        border-top:0.3em solid $color-grey-4;
+        border-bottom:1px solid transparent;
 
         &:hover{
             color:inherit;
-            border-top-color:@color-grey-2;
+            border-top-color:$color-grey-2;
         }
     }
 
     a.errors{
-        color:@color-red !important;
+        color:$color-red !important;
 
         &:after{
-            .border-radius(50%);
-            .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+            @include border-radius(50%);
+            @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
             position:absolute;
             right:-0.5em;
             top:-0.5em;
             z-index:5;           
             min-width:1em;
             color:white;
-            background:@color-red;
-            border:2px solid darken(@color-red,20%);
+            background:$color-red;
+            border:2px solid darken($color-red,20%);
             content:attr(data-count);
             padding:0 0.3em;
             line-height:1.4em;
@@ -57,15 +58,15 @@
     }
 
     li.active a{
-        .box-shadow(none);
-        color:@color-grey-1;
+        @include box-shadow(none);
+        color:$color-grey-1;
         background-color:white;
-        border-top:0.3em solid @color-grey-1;      
+        border-top:0.3em solid $color-grey-1;      
     }
 
     /* For cases where tab-nav should merge with header */
     &.merged{
-        background-color:@color-header-bg;
+        background-color:$color-header-bg;
         margin-top:0;
     }
 }
@@ -80,7 +81,7 @@
     }
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .tab-nav li{
         width:auto;
         padding:0;

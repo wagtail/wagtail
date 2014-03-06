@@ -7,7 +7,7 @@ form {
         padding:0;
     }
     li{
-        .row();
+        @include row();
     }
 }
 
@@ -18,7 +18,7 @@ fieldset{
 }
 
 legend{
-    .visuallyhidden();
+    @include visuallyhidden();
 }
 
 .fields li{
@@ -32,7 +32,7 @@ legend{
 
 label{
     font-weight:bold;
-    color:@color-grey-1;
+    color:$color-grey-1;
     font-size:1.1em;
     display:block;
     padding:0 0 0.8em 0;
@@ -45,15 +45,15 @@ label{
 }
 
 input, textarea, select, .richtext, .tagit{
-    .border-radius(6px);
-    .border-box();
+    @include border-radius(6px);
+    @include border-box();
     font-family:Open Sans,Arial,sans-serif;
     width:100%;
-    border:1px dashed @color-input-border;
+    border:1px dashed $color-input-border;
     padding:1.2em;
-    background-color:@color-fieldset-hover;
+    background-color:$color-fieldset-hover;
     -webkit-appearance: none;
-    color:@color-text-input;
+    color:$color-text-input;
     font-size:1.2em;
     font-weight:300;
     outline:none;
@@ -70,14 +70,14 @@ input, textarea, select, .richtext, .tagit{
         background-color:white;
     }
     &:focus{
-        border-color: darken(@color-input-focus, 40%);
+        border-color: darken($color-input-focus, 40%);
         outline:none;
-        background-color:@color-input-focus;
+        background-color:$color-input-focus;
     }
 }
 
 input[type=radio],input[type=checkbox]{
-    .border-radius(0);
+    @include border-radius(0);
     cursor:pointer;
     float:left;
     border:0;
@@ -91,7 +91,7 @@ input[type=radio]{
 }
 
 input[type=radio]:before{
-    .border-radius(100%);
+    @include border-radius(100%);
     font-family: wagtail;
     font-style: normal;
     text-align:center;
@@ -105,12 +105,12 @@ input[type=radio]:before{
     line-height: 1.1em;
     padding: 4px;
     background-color: white;
-    color:@color-grey-4;
-    border: 1px solid @color-grey-4;
+    color:$color-grey-4;
+    border: 1px solid $color-grey-4;
 }
 input[type=radio]:checked:before{
     content:"K";
-    color:@color-teal;
+    color:$color-teal;
 }
 
 input[type=checkbox]{
@@ -133,20 +133,20 @@ input[type=checkbox]:before{
     width:20px;
     height:20px;
     background-color:white;
-    border:1px solid @color-grey-4;
-    color:@color-grey-4;
+    border:1px solid $color-grey-4;
+    color:$color-grey-4;
 }
 input[type=checkbox]:checked:before{
-    color:@color-teal;
+    color:$color-teal;
 }
 
 /* Core button style */
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    .border-radius(3px);
+    @include border-radius(3px);
     width:auto;
     padding:0.7em 1em;
-    background-color: @color-button;
-    border:1px solid @color-button;
+    background-color: $color-button;
+    border:1px solid $color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
@@ -168,8 +168,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-secondary{
-        border:1px solid @color-button;
-        color:@color-button;
+        border:1px solid $color-button;
+        color:$color-button;
         background-color:white;
     }
 
@@ -182,39 +182,39 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
     
     &:hover{
-        background-color: @color-button-hover;
+        background-color: $color-button-hover;
         color:white;
         border-color:transparent;
     }
 
     &.yes{
-        background-color: @color-button-yes;
-        border:1px solid @color-button-yes;
+        background-color: $color-button-yes;
+        border:1px solid $color-button-yes;
 
         &.button-secondary{
-            border:1px solid @color-button-yes;
-            color:@color-button-yes;
+            border:1px solid $color-button-yes;
+            color:$color-button-yes;
             background-color:transparent;
         }
         &:hover{
             color:white;
             border-color:transparent;
-            background-color: @color-button-yes-hover;
+            background-color: $color-button-yes-hover;
         }
     }
     &.no, &.serious{
-        background-color: @color-button-no;
-        border:1px solid @color-button-no;
+        background-color: $color-button-no;
+        border:1px solid $color-button-no;
 
         &.button-secondary{
-            border:1px solid @color-button-no;
-            color:@color-button-no;
+            border:1px solid $color-button-no;
+            color:$color-button-no;
             background-color:transparent;
         }
         &:hover{
             color:white;
             border-color:transparent;
-            background-color: @color-button-no-hover;
+            background-color: $color-button-no-hover;
         }
     }  
 
@@ -256,7 +256,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 }
 
 .multiple{
-    .transition(max-height 10s ease);
+    @include transition(max-height 10s ease);
     padding:0;
     max-height:10000px;
     max-width:1024px - 50px;
@@ -267,8 +267,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         background-color:white;
         padding:1em 1.5em;
         margin-bottom:1em;
-        border:1px solid lighten(@color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
-        .border-radius(2px);
+        border:1px solid lighten($color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
+        @include border-radius(2px);
     }
 
     &.moving{
@@ -291,10 +291,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         top:1em;
         color:white;
         overflow:hidden;
-        .border-radius(2px);
+        @include border-radius(2px);
         
         li{
-            background-color: @color-grey-2;
+            background-color: $color-grey-2;
             float:left;
             cursor:pointer;
             margin-right:1px;
@@ -312,14 +312,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             line-height:2em;
         }
         .icon:hover{
-            background-color:@color-teal;
+            background-color:$color-teal;
 
             &:before{
                 color:white;
             }
         }
         .icon-bin:hover{
-            background-color:@color-red;
+            background-color:$color-red;
         }
         .disabled{
             display:none;
@@ -346,7 +346,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     margin:0 0 0.5em 0;
 }
 .help{
-    color:@color-grey-2;
+    color:$color-grey-2;
 }
 
 /* permanently show checkbox/radio help as they have no focus state */
@@ -365,7 +365,7 @@ li.focused > .help{
 
 .required label:after{
     content:"*";
-    color:@color-red;
+    color:$color-red;
     font-weight:bold;
     display:inline-block;
     margin-left:0.5em;
@@ -375,13 +375,13 @@ li.focused > .help{
 
 .error-message{
     margin:0;
-    color:@color-red;
+    color:$color-red;
     clear:both;
 }
 
 .error input, .error textarea, .error select, .error .tagit{
-    border-color:@color-red;
-    background-color:@color-input-error-bg;
+    border-color:$color-red;
+    background-color:$color-input-error-bg;
 }
 
 /* field sizing */
@@ -417,7 +417,7 @@ li.inline .field{
 
 /* solve gutter issues of inline fields */
 ul.inline li:first-child, li.inline:first-child{
-    margin-left:-@grid-gutter-width / 2;
+    margin-left:-$grid-gutter-width / 2;
 }
 
 
@@ -425,7 +425,7 @@ ul.inline li:first-child, li.inline:first-child{
 
 .chooser {
     /* We show the 'chosen' state...*/
-    .clearfix();
+    @include clearfix();
 
     input[type=text]{
         float:left;
@@ -445,7 +445,7 @@ ul.inline li:first-child, li.inline:first-child{
             position:relative;
             display:block;
             float:left;
-            color:@color-grey-3;
+            color:$color-grey-3;
             line-height:0.85em;
             font-size:2.5em;
             margin-right:0.3em;
@@ -473,7 +473,7 @@ ul.inline li:first-child, li.inline:first-child{
 .document-chooser {
     .chosen{
         .title{
-            color: @color-grey-1;
+            color: $color-grey-1;
             display:block;
             padding-left:3em;
         }
@@ -515,14 +515,14 @@ ul.inline li:first-child, li.inline:first-child{
         }
     }
     .chosen{
-        padding-left:@thumbnail-width;   
+        padding-left:$thumbnail-width;   
 
         &:before{
             content:"";
         }
         .preview-image{
             float:left;
-            margin-left:-(@thumbnail-width);
+            margin-left:-($thumbnail-width);
             margin-right:1em;
         }
     }
@@ -535,13 +535,12 @@ ul.inline li:first-child, li.inline:first-child{
     .tagit-choice{
         border:0;
     }
-
-    ul& input[type="text"]{
-        padding: 0.2em 0.5em !important; /* having to use important, FML*/
-    }
-    ul& li.tagit-choice-editable{
-        padding:0 23px 0 0 !important; /* having to use important, FML*/
-    }
+}
+ul.tagit input[type="text"]{
+    padding: 0.2em 0.5em !important; /* having to use important, FML*/
+}
+ul.tagit li.tagit-choice-editable{
+    padding:0 23px 0 0 !important; /* having to use important, FML*/
 }
 
 .tagit-close{
@@ -554,11 +553,11 @@ ul.inline li:first-child, li.inline:first-child{
     .ui-icon-close:before{
         font-family:wagtail;
         display:block;
-        color:@color-grey-3;
+        color:$color-grey-3;
         content:"g";
     }
     .ui-icon-close:hover:before{
-        color:@color-red
+        color:$color-red
     }
 }
 
@@ -571,9 +570,9 @@ ul.inline li:first-child, li.inline:first-child{
     margin-bottom:2em;
 
     &.full-width{
-        .nice-padding();
-        background-color:@color-header-bg;
-        border-bottom:1px solid @color-grey-4;
+        @include nice-padding();
+        background-color:$color-header-bg;
+        border-bottom:1px solid $color-grey-4;
     }
 
     .fields{
@@ -596,7 +595,7 @@ ul.inline li:first-child, li.inline:first-child{
             font-family:wagtail;
             content:"f";
             font-size:25px;
-            color:@color-grey-3;
+            color:$color-grey-3;
         }
     }
     .submit{
@@ -647,16 +646,16 @@ ul.inline li:first-child, li.inline:first-child{
 
 /* Transitions */
 fieldset, input, textarea, select{
-    .transition(background-color 0.2s ease);
+    @include transition(background-color 0.2s ease);
 }
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    .transition(~"background-color 0.2s ease, color 0.2s ease");
+    @include transition(background-color 0.2s ease, color 0.2s ease);
 }
 .help{
-    .transition(opacity 0.2s ease);
+    @include transition(opacity 0.2s ease);
 }
 
-@media screen and (min-width: @breakpoint-mobile){
+@media screen and (min-width: $breakpoint-mobile){
     .help{
         opacity:1;
     }
