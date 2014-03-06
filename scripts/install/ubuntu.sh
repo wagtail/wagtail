@@ -1,6 +1,6 @@
 # Production-configured Wagtail installation
 # (secure services/account for full production use).
-# Tested on Ubuntu 13.10.
+# Tested on Ubuntu 13.04 and 13.10.
 # Tom Dyson and Neal Todd
 
 PROJECT=mywagtail
