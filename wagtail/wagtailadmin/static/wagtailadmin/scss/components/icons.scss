@@ -228,6 +228,13 @@
 .icon-bin:before{
     content:"Z";
 }
+.icon-spinner:after{
+    width:1em;
+    animation: spin 1s infinite;
+    -webkit-animation: spin 1s infinite;
+    -moz-animation: spin 1s infinite;
+    content:"1";
+}
 
 .icon.text-replace{
     font-size:0em;
@@ -241,5 +248,31 @@
         line-height:1.2em;
         text-align:center;
         vertical-align:0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
     }
 }
