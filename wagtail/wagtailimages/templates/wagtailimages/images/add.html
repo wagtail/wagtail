@@ -13,7 +13,7 @@
 
 {% block content %}
     {% trans "Add image" as add_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtailimages_add_image' %}" method="POST" enctype="multipart/form-data">

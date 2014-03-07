@@ -296,7 +296,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include border-radius(2px);
         
         li{
-            background-color: $color-grey-2;
+            background-color: $color-teal;
             float:left;
             cursor:pointer;
             margin-right:1px;
@@ -312,9 +312,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
         .icon:before{
             line-height:2em;
+            width:2em;
         }
         .icon:hover{
-            background-color:$color-teal;
+            background-color:$color-teal-darker;
 
             &:before{
                 color:white;

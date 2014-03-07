@@ -34,15 +34,15 @@
     font-variant: normal;
     text-transform: none !important;
     speak: none;
-    display: inline-block;
     text-decoration: none;
     width: 1.3em;
     line-height: 1em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    vertical-align: -20%;
-    font-size:20px;
+    font-size:1.8em;
     text-align:left;
+    vertical-align:middle;
+    margin-right:0.2em;
 }
 .icon:after,
 .hallotoolbar [class^="icon-"]:after,
@@ -242,19 +242,19 @@
     content:"2";
 }
 
-
 .icon.text-replace{
     font-size:0em;
     line-height:0;
     overflow:hidden;
     
     &:before{
+        margin-right:0;
         font-size:1rem;
         display:inline-block;
         width:100%;
         line-height:1.2em;
         text-align:center;
-        vertical-align:0;
+        vertical-align:middle;
     }
 }
 

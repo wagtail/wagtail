@@ -227,7 +227,7 @@ img{
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
             &:before{
-                margin-right:0.3em;
+                margin-right:0.5em;
             }
             &:hover{
                 color:white;
@@ -395,7 +395,6 @@ body.explorer-open {
 }
 
 header{
-
     padding-top:1em;
     padding-bottom:1em;
     padding-left: 4em !important;
@@ -409,7 +408,12 @@ header{
     }
 
     h1{
-       padding:0.2em 0;
+        padding:0.2em 0;
+
+        &.icon:before{
+            margin-right:0.4em;
+            font-size:1.5em;
+        }
     }
 
     .col{

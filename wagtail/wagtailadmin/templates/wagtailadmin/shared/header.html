@@ -2,7 +2,7 @@
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1>{{ title }} <span>{{ subtitle }}</span></h1>
+                <h1 class="icon icon-{{ icon }}">{{ title }} <span>{{ subtitle }}</span></h1>
             </div>
             {% if search_url %}
                 <form class="col search-bar" action="{% url search_url %}" method="get">

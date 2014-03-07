@@ -53,6 +53,7 @@ $explorer-z-index:500;
         &:before{
             opacity:0.5;
             left:1em;
+            margin-right:0.5em;
             
         }
 
@@ -81,7 +82,10 @@ $explorer-z-index:500;
         border-left:1px solid rgba(255,255,255,0.2);
         
         &:before{
-            padding:0.55em 0;
+            padding: 0.55em 0;
+            display: block;
+            width: 100%;
+            text-align: center;
         }
 
         &:hover{

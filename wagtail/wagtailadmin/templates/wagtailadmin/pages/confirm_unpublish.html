@@ -4,7 +4,7 @@
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
     {% trans "Unpublish" as unpublish_str %}
-    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.title %}
+    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
