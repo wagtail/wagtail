@@ -6,24 +6,22 @@
     <thead>
         <tr class="table-headers">
             <th>
-                {% trans "Title" %}
                 {% if not is_searching %}
-                    {% if ordering == "title" %}
-                        <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>
-                    {% else %}
-                        <a href="{% url 'wagtaildocs_index' %}?ordering=title" class="icon icon-arrow-down-after"></a>
-                    {% endif %}
+                    <a href="{% url 'wagtaildocs_index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
+                        {% trans "Title" %}
+                    </a>
+                {% else %}
+                    {% trans "Title" %}
                 {% endif %}
             </th>
             <th>{% trans "File" %}</th>
             <th>
-                {% trans "Uploaded" %}
                 {% if not is_searching %}
-                    {% if ordering == "-created_at" %}
-                        <a href="{% url 'wagtaildocs_index' %}" class="icon icon-arrow-down-after teal"></a>
-                    {% else %}
-                        <a href="{% url 'wagtaildocs_index' %}?ordering=-created_at" class="icon icon-arrow-down-after"></a>
-                    {% endif %}
+                    <a href="{% url 'wagtaildocs_index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">
+                        {% trans "Uploaded" %}
+                    </a>
+                {% else %}
+                    {% trans "Uploaded" %}
                 {% endif %}
             </th>
         </tr>

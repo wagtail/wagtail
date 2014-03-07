@@ -235,6 +235,13 @@
     -moz-animation: spin 1s infinite;
     content:"1";
 }
+.icon-redirect:before{
+    content:"3";
+}
+.icon-pick:before{
+    content:"2";
+}
+
 
 .icon.text-replace{
     font-size:0em;

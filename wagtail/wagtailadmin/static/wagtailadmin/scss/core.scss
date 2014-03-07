@@ -234,16 +234,17 @@ img{
             }
         }
 
-        .more > a{
-            &:before{
-                margin-right:0.4em;
-            }
-            font-size:0.8em;
-            padding:0.2em 1.2em;
-            background-color:$color-grey-1-1;
-        }
         .more{
             border:0;
+            
+            > a{
+                &:before{
+                    margin-right:0.4em;
+                }
+                font-size:0.8em;
+                padding:0.2em 1.2em;
+                background-color:$color-grey-1-1;
+            }
         }
 
         .avatar{
@@ -443,6 +444,10 @@ header{
     &.merged.no-border{
         padding-bottom:0;
     }
+    &.no-v-padding{
+        padding-top:0;
+        padding-bottom:0;
+    }
     /* 
     &.hasform h1{
         margin-top:0.2em;
@@ -458,7 +463,7 @@ header{
 
 .page-explorer header{
     margin-bottom:0;
-    padding-bottom:1em;
+    padding-bottom:0em;
 }
 
 
@@ -524,7 +529,6 @@ footer{
     @include unlist();
     @include clearfix();
 
-    padding-top:0.2em;
     font-size:0.85em;
     margin-bottom:-4px; /* negates the 4px margin on the bottom of each LI, used to make it wrap nicely */
    
@@ -576,7 +580,6 @@ footer{
 
         &:first-child {
             padding:0.4em;
-            @include border-radius(3px 0px 0px 3px);
 
             &:before{
                 display:none;
@@ -588,7 +591,8 @@ footer{
                 &:before{
                     line-height:1em;
                     font-size:1.15rem;
-                    line-height:0.95em;
+                    line-height: 0.85em;
+                    padding-top: 0.10em;
                 }
             }
         }
@@ -698,7 +702,6 @@ footer, .logo{
         width:$menu-width;
         margin-left: -$menu-width;
         
-
         .inner{ 
             height:100%;
             position:fixed;
@@ -706,7 +709,7 @@ footer, .logo{
         }
     }
         .logo{
-            margin:2em auto;
+            margin:1em auto;
             text-align:center;
 
             span{
@@ -731,7 +734,7 @@ footer, .logo{
 
     .nav-main{
         position:absolute;
-        top: 150px;
+        top: 125px;
         margin-bottom: 116px; /* WARNING: magic number - the height of the .footer */
 
         .footer{
@@ -762,7 +765,7 @@ footer, .logo{
         position: absolute;
         top:0;
         left:99%;
-        margin-top:149px; /* same as .nav-main minus 1 pixel for border */
+        margin-top:124px; /* same as .nav-main minus 1 pixel for border */
     }
     .dl-menu {
         position: absolute;

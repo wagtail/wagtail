@@ -94,6 +94,12 @@ $(function(){
     });
 
     $(".nav-main .more > a").bind('click keydown', function(){
+        var currentAlt = $(this).data('altstate');
+        var newAlt = $(this).html();
+
+        $(this).html(currentAlt);
+        $(this).data('altstate', newAlt);
+        $(this).toggleClass('icon-arrow-up icon-arrow-down')
         $(this).parent().find('ul').toggle('fast');
         return false;
     });

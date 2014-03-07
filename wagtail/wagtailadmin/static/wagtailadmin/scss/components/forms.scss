@@ -164,7 +164,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     -moz-box-sizing:content-box;
 
     &.button-small{
-        font-size:0.95em;
+        padding:0.55em 0.8em;
+        font-size:1em;
     }
 
     &.button-secondary{
@@ -237,6 +238,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-small.bicolor{
+        padding: 0.65em 0.8em;
         padding-left:3.5em;
 
         &:before{
@@ -670,7 +672,7 @@ fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
 }
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    @include transition(background-color 0.2s ease, color 0.2s ease);
+    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 .help{
     @include transition(opacity 0.2s ease);
