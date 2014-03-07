@@ -1,10 +1,46 @@
 Getting Started
 ---------------
 
+On Ubuntu
+~~~~~~~~~
+
+If you have a fresh instance of Ubuntu 13.04 or 13.10, you can install Wagtail,
+along with a demonstration site containing a set of standard templates and page
+types, in one step. As the root user::
+
+  curl -O https://wagtail.io/ubuntu.sh; bash ubuntu.sh
+
+This script installs all the dependencies for a production-ready Wagtail site,
+including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
+recommend you check through the script before running it, and adapt it according
+to your deployment preferences. The canonical version is at
+`github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh
+<https://github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh>`_.
+
+On Debian
+~~~~~~~~~
+
+If you have a fresh instance of Debian 7, you can install Wagtail, along with a
+demonstration site containing a set of standard templates and page types, in one
+step. As the root user::
+
+  curl -O https://wagtail.io/debian.sh; bash debian.sh
+
+This script installs all the dependencies for a production-ready Wagtail site,
+including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
+recommend you check through the script before running it, and adapt it according
+to your deployment preferences. The canonical version is at
+`github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh
+<https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`_.
+
 Using Vagrant
 ~~~~~~~~~~~~~
 
- We provide a Vagrant box which includes all the dependencies for a fully-fledged Wagtail environment, bundled with a demonstration site containing a set of standard templates and page types. If you have a good internet connection we recommend the following steps, which will download the 650MB Vagrant box and make a running Wagtail instance available as the basis for your new site:
+We provide a Vagrant box which includes all the dependencies for a fully-fledged
+Wagtail environment, bundled with a demonstration site containing a set of
+standard templates and page types. If you have a good internet connection we recommend
+the following steps, which will download the 650MB Vagrant box and make a running
+Wagtail instance available as the basis for your new site:
 
 -  Install `Vagrant <http://www.vagrantup.com/>`_ 1.1+
 -  Clone the demonstration site, create the Vagrant box and initialise Wagtail::
@@ -18,19 +54,21 @@ Using Vagrant
 	./manage.py update_index
 	./manage.py runserver 0.0.0.0:8000
 
--  This will make the app accessible on the host machine as `localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase is located on the host machine, exported to the VM as a shared folder; code editing and Git operations will generally be done on the host.
+-  This will make the app accessible on the host machine as
+`localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin
+interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
+is located on the host machine, exported to the VM as a shared folder; code
+editing and Git operations will generally be done on the host.
 
-Without Vagrant
+Other platforms
 ~~~~~~~~~~~~~~~
 
-For production, or if you prefer not to use Vagrant, use the following steps to install Wagtail:
+If you're not using Ubuntu or Debian, or if you prefer to install Wagtail manually,
+use the following steps:
 
 Required dependencies
 =====================
 
--  `npm`_
--  `CoffeeScript`_
--  `Less`_
 -  `pip`_
 
 Optional dependencies
@@ -67,7 +105,4 @@ with a regular Django project.
 .. _the Wagtail codebase: https://github.com/torchbox/wagtail
 .. _PostgreSQL: http://www.postgresql.org
 .. _Elasticsearch: http://www.elasticsearch.org
-.. _npm: https://npmjs.org/
-.. _CoffeeScript: http://coffeescript.org/
-.. _Less: http://lesscss.org/
 .. _Pip: https://github.com/pypa/pip
