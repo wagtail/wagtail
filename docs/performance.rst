@@ -35,11 +35,6 @@ Database
 
 Wagtail is tested on SQLite, and should work on other Django-supported database backends, but we recommend PostgreSQL for production use.
 
-Asset compression
------------------
-
-The Wagtail editor UI is based on `Less <http://lesscss.org/>`_. We aim to provide support for pure-Python Less compilation, to minimise installation requirements, but the official node.js-based compiler is significantly faster. We recommend installing this in production, and you may also prefer to use it to speed up your development environment.
-
 Public users
 ~~~~~~~~~~~~
 
