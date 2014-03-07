@@ -588,14 +588,28 @@ ul.tagit li.tagit-choice-editable{
                 background-color:white;
             }
         }
-        .field:before{
-            position:absolute;
-            left:0.5em;
-            top:1em;
+        .field:before, .field:after{
             font-family:wagtail;
-            content:"f";
+            position:absolute;
+            top:1em;
             font-size:25px;
+            
+        }
+        .field:before{
+            left:0.5em;
+            content:"f";
             color:$color-grey-3;
+        }
+        .field:after{
+            color:$color-teal;
+            opacity:0.8;
+            font-size:20px;
+            width:20px;
+            height:20px;
+            line-height:23px;
+            text-align:center;
+            top:0.3em;
+            right:0.5em;
         }
     }
     .submit{
@@ -641,6 +655,13 @@ ul.tagit li.tagit-choice-editable{
             }
 
         }
+    }
+}
+
+/* mozilla specific hack */
+@-moz-document url-prefix() { 
+    .search-bar .fields .field:after{
+        line-height:20px;
     }
 }
 
