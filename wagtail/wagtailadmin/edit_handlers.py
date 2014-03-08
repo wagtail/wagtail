@@ -605,7 +605,7 @@ class BasePageChooserPanel(BaseChooserPanel):
         return cls._target_content_type
 
     def render_js(self):
-        page = getattr(self.instance, self.field_name)
+        page = self.get_chosen_item()
         parent = page.get_parent() if page else None
         content_type = self.__class__.target_content_type()
 
