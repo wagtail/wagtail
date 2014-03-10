@@ -1,7 +1,6 @@
 import StringIO
 import os.path
 
-import PIL.Image
 from taggit.managers import TaggableManager
 
 from django.core.files import File
@@ -17,8 +16,7 @@ from django.utils.translation import ugettext_lazy  as _
 from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
-from wagtail.wagtailimages import image_ops
-
+from wagtail.wagtailimages.backends import get_image_backend
 
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
@@ -146,11 +144,11 @@ class Filter(models.Model):
     spec = models.CharField(max_length=255, db_index=True)
 
     OPERATION_NAMES = {
-        'max': image_ops.resize_to_max,
-        'min': image_ops.resize_to_min,
-        'width': image_ops.resize_to_width,
-        'height': image_ops.resize_to_height,
-        'fill': image_ops.resize_to_fill,
+        'max': 'resize_to_max',
+        'min': 'resize_to_min',
+        'width': 'resize_to_width',
+        'height': 'resize_to_height',
+        'fill': 'resize_to_fill',
     }
 
     def __init__(self, *args, **kwargs):
@@ -159,12 +157,12 @@ class Filter(models.Model):
 
     def _parse_spec_string(self):
         # parse the spec string, which is formatted as (method)-(arg),
-        # and save the results to self.method and self.method_arg
+        # and save the results to self.method_name and self.method_arg
         try:
-            (method_name, method_arg_string) = self.spec.split('-')
-            self.method = Filter.OPERATION_NAMES[method_name]
+            (method_name_simple, method_arg_string) = self.spec.split('-')
+            self.method_name = Filter.OPERATION_NAMES[method_name_simple]
 
-            if method_name in ('max', 'min', 'fill'):
+            if method_name_simple in ('max', 'min', 'fill'):
                 # method_arg_string is in the form 640x480
                 (width, height) = [int(i) for i in method_arg_string.split('x')]
                 self.method_arg = (width, height)
@@ -181,18 +179,23 @@ class Filter(models.Model):
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
+        
+        # TODO: Pass default this as a parameter
+        backend = get_image_backend('default')
+        
         if not self.method:
             self._parse_spec_string()
-
-        input_file.open()
-        image = PIL.Image.open(input_file)
+        
+        image = backend.open_image(input_file)
         file_format = image.format
 
-        # perform the resize operation
-        image = self.method(image, self.method_arg)
+        method = getattr(backend, self.method_name)
+
+        image = method(image, self.method_arg)
 
         output = StringIO.StringIO()
-        image.save(output, file_format)
+        backend.save_image(image, output, file_format)
+        
 
         # generate new filename derived from old one, inserting the filter spec string before the extension
         input_filename_parts = os.path.basename(input_file.name).split('.')
@@ -202,7 +205,7 @@ class Filter(models.Model):
         output_filename = '.'.join(output_filename_parts)
 
         output_file = File(output, name=output_filename)
-        input_file.close()
+        
 
         return output_file
 
