@@ -14,6 +14,8 @@ from django.utils.html import escape
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 
+from unidecode import unidecode
+
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages import image_ops
 
@@ -25,8 +27,9 @@ class AbstractImage(models.Model, TagSearchable):
         folder_name = 'original_images'
         filename = self.file.field.storage.get_valid_name(filename)
 
+        # do a unidecode in the filename and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in filename)
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
 
         while len(os.path.join(folder_name, filename)) >= 95:
             prefix, dot, extension = filename.rpartition('.')
