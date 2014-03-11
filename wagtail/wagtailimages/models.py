@@ -69,7 +69,11 @@ class AbstractImage(models.Model, TagSearchable):
             rendition = self.renditions.get(filter=filter)
         except ObjectDoesNotExist:
             file_field = self.file
-            generated_image_file = filter.process_image(file_field.file)
+
+			# If we have a backend attribute then pass it to process
+			# image - else pass 'default'
+            backend_name = getattr(self, 'backend', 'default')
+            generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
 
             rendition, created = self.renditions.get_or_create(
                 filter=filter, defaults={'file': generated_image_file})
@@ -173,19 +177,21 @@ class Filter(models.Model):
         except (ValueError, KeyError):
             raise ValueError("Invalid image filter spec: %r" % self.spec)
 
-    def process_image(self, input_file):
+    def process_image(self, input_file, backend_name='default'):
         """
         Given an input image file as a django.core.files.File object,
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
         
-        # TODO: Pass default this as a parameter
-        backend = get_image_backend('default')
+        backend = get_image_backend(backend_name)
         
         if not self.method:
             self._parse_spec_string()
         
+        # If file is closed, open it
+        if input_file.closed:
+            input_file.open()
         image = backend.open_image(input_file)
         file_format = image.format
 
