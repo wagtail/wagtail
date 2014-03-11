@@ -34,6 +34,7 @@ class WandBackend(BaseImageBackend):
 
         left = (original_width - final_width) / 2
         top = (original_height - final_height) / 2
-        return image.crop(
-            (left, top, left + final_width, top + final_height)
-        )
+        image.crop(
+            left=left, top=top, right=left + final_width, bottom=top + final_height
+		)
+        return image

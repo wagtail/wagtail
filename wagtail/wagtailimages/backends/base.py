@@ -128,5 +128,5 @@ class BaseImageBackend(object):
         (The final image will match the requested size, unless one or the other dimension is
         already smaller than the target size)
         """
-        resized_image = resize_to_min(image, size)
+        resized_image = self.resize_to_min(image, size)
         return self.crop_to_centre(resized_image, size)
