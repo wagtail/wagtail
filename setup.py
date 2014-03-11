@@ -39,7 +39,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=[
-        "Django>=1.6.2",
+        "Django>=1.6.2,<1.7",
         "South>=0.8.4",
         "django-compressor>=1.3",
         "django-libsass>=0.1",
