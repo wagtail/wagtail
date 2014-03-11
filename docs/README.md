@@ -1,4 +1,6 @@
-Sphinx docs, automatically built at docs.wagtail.io when the master branch is committed to Github. To build locally, install Sphinx and the RTD theme:
+# Wagtail docs
+
+These are Sphinx docs, automatically built at http://docs.wagtail.io when the master branch is committed to Github. To build them locally, install Sphinx and the RTD theme:
 
     pip install Sphinx
     pip install sphinx-rtd-theme
@@ -13,3 +15,5 @@ To auto-build your local docs when you save:
               --ignore-pattern='_build/*' \
               --recursive \
               --command='make html'
+
+The online editor at http://rst.ninjs.org/ is a helpful tool for checking reStructuredText syntax.
