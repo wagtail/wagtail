@@ -33,6 +33,22 @@ to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh
 <https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`_.
 
+On OS X
+~~~~~~~
+
+Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`_ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
+
+    mkvirtualenv wagtaildemo
+    git clone https://github.com/torchbox/wagtaildemo.git
+    cd wagtaildemo
+    pip install -r requirements/dev.txt
+
+Edit ``wagtaildemo/settings/base.py``, changing ENGINE to django.db.backends.sqlite3 and NAME to wagtail.db. Finally, setup the database and run the local server::
+
+    ./manage.py syncdb
+    ./manage.py migrate
+    ./manage.py runserver
+
 Using Vagrant
 ~~~~~~~~~~~~~
 
@@ -69,7 +85,7 @@ use the following steps:
 Required dependencies
 =====================
 
--  `pip`_
+-  `pip <https://github.com/pypa/pip>`_
 
 Optional dependencies
 =====================
@@ -105,4 +121,3 @@ with a regular Django project.
 .. _the Wagtail codebase: https://github.com/torchbox/wagtail
 .. _PostgreSQL: http://www.postgresql.org
 .. _Elasticsearch: http://www.elasticsearch.org
-.. _Pip: https://github.com/pypa/pip
