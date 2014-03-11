@@ -38,7 +38,7 @@ def get_image_backend(backend='default', **kwargs):
     # Get configuration
     default_conf = {
         'default': {
-            'BACKEND': 'wagtail.wagtailimages.backends.wand_backend.WandBackend',
+            'BACKEND': 'wagtail.wagtailimages.backends.pillow_backend.PillowBackend',
         },
     }
     WAGTAILIMAGES_BACKENDS = getattr(
