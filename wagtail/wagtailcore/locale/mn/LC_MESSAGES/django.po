@@ -1,16 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# delgermurun <pdelgermurun@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-25 05:54+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/language/mn/)\n"
+"POT-Creation-Date: 2014-03-10 12:24+0200\n"
+"PO-Revision-Date: 2014-03-04 05:03+0000\n"
+"Last-Translator: delgermurun <pdelgermurun@gmail.com>\n"
+"Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/"
+"language/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,18 +38,18 @@ msgstr ""
 
 #: .\models.py:164
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog"
-"/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
 msgstr ""
 
 #: .\models.py:173
 msgid "Page title"
-msgstr ""
+msgstr "Хуудасны гарчиг"
 
 #: .\models.py:173
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the"
-" browser window."
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
 msgstr ""
 
 #: .\models.py:174
@@ -55,7 +57,7 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: .\models.py:408
+#: .\models.py:418
 #, python-format
 msgid "name '%s' (used in subpage_types list) is not defined."
 msgstr ""
