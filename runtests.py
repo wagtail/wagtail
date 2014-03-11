@@ -18,6 +18,17 @@ if not settings.configured:
     except ImportError:
         has_elasticsearch = False
 
+    WAGTAILIMAGES_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailimages.backends.pillow_backend.PillowBackend',
+        },
+        'pillow': {
+            'BACKEND': 'wagtail.wagtailimages.backends.pillow_backend.PillowBackend',
+        },
+        'wand': {
+            'BACKEND': 'wagtail.wagtailimages.backends.wand_backend.WandBackend',
+        },
+    }    
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
@@ -86,6 +97,7 @@ if not settings.configured:
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
         ),
         WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
+        WAGTAILIMAGE_BACKENDS=WAGTAILIMAGE_BACKENDS,
         WAGTAIL_SITE_NAME='Test Site'
     )
 
