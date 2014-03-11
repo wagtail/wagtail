@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2 (xx.03.2014)
+0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
  * SQLite support added
  * Internationalisation of the admin backend
