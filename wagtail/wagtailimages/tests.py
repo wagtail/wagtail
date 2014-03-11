@@ -78,26 +78,57 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
+        self.image2 = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.image.backend = 'pillow'
+
+        self.image3 = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.image.backend = 'wand'
+
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
+        rendition2 = self.image2.get_rendition('width-400')
+        rendition3 = self.image3.get_rendition('width-400')
 
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
+        self.assertEqual(rendition2.width, 400)
+        self.assertEqual(rendition2.height, 300)
+        self.assertEqual(rendition3.width, 400)
+        self.assertEqual(rendition3.height, 300)
 
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
+        rendition2 = self.image2.get_rendition('max-100x100')
+        rendition3 = self.image3.get_rendition('max-100x100')
 
         # Check size
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
+        self.assertEqual(rendition2.width, 100)
+        self.assertEqual(rendition2.height, 75)
+        self.assertEqual(rendition3.width, 100)
+        self.assertEqual(rendition3.height, 75)
+
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
+        rendition2 = self.image2.get_rendition('min-120x120')
+        rendition3 = self.image3.get_rendition('min-120x120')
 
         # Check size
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
+        self.assertEqual(rendition2.width, 160)
+        self.assertEqual(rendition2.height, 120)
+        self.assertEqual(rendition3.width, 160)
+        self.assertEqual(rendition3.height, 120)
 
     def test_cache(self):
         # Get two renditions with the same filter
