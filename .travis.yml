@@ -12,7 +12,8 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 pyelasticsearch elasticutils wand
+  - apt-get install python-wand
+  - pip install psycopg2 pyelasticsearch elasticutils
   - pip install coveralls
 # Pre-test configuration
 before_script:
