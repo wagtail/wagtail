@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks
+from wagtail.wagtailadmin import tasks, hooks, edit_bird
 
 from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 
@@ -611,6 +611,19 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
+class ModerationEditBirdItem(edit_bird.BaseItem):
+    def __init__(self, revision_id):
+        self.revision_id = revision_id
+
+
+class ApproveModerationEditBirdItem(ModerationEditBirdItem):
+    template = 'wagtailadmin/edit_bird/approve_moderation_item.html'
+
+
+class RejectModerationEditBirdItem(ModerationEditBirdItem):
+    template = 'wagtailadmin/edit_bird/reject_moderation_item.html'
+
+
 @permission_required('wagtailadmin.access_admin')
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
@@ -622,12 +635,11 @@ def preview_for_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     page = revision.as_page_object()
-    if not hasattr(request, 'userbar'):
-        request.userbar = []
-    request.userbar.append(
-        render_to_string('wagtailadmin/pages/_moderator_userbar.html', {
-            'revision': revision,
-        }, context_instance=RequestContext(request))
-    )
+
+    request.wagtail_edit_bird_items = [
+        edit_bird.EditPageItem(page),
+        ApproveModerationEditBirdItem(revision.id),
+        RejectModerationEditBirdItem(revision.id),
+    ]
 
     return page.serve(request)
