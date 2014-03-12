@@ -1,0 +1,5 @@
+{% extends "wagtailadmin/edit_bird/base_item.html" %}
+
+{% block item_content %}
+  <a href="{% url 'wagtailadmin_pages_edit' self.page.id %}">Edit</a>
+{% endblock %}
