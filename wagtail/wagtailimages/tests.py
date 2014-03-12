@@ -8,6 +8,8 @@ from wagtail.tests.utils import login
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
+from wagtail.wagtailimages.backends import get_image_backend
+from wagtail.wagtailimages.backends.pillow_backend import PillowBackend
 
 def get_test_image_file():
     from StringIO import StringIO
@@ -78,57 +80,32 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
-        self.image2 = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-        self.image.backend = 'pillow'
-
-        self.image3 = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-        self.image.backend = 'wand'
-
+    def test_default_backend(self):
+        # default backend should be pillow
+        backend = get_image_backend()
+        self.assertTrue(isinstance(backend, PillowBackend))
+        
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
-        rendition2 = self.image2.get_rendition('width-400')
-        rendition3 = self.image3.get_rendition('width-400')
-
+        
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
-        self.assertEqual(rendition2.width, 400)
-        self.assertEqual(rendition2.height, 300)
-        self.assertEqual(rendition3.width, 400)
-        self.assertEqual(rendition3.height, 300)
 
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
-        rendition2 = self.image2.get_rendition('max-100x100')
-        rendition3 = self.image3.get_rendition('max-100x100')
 
         # Check size
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
-        self.assertEqual(rendition2.width, 100)
-        self.assertEqual(rendition2.height, 75)
-        self.assertEqual(rendition3.width, 100)
-        self.assertEqual(rendition3.height, 75)
 
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
-        rendition2 = self.image2.get_rendition('min-120x120')
-        rendition3 = self.image3.get_rendition('min-120x120')
 
         # Check size
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
-        self.assertEqual(rendition2.width, 160)
-        self.assertEqual(rendition2.height, 120)
-        self.assertEqual(rendition3.width, 160)
-        self.assertEqual(rendition3.height, 120)
 
     def test_cache(self):
         # Get two renditions with the same filter
@@ -137,7 +114,46 @@ class TestRenditions(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
+        
 
+class TestRenditionsWand(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.image.backend = 'wagtail.wagtailimages.backends.wand_backend.WandBackend'
+
+    def test_minification(self):
+        rendition = self.image.get_rendition('width-400')
+        
+        # Check size
+        self.assertEqual(rendition.width, 400)
+        self.assertEqual(rendition.height, 300)
+        
+    def test_resize_to_max(self):
+        rendition = self.image.get_rendition('max-100x100')
+        
+        # Check size
+        self.assertEqual(rendition.width, 100)
+        self.assertEqual(rendition.height, 75)
+        
+    def test_resize_to_min(self):
+        rendition = self.image.get_rendition('min-120x120')
+
+        # Check size
+        self.assertEqual(rendition.width, 160)
+        self.assertEqual(rendition.height, 120)
+
+    def test_cache(self):
+        # Get two renditions with the same filter
+        first_rendition = self.image.get_rendition('width-400')
+        second_rendition = self.image.get_rendition('width-400')
+
+        # Check that they are the same object
+        self.assertEqual(first_rendition, second_rendition)
+        
 
 class TestImageTag(TestCase):
     def setUp(self):
