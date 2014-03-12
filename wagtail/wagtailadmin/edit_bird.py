@@ -6,13 +6,8 @@ from django.template.loader import render_to_string
 class BaseItem(object):
     template = 'wagtailadmin/edit_bird/base_item.html'
 
-    @property
-    def can_render(self):
-        return True
-
     def render(self, request):
-        if self.can_render:
-            return render_to_string(self.template, dict(self=self, request=request), context_instance=RequestContext(request))
+        return render_to_string(self.template, dict(self=self, request=request), context_instance=RequestContext(request))
 
 
 class EditPageItem(BaseItem):
@@ -21,10 +16,12 @@ class EditPageItem(BaseItem):
     def __init__(self, page):
         self.page = page
 
-    @property
-    def can_render(self):
+    def render(self, request):
         # Don't render if the page doesn't have an id
-        return self.page.id
+        if not self.page.id:
+            return
+
+        return super(EditPageItem, self).render(request)
 
 
 def render_edit_bird(request, items):
