@@ -29,12 +29,4 @@ def wagtail_edit_bird(context, current_page=None, items=None):
         fn(request, items)
 
     # Render edit bird
-    edit_bird_rendered = edit_bird.render_edit_bird(request, items)
-
-    if edit_bird_rendered:
-        # Disable cache
-        request.disable_cache = True
-
-        return edit_bird_rendered
-    else:
-        return ''
+    return edit_bird.render_edit_bird(request, items)
