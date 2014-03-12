@@ -1,6 +1,8 @@
+from __future__ import absolute_import
+
 from django.db import models
 from django.conf import settings
-from base import BaseImageBackend
+from .base import BaseImageBackend
 
 from wand.image import Image
 

@@ -190,8 +190,7 @@ class Filter(models.Model):
             self._parse_spec_string()
         
         # If file is closed, open it
-        if input_file.closed:
-            input_file.open()
+        input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
 

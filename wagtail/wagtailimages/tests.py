@@ -9,7 +9,7 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
 from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailimages.backends.pillow_backend import PillowBackend
+from wagtail.wagtailimages.backends.pillow import PillowBackend
 
 def get_test_image_file():
     from StringIO import StringIO
@@ -123,7 +123,7 @@ class TestRenditionsWand(TestCase):
             title="Test image",
             file=get_test_image_file(),
         )
-        self.image.backend = 'wagtail.wagtailimages.backends.wand_backend.WandBackend'
+        self.image.backend = 'wagtail.wagtailimages.backends.wand.WandBackend'
 
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
