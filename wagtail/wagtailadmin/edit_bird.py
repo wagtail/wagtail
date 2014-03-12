@@ -28,6 +28,10 @@ class EditPageItem(BaseItem):
 
 
 def render_edit_bird(request, items):
+    # Don't render if the user is not logged in
+    if not request.user.is_authenticated():
+        return
+
     # Render the items
     rendered_items = [item.render(request) for item in items]
 

@@ -29,4 +29,4 @@ def wagtail_edit_bird(context, current_page=None, items=None):
         fn(request, items)
 
     # Render edit bird
-    return edit_bird.render_edit_bird(request, items)
+    return edit_bird.render_edit_bird(request, items) or ''
