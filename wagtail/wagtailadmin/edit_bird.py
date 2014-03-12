@@ -21,6 +21,15 @@ class EditPageItem(BaseItem):
         if not self.page.id:
             return
 
+        # Don't render if user doesn't have permission to access the admin area
+        if not request.user.has_perm('wagtailadmin.access_admin'):
+            return
+
+        # Don't render if the user doesn't have permission to edit this page
+        permission_checker = self.page.permissions_for_user(request.user)
+        if not permission_checker.can_edit():
+            return
+
         return super(EditPageItem, self).render(request)
 
 
