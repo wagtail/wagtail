@@ -142,6 +142,9 @@ class PageBase(models.base.ModelBase):
             # Define a default template path derived from the app name and model name
             cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
 
+        if 'ajax_template' not in dct:
+            cls.ajax_template = None
+
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
 
         if not dct.get('is_abstract'):
@@ -325,8 +328,14 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return revision.as_page_object()
 
+    def get_template(self, request):
+        if request.is_ajax():
+            return self.ajax_template or self.template
+        else:
+            return self.template
+
     def serve(self, request):
-        return TemplateResponse(request, self.template, {
+        return TemplateResponse(request, self.get_template(request), {
             'self': self
         })
 
