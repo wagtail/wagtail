@@ -1,0 +1,5 @@
+{% extends "wagtailadmin/userbar/base_item.html" %}
+
+{% block item_content %}
+    <a href="{% url 'wagtailadmin_pages_edit' self.page.id %}" class="icon icon-edit">Edit</a>
+{% endblock %}

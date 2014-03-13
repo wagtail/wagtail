@@ -1,0 +1,12 @@
+<style type="text/css">
+    #wagtail-userbar{
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:9000;
+        border:0;
+        width:100px;
+        height:100px;
+    }
+</style>
+<iframe id="wagtail-userbar" src="{% url 'wagtailadmin_userbar' page.self.id %}" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" style="background:transparent"></iframe>

@@ -1,0 +1,31 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load compress %}
+
+{% block css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.timepicker.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/core.scss" type="text/x-scss" />
+    {% endcompress %}
+
+    {% block extra_css %}{% endblock %}
+{% endblock %}
+
+{% block js %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    {% compress js %}
+        {% comment %}
+            Core JS includes (for inclusion on all pages) to be specified here
+        {% endcomment %}
+
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-ui-1.10.3.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.timepicker.min.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.autosize.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-modal.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/core.js"></script>
+    {% endcompress %}
+    
+    {% block extra_js %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,75 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+@import "components/icons.scss";
+
+html, body{
+    background-color:transparent;
+}
+body{
+    -webkit-font-smoothing: antialiased; /* Do not remove! */
+    font-family:Open Sans,Arial,sans-serif;
+    font-size:80%;
+}
+
+nav{
+    float:right;
+    &:hover ul{
+        height:200px;
+    }
+}
+
+.home{
+    float:right;
+    width:1.5em;
+    margin-bottom:1px;
+    background-color:white;
+    color:$color-text-base;
+
+    &.icon:before{
+        margin:-0.1em 0 0 -0.2em;
+        font-size:35px;
+    }
+}
+
+ul{
+    @include transition(height 0.2s ease);
+    @include unlist();
+    height:0px;
+    overflow:hidden;
+    clear:both;
+}
+
+li{
+    @include transition(width 0.2s ease);
+    width:3.5em;
+    overflow:hidden;
+    margin-bottom:1px;
+    position:relative;
+
+    &:hover{
+        width:8em;
+    }
+}
+
+a{
+    @include transition(background-color 0.2s ease, color 0.2s ease);
+    display:block;
+    background-color:$color-teal;
+    color:white;
+    width:10em;
+    height:1.5em;
+    text-align:left;
+    overflow:hidden;
+    text-decoration:none;
+    text-transform:uppercase;
+    padding:1em;
+
+    &:before{
+        margin-right:0.3em;
+    }
+    &:hover{
+        background-color:$color-teal-darker;
+        color:white;
+    }
+}
