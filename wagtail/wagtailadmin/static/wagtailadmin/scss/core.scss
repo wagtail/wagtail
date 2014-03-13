@@ -411,6 +411,8 @@ header{
         padding:0.2em 0;
 
         &.icon:before{
+            width:1em;
+            display:none;
             margin-right:0.4em;
             font-size:1.5em;
         }
@@ -829,6 +831,11 @@ footer, .logo{
                 float:right;
             }
         }
+
+        h1.icon:before{
+            display:inline-block;
+        }
+
         .col3{
             @include column(3);
         }
