@@ -1,19 +1,19 @@
-{% load i18n %}
+{% load i18n gravatar %}
 {% if page_revisions_for_moderation %}
     <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
         <section>
             <h2>{% trans 'Pages awaiting moderation' %}</h2>
             <table class="listing">
                 <col />
-                <col />
+                <col width="30%"/>
                 <col width="15%"/>
                 <col width="15%"/>
                 <thead>
                     <tr>
                         <th class="title">{% trans "Title" %}</th>
                         <th>{% trans "Parent" %}</th>
-                        <th>{% trans "Date" %}</th>
-                        <th>{% trans "Author" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Edited" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,9 +38,16 @@
                                     <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>
-                            <td><a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.title }}</a></td>
-                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div></td>
-                            <td>{{ revision.user.get_full_name }}</td>                            
+                            <td>
+                                <a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.title }}</a>
+                            </td>
+                            <td class="type">
+                                {{ revision.page.content_type.model_class.get_verbose_name }}
+                            </td>
+                            <td>
+                                <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div>
+                                by {{ revision.user.get_full_name }}
+                            </td>                       
                         </tr>
                     {% endfor %}
                 </tbody>
