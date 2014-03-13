@@ -328,6 +328,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return revision.as_page_object()
 
+    def get_context(self, request):
+        return {
+            'self': self,
+            'request': request,
+        }
+
     def get_template(self, request):
         if request.is_ajax():
             return self.ajax_template or self.template
@@ -335,9 +341,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
             return self.template
 
     def serve(self, request):
-        return TemplateResponse(request, self.get_template(request), {
-            'self': self
-        })
+        return TemplateResponse(
+            request, 
+            self.get_template(request), 
+            self.get_context(request)
+        )
 
     def is_navigable(self):
         """
