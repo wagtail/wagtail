@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks, edit_bird
+from wagtail.wagtailadmin import tasks, hooks
 
 from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 
