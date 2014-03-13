@@ -30,7 +30,13 @@
                                 </ul>
                             </td>
                             <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }}</div></td>
-                            <td><span class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</span></td>
+                            <td>
+                                {% if revision.page.live %}
+                                    <a href="{{ revision.page.url }}" target="_blank" class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</a>
+                                {% else %}
+                                    <span class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
