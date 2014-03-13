@@ -80,6 +80,18 @@ interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
 is located on the host machine, exported to the VM as a shared folder; code
 editing and Git operations will generally be done on the host.
 
+Using Docker
+~~~~~~~~~~~~
+
+`@oyvindsk <https://github.com/oyvindsk>`_ has built a Dockerfile for the Wagtail demo. Simply run::
+
+	docker run -p 8000:8000 -d oyvindsk/wagtail-demo
+
+then access the site at http://your-ip:8000 and the admin
+interface at http://your-ip:8000/admin using admin / test.
+
+See https://index.docker.io/u/oyvindsk/wagtail-demo/ for more details.
+
 Other platforms
 ~~~~~~~~~~~~~~~
 
