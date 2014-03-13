@@ -42,7 +42,7 @@ ul{
 }
 
 li{
-    @include transition(width 0.2s ease);
+    @include transition(width 0.1s ease);
     float:right;
     clear:both;
     width:3.5em;
