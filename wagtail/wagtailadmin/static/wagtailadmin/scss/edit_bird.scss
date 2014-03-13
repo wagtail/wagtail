@@ -14,8 +14,9 @@ body{
 
 nav{
     float:right;
+
     &:hover ul{
-        height:200px;
+        height:300px;
     }
 }
 
@@ -42,34 +43,66 @@ ul{
 
 li{
     @include transition(width 0.2s ease);
+    float:right;
+    clear:both;
     width:3.5em;
     overflow:hidden;
-    margin-bottom:1px;
     position:relative;
+    padding-bottom:1px;
 
     &:hover{
-        width:8em;
+        width:10em;
     }
 }
 
-a{
+.action{
     @include transition(background-color 0.2s ease, color 0.2s ease);
-    display:block;
     background-color:$color-teal;
     color:white;
+
+    &:before{
+        margin-right:0.3em;
+    }
+
+    &:hover{
+        background-color:$color-teal-darker;
+        color:white;
+    }
+}
+
+/* actions which can be accomplished just with a link tag */
+a.action, a{
+    display:block;
     width:10em;
     height:1.5em;
     text-align:left;
     overflow:hidden;
     text-decoration:none;
     text-transform:uppercase;
-    padding:1em;
+    padding:1em;   
+}
 
-    &:before{
-        margin-right:0.3em;
-    }
-    &:hover{
-        background-color:$color-teal-darker;
+/* actions which require wrapping a form input */
+div.action{
+    input{
         color:white;
+        -webkit-font-smoothing: antialiased; /* Do not remove! */
+        font-family:Open Sans,Arial,sans-serif;
+        border:0;
+        background:none;
+        display:block;
+        text-transform:uppercase;
+        padding:1em;
+        width:100%;
+        position:relative;
+        z-index:1;
+        text-align:left;
+        padding-left:3.5em;
+    }
+    &:before{
+        position:absolute;
+        top:0.6em;
+        left:0.6em;
+        z-index:0;
     }
 }

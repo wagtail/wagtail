@@ -6,7 +6,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _ 
 
-from wagtail.wagtailadmin.userbar import EditPageItem
+from wagtail.wagtailadmin.userbar import EditPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailcore.models import Page
 
@@ -20,10 +20,16 @@ def render_edit_frame(request, context):
 def userbar(request, page_id):
     items = [
         EditPageItem(Page.objects.get(id=page_id)),
+        ApproveModerationEditPageItem(Page.objects.get(id=page_id)),
+        RejectModerationEditPageItem(Page.objects.get(id=page_id)),
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
         fn(request, items)
+
+
+    for item in items:
+        print item.render(request)
 
     # Render the items
     rendered_items = [item.render(request) for item in items]

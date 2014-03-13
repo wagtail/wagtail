@@ -1,8 +1,11 @@
 {% extends "wagtailadmin/userbar/base_item.html" %}
+{% load i18n %}
 
 {% block item_content %}
-	<form action="{% url 'wagtailadmin_pages_reject_moderation' self.revision_id %}" method="post">
-		{% csrf_token %}
-		<input type="submit" value="Reject" />
-	</form>
+    <form action="{% url 'wagtailadmin_pages_reject_moderation' self.revision.id %}" method="post">
+        {% csrf_token %}
+        <div class="action icon icon-cross">
+            <input type="submit" value="{% trans 'Reject' %}" />
+        </div>
+    </form>
 {% endblock %}

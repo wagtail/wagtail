@@ -611,19 +611,6 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-class ModerationEditBirdItem(edit_bird.BaseItem):
-    def __init__(self, revision_id):
-        self.revision_id = revision_id
-
-
-class ApproveModerationEditBirdItem(ModerationEditBirdItem):
-    template = 'wagtailadmin/edit_bird/approve_moderation_item.html'
-
-
-class RejectModerationEditBirdItem(ModerationEditBirdItem):
-    template = 'wagtailadmin/edit_bird/reject_moderation_item.html'
-
-
 @permission_required('wagtailadmin.access_admin')
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
@@ -635,11 +622,5 @@ def preview_for_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     page = revision.as_page_object()
-
-    request.wagtail_edit_bird_items = [
-        edit_bird.EditPageItem(page),
-        ApproveModerationEditBirdItem(revision.id),
-        RejectModerationEditBirdItem(revision.id),
-    ]
 
     return page.serve(request)
