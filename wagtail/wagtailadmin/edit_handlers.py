@@ -15,7 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
