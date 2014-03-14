@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:54+0200\n"
-"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,7 @@ msgstr[1] "\nHi han %(counter)s coincidències"
 #: .\templates\wagtailusers\results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
+msgstr ""
 
 #: .\templates\wagtailusers\results.html:21
 #, python-format
@@ -163,7 +163,7 @@ msgstr "No hi han usuaris configurats. Per què no <a href=\"%(wagtailusers_crea
 
 #: .\views\users.py:21 .\views\users.py:28
 msgid "Search users"
-msgstr ""
+msgstr "Cercar usuaris"
 
 #: .\views\users.py:75
 msgid "User '{0}' created."

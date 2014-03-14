@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# delgermurun <info@delgermurun.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-25 05:54+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/language/mn/)\n"
 "MIME-Version: 1.0\n"
@@ -17,35 +18,47 @@ msgstr ""
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
+#: .\edit_handlers.py:81 .\edit_handlers.py:130 .\edit_handlers.py:134
 msgid "Please type a valid time"
 msgstr ""
 
-#: .\forms.py:12
+#: .\edit_handlers.py:724
+msgid "Common page configuration"
+msgstr ""
+
+#: .\forms.py:18
 msgid "Search term"
 msgstr ""
 
-#: .\forms.py:44
+#: .\forms.py:42
+msgid "Enter your username"
+msgstr ""
+
+#: .\forms.py:45
+msgid "Enter password"
+msgstr ""
+
+#: .\forms.py:50
 msgid "Enter your email address to reset your password"
 msgstr ""
 
-#: .\forms.py:53
+#: .\forms.py:59
 msgid "Please fill your email address."
-msgstr ""
+msgstr "Цахим шуудангийн хаягаа оруулна уу."
 
-#: .\forms.py:66
+#: .\forms.py:72
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr ""
 
-#: .\forms.py:69
+#: .\forms.py:75
 msgid "This email address is not recognised."
 msgstr ""
 
 #: .\templates\wagtailadmin\base.html:7 .\templates\wagtailadmin\home.html:4
 msgid "Dashboard"
-msgstr ""
+msgstr "Хянах самбар"
 
 #: .\templates\wagtailadmin\base.html:31
 msgid "Menu"
@@ -54,7 +67,7 @@ msgstr ""
 #: .\templates\wagtailadmin\home.html:22
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr ""
+msgstr "\"%(site_name)s Wagtail CMS\"-д тавтай морил"
 
 #: .\templates\wagtailadmin\home.html:33
 msgid ""
@@ -97,7 +110,7 @@ msgstr ""
 #: .\templates\wagtailadmin\account\account.html:23
 #: .\templates\wagtailadmin\account\change_password.html:4
 msgid "Change password"
-msgstr ""
+msgstr "Нууц үгээ солих"
 
 #: .\templates\wagtailadmin\account\account.html:27
 msgid "Change the password you use to log in."
@@ -117,15 +130,15 @@ msgstr ""
 #: .\templates\wagtailadmin\account\password_reset\done.html:4
 #: .\templates\wagtailadmin\account\password_reset\form.html:37
 msgid "Reset password"
-msgstr ""
+msgstr "Нууц үгээ сэргээх"
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:15
 msgid "Password change successful"
-msgstr ""
+msgstr "Нууц үг амжилттай солигдлоо"
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:16
 msgid "Login"
-msgstr ""
+msgstr "Нэвтрэх"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:4
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:26
@@ -245,7 +258,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
 #: .\templates\wagtailadmin\pages\edit.html:36
 #: .\templates\wagtailadmin\pages\list.html:68
-#: .\templates\wagtailadmin\pages\list.html:189
+#: .\templates\wagtailadmin\pages\list.html:188
 msgid "Delete"
 msgstr ""
 
@@ -259,7 +272,7 @@ msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:13
 #: .\templates\wagtailadmin\home\recent_edits.html:12
-#: .\templates\wagtailadmin\pages\list.html:102
+#: .\templates\wagtailadmin\pages\list.html:101
 msgid "Title"
 msgstr ""
 
@@ -269,18 +282,19 @@ msgid "Parent"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:15
-#: .\templates\wagtailadmin\home\recent_edits.html:13
-msgid "Date"
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:116
+msgid "Type"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:16
-msgid "Author"
+msgid "Edited"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:23
 #: .\templates\wagtailadmin\home\recent_edits.html:21
-#: .\templates\wagtailadmin\pages\list.html:168
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:167
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit this page"
 msgstr ""
 
@@ -298,7 +312,7 @@ msgstr ""
 #: .\templates\wagtailadmin\home\recent_edits.html:23
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
 #: .\templates\wagtailadmin\pages\list.html:56
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit"
 msgstr ""
 
@@ -312,21 +326,25 @@ msgstr ""
 msgid "Your most recent edits"
 msgstr ""
 
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr ""
+
 #: .\templates\wagtailadmin\home\recent_edits.html:14
 #: .\templates\wagtailadmin\pages\list.html:25
-#: .\templates\wagtailadmin\pages\list.html:129
+#: .\templates\wagtailadmin\pages\list.html:128
 msgid "Status"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\recent_edits.html:25
 #: .\templates\wagtailadmin\pages\list.html:59
-#: .\templates\wagtailadmin\pages\list.html:180
+#: .\templates\wagtailadmin\pages\list.html:179
 msgid "View draft"
 msgstr ""
 
 #: .\templates\wagtailadmin\home\recent_edits.html:28
 #: .\templates\wagtailadmin\pages\list.html:62
-#: .\templates\wagtailadmin\pages\list.html:183
+#: .\templates\wagtailadmin\pages\list.html:182
 msgid "View live"
 msgstr ""
 
@@ -485,7 +503,7 @@ msgstr ""
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:6
 #: .\templates\wagtailadmin\pages\list.html:65
-#: .\templates\wagtailadmin\pages\list.html:186
+#: .\templates\wagtailadmin\pages\list.html:185
 msgid "Move"
 msgstr ""
 
@@ -513,7 +531,7 @@ msgstr ""
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
 #: .\templates\wagtailadmin\pages\list.html:71
-#: .\templates\wagtailadmin\pages\list.html:192
+#: .\templates\wagtailadmin\pages\list.html:191
 msgid "Unpublish"
 msgstr ""
 
@@ -585,64 +603,59 @@ msgstr ""
 msgid "Exploring %(title)s"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:24
-#: .\templates\wagtailadmin\pages\list.html:117
-msgid "Type"
-msgstr ""
-
 #: .\templates\wagtailadmin\pages\list.html:53
-#: .\templates\wagtailadmin\pages\list.html:195
+#: .\templates\wagtailadmin\pages\list.html:194
 msgid "Add child page"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:95
+#: .\templates\wagtailadmin\pages\list.html:94
 msgid "Disable ordering of child pages"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:95
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:94
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Order"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Enable ordering of child pages"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:150
+#: .\templates\wagtailadmin\pages\list.html:149
 msgid "Drag"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#: .\templates\wagtailadmin\pages\list.html:228
 msgid "Explore"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:228
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 msgid "Add subpage"
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 msgid "No pages have been created."
 msgstr ""
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr ""
@@ -764,7 +777,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: .\views\account.py:23
+#: .\views\account.py:26
 msgid "Your password has been changed successfully!"
 msgstr ""
 
