@@ -1,8 +1,8 @@
-function(modal) {
-    $('form', modal.body).submit(function() {
+function (modal) {
+    $('form', modal.body).submit(function () {
         var formdata = new FormData(this);
 
-        $.post(this.action, $(this).serialize(), function(response){
+        $.post(this.action, $(this).serialize(), function (response) {
             modal.loadResponseText(response);
         }, 'text');
 

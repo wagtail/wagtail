@@ -6,15 +6,17 @@ from django.db.models import Q
 
 from wagtail.wagtailcore.models import PageRevision, GroupPagePermission
 
+
 # The following will check to see if we can import task from celery - 
 # if not then we definitely haven't installed it
 try:
     from celery.decorators import task
+
     NO_CELERY = False
 except:
     NO_CELERY = True
 
-   
+
 # However, we could have installed celery for other projects. So we will also
 # check if we have defined the BROKER_URL setting. If not then definitely we
 # haven't configured it. 
@@ -25,8 +27,9 @@ if NO_CELERY or not hasattr(settings, 'BROKER_URL'):
     # function will be actually called instead of the the 
     # send_notification.delay() 
     def task(f):
-        f.delay=f
+        f.delay = f
         return f
+
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
     # Get user model
@@ -48,7 +51,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 def send_notification(page_revision_id, notification, excluded_user_id):
     # Get revision
     revision = PageRevision.objects.get(id=page_revision_id)
-    
+
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers

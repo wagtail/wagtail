@@ -4,27 +4,30 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 %}
 
 {% if uploadform %}
-    <ul class="tab-nav merged">
-        <li class="active"><a href="#search" >{% trans "Search" %}</a></li>
-        <li><a href="#upload">{% trans "Upload" %}</a></li>
-    </ul>
+<ul class="tab-nav merged">
+    <li class="active"><a href="#search">{% trans "Search" %}</a></li>
+    <li><a href="#upload">{% trans "Upload" %}</a></li>
+</ul>
 {% endif %}
 
 <div class="tab-content">
     <section id="search" class="active nice-padding">
-        <form class="image-search search-bar" action="{% url 'wagtailimages_chooser' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off">
+        <form class="image-search search-bar"
+              action="{% url 'wagtailimages_chooser' %}{% if will_select_format %}?select_format=true{% endif %}"
+              method="GET" autocomplete="off">
             <ul class="fields">
                 {% for field in searchform %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+                <li class="submit"><input type="submit" value="{% trans 'Search' %}"/></li>
                 {% if popular_tags %}
-                    <li class="taglist">
-                        <h3>{% trans 'Popular tags' %}</h3>
-                        {% for tag in popular_tags %}
-                            <a class="suggested-tag tag" href="{% url 'wagtailimages_index' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                        {% endfor %}
-                    </li>
+                <li class="taglist">
+                    <h3>{% trans 'Popular tags' %}</h3>
+                    {% for tag in popular_tags %}
+                    <a class="suggested-tag tag" href="{% url 'wagtailimages_index' %}?q={{ tag.name|urlencode }}">{{
+                        tag.name }}</a>
+                    {% endfor %}
+                </li>
                 {% endif %}
             </ul>
         </form>
@@ -33,16 +36,18 @@
         </div>
     </section>
     {% if uploadform %}
-        <section id="upload" class="nice-padding">
-            <form class="image-upload" action="{% url 'wagtailimages_chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <ul class="fields">
-                    {% for field in uploadform %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                    {% endfor %}
-                    <li><input type="submit" value="{% trans 'Upload' %}" /></li>
-                </ul>
-            </form>
-        </section>
+    <section id="upload" class="nice-padding">
+        <form class="image-upload"
+              action="{% url 'wagtailimages_chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}"
+              method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in uploadform %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <li><input type="submit" value="{% trans 'Upload' %}"/></li>
+            </ul>
+        </form>
+    </section>
     {% endif %}
 </div>

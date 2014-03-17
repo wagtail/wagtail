@@ -4,10 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.menu import MenuItem
-
 from wagtail.wagtailcore.models import get_navigation_menu_items
+from wagtail.wagtailsnippets.permissions import \
+    user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
 
-from wagtail.wagtailsnippets.permissions import user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
 
 register = template.Library()
 
@@ -41,7 +41,8 @@ def get_wagtailadmin_tab_urls():
 def main_nav(context):
     menu_items = [
         MenuItem(_('Explorer'), '#', classnames='icon icon-folder-open-inverse dl-trigger', order=100),
-        MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
+        MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search',
+                 order=200),
     ]
 
     request = context['request']
@@ -53,12 +54,14 @@ def main_nav(context):
         )
     if user.has_perm('wagtaildocs.add_document'):
         menu_items.append(
-            MenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
+            MenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse',
+                     order=400)
         )
 
     if user_can_edit_snippets(user):
         menu_items.append(
-            MenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
+            MenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet',
+                     order=500)
         )
 
     if user.has_module_perms('auth'):

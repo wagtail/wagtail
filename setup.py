@@ -15,7 +15,6 @@ try:
 except ImportError:
     pass
 
-
 setup(
     name='wagtail',
     version='0.2',

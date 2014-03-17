@@ -7,12 +7,11 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.translation import ugettext as _ 
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import tasks, hooks
-
 from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 
 
@@ -69,7 +68,9 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted([ContentType.objects.get_for_model(model_class) for model_class in parent_page.clean_subpage_types()], key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(
+        [ContentType.objects.get_for_model(model_class) for model_class in parent_page.clean_subpage_types()],
+        key=lambda pagetype: pagetype.name.lower())
     all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
@@ -96,11 +97,14 @@ def select_location(request, content_type_app_name, content_type_model_name):
 
     if len(parent_pages) == 0:
         # user cannot create a page of this type anywhere - fail with an error
-        messages.error(request, _("Sorry, you do not have access to create a page of type <em>'{0}'</em>.").format(content_type.name))
+        messages.error(request, _("Sorry, you do not have access to create a page of type <em>'{0}'</em>.").format(
+            content_type.name))
         return redirect('wagtailadmin_pages_select_type')
     elif len(parent_pages) == 1:
         # only one possible location - redirect them straight there
-        messages.warning(request, _("Pages of this type can only be created as children of <em>'{0}'</em>. This new page will be saved there.").format(parent_pages[0].title))
+        messages.warning(request, _(
+            "Pages of this type can only be created as children of <em>'{0}'</em>. This new page will be saved there.").format(
+            parent_pages[0].title))
         return redirect('wagtailadmin_pages_create', content_type_app_name, content_type_model_name, parent_pages[0].id)
     else:
         # prompt them to select a location
@@ -165,6 +169,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             if parent_page.get_children().filter(slug=slug).count() > 0:
                 raise ValidationError(_("This slug is already in use"))
             return slug
+
         form.fields['slug'].clean = clean_slug
 
         if form.is_valid():
@@ -269,7 +274,8 @@ def edit(request, page_id):
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
-                + repr([(name, formset.errors) for (name, formset) in edit_handler.form.formsets.iteritems() if formset.errors])
+                + repr([(name, formset.errors) for (name, formset) in edit_handler.form.formsets.iteritems() if
+                        formset.errors])
             )
     else:
         form = form_class(instance=page)
@@ -333,7 +339,8 @@ def preview_on_edit(request, page_id):
         # special treatment of POSTs). Ought to construct one that more or less matches what would be sent
         # as a front-end GET request
 
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)  # Make this request appear to the page's serve method as a non-ajax one, as they will often implement custom behaviour for XHR
+        request.META.pop('HTTP_X_REQUESTED_WITH',
+                         None)  # Make this request appear to the page's serve method as a non-ajax one, as they will often implement custom behaviour for XHR
         response = page.serve(request)
 
         response['X-Wagtail-Preview'] = 'ok'
@@ -452,7 +459,8 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         # can't move the page into itself or its descendants
         target.can_choose = page_perms.can_move_to(target)
 
-        target.can_descend = not(target == page_to_move or target.is_child_of(page_to_move)) and target.get_children_count()
+        target.can_descend = not (
+        target == page_to_move or target.is_child_of(page_to_move)) and target.get_children_count()
 
         child_pages.append(target)
 
@@ -599,7 +607,7 @@ def reject_moderation(request, revision_id):
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format( revision.page.title))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.title))
         return redirect('wagtailadmin_home')
 
     if request.POST:

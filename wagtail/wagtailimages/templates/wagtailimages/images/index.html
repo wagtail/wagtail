@@ -5,24 +5,24 @@
 {% block titletag %}{% trans "Images" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_js %}
-    <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailimages_index' %}",
-            termInput: "#id_q",
-            targetOutput: "#image-results"
-        }
-    </script>
+<script>
+    window.headerSearch = {
+        url: "{% url 'wagtailimages_index' %}",
+        termInput: "#id_q",
+        targetOutput: "#image-results"
+    }
+</script>
 {% endblock %}
 
 {% block content %}
-    {% trans "Images" as im_str %}
-    {% trans "Add an image" as add_img_str %}
-    {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages_add_image" add_text=add_img_str search_url="wagtailimages_index" %}
+{% trans "Images" as im_str %}
+{% trans "Add an image" as add_img_str %}
+{% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages_add_image" add_text=add_img_str search_url="wagtailimages_index" %}
 
-    <div class="nice-padding">
-        <div id="image-results">
-            {% include "wagtailimages/images/results.html" %}
-        </div>
+<div class="nice-padding">
+    <div id="image-results">
+        {% include "wagtailimages/images/results.html" %}
     </div>
-    
+</div>
+
 {% endblock %}

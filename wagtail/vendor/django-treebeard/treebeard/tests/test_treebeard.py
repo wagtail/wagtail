@@ -18,7 +18,7 @@ import pytest
 
 from treebeard import numconv
 from treebeard.admin import admin_factory
-from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant,\
+from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant, \
     PathOverflow, MissingNodeOrderBy
 from treebeard.forms import movenodeform_factory
 from treebeard.templatetags.admin_tree import get_static_url
@@ -142,7 +142,6 @@ class TestTreeBase(object):
 
 
 class TestEmptyTree(TestTreeBase):
-
     def test_load_bulk_empty(self, model):
         ids = model.load_bulk(BASE_DATA)
         got_descs = [obj.desc
@@ -182,7 +181,6 @@ class TestEmptyTree(TestTreeBase):
 
 
 class TestNonEmptyTree(TestTreeBase):
-
     @classmethod
     def setup_class(cls):
         for model in models.BASE_MODELS:
@@ -194,7 +192,6 @@ class TestNonEmptyTree(TestTreeBase):
 
 
 class TestClassMethods(TestNonEmptyTree):
-
     def test_load_bulk_existing(self, model):
         # inserting on an existing node
         node = model.objects.get(desc='231')
@@ -845,7 +842,6 @@ class TestAddSibling(TestNonEmptyTree):
 
 
 class TestDelete(TestNonEmptyTree):
-
     @classmethod
     def setup_class(cls):
         TestNonEmptyTree.setup_class()
@@ -949,7 +945,6 @@ class TestMoveErrors(TestNonEmptyTree):
 
 
 class TestMoveSortedErrors(TestTreeBase):
-
     def test_nonsorted_move_in_sorted(self, sorted_model):
         node = sorted_model.add_root(val1=3, val2=3, desc='zxy')
         with pytest.raises(InvalidPosition):
@@ -1395,7 +1390,6 @@ class TestMoveBranch(TestNonEmptyTree):
 
 
 class TestTreeSorted(TestTreeBase):
-
     def got(self, sorted_model):
         return [(o.val1, o.val2, o.desc, o.get_depth(), o.get_children_count())
                 for o in sorted_model.get_tree()]
@@ -1558,7 +1552,6 @@ class TestMP_TreeAlphabet(TestTreeBase):
 
 
 class TestHelpers(TestTreeBase):
-
     @classmethod
     def setup_class(cls):
         for model in models.BASE_MODELS:
@@ -1692,7 +1685,6 @@ class TestMP_TreeFindProblems(TestTreeBase):
 
 
 class TestMP_TreeFix(TestTreeBase):
-
     expected_no_holes = {
         models.MP_TestNodeShortPath: [
             ('1', 'b', 1, 2),
@@ -2264,7 +2256,6 @@ class TestAdminTreeList(TestNonEmptyTree):
             expected_output = output_template % (object.pk, object.pk,
                                                  object.pk)
             assert expected_output in table_output
-
 
     def test_result_tree_list_with_get(self, model_without_proxy):
         model = model_without_proxy

@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
-
 from django.contrib.auth.models import User
 
 from wagtail.wagtailcore.models import Page, Site
@@ -160,7 +159,8 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
-        self.assertFalse(someone_elses_event_perms.can_edit())  # basic 'add' permission doesn't allow editing pages owned by someone else
+        self.assertFalse(
+            someone_elses_event_perms.can_edit())  # basic 'add' permission doesn't allow editing pages owned by someone else
 
         self.assertFalse(homepage_perms.can_delete())
         self.assertFalse(christmas_page_perms.can_delete())  # cannot delete because it is published
@@ -184,15 +184,16 @@ class TestPagePermission(TestCase):
         self.assertFalse(unpub_perms.can_reorder_children())
 
         self.assertFalse(homepage_perms.can_move())
-        self.assertFalse(christmas_page_perms.can_move())  # cannot move because this would involve unpublishing from its current location
+        self.assertFalse(
+            christmas_page_perms.can_move())  # cannot move because this would involve unpublishing from its current location
         self.assertTrue(unpub_perms.can_move())
         self.assertFalse(someone_elses_event_perms.can_move())
 
-        self.assertFalse(christmas_page_perms.can_move_to(unpublished_event_page))  # cannot move because this would involve unpublishing from its current location
+        self.assertFalse(christmas_page_perms.can_move_to(
+            unpublished_event_page))  # cannot move because this would involve unpublishing from its current location
         self.assertTrue(unpub_perms.can_move_to(christmas_page))
         self.assertFalse(unpub_perms.can_move_to(homepage))  # no permission to create pages at destination
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
-
 
     def test_publisher_page_permissions(self):
         event_moderator = User.objects.get(username='eventmoderator')

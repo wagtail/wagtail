@@ -1,36 +1,37 @@
 {% load image_tags ellipsistrim %}
 {% load i18n %}
 {% if images %}
-    {% if is_searching %}
-        <h2>
-        {% blocktrans count counter=images.paginator.count %}
-            There is one match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
-        </h2>
-    {% else %}
-        <h2>{% trans "Latest images" %}</h2>
-    {% endif %}
+{% if is_searching %}
+<h2>
+    {% blocktrans count counter=images.paginator.count %}
+    There is one match
+    {% plural %}
+    There are {{ counter }} matches
+    {% endblocktrans %}
+</h2>
+{% else %}
+<h2>{% trans "Latest images" %}</h2>
+{% endif %}
 
-    <ul class="listing horiz images">
-        {% for image in images %}
-            <li>
-                <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
-                    <div class="image">{% image image max-165x165 %}</div>
-                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+<ul class="listing horiz images">
+    {% for image in images %}
+    <li>
+        <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
+            <div class="image">{% image image max-165x165 %}</div>
+            <h3>{{ image.title|ellipsistrim:60 }}</h3>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string linkurl="wagtailimages_index" %}
+{% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string linkurl="wagtailimages_index" %}
 
 {% else %}
-    {% if is_searching %}
-        <p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
-    {% else %}
-        {% url 'wagtailimages_add_image' as wagtailimages_add_image_url %}
-        <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
-    {% endif %}
+{% if is_searching %}
+<p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+{% else %}
+{% url 'wagtailimages_add_image' as wagtailimages_add_image_url %}
+<p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{%
+    endblocktrans %}</p>
+{% endif %}
 {% endif %}

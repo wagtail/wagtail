@@ -3,12 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
-from django.utils.translation import ugettext as _ 
+from django.utils.translation import ugettext as _
+
 
 @permission_required('wagtailadmin.access_admin')
 def account(request):
     return render(request, 'wagtailadmin/account/account.html', {
-        'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
+        'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED',
+                                        True) and request.user.has_usable_password(),
     })
 
 

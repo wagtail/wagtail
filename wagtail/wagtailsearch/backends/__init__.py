@@ -3,9 +3,11 @@
 # https://github.com/django/django/blob/5d263dee304fdaf95e18d2f0619d6925984a7f02/django/core/cache/__init__.py
 
 from importlib import import_module
-from django.utils import six
 import sys
+
+from django.utils import six
 from django.conf import settings
+
 from base import InvalidSearchBackendError
 
 

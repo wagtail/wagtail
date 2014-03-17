@@ -167,7 +167,7 @@ class MoveNodeForm(forms.ModelForm):
         if for_node is not None:
             return not (
                 possible_parent == for_node
-                ) or (possible_parent.is_descendant_of(for_node))
+            ) or (possible_parent.is_descendant_of(for_node))
         return True
 
     @staticmethod
@@ -195,7 +195,7 @@ class MoveNodeForm(forms.ModelForm):
 
 
 def movenodeform_factory(model, form=MoveNodeForm, fields=None, exclude=None,
-                         formfield_callback=None,  widgets=None):
+                         formfield_callback=None, widgets=None):
     """Dynamically build a MoveNodeForm subclass with the proper Meta.
 
     :param Node model:

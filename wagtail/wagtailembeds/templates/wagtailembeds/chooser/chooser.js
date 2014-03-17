@@ -1,5 +1,5 @@
-function(modal) {
-    $('form.embed-form', modal.body).submit(function() {
+function (modal) {
+    $('form.embed-form', modal.body).submit(function () {
         var formdata = new FormData(this);
 
         $.ajax({
@@ -9,7 +9,7 @@ function(modal) {
             contentType: false,
             type: 'POST',
             dataType: 'text',
-            success: function(response){
+            success: function (response) {
                 modal.loadResponseText(response);
             }
         });

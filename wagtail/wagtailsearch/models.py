@@ -1,9 +1,10 @@
+import datetime
+import string
+
 from django.db import models
 from django.utils import timezone
 
 from indexed import Indexed
-import datetime
-import string
 
 
 class Query(models.Model):
@@ -44,7 +45,8 @@ class Query(models.Model):
     @classmethod
     def get_most_popular(cls, date_since=None):
         # TODO: Implement date_since
-        return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
+        return cls.objects.filter(daily_hits__isnull=False).annotate(
+            _hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
 
     @staticmethod
     def normalise_query_string(query_string):

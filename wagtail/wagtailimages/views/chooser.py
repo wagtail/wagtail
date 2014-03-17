@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
-
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
@@ -149,7 +148,6 @@ def chooser_select_format(request, image_id):
     if request.POST:
         form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
         if form.is_valid():
-
             format = get_image_format(form.cleaned_data['format'])
             preview_image = image.get_rendition(format.filter_spec)
 

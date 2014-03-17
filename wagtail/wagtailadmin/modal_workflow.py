@@ -5,11 +5,12 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 
 
-def render_modal_workflow(request, html_template, js_template, template_vars={}):
+def render_modal_workflow(request, html_template, js_template, template_vars=None):
     """"
     Render a response consisting of an HTML chunk and a JS onload chunk
     in the format required by the modal-workflow framework.
     """
+    if not template_vars: template_vars = {}
     response_keyvars = []
     context = RequestContext(request)
 

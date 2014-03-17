@@ -1,9 +1,11 @@
-from django.test import TestCase
-from django.core import management
-from wagtail.wagtailsearch import models
-from wagtail.tests.utils import login
 from StringIO import StringIO
 import unittest
+
+from django.test import TestCase
+from django.core import management
+
+from wagtail.wagtailsearch import models
+from wagtail.tests.utils import login
 
 
 class TestHitCounter(TestCase):
@@ -93,7 +95,7 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[1], models.Query.get("popular query"))
         self.assertEqual(popular_queries[2], models.Query.get("little popular query"))
 
-    @unittest.expectedFailure # Time based popularity isn't implemented yet
+    @unittest.expectedFailure  # Time based popularity isn't implemented yet
     def test_query_popularity_over_time(self):
         today = timezone.now().date()
         two_days_ago = today - datetime.timedelta(days=2)
@@ -137,14 +139,15 @@ class TestGarbageCollectCommand(TestCase):
     def test_garbage_collect_command(self):
         management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
 
-    # TODO: Test that this command is acctually doing its job
+        # TODO: Test that this command is acctually doing its job
 
 
 class TestQueryChooserView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/admin/search/queries/chooser/', params)
 
     def test_status_code(self):

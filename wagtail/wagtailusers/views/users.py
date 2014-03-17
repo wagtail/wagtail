@@ -9,7 +9,9 @@ from django.utils.translation import ugettext as _
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 
+
 User = get_user_model()
+
 
 @permission_required('auth.change_user')
 def index(request):
@@ -23,7 +25,9 @@ def index(request):
             q = form.cleaned_data['q']
 
             is_searching = True
-            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
+            users = User.objects.filter(
+                Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(
+                    email__icontains=q))
     else:
         form = SearchForm(placeholder=_("Search users"))
 
@@ -66,6 +70,7 @@ def index(request):
             'query_string': q,
         })
 
+
 @permission_required('auth.change_user')
 def create(request):
     if request.POST:
@@ -75,7 +80,7 @@ def create(request):
             messages.success(request, _("User '{0}' created.").format(user))
             return redirect('wagtailusers_index')
         else:
-            messages.error(request, _("The user could not be created due to errors.") )
+            messages.error(request, _("The user could not be created due to errors."))
     else:
         form = UserCreationForm()
 

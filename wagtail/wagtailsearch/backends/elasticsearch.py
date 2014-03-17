@@ -1,16 +1,15 @@
+import string
+
 from django.db import models
-from django.conf import settings
 
 from elasticutils import get_es, S
-
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
-import string
-
 
 class ElasticSearchResults(object):
-    def __init__(self, model, query, prefetch_related=[]):
+    def __init__(self, model, query, prefetch_related=None):
+        if not prefetch_related: prefetch_related = []
         self.model = model
         self.query = query
         self.count = query.count()
@@ -129,9 +128,9 @@ class ElasticSearch(BaseSearch):
 
         # Make field list
         fields = dict({
-            "pk": dict(type="string", index="not_analyzed", store="yes"),
-            "content_type": dict(type="string"),
-        }.items() + indexed_fields.items())
+                          "pk": dict(type="string", index="not_analyzed", store="yes"),
+                          "content_type": dict(type="string"),
+                      }.items() + indexed_fields.items())
 
         # Put mapping
         self.es.put_mapping(self.es_index, content_type, {
@@ -193,8 +192,9 @@ class ElasticSearch(BaseSearch):
         except:
             pass  # Document doesn't exist, ignore this exception
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
+    def search(self, query_string, model, fields=None, filters=None, prefetch_related=[]):
         # Model must be a descendant of Indexed and be a django model
+        if not filters: filters = {}
         if not issubclass(model, Indexed) or not issubclass(model, models.Model):
             return []
 

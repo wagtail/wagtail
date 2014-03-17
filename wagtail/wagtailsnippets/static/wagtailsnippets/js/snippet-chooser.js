@@ -3,11 +3,11 @@ function createSnippetChooser(id, contentType) {
     var docTitle = chooserElement.find('.title');
     var input = $('#' + id);
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).click(function () {
         ModalWorkflow({
             'url': window.chooserUrls.snippetChooser + contentType + '/',
             'responses': {
-                'snippetChosen': function(snippetData) {
+                'snippetChosen': function (snippetData) {
                     input.val(snippetData.id);
                     docTitle.text(snippetData.string);
                     chooserElement.removeClass('blank');
@@ -16,7 +16,7 @@ function createSnippetChooser(id, contentType) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).click(function () {
         input.val('');
         chooserElement.addClass('blank');
     });

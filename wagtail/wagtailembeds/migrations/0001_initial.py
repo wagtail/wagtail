@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
-
     depends_on = (
         ("wagtailcore", "0002_initial_data"),
     )
@@ -17,18 +14,18 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
             ('max_width', self.gf('django.db.models.fields.SmallIntegerField')
-             (null=True, blank=True)),
+            (null=True, blank=True)),
             ('type', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('html', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('title', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('thumbnail_url', self.gf('django.db.models.fields.URLField')
-             (max_length=200, null=True, blank=True)),
+            (max_length=200, null=True, blank=True)),
             ('width', self.gf('django.db.models.fields.IntegerField')
-             (null=True, blank=True)),
+            (null=True, blank=True)),
             ('height', self.gf('django.db.models.fields.IntegerField')
-             (null=True, blank=True)),
+            (null=True, blank=True)),
             ('last_updated', self.gf('django.db.models.fields.DateTimeField')
-             (auto_now=True, blank=True)),
+            (auto_now=True, blank=True)),
         ))
         db.send_create_signal(u'wagtailembeds', ['Embed'])
 
@@ -50,7 +47,8 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'max_width': ('django.db.models.fields.SmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'thumbnail_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'thumbnail_url': (
+            'django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'type': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'}),

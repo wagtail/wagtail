@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 # extend Django's UserCreationForm with an 'is_superuser' field
 class UserCreationForm(BaseUserCreationForm):
-
     required_css_class = "required"
     is_superuser = forms.BooleanField(
         label=_("Administrator"),

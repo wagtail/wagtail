@@ -235,7 +235,6 @@ samp {
  */
 
 pre {
-    white-space: pre;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -321,8 +320,7 @@ ul {
 
 nav ul,
 nav ol {
-    list-style: none;
-    list-style-image: none;
+    list-style: none none;
 }
 
 /* ==========================================================================
@@ -449,7 +447,7 @@ input[type="reset"],
 input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
-    *overflow: visible;  /* 4 */
+    *overflow: visible; /* 4 */
 }
 
 /**

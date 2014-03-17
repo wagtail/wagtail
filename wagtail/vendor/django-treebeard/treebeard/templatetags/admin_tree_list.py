@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.template import Library
+
 from treebeard.templatetags import needs_checkboxes
 
 

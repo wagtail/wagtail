@@ -6,7 +6,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from wagtail.tests.utils import login
 from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.templatetags import image_tags
 
 
 def get_test_image_file():
@@ -45,7 +44,8 @@ class TestImagePermissions(TestCase):
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com',
+                                                           password='password')
 
         # Owner user must have the add_image permission
         self.owner.user_permissions.add(Permission.objects.get(codename='add_image'))
@@ -137,7 +137,8 @@ class TestImageIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_index'), params)
 
     def test_status_code(self):
@@ -165,10 +166,12 @@ class TestImageAddView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_add_image'), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailimages_add_image'), post_data)
 
     def test_status_code(self):
@@ -203,10 +206,12 @@ class TestImageEditView(TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_edit_image', args=(self.image.id,)), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
 
     def test_status_code(self):
@@ -235,10 +240,12 @@ class TestImageDeleteView(TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_delete_image', args=(self.image.id,)), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailimages_delete_image', args=(self.image.id,)), post_data)
 
     def test_status_code(self):
@@ -261,7 +268,8 @@ class TestImageChooserView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_chooser'), params)
 
     def test_status_code(self):
@@ -289,7 +297,8 @@ class TestImageChooserChosenView(TestCase):
             file=get_test_image_file(),
         )
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params)
 
     def test_status_code(self):
@@ -300,7 +309,8 @@ class TestImageChooserUploadView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailimages_chooser_upload'), params)
 
     def test_status_code(self):

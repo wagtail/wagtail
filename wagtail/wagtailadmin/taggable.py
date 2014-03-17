@@ -1,9 +1,8 @@
-from taggit.models import Tag
-
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from taggit.models import Tag
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
@@ -31,8 +30,9 @@ class TagSearchable(Indexed):
         return ' '.join([tag.name for tag in self.tags.all()])
 
     @classmethod
-    def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):
+    def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters=None):
         # Run search query
+        if not filters: filters = {}
         search_backend = get_search_backend()
         if prefetch_tags:
             results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)

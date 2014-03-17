@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.rich_text import expand_db_html
 
+
 register = template.Library()
 
 

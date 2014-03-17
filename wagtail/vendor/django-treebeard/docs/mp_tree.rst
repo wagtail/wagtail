@@ -43,9 +43,9 @@ extra steps, materialized path is more efficient than other approaches.
 
 .. inheritance-diagram:: MP_Node
 .. autoclass:: MP_Node
-  :show-inheritance:
+:show-inheritance:
 
-  .. warning::
+      .. warning::
 
      Do not change the values of :attr:`path`, :attr:`depth` or
      :attr:`numchild` directly: use one of the included methods instead.
@@ -249,10 +249,10 @@ extra steps, materialized path is more efficient than other approaches.
 
 
 .. autoclass:: MP_NodeManager
-  :show-inheritance:
+:show-inheritance:
 
 .. autoclass:: MP_NodeQuerySet
-  :show-inheritance:
+:show-inheritance:
 
 
 

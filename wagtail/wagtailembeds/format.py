@@ -28,4 +28,5 @@ def embed_to_editor_html(url):
     if embed is None:
         return
 
-    return '<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="%s"><h3>%s</h3><p>%s</p><img src="%s"></div>' % (url, escape(embed.title), url, embed.thumbnail_url)
+    return '<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="%s"><h3>%s</h3><p>%s</p><img src="%s"></div>' % (
+    url, escape(embed.title), url, embed.thumbnail_url)

@@ -2,7 +2,8 @@ from django.test import TestCase
 
 
 class TestSearchView(TestCase):
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/search/', params)
 
     def test_status_code(self):
@@ -21,7 +22,8 @@ class TestSearchView(TestCase):
 
 
 class TestSuggestionsView(TestCase):
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/search/suggest/', params)
 
     def test_status_code(self):

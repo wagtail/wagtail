@@ -99,7 +99,6 @@ class MP_AddHandler(object):
 
 
 class MP_ComplexAddMoveHandler(MP_AddHandler):
-
     def run_sql_stmts(self):
         cursor = self.node_cls._get_database_cursor('write')
         for sql, vals in self.stmts:
@@ -107,7 +106,7 @@ class MP_ComplexAddMoveHandler(MP_AddHandler):
 
     def get_sql_update_numchild(self, path, incdec='inc'):
         """:returns: The sql needed the numchild value of a node"""
-        sql = "UPDATE %s SET numchild=numchild%s1"\
+        sql = "UPDATE %s SET numchild=numchild%s1" \
               " WHERE path=%%s" % (
                   connection.ops.quote_name(get_base_model_class(self.node_cls)._meta.db_table),
                   {'inc': '+', 'dec': '-'}[incdec])
@@ -124,8 +123,8 @@ class MP_ComplexAddMoveHandler(MP_AddHandler):
         :returns: A tuple containing the old path and the new path.
         """
         if (
-                (pos == 'last-sibling') or
-                (pos == 'right' and target == target.get_last_sibling())
+                    (pos == 'last-sibling') or
+                    (pos == 'right' and target == target.get_last_sibling())
         ):
             # easy, the last node
             last = target.get_last_sibling()
@@ -160,9 +159,9 @@ class MP_ComplexAddMoveHandler(MP_AddHandler):
                 parentnewpath = self.node_cls._get_basepath(
                     newpath, newdepth - 1)
                 if (
-                    parentoldpath == parentnewpath and
-                    siblings and
-                    newpath < oldpath
+                                    parentoldpath == parentnewpath and
+                                siblings and
+                                newpath < oldpath
                 ):
                     last = target.get_last_sibling()
                     basenum = last._get_lastpos_in_path()
@@ -346,7 +345,7 @@ class MP_AddChildHandler(MP_AddHandler):
         newobj._cached_parent_obj = self.node
 
         get_base_model_class(self.node_cls).objects.filter(
-            path=self.node.path).update(numchild=F('numchild')+1)
+            path=self.node.path).update(numchild=F('numchild') + 1)
 
         # we increase the numchild value of the object in memory
         self.node.numchild += 1
@@ -431,18 +430,18 @@ class MP_MoveHandler(MP_ComplexAddMoveHandler):
                 _("Can't move node to a descendant."))
 
         if (
-            oldpath == self.target.path and
-            (
-                (self.pos == 'left') or
-                (
-                    self.pos in ('right', 'last-sibling') and
-                    self.target.path == self.target.get_last_sibling().path
-                ) or
-                (
-                    self.pos == 'first-sibling' and
-                    self.target.path == self.target.get_first_sibling().path
-                )
-            )
+                        oldpath == self.target.path and
+                    (
+                                    (self.pos == 'left') or
+                                    (
+                                                    self.pos in ('right', 'last-sibling') and
+                                                    self.target.path == self.target.get_last_sibling().path
+                                    ) or
+                                (
+                                                self.pos == 'first-sibling' and
+                                                self.target.path == self.target.get_first_sibling().path
+                                )
+                    )
         ):
             # special cases, not actually moving the node so no need to UPDATE
             return
@@ -474,8 +473,8 @@ class MP_MoveHandler(MP_ComplexAddMoveHandler):
         2. update the number of children of parent nodes
         """
         if (
-                self.node_cls.get_database_vendor('write') == 'mysql' and
-                len(oldpath) != len(newpath)
+                        self.node_cls.get_database_vendor('write') == 'mysql' and
+                        len(oldpath) != len(newpath)
         ):
             # no words can describe how dumb mysql is
             # we must update the depth of the branch in a different query
@@ -485,9 +484,9 @@ class MP_MoveHandler(MP_ComplexAddMoveHandler):
         oldparentpath = self.node_cls._get_parent_path_from_path(oldpath)
         newparentpath = self.node_cls._get_parent_path_from_path(newpath)
         if (
-                (not oldparentpath and newparentpath) or
-                (oldparentpath and not newparentpath) or
-                (oldparentpath != newparentpath)
+                        (not oldparentpath and newparentpath) or
+                        (oldparentpath and not newparentpath) or
+                    (oldparentpath != newparentpath)
         ):
             # node changed parent, updating count
             if oldparentpath:
@@ -604,8 +603,8 @@ class MP_Node(Node):
             if keep_ids:
                 newobj['id'] = pyobj['pk']
 
-            if (not parent and depth == 1) or\
-               (parent and len(path) == len(parent.path)):
+            if (not parent and depth == 1) or \
+                    (parent and len(path) == len(parent.path)):
                 ret.append(newobj)
             else:
                 parentpath = cls._get_basepath(path, depth - 1)
@@ -724,8 +723,8 @@ class MP_Node(Node):
 
             # fix the depth field
             # we need the WHERE to speed up postgres
-            sql = "UPDATE %s "\
-                  "SET depth=LENGTH(path)/%%s "\
+            sql = "UPDATE %s " \
+                  "SET depth=LENGTH(path)/%%s " \
                   "WHERE depth!=LENGTH(path)/%%s" % (
                       connection.ops.quote_name(cls._meta.db_table), )
             vals = [cls.steplen, cls.steplen]
@@ -735,17 +734,17 @@ class MP_Node(Node):
             vals = ['_' * cls.steplen]
             # the cake and sql portability are a lie
             if cls.get_database_vendor('read') == 'mysql':
-                sql = "SELECT tbn1.path, tbn1.numchild, ("\
-                      "SELECT COUNT(1) "\
-                      "FROM %(table)s AS tbn2 "\
-                      "WHERE tbn2.path LIKE "\
-                      "CONCAT(tbn1.path, %%s)) AS real_numchild "\
-                      "FROM %(table)s AS tbn1 "\
+                sql = "SELECT tbn1.path, tbn1.numchild, (" \
+                      "SELECT COUNT(1) " \
+                      "FROM %(table)s AS tbn2 " \
+                      "WHERE tbn2.path LIKE " \
+                      "CONCAT(tbn1.path, %%s)) AS real_numchild " \
+                      "FROM %(table)s AS tbn1 " \
                       "HAVING tbn1.numchild != real_numchild" % {
                           'table': connection.ops.quote_name(
                               cls._meta.db_table)}
             else:
-                subquery = "(SELECT COUNT(1) FROM %(table)s AS tbn2"\
+                subquery = "(SELECT COUNT(1) FROM %(table)s AS tbn2" \
                            " WHERE tbn2.path LIKE tbn1.path||%%s)"
                 sql = ("SELECT tbn1.path, tbn1.numchild, " + subquery +
                        " FROM %(table)s AS tbn1 WHERE tbn1.numchild != " +
@@ -755,8 +754,8 @@ class MP_Node(Node):
                 # we include the subquery twice
                 vals *= 2
             cursor.execute(sql, vals)
-            sql = "UPDATE %(table)s "\
-                  "SET numchild=%%s "\
+            sql = "UPDATE %(table)s " \
+                  "SET numchild=%%s " \
                   "WHERE path=%%s" % {
                       'table': connection.ops.quote_name(cls._meta.db_table)}
             for node_data in cursor.fetchall():
@@ -828,14 +827,14 @@ class MP_Node(Node):
             params = []
             extrand = ''
 
-        sql = 'SELECT * FROM %(table)s AS t1 INNER JOIN '\
-              ' (SELECT '\
-              '   SUBSTR(path, 1, %(subpathlen)s) AS subpath, '\
-              '   COUNT(1)-1 AS count '\
-              '   FROM %(table)s '\
-              '   WHERE depth >= %(depth)s %(extrand)s'\
-              '   GROUP BY subpath) AS t2 '\
-              ' ON t1.path=t2.subpath '\
+        sql = 'SELECT * FROM %(table)s AS t1 INNER JOIN ' \
+              ' (SELECT ' \
+              '   SUBSTR(path, 1, %(subpathlen)s) AS subpath, ' \
+              '   COUNT(1)-1 AS count ' \
+              '   FROM %(table)s ' \
+              '   WHERE depth >= %(depth)s %(extrand)s' \
+              '   GROUP BY subpath) AS t2 ' \
+              ' ON t1.path=t2.subpath ' \
               ' ORDER BY t1.path' % {
                   'table': connection.ops.quote_name(cls._meta.db_table),
                   'subpathlen': depth * cls.steplen,

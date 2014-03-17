@@ -26,9 +26,9 @@ slow reads. If you read more than you write, use
 
 .. inheritance-diagram:: AL_Node
 .. autoclass:: AL_Node
-   :show-inheritance:
+:show-inheritance:
 
-   .. warning::
+       .. warning::
 
      If you need to define your own
      :py:class:`~django.db.models.Manager` class,
@@ -103,4 +103,4 @@ slow reads. If you read more than you write, use
         See: :meth:`treebeard.Node.get_depth`
 
 .. autoclass:: AL_NodeManager
-  :show-inheritance:
+:show-inheritance:

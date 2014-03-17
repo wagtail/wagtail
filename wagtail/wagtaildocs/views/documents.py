@@ -6,7 +6,6 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
-
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 

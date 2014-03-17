@@ -9,9 +9,9 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
-
 from wagtail.wagtailsnippets.models import get_snippet_content_types
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
+
 
 
 # == Helper functions ==
@@ -125,7 +125,7 @@ def create(request, content_type_app_name, content_type_model_name):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' created.").format(
-                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]), 
+                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]),
                     instance=instance
                 )
             )
@@ -166,7 +166,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' updated.").format(
-                    snippet_type=capfirst(snippet_type_name), 
+                    snippet_type=capfirst(snippet_type_name),
                     instance=instance
                 )
             )
@@ -202,7 +202,7 @@ def delete(request, content_type_app_name, content_type_model_name, id):
         messages.success(
             request,
             _("{snippet_type} '{instance}' deleted.").format(
-                snippet_type=capfirst(snippet_type_name), 
+                snippet_type=capfirst(snippet_type_name),
                 instance=instance
             )
         )

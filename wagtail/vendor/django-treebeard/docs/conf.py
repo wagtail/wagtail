@@ -45,11 +45,11 @@ html_theme = 'default'
 html_static_path = ['_static']
 htmlhelp_basename = 'django-treebearddoc'
 latex_documents = [(
-    'index',
-    'django-treebeard.tex',
-    'django-treebeard Documentation',
-    'Gustavo Picon',
-    'manual')]
+                       'index',
+                       'django-treebeard.tex',
+                       'django-treebeard Documentation',
+                       'Gustavo Picon',
+                       'manual')]
 intersphinx_mapping = {
     'python': ('http://docs.python.org/3', None),
     'django': (

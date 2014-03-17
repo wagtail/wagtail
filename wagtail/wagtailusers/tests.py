@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
 from wagtail.tests.utils import login
 
 
@@ -8,7 +9,8 @@ class TestUserIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailusers_index'), params)
 
     def test_status_code(self):
@@ -30,10 +32,12 @@ class TestUserCreateView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailusers_create'), params)
 
-    def post(self, post_data={}):
+    def post(self, post_data=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailusers_create'), post_data)
 
     def test_status_code(self):
@@ -66,10 +70,12 @@ class TestUserEditView(TestCase):
         # Login
         login(self.client)
 
-    def get(self, params={}, user_id=None):
+    def get(self, params=None, user_id=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), params)
- 
-    def post(self, post_data={}, user_id=None):
+
+    def post(self, post_data=None, user_id=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), post_data)
 
     def test_status_code(self):

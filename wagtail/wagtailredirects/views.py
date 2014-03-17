@@ -6,7 +6,6 @@ from django.utils.translation import ugettext  as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-
 import models
 
 
@@ -53,7 +52,8 @@ def index(request):
             'ordering': ordering,
             'redirects': redirects,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")),
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None,
+                                      placeholder=_("Search redirects")),
         })
 
 

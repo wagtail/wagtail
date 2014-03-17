@@ -1,7 +1,7 @@
 """Adjacency List"""
 
 from django.core import serializers
-from django.db import connection, models, transaction
+from django.db import models, transaction
 from django.utils.translation import ugettext_noop as _
 
 from treebeard.exceptions import InvalidMoveToDescendant
@@ -114,8 +114,8 @@ class AL_Node(Node):
 
         serializable_cls = cls._get_serializable_model()
         if (
-                parent and serializable_cls != cls and
-                parent.__class__ != serializable_cls
+                        parent and serializable_cls != cls and
+                        parent.__class__ != serializable_cls
         ):
             parent = serializable_cls.objects.get(pk=parent.pk)
 
@@ -140,8 +140,8 @@ class AL_Node(Node):
             if keep_ids:
                 newobj['id'] = pyobj['pk']
 
-            if (not parent and depth == 1) or\
-               (parent and depth == parent.get_depth()):
+            if (not parent and depth == 1) or \
+                    (parent and depth == parent.get_depth()):
                 ret.append(newobj)
             else:
                 parentobj = lnk[node.parent_id]
@@ -302,11 +302,11 @@ class AL_Node(Node):
                 _("Can't move node to a descendant."))
 
         if self == target and (
-            (pos == 'left') or
-            (pos in ('right', 'last-sibling') and
-             target == target.get_last_sibling()) or
-            (pos == 'first-sibling' and
-             target == target.get_first_sibling())):
+                        (pos == 'left') or
+                        (pos in ('right', 'last-sibling') and
+                                 target == target.get_last_sibling()) or
+                    (pos == 'first-sibling' and
+                             target == target.get_first_sibling())):
             # special cases, not actually moving the node so no need to UPDATE
             return
 

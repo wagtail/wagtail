@@ -1,99 +1,100 @@
-.tab-nav{
-    @include clearfix();
-    padding:0;
+.tab-nav {
+  @include clearfix();
+  padding: 0;
 
-    li{
-        list-style-type:none;
-        width:48%;
-        float:left;
-        padding:0;
-        position:relative;
+  li {
+    list-style-type: none;
+    width: 48%;
+    float: left;
+    padding: 0;
+    position: relative;
 
-        &:before,&:after{
-            display:none;
-        }
+    &:before, &:after {
+      display: none;
     }
-    a{
-        @include transition(border-color 0.2s ease);
-        @include box-shadow(inset 0px -2px 3px 0 rgba(0,0,0,0.1));
-        background-color:$color-grey-4;
-        outline:none;
-        line-height:3em;
-        text-transform:uppercase;
-        font-weight:700;
-        font-size:1.2em;
-        text-decoration:none;
-        display:block;
-        padding:0 20px;
-        color:$color-grey-2;
-        border-top:0.3em solid $color-grey-4;
-        border-bottom:1px solid transparent;
+  }
+  a {
+    @include transition(border-color 0.2s ease);
+    @include box-shadow(inset 0px -2px 3px 0 rgba(0, 0, 0, 0.1));
+    background-color: $color-grey-4;
+    outline: none;
+    line-height: 3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.2em;
+    text-decoration: none;
+    display: block;
+    padding: 0 20px;
+    color: $color-grey-2;
+    border-top: 0.3em solid $color-grey-4;
+    border-bottom: 1px solid transparent;
 
-        &:hover{
-            color:inherit;
-            border-top-color:$color-grey-2;
-        }
+    &:hover {
+      color: inherit;
+      border-top-color: $color-grey-2;
     }
+  }
 
-    a.errors{
-        color:$color-red !important;
+  a.errors {
+    color: $color-red !important;
 
-        &:after{
-            @include border-radius(50%);
-            @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
-            position:absolute;
-            right:-0.5em;
-            top:-0.5em;
-            z-index:5;           
-            min-width:1em;
-            color:white;
-            background:$color-red;
-            border:2px solid darken($color-red,20%);
-            content:attr(data-count);
-            padding:0 0.3em;
-            line-height:1.4em;
-            text-align:center;
-            font-size:0.8em;
-        }
+    &:after {
+      @include border-radius(50%);
+      @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+      position: absolute;
+      right: -0.5em;
+      top: -0.5em;
+      z-index: 5;
+      min-width: 1em;
+      color: white;
+      background: $color-red;
+      border: 2px solid darken($color-red, 20%);
+      content: attr(data-count);
+      padding: 0 0.3em;
+      line-height: 1.4em;
+      text-align: center;
+      font-size: 0.8em;
     }
+  }
 
-    li.active a{
-        @include box-shadow(none);
-        color:$color-grey-1;
-        background-color:white;
-        border-top:0.3em solid $color-grey-1;      
-    }
+  li.active a {
+    @include box-shadow(none);
+    color: $color-grey-1;
+    background-color: white;
+    border-top: 0.3em solid $color-grey-1;
+  }
 
-    /* For cases where tab-nav should merge with header */
-    &.merged{
-        background-color:$color-header-bg;
-        margin-top:0;
-    }
-}
-.tab-content{
-    section{
-        display:none;
-        padding-top:1em;
-
-        &.active{
-            display:block;
-        }
-    }
+  /* For cases where tab-nav should merge with header */
+  &.merged {
+    background-color: $color-header-bg;
+    margin-top: 0;
+  }
 }
 
-@media screen and (min-width: $breakpoint-mobile){
-    .tab-nav li{
-        width:auto;
-        padding:0;
-        margin-left:0.5em;
-    }
+.tab-content {
+  section {
+    display: none;
+    padding-top: 1em;
 
-    .tab-nav a{
-        padding:0 50px;
+    &.active {
+      display: block;
     }
+  }
+}
 
-    .modal-content .tab-nav li{
-        padding:0;
-        min-width:0;
-    }
+@media screen and (min-width: $breakpoint-mobile) {
+  .tab-nav li {
+    width: auto;
+    padding: 0;
+    margin-left: 0.5em;
+  }
+
+  .tab-nav a {
+    padding: 0 50px;
+  }
+
+  .modal-content .tab-nav li {
+    padding: 0;
+    min-width: 0;
+  }
 }
