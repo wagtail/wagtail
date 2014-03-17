@@ -415,7 +415,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                     if model:
                         res.append(model)
                     else:
-                        raise NameError(_("name '%s' (used in subpage_types list) is not defined.").format(page_type))
+                        raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
 
                 else:
                     # assume it's already a model class
