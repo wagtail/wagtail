@@ -18,5 +18,6 @@ def main():
             os.unlink(file_full_name)
     sys.stdout.flush()
 
+
 if __name__ == '__main__':
     main()

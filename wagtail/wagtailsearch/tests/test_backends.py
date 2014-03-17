@@ -1,16 +1,20 @@
+import unittest
+from StringIO import StringIO
+
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
-import unittest
+
 from wagtail.wagtailsearch import models, get_search_backend
 from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
-from StringIO import StringIO
+
 
 
 # Register wagtailsearch signal handlers
 from wagtail.wagtailsearch import register_signal_handlers
+
 register_signal_handlers()
 
 
@@ -174,7 +178,8 @@ class TestBackendLoader(TestCase):
         self.assertIsInstance(db, DBSearch)
 
     def test_nonexistant_backend_import(self):
-        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
+        self.assertRaises(InvalidSearchBackendError, get_search_backend,
+                          backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
 
     def test_invalid_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")

@@ -4,7 +4,7 @@ Forms
 .. module:: treebeard.forms
 
 .. autoclass:: MoveNodeForm
-   :show-inheritance:
+:show-inheritance:
 
 .. autofunction:: movenodeform_factory
 

@@ -3,10 +3,10 @@
 import sys
 
 from django.conf.urls import patterns, url
-
 from django.contrib import admin, messages
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils.translation import ugettext_lazy as _
+
 if sys.version_info >= (3, 0):
     from django.utils.encoding import force_str
 else:

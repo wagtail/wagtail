@@ -5,8 +5,8 @@ from django.utils.http import urlencode
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
-
+from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, \
+    EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 from wagtail.wagtailcore.models import Page
 
 
@@ -132,7 +132,8 @@ def email_link(request):
                 None, 'wagtailadmin/chooser/external_link_chosen.js',
                 {
                     'url': 'mailto:' + form.cleaned_data['email_address'],
-                    'link_text': form.cleaned_data['link_text'] if (prompt_for_link_text and form.cleaned_data['link_text']) else form.cleaned_data['email_address']
+                    'link_text': form.cleaned_data['link_text'] if (
+                    prompt_for_link_text and form.cleaned_data['link_text']) else form.cleaned_data['email_address']
                 }
             )
     else:

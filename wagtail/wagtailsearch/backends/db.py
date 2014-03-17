@@ -1,7 +1,6 @@
 from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.indexed import Indexed
 
 
 class DBSearch(BaseSearch):
@@ -9,25 +8,27 @@ class DBSearch(BaseSearch):
         super(DBSearch, self).__init__(params)
 
     def reset_index(self):
-        pass # Not needed
+        pass  # Not needed
 
     def add_type(self, model):
-        pass # Not needed
+        pass  # Not needed
 
     def refresh_index(self):
-        pass # Not needed
+        pass  # Not needed
 
     def add(self, obj):
-        pass # Not needed
+        pass  # Not needed
 
     def add_bulk(self, obj_list):
-        pass # Not needed
+        pass  # Not needed
 
     def delete(self, obj):
-        pass # Not needed
+        pass  # Not needed
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
+    def search(self, query_string, model, fields=None, filters=None, prefetch_related=None):
         # Get terms
+        if not filters: filters = {}
+        if not prefetch_related: prefetch_related = []
         terms = query_string.split()
         if not terms:
             return model.objects.none()

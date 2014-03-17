@@ -1,4 +1,3 @@
-
 django-treebeard
 ================
 

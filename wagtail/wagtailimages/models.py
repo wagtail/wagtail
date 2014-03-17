@@ -2,8 +2,6 @@ import StringIO
 import os.path
 
 import PIL.Image
-from taggit.managers import TaggableManager
-
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist, ValidationError
 from django.db import models
@@ -14,12 +12,13 @@ from django.utils.html import escape
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 
+from taggit.managers import TaggableManager
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages import image_ops
 
 
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title') )
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
 
     def get_upload_to(self, filename):
         folder_name = 'original_images'
@@ -38,7 +37,8 @@ class AbstractImage(models.Model, TagSearchable):
         if extension not in ["gif", "jpg", "jpeg", "png"]:
             raise ValidationError(_("Not a valid image format. Please use a gif, jpeg or png file instead."))
 
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[file_extension_validator])
+    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width',
+                             height_field='height', validators=[file_extension_validator])
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -76,10 +76,10 @@ class AbstractImage(models.Model, TagSearchable):
         return rendition
 
     def is_portrait(self):
-        return (self.width < self.height)
+        return self.width < self.height
 
     def is_landscape(self):
-        return (self.height < self.width)
+        return self.height < self.width
 
     @property
     def filename(self):
@@ -130,7 +130,8 @@ def get_image_model():
 
     image_model = get_model(app_label, model_name)
     if image_model is None:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
+        raise ImproperlyConfigured(
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
     return image_model
 
 
@@ -194,7 +195,8 @@ class Filter(models.Model):
         # generate new filename derived from old one, inserting the filter spec string before the extension
         input_filename_parts = os.path.basename(input_file.name).split('.')
         filename_without_extension = '.'.join(input_filename_parts[:-1])
-        filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
+        filename_without_extension = filename_without_extension[
+                                     :60]  # trim filename base so that we're well under 100 chars
         output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
         output_filename = '.'.join(output_filename_parts)
 
@@ -216,7 +218,8 @@ class AbstractRendition(models.Model):
 
     def img_tag(self):
         return mark_safe(
-            '<img src="%s" width="%d" height="%d" alt="%s">' % (escape(self.url), self.width, self.height, escape(self.image.title))
+            '<img src="%s" width="%d" height="%d" alt="%s">' % (
+            escape(self.url), self.width, self.height, escape(self.image.title))
         )
 
     class Meta:

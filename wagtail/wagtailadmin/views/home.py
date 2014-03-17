@@ -5,12 +5,10 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 
 from wagtail.wagtailadmin import hooks
-
 from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
-
 from wagtail.wagtaildocs.models import Document
-
 from wagtail.wagtailimages.models import get_image_model
+
 
 
 # Panels for the homepage
@@ -36,7 +34,9 @@ class PagesForModerationPanel(object):
     def __init__(self, request):
         self.request = request
         user_perms = UserPagePermissionsProxy(request.user)
-        self.page_revisions_for_moderation = user_perms.revisions_for_moderation().select_related('page', 'user').order_by('-created_at')
+        self.page_revisions_for_moderation = user_perms.revisions_for_moderation().select_related('page',
+                                                                                                  'user').order_by(
+            '-created_at')
 
     def render(self):
         return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
@@ -58,6 +58,7 @@ class RecentEditsPanel(object):
                     SELECT max(created_at) as max_created_at, page_id FROM wagtailcore_pagerevision group by page_id 
                 ) as max_rev on max_rev.max_created_at = wp.created_at and wp.user_id = %s order by wp.created_at desc
             """, [request.user.id])[:5]
+
     def render(self):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
             'last_edits': self.last_edits,
@@ -66,7 +67,6 @@ class RecentEditsPanel(object):
 
 @permission_required('wagtailadmin.access_admin')
 def home(request):
-
     panels = [
         SiteSummaryPanel(request),
         PagesForModerationPanel(request),

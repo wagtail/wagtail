@@ -2,9 +2,6 @@ import copy
 import re
 import datetime
 
-from taggit.forms import TagWidget
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass
-
 from django.template.loader import render_to_string
 from django.template.defaultfilters import addslashes
 from django.utils.safestring import mark_safe
@@ -17,6 +14,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext as _, ugettext_lazy as __
 
+from taggit.forms import TagWidget
+from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
@@ -27,6 +26,7 @@ class FriendlyDateInput(forms.DateInput):
     A custom DateInput widget that formats dates as "05 Oct 2013"
     and adds class="friendly_date" to be picked up by jquery datepicker.
     """
+
     def __init__(self, attrs=None):
         default_attrs = {'class': 'friendly_date'}
         if attrs:
@@ -40,6 +40,7 @@ class FriendlyTimeInput(forms.TimeInput):
     A custom TimeInput widget that formats dates as "5.30pm"
     and adds class="friendly_time" to be picked up by jquery timepicker.
     """
+
     def __init__(self, attrs=None):
         default_attrs = {'class': 'friendly_time'}
         if attrs:
@@ -78,15 +79,16 @@ class FriendlyTimeField(forms.CharField):
             return datetime.time(hour=hour, minute=minute)
         else:
             raise ValidationError(_("Please type a valid time"))
-            
+
 
 class LocalizedDateInput(forms.DateInput):
     """
     A custom DateInput widget that formats localized dates
     and adds class="friendly_date" to be picked up by jquery datepicker.
     """
+
     def __init__(self, attrs=None):
-        default_attrs = {'class': 'localized_date', 'localize':True}
+        default_attrs = {'class': 'localized_date', 'localize': True}
         if attrs:
             default_attrs.update(attrs)
 
@@ -98,6 +100,7 @@ class LocalizedTimeInput(forms.TimeInput):
     A custom TimeInput widget that formats dates as "5.30pm"
     and adds class="friendly_time" to be picked up by jquery timepicker.
     """
+
     def __init__(self, attrs=None):
         default_attrs = {'class': 'localized_time'}
         if attrs:
@@ -117,7 +120,7 @@ class LocalizedTimeField(forms.CharField):
         match = expr.match(time_string.lower())
         if match:
             # Pull out values from string
-            hour_string, minute_string= match.groups()
+            hour_string, minute_string = match.groups()
 
             # Convert hours and minutes to integers
             hour = int(hour_string)
@@ -125,20 +128,20 @@ class LocalizedTimeField(forms.CharField):
                 minute = int(minute_string)
             else:
                 minute = 0
-            if hour>=24 or hour < 0 or minute >=60 or minute < 0:
+            if hour >= 24 or hour < 0 or minute >= 60 or minute < 0:
                 raise ValidationError(_("Please type a valid time"))
-                
+
             return datetime.time(hour=hour, minute=minute)
         else:
-            raise ValidationError(_("Please type a valid time") )
+            raise ValidationError(_("Please type a valid time"))
 
 
-if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
+if hasattr(settings, 'USE_L10N') and settings.USE_L10N == True:
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': LocalizedDateInput},
         models.TimeField: {'widget': LocalizedTimeInput, 'form_class': LocalizedTimeField},
     }
-else: # Fall back to friendly date/time            
+else:  # Fall back to friendly date/time
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': FriendlyDateInput},
         models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
@@ -192,6 +195,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
+
 WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', (ClusterForm,), {})
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
@@ -199,10 +203,9 @@ WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', 
 
 
 def get_form_for_model(
-    model,
-    fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
+        model,
+        fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
 ):
-
     # django's modelform_factory with a bit of custom behaviour
     # (dealing with Treebeard's tree-related fields that really should have
     # been editable=False)
@@ -547,6 +550,7 @@ class BaseChooserPanel(BaseFieldPanel):
       with the appropriate object ID. If the function requires any other parameters, the
       subclass will need to override render_js instead.
     """
+
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: forms.HiddenInput}
@@ -586,14 +590,17 @@ class BasePageChooserPanel(BaseChooserPanel):
                 if isinstance(cls.page_type, basestring):
                     # translate the passed model name into an actual model class
                     from django.db.models import get_model
+
                     try:
                         app_label, model_name = cls.page_type.split('.')
                     except ValueError:
-                        raise ImproperlyConfigured("The page_type passed to PageChooserPanel must be of the form 'app_label.model_name'")
+                        raise ImproperlyConfigured(
+                            "The page_type passed to PageChooserPanel must be of the form 'app_label.model_name'")
 
                     page_type = get_model(app_label, model_name)
                     if page_type is None:
-                        raise ImproperlyConfigured("PageChooserPanel refers to model '%s' that has not been installed" % cls.page_type)
+                        raise ImproperlyConfigured(
+                            "PageChooserPanel refers to model '%s' that has not been installed" % cls.page_type)
                 else:
                     page_type = cls.page_type
 
@@ -706,7 +713,8 @@ def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
         'related': rel,
         'panels': panels,
         'heading': label,
-        'help_text': help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+        'help_text': help_text,
+        # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
     })
 
 
@@ -716,9 +724,9 @@ Page.content_panels = [
 ]
 Page.promote_panels = [
     MultiFieldPanel([
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('show_in_menus'),
-        FieldPanel('search_description'),
-    ], __('Common page configuration')),
+                        FieldPanel('slug'),
+                        FieldPanel('seo_title'),
+                        FieldPanel('show_in_menus'),
+                        FieldPanel('search_description'),
+                    ], __('Common page configuration')),
 ]

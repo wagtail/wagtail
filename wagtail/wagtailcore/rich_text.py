@@ -4,7 +4,6 @@ from django.utils.html import escape
 
 from wagtail.wagtailcore.whitelist import Whitelister
 from wagtail.wagtailcore.models import Page
-
 from wagtail.wagtaildocs.models import Document
 
 # FIXME: we don't really want to import wagtailimages within core.
@@ -27,6 +26,7 @@ class ImageEmbedHandler(object):
     representation will be:
     <embed embedtype="image" id="42" format="thumb" alt="some custom alt text">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -70,6 +70,7 @@ class MediaEmbedHandler(object):
     representation will be:
     <embed embedtype="media" url="http://vimeo.com/XXXXX">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -88,6 +89,7 @@ class MediaEmbedHandler(object):
         representation.
         """
         from wagtail.wagtailembeds import format
+
         if for_editor:
             return format.embed_to_editor_html(attrs['url'])
         else:
@@ -101,6 +103,7 @@ class PageLinkHandler(object):
     representation will be:
     <a linktype="page" id="42">hello world</a>
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -207,6 +210,7 @@ def expand_db_html(html, for_editor=False):
     Expand database-representation HTML into proper HTML usable in either
     templates or the rich text editor
     """
+
     def replace_a_tag(m):
         attrs = extract_attrs(m.group(1))
         if 'linktype' not in attrs:

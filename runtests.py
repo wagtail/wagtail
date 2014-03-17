@@ -6,6 +6,7 @@ import shutil
 from django.conf import settings, global_settings
 from django.core.management import execute_from_command_line
 
+
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
@@ -14,6 +15,7 @@ if not settings.configured:
 
     try:
         import elasticutils
+
         has_elasticsearch = True
     except ImportError:
         has_elasticsearch = False

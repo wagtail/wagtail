@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+
 from setuptools import setup
 from setuptools.command.test import test
 
@@ -20,6 +21,7 @@ class pytest_test(test):
 
     def run_tests(self):
         import pytest
+
         pytest.main([])
 
 
@@ -53,7 +55,6 @@ setup_args = dict(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries',
         'Topic :: Utilities'])
-
 
 if __name__ == '__main__':
     setup(**setup_args)

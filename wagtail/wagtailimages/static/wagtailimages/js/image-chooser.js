@@ -3,11 +3,11 @@ function createImageChooser(id) {
     var previewImage = chooserElement.find('.preview-image img');
     var input = $('#' + id);
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).click(function () {
         ModalWorkflow({
             'url': window.chooserUrls.imageChooser,
             'responses': {
-                'imageChosen': function(imageData) {
+                'imageChosen': function (imageData) {
                     input.val(imageData.id);
                     previewImage.attr({
                         'src': imageData.preview.url,
@@ -21,7 +21,7 @@ function createImageChooser(id) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).click(function () {
         input.val('');
         chooserElement.addClass('blank');
     });

@@ -39,8 +39,8 @@ class Node(models.Model):
         foreign_keys = {}
         for field in cls._meta.fields:
             if (
-                field.get_internal_type() == 'ForeignKey' and
-                field.name != 'parent'
+                            field.get_internal_type() == 'ForeignKey' and
+                            field.name != 'parent'
             ):
                 foreign_keys[field.name] = field.rel.to
         return foreign_keys

@@ -1,15 +1,16 @@
 from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
+
 import models
 
 
 class QueryForm(forms.Form):
-    query_string = forms.CharField(label=_('Search term(s)/phrase'), 
-        help_text=_("""Enter the full search string to match. An 
+    query_string = forms.CharField(label=_('Search term(s)/phrase'),
+                                   help_text=_("""Enter the full search string to match. An
         exact match is required for your Editors Picks to be 
-        displayed, wildcards are NOT allowed."""), 
-        required=True)
+        displayed, wildcards are NOT allowed."""),
+                                   required=True)
 
 
 class EditorsPickForm(forms.ModelForm):
@@ -27,7 +28,8 @@ class EditorsPickForm(forms.ModelForm):
         }
 
 
-EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
+EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=EditorsPickForm, can_order=True,
+                                               can_delete=True, extra=0)
 
 
 class EditorsPickFormSet(EditorsPickFormSetBase):

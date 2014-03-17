@@ -4,6 +4,7 @@ from django.contrib.auth.admin import GroupAdmin
 
 from wagtail.wagtailcore.models import Site, Page, GroupPagePermission
 
+
 admin.site.register(Site)
 admin.site.register(Page)
 
@@ -18,6 +19,7 @@ class GroupPagePermissionInline(admin.TabularInline):
 
 class GroupAdminWithPagePermissions(GroupAdmin):
     inlines = GroupAdmin.inlines + [GroupPagePermissionInline]
+
 
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminWithPagePermissions)

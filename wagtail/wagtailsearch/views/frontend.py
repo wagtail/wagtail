@@ -9,20 +9,10 @@ from wagtail.wagtailcore import models
 from wagtail.wagtailsearch.models import Query
 
 
-def search(
-        request,
-        template=None,
-        template_ajax=None,
-        results_per_page=10,
-        use_json=False,
-        json_attrs=['title', 'url'],
-        show_unpublished=False,
-        search_title_only=False,
-        extra_filters={},
-        path=None,
-    ):
-
+def search(request, template=None, template_ajax=None, results_per_page=10, use_json=False, json_attrs=None,
+           show_unpublished=False, search_title_only=False, extra_filters={}, path=None):
     # Get default templates
+    if not json_attrs: json_attrs = ['title', 'url']
     if template is None:
         if hasattr(settings, 'WAGTAILSEARCH_RESULTS_TEMPLATE'):
             template = settings.WAGTAILSEARCH_RESULTS_TEMPLATE
@@ -67,7 +57,7 @@ def search(
         query = None
         search_results = None
 
-    if use_json: # Return a json response
+    if use_json:  # Return a json response
         if search_results:
             search_results_json = []
             for result in search_results:
@@ -82,7 +72,7 @@ def search(
             return HttpResponse(json.dumps(search_results_json))
         else:
             return HttpResponse('[]')
-    else: # Render a template
+    else:  # Render a template
         if request.is_ajax() and template_ajax:
             template = template_ajax
 

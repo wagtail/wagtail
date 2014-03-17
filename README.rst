@@ -1,11 +1,11 @@
 .. image:: https://travis-ci.org/torchbox/wagtail.png?branch=master
-    :target: https://travis-ci.org/torchbox/wagtail
+:target: https://travis-ci.org/torchbox/wagtail
 
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master
-    :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
+:target: https://coveralls.io/r/torchbox/wagtail?branch=master
 
 .. image:: https://pypip.in/v/wagtail/badge.png?asdf
-    :target: https://crate.io/packages/wagtail/
+:target: https://crate.io/packages/wagtail/
 
 Wagtail CMS
 ===========

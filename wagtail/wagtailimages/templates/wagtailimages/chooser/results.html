@@ -1,28 +1,29 @@
 {% load image_tags ellipsistrim %}
 {% load i18n %}
 {% if images %}
-    {% if is_searching %}
-        <h2>
-        {% blocktrans count counter=images.paginator.count %}
-            There is one match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
-        </h2>
-    {% else %}
-        <h2>{% trans "Latest images" %}</h2>
-    {% endif %}
-    
-    <ul class="listing horiz images chooser">
-        {% for image in images %}
-            <li>
-                <a class="image-choice" href="{% if will_select_format %}{% url 'wagtailimages_chooser_select_format' image.id %}{% else %}{% url 'wagtailimages_image_chosen' image.id %}{% endif %}">
-                    <div class="image">{% image image max-165x165 %}</div>
-                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+{% if is_searching %}
+<h2>
+    {% blocktrans count counter=images.paginator.count %}
+    There is one match
+    {% plural %}
+    There are {{ counter }} matches
+    {% endblocktrans %}
+</h2>
+{% else %}
+<h2>{% trans "Latest images" %}</h2>
+{% endif %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_ajax=1 %}
+<ul class="listing horiz images chooser">
+    {% for image in images %}
+    <li>
+        <a class="image-choice"
+           href="{% if will_select_format %}{% url 'wagtailimages_chooser_select_format' image.id %}{% else %}{% url 'wagtailimages_image_chosen' image.id %}{% endif %}">
+            <div class="image">{% image image max-165x165 %}</div>
+            <h3>{{ image.title|ellipsistrim:60 }}</h3>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include "wagtailadmin/shared/pagination_nav.html" with items=images is_ajax=1 %}
 {% endif %}

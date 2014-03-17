@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
 
 

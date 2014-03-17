@@ -5,12 +5,12 @@ API
 
 .. inheritance-diagram:: Node
 .. autoclass:: Node
-  :show-inheritance:
+:show-inheritance:
 
-  This is the base class that defines the API of all tree models in this
-  library:
+      This is the base class that defines the API of all tree models in this
+      library:
 
-     - :class:`treebeard.mp_tree.MP_Node` (materialized path)
+         - :class:`treebeard.mp_tree.MP_Node` (materialized path)
      - :class:`treebeard.ns_tree.NS_Node` (nested sets)
      - :class:`treebeard.al_tree.AL_Node` (adjacency list)
 

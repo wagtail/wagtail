@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.test.client import Client
+from django.core.urlresolvers import reverse
+
 from wagtail.wagtailredirects import models
 from wagtail.tests.utils import login
-from django.core.urlresolvers import reverse
 
 
 class TestRedirects(TestCase):
@@ -14,20 +15,24 @@ class TestRedirects(TestCase):
         path = normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')
 
         # Test against equivalant paths
-        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2')) # The exact same URL
-        self.assertEqual(path, normalise_path('http://mywebsite.com:8000/Hello/world.html?foo=Bar&Baz=quux2')) # Scheme, hostname and port ignored
-        self.assertEqual(path, normalise_path('Hello/world.html?foo=Bar&Baz=quux2')) # Leading slash can be omitted
-        self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
-        self.assertEqual(path, normalise_path('/Hello/world.html?Baz=quux2&foo=Bar')) # Order of query string parameters are ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2'))  # The exact same URL
+        self.assertEqual(path, normalise_path(
+            'http://mywebsite.com:8000/Hello/world.html?foo=Bar&Baz=quux2'))  # Scheme, hostname and port ignored
+        self.assertEqual(path, normalise_path('Hello/world.html?foo=Bar&Baz=quux2'))  # Leading slash can be omitted
+        self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2'))  # Trailing slashes are ignored
+        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool'))  # Fragments are ignored
+        self.assertEqual(path, normalise_path(
+            '/Hello/world.html?Baz=quux2&foo=Bar'))  # Order of query string parameters are ignored
 
         # Test against different paths
-        self.assertNotEqual(path, normalise_path('/hello/world.html?foo=Bar&Baz=quux2')) # 'hello' is lowercase
-        self.assertNotEqual(path, normalise_path('/Hello/world?foo=Bar&Baz=quux2')) # No '.html'
-        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=bar&Baz=Quux2')) # Query string parameters have wrong case
-        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=Bar&baz=quux2')) # ditto
-        self.assertNotEqual(path, normalise_path('/Hello/WORLD.html?foo=Bar&Baz=quux2')) # 'WORLD' is uppercase
-        self.assertNotEqual(path, normalise_path('/Hello/world.htm?foo=Bar&Baz=quux2')) # '.htm' is not the same as '.html'
+        self.assertNotEqual(path, normalise_path('/hello/world.html?foo=Bar&Baz=quux2'))  # 'hello' is lowercase
+        self.assertNotEqual(path, normalise_path('/Hello/world?foo=Bar&Baz=quux2'))  # No '.html'
+        self.assertNotEqual(path, normalise_path(
+            '/Hello/world.html?foo=bar&Baz=Quux2'))  # Query string parameters have wrong case
+        self.assertNotEqual(path, normalise_path('/Hello/world.html?foo=Bar&baz=quux2'))  # ditto
+        self.assertNotEqual(path, normalise_path('/Hello/WORLD.html?foo=Bar&Baz=quux2'))  # 'WORLD' is uppercase
+        self.assertNotEqual(path,
+                            normalise_path('/Hello/world.htm?foo=Bar&Baz=quux2'))  # '.htm' is not the same as '.html'
 
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')
@@ -70,7 +75,8 @@ class TestRedirectsIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailredirects_index'), params)
 
     def test_status_code(self):
@@ -92,10 +98,12 @@ class TestRedirectsAddView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailredirects_add_redirect'), params)
- 
-    def post(self, post_data={}):
+
+    def post(self, post_data=None):
+        if not post_data: post_data = {}
         return self.client.post(reverse('wagtailredirects_add_redirect'), post_data)
 
     def test_status_code(self):
@@ -136,11 +144,15 @@ class TestRedirectsEditView(TestCase):
         # Login
         login(self.client)
 
-    def get(self, params={}, redirect_id=None):
-        return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), params)
- 
-    def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
+    def get(self, params=None, redirect_id=None):
+        if not params: params = {}
+        return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )),
+                               params)
+
+    def post(self, post_data=None, redirect_id=None):
+        if not post_data: post_data = {}
+        return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )),
+                                post_data)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -173,6 +185,7 @@ class TestRedirectsEditView(TestCase):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
+
 class TestRedirectsDeleteView(TestCase):
     def setUp(self):
         # Create a redirect to edit
@@ -182,11 +195,15 @@ class TestRedirectsDeleteView(TestCase):
         # Login
         login(self.client)
 
-    def get(self, params={}, redirect_id=None):
-        return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), params)
- 
-    def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
+    def get(self, params=None, redirect_id=None):
+        if not params: params = {}
+        return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )),
+                               params)
+
+    def post(self, post_data=None, redirect_id=None):
+        if not post_data: post_data = {}
+        return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )),
+                                post_data)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)

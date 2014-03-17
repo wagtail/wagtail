@@ -15,7 +15,7 @@ function buildExpandingFormset(prefix, opts) {
         emptyFormTemplate = emptyFormTemplate.textContent;
     }
 
-    addButton.click(function() {
+    addButton.click(function () {
         var newFormHtml = emptyFormTemplate.replace(/__prefix__/g, formCount);
         formContainer.append(newFormHtml);
         if (opts.onAdd) {

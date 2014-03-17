@@ -46,6 +46,7 @@ def get_db_conf():
                                 'collation_connection=utf8_unicode_ci'}
     return conf
 
+
 DATABASES = {'default': get_db_conf()}
 SECRET_KEY = '7r33b34rd'
 

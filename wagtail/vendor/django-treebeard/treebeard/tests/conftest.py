@@ -31,6 +31,8 @@ def idmaker(argnames, argvalues):
                 this_id.append("{0}-{1}={2!s}".format(argname, valindex))
         idlist.append("][".join(this_id))
     return idlist
+
+
 _pytest_python.idmaker = idmaker
 
 

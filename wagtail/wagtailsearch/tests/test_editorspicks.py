@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from wagtail.tests.utils import login
 from wagtail.wagtailsearch import models
 
@@ -49,7 +50,8 @@ class TestEditorsPicksIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/admin/search/editorspicks/', params)
 
     def test_status_code(self):
@@ -71,7 +73,8 @@ class TestEditorsPicksAddView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/admin/search/editorspicks/add/', params)
 
     def test_status_code(self):
@@ -86,7 +89,8 @@ class TestEditorsPicksEditView(TestCase):
         self.query = models.Query.get("Hello")
         self.query.editors_picks.create(page_id=1, description="Root page")
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params)
 
     def test_status_code(self):
@@ -101,7 +105,8 @@ class TestEditorsPicksDeleteView(TestCase):
         self.query = models.Query.get("Hello")
         self.query.editors_picks.create(page_id=1, description="Root page")
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params)
 
     def test_status_code(self):

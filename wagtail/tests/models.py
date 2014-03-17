@@ -1,4 +1,5 @@
 from django.db import models
+
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -11,7 +12,6 @@ EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
     ('private', "Private"),
 )
-
 
 COMMON_PANELS = (
     FieldPanel('slug'),
@@ -159,6 +159,7 @@ class EventPage(Page):
 
     indexed_fields = ('get_audience_display', 'location', 'body')
     search_name = "Event"
+
 
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),

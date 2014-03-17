@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 
@@ -38,7 +37,8 @@ def index(request):
         return render(request, 'wagtailsearch/editorspicks/index.html', {
             'queries': queries,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search editor's picks")),
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None,
+                                      placeholder=_("Search editor's picks")),
         })
 
 

@@ -35,9 +35,9 @@ Overview
    caveats
 
 .. toctree::
-   :titlesonly:
+:titlesonly:
 
-   changes
+       changes
 
 Reference
 ---------

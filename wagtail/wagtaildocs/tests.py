@@ -1,8 +1,10 @@
 from django.test import TestCase
-from wagtail.wagtaildocs import models
-from wagtail.tests.utils import login
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
+
+from wagtail.wagtaildocs import models
+from wagtail.tests.utils import login
+
 
 # TODO: Test serve view
 
@@ -14,7 +16,8 @@ class TestDocumentPermissions(TestCase):
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com', password='password')
+        self.administrator = User.objects.create_superuser(username='administrator', email='administrator@email.com',
+                                                           password='password')
 
         # Owner user must have the add_document permission
         self.owner.user_permissions.add(Permission.objects.get(codename='add_document'))
@@ -42,7 +45,8 @@ class TestDocumentIndexView(TestCase):
     def setUp(self):
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtaildocs_index'), params)
 
     def test_status_code(self):

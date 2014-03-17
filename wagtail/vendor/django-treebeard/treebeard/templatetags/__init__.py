@@ -7,6 +7,7 @@ from django.utils.encoding import smart_text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
+
 action_form_var = Variable('action_form')
 
 

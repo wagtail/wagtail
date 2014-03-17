@@ -3,11 +3,11 @@ function createDocumentChooser(id) {
     var docTitle = chooserElement.find('.title');
     var input = $('#' + id);
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).click(function () {
         ModalWorkflow({
             'url': window.chooserUrls.documentChooser,
             'responses': {
-                'documentChosen': function(docData) {
+                'documentChosen': function (docData) {
                     input.val(docData.id);
                     docTitle.text(docData.title);
                     chooserElement.removeClass('blank');
@@ -16,7 +16,7 @@ function createDocumentChooser(id) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).click(function () {
         input.val('');
         chooserElement.addClass('blank');
     });

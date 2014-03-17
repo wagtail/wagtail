@@ -1,8 +1,6 @@
 import sys
 import os
 
-from modelcluster.models import ClusterableModel
-
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
@@ -13,8 +11,8 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
+from modelcluster.models import ClusterableModel
 from wagtail.wagtailcore.util import camelcase_to_underscore
-
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
@@ -23,6 +21,7 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 treebeard_path = os.path.join(os.path.dirname(__file__), '..', 'vendor', 'django-treebeard')
 sys.path.insert(0, treebeard_path)
 from treebeard.mp_tree import MP_Node
+
 sys.path.pop(0)
 
 
@@ -33,15 +32,18 @@ class SiteManager(models.Manager):
 
 class Site(models.Model):
     hostname = models.CharField(max_length=255, unique=True, db_index=True)
-    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
+    port = models.IntegerField(default=80, help_text=_(
+        "Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
+    is_default_site = models.BooleanField(default=False, help_text=_(
+        "If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
     def natural_key(self):
-        return (self.hostname,)
+        return self.hostname,
 
     def __unicode__(self):
-        return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
+        return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (
+        " [default]" if self.is_default_site else "")
 
     @staticmethod
     def find_for_request(request):
@@ -130,6 +132,7 @@ def get_navigable_page_content_type_ids():
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
+
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
@@ -161,17 +164,21 @@ class Page(MP_Node, ClusterableModel, Indexed):
     __metaclass__ = PageBase
 
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
-    slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
+    slug = models.SlugField(
+        help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
     live = models.BooleanField(default=True, editable=False)
     has_unpublished_changes = models.BooleanField(default=False, editable=False)
     url_path = models.CharField(max_length=255, blank=True, editable=False)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, related_name='owned_pages')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False,
+                              related_name='owned_pages')
 
-    seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
-    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
+    seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_(
+        "Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
+    show_in_menus = models.BooleanField(default=False, help_text=_(
+        "Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
     indexed_fields = {
@@ -260,8 +267,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
-            [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
+        cursor.execute(update_statement,
+                       [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     @property
     def specific(self):
@@ -375,8 +382,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
 
     @classmethod
-    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+    def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters=None,
+               prefetch_related=None, path=None):
         # Filters
+        if not prefetch_related: prefetch_related = []
+        if not extra_filters: extra_filters = {}
         filters = extra_filters.copy()
         if not show_unpublished:
             filters['live'] = True
@@ -597,6 +607,7 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
     ('edit', 'Edit'),
@@ -613,6 +624,7 @@ class GroupPagePermission(models.Model):
 class UserPagePermissionsProxy(object):
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
+
     def __init__(self, user):
         self.user = user
 
@@ -653,7 +665,7 @@ class PagePermissionTester(object):
         self.user = user_perms.user
         self.user_perms = user_perms
         self.page = page
-        self.page_is_root = page.depth == 1 # Equivalent to page.is_root()
+        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = set(
@@ -671,7 +683,8 @@ class PagePermissionTester(object):
             return False
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
-        return self.user.is_superuser or ('edit' in self.permissions) or ('add' in self.permissions and self.page.owner_id == self.user.id)
+        return self.user.is_superuser or ('edit' in self.permissions) or (
+            'add' in self.permissions and self.page.owner_id == self.user.id)
 
     def can_delete(self):
         if not self.user.is_active:
@@ -764,7 +777,7 @@ class PagePermissionTester(object):
 
         if self.page.live or self.page.get_descendants().filter(live=True).exists():
             # moving this page will entail publishing within the destination section
-            return ('publish' in destination_perms.permissions)
+            return 'publish' in destination_perms.permissions
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True

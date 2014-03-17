@@ -2,8 +2,9 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
-from bs4 import BeautifulSoup, NavigableString, Tag
 from urlparse import urlparse
+
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
@@ -13,7 +14,7 @@ def check_url(url_string):
     # TODO: more paranoid checks (urlparse doesn't catch
     # "jav\tascript:alert('XSS')")
     url = urlparse(url_string)
-    return (url_string if url.scheme in ALLOWED_URL_SCHEMES else None)
+    return url_string if url.scheme in ALLOWED_URL_SCHEMES else None
 
 
 def attribute_rule(allowed_attrs):
@@ -27,6 +28,7 @@ def attribute_rule(allowed_attrs):
       the title. If the callable returns None, the attribute is dropped
     * if the lookup returns a truthy value, keep the attribute; if falsy, drop it
     """
+
     def fn(tag):
         for attr, val in tag.attrs.items():
             rule = allowed_attrs.get(attr)
@@ -45,6 +47,7 @@ def attribute_rule(allowed_attrs):
                 del tag[attr]
 
     return fn
+
 
 allow_without_attributes = attribute_rule({})
 

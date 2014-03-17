@@ -298,6 +298,7 @@ OEMBED_ENDPOINTS = {
 # Compile endpoints into regular expression objects
 import re
 
+
 def compile_endpoints():
     endpoints = {}
     for endpoint in OEMBED_ENDPOINTS.keys():
@@ -308,6 +309,7 @@ def compile_endpoints():
             endpoints[endpoint_key].append(re.compile(pattern))
 
     return endpoints
+
 
 OEMBED_ENDPOINTS_COMPILED = compile_endpoints()
 

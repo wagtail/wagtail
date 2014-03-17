@@ -1,9 +1,11 @@
-from django.test import TestCase
 import unittest
+
+from django.test import TestCase
+from django.core.urlresolvers import reverse
+
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
-from django.core.urlresolvers import reverse
 
 
 class TestHome(TestCase):
@@ -49,7 +51,7 @@ class TestPageSelectTypeLocation(TestCase):
         response = self.client.get(reverse('wagtailadmin_pages_select_type'))
         self.assertEqual(response.status_code, 200)
 
-    @unittest.expectedFailure # For some reason, this returns a 302...
+    @unittest.expectedFailure  # For some reason, this returns a 302...
     def test_select_location_testpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('tests', 'eventpage')))
         self.assertEqual(response.status_code, 200)
@@ -80,7 +82,8 @@ class TestPageCreation(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_create_simplepage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)))
+        response = self.client.get(
+            reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
 
     def test_create_simplepage_post(self):
@@ -89,7 +92,8 @@ class TestPageCreation(TestCase):
             'content': "Some content",
             'slug': 'hello-world',
         }
-        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+        response = self.client.post(
+            reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
@@ -107,7 +111,8 @@ class TestPageCreation(TestCase):
             'slug': 'hello-world',
             'action-publish': "Publish",
         }
-        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+        response = self.client.post(
+            reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
@@ -134,7 +139,8 @@ class TestPageCreation(TestCase):
             'slug': 'hello-world',
             'action-publish': "Publish",
         }
-        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+        response = self.client.post(
+            reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
         # Should not be redirected (as the save should fail)
         self.assertEqual(response.status_code, 200)
@@ -143,9 +149,10 @@ class TestPageCreation(TestCase):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', 100000)))
         self.assertEqual(response.status_code, 404)
 
-    @unittest.expectedFailure # FIXME: Crashes!
+    @unittest.expectedFailure  # FIXME: Crashes!
     def test_create_nonpagetype(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('wagtailimages', 'image', self.root_page.id)))
+        response = self.client.get(
+            reverse('wagtailadmin_pages_create', args=('wagtailimages', 'image', self.root_page.id)))
         self.assertEqual(response.status_code, 404)
 
 
@@ -184,7 +191,7 @@ class TestPageEdit(TestCase):
             'slug': 'hello-world',
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
 
@@ -201,7 +208,7 @@ class TestPageEdit(TestCase):
             'action-publish': "Publish",
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
 
@@ -232,7 +239,7 @@ class TestPageDelete(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
-        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
+        post_data = {'hello': 'world'}  # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
 
         # Should be redirected to explorer page
@@ -247,7 +254,8 @@ class TestPageSearch(TestCase):
         # Login
         login(self.client)
 
-    def get(self, params={}):
+    def get(self, params=None):
+        if not params: params = {}
         return self.client.get(reverse('wagtailadmin_pages_search'), params)
 
     def test_status_code(self):
@@ -302,7 +310,8 @@ class TestPageMove(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_page_move_confirm(self):
-        response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
+        response = self.client.get(
+            reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
         self.assertEqual(response.status_code, 200)
 
     def test_page_set_page_position(self):

@@ -7,11 +7,11 @@ API
 .. module:: treebeard.admin
 
 .. autoclass:: TreeAdmin
-   :show-inheritance:
+:show-inheritance:
 
-   Example:
+       Example:
 
-   .. code-block:: python
+       .. code-block:: python
 
         from django.contrib import admin
         from treebeard.admin import TreeAdmin

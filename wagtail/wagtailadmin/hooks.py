@@ -14,6 +14,7 @@ def register(hook_name, fn):
         _hooks[hook_name] = []
     _hooks[hook_name].append(fn)
 
+
 _searched_for_hooks = False
 
 

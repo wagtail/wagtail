@@ -2,61 +2,62 @@
 @import "../mixins.scss";
 @import "../grid.scss";
 
-h1{
-    font-weight:300;
-    font-size:2.2em;
-}
-header{
-    .col1{
-        width:50px;
-        margin-right:1em;
-        padding:0;
-    }
-    h1,h2{
-        color:white;
-    }
-    h2{
-        text-transform:none;
-    }
+h1 {
+  font-weight: 300;
+  font-size: 2.2em;
 }
 
-.panel{
-    margin-bottom:4em;
+header {
+  .col1 {
+    width: 50px;
+    margin-right: 1em;
+    padding: 0;
+  }
+  h1, h2 {
+    color: white;
+  }
+  h2 {
+    text-transform: none;
+  }
 }
 
-.summary{
-    @include row();
-    background-color:$color-grey-5;
-    margin-bottom:2em;
+.panel {
+  margin-bottom: 4em;
+}
 
-    h2{
-        @include visuallyhidden();
-    }
-    ul{
-        @include unlist();
-        width:100%;
-    }
-    li{
-        @include column(4);
-        padding-top:3em;
-        padding-bottom:3em;
-    
-        &:first-child{
-            @include push-padding($grid-content-indent);
-        }
-    }
+.summary {
+  @include row();
+  background-color: $color-grey-5;
+  margin-bottom: 2em;
 
-    li:before{
-        opacity:0.2;
-        font-size:6em;
-        float:left;
-    }
+  h2 {
+    @include visuallyhidden();
+  }
+  ul {
+    @include unlist();
+    width: 100%;
+  }
+  li {
+    @include column(4);
+    padding-top: 3em;
+    padding-bottom: 3em;
 
-    span{
-        font-family:Bitter, Georgia, serif;
-        display:block;
-        font-size:4em;
-        line-height:1em;
-        font-weight:300;
+    &:first-child {
+      @include push-padding($grid-content-indent);
     }
+  }
+
+  li:before {
+    opacity: 0.2;
+    font-size: 6em;
+    float: left;
+  }
+
+  span {
+    font-family: Bitter, Georgia, serif;
+    display: block;
+    font-size: 4em;
+    line-height: 1em;
+    font-weight: 300;
+  }
 }

@@ -11,7 +11,7 @@ urlpatterns = patterns(
             'template_name': 'wagtailadmin/login.html',
             'authentication_form': LoginForm,
             'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
-        } , name='wagtailadmin_login'
+        }, name='wagtailadmin_login'
     ),
     url(r'^logout/$', 'logout', {'next_page': 'wagtailadmin_login'}),
 
@@ -24,14 +24,16 @@ urlpatterns = patterns(
             'password_reset_form': PasswordResetForm,
         }, name='password_reset'
     ),
-    url(r'^password_reset/done/$', 'password_reset_done', {'template_name': 'wagtailadmin/account/password_reset/done.html'}, name='password_reset_done'),
+    url(r'^password_reset/done/$', 'password_reset_done',
+        {'template_name': 'wagtailadmin/account/password_reset/done.html'}, name='password_reset_done'),
     url(
         r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         'password_reset_confirm',
         {'template_name': 'wagtailadmin/account/password_reset/confirm.html'},
         name='password_reset_confirm',
     ),
-    url(r'^password_reset/complete/$', 'password_reset_complete', {'template_name': 'wagtailadmin/account/password_reset/complete.html'}, name='password_reset_complete'),
+    url(r'^password_reset/complete/$', 'password_reset_complete',
+        {'template_name': 'wagtailadmin/account/password_reset/complete.html'}, name='password_reset_complete'),
 )
 
 urlpatterns += patterns(
@@ -46,7 +48,8 @@ urlpatterns += patterns(
     url(r'^pages/new/$', 'pages.select_type', name='wagtailadmin_pages_select_type'),
     url(r'^pages/new/(\w+)/(\w+)/$', 'pages.select_location', name='wagtailadmin_pages_select_location'),
     url(r'^pages/new/(\w+)/(\w+)/(\d+)/$', 'pages.create', name='wagtailadmin_pages_create'),
-    url(r'^pages/new/(\w+)/(\w+)/(\d+)/preview/$', 'pages.preview_on_create', name='wagtailadmin_pages_preview_on_create'),
+    url(r'^pages/new/(\w+)/(\w+)/(\d+)/preview/$', 'pages.preview_on_create',
+        name='wagtailadmin_pages_preview_on_create'),
     url(r'^pages/usage/(\w+)/(\w+)/$', 'pages.content_type_use', name='wagtailadmin_pages_type_use'),
 
     url(r'^pages/(\d+)/edit/$', 'pages.edit', name='wagtailadmin_pages_edit'),
@@ -62,13 +65,15 @@ urlpatterns += patterns(
     url(r'^pages/search/$', 'pages.search', name='wagtailadmin_pages_search'),
 
     url(r'^pages/(\d+)/move/$', 'pages.move_choose_destination', name='wagtailadmin_pages_move'),
-    url(r'^pages/(\d+)/move/(\d+)/$', 'pages.move_choose_destination', name='wagtailadmin_pages_move_choose_destination'),
+    url(r'^pages/(\d+)/move/(\d+)/$', 'pages.move_choose_destination',
+        name='wagtailadmin_pages_move_choose_destination'),
     url(r'^pages/(\d+)/move/(\d+)/confirm/$', 'pages.move_confirm', name='wagtailadmin_pages_move_confirm'),
     url(r'^pages/(\d+)/set_position/$', 'pages.set_page_position', name='wagtailadmin_pages_set_page_position'),
 
     url(r'^pages/moderation/(\d+)/approve/$', 'pages.approve_moderation', name='wagtailadmin_pages_approve_moderation'),
     url(r'^pages/moderation/(\d+)/reject/$', 'pages.reject_moderation', name='wagtailadmin_pages_reject_moderation'),
-    url(r'^pages/moderation/(\d+)/preview/$', 'pages.preview_for_moderation', name='wagtailadmin_pages_preview_for_moderation'),
+    url(r'^pages/moderation/(\d+)/preview/$', 'pages.preview_for_moderation',
+        name='wagtailadmin_pages_preview_for_moderation'),
 
     url(r'^choose-page/$', 'chooser.browse', name='wagtailadmin_choose_page'),
     url(r'^choose-page/(\d+)/$', 'chooser.browse', name='wagtailadmin_choose_page_child'),

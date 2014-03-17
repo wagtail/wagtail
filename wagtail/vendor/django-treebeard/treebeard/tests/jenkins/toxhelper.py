@@ -8,10 +8,9 @@ See https://tabo.pe/jenkins/ for the results.
 """
 
 import sys
-
 import os
-import pytest
 
+import pytest
 from coverage import coverage
 
 
@@ -28,6 +27,7 @@ def run_the_tests():
     cov.stop()
     cov.save()
     return test_result
+
 
 if __name__ == '__main__':
     sys.exit(run_the_tests())

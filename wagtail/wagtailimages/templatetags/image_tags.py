@@ -19,12 +19,14 @@ def image(parser, token):
         tag_name, image_var, filter_spec, as_token, out_var = args
 
         if as_token != 'as':
-            raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
+            raise template.TemplateSyntaxError(
+                "'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
 
         return ImageNode(image_var, filter_spec, out_var)
 
     else:
-        raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
+        raise template.TemplateSyntaxError(
+            "'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
 
 
 class ImageNode(template.Node):

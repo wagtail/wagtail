@@ -17,9 +17,9 @@ write/delete operations.
 
 .. inheritance-diagram:: NS_Node
 .. autoclass:: NS_Node
-  :show-inheritance:
+:show-inheritance:
 
-  .. warning::
+      .. warning::
 
      If you need to define your own
      :py:class:`~django.db.models.Manager` class,
@@ -69,10 +69,10 @@ write/delete operations.
 
 
 .. autoclass:: NS_NodeManager
-  :show-inheritance:
+:show-inheritance:
 
 .. autoclass:: NS_NodeQuerySet
-  :show-inheritance:
+:show-inheritance:
 
 
 

@@ -1,17 +1,23 @@
 import sys
 from importlib import import_module
-from django.conf import settings
 from datetime import datetime
+import urllib2
+import urllib
+import json
+
+from django.conf import settings
 from django.utils import six
+
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
-import urllib2, urllib
-import json
 
 
 class EmbedNotFoundException(Exception): pass
 
+
 class EmbedlyException(Exception): pass
+
+
 class AccessDeniedEmbedlyException(EmbedlyException): pass
 
 
@@ -87,7 +93,7 @@ def oembed(url, max_width=None):
         raise EmbedNotFoundException
 
     # Work out params
-    params = {'url': url, 'format': 'json',  }
+    params = {'url': url, 'format': 'json', }
     if max_width:
         params['maxwidth'] = max_width
 

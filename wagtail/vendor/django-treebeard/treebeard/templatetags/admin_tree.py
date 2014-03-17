@@ -33,13 +33,10 @@ else:
 register = Library()
 
 if sys.version_info >= (3, 0):
-    from django.utils.encoding import force_str, smart_str
     from urllib.parse import urljoin
 else:
     from django.utils.encoding import force_unicode as force_str
-    from django.utils.encoding import smart_unicode as smart_str
     from urlparse import urljoin
-
 
 try:
     from django.contrib.admin.util import display_for_value
@@ -133,7 +130,7 @@ def items_for_result(cl, result, form):
         # If list_display_links not defined, add the link tag to the
         # first field
         if (first and not cl.list_display_links) or \
-           field_name in cl.list_display_links:
+                        field_name in cl.list_display_links:
             table_tag = {True: 'th', False: 'td'}[first]
             # This spacer indents the nodes based on their depth
             spacer = get_spacer(first, result)
@@ -164,7 +161,7 @@ def items_for_result(cl, result, form):
             # we pull the fields out of the form instead of list_editable
             # custom admins can provide fields on a per request basis
             if (form and field_name in form.fields and not (
-                    field_name == cl.model._meta.pk.name and
+                            field_name == cl.model._meta.pk.name and
                         form[cl.model._meta.pk.name].is_hidden)):
                 bf = form[field_name]
                 result_repr = mark_safe(force_str(bf.errors) + force_str(bf))

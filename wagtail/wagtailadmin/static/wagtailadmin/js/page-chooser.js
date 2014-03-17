@@ -3,7 +3,7 @@ function createPageChooser(id, pageType, openAtParentId) {
     var pageTitle = chooserElement.find('.title');
     var input = $('#' + id);
 
-    $('.action-choose', chooserElement).click(function() {
+    $('.action-choose', chooserElement).click(function () {
         var initialUrl = window.chooserUrls.pageChooser;
         if (openAtParentId) {
             initialUrl += openAtParentId + '/';
@@ -12,7 +12,7 @@ function createPageChooser(id, pageType, openAtParentId) {
             'url': initialUrl,
             'urlParams': {'page_type': pageType},
             'responses': {
-                'pageChosen': function(pageData) {
+                'pageChosen': function (pageData) {
                     input.val(pageData.id);
                     openAtParentId = pageData.parentId;
                     pageTitle.text(pageData.title);
@@ -22,7 +22,7 @@ function createPageChooser(id, pageType, openAtParentId) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).click(function () {
         input.val('');
         openAtParentId = null;
         chooserElement.addClass('blank');

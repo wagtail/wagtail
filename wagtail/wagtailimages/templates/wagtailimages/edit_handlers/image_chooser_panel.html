@@ -5,13 +5,13 @@
 {% block chooser_class %}image-chooser{% endblock %}
 
 {% block chosen_state_view %}
-    <div class="preview-image">
-        {% if image %}
-            {% image image max-130x130 %}
-        {% else %}
-            <img>
-        {% endif %}
-    </div>
+<div class="preview-image">
+    {% if image %}
+    {% image image max-130x130 %}
+    {% else %}
+    <img>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block clear_button_label %}{% trans "Clear image" %}{% endblock %}

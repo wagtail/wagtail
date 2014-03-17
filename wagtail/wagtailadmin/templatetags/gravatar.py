@@ -13,6 +13,7 @@ import hashlib
 
 from django import template
 
+
 register = template.Library()
 
 
@@ -28,12 +29,13 @@ class GravatarUrlNode(template.Node):
             return ''
 
         default = "blank"
-        size = int(self.size) * 2 # requested at retina size by default and scaled down at point of use with css
+        size = int(self.size) * 2  # requested at retina size by default and scaled down at point of use with css
 
         gravatar_url = "//www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
         gravatar_url += urllib.urlencode({'s': str(size), 'd': default})
 
         return gravatar_url
+
 
 @register.tag
 def gravatar_url(parser, token):

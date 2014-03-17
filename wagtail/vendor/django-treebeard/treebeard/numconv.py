@@ -5,7 +5,6 @@ https://tabo.pe/projects/numconv/
 
 """
 
-
 __version__ = '2.1.1'
 
 # from april fool's rfc 1924
@@ -70,7 +69,7 @@ class NumConv(object):
             raise ValueError('number must be positive')
         radix, alphabet = self.radix, self.alphabet
         if radix in (8, 10, 16) and \
-                alphabet[:radix].lower() == BASE85[:radix].lower():
+                        alphabet[:radix].lower() == BASE85[:radix].lower():
             return ({8: '%o', 10: '%d', 16: '%x'}[radix] % num).upper()
         ret = ''
         while True:
