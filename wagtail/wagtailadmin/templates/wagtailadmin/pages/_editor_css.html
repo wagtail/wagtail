@@ -17,3 +17,7 @@
     {# TODO: a method of injecting these sorts of things on demand when the modal is spawned #}
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.tagit.css">
 {% endcompress %}
+
+{% compress css %}
+    {{ edit_handler.form.media.css }}
+{% endcompress %}
