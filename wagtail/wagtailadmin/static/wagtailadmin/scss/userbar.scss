@@ -16,8 +16,8 @@ nav{
     padding:0 0 3em 3em;
     float:right;
 
-     /* moving menu only for browser that can support hover and transitions */
-    .no-touch.csstransitions & {
+    /* moving menu only for browser that can support hover and transitions */
+    /*.no-touch.csstransitions & {
         ul{
             height:0;
         }
@@ -33,7 +33,7 @@ nav{
                 left:0;
             }
         }
-    }
+    }*/
 }
 
 .home{
@@ -82,6 +82,7 @@ li{
 
     &:before{
         margin-right:0.3em;
+        vertical-align:middle;
     }
 
     &:hover{
