@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:53+0200\n"
-"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/language/mn/)\n"
 "MIME-Version: 1.0\n"
@@ -39,27 +39,27 @@ msgstr ""
 msgid "Redirect to any URL"
 msgstr ""
 
-#: .\views.py:23 .\views.py:33
+#: .\views.py:56
 msgid "Search redirects"
 msgstr ""
 
-#: .\views.py:79
+#: .\views.py:69
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: .\views.py:82
+#: .\views.py:72
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: .\views.py:100
+#: .\views.py:90
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: .\views.py:120
+#: .\views.py:110
 msgid "Redirect '{0} added."
 msgstr ""
 
-#: .\views.py:123
+#: .\views.py:113
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
