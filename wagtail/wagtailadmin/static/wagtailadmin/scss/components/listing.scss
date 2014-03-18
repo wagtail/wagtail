@@ -217,7 +217,7 @@ ul.listing{
     }
     .children a,
     .no-children a{
-        color:$color-grey-3;
+        color:$color-teal;
         display:block;
         padding:2em 0;       
     }
@@ -412,6 +412,35 @@ table.listing{
     border-top: 1px dashed #d9d9d9;
     padding:2em 50px 0 50px;
 }
+
+
+/* listing filters */
+
+.listing-filter{
+    @include clearfix();
+    background-color:$color-grey-5;
+    border-width:1px 0;
+    margin:3em 0;
+}
+.filter-title{
+    float:left;
+    text-transform:uppercase;
+    font-size:0.95em;
+    padding:1em;
+    margin:0 1em 0 0 ;
+    background-color:$color-grey-4;
+}
+.filter-options{
+    @include unlist();
+    @include clearfix();
+    overflow:hidden;
+
+    li{
+        padding:0.8em;
+        float:left;
+    }
+}
+
 
 @media screen and (min-width: $breakpoint-mobile){
     .listing{
