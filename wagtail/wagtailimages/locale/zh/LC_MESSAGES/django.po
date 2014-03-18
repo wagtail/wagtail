@@ -1,23 +1,21 @@
-# -*- coding: utf-8 -*-
-
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators: Lihan Li <lilihan.it@gmail.com>, 2014
+# 
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-24 17:34+0000\n"
-"Last-Translator: tomdyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: .\models.py:22
 msgid "Title"
@@ -66,13 +64,7 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
-"\n"
-"            有一个匹配\n"
-"        "
-msgstr[1] ""
-"\n"
-"            有%(counter)s 个匹配\n"
-"        "
+
 #: .\templates\wagtailimages\chooser\results.html:13
 #: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
@@ -143,16 +135,19 @@ msgstr "图片"
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "对不起，没有图片匹配 \"<em>%(query_string)s</em>\""
+msgstr ""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format
 msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "没有任何上传的图片。为什么不 <a href=\"%(wagtailimages_add_image_url)s\">添加一个</a>?"
+
+#: .\views\images.py:29 .\views\images.py:40
+msgid "Search images"
 msgstr ""
-"没有任何上传的图片。为什么不 <a "
-"href=\"%(wagtailimages_add_image_url)s\">添加一个</a>?"
+
 #: .\views\images.py:92
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新"

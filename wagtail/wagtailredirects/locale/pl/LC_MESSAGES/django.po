@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:53+0200\n"
-"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -41,27 +41,27 @@ msgstr "Przekieruj na stronę"
 msgid "Redirect to any URL"
 msgstr "Przekieruj do dowolnego URLa"
 
-#: .\views.py:23 .\views.py:33
+#: .\views.py:56
 msgid "Search redirects"
-msgstr ""
+msgstr "Szukaj przekierowań"
 
-#: .\views.py:79
+#: .\views.py:69
 msgid "Redirect '{0}' updated."
 msgstr "Uaktualniono przekierowanie '{0}'."
 
-#: .\views.py:82
+#: .\views.py:72
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
-#: .\views.py:100
+#: .\views.py:90
 msgid "Redirect '{0}' deleted."
 msgstr "Usunięto przekierowanie '{0}'."
 
-#: .\views.py:120
+#: .\views.py:110
 msgid "Redirect '{0} added."
 msgstr "Dodano przekierowanie '{0}'."
 
-#: .\views.py:123
+#: .\views.py:113
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
 
@@ -144,7 +144,7 @@ msgstr[2] "\n            Jest %(counter)s dopasowań\n        "
 #: .\templates\wagtailredirects\results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr "Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</em>\""
+msgstr ""
 
 #: .\templates\wagtailredirects\results.html:21
 #, python-format
