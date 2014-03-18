@@ -13,11 +13,11 @@
 
         {% if is_searching %}
             <nav class="listing-filter">
-                <h3 class="filter-title">Other searches</h3>
+                <h3 class="filter-title">{% trans "Other searches" %}</h3>
                 <ul class="filter-options">
-                    <li><a href="{% url 'wagtailimages_index' %}?q={{ query_string|urlencode }}" class="icon icon-image">Images</a></li>
-                    <li><a href="{% url 'wagtaildocs_index' %}?q={{ query_string|urlencode }}" class="icon icon-doc-full-inverse">Documents</a></li>
-                    <li><a href="{% url 'wagtailusers_index' %}?q={{ query_string|urlencode }}" class="icon icon-user">Users</a></li>
+                    <li><a href="{% url 'wagtailimages_index' %}?q={{ query_string|urlencode }}" class="icon icon-image">{% trans "Images" %}</a></li>
+                    <li><a href="{% url 'wagtaildocs_index' %}?q={{ query_string|urlencode }}" class="icon icon-doc-full-inverse">{% trans "Documents" %}</a></li>
+                    <li><a href="{% url 'wagtailusers_index' %}?q={{ query_string|urlencode }}" class="icon icon-user">{% trans "Users" %}</a></li>
                 </ul>
             </nav>
         {% endif %}
