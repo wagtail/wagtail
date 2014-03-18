@@ -37,16 +37,18 @@ nav{
 }
 
 .home{
-    float:right;
-    width:1.5em;
+    width:3.5em;
+    height:3.5em;
     margin-bottom:1px;
     background-color:white;
     color:$color-text-base;
+    padding:0;
 
     &.icon:before{
         @include transition(color 0.2s ease);
-        margin:-0.1em 0 0 -0.2em;
         font-size:35px;
+        margin: 0.2em 0.15em;
+        display:block;
     }
 
     &:hover:before{
@@ -75,13 +77,18 @@ li{
     }
 }
 
+/* all items or pseudo-items must float right */
+li, .home{
+    float:right;
+}
+
 .action{
     @include transition(background-color 0.2s ease, color 0.2s ease);
     background-color:$color-teal;
     color:white;
 
     &:before{
-        margin-right:0.3em;
+        margin-right:0.4em;
         vertical-align:middle;
     }
 
@@ -95,12 +102,11 @@ li{
 a.action, a{
     display:block;
     width:10em;
-    height:1.5em;
     text-align:left;
     overflow:hidden;
     text-decoration:none;
     text-transform:uppercase;
-    padding:1em;   
+    padding:0.85em 1em;   
 }
 
 /* actions which require wrapping a form input */
@@ -113,7 +119,7 @@ div.action{
         background:none;
         display:block;
         text-transform:uppercase;
-        padding:1em;
+        padding:1em 1em;   
         width:100%;
         position:relative;
         z-index:1;
@@ -122,8 +128,8 @@ div.action{
     }
     &:before{
         position:absolute;
-        top:0.6em;
-        left:0.6em;
+        top:0.4em;
+        left:0.5em;
         z-index:0;
     }
 }
