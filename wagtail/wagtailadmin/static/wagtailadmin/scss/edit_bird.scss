@@ -13,10 +13,26 @@ body{
 }
 
 nav{
+    padding:0 0 3em 3em;
     float:right;
 
-    &:hover ul{
-        height:300px;
+     /* moving menu only for browser that can support hover and transitions */
+    .no-touch.csstransitions & {
+        ul{
+            height:0;
+        }
+        li{
+            left:50px;
+        }
+
+        &:hover{
+            ul{
+                height:300px;
+            }
+            li{
+                left:0;
+            }
+        }
     }
 }
 
@@ -28,21 +44,25 @@ nav{
     color:$color-text-base;
 
     &.icon:before{
+        @include transition(color 0.2s ease);
         margin:-0.1em 0 0 -0.2em;
         font-size:35px;
+    }
+
+    &:hover:before{
+        color:black;
     }
 }
 
 ul{
     @include transition(height 0.2s ease);
     @include unlist();
-    height:0px;
     overflow:hidden;
     clear:both;
 }
 
 li{
-    @include transition(width 0.1s ease);
+    @include transition(left 0.2s ease, width 0.1s ease);
     float:right;
     clear:both;
     width:3.5em;
@@ -65,7 +85,7 @@ li{
     }
 
     &:hover{
-        background-color:$color-teal-darker;
+        background-color:$color-teal-dark;
         color:white;
     }
 }

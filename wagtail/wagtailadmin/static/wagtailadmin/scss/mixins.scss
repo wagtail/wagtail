@@ -1,8 +1,8 @@
 @mixin clearfix() {
     &:before,
     &:after {
-        content: " "; /* 1 */
-        display: table; /* 2 */
+        content: " ";
+        display: table;
     }
     &:after {
         clear: both;
@@ -24,16 +24,16 @@
 @mixin transition($transition...){
     body.ready &{
         -webkit-transition: $transition;
-        -moz-transition: $transition;
-        -o-transition: $transition;
-        transition: $transition;
+           -moz-transition: $transition;
+             -o-transition: $transition;
+                transition: $transition;
     }
 }
 @mixin transition-immediate($transition...){
     -webkit-transition: $transition;
-    -moz-transition: $transition;
-    -o-transition: $transition;
-    transition: $transition;
+       -moz-transition: $transition;
+         -o-transition: $transition;
+            transition: $transition;
 }
 
 @mixin transition-transform($transition...) {
@@ -43,22 +43,31 @@
           transition: transform $transition;
 }
 
+@mixin transition-delay($delay...){
+    body.ready &{
+        -webkit-transition-delay: $delay;
+           -moz-transition-delay: $delay;
+             -o-transition-delay: $delay;
+                transition-delay: $delay;
+    }
+}
+
 @mixin notransition() {
     -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -o-transition: none !important;
-    -ms-transition: none !important;
-    transition: none !important;
+       -moz-transition: none !important;
+         -o-transition: none !important;
+        -ms-transition: none !important;
+            transition: none !important;
 }
 
 @mixin border-radius($radius){
     -webkit-border-radius: $radius;
-    border-radius: $radius;
+            border-radius: $radius;
 }
 
 @mixin box-shadow($shadow){  
     -webkit-box-shadow: $shadow; //e.g inset 2px 2px 3px 2px rgba(0, 0, 0, 1)
-    box-shadow: $shadow;
+            box-shadow: $shadow;
 }
 
 @mixin visuallyhidden{
