@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n %}
+
+{% block item_content %}
+    <form action="{% url 'wagtailadmin_pages_approve_moderation' self.revision.id %}" target="_parent" method="post">
+        {% csrf_token %}
+        <div class="action icon icon-tick">
+            <input type="submit" value="{% trans 'Approve' %}" />
+        </div>
+    </form>
+{% endblock %}

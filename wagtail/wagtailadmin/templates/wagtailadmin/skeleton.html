@@ -13,19 +13,14 @@
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
-    {% block css %}{# Block defined for timing breakdowns in django debug toolbar - not expected to be overridden #}
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitter:400,700" /> 
-        
-        {% compress css %}
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/normalize.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.timepicker.css" />
-            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/core.scss" type="text/x-scss" />
-        {% endcompress %}
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitter:400,700" /> 
 
-        {% block extra_css %}{% endblock %}
-    {% endblock %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/normalize.css" />
+    {% endcompress %}
+
+    {% block css %}{% endblock %}
 </head>
 <body class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">
     <!--[if lt IE 9]>
@@ -36,23 +31,6 @@
        {% block furniture %}{% endblock %}
     </div>
 
-    {% block js %}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        {% compress js %}
-            {% comment %}
-                Core JS includes (for inclusion on all pages) to be specified here
-            {% endcomment %}
-
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-ui-1.10.3.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.timepicker.min.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.autosize.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-modal.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>
-            <script src="{{ STATIC_URL }}wagtailadmin/js/core.js"></script>
-        {% endcompress %}
-        
-        {% block extra_js %}{% endblock %}
-    {% endblock %}
+    {% block js %}{% endblock %}
 </body>
 </html>
