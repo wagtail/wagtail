@@ -17,7 +17,7 @@ nav{
     float:right;
 
     /* moving menu only for browser that can support hover and transitions */
-    /*.no-touch.csstransitions & {
+    .no-touch.csstransitions & {
         ul{
             height:0;
         }
@@ -33,7 +33,7 @@ nav{
                 left:0;
             }
         }
-    }*/
+    }
 }
 
 .home{
