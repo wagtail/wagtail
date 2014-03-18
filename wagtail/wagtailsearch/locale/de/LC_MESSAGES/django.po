@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:54+0200\n"
-"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,7 @@ msgstr[1] "\n            Es gibt %(counter)s Ergebnisse\n        "
 #: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr "Es wurde leider keine Redaktionsempfehlung zum Suchbegriff \"<em>%(query_string)s</em>\" gefunden"
+msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format
@@ -172,18 +172,18 @@ msgstr "Begriffe"
 msgid "No results found"
 msgstr "Keine Ergebnisse gefunden"
 
-#: .\views\editorspicks.py:19 .\views\editorspicks.py:29
+#: .\views\editorspicks.py:41
 msgid "Search editor's picks"
 msgstr ""
 
-#: .\views\editorspicks.py:85
+#: .\views\editorspicks.py:75
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktionsempfehlungen für '{0}' erstellt."
 
-#: .\views\editorspicks.py:113
+#: .\views\editorspicks.py:103
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktionsempfehlungen für '{0}' geändert."
 
-#: .\views\editorspicks.py:132
+#: .\views\editorspicks.py:122
 msgid "Editor's picks deleted."
 msgstr "Redaktionsempfehlungen gelöscht."

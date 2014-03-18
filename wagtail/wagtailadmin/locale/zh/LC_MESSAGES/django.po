@@ -1,47 +1,57 @@
-# -*- coding: utf-8 -*-
-
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
-# Translators: Lihan Li <lilihan.it@gmail.com>, 2014
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-24 17:34+0000\n"
-"Last-Translator: tomdyson <tom@torchbox.com>\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
+#: .\edit_handlers.py:81 .\edit_handlers.py:130 .\edit_handlers.py:134
 msgid "Please type a valid time"
 msgstr "请输入一个有效的时间"
 
-#: .\forms.py:12
+#: .\edit_handlers.py:724
+msgid "Common page configuration"
+msgstr ""
+
+#: .\forms.py:18
 msgid "Search term"
 msgstr "搜索词"
 
-#: .\forms.py:44
+#: .\forms.py:42
+msgid "Enter your username"
+msgstr ""
+
+#: .\forms.py:45
+msgid "Enter password"
+msgstr ""
+
+#: .\forms.py:50
 msgid "Enter your email address to reset your password"
 msgstr "输入您的电子邮箱来重置您的密码"
 
-#: .\forms.py:53
+#: .\forms.py:59
 msgid "Please fill your email address."
 msgstr "请输入你的电子邮件地址。"
 
-#: .\forms.py:66
+#: .\forms.py:72
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr "对不起，你不能在此够重置你的密码，因为您的账号是由其他服务所管理的。"
 
-#: .\forms.py:69
+#: .\forms.py:75
 msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
 
@@ -94,8 +104,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar"
-"账号可以设置多个电子邮件地址的头像图片。"
+msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号可以设置多个电子邮件地址的头像图片。"
 
 #: .\templates\wagtailadmin\account\account.html:23
 #: .\templates\wagtailadmin\account\change_password.html:4
@@ -203,13 +212,7 @@ msgid_plural ""
 "            There are %(counter)s matches\n"
 "        "
 msgstr[0] ""
-"\n"
-"            有一个匹配\n"
-"        "
-msgstr[1] ""
-"\n"
-"            有 %(counter)s 个匹配\n"
-"        "
+
 #: .\templates\wagtailadmin\chooser\browse.html:2
 #: .\templates\wagtailadmin\chooser\search.html:2
 #: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:13
@@ -253,7 +256,7 @@ msgstr "向下移动"
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
 #: .\templates\wagtailadmin\pages\edit.html:36
 #: .\templates\wagtailadmin\pages\list.html:68
-#: .\templates\wagtailadmin\pages\list.html:189
+#: .\templates\wagtailadmin\pages\list.html:188
 msgid "Delete"
 msgstr "删除"
 
@@ -267,7 +270,7 @@ msgstr "这些页面在等待审核"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:13
 #: .\templates\wagtailadmin\home\recent_edits.html:12
-#: .\templates\wagtailadmin\pages\list.html:102
+#: .\templates\wagtailadmin\pages\list.html:101
 msgid "Title"
 msgstr "标题"
 
@@ -277,18 +280,19 @@ msgid "Parent"
 msgstr "上一级"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:15
-#: .\templates\wagtailadmin\home\recent_edits.html:13
-msgid "Date"
-msgstr "日期"
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:116
+msgid "Type"
+msgstr "类型"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:16
-msgid "Author"
-msgstr "作者"
+msgid "Edited"
+msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:23
 #: .\templates\wagtailadmin\home\recent_edits.html:21
-#: .\templates\wagtailadmin\pages\list.html:168
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:167
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit this page"
 msgstr "编辑这个页面"
 
@@ -306,7 +310,7 @@ msgstr "拒绝"
 #: .\templates\wagtailadmin\home\recent_edits.html:23
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
 #: .\templates\wagtailadmin\pages\list.html:56
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit"
 msgstr "编辑"
 
@@ -320,21 +324,25 @@ msgstr "预览"
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
 
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr "日期"
+
 #: .\templates\wagtailadmin\home\recent_edits.html:14
 #: .\templates\wagtailadmin\pages\list.html:25
-#: .\templates\wagtailadmin\pages\list.html:129
+#: .\templates\wagtailadmin\pages\list.html:128
 msgid "Status"
 msgstr "状态"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:25
 #: .\templates\wagtailadmin\pages\list.html:59
-#: .\templates\wagtailadmin\pages\list.html:180
+#: .\templates\wagtailadmin\pages\list.html:179
 msgid "View draft"
 msgstr "查看草稿"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:28
 #: .\templates\wagtailadmin\pages\list.html:62
-#: .\templates\wagtailadmin\pages\list.html:183
+#: .\templates\wagtailadmin\pages\list.html:182
 msgid "View live"
 msgstr "查看在线版"
 
@@ -353,13 +361,7 @@ msgid_plural ""
 "                <span>%(total_pages)s</span> Pages\n"
 "            "
 msgstr[0] ""
-"\n"
-"                <span>%(total_pages)s</span> 页\n"
-"            "
-msgstr[1] ""
-"\n"
-"                <span>%(total_pages)s</span> 页\n"
-"            "
+
 #: .\templates\wagtailadmin\home\site_summary.html:13
 #, python-format
 msgid ""
@@ -433,10 +435,8 @@ msgid ""
 "\n"
 "            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
 "        "
-msgstr ""
-"\n"
-"            预览 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 提交.\n"
-"        "
+msgstr "\n            预览 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 提交.\n        "
+
 #: .\templates\wagtailadmin\pages\add_subpage.html:6
 #, python-format
 msgid "Create a page in %(title)s"
@@ -480,9 +480,7 @@ msgstr[0] ""
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr ""
-"你页可以取消发布此页。此页将不能从外部访问，你可以编辑后再次发布。"
-
+msgstr "你页可以取消发布此页。此页将不能从外部访问，你可以编辑后再次发布。"
 
 #: .\templates\wagtailadmin\pages\confirm_delete.html:26
 msgid "Delete it"
@@ -499,7 +497,7 @@ msgstr "移动 %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:6
 #: .\templates\wagtailadmin\pages\list.html:65
-#: .\templates\wagtailadmin\pages\list.html:186
+#: .\templates\wagtailadmin\pages\list.html:185
 msgid "Move"
 msgstr "移动"
 
@@ -527,7 +525,7 @@ msgstr "停止发布%(title)s"
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
 #: .\templates\wagtailadmin\pages\list.html:71
-#: .\templates\wagtailadmin\pages\list.html:192
+#: .\templates\wagtailadmin\pages\list.html:191
 msgid "Unpublish"
 msgstr "停止发布"
 
@@ -599,64 +597,59 @@ msgstr "作者%(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "浏览%(title)s"
 
-#: .\templates\wagtailadmin\pages\list.html:24
-#: .\templates\wagtailadmin\pages\list.html:117
-msgid "Type"
-msgstr "类型"
-
 #: .\templates\wagtailadmin\pages\list.html:53
-#: .\templates\wagtailadmin\pages\list.html:195
+#: .\templates\wagtailadmin\pages\list.html:194
 msgid "Add child page"
 msgstr "添加子页面"
 
-#: .\templates\wagtailadmin\pages\list.html:95
+#: .\templates\wagtailadmin\pages\list.html:94
 msgid "Disable ordering of child pages"
 msgstr "禁止自页面的顺序"
 
-#: .\templates\wagtailadmin\pages\list.html:95
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:94
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Order"
 msgstr "顺序"
 
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Enable ordering of child pages"
 msgstr "开启子页面顺序"
 
-#: .\templates\wagtailadmin\pages\list.html:150
+#: .\templates\wagtailadmin\pages\list.html:149
 msgid "Drag"
 msgstr "拖动"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "浏览 '%(title)s' 的子页面"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#: .\templates\wagtailadmin\pages\list.html:228
 msgid "Explore"
 msgstr "浏览"
 
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:228
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
 msgstr "浏览 '%(title)s' 的子页面"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 msgid "Add subpage"
 msgstr "添加子页面"
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 msgid "No pages have been created."
 msgstr "没有已保存的页面"
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "为什么不<a href=\"%(add_page_url)s\">添加一页</a>?"
@@ -682,23 +675,15 @@ msgid_plural ""
 "                    There are %(counter)s matches\n"
 "                "
 msgstr[0] ""
-"\n"
-"                    有一个匹配\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    有%(counter)s个匹配\n"
-"                "
+
 #: .\templates\wagtailadmin\pages\search_results.html:17
 #, python-format
 msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
+msgstr "\n                第 %(page_number)s / %(num_pages)s页.\n            "
+
 #: .\templates\wagtailadmin\pages\search_results.html:24
 #: .\templates\wagtailadmin\pages\search_results.html:26
 #: .\templates\wagtailadmin\shared\pagination_nav.html:8
@@ -718,7 +703,7 @@ msgstr "往后"
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "对不起，没有页面匹配<em>\"%(query_string)s\"</em>"
+msgstr ""
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
@@ -742,9 +727,8 @@ msgstr "创建一个新页面"
 msgid ""
 "Your new page will be saved in the <em>top level</em> of your website. You "
 "can move it after saving."
-msgstr ""
-"你的新页面将会保存到网站的<em>顶级</em> 你 "
-"在保存后可以移动."
+msgstr "你的新页面将会保存到网站的<em>顶级</em> 你 在保存后可以移动."
+
 #: .\templates\wagtailadmin\shared\main_nav.html:15
 msgid "Account settings"
 msgstr "账号设置"
@@ -786,7 +770,7 @@ msgstr "片段"
 msgid "Users"
 msgstr "用户"
 
-#: .\views\account.py:23
+#: .\views\account.py:26
 msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"
 

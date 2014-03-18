@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-24 23:02+0000\n"
-"Last-Translator: zerolab\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,29 +18,41 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
+#: .\edit_handlers.py:81 .\edit_handlers.py:130 .\edit_handlers.py:134
 msgid "Please type a valid time"
 msgstr "Introduceți o oră validă"
 
-#: .\forms.py:12
+#: .\edit_handlers.py:724
+msgid "Common page configuration"
+msgstr ""
+
+#: .\forms.py:18
 msgid "Search term"
 msgstr "Termen de căutare"
 
-#: .\forms.py:44
+#: .\forms.py:42
+msgid "Enter your username"
+msgstr ""
+
+#: .\forms.py:45
+msgid "Enter password"
+msgstr ""
+
+#: .\forms.py:50
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 
-#: .\forms.py:53
+#: .\forms.py:59
 msgid "Please fill your email address."
 msgstr "Introduceți adresa de e-mail."
 
-#: .\forms.py:66
+#: .\forms.py:72
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr "Ne pare rău, dar nu puteți reseta parola aici. Contul dvs. de utilizator este gestionat de un alt server."
 
-#: .\forms.py:69
+#: .\forms.py:75
 msgid "This email address is not recognised."
 msgstr "Adresa e-mail nu este recunoscută."
 
@@ -247,7 +259,7 @@ msgstr "Deplasează în jos"
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
 #: .\templates\wagtailadmin\pages\edit.html:36
 #: .\templates\wagtailadmin\pages\list.html:68
-#: .\templates\wagtailadmin\pages\list.html:189
+#: .\templates\wagtailadmin\pages\list.html:188
 msgid "Delete"
 msgstr "Șterge"
 
@@ -261,7 +273,7 @@ msgstr "Pagini în moderație"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:13
 #: .\templates\wagtailadmin\home\recent_edits.html:12
-#: .\templates\wagtailadmin\pages\list.html:102
+#: .\templates\wagtailadmin\pages\list.html:101
 msgid "Title"
 msgstr "Titlu"
 
@@ -271,18 +283,19 @@ msgid "Parent"
 msgstr "Bază"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:15
-#: .\templates\wagtailadmin\home\recent_edits.html:13
-msgid "Date"
-msgstr "Dată"
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:116
+msgid "Type"
+msgstr "Tip"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:16
-msgid "Author"
-msgstr "Autor"
+msgid "Edited"
+msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:23
 #: .\templates\wagtailadmin\home\recent_edits.html:21
-#: .\templates\wagtailadmin\pages\list.html:168
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:167
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
@@ -300,7 +313,7 @@ msgstr "Respinge"
 #: .\templates\wagtailadmin\home\recent_edits.html:23
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
 #: .\templates\wagtailadmin\pages\list.html:56
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit"
 msgstr "Editează"
 
@@ -314,21 +327,25 @@ msgstr "Examinare"
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
 
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr "Dată"
+
 #: .\templates\wagtailadmin\home\recent_edits.html:14
 #: .\templates\wagtailadmin\pages\list.html:25
-#: .\templates\wagtailadmin\pages\list.html:129
+#: .\templates\wagtailadmin\pages\list.html:128
 msgid "Status"
 msgstr "Status"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:25
 #: .\templates\wagtailadmin\pages\list.html:59
-#: .\templates\wagtailadmin\pages\list.html:180
+#: .\templates\wagtailadmin\pages\list.html:179
 msgid "View draft"
 msgstr "Vezi ciornă"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:28
 #: .\templates\wagtailadmin\pages\list.html:62
-#: .\templates\wagtailadmin\pages\list.html:183
+#: .\templates\wagtailadmin\pages\list.html:182
 msgid "View live"
 msgstr "Vezi în direct"
 
@@ -491,7 +508,7 @@ msgstr "Mută %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:6
 #: .\templates\wagtailadmin\pages\list.html:65
-#: .\templates\wagtailadmin\pages\list.html:186
+#: .\templates\wagtailadmin\pages\list.html:185
 msgid "Move"
 msgstr "Mută"
 
@@ -519,7 +536,7 @@ msgstr "Anulează publicarea %(title)s"
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
 #: .\templates\wagtailadmin\pages\list.html:71
-#: .\templates\wagtailadmin\pages\list.html:192
+#: .\templates\wagtailadmin\pages\list.html:191
 msgid "Unpublish"
 msgstr "Anulează publicarea"
 
@@ -591,64 +608,59 @@ msgstr "de către %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Explorare %(title)s"
 
-#: .\templates\wagtailadmin\pages\list.html:24
-#: .\templates\wagtailadmin\pages\list.html:117
-msgid "Type"
-msgstr "Tip"
-
 #: .\templates\wagtailadmin\pages\list.html:53
-#: .\templates\wagtailadmin\pages\list.html:195
+#: .\templates\wagtailadmin\pages\list.html:194
 msgid "Add child page"
 msgstr "Adaugă pagină dependentă"
 
-#: .\templates\wagtailadmin\pages\list.html:95
+#: .\templates\wagtailadmin\pages\list.html:94
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
 
-#: .\templates\wagtailadmin\pages\list.html:95
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:94
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Order"
 msgstr "Ordine"
 
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
 
-#: .\templates\wagtailadmin\pages\list.html:150
+#: .\templates\wagtailadmin\pages\list.html:149
 msgid "Drag"
 msgstr "Glisează"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "Explorează subpaginile '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#: .\templates\wagtailadmin\pages\list.html:228
 msgid "Explore"
 msgstr "Explorează"
 
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:228
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
 msgstr "Explorează paginile dependente de '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 msgid "Add subpage"
 msgstr "Adaugă subpagină"
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 msgid "No pages have been created."
 msgstr "Nu a fost creată nici o pagină."
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "De ce să nu <a href=\"%(add_page_url)s\">adăugați una</a>?"
@@ -704,7 +716,7 @@ msgstr "Următor"
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o pagină"
+msgstr ""
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
@@ -771,7 +783,7 @@ msgstr "Fragmente"
 msgid "Users"
 msgstr "Utilizatori"
 
-#: .\views\account.py:23
+#: .\views\account.py:26
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 

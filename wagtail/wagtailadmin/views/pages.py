@@ -622,12 +622,7 @@ def preview_for_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     page = revision.as_page_object()
-    if not hasattr(request, 'userbar'):
-        request.userbar = []
-    request.userbar.append(
-        render_to_string('wagtailadmin/pages/_moderator_userbar.html', {
-            'revision': revision,
-        }, context_instance=RequestContext(request))
-    )
+
+    request.revision_id = revision_id
 
     return page.serve(request)

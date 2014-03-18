@@ -1,0 +1,129 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+@import "components/icons.scss";
+
+html, body{
+    background-color:transparent;
+}
+body{
+    -webkit-font-smoothing: antialiased; /* Do not remove! */
+    font-family:Open Sans,Arial,sans-serif;
+    font-size:80%;
+}
+
+nav{
+    padding:0 0 3em 3em;
+    float:right;
+
+    /* moving menu only for browser that can support hover and transitions */
+    /*.no-touch.csstransitions & {
+        ul{
+            height:0;
+        }
+        li{
+            left:50px;
+        }
+
+        &:hover{
+            ul{
+                height:300px;
+            }
+            li{
+                left:0;
+            }
+        }
+    }*/
+}
+
+.home{
+    float:right;
+    width:1.5em;
+    margin-bottom:1px;
+    background-color:white;
+    color:$color-text-base;
+
+    &.icon:before{
+        @include transition(color 0.2s ease);
+        margin:-0.1em 0 0 -0.2em;
+        font-size:35px;
+    }
+
+    &:hover:before{
+        color:black;
+    }
+}
+
+ul{
+    @include transition(height 0.2s ease);
+    @include unlist();
+    overflow:hidden;
+    clear:both;
+}
+
+li{
+    @include transition(left 0.2s ease, width 0.1s ease);
+    float:right;
+    clear:both;
+    width:3.5em;
+    overflow:hidden;
+    position:relative;
+    padding-bottom:1px;
+
+    &:hover{
+        width:10em;
+    }
+}
+
+.action{
+    @include transition(background-color 0.2s ease, color 0.2s ease);
+    background-color:$color-teal;
+    color:white;
+
+    &:before{
+        margin-right:0.3em;
+        vertical-align:middle;
+    }
+
+    &:hover{
+        background-color:$color-teal-dark;
+        color:white;
+    }
+}
+
+/* actions which can be accomplished just with a link tag */
+a.action, a{
+    display:block;
+    width:10em;
+    height:1.5em;
+    text-align:left;
+    overflow:hidden;
+    text-decoration:none;
+    text-transform:uppercase;
+    padding:1em;   
+}
+
+/* actions which require wrapping a form input */
+div.action{
+    input{
+        color:white;
+        -webkit-font-smoothing: antialiased; /* Do not remove! */
+        font-family:Open Sans,Arial,sans-serif;
+        border:0;
+        background:none;
+        display:block;
+        text-transform:uppercase;
+        padding:1em;
+        width:100%;
+        position:relative;
+        z-index:1;
+        text-align:left;
+        padding-left:3.5em;
+    }
+    &:before{
+        position:absolute;
+        top:0.6em;
+        left:0.6em;
+        z-index:0;
+    }
+}

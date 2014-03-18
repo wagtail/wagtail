@@ -4,7 +4,7 @@ python:
   - 2.7
 # Django releases
 env:
-  - DJANGO_VERSION=Django==1.6.1
+  - DJANGO_VERSION=Django==1.6.2
 # Services
 services:
   - redis-server
@@ -12,7 +12,7 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 pyelasticsearch elasticutils
+  - pip install psycopg2 pyelasticsearch elasticutils wand
   - pip install coveralls
 # Pre-test configuration
 before_script:

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -38,15 +39,15 @@ class EmailLinkChooserWithLinkTextForm(forms.Form):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
-        widget=forms.TextInput(attrs={'placeholder': __("Enter your username")}),
+        widget=forms.TextInput(attrs={'placeholder': ugettext_lazy("Enter your username")}),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': __("Enter password")}),
+        widget=forms.PasswordInput(attrs={'placeholder': ugettext_lazy("Enter password")}),
     )
 
 
 class PasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=_("Enter your email address to reset your password"), max_length=254)
+    email = forms.EmailField(label=ugettext_lazy("Enter your email address to reset your password"), max_length=254)
 
     def clean(self):
         cleaned_data = super(PasswordResetForm, self).clean()

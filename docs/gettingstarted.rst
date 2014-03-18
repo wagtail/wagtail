@@ -17,6 +17,8 @@ to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh
 <https://github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh>`_.
 
+Once you've experimented with the demo app and are ready to build your pages via your own app you can `remove the demo app`_ if you choose.
+
 On Debian
 ~~~~~~~~~
 
@@ -32,6 +34,24 @@ recommend you check through the script before running it, and adapt it according
 to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh
 <https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`_.
+
+Once you've experimented with the demo app and are ready to build your pages via your own app you can `remove the demo app`_ if you choose.
+
+On OS X
+~~~~~~~
+
+Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`_ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
+
+    mkvirtualenv wagtaildemo
+    git clone https://github.com/torchbox/wagtaildemo.git
+    cd wagtaildemo
+    pip install -r requirements/dev.txt
+
+Edit ``wagtaildemo/settings/base.py``, changing ENGINE to django.db.backends.sqlite3 and NAME to wagtail.db. Finally, setup the database and run the local server::
+
+    ./manage.py syncdb
+    ./manage.py migrate
+    ./manage.py runserver
 
 Using Vagrant
 ~~~~~~~~~~~~~
@@ -60,6 +80,18 @@ interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
 is located on the host machine, exported to the VM as a shared folder; code
 editing and Git operations will generally be done on the host.
 
+Using Docker
+~~~~~~~~~~~~
+
+`@oyvindsk <https://github.com/oyvindsk>`_ has built a Dockerfile for the Wagtail demo. Simply run::
+
+	docker run -p 8000:8000 -d oyvindsk/wagtail-demo
+
+then access the site at http://your-ip:8000 and the admin
+interface at http://your-ip:8000/admin using admin / test.
+
+See https://index.docker.io/u/oyvindsk/wagtail-demo/ for more details.
+
 Other platforms
 ~~~~~~~~~~~~~~~
 
@@ -69,7 +101,7 @@ use the following steps:
 Required dependencies
 =====================
 
--  `pip`_
+-  `pip <https://github.com/pypa/pip>`_
 
 Optional dependencies
 =====================
@@ -105,4 +137,27 @@ with a regular Django project.
 .. _the Wagtail codebase: https://github.com/torchbox/wagtail
 .. _PostgreSQL: http://www.postgresql.org
 .. _Elasticsearch: http://www.elasticsearch.org
-.. _Pip: https://github.com/pypa/pip
+
+_`Remove the demo app`
+~~~~~~~~~~~~~~~~~~~~~
+
+Once you've experimented with the demo app and are ready to build your pages via your own app you can remove the demo app if you choose.
+
+``PROJECT_ROOT`` should be where your project is located (e.g. /usr/local/django) and ``PROJECT`` is the name of your project (e.g. mywagtail)::
+
+    export PROJECT_ROOT=/usr/local/django
+    export PROJECT=mywagtail
+    cd $PROJECT_ROOT/$PROJECT
+    ./manage.py sqlclear demo | psql -Upostgres $PROJECT -f -
+    psql -Upostgres $PROJECT << EOF
+    BEGIN;
+    DELETE FROM wagtailcore_site WHERE root_page_id IN (SELECT id FROM wagtailcore_page WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo'));
+    DELETE FROM wagtailcore_page WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo');
+    DELETE FROM auth_permission WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo');
+    DELETE FROM django_content_type WHERE app_label='demo';
+    DELETE FROM wagtailimages_rendition;
+    DELETE FROM wagtailimages_image;
+    COMMIT;
+    EOF
+    rm -r demo media/images/* media/original_images/*
+    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settingsbase.py

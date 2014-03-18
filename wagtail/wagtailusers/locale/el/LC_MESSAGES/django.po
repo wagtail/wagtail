@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:54+0200\n"
-"PO-Revision-Date: 2014-02-28 16:00+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:15+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +153,7 @@ msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
 #: .\templates\wagtailusers\results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Λυπούμαστε, δε βρέθηκαν χρήστες που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
+msgstr "Λυπούμαστε, δε ταιριάζουν χρήστες με το \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailusers\results.html:21
 #, python-format

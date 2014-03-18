@@ -20,6 +20,7 @@ Contributors
 * Delgermurun Purevkhuu
 * Lewis Cowper
 * Stephen Newey
+* Ryan Foster
 
 Translators
 ===========

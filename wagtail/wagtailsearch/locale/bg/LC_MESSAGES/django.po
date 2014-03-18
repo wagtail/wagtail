@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-28 17:54+0200\n"
-"PO-Revision-Date: 2014-02-28 15:56+0000\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -172,18 +172,18 @@ msgstr "Думи"
 msgid "No results found"
 msgstr "Не са намерени резултати"
 
-#: .\views\editorspicks.py:19 .\views\editorspicks.py:29
+#: .\views\editorspicks.py:41
 msgid "Search editor's picks"
 msgstr ""
 
-#: .\views\editorspicks.py:85
+#: .\views\editorspicks.py:75
 msgid "Editor's picks for '{0}' created."
 msgstr ""
 
-#: .\views\editorspicks.py:113
+#: .\views\editorspicks.py:103
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 
-#: .\views\editorspicks.py:132
+#: .\views\editorspicks.py:122
 msgid "Editor's picks deleted."
 msgstr ""

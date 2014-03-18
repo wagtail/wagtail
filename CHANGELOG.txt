@@ -1,6 +1,27 @@
 Changelog
 =========
 
+0.2 (11.03.2014)
+~~~~~~~~~~~~~~~~
+ * SQLite support added
+ * Internationalisation of the admin backend
+ * Translations for Bulgarian, Catalan, Chinese, Galician, German, Greek, Polish, Romanian and Spanish. Partial translations for Basque and Mongolian.
+ * Stylesheets ported from Less to Sass, to eliminate dependency on an external CSS compiler
+ * Coffeescript replaced by vanilla Javascript
+ * OEmbed supported as an alternative backend for wagtailembeds, eliminating dependency on Embedly
+ * Database supported as an alternative search backend, eliminating dependency on ElasticSearch
+ * Background tasks now fall back on in-process handling if Celery is not available (also eliminating Redis as a dependency)
+ * Users decoupled from Django default user model, to allow custom user models
+ * Added explicit 'Can access Wagtail admin' permission, rather than treating all logged-in users as Wagtail users
+ * Date fields now work with USE_L10N=True
+ * "Your most recent edits" only shows the latest edit per page
+ * Unified search view configurable in urls.py
+ * Support for searching within a subtree
+ * Added initial documentation
+ * Added Ubuntu / Debian installation scripts
+ * Extensive tests and test runner infrastructure
+ * Numerous bugfixes
+
 0.1 (07.02.2014)
 ~~~~~~~~~~~~~~~~
  * Initial release.

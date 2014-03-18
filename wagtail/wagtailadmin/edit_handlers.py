@@ -15,7 +15,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
@@ -605,7 +606,7 @@ class BasePageChooserPanel(BaseChooserPanel):
         return cls._target_content_type
 
     def render_js(self):
-        page = getattr(self.instance, self.field_name)
+        page = self.get_chosen_item()
         parent = page.get_parent() if page else None
         content_type = self.__class__.target_content_type()
 
@@ -720,5 +721,5 @@ Page.promote_panels = [
         FieldPanel('seo_title'),
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
-    ], __('Common page configuration')),
+    ], ugettext_lazy('Common page configuration')),
 ]
