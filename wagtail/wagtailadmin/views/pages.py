@@ -623,4 +623,6 @@ def preview_for_moderation(request, revision_id):
 
     page = revision.as_page_object()
 
+    request.revision_id = revision_id
+
     return page.serve(request)

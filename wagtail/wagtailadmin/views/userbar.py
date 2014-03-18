@@ -6,30 +6,30 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
 from django.utils.translation import ugettext as _ 
 
-from wagtail.wagtailadmin.userbar import EditPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
+from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
 from wagtail.wagtailadmin import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageRevision
 
 def render_edit_frame(request, context):
+    try:
+        revision_id = request.revision_id
+    except:
+        revision_id = None
+
     # Render the frame to contain the userbar items
     return render_to_string('wagtailadmin/userbar/frame.html', {
-        'page': context
+        'page': context,
+        'revision_id': revision_id
     })
 
-@permission_required('wagtailadmin.access_admin')
-def userbar(request, page_id):
+def for_frontend(request, page_id):
     items = [
         EditPageItem(Page.objects.get(id=page_id)),
-        ApproveModerationEditPageItem(Page.objects.get(id=page_id)),
-        RejectModerationEditPageItem(Page.objects.get(id=page_id)),
+        AddPageItem(Page.objects.get(id=page_id)),
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
         fn(request, items)
-
-
-    for item in items:
-        print item.render(request)
 
     # Render the items
     rendered_items = [item.render(request) for item in items]
@@ -37,11 +37,29 @@ def userbar(request, page_id):
     # Remove any unrendered items
     rendered_items = [item for item in rendered_items if item]
 
-    # Quit if no items rendered
-    if not rendered_items:
-        return
+    # Render the edit bird
+    return render(request, 'wagtailadmin/userbar/base.html', {
+        'items': rendered_items,
+    })
+
+def for_moderation(request, revision_id):
+    items = [
+        EditPageItem(PageRevision.objects.get(id=revision_id).page),
+        AddPageItem(PageRevision.objects.get(id=revision_id).page),
+        ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+        RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+    ]
+
+    for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
+        fn(request, items)
+
+    # Render the items
+    rendered_items = [item.render(request) for item in items]
+
+    # Remove any unrendered items
+    rendered_items = [item for item in rendered_items if item]
 
     # Render the edit bird
-    return render(request, 'wagtailadmin/userbar/edit_bird.html', {
-        'items': [item.render(request) for item in items],
+    return render(request, 'wagtailadmin/userbar/base.html', {
+        'items': rendered_items,
     })

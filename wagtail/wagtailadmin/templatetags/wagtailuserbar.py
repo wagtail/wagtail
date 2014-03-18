@@ -1,17 +1,25 @@
 from django import template
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.utils.html import format_html, format_html_join
+from wagtail.wagtailadmin.views import userbar
+from wagtail.wagtailcore.models import Page
 
 register = template.Library()
 
-
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, cssfile=None):
-    try:
-        items = format_html_join(u'', u'<li>{0}</li>', [(item,) for item in context['request'].userbar])
-        context.hasuserbar = True
-        if not cssfile:
-            cssfile = staticfiles_storage.url('wagtailadmin/css/wagtail-userbar.css')
-        return format_html(u'<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400" /><link rel="stylesheet" href="{0}" /><ul id="wagtail-userbar">{1}</ul>', cssfile, items)
-    except AttributeError:
+def wagtailuserbar(context, current_page=None, items=None):
+
+    # Find request object
+    request = context['request']
+    
+    # Don't render if user doesn't have permission to access the admin area
+    if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''
+
+    # Find page object
+    if not current_page:
+        if 'self' in context and isinstance(context['self'], Page):
+            current_page = context['self']
+        else:
+            return ''
+
+    # Render edit bird
+    return userbar.render_edit_frame(request, context) or ''

@@ -10,4 +10,4 @@
         height:300px;
     }
 </style>
-<iframe id="wagtail-userbar" src="{% url 'wagtailadmin_userbar' page.self.id %}" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+<iframe id="wagtail-userbar" src="{% if revision_id %}{% url 'wagtailadmin_userbar_moderation' revision_id %}{% else %}{% url 'wagtailadmin_userbar_frontend' page.self.id %}{% endif %}" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
