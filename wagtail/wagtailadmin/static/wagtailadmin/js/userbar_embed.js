@@ -5,6 +5,8 @@
 
     if(w.postMessage){
         function callback(e){
+            f.style.opacity=1;
+
             // Get the height from the passed data.
             var h = Number(e.data.replace( /.*fh=(\d+)(?:&|$)/, '$1' ) );
             if (!isNaN( h ) && h > 0 && h !== frame_height) {
@@ -30,7 +32,12 @@
     f.scrolling = 'no';
     f.src = w.wagtail.userbar_src;
 
+    // if postMessage is supported, hide iframe till it is loaded
+    if(w.postMessage){
+        f.style.opacity=0;
+    }
+
     t = d.getElementsByTagName('title')[0]; 
     t.parentNode.insertBefore(l, t.nextSibling);
-    d.body.appendChild(f); 
+    d.body.appendChild(f);
 }(window,document));

@@ -7,4 +7,8 @@
     border:0;
     width:150px;
     height:300px;
+    -webkit-transition: opacity 0.3s ease;
+       -moz-transition: opacity 0.3s ease;
+         -o-transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease;
 }
