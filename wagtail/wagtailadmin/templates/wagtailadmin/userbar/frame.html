@@ -1,13 +1,14 @@
-<style type="text/css">
-    #wagtail-userbar{
-    	background:transparent;
-        position:absolute;
-        top:0;
-        right:0;
-        z-index:9000;
-        border:0;
-        width:150px;
-        height:300px;
-    }
-</style>
-<iframe id="wagtail-userbar" src="{% if revision_id %}{% url 'wagtailadmin_userbar_moderation' revision_id %}{% else %}{% url 'wagtailadmin_userbar_frontend' page.self.id %}{% endif %}" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+{% load static %}
+<!-- Wagtail user bar embed code -->
+<script type="text/javascript">
+    (function(w,d){
+        var l, f, h;
+        l = d.createElement('link'); l.rel = 'stylesheet';
+        l.href = '{% static "wagtailadmin/scss/userbar_embed.css" %}';
+        f = d.createElement('iframe'); f.id = 'wagtail-userbar'; f.frameborder = '0'; f.allowtransparency = 'true'; f.scrolling = 'no';
+        f.src = '{% if revision_id %}{% url "wagtailadmin_userbar_moderation" revision_id %}{% else %}{% url "wagtailadmin_userbar_frontend" page.self.id %}{% endif %}';
+        t = d.getElementsByTagName('title')[0]; t.parentNode.insertBefore(l, t.nextSibling);
+        d.body.appendChild(f); 
+    }(window,document));
+</script>
+<!-- end Wagtail user bar embed code -->

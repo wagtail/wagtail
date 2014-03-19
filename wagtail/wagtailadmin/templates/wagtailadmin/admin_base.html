@@ -12,12 +12,12 @@
 {% endblock %}
 
 {% block js %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    
     {% compress js %}
         {% comment %}
             Core JS includes (for inclusion on all pages) to be specified here
         {% endcomment %}
-
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-1.10.3.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-ui-1.10.3.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.timepicker.min.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.autosize.js"></script>

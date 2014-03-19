@@ -1,0 +1,10 @@
+#wagtail-userbar{
+    background:transparent;
+    position:fixed;
+    top:0;
+    right:0;
+    z-index:9000;
+    border:0;
+    width:150px;
+    height:300px;
+}

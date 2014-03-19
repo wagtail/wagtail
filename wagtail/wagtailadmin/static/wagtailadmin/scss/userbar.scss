@@ -17,7 +17,7 @@ nav{
     float:right;
 
     /* moving menu only for browser that can support hover and transitions */
-    .no-touch.csstransitions & {
+    .no-touch & {
         ul{
             height:0;
         }
@@ -114,7 +114,7 @@ div.action{
         display:block;
         text-transform:uppercase;
         padding:1em;
-        width:100%;
+        width:10em;
         position:relative;
         z-index:1;
         text-align:left;
