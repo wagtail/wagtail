@@ -19,7 +19,7 @@ nav{
     float:right;
 
     /* moving menu only for browser that can support hover and transitions */
-    .no-touch & {
+    .no-touch .ready & {
         ul{
             height:0;
         }
