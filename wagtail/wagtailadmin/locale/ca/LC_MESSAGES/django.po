@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-22 20:54+0000\n"
-"Last-Translator: Lloople <d.lloople@gmail.com>\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-14 21:12+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,29 +18,41 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\edit_handlers.py:80 .\edit_handlers.py:129 .\edit_handlers.py:133
+#: .\edit_handlers.py:81 .\edit_handlers.py:130 .\edit_handlers.py:134
 msgid "Please type a valid time"
 msgstr "Si us plau introdueixi una hora vàlida "
 
-#: .\forms.py:12
+#: .\edit_handlers.py:724
+msgid "Common page configuration"
+msgstr ""
+
+#: .\forms.py:18
 msgid "Search term"
 msgstr "Termini de cerca"
 
-#: .\forms.py:44
+#: .\forms.py:42
+msgid "Enter your username"
+msgstr ""
+
+#: .\forms.py:45
+msgid "Enter password"
+msgstr ""
+
+#: .\forms.py:50
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
 
-#: .\forms.py:53
+#: .\forms.py:59
 msgid "Please fill your email address."
 msgstr "Si us plau escriu el teu correu"
 
-#: .\forms.py:66
+#: .\forms.py:72
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr "Ho sentim, no pots reiniciar la teva contrasenya aquí ja que la teva conta d'usuari es administrada per un altre servidor"
 
-#: .\forms.py:69
+#: .\forms.py:75
 msgid "This email address is not recognised."
 msgstr "No es reconeix aquesta adreça de correu"
 
@@ -246,7 +258,7 @@ msgstr "Baixa"
 #: .\templates\wagtailadmin\pages\confirm_delete.html:7
 #: .\templates\wagtailadmin\pages\edit.html:36
 #: .\templates\wagtailadmin\pages\list.html:68
-#: .\templates\wagtailadmin\pages\list.html:189
+#: .\templates\wagtailadmin\pages\list.html:188
 msgid "Delete"
 msgstr "Esborra"
 
@@ -260,7 +272,7 @@ msgstr "Pàgines a l'espera de moderació"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:13
 #: .\templates\wagtailadmin\home\recent_edits.html:12
-#: .\templates\wagtailadmin\pages\list.html:102
+#: .\templates\wagtailadmin\pages\list.html:101
 msgid "Title"
 msgstr "Títol"
 
@@ -270,18 +282,19 @@ msgid "Parent"
 msgstr "Pare"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:15
-#: .\templates\wagtailadmin\home\recent_edits.html:13
-msgid "Date"
-msgstr "Data"
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:116
+msgid "Type"
+msgstr "Tipus"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:16
-msgid "Author"
-msgstr "Autor"
+msgid "Edited"
+msgstr ""
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:23
 #: .\templates\wagtailadmin\home\recent_edits.html:21
-#: .\templates\wagtailadmin\pages\list.html:168
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:167
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit this page"
 msgstr "Edita aquesta pàgina"
 
@@ -299,7 +312,7 @@ msgstr "Rebutjar"
 #: .\templates\wagtailadmin\home\recent_edits.html:23
 #: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
 #: .\templates\wagtailadmin\pages\list.html:56
-#: .\templates\wagtailadmin\pages\list.html:177
+#: .\templates\wagtailadmin\pages\list.html:176
 msgid "Edit"
 msgstr "Edita"
 
@@ -313,21 +326,25 @@ msgstr "Vista prèvia"
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
 
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr "Data"
+
 #: .\templates\wagtailadmin\home\recent_edits.html:14
 #: .\templates\wagtailadmin\pages\list.html:25
-#: .\templates\wagtailadmin\pages\list.html:129
+#: .\templates\wagtailadmin\pages\list.html:128
 msgid "Status"
 msgstr "Estat"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:25
 #: .\templates\wagtailadmin\pages\list.html:59
-#: .\templates\wagtailadmin\pages\list.html:180
+#: .\templates\wagtailadmin\pages\list.html:179
 msgid "View draft"
 msgstr "Visualitza l'esborrany"
 
 #: .\templates\wagtailadmin\home\recent_edits.html:28
 #: .\templates\wagtailadmin\pages\list.html:62
-#: .\templates\wagtailadmin\pages\list.html:183
+#: .\templates\wagtailadmin\pages\list.html:182
 msgid "View live"
 msgstr "Visualitza en viu"
 
@@ -486,7 +503,7 @@ msgstr "Mou %(title)s"
 
 #: .\templates\wagtailadmin\pages\confirm_move.html:6
 #: .\templates\wagtailadmin\pages\list.html:65
-#: .\templates\wagtailadmin\pages\list.html:186
+#: .\templates\wagtailadmin\pages\list.html:185
 msgid "Move"
 msgstr "Mou"
 
@@ -514,7 +531,7 @@ msgstr "Despublica %(title)s"
 #: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
 #: .\templates\wagtailadmin\pages\edit.html:33
 #: .\templates\wagtailadmin\pages\list.html:71
-#: .\templates\wagtailadmin\pages\list.html:192
+#: .\templates\wagtailadmin\pages\list.html:191
 msgid "Unpublish"
 msgstr "Despublica"
 
@@ -586,64 +603,59 @@ msgstr "per %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "Explorant %(title)s"
 
-#: .\templates\wagtailadmin\pages\list.html:24
-#: .\templates\wagtailadmin\pages\list.html:117
-msgid "Type"
-msgstr "Tipus"
-
 #: .\templates\wagtailadmin\pages\list.html:53
-#: .\templates\wagtailadmin\pages\list.html:195
+#: .\templates\wagtailadmin\pages\list.html:194
 msgid "Add child page"
 msgstr "Afegeix una pàgina filla"
 
-#: .\templates\wagtailadmin\pages\list.html:95
+#: .\templates\wagtailadmin\pages\list.html:94
 msgid "Disable ordering of child pages"
 msgstr "Desactiva l'ordenació de les pàgines fill"
 
-#: .\templates\wagtailadmin\pages\list.html:95
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:94
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Order"
 msgstr "Ordre"
 
-#: .\templates\wagtailadmin\pages\list.html:97
+#: .\templates\wagtailadmin\pages\list.html:96
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
-#: .\templates\wagtailadmin\pages\list.html:150
+#: .\templates\wagtailadmin\pages\list.html:149
 msgid "Drag"
 msgstr "Agafa"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "Explora les subpàgines de '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:221
-#: .\templates\wagtailadmin\pages\list.html:225
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#: .\templates\wagtailadmin\pages\list.html:228
 msgid "Explore"
 msgstr "Explora"
 
-#: .\templates\wagtailadmin\pages\list.html:229
+#: .\templates\wagtailadmin\pages\list.html:228
 #, python-format
 msgid "Explorer child pages of '%(title)s'"
 msgstr "Explora les pàgines filles de '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-#: .\templates\wagtailadmin\pages\list.html:231
+#: .\templates\wagtailadmin\pages\list.html:230
 msgid "Add subpage"
 msgstr "Afegeix subpàgina"
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 msgid "No pages have been created."
 msgstr "No s'han creat pàgines."
 
-#: .\templates\wagtailadmin\pages\list.html:240
+#: .\templates\wagtailadmin\pages\list.html:239
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Per què no <a href=\"%(add_page_url)s\">afegeixes una</a>?"
@@ -698,7 +710,7 @@ msgstr "Següent"
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Ho sentim, cap pàgina coincideix amb <em>\"%(query_string)s\"</em>"
+msgstr ""
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"
@@ -765,7 +777,7 @@ msgstr "Retalls"
 msgid "Users"
 msgstr "Usuaris"
 
-#: .\views\account.py:23
+#: .\views\account.py:26
 msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
 
