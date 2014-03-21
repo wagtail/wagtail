@@ -55,8 +55,8 @@ class FormBuilder():
         return django.forms.ChoiceField(widget=django.forms.RadioSelect, **options)
         
     def create_checkboxes_field(self, field, options):
-        options['choices'] = map(lambda x: (x.strip(),x.strip()), field.choices.split(','))
-        options['initial'] = field.default_value.split(',')
+        options['choices'] = [ (x.strip(), x.strip()) for x in field.choices.split(',')]
+        options['initial'] = [ x.strip() for x in field.default_value.split(',') ]
         return django.forms.MultipleChoiceField(widget=django.forms.CheckboxSelectMultiple, **options)
     
     def create_checkbox_field(self, field, options):

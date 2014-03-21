@@ -9,6 +9,8 @@ import re
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 
+from wagtail.wagtailforms.backends.email import EmailFormProcessor
+
 from modelcluster.fields import ParentalKey
 
 from .forms import FormBuilder
@@ -47,8 +49,8 @@ class AbstractFormFields(models.Model):
     label = models.CharField(max_length=255, help_text=_('The label of the form field') )
     field_type = models.CharField(max_length=16, choices = FORM_FIELD_CHOICES)
     required = models.BooleanField(default=True)
-    choices = models.CharField(max_length=512, blank=True, help_text=_('Comma seperated list of choices'))
-    default_value = models.CharField(max_length=255, blank=True)
+    choices = models.CharField(max_length=512, blank=True, help_text=_('Comma seperated list of choices. Only applicable in checkboxes, radio and dropdown.'))
+    default_value = models.CharField(max_length=255, blank=True, help_text=_('Default value. Comma seperated values supported for checkboxes.'))
     help_text = models.CharField(max_length=255, blank=True)
     
     panels = [
@@ -65,12 +67,12 @@ class AbstractFormFields(models.Model):
 
         
 class AbstractForm(Page):
-    """A Form Page. Pages with form should inhert from it"""
+    """A Form Page. Pages implementing a form should inhert from it"""
     form_builder = FormBuilder
     is_abstract = True # Don't display me in "Add"
     
     def __init__(self, *args, **kwargs):
-        super(Page, self).__init__(*args, **kwargs)
+        super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):    
             template_wo_ext = re.match(HTML_EXTENSION_RE, self.template).group(1)
             self.landing_page_template = template_wo_ext + '_landing.html'
@@ -93,10 +95,14 @@ class AbstractForm(Page):
                 )
                 FormSubmission.objects.create(
                     form_data = json.dumps(form_data),
-                    form_page = self.page_ptr,
+                    form_page = self,
                     user = request.user,
                 )
-                # TODO: Do other things  like sending email
+                # If we have a form_processing_backend call its process method
+                if hasattr(self, 'form_processing_backend'):
+                    form_processor = self.form_processing_backend()
+                    form_processor.process(self, self.form)
+
                 # render the landing_page
                 # TODO: It is much better to redirect to it
                 return render(request, self.landing_page_template, {
@@ -111,6 +117,17 @@ class AbstractForm(Page):
         })
         
 
+class AbstractEmailForm(AbstractForm):
+    """A Form Page that sends email. Pages implementing a form that should be send to an email should inhert from it"""
+    is_abstract = True # Don't display me in "Add"
+    form_processing_backend = EmailFormProcessor
+
+    email_to = models.CharField(max_length=255, )
+    email_from = models.CharField(max_length=255, )
+
+    class Meta:
+        abstract = True
+
 
 ########  TEST
 class ConcreteFormFields(Orderable, AbstractFormFields):
@@ -123,4 +140,19 @@ ConcreteForm.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('thank_you', classname="full"),
     InlinePanel(ConcreteForm, 'form_fields', label="Form Fields"),
+]
+
+########
+class ConcreteEmailFormFields(Orderable, AbstractFormFields):
+    page = ParentalKey('wagtailforms.ConcreteEmailForm', related_name='form_fields')
+
+class ConcreteEmailForm(AbstractEmailForm):
+    thank_you = models.CharField(max_length=255)
+
+ConcreteEmailForm.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('thank_you', classname="full"),
+    FieldPanel('email_from', classname="full"),
+    FieldPanel('email_to', classname="full"),
+    InlinePanel(ConcreteEmailForm, 'form_fields', label="Form Fields"),
 ]
