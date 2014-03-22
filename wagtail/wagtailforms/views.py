@@ -9,35 +9,48 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.models import FormSubmission, get_form_types
+
+
+def get_form_type_from_url_params(app_name, model_name):
+    """
+    Retrieve a form type from an app_name / model_name combo.
+    Throw Http404 if not a valid form type
+    """
+    try:
+        content_type = ContentType.objects.get_by_natural_key(app_name, model_name)
+    except ContentType.DoesNotExist:
+        raise Http404
+    if content_type not in get_form_types():
+        raise Http404
+
+    return content_type
 
 
 @permission_required('wagtailadmin.access_admin')
 def index(request):
-    
+    form_types = get_form_types()
+    form_pages = Page.objects.filter(content_type__in=form_types)
     
     return render(request, 'wagtailforms/index.html', {
-        #'snippet_types': snippet_types,
+        'form_pages': form_pages,
+    })
+
+@permission_required('wagtailadmin.access_admin')
+def list_submissions(request, app_label, model, id):
+
+    model = get_form_type_from_url_params(app_label, model).model_class()
+    form_page = get_object_or_404(model, id=id)
+
+    submissions = FormSubmission.objects.filter(form_page=form_page)
+
+    return render(request, 'wagtailforms/form_index.html', {
+         'form_page': form_page,
+         'submissions': submissions,
     })
 
 """
-@permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
-def list(request, content_type_app_name, content_type_model_name):
-    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
-
-    model = content_type.model_class()
-    snippet_type_name, snippet_type_name_plural = get_snippet_type_name(content_type)
-
-    items = model.objects.all()
-
-    return render(request, 'wagtailsnippets/snippets/type_index.html', {
-        'content_type': content_type,
-        'snippet_type_name': snippet_type_name,
-        'snippet_type_name_plural': snippet_type_name_plural,
-        'items': items,
-    })
-
 
 @permission_required('wagtailadmin.access_admin')  # further permissions are enforced within the view
 def create(request, content_type_app_name, content_type_model_name):

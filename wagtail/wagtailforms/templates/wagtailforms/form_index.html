@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-snippets{% endblock %}
+{% block content %}
+
+    <header class="nice-padding">
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1>
+                {% blocktrans with form_title=form_page.title|capfirst %}Submissions of <span>{{ form_title }}</span>{% endblocktrans %}
+            </div>
+            <div class="right col3">
+                
+            </div>
+        </div>
+    </header>
+    <div class="nice-padding">
+        {% if submissions %}
+            {% include "wagtailforms/list.html" %}
+        {% else %}
+            <p class="no-results-message">{% blocktrans with title=form_page.title %}No submissions of the '{{ title }}' form.{% endblocktrans %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
