@@ -1,14 +1,12 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.contrib.contenttypes.models import ContentType
-from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_form_types
 
@@ -44,6 +42,17 @@ def list_submissions(request, app_label, model, id):
     form_page = get_object_or_404(model, id=id)
 
     submissions = FormSubmission.objects.filter(form_page=form_page)
+    
+    p = request.GET.get('p', 1)
+    paginator = Paginator(submissions, 20)
+
+    try:
+        submissions = paginator.page(p)
+    except PageNotAnInteger:
+        submissions = paginator.page(1)
+    except EmptyPage:
+        submissions = paginator.page(paginator.num_pages)
+
 
     return render(request, 'wagtailforms/form_index.html', {
          'form_page': form_page,

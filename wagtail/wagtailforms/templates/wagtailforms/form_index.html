@@ -18,6 +18,8 @@
     <div class="nice-padding">
         {% if submissions %}
             {% include "wagtailforms/list.html" %}
+            {% url "wagtailforms_list_submissions" form_page.content_type.app_label form_page.content_type.model form_page.id as linkurl %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False %}
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}No submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}
