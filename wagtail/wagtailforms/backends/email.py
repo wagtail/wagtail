@@ -9,9 +9,15 @@ class EmailFormProcessor(BaseFormProcessor):
     def __init__(self):
         pass
     
+    @staticmethod
     def validate_usage(page):
-        return True
+        try:
+            page._meta.get_field('subject')
+            page._meta.get_field('to_address')
+            page._meta.get_field('from_address')
+        except:
+            raise ImproperlyConfigured("To use the EmailFormProcessor your Page must define the fields: subject, to_address and from_address.")
         
     def process(self, page, form):
         content = ', '.join([ x[1].label +': '+ form.data.get(x[0]) for x in form.fields.items() ])
-        tasks.send_email_task.delay("New " + page.title+" form submission at " + str(datetime.datetime.now()) , content, page.email_from, [page.email_to] )
+        tasks.send_email_task.delay(page.subject, content,  [page.to_address], page.from_address, )

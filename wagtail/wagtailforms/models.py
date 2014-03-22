@@ -1,4 +1,6 @@
+
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
@@ -6,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 import json
 import re
 
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.models import PageBase, Page, Orderable
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 
 from wagtail.wagtailforms.backends.email import EmailFormProcessor
@@ -66,11 +68,39 @@ class AbstractFormFields(models.Model):
         abstract = True 
 
         
+FORM_MODEL_CLASSES = []
+_FORM_CONTENT_TYPES = []
+
+def get_form_types():
+    global _FORM_CONTENT_TYPES
+    if len(_FORM_CONTENT_TYPES) != len(FORM_MODEL_CLASSES):
+        _FORM_CONTENT_TYPES = [
+            ContentType.objects.get_for_model(cls) for cls in FORM_MODEL_CLASSES
+        ]
+    return _FORM_CONTENT_TYPES
+        
+
+class FormBase(PageBase):
+    """Metaclass for Forms"""
+    def __init__(cls, name, bases, dct):
+        super(FormBase, cls).__init__(name, bases, dct)
+        
+        if not cls.is_abstract:
+            # register this type in the list of page content types
+            FORM_MODEL_CLASSES.append(cls)
+            # Check if form_processing_backend is ok
+            if hasattr(cls, 'form_processing_backend'):
+                cls.form_processing_backend.validate_usage(cls)
+            
+        
 class AbstractForm(Page):
     """A Form Page. Pages implementing a form should inhert from it"""
+
+    __metaclass__ = FormBase
+    
     form_builder = FormBuilder
     is_abstract = True # Don't display me in "Add"
-    
+        
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
         if not hasattr(self, 'landing_page_template'):    
@@ -118,17 +148,18 @@ class AbstractForm(Page):
         
 
 class AbstractEmailForm(AbstractForm):
-    """A Form Page that sends email. Pages implementing a form that should be send to an email should inhert from it"""
+    """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
     is_abstract = True # Don't display me in "Add"
     form_processing_backend = EmailFormProcessor
-
-    email_to = models.CharField(max_length=255, )
-    email_from = models.CharField(max_length=255, )
-
+ 
+    to_address = models.CharField(max_length=255, )
+    from_address = models.CharField(max_length=255, blank=True)
+    subject = models.CharField(max_length=255, )
+    
     class Meta:
         abstract = True
-
-
+        
+    
 ########  TEST
 class ConcreteFormFields(Orderable, AbstractFormFields):
     page = ParentalKey('wagtailforms.ConcreteForm', related_name='form_fields')
