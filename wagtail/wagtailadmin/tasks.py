@@ -88,7 +88,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
 
 @task
-def send_email_task(email_subject, email_content, from_email, email_addresses):
+def send_email_task(email_subject, email_content, email_addresses, from_email=None):
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
