@@ -1,18 +1,56 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
+{% load localize %}
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
+{% block extra_js %}
+    {% get_localized_datepicker_js %}
+    {% get_date_format_override as format_override %}
+    
+    <script>
+        window.overrideDateInputFormat ='{{ format_override }}';
+        $(function() {
+            if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
+                $('#id_date_from').datepicker({
+                    dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+                });
+                $('#id_date_to').datepicker({
+                    dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+                });
+            } else {
+                $('#id_date_from').datepicker({
+                    constrainInput: false, /* showOn: 'button', */ firstDay: 1
+                });
+                $('#id_date_to').datepicker({
+                    constrainInput: false, /* showOn: 'button', */ firstDay: 1
+                });
+            }
+        });
+    </script>
+{% endblock %}
 {% block content %}
 
     <header class="nice-padding">
         <div class="row row-flush">
-            <div class="left col9">
+            <div class="left col6">
                 <h1>
                 {% blocktrans with form_title=form_page.title|capfirst %}Submissions of <span>{{ form_title }}</span>{% endblocktrans %}
+                </h1>
             </div>
-            <div class="right col3">
-                
-            </div>
+            <form class="col" action="" method="get">
+                <ul class="fields">
+                    {% for field in select_date_form %}
+                        <div class="right col3">
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        </div>
+                    {% endfor %}
+                    <div class='col3'
+                        <li class="submit"><input type="submit" value="Filter" /></li>
+                    </div>
+                </ul>
+            </form>
+
+
         </div>
     </header>
     <div class="nice-padding">

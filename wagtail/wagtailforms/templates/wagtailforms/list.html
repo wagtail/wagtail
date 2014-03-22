@@ -2,7 +2,7 @@
 <table class="listing">
     <col />
     <col />
-    <col width="16%" />
+    <col width="75%" />
     <thead>
         <tr class="table-headers">
             <th>{% trans "Submission Date" %}</th>
@@ -20,7 +20,9 @@
                     {{ submission.user }}
                 </td>
                 <td class="title">
-                    {{ submission.form_data }}
+                    {% for data in submission.get_data.items %}
+                        {{ data.0 }}: {{ data.1 }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
                 </td>
             </tr>
         {% endfor %}

@@ -41,7 +41,10 @@ class FormSubmission(models.Model):
     form_page = models.ForeignKey('wagtailcore.Page',related_name='+')
     submit_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-
+    
+    def get_data(self):
+        return json.loads(self.form_data)
+    
     def __unicode__(self):
         return self.form_data
 
@@ -183,7 +186,8 @@ class ConcreteEmailForm(AbstractEmailForm):
 ConcreteEmailForm.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('thank_you', classname="full"),
-    FieldPanel('email_from', classname="full"),
-    FieldPanel('email_to', classname="full"),
+    FieldPanel('to_address', classname="full"),
+    FieldPanel('from_address', classname="full"),
+    FieldPanel('subject', classname="full"),
     InlinePanel(ConcreteEmailForm, 'form_fields', label="Form Fields"),
 ]
