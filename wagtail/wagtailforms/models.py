@@ -1,5 +1,6 @@
 
 from django.conf import settings
+from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.shortcuts import render
@@ -38,7 +39,10 @@ class FormSubmission(models.Model):
     """Data for a Form submission."""
     
     form_data = models.TextField()
-    form_page = models.ForeignKey('wagtailcore.Page',related_name='+')
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    form_page = generic.GenericForeignKey('content_type', 'object_id')
+
     submit_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     
@@ -126,11 +130,13 @@ class AbstractForm(Page):
                     i for i in self.form.data.items() 
                     if i[0] != 'csrfmiddlewaretoken' 
                 )
-                FormSubmission.objects.create(
+                
+                submission = FormSubmission.objects.create(
                     form_data = json.dumps(form_data),
                     form_page = self,
                     user = request.user,
                 )
+                
                 # If we have a form_processing_backend call its process method
                 if hasattr(self, 'form_processing_backend'):
                     form_processor = self.form_processing_backend()

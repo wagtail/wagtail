@@ -37,16 +37,18 @@
                 {% blocktrans with form_title=form_page.title|capfirst %}Submissions of <span>{{ form_title }}</span>{% endblocktrans %}
                 </h1>
             </div>
-            <form class="col" action="" method="get">
+            <form class="col6" action="" method="get">
                 <ul class="fields">
                     {% for field in select_date_form %}
-                        <div class="right col3">
+                        <div class="col3">
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                         </div>
                     {% endfor %}
-                    <div class='col3'
-                        <li class="submit"><input type="submit" value="Filter" /></li>
+                    <div class='col2'
+                        <li class="submit"><input name='action' type="submit" value="Filter" />
+                        <br /><input name='action' type="submit" value="CSV" /></li>
                     </div>
+                    
                 </ul>
             </form>
 
