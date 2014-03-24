@@ -8,10 +8,14 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 User = get_user_model()
 
-@permission_required('auth.change_user')
+change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+
+
+@permission_required(change_user_perm)
 def index(request):
     q = None
     p = request.GET.get("p", 1)
@@ -66,7 +70,7 @@ def index(request):
             'query_string': q,
         })
 
-@permission_required('auth.change_user')
+@permission_required(change_user_perm)
 def create(request):
     if request.POST:
         form = UserCreationForm(request.POST)
@@ -84,7 +88,7 @@ def create(request):
     })
 
 
-@permission_required('auth.change_user')
+@permission_required(change_user_perm)
 def edit(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.POST:
