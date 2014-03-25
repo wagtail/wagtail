@@ -4,13 +4,14 @@
 # 
 # Translators:
 # jspielmann <j@spielmannsolutions.com>, 2014
+# pcraston <patrick@craston.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-14 23:02+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-03-24 19:01+0000\n"
+"Last-Translator: pcraston <patrick@craston.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +138,7 @@ msgstr "Bilder"
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Es gibt leider keine Bilder zum Suchbegriff \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format
@@ -148,7 +149,7 @@ msgstr "Sie haben noch keine Bilder hochgeladen. <a href=\"%(wagtailimages_add_i
 
 #: .\views\images.py:29 .\views\images.py:40
 msgid "Search images"
-msgstr ""
+msgstr "Nach Bildern suchen"
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."

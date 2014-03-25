@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-14 23:09+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-03-18 13:20+0000\n"
+"Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,7 +140,7 @@ msgstr "Alege alt document"
 
 #: .\views\documents.py:34 .\views\documents.py:43
 msgid "Search documents"
-msgstr ""
+msgstr "Caută documente"
 
 #: .\views\documents.py:83
 msgid "Document '{0}' added."
