@@ -18,6 +18,4 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.tagit.css">
 {% endcompress %}
 
-{% compress css %}
-    {{ edit_handler.form.media.css }}
-{% endcompress %}
+{{ edit_handler.form.media.css }}

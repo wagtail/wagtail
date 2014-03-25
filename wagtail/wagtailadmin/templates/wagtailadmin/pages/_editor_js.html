@@ -44,9 +44,7 @@
     Additional js from widgets media. Allows for custom widgets in admin panel.
     Can be used for TODO above (including image-choser.js at wagtailimages)
 {% endcomment %}
-{% compress js %}
-    {{ edit_handler.form.media.js }}
-{% endcompress %}
+{{ edit_handler.form.media.js }}
 
 <script>
     window.chooserUrls = {
