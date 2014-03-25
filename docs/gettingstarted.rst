@@ -139,7 +139,7 @@ with a regular Django project.
 .. _Elasticsearch: http://www.elasticsearch.org
 
 _`Remove the demo app`
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 Once you've experimented with the demo app and are ready to build your pages via your own app you can remove the demo app if you choose.
 

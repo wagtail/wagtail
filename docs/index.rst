@@ -4,7 +4,7 @@ Welcome to Wagtail's documentation
 Wagtail is a modern, flexible CMS, built on Django.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    gettingstarted
    building_your_site
@@ -14,3 +14,4 @@ Wagtail is a modern, flexible CMS, built on Django.
    contributing
    support
    roadmap
+   editor_manual/index
