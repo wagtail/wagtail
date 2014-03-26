@@ -5,13 +5,14 @@
 # Translators:
 # jspielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# pcraston <patrick@craston.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-14 23:02+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-03-24 19:00+0000\n"
+"Last-Translator: pcraston <patrick@craston.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr "Geben Sie bitte eine gültige Zeit ein!"
 
 #: .\edit_handlers.py:724
 msgid "Common page configuration"
-msgstr ""
+msgstr "Allgemeine Seiten Konfiguration"
 
 #: .\forms.py:18
 msgid "Search term"
@@ -33,11 +34,11 @@ msgstr "Suchbegriff"
 
 #: .\forms.py:42
 msgid "Enter your username"
-msgstr ""
+msgstr "Bitte geben Sie Ihren Benutzernamen ein"
 
 #: .\forms.py:45
 msgid "Enter password"
-msgstr ""
+msgstr "Bitte geben Sie Ihr Passwort ein"
 
 #: .\forms.py:50
 msgid "Enter your email address to reset your password"
@@ -290,7 +291,7 @@ msgstr "Typ"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:16
 msgid "Edited"
-msgstr ""
+msgstr "Bearbeitet"
 
 #: .\templates\wagtailadmin\home\pages_for_moderation.html:23
 #: .\templates\wagtailadmin\home\recent_edits.html:21
@@ -711,7 +712,7 @@ msgstr "Nächste"
 #: .\templates\wagtailadmin\pages\search_results.html:43
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
+msgstr "Es gibt leider keine Seiten zum Suchbegriff <em>\"%(query_string)s\"</em>"
 
 #: .\templates\wagtailadmin\pages\search_results.html:45
 msgid "Enter a search term above"

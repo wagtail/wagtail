@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-14 23:02+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-03-18 23:15+0000\n"
+"Last-Translator: nahuel\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,29 +20,29 @@ msgstr ""
 
 #: .\models.py:22
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: .\models.py:39
 msgid "Not a valid image format. Please use a gif, jpeg or png file instead."
-msgstr ""
+msgstr "Format d'image invalide. Utilisez à la place un fichier gif, jpeg ou png."
 
 #: .\models.py:41
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 #: .\models.py:47
 msgid "Tags"
-msgstr ""
+msgstr "Mots-clés"
 
 #: .\templates\wagtailimages\chooser\chooser.html:3
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:19
 msgid "Choose an image"
-msgstr ""
+msgstr "Choisir une image"
 
 #: .\templates\wagtailimages\chooser\chooser.html:8
 #: .\templates\wagtailimages\chooser\chooser.html:20
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: .\templates\wagtailimages\chooser\chooser.html:9
 #: .\templates\wagtailimages\chooser\chooser.html:43
@@ -50,7 +51,7 @@ msgstr ""
 
 #: .\templates\wagtailimages\chooser\chooser.html:23
 msgid "Popular tags"
-msgstr ""
+msgstr "Mots-clés populaires"
 
 #: .\templates\wagtailimages\chooser\results.html:6
 #: .\templates\wagtailimages\images\results.html:6
@@ -63,21 +64,21 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n            Il y a une correspondance\n        "
+msgstr[1] "\n            Il y a %(counter)s correspondances\n        "
 
 #: .\templates\wagtailimages\chooser\results.html:13
 #: .\templates\wagtailimages\images\results.html:13
 msgid "Latest images"
-msgstr ""
+msgstr "Dernières images"
 
 #: .\templates\wagtailimages\chooser\select_format.html:3
 msgid "Choose a format"
-msgstr ""
+msgstr "Choisissez un format"
 
 #: .\templates\wagtailimages\chooser\select_format.html:17
 msgid "Insert image"
-msgstr ""
+msgstr "Insérer l'image"
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:17
 msgid "Clear image"
@@ -85,7 +86,7 @@ msgstr ""
 
 #: .\templates\wagtailimages\edit_handlers\image_chooser_panel.html:18
 msgid "Choose another image"
-msgstr ""
+msgstr "Choisir une autre image"
 
 #: .\templates\wagtailimages\images\_file_field.html:6
 msgid "Change image:"
@@ -94,35 +95,35 @@ msgstr ""
 #: .\templates\wagtailimages\images\add.html:4
 #: .\templates\wagtailimages\images\index.html:19
 msgid "Add an image"
-msgstr ""
+msgstr "Ajouter une image"
 
 #: .\templates\wagtailimages\images\add.html:15
 msgid "Add image"
-msgstr ""
+msgstr "Ajouter l'image"
 
 #: .\templates\wagtailimages\images\add.html:25
 #: .\templates\wagtailimages\images\edit.html:33
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:4
 #: .\templates\wagtailimages\images\confirm_delete.html:8
 #: .\templates\wagtailimages\images\edit.html:33
 msgid "Delete image"
-msgstr ""
+msgstr "Supprimer l'image"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:16
 msgid "Are you sure you want to delete this image?"
-msgstr ""
+msgstr "Êtes vous sûr de vouloir supprimer cette image?"
 
 #: .\templates\wagtailimages\images\confirm_delete.html:19
 msgid "Yes, delete"
-msgstr ""
+msgstr "Oui, supprimer"
 
 #: .\templates\wagtailimages\images\edit.html:4
 #, python-format
 msgid "Editing image %(title)s"
-msgstr ""
+msgstr "Édition de l'image %(title)s"
 
 #: .\templates\wagtailimages\images\edit.html:15
 msgid "Editing"
@@ -131,12 +132,12 @@ msgstr ""
 #: .\templates\wagtailimages\images\index.html:5
 #: .\templates\wagtailimages\images\index.html:18
 msgid "Images"
-msgstr ""
+msgstr "Images"
 
 #: .\templates\wagtailimages\images\results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Désolé, aucune image ne correspond à \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailimages\images\results.html:34
 #, python-format
@@ -151,7 +152,7 @@ msgstr ""
 
 #: .\views\images.py:92
 msgid "Image '{0}' updated."
-msgstr ""
+msgstr "Image '{0}' mise à jour."
 
 #: .\views\images.py:95
 msgid "The image could not be saved due to errors."
@@ -159,11 +160,11 @@ msgstr ""
 
 #: .\views\images.py:114
 msgid "Image '{0}' deleted."
-msgstr ""
+msgstr "Image '{0}' supprimée."
 
 #: .\views\images.py:132
 msgid "Image '{0}' added."
-msgstr ""
+msgstr "Image '{0}' ajoutée."
 
 #: .\views\images.py:135
 msgid "The image could not be created due to errors."

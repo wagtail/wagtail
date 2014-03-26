@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:56+0200\n"
-"PO-Revision-Date: 2014-02-26 13:41+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-03-18 21:51+0000\n"
+"Last-Translator: nahuel\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +40,7 @@ msgstr ""
 #: .\templates\wagtailsnippets\snippets\confirm_delete.html:6
 #: .\templates\wagtailsnippets\snippets\edit.html:20
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: .\templates\wagtailsnippets\snippets\confirm_delete.html:10
 #, python-format
@@ -48,21 +49,21 @@ msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\confirm_delete.html:13
 msgid "Yes, delete"
-msgstr ""
+msgstr "Oui, supprimer"
 
 #: .\templates\wagtailsnippets\snippets\create.html:3
 #, python-format
 msgid "New  %(snippet_type_name)s"
-msgstr ""
+msgstr "Nouveau %(snippet_type_name)s"
 
 #: .\templates\wagtailsnippets\snippets\create.html:6
 msgid "New"
-msgstr ""
+msgstr "Nouveau"
 
 #: .\templates\wagtailsnippets\snippets\create.html:17
 #: .\templates\wagtailsnippets\snippets\edit.html:17
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: .\templates\wagtailsnippets\snippets\edit.html:3
 #, python-format
@@ -71,7 +72,7 @@ msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\edit.html:6
 msgid "Editing"
-msgstr ""
+msgstr "Rédaction"
 
 #: .\templates\wagtailsnippets\snippets\index.html:3
 msgid "Snippets"
@@ -79,7 +80,7 @@ msgstr ""
 
 #: .\templates\wagtailsnippets\snippets\list.html:8
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:3
 #, python-format
@@ -101,7 +102,7 @@ msgstr ""
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a "
 "href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
+msgstr "Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
 
 #: .\views\snippets.py:127
 msgid "{snippet_type} '{instance}' created."
@@ -121,4 +122,4 @@ msgstr ""
 
 #: .\views\snippets.py:204
 msgid "{snippet_type} '{instance}' deleted."
-msgstr ""
+msgstr "{snippet_type} '{instance}' supprimé."

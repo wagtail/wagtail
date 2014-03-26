@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-14 23:02+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"PO-Revision-Date: 2014-03-18 23:17+0000\n"
+"Last-Translator: nahuel\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: .\forms.py:8
 msgid "Search term(s)/phrase"
-msgstr ""
+msgstr "Terme(s)/phrase de recherche"
 
 #: .\forms.py:9
 msgid ""
@@ -50,18 +51,18 @@ msgstr ""
 #: .\templates\wagtailsearch\editorspicks\add.html:25
 #: .\templates\wagtailsearch\editorspicks\edit.html:19
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:3
 #, python-format
 msgid "Delete %(query)s"
-msgstr ""
+msgstr "Supprimée %(query)s"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:5
 #: .\templates\wagtailsearch\editorspicks\edit.html:20
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:6
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:9
 msgid ""
@@ -70,7 +71,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\confirm_delete.html:12
 msgid "Yes, delete"
-msgstr ""
+msgstr "Oui, supprimer"
 
 #: .\templates\wagtailsearch\editorspicks\edit.html:3
 #, python-format
@@ -83,7 +84,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\index.html:3
 msgid "Search Terms"
-msgstr ""
+msgstr "Termes de recherche"
 
 #: .\templates\wagtailsearch\editorspicks\index.html:17
 msgid "Editor's search picks"
@@ -95,7 +96,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\list.html:8
 msgid "Search term(s)"
-msgstr ""
+msgstr "Terme(s) de recherche"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:9
 msgid "Editors picks"
@@ -108,7 +109,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\list.html:17
 msgid "Edit this pick"
-msgstr ""
+msgstr "Éditer ce choix"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:23
 msgid "None"
@@ -130,7 +131,7 @@ msgstr[1] ""
 #: .\templates\wagtailsearch\editorspicks\results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Désolé, aucun choix de rédacteur ne correspond avec \"<em>%(query_string)s</em>\""
 
 #: .\templates\wagtailsearch\editorspicks\results.html:21
 #, python-format
@@ -141,11 +142,11 @@ msgstr ""
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:4
 msgid "Move up"
-msgstr ""
+msgstr "Monter"
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:5
 msgid "Move down"
-msgstr ""
+msgstr "Descendre"
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_form.html:10
 msgid "Editors pick"
@@ -157,7 +158,7 @@ msgstr ""
 
 #: .\templates\wagtailsearch\queries\chooser\chooser.html:2
 msgid "Popular search terms"
-msgstr ""
+msgstr "Termes de recherche populaires"
 
 #: .\templates\wagtailsearch\queries\chooser\chooser.html:10
 msgid "Search"
@@ -165,11 +166,11 @@ msgstr ""
 
 #: .\templates\wagtailsearch\queries\chooser\results.html:8
 msgid "Terms"
-msgstr ""
+msgstr "Termes"
 
 #: .\templates\wagtailsearch\queries\chooser\results.html:23
 msgid "No results found"
-msgstr ""
+msgstr "Aucun résultat trouvé"
 
 #: .\views\editorspicks.py:41
 msgid "Search editor's picks"
