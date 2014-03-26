@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.3 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~
+ * Added toolbar to allow logged-in users to add and edit pages from the site front-end
+ * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
+ * Editor's guide documentation
+ * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
+ * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
+
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
  * SQLite support added
