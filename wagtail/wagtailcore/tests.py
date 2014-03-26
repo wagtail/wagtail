@@ -99,6 +99,13 @@ class TestRouting(TestCase):
 class TestServeView(TestCase):
     fixtures = ['test.json']
 
+    def setUp(self):
+        # Explicitly clear the cache of site root paths. Normally this would be kept
+        # in sync by the Site.save logic, but this is bypassed when the database is
+        # rolled back between tests using transactions.
+        from django.core.cache import cache
+        cache.delete('wagtail_site_root_paths')
+
     def test_serve(self):
         response = self.client.get('/events/christmas/')
 
@@ -135,6 +142,24 @@ class TestServeView(TestCase):
         c = Client()
         response = c.get('/christmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
+
+    def test_serve_with_custom_context(self):
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+
+        # should render the whole page
+        self.assertContains(response, '<h1>Events</h1>')
+
+        # response should contain data from the custom 'events' context variable
+        self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
+
+    def test_ajax_response(self):
+        response = self.client.get('/events/', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
+        # should only render the content of includes/event_listing.html, not the whole page
+        self.assertNotContains(response, '<h1>Events</h1>')
+        self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
 
 class TestPagePermission(TestCase):

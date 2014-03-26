@@ -180,3 +180,19 @@ EventPage.promote_panels = [
     MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
     ImageChooserPanel('feed_image'),
 ]
+
+
+# Event index (has a separate AJAX template, and a custom template context)
+class EventIndex(Page):
+    intro = RichTextField(blank=True)
+    ajax_template = 'tests/includes/event_listing.html'
+
+    def get_context(self, request):
+        context = super(EventIndex, self).get_context(request)
+        context['events'] = EventPage.objects.filter(live=True)
+        return context
+
+EventIndex.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('intro', classname="full"),
+]

@@ -43,7 +43,7 @@
         "show_in_menus": true,
         "live": true,
         "depth": 3,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["tests", "eventindex"],
         "path": "000100010001",
         "url_path": "/home/events/",
         "slug": "events"
@@ -51,9 +51,9 @@
 },
 {
     "pk": 3,
-    "model": "tests.simplepage",
+    "model": "tests.eventindex",
     "fields": {
-        "content": "Look at our lovely events."
+        "intro": "Look at our lovely events."
     }
 },
 
