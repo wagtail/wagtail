@@ -16,14 +16,14 @@ class BaseImageBackend(object):
         which is a tuple with the width and height of the image and a format
         attribute with the format of the image.
         """
-        raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
+        raise NotImplementedError('subclasses of BaseImageBackend must provide an open_image() method')
         
     
     def save_image(self, image, output):
         """
         Save the image to the output
         """
-        raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
+        raise NotImplementedError('subclasses of BaseImageBackend must provide a save_image() method')
         
     def resize(self, image, size):
         """
@@ -34,7 +34,7 @@ class BaseImageBackend(object):
 
 
     def crop_to_centre(self, image, size):
-        raise NotImplementedError('subclasses of BaseImageBackend must provide an crop_to_centre() method')
+        raise NotImplementedError('subclasses of BaseImageBackend must provide a crop_to_centre() method')
 
 
     def resize_to_max(self, image, size):
