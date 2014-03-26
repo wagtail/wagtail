@@ -39,6 +39,13 @@
     and include it in wagtailadmin/js/vendor/
 {% endcomment %}
 {% get_localized_datepicker_js %}
+
+{% comment %}
+    Additional js from widgets media. Allows for custom widgets in admin panel.
+    Can be used for TODO above (including image-choser.js at wagtailimages)
+{% endcomment %}
+{{ edit_handler.form.media.js }}
+
 <script>
     window.chooserUrls = {
         'documentChooser': '{% url "wagtaildocs_chooser" %}',
@@ -47,10 +54,10 @@
         'pageChooser': '{% url "wagtailadmin_choose_page" %}',
         'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
     };
-    
+
     {% get_date_format_override as format_override %}
     window.overrideDateInputFormat ='{{ format_override }}';
-    
+
     (function() {
         function fixPrefix(str) {return str;}
 
