@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
+import unittest
+
 from wagtail.tests.utils import login
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
@@ -118,6 +120,13 @@ class TestRenditions(TestCase):
 
 class TestRenditionsWand(TestCase):
     def setUp(self):
+        try:
+            import wand
+        except ImportError:
+            # skip these tests if Wand is not installed
+            raise unittest.SkipTest(
+                "Skipping image backend tests for wand, as wand is not installed")
+
         # Create an image for running tests on
         self.image = Image.objects.create(
             title="Test image",
