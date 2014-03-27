@@ -41,16 +41,21 @@ setup(
     install_requires=[
         "Django>=1.6.2,<1.7",
         "South>=0.8.4",
-        "django-compressor>=1.3",
-        "django-libsass>=0.1",
-        "django-modelcluster>=0.1",
         "django-taggit>=0.11.2",
         "Pillow>=2.3.0",
         "beautifulsoup4>=4.3.2",
         "lxml>=3.3.0",
         'Unidecode>=0.04.14',
-        "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
         "six==1.6.1",
+
+        # These dependencies have python 3 support but have not yet released a python 3 compatible version
+        # These will be installed separately using a pip requirements.txt file
+        #"django-compressor>=1.3",
+        #"django-libsass>=0.1",
+        #"django-modelcluster>=0.1",
+
+        # django-compressor gets confused if we have lxml but not BS3 installed
+        #"BeautifulSoup==3.2.1", Not Python 3 compatible
     ],
     zip_safe=False,
 )
