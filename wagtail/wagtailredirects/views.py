@@ -8,10 +8,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 
-import models
+from .models import Redirect
 
 
-REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
+REDIRECT_EDIT_HANDLER = ObjectList(Redirect.content_panels)
 
 
 @permission_required('wagtailredirects.change_redirect')
@@ -21,7 +21,7 @@ def index(request):
     query_string = request.GET.get('q', "")
     ordering = request.GET.get('ordering', 'old_path')
 
-    redirects = models.Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
+    redirects = Redirect.get_for_site(site=request.site).prefetch_related('redirect_page')
 
     # Search
     if query_string:
@@ -61,9 +61,9 @@ def index(request):
 
 @permission_required('wagtailredirects.change_redirect')
 def edit(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+    theredirect = get_object_or_404(Redirect, id=redirect_id)
 
-    form_class = REDIRECT_EDIT_HANDLER.get_form_class(models.Redirect)
+    form_class = REDIRECT_EDIT_HANDLER.get_form_class(Redirect)
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
@@ -85,7 +85,7 @@ def edit(request, redirect_id):
 
 @permission_required('wagtailredirects.change_redirect')
 def delete(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+    theredirect = get_object_or_404(Redirect, id=redirect_id)
 
     if request.POST:
         theredirect.delete()
@@ -99,9 +99,9 @@ def delete(request, redirect_id):
 
 @permission_required('wagtailredirects.change_redirect')
 def add(request):
-    theredirect = models.Redirect()
+    theredirect = Redirect()
 
-    form_class = REDIRECT_EDIT_HANDLER.get_form_class(models.Redirect)
+    form_class = REDIRECT_EDIT_HANDLER.get_form_class(Redirect)
     if request.POST:
         form = form_class(request.POST, request.FILES)
         if form.is_valid():

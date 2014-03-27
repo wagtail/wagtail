@@ -7,7 +7,7 @@ from django.utils import six
 import sys
 from django.conf import settings
 
-from base import InvalidImageBackendError
+from .base import InvalidImageBackendError
 
 # Pinched from django 1.7 source code.
 # TODO: Replace this with "from django.utils.module_loading import import_string"

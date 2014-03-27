@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from indexed import Indexed
+from .indexed import Indexed
 import datetime
 import string
 

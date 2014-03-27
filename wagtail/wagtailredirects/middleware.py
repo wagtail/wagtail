@@ -1,6 +1,6 @@
 from django import http
 
-import models
+from .models import Redirect
 
 
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py
@@ -11,11 +11,11 @@ class RedirectMiddleware(object):
             return response
 
         # Get the path
-        path = models.Redirect.normalise_path(request.get_full_path())
+        path = Redirect.normalise_path(request.get_full_path())
 
         # Find redirect
         try:
-            redirect = models.Redirect.get_for_site(request.site).get(old_path=path)
+            redirect = Redirect.get_for_site(request.site).get(old_path=path)
 
             if redirect.is_permanent:
                 return http.HttpResponsePermanentRedirect(redirect.link)
