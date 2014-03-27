@@ -4,6 +4,7 @@ from six import BytesIO
 from taggit.managers import TaggableManager
 
 from django.core.files import File
+from django.utils.encoding import python_2_unicode_compatible
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.db.models.signals import pre_delete
@@ -19,6 +20,7 @@ from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 
 
+@python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
 
@@ -57,7 +59,7 @@ class AbstractImage(models.Model, TagSearchable):
         },
     }
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_rendition(self, filter):

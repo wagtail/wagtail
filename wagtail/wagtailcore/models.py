@@ -5,6 +5,7 @@ import six
 
 from modelcluster.models import ClusterableModel
 
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
@@ -33,6 +34,7 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname)
 
 
+@python_2_unicode_compatible
 class Site(models.Model):
     hostname = models.CharField(max_length=255, unique=True, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
@@ -42,7 +44,7 @@ class Site(models.Model):
     def natural_key(self):
         return (self.hostname,)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
@@ -165,6 +167,7 @@ class PageBase(models.base.ModelBase):
             LEAF_PAGE_MODEL_CLASSES.append(cls)
 
 
+@python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase), MP_Node, ClusterableModel, Indexed):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
@@ -204,7 +207,7 @@ class Page(six.with_metaclass(PageBase), MP_Node, ClusterableModel, Indexed):
             # created as
             self.content_type = ContentType.objects.get_for_model(self)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     # by default pages do not allow any kind of subpages

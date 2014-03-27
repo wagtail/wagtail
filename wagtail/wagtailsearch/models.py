@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from .indexed import Indexed
 import datetime
 import string
 
 
+@python_2_unicode_compatible
 class Query(models.Model):
     query_string = models.CharField(max_length=255, unique=True)
 
@@ -22,7 +24,7 @@ class Query(models.Model):
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.query_string
 
     @property
