@@ -3,7 +3,7 @@ A generic HTML whitelisting engine, designed to accommodate subclassing to overr
 specific rules.
 """
 from bs4 import BeautifulSoup, NavigableString, Tag
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
