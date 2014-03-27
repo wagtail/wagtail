@@ -1,3 +1,4 @@
+import six
 from django import template
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
@@ -34,7 +35,7 @@ def get_wagtailadmin_tab_urls():
         (key, value[2].get("title", key))
         for key, value
         in resolver.reverse_dict.items()
-        if isinstance(key, basestring) and key.startswith('wagtailadmin_tab_')
+        if isinstance(key, six.string_types) and key.startswith('wagtailadmin_tab_')
     ]
 
 

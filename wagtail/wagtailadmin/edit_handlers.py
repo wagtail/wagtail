@@ -360,7 +360,7 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = [
-            unicode(self.form[field_name])
+            str(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]

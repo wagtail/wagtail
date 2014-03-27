@@ -35,7 +35,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
 
     snippet_json = json.dumps({
         'id': item.id,
-        'string': unicode(item),
+        'string': str(item),
     })
 
     return render_modal_workflow(
