@@ -1,5 +1,6 @@
 import warnings
 
+import six
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
@@ -256,9 +257,7 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class Page(MP_Node, ClusterableModel, Indexed):
-    __metaclass__ = PageBase
-
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
