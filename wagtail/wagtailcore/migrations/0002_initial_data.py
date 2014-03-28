@@ -5,6 +5,9 @@ from south.v2 import DataMigration
 from django.db import models, connection
 from django.db.transaction import set_autocommit
 
+from wagtail.wagtailcore.compat import AUTH_USER_MODEL, AUTH_USER_MODEL_NAME
+
+
 class Migration(DataMigration):
 
     def forwards(self, orm):
@@ -71,8 +74,8 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
+        AUTH_USER_MODEL: {
+            'Meta': {'object_name': AUTH_USER_MODEL_NAME},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
@@ -109,7 +112,7 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'live': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'numchild': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_pages'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_pages'", 'null': 'True', 'to': u"orm['%s']" % AUTH_USER_MODEL}),
             'path': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'search_description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'seo_title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -125,7 +128,7 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'page': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'revisions'", 'to': u"orm['wagtailcore.Page']"}),
             'submitted_for_moderation': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['%s']" % AUTH_USER_MODEL, 'null': 'True', 'blank': 'True'})
         },
         u'wagtailcore.site': {
             'Meta': {'object_name': 'Site'},
