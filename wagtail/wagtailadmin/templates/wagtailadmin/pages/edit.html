@@ -10,7 +10,7 @@
         {% if not page.get_parent.is_root %}
             <ul class="breadcrumb single">
                 {% if not page.get_parent.get_parent.is_root %}
-                    <li><a href="{% url 'wagtailadmin_explore' page.get_parent.get_parent.id %}">...</a></li>
+                    <li><a href="{% url 'wagtailadmin_explore' page.get_parent.get_parent.id %}" title="{{ page.get_parent.get_parent.title }}">...</a></li>
                 {% endif %}                  
                 <li><a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a></li>
             </ul>
