@@ -18,6 +18,7 @@ def render_edit_frame(request, context):
 
     # Render the frame to contain the userbar items
     return render_to_string('wagtailadmin/userbar/frame.html', {
+        'request': request,
         'page': context,
         'revision_id': revision_id
     })
