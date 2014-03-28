@@ -22,10 +22,10 @@
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small" target="_blank">{% trans "Edit" %}</a></li>
                                     {% if revision.page.has_unpublished_changes %}
-                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" class="button button-small" target="_blank">{% trans 'View draft' %}</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" class="button button-small" target="_blank">{% trans 'Draft' %}</a></li>
                                     {% endif %}
                                     {% if revision.page.live %}
-                                        <li><a href="{{ revision.page.url }}" class="button button-small" target="_blank">{% trans 'View live' %}</a></li>
+                                        <li><a href="{{ revision.page.url }}" class="button button-small" target="_blank">{% trans 'Live' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>
