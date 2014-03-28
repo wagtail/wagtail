@@ -6,6 +6,28 @@
     margin-bottom:10em;
 }
 
+.page-editor header {
+    
+}
+.page-editor .breadcrumb{
+    margin-top:-1.8em;
+    margin-bottom:2em;
+}
+.page-editor .modal .breadcrumb{
+    margin:0;
+    background-color:transparent;
+
+    a{
+        color:$color-grey-2;
+    }
+    li:hover{
+        background-color:$color-grey-4;
+    }
+    .home{
+        padding-left:0;
+    }
+}
+
 .objects{
     background:url("#{$static-root}bg-dark-diag.svg");
 }
@@ -86,7 +108,7 @@
             z-index:2;
             font-size:2em;
             top:0px;
-            line-height:1.6em;
+            line-height:1.8em;
             left:0px;
             width:1.7em;
             opacity:0.15;

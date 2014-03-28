@@ -3,10 +3,10 @@
 {% block titletag %}{% trans "Add editor's pick" %}{% endblock %}
 {% block content %}
     {% trans "Add editor's pick" as add_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="pick" %}
 
     <div class="nice-padding">
-        {% blocktrans %}
+        {% blocktrans %}s
         <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like "<em>giving</em>".</p>
         {% endblocktrans %}
         {% blocktrans %}

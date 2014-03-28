@@ -4,7 +4,7 @@
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block content %}
     {% trans "Move" as move_str %}
-    {% include "wagtailadmin/shared/header.html" with title=move_str subtitle=page_to_move.title %}
+    {% include "wagtailadmin/shared/header.html" with title=move_str subtitle=page_to_move.title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         {% if page_to_move.is_leaf %}

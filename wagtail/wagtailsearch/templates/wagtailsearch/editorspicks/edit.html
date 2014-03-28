@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
 
     <form action="{% url 'wagtailsearch_editorspicks_edit' query.id %}" method="POST" class="nice-padding">
         {% csrf_token %}

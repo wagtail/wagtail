@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
@@ -12,6 +13,7 @@ from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 User = get_user_model()
 
 @permission_required('auth.change_user')
+@vary_on_headers('X-Requested-With')
 def index(request):
     q = None
     p = request.GET.get("p", 1)

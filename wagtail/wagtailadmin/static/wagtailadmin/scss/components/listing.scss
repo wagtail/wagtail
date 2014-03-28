@@ -19,7 +19,7 @@ ul.listing{
     }
    
     td, th{
-        padding:1.5em 1em;
+        padding:1.2em 1em;
     }
 
     &.small td, th{
@@ -118,7 +118,6 @@ ul.listing{
         font-size:1em;
     }
 
-
     .divider{
         text-transform:uppercase;
         font-size:0.8em;
@@ -132,70 +131,9 @@ ul.listing{
 
     &.full-width .divider td{
         padding-left:20px;
-    }
+    }   
 
-    .index {
-        background-color:$color-grey-4;
-
-        .title h2{
-            font-size:1.2em;
-            opacity:1;
-            a{
-                @include transition(opacity 0.2s ease);
-            }
-            a:hover{
-                opacity:0.7;
-            }
-        }
-        a{
-            color:auto;
-        }
-        .actions{
-            margin-top:1.8em;
-            
-            li{
-                border-color:$color-teal-darker;
-            }
-            a{
-                color:white;
-
-                &:hover{
-                    color:$color-teal-dark;
-                }
-            }
-
-            .button{
-                background-color:$color-teal-darker;
-
-                &:hover{
-                    color:white;
-                    background:$color-teal-dark;
-                }
-            }
-        }
-    }
-
-    .page-explorer & .index{
-        color:white;
-        background-color:$color-header-bg;
-
-        .title{
-            padding-top:1.3em;
-            padding-bottom:1.3em;
-
-            h2{
-                color:white;
-                font-size:1.8em;
-                font-weight:600;
-
-                a:hover{
-                    color:white;
-                }
-            }
-        }
-    }
-
-
+   
     /* specific columns */
     .bulk{
         padding-right:0;
@@ -213,8 +151,8 @@ ul.listing{
             margin-top:3px;
             
         }
-       
     }
+
     .title{
         h2{
             text-transform:none;
@@ -236,31 +174,33 @@ ul.listing{
     }
 
     .actions{
+        @include clearfix();
         margin-top:0.8em;
         text-transform:uppercase;
         font-size:0.85em;
+        margin-bottom:-0.5em;
 
         a{
             text-decoration:none;
         }    
 
         li{
-            display:inline-block;
-            padding:0 0.5em 0 0.8em;
-            border-left:1px solid $color-grey-3;
+            float:left;
+            padding:0 0.5em 0 0;
+            margin:0 0 0.5em 0;
             line-height:1em;
-            
-            &:first-child{
-                border:0;
-                padding-left:0;
-            }
-            &.no-border{
-                border:0;
-            }
         }
+    }
 
-        .button-small{
-            margin-right:1em;
+    .button{
+        color:$color-teal;
+        border-color:$color-grey-3;
+        background:transparent;
+
+        &:hover{
+            border-color:$color-teal;
+            background-color:$color-teal;
+            color:white;
         }
     }
 
@@ -279,21 +219,25 @@ ul.listing{
     }
     .children a,
     .no-children a{
-        color:$color-grey-3;
         display:block;
         padding:2em 0;       
     }
 
     .children a{
+        color:$color-teal;
         display:block;
         &:before{
             font-size:3rem;
         }
     }
     .no-children a{
+        color:$color-grey-3;
         display:block;
         &:before{
             font-size:1.5rem;
+        }
+        &:hover{
+            color:$color-teal;
         }
     }
     &.small .children a:before{
@@ -352,7 +296,6 @@ ul.listing{
         }
     }
 
-
     td.children:hover{
         background-color:$color-teal;
 
@@ -368,6 +311,41 @@ ul.listing{
     .inactive h2{
         opacity:0.5;
     }
+
+    .index {
+        background-color:$color-grey-4;
+
+        .title h2{
+            font-size:1.2em;
+            opacity:1;
+            a{
+                @include transition(opacity 0.2s ease);
+            }
+            a:hover{
+                opacity:0.7;
+            }
+        }
+        a{
+            color:auto;
+        }
+        .actions{
+            margin-top:1em;     
+        }
+        .button{
+            color:white;
+            border-color:$color-teal-darker;
+
+            &:hover{
+                color:white;
+                background:$color-teal-darker;
+            }
+
+            &.bicolor{
+                background:$color-teal-darker;
+            }
+        }
+
+    }
 }
 ul.listing{
     border-top:1px dashed $color-input-border;
@@ -375,6 +353,44 @@ ul.listing{
 }
 table.listing{
     width:100%;
+}
+
+
+ /* explorer specific tweaks */
+.page-explorer .listing {
+    .index{
+        color:white;
+        background-color:$color-header-bg;
+
+        td{
+            padding-top:1.5em;
+            padding-bottom:1.5em;
+        }
+
+        .title{
+            h2{
+                color:white;
+                font-size:1.8em;
+                font-weight:600;
+
+                a:hover{
+                    color:white;
+                }
+            }
+        }
+    }
+
+    .table-headers{
+        .ord{
+            padding-right:0;
+        }
+        .title{
+            padding-left:0;
+        }
+    }
+    tbody .title{
+        padding-left:0;
+    }
 }
 
 .pagination{
@@ -404,6 +420,35 @@ table.listing{
     border-top: 1px dashed #d9d9d9;
     padding:2em 50px 0 50px;
 }
+
+
+/* listing filters */
+
+.listing-filter{
+    @include clearfix();
+    background-color:$color-grey-5;
+    border-width:1px 0;
+    margin:3em 0;
+}
+.filter-title{
+    float:left;
+    text-transform:uppercase;
+    font-size:0.95em;
+    padding:1em;
+    margin:0 1em 0 0 ;
+    background-color:$color-grey-4;
+}
+.filter-options{
+    @include unlist();
+    @include clearfix();
+    overflow:hidden;
+
+    li{
+        padding:0.8em;
+        float:left;
+    }
+}
+
 
 @media screen and (min-width: $breakpoint-mobile){
     .listing{
@@ -469,7 +514,6 @@ table.listing{
             border-color:transparent;
         }
         .no-children a{
-            color:$color-teal;
             opacity:0;
         }
         .no-children:hover{

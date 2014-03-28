@@ -16,10 +16,10 @@
         </li>
         {% if request.user.is_superuser %} {# for now, 'More' links will be superuser-only #}
             <li class="more">
-                <a href="#" class="icon icon-arrow-down">{% trans 'More' %}</a>
+                <a href="#" class="icon icon-arrow-down" data-altstate="{% trans 'Less' %}">{% trans 'More' %}</a>
                 <ul>
                     <li class="menu-redirects"><a href="{% url 'wagtailredirects_index' %}" class="icon icon-redirect">{% trans 'Redirects' %}</a></li>
-                    <li class="menu-editorspicks"><a href="{% url 'wagtailsearch_editorspicks_index' %}">{% trans 'Editors Picks' %}</a></li>
+                    <li class="menu-editorspicks"><a href="{% url 'wagtailsearch_editorspicks_index' %}" class="icon icon-pick">{% trans 'Editors Picks' %}</a></li>
                     {% get_wagtailadmin_tab_urls as wagtailadmin_tab_urls %}
                     {% for name, title in wagtailadmin_tab_urls %}
                         <li class="menu-{{ title|slugify }}"><a href="{% url name %}" class="icon icon-{{name}}">{{ title }}</a></li>

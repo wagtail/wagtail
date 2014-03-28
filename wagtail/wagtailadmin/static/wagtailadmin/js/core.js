@@ -94,6 +94,12 @@ $(function(){
     });
 
     $(".nav-main .more > a").bind('click keydown', function(){
+        var currentAlt = $(this).data('altstate');
+        var newAlt = $(this).html();
+
+        $(this).html(currentAlt);
+        $(this).data('altstate', newAlt);
+        $(this).toggleClass('icon-arrow-up icon-arrow-down')
         $(this).parent().find('ul').toggle('fast');
         return false;
     });
@@ -133,7 +139,8 @@ $(function(){
                 success: function(data, status) {
                     if (index > search_current_index) {
                         search_current_index = index;
-                        $(window.headerSearch.targetOutput).html(data);
+                        $(window.headerSearch.targetOutput).html(data).slideDown(800);
+                        window.history.pushState(null, "Search results", "?q=" + $(window.headerSearch.termInput).val());
                     }
                 },
                 complete: function(){

@@ -2,7 +2,7 @@
 {% if not is_searching %}
     <h2>{% trans "Explorer" %}</h2>
     <ul class="breadcrumb">
-        <li><a href="{% url 'wagtailadmin_explore_root' %}?{{ querystring }}" class="icon icon-home text-replace navigate-pages">{% trans "Home" %}</a></li>
+        <li class="home"><a href="{% url 'wagtailadmin_explore_root' %}?{{ querystring }}" class="icon icon-home text-replace navigate-pages">{% trans "Home" %}</a></li>
         {% for page in parent_page.get_ancestors %}
             <li><a href="{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}" class="navigate-pages" >{{ page.title }}</a></li>
         {% endfor %}

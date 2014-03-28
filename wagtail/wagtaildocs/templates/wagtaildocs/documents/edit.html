@@ -13,7 +13,7 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse"  %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtaildocs_edit_document' document.id %}" method="POST" enctype="multipart/form-data">

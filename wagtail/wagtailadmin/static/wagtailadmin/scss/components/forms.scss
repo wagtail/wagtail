@@ -164,7 +164,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     -moz-box-sizing:content-box;
 
     &.button-small{
-        font-size:0.95em;
+        padding:0.55em 0.8em;
+        font-size:1em;
     }
 
     &.button-secondary{
@@ -237,6 +238,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-small.bicolor{
+        padding: 0.65em 0.8em;
         padding-left:3.5em;
 
         &:before{
@@ -294,7 +296,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include border-radius(2px);
         
         li{
-            background-color: $color-grey-2;
+            background-color: $color-teal;
             float:left;
             cursor:pointer;
             margin-right:1px;
@@ -310,9 +312,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
         .icon:before{
             line-height:2em;
+            width:2em;
         }
         .icon:hover{
-            background-color:$color-teal;
+            background-color:$color-teal-darker;
 
             &:before{
                 color:white;
@@ -575,12 +578,14 @@ ul.tagit li.tagit-choice-editable{
         border-bottom:1px solid $color-grey-4;
     }
 
+    label{
+        display:none;
+    }
+
     .fields{
         position:relative;
+        clear:both;
 
-        .field label{
-            display:none;
-        }
         .field input{
             padding-left:3em;
 
@@ -632,7 +637,7 @@ ul.tagit li.tagit-choice-editable{
         }
     }
 
-    header &{
+    &.small{
         margin:0;
         padding:0;
         .fields{
@@ -670,7 +675,7 @@ fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
 }
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    @include transition(background-color 0.2s ease, color 0.2s ease);
+    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 .help{
     @include transition(opacity 0.2s ease);

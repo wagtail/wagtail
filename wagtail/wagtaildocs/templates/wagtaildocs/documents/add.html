@@ -13,7 +13,7 @@
 
 {% block content %}
     {% trans "Add document" as add_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_str  %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtaildocs_add_document' %}" method="POST" enctype="multipart/form-data">

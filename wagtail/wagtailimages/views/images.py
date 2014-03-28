@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -12,6 +13,7 @@ from wagtail.wagtailimages.forms import get_image_form
 
 
 @permission_required('wagtailimages.add_image')
+@vary_on_headers('X-Requested-With')
 def index(request):
     Image = get_image_model()
 
