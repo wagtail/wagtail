@@ -1,7 +1,7 @@
 {% load image_tags ellipsistrim%}
 {% load i18n %}
 {% trans "Choose an image" as choose_str %}
-{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="image" %}
 
 {% if uploadform %}
     <ul class="tab-nav merged">

@@ -174,9 +174,11 @@ ul.listing{
     }
 
     .actions{
+        @include clearfix();
         margin-top:0.8em;
         text-transform:uppercase;
         font-size:0.85em;
+        margin-bottom:-0.5em;
 
         a{
             text-decoration:none;
@@ -217,21 +219,25 @@ ul.listing{
     }
     .children a,
     .no-children a{
-        color:$color-teal;
         display:block;
         padding:2em 0;       
     }
 
     .children a{
+        color:$color-teal;
         display:block;
         &:before{
             font-size:3rem;
         }
     }
     .no-children a{
+        color:$color-grey-3;
         display:block;
         &:before{
             font-size:1.5rem;
+        }
+        &:hover{
+            color:$color-teal;
         }
     }
     &.small .children a:before{
@@ -323,7 +329,7 @@ ul.listing{
             color:auto;
         }
         .actions{
-            margin-top:0.8em;     
+            margin-top:1em;     
         }
         .button{
             color:white;
@@ -356,10 +362,12 @@ table.listing{
         color:white;
         background-color:$color-header-bg;
 
-        .title{
-            padding-top:1.3em;
-            padding-bottom:1.3em;
+        td{
+            padding-top:1.5em;
+            padding-bottom:1.5em;
+        }
 
+        .title{
             h2{
                 color:white;
                 font-size:1.8em;
@@ -506,7 +514,6 @@ table.listing{
             border-color:transparent;
         }
         .no-children a{
-            color:$color-teal;
             opacity:0;
         }
         .no-children:hover{

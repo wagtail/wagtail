@@ -53,10 +53,10 @@
                                 <li><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}" class="button button-small">{% trans 'Edit' %}</a></li>
                             {% endif %}
                             {% if parent_page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_view_draft' parent_page.id %}" class="button button-small" target="_blank">{% trans 'View draft' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_view_draft' parent_page.id %}" class="button button-small" target="_blank">{% trans 'draft' %}</a></li>
                             {% endif %}
                             {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
-                                <li><a href="{{ parent_page.url }}" class="button button-small" target="_blank">{% trans 'View live' %}</a></li>
+                                <li><a href="{{ parent_page.url }}" class="button button-small" target="_blank">{% trans 'live' %}</a></li>
                             {% endif %}
                             {% if parent_page_perms.can_move and 'move' not in hide_actions|default:'' %}
                                 <li><a href="{% url 'wagtailadmin_pages_move' parent_page.id %}" class="button button-small">{% trans 'Move' %}</a></li>
@@ -83,7 +83,6 @@
                 </td>
                 <td></td>
             </tr>
-            <tr class="divider"><td colspan="100%">Child pages</td></tr>
         {% endif %}
     
         {% if not moving and not choosing %}
@@ -139,7 +138,7 @@
                     {% if orderable %}
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
-                    <td class="title">
+                    <td class="title" valign="top">
                         <h2>
                             {% if moving %}
                                 {% if page.can_choose %}
@@ -167,10 +166,10 @@
                                     <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" class="button button-small" title="{% trans 'Edit this page' %}">{% trans 'Edit' %}</a></li>
                                 {% endif %}
                                 {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" class="button button-small" target="_blank">{% trans 'View draft' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" class="button button-small" target="_blank">{% trans 'draft' %}</a></li>
                                 {% endif %}
                                 {% if page.live and 'view_live' not in hide_actions|default:'' %}
-                                    <li><a href="{{ page.url }}" class="button button-small" target="_blank">{% trans 'View live' %}</a></li>
+                                    <li><a href="{{ page.url }}" class="button button-small" target="_blank">{% trans 'live' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_move and 'move' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_move' page.id %}" class="button button-small">{% trans 'Move' %}</a></li>
@@ -189,7 +188,7 @@
                     </td>
                     {% if show_parent %}
                         {% with page.get_parent as parent %}
-                            <td class="parent">
+                            <td class="parent" valign="top">
                                 {% if parent %}
                                     <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.title }}</a>
                                 {% endif %}

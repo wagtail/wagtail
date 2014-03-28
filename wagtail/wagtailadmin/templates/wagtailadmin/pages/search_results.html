@@ -4,9 +4,9 @@
         {% if is_searching %}
             <h2>
                 {% blocktrans count counter=pages.paginator.count %}
-                    There is one page match
+                    There is one matching page
                 {% plural %}
-                    There are {{ counter }} page matches
+                    There are {{ counter }} matching pages
                 {% endblocktrans %}
             </h2>
         {% endif %}

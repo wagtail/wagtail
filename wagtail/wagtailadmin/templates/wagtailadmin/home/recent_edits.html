@@ -17,7 +17,7 @@
                 <tbody>
                     {% for revision in last_edits %}
                         <tr>
-                            <td class="title">
+                            <td class="title" valign="top">
                                 <h2><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a></h2>
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small" target="_blank">{% trans "Edit" %}</a></li>
@@ -29,8 +29,8 @@
                                     {% endif %}
                                 </ul>
                             </td>
-                            <td><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }}</div></td>
-                            <td>
+                            <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }}</div></td>
+                            <td valign="top">
                                 {% if revision.page.live %}
                                     <a href="{{ revision.page.url }}" target="_blank" class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</a>
                                 {% else %}

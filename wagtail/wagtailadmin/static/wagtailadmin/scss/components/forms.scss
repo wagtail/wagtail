@@ -578,12 +578,14 @@ ul.tagit li.tagit-choice-editable{
         border-bottom:1px solid $color-grey-4;
     }
 
+    label{
+        display:none;
+    }
+
     .fields{
         position:relative;
+        clear:both;
 
-        .field label{
-            display:none;
-        }
         .field input{
             padding-left:3em;
 
@@ -635,7 +637,7 @@ ul.tagit li.tagit-choice-editable{
         }
     }
 
-    header &{
+    &.small{
         margin:0;
         padding:0;
         .fields{

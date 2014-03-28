@@ -7,6 +7,15 @@
 
 {% block content %}
     <header class="merged tab-merged nice-padding">
+        {% if not page.get_parent.is_root %}
+            <ul class="breadcrumb single">
+                {% if not page.get_parent.get_parent.is_root %}
+                    <li><a href="{% url 'wagtailadmin_explore' page.get_parent.get_parent.id %}">...</a></li>
+                {% endif %}                  
+                <li><a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a></li>
+            </ul>
+        {% endif %}
+
         <div class="row row-flush">
             <div class="left col9">
                 <h1>{% blocktrans with title=page.title %}Editing <span>{{ title }}</span>{% endblocktrans %}</h1>

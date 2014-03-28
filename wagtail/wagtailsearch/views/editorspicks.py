@@ -4,12 +4,14 @@ from django.contrib import messages
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
 
 
 @permission_required('wagtailadmin.access_admin')
+@vary_on_headers('X-Requested-With')
 def index(request):
     page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")

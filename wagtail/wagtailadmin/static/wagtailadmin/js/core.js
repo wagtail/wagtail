@@ -139,7 +139,8 @@ $(function(){
                 success: function(data, status) {
                     if (index > search_current_index) {
                         search_current_index = index;
-                        $(window.headerSearch.targetOutput).html(data);
+                        $(window.headerSearch.targetOutput).html(data).slideDown(800);
+                        window.history.pushState(null, "Search results", "?q=" + $(window.headerSearch.termInput).val());
                     }
                 },
                 complete: function(){
