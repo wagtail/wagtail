@@ -13,7 +13,6 @@ urlpatterns = patterns(
             'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
         } , name='wagtailadmin_login'
     ),
-    url(r'^logout/$', 'logout', {'next_page': 'wagtailadmin_login'}),
 
     # Password reset
     url(
@@ -79,6 +78,7 @@ urlpatterns += patterns(
 
     url(r'^account/$', 'account.account', name='wagtailadmin_account'),
     url(r'^account/change_password/$', 'account.change_password', name='wagtailadmin_account_change_password'),
+    url(r'^logout/$', 'account.logout', name='wagtailadmin_logout'),
 
     url(r'^userbar/(\d+)/$', 'userbar.for_frontend', name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', 'userbar.for_moderation', name='wagtailadmin_userbar_moderation'),

@@ -12,7 +12,7 @@
         {% endcomment %}
         <li class="footer">
             <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Account settings' %}">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>
-            <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "Log out" %}</a>
+            <a href="{% url 'wagtailadmin_logout' %}">{% trans "Log out" %}</a>
         </li>
         {% if request.user.is_superuser %} {# for now, 'More' links will be superuser-only #}
             <li class="more">
