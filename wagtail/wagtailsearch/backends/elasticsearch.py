@@ -124,14 +124,21 @@ class ElasticSearch(BaseSearch):
         # Get type name
         content_type = model.indexed_get_content_type()
 
-        # Get indexed fields
-        indexed_fields = model.indexed_get_indexed_fields()
-
         # Make field list
         fields = dict({
             "pk": dict(type="string", index="not_analyzed", store="yes"),
             "content_type": dict(type="string"),
-        }.items() + indexed_fields.items())
+        }.items())
+
+        # Add indexed fields
+        for field_name, config in model.indexed_get_search_fields().items():
+            if config is not None:
+                fields[field_name] = config
+            else:
+                fields[field_name] = dict(
+                    type='string',
+                    index='not_analyzed',
+                )
 
         # Put mapping
         self.es.put_mapping(self.es_index, content_type, {

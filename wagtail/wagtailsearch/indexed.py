@@ -32,25 +32,36 @@ class Indexed(object):
             return (cls._meta.app_label + "_" + cls.__name__).lower()
 
     @classmethod
-    def indexed_get_indexed_fields(cls):
-        # Get indexed fields for this class as dictionary
-        indexed_fields = cls.indexed_fields
-        if isinstance(indexed_fields, tuple):
-            indexed_fields = list(indexed_fields)
-        if isinstance(indexed_fields, basestring):
-            indexed_fields = [indexed_fields]
-        if isinstance(indexed_fields, list):
-            indexed_fields = {field: dict(type="string") for field in indexed_fields}
-        if not isinstance(indexed_fields, dict):
+    def indexed_get_search_fields(cls):
+        # Get search fields for this class as a dictionary
+        search_fields = list(cls.search_fields or cls.indexed_fields)
+        if isinstance(search_fields, tuple):
+            search_fields = list(search_fields)
+        if isinstance(search_fields, basestring):
+            search_fields = [search_fields]
+        if isinstance(search_fields, list):
+            search_fields = {field: {} for field in search_fields}
+        if not isinstance(search_fields, dict):
             raise ValueError()
 
-        # Get indexed fields for parent class
+        # Add other fields to list
+        if issubclass(cls, models.Model):
+            for field in cls._meta.local_concrete_fields:
+                search_fields[field.attname] = {}
+
+        # Set defaults
+        for field, config in search_fields.items():
+            if 'type' not in config:
+                config['type'] = 'string'
+            if 'boost' not in config:
+                config['boost'] = 1.0
+
+        # Get search fields for parent class
         parent = cls.indexed_get_parent(require_model=False)
         if parent:
             # Add parent fields into this list
-            parent_indexed_fields = parent.indexed_get_indexed_fields()
-            indexed_fields = dict(parent_indexed_fields.items() + indexed_fields.items())
-        return indexed_fields
+            search_fields = dict(parent.indexed_get_search_fields().items() + search_fields.items())
+        return search_fields
 
     def indexed_get_document_id(self):
         return self.indexed_get_toplevel_content_type() + ":" + str(self.pk)
@@ -58,7 +69,7 @@ class Indexed(object):
     def indexed_build_document(self):
         # Get content type, indexed fields and id
         content_type = self.indexed_get_content_type()
-        indexed_fields = self.indexed_get_indexed_fields()
+        indexed_fields = self.indexed_get_search_fields()
         doc_id = self.indexed_get_document_id()
 
         # Build document
@@ -72,6 +83,10 @@ class Indexed(object):
                     # Call it
                     doc[field] = doc[field]()
 
+                # Make sure field value is a string
+                doc[field] = unicode(doc[field])
+
         return doc
 
+    search_fields = ()
     indexed_fields = ()
