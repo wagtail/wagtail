@@ -14,6 +14,7 @@ from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.query import PageQuerySet
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
@@ -137,6 +138,8 @@ class PageBase(models.base.ModelBase):
             # this is an internal class built for Django's deferred-attribute mechanism;
             # don't proceed with all this page type registration stuff
             return
+
+        cls.query = PageQuerySet(model=cls)
 
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
