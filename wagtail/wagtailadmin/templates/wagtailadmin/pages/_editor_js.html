@@ -33,6 +33,9 @@
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 {% endcompress %}
 
+{% comment %}
+    Put it outside compress to be sure that offline compression also works fine.
+{% endcomment %}
 {% get_localized_datepicker_js %}
 
 {% comment %}
