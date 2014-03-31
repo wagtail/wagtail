@@ -31,8 +31,9 @@
     <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
-    {% get_localized_datepicker_js %}
 {% endcompress %}
+
+{% get_localized_datepicker_js %}
 
 {% comment %}
     Additional js from widgets media. Allows for custom widgets in admin panel.
