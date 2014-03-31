@@ -46,7 +46,7 @@
                             </td>
                             <td valign="top">
                                 <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago </div>
-                                by {{ revision.user.get_full_name }}
+                                by {{ revision.user.get_full_name|default:revision.user.get_username }}
                             </td>                       
                         </tr>
                     {% endfor %}
