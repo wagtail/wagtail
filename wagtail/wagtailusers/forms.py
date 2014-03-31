@@ -1,7 +1,9 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
+
+User = get_user_model()
 
 
 # extend Django's UserCreationForm with an 'is_superuser' field
@@ -24,6 +26,22 @@ class UserCreationForm(BaseUserCreationForm):
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
+
+    def clean_username(self):
+        # Method copied from parent
+
+        username = self.cleaned_data["username"]
+        try:
+            # When called from BaseUserCreationForm, the method fails if using a AUTH_MODEL_MODEL,
+            # This is because the following line tries to perform a lookup on 
+            # the default "auth_user" table.
+            User._default_manager.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(
+            self.error_messages['duplicate_username'],
+            code='duplicate_username',
+        )
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
