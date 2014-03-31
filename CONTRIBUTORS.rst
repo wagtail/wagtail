@@ -21,6 +21,7 @@ Contributors
 * Lewis Cowper
 * Stephen Newey
 * Ryan Foster
+* v1kku
 
 Translators
 ===========
