@@ -13,6 +13,9 @@ from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 User = get_user_model()
 
+# Typically we would check the permission 'auth.change_user' for user
+# management actions, but this may vary according to the AUTH_USER_MODEL
+# setting
 change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
 
 
