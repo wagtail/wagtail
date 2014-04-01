@@ -21,4 +21,4 @@ def slugurl(context, slug):
     if page:
         return page.relative_url(context['request'].site)
     else:
-        return '#'
+        return None
