@@ -8,6 +8,7 @@ Changelog
  * Editor's guide documentation
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
+ * Added 'slugurl' template tag to output the URL of a page with a given slug
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
 

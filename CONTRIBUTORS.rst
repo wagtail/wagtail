@@ -22,6 +22,7 @@ Contributors
 * Stephen Newey
 * Ryan Foster
 * v1kku
+* Miguel Vieira
 
 Translators
 ===========
