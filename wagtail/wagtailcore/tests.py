@@ -162,6 +162,20 @@ class TestServeView(TestCase):
         self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
 
+class TestPageUrlTags(TestCase):
+    fixtures = ['test.json']
+
+    def test_pageurl_tag(self):
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
+
+    def test_slugurl_tag(self):
+        response = self.client.get('/events/christmas/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<a href="/events/">Back to events index</a>')
+
+
 class TestPagePermission(TestCase):
     fixtures = ['test.json']
 
