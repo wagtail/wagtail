@@ -10,3 +10,13 @@ def pageurl(context, page):
     current page, or absolute (http://example.com/foo/bar/) if not.
     """
     return page.relative_url(context['request'].site)
+
+@register.simple_tag(takes_context=True)
+def slugurl(context, slug):
+    """Returns the URL for the page that has the given slug."""
+    page = Page.objects.filter(slug=slug).first()
+
+    if page:
+        return page.relative_url(context['request'].site)
+    else:
+        return '#'
