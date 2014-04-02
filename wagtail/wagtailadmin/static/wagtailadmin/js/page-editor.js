@@ -28,7 +28,7 @@ function makeRichTextEditable(id) {
             'hallowagtailimage': {},
             'hallowagtailembeds': {},
             'hallowagtaillink': {},
-            'hallowagtaildoclink': {},
+            'hallowagtaildoclink': {}
         }
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
@@ -286,12 +286,32 @@ function initErrorDetection(){
     }
 }
 
+function initCollapsibleBlocks(){
+    $(".object.multi-field.collapsible").each(function(){
+        var $li = $(this);
+        var $fieldset = $li.find("fieldset");
+        if($li.hasClass("collapsed")){
+            $fieldset.hide();
+        }
+        $li.find("h2").click(function(){
+            if(!$li.hasClass("collapsed")){
+                $li.addClass("collapsed");
+                $fieldset.hide("slow");
+            }else{
+                $li.removeClass("collapsed");
+                $fieldset.show("show");
+            }
+        });
+    });
+}
+
 $(function() {
     initDateChoosers();
     initTimeChoosers();
     initSlugAutoPopulate();
     initSlugCleaning();
     initErrorDetection();
+    initCollapsibleBlocks();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);

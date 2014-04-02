@@ -134,7 +134,7 @@ img{
         margin:0;
         font-size:0.9em;
         -webkit-font-smoothing: auto;
-        
+
         span{
             text-transform:uppercase;
         }
@@ -161,7 +161,7 @@ img{
     }
 
     .nav-main{
-       
+
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -197,7 +197,7 @@ img{
                 a{
                     color:white;
                 }
-                
+
                 /*
                 &:after{
                     content: " ";
@@ -237,7 +237,7 @@ img{
 
         .more{
             border:0;
-            
+
             > a{
                 &:before{
                     margin-right:0.4em;
@@ -315,14 +315,14 @@ img{
                 }
                 input{
                     margin-top:0px;
-                    color:$color-grey-1; 
+                    color:$color-grey-1;
                 }
             }
         }
     }
 
     .js .nav-main .more ul{
-        display:none;       
+        display:none;
     }
 
     .explorer{
@@ -454,7 +454,7 @@ header{
         padding-top:0;
         padding-bottom:0;
     }
-    /* 
+    /*
     &.hasform h1{
         margin-top:0.2em;
     }
@@ -514,11 +514,11 @@ footer{
         line-height:3.5em;
         font-size:0.85em;
 
-        p{  
+        p{
             margin:0;
             margin-right:$grid-gutter-width;
             white-space: nowrap;
-        }        
+        }
     }
 }
 
@@ -550,12 +550,12 @@ footer{
         float: left;
         padding: 0.5em 1.3em;
         position: relative;
-        
+
         text-decoration: none;
         color: #fff;
         line-height:1em;
         white-space: nowrap;
-        
+
         line-height:1.5em;
 
         a, span{
@@ -586,13 +586,13 @@ footer{
             border-top: 1.2em solid transparent;
             border-bottom: 1.2em solid transparent;
         }
-        &:after {            
+        &:after {
             border-left: 1em solid $color-teal-darker;
             position: absolute; right: -1.2em; top: 0;
             z-index: 1;
             border:1em solid red;
         }
-        &:before {  
+        &:before {
             border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
         } */
@@ -601,12 +601,12 @@ footer{
             a{
                 color:white;
             }
-        }         
+        }
         &:hover:after {
             border-left-color: $color-teal-dark;
         }
 
-        &.home {         
+        &.home {
             a {
                 padding-right:0;
                 text-align:center;
@@ -624,13 +624,13 @@ footer{
                 }
             }
         }
-    } 
+    }
 
     header &  li{
-        &:before {  
+        &:before {
             border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
-        } 
+        }
     }
 
     &.single{
@@ -638,7 +638,7 @@ footer{
             white-space: nowrap;
             text-overflow:inherit;
             max-width:100%;
-        }      
+        }
     }
 }
 
@@ -737,8 +737,8 @@ footer, .logo{
         height:100%;
         width:$menu-width;
         margin-left: -$menu-width;
-        
-        .inner{ 
+
+        .inner{
             height:100%;
             position:fixed;
             width:$menu-width;
@@ -763,7 +763,7 @@ footer, .logo{
         border-top:0;
         background-color:none;
         padding-top:0;
-    } 
+    }
 
     #nav-toggle{
         display:none;
@@ -787,7 +787,7 @@ footer, .logo{
             margin:auto;
             text-align:center;
             margin-bottom:1em;
-        
+
             a{
                 padding:0 0 1em 0;
             }
@@ -813,7 +813,7 @@ footer, .logo{
         .content-wrapper{
             position:relative;
             transform: none;
-            -webkit-transform: none;       
+            -webkit-transform: none;
         }
         .nav-wrapper{
             margin-left: -$menu-width;
@@ -823,7 +823,7 @@ footer, .logo{
             width:$menu-width;
         }
     }
-  
+
     body.explorer-open {
         .nav-wrapper{
             width:$menu-width;
@@ -840,7 +840,7 @@ footer, .logo{
 
             position:relative;
         }
-    }    
+    }
 
     header{
         padding-top:1.5em;
@@ -936,7 +936,7 @@ footer,
 .logo{
     @include transition(all 0.2s ease);
 }
-.nav-wrapper{    
+.nav-wrapper{
     @include transition-transform(0.2s ease);
 }
 .nav-main a, a{
