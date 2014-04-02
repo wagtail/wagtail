@@ -15,11 +15,10 @@ def wagtailuserbar(context, current_page=None, items=None):
         return ''
 
     # Find page object
-    if not current_page:
-        if 'self' in context and isinstance(context['self'], Page):
-            current_page = context['self']
-        else:
-            return ''
+    if 'self' in context and isinstance(context['self'], Page) and context['self'].id is not None:
+        pass
+    else:
+        return ''
 
     # Render edit bird
     return userbar.render_edit_frame(request, context) or ''
