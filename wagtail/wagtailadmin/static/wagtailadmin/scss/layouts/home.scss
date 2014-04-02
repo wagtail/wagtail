@@ -35,10 +35,10 @@ header{
         @include clearfix();
         @include unlist();
         width:100%;
-    
+
         li{
             @include column(4);
-        
+
             &:before{
                 opacity:0.2;
                 font-size:6em;

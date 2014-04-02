@@ -7,7 +7,7 @@
 }
 
 .page-editor header {
-    
+
 }
 .page-editor .breadcrumb{
     margin-top:-1.8em;
@@ -31,7 +31,7 @@
 .objects{
     background:url("#{$static-root}bg-dark-diag.svg");
 }
-.object{  
+.object{
     position:relative;
     overflow:hidden;
     @include nice-padding();
@@ -42,7 +42,7 @@
 
     &.focused{
         border-color: darken($color-input-focus, 40%);
-    }        
+    }
 
     fieldset{
         padding-top:4em;
@@ -143,11 +143,11 @@
         .object-help{
             display:block;
         }
-        
+
         fieldset{
             display:block;
             float:none;
-            
+
 
             .help{
                 display:none;
@@ -160,11 +160,11 @@
         input, textarea, .richtext{
             @include nice-padding();
             @include border-radius(0px);
-            font-family:Bitter, Georgia, serif;           
+            font-family:Bitter, Georgia, serif;
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
-            line-height:1.6em;   
+            line-height:1.6em;
         }
 
         .richtext{
@@ -200,7 +200,7 @@
         padding-top:1.5em;
         padding-bottom:1.5em;
     }
-    
+
     .multiple{
         padding:4.5em 0 0 0;
 
@@ -249,7 +249,7 @@
                 line-height: 0;
                 overflow: visible;
                 display:block;
-            
+
                 &:before{
                     position:relative;
                     color:white;
@@ -267,7 +267,7 @@
             max-height:0px;
         }
     }
-}   
+}
 
 
 /* styles applied to an element as it is being reordered */

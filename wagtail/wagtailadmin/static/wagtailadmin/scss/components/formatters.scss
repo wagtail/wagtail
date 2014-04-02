@@ -123,7 +123,7 @@
     font-size:0.80em;
     margin:0 0.5em;
     background:white url("#{$static-root}bg-dark-diag.svg");
-    
+
     &.primary{
         color:$color-grey-2;
         border:1px solid $color-grey-2;
@@ -145,7 +145,7 @@ a.status-tag.primary:hover{
     line-height:2em;
     white-space: nowrap;
     @include border-radius(2px);
-    
+
 
     &:before{
         font-family:wagtail;
