@@ -1,11 +1,19 @@
+import warnings
+
 from django import template
+
 from wagtail.wagtailadmin.views import userbar
 from wagtail.wagtailcore.models import Page
 
 register = template.Library()
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, current_page=None, items=None):
+def wagtailuserbar(context, css_path=None):
+    if css_path is not None:
+        warnings.warn(
+            "Passing a CSS path to the wagtailuserbar tag is no longer required; use {% wagtailuserbar %} instead",
+            DeprecationWarning
+        )
 
     # Find request object
     request = context['request']
