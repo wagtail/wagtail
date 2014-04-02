@@ -22,7 +22,7 @@ function makeRichTextEditable(id) {
         plugins: {
             'halloformat': {},
             'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-            'hallolists': {}, 
+            'hallolists': {},
             'hallohr': {},
             'halloreundo': {},
             'hallowagtailimage': {},
@@ -55,7 +55,7 @@ function initDateChoosers(context) {
     $('input.friendly_date', context).datepicker({
         dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
     });
-    
+
     if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
         $('input.localized_date', context).datepicker({
             dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
@@ -65,7 +65,7 @@ function initDateChoosers(context) {
             constrainInput: false, /* showOn: 'button', */ firstDay: 1
         });
     }
-    
+
 }
 function initFriendlyDateChooser(id) {
     $('#' + id).datepicker({
@@ -82,7 +82,7 @@ function initLocalizedDateChooser(id) {
             constrainInput: false, /* showOn: 'button', */ firstDay: 1
         });
     }
-    
+
 }
 
 function initTimeChoosers(context) {
@@ -134,7 +134,7 @@ function InlinePanel(opts) {
             $('#' + childId).slideUp(function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();
-            });            
+            });
         });
         if (opts.canOrder) {
             $('#' + prefix + '-move-up').click(function() {
@@ -231,7 +231,7 @@ function InlinePanel(opts) {
                 $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount);
             }
             self.updateMoveButtonDisabledStates();
-            
+
             opts.onAdd(fixPrefix);
         }
     });
@@ -283,7 +283,7 @@ function initErrorDetection(){
     // now identify them on each tab
     for(var index in errorSections) {
         $('.tab-nav a[href=#'+ index +']').addClass('errors').attr('data-count', errorSections[index]);
-    }    
+    }
 }
 
 $(function() {
