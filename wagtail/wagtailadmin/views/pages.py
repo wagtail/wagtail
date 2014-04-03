@@ -234,7 +234,7 @@ def edit(request, page_id):
         # Stick an extra validator into the form to make sure that the slug is not already in use
         def clean_slug(slug):
             # Make sure the slug isn't already in use
-            if parent.get_children().filter(slug=slug).count() > 0:
+            if parent.get_children().filter(slug=slug).exclude(id=page_id).count() > 0:
                 raise ValidationError(_("This slug is already in use"))
             return slug
         form.fields['slug'].clean = clean_slug
