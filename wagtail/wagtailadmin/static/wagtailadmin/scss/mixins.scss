@@ -65,7 +65,7 @@
             border-radius: $radius;
 }
 
-@mixin box-shadow($shadow){  
+@mixin box-shadow($shadow){
     -webkit-box-shadow: $shadow; //e.g inset 2px 2px 3px 2px rgba(0, 0, 0, 1)
             box-shadow: $shadow;
 }
@@ -80,13 +80,13 @@
     position: absolute;
     width: 1px;
 
-    &:active, &:focus { 
-        clip: auto; 
-        height: auto; 
-        margin: 0; 
-        overflow: visible; 
-        position: static; 
-        width: auto; 
+    &:active, &:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
     }
 }
 .visuallyhidden{

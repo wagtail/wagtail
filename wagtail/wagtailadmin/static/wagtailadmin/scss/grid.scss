@@ -4,8 +4,8 @@ $padding: $grid-gutter-width*0.5;
 
 /* Ensure grid columns are set to border-boxes. This is essential */
 @mixin border-box(){
-    -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -66,7 +66,7 @@ $padding: $grid-gutter-width*0.5;
     padding-right: 100%*($offset / $grid-columns);
 }
 
-/* only used in places where padding not applied to same elements as row or row-flush 
+/* only used in places where padding not applied to same elements as row or row-flush
  * most of the time this class should be applied directly to the html elements */
 @mixin nice-padding{
     padding-left: $mobile-nice-padding;
