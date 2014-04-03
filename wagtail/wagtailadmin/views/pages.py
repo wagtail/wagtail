@@ -217,6 +217,8 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 def edit(request, page_id):
     latest_revision = get_object_or_404(Page, id=page_id).get_latest_revision()
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+    parent = page.get_parent()
+
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
         raise PermissionDenied
@@ -228,6 +230,14 @@ def edit(request, page_id):
 
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=page)
+
+        # Stick an extra validator into the form to make sure that the slug is not already in use
+        def clean_slug(slug):
+            # Make sure the slug isn't already in use
+            if parent.get_children().filter(slug=slug).count() > 0:
+                raise ValidationError(_("This slug is already in use"))
+            return slug
+        form.fields['slug'].clean = clean_slug
 
         if form.is_valid():
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
