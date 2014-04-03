@@ -63,7 +63,7 @@ form{
             &.full{
                 position:relative;
                 padding:0;
-                
+
                 label{
                     display:none;
                 }
@@ -153,7 +153,7 @@ form{
         position:relative;
         height:100%;
         padding:0 $desktop-nice-padding;
-        
+
         &:before {
             content: '';
             width:0px;
@@ -163,7 +163,7 @@ form{
             margin-left:-0.4em;
         }
     }
-    
+
     h1{
         font-size:4em;
     }
@@ -183,7 +183,7 @@ form{
 
     .full{
         margin:0px (-$desktop-nice-padding);
-        
+
         input{
             padding-left:($desktop-nice-padding + 50px);
         }

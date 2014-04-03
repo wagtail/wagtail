@@ -34,7 +34,7 @@ $zindex-modal-background: 500;
     z-index: ($zindex-modal-background + 10);
     height:90%;
     width:85%;
-    
+
     &:before{
         content: '';
         display: inline-block;
@@ -73,7 +73,7 @@ $zindex-modal-background: 500;
     &.in { opacity:0.7; }
 }
 
-.modal .close{ 
+.modal .close{
     padding:0;
     position:absolute;
     width:50px;

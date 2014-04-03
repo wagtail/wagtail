@@ -99,7 +99,7 @@ $(function(){
 
         $(this).html(currentAlt);
         $(this).data('altstate', newAlt);
-        $(this).toggleClass('icon-arrow-up icon-arrow-down')
+        $(this).toggleClass('icon-arrow-up icon-arrow-down');
         $(this).parent().find('ul').toggle('fast');
         return false;
     });
@@ -122,15 +122,15 @@ $(function(){
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
-        });  
+        });
 
         // auto focus on search box
-        $(window.headerSearch.termInput).trigger('focus'); 
+        $(window.headerSearch.termInput).trigger('focus');
 
         function search () {
-            var workingClasses = "working icon icon-spinner"
+            var workingClasses = "working icon icon-spinner";
 
-            $(window.headerSearch.termInput).parent().addClass(workingClasses); 
+            $(window.headerSearch.termInput).parent().addClass(workingClasses);
             search_next_index++;
             var index = search_next_index;
             $.ajax({
@@ -144,9 +144,9 @@ $(function(){
                     }
                 },
                 complete: function(){
-                    $(window.headerSearch.termInput).parent().removeClass(workingClasses); 
+                    $(window.headerSearch.termInput).parent().removeClass(workingClasses);
                 }
             });
-        };
+        }
     }
 });

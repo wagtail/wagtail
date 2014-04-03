@@ -15,7 +15,7 @@
         left:-2000px;
         z-index:500;
         opacity:0;
-        
+
         li{
             float:none;
             border-top:1px solid rgba(255,255,255,0.2);
@@ -41,7 +41,7 @@
             }
             &.icon{
                 padding-right:5em;
-               
+
                 &:before,
                 &:after{
                     right:1em;
@@ -137,11 +137,11 @@
 .dropdown.white{
     ul{
         background-color:white;
-         
+
         li{
             border-top:1px solid rgba(0,0,0,0.1);
         }
-      
+
         a{
             color:$color-grey-2;
 
@@ -206,13 +206,13 @@ footer .actions .dropdown-toggle{
     line-height:3em;
     color:white;
     padding-left:1em;
-    padding-right:1em;  
+    padding-right:1em;
 
     &:before,
     &:after{
         margin:0;
         right:1em !important;
-    }    
+    }
 }
 
 footer .actions .dropdown ul li{

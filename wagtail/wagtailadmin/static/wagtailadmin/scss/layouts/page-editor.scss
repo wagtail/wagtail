@@ -7,7 +7,7 @@
 }
 
 .page-editor header {
-    
+
 }
 .page-editor .breadcrumb{
     margin-top:-1.8em;
@@ -31,7 +31,7 @@
 .objects{
     background:url("#{$static-root}bg-dark-diag.svg");
 }
-.object{  
+.object{
     position:relative;
     overflow:hidden;
     @include nice-padding();
@@ -42,7 +42,7 @@
 
     &.focused{
         border-color: darken($color-input-focus, 40%);
-    }        
+    }
 
     fieldset{
         padding-top:4em;
@@ -143,11 +143,11 @@
         .object-help{
             display:block;
         }
-        
+
         fieldset{
             display:block;
             float:none;
-            
+
 
             .help{
                 display:none;
@@ -160,11 +160,11 @@
         input, textarea, .richtext{
             @include nice-padding();
             @include border-radius(0px);
-            font-family:Bitter, Georgia, serif;           
+            font-family:Bitter, Georgia, serif;
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
-            line-height:1.6em;   
+            line-height:1.6em;
         }
 
         .richtext{
@@ -200,7 +200,7 @@
         padding-top:1.5em;
         padding-bottom:1.5em;
     }
-    
+
     .multiple{
         padding:4.5em 0 0 0;
 
@@ -249,7 +249,7 @@
                 line-height: 0;
                 overflow: visible;
                 display:block;
-            
+
                 &:before{
                     position:relative;
                     color:white;
@@ -267,7 +267,38 @@
             max-height:0px;
         }
     }
-}   
+
+    &.collapsible {
+        // li.collapsed gets its height from the fieldset only, which is now hidden
+        // and h2 has position:absolute which doesn't add to it either, so it would be 0 without this
+        min-height: 44px;
+
+        h2{
+            cursor: pointer;
+        }
+        h2:before{
+            content: '6';
+            line-height: 1.7em;
+            opacity: 1;
+            color: #666;
+            background-color: transparent;
+            @include transition(background-color 0.2s ease, color 0.2s ease);
+        }
+        h2:hover:before{
+        }
+
+        &.collapsed{
+            h2:before{
+                content: '5';
+                color: #fff;
+                background-color:$color-teal;
+            }
+            h2:hover:before{
+                background-color:$color-teal-darker;
+            }
+        }
+    }
+}
 
 
 /* styles applied to an element as it is being reordered */

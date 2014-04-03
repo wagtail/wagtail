@@ -44,7 +44,7 @@
             position:absolute;
             right:-0.5em;
             top:-0.5em;
-            z-index:5;           
+            z-index:5;
             min-width:1em;
             color:white;
             background:$color-red;
@@ -61,7 +61,7 @@
         @include box-shadow(none);
         color:$color-grey-1;
         background-color:white;
-        border-top:0.3em solid $color-grey-1;      
+        border-top:0.3em solid $color-grey-1;
     }
 
     /* For cases where tab-nav should merge with header */

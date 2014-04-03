@@ -79,7 +79,7 @@ class FriendlyTimeField(forms.CharField):
             return datetime.time(hour=hour, minute=minute)
         else:
             raise ValidationError(_("Please type a valid time"))
-            
+
 
 class LocalizedDateInput(forms.DateInput):
     """
@@ -128,7 +128,7 @@ class LocalizedTimeField(forms.CharField):
                 minute = 0
             if hour>=24 or hour < 0 or minute >=60 or minute < 0:
                 raise ValidationError(_("Please type a valid time"))
-                
+
             return datetime.time(hour=hour, minute=minute)
         else:
             raise ValidationError(_("Please type a valid time") )
@@ -139,7 +139,7 @@ if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
         models.DateField: {'widget': LocalizedDateInput},
         models.TimeField: {'widget': LocalizedTimeInput, 'form_class': LocalizedTimeField},
     }
-else: # Fall back to friendly date/time            
+else: # Fall back to friendly date/time
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': FriendlyDateInput},
         models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
@@ -382,6 +382,12 @@ class BaseCompositeEditHandler(EditHandler):
     """
     _widget_overrides = None
 
+    def object_classnames(self):
+        try:
+            return "multi-field " + self.classname
+        except (AttributeError, TypeError):
+            return "multi-field"
+
     @classmethod
     def widget_overrides(cls):
         if cls._widget_overrides is None:
@@ -452,10 +458,11 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/multi_field_panel.html"
 
 
-def MultiFieldPanel(children, heading=""):
+def MultiFieldPanel(children, heading="", classname=None):
     return type('_MultiFieldPanel', (BaseMultiFieldPanel,), {
         'children': children,
         'heading': heading,
+        'classname': classname,
     })
 
 
