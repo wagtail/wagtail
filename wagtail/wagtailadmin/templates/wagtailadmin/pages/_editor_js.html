@@ -34,9 +34,7 @@
 {% endcompress %}
 
 {% comment %}
-    We should put it outside of compress because it is a remote script. If we
-    wanted to put it inside compress we should download each translation file
-    and include it in wagtailadmin/js/vendor/
+    Put it outside compress to be sure that offline compression also works fine.
 {% endcomment %}
 {% get_localized_datepicker_js %}
 
