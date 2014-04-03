@@ -1,5 +1,6 @@
 from django import template
 from django.conf import settings
+from django.templatetags.static import static
 from django.utils import formats
 from django.utils.translation import get_language
 
@@ -25,6 +26,15 @@ def get_date_format_override():
     else: # Fall back to ISO if I18N is *not* used
         return 'yy-mm-dd'
 
+# This is a list of all supported langs for jquery-ui datepicker which exist in
+# wagtailadmin/js/venor/i18n/. In case any new translations are added there the
+# language code should also be added in this list.
+SUPPORTED_DATEPICKER_LANGS = ['af', 'ar-DZ', 'ar', 'az', 'be', 'bg', 'bs', 'ca', 'cs', 'cy-GB', 'da', 'de',
+    'el', 'en-AU', 'en-GB', 'en-NZ', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr-CA', 'fr-CH', 'fr', 'gl',
+    'he', 'hi', 'hr', 'hu', 'hy', 'id', 'is', 'it', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lb', 'lt', 'lv',
+    'mk', 'ml', 'ms', 'nb', 'nl-BE', 'nl', 'nn', 'no', 'pl', 'pt-BR', 'pt', 'rm', 'ro', 'ru', 'sk', 'sl', 'sq',
+    'sr-SR', 'sr', 'sv', 'ta', 'th', 'tj', 'tr', 'uk', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'
+]
 # Get the correct i18n + l10n settings for datepicker depending on current 
 # thread language  
 @register.simple_tag
@@ -39,10 +49,14 @@ def get_localized_datepicker_js():
             lang = lang_parts[0].lower() +'-'+ lang_parts[1].upper()
         else:
             lang=lang.lower()
-        return '<script src="//jquery-ui.googlecode.com/svn/tags/latest/ui/i18n/jquery.ui.datepicker-{0}.js"></script>'.format(
-            lang
-        )
+        if lang in SUPPORTED_DATEPICKER_LANGS:
+            translation_file = static("wagtailadmin/js/vendor/i18n/jquery.ui.datepicker-{0}.js".format(
+                lang
+            ))
+            return '<script src="{0}"></script>'.format(translation_file)
+        else: # Don't return anything if language is not supported
+            return ''
         
-    else: # Don't write anything if we don't use I18N and L10N
+    else: # Don't return anything if we don't use I18N and L10N
         return ''        
         
