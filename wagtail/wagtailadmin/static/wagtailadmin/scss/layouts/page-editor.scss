@@ -278,6 +278,7 @@
         }
         h2:before{
             content: '6';
+            text-shadow:none;
             line-height: 40px;
             padding-right: 1px;
             opacity: 1;
@@ -291,7 +292,7 @@
         &.collapsed{
             background: #fff;
             h2{
-                box-shadow: none;
+                 @include box-shadow(none);
             }
             h2:before{
                 content: '5';
