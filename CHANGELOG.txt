@@ -9,8 +9,10 @@ Changelog
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
  * Added 'slugurl' template tag to output the URL of a page with a given slug
+ * MultiFieldPanel definitions now accept a 'classname' attribute, including a special classname of 'collapsible' to allow showing / hiding them on click
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
+ * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
