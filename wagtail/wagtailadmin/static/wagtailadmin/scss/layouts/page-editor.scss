@@ -271,14 +271,15 @@
     &.collapsible {
         // li.collapsed gets its height from the fieldset only, which is now hidden
         // and h2 has position:absolute which doesn't add to it either, so it would be 0 without this
-        min-height: 44px;
+        min-height: 41px;
 
         h2{
             cursor: pointer;
         }
         h2:before{
             content: '6';
-            line-height: 1.7em;
+            line-height: 40px;
+            padding-right: 1px;
             opacity: 1;
             color: #666;
             background-color: transparent;
@@ -288,6 +289,10 @@
         }
 
         &.collapsed{
+            background: #fff;
+            h2{
+                box-shadow: none;
+            }
             h2:before{
                 content: '5';
                 color: #fff;
