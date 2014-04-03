@@ -193,13 +193,16 @@ class Filter(models.Model):
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
-
+        
         method = getattr(backend, self.method_name)
 
         image = method(image, self.method_arg)
 
         output = StringIO.StringIO()
         backend.save_image(image, output, file_format)
+        
+        # and then close the input file
+        input_file.close()
         
 
         # generate new filename derived from old one, inserting the filter spec string before the extension

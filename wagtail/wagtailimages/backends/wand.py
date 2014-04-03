@@ -16,6 +16,8 @@ class WandBackend(BaseImageBackend):
         
     def save_image(self, image, output, format):
         image.format = format
+        if self.quality:
+            image.compression_quality = self.quality
         image.save(file=output)
         
     def resize(self, image, size):

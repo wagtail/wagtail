@@ -14,7 +14,10 @@ class PillowBackend(BaseImageBackend):
         return image
         
     def save_image(self, image, output, format):
-        image.save(output, format)
+        if self.quality:
+            image.save(output, format, quality = self.quality)
+        else:
+            image.save(output, format)
     
         
     def resize(self, image, size):
