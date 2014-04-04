@@ -6,6 +6,7 @@ from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailcore.models import get_navigation_menu_items
+from wagtail.wagtailcore.util import camelcase_to_underscore
 
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
 
@@ -83,3 +84,11 @@ def ellipsistrim(value, max_length):
             truncd_val = truncd_val[:truncd_val.rfind(" ")]
         return truncd_val + "..."
     return value
+
+
+@register.filter
+def fieldtype(bound_field):
+    try:
+        return camelcase_to_underscore(bound_field.field.__class__.__name__)
+    except AttributeError:
+        return ""
