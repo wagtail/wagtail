@@ -118,12 +118,13 @@
     These styles correspond to the image formats defined in wagtailimages/formats.py,
     so that images displayed in the rich text field receive more or less the same
     styling that they would receive on the site front-end.
-    TODO: when we implement a mechanism to configure the image format list on a
-    per-installation / per-site basis, we'll need a way to insert the corresponding
-    CSS here.
+
+    Wagtail installations that define their own image formats (in a myapp.image_formats module)
+    should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
+    images render within the rich text area in the same styles that would appear on the front-end.
     */
 
-    .bodytext-image {
+    .richtext-image {
         margin-top: 3px; /* close as possible to match line-height space above p */
         img {
             width:100%;
