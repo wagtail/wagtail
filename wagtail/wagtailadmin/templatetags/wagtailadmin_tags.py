@@ -92,3 +92,11 @@ def fieldtype(bound_field):
         return camelcase_to_underscore(bound_field.field.__class__.__name__)
     except AttributeError:
         return ""
+
+
+@register.filter
+def meta_description(model):
+    try:
+        return model.model_class()._meta.description
+    except:
+        return ""
