@@ -79,8 +79,9 @@
         }
     }
 
-    /* === CSS BELOW THIS POINT IS CUSTOM TO RCA === */
-    /* TODO: find extensible way for developers to style rich text to suit their implementation, without making changes to anything within wagtailadmin */
+    /* Set some reasonable default heading styles. These can be overridden in site-specific custom CSS
+    to make them better reflect their appearance on the front-end (however, it's arguably better for editors
+    NOT to be thinking about a specific visual appearance when they choose heading levels...) */
 
     h1,h2,h3,h4,h5,h6{
         font-family:inherit;
@@ -91,8 +92,7 @@
         font-size: 2em;
         line-height: 1.2em;
         padding-top:0.5em;
-        border-top:1px solid #CCC;
-	clear:both
+        clear:both
     }
     h3 {
         font-size: 1.7em;
@@ -111,7 +111,7 @@
     hr {
         border-bottom: 1px solid #ccc;
         border-top: none;
-	border-left: none;
+        border-left: none;
     }
 
     /*
