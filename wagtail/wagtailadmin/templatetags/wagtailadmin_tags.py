@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
-from wagtail.wagtailcore.models import get_navigation_menu_items
+from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
@@ -100,3 +100,19 @@ def meta_description(model):
         return model.model_class()._meta.description
     except:
         return ""
+
+
+@register.assignment_tag(takes_context=True)
+def page_permissions(context, page):
+    """
+    Usage: {% page_permissions page as page_perms %}
+    Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
+    what actions the current logged-in user can perform on the given page.
+    """
+    # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
+    # cache it in the context for the duration of the page request, if one does not exist already
+    if 'user_page_permissions' not in context:
+        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+
+    # Now retrieve a PagePermissionTester from it, specific to the given page
+    return context['user_page_permissions'].for_page(page)
