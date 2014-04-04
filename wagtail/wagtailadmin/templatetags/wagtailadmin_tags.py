@@ -116,3 +116,15 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@register.simple_tag
+def hook_output(hook_name):
+    """
+    Example: {% hook_output 'insert_editor_css' %}
+    Whenever we have a hook whose functions take no parameters and return a string, this tag can be used
+    to output the concatenation of all of those return values onto the page.
+    Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
+    """
+    snippets = [fn() for fn in hooks.get_hooks(hook_name)]
+    return u''.join(snippets)
