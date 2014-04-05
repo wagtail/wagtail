@@ -462,12 +462,12 @@ msgstr "Você pode editar sua página:"
 #: templates/wagtailadmin/notifications/submitted.html:1
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A página \"%(pages)s\" foi enviado para moderação"
+msgstr "A página \"%(page)s\" foi enviado para moderação"
 
 #: templates/wagtailadmin/notifications/submitted.html:2
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation."
-msgstr "A página \"%(pages)s\" foi enviada para moderação."
+msgstr "A página \"%(page)s\" foi enviada para moderação."
 
 #: templates/wagtailadmin/notifications/submitted.html:4
 msgid "You can preview the page here:"
