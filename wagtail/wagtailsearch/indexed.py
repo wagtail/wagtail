@@ -61,6 +61,11 @@ class Indexed(object):
         if parent:
             # Add parent fields into this list
             search_fields = dict(parent.indexed_get_search_fields().items() + search_fields.items())
+
+        # Make sure we didn't accidentally index the id field
+        if 'id' in search_fields:
+            del search_fields['id']
+
         return search_fields
 
     def indexed_get_document_id(self):
