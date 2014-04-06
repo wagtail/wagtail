@@ -11,10 +11,6 @@ from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls, 
 from wagtail.wagtailusers import urls as wagtailusers_urls
 from wagtail.wagtailredirects import urls as wagtailredirects_urls
 
-# Signal handlers
-from wagtail.wagtailsearch import register_signal_handlers as wagtailsearch_register_signal_handlers
-wagtailsearch_register_signal_handlers()
-
 
 urlpatterns = patterns('',
     url(r'^admin/images/', include(wagtailimages_urls)),
