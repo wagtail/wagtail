@@ -6,10 +6,6 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
 from wagtail.contrib.wagtailsitemaps.views import sitemap
 
-# Signal handlers
-from wagtail.wagtailsearch import register_signal_handlers as wagtailsearch_register_signal_handlers
-wagtailsearch_register_signal_handlers()
-
 
 urlpatterns = patterns('',
     url(r'^admin/', include(wagtailadmin_urls)),
