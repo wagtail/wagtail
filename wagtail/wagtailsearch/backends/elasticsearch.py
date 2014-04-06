@@ -13,13 +13,80 @@ import string
 
 
 class ElasticSearchResults(object):
-    def __init__(self, backend, model, query_string, fields=None, filters={}, prefetch_related=[]):
+    def __init__(self, backend, query_set, query_string, fields=None):
         self.backend = backend
-        self.model = model
+        self.query_set = query_set
         self.query_string = query_string
         self.fields = fields
-        self.filters = filters
-        self.prefetch_related = prefetch_related
+
+    def _get_filters_from_where(self, where_node):
+        # Check if this is a leaf node
+        if isinstance(where_node, tuple):
+            field = where_node[0].col
+            lookup = where_node[1]
+            value = where_node[3]
+
+            if lookup == 'exact':
+                if value is None:
+                    return {
+                        'missing': {
+                            'field': field,
+                        }
+                    }
+                else:
+                    return {
+                        'term': {
+                            field: value
+                        }
+                    }
+
+            if lookup in ['startswith', 'prefix']:
+                return {
+                    'prefix': {
+                        field: value
+                    }
+                }
+
+            if lookup in ['gt', 'gte', 'lt', 'lte']:
+                return {
+                    'range': {
+                        field: {
+                            lookup: value,
+                        }
+                    }
+                }
+
+            if lookup == 'range':
+                lower, upper = value
+                return {
+                    'range': {
+                        field: {
+                            'gte': lower,
+                            'lte': upper,
+                        }
+                    }
+                }
+
+            raise Exception("Unknown lookup: " + lookup)
+
+        # Get child filters
+        connector = where_node.connector
+        child_filters = [self._get_filters_from_where(child) for child in where_node.children]
+
+        # Connect them
+        if child_filters:
+            filter_out = {
+                connector.lower(): [
+                    fil for fil in child_filters if fil is not None
+                ]
+            }
+
+            if where_node.negated:
+                filter_out = {
+                    'not': filter_out
+                }
+
+            return filter_out
 
     def _get_filters(self):
         # Filters
@@ -28,59 +95,14 @@ class ElasticSearchResults(object):
         # Filter by content type
         filters.append({
             'prefix': {
-                'content_type': self.model._get_qualified_content_type_name()
+                'content_type': self.query_set.model._get_qualified_content_type_name()
             }
         })
 
-        # Extra filters
-        if self.filters:
-            for key, value in self.filters.items():
-                if '__' in key:
-                    field, lookup = key.split('__')
-                else:
-                    field = key
-                    lookup = None
-
-                if lookup is None:
-                    if value is None:
-                        filters.append({
-                            'missing': {
-                                'field': field,
-                            }
-                        })
-                    else:
-                        filters.append({
-                            'term': {
-                                field: value
-                            }
-                        })
-
-                if lookup in ['startswith', 'prefix']:
-                    filters.append({
-                        'prefix': {
-                            field: value
-                        }
-                    })
-
-                if lookup in ['gt', 'gte', 'lt', 'lte']:
-                    filters.append({
-                        'range': {
-                            field: {
-                                lookup: value,
-                            }
-                        }
-                    })
-
-                if lookup == 'range':
-                    lower, upper = value
-                    filters.append({
-                        'range': {
-                            field: {
-                                'gte': lower,
-                                'lte': upper,
-                            }
-                        }
-                    })
+        # Apply filters from queryset
+        query_set_filters = self._get_filters_from_where(self.query_set.query.where)
+        if query_set_filters:
+            filters.append(query_set_filters)
 
         return filters
 
@@ -148,11 +170,7 @@ class ElasticSearchResults(object):
                     pk_list.append(pk)
 
             # Get results
-            results = self.model.objects.filter(pk__in=pk_list)
-
-            # Prefetch related
-            for prefetch in self.prefetch_related:
-                results = results.prefetch_related(prefetch)
+            results = self.query_set.filter(pk__in=pk_list)
 
             # Put results into a dictionary (using primary key as the key)
             results_dict = {str(result.pk): result for result in results}
@@ -165,7 +183,7 @@ class ElasticSearchResults(object):
         else:
             # Return a single item
             pk = self._get_results_pks(key, key + 1)[0]
-            return self.model.objects.get(pk=pk)
+            return self.query_set.get(pk=pk)
 
     def __len__(self):
         return self._get_count()
@@ -327,17 +345,25 @@ class ElasticSearch(BaseSearch):
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
-        # Model must be a descendant of Indexed and be a django model
-        if not issubclass(model, Indexed) or not issubclass(model, models.Model):
-            return []
+    def search(self, query_set, query_string, fields=None):
+        # Model must be a descendant of Indexed
+        if not issubclass(query_set.model, Indexed):
+            return query_set.none()
 
         # Clean up query string
         query_string = "".join([c for c in query_string if c not in string.punctuation])
 
         # Check that theres still a query string after the clean up
         if not query_string:
-            return []
+            return query_set.none()
+
+        # Get fields
+        if fields is None:
+            fields = query_set.model._get_search_fields()[1].keys()
+
+        # Return nothing if there are no fields
+        if not fields:
+            return query_set.none()
 
         # Return search results
-        return ElasticSearchResults(self, model, query_string, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return ElasticSearchResults(self, query_set, query_string, fields=fields)

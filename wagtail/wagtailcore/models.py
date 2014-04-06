@@ -442,14 +442,20 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+        # Create query set
+        query_set = cls.objects.all()
+
         # Filters
-        filters = extra_filters.copy()
         if not show_unpublished:
-            filters['live'] = True
+            query_set = query_set.filter(live=True)
+        query_set = query_set.filter(**extra_filters)
 
         # Path
         if path:
-            filters['path__startswith'] = path
+            query_set = query_set.filter(path__startswith = path)
+
+        # Prefetch related
+        query_set = query_set.prefetch_related(*prefetch_related)
 
         # Fields
         fields = None
@@ -458,7 +464,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         # Search
         s = get_search_backend()
-        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return s.search(query_set, query_string, fields=fields)
 
     @classmethod
     def clean_subpage_types(cls):

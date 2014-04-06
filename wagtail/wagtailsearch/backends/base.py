@@ -37,5 +37,5 @@ class BaseSearch(object):
     def delete(self, obj):
         return NotImplemented
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
+    def search(self, query_set, query_string, fields=None):
         return NotImplemented
