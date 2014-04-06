@@ -309,6 +309,7 @@ class ElasticSearch(BaseSearch):
                 action.update(obj)
                 actions.append(action)
 
+            yield type_name, len(type_objects)
             bulk(self.es, actions)
 
     def delete(self, obj):
