@@ -51,44 +51,83 @@ class Indexed(object):
             return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
-    def _get_search_fields(cls):
+    def _get_search_fields_config(cls):
         """
-        Gets a mapping of fields/configs that should be indexed
+        Get config for full-text search fields
         """
-        # Get search fields for this class as a dictionary
-        search_fields = list(cls.search_fields or cls.indexed_fields)
+        # Get local search_fields or indexed_fields configs
+        if 'search_fields' in cls.__dict__:
+            search_fields = cls.search_fields
+        else:
+            return {}
+
+        # Convert to dict
+        FIELD_DEFAULTS = {
+            'type': 'string',
+        }
         if isinstance(search_fields, tuple):
             search_fields = list(search_fields)
         if isinstance(search_fields, basestring):
             search_fields = [search_fields]
         if isinstance(search_fields, list):
-            search_fields = {field: {} for field in search_fields}
+            search_fields = {field: FIELD_DEFAULTS for field in search_fields}
         if not isinstance(search_fields, dict):
             raise ValueError()
 
-        # Add other fields to list
-        if issubclass(cls, models.Model):
-            for field in cls._meta.local_concrete_fields:
-                search_fields[field.attname] = {}
+        return search_fields
 
-        # Set defaults
-        for field, config in search_fields.items():
-            if 'type' not in config:
-                config['type'] = 'string'
-            if 'boost' not in config:
-                config['boost'] = 1.0
+    @classmethod
+    def _get_search_fields(cls):
+        """
+        Returns a list of all fields to index and a mapping of
+        field/configs for fields to enable full-text search on.
+        """
+        fields = []
+        searchable_fields = {}
+
+        # Get fields
+        if issubclass(cls, models.Model):
+            for field in list(cls._meta.local_concrete_fields):
+                if field.attname != 'id':
+                    fields.append(field.attname)
+
+        # Get searchable fields
+        search_fields_config = cls._get_search_fields_config()
+        if search_fields_config:
+            for field, config in search_fields_config.items():
+                searchable_fields[field] = config.copy()
 
         # Get search fields for parent class
         parent = cls._get_indexed_parent(require_model=False)
         if parent:
-            # Add parent fields into this list
-            search_fields = dict(parent._get_search_fields().items() + search_fields.items())
+            # Merge parent search fields
+            parent_fields, parent_searchable_fields = parent._get_search_fields()
+            fields = parent_fields + fields
+            searchable_fields = dict(parent_searchable_fields.items() + searchable_fields.items())
 
-        # Make sure we didn't accidentally index the id field
-        if 'id' in search_fields:
-            del search_fields['id']
+        return fields, searchable_fields
 
-        return search_fields
+    @classmethod
+    def _get_indexed_fields(cls):
+        """
+        Gets a mapping of fields/configs that should be indexed
+        """
+        # Get fields for this class as a dictionary
+        fields, searchable_fields = cls._get_search_fields()
+
+        # Initialise indexed_fields with searchable_fields
+        indexed_fields = searchable_fields.copy()
+
+        # Add other fields to list
+        if issubclass(cls, models.Model):
+            for field in fields:
+                if field not in searchable_fields:
+                    indexed_fields[field] = {
+                        'type': 'string',
+                        'indexed': 'not_indexed',
+                    }
+
+        return indexed_fields
 
     def _get_search_document_id(self):
         return self._get_base_content_type_name() + ':' + str(self.pk)
@@ -96,7 +135,7 @@ class Indexed(object):
     def _build_search_document(self):
         # Get content type, indexed fields and id
         content_type = self._get_qualified_content_type_name()
-        indexed_fields = self._get_search_fields()
+        indexed_fields = self._get_indexed_fields()
         doc_id = self._get_search_document_id()
 
         # Build document
@@ -114,6 +153,3 @@ class Indexed(object):
                 doc[field] = unicode(doc[field])
 
         return doc
-
-    search_fields = ()
-    indexed_fields = ()

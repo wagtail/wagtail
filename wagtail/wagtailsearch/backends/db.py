@@ -34,7 +34,11 @@ class DBSearch(BaseSearch):
 
         # Get fields
         if fields is None:
-            fields = model._get_search_fields().keys()
+            fields = model._get_search_fields()[1].keys()
+
+        # Return nothing if there are no fields
+        if not fields:
+            return model.objects.none()
 
         # Start will all objects
         query = model.objects.all()

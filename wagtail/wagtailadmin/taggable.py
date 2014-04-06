@@ -13,7 +13,7 @@ class TagSearchable(Indexed):
     for models that provide those things.
     """
 
-    indexed_fields = {
+    search_fields = {
         'title': {
             'type': 'string',
             'analyzer': 'edgengram_analyzer',

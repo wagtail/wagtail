@@ -248,7 +248,7 @@ class ElasticSearch(BaseSearch):
         }.items())
 
         # Add indexed fields
-        for field_name, config in model._get_search_fields().items():
+        for field_name, config in model._get_indexed_fields().items():
             if config is not None:
                 fields[field_name] = config
             else:

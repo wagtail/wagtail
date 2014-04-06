@@ -97,7 +97,7 @@ class SearchTest(models.Model, Indexed):
     content = models.TextField()
     live = models.BooleanField(default=False)
 
-    indexed_fields = ("title", "content", "callable_indexed_field", "live")
+    search_fields = ('title', 'content', 'callable_indexed_field')
 
     def callable_indexed_field(self):
         return "Callable"
@@ -106,4 +106,4 @@ class SearchTest(models.Model, Indexed):
 class SearchTestChild(SearchTest):
     extra_content = models.TextField()
 
-    indexed_fields = "extra_content"
+    search_fields = 'extra_content'

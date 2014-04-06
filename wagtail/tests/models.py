@@ -157,8 +157,7 @@ class EventPage(Page):
         related_name='+'
     )
 
-    indexed_fields = ('get_audience_display', 'location', 'body')
-    search_name = "Event"
+    search_fields = ('get_audience_display', 'location', 'body')
 
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
