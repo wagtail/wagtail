@@ -28,7 +28,7 @@ class ElasticSearchResults(object):
         # Filter by content type
         filters.append({
             'prefix': {
-                'content_type': self.model.indexed_get_content_type()
+                'content_type': self.model._get_qualified_content_type_name()
             }
         })
 
@@ -239,7 +239,7 @@ class ElasticSearch(BaseSearch):
 
     def add_type(self, model):
         # Get type name
-        content_type = model.indexed_get_content_type()
+        content_type = model._get_qualified_content_type_name()
 
         # Make field list
         fields = dict({
@@ -248,7 +248,7 @@ class ElasticSearch(BaseSearch):
         }.items())
 
         # Add indexed fields
-        for field_name, config in model.indexed_get_search_fields().items():
+        for field_name, config in model._get_search_fields().items():
             if config is not None:
                 fields[field_name] = config
             else:
@@ -273,10 +273,10 @@ class ElasticSearch(BaseSearch):
             return
 
         # Build document
-        doc = obj.indexed_build_document()
+        doc = obj._build_search_document()
 
         # Add to index
-        self.es.index(self.es_index, obj.indexed_get_content_type(), doc, id=doc["id"])
+        self.es.index(self.es_index, obj._get_qualified_content_type_name(), doc, id=doc["id"])
 
     def add_bulk(self, obj_list):
         # Group all objects by their type
@@ -287,14 +287,14 @@ class ElasticSearch(BaseSearch):
                 continue
 
             # Get object type
-            obj_type = obj.indexed_get_content_type()
+            obj_type = obj._get_qualified_content_type_name()
 
             # If type is currently not in set, add it
             if obj_type not in type_set:
                 type_set[obj_type] = []
 
             # Add object to set
-            type_set[obj_type].append(obj.indexed_build_document())
+            type_set[obj_type].append(obj._build_search_document())
 
         # Loop through each type and bulk add them
         for type_name, type_objects in type_set.items():
@@ -321,8 +321,8 @@ class ElasticSearch(BaseSearch):
         try:
             self.es.delete(
                 self.es_index,
-                obj.indexed_get_content_type(),
-                obj.indexed_get_document_id(),
+                obj._get_qualified_content_type_name(),
+                obj._get_search_document_id(),
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
