@@ -447,6 +447,7 @@ class ElasticSearch(BaseSearch):
                 action.update(doc)
                 actions.append(action)
 
+            yield type_name, len(type_documents)
             bulk(self.es, actions)
 
     def delete(self, obj):

@@ -57,10 +57,8 @@ class Command(BaseCommand):
 
         # Add objects to index
         self.stdout.write("Adding objects")
-        results = s.add_bulk(object_set.values())
-        if results:
-            for result in results:
-                self.stdout.write(result[0] + ' ' + str(result[1]))
+        for result in s.add_bulk(object_set.values()):
+            self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
         self.stdout.write("Refreshing index")
