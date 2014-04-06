@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from django.db import models
 
 from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
@@ -277,10 +278,6 @@ class ElasticSearch(BaseSearch):
         self.es.index(self.es_index, obj.indexed_get_content_type(), doc, id=doc["id"])
 
     def add_bulk(self, obj_list):
-        # TODO: Make this work with new elastic search module
-        for obj in obj_list:
-            self.add(obj)
-        return
         # Group all objects by their type
         type_set = {}
         for obj in obj_list:
@@ -299,11 +296,19 @@ class ElasticSearch(BaseSearch):
             type_set[obj_type].append(obj.indexed_build_document())
 
         # Loop through each type and bulk add them
-        results = []
         for type_name, type_objects in type_set.items():
-            results.append((type_name, len(type_objects)))
-            self.es.bulk_index(self.es_index, type_name, type_objects)
-        return results
+            # Get list of actions
+            actions = []
+            for obj in type_objects:
+                action = {
+                    '_index': self.es_index,
+                    '_type': type_name,
+                    '_id': obj['id'],
+                }
+                action.update(obj)
+                actions.append(action)
+
+            bulk(self.es, actions)
 
     def delete(self, obj):
         # Object must be a decendant of Indexed and be a django model
