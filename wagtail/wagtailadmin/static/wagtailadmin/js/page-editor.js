@@ -261,20 +261,8 @@ function initSlugAutoPopulate(){
 }
 
 function initSlugCleaning(){
-    $('#id_slug').on({
-        'blur': function(){
-            $(this).val(cleanForSlug($(this).val()));
-        },
-        'keyup': function(event){        
-            var keyCode = ('which' in event) ? event.which : event.keyCode;
-            if (
-                (keyCode != 32) && // not spacebar
-                (keyCode != 8) &&  // not backspace
-                (keyCode != 46) && // not delete
-                ((keyCode < 40) ) // non-character
-            ) return ;
-            $(this).val(cleanForSlug($(this).val()));
-        }
+    $('#id_slug').blur(function(){
+        $(this).val(cleanForSlug($(this).val()));
     });
 }
 
