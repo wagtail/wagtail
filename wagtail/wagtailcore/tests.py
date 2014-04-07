@@ -393,11 +393,10 @@ class TestPageQuerySet(TestCase):
     def test_not_descendant_of(self):
         homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
-        pages = Page.objects.descendant_of(homepage).not_descendant_of(events_index)
+        pages = Page.objects.not_descendant_of(events_index)
 
-        # Check that all pages descend from homepage but not events index
+        # Check that no pages descend from events_index
         for page in pages:
-            self.assertTrue(page.get_ancestors().filter(id=homepage.id).exists())
             self.assertFalse(page.get_ancestors().filter(id=events_index.id).exists())
 
         # As this is not inclusive, events index should be in the results
@@ -406,15 +405,14 @@ class TestPageQuerySet(TestCase):
     def test_not_descendant_of_inclusive(self):
         homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
-        pages = Page.objects.descendant_of(homepage).not_descendant_of(events_index, inclusive=True)
+        pages = Page.objects.not_descendant_of(events_index, inclusive=True)
 
         # Check that all pages descend from homepage but not events index
         for page in pages:
-            self.assertTrue(page.get_ancestors().filter(id=homepage.id).exists())
             self.assertFalse(page.get_ancestors().filter(id=events_index.id).exists())
 
-            # Events index should be excluded from results
-            self.assertNotEqual(page, events_index)
+        # As this is inclusive, events index should not be in the results
+        self.assertFalse(pages.filter(id=events_index.id).exists())
 
     def test_child_of(self):
         homepage = Page.objects.get(url_path='/home/')
