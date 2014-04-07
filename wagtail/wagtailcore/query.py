@@ -25,14 +25,19 @@ class PageQuerySet(QuerySet):
     def not_page(self, other):
         return self.exclude(self.page_q(other))
 
-    def descendant_of_q(self, other):
-        return Q(path__startswith=other.path) & Q(depth__gt=other.depth)
+    def descendant_of_q(self, other, inclusive=False):
+        q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
-    def descendant_of(self, other):
-        return self.filter(self.descendant_of_q(other))
+        if not inclusive:
+            q &= ~self.page_q(other)
 
-    def not_descendant_of(self, other):
-        return self.exclude(self.descendant_of_q(other))
+        return q
+
+    def descendant_of(self, other, inclusive=False):
+        return self.filter(self.descendant_of_q(other, inclusive))
+
+    def not_descendant_of(self, other, inclusive=False):
+        return self.exclude(self.descendant_of_q(other, inclusive))
 
     def child_of_q(self, other):
         return self.descendant_of_q(other) & Q(depth=other.depth + 1)
@@ -43,18 +48,23 @@ class PageQuerySet(QuerySet):
     def not_child_of(self, other):
         return self.exclude(self.child_of_q(other))
 
-    def ascendant_of_q(self, other):
+    def ascendant_of_q(self, other, inclusive=False):
         paths = [
             other.path[0:pos]
-            for pos in range(0, len(other.path), other.steplen)[1:]
+            for pos in range(0, len(other.path) + 1, other.steplen)[1:]
         ]
-        return Q(path__in=paths)
+        q = Q(path__in=paths)
 
-    def ascendant_of(self, other):
-        return self.filter(self.ascendant_of_q(other))
+        if not inclusive:
+            q &= ~self.page_q(other)
 
-    def not_ascendant_of(self, other):
-        return self.exclude(self.ascendant_of_q(other))
+        return q
+
+    def ascendant_of(self, other, inclusive=False):
+        return self.filter(self.ascendant_of_q(other, inclusive))
+
+    def not_ascendant_of(self, other, inclusive=False):
+        return self.exclude(self.ascendant_of_q(other, inclusive))
 
     def parent_of_q(self, other):
         return Q(path=self.model._get_parent_path_from_path(other.path))
@@ -65,14 +75,19 @@ class PageQuerySet(QuerySet):
     def not_parent_of(self, other):
         return self.exclude(self.parent_of_q(other))
 
-    def sibling_of_q(self, other):
-        return Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
+    def sibling_of_q(self, other, inclusive=False):
+        q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
 
-    def sibling_of(self, other):
-        return self.filter(self.sibling_of_q(other))
+        if not inclusive:
+            q &= ~self.page_q(other)
 
-    def not_sibling_of(self, other):
-        return self.exclude(self.sibling_of_q(other))
+        return q
+
+    def sibling_of(self, other, inclusive=False):
+        return self.filter(self.sibling_of_q(other, inclusive))
+
+    def not_sibling_of(self, other, inclusive=False):
+        return self.exclude(self.sibling_of_q(other, inclusive))
 
     def type_q(self, model):
         content_type = ContentType.objects.get_for_model(model)
