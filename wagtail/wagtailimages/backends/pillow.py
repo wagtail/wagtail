@@ -1,7 +1,3 @@
-from django.db import models
-
-from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.indexed import Indexed
 from base import BaseImageBackend
 import PIL.Image
 
@@ -15,7 +11,7 @@ class PillowBackend(BaseImageBackend):
         
     def save_image(self, image, output, format):
         if self.quality:
-            image.save(output, format, quality = self.quality)
+            image.save(output, format, quality=self.quality)
         else:
             image.save(output, format)
     

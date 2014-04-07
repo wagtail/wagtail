@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-from django.db import models
-from django.conf import settings
 from .base import BaseImageBackend
 
 from wand.image import Image
@@ -40,5 +38,5 @@ class WandBackend(BaseImageBackend):
         top = (original_height - final_height) / 2
         image.crop(
             left=left, top=top, right=left + final_width, bottom=top + final_height
-		)
+        )
         return image
