@@ -1,5 +1,4 @@
-{% load compress %}
-{% load localize %}
+{% load wagtailadmin_tags compress localize %}
 
 {% comment %}
     Javascript declarations to be included on the 'create page' and 'edit page' views
@@ -22,15 +21,17 @@
 
     <script src="{{ STATIC_URL }}wagtailadmin/js/page-chooser.js"></script>
     {% comment %}
-        TODO: have a mechanism to specify image-chooser.js (and hallo-wagtailimage.js)
-        within the wagtailimages app -
-        ideally wagtailadmin shouldn't have to know anything at all about wagtailimages
+        TODO: use the insert_editor_js hook to inject things like image-chooser.js and hallo-wagtailimage.js
+        from their respective apps such as wagtailimages -
+        ideally wagtailadmin shouldn't have to know anything at all about wagtailimages.
         TODO: a method of injecting these sorts of things on demand when the modal is spawned.
     {% endcomment %}
     <script src="{{ STATIC_URL }}wagtailimages/js/image-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
     <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
+
+    {% hook_output 'insert_editor_js' %}
 {% endcompress %}
 
 {% comment %}

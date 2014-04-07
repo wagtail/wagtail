@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load meta_description %}
+{% load wagtailadmin_tags %}
 
 {% block bodyclass %}menu-explorer{% endblock %}
 {% block titletag %}{% blocktrans with title=parent_page.title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}

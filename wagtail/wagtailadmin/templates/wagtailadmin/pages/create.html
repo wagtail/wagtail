@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load page_permissions %}
+{% load wagtailadmin_tags %}
 {% load i18n %}
 
 {% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
