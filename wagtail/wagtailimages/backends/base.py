@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 class InvalidImageBackendError(ImproperlyConfigured):
@@ -6,8 +7,13 @@ class InvalidImageBackendError(ImproperlyConfigured):
 
 
 class BaseImageBackend(object):
+    quality = None
+    
     def __init__(self, params):
-        pass
+        try:
+            self.quality = settings.IMAGE_COMPRESSION_QUALITY
+        except:
+            pass
         
     def open_image(self, input_file):
         """
