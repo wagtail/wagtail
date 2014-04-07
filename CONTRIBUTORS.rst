@@ -40,3 +40,4 @@ Translators
 * Polish: Łukasz Bołdys
 * Romanian: Dan Braghis
 * Spanish: Unai Zalakain, fooflare
+* Portuguese Brazil: Gilson Filho
