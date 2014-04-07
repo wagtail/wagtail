@@ -16,6 +16,15 @@ class PageQuerySet(QuerySet):
     def not_live(self):
         return self.exclude(self.live_q())
 
+    def page_q(self, other):
+        return Q(id=other.id)
+
+    def page(self, other):
+        return self.filter(self.page_q(other))
+
+    def not_page(self, other):
+        return self.exclude(self.page_q(other))
+
     def descendant_of_q(self, other):
         return Q(path__startswith=other.path) & Q(depth__gt=other.depth)
 
