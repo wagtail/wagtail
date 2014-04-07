@@ -48,7 +48,7 @@ class PageQuerySet(QuerySet):
     def not_child_of(self, other):
         return self.exclude(self.child_of_q(other))
 
-    def ascendant_of_q(self, other, inclusive=False):
+    def ancestor_of_q(self, other, inclusive=False):
         paths = [
             other.path[0:pos]
             for pos in range(0, len(other.path) + 1, other.steplen)[1:]
@@ -60,11 +60,11 @@ class PageQuerySet(QuerySet):
 
         return q
 
-    def ascendant_of(self, other, inclusive=False):
-        return self.filter(self.ascendant_of_q(other, inclusive))
+    def ancestor_of(self, other, inclusive=False):
+        return self.filter(self.ancestor_of_q(other, inclusive))
 
-    def not_ascendant_of(self, other, inclusive=False):
-        return self.exclude(self.ascendant_of_q(other, inclusive))
+    def not_ancestor_of(self, other, inclusive=False):
+        return self.exclude(self.ancestor_of_q(other, inclusive))
 
     def parent_of_q(self, other):
         return Q(path=self.model._get_parent_path_from_path(other.path))
