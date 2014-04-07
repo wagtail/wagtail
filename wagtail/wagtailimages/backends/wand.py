@@ -7,21 +7,19 @@ from wand.image import Image
 class WandBackend(BaseImageBackend):
     def __init__(self, params):
         super(WandBackend, self).__init__(params)
-        
+
     def open_image(self, input_file):
         image = Image(file=input_file)
         return image
-        
+
     def save_image(self, image, output, format):
         image.format = format
-        if self.quality:
-            image.compression_quality = self.quality
+        image.compression_quality = self.quality
         image.save(file=output)
-        
+
     def resize(self, image, size):
         image.resize(size[0], size[1])
         return image
-        
 
     def crop_to_centre(self, image, size):
         (original_width, original_height) = image.size

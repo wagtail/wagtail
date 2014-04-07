@@ -8,19 +8,14 @@ class PillowBackend(BaseImageBackend):
     def open_image(self, input_file):
         image = PIL.Image.open(input_file)
         return image
-        
+
     def save_image(self, image, output, format):
-        if self.quality:
-            image.save(output, format, quality=self.quality)
-        else:
-            image.save(output, format)
-    
-        
+        image.save(output, format, quality=self.quality)
+
     def resize(self, image, size):
         if image.mode in ['1', 'P']:
             image = image.convert('RGB')
         return image.resize(size, PIL.Image.ANTIALIAS)
-
 
     def crop_to_centre(self, image, size):
         (original_width, original_height) = image.size
