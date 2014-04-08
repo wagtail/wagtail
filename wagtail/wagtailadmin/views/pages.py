@@ -1,8 +1,6 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
@@ -347,7 +345,8 @@ def preview_on_edit(request, page_id):
         # an HTML error response
         request.META.pop('HTTP_X_REQUESTED_WITH', None)
 
-        response = page.serve(page.dummy_request())
+        display_mode = page.get_page_modes()[0]
+        response = page.show_as_mode(display_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -389,7 +388,8 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         # an HTML error response
         request.META.pop('HTTP_X_REQUESTED_WITH', None)
 
-        response = page.serve(page.dummy_request())
+        display_mode = page.get_page_modes()[0]
+        response = page.show_as_mode(display_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
