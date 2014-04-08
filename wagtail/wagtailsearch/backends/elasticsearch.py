@@ -130,19 +130,25 @@ class ElasticSearchResults(object):
             }
         }
 
-    def _get_results_pks(self, offset=0, limit=None):
-        query = self._get_query()
-        query['from'] = offset
-        if limit is not None:
-            query['size'] = limit
+    def _get_results_pks(self, offset=0, limit=10):
+        # Quit now if theres no limit
+        if limit <= 0:
+            return []
 
+        # Get query
+        query = self._get_query()
+
+        # Send to ElasticSearch
         hits = self.backend.es.search(
             index=self.backend.es_index,
             body=dict(query=query),
             _source=False,
             fields='pk',
+            from_=offset,
+            size=limit,
         )
 
+        # Get pks from results
         pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
 
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
@@ -169,7 +175,7 @@ class ElasticSearchResults(object):
     def __getitem__(self, key):
         if isinstance(key, slice):
             # Get primary keys
-            pk_list_unclean = self._get_results_pks(key.start, key.stop - key.start)
+            pk_list_unclean = self._get_results_pks(key.start or 0, (key.stop or 10) - (key.start or 0))
 
             # Remove duplicate keys (and preserve order)
             seen_pks = set()
@@ -192,7 +198,7 @@ class ElasticSearchResults(object):
             return results_sorted
         else:
             # Return a single item
-            pk = self._get_results_pks(key, key + 1)[0]
+            pk = self._get_results_pks(key, 1)[0]
             return self.query_set.get(pk=pk)
 
     def __len__(self):
