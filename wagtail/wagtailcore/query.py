@@ -1,6 +1,8 @@
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 
+from wagtail.wagtailsearch import get_search_backend
+
 
 # hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
 # based on http://stackoverflow.com/questions/17211078/how-to-temporarily-modify-sys-path-in-python
@@ -107,3 +109,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def not_type(self, model):
         return self.exclude(self.type_q(model))
+
+    def search(self, query_string, fields=None):
+        s = get_search_backend()
+        return s.search(self, query_string, fields=fields)
