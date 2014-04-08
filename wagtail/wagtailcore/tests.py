@@ -347,12 +347,20 @@ class TestPageQuerySet(TestCase):
         for page in pages:
             self.assertTrue(page.live)
 
+        # Check that the homepage is in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertTrue(pages.filter(id=homepage.id).exists())
+
     def test_not_live(self):
         pages = Page.objects.not_live()
 
         # All pages must not be live
         for page in pages:
             self.assertFalse(page.live)
+
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_page(self):
         homepage = Page.objects.get(url_path='/home/')
@@ -560,9 +568,17 @@ class TestPageQuerySet(TestCase):
         for page in pages:
             self.assertIsInstance(page.specific, EventPage)
 
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertTrue(pages.filter(id=event.id).exists())
+
     def test_not_type(self):
         pages = Page.objects.not_type(EventPage)
 
         # Check that no objects are EventPages
         for page in pages:
             self.assertNotIsInstance(page.specific, EventPage)
+
+        # Check that the homepage is in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertTrue(pages.filter(id=homepage.id).exists())
