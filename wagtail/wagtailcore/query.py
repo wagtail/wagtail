@@ -84,7 +84,7 @@ class PageQuerySet(MP_NodeQuerySet):
     def not_parent_of(self, other):
         return self.exclude(self.parent_of_q(other))
 
-    def sibling_of_q(self, other, inclusive=False):
+    def sibling_of_q(self, other, inclusive=True):
         q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
 
         if not inclusive:
@@ -92,10 +92,10 @@ class PageQuerySet(MP_NodeQuerySet):
 
         return q
 
-    def sibling_of(self, other, inclusive=False):
+    def sibling_of(self, other, inclusive=True):
         return self.filter(self.sibling_of_q(other, inclusive))
 
-    def not_sibling_of(self, other, inclusive=False):
+    def not_sibling_of(self, other, inclusive=True):
         return self.exclude(self.sibling_of_q(other, inclusive))
 
     def type_q(self, model):

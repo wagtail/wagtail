@@ -564,7 +564,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def get_descendants(self, inclusive=False):
         return Page.objects.descendant_of(self, inclusive)
 
-    def get_siblings(self, inclusive=False):
+    def get_siblings(self, inclusive=True):
         return Page.objects.sibling_of(self, inclusive)
 
 
