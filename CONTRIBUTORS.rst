@@ -23,6 +23,7 @@ Contributors
 * Ryan Foster
 * v1kku
 * Miguel Vieira
+* Ben Emery
 
 Translators
 ===========
