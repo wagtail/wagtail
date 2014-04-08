@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
  * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
+ * Added custom Query set for Pages with some handy methods for querying pages
  * Editor's guide documentation
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
