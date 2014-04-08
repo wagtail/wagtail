@@ -154,7 +154,7 @@ class ElasticSearchResults(object):
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
         return [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
-    def _get_count(self):
+    def count(self):
         query = self._get_query()
 
         # Elasticsearch 1.x
@@ -202,7 +202,7 @@ class ElasticSearchResults(object):
             return self.query_set.get(pk=pk)
 
     def __len__(self):
-        return self._get_count()
+        return self.count()
 
 
 class ElasticSearch(BaseSearch):
