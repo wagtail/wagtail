@@ -558,6 +558,15 @@ class Page(MP_Node, ClusterableModel, Indexed):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
+    def get_ancestors(self, inclusive=False):
+        return Page.objects.ancestor_of(self, inclusive)
+
+    def get_descendants(self, inclusive=False):
+        return Page.objects.descendant_of(self, inclusive)
+
+    def get_siblings(self, inclusive=True):
+        return Page.objects.sibling_of(self, inclusive)
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
