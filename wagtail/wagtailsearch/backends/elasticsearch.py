@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.db import models
 
-from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
@@ -99,37 +99,47 @@ class ElasticSearchResults(object):
         filters = self._get_filters()
 
         return {
-            'query': {
-                'filtered': {
-                    'query': query,
-                    'filter': {
-                        'and': filters,
-                    }
+            'filtered': {
+                'query': query,
+                'filter': {
+                    'and': filters,
                 }
             }
         }
 
     def _get_results_pks(self, offset=0, limit=None):
         query = self._get_query()
-        query['query']['from'] = offset
+        query['from'] = offset
         if limit is not None:
-            query['query']['size'] = limit
+            query['size'] = limit
 
         hits = self.backend.es.search(
             index=self.backend.es_index,
-            body=query,
+            body=dict(query=query),
             _source=False,
             fields='pk',
         )
 
-        return [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
+        pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
+
+        # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
+        return [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
     def _get_count(self):
         query = self._get_query()
+
+        # Elasticsearch 1.x
         count = self.backend.es.count(
             index=self.backend.es_index,
-            body=query,
+            body=dict(query=query),
         )
+
+        # ElasticSearch 0.90.x fallback
+        if not count['_shards']['successful'] and "No query registered for [query]]" in count['_shards']['failures'][0]['reason']:
+            count = self.backend.es.count(
+                index=self.backend.es_index,
+                body=query,
+            )
 
         return count['count']
 
