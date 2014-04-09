@@ -6,6 +6,15 @@
         cursor:pointer;
     }
 
+    input[type=button], input[type=submit], button, .button{
+        padding:1em 0;
+        display:block;
+        width:100%;
+        text-align:left;
+        padding-left:1em;
+    }
+
+
     ul{
         @include unlist();
         background-color:$color-teal;
@@ -25,7 +34,6 @@
         }
 
         a{
-
             box-sizing:border-box;
             white-space: nowrap;
             position:relative;
@@ -55,7 +63,7 @@
         a, input[type=submit], input[type=reset], input[type=button], .button, button{
             font-size:0.95em;
             -webkit-font-smoothing: auto;
-            text-shadow:-1px -1px 1px rgba(0,0,0,0.2);
+            @include border-radius(0);
         }
 
         label{
@@ -95,16 +103,7 @@
         bottom:100%;
     }
 
-    input[type=button], input[type=submit], button{
-        padding:1em 0;
-        @include border-radius(0);
-        display:block;
-        width:100%;
-        text-align:left;
-        padding-left:1em;
-        text-shadow:-1px -1px 1px rgba(0,0,0,0.2);
-    }
-
+   
     .button{
         float:left;
 
@@ -131,6 +130,21 @@
     }
     &.open > .button + .dropdown-toggle{
         background-color:$color-teal-darker;
+    }
+
+    /* Styles for dropdowns which are also buttons e.g page editor */
+    &.dropdown-button{
+        .dropdown-toggle{
+            @include border-radius(0 3px 3px 0);
+        }
+        &.open{
+            > input[type=button], > input[type=submit], > button, > .button{
+                @include border-radius(0 0 3px 3px);
+            }
+            .dropdown-toggle{
+                @include border-radius(0 0 3px 0);
+            }
+        }
     }
 }
 
