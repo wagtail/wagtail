@@ -55,16 +55,35 @@ class Indexed(object):
         """
         Get config for full-text search fields
         """
+        FIELD_DEFAULTS = {
+            'type': 'string',
+        }
+
         # Get local search_fields or indexed_fields configs
         if 'search_fields' in cls.__dict__:
             search_fields = cls.search_fields
+        elif 'indexed_fields' in cls.__dict__:
+            indexed_fields = cls.indexed_fields
+
+            # Convert to dict
+            if isinstance(indexed_fields, tuple):
+                indexed_fields = list(indexed_fields)
+            if isinstance(indexed_fields, basestring):
+                indexed_fields = [indexed_fields]
+            if isinstance(indexed_fields, list):
+                indexed_fields = {field: FIELD_DEFAULTS for field in indexed_fields}
+            if not isinstance(indexed_fields, dict):
+                raise ValueError()
+
+            # Filter out fields that are not being searched
+            search_fields = {}
+            for field, config in indexed_fields.items():
+                if not config.get('indexed', None) == 'not_indexed' and not config.get('index', None) == 'not_analyzed':
+                    search_fields[field] = config
         else:
             return {}
 
         # Convert to dict
-        FIELD_DEFAULTS = {
-            'type': 'string',
-        }
         if isinstance(search_fields, tuple):
             search_fields = list(search_fields)
         if isinstance(search_fields, basestring):
