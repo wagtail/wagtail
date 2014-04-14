@@ -5,6 +5,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailsearch import Indexed
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -195,3 +196,21 @@ EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
 ]
+
+
+# For testing search
+class SearchTest(models.Model, Indexed):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    live = models.BooleanField(default=False)
+
+    search_fields = ('title', 'content', 'callable_indexed_field')
+
+    def callable_indexed_field(self):
+        return "Callable"
+
+
+class SearchTestChild(SearchTest):
+    extra_content = models.TextField()
+
+    search_fields = 'extra_content'
