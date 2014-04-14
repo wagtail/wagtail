@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import six
 from django import template
 from django.core import urlresolvers
@@ -128,4 +130,4 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return u''.join(snippets)
+    return ''.join(snippets)
