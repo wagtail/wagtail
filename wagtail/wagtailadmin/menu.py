@@ -7,7 +7,7 @@ class MenuItem(object):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(str(label)))
+        self.name = (name or slugify(label))
         self.order = order
 
     def render_html(self):
