@@ -38,6 +38,6 @@ Translators
 * Greek: Serafeim Papastefanos
 * Mongolian: Delgermurun Purevkhuu
 * Polish: Łukasz Bołdys
+* Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
 * Spanish: Unai Zalakain, fooflare
-* Portuguese Brazil: Gilson Filho
