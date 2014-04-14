@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.management.base import NoArgsCommand
 from django.core.exceptions import ObjectDoesNotExist
 
