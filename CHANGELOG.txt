@@ -13,10 +13,12 @@ Changelog
  * MultiFieldPanel definitions now accept a 'classname' attribute, including a special classname of 'collapsible' to allow showing / hiding them on click
  * Added 'insert_editor_css' and 'insert_editor_js' hooks for passing in custom CSS / JS to the editor interface
  * Made JPEG compression level configurable through the IMAGE_COMPRESSION_QUALITY setting, and increased default to 85
+ * Added translation for Portuguese Brazil
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
  * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
  * Fix: Page slugs are now validated on page edit
+ * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
