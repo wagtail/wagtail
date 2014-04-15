@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from wagtail.wagtailsearch import Indexed
 
 
 # hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
@@ -466,8 +466,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             fields = ['title']
 
         # Search
-        s = get_search_backend()
-        return s.search(query_set, query_string, fields=fields)
+        return query_set.search(query_string, fields=fields)
 
     @classmethod
     def clean_subpage_types(cls):

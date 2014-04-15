@@ -227,8 +227,8 @@ class ElasticSearchResults(object):
             # Set limits
             start = int(key.start) if key.start else None
             stop = int(key.stop) if key.stop else None
-
             new.set_limits(start, stop)
+
             return new
         else:
             # Return a single item
