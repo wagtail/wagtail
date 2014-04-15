@@ -204,7 +204,7 @@ class ElasticSearchResults(object):
         if self.stop is not None:
             hit_count = min(hit_count, self.stop - self.start)
 
-        return hit_count
+        return max(hit_count, 0)
 
     def _do_search(self):
         # Get list of PKs from Elasticsearch
