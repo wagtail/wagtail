@@ -200,9 +200,9 @@ class ElasticSearchResults(object):
         hit_count = count['count']
 
         # Add limits
-        if self.stop is not None:
-            hit_count = min(hit_count, self.stop)
         hit_count -= self.start
+        if self.stop is not None:
+            hit_count = min(hit_count, self.stop - self.start)
 
         return hit_count
 
