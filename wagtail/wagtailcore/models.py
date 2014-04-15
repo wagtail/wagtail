@@ -7,10 +7,13 @@ from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
 from django.core.cache import cache
+from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
+from django.utils import timezone
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.util import camelcase_to_underscore
@@ -234,6 +237,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
+    go_live_datetime = models.DateTimeField(verbose_name=_("Go live date/time"), blank=True, null=True)
+    expiry_datetime = models.DateTimeField(verbose_name=_("Expiry date/time"), blank=True, null=True)
+    expired = models.BooleanField(default=False, editable=False)
+
     indexed_fields = {
         'title': {
             'type': 'string',
@@ -320,7 +327,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
+        cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     @property
@@ -399,8 +406,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def serve(self, request):
         return TemplateResponse(
-            request, 
-            self.get_template(request), 
+            request,
+            self.get_template(request),
             self.get_context(request)
         )
 
@@ -447,6 +454,16 @@ class Page(MP_Node, ClusterableModel, Indexed):
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
+
+    def clean(self):
+        super(Page, self).clean()
+
+        if self.go_live_datetime and self.expiry_datetime:
+            if self.go_live_datetime > self.expiry_datetime:
+                raise ValidationError(ugettext('Go live date/time should be before expiry datetime.'))
+
+        if self.expiry_datetime and self.expiry_datetime < timezone.now():
+            raise ValidationError(ugettext('Expiry date/time should be in the future'))
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
@@ -642,6 +659,7 @@ class PageRevision(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
+    approved_go_live_datetime = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()

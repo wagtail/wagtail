@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.translation import ugettext as _ 
+from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -199,7 +199,10 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be created due to errors."))
+            if form.errors and form.errors.get('__all__'):
+                messages.error(request, _("The page could not be created: ") + ', '.join(form.errors['__all__']))
+            else:
+                messages.error(request, _("The page could not be created due to errors."))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         form = form_class(instance=page)
