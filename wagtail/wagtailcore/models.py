@@ -373,8 +373,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False):
-        self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_datetime=None):
+        self.revisions.create(
+            content_json=self.to_json(),
+            user=user,
+            submitted_for_moderation=submitted_for_moderation,
+            approved_go_live_datetime=approved_go_live_datetime,
+        )
 
     def get_latest_revision(self):
         try:
@@ -539,12 +544,19 @@ class Page(MP_Node, ClusterableModel, Indexed):
     @property
     def status_string(self):
         if not self.live:
-            return "draft"
+            if self.approved_schedule:
+                return "scheduled"
+            else:
+                return "draft"
         else:
             if self.has_unpublished_changes:
                 return "live + draft"
             else:
                 return "live"
+
+    @property
+    def approved_schedule(self):
+        return self.revisions.exclude(approved_go_live_datetime__isnull=True).exists()
 
     def has_unpublished_subtree(self):
         """
@@ -693,10 +705,22 @@ class PageRevision(models.Model):
 
     def publish(self):
         page = self.as_page_object()
-        page.live = True
+        if page.go_live_datetime and page.go_live_datetime > timezone.now():
+            # if we have a go_live in the future don't make the page live
+            page.live = False
+            # Instead set the approved_go_live_datetime of this revision
+            self.approved_go_live_datetime = page.go_live_datetime
+            self.save()
+            # And clear the the approved_go_live_datetime of any other revisions
+            page.revisions.exclude(id=self.id).update(approved_go_live_datetime=None)
+        else:
+            page.live = True
+            # If page goes live clear the approved_go_live_datetime of all revisions
+            page.revisions.update(approved_go_live_datetime=None)
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
+
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
