@@ -18,6 +18,28 @@ class ElasticSearchResults(object):
         self.query_set = query_set
         self.query_string = query_string
         self.fields = fields
+        self.start = 0
+        self.stop = None
+
+    def _clone(self):
+        klass = self.__class__
+        new = klass(self.backend, self.query_set, self.query_string, self.fields)
+        new.start = self.start
+        new.stop = self.stop
+        return new
+
+    def set_limits(self, start=None, stop=None):
+        if stop is not None:
+            if self.stop is not None:
+                self.stop = min(self.stop, self.start + stop)
+            else:
+                self.stop = self.start + stop
+
+        if start is not None:
+            if self.stop is not None:
+                self.start = min(self.stop, self.start + start)
+            else:
+                self.start = self.start + start
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
@@ -130,23 +152,25 @@ class ElasticSearchResults(object):
             }
         }
 
-    def _get_results_pks(self, offset=0, limit=10):
-        # Quit now if theres no limit
-        if limit <= 0:
-            return []
-
+    def _get_results_pks(self):
         # Get query
         query = self._get_query()
 
-        # Send to ElasticSearch
-        hits = self.backend.es.search(
+        # Params for elasticsearch query
+        params = dict(
             index=self.backend.es_index,
             body=dict(query=query),
             _source=False,
             fields='pk',
-            from_=offset,
-            size=limit,
+            from_=self.start,
         )
+
+        # Add size if set
+        if self.stop is not None:
+            params['size'] = self.stop - self.start
+
+        # Send to ElasticSearch
+        hits = self.backend.es.search(**params)
 
         # Get pks from results
         pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
@@ -170,37 +194,48 @@ class ElasticSearchResults(object):
                 body=query,
             )
 
-        return count['count']
+        # Get count
+        hit_count = count['count']
+
+        # Add limits
+        if self.stop is not None:
+            hit_count = min(hit_count, self.stop)
+        hit_count -= self.start
+
+        return hit_count
+
+    def __iter__(self):
+        seen_pks = set()
+
+        for pk in self._get_results_pks():
+            # Remove any duplicates
+            if pk in seen_pks:
+                continue
+            seen_pks.add(pk)
+
+            # Get next result
+            result = self.query_set.filter(pk=pk).first()
+
+            # Return it
+            if result is not None:
+                yield result
 
     def __getitem__(self, key):
+        new = self._clone()
+
         if isinstance(key, slice):
-            # Get primary keys
-            pk_list_unclean = self._get_results_pks(key.start or 0, (key.stop or 10) - (key.start or 0))
+            # Set limits
+            start = int(key.start) if key.start else None
+            stop = int(key.stop) if key.stop else None
 
-            # Remove duplicate keys (and preserve order)
-            seen_pks = set()
-            pk_list = []
-            for pk in pk_list_unclean:
-                if pk not in seen_pks:
-                    seen_pks.add(pk)
-                    pk_list.append(pk)
-
-            # Get results
-            results = self.query_set.filter(pk__in=pk_list)
-
-            # Put results into a dictionary (using primary key as the key)
-            results_dict = {str(result.pk): result for result in results}
-
-            # Build new list with items in the correct order
-            results_sorted = [results_dict[str(pk)] for pk in pk_list if str(pk) in results_dict]
-
-            # Return the list
-            return results_sorted
+            new.set_limits(start, stop)
+            return new
         else:
             # Return a single item
-            pk = self._get_results_pks(key, 1)[0]
-            return self.query_set.get(pk=pk)
-
+            new.start = key
+            new.stop = key + 1
+            return list(new)[0]
+  
     def __len__(self):
         return self.count()
 
