@@ -22,6 +22,7 @@ class ElasticSearchResults(object):
         self.start = 0
         self.stop = None
         self._results_cache = None
+        self._hit_count = None
 
     def _clone(self):
         klass = self.__class__
@@ -180,7 +181,7 @@ class ElasticSearchResults(object):
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
         return [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
-    def count(self):
+    def _do_count(self):
         query = self._get_query()
 
         # Elasticsearch 1.x
@@ -205,6 +206,11 @@ class ElasticSearchResults(object):
             hit_count = min(hit_count, self.stop - self.start)
 
         return max(hit_count, 0)
+
+    def count(self):
+        if self._hit_count is None:
+            self._hit_count = self._do_count()
+        return self._hit_count
 
     def _do_search(self):
         # Get list of PKs from Elasticsearch
