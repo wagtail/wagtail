@@ -10,6 +10,7 @@ from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
 import string
+from collections import OrderedDict
 
 
 class ElasticSearchResults(object):
@@ -20,6 +21,7 @@ class ElasticSearchResults(object):
         self.fields = fields
         self.start = 0
         self.stop = None
+        self._results_cache = None
 
     def _clone(self):
         klass = self.__class__
@@ -204,21 +206,24 @@ class ElasticSearchResults(object):
 
         return hit_count
 
+    def _do_search(self):
+        # Get list of PKs from Elasticsearch
+        pks = self._get_results_pks()
+
+        # Initialise results dictionary
+        results = OrderedDict([(str(pk), None) for pk in pks])
+
+        # Run query and add objects into ordered dict
+        query_set = self.query_set.filter(pk__in=pks)
+        for obj in query_set:
+            results[str(obj.pk)] = obj
+
+        return [obj for obj in results.values() if obj]
+
     def __iter__(self):
-        seen_pks = set()
-
-        for pk in self._get_results_pks():
-            # Remove any duplicates
-            if pk in seen_pks:
-                continue
-            seen_pks.add(pk)
-
-            # Get next result
-            result = self.query_set.filter(pk=pk).first()
-
-            # Return it
-            if result is not None:
-                yield result
+        if self._results_cache is None:
+            self._results_cache = self._do_search()
+        return iter(self._results_cache)
 
     def __getitem__(self, key):
         new = self._clone()
