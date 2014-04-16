@@ -5,13 +5,6 @@
 {% block content %}
     <header class="nice-padding">
         <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page_to_move.title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
-
-        <ul class="breadcrumb">
-            <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
-            {% for page in viewed_page.get_ancestors %}
-                <li><a href="{% url 'wagtailadmin_pages_move_choose_destination' page_to_move.id page.id %}">{{ page.title }}</a></li>
-            {% endfor %}
-        </ul>
     </header>
 
     <div class="nice-padding">
