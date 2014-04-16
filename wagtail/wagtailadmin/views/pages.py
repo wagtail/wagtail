@@ -279,7 +279,11 @@ def edit(request, page_id):
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be saved due to validation errors"))
+            if form.errors and form.errors.get('__all__'):
+                messages.error(request, _("The page could not be saved: ") + ', '.join(form.errors['__all__']))
+            else:
+                messages.error(request, _("The page could not be saved due to validation errors"))
+
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
