@@ -39,18 +39,18 @@ class BaseImageBackend(object):
 
     def resize_to_max(self, image, size):
         """
-        Resize image down to fit within the given dimensions, preserving aspect ratio.
+        Resize image up to fit within the given dimensions, preserving aspect ratio.
         Will leave image unchanged if it's already within those dimensions.
         """
         (original_width, original_height) = image.size
         (target_width, target_height) = size
 
-        if original_width <= target_width and original_height <= target_height:
+        if original_width >= target_width and original_height >= target_height:
             return image
 
-        # scale factor if we were to downsize the image to fit the target width
+        # scale factor if we were to resize the image to fit the target width
         horz_scale = float(target_width) / original_width
-        # scale factor if we were to downsize the image to fit the target height
+        # scale factor if we were to resize the image to fit the target height
         vert_scale = float(target_height) / original_height
 
         # choose whichever of these gives a smaller image
@@ -58,10 +58,8 @@ class BaseImageBackend(object):
             final_size = (target_width, int(original_height * horz_scale))
         else:
             final_size = (int(original_width * vert_scale), target_height)
-        
-        return self.resize(image, final_size)
-        
 
+        return self.resize(image, final_size)
 
     def resize_to_min(self, image, size):
         """
