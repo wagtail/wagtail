@@ -717,6 +717,7 @@ class PageRevision(models.Model):
             page.live = True
             # If page goes live clear the approved_go_live_datetime of all revisions
             page.revisions.update(approved_go_live_datetime=None)
+        page.expired = False # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)

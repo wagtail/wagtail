@@ -178,15 +178,16 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             future_go_live = go_live_datetime and go_live_datetime > timezone.now()
             approved_go_live_datetime = None
 
-            if is_publishing and not future_go_live:
-                page.live = True
+            if is_publishing:
                 page.has_unpublished_changes = False
-            elif is_publishing and future_go_live:
-                page.live = False
-                # Set approved_go_live_datetime only if is publishing
-                # and the future_go_live is actually in future
-                approved_go_live_datetime = go_live_datetime
-                page.has_unpublished_changes = False
+                page.expired = False
+                if future_go_live:
+                    page.live = False
+                    # Set approved_go_live_datetime only if is publishing
+                    # and the future_go_live is actually in future
+                    approved_go_live_datetime = go_live_datetime
+                else:
+                    page.live = True
             else:
                 page.live = False
                 page.has_unpublished_changes = True
@@ -267,6 +268,7 @@ def edit(request, page_id):
 
             if is_publishing:
                 page.has_unpublished_changes = False
+                page.expired = False
                 if future_go_live:
                     page.live = False
                     # Set approved_go_live_datetime only if publishing
