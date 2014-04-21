@@ -544,7 +544,9 @@ class Page(MP_Node, ClusterableModel, Indexed):
     @property
     def status_string(self):
         if not self.live:
-            if self.approved_schedule:
+            if self.expired:
+                return "expired"
+            elif self.approved_schedule:
                 return "scheduled"
             else:
                 return "draft"
