@@ -44,7 +44,7 @@ setup(
         "django-compressor>=1.3",
         "django-libsass>=0.1",
         "django-modelcluster>=0.1",
-        "django-taggit>=0.11.2",
+        "django-taggit==0.11.2",
         "Pillow>=2.3.0",
         "beautifulsoup4>=4.3.2",
         "lxml>=3.3.0",
