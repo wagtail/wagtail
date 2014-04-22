@@ -181,7 +181,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 page.live = False
                 page.has_unpublished_changes = True
 
-            parent_page.add_child(page)  # assign tree parameters - will cause page to be saved
+            parent_page.add_child(instance=page)  # assign tree parameters - will cause page to be saved
             page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
 
             if is_publishing:
