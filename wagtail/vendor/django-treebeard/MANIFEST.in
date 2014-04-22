@@ -1,3 +1,0 @@
-include CHANGES LICENSE NOTICE README.rst UPDATING MANIFEST.in
-recursive-include docs Makefile README.rst *.py *.rst
-recursive-include treebeard *.py *.html *.js *.css *.png
