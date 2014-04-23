@@ -5,6 +5,7 @@ from taggit.managers import TaggableManager
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.dispatch import Signal
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
@@ -56,3 +57,6 @@ class Document(models.Model, TagSearchable):
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+
+
+doc_serve = Signal(providing_args=['request'])
