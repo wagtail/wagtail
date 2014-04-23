@@ -133,15 +133,18 @@ class LocalizedTimeField(forms.CharField):
         else:
             raise ValidationError(_("Please type a valid time") )
 
-
+# For some reason we need to explicitly override the DateTimeField and set
+# it to use the DateTimeInput or else it will use the LocalizedDateInput/FriendlyDateInput
 if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': LocalizedDateInput},
+        models.DateTimeField: {'widget': forms.DateTimeInput},
         models.TimeField: {'widget': LocalizedTimeInput, 'form_class': LocalizedTimeField},
     }
 else: # Fall back to friendly date/time
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': FriendlyDateInput},
+        models.DateTimeField: {'widget': forms.DateTimeInput},
         models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
     }
 
