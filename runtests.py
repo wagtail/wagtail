@@ -31,7 +31,7 @@ if not settings.configured:
     settings.configure(
         DATABASES={
             'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
                 'NAME': 'wagtaildemo',
                 'USER': 'postgres',
             }
