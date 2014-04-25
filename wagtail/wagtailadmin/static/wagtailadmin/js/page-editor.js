@@ -239,8 +239,8 @@ function InlinePanel(opts) {
     return self;
 }
 
-function cleanForSlug(val){
-    if(URLify != undefined) { // Check to be sure that URLify function exists
+function cleanForSlug(val, useURLify){
+    if(URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
         return URLify(val, val.length);
     } else { // If not just do the "replace"
         return val.replace(/\s/g,"-").replace(/[^A-Za-z0-9\-]/g,"").toLowerCase();
@@ -262,7 +262,8 @@ function initSlugAutoPopulate(){
 
 function initSlugCleaning(){
     $('#id_slug').blur(function(){
-        $(this).val(cleanForSlug($(this).val()));
+        // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
+        $(this).val(cleanForSlug($(this).val(), false));
     });
 }
 
