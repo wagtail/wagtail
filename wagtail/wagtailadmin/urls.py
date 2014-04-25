@@ -3,6 +3,7 @@ from django.conf import settings
 
 from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
+from wagtail.wagtailadmin import hooks
 
 urlpatterns = [
     url(
@@ -89,3 +90,10 @@ urlpatterns += [
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
 ]
+
+
+# Import additional urlpatterns from any apps that define a register_admin_urls hook
+for fn in hooks.get_hooks('register_admin_urls'):
+    urls = fn()
+    if urls:
+        urlpatterns += urls
