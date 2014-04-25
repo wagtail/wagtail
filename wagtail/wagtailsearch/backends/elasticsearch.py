@@ -37,7 +37,7 @@ class ElasticSearchResults(object):
                 results = results.prefetch_related(prefetch)
 
             # Put results into a dictionary (using primary key as the key)
-            results_dict = {str(result.pk): result for result in results}
+            results_dict = dict((str(result.pk), result) for result in results)
 
             # Build new list with items in the correct order
             results_sorted = [results_dict[str(pk)] for pk in pk_list if str(pk) in results_dict]

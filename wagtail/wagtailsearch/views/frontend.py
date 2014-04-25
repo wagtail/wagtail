@@ -73,11 +73,11 @@ def search(
             for result in search_results:
                 result_specific = result.specific
 
-                search_results_json.append({
-                    attr: getattr(result_specific, attr)
+                search_results_json.append(dict(
+                    (attr, getattr(result_specific, attr))
                     for attr in json_attrs
                     if hasattr(result_specific, attr)
-                })
+                ))
 
             return HttpResponse(json.dumps(search_results_json))
         else:
