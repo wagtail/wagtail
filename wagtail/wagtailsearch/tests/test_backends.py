@@ -3,7 +3,7 @@ from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
 from django.db.models import Q
-import unittest
+import unittest2 as unittest
 from wagtail.wagtailsearch import get_search_backend
 from wagtail.tests import models
 from wagtail.wagtailsearch.backends.db import DBSearch

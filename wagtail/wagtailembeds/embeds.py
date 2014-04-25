@@ -1,5 +1,11 @@
 import sys
-from importlib import import_module
+
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
+
 from django.conf import settings
 from datetime import datetime
 from django.utils import six
