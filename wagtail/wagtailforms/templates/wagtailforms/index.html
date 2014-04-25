@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Forms" %}{% endblock %}
+{% block bodyclass %}menu-forms{% endblock %}
+{% block content %}
+    {% trans "Forms" as forms_str %}
+    {% trans "Please select a form to view its submissions" as select_form_str %}
+    {% include "wagtailadmin/shared/header.html" with title=forms_str subtitle=select_form_str %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+            {% for fp in form_pages %}
+                <li>
+                    <div class="row row-flush">
+                        <a href="{% url 'wagtailforms_list_submissions' fp.content_type.app_label fp.content_type.model fp.id %}" class="col6">
+                            {{ fp|capfirst }}
+                        </a>
+
+                        <small class="col6">{{ fp.content_type.name |capfirst }} ({{ fp.content_type.app_label }}.{{ fp.content_type.model }})</small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
