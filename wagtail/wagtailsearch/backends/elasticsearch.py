@@ -13,6 +13,10 @@ import string
 from collections import OrderedDict
 
 
+class FilterError(Exception):
+    pass
+
+
 class ElasticSearchResults(object):
     def __init__(self, backend, query_set, query_string, fields=None):
         self.backend = backend
@@ -92,7 +96,7 @@ class ElasticSearchResults(object):
                     }
                 }
 
-            raise Exception("Unknown lookup: " + lookup)
+            raise FilterError('Could not apply filter on ElasticSearch results "' + field + '__' + lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognosed.')
 
         # Get child filters
         connector = where_node.connector
