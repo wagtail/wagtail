@@ -59,4 +59,4 @@ def image_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 
-doc_serve = Signal(providing_args=['request'])
+document_served = Signal(providing_args=['request'])
