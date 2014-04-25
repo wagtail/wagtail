@@ -1,17 +1,9 @@
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 
-from wagtail.wagtailsearch import get_search_backend
-
-
-# hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
-# based on http://stackoverflow.com/questions/17211078/how-to-temporarily-modify-sys-path-in-python
-import sys
-import os
-treebeard_path = os.path.join(os.path.dirname(__file__), '..', 'vendor', 'django-treebeard')
-sys.path.insert(0, treebeard_path)
 from treebeard.mp_tree import MP_NodeQuerySet
-sys.path.pop(0)
+
+from wagtail.wagtailsearch import get_search_backend
 
 
 class PageQuerySet(MP_NodeQuerySet):
