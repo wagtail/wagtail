@@ -15,6 +15,7 @@ Changelog
  * Made JPEG compression level configurable through the IMAGE_COMPRESSION_QUALITY setting, and increased default to 85
  * Added document_served signal which gets fired when a document is downloaded
  * Added translation for Portuguese Brazil
+ * Made compatible with Python 2.6
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
  * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
