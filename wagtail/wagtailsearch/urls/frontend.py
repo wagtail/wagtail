@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from wagtail.wagtailsearch.views import search
 
 
-urlpatterns = patterns(
-    'wagtail.wagtailsearch.views',
-    url(r'^$', 'search', name='wagtailsearch_search'),
-    url(r'^suggest/$', 'search', {'use_json': True}, name='wagtailsearch_suggest'),
-)
+urlpatterns = [
+    url(r'^$', search, name='wagtailsearch_search'),
+    url(r'^suggest/$', search, {'use_json': True}, name='wagtailsearch_suggest'),
+]

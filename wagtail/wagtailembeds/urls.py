@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from wagtail.wagtailembeds.views import chooser
 
 
-urlpatterns = patterns(
-    'wagtail.wagtailembeds.views',
-    url(r'^chooser/$', 'chooser.chooser', name='wagtailembeds_chooser'),
-    url(r'^chooser/upload/$', 'chooser.chooser_upload', name='wagtailembeds_chooser_upload'),
-)
+urlpatterns = [
+    url(r'^chooser/$', chooser.chooser, name='wagtailembeds_chooser'),
+    url(r'^chooser/upload/$', chooser.chooser_upload, name='wagtailembeds_chooser_upload'),
+]
