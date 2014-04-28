@@ -17,36 +17,15 @@ class FilterError(Exception):
     pass
 
 
-class ElasticSearchResults(object):
-    def __init__(self, backend, query_set, query_string, fields=None):
-        self.backend = backend
+class ElasticSearchQuery(object):
+    def __init__(self, query_set, query_string, fields=None):
         self.query_set = query_set
         self.query_string = query_string
         self.fields = fields
-        self.start = 0
-        self.stop = None
-        self._results_cache = None
-        self._hit_count = None
 
     def _clone(self):
         klass = self.__class__
-        new = klass(self.backend, self.query_set, self.query_string, self.fields)
-        new.start = self.start
-        new.stop = self.stop
-        return new
-
-    def set_limits(self, start=None, stop=None):
-        if stop is not None:
-            if self.stop is not None:
-                self.stop = min(self.stop, self.start + stop)
-            else:
-                self.stop = self.start + stop
-
-        if start is not None:
-            if self.stop is not None:
-                self.start = min(self.stop, self.start + start)
-            else:
-                self.start = self.start + start
+        return klass(self.query_set, self.query_string, fields=self.fields)
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
@@ -135,7 +114,7 @@ class ElasticSearchResults(object):
 
         return filters
 
-    def _get_query(self):
+    def to_es(self):
         # Query
         query = {
             'query_string': {
@@ -159,9 +138,39 @@ class ElasticSearchResults(object):
             }
         }
 
+
+class ElasticSearchResults(object):
+    def __init__(self, backend, query):
+        self.backend = backend
+        self.query = query
+        self.start = 0
+        self.stop = None
+        self._results_cache = None
+        self._hit_count = None
+
+    def _clone(self):
+        klass = self.__class__
+        new = klass(self.backend, self.query._clone())
+        new.start = self.start
+        new.stop = self.stop
+        return new
+
+    def set_limits(self, start=None, stop=None):
+        if stop is not None:
+            if self.stop is not None:
+                self.stop = min(self.stop, self.start + stop)
+            else:
+                self.stop = self.start + stop
+
+        if start is not None:
+            if self.stop is not None:
+                self.start = min(self.stop, self.start + start)
+            else:
+                self.start = self.start + start
+
     def _get_results_pks(self):
         # Get query
-        query = self._get_query()
+        query = self.query.to_es()
 
         # Params for elasticsearch query
         params = dict(
@@ -186,7 +195,7 @@ class ElasticSearchResults(object):
         return [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
     def _do_count(self):
-        query = self._get_query()
+        query = self.query.to_es()
 
         # Elasticsearch 1.x
         count = self.backend.es.count(
@@ -227,7 +236,7 @@ class ElasticSearchResults(object):
         results = OrderedDict([(str(pk), None) for pk in pks])
 
         # Run query and add objects into ordered dict
-        query_set = self.query_set.filter(pk__in=pks)
+        query_set = self.query.query_set.filter(pk__in=pks)
         for obj in query_set:
             results[str(obj.pk)] = obj
 
@@ -442,4 +451,4 @@ class ElasticSearch(BaseSearch):
             return query_set.none()
 
         # Return search results
-        return ElasticSearchResults(self, query_set, query_string, fields=fields)
+        return ElasticSearchResults(self, ElasticSearchQuery(query_set, query_string, fields=fields))
