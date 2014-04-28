@@ -1,5 +1,5 @@
 from django.test import TestCase
-import unittest
+import unittest2 as unittest
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
@@ -25,7 +25,7 @@ class TestPageExplorer(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Login
         login(self.client)
@@ -125,7 +125,7 @@ class TestPageCreation(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Attempt to create a new one with the same slug
         post_data = {
@@ -159,14 +159,14 @@ class TestPageEdit(TestCase):
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.child_page.live = True
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
         self.child_page.save_revision()
 
         # Add event page (to test edit handlers)
         self.event_page = EventPage()
         self.event_page.title = "Event page"
         self.event_page.slug = "event-page"
-        self.root_page.add_child(self.event_page)
+        self.root_page.add_child(instance=self.event_page)
 
         # Login
         login(self.client)
@@ -222,7 +222,7 @@ class TestPageDelete(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Login
         login(self.client)
@@ -281,18 +281,18 @@ class TestPageMove(TestCase):
         self.section_a = SimplePage()
         self.section_a.title = "Section A"
         self.section_a.slug = "section-a"
-        self.root_page.add_child(self.section_a)
+        self.root_page.add_child(instance=self.section_a)
 
         self.section_b = SimplePage()
         self.section_b.title = "Section B"
         self.section_b.slug = "section-b"
-        self.root_page.add_child(self.section_b)
+        self.root_page.add_child(instance=self.section_b)
 
         # Add test page into section A
         self.test_page = SimplePage()
         self.test_page.title = "Hello world!"
         self.test_page.slug = "hello-world"
-        self.section_a.add_child(self.test_page)
+        self.section_a.add_child(instance=self.test_page)
 
         # Login
         login(self.client)
