@@ -1,8 +1,6 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
@@ -210,6 +208,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
+        'display_modes': page.get_page_modes(),
     })
 
 
@@ -294,6 +293,7 @@ def edit(request, page_id):
         'page': page,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
+        'display_modes': page.get_page_modes(),
     })
 
 
@@ -340,12 +340,19 @@ def preview_on_edit(request, page_id):
     if form.is_valid():
         form.save(commit=False)
 
-        # FIXME: passing the original request to page.serve is dodgy (particularly if page.serve has
-        # special treatment of POSTs). Ought to construct one that more or less matches what would be sent
-        # as a front-end GET request
+        # This view will generally be invoked as an AJAX request; as such, in the case of
+        # an error Django will return a plaintext response. This isn't what we want, since
+        # we will be writing the response back to an HTML page regardless of success or
+        # failure - as such, we strip out the X-Requested-With header to get Django to return
+        # an HTML error response
+        request.META.pop('HTTP_X_REQUESTED_WITH', None)
 
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)  # Make this request appear to the page's serve method as a non-ajax one, as they will often implement custom behaviour for XHR
-        response = page.serve(request)
+        try:
+            display_mode = request.GET['mode']
+        except KeyError:
+            display_mode = page.get_page_modes()[0][0]
+
+        response = page.show_as_mode(display_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -356,6 +363,7 @@ def preview_on_edit(request, page_id):
         response = render(request, 'wagtailadmin/pages/edit.html', {
             'page': page,
             'edit_handler': edit_handler,
+            'display_modes': page.get_page_modes(),
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -380,10 +388,18 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
     if form.is_valid():
         form.save(commit=False)
 
-        # FIXME: passing the original request to page.serve is dodgy (particularly if page.serve has
-        # special treatment of POSTs). Ought to construct one that more or less matches what would be sent
-        # as a front-end GET request
-        response = page.serve(request)
+        # This view will generally be invoked as an AJAX request; as such, in the case of
+        # an error Django will return a plaintext response. This isn't what we want, since
+        # we will be writing the response back to an HTML page regardless of success or
+        # failure - as such, we strip out the X-Requested-With header to get Django to return
+        # an HTML error response
+        request.META.pop('HTTP_X_REQUESTED_WITH', None)
+
+        try:
+            display_mode = request.GET['mode']
+        except KeyError:
+            display_mode = page.get_page_modes()[0][0]
+        response = page.show_as_mode(display_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -397,6 +413,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'page_class': page_class,
             'parent_page': parent_page,
             'edit_handler': edit_handler,
+            'display_modes': page.get_page_modes(),
         })
         response['X-Wagtail-Preview'] = 'error'
         return response

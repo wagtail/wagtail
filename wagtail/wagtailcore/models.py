@@ -1,5 +1,7 @@
 import sys
 import os
+from StringIO import StringIO
+from urlparse import urlparse
 
 from modelcluster.models import ClusterableModel
 
@@ -7,6 +9,8 @@ from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
 from django.core.cache import cache
+from django.core.handlers.wsgi import WSGIRequest
+from django.core.handlers.base import BaseHandler
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -551,6 +555,61 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
+
+    def dummy_request(self):
+        """
+        Construct a HttpRequest object that is, as far as possible, representative of ones that would
+        receive this page as a response. Used for previewing / moderation and any other place where we
+        want to display a view of this page in the admin interface without going through the regular
+        page routing logic.
+        """
+        url = self.full_url
+        if url:
+            url_info = urlparse(url)
+            hostname = url_info.netloc
+            path = url_info.path
+            port = url_info.port or 80
+        else:
+            hostname = 'example.com'
+            path = '/'
+            port = 80
+
+        request = WSGIRequest({
+            'REQUEST_METHOD': 'GET',
+            'PATH_INFO': path,
+            'SERVER_NAME': hostname,
+            'SERVER_PORT': port,
+            'wsgi.input': StringIO(),
+        })
+
+        # Apply middleware to the request - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
+        handler = BaseHandler()
+        handler.load_middleware()
+        for middleware_method in handler._request_middleware:
+            if middleware_method(request):
+                raise Exception("Couldn't create request mock object - "
+                                "request middleware returned a response")
+        return request
+
+    def get_page_modes(self):
+        """
+        Return a list of (internal_name, display_name) tuples for the modes in which
+        this page can be displayed for preview/moderation purposes. Ordinarily a page
+        will only have one display mode, but subclasses of Page can override this -
+        for example, a page containing a form might have a default view of the form,
+        and a post-submission 'thankyou' page
+        """
+        return [('', 'Default')]
+
+    def show_as_mode(self, mode_name):
+        """
+        Given an internal name from the get_page_modes() list, return an HTTP response
+        indicative of the page being viewed in that mode. By default this passes a
+        dummy request into the serve() mechanism, ensuring that it matches the behaviour
+        on the front-end; subclasses that define additional page modes will need to
+        implement alternative logic to serve up the appropriate view here.
+        """
+        return self.serve(self.dummy_request())
 
     def get_ancestors(self, inclusive=False):
         return Page.objects.ancestor_of(self, inclusive)

@@ -9,7 +9,6 @@ from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermis
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
 from wagtail.wagtailforms.models import get_form_types
-from wagtail.wagtailsnippets.permissions import user_can_edit_snippets  # TODO: reorganise into pluggable architecture so that wagtailsnippets registers its own menu item
 
 register = template.Library()
 
@@ -47,26 +46,6 @@ def main_nav(context):
     ]
 
     request = context['request']
-    user = request.user
-
-    if user.has_perm('wagtailimages.add_image'):
-        menu_items.append(
-            MenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
-        )
-    if user.has_perm('wagtaildocs.add_document'):
-        menu_items.append(
-            MenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
-        )
-
-    if user_can_edit_snippets(user):
-        menu_items.append(
-            MenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
-        )
-
-    if user.has_module_perms('auth'):
-        menu_items.append(
-            MenuItem(_('Users'), urlresolvers.reverse('wagtailusers_index'), classnames='icon icon-user', order=600)
-        )
 
     if get_form_types(): # show this only if forms actually exist
         menu_items.append(
