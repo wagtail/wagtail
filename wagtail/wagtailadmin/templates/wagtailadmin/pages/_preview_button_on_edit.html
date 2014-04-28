@@ -1,0 +1,4 @@
+<input type="button" class="action-preview button"
+    data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}{% if mode %}?mode={{ mode|urlencode }}{% endif %}"
+    data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}"
+    data-windowname="wagtail_preview_{{ page.id }}" value="{{ label }}" />
