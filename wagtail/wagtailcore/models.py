@@ -314,7 +314,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
+        cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     @property
@@ -340,25 +340,30 @@ class Page(MP_Node, ClusterableModel, Indexed):
         content_type = ContentType.objects.get_for_id(self.content_type_id)
         return content_type.model_class()
 
-    def route(self, request, path_components):
+    def get_page_from_path(self, path_components):
         if path_components:
             # request is for a child of this page
             child_slug = path_components[0]
             remaining_components = path_components[1:]
 
-            try:
-                subpage = self.get_children().get(slug=child_slug)
-            except Page.DoesNotExist:
-                raise Http404
-
-            return subpage.specific.route(request, remaining_components)
+            subpage = self.get_children().get(slug=child_slug)
+            return subpage.specific.get_page_from_path(remaining_components)
 
         else:
             # request is for this very page
-            if self.live:
-                return self.serve(request)
-            else:
-                raise Http404
+            return self
+
+    def route(self, request, path_components):
+        try:
+            # find the requested page
+            page = self.get_page_from_path(path_components)
+        except Page.DoesNotExist:
+            raise Http404
+
+        if page.live:
+            return self.serve(request)
+        else:
+            raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False):
         self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
@@ -393,8 +398,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def serve(self, request):
         return TemplateResponse(
-            request, 
-            self.get_template(request), 
+            request,
+            self.get_template(request),
             self.get_context(request)
         )
 
