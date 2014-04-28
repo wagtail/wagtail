@@ -350,7 +350,7 @@ def preview_on_edit(request, page_id):
         try:
             display_mode = request.GET['mode']
         except KeyError:
-            display_mode = page.get_page_modes()[0]
+            display_mode = page.get_page_modes()[0][0]
 
         response = page.show_as_mode(display_mode)
 
@@ -398,7 +398,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         try:
             display_mode = request.GET['mode']
         except KeyError:
-            display_mode = page.get_page_modes()[0]
+            display_mode = page.get_page_modes()[0][0]
         response = page.show_as_mode(display_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
