@@ -46,7 +46,7 @@ update-rc.d elasticsearch defaults 95 10
 service elasticsearch start
 
 cd $PROJECT_ROOT
-git clone https://github.com/torchbox/wagtaildemo.git $PROJECT
+git clone https://github.com/chrxr/wagtaildemo.git $PROJECT
 cd $PROJECT
 mv wagtaildemo $PROJECT
 perl -pi -e"s/wagtaildemo/$PROJECT/" manage.py $PROJECT/wsgi.py $PROJECT/settings/*.py
