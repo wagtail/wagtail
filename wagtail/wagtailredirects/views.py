@@ -109,7 +109,7 @@ def add(request):
             theredirect.site = request.site
             theredirect.save()
 
-            messages.success(request, _("Redirect '{0} added.").format(theredirect.title))
+            messages.success(request, _("Redirect '{0}' added.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
             messages.error(request, _("The redirect could not be created due to errors."))

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
 from wagtail.tests.utils import login
-import unittest
+import unittest2 as unittest
 from six import StringIO
 
 

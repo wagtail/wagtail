@@ -41,7 +41,7 @@ class Indexed(object):
         if isinstance(indexed_fields, six.string_types):
             indexed_fields = [indexed_fields]
         if isinstance(indexed_fields, list):
-            indexed_fields = {field: dict(type="string") for field in indexed_fields}
+            indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
         if not isinstance(indexed_fields, dict):
             raise ValueError()
 
