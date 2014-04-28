@@ -5,7 +5,10 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-import unittest2 as unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 from django.test import TestCase
 

@@ -2,11 +2,15 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
-import unittest2 as unittest
 from six import StringIO
 from wagtail.wagtailsearch import models, get_search_backend
 from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 
 # Register wagtailsearch signal handlers

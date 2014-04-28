@@ -1,9 +1,13 @@
 from django.test import TestCase
-import unittest2 as unittest
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 
 class TestHome(TestCase):
