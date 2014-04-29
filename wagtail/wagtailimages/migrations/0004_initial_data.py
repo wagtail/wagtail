@@ -17,7 +17,7 @@ def add_image_permissions_to_admin_groups(apps, schema_editor):
 
     add_image_permission, _created = Permission.objects.get_or_create(
         content_type=image_content_type,
-        codename='add_dimage',
+        codename='add_image',
         defaults={'name': 'Can add image'}
     )
     change_image_permission, _created = Permission.objects.get_or_create(
