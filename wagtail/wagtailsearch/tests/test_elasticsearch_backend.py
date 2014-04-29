@@ -23,7 +23,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}]},'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}]},'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_filter(self):
@@ -31,7 +31,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_and_filter(self):
@@ -39,7 +39,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'term': {'live': True}}, {'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'live': True}}, {'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_or_filter(self):
@@ -47,7 +47,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{u'or': [{'term': {'title': 'Test'}}, {'term': {'live': True}}]}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'or': [{'term': {'title': 'Test'}}, {'term': {'live': True}}]}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_negated_filter(self):
@@ -55,7 +55,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.exclude(live=True), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'not': {u'and': [{'term': {'live': True}}]}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'not': {'and': [{'term': {'live': True}}]}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_fields(self):
@@ -63,7 +63,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'])
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['title']}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['title']}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_exact_lookup(self):
@@ -71,7 +71,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title__exact="Test"), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_none_lookup(self):
@@ -79,7 +79,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title=None), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'missing': {'field': 'title'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'missing': {'field': 'title'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_isnull_true_lookup(self):
@@ -87,7 +87,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=True), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'missing': {'field': 'title'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'missing': {'field': 'title'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_isnull_false_lookup(self):
@@ -95,7 +95,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title__isnull=False), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'not': {'missing': {'field': 'title'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'not': {'missing': {'field': 'title'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_startswith_lookup(self):
@@ -103,7 +103,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title__startswith="Test"), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'prefix': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'prefix': {'title': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_gt_lookup(self):
@@ -114,7 +114,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gt=datetime.datetime(2014, 4, 29)), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'range': {'published_date': {'gt': '2014-04-29'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'range': {'published_date': {'gt': '2014-04-29'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_range_lookup(self):
@@ -125,5 +125,5 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(published_date__range=(start_date, end_date)), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': u'tests_searchtest'}}, {'and': [{'range': {'published_date': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'range': {'published_date': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
