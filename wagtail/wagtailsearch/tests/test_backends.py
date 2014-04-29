@@ -158,18 +158,6 @@ class BackendTests(object):
         self.assertEqual(len(results), 3)
 
 
-class TestDBBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.wagtailsearch.backends.db.DBSearch'
-
-    @unittest.expectedFailure
-    def test_callable_indexed_field(self):
-        super(TestDBBackend, self).test_callable_indexed_field()
-
-
-class TestElasticSearchBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
-
-
 @override_settings(WAGTAILSEARCH_BACKENDS={
     'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
 })
