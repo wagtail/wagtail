@@ -30,7 +30,7 @@ class ElasticSearchQuery(object):
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
         if isinstance(where_node, tuple):
-            field = where_node[0].col
+            field = where_node[0].col + '_val'
             lookup = where_node[1]
             value = where_node[3]
 
@@ -49,7 +49,7 @@ class ElasticSearchQuery(object):
                 else:
                     return {
                         'term': {
-                            field: value
+                            field: unicode(value)
                         }
                     }
 
@@ -72,7 +72,7 @@ class ElasticSearchQuery(object):
             if lookup in ['startswith', 'prefix']:
                 return {
                     'prefix': {
-                        field: value
+                        field: unicode(value)
                     }
                 }
 
@@ -80,7 +80,7 @@ class ElasticSearchQuery(object):
                 return {
                     'range': {
                         field: {
-                            lookup: value,
+                            lookup: unicode(value),
                         }
                     }
                 }
@@ -97,8 +97,8 @@ class ElasticSearchQuery(object):
                 return {
                     'range': {
                         field: {
-                            'gte': lower,
-                            'lte': upper,
+                            'gte': unicode(lower),
+                            'lte': unicode(upper),
                         }
                     }
                 }
@@ -108,14 +108,18 @@ class ElasticSearchQuery(object):
         # Get child filters
         connector = where_node.connector
         child_filters = [self._get_filters_from_where(child) for child in where_node.children]
+        child_filters = [child_filter for child_filter in child_filters if child_filter]
 
         # Connect them
         if child_filters:
-            filter_out = {
-                connector.lower(): [
-                    fil for fil in child_filters if fil is not None
-                ]
-            }
+            if len(child_filters) == 1:
+                filter_out = child_filters[0]
+            else:
+                filter_out = {
+                    connector.lower(): [
+                        fil for fil in child_filters if fil is not None
+                    ]
+                }
 
             if where_node.negated:
                 filter_out = {
@@ -156,15 +160,24 @@ class ElasticSearchQuery(object):
 
         # Filters
         filters = self._get_filters()
-
-        return {
-            'filtered': {
-                'query': query,
-                'filter': {
-                    'and': filters,
+        if len(filters) == 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': filters[0],
                 }
             }
-        }
+        elif len(filters) > 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': {
+                        'and': filters,
+                    }
+                }
+            }
+
+        return query
 
 
 class ElasticSearchResults(object):
@@ -271,10 +284,10 @@ class ElasticSearchResults(object):
         # Return results in order given by ElasticSearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
-    def __iter__(self):
+    def _fetch_all(self):
         if self._results_cache is None:
             self._results_cache = self._do_search()
-        return iter(self._results_cache)
+        return self._results_cache
 
     def __getitem__(self, key):
         new = self._clone()
@@ -299,8 +312,102 @@ class ElasticSearchResults(object):
             new.stop = key + 1
             return list(new)[0]
   
+    def __iter__(self):
+        return iter(self._fetch_all())
+  
     def __len__(self):
-        return self.count()
+        return len(self._fetch_all())
+
+
+class ElasticSearchType(object):
+    def __init__(self, model):
+        self.model = model
+
+    def get_doc_type(self):
+        return self.model._get_qualified_content_type_name()
+
+    def build_mapping(self):
+        # Make field list
+        fields = {
+            'pk': {
+                'type': 'string',
+                'index': 'not_analyzed',
+                'store': 'yes',
+            },
+            'content_type': {
+                'type': 'string',
+                'index': 'not_analyzed',
+            },
+        }
+
+        # Add filterable fields
+        # These must be suffixed with '_val' to prevent clashes with searchable fields
+        filterable_fields = self.model._get_filterable_fields()
+        for field in filterable_fields:
+            fields[field + '_val'] = {
+                'type': 'string',
+                'index': 'not_analyzed',
+            }
+
+        # Add searchable fields
+        searchable_fields = self.model._get_searchable_fields()
+        for field, config in searchable_fields.items():
+            if config is not None:
+                fields[field] = config
+            else:
+                fields[field] = {
+                    'type': 'string',
+                }
+
+        return {
+            self.get_doc_type(): {
+                'properties': fields,
+            }
+        }
+
+
+class ElasticSearchDocument(object):
+    def __init__(self, obj):
+        self.obj = obj
+        self.es_type = ElasticSearchType(obj.__class__)
+
+    def get_id(self):
+        return self.obj._get_base_content_type_name() + ':' + str(self.obj.pk)
+
+    def build_document(self):
+        # Build document
+        doc = {
+            'pk': str(self.obj.pk),
+            'content_type': self.obj._get_qualified_content_type_name(),
+            'id': self.get_id(),
+        }
+
+        # Add filterable fields and suffix them with '_val' to prevent clashes with searchable fields
+        filterable_fields = self.obj._get_filterable_fields()
+        for field in filterable_fields:
+            if hasattr(self.obj, field):
+                doc[field + '_val'] = getattr(self.obj, field)
+
+                # Make sure field value is a string
+                if doc[field + '_val'] is not None:
+                    doc[field + '_val'] = unicode(doc[field + '_val'])
+
+        # Add searchable fields
+        searchable_fields = self.obj._get_searchable_fields()
+        for field in searchable_fields.keys():
+            if hasattr(self.obj, field):
+                doc[field] = getattr(self.obj, field)
+
+                # Check if this field is callable
+                if hasattr(doc[field], '__call__'):
+                    # Call it
+                    doc[field] = doc[field]()
+
+                # Make sure field value is a string
+                if doc[field] is not None:
+                    doc[field] = unicode(doc[field])
+
+        return doc
 
 
 class ElasticSearch(BaseSearch):
@@ -323,43 +430,43 @@ class ElasticSearch(BaseSearch):
 
         # Settings
         INDEX_SETTINGS = {
-            "settings": {
-                "analysis": {
-                    "analyzer": {
-                        "ngram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["ngram"]
+            'settings': {
+                'analysis': {
+                    'analyzer': {
+                        'ngram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['ngram']
                         },
-                        "edgengram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["edgengram"]
+                        'edgengram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['edgengram']
                         }
                     },
-                    "tokenizer": {
-                        "ngram_tokenizer": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15,
+                    'tokenizer': {
+                        'ngram_tokenizer': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15,
                         },
-                        "edgengram_tokenizer": {
-                            "type": "edgeNGram",
-                            "min_gram": 2,
-                            "max_gram": 15,
-                            "side": "front"
+                        'edgengram_tokenizer': {
+                            'type': 'edgeNGram',
+                            'min_gram': 2,
+                            'max_gram': 15,
+                            'side': 'front'
                         }
                     },
-                    "filter": {
-                        "ngram": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15
+                    'filter': {
+                        'ngram': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15
                         },
-                        "edgengram": {
-                            "type": "edgeNGram",
-                            "min_gram": 1,
-                            "max_gram": 15
+                        'edgengram': {
+                            'type': 'edgeNGram',
+                            'min_gram': 1,
+                            'max_gram': 15
                         }
                     }
                 }
@@ -370,31 +477,15 @@ class ElasticSearch(BaseSearch):
         self.es.indices.create(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
-        # Get type name
-        content_type = model._get_qualified_content_type_name()
-
-        # Make field list
-        fields = dict({
-            "pk": dict(type="string", index="not_analyzed", store="yes"),
-            "content_type": dict(type="string"),
-        }.items())
-
-        # Add indexed fields
-        for field_name, config in model._get_indexed_fields().items():
-            if config is not None:
-                fields[field_name] = config
-            else:
-                fields[field_name] = dict(
-                    type='string',
-                    index='not_analyzed',
-                )
+        # Get ElasticSearchType object for this model
+        es_type = ElasticSearchType(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.es_index, doc_type=content_type, body={
-            content_type: {
-                "properties": fields,
-            }
-        })
+        self.es.indices.put_mapping(
+            index=self.es_index,
+            doc_type=es_type.get_doc_type(),
+            body=es_type.build_mapping()
+        )
 
     def refresh_index(self):
         self.es.indices.refresh(self.es_index)
@@ -404,11 +495,16 @@ class ElasticSearch(BaseSearch):
         if not self.object_can_be_indexed(obj):
             return
 
-        # Build document
-        doc = obj._build_search_document()
+        # Get document
+        es_doc = ElasticSearchDocument(obj)
 
         # Add to index
-        self.es.index(self.es_index, obj._get_qualified_content_type_name(), doc, id=doc["id"])
+        self.es.index(
+            self.es_index,
+            es_doc.es_type.get_doc_type(),
+            es_doc.build_document(),
+            id=es_doc.get_id()
+        )
 
     def add_bulk(self, obj_list):
         # Group all objects by their type
@@ -426,22 +522,22 @@ class ElasticSearch(BaseSearch):
                 type_set[obj_type] = []
 
             # Add object to set
-            type_set[obj_type].append(obj._build_search_document())
+            type_set[obj_type].append(ElasticSearchDocument(obj))
 
         # Loop through each type and bulk add them
-        for type_name, type_objects in type_set.items():
+        for type_name, es_docs in type_set.items():
             # Get list of actions
             actions = []
-            for obj in type_objects:
+            for es_doc in es_docs:
                 action = {
                     '_index': self.es_index,
                     '_type': type_name,
-                    '_id': obj['id'],
+                    '_id': es_doc.get_id(),
                 }
-                action.update(obj)
+                action.update(es_doc.build_document())
                 actions.append(action)
 
-            yield type_name, len(type_objects)
+            yield type_name, len(es_docs)
             bulk(self.es, actions)
 
     def delete(self, obj):
@@ -450,11 +546,12 @@ class ElasticSearch(BaseSearch):
             return
 
         # Delete document
+        es_doc = ElasticSearchDocument(obj)
         try:
             self.es.delete(
                 self.es_index,
-                obj._get_qualified_content_type_name(),
-                obj._get_search_document_id(),
+                es_doc.es_type.get_doc_type(),
+                es_doc.get_id(),
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
@@ -473,7 +570,7 @@ class ElasticSearch(BaseSearch):
 
         # Get fields
         if fields is None:
-            fields = query_set.model._get_search_fields()[1].keys()
+            fields = query_set.model._get_searchable_fields().keys()
 
         # Return nothing if there are no fields
         if not fields:

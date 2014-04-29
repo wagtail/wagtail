@@ -96,79 +96,42 @@ class Indexed(object):
         return search_fields
 
     @classmethod
-    def _get_search_fields(cls):
+    def _get_filterable_fields(cls):
         """
-        Returns a list of all fields to index and a mapping of
-        field/configs for fields to enable full-text search on.
+        Gets a list of field names that can be filtered on
+        If an external search index is being used (eg, ElasticSearch),
+        these fields must be added to that index
         """
+        # Get local filterable fields
         fields = []
-        searchable_fields = {}
-
-        # Get fields
         if issubclass(cls, models.Model):
             for field in list(cls._meta.local_concrete_fields):
-                if field.attname != 'id':
-                    fields.append(field.attname)
+                fields.append(field.attname)
 
-        # Get searchable fields
+        # Append to parents filterable fields
+        parent = cls._get_indexed_parent(require_model=False)
+        if parent:
+            parent_fields = parent._get_filterable_fields()
+            fields = parent_fields + fields
+        return fields
+
+    @classmethod
+    def _get_searchable_fields(cls):
+        """
+        Gets a mapping of field/configs that have full text search enabled
+        The configs contain settings such as boosting and edgengram settings
+        """
+        # Get local searchable fields
+        fields = {}
         search_fields_config = cls._get_search_fields_config()
         if search_fields_config:
             for field, config in search_fields_config.items():
-                searchable_fields[field] = config.copy()
+                fields[field] = config.copy()
 
-        # Get search fields for parent class
+        # Append to parents searchable fields
         parent = cls._get_indexed_parent(require_model=False)
         if parent:
-            # Merge parent search fields
-            parent_fields, parent_searchable_fields = parent._get_search_fields()
-            fields = parent_fields + fields
-            searchable_fields = dict(parent_searchable_fields.items() + searchable_fields.items())
+            parent_fields = parent._get_searchable_fields()
+            fields = dict(parent_fields.items() + fields.items())
 
-        return fields, searchable_fields
-
-    @classmethod
-    def _get_indexed_fields(cls):
-        """
-        Gets a mapping of fields/configs that should be indexed
-        """
-        # Get fields for this class as a dictionary
-        fields, searchable_fields = cls._get_search_fields()
-
-        # Initialise indexed_fields with searchable_fields
-        indexed_fields = searchable_fields.copy()
-
-        # Add other fields to list
-        if issubclass(cls, models.Model):
-            for field in fields:
-                if field not in searchable_fields:
-                    indexed_fields[field] = {
-                        'type': 'string',
-                        'indexed': 'not_indexed',
-                    }
-
-        return indexed_fields
-
-    def _get_search_document_id(self):
-        return self._get_base_content_type_name() + ':' + str(self.pk)
-
-    def _build_search_document(self):
-        # Get content type, indexed fields and id
-        content_type = self._get_qualified_content_type_name()
-        indexed_fields = self._get_indexed_fields()
-        doc_id = self._get_search_document_id()
-
-        # Build document
-        doc = dict(pk=str(self.pk), content_type=content_type, id=doc_id)
-        for field in indexed_fields.keys():
-            if hasattr(self, field):
-                doc[field] = getattr(self, field)
-
-                # Check if this field is callable
-                if hasattr(doc[field], "__call__"):
-                    # Call it
-                    doc[field] = doc[field]()
-
-                # Make sure field value is a string
-                doc[field] = unicode(doc[field])
-
-        return doc
+        return fields
