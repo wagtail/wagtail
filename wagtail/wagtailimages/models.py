@@ -18,27 +18,28 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 
+
+def get_upload_to(image, filename):
+    folder_name = 'original_images'
+    filename = image.file.field.storage.get_valid_name(filename)
+
+    # do a unidecode in the filename and then
+    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+    while len(os.path.join(folder_name, filename)) >= 95:
+        prefix, dot, extension = filename.rpartition('.')
+        filename = prefix[:-1] + dot + extension
+    return os.path.join(folder_name, filename)
+
+def file_extension_validator(ffile):
+    extension = ffile.name.split(".")[-1].lower()
+    if extension not in ["gif", "jpg", "jpeg", "png"]:
+        raise ValidationError(_("Not a valid image format. Please use a gif, jpeg or png file instead."))
+
+
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
-
-    def get_upload_to(self, filename):
-        folder_name = 'original_images'
-        filename = self.file.field.storage.get_valid_name(filename)
-
-        # do a unidecode in the filename and then
-        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
-
-        while len(os.path.join(folder_name, filename)) >= 95:
-            prefix, dot, extension = filename.rpartition('.')
-            filename = prefix[:-1] + dot + extension
-        return os.path.join(folder_name, filename)
-
-    def file_extension_validator(ffile):
-        extension = ffile.name.split(".")[-1].lower()
-        if extension not in ["gif", "jpg", "jpeg", "png"]:
-            raise ValidationError(_("Not a valid image format. Please use a gif, jpeg or png file instead."))
-
     file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[file_extension_validator])
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
