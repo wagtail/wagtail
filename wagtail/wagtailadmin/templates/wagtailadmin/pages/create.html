@@ -29,13 +29,31 @@
                         <input type="submit" value="{% trans 'Save as draft' %}" class="button" />
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
-                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_create' content_type.app_label content_type.model parent_page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ parent_page.id }}_child" value="{% trans 'Preview' %}" class="button" /></li>
                             {% if parent_page_perms.can_publish_subpage %}
                                 <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="actions">
+                    {% trans 'Preview' as preview_label %}
+                    {% if display_modes|length > 1 %}
+                        <div class="dropdown dropup match-width">
+                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label %}
+                            <div class="dropdown-toggle icon icon-arrow-up"></div>
+                            <ul role="menu">
+                                {% for mode_name, mode_display_name in display_modes %}
+                                    <li>
+                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label %}
+                    {% endif %}
                 </li>
             </ul>
         </footer>

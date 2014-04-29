@@ -41,13 +41,29 @@
                                 <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
-                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ page.id }}" value="{% trans 'Preview' %}" class="button" /></li>
                         </ul>
                     </div>
                 </li>
-                <li class="notices">
 
+                <li class="actions">
+                    {% trans 'Preview' as preview_label %}
+                    {% if display_modes|length > 1 %}
+                        <div class="dropdown dropup match-width">
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label %}
+                            <div class="dropdown-toggle icon icon-arrow-up"></div>
+                            <ul role="menu">
+                                {% for mode_name, mode_display_name in display_modes %}
+                                    <li>
+                                        {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label %}
+                    {% endif %}
                 </li>
+
                 <li class="meta">
                     <p class="modified">
                         {% if page.get_latest_revision %}
