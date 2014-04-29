@@ -25,11 +25,6 @@ class Command(BaseCommand):
 
             # Loop through objects
             for obj in model.objects.all():
-                # Check if this object has an 'object_indexed' function
-                if hasattr(obj, 'object_indexed'):
-                    if obj.object_indexed() is False:
-                        continue
-
                 # Get key for this object
                 key = toplevel_content_type + ':' + str(obj.pk)
 
