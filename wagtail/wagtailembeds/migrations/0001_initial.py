@@ -1,61 +1,31 @@
-# -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# encoding: utf8
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    depends_on = (
-        ("wagtailcore", "0002_initial_data"),
-    )
+    dependencies = [
+        ('wagtailcore', '0005_initial_data'),
+    ]
 
-    def forwards(self, orm):
-        # Adding model 'Embed'
-        db.create_table(u'wagtailembeds_embed', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('max_width', self.gf('django.db.models.fields.SmallIntegerField')
-             (null=True, blank=True)),
-            ('type', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('html', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('title', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('thumbnail_url', self.gf('django.db.models.fields.URLField')
-             (max_length=200, null=True, blank=True)),
-            ('width', self.gf('django.db.models.fields.IntegerField')
-             (null=True, blank=True)),
-            ('height', self.gf('django.db.models.fields.IntegerField')
-             (null=True, blank=True)),
-            ('last_updated', self.gf('django.db.models.fields.DateTimeField')
-             (auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'wagtailembeds', ['Embed'])
-
-        # Adding unique constraint on 'Embed', fields ['url', 'max_width']
-        db.create_unique(u'wagtailembeds_embed', ['url', 'max_width'])
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'Embed', fields ['url', 'max_width']
-        db.delete_unique(u'wagtailembeds_embed', ['url', 'max_width'])
-
-        # Deleting model 'Embed'
-        db.delete_table(u'wagtailembeds_embed')
-
-    models = {
-        u'wagtailembeds.embed': {
-            'Meta': {'unique_together': "(('url', 'max_width'),)", 'object_name': 'Embed'},
-            'height': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'html': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'max_width': ('django.db.models.fields.SmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'thumbnail_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'type': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
-            'width': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['wagtailembeds']
+    operations = [
+        migrations.CreateModel(
+            name='Embed',
+            fields=[
+                (u'id', models.AutoField(verbose_name=u'ID', serialize=False, auto_created=True, primary_key=True)),
+                ('url', models.URLField()),
+                ('max_width', models.SmallIntegerField(null=True, blank=True)),
+                ('type', models.CharField(max_length=10, choices=[('video', 'Video'), ('photo', 'Photo'), ('link', 'Link'), ('rich', 'Rich')])),
+                ('html', models.TextField(blank=True)),
+                ('title', models.TextField(blank=True)),
+                ('thumbnail_url', models.URLField(null=True, blank=True)),
+                ('width', models.IntegerField(null=True, blank=True)),
+                ('height', models.IntegerField(null=True, blank=True)),
+                ('last_updated', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+                u'unique_together': set([('url', 'max_width')]),
+            },
+            bases=(models.Model,),
+        ),
+    ]
