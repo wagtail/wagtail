@@ -41,7 +41,7 @@ def initial_data(apps, schema_editor):
     # Create default site
     Site.objects.create(
         hostname='localhost',
-        root_page=homepage,
+        root_page_id=homepage.id,
         is_default_site=True
     )
 
