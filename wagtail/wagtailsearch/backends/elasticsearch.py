@@ -47,6 +47,22 @@ class ElasticSearchQuery(object):
                         }
                     }
 
+            if lookup == 'isnull':
+                if value:
+                    return {
+                        'missing': {
+                            'field': field,
+                        }
+                    }
+                else:
+                    return {
+                        'not': {
+                            'missing': {
+                                'field': field,
+                            }
+                        }
+                    }
+
             if lookup in ['startswith', 'prefix']:
                 return {
                     'prefix': {
