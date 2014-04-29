@@ -312,6 +312,12 @@ class ElasticSearchResults(object):
             new.stop = key + 1
             return list(new)[0]
   
+    def __repr__(self):
+        data = list(self[:21])
+        if len(data) > 20:
+            data[-1] = "...(remaining elements truncated)..."
+        return repr(data)
+
     def __iter__(self):
         return iter(self._fetch_all())
   
