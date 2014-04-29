@@ -361,7 +361,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             raise Http404
 
         if page.live:
-            return self.serve(request)
+            return page.serve(request)
         else:
             raise Http404
 
