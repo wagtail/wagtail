@@ -1,5 +1,7 @@
 {% load i18n %}
-{% url linkurl as url_to_use %}
+{% if not is_ajax %}
+    {% url linkurl as url_to_use %}
+{% endif %}
 <div class="pagination">
     <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     <ul>
