@@ -10,6 +10,7 @@ from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
 import string
+import datetime
 
 
 class FilterError(Exception):
@@ -33,6 +34,11 @@ class ElasticSearchQuery(object):
             lookup = where_node[1]
             value = where_node[3]
 
+            # If value is a date/time, convert to isoformat
+            if isinstance(value, (datetime.date, datetime.time, datetime.datetime)):
+                value = value.isoformat()
+
+            # Find lookup
             if lookup == 'exact':
                 if value is None:
                     return {
@@ -81,6 +87,13 @@ class ElasticSearchQuery(object):
 
             if lookup == 'range':
                 lower, upper = value
+
+                # If values are date/times, convert them to isoformat
+                if isinstance(lower, (datetime.date, datetime.time, datetime.datetime)):
+                    lower = lower.isoformat()
+                if isinstance(upper, (datetime.date, datetime.time, datetime.datetime)):
+                    upper = upper.isoformat()
+
                 return {
                     'range': {
                         field: {
