@@ -10,7 +10,6 @@ from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
 import string
-from collections import OrderedDict
 
 
 class FilterError(Exception):
@@ -168,7 +167,7 @@ class ElasticSearchResults(object):
             else:
                 self.start = self.start + start
 
-    def _get_results_pks(self):
+    def _get_pks(self):
         # Get query
         query = self.query.to_es()
 
@@ -229,18 +228,19 @@ class ElasticSearchResults(object):
         return self._hit_count
 
     def _do_search(self):
-        # Get list of PKs from Elasticsearch
-        pks = self._get_results_pks()
+        # Get list of PKs from ElasticSearch
+        pks = self._get_pks()
 
         # Initialise results dictionary
-        results = OrderedDict([(str(pk), None) for pk in pks])
+        results = dict((str(pk), None) for pk in pks)
 
-        # Run query and add objects into ordered dict
+        # Find objects in database and add them to dict
         query_set = self.query.query_set.filter(pk__in=pks)
         for obj in query_set:
             results[str(obj.pk)] = obj
 
-        return [obj for obj in results.values() if obj]
+        # Return results in order given by ElasticSearch
+        return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def __iter__(self):
         if self._results_cache is None:

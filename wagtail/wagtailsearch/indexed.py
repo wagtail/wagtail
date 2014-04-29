@@ -71,7 +71,7 @@ class Indexed(object):
             if isinstance(indexed_fields, basestring):
                 indexed_fields = [indexed_fields]
             if isinstance(indexed_fields, list):
-                indexed_fields = {field: FIELD_DEFAULTS for field in indexed_fields}
+                indexed_fields = dict((field, FIELD_DEFAULTS) for field in indexed_fields)
             if not isinstance(indexed_fields, dict):
                 raise ValueError()
 
@@ -89,7 +89,7 @@ class Indexed(object):
         if isinstance(search_fields, basestring):
             search_fields = [search_fields]
         if isinstance(search_fields, list):
-            search_fields = {field: FIELD_DEFAULTS for field in search_fields}
+            search_fields = dict((field, FIELD_DEFAULTS) for field in search_fields)
         if not isinstance(search_fields, dict):
             raise ValueError()
 
