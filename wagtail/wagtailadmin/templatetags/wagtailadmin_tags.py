@@ -8,7 +8,6 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
-from wagtail.wagtailforms.models import get_form_types
 
 register = template.Library()
 
@@ -46,11 +45,6 @@ def main_nav(context):
     ]
 
     request = context['request']
-
-    if get_form_types(): # show this only if forms actually exist
-        menu_items.append(
-            MenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-grip', order=700)
-        )
 
     for fn in hooks.get_hooks('construct_main_menu'):
         fn(request, menu_items)
