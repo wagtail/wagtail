@@ -18,25 +18,28 @@ class FilterError(Exception):
 
 
 class ElasticSearchQuery(object):
-    def __init__(self, query_set, query_string, fields=None):
+    def __init__(self, query_set, query_string, fields=None, _es_type=None):
         self.query_set = query_set
         self.query_string = query_string
         self.fields = fields
 
+        if _es_type is not None:
+            self._es_type = _es_type
+        else:
+            self._es_type = ElasticSearchType(self.query_set.model)
+
     def _clone(self):
         klass = self.__class__
-        return klass(self.query_set, self.query_string, fields=self.fields)
+        return klass(self.query_set, self.query_string, fields=self.fields, _es_type=self._es_type)
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
         if isinstance(where_node, tuple):
-            field = where_node[0].col + '_val'
+            field =  self._es_type.get_filter_field_name(where_node[0].col)
             lookup = where_node[1]
             value = where_node[3]
 
-            # If value is a date/time, convert to isoformat
-            if isinstance(value, (datetime.date, datetime.time, datetime.datetime)):
-                value = value.isoformat()
+            es_field = self._es_type.get_field(field)
 
             # Find lookup
             if lookup == 'exact':
@@ -49,7 +52,7 @@ class ElasticSearchQuery(object):
                 else:
                     return {
                         'term': {
-                            field: unicode(value)
+                            field: es_field.convert_value(value)
                         }
                     }
 
@@ -72,7 +75,7 @@ class ElasticSearchQuery(object):
             if lookup in ['startswith', 'prefix']:
                 return {
                     'prefix': {
-                        field: unicode(value)
+                        field: es_field.convert_value(value)
                     }
                 }
 
@@ -80,7 +83,7 @@ class ElasticSearchQuery(object):
                 return {
                     'range': {
                         field: {
-                            lookup: unicode(value),
+                            lookup: es_field.convert_value(value),
                         }
                     }
                 }
@@ -88,17 +91,11 @@ class ElasticSearchQuery(object):
             if lookup == 'range':
                 lower, upper = value
 
-                # If values are date/times, convert them to isoformat
-                if isinstance(lower, (datetime.date, datetime.time, datetime.datetime)):
-                    lower = lower.isoformat()
-                if isinstance(upper, (datetime.date, datetime.time, datetime.datetime)):
-                    upper = upper.isoformat()
-
                 return {
                     'range': {
                         field: {
-                            'gte': unicode(lower),
-                            'lte': unicode(upper),
+                            'gte': es_field.convert_value(lower),
+                            'lte': es_field.convert_value(upper),
                         }
                     }
                 }
@@ -325,12 +322,116 @@ class ElasticSearchResults(object):
         return len(self._fetch_all())
 
 
+class ElasticSearchField(object):
+    IGNORED_TYPES = ['FileField']
+    TYPE_MAP = {
+        'TextField': 'string',
+        'SlugField': 'string',
+        'CharField': 'string',
+        'PositiveIntegerField': 'integer',
+        'BooleanField': 'boolean',
+        'OneToOneField': 'string',
+        'ForeignKey': 'string',
+        'AutoField': 'integer',
+        'DateField': 'date',
+        'TimeField': 'date',
+        'DateTimeField': 'date',
+        'IntegerField': 'integer',
+    }
+
+    def __init__(self, **params):
+        # Copy params to prevent us accidentally trashing something important
+        self.params = params.copy()
+
+        # Field type
+        if 'type' in self.params:
+            self.type = self.params['type']
+            del self.params['type']
+        elif 'django_type' in self.params:
+            self.type = self.convert_type(self.params['django_type'])
+            del self.params['django_type']
+        else:
+            self.type = 'string'
+
+    def can_be_indexed(self):
+        return self.type is not None
+
+    def convert_type(self, django_type):
+        # Skip if in ignored types
+        if django_type in self.IGNORED_TYPES:
+            return
+
+        # Lookup es type from TYPE_MAP
+        if django_type in self.TYPE_MAP:
+            return self.TYPE_MAP[django_type]
+
+    def convert_value(self, value):
+        if value is None:
+            return
+
+        if self.type == 'string':
+            return unicode(value)
+        elif self.type == 'integer':
+            return int(value)
+        elif self.type == 'boolean':
+            return bool(value)
+        elif self.type == 'date':
+            # Does it quack like a datetime?
+            # If not, crash.
+            return value.isoformat()
+
+    def get_mapping(self):
+        mapping = {
+            'type': self.type
+        }
+        mapping.update(self.params)
+        return mapping
+
+
 class ElasticSearchType(object):
+    FILTER_FIELD_SUFFIX = '_val'
+
+    def get_filter_field_name(self, name):
+        return name + self.FILTER_FIELD_SUFFIX
+
     def __init__(self, model):
         self.model = model
+        self._fields = None
 
     def get_doc_type(self):
         return self.model._get_qualified_content_type_name()
+
+    def _get_fields(self):
+        # Get field list
+        filterable_fields = self.model._get_filterable_fields().items()
+        searchable_fields = self.model._get_searchable_fields().items()
+
+        # Suffix filterable_fields
+        filterable_fields = [(self.get_filter_field_name(field), config) for field, config in filterable_fields]
+
+        # Build ES fields
+        fields = [
+            (name, ElasticSearchField(**config))
+            for name, config in filterable_fields + searchable_fields
+        ]
+
+        # Remove fields that can't be indexed
+        fields = [(name, field) for name, field in fields if field.can_be_indexed()]
+
+        # Return
+        return dict(fields)
+
+    def get_fields(self):
+        # Do some caching to prevent having to keep building the field list
+        if self._fields is None:
+            self._fields = self._get_fields()
+        return self._fields
+
+    def get_field(self, name):
+        return self.get_fields()[name]
+
+    def has_field(self, name):
+        return name in self.get_fields()
 
     def build_mapping(self):
         # Make field list
@@ -345,25 +446,7 @@ class ElasticSearchType(object):
                 'index': 'not_analyzed',
             },
         }
-
-        # Add filterable fields
-        # These must be suffixed with '_val' to prevent clashes with searchable fields
-        filterable_fields = self.model._get_filterable_fields()
-        for field in filterable_fields:
-            fields[field + '_val'] = {
-                'type': 'string',
-                'index': 'not_analyzed',
-            }
-
-        # Add searchable fields
-        searchable_fields = self.model._get_searchable_fields()
-        for field, config in searchable_fields.items():
-            if config is not None:
-                fields[field] = config
-            else:
-                fields[field] = {
-                    'type': 'string',
-                }
+        fields.update([(name, field.get_mapping()) for name, field in self.get_fields().items()])
 
         return {
             self.get_doc_type(): {
@@ -388,30 +471,37 @@ class ElasticSearchDocument(object):
             'id': self.get_id(),
         }
 
-        # Add filterable fields and suffix them with '_val' to prevent clashes with searchable fields
+        # Add filterable fields
         filterable_fields = self.obj._get_filterable_fields()
-        for field in filterable_fields:
-            if hasattr(self.obj, field):
-                doc[field + '_val'] = getattr(self.obj, field)
+        for field in filterable_fields.keys():
+            filter_field = self.es_type.get_filter_field_name(field)
+            if hasattr(self.obj, field) and self.es_type.has_field(filter_field):
+                # Get field value
+                value = getattr(self.obj, field)
 
-                # Make sure field value is a string
-                if doc[field + '_val'] is not None:
-                    doc[field + '_val'] = unicode(doc[field + '_val'])
+                # Convert value
+                value = self.es_type.get_field(filter_field).convert_value(value)
+
+                # Add to document
+                doc[filter_field] = value
 
         # Add searchable fields
         searchable_fields = self.obj._get_searchable_fields()
         for field in searchable_fields.keys():
-            if hasattr(self.obj, field):
-                doc[field] = getattr(self.obj, field)
+            if hasattr(self.obj, field) and self.es_type.has_field(field):
+                # Get field value
+                value = getattr(self.obj, field)
 
                 # Check if this field is callable
-                if hasattr(doc[field], '__call__'):
+                if hasattr(value, '__call__'):
                     # Call it
-                    doc[field] = doc[field]()
+                    value = value()
 
-                # Make sure field value is a string
-                if doc[field] is not None:
-                    doc[field] = unicode(doc[field])
+                # Convert value
+                value = self.es_type.get_field(field).convert_value(value)
+
+                # Add to document
+                doc[field] = value
 
         return doc
 

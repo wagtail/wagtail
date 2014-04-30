@@ -43,7 +43,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test", live=True), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'live_val': 'True'}}, {'term': {'title_val': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'live_val': True}}, {'term': {'title_val': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_or_filter(self):
@@ -51,7 +51,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'or': [{'term': {'title_val': 'Test'}}, {'term': {'live_val': 'True'}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'or': [{'term': {'title_val': 'Test'}}, {'term': {'live_val': True}}]}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_negated_filter(self):
@@ -59,7 +59,7 @@ class TestElasticSearchQuery(TestCase):
         query = ElasticSearchQuery(models.SearchTest.objects.exclude(live=True), "Hello")
 
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'not': {'term': {'live_val': 'True'}}}]}, 'query': {'query_string': {'query': 'Hello'}}}}
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'not': {'term': {'live_val': True}}}]}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_fields(self):
@@ -153,12 +153,12 @@ class TestElasticSearchType(TestCase):
                 'properties': {
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
                     'content_type': {'index': 'not_analyzed', 'type': 'string'},
-                    'live_val': {'index': 'not_analyzed', 'type': 'string'},
-                    'published_date_val': {'index': 'not_analyzed', 'type': 'string'},
+                    'live_val': {'index': 'not_analyzed', 'type': 'boolean'},
+                    'published_date_val': {'index': 'not_analyzed', 'type': 'date'},
                     'title_val': {'index': 'not_analyzed', 'type': 'string'},
                     'title': {'type': 'string'},
                     'content': {'type': 'string'},
-                    'id_val': {'index': 'not_analyzed', 'type': 'string'},
+                    'id_val': {'index': 'not_analyzed', 'type': 'integer'},
                     'content_val': {'index': 'not_analyzed', 'type': 'string'},
                     'callable_indexed_field': {'type': 'string'}
                 }
@@ -186,8 +186,8 @@ class TestElasticSearchDocument(TestCase):
             'pk': str(self.obj.pk),
             'content_type': 'tests_searchtest',
             'id': 'tests_searchtest:' + str(self.obj.pk),
-            'id_val': str(self.obj.id),
-            'live_val': 'False',
+            'id_val': self.obj.id,
+            'live_val': False,
             'published_date_val': None,
             'title_val': 'Hello',
             'title': 'Hello',

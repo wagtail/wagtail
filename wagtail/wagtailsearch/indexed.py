@@ -55,10 +55,6 @@ class Indexed(object):
         """
         Get config for full-text search fields
         """
-        FIELD_DEFAULTS = {
-            'type': 'string',
-        }
-
         # Get local search_fields or indexed_fields configs
         if 'search_fields' in cls.__dict__:
             search_fields = cls.search_fields
@@ -71,7 +67,7 @@ class Indexed(object):
             if isinstance(indexed_fields, basestring):
                 indexed_fields = [indexed_fields]
             if isinstance(indexed_fields, list):
-                indexed_fields = dict((field, FIELD_DEFAULTS) for field in indexed_fields)
+                indexed_fields = dict((field, {}) for field in indexed_fields)
             if not isinstance(indexed_fields, dict):
                 raise ValueError()
 
@@ -89,11 +85,36 @@ class Indexed(object):
         if isinstance(search_fields, basestring):
             search_fields = [search_fields]
         if isinstance(search_fields, list):
-            search_fields = dict((field, FIELD_DEFAULTS) for field in search_fields)
+            search_fields = dict((field, {}) for field in search_fields)
         if not isinstance(search_fields, dict):
             raise ValueError()
 
         return search_fields
+
+    @classmethod
+    def _add_field_types(cls, fields):
+        # Find fields without types set
+        for field, config in fields.items():
+            if 'type' not in config and 'django_type' not in config:
+                try:
+                    # Try getting the Django field
+                    field_obj = cls._meta.get_field_by_name(field)[0]
+
+                    # Add "django_type" to the config. This will be
+                    # converted to the real type name by the backend
+                    config['django_type'] = field_obj.get_internal_type()
+                except models.fields.FieldDoesNotExist:
+                    # Not a Django field
+                    pass
+
+                # Check if this is a class attribute that defines a search_type
+                if hasattr(cls, field):
+                    attr = getattr(cls, field)
+
+                    # Check if the attribute defines a search type
+                    if hasattr(attr, 'search_type'):
+                        config['type'] = attr['search_type']
+                        continue
 
     @classmethod
     def _get_filterable_fields(cls):
@@ -103,16 +124,21 @@ class Indexed(object):
         these fields must be added to that index
         """
         # Get local filterable fields
-        fields = []
+        fields = {}
         if issubclass(cls, models.Model):
             for field in list(cls._meta.local_concrete_fields):
-                fields.append(field.attname)
+                fields[field.name] = {
+                    'index': 'not_analyzed',
+                }
+
+        # Add field types
+        cls._add_field_types(fields)
 
         # Append to parents filterable fields
         parent = cls._get_indexed_parent(require_model=False)
         if parent:
             parent_fields = parent._get_filterable_fields()
-            fields = parent_fields + fields
+            fields = dict(parent_fields.items() + fields.items())
         return fields
 
     @classmethod
@@ -127,6 +153,9 @@ class Indexed(object):
         if search_fields_config:
             for field, config in search_fields_config.items():
                 fields[field] = config.copy()
+
+        # Add field types
+        cls._add_field_types(fields)
 
         # Append to parents searchable fields
         parent = cls._get_indexed_parent(require_model=False)
