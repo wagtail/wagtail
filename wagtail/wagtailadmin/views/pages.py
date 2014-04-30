@@ -117,15 +117,32 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     except ContentType.DoesNotExist:
         raise Http404
 
+    p = request.GET.get("p", 1)
+
     page_class = content_type.model_class()
 
     # page_class must be a Page type and not some other random model
     if not issubclass(page_class, Page):
         raise Http404
 
+    pages = page_class.objects.all()
+
+    paginator = Paginator(pages, 10)
+
+    try:
+        pages = paginator.page(p)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
+
+    print page_class
+
     return render(request, 'wagtailadmin/pages/content_type_use.html', {
-        'pages': page_class.objects.all(),
+        'pages': pages,
+        'app_name': content_type_app_name,
         'content_type': content_type,
+        'page_class': page_class,
     })
 
 
