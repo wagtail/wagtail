@@ -35,24 +35,25 @@ class ElasticSearchQuery(object):
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
         if isinstance(where_node, tuple):
-            field =  self._es_type.get_filter_field_name(where_node[0].col)
+            field = where_node[0].col
             lookup = where_node[1]
             value = where_node[3]
 
-            es_field = self._es_type.get_field(field)
+            filter_field =  self._es_type.get_filter_field_name(field)
+            es_field = self._es_type.get_field(filter_field)
 
             # Find lookup
             if lookup == 'exact':
                 if value is None:
                     return {
                         'missing': {
-                            'field': field,
+                            'field': filter_field,
                         }
                     }
                 else:
                     return {
                         'term': {
-                            field: es_field.convert_value(value)
+                            filter_field: es_field.convert_value(value)
                         }
                     }
 
@@ -60,14 +61,14 @@ class ElasticSearchQuery(object):
                 if value:
                     return {
                         'missing': {
-                            'field': field,
+                            'field': filter_field,
                         }
                     }
                 else:
                     return {
                         'not': {
                             'missing': {
-                                'field': field,
+                                'field': filter_field,
                             }
                         }
                     }
@@ -75,14 +76,14 @@ class ElasticSearchQuery(object):
             if lookup in ['startswith', 'prefix']:
                 return {
                     'prefix': {
-                        field: es_field.convert_value(value)
+                        filter_field: es_field.convert_value(value)
                     }
                 }
 
             if lookup in ['gt', 'gte', 'lt', 'lte']:
                 return {
                     'range': {
-                        field: {
+                        filter_field: {
                             lookup: es_field.convert_value(value),
                         }
                     }
@@ -93,7 +94,7 @@ class ElasticSearchQuery(object):
 
                 return {
                     'range': {
-                        field: {
+                        filter_field: {
                             'gte': es_field.convert_value(lower),
                             'lte': es_field.convert_value(upper),
                         }
