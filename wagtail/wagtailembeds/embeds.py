@@ -75,9 +75,16 @@ def embedly(url, max_width=None, key=None):
     else:
         html = oembed.get('html')
 
+    # Workaround for twitter api. Twitter API response, does not contain
+    # 'title' key in JSON
+    if oembed['provider_name'] == 'Twitter':
+        title = oembed['author_name']
+    else:
+        titlte = oembed['title']
+
     # Return embed as a dict
     return {
-        'title': oembed['title'],
+        'title': title,
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
@@ -113,8 +120,14 @@ def oembed(url, max_width=None):
         html = oembed.get('html')
 
     # Return embed as a dict
+    # Workaround for twitter api. Twitter API response, does not contain
+    # 'title' key in JSON
+    if oembed['provider_name'] == 'Twitter':
+        title = oembed['author_name']
+    else:
+        titlte = oembed['title']
     return {
-        'title': oembed['title'],
+        'title': title,
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
