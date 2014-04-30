@@ -3,6 +3,7 @@ import sys
 import os
 import shutil
 
+import django
 from django.conf import settings, global_settings
 from django.core.management import execute_from_command_line
 
@@ -27,6 +28,34 @@ if not settings.configured:
         WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
             'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
         }
+
+    # Installed apps
+    INSTALLED_APPS = [
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.auth',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'django.contrib.admin',
+
+        'taggit',
+        'compressor',
+
+        'wagtail.wagtailcore',
+        'wagtail.wagtailadmin',
+        'wagtail.wagtaildocs',
+        'wagtail.wagtailsnippets',
+        'wagtail.wagtailusers',
+        'wagtail.wagtailimages',
+        'wagtail.wagtailembeds',
+        'wagtail.wagtailsearch',
+        'wagtail.wagtailredirects',
+        'wagtail.tests',
+    ]
+
+    # Add South to installed apps if using Django 1.6
+    if django.VERSION[0] == 1 and django.VERSION[1] == 6:
+        INSTALLED_APPS.append('south')
 
     settings.configure(
         DATABASES={
@@ -59,29 +88,16 @@ if not settings.configured:
 
             'wagtail.wagtailredirects.middleware.RedirectMiddleware',
         ),
-        INSTALLED_APPS=[
-            'django.contrib.contenttypes',
-            'django.contrib.sessions',
-            'django.contrib.auth',
-            'django.contrib.messages',
-            'django.contrib.staticfiles',
-            'django.contrib.admin',
-
-            'taggit',
-            'south',
-            'compressor',
-
-            'wagtail.wagtailcore',
-            'wagtail.wagtailadmin',
-            'wagtail.wagtaildocs',
-            'wagtail.wagtailsnippets',
-            'wagtail.wagtailusers',
-            'wagtail.wagtailimages',
-            'wagtail.wagtailembeds',
-            'wagtail.wagtailsearch',
-            'wagtail.wagtailredirects',
-            'wagtail.tests',
-        ],
+        INSTALLED_APPS=INSTALLED_APPS,
+        SOUTH_MIGRATION_MODULES = {
+            'taggit': 'taggit.south_migrations',
+            'wagtailcore': 'wagtail.wagtailcore.south_migrations',
+            'wagtailadmin': 'wagtail.wagtailadmin.south_migrations',
+            'wagtaildocs': 'wagtail.wagtaildocs.south_migrations',
+            'wagtailimages': 'wagtail.wagtailimages.south_migrations',
+            'wagtailsearch': 'wagtail.wagtailsearch.south_migrations',
+            'wagtailredirects': 'wagtail.wagtailredirects.south_migrations',
+        },
         PASSWORD_HASHERS=(
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
         ),
