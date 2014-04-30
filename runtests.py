@@ -97,6 +97,7 @@ if not settings.configured:
             'wagtailimages': 'wagtail.wagtailimages.south_migrations',
             'wagtailsearch': 'wagtail.wagtailsearch.south_migrations',
             'wagtailredirects': 'wagtail.wagtailredirects.south_migrations',
+            'wagtailembeds': 'wagtail.wagtailembeds.south_migrations',
         },
         PASSWORD_HASHERS=(
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
