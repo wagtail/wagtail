@@ -80,7 +80,7 @@ def embedly(url, max_width=None, key=None):
     if oembed['provider_name'] == 'Twitter':
         title = oembed['author_name']
     else:
-        titlte = oembed['title']
+        title = oembed['title']
 
     # Return embed as a dict
     return {
@@ -125,7 +125,7 @@ def oembed(url, max_width=None):
     if oembed['provider_name'] == 'Twitter':
         title = oembed['author_name']
     else:
-        titlte = oembed['title']
+        title = oembed['title']
     return {
         'title': title,
         'type': oembed['type'],
