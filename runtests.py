@@ -33,7 +33,7 @@ if not settings.configured:
             'default': {
                 'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
                 'NAME': 'wagtaildemo',
-                'USER': 'postgres',
+                'USER': os.environ.get('DATABASE_USER', 'postgres'),
             }
         },
         ROOT_URLCONF='wagtail.tests.urls',
