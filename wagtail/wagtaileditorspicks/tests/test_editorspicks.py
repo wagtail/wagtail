@@ -50,7 +50,7 @@ class TestEditorsPicksIndexView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/', params)
+        return self.client.get('/admin/editorspicks/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -72,7 +72,7 @@ class TestEditorsPicksAddView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/add/', params)
+        return self.client.get('/admin/editorspicks/add/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -87,7 +87,7 @@ class TestEditorsPicksEditView(TestCase):
         self.query.editors_picks.create(page_id=1, description="Root page")
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params)
+        return self.client.get('/admin/editorspicks/' + str(self.query.id) + '/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -102,7 +102,7 @@ class TestEditorsPicksDeleteView(TestCase):
         self.query.editors_picks.create(page_id=1, description="Root page")
 
     def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params)
+        return self.client.get('/admin/editorspicks/' + str(self.query.id) + '/delete/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
