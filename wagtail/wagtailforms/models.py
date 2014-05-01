@@ -52,7 +52,7 @@ class FormSubmission(models.Model):
         return self.form_data
 
 
-class AbstractFormFields(Orderable):
+class AbstractFormField(Orderable):
     """Database Fields required for building a Django Form field."""
 
     label = models.CharField(
@@ -196,7 +196,7 @@ class AbstractEmailForm(AbstractForm):
 
 
 # TEST
-class ConcreteFormFields(AbstractFormFields):
+class ConcreteFormField(AbstractFormField):
     page = ParentalKey('wagtailforms.ConcreteForm', related_name='form_fields')
 
 
@@ -210,7 +210,7 @@ ConcreteForm.content_panels = [
 ]
 
 
-class ConcreteEmailFormFields(AbstractFormFields):
+class ConcreteEmailFormField(AbstractFormField):
     page = ParentalKey('wagtailforms.ConcreteEmailForm', related_name='form_fields')
 
 
