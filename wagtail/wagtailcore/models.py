@@ -312,6 +312,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substr(url_path, %s)
                 WHERE path LIKE %s AND id <> %s
             """
+        elif connection.vendor == 'mysql':
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path= CONCAT(%s, substring(url_path, %s))
+                WHERE path LIKE %s AND id <> %s
+            """
         else:
             update_statement = """
                 UPDATE wagtailcore_page
