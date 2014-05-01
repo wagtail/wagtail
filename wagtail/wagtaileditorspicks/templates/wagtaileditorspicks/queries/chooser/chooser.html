@@ -2,7 +2,7 @@
 {% trans "Popular search terms" as pop_str %}
 {% include "wagtailadmin/shared/header.html" with title=pop_str %}
 
-<form class="query-search search-bar full-width" action="{% url 'wagtailsearch_queries_chooserresults' %}" method="GET" autocomplete="off">
+<form class="query-search search-bar full-width" action="{% url 'wagtaileditorspicks_queries_chooserresults' %}" method="GET" autocomplete="off">
     <ul class="fields">
         {% for field in searchform %}
             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
@@ -12,6 +12,6 @@
 </form>
 <div class="nice-padding">
     <div id="query-results">
-        {% include "wagtailsearch/queries/chooser/results.html" %}
+        {% include "wagtaileditorspicks/queries/chooser/results.html" %}
     </div>
 </div>

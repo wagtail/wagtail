@@ -75,7 +75,7 @@ def add(request):
 
             if save_editorspicks(query, query, editors_pick_formset):
                 messages.success(request, _("Editor's picks for '{0}' created.").format(query))
-                return redirect('wagtailsearch_editorspicks_index')
+                return redirect('wagtaileditorspicks_editorspicks_index')
         else:
             editors_pick_formset = forms.EditorsPickFormSet()
     else:
@@ -103,7 +103,7 @@ def edit(request, query_id):
 
             if save_editorspicks(query, new_query, editors_pick_formset):
                 messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query))
-                return redirect('wagtailsearch_editorspicks_index')
+                return redirect('wagtaileditorspicks_editorspicks_index')
     else:
         query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
         editors_pick_formset = forms.EditorsPickFormSet(instance=query)
@@ -122,7 +122,7 @@ def delete(request, query_id):
     if request.POST:
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
-        return redirect('wagtailsearch_editorspicks_index')
+        return redirect('wagtaileditorspicks_editorspicks_index')
 
     return render(request, 'wagtaileditorspicks/editorspicks/confirm_delete.html', {
         'query': query,

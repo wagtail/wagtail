@@ -5,7 +5,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
 
-    <form action="{% url 'wagtailsearch_editorspicks_edit' query.id %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtaileditorspicks_editorspicks_edit' query.id %}" method="POST" class="nice-padding">
         {% csrf_token %}
 
         <ul class="fields">
@@ -17,7 +17,7 @@
             </li>
             <li>
                 <input type="submit" value="{% trans 'Save' %}" />
-                <a href="{% url 'wagtailsearch_editorspicks_delete' query.id %}" class="button button-secondary no">{% trans "Delete" %}</a>
+                <a href="{% url 'wagtaileditorspicks_editorspicks_delete' query.id %}" class="button button-secondary no">{% trans "Delete" %}</a>
             </li>
         </ul>
     </form>
