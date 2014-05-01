@@ -145,7 +145,7 @@ class TestQueryChooserView(TestCase):
         login(self.client)
 
     def get(self, params={}):
-        return self.client.get('/admin/queries/chooser/', params)
+        return self.client.get('/admin/editorspicks/queries/chooser/', params)
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
