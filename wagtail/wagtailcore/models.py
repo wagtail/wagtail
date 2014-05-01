@@ -279,7 +279,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return self.url_path
 
-    @transaction.commit_on_success  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
+    @transaction.atomic  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
         update_descendant_url_paths = False
 
@@ -535,7 +535,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return (not self.live) and (not self.get_descendants().filter(live=True).exists())
 
-    @transaction.commit_on_success  # only commit when all descendants are properly updated
+    @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
         Extension to the treebeard 'move' method to ensure that url_path is updated too.
