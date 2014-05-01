@@ -167,6 +167,20 @@ class AbstractForm(Page):
             'form': self.form,
         })
 
+    def get_page_modes(self):
+        return [
+            ('form', 'Form'),
+            ('landing', 'Landing page'),
+        ]
+
+    def show_as_mode(self, mode):
+        if mode == 'landing':
+            return render(self.dummy_request(), self.landing_page_template, {
+                'self': self,
+            })
+        else:
+            return super(AbstractForm, self).show_as_mode(mode)
+
 
 class AbstractEmailForm(AbstractForm):
     """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
