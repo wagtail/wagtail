@@ -17,10 +17,10 @@
 
             <ul class="fields">
                 <li>
-                    {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}   
+                    {% include "wagtaileditorspicks/queries/chooser_field.html" with field=query_form.query_string only %}   
                 </li>
                 <li>
-                    {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.html" with formset=editors_pick_formset only %}
+                    {% include "wagtaileditorspicks/editorspicks/includes/editorspicks_formset.html" with formset=editors_pick_formset only %}
                 </li>
                 <li><input type="submit" value="{% trans 'Save' %}" /></li>
             </ul>
@@ -35,8 +35,8 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     <script type="text/javascript">
-        {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
-        {% include "wagtailsearch/queries/chooser_field.js" only %}
+        {% include "wagtaileditorspicks/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
+        {% include "wagtaileditorspicks/queries/chooser_field.js" only %}
 
         (function() {
             createQueryChooser('{{ query_form.query_string.auto_id }}');
