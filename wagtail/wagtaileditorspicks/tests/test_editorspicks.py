@@ -1,6 +1,6 @@
 from django.test import TestCase
 from wagtail.tests.utils import login
-from wagtail.wagtailsearch import models
+from wagtail.wagtaileditorspicks import models
 
 
 class TestEditorsPicks(TestCase):

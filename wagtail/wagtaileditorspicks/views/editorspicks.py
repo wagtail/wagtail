@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.wagtailsearch import models, forms
+from wagtail.wagtaileditorspicks import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
 
 
@@ -32,12 +32,12 @@ def index(request):
         queries = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, "wagtailsearch/editorspicks/results.html", {
+        return render(request, "wagtaileditorspicks/editorspicks/results.html", {
             'queries': queries,
             'query_string': query_string,
         })
     else:
-        return render(request, 'wagtailsearch/editorspicks/index.html', {
+        return render(request, 'wagtaileditorspicks/editorspicks/index.html', {
             'queries': queries,
             'query_string': query_string,
             'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search editor's picks")),
@@ -82,7 +82,7 @@ def add(request):
         query_form = forms.QueryForm()
         editors_pick_formset = forms.EditorsPickFormSet()
 
-    return render(request, 'wagtailsearch/editorspicks/add.html', {
+    return render(request, 'wagtaileditorspicks/editorspicks/add.html', {
         'query_form': query_form,
         'editors_pick_formset': editors_pick_formset,
     })
@@ -108,7 +108,7 @@ def edit(request, query_id):
         query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
         editors_pick_formset = forms.EditorsPickFormSet(instance=query)
 
-    return render(request, 'wagtailsearch/editorspicks/edit.html', {
+    return render(request, 'wagtaileditorspicks/editorspicks/edit.html', {
         'query_form': query_form,
         'editors_pick_formset': editors_pick_formset,
         'query': query,
@@ -124,6 +124,6 @@ def delete(request, query_id):
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearch_editorspicks_index')
 
-    return render(request, 'wagtailsearch/editorspicks/confirm_delete.html', {
+    return render(request, 'wagtaileditorspicks/editorspicks/confirm_delete.html', {
         'query': query,
     })

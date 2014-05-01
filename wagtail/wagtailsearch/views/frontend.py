@@ -6,7 +6,9 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore import models
-from wagtail.wagtailsearch.models import Query
+
+# FIXME: Use a signal for hit counting instead
+from wagtail.wagtaileditorspicks.models import Query
 
 
 def search(

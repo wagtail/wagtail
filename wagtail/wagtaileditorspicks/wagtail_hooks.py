@@ -1,11 +1,11 @@
 from django.conf.urls import include, url
 
 from wagtail.wagtailadmin import hooks
-from wagtail.wagtailsearch.urls import admin as admin_urls
+from wagtail.wagtaileditorspicks import urls
 
 
 def register_admin_urls():
     return [
-        url(r'^search/', include(admin_urls)),
+        url(r'^search/', include(urls)),
     ]
 hooks.register('register_admin_urls', register_admin_urls)
