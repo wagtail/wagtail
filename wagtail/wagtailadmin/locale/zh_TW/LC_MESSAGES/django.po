@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -89,117 +89,117 @@ msgstr "登入 Wagtail"
 
 #: .\templates\wagtailadmin\login.html:42
 msgid "Forgotten it?"
-msgstr "忘记了？"
+msgstr "忘記了嗎?"
 
 #: .\templates\wagtailadmin\account\account.html:4
 msgid "Account"
-msgstr "账号"
+msgstr "帳號"
 
 #: .\templates\wagtailadmin\account\account.html:11
 msgid "Set gravatar"
-msgstr "设置gravatar"
+msgstr "設定 gravatar"
 
 #: .\templates\wagtailadmin\account\account.html:15
 msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号可以设置多个电子邮件地址的头像图片。"
+msgstr "您的頭像是由 Gravatar 所提供，並且已經聯結你的電子信箱。一個 Gravatar 帳號可以設定多個電子信箱的頭像圖片。"
 
 #: .\templates\wagtailadmin\account\account.html:23
 #: .\templates\wagtailadmin\account\change_password.html:4
 msgid "Change password"
-msgstr "修改密码"
+msgstr "修改密碼"
 
 #: .\templates\wagtailadmin\account\account.html:27
 msgid "Change the password you use to log in."
-msgstr "修改您用于登录的密码。"
+msgstr "修改登入用的密碼。"
 
 #: .\templates\wagtailadmin\account\change_password.html:16
 msgid "Change Password"
-msgstr "修改密码"
+msgstr "修改密碼"
 
 #: .\templates\wagtailadmin\account\change_password.html:19
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr "您的密码不能在此更改。请联系网站管理员。"
+msgstr "您的密碼不能在這更改。請聯絡網站管理員。"
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:4
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:42
 #: .\templates\wagtailadmin\account\password_reset\done.html:4
 #: .\templates\wagtailadmin\account\password_reset\form.html:37
 msgid "Reset password"
-msgstr "重置密码"
+msgstr "重新設定密碼"
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:15
 msgid "Password change successful"
-msgstr "密码修改成功"
+msgstr "密碼修改成功"
 
 #: .\templates\wagtailadmin\account\password_reset\complete.html:16
 msgid "Login"
-msgstr "登录"
+msgstr "登入"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:4
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:26
 msgid "Set your new password"
-msgstr "设置你的新密码"
+msgstr "設定您的新密碼"
 
 #: .\templates\wagtailadmin\account\password_reset\confirm.html:19
 msgid "The passwords do not match. Please try again."
-msgstr "两个密码不匹配，请重试。"
+msgstr "密碼不一致，請再試一次。"
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:15
 msgid "Check your email"
-msgstr "检查您的电子邮件"
+msgstr "請檢查您的電子信箱"
 
 #: .\templates\wagtailadmin\account\password_reset\done.html:16
 msgid "A link to reset your password has been emailed to you."
-msgstr "一个用于重置密码的链接已经发送到您的电子邮箱中"
+msgstr "一個重新設定密碼連結已經寄到您的電子信箱了"
 
 #: .\templates\wagtailadmin\account\password_reset\email.txt:2
 msgid "Please follow the link below to reset your password"
-msgstr "请点击下面的链接来重置您的密码"
+msgstr "請點擊下面的連結來重新設定您的密碼"
 
 #: .\templates\wagtailadmin\account\password_reset\email_subject.txt:2
 msgid "Password reset"
-msgstr "密码已重置"
+msgstr "密碼已經重新設定"
 
 #: .\templates\wagtailadmin\account\password_reset\form.html:27
 msgid "Reset your password"
-msgstr "重置您的密码"
+msgstr "重新設定您的密碼"
 
 #: .\templates\wagtailadmin\chooser\_link_types.html:5
 #: .\templates\wagtailadmin\chooser\_link_types.html:7
 msgid "Internal link"
-msgstr "内部链接"
+msgstr "內部連結"
 
 #: .\templates\wagtailadmin\chooser\_link_types.html:11
 #: .\templates\wagtailadmin\chooser\_link_types.html:13
 msgid "External link"
-msgstr "外部链接"
+msgstr "外部連結"
 
 #: .\templates\wagtailadmin\chooser\_link_types.html:17
 #: .\templates\wagtailadmin\chooser\_link_types.html:19
 msgid "Email link"
-msgstr "电子邮件链接"
+msgstr "電子信箱連結"
 
 #: .\templates\wagtailadmin\chooser\_search_form.html:7
 #: .\templates\wagtailadmin\pages\search.html:3
 #: .\templates\wagtailadmin\pages\search.html:16
 #: .\templatetags\wagtailadmin_nav.py:44
 msgid "Search"
-msgstr "搜索"
+msgstr "搜尋"
 
 #: .\templates\wagtailadmin\chooser\_search_results.html:3
 #: .\templatetags\wagtailadmin_nav.py:43
 msgid "Explorer"
-msgstr "浏览"
+msgstr "瀏覽"
 
 #: .\templates\wagtailadmin\chooser\_search_results.html:5
 #: .\templates\wagtailadmin\pages\index.html:15
 #: .\templates\wagtailadmin\pages\move_choose_destination.html:10
 msgid "Home"
-msgstr "主页"
+msgstr "首頁"
 
 #: .\templates\wagtailadmin\chooser\_search_results.html:13
 #, python-format
@@ -217,7 +217,7 @@ msgstr[0] ""
 #: .\templates\wagtailadmin\chooser\search.html:2
 #: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:13
 msgid "Choose a page"
-msgstr "选择一个页面"
+msgstr "選擇一個頁面"
 
 #: .\templates\wagtailadmin\chooser\email_link.html:2
 msgid "Add an email link"
