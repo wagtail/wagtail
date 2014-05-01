@@ -98,7 +98,10 @@ class Indexed(object):
             if 'type' not in config and 'django_type' not in config:
                 try:
                     # Try getting the Django field
-                    field_obj = cls._meta.get_field_by_name(field)[0]
+                    if field.endswith('_id'):
+                        field_obj = cls._meta.get_field_by_name(field[:-3])[0]
+                    else:
+                        field_obj = cls._meta.get_field_by_name(field)[0]
 
                     # Add "django_type" to the config. This will be
                     # converted to the real type name by the backend
@@ -127,7 +130,7 @@ class Indexed(object):
         fields = {}
         if issubclass(cls, models.Model):
             for field in list(cls._meta.local_concrete_fields):
-                fields[field.name] = {
+                fields[field.attname] = {
                     'index': 'not_analyzed',
                 }
 
