@@ -80,6 +80,7 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
+            'wagtail.wagtaileditorspicks',
             'wagtail.tests',
         ],
         PASSWORD_HASHERS=(
