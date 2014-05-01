@@ -1,1 +1,1 @@
-from frontend import search
+from frontend import search, search_view_served

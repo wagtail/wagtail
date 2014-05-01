@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.dispatch.dispatcher import receiver
+from wagtail.wagtailsearch.views import search_view_served
 
 import datetime
 import string
@@ -77,6 +79,13 @@ class QueryDailyHits(models.Model):
         unique_together = (
             ('query', 'date'),
         )
+
+
+@receiver(search_view_served)
+def add_query_hit(request, query_string, **kwargs):
+    if query_string:
+        # Get query and add a hit
+        query = Query.get(query_string).add_hit()
 
 
 class EditorsPick(models.Model):

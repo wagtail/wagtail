@@ -4,11 +4,12 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.dispatch import Signal
 
 from wagtail.wagtailcore import models
 
-# FIXME: Use a signal for hit counting instead
-from wagtail.wagtaileditorspicks.models import Query
+
+search_view_served = Signal(providing_args=['request', 'query_string'])
 
 
 def search(
@@ -37,9 +38,11 @@ def search(
         else:
             template_ajax = template
 
-    # Get query string and page from GET paramters
+    # Get query string
     query_string = request.GET.get('q', '')
-    page = request.GET.get('p', 1)
+
+    # Fire search_view_served signal
+    search_view_served.send(search, request=request, query_string=query_string)
 
     # Search
     if query_string != '':
@@ -51,13 +54,8 @@ def search(
             path=path if path else request.site.root_page.path
         )
 
-        # Get query object
-        query = Query.get(query_string)
-
-        # Add hit
-        query.add_hit()
-
         # Pagination
+        page = request.GET.get('p', 1)
         paginator = Paginator(search_results, results_per_page)
         try:
             search_results = paginator.page(page)
@@ -66,7 +64,6 @@ def search(
         except EmptyPage:
             search_results = paginator.page(paginator.num_pages)
     else:
-        query = None
         search_results = None
 
     if use_json: # Return a json response
@@ -92,5 +89,4 @@ def search(
             query_string=query_string,
             search_results=search_results,
             is_ajax=request.is_ajax(),
-            query=query
         ))
