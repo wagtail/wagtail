@@ -630,3 +630,25 @@ class TestIssue7(TestCase):
 
         # Check url
         self.assertEqual(new_homepage.url, '/')
+
+
+class TestIssue157(TestCase):
+    fixtures = ['test.json']
+
+    def test_issue157(self):
+        # Get homepage
+        homepage = Page.objects.get(url_path='/home/')
+
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
+        # Change homepage title and slug
+        homepage.title = "New home"
+        homepage.slug = "new-home"
+        homepage.save()
+
+        # Get fresh instance of homepage
+        homepage = Page.objects.get(id=homepage.id)
+
+        # Check url
+        self.assertEqual(homepage.url, '/')
