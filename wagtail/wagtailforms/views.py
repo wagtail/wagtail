@@ -24,7 +24,11 @@ def index(request):
 
 @permission_required('wagtailadmin.access_admin')
 def list_submissions(request, page_id):
-    form_page = get_object_or_404(Page, id=page_id)
+    form_page = get_object_or_404(Page, id=page_id).specific
+    data_fields = [
+        (field.clean_name, field.label)
+        for field in form_page.form_fields.all()
+    ]
 
     submissions = FormSubmission.objects.filter(page=form_page)
 
@@ -49,17 +53,14 @@ def list_submissions(request, page_id):
         response['Content-Disposition'] = 'attachment;filename=export.csv'
         writer = unicodecsv.writer(response, encoding='utf-8')
 
-        if submissions:
-            extra_keys = json.loads(submissions[0].form_data).keys()
+        header_row = ['Submission date', 'user'] + [label for name, label in data_fields]
 
-        header_row = ['Submission date', 'user']
-        header_row.extend(extra_keys)
         writer.writerow(header_row)
         for s in submissions:
             data_row = [s.submit_time, s.user]
             form_data = json.loads(s.form_data)
-            for ek in extra_keys:
-                data_row.append(form_data.get(ek))
+            for name, label in data_fields:
+                data_row.append(form_data.get(name))
             writer.writerow(data_row)
         return response
 

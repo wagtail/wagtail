@@ -1,10 +1,11 @@
 from django.conf import settings
-from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
+from unidecode import unidecode
 import json
 import re
 
@@ -70,6 +71,13 @@ class AbstractFormField(Orderable):
         help_text=_('Default value. Comma seperated values supported for checkboxes.')
     )
     help_text = models.CharField(max_length=255, blank=True)
+
+    @property
+    def clean_name(self):
+        # unidecode will return an ascii string while slugify wants a
+        # unicode string on the other hand, slugify returns a safe-string
+        # which will be converted to a normal str
+        return str(slugify(unicode(unidecode(self.label))))
 
     panels = [
         FieldPanel('label'),

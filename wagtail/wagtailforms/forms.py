@@ -1,7 +1,5 @@
 import django.forms
 from django.utils.datastructures import SortedDict
-from django.utils.text import slugify
-from unidecode import unidecode
 
 
 class FormBuilder():
@@ -11,11 +9,7 @@ class FormBuilder():
         for field in fields:
             options = self.get_options(field)
             f = getattr(self, "create_"+field.field_type+"_field")(field, options)
-            # unidecode will return an ascii string while slugify wants a
-            # unicode string on the other hand, slugify returns a safe-string
-            # which will be converted to a normal str
-            field_name = str(slugify(unicode(unidecode(field.label))))
-            self.formfields[field_name] = f
+            self.formfields[field.clean_name] = f
 
     def get_options(self, field):
         options = {}
