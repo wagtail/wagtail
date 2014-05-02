@@ -58,8 +58,7 @@
     <div class="nice-padding">
         {% if submissions %}
             {% include "wagtailforms/list.html" %}
-            {% url "wagtailforms_list_submissions" form_page.id as linkurl %}
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}{# Here we pass an invalid non-empty URL name as linkurl to generate pagination links of the form "?p=123" with the URL path omitted #}
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}No submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}
