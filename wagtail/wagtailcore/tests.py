@@ -606,6 +606,18 @@ class TestMovePage(TestCase):
 
 
 class TestIssue7(TestCase):
+    """
+    This tests for an issue where if a site root page was moved, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was moved. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/7
+    """
+
     fixtures = ['test.json']
 
     def test_issue7(self):
@@ -636,6 +648,18 @@ class TestIssue7(TestCase):
 
 
 class TestIssue157(TestCase):
+    """
+    This tests for an issue where if a site root pages slug was changed, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was changed. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/157
+    """
+
     fixtures = ['test.json']
 
     def test_issue157(self):
