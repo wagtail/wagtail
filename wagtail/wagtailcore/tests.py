@@ -4,7 +4,7 @@ from django.http import HttpRequest, Http404
 from django.contrib.auth.models import User
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import EventPage
+from wagtail.tests.models import EventPage, EventIndex, SimplePage
 
 
 class TestRouting(TestCase):
@@ -582,3 +582,24 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+
+class TestMovePage(TestCase):
+    fixtures = ['test.json']
+
+    def test_move_page(self):
+        about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        events_index.move(about_us_page, pos='last-child')
+
+        # re-fetch events index to confirm that db fields have been updated
+        events_index = EventIndex.objects.get(id=events_index.id)
+        self.assertEqual(events_index.url_path, '/home/about-us/events/')
+        self.assertEqual(events_index.depth, 4)
+        self.assertEqual(events_index.get_parent().id, about_us_page.id)
+
+        # children of events_index should also have been updated
+        christmas = events_index.get_children().get(slug='christmas')
+        self.assertEqual(christmas.depth, 5)
+        self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
