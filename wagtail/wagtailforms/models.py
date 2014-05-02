@@ -82,6 +82,7 @@ class AbstractFormField(Orderable):
 
     class Meta:
         abstract = True
+        ordering = ['sort_order']
 
 
 FORM_MODEL_CLASSES = []
