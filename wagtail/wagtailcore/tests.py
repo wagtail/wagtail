@@ -622,6 +622,9 @@ class TestIssue7(TestCase):
         default_site.root_page = new_homepage
         default_site.save()
 
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
         # Move new homepage to root
         new_homepage.move(root_page, pos='last-child')
 
