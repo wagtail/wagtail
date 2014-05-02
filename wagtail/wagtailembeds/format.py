@@ -1,6 +1,7 @@
 from __future__ import division  # Use true division
 
 from django.utils.html import escape
+from django.template.loader import render_to_string
 
 from wagtail.wagtailembeds import get_embed
 
@@ -15,8 +16,11 @@ def embed_to_frontend_html(url):
             else:
                 ratio = "0"
 
-            # Build html
-            return '<div style="padding-bottom: %s;" class="responsive-object">%s</div>' % (ratio, embed.html)
+            # Render template
+            render_to_string('wagtailembeds/embed_frontend.html', {
+                'embed': embed,
+                'ratio': ratio,
+            })
         else:
             return ''
     except:
@@ -28,4 +32,7 @@ def embed_to_editor_html(url):
     if embed is None:
         return
 
-    return '<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="%s"><h3>%s</h3><p>%s<br/>%s<br/>%s</p><img src="%s"></div>' % (url, escape(embed.title), url, escape(embed.provider_name), escape(embed.author_name), embed.thumbnail_url)
+    # Render template
+    return render_to_string('wagtailembeds/embed_editor.html', {
+        'embed': embed,
+    })
