@@ -302,6 +302,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         if update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
+
+        # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
+        if Site.objects.filter(root_page=self).exists():
+            cache.delete('wagtail_site_root_paths')
+
         return result
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
