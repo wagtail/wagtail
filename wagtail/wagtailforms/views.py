@@ -3,32 +3,13 @@ import json
 import unicodecsv
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404, HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.text import capfirst
-from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import permission_required
-from django.core.exceptions import PermissionDenied
-from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_form_types
 from wagtail.wagtailforms.forms import SelectDateForm
-
-
-def get_form_type_from_url_params(app_name, model_name):
-    """
-    Retrieve a form type from an app_name / model_name combo.
-    Throw Http404 if not a valid form type
-    """
-    try:
-        content_type = ContentType.objects.get_by_natural_key(app_name, model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
-    if content_type not in get_form_types():
-        raise Http404
-
-    return content_type
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -42,7 +23,7 @@ def index(request):
 
 
 @permission_required('wagtailadmin.access_admin')
-def list_submissions(request, app_label, model, page_id):
+def list_submissions(request, page_id):
     form_page = get_object_or_404(Page, id=page_id)
 
     submissions = FormSubmission.objects.filter(page=form_page)
