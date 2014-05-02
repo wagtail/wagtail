@@ -144,7 +144,7 @@ class AbstractForm(Page):
                 FormSubmission.objects.create(
                     form_data=json.dumps(form_data),
                     page=self,
-                    user=request.user,
+                    user=request.user if request.user.is_authenticated() else None,
                 )
 
                 # If we have a form_processing_backend call its process method
