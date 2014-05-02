@@ -625,5 +625,8 @@ class TestIssue7(TestCase):
         # Move new homepage to root
         new_homepage.move(root_page, pos='last-child')
 
+        # Get fresh instance of new_homepage
+        new_homepage = Page.objects.get(id=new_homepage.id)
+
         # Check url
         self.assertEqual(new_homepage.url, '/')
