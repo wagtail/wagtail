@@ -82,6 +82,12 @@ if not settings.configured:
             'wagtail.wagtailredirects',
             'wagtail.tests',
         ],
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+                'LOCATION': 'cache',
+            }
+        },
         PASSWORD_HASHERS=(
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
         ),
