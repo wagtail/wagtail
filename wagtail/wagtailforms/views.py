@@ -42,13 +42,10 @@ def index(request):
 
 
 @permission_required('wagtailadmin.access_admin')
-def list_submissions(request, app_label, model, id):
-    model = get_form_type_from_url_params(app_label, model).model_class()
-    form_page = get_object_or_404(model, id=id)
+def list_submissions(request, app_label, model, page_id):
+    form_page = get_object_or_404(Page, id=page_id)
 
-    submissions = FormSubmission.objects.filter(
-        content_type=form_page.content_type, object_id=form_page.id
-    )
+    submissions = FormSubmission.objects.filter(page=form_page)
 
     select_date_form = SelectDateForm(request.GET)
     if select_date_form.is_valid():

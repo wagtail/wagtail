@@ -38,9 +38,7 @@ class FormSubmission(models.Model):
     """Data for a Form submission."""
 
     form_data = models.TextField()
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    form_page = generic.GenericForeignKey('content_type', 'object_id')
+    page = models.ForeignKey(Page)
 
     submit_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
@@ -143,9 +141,9 @@ class AbstractForm(Page):
                     if i[0] != 'csrfmiddlewaretoken'
                 )
 
-                submission = FormSubmission.objects.create(
+                FormSubmission.objects.create(
                     form_data=json.dumps(form_data),
-                    form_page=self,
+                    page=self,
                     user=request.user,
                 )
 
