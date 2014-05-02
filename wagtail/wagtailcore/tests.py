@@ -603,3 +603,27 @@ class TestMovePage(TestCase):
         christmas = events_index.get_children().get(slug='christmas')
         self.assertEqual(christmas.depth, 5)
         self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
+
+
+class TestIssue7(TestCase):
+    fixtures = ['test.json']
+
+    def test_issue7(self):
+        # Get homepage, root page and site
+        root_page = Page.objects.get(id=1)
+        homepage = Page.objects.get(url_path='/home/')
+        default_site = Site.objects.get(is_default_site=True)
+
+        # Create a new homepage under current homepage
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        homepage.add_child(instance=new_homepage)
+
+        # Set new homepage as the site root page
+        default_site.root_page = new_homepage
+        default_site.save()
+
+        # Move new homepage to root
+        new_homepage.move(root_page, pos='last-child')
+
+        # Check url
+        self.assertEqual(new_homepage.url, '/')
