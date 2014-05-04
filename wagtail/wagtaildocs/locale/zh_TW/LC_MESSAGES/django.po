@@ -80,11 +80,11 @@ msgstr "修改文件："
 #: .\templates\wagtaildocs\documents\add.html:4
 #: .\templates\wagtaildocs\documents\index.html:17
 msgid "Add a document"
-msgstr "增加一份文件"
+msgstr "新增一份文件"
 
 #: .\templates\wagtaildocs\documents\add.html:15
 msgid "Add document"
-msgstr "增加文件"
+msgstr "新增文件"
 
 #: .\templates\wagtaildocs\documents\confirm_delete.html:3
 #, python-format

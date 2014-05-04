@@ -34,7 +34,7 @@ msgstr ""
 #: .\templates\wagtailsearch\editorspicks\add.html:3
 #: .\templates\wagtailsearch\editorspicks\add.html:5
 msgid "Add editor's pick"
-msgstr "增加編者精選"
+msgstr "新增編者精選"
 
 #: .\templates\wagtailsearch\editorspicks\add.html:9
 msgid ""
@@ -94,7 +94,7 @@ msgstr "編者精選"
 
 #: .\templates\wagtailsearch\editorspicks\index.html:18
 msgid "Add new editor's pick"
-msgstr "增加新的編者精選"
+msgstr "新增新的編者精選"
 
 #: .\templates\wagtailsearch\editorspicks\list.html:8
 msgid "Search term(s)"
@@ -156,7 +156,7 @@ msgstr "編者精選"
 
 #: .\templates\wagtailsearch\editorspicks\includes\editorspicks_formset.html:14
 msgid "Add recommended page"
-msgstr "增加推薦頁面"
+msgstr "新增推薦頁面"
 
 #: .\templates\wagtailsearch\queries\chooser\chooser.html:2
 msgid "Popular search terms"

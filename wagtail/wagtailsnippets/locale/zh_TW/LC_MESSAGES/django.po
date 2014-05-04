@@ -94,7 +94,7 @@ msgstr "<span>%(snippet_type_name_plural)s</span> 片段"
 #: .\templates\wagtailsnippets\snippets\type_index.html:13
 #, python-format
 msgid "Add %(snippet_type_name)s"
-msgstr "增加 %(snippet_type_name)s"
+msgstr "新增 %(snippet_type_name)s"
 
 #: .\templates\wagtailsnippets\snippets\type_index.html:23
 #, python-format

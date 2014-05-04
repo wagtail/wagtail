@@ -67,7 +67,7 @@ msgstr "重導向因有錯誤而無法建立。"
 #: .\templates\wagtailredirects\add.html:6
 #: .\templates\wagtailredirects\index.html:18
 msgid "Add redirect"
-msgstr "增加重導向"
+msgstr "新增重導向"
 
 #: .\templates\wagtailredirects\add.html:14
 #: .\templates\wagtailredirects\edit.html:14
@@ -148,4 +148,4 @@ msgstr "對不起，沒有任何重導向符合 \"<em>%(query_string)s</em>\""
 msgid ""
 "No redirects have been created. Why not <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
-msgstr "沒有任何已儲存的重導向。為什麼不 <a href=\"%(wagtailredirects_add_redirect_url)s\">增加一個</a>?"
+msgstr "沒有任何已儲存的重導向。為什麼不 <a href=\"%(wagtailredirects_add_redirect_url)s\">新增一個</a>?"

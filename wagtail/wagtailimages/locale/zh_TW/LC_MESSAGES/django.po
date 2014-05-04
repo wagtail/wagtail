@@ -94,11 +94,11 @@ msgstr "更改圖片："
 #: .\templates\wagtailimages\images\add.html:4
 #: .\templates\wagtailimages\images\index.html:19
 msgid "Add an image"
-msgstr "增加一個圖片"
+msgstr "新增一個圖片"
 
 #: .\templates\wagtailimages\images\add.html:15
 msgid "Add image"
-msgstr "增加圖片"
+msgstr "新增圖片"
 
 #: .\templates\wagtailimages\images\add.html:25
 #: .\templates\wagtailimages\images\edit.html:33
@@ -143,7 +143,7 @@ msgstr "對不起，沒有任何圖片符合 \"<em>%(query_string)s</em>\""
 msgid ""
 "You've not uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "沒有任何上傳的圖片。為什麼不 <a href=\"%(wagtailimages_add_image_url)s\">增加一個呢</a>?"
+msgstr "沒有任何上傳的圖片。為什麼不 <a href=\"%(wagtailimages_add_image_url)s\">新增一個呢</a>?"
 
 #: .\views\images.py:29 .\views\images.py:40
 msgid "Search images"
