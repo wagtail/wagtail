@@ -30,6 +30,14 @@ class TestElasticSearchQuery(TestCase):
         expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'tests_searchtest'}}, 'query': {'query_string': {'query': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
+    def test_none_query_string(self):
+        # Create a query
+        query = ElasticSearchQuery(models.SearchTest.objects.all(), None)
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'tests_searchtest'}}, 'query': {'match_all': {}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
     def test_filter(self):
         # Create a query
         query = ElasticSearchQuery(models.SearchTest.objects.filter(title="Test"), "Hello")

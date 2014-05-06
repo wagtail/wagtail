@@ -165,11 +165,16 @@ class ElasticSearchQuery(object):
         This method builds the ElasticSearch JSON Query DSL code for this query.
         """
         # Query
-        query = {
-            'query_string': {
-                'query': self.query_string,
+        if self.query_string is not None:
+            query = {
+                'query_string': {
+                    'query': self.query_string,
+                }
             }
-        }
+        else:
+            query = {
+                'match_all': {}
+            }
 
         # Fields
         if self.fields:
@@ -798,10 +803,11 @@ class ElasticSearch(BaseSearch):
             return query_set.none()
 
         # Clean up query string
-        query_string = "".join([c for c in query_string if c not in string.punctuation])
+        if query_string is not None:
+            query_string = "".join([c for c in query_string if c not in string.punctuation])
 
-        # Check that theres still a query string after the clean up
-        if not query_string:
+        # Don't search using blank query strings (this upsets ElasticSearch)
+        if query_string == "":
             return query_set.none()
 
         # Get fields
