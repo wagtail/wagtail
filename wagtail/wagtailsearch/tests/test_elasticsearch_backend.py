@@ -142,6 +142,9 @@ class TestElasticSearchQuery(TestCase):
 
 
 class TestElasticSearchType(TestCase):
+    """
+    This tests that the ElasticSearchType class is doing its job.
+    """
     def assertDictEqual(self, a, b):
         self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
 
@@ -176,7 +179,57 @@ class TestElasticSearchType(TestCase):
         self.assertDictEqual(mapping, expected_result)
 
 
+class TestElasticSearchTypeInheritance(TestCase):
+    """
+    This tests that the ElasticSearchType class works well with model inheritance.
+    """
+    def assertDictEqual(self, a, b):
+        self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
+
+    def setUp(self):
+        self.es_type = ElasticSearchType(models.SearchTestChild)
+
+    def test_get_doc_type(self):
+        self.assertEqual(self.es_type.get_doc_type(), 'tests_searchtest_tests_searchtestchild')
+
+    def test_build_mapping(self):
+        # Build mapping
+        mapping = self.es_type.build_mapping()
+
+        # Check
+        expected_result = {
+            'tests_searchtest_tests_searchtestchild': {
+                'properties': {
+                    # New
+                    'extra_content': {'type': 'string'},
+                    'extra_content_val': {'index': 'not_analyzed', 'type': 'string'},
+                    'searchtest_ptr_id_val': {'index': 'not_analyzed', 'type': 'string'},
+
+                    # Inherited
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
+                    'content_type': {'index': 'not_analyzed', 'type': 'string'},
+                    'live_val': {'index': 'not_analyzed', 'type': 'boolean'},
+                    'published_date_val': {'index': 'not_analyzed', 'type': 'date'},
+                    'title_val': {'index': 'not_analyzed', 'type': 'string'},
+                    'title': {'type': 'string'},
+                    'content': {'type': 'string'},
+                    'id_val': {'index': 'not_analyzed', 'type': 'integer'},
+                    'content_val': {'index': 'not_analyzed', 'type': 'string'},
+                    'callable_indexed_field': {'type': 'string'}
+                }
+            }
+        }
+
+        self.assertDictEqual(mapping, expected_result)
+
+
 class TestElasticSearchDocument(TestCase):
+    """
+    This tests that the ElasticSearchDocument class is doing its job.
+    """
+    def assertDictEqual(self, a, b):
+        self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
+
     def setUp(self):
         self.obj = models.SearchTest(title="Hello")
         self.obj.save()
@@ -203,4 +256,53 @@ class TestElasticSearchDocument(TestCase):
             'content': '',
             'content_val': ''
         }
+
+        self.assertDictEqual(document, expected_result)
+
+
+class TestElasticSearchDocumentInheritance(TestCase):
+    """
+    This tests that the ElasticSearchDocument class works well with model inheritance.
+    """
+    def assertDictEqual(self, a, b):
+        self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
+
+    def setUp(self):
+        self.obj = models.SearchTestChild(title="Hello")
+        self.obj.save()
+        self.es_doc = ElasticSearchDocument(self.obj)
+
+    def test_get_id(self):
+        # This must be tests_searchtest instead of 'tests_searchtest_tests_searchtestchild'
+        # as it uses the contents base content type name.
+        # This prevents the same object being accidentally indexed twice.
+        self.assertEqual(self.es_doc.get_id(), 'tests_searchtest:' + str(self.obj.pk))
+
+    def test_build_document(self):
+        # Build document
+        document = self.es_doc.build_document()
+
+        # Check
+        expected_result = {
+            # New
+            'extra_content': '',
+            'extra_content_val': '',
+            'searchtest_ptr_id_val': str(self.obj.pk),
+
+            # Changed
+            'content_type': 'tests_searchtest_tests_searchtestchild',
+
+            # Inherited
+            'pk': str(self.obj.pk),
+            'id': 'tests_searchtest:' + str(self.obj.pk),
+            'id_val': self.obj.id,
+            'live_val': False,
+            'published_date_val': None,
+            'title_val': 'Hello',
+            'title': 'Hello',
+            'callable_indexed_field': 'Callable',
+            'content': '',
+            'content_val': ''
+        }
+
         self.assertDictEqual(document, expected_result)
