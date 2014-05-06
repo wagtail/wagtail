@@ -28,7 +28,8 @@ function makeRichTextEditable(id) {
             'hallowagtailimage': {},
             'hallowagtailembeds': {},
             'hallowagtaillink': {},
-            'hallowagtaildoclink': {}
+            'hallowagtaildoclink': {},
+            'hallohtml': {}
         }
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
