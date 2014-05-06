@@ -9,11 +9,10 @@ from unidecode import unidecode
 import json
 import re
 
-from wagtail.wagtailcore.models import PageBase, Page, Orderable
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.wagtailcore.models import PageBase, Page, Orderable, UserPagePermissionsProxy
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailforms.backends.email import EmailFormProcessor
 
-from modelcluster.fields import ParentalKey
 from .forms import FormBuilder
 
 
@@ -103,6 +102,12 @@ def get_form_types():
             ContentType.objects.get_for_model(cls) for cls in FORM_MODEL_CLASSES
         ]
     return _FORM_CONTENT_TYPES
+
+
+def get_forms_for_user(user):
+    """Return a queryset of form pages that this user is allowed to access the submissions for"""
+    editable_pages = UserPagePermissionsProxy(user).editable_pages()
+    return editable_pages.filter(content_type__in=get_form_types())
 
 
 class FormBase(PageBase):
