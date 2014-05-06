@@ -3,7 +3,7 @@ from django.http import HttpRequest, Http404
 
 from django.contrib.auth.models import User
 
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
 from wagtail.tests.models import EventPage
 
 
@@ -335,6 +335,62 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(homepage_perms.can_move_to(root))
         self.assertFalse(homepage_perms.can_move_to(unpublished_event_page))
+
+    def test_editable_pages_for_user_with_add_permission(self):
+        event_editor = User.objects.get(username='eventeditor')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(event_editor).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_user_with_edit_permission(self):
+        event_moderator = User.objects.get(username='eventmoderator')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(event_moderator).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_inactive_user(self):
+        user = User.objects.get(username='inactiveuser')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(user).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_superuser(self):
+        user = User.objects.get(username='superuser')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(user).editable_pages()
+
+        self.assertTrue(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=someone_elses_event_page.id).exists())
 
 
 class TestPageQuerySet(TestCase):
