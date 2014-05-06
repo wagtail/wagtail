@@ -5,7 +5,7 @@ from django.core import management
 from django.db.models import Q
 import unittest2 as unittest
 from wagtail.wagtailsearch import get_search_backend
-from wagtail.tests import models
+from . import models
 from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
 from StringIO import StringIO

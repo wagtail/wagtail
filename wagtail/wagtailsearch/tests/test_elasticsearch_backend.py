@@ -10,7 +10,7 @@ from wagtail.wagtailsearch.backends.elasticsearch import (
     ElasticSearchType,
     ElasticSearchDocument,
 )
-from wagtail.tests import models
+from . import models
 from .test_backends import BackendTests
 
 
