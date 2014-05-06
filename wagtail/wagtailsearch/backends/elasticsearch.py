@@ -18,11 +18,20 @@ class FilterError(Exception):
 
 
 class ElasticSearchQuery(object):
+    """
+    Represents a query to be run on an Elasticsearch backend.
+
+    These queries combine the filters from a Django QuerySet with a query string and
+    produce the JSON Query DSL code to be run on an ElasticSearch backend.
+    """
     def __init__(self, query_set, query_string, fields=None, _es_type=None):
         self.query_set = query_set
         self.query_string = query_string
         self.fields = fields
 
+        # Check if _es_type was provided and use if if so.
+        # ElasticSearchType objects take a lot of work to create
+        # so we should only make them when we need to.
         if _es_type is not None:
             self._es_type = _es_type
         else:
@@ -33,6 +42,10 @@ class ElasticSearchQuery(object):
         return klass(self.query_set, self.query_string, fields=self.fields, _es_type=self._es_type)
 
     def _get_filters_from_where(self, where_node):
+        """
+        This method takes the filters from a Django Query and converts them
+        to ElasticSearch format.
+        """
         # Check if this is a leaf node
         if isinstance(where_node, tuple):
             field = where_node[0].col
@@ -127,6 +140,9 @@ class ElasticSearchQuery(object):
             return filter_out
 
     def _get_filters(self):
+        """
+        This method builds the 'filter' section of the query.
+        """
         # Filters
         filters = []
 
@@ -145,6 +161,9 @@ class ElasticSearchQuery(object):
         return filters
 
     def to_es(self):
+        """
+        This method builds the ElasticSearch JSON Query DSL code for this query.
+        """
         # Query
         query = {
             'query_string': {
@@ -179,6 +198,11 @@ class ElasticSearchQuery(object):
 
 
 class ElasticSearchResults(object):
+    """
+    This represents a lazy set of results from running a query on an ElasticSearch backend.
+
+    It's designed to work in a very similar way to Django QuerySets.
+    """
     def __init__(self, backend, query):
         self.backend = backend
         self.query = query
@@ -194,20 +218,11 @@ class ElasticSearchResults(object):
         new.stop = self.stop
         return new
 
-    def set_limits(self, start=None, stop=None):
-        if stop is not None:
-            if self.stop is not None:
-                self.stop = min(self.stop, self.start + stop)
-            else:
-                self.stop = self.start + stop
-
-        if start is not None:
-            if self.stop is not None:
-                self.start = min(self.stop, self.start + start)
-            else:
-                self.start = self.start + start
-
     def _get_pks(self):
+        """
+        This gets a list of primary keys for the results of this query ordered
+        by relevance.
+        """
         # Get query
         query = self.query.to_es()
 
@@ -260,6 +275,10 @@ class ElasticSearchResults(object):
         return max(hit_count, 0)
 
     def count(self):
+        """
+        This performs an Elastic search count query which returns how many
+        results would be returned if this query was run for real.
+        """
         if self._hit_count is None:
             if self._results_cache is not None:
                 self._hit_count = len(self._results_cache)
@@ -283,9 +302,25 @@ class ElasticSearchResults(object):
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _fetch_all(self):
+        """
+        This fetches all the results as a list of Django objects
+        """
         if self._results_cache is None:
             self._results_cache = self._do_search()
         return self._results_cache
+
+    def _set_limits(self, start=None, stop=None):
+        if stop is not None:
+            if self.stop is not None:
+                self.stop = min(self.stop, self.start + stop)
+            else:
+                self.stop = self.start + stop
+
+        if start is not None:
+            if self.stop is not None:
+                self.start = min(self.stop, self.start + start)
+            else:
+                self.start = self.start + start
 
     def __getitem__(self, key):
         new = self._clone()
@@ -294,7 +329,7 @@ class ElasticSearchResults(object):
             # Set limits
             start = int(key.start) if key.start else None
             stop = int(key.stop) if key.stop else None
-            new.set_limits(start, stop)
+            new._set_limits(start, stop)
 
             # Copy results cache
             if self._results_cache is not None:
@@ -317,13 +352,27 @@ class ElasticSearchResults(object):
         return repr(data)
 
     def __iter__(self):
+        """
+        Runs the query and returns an iterator for the results.
+        """
         return iter(self._fetch_all())
   
     def __len__(self):
+        """
+        This runs the query and returns the amount of results returned
+        This method may be very slow for large queries.
+        """
         return len(self._fetch_all())
 
 
 class ElasticSearchField(object):
+    """
+    This represents a field inside an ElasticSearchType.
+
+    This has two jobs:
+     - Find the ElasticSearch type for a particular field in a Django model.
+     - Convert values to formats that ElasticSearch will recognise.
+    """
     IGNORED_TYPES = ['FileField']
     TYPE_MAP = {
         'TextField': 'string',
@@ -355,9 +404,18 @@ class ElasticSearchField(object):
             self.type = 'string'
 
     def can_be_indexed(self):
+        """
+        Returns true if this field can be indexed in ElasticSearch.
+        """
         return self.type is not None
 
     def convert_type(self, django_type):
+        """
+        This takes a Django field type (eg, TextField, IntegerField) and
+        converts it to an ElasticSearch type (eg, string, integer).
+
+        Returns None if the type cannot be indexed.
+        """
         # Skip if in ignored types
         if django_type in self.IGNORED_TYPES:
             return
@@ -367,6 +425,10 @@ class ElasticSearchField(object):
             return self.TYPE_MAP[django_type]
 
     def convert_value(self, value):
+        """
+        This converts a value to a format that can be sent to ElasticSearch.
+        It uses the type of this field.
+        """
         if value is None:
             return
 
@@ -377,11 +439,12 @@ class ElasticSearchField(object):
         elif self.type == 'boolean':
             return bool(value)
         elif self.type == 'date':
-            # Does it quack like a datetime?
-            # If not, crash.
             return value.isoformat()
 
     def get_mapping(self):
+        """
+        This returns the code to be used in the mapping for this field.
+        """
         mapping = {
             'type': self.type
         }
@@ -390,16 +453,24 @@ class ElasticSearchField(object):
 
 
 class ElasticSearchType(object):
+    """
+    This represents a Django model which can be indexed inside ElasticSearch.
+    It provides helper methods to help build ES mappings for a Django model.
+    """
     FILTER_FIELD_SUFFIX = '_val'
-
-    def get_filter_field_name(self, name):
-        return name + self.FILTER_FIELD_SUFFIX
 
     def __init__(self, model):
         self.model = model
         self._fields = None
 
+    def get_filter_field_name(self, name):
+        return name + self.FILTER_FIELD_SUFFIX
+
     def get_doc_type(self):
+        """
+        Returns the value to use for the doc_type attribute when refering to this
+        type in ElasticSearch requests.
+        """
         return self.model._get_qualified_content_type_name()
 
     def _get_fields(self):
@@ -423,18 +494,31 @@ class ElasticSearchType(object):
         return dict(fields)
 
     def get_fields(self):
+        """
+        Gets a mapping of fieldnames to ElasticSearchField objects.
+        """
         # Do some caching to prevent having to keep building the field list
         if self._fields is None:
             self._fields = self._get_fields()
         return self._fields
 
     def get_field(self, name):
+        """
+        Returns an ElasticSearchField object for the specified field.
+        """
         return self.get_fields()[name]
 
     def has_field(self, name):
+        """
+        Returns True if the specified field exists in this type.
+        """
         return name in self.get_fields()
 
     def build_mapping(self):
+        """
+        This method builds a mapping for this type which can be sent to ElasticSearch using
+        the put mapping API.
+        """
         # Make field list
         fields = {
             'pk': {
@@ -457,14 +541,29 @@ class ElasticSearchType(object):
 
 
 class ElasticSearchDocument(object):
+    """
+    This represents a Django object to be indexed in ElasticSearch.
+    """
     def __init__(self, obj):
         self.obj = obj
         self.es_type = ElasticSearchType(obj.__class__)
 
     def get_id(self):
+        """
+        This returns the value to be used in this documents 'id' field.
+
+        This takes the objects "base content type name" and concatenates it
+        with the objects primary key.
+
+        See the description in "wagtail.search.indexed.Indexed._get_base_content_type_name"
+        for info on what the "base content type name" is.
+        """
         return self.obj._get_base_content_type_name() + ':' + str(self.obj.pk)
 
     def build_document(self):
+        """
+        This builds a JSON document in ElasticSearch Index API format for the object.
+        """
         # Build document
         doc = {
             'pk': str(self.obj.pk),
@@ -508,6 +607,9 @@ class ElasticSearchDocument(object):
 
 
 class ElasticSearch(BaseSearch):
+    """
+    This represents a connection to an instance of ElasticSearch.
+    """
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
 
@@ -519,6 +621,9 @@ class ElasticSearch(BaseSearch):
         self.es = Elasticsearch(urls=self.es_urls)
 
     def reset_index(self):
+        """
+        This resets the index by deleting and recreating it.
+        """
         # Delete old index
         try:
             self.es.indices.delete(self.es_index)
@@ -574,6 +679,10 @@ class ElasticSearch(BaseSearch):
         self.es.indices.create(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
+        """
+        This adds a mapping for a model to ElasticSearch to allow
+        objects of that model to be indexed.
+        """
         # Get ElasticSearchType object for this model
         es_type = ElasticSearchType(model)
 
@@ -585,9 +694,23 @@ class ElasticSearch(BaseSearch):
         )
 
     def refresh_index(self):
+        """
+        This method refreshes the ElasticSearch index. This must be run
+        in order for any newly indexed objects to appear in results.
+
+        This is automatically run once per second by ElasticSearch so you
+        only need to use this method if you plan on running queries
+        immediately after indexing objects.
+        """
         self.es.indices.refresh(self.es_index)
 
     def add(self, obj):
+        """
+        This adds an object to an index.
+
+        Make sure the type has been added to the index before running
+        this or weird things may happen!
+        """
         # Make sure the object can be indexed
         if not self.object_can_be_indexed(obj):
             return
@@ -604,6 +727,13 @@ class ElasticSearch(BaseSearch):
         )
 
     def add_bulk(self, obj_list):
+        """
+        This adds a bunch of objects to the index in one go.
+
+        Roughly equivilant to:
+        for obj in obj_list:
+            self.add(obj)
+        """
         # Group all objects by their type
         type_set = {}
         for obj in obj_list:
@@ -638,6 +768,11 @@ class ElasticSearch(BaseSearch):
             bulk(self.es, actions)
 
     def delete(self, obj):
+        """
+        This deletes an object from the index.
+
+        Will fail silently if the object doesn't exist
+        """
         # Object must be a decendant of Indexed and be a django model
         if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
             return
@@ -654,6 +789,10 @@ class ElasticSearch(BaseSearch):
             pass  # Document doesn't exist, ignore this exception
 
     def search(self, query_set, query_string, fields=None):
+        """
+        This runs a search query on the index.
+        Returns an ElasticSearchResults object.
+        """
         # Model must be a descendant of Indexed
         if not issubclass(query_set.model, Indexed):
             return query_set.none()
