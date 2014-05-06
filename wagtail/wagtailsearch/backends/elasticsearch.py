@@ -52,8 +52,8 @@ class ElasticSearchQuery(object):
             lookup = where_node[1]
             value = where_node[3]
 
-            filter_field =  self._es_type.get_filter_field_name(field)
-            es_field = self._es_type.get_field(filter_field)
+            es_field = self._es_type.get_field(field)
+            filter_field = es_field.get_filter_name()
 
             # Find lookup
             if lookup == 'exact':
@@ -374,9 +374,10 @@ class ElasticSearchField(object):
     """
     This represents a field inside an ElasticSearchType.
 
-    This has two jobs:
+    This has three jobs:
      - Find the ElasticSearch type for a particular field in a Django model.
      - Convert values to formats that ElasticSearch will recognise.
+     - Produces mapping code for fields.
     """
     IGNORED_TYPES = ['FileField']
     TYPE_MAP = {
@@ -394,19 +395,21 @@ class ElasticSearchField(object):
         'IntegerField': 'integer',
     }
 
-    def __init__(self, **params):
-        # Copy params to prevent us accidentally trashing something important
-        self.params = params.copy()
+    def __init__(self, name, **kwargs):
+        self.name = name
+        self.attname = kwargs['attname'] if 'attname' in kwargs else self.name
+        self.search_field = kwargs['search'] if 'search' in kwargs else False
+        self.filter_field = kwargs['filter'] if 'filter' in kwargs else False
+        self.type = self.convert_type(kwargs['type']) if 'type' in kwargs else 'string'
+        self.boost = kwargs['boost'] if 'boost' in kwargs else None
+        self.predictive = kwargs['predictive'] if 'predictive' in kwargs else False
+        self.es_extra = kwargs['es_extra'] if 'es_extra' in kwargs else {}
 
-        # Field type
-        if 'type' in self.params:
-            self.type = self.params['type']
-            del self.params['type']
-        elif 'django_type' in self.params:
-            self.type = self.convert_type(self.params['django_type'])
-            del self.params['django_type']
-        else:
-            self.type = 'string'
+    def get_filter_name(self):
+        return self.attname + '_filter'
+
+    def get_search_name(self):
+        return self.attname
 
     def can_be_indexed(self):
         """
@@ -446,15 +449,41 @@ class ElasticSearchField(object):
         elif self.type == 'date':
             return value.isoformat()
 
-    def get_mapping(self):
-        """
-        This returns the code to be used in the mapping for this field.
-        """
+    def get_search_mapping(self):
         mapping = {
             'type': self.type
         }
-        mapping.update(self.params)
+
+        if self.boost is not None:
+            mapping['boost'] = self.boost
+
+        if self.predictive:
+            mapping['analyzer'] = 'edgengram_analyzer'
+
+        if self.es_extra:
+            mapping.update(self.es_extra)
+
         return mapping
+
+    def get_filter_mapping(self):
+        return {
+            'type': self.type,
+            'index': 'not_analyzed',
+        }
+
+    def get_mapping(self):
+        if not self.can_be_indexed():
+            return
+
+        mappings = {}
+
+        if self.search_field:
+            mappings[self.get_search_name()] = self.get_search_mapping()
+
+        if self.filter_field:
+            mappings[self.get_filter_name()] = self.get_filter_mapping()
+
+        return mappings
 
 
 class ElasticSearchType(object):
@@ -462,14 +491,9 @@ class ElasticSearchType(object):
     This represents a Django model which can be indexed inside ElasticSearch.
     It provides helper methods to help build ES mappings for a Django model.
     """
-    FILTER_FIELD_SUFFIX = '_val'
-
     def __init__(self, model):
         self.model = model
         self._fields = None
-
-    def get_filter_field_name(self, name):
-        return name + self.FILTER_FIELD_SUFFIX
 
     def get_doc_type(self):
         """
@@ -480,20 +504,16 @@ class ElasticSearchType(object):
 
     def _get_fields(self):
         # Get field list
-        filterable_fields = self.model._get_filterable_fields().items()
-        searchable_fields = self.model._get_searchable_fields().items()
-
-        # Suffix filterable_fields
-        filterable_fields = [(self.get_filter_field_name(field), config) for field, config in filterable_fields]
+        fields = self.model.get_search_fields()
 
         # Build ES fields
         fields = [
-            (name, ElasticSearchField(**config))
-            for name, config in filterable_fields + searchable_fields
+            (name, ElasticSearchField(name, **config))
+            for name, config in fields.items()
         ]
 
         # Remove fields that can't be indexed
-        fields = [(name, field) for name, field in fields if field.can_be_indexed()]
+        fields = [(field.attname, field) for name, field in fields if field.can_be_indexed()]
 
         # Return
         return dict(fields)
@@ -519,7 +539,7 @@ class ElasticSearchType(object):
         """
         return name in self.get_fields()
 
-    def build_mapping(self):
+    def get_mapping(self):
         """
         This method builds a mapping for this type which can be sent to ElasticSearch using
         the put mapping API.
@@ -536,7 +556,9 @@ class ElasticSearchType(object):
                 'index': 'not_analyzed',
             },
         }
-        fields.update([(name, field.get_mapping()) for name, field in self.get_fields().items()])
+
+        for name, field in self.get_fields().items():
+            fields.update(field.get_mapping().items())
 
         return {
             self.get_doc_type(): {
@@ -576,37 +598,19 @@ class ElasticSearchDocument(object):
             'id': self.get_id(),
         }
 
-        # Add filterable fields
-        filterable_fields = self.obj._get_filterable_fields()
-        for field in filterable_fields.keys():
-            filter_field = self.es_type.get_filter_field_name(field)
-            if hasattr(self.obj, field) and self.es_type.has_field(filter_field):
-                # Get field value
-                value = getattr(self.obj, field)
+        # Add fields
+        for name, field in self.es_type.get_fields().items():
+            # Get value
+            value = self.obj.get_search_field_value(field.name)
 
-                # Convert value
-                value = self.es_type.get_field(filter_field).convert_value(value)
+            # Convert it
+            value = field.convert_value(value)
 
-                # Add to document
-                doc[filter_field] = value
-
-        # Add searchable fields
-        searchable_fields = self.obj._get_searchable_fields()
-        for field in searchable_fields.keys():
-            if hasattr(self.obj, field) and self.es_type.has_field(field):
-                # Get field value
-                value = getattr(self.obj, field)
-
-                # Check if this field is callable
-                if hasattr(value, '__call__'):
-                    # Call it
-                    value = value()
-
-                # Convert value
-                value = self.es_type.get_field(field).convert_value(value)
-
-                # Add to document
-                doc[field] = value
+            # Add to document
+            if field.search_field:
+                doc[field.get_search_name()] = value
+            if field.filter_field:
+                doc[field.get_filter_name()] = value
 
         return doc
 
@@ -695,7 +699,7 @@ class ElasticSearch(BaseSearch):
         self.es.indices.put_mapping(
             index=self.es_index,
             doc_type=es_type.get_doc_type(),
-            body=es_type.build_mapping()
+            body=es_type.get_mapping()
         )
 
     def refresh_index(self):
@@ -812,7 +816,7 @@ class ElasticSearch(BaseSearch):
 
         # Get fields
         if fields is None:
-            fields = query_set.model._get_searchable_fields().keys()
+            fields = query_set.model.get_search_fields(search_fields=True).keys()
 
         # Return nothing if there are no fields
         if not fields:

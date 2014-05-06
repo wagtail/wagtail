@@ -13,18 +13,9 @@ class TagSearchable(Indexed):
     for models that provide those things.
     """
 
-    search_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-        'get_tags': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-    }
+    search_fields = ('title', 'get_tags')
+    search_predictive_fields = ('title', )
+    search_field_boost = dict(title=100)
 
     @property
     def get_tags(self):

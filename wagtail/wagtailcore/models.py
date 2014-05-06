@@ -235,13 +235,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    search_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 100,
-        },
-    }
+    search_fields = ['title']
+    search_predictive_fields = ['title']
+    search_field_boost = dict(title=100)
+    search_filter_fields = ['slug', 'live', 'owner', 'path', 'depth']
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)

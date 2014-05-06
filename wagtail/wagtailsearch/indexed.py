@@ -51,119 +51,109 @@ class Indexed(object):
             return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
-    def _get_search_fields_config(cls):
-        """
-        Get config for full-text search fields
-        """
-        # Get local search_fields or indexed_fields configs
+    def _get_search_config(cls):
+        search_config = {
+            'search_fields': [],
+            'search_filter_fields': [],
+            'search_field_boost': {},
+            'search_predictive_fields': [],
+            'search_es_extra': {},
+        }
+
+        # Copy config from class
         if 'search_fields' in cls.__dict__:
-            search_fields = cls.search_fields
-        elif 'indexed_fields' in cls.__dict__:
-            indexed_fields = cls.indexed_fields
+            search_config['search_fields'] = cls.__dict__['search_fields']
 
-            # Convert to dict
-            if isinstance(indexed_fields, tuple):
-                indexed_fields = list(indexed_fields)
-            if isinstance(indexed_fields, basestring):
-                indexed_fields = [indexed_fields]
-            if isinstance(indexed_fields, list):
-                indexed_fields = dict((field, {}) for field in indexed_fields)
-            if not isinstance(indexed_fields, dict):
-                raise ValueError()
+        if 'search_filter_fields' in cls.__dict__:
+            search_config['search_filter_fields'] = cls.__dict__['search_filter_fields']
 
-            # Filter out fields that are not being searched
-            search_fields = {}
-            for field, config in indexed_fields.items():
-                if not config.get('indexed', None) == 'not_indexed' and not config.get('index', None) == 'not_analyzed':
-                    search_fields[field] = config
-        else:
-            return {}
+        if 'search_field_boost' in cls.__dict__:
+            search_config['search_field_boost'] = cls.__dict__['search_field_boost']
 
-        # Convert to dict
-        if isinstance(search_fields, tuple):
-            search_fields = list(search_fields)
-        if isinstance(search_fields, basestring):
-            search_fields = [search_fields]
-        if isinstance(search_fields, list):
-            search_fields = dict((field, {}) for field in search_fields)
-        if not isinstance(search_fields, dict):
-            raise ValueError()
+        if 'search_predictive_fields' in cls.__dict__:
+            search_config['search_predictive_fields'] = cls.__dict__['search_predictive_fields']
 
-        return search_fields
+        if 'search_es_extra' in cls.__dict__:
+            search_config['search_es_extra'] = cls.__dict__['search_es_extra']
+
+        return search_config
 
     @classmethod
-    def _add_field_types(cls, fields):
-        # Find fields without types set
-        for field, config in fields.items():
-            if 'type' not in config and 'django_type' not in config:
-                try:
-                    # Try getting the Django field
-                    if field.endswith('_id'):
-                        field_obj = cls._meta.get_field_by_name(field[:-3])[0]
-                    else:
-                        field_obj = cls._meta.get_field_by_name(field)[0]
+    def _get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
+        # If neither search_fields nor filter_fields were explicity set,
+        # set them both to True.
+        if search_fields is None and filter_fields is None:
+            search_fields = filter_fields = True
 
-                    # Add "django_type" to the config. This will be
-                    # converted to the real type name by the backend
-                    config['django_type'] = field_obj.get_internal_type()
-                except models.fields.FieldDoesNotExist:
-                    # Not a Django field
-                    pass
+        # Get search config
+        search_config = cls._get_search_config()
 
-                # Check if this is a class attribute that defines a search_type
-                if hasattr(cls, field):
-                    attr = getattr(cls, field)
+        # Get list of field names
+        field_names = set()
 
-                    # Check if the attribute defines a search type
-                    if hasattr(attr, 'search_type'):
-                        config['type'] = attr['search_type']
-                        continue
+        if search_fields:
+            field_names.update(search_config['search_fields'])
 
-    @classmethod
-    def _get_filterable_fields(cls):
-        """
-        Gets a list of field names that can be filtered on
-        If an external search index is being used (eg, ElasticSearch),
-        these fields must be added to that index
-        """
-        # Get local filterable fields
+        if filter_fields:
+            field_names.update(search_config['search_filter_fields'])
+
+        # Build field dictionary
         fields = {}
-        if issubclass(cls, models.Model):
-            for field in list(cls._meta.local_concrete_fields):
-                fields[field.attname] = {
-                    'index': 'not_analyzed',
-                }
 
-        # Add field types
-        cls._add_field_types(fields)
+        for field in field_names:
+            field_config = {}
 
-        # Append to parents filterable fields
-        parent = cls._get_indexed_parent(require_model=False)
-        if parent:
-            parent_fields = parent._get_filterable_fields()
-            fields = dict(parent_fields.items() + fields.items())
+            # Search, filter and predictive booleans
+            field_config['search'] = field in search_config['search_fields']
+            field_config['filter'] = field in search_config['search_filter_fields']
+            field_config['predictive'] = field in search_config['search_predictive_fields']
+
+            # Boost
+            if field in search_config['search_field_boost']:
+                field_config['boost'] = search_config['search_field_boost'][field]
+
+            # Extra ElasticSearch configuration
+            if field in search_config['search_es_extra']:
+                field_config['es_extra'] = search_config['search_es_extra'][field]
+
+            fields[field] = field_config
+
+        # Append to parents fields
+        if not local:
+            parent = cls._get_indexed_parent(require_model=False)
+            if parent:
+                parent_fields = parent._get_search_fields(search_fields, filter_fields)
+                parent_fields.update(fields)
+                fields = parent_fields
+
         return fields
 
     @classmethod
-    def _get_searchable_fields(cls):
-        """
-        Gets a mapping of field/configs that have full text search enabled
-        The configs contain settings such as boosting and edgengram settings
-        """
-        # Get local searchable fields
-        fields = {}
-        search_fields_config = cls._get_search_fields_config()
-        if search_fields_config:
-            for field, config in search_fields_config.items():
-                fields[field] = config.copy()
+    def get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
+        fields = cls._get_search_fields(search_fields, filter_fields, local)
 
-        # Add field types
-        cls._add_field_types(fields)
-
-        # Append to parents searchable fields
-        parent = cls._get_indexed_parent(require_model=False)
-        if parent:
-            parent_fields = parent._get_searchable_fields()
-            fields = dict(parent_fields.items() + fields.items())
+        # Add types
+        for field in fields.keys():
+            # Get Django field
+            try:
+                field_obj = cls._meta.get_field_by_name(field)[0]
+                fields[field]['type'] = field_obj.get_internal_type()
+                fields[field]['attname'] = field_obj.attname
+            except models.fields.FieldDoesNotExist:
+                # Not a Django field
+                pass
 
         return fields
+
+    def get_search_field_value(self, field):
+        if hasattr(self, field):
+            # Get field value
+            value = getattr(self, field)
+
+            # Check if this field is callable
+            if hasattr(value, '__call__'):
+                # Call it
+                value = value()
+
+            # Return
+            return value   
