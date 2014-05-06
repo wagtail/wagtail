@@ -600,17 +600,23 @@ class ElasticSearchDocument(object):
 
         # Add fields
         for name, field in self.es_type.get_fields().items():
-            # Get value
-            value = self.obj.get_search_field_value(field.name)
+            if hasattr(self.obj, field.attname):
+                # Get field value
+                value = getattr(self.obj, field.attname)
 
-            # Convert it
-            value = field.convert_value(value)
+                # Check if this field is callable
+                if hasattr(value, '__call__'):
+                    # Call it
+                    value = value()
 
-            # Add to document
-            if field.search_field:
-                doc[field.get_search_name()] = value
-            if field.filter_field:
-                doc[field.get_filter_name()] = value
+                # Convert it
+                value = field.convert_value(value)
+
+                # Add to document
+                if field.search_field:
+                    doc[field.get_search_name()] = value
+                if field.filter_field:
+                    doc[field.get_filter_name()] = value
 
         return doc
 

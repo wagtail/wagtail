@@ -163,6 +163,7 @@ class TestElasticSearchType(TestCase):
             'tests_searchtest': {
                 'properties': {
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
+                    'id_filter': {'index': 'not_analyzed', 'type': 'integer'},
                     'content_type': {'index': 'not_analyzed', 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean'},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date'},
@@ -199,6 +200,7 @@ class TestElasticSearchTypeInheritance(TestCase):
                 'properties': {
                     # New
                     'extra_content': {'type': 'string'},
+                    'searchtest_ptr_id_filter': {'index': 'not_analyzed', 'type': 'string'},
 
                     # Inherited
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
@@ -239,6 +241,7 @@ class TestElasticSearchDocument(TestCase):
             'pk': str(self.obj.pk),
             'content_type': 'tests_searchtest',
             'id': 'tests_searchtest:' + str(self.obj.pk),
+            'id_filter': self.obj.pk,
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
@@ -275,6 +278,7 @@ class TestElasticSearchDocumentInheritance(TestCase):
         expected_result = {
             # New
             'extra_content': '',
+            'searchtest_ptr_id_filter': str(self.obj.pk),
 
             # Changed
             'content_type': 'tests_searchtest_tests_searchtestchild',

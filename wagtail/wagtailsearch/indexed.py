@@ -51,42 +51,54 @@ class Indexed(object):
             return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
-    def _get_search_config(cls):
-        search_config = {
-            'search_fields': [],
-            'search_filter_fields': [],
-            'search_field_boost': {},
-            'search_predictive_fields': [],
-            'search_es_extra': {},
-        }
+    def _get_search_config(cls, local=False):
+        # Get parent config
+        search_config = None
+        if not local:
+            parent = cls._get_indexed_parent(require_model=False)
+            if parent:
+                search_config = parent._get_search_config()
+
+        # Didn't get parent config, create new one
+        if search_config is None: 
+            search_config = {
+                'search_fields': set(),
+                'search_filter_fields': set(),
+                'search_field_boost': {},
+                'search_predictive_fields': set(),
+                'search_es_extra': {},
+            }
 
         # Copy config from class
         if 'search_fields' in cls.__dict__:
-            search_config['search_fields'] = cls.__dict__['search_fields']
+            search_config['search_fields'].update(cls.__dict__['search_fields'])
 
         if 'search_filter_fields' in cls.__dict__:
-            search_config['search_filter_fields'] = cls.__dict__['search_filter_fields']
+            search_config['search_filter_fields'].update(cls.__dict__['search_filter_fields'])
 
         if 'search_field_boost' in cls.__dict__:
-            search_config['search_field_boost'] = cls.__dict__['search_field_boost']
+            search_config['search_field_boost'].update(cls.__dict__['search_field_boost'])
 
         if 'search_predictive_fields' in cls.__dict__:
-            search_config['search_predictive_fields'] = cls.__dict__['search_predictive_fields']
+            search_config['search_predictive_fields'].update(cls.__dict__['search_predictive_fields'])
 
         if 'search_es_extra' in cls.__dict__:
-            search_config['search_es_extra'] = cls.__dict__['search_es_extra']
+            search_config['search_es_extra'].update(cls.__dict__['search_es_extra'])
 
         return search_config
 
     @classmethod
-    def _get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
+    def get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
         # If neither search_fields nor filter_fields were explicity set,
         # set them both to True.
         if search_fields is None and filter_fields is None:
             search_fields = filter_fields = True
 
         # Get search config
-        search_config = cls._get_search_config()
+        search_config = cls._get_search_config(local)
+
+        # Make sure pk field is in 'search_filter_fields'
+        search_config['search_filter_fields'].add(cls._meta.pk.name)
 
         # Get list of field names
         field_names = set()
@@ -103,6 +115,15 @@ class Indexed(object):
         for field in field_names:
             field_config = {}
 
+            # Get Django field
+            try:
+                field_obj = cls._meta.get_field_by_name(field)[0]
+                field_config['type'] = field_obj.get_internal_type()
+                field_config['attname'] = field_obj.attname
+            except models.fields.FieldDoesNotExist:
+                # Not a Django field
+                pass
+
             # Search, filter and predictive booleans
             field_config['search'] = field in search_config['search_fields']
             field_config['filter'] = field in search_config['search_filter_fields']
@@ -118,42 +139,4 @@ class Indexed(object):
 
             fields[field] = field_config
 
-        # Append to parents fields
-        if not local:
-            parent = cls._get_indexed_parent(require_model=False)
-            if parent:
-                parent_fields = parent._get_search_fields(search_fields, filter_fields)
-                parent_fields.update(fields)
-                fields = parent_fields
-
         return fields
-
-    @classmethod
-    def get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
-        fields = cls._get_search_fields(search_fields, filter_fields, local)
-
-        # Add types
-        for field in fields.keys():
-            # Get Django field
-            try:
-                field_obj = cls._meta.get_field_by_name(field)[0]
-                fields[field]['type'] = field_obj.get_internal_type()
-                fields[field]['attname'] = field_obj.attname
-            except models.fields.FieldDoesNotExist:
-                # Not a Django field
-                pass
-
-        return fields
-
-    def get_search_field_value(self, field):
-        if hasattr(self, field):
-            # Get field value
-            value = getattr(self, field)
-
-            # Check if this field is callable
-            if hasattr(value, '__call__'):
-                # Call it
-                value = value()
-
-            # Return
-            return value   
