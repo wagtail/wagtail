@@ -192,9 +192,9 @@ class AbstractEmailForm(AbstractForm):
     is_abstract = True  # Don't display me in "Add"
     form_processing_backend = EmailFormProcessor
 
-    to_address = models.CharField(max_length=255, )
+    to_address = models.CharField(max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
     from_address = models.CharField(max_length=255, blank=True)
-    subject = models.CharField(max_length=255, )
+    subject = models.CharField(max_length=255, blank=True)
 
     class Meta:
         abstract = True

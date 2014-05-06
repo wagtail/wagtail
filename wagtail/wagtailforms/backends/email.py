@@ -17,5 +17,6 @@ class EmailFormProcessor(BaseFormProcessor):
             raise ImproperlyConfigured("To use the EmailFormProcessor your Page must define the fields: subject, to_address and from_address.")
 
     def process(self, page, form):
-        content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
-        tasks.send_email_task.delay(page.subject, content, [page.to_address], page.from_address,)
+        if page.to_address:
+            content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
+            tasks.send_email_task.delay(page.subject, content, [page.to_address], page.from_address,)
