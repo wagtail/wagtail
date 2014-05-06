@@ -359,8 +359,8 @@ function makeCalculatedField(field, otherFields) {
 
     $otherFields.bind('keyup', function() {
         var value = $otherFields.map(function() {
-            return this.value; }
-        ).get().join(' ');
+            return this.value;
+        }).get().join(' ');
 
         $field.val(value);
     });
