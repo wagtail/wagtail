@@ -6,20 +6,19 @@
     <thead>
         <tr class="table-headers">
             <th>{% trans "Submission Date" %}</th>
-            <th>{% trans "Data" %}</th>
+            {% for heading in data_headings %}
+                <th>{{ heading }}</th>
+            {% endfor %}
         </tr>
     </thead>
     <tbody>
-        {% for submission in submissions %}
+        {% for row in data_rows %}
             <tr>
-                <td class="title">
-                    {{ submission.submit_time }}
-                </td>
-                <td class="title">
-                    {% for data in submission.get_data.items %}
-                        {{ data.0 }}: {{ data.1 }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
+                {% for cell in row %}
+                    <td>
+                        {{ cell }}
+                    </td>
+                {% endfor %}
             </tr>
         {% endfor %}
     </tbody>

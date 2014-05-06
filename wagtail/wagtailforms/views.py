@@ -1,5 +1,4 @@
 import datetime
-import json
 import unicodecsv
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -58,7 +57,7 @@ def list_submissions(request, page_id):
         writer.writerow(header_row)
         for s in submissions:
             data_row = [s.submit_time]
-            form_data = json.loads(s.form_data)
+            form_data = s.get_data()
             for name, label in data_fields:
                 data_row.append(form_data.get(name))
             writer.writerow(data_row)
@@ -74,8 +73,17 @@ def list_submissions(request, page_id):
     except EmptyPage:
         submissions = paginator.page(paginator.num_pages)
 
+    data_headings = [label for name, label in data_fields]
+    data_rows = []
+    for s in submissions:
+        form_data = s.get_data()
+        data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
+        data_rows.append(data_row)
+
     return render(request, 'wagtailforms/form_index.html', {
          'form_page': form_page,
          'select_date_form': select_date_form,
          'submissions': submissions,
+         'data_headings': data_headings,
+         'data_rows': data_rows
     })
