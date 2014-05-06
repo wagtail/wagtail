@@ -6,7 +6,6 @@
     <thead>
         <tr class="table-headers">
             <th>{% trans "Submission Date" %}</th>
-            <th>{% trans "User" %}</th>
             <th>{% trans "Data" %}</th>
         </tr>
     </thead>
@@ -15,9 +14,6 @@
             <tr>
                 <td class="title">
                     {{ submission.submit_time }}
-                </td>
-                <td class="title">
-                    {{ submission.user }}
                 </td>
                 <td class="title">
                     {% for data in submission.get_data.items %}

@@ -42,7 +42,6 @@ class FormSubmission(models.Model):
     page = models.ForeignKey(Page)
 
     submit_time = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 
     def get_data(self):
         return json.loads(self.form_data)
@@ -153,7 +152,6 @@ class AbstractForm(Page):
                 FormSubmission.objects.create(
                     form_data=json.dumps(form_data),
                     page=self,
-                    user=request.user if request.user.is_authenticated() else None,
                 )
 
                 # If we have a form_processing_backend call its process method

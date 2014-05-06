@@ -53,11 +53,11 @@ def list_submissions(request, page_id):
         response['Content-Disposition'] = 'attachment;filename=export.csv'
         writer = unicodecsv.writer(response, encoding='utf-8')
 
-        header_row = ['Submission date', 'user'] + [label for name, label in data_fields]
+        header_row = ['Submission date'] + [label for name, label in data_fields]
 
         writer.writerow(header_row)
         for s in submissions:
-            data_row = [s.submit_time, s.user]
+            data_row = [s.submit_time]
             form_data = json.loads(s.form_data)
             for name, label in data_fields:
                 data_row.append(form_data.get(name))
