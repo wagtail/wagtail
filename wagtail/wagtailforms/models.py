@@ -198,35 +198,3 @@ class AbstractEmailForm(AbstractForm):
 
     class Meta:
         abstract = True
-
-
-# TEST
-class ConcreteFormField(AbstractFormField):
-    page = ParentalKey('wagtailforms.ConcreteForm', related_name='form_fields')
-
-
-class ConcreteForm(AbstractForm):
-    thank_you = models.CharField(max_length=255)
-
-ConcreteForm.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('thank_you', classname="full"),
-    InlinePanel(ConcreteForm, 'form_fields', label="Form Fields"),
-]
-
-
-class ConcreteEmailFormField(AbstractFormField):
-    page = ParentalKey('wagtailforms.ConcreteEmailForm', related_name='form_fields')
-
-
-class ConcreteEmailForm(AbstractEmailForm):
-    thank_you = models.CharField(max_length=255)
-
-ConcreteEmailForm.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('thank_you', classname="full"),
-    FieldPanel('to_address', classname="full"),
-    FieldPanel('from_address', classname="full"),
-    FieldPanel('subject', classname="full"),
-    InlinePanel(ConcreteEmailForm, 'form_fields', label="Form Fields"),
-]
