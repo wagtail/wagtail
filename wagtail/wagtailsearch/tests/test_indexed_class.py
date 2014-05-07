@@ -37,7 +37,7 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
     def test_indexed_fields_backwards_compatibility_list(self):
         # Get search fields
         search_fields = models.SearchTestOldConfigList.get_search_fields()
-        
+
         # Check
         expected_result = {
             'id': {
