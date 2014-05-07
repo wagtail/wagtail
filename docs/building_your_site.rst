@@ -82,7 +82,7 @@ Parents
 ```````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
 
-A Parent node could provide its own function returning its descendant objects. ::
+A Parent node could provide its own function returning its descendant objects. :: python
 
 	class EventPageIndex(Page):
 		...
@@ -102,7 +102,7 @@ Leaves are the pieces of content itself, a page which is consumable, and might j
 
 It might be helpful for a leaf to provide a way to back up along the tree to a parent, such as in the case of breadcrumbs navigation. The tree might also be deep enough that a leaf's parent won't be included in general site navigation.
 
-The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor.::
+The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor. :: python
 
 	class BlogPage(Page):
 		...
