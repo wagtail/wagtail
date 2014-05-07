@@ -230,6 +230,19 @@
     }
 },
 {
+    "pk": 5,
+    "model": "auth.group",
+    "fields": {
+        "name": "Site-wide editors",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"],
+            ["add_image", "wagtailimages", "image"],
+            ["change_image", "wagtailimages", "image"],
+            ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
     "pk": 1,
     "model": "wagtailcore.grouppagepermission",
     "fields": {
@@ -263,6 +276,15 @@
         "group": ["Event moderators"],
         "page": 3,
         "permission_type": "publish"
+    }
+},
+{
+    "pk": 5,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Site-wide editors"],
+        "page": 2,
+        "permission_type": "edit"
     }
 },
 
@@ -335,6 +357,43 @@
         "user_permissions": [],
         "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
         "email": "inactiveuser@example.com"
+    }
+},
+{
+    "pk": 5,
+    "model": "auth.user",
+    "fields": {
+        "username": "siteeditor",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Site-wide editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "siteeditor@example.com"
+    }
+},
+
+{
+    "pk": 1,
+    "model": "wagtailforms.formsubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"old@example.com\", \"your-message\": \"this is a really old message\"}",
+        "page": 7,
+        "submit_time": "2013-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailforms.formsubmission",
+    "fields": {
+        "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
+        "page": 7,
+        "submit_time": "2014-01-01T12:00:00.000Z"
     }
 }
 ]
