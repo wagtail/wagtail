@@ -66,6 +66,41 @@ class Indexed(object):
         else:
             filter_fields = set()
 
+        # Backwards compatibility with old indexed_fields setting
+        if 'search_fields' not in cls.__dict__ and 'indexed_fields' in cls.__dict__:
+            indexed_fields = cls.__dict__['indexed_fields']     
+
+            if isinstance(indexed_fields, (list, tuple, set)):
+                search_fields.update(dict((field, {}) for field in indexed_fields))
+            elif isinstance(indexed_fields, dict):
+                for field, config in indexed_fields.items():
+                    # Check if this field is a filter field
+                    if 'index' in config and config['index'] == 'not_analyzed' or \
+                       'indexed' in config and config['indexed'] == 'no':
+                        filter_fields.add(field)
+                        continue
+
+                    # Must be a search field, initialise a new config dict
+                    config = config.copy()
+                    new_config = {}
+
+                    # Find boost
+                    if 'boost' in config:
+                        new_config['boost'] = config['boost']
+                        del config['boost']
+
+                    # Check if this field should have predictive search enabled
+                    if 'analyzer' in config and config['analyzer'] == 'edgengram_analyzer':
+                        new_config['predictive'] = True
+                        del config['analyzer']
+
+                    # Add any left over config to es_extra
+                    if config:
+                        new_config['es_extra'] = config
+
+                    # Add to search_fields
+                    search_fields[field] = new_config
+
         # Merge with parent config
         if not local:
             parent = cls._get_indexed_parent(require_model=False)
