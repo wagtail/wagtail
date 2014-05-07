@@ -27,7 +27,7 @@ Public Properties Suitable for Inclusion in Templates
 	Machine-readable URL component for this piece of content. The name of the page as it will appear in URLs e.g ``http://domain.com/blog/[my-slug]/``
 
 ``seo_title``
-	Alternate SEO-crafted title which overrides the normal title for use in the <head> of a page
+	Alternate SEO-crafted title which overrides the normal title for use in the ``<head>`` of a page
 
 ``search_description``
 	A SEO-crafted description of the content, used in both internal search indexing and for the meta description read by search engines
@@ -60,7 +60,7 @@ Introduction to Trees
 If you're unfamiliar with trees as an abstract data type, you might want to review the concepts involved:
 http://en.wikipedia.org/wiki/Tree_(data_structure)
 
-As a web developer, though, you probably already have a good understanding of trees as filesystem directories or paths. Wagtail pages can create the same structure, as each page in the tree has its own URL path, like so:
+As a web developer, though, you probably already have a good understanding of trees as filesystem directories or paths. Wagtail pages can create the same structure, as each page in the tree has its own URL path, like so::
 
 	/
 		people/
@@ -82,7 +82,7 @@ Parents
 ```````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
 
-A Parent node could provide its own function returning its descendant objects. 
+A Parent node could provide its own function returning its descendant objects. ::
 
 	class EventPageIndex(Page):
 		...
@@ -102,7 +102,7 @@ Leaves are the pieces of content itself, a page which is consumable, and might j
 
 It might be helpful for a leaf to provide a way to back up along the tree to a parent, such as in the case of breadcrumbs navigation. The tree might also be deep enough that a leaf's parent won't be included in general site navigation.
 
-The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor.
+The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor.::
 
 	class BlogPage(Page):
 		...
