@@ -379,7 +379,6 @@ class ElasticSearchField(object):
      - Convert values to formats that ElasticSearch will recognise.
      - Produces mapping code for fields.
     """
-    IGNORED_TYPES = ['FileField']
     TYPE_MAP = {
         'TextField': 'string',
         'SlugField': 'string',
@@ -424,10 +423,6 @@ class ElasticSearchField(object):
 
         Returns None if the type cannot be indexed.
         """
-        # Skip if in ignored types
-        if django_type in self.IGNORED_TYPES:
-            return
-
         # Lookup es type from TYPE_MAP
         if django_type in self.TYPE_MAP:
             return self.TYPE_MAP[django_type]
