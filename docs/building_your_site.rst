@@ -24,7 +24,7 @@ Public Properties Suitable for Inclusion in Templates
 	Human-readable title for the content
 
 ``slug`` (required)
-	Machine-readable URL component for this piece of content. The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/
+	Machine-readable URL component for this piece of content. The name of the page as it will appear in URLs e.g ``http://domain.com/blog/[my-slug]/``
 
 ``seo_title``
 	Alternate SEO-crafted title which overrides the normal title for use in the <head> of a page
