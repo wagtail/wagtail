@@ -5,6 +5,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -195,4 +196,21 @@ class EventIndex(Page):
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
+]
+
+
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', related_name='form_fields')
+
+class FormPage(AbstractEmailForm):
+    pass
+
+FormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
 ]

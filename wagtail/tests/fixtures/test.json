@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 1,
+        "numchild": 2,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -138,6 +138,57 @@
         "location": "The moon",
         "body": "<p>your name's not down, you're not coming in</p>",
         "cost": "Free (but not for you)"
+    }
+},
+
+{
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Contact us",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "formpage"],
+        "path": "000100010002",
+        "url_path": "/home/contact-us/",
+        "slug": "contact-us"
+    }
+},
+{
+    "pk": 7,
+    "model": "tests.formpage",
+    "fields": {
+    }
+},
+
+{
+    "pk": 1,
+    "model": "tests.formfield",
+    "fields": {
+        "sort_order": 1,
+        "label": "Your email",
+        "field_type": "email",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 7
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.formfield",
+    "fields": {
+        "sort_order": 2,
+        "label": "Your message",
+        "field_type": "multiline",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 7
     }
 },
 

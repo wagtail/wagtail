@@ -1,19 +1,30 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
-import unittest
-
 from django.test import TestCase
 
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.models import FormSubmission
 
-@unittest.skip("Need real tests")
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class TestFormSubmission(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_form(self):
+        response = self.client.get('/contact-us/')
+        self.assertContains(response, "Your email")
+        self.assertNotContains(response, "Thank you for your feedback")
+
+    def test_post_invalid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob', 'your-message': 'hello world'
+        })
+        self.assertNotContains(response, "Thank you for your feedback")
+        self.assertContains(response, "Enter a valid email address.")
+
+    def test_post_valid_form(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com', 'your-message': 'hello world'
+        })
+        self.assertNotContains(response, "Your email")
+        self.assertContains(response, "Thank you for your feedback")
+
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+
+        self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
