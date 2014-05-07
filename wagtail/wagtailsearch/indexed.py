@@ -52,62 +52,46 @@ class Indexed(object):
 
     @classmethod
     def _get_search_config(cls, local=False):
-        # Get parent config
-        search_config = None
+        # Copy config from class
+        if 'search_fields' in cls.__dict__:
+            search_fields = cls.__dict__['search_fields']
+
+            if isinstance(search_fields, (list, tuple, set)):
+                search_fields = dict((field, {}) for field in search_fields)
+        else:
+            search_fields = {}
+
+        if 'search_filter_fields' in cls.__dict__:
+            filter_fields = cls.__dict__['search_filter_fields']
+        else:
+            filter_fields = set()
+
+        # Merge with parent config
         if not local:
             parent = cls._get_indexed_parent(require_model=False)
             if parent:
-                search_config = parent._get_search_config()
+                parent_search_fields, parent_filter_fields = parent._get_search_config()
 
-        # Didn't get parent config, create new one
-        if search_config is None: 
-            search_config = {
-                'search_fields': set(),
-                'search_filter_fields': set(),
-                'search_field_boost': {},
-                'search_predictive_fields': set(),
-                'search_es_extra': {},
-            }
+                parent_search_fields.update(search_fields)
+                search_fields = parent_search_fields
 
-        # Copy config from class
-        if 'search_fields' in cls.__dict__:
-            search_config['search_fields'].update(cls.__dict__['search_fields'])
+                parent_filter_fields.update(filter_fields)
+                filter_fields = parent_filter_fields
 
-        if 'search_filter_fields' in cls.__dict__:
-            search_config['search_filter_fields'].update(cls.__dict__['search_filter_fields'])
-
-        if 'search_field_boost' in cls.__dict__:
-            search_config['search_field_boost'].update(cls.__dict__['search_field_boost'])
-
-        if 'search_predictive_fields' in cls.__dict__:
-            search_config['search_predictive_fields'].update(cls.__dict__['search_predictive_fields'])
-
-        if 'search_es_extra' in cls.__dict__:
-            search_config['search_es_extra'].update(cls.__dict__['search_es_extra'])
-
-        return search_config
+        return search_fields, filter_fields
 
     @classmethod
-    def get_search_fields(cls, search_fields=None, filter_fields=None, local=False):
-        # If neither search_fields nor filter_fields were explicity set,
-        # set them both to True.
-        if search_fields is None and filter_fields is None:
-            search_fields = filter_fields = True
-
+    def get_search_fields(cls, exclude_search=False, exclude_filter=False, local=False):
         # Get search config
-        search_config = cls._get_search_config(local)
+        search_fields, filter_fields = cls._get_search_config(local)
 
-        # Make sure pk field is in 'search_filter_fields'
-        search_config['search_filter_fields'].add(cls._meta.pk.name)
+        # Make sure primary key is always filterable
+        filter_fields.add(cls._meta.pk.name)
 
-        # Get list of field names
+        # Get set of field names
         field_names = set()
-
-        if search_fields:
-            field_names.update(search_config['search_fields'])
-
-        if filter_fields:
-            field_names.update(search_config['search_filter_fields'])
+        field_names.update(search_fields.keys())
+        field_names.update(filter_fields)
 
         # Build field dictionary
         fields = {}
@@ -124,19 +108,18 @@ class Indexed(object):
                 # Not a Django field
                 pass
 
-            # Search, filter and predictive booleans
-            field_config['search'] = field in search_config['search_fields']
-            field_config['filter'] = field in search_config['search_filter_fields']
-            field_config['predictive'] = field in search_config['search_predictive_fields']
+            # Search/filter booleans
+            field_config['search'] = field in search_fields.keys()
+            field_config['filter'] = field in filter_fields
 
-            # Boost
-            if field in search_config['search_field_boost']:
-                field_config['boost'] = search_config['search_field_boost'][field]
+            # Extra search configuration
+            if field in search_fields and search_fields[field]:
+                field_config['predictive'] = search_fields[field].get('predictive', False)
+                field_config['boost'] = search_fields[field].get('boost', None)
+                field_config['es_extra'] = search_fields[field].get('es_extra', {})
 
-            # Extra ElasticSearch configuration
-            if field in search_config['search_es_extra']:
-                field_config['es_extra'] = search_config['search_es_extra'][field]
-
-            fields[field] = field_config
+            # Add to fields dictionary if this field is not excluded
+            if field_config['search'] and not exclude_search or field_config['filter'] and not exclude_filter:
+                fields[field] = field_config
 
         return fields
