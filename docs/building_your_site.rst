@@ -82,8 +82,9 @@ Parents
 ```````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
 
-A Parent node could provide its own function returning its descendant objects. :: python
+A Parent node could provide its own function returning its descendant objects.
 
+.. code-block:: python
 	class EventPageIndex(Page):
 		...
 		def events(self):
