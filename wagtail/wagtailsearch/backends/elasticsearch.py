@@ -17,6 +17,10 @@ class FilterError(Exception):
     pass
 
 
+class FieldError(Exception):
+    pass
+
+
 class ElasticSearchQuery(object):
     """
     Represents a query to be run on an Elasticsearch backend.
@@ -52,7 +56,15 @@ class ElasticSearchQuery(object):
             lookup = where_node[1]
             value = where_node[3]
 
-            es_field = self._es_type.get_field(field)
+            # Get field
+            try:
+                es_field = self._es_type.get_field(field)
+
+                # Make sure this field is filterable
+                assert es_field.filter_field
+            except (IndexError, AssertionError):
+                raise FieldError('Cannot filter ElasticSearch results with field "' + field + '". Is it added to search_filter_fields?')
+
             filter_field = es_field.get_filter_name()
 
             # Find lookup
