@@ -168,6 +168,7 @@ class TestElasticSearchType(TestCase):
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean'},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date'},
                     'title': {'type': 'string'},
+                    'title_filter': {'index': 'not_analyzed', 'type': 'string'},
                     'content': {'type': 'string'},
                     'callable_indexed_field': {'type': 'string'}
                 }
@@ -208,6 +209,7 @@ class TestElasticSearchTypeInheritance(TestCase):
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean'},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date'},
                     'title': {'type': 'string'},
+                    'title_filter': {'index': 'not_analyzed', 'type': 'string'},
                     'content': {'type': 'string'},
                     'callable_indexed_field': {'type': 'string'}
                 }
@@ -245,6 +247,7 @@ class TestElasticSearchDocument(TestCase):
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
+            'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
         }
@@ -289,6 +292,7 @@ class TestElasticSearchDocumentInheritance(TestCase):
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
+            'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
         }

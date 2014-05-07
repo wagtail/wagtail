@@ -9,7 +9,7 @@ class SearchTest(models.Model, Indexed):
     published_date = models.DateField(null=True)
 
     search_fields = ['title', 'content', 'callable_indexed_field']
-    search_filter_fields = ['live', 'published_date']
+    search_filter_fields = ['title', 'live', 'published_date']
 
     def callable_indexed_field(self):
         return "Callable"
