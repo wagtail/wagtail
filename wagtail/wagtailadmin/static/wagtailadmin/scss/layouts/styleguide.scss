@@ -2,8 +2,11 @@
 @import "../mixins.scss";
 @import "../grid.scss";
 
+
+
 section{
 	border-top:1px solid $color-grey-3;
+	margin-top:2em;
 	padding:0 0 2em 0;
 
 	> h2:first-child{
@@ -71,7 +74,15 @@ section{
 
 
 #icons{
+	:before, :after{
+		font-size:2em;
+	}
 	ul{
-		@include unlist();
+		-webkit-column-count:3; /* Chrome, Safari, Opera */
+		-moz-column-count:3; /* Firefox */
+		column-count:3;
+	}
+	li{
+		margin-bottom:1em;
 	}
 }

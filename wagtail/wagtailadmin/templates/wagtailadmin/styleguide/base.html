@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags %}
 {% load compress i18n %}
+{% load gravatar %}
 
 {% block extra_css %}
     {% compress css %}
@@ -16,16 +17,15 @@
     {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
     <div class="nice-padding">
-        <h1>Styleguide</h1>
+        <h2>Contents</h2>
         <nav>
-            <ul>
+            <ul class="unlist">
                 <li><a href="#palette">Colour palette</a></li>
                 <li><a href="#typography">Typography</a></li>
                 <li><a href="#listings">Listings</a></li>
                 <li><a href="#buttons">Buttons</a></li>
-                <li><a href="#dropdowns">Dropdowns</a></li>
+                <li><a href="#dropdowns">Dropdown buttons</a></li>
                 <li><a href="#header">Header</a></li>
-                <li><a href="#messages">Messages</a></li>
                 <li><a href="#forms">Forms</a></li>
                 <li><a href="#editor">Page editor</a></li>
                 <li><a href="#tabs">Tabs</a></li>
@@ -77,10 +77,73 @@
                 <li>ordered list</li>
             </ol>
 
+            <code>This is an example of code</code>
+
         </section>
 
         <section id="listings">
             <h2>Listings</h2>
+
+            <h3><code>table</code> listing</h3>
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <h2>TD with title class</h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </li>
+                    <tr>
+                        <td class="title">
+                            <h2>TD with title class</h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </li>
+                </tbody>
+            </table>
+
+            <h3><code>ul</code> listing</h3>
+            <ul class="listing">
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+            </ul>
+
+            <h3>Listings used for choosing a list item</h3>
+            <table class="listing chooser">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="can-choose">
+                        <td class="title">
+                            <h2><a href="#">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </li>
+                    <tr class="can-choose">
+                        <td class="title">
+                            <h2>TD with title class</h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </li>
+                </tbody>
+            </table>
         </section>
 
         <section id="buttons">
@@ -104,22 +167,91 @@
 
             <div href="" class="button no bicolor icon icon-cog">mixed 2</div>
 
+            <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
+
+            <button>button</button>
+
+            <button class="bicolor icon icon-plus">bicolor with icon</button>
         </section>
 
         <section id="dropdowns">
-            <h2>Dropdowns</h2>
+            <h2>Dropdown buttons</h2>
+
+            <div class="row">
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <input type="button" value="drop down" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul role="menu">
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropdown-button">
+                        <div class="button">drop down</div>
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul role="menu">
+                            <li><a href="#">Items in this list do not match button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <input type="button" value="drop up" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul role="menu">
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button value="drop up" class="button icon icon-view">icon dropup</button>
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul role="menu">
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="header">
             <h2>Header</h2>
-        </section>
 
-        <section id="messages">
-            <h2>Messages</h2>
+            {% include "wagtailadmin/shared/header.html" with title=title_trans %}
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailimages_add_image" icon="image" add_text="button" search_url="wagtailimages_index" %}
         </section>
 
         <section id="forms">
             <h2>Forms</h2>
+
+            <form>
+                <ul class="fields">
+                    {% for field in example_form %}
+                        {% if field.name == 'file' %}
+                            {% include "wagtailimages/images/_file_field.html" %}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" %}
+                        {% endif %}
+                    {% endfor %}
+                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                </ul>
+            </form>
+            
+            <p>TODO: page chooser</p>
+            <p>TODO: image chooser</p>
+            <p>TODO: document chooser</p>
+            <p>TODO: snippet chooser</p>
         </section>
 
         <section id="editor">
@@ -128,22 +260,58 @@
 
         <section id="tabs">
             <h2>Tabs</h2>
+
+            <ul class="tab-nav">
+                <li class="active"><a href="#tab1">Tab 1</a></li>
+                <li><a href="#tab2">Tab 2</a></li>
+            </ul>
+
+            <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
+            <ul class="tab-nav merged">
+                <li class="active"><a href="#">Tab1</a></li>
+                <li><a href="#">Tab2</a></li>
+            </ul>
+
+            <p>Tabs can also indicate errors:</p>
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
+            <ul class="tab-nav merged">
+                <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
+                <li><a href="#" class="errors" data-count="1">Tab2</a></li>
+            </ul>
         </section>
 
         <section id="breadcrumbs">
             <h2>Breadcrumbs</h2>
+
+            <ul class="breadcrumb">
+                <li class="home"><a href="#" class="icon icon-home text-replace">Home</a></li>
+                <li><a href="#">Various</a></li>
+                <li><a href="#">Subpages</a></li>
+                <li><a href="#">There is a max length of this many</a></li>
+            </ul>
+
         </section>
 
         <section id="misc">
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
+
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" 25 %}" /></span> Gravatar set</p>
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" 25 %}" /></span> Gravatar not set</p>
+
             <h3>Status tags</h3>
+            <div class="status-tag primary">Primary tag</div>
+
+            <div class="status-tag">Secondary tag</div>
         </section>
 
         <section id="icons">
             <h2>Icons</h2>
 
-            <ul>
+            <ul class="unlist">
                 <li class="icon icon-wagtail">wagtail</li>
                 <li class="icon icon-wagtail-inverse">wagtail-inverse</li>
                 <li class="icon icon-cogs">cogs</li>
