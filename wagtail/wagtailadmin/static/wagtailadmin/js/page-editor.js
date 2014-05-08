@@ -319,7 +319,7 @@ $(function() {
     });
 
     /* Set up behaviour of preview button */
-    $('#action-preview').click(function() {
+    $('.action-preview').click(function() {
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
 
         $.ajax({
@@ -349,5 +349,6 @@ $(function() {
                 previewWindow.document.close();
             }
         });
+        return false;
     });
 });

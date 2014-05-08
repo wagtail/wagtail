@@ -31,9 +31,9 @@ if not settings.configured:
     settings.configure(
         DATABASES={
             'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
                 'NAME': 'wagtaildemo',
-                'USER': 'postgres',
+                'USER': os.environ.get('DATABASE_USER', 'postgres'),
             }
         },
         ROOT_URLCONF='wagtail.tests.urls',
@@ -82,6 +82,16 @@ if not settings.configured:
             'wagtail.wagtailredirects',
             'wagtail.tests',
         ],
+
+        # Using DatabaseCache to make sure that the cache is cleared between tests.
+        # This prevents false-positives in some wagtail core tests where we are
+        # changing the 'wagtail_root_paths' key which may cause future tests to fail.
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+                'LOCATION': 'cache',
+            }
+        },
         PASSWORD_HASHERS=(
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
         ),

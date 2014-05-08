@@ -3,6 +3,7 @@ from wagtail.wagtaildocs import models
 from wagtail.tests.utils import login
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
+from django.core.files.base import ContentFile
 
 # TODO: Test serve view
 
@@ -150,3 +151,24 @@ class TestDocumentChooserUploadView(TestCase):
 
     def test_status_code(self):
         self.assertEqual(self.get().status_code, 200)
+
+
+class TestDocumentFilenameProperties(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+        self.extensionless_document = models.Document(title="Test document")
+        self.extensionless_document.file.save('example', ContentFile("A boring example document"))
+
+    def test_filename(self):
+        self.assertEqual('example.doc', self.document.filename)
+        self.assertEqual('example', self.extensionless_document.filename)
+
+    def test_file_extension(self):
+        self.assertEqual('doc', self.document.file_extension)
+        self.assertEqual('', self.extensionless_document.file_extension)
+
+    def tearDown(self):
+        self.document.delete()
+        self.extensionless_document.delete()

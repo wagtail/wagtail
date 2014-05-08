@@ -4,7 +4,7 @@ from django.http import HttpRequest, Http404
 from django.contrib.auth.models import User
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import EventPage
+from wagtail.tests.models import EventPage, EventIndex, SimplePage
 
 
 class TestRouting(TestCase):
@@ -582,3 +582,100 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+
+class TestMovePage(TestCase):
+    fixtures = ['test.json']
+
+    def test_move_page(self):
+        about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        events_index.move(about_us_page, pos='last-child')
+
+        # re-fetch events index to confirm that db fields have been updated
+        events_index = EventIndex.objects.get(id=events_index.id)
+        self.assertEqual(events_index.url_path, '/home/about-us/events/')
+        self.assertEqual(events_index.depth, 4)
+        self.assertEqual(events_index.get_parent().id, about_us_page.id)
+
+        # children of events_index should also have been updated
+        christmas = events_index.get_children().get(slug='christmas')
+        self.assertEqual(christmas.depth, 5)
+        self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
+
+
+class TestIssue7(TestCase):
+    """
+    This tests for an issue where if a site root page was moved, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was moved. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/7
+    """
+
+    fixtures = ['test.json']
+
+    def test_issue7(self):
+        # Get homepage, root page and site
+        root_page = Page.objects.get(id=1)
+        homepage = Page.objects.get(url_path='/home/')
+        default_site = Site.objects.get(is_default_site=True)
+
+        # Create a new homepage under current homepage
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        homepage.add_child(instance=new_homepage)
+
+        # Set new homepage as the site root page
+        default_site.root_page = new_homepage
+        default_site.save()
+
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
+        # Move new homepage to root
+        new_homepage.move(root_page, pos='last-child')
+
+        # Get fresh instance of new_homepage
+        new_homepage = Page.objects.get(id=new_homepage.id)
+
+        # Check url
+        self.assertEqual(new_homepage.url, '/')
+
+
+class TestIssue157(TestCase):
+    """
+    This tests for an issue where if a site root pages slug was changed, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was changed. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/157
+    """
+
+    fixtures = ['test.json']
+
+    def test_issue157(self):
+        # Get homepage
+        homepage = Page.objects.get(url_path='/home/')
+
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
+        # Change homepage title and slug
+        homepage.title = "New home"
+        homepage.slug = "new-home"
+        homepage.save()
+
+        # Get fresh instance of homepage
+        homepage = Page.objects.get(id=homepage.id)
+
+        # Check url
+        self.assertEqual(homepage.url, '/')
