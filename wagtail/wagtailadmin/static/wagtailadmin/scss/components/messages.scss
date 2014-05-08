@@ -16,14 +16,36 @@
         padding-bottom:1.3em;
         color:white;
     }
+
+    li:before{
+        margin-right:0.5em;
+        font-size:1.5em;
+        vertical-align:middle;
+    }
+
     .error{
         background-color:$color-red;
+
+        &:before{
+            font-family:wagtail;
+            content:"!";
+        }
     }
     .warning{
         background-color:$color-orange;
+
+        &:before{
+            font-family:wagtail;
+            content:"!";
+        }
     }
     .success{
         background-color:$color-teal-dark;
+
+        &:before{
+            font-family:wagtail;
+            content:"9";
+        }
     }
 }
 
