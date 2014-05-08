@@ -65,7 +65,6 @@ function initDateChoosers(context) {
             constrainInput: false, /* showOn: 'button', */ firstDay: 1
         });
     }
-
 }
 function initFriendlyDateChooser(id) {
     $('#' + id).datepicker({

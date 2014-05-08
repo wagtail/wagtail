@@ -247,6 +247,15 @@
                     <li><input type="submit" value="{% trans 'Save' %}" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
+
+            <h3>Date picker</h3>
+            <div class="datepicker"></div>
+
+            <h3>Time picker</h3>
+            <div class="timepicker"></div>
+
+
+
             <p>TODO: Rich text</p>            
             <p>TODO: page chooser</p>
             <p>TODO: image chooser</p>
@@ -381,4 +390,16 @@
 
 
     </div>
+
+   
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(function(){
+        $('.datepicker').datepicker();
+        $('.timepicker').timepicker();
+        $('.timepicker').timepicker('show');
+    })
+</script>
 {% endblock %}
