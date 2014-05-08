@@ -122,6 +122,7 @@
 
         &:before{
             width:1em;
+            font-size:1.2rem;
         }
 
         &:hover{
@@ -225,7 +226,6 @@ footer .actions .dropdown-toggle{
     &:before,
     &:after{
         margin:0;
-        right:1em !important;
     }
 }
 

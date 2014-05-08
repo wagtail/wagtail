@@ -163,7 +163,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     font-weight:normal;
     outline:none;
     -moz-appearance: none;
-    -moz-box-sizing:content-box;
+    -moz-box-sizing:border-box;
 
     &.button-small{
         padding:0.55em 0.8em;
@@ -173,10 +173,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     &.button-secondary{
         color:$color-button;
         background-color:white;
-    }
-
-    &.icon:before{
-        font-size:1.5em;
     }
 
     &.icon.text-replace:before{

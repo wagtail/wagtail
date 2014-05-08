@@ -185,6 +185,10 @@ img{
                 background-color:$color-grey-1;
             }
 
+            a:before{
+                font-size:1.2rem;
+            }
+
             .menu-snippets &.menu-snippets,
             .menu-users &.menu-users,
             .menu-snippets &.menu-snippets,
@@ -197,20 +201,6 @@ img{
                 a{
                     color:white;
                 }
-
-                /*
-                &:after{
-                    content: " ";
-                    width: 0px;
-                    height: 0px;
-                    display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 0.9em;
-                    border: 0.7em solid #fff;
-                    border-color: transparent #fff transparent transparent;
-                }
-                */
             }
         }
 
