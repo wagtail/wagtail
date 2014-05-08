@@ -349,5 +349,6 @@ $(function() {
                 previewWindow.document.close();
             }
         });
+        return false;
     });
 });
