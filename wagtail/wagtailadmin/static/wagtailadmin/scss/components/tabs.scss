@@ -39,16 +39,16 @@
         color:$color-red !important;
 
         &:after{
-            @include border-radius(50%);
+            @include border-radius(50px);
             @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
             position:absolute;
             right:-0.5em;
             top:-0.5em;
             z-index:5;
-            min-width:1em;
+            min-width:0.9em;
             color:white;
             background:$color-red;
-            border:2px solid darken($color-red,20%);
+            
             content:attr(data-count);
             padding:0 0.3em;
             line-height:1.4em;
