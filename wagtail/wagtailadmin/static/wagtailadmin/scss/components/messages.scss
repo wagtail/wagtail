@@ -21,7 +21,6 @@
         margin-right:0.5em;
         font-size:1.5em;
         vertical-align:middle;
-        margin-left:-0.75em;
     }
 
     .error{
@@ -69,6 +68,11 @@
         li{
             padding-left:$desktop-nice-padding;
             padding-right:$desktop-nice-padding;
+
+            &:before{
+                margin-left:-0.75em;
+            }
+
         }
         &:before{
             content: "";
