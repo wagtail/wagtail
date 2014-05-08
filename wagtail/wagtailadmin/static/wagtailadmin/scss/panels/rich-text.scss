@@ -3,14 +3,13 @@
 
 .hallotoolbar{
     position:absolute;
-    left:50px;
+    left:$mobile-nice-padding;
     z-index:5;
     margin-top:4em;
     margin-left:0em;
 }
 .hallotoolbar.affixed{
     position:fixed;
-    margin-left:140px;
     margin-top:0;
 }
 .hallotoolbar button{
@@ -149,17 +148,8 @@
     }
 }
 
-@media screen and (min-width: $breakpoint-desktop-larger){
-   /* .hallotoolbar{
-        margin:0 auto;
-        position:absolute;
-        left:-$menu-width;
-        right:0;
-        z-index:5;
-        margin-top:3em;
+@media screen and (min-width: $breakpoint-mobile){
+    .hallotoolbar{
+        left:$menu-width + $desktop-nice-padding;
     }
-    .hallotoolbar.affixed{
-        position:fixed;
-        margin:0 auto;
-    }*/
 }
