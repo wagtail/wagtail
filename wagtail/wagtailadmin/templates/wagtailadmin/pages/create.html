@@ -25,7 +25,7 @@
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup button match-width">
+                    <div class="dropdown dropup dropdown-button match-width">
                         <input type="submit" value="{% trans 'Save as draft' %}" class="button" />
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
@@ -37,11 +37,11 @@
                     </div>
                 </li>
 
-                <li class="actions">
+                <li class="actions preview">
                     {% trans 'Preview' as preview_label %}
                     {% if display_modes|length > 1 %}
                         <div class="dropdown dropup button match-width">
-                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label %}
+                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
                                 {% for mode_name, mode_display_name in display_modes %}
@@ -52,7 +52,7 @@
                             </ul>
                         </div>
                     {% else %}
-                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label %}
+                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
                     {% endif %}
                 </li>
             </ul>

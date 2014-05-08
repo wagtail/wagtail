@@ -257,6 +257,10 @@
     }
 }
 
+.icon.icon-larger:before{
+    font-size:1.5em;
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
