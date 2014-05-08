@@ -5,3 +5,4 @@
 /MANIFEST
 /wagtail.egg-info/
 /docs/_build/
+/.tox/

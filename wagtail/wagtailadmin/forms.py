@@ -12,7 +12,7 @@ class SearchForm(forms.Form):
         if _placeholder is not None:
             placeholder = _placeholder
         else:
-            placeholder = 'Search {}'.format(placeholder_suffix)
+            placeholder = 'Search {0}'.format(placeholder_suffix)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=_("Search term"), widget=forms.TextInput())

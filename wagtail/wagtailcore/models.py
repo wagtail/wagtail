@@ -17,17 +17,12 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
+from treebeard.mp_tree import MP_Node
+
 from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.query import PageQuerySet
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
-
-
-# hack to import our patched copy of treebeard at wagtail/vendor/django-treebeard -
-# based on http://stackoverflow.com/questions/17211078/how-to-temporarily-modify-sys-path-in-python
-treebeard_path = os.path.join(os.path.dirname(__file__), '..', 'vendor', 'django-treebeard')
-sys.path.insert(0, treebeard_path)
-from treebeard.mp_tree import MP_Node
-sys.path.pop(0)
 
 
 class SiteManager(models.Manager):
@@ -132,6 +127,59 @@ def get_navigable_page_content_type_ids():
     return _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
 
 
+class PageManager(models.Manager):
+    def get_query_set(self):
+        return PageQuerySet(self.model).order_by('path')
+
+    def live(self):
+        return self.get_query_set().live()
+
+    def not_live(self):
+        return self.get_query_set().not_live()
+
+    def page(self, other):
+        return self.get_query_set().page(other)
+
+    def not_page(self, other):
+        return self.get_query_set().not_page(other)
+
+    def descendant_of(self, other, inclusive=False):
+        return self.get_query_set().descendant_of(other, inclusive)
+
+    def not_descendant_of(self, other, inclusive=False):
+        return self.get_query_set().not_descendant_of(other, inclusive)
+
+    def child_of(self, other):
+        return self.get_query_set().child_of(other)
+
+    def not_child_of(self, other):
+        return self.get_query_set().not_child_of(other)
+
+    def ancestor_of(self, other, inclusive=False):
+        return self.get_query_set().ancestor_of(other, inclusive)
+
+    def not_ancestor_of(self, other, inclusive=False):
+        return self.get_query_set().not_ancestor_of(other, inclusive)
+
+    def parent_of(self, other):
+        return self.get_query_set().parent_of(other)
+
+    def not_parent_of(self, other):
+        return self.get_query_set().not_parent_of(other)
+
+    def sibling_of(self, other, inclusive=False):
+        return self.get_query_set().sibling_of(other, inclusive)
+
+    def not_sibling_of(self, other, inclusive=False):
+        return self.get_query_set().not_sibling_of(other, inclusive)
+
+    def type(self, model):
+        return self.get_query_set().type(model)
+
+    def not_type(self, model):
+        return self.get_query_set().not_type(model)
+
+
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
     def __init__(cls, name, bases, dct):
@@ -141,6 +189,9 @@ class PageBase(models.base.ModelBase):
             # this is an internal class built for Django's deferred-attribute mechanism;
             # don't proceed with all this page type registration stuff
             return
+
+        # Add page manager
+        PageManager().contribute_to_class(cls, 'objects')
 
         if 'template' not in dct:
             # Define a default template path derived from the app name and model name
@@ -559,6 +610,15 @@ class Page(MP_Node, ClusterableModel, Indexed):
         implement alternative logic to serve up the appropriate view here.
         """
         return self.serve(self.dummy_request())
+
+    def get_ancestors(self, inclusive=False):
+        return Page.objects.ancestor_of(self, inclusive)
+
+    def get_descendants(self, inclusive=False):
+        return Page.objects.descendant_of(self, inclusive)
+
+    def get_siblings(self, inclusive=True):
+        return Page.objects.sibling_of(self, inclusive)
 
 
 def get_navigation_menu_items():

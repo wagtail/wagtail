@@ -4,6 +4,8 @@ from wagtail.wagtailimages.models import Filter
 
 register = template.Library()
 
+# Local cache of filters, avoid hitting the DB
+filters = {}
 
 @register.tag(name="image")
 def image(parser, token):
@@ -30,8 +32,11 @@ def image(parser, token):
 class ImageNode(template.Node):
     def __init__(self, image_var_name, filter_spec, output_var_name=None):
         self.image_var = template.Variable(image_var_name)
-        self.filter, created = Filter.objects.get_or_create(spec=filter_spec)
         self.output_var_name = output_var_name
+
+        if filter_spec not in filters:
+            filters[filter_spec], _ = Filter.objects.get_or_create(spec=filter_spec)
+        self.filter = filters[filter_spec]
 
     def render(self, context):
         try:
