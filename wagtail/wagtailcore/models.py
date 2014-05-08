@@ -577,7 +577,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         url = self.full_url
         if url:
             url_info = urlparse(url)
-            hostname = url_info.netloc
+            hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or 80
         else:
