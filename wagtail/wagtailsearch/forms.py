@@ -26,6 +26,8 @@ class EditorsPickForm(forms.ModelForm):
             'description': forms.Textarea(attrs=dict(rows=3)),
         }
 
+        exclude = tuple()
+
 
 EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
 

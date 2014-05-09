@@ -11,3 +11,4 @@ class DocumentForm(forms.ModelForm):
         widgets = {
             'file': forms.FileInput()
         }
+        exclude = tuple()
