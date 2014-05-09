@@ -14,14 +14,14 @@ from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
 
 def get_test_image_file():
-    from tempfile import NamedTemporaryFile
+    from StringIO import StringIO
     from PIL import Image
     from django.core.files.images import ImageFile
 
-    f = NamedTemporaryFile(delete=False)
+    f = StringIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
-    return ImageFile(f)
+    return ImageFile(f, name='test.png')
 
 
 Image = get_image_model()
