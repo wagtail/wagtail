@@ -1,4 +1,4 @@
-import StringIO
+from tempfile import NamedTemporaryFile
 import os.path
 
 from taggit.managers import TaggableManager
@@ -199,7 +199,7 @@ class Filter(models.Model):
 
         image = method(image, self.method_arg)
 
-        output = StringIO.StringIO()
+        output = NamedTemporaryFile(delete=False)
         backend.save_image(image, output, file_format)
         
         # and then close the input file
