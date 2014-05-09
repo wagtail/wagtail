@@ -31,7 +31,7 @@ msgstr "搜索词"
 
 #: .\forms.py:42
 msgid "Enter your username"
-msgstr ""
+msgstr "请输入用户名"
 
 #: .\forms.py:45
 msgid "Enter password"
