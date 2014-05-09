@@ -98,7 +98,7 @@ if not settings.configured:
             'wagtailsearch': 'wagtail.wagtailsearch.south_migrations',
             'wagtailredirects': 'wagtail.wagtailredirects.south_migrations',
             'wagtailembeds': 'wagtail.wagtailembeds.south_migrations',
-        ,}
+        },
 
         # Using DatabaseCache to make sure that the cache is cleared between tests.
         # This prevents false-positives in some wagtail core tests where we are
