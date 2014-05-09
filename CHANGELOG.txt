@@ -16,11 +16,14 @@ Changelog
  * Added document_served signal which gets fired when a document is downloaded
  * Added translation for Portuguese Brazil
  * Made compatible with Python 2.6
+ * 'richtext' template filter now wraps output in <div class="rich-text"></div>, to assist in styling
+ * Embeds now save author_name and provider_name if set by oEmbed provider
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
  * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
  * Fix: Page slugs are now validated on page edit
  * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
+ * Fix: Moving or changing a site root page no longer causes URLs for subpages to change to 'None'
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~

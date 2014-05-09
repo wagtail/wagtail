@@ -15,6 +15,8 @@ class Embed(models.Model):
     type = models.CharField(max_length=10, choices=EMBED_TYPES)
     html = models.TextField(blank=True)
     title = models.TextField(blank=True)
+    author_name = models.TextField(blank=True)
+    provider_name = models.TextField(blank=True)
     thumbnail_url = models.URLField(null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)

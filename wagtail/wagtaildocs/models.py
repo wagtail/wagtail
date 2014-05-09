@@ -38,6 +38,14 @@ class Document(models.Model, TagSearchable):
         return os.path.basename(self.file.name)
 
     @property
+    def file_extension(self):
+        parts = self.filename.split('.')
+        if len(parts) > 1:
+            return parts[-1]
+        else:
+            return ''
+
+    @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
 

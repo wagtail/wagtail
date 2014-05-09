@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 2,
+        "numchild": 3,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -145,19 +145,42 @@
     "pk": 7,
     "model": "wagtailcore.page",
     "fields": {
+        "title": "About us",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010002",
+        "url_path": "/home/about-us/",
+        "slug": "about-us"
+    }
+},
+{
+    "pk": 7,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>We are really good.</p>"
+    }
+},
+
+{
+    "pk": 8,
+    "model": "wagtailcore.page",
+    "fields": {
         "title": "Contact us",
         "numchild": 0,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
         "content_type": ["tests", "formpage"],
-        "path": "000100010002",
+        "path": "000100010003",
         "url_path": "/home/contact-us/",
         "slug": "contact-us"
     }
 },
 {
-    "pk": 7,
+    "pk": 8,
     "model": "tests.formpage",
     "fields": {
     }
@@ -174,7 +197,7 @@
         "choices": "",
         "default_value": "",
         "help_text": "",
-        "page": 7
+        "page": 8
     }
 },
 {
@@ -188,7 +211,7 @@
         "choices": "",
         "default_value": "",
         "help_text": "",
-        "page": 7
+        "page": 8
     }
 },
 
@@ -383,7 +406,7 @@
     "model": "wagtailforms.formsubmission",
     "fields": {
         "form_data": "{\"your-email\": \"old@example.com\", \"your-message\": \"this is a really old message\"}",
-        "page": 7,
+        "page": 8,
         "submit_time": "2013-01-01T12:00:00.000Z"
     }
 },
@@ -392,7 +415,7 @@
     "model": "wagtailforms.formsubmission",
     "fields": {
         "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
-        "page": 7,
+        "page": 8,
         "submit_time": "2014-01-01T12:00:00.000Z"
     }
 }
