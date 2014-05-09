@@ -221,7 +221,6 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
 
   Using or subclassing the site model?
 
-  Extending indexed_fields and making models search-friendly
 
 
 Wagtail Admin API
@@ -318,6 +317,19 @@ Template Filters
       {% load rich_text %}
       ...
       {{ body|richtext }}
+
+Search
+~~~~~~
+
+
+  Extending indexed_fields and making models search-friendly
+
+
+
+
+
+
+
 
 Site
 ~~~~
