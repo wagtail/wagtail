@@ -142,6 +142,7 @@ input[type=checkbox]:checked:before{
 
 /* Core button style */
 input[type=submit], input[type=reset], input[type=button], .button, button{
+    font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width:auto;
     padding:0.7em 1em;
@@ -160,8 +161,9 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     overflow:hidden;
     position:relative;
     font-weight:normal;
+    outline:none;
     -moz-appearance: none;
-    -moz-box-sizing:content-box;
+    -moz-box-sizing:border-box;
 
     &.button-small{
         padding:0.55em 0.8em;
@@ -169,13 +171,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-secondary{
-        border:1px solid $color-button;
         color:$color-button;
         background-color:white;
-    }
-
-    &.icon:before{
-        font-size:1.5em;
     }
 
     &.icon.text-replace:before{
@@ -254,6 +251,13 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     + .button,
     + button{
         margin-left:1em;
+    }
+}
+
+button.icon{
+    &:before,
+    &:after{
+        line-height:0;
     }
 }
 

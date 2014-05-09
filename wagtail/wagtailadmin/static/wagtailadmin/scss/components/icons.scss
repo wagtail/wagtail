@@ -21,7 +21,6 @@
     line-height: 1em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size:1.8em;
     text-align:left;
     vertical-align:middle;
     margin-right:0.2em;
@@ -36,9 +35,7 @@
 .hallotoolbar [class*=" icon-"]:before,
 .hallotoolbar [class*=" icon-"]:before,
 .hallotoolbar [class^="icon-"]:before{
-    font-size:1.1em;
     vertical-align:-10%;
-    font-size:1.05em;
     margin-right:0;
 }
 
@@ -191,7 +188,7 @@
     content:"Q";
 }
 .icon-download:before{
-    content:"S";
+    content:"S"; /* Credit: Icon made by Freepik from Flaticon.com */
 }
 .icon-order:before{
     content:"T";
@@ -225,7 +222,8 @@
     content:"3";
 }
 .icon-view:before{
-    content:"4";
+    content:"4"; /* Credit: Icon made by Zurb from Flaticon.com */
+    font-size:1.5rem;
 }
 .icon-collapse-down:before{
     content:"5";
@@ -257,6 +255,10 @@
         text-align:center;
         vertical-align:middle;
     }
+}
+
+.icon.icon-larger:before{
+    font-size:1.5em;
 }
 
 @keyframes spin {

@@ -279,7 +279,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return self.url_path
 
-    @transaction.commit_on_success  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
+    @transaction.atomic  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
         update_descendant_url_paths = False
 
@@ -302,6 +302,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         if update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
+
+        # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
+        if Site.objects.filter(root_page=self).exists():
+            cache.delete('wagtail_site_root_paths')
+
         return result
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -310,6 +315,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
             update_statement = """
                 UPDATE wagtailcore_page
                 SET url_path = %s || substr(url_path, %s)
+                WHERE path LIKE %s AND id <> %s
+            """
+        elif connection.vendor == 'mysql':
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path= CONCAT(%s, substring(url_path, %s))
                 WHERE path LIKE %s AND id <> %s
             """
         else:
@@ -535,7 +546,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return (not self.live) and (not self.get_descendants().filter(live=True).exists())
 
-    @transaction.commit_on_success  # only commit when all descendants are properly updated
+    @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
         Extension to the treebeard 'move' method to ensure that url_path is updated too.
@@ -566,7 +577,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         url = self.full_url
         if url:
             url_info = urlparse(url)
-            hostname = url_info.netloc
+            hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or 80
         else:
