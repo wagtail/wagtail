@@ -7,6 +7,17 @@ import django
 from django.conf import settings, global_settings
 from django.core.management import execute_from_command_line
 
+
+# Django treebeard calls this function but it's deprecated in Django 1.7
+# This simply sets it to a no-op to prevent test failures
+from django.db import transaction
+def nop():
+    pass
+
+if not hasattr(transaction, 'commit_unless_managed'):
+    transaction.commit_unless_managed = nop
+
+
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
