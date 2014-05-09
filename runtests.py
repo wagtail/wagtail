@@ -109,6 +109,7 @@ if not settings.configured:
             'wagtailsearch': 'wagtail.wagtailsearch.south_migrations',
             'wagtailredirects': 'wagtail.wagtailredirects.south_migrations',
             'wagtailembeds': 'wagtail.wagtailembeds.south_migrations',
+            'tests': 'ignore',
         },
 
         # Using DatabaseCache to make sure that the cache is cleared between tests.
