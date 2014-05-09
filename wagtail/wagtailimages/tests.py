@@ -21,7 +21,15 @@ def get_test_image_file():
     f = StringIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
-    return ImageFile(f, name='test.png')
+
+    image_file = ImageFile(f, name='test.png')
+
+    # Django 1.7 has a bug where it will attempt to get the file size after
+    # the file has been closed. This initialises the size cache so it doesn't
+    # perform that check
+    image_file._size = f.tell()
+
+    return image_file
 
 
 Image = get_image_model()
