@@ -5,11 +5,9 @@ import datetime
 from django.test import TestCase
 from django.db.models import Q
 
-from wagtail.wagtailsearch.backends.elasticsearch import (
-    ElasticSearchQuery,
-    ElasticSearchType,
-    ElasticSearchDocument,
-)
+from wagtail.wagtailsearch.backends.elasticsearch.query import ElasticSearchQuery
+from wagtail.wagtailsearch.backends.elasticsearch.document import ElasticSearchType, ElasticSearchDocument
+
 from . import models
 from .test_backends import BackendTests
 
