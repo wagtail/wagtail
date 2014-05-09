@@ -1,5 +1,13 @@
 from django.contrib.auth.models import User
 
+try:
+    import unittest
+
+    # Check if this is unittest2
+    assert hasattr(unittest, 'skip')
+except (ImportError, AssertionError):
+    import unittest2 as unittest
+
 
 def login(client):
     # Create a user

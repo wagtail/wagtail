@@ -1,5 +1,5 @@
 from django.test import TestCase
-import unittest2 as unittest
+from wagtail.tests.utils import unittest
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
