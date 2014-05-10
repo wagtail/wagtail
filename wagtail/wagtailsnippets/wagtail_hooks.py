@@ -27,7 +27,12 @@ hooks.register('construct_main_menu', construct_main_menu)
 
 
 def editor_js():
-    return format_html('<script src="{0}{1}"></script>',
-        settings.STATIC_URL, 'wagtailsnippets/js/snippet-chooser.js'
+    return format_html("""
+            <script src="{0}{1}"></script>
+            <script>window.chooserUrls.snippetChooser = '{2}';</script>
+        """,
+        settings.STATIC_URL,
+        'wagtailsnippets/js/snippet-chooser.js',
+        urlresolvers.reverse('wagtailsnippets_choose_generic')
     )
 hooks.register('insert_editor_js', editor_js)

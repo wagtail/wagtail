@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
-from django.utils.html import format_html_join
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import hooks
@@ -30,7 +30,11 @@ def editor_js():
         'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
         'wagtaildocs/js/document-chooser.js',
     ]
-    return format_html_join('\n', '<script src="{0}{1}"></script>',
+    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
+    )
+    return js_includes + format_html(
+        "<script>window.chooserUrls.documentChooser = '{0}';</script>",
+        urlresolvers.reverse('wagtaildocs_chooser')
     )
 hooks.register('insert_editor_js', editor_js)

@@ -4,6 +4,11 @@
     Javascript declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
 
+<script>
+    window.chooserUrls = {
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+    };
+</script>
 
 {% compress js %}
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/rangy-core.js"></script>
@@ -33,14 +38,6 @@
 {{ edit_handler.form.media.js }}
 
 <script>
-    window.chooserUrls = {
-        'documentChooser': '{% url "wagtaildocs_chooser" %}',
-        'imageChooser': '{% url "wagtailimages_chooser" %}',
-        'embedsChooser': '{% url "wagtailembeds_chooser" %}',
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
-        'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
-    };
-
     {% get_date_format_override as format_override %}
     window.overrideDateInputFormat ='{{ format_override }}';
 
