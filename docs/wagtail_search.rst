@@ -154,9 +154,9 @@ The AJAX interface uses the same view as the normal HTML search, ``wagtailsearch
 
 .. code-block:: python
 
-  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'mirrorstage/includes/search_listing.html'
+  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
 
-You could provide a template in JSON format with extra properties, such as ``query.hits``, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
+In this template, you'll have access to the same context variablies provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits``, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
 
 Editor's Picks
 --------------
