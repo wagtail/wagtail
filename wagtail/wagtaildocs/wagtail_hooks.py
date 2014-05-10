@@ -34,7 +34,12 @@ def editor_js():
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
     return js_includes + format_html(
-        "<script>window.chooserUrls.documentChooser = '{0}';</script>",
+        """
+        <script>
+            window.chooserUrls.documentChooser = '{0}';
+            registerHalloPlugin('hallowagtaildoclink');
+        </script>
+        """,
         urlresolvers.reverse('wagtaildocs_chooser')
     )
 hooks.register('insert_editor_js', editor_js)

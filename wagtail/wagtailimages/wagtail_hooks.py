@@ -34,7 +34,12 @@ def editor_js():
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
     return js_includes + format_html(
-        "<script>window.chooserUrls.imageChooser = '{0}';</script>",
+        """
+        <script>
+            window.chooserUrls.imageChooser = '{0}';
+            registerHalloPlugin('hallowagtailimage');
+        </script>
+        """,
         urlresolvers.reverse('wagtailimages_chooser')
     )
 hooks.register('insert_editor_js', editor_js)

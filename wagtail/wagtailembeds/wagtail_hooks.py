@@ -17,7 +17,10 @@ hooks.register('register_admin_urls', register_admin_urls)
 def editor_js():
     return format_html("""
             <script src="{0}{1}"></script>
-            <script>window.chooserUrls.embedsChooser = '{2}';</script>
+            <script>
+                window.chooserUrls.embedsChooser = '{2}';
+                registerHalloPlugin('hallowagtailembeds');
+            </script>
         """,
         settings.STATIC_URL,
         'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
