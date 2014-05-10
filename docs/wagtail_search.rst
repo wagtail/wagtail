@@ -54,13 +54,13 @@ The search view returns a context with a few useful variables.
     The terms (string) used to make the search.
 
   ``search_results``
-    A collection of Page objects matching the query.
+    A collection of Page objects matching the query. The ``specific`` property of ``Page`` will give the most-specific subclassed model object for the Wagtail page. For instance, if an ``Event`` model derived from the basic Wagtail ``Page`` were included in the search results, you could use ``specific`` to access the custom properties of the ``Event`` model (``result.specific.date_of_event``).
 
   ``is_ajax``
     Boolean. This returns Django's ``request.is_ajax()``.
 
   ``query``
-    The Query object matching the terms. The query model provides several class methods for viewing the statistics of all queries, but exposes only one property for single queries, ``query.hits``, which tracks the number of time the search string has been used.
+    A Wagtail Query object matching the terms. The query model provides several class methods for viewing the statistics of all queries, but exposes only one property for single objects, ``query.hits``, which tracks the number of time the search string has been used over the lifetime of the site.
 
 
 
