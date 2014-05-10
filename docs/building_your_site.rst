@@ -84,7 +84,9 @@ Parents
 ```````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
 
-A Parent node could provide its own function returning its descendant objects. ::
+A Parent node could provide its own function returning its descendant objects.
+
+.. code-block:: python
 
   class EventPageIndex(Page):
     ...
@@ -104,7 +106,9 @@ Leaves are the pieces of content itself, a page which is consumable, and might j
 
 It might be helpful for a leaf to provide a way to back up along the tree to a parent, such as in the case of breadcrumbs navigation. The tree might also be deep enough that a leaf's parent won't be included in general site navigation.
 
-The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor::
+The model for the leaf could provide a function that traverses the tree in the opposite direction and returns an appropriate ancestor:
+
+.. code-block:: python
 
   class BlogPage(Page):
     ...
@@ -131,7 +135,9 @@ Overriding the Serve() Method
 
 Wagtail defaults to serving ``Page``-derived models by passing ``self`` to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the ``serve()`` method provided by the ``Page`` class and handle the Django request and response more directly.
 
-Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request::
+Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
+
+.. code-block:: python
 
   class EventPage(Page):
     ...
@@ -161,7 +167,9 @@ Tagging
 ```````
 Wagtail provides tagging capability through the combination of two django modules, ``taggit`` and ``modelcluster``. ``taggit`` provides a model for tags which is extended by ``modelcluster``, which in turn provides some magical database abstraction which makes drafts and revisions possible in Wagtail. It's a tricky recipe, but the net effect is a many-to-many relationship between your model and a tag class reserved for your model.
 
-Using an example from the Wagtail demo site, here's what the tag model and the relationship field looks like in ``models.py``::
+Using an example from the Wagtail demo site, here's what the tag model and the relationship field looks like in ``models.py``:
+
+.. code-block:: python
 
   from modelcluster.fields import ParentalKey
   from modelcluster.tags import ClusterTaggableManager
@@ -181,7 +189,9 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
 
 Wagtail's admin provides a nice interface for inputting tags into your content, with typeahead tag completion and friendly tag icons.
 
-Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag::
+Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
+
+.. code-block:: python
 
   class BlogIndexPage(Page):
     ...
@@ -199,7 +209,9 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
         'blogs': blogs,
       })
 
-Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template::
+Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
+
+.. code-block:: django
 
   {% for tag in self.tags.all %}
     <a href="{% pageurl self.blog_index %}?tag={{ tag }}">{{ tag }}</a>
@@ -268,7 +280,9 @@ Template Tags
 
   **pageurl**
 
-    Takes a ``Page``-derived object and returns its URL as relative (``/foo/bar/``) if it's within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not. ::
+    Takes a ``Page``-derived object and returns its URL as relative (``/foo/bar/``) if it's within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
+
+    .. code-block:: django
 
       {% load pageurl %}
       ...
@@ -276,7 +290,9 @@ Template Tags
 
   **slugurl**
 
-    Takes a ``slug`` string and returns the URL for the ``Page``-derived object with that slug. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. ::
+    Takes a ``slug`` string and returns the URL for the ``Page``-derived object with that slug. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site.
+
+    .. code-block:: django
 
       {% load slugurl %}
       ...
@@ -284,7 +300,9 @@ Template Tags
     
   **wagtailuserbar**
 
-    This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object. ::
+    This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object.
+
+    .. code-block:: django
 
       {% load wagtailuserbar %}
       ...
@@ -292,7 +310,9 @@ Template Tags
   
   **image**
 
-    This template tag provides a way to process an image with a method and dimensions. ::
+    This template tag provides a way to process an image with a method and dimensions.
+
+    .. code-block:: django
     
       {% load image_tags %}
       ...
@@ -312,7 +332,9 @@ Template Filters
 
   **rich_text**
 
-    This filter is required for use with any ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display. **Note that the template tag loaded differs from the name of the filter.** ::
+    This filter is required for use with any ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display. **Note that the template tag loaded differs from the name of the filter.**
+
+    .. code-block:: django
 
       {% load rich_text %}
       ...
