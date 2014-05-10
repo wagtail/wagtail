@@ -318,12 +318,6 @@ Template Filters
       ...
       {{ body|richtext }}
 
-Search
-~~~~~~
-
-
-  Extending indexed_fields and making models search-friendly
-
 
 
 
