@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
+from django.utils.html import format_html_join
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import hooks
@@ -21,3 +23,14 @@ def construct_main_menu(request, menu_items):
             MenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
         )
 hooks.register('construct_main_menu', construct_main_menu)
+
+
+def editor_js():
+    js_files = [
+        'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
+        'wagtaildocs/js/document-chooser.js',
+    ]
+    return format_html_join('\n', '<script src="{0}{1}"></script>',
+        ((settings.STATIC_URL, filename) for filename in js_files)
+    )
+hooks.register('insert_editor_js', editor_js)
