@@ -66,7 +66,9 @@ The search view provides a context with a few useful variables.
     Boolean. This returns Django's ``request.is_ajax()``.
 
   ``query``
-    A Wagtail Query object matching the terms. The query model provides several class methods for viewing the statistics of all queries, but exposes only one property for single objects, ``query.hits``, which tracks the number of time the search string has been used over the lifetime of the site.
+    A Wagtail ``Query`` object matching the terms. The ``Query`` model provides several class methods for viewing the statistics of all queries, but exposes only one property for single objects, ``query.hits``, which tracks the number of time the search string has been used over the lifetime of the site. ``Query`` also joins to the Editor's Picks functionality though ``query.editors_picks``. See :ref:`editors-picks`.
+
+
 
 Asyncronous Search with JSON and AJAX
 -------------------------------------
@@ -156,28 +158,52 @@ The AJAX interface uses the same view as the normal HTML search, ``wagtailsearch
 
   WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
 
-In this template, you'll have access to the same context variablies provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits``, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
+In this template, you'll have access to the same context variablies provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits`` and editor's picks, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
+
+.. _editors-picks:
 
 Editor's Picks
 --------------
 
+Editor's Picks are a way of explicitly linking relevant content to search terms, so results pages can contain curated content instead of being at the mercy of the search algorithm. In a template using the search results view, editor's picks can be accessed through the variable ``query.editors_picks``. To include editor's picks in your search results template, use the following properties.
 
+``query.editors_picks.all``
+  This gathers all of the editor's picks objects relating to the current query, in order according to their sort order in the Wagtail admin. You can then iterate through them using a ``{% for ... %}`` loop. Each editor's pick object provides these properties:
 
+  ``editors_pick.page``
+    The page object associated with the pick. Use ``{% pageurl editors_pick.page %}`` to generate a URL or provide other properties of the page object.
+
+  ``editors_pick.description``
+    The description entered when choosing the pick, perhaps explaining why the page is relevant to the search terms.
+
+Putting this all together, a block of your search results template displaying Editor's Picks might look like this:
+
+.. code-block:: django
+
+  {% with query.editors_picks.all as editors_picks %}
+    {% if editors_picks %}
+      <div class="well">
+      <h3>Editors picks</h3>
+	<ul>
+	  {% for editors_pick in editors_picks %}
+	    <li>
+	      <h4>
+		<a href="{% pageurl editors_pick.page %}">
+		  {{ editors_pick.page.title }}
+		</a>
+	      </h4>
+	      <p>{{ editors_pick.description|safe }}</p>
+	    </li>
+	  {% endfor %}
+	</ul>
+      </div>
+    {% endif %}
+  {% endwith %}
 
 Indexing Custom Fields & Custom Search Views
 --------------------------------------------
 
-
-
-
-
-
-
-Strategies for Total Search Coverage
-------------------------------------
-
-Want every field searchable? Every custom model and each of their custom fields? Here's how...
-
+This functionality is still under active development to provide a streamlined interface, but take a look at ``wagtail/wagtail/wagtailsearch/views/frontend.py`` if you are interested in coding custom search views.
 
 
 Search Backends
@@ -190,7 +216,7 @@ Wagtail can degrade to a database-backed text search, but we strongly recommend 
 
 Default DB Backend
 ``````````````````
-The default DB search backend effectively acts as a ``__icontains`` filter on the ``indexed_fields`` of your models.
+The default DB search backend uses Django's ``__icontains`` filter.
 
 
 Elasticsearch Backend
@@ -207,7 +233,6 @@ If you prefer not to run an Elasticsearch server in development or production, t
 .. _Searchly: http://www.searchly.com/
 .. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up
 
-
 Rolling Your Own
 ````````````````
-
+Wagtail search backends implement the interface defined in ``wagtail/wagtail/wagtailsearch/backends/base.py``. At a minimum, the backend's ``search()`` method must return a collection of objects or ``model.objects.none()``. For a fully-featured search backend, examine the Elasticsearch backend code in ``elasticsearch.py``.
