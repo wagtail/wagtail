@@ -74,7 +74,8 @@ class ElasticSearchField(object):
 
     def get_search_mapping(self):
         mapping = {
-            'type': self.type
+            'type': self.type,
+            'include_in_all': True,
         }
 
         if self.boost is not None:
@@ -92,6 +93,7 @@ class ElasticSearchField(object):
         return {
             'type': self.type,
             'index': 'not_analyzed',
+            'include_in_all': False,
         }
 
     def get_mapping(self):
@@ -173,10 +175,12 @@ class ElasticSearchType(object):
                 'type': 'string',
                 'index': 'not_analyzed',
                 'store': 'yes',
+                'include_in_all': False,
             },
             'content_type': {
                 'type': 'string',
                 'index': 'not_analyzed',
+                'include_in_all': False,
             },
         }
 

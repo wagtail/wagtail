@@ -175,15 +175,15 @@ class TestElasticSearchType(TestCase):
         expected_result = {
             'tests_searchtest': {
                 'properties': {
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
-                    'id_filter': {'index': 'not_analyzed', 'type': 'integer'},
-                    'content_type': {'index': 'not_analyzed', 'type': 'string'},
-                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean'},
-                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date'},
-                    'title': {'type': 'string'},
-                    'title_filter': {'index': 'not_analyzed', 'type': 'string'},
-                    'content': {'type': 'string'},
-                    'callable_indexed_field': {'type': 'string'}
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'id_filter': {'index': 'not_analyzed', 'type': 'integer', 'include_in_all': False},
+                    'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
+                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
+                    'title': {'type': 'string', 'include_in_all': True},
+                    'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                    'content': {'type': 'string', 'include_in_all': True},
+                    'callable_indexed_field': {'type': 'string', 'include_in_all': True}
                 }
             }
         }
@@ -221,18 +221,18 @@ class TestElasticSearchTypeInheritance(TestCase):
             'tests_searchtest_tests_searchtestchild': {
                 'properties': {
                     # New
-                    'extra_content': {'type': 'string'},
-                    'searchtest_ptr_id_filter': {'index': 'not_analyzed', 'type': 'string'},
+                    'extra_content': {'type': 'string', 'include_in_all': True},
+                    'searchtest_ptr_id_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
 
                     # Inherited
-                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes'},
-                    'content_type': {'index': 'not_analyzed', 'type': 'string'},
-                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean'},
-                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date'},
-                    'title': {'type': 'string'},
-                    'title_filter': {'index': 'not_analyzed', 'type': 'string'},
-                    'content': {'type': 'string'},
-                    'callable_indexed_field': {'type': 'string'}
+                    'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
+                    'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                    'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
+                    'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
+                    'title': {'type': 'string', 'include_in_all': True},
+                    'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                    'content': {'type': 'string', 'include_in_all': True},
+                    'callable_indexed_field': {'type': 'string', 'include_in_all': True}
                 }
             }
         }

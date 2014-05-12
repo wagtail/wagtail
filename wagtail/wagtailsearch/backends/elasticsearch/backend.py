@@ -381,13 +381,5 @@ class ElasticSearch(BaseSearch):
         if query_string == "":
             return query_set.none()
 
-        # Get fields
-        if fields is None:
-            fields = query_set.model.get_search_fields(exclude_filter=True).keys()
-
-        # Return nothing if there are no fields
-        if not fields:
-            return query_set.none()
-
         # Return search results
         return ElasticSearchResults(self, ElasticSearchQuery(query_set, query_string, fields=fields))
