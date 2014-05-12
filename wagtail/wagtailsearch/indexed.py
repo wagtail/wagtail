@@ -89,9 +89,9 @@ class Indexed(object):
                         new_config['boost'] = config['boost']
                         del config['boost']
 
-                    # Check if this field should have partial matching enabled
+                    # Check if this field should have partial match enabled
                     if 'analyzer' in config and config['analyzer'] == 'edgengram_analyzer':
-                        new_config['partial_matching'] = True
+                        new_config['partial_match'] = True
                         del config['analyzer']
 
                     # Add any left over config to es_extra
@@ -149,7 +149,7 @@ class Indexed(object):
 
             # Extra search configuration
             if field in search_fields and search_fields[field]:
-                field_config['partial_matching'] = search_fields[field].get('partial_matching', False)
+                field_config['partial_match'] = search_fields[field].get('partial_match', False)
                 field_config['boost'] = search_fields[field].get('boost', None)
                 field_config['es_extra'] = search_fields[field].get('es_extra', {})
 

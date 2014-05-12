@@ -236,7 +236,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
     search_description = models.TextField(blank=True)
 
     search_fields = {
-        'title': dict(partial_matching=True, boost=100),
+        'title': dict(partial_match=True, boost=100),
     }
     search_filter_fields = ['slug', 'live', 'owner', 'path', 'depth']
 
