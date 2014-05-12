@@ -29,7 +29,7 @@ class ElasticSearchField(object):
         self.filter_field = kwargs['filter'] if 'filter' in kwargs else False
         self.type = self.convert_type(kwargs['type']) if 'type' in kwargs else 'string'
         self.boost = kwargs['boost'] if 'boost' in kwargs else None
-        self.predictive = kwargs['predictive'] if 'predictive' in kwargs else False
+        self.partial_matching = kwargs['partial_matching'] if 'partial_matching' in kwargs else False
         self.es_extra = kwargs['es_extra'] if 'es_extra' in kwargs else {}
 
     def get_filter_name(self):
@@ -80,7 +80,7 @@ class ElasticSearchField(object):
         if self.boost is not None:
             mapping['boost'] = self.boost
 
-        if self.predictive:
+        if self.partial_matching:
             mapping['analyzer'] = 'edgengram_analyzer'
 
         if self.es_extra:
