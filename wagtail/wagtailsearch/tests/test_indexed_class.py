@@ -78,7 +78,7 @@ class TestGetSearchFields(TestCase):
                 'search': True,
                 'type': 'TextField',
                 'attname': 'extra_content'
-            }
+            },
 
             # Inherited
             'live': {
@@ -130,7 +130,7 @@ class TestGetSearchFields(TestCase):
                 'search': True,
                 'type': 'TextField',
                 'attname': 'extra_content'
-            }
+            },
         }
 
         self.assertDictEqual(search_fields, expected_result)
@@ -156,7 +156,7 @@ class TestGetSearchFields(TestCase):
                 'search': True,
                 'type': 'TextField',
                 'attname': 'content'
-            }
+            },
         }
 
         self.assertDictEqual(search_fields, expected_result)
@@ -190,7 +190,7 @@ class TestGetSearchFields(TestCase):
                 'search': False,
                 'type': 'DateField',
                 'attname': 'published_date'
-            }
+            },
         }
 
         self.assertDictEqual(search_fields, expected_result)
@@ -222,7 +222,7 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
                 'partial_match': True,
                 'boost': 100,
                 'es_extra': {'type': 'string'}
-            }
+            },
         }
 
         self.assertDictEqual(search_fields, expected_result)
@@ -246,7 +246,7 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
             'content': {
                 'search': True,
                 'filter': False,
-            }
+            },
         }
 
         self.assertDictEqual(search_fields, expected_result)
