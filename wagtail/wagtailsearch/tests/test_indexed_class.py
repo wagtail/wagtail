@@ -219,7 +219,7 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
             'title': {
                 'search': True,
                 'filter': False,
-                'predictive': True,
+                'partial_match': True,
                 'boost': 100,
                 'es_extra': {'type': 'string'}
             }
