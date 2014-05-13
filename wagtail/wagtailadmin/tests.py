@@ -1,6 +1,6 @@
 from django.test import TestCase
 import unittest2 as unittest
-from wagtail.tests.models import SimplePage, EventPage
+from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild
 from wagtail.tests.utils import login
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
@@ -326,3 +326,36 @@ class TestEditorHooks(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<link rel="stylesheet" href="/path/to/my/custom.css">')
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')
+
+
+class TestSubpageBusinessRules(TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add standard page
+        self.standard_index = StandardIndex()
+        self.standard_index.title = "Standard Index"
+        self.standard_index.slug = "standard-index"
+        self.root_page.add_child(instance=self.standard_index)
+
+        # Add business page
+        self.business_index = BusinessIndex()
+        self.business_index.title = "Business Index"
+        self.business_index.slug = "business-index"
+        self.root_page.add_child(instance=self.business_index)
+
+        # Login
+        login(self.client)
+
+    def test_standard_subpage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.standard_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Standard Child')
+        self.assertContains(response, 'Business Child')
+
+    def test_business_subpage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Standard Child')
+        self.assertContains(response, 'Business Child')

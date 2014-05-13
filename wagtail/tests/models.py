@@ -196,3 +196,15 @@ EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
 ]
+
+class StandardIndex(Page):
+    pass
+
+class StandardChild(Page):
+    pass
+
+class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild']
+
+class BusinessChild(Page):
+    pass
