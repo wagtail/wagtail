@@ -227,10 +227,6 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
 
   ParentalKey for storing groups of stuff to a Page-thing
 
-
-  Orderable
-    Provides an abstract group of properties for ordering a collection of stuff
-
   Using or subclassing the site model?
 
 
@@ -260,7 +256,41 @@ Fields & Edit Handlers
 Snippets
 --------
 
-Registering and using template tags?
+Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are models which do not inherit the ``Page`` class and are thus not organized into the Wagtail tree, but can still be made editable by assigning panels and identifying the model as a snippet with ``register_snippet()``.
+
+Here's an example snippet from the Wagtail demo website:
+
+.. code-block:: python
+
+  class Advert(models.Model):
+    page = models.ForeignKey(
+      'wagtailcore.Page',
+      related_name='adverts',
+      null=True,
+      blank=True
+    )
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+      PageChooserPanel('page'),
+      FieldPanel('url'),
+      FieldPanel('text'),
+    ]
+
+    def __unicode__(self):
+      return self.text
+
+  register_snippet(Advert)
+
+The ``Advert`` model uses the basic Django model class and defines three properties: text, url, and page. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the panels property. 
+
+
+
+
+
+
+
 
 
 
