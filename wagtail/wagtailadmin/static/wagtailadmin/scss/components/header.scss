@@ -83,7 +83,9 @@ header{
 
     .fields{
         margin-top:-0.5em;
-
+        li{
+            padding-bottom:0;
+        }
         .field{
             padding:0;
         }
