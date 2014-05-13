@@ -29,7 +29,6 @@
     </script>
 {% endblock %}
 {% block content %}
-
     <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col6">
@@ -44,21 +43,21 @@
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                         </div>
                     {% endfor %}
-                    <div class='col2'
-                        <li class="submit"><input name='action' type="submit" value="Filter" />
-                        <br /><input name='action' type="submit" value="CSV" /></li>
+                    <div class="col2">
+                        <li class="submit"><input name="action" type="submit" value="Filter" />
+                        <br /><input name="action" type="submit" value="CSV" /></li>
                     </div>
                     
                 </ul>
             </form>
-
-
         </div>
     </header>
     <div class="nice-padding">
         {% if submissions %}
-            {% include "wagtailforms/list.html" %}
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}{# Here we pass an invalid non-empty URL name as linkurl to generate pagination links of the form "?p=123" with the URL path omitted #}
+            {% include "wagtailforms/list_submissions.html" %}
+
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=submissions is_searching=False linkurl='-' %}
+            {# Here we pass an invalid non-empty URL name as linkurl to generate pagination links with the URL path omitted #}
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}No submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}

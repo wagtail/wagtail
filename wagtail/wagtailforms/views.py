@@ -14,7 +14,18 @@ from wagtail.wagtailforms.forms import SelectDateForm
 
 @permission_required('wagtailadmin.access_admin')
 def index(request):
+    p = request.GET.get("p", 1)
+
     form_pages = get_forms_for_user(request.user)
+
+    paginator = Paginator(form_pages, 20)
+
+    try:
+        form_pages = paginator.page(p)
+    except PageNotAnInteger:
+        form_pages = paginator.page(1)
+    except EmptyPage:
+        form_pages = paginator.page(paginator.num_pages)
 
     return render(request, 'wagtailforms/index.html', {
         'form_pages': form_pages,
@@ -68,7 +79,7 @@ def list_submissions(request, page_id):
         return response
 
     p = request.GET.get('p', 1)
-    paginator = Paginator(submissions, 20)
+    paginator = Paginator(submissions, 1)
 
     try:
         submissions = paginator.page(p)
@@ -84,7 +95,7 @@ def list_submissions(request, page_id):
         data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
         data_rows.append(data_row)
 
-    return render(request, 'wagtailforms/form_index.html', {
+    return render(request, 'wagtailforms/index_submissions.html', {
          'form_page': form_page,
          'select_date_form': select_date_form,
          'submissions': submissions,
