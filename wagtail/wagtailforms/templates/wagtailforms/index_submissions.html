@@ -38,15 +38,13 @@
                         {% blocktrans with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
                         </h1>
                     </div>
-                    <div class="col search-bar small">
-                        <ul class="fields">
+                    <div class="col search-bar">
+                        <ul class="fields row">
                             {% for field in select_date_form %}
-                                <div class="col4">
-                                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                                </div>
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field input_classes="field-small iconfield icon-date" li_classes="col4" %}
                             {% endfor %}
-                            <li class="submit">
-                                <button name="action" value="">{% trans 'Filter' %}</button>
+                            <li class="submit col2">
+                                <button name="action" value="filter" class="button">{% trans 'Filter' %}</button>
                             </li>
                         </ul>
                     </div>

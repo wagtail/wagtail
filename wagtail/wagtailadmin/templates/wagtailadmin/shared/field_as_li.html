@@ -1,10 +1,12 @@
 {% load wagtailadmin_tags %}
-<li class="{{ field.css_classes }} {{ field|fieldtype }} {% if field.errors %}error{% endif %}">
+<li class="{{ field.css_classes }} {{ field|fieldtype }} {{ li_classes }} {% if field.errors %}error{% endif %}">
     <div class="field">
         {{ field.label_tag }}
-        {% block form_field %}
-            {{ field }}
-        {% endblock %}
+        <div class="input {{ input_classes }} ">
+            {% block form_field %}
+                {{ field }}
+            {% endblock %}
+        </div>
     </div>
 
     {% if field.errors %}

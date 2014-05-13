@@ -19,6 +19,6 @@ def construct_main_menu(request, menu_items):
     # show this only if the user has permission to retrieve submissions for at least one form
     if get_forms_for_user(request.user).exists():
         menu_items.append(
-            MenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-grip', order=700)
+            MenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-form', order=700)
         )
 hooks.register('construct_main_menu', construct_main_menu)

@@ -356,12 +356,6 @@ button.icon{
     color:$color-grey-2;
 }
 
-/* permanently show checkbox/radio help as they have no focus state */
-.boolean_field .help, .radio .help{
-    opacity:1;
-}
-
-
 fieldset:hover > .help,
 .field.focused + .help,
 .field:focus + .help,
@@ -391,7 +385,58 @@ li.focused > .help{
     background-color:$color-input-error-bg;
 }
 
+
+/* Layouts for particular kinds of of fields */
+
+/* permanently show checkbox/radio help as they have no focus state */
+.boolean_field .help, .radio .help{
+    opacity:1;
+}
+.iconfield {
+    position:relative;
+
+    input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]){
+        padding-left:2.5em;
+    }
+
+    &:before, &:after{
+        font-family:wagtail;
+        position:absolute;
+        top:0.4em;
+        font-size:1.4em;
+        color:$color-grey-3;
+    }
+    &:before{
+        left:0.5em;
+    }
+    &:after{
+        right:0.5em;
+    }
+
+    /* special case for search spinners */
+    &.icon-spinner:after{
+        color:$color-teal;
+        opacity:0.8;
+        font-size:20px;
+        width:20px;
+        height:20px;
+        line-height:23px;
+        text-align:center;
+        top:0.3em;
+
+    }
+}
+
+
 /* field sizing */
+
+.field-small{
+    input, textarea, select, .richtext, .tagit{
+        @include border-radius(3px);
+        padding:0.4em 1em;
+    }
+}
+
 .field{
     &.col1,
     &.col2,
@@ -568,7 +613,8 @@ ul.tagit li.tagit-choice-editable{
 }
 
 
-/* search bars (search integrated into header area) */
+/*
+// search bars (search integrated into header area)
 .search-bar{
     margin-top:-2em;
     padding-top:1em;
@@ -666,12 +712,13 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
-/* mozilla specific hack */
+// mozilla specific hack
 @-moz-document url-prefix() { 
     .search-bar .fields .field:after{
         line-height:20px;
     }
 }
+*/
 
 /* Transitions */
 fieldset, input, textarea, select{
