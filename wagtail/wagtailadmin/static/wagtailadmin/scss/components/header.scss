@@ -88,11 +88,16 @@ header{
             padding:0;
         }
     }
+
+    .field-content{
+        width:auto;
+        padding:0;
+    }
 }
 
 /* mozilla specific hack */
 @-moz-document url-prefix() { 
-    .search-form .fields .field:after{
+    .iconfield.icon-spinner:after{
         line-height:20px;
     }
 }

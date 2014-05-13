@@ -21,15 +21,6 @@ legend{
     @include visuallyhidden();
 }
 
-.fields li{
-    padding-top:0.5em;
-    padding-bottom:0.5em;
-}
-
-.field{
-    padding:0 0 0.6em 0;
-}
-
 label{
     font-weight:bold;
     color:$color-grey-1;
@@ -49,8 +40,8 @@ input, textarea, select, .richtext, .tagit{
     @include border-box();
     width:100%;
     font-family:Open Sans,Arial,sans-serif;
-    border:1px dashed $color-input-border;
-    padding:1.2em;
+    border:1px solid $color-input-border;
+    padding:0.9em 1.2em;
     background-color:$color-fieldset-hover;
     -webkit-appearance: none;
     color:$color-text-input;
@@ -76,10 +67,9 @@ input, textarea, select, .richtext, .tagit{
     }
 }
 
-input[type=radio],input[type=checkbox]{
+input[type=radio], input[type=checkbox]{
     @include border-radius(0);
     cursor:pointer;
-    float:left;
     border:0;
 }
 
@@ -350,7 +340,10 @@ button.icon{
 .help, .error-message{
     font-size:0.85em;
     font-weight:normal;
-    margin:0.5em 0;
+    margin:0.5em 0 0 0;
+}
+.error-message{
+    color:$color-red;
 }
 .help{
     color:$color-grey-2;
@@ -374,17 +367,10 @@ li.focused > .help{
     font-size:13px;
 }
 
-.error-message{
-    margin:0;
-    color:$color-red;
-    clear:both;
-}
-
 .error input, .error textarea, .error select, .error .tagit{
     border-color:$color-red;
     background-color:$color-input-error-bg;
 }
-
 
 /* Layouts for particular kinds of of fields */
 
@@ -427,6 +413,21 @@ li.focused > .help{
     }
 }
 
+.fields li{
+    padding-top:0.5em;
+    padding-bottom:1em;
+}
+
+.field-content .input li{
+    label{
+        width:auto;
+        float:none;
+    }
+}
+
+.input{
+    clear:both;
+}
 
 /* field sizing */
 
@@ -498,7 +499,7 @@ ul.inline li:first-child, li.inline:first-child{
             display:block;
             float:left;
             color:$color-grey-3;
-            line-height:0.85em;
+            line-height:1em;
             font-size:2.5em;
             margin-right:0.3em;
         }
@@ -612,114 +613,6 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
-
-/*
-// search bars (search integrated into header area)
-.search-bar{
-    margin-top:-2em;
-    padding-top:1em;
-    padding-bottom:1em;
-    margin-bottom:2em;
-
-    &.full-width{
-        @include nice-padding();
-        background-color:$color-header-bg;
-        border-bottom:1px solid $color-grey-4;
-    }
-
-    label{
-        display:none;
-    }
-
-    .fields{
-        position:relative;
-        clear:both;
-
-        .field input{
-            padding-left:3em;
-
-            &:focus{
-                background-color:white;
-            }
-        }
-        .field:before, .field:after{
-            font-family:wagtail;
-            position:absolute;
-            top:1em;
-            font-size:25px;
-            
-        }
-        .field:before{
-            left:0.5em;
-            content:"f";
-            color:$color-grey-3;
-        }
-        .field:after{
-            color:$color-teal;
-            opacity:0.8;
-            font-size:20px;
-            width:20px;
-            height:20px;
-            line-height:23px;
-            text-align:center;
-            top:0.3em;
-            right:0.5em;
-        }
-    }
-    .submit{
-        display:none;
-        position:absolute;
-        right:0;
-        top:0;
-        input{
-            padding:1.55em 2em;
-        }
-    }
-    .taglist{
-        font-size:0.9em;
-        line-height:2.4em;
-        h3{
-            display:inline;
-        }
-        a{
-            white-space: nowrap
-        }
-    }
-
-    &.small{
-        margin:0;
-        padding:0;
-        .fields{
-            li{
-                padding:0;
-            }
-            .field{
-                padding:0;
-            }
-            .field input{
-                padding:0.4em 1.4em 0.4em 2em;
-
-                 &:focus{
-                    background-color:white;
-                }
-            }
-            .field:before{
-                font-size:1.1rem;
-                top:0.45em;
-            }
-
-        }
-    }
-}
-
-// mozilla specific hack
-@-moz-document url-prefix() { 
-    .search-bar .fields .field:after{
-        line-height:20px;
-    }
-}
-*/
-
 /* Transitions */
 fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
@@ -732,31 +625,18 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 }
 
 @media screen and (min-width: $breakpoint-mobile){
-    .help{
-        opacity:1;
-    }
-    .fields{
-        max-width:800px;
-    }
-
-    .field{
-        @include row();
-    }
-
     label{
         @include column(2);
-        padding-top:1.5em;
+        padding-top:1.2em;
         padding-left:0;
 
+        .model_multiple_choice_field &,
         .boolean_field &,
-        .model_choice_field &{
+        .model_choice_field &,
+        .image_field &,
+        .file_field &{
             padding-top:0;
         }
-    }
-
-    .field-content{
-        @include column(10);
-        padding-right:0;
     }
 
     input[type=submit], input[type=reset], input[type=button], .button, button{
@@ -771,5 +651,21 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
                 line-height:2.15em;
             }
         }
+    }
+
+    .help{
+        opacity:1;
+    }
+    .fields{
+        max-width:800px;
+    }
+
+    .field{
+        @include row();
+    }
+
+    .field-content{
+        @include column(10);
+        padding-right:0;
     }
 }
