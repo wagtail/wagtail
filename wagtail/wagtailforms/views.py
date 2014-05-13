@@ -79,7 +79,7 @@ def list_submissions(request, page_id):
         return response
 
     p = request.GET.get('p', 1)
-    paginator = Paginator(submissions, 1)
+    paginator = Paginator(submissions, 20)
 
     try:
         submissions = paginator.page(p)
