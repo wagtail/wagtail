@@ -1,11 +1,10 @@
 {% load wagtailadmin_tags %}
 <li class="{{ field.css_classes }} {{ field|fieldtype }} {% if field.errors %}error{% endif %}">
     <div class="field">
-        {% if field|fieldtype != "boolean_field" %}{{ field.label_tag }}{% endif %}
+        {{ field.label_tag }}
         {% block form_field %}
             {{ field }}
         {% endblock %}
-        {% if field|fieldtype = "boolean_field" %}{{ field.label_tag }}{% endif %}
     </div>
 
     {% if field.errors %}

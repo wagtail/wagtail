@@ -1,9 +1,13 @@
 <div class="field">
-    {% if field_type != "boolean_field" %}{{ field.label_tag }}{% endif %}
-    {% block form_field %}
-        {{ field }}
-    {% endblock %}
-    {% if field_type = "boolean_field" %}{{ field.label_tag }}{% endif %}
+    {{ field.label_tag }}
+    <div class="field-content">
+        {% block form_field %}
+            {{ field }}
+        {% endblock %}
+        {% if field.help_text %}
+            <p class="help">{{ field.help_text }}</p>
+        {% endif %}
+    </div>
 </div>
 
 {% if field.errors %}
@@ -12,7 +16,4 @@
             <span>{{ error }}</span>
         {% endfor %}
     </p>
-{% endif %}
-{% if field.help_text %}
-    <p class="help">{{ field.help_text }}</p>
 {% endif %}

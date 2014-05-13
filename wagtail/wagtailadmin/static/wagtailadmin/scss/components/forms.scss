@@ -36,7 +36,7 @@ label{
     font-size:1.1em;
     display:block;
     padding:0 0 0.8em 0;
-    line-height:1em;
+    line-height:1.3em;
 
     .checkbox &,
     .radio &{
@@ -47,8 +47,8 @@ label{
 input, textarea, select, .richtext, .tagit{
     @include border-radius(6px);
     @include border-box();
-    font-family:Open Sans,Arial,sans-serif;
     width:100%;
+    font-family:Open Sans,Arial,sans-serif;
     border:1px dashed $color-input-border;
     padding:1.2em;
     background-color:$color-fieldset-hover;
@@ -350,7 +350,7 @@ button.icon{
 .help, .error-message{
     font-size:0.85em;
     font-weight:normal;
-    margin:0 0 0.5em 0;
+    margin:0.5em 0;
 }
 .help{
     color:$color-grey-2;
@@ -495,7 +495,6 @@ ul.inline li:first-child, li.inline:first-child{
     .unchosen, .chosen{
         &:before{
             content:"b";
-            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
         }
     }
 }
@@ -691,6 +690,26 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
     .fields{
         max-width:800px;
+    }
+
+    .field{
+        @include row();
+    }
+
+    label{
+        @include column(2);
+        padding-top:1.5em;
+        padding-left:0;
+
+        .boolean_field &,
+        .model_choice_field &{
+            padding-top:0;
+        }
+    }
+
+    .field-content{
+        @include column(10);
+        padding-right:0;
     }
 
     input[type=submit], input[type=reset], input[type=button], .button, button{
