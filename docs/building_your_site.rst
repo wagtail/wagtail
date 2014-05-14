@@ -1,22 +1,22 @@
 Building your site
 ==================
 
-
-
-Model Design with Wagtail
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Wagtail manages content internally as a tree of pages. Each node in the tree is an instance of a Django model which subclasses the Wagtail ``Page`` class. You define the structure and interrelationships of your Wagtail site by coding these models and then publishing pages which use the models through the Wagtail admin interface.
 
+
+The Page Class
+~~~~~~~~~~~~~~
+
 ``Page`` uses Django's model interface, so you can include any field type and field options that Django allows. Wagtail provides some fields and editing handlers that simplify data entry in the Wagtail admin interface, so you may want to keep those in mind when deciding what properties to add to your models in addition to those already provided by ``Page``.
+
 
 Built-in Properties of the Page Class
 -------------------------------------
 
-Wagtail provides some properties in the Page class which are common to most webpages. Since you'll be subclassing ``Page``, you don't have to worry about implementing them.
+Wagtail provides some properties in the ``Page`` class which are common to most webpages. Since you'll be subclassing ``Page``, you don't have to worry about implementing them.
 
-Public Properties Suitable for Inclusion in Templates
-`````````````````````````````````````````````````````
+Public Properties
+`````````````````
 
   ``title`` (string, required)
     Human-readable title for the content
@@ -30,32 +30,23 @@ Public Properties Suitable for Inclusion in Templates
   ``search_description`` (string)
     A SEO-crafted description of the content, used in both internal search indexing and for the meta description read by search engines
 
-Semi-Private Properties Intended for Use in the Wagtail Admin
-`````````````````````````````````````````````````````````````
+The ``Page`` class actually has alot more to it, but these are probably the only built-in properties you'll need to worry about when creating templates for your models.
 
-  ``show_in_menus`` (boolean)
-    Whether a link to this page will appear in automatically generated menus"))
 
-  ``live`` (boolean)
-    Whether the page is in a published, public-visible state
+Anatomy of a Wagtail Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ``has_unpublished_changes`` (boolean)
-    Whether the page is in a draft state 
+So what does a Wagtail model definition look like?
 
-  ``owner`` (User)
-    Model relation pointing to the user who owns the page. Uses the user model set in ``settings.AUTH_USER_MODEL``.
 
-  ``indexed_fields`` (dict)
-    Describes the properties which should be indexed by search and how they should be weighted for maximum accuracy. See the Search section for usage.
 
-Internal Properties Which Describe The Model Instance
-`````````````````````````````````````````````````````
 
-  ``content_type`` (ContentType)
-    A relation to an internal content type model.
 
-  ``url_path`` (string)
-    The full URL path, including the slugs of all parents going back to the site root. Whenever a slug is changed in the tree, all of the node's descendants are updated with the new path. Use the ``pageurl`` template tag for outputting the URL of a page-subclassed object.
+
+
+
+
+
 
 Introduction to Trees
 ---------------------
@@ -78,10 +69,10 @@ The Wagtail admin interface uses the tree to organize content for editing, letti
 Nodes and Leaves
 ----------------
 
-It might be handy to think of the ``Page``-derived models you want to create as being one of two node types: parents and leaves. 
+It might be handy to think of the ``Page``-derived models you want to create as being one of two node types: parents and leaves. Wagtail isn't prescriptive in this approach, but it's a good place to start if you're not experienced in structuring your own content types.
 
-Parents
-```````
+Nodes
+`````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
 
 A Parent node could provide its own function returning its descendant objects.
@@ -127,11 +118,12 @@ Other Relationships
 ```````````````````
 Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). Since there's no restriction on the combination of model classes that can be used at any point in the tree, and it's largely up to the models to define their interrelations, the possibilities are really endless.
 
+
 Model Recipes
--------------
+~~~~~~~~~~~~~
 
 Overriding the Serve() Method
-`````````````````````````````
+-----------------------------
 
 Wagtail defaults to serving ``Page``-derived models by passing ``self`` to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the ``serve()`` method provided by the ``Page`` class and handle the Django request and response more directly.
 
@@ -164,7 +156,8 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
 Tagging
-```````
+-------
+
 Wagtail provides tagging capability through the combination of two django modules, ``taggit`` and ``modelcluster``. ``taggit`` provides a model for tags which is extended by ``modelcluster``, which in turn provides some magical database abstraction which makes drafts and revisions possible in Wagtail. It's a tricky recipe, but the net effect is a many-to-many relationship between your model and a tag class reserved for your model.
 
 Using an example from the Wagtail demo site, here's what the tag model and the relationship field looks like in ``models.py``:
@@ -226,69 +219,6 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
   custom route methods
 
   ParentalKey for storing groups of stuff to a Page-thing
-
-  Using or subclassing the site model?
-
-
-
-Wagtail Admin API
-~~~~~~~~~~~~~~~~~
-
-Fields & Edit Handlers
-----------------------
-
-  RichTextField
-
-  Image
-
-  FieldPanel
-
-  MultiFieldPanel
-
-  InlinePanel
-
-  PageChooserPanel
-
-  ImageChooserPanel
-
-  DocumentChooserPanel
-
-Snippets
---------
-
-Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are models which do not inherit the ``Page`` class and are thus not organized into the Wagtail tree, but can still be made editable by assigning panels and identifying the model as a snippet with ``register_snippet()``.
-
-Here's an example snippet from the Wagtail demo website:
-
-.. code-block:: python
-
-  class Advert(models.Model):
-    page = models.ForeignKey(
-      'wagtailcore.Page',
-      related_name='adverts',
-      null=True,
-      blank=True
-    )
-    url = models.URLField(null=True, blank=True)
-    text = models.CharField(max_length=255)
-
-    panels = [
-      PageChooserPanel('page'),
-      FieldPanel('url'),
-      FieldPanel('text'),
-    ]
-
-    def __unicode__(self):
-      return self.text
-
-  register_snippet(Advert)
-
-The ``Advert`` model uses the basic Django model class and defines three properties: text, url, and page. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the panels property. 
-
-
-
-
-
 
 
 
@@ -372,32 +302,14 @@ Template Filters
 
 
 
-
-
-
-
-
 Site
 ~~~~
 
-Django's built-in admin interface provides the way to map a "site" (hostname or domain) to the root of a wagtail tree. Access this by going to ``/django-admin/`` and then "Home › Wagtailcore › Sites." To try out a development site, add a single site with the hostname ``localhost`` at port ``8000`` and map it to one of the pieces of content you have created.
+Django's built-in admin interface provides the way to map a "site" (hostname or domain) to any node in the wagtail tree, using that node as the site's root.
 
+Access this by going to ``/django-admin/`` and then "Home › Wagtailcore › Sites." To try out a development site, add a single site with the hostname ``localhost`` at port ``8000`` and map it to one of the pieces of content you have created.
 
-Advanced Wagtail
-~~~~~~~~~~~~~~~~
-
-  replacing image processing backend
-
-  custom image processing methods?
-
-  wagtail user bar custom CSS option?
-
-
-
-
-
-
-
+Wagtail's developers plan to move the site settings into the Wagtail admin interface.
 
 
 
