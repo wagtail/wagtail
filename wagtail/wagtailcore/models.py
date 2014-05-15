@@ -249,6 +249,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
     }
 
     def __init__(self, *args, **kwargs):
+        parent = kwargs.pop('parent',None)
         super(Page, self).__init__(*args, **kwargs)
         if not self.id and not self.content_type_id:
             # this model is being newly created rather than retrieved from the db;
