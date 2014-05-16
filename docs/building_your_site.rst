@@ -302,8 +302,14 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
 
 
 
-Extended Page Data with ParentalKey
+Page Data Clusters with ParentalKey
 -----------------------------------
+
+The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page.
+
+
+
+
 
 
 
