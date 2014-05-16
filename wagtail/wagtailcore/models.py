@@ -622,6 +622,19 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return self.serve(self.dummy_request())
 
+    def get_medusa_paths(self):
+        """
+        This is a generator of URL paths to feed into django-medusa
+        Override this if you would like to create static versions of subpages
+        """
+        # Yield paths for this page
+        yield '/'
+
+        # Yield paths for child pages
+        for child in self.get_children().live():
+            for path in child.get_medusa_paths():
+                yield '/' + child.slug + path
+
     def get_ancestors(self, inclusive=False):
         return Page.objects.ancestor_of(self, inclusive)
 
