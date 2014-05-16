@@ -29,5 +29,8 @@ DocumentChooserPanel
 SnippetChooserPanel
 ~~~~~~~~~~~~~~~~~~~
 
+Custom Panels
+~~~~~~~~~~~~~
+
 
 
