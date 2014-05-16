@@ -178,50 +178,51 @@ Location
 
 Self
 ----
-	Without a custom rendering function, a 
+
+Without a custom rendering function, the ``Page`` class will provide a ``self`` variable which a template can use to display 
 
 Tags Provided by Wagtail
 ------------------------
-	pageurl
-		Loaded into a template with
-			{% load pageurl %}
-		Used like
-			<a href="{% pageurl blog %}">
-		Given a Page-derived class, outputs a page's URL as relative (/foo/bar/) if it's within the same site as the current page, or absolute (http://example.com/foo/bar/) if not.
-	slugurl
-		Loaded into a template with
-			{% load slugurl %}
-		Used like
-			<a href="{% slugurl blogslug %}">
-		Returns the URL for the page that has the given slug. Like pageurl, will try to provide a relative link if possible, but will default to an absolute link if on a different site.
-	wagtailuserbar
-		Loaded into a template with
-			{% load wagtailuserbar %}
-		Used like
-			{% wagtailuserbar %}
-		This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object.
-	image
-		Loaded with
-			{% load image_tags %}
-		Used with
-			{% image self.photo max-320x200 %}
-			{% image self.photo max-320x200 as img %}
-		This template tag provides a way to process an image with a method and dimensions
+``pageurl``
+	Loaded into a template with
+		``{% load pageurl %}``
+	Used like
+		``<a href="{% pageurl blog %}">``
+	Given a Page-derived class, outputs a page's URL as relative (/foo/bar/) if it's within the same site as the current page, or absolute (http://example.com/foo/bar/) if not.
+``slugurl``
+	Loaded into a template with
+		``{% load slugurl %}``
+	Used like
+		``<a href="{% slugurl blogslug %}">``
+	Returns the URL for the page that has the given slug. Like pageurl, will try to provide a relative link if possible, but will default to an absolute link if on a different site.
+``wagtailuserbar``
+	Loaded into a template with
+		``{% load wagtailuserbar %}``
+	Used like
+		``{% wagtailuserbar %}``
+	This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object.
+``image``
+	Loaded with
+		``{% load image_tags %}``
+	Used with
+		``{% image self.photo max-320x200 %}``
+		``{% image self.photo max-320x200 as img %}``
+	This template tag provides a way to process an image with a method and dimensions
 
-			'max': 'resize_to_max',
-			'min': 'resize_to_min',
-			'width': 'resize_to_width',
-			'height': 'resize_to_height',
-			'fill': 'resize_to_fill',
+		'max': 'resize_to_max',
+		'min': 'resize_to_min',
+		'width': 'resize_to_width',
+		'height': 'resize_to_height',
+		'fill': 'resize_to_fill',
 
 
 Filters Provided by Wagtail
 ---------------------------
-	rich_text
+	``rich_text``
 		Loaded into template with
-			{% load rich_text %}
+			``{% load rich_text %}``
 		Used with
-			{{ body|richtext }}
+			``{{ body|richtext }}``
 		This filter is required for use with any RichTextField, because it will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display.
 
 
@@ -234,11 +235,11 @@ Advanced Wagtail
 
 	wagtail user bar custom CSS option?
 
+extending hallo editor plugins with editor_js()
 
+injecting any JS into page edit with editor_js()
 
-
-
-
+Custom content module (same level as docs or images)
 
 
 
