@@ -122,7 +122,7 @@ Your ``Page``-derived models might have other interrelationships which extend th
 Model Recipes
 ~~~~~~~~~~~~~
 
-Overriding the Serve() Method
+Overriding the serve() Method
 -----------------------------
 
 Wagtail defaults to serving ``Page``-derived models by passing ``self`` to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the ``serve()`` method provided by the ``Page`` class and handle the Django request and response more directly.
@@ -154,6 +154,90 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
 ``serve()`` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
+
+
+Adding Endpoints with Custom route() Methods
+--------------------------------------------
+
+Wagtail routes requests by iterating over the path components (separated with a forward slash ``/``), finding matching objects based on their slug, and delegating further routing to that object's model class. The Wagtail source is very instructive in figuring out what's happening. This is the default ``route()`` method of the ``Page`` class:
+
+.. code-block:: python
+
+  class Page(...):
+
+    ...
+
+    def route(self, request, path_components):
+      if path_components:
+        # request is for a child of this page
+        child_slug = path_components[0]
+        remaining_components = path_components[1:]
+
+        # find a matching child or 404
+        try:
+          subpage = self.get_children().get(slug=child_slug)
+        except Page.DoesNotExist:
+          raise Http404
+
+        # delegate further routing
+        return subpage.specific.route(request, remaining_components)
+
+      else:
+        # request is for this very page
+        if self.live:
+          # use the serve() method to render the request if the page is published
+          return self.serve(request)
+        else:
+          # the page matches the request, but isn't published, so 404
+          raise Http404
+
+The contract is pretty simple. ``route()`` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling ``route()`` again on one of its children in the Wagtail tree, or ends the routing process by serving something -- either normally through the ``self.serve()`` method or by raising a 404 error.
+
+By overriding the ``route()`` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
+
+First, ``models.py``:
+
+.. code-block:: python
+
+  from django.shortcuts import render
+
+  ...
+
+  class Echoer(Page):
+  
+    def route(self, request, path_components):
+      if path_components:
+        return render(request, self.template, {
+          'self': self,
+          'echo': ' '.join(path_components),
+        })
+      else:
+        if self.live:
+          return self.serve(request)
+        else:
+          raise Http404
+
+  Echoer.content_panels = [
+    FieldPanel('title', classname="full title"),
+  ]
+
+  Echoer.promote_panels = [
+    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
+  ]
+
+This model, ``Echoer``, doesn't define any properties, but does subclass ``Page`` so objects will be able to have a custom title and slug. The template just has to display our ``{{ echo }}`` property. We're skipping the ``serve()`` method entirely, but you could include your render code there to stay consistent with Wagtail's conventions.
+
+Now, once creating a new ``Echoer`` page in the Wagtail admin titled "Echo Base," requests such as::
+
+  http://127.0.0.1:8000/echo-base/tauntaun/kennel/bed/and/breakfast/
+
+Will return::
+
+  tauntaun kennel bed and breakfast
+
+Lovely, huh? (We know.)
+
+
 
 Tagging
 -------
@@ -216,10 +300,10 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
 
 
 
-  custom route methods
 
-  ParentalKey for storing groups of stuff to a Page-thing
 
+Extended Page Data with ParentalKey
+-----------------------------------
 
 
 
@@ -229,11 +313,23 @@ Templates
 
 Location
 --------
-  Wagtail looks for templates matching your models in...
+
+For each of your ``Page``-derived models, Wagtail will look for a template in the following location, relative to your project root::
+
+  project/
+    app/
+      templates/
+        app/
+          blog_index_page.html
+      models.py
+
+Class names are converted from camel case to underscores. For example, the template for model class ``BlogIndexPage`` would be assumed to be ``blog_index_page.html``. 
 
 Self
 ----
-  Without a custom rendering function, a ...
+
+By default, the context passed to a model's template consists of two properties: ``self`` and ``request``. ``self`` is the model object being displayed. ``request`` is the normal Django request object.
+
 
 Template Tags
 -------------
