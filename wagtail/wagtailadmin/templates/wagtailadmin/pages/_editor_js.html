@@ -4,6 +4,11 @@
     Javascript declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
 
+<script>
+    window.chooserUrls = {
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+    };
+</script>
 
 {% compress js %}
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/rangy-core.js"></script>
@@ -14,21 +19,9 @@
     <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-wagtail-toolbar.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-hr.js"></script>
-    <script src="{{ STATIC_URL }}wagtailimages/js/hallo-plugins/hallo-wagtailimage.js"></script>
-    <script src="{{ STATIC_URL }}wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js"></script>
-    <script src="{{ STATIC_URL }}wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/page-editor.js"></script>
 
     <script src="{{ STATIC_URL }}wagtailadmin/js/page-chooser.js"></script>
-    {% comment %}
-        TODO: use the insert_editor_js hook to inject things like image-chooser.js and hallo-wagtailimage.js
-        from their respective apps such as wagtailimages -
-        ideally wagtailadmin shouldn't have to know anything at all about wagtailimages.
-        TODO: a method of injecting these sorts of things on demand when the modal is spawned.
-    {% endcomment %}
-    <script src="{{ STATIC_URL }}wagtailimages/js/image-chooser.js"></script>
-    <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
-    <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
 
     {% hook_output 'insert_editor_js' %}
@@ -41,19 +34,10 @@
 
 {% comment %}
     Additional js from widgets media. Allows for custom widgets in admin panel.
-    Can be used for TODO above (including image-choser.js at wagtailimages)
 {% endcomment %}
 {{ edit_handler.form.media.js }}
 
 <script>
-    window.chooserUrls = {
-        'documentChooser': '{% url "wagtaildocs_chooser" %}',
-        'imageChooser': '{% url "wagtailimages_chooser" %}',
-        'embedsChooser': '{% url "wagtailembeds_chooser" %}',
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
-        'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
-    };
-
     {% get_date_format_override as format_override %}
     window.overrideDateInputFormat ='{{ format_override }}';
 

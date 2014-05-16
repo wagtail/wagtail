@@ -152,6 +152,17 @@ def get_embed(url, max_width=None, finder=None):
         finder = get_default_finder()
     embed_dict = finder(url, max_width)
 
+    # Make sure width and height are valid integers before inserting into database
+    try:
+        embed_dict['width'] = int(embed_dict['width'])
+    except (TypeError, ValueError):
+        embed_dict['width'] = None
+
+    try:
+        embed_dict['height'] = int(embed_dict['height'])
+    except (TypeError, ValueError):
+        embed_dict['height'] = None
+
     # Create database record
     embed, created = Embed.objects.get_or_create(
         url=url,

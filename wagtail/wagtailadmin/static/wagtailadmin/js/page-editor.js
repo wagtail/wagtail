@@ -1,3 +1,15 @@
+var halloPlugins = {
+    'halloformat': {},
+    'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
+    'hallolists': {},
+    'hallohr': {},
+    'halloreundo': {},
+    'hallowagtaillink': {},
+};
+function registerHalloPlugin(name, opts) {
+    halloPlugins[name] = (opts || {});
+}
+
 function makeRichTextEditable(id) {
     var input = $('#' + id);
     var richText = $('<div class="richtext"></div>').html(input.val());
@@ -19,17 +31,7 @@ function makeRichTextEditable(id) {
     richText.hallo({
         toolbar: 'halloToolbarFixed',
         toolbarcssClass: 'testy',
-        plugins: {
-            'halloformat': {},
-            'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-            'hallolists': {},
-            'hallohr': {},
-            'halloreundo': {},
-            'hallowagtailimage': {},
-            'hallowagtailembeds': {},
-            'hallowagtaillink': {},
-            'hallowagtaildoclink': {}
-        }
+        plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {
@@ -349,5 +351,6 @@ $(function() {
                 previewWindow.document.close();
             }
         });
+        return false;
     });
 });
