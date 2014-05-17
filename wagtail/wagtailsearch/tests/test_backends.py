@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
-import unittest2 as unittest
+from wagtail.tests.utils import unittest
 from wagtail.wagtailsearch import models, get_search_backend
 from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
