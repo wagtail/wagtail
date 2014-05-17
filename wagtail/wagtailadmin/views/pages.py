@@ -43,9 +43,7 @@ def index(request, parent_page_id=None):
 @permission_required('wagtailadmin.access_admin')
 def select_type(request):
     # Get the list of page types that can be created within the pages that currently exist
-    existing_page_types = ContentType.objects.raw("""
-        SELECT DISTINCT content_type_id AS id FROM wagtailcore_page
-    """)
+    existing_page_types = get_page_types()
 
     all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
     page_types = set()
