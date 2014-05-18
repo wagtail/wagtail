@@ -161,14 +161,14 @@ class ElasticSearchQuery(object):
                     'query': self.query_string,
                 }
             }
+
+            # Fields
+            if self.fields:
+                query['query_string']['fields'] = self.fields
         else:
             query = {
                 'match_all': {}
             }
-
-        # Fields
-        if self.fields:
-            query['query_string']['fields'] = self.fields
 
         # Filters
         filters = self._get_filters()
