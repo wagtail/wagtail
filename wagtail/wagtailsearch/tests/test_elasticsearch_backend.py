@@ -222,6 +222,7 @@ class TestElasticSearchTypeInheritance(TestCase):
                 'properties': {
                     # New
                     'extra_content': {'type': 'string', 'include_in_all': True},
+                    'subtitle': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer'},
                     'searchtest_ptr_id_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
 
                     # Inherited
@@ -300,7 +301,7 @@ class TestElasticSearchDocumentInheritance(TestCase):
             raise unittest.SkipTest("elasticsearch-py not installed")
 
         # Create ES document
-        self.obj = models.SearchTestChild(title="Hello")
+        self.obj = models.SearchTestChild(title="Hello", subtitle="World")
         self.obj.save()
         self.es_doc = ElasticSearchDocument(self.obj)
 
@@ -318,6 +319,7 @@ class TestElasticSearchDocumentInheritance(TestCase):
         expected_result = {
             # New
             'extra_content': '',
+            'subtitle': 'World',
             'searchtest_ptr_id_filter': str(self.obj.pk),
 
             # Changed

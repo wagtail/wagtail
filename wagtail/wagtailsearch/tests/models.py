@@ -20,9 +20,11 @@ class SearchTest(models.Model, Indexed):
 
 
 class SearchTestChild(SearchTest):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     extra_content = models.TextField()
 
     search_fields = {
+        'subtitle': dict(partial_match=True),
         'extra_content': dict(),
     }
 

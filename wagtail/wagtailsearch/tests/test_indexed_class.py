@@ -82,6 +82,15 @@ class TestGetSearchFields(TestCase):
                 'type': 'OneToOneField',
                 'attname': 'searchtest_ptr_id'
             },
+            'subtitle': {
+                'filter': False,
+                'search': True,
+                'type': 'CharField',
+                'attname': 'subtitle',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
+            },
             'extra_content': {
                 'filter': False,
                 'search': True,
@@ -145,6 +154,15 @@ class TestGetSearchFields(TestCase):
                 'search': False,
                 'type': 'OneToOneField',
                 'attname': 'searchtest_ptr_id'
+            },
+            'subtitle': {
+                'filter': False,
+                'search': True,
+                'type': 'CharField',
+                'attname': 'subtitle',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
             },
             'extra_content': {
                 'filter': False,
