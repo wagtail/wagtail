@@ -17,11 +17,11 @@ class ElasticSearchQuery(object):
     These queries combine the filters from a Django QuerySet with a query string and
     produce the JSON Query DSL code to be run on an ElasticSearch backend.
     """
-    def __init__(self, query_set, query_string, fields=None):
-        self.query_set = query_set
+    def __init__(self, queryset, query_string, fields=None):
+        self.queryset = queryset
         self.query_string = query_string
         self.fields = fields
-        self._es_type = ElasticSearchType(self.query_set.model)
+        self._es_type = ElasticSearchType(self.queryset.model)
 
     def _get_filters_from_where(self, where_node):
         """
@@ -139,14 +139,14 @@ class ElasticSearchQuery(object):
         # Filter by content type
         filters.append({
             'prefix': {
-                'content_type': self.query_set.model._get_qualified_content_type_name()
+                'content_type': self.queryset.model._get_qualified_content_type_name()
             }
         })
 
         # Apply filters from queryset
-        query_set_filters = self._get_filters_from_where(self.query_set.query.where)
-        if query_set_filters:
-            filters.append(query_set_filters)
+        queryset_filters = self._get_filters_from_where(self.queryset.query.where)
+        if queryset_filters:
+            filters.append(queryset_filters)
 
         return filters
 

@@ -87,8 +87,8 @@ class ElasticSearchResults(BaseSearchResults):
         results = dict((str(pk), None) for pk in pks)
 
         # Find objects in database and add them to dict
-        query_set = self.queryset.filter(pk__in=pks)
-        for obj in query_set:
+        queryset = self.queryset.filter(pk__in=pks)
+        for obj in queryset:
             results[str(obj.pk)] = obj
 
         # Return results in order given by ElasticSearch
