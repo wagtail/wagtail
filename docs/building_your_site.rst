@@ -1,7 +1,13 @@
 Building your site
 ==================
 
-Wagtail manages content internally as a tree of pages. Each node in the tree is an instance of a Django model which subclasses the Wagtail ``Page`` class. You define the structure and interrelationships of your Wagtail site by coding these models and then publishing pages which use the models through the Wagtail admin interface.
+Wagtail requires a little careful setup to define the types of content that you want to present through your website. The basic unit of content in Wagtail is the ``Page``, and all of your page-level content will inherit basic webpage-related properties from it. But for the most part, you will be defining content yourself, through the contruction of Django models using Wagtail's ``Page`` as a base.
+
+Wagtail organizes content created from your models in a tree, which can have any structure and combination of model objects in it. Wagtail doesn't prescribe ways to organize and interrelate your content, but here we've sketched out some strategies for organizing your models.
+
+The presentation of your content, the actual webpages, includes the normal use of the Django template system. We'll cover additional functionality that Wagtail provides at the template level later on.
+
+But first, we'll take a look at the ``Page`` class and model definitions.
 
 
 The Page Class
@@ -73,17 +79,17 @@ So what does a Wagtail model definition look like? Here's a model representing a
     ImageChooserPanel('feed_image'),
   ]
 
-To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your classname. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``date``) and Wagtail models (``feed_image`` and ``body``).
+To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your classname. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
 
+Next, the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the Wagtail admin page edit interface. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The ``ImageChooserPanel``, for instance, lets one browse the image library, upload new images, and input image metadata. The ``RichTextField`` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
 
+Your models may be even more complex, with methods overriding the built-in functionality of the ``Page`` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
 
-
-
-
+Now that we have a basic idea of how our content is defined, lets look at relationships between pieces of content.
 
 
 Introduction to Trees
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 If you're unfamiliar with trees as an abstract data type, you might want to `review the concepts involved. <http://en.wikipedia.org/wiki/Tree_(data_structure)>`_
 
@@ -105,6 +111,7 @@ Nodes and Leaves
 
 It might be handy to think of the ``Page``-derived models you want to create as being one of two node types: parents and leaves. Wagtail isn't prescriptive in this approach, but it's a good place to start if you're not experienced in structuring your own content types.
 
+
 Nodes
 `````
 Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
@@ -124,6 +131,7 @@ A Parent node could provide its own function returning its descendant objects.
       return events
 
 This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live=True``) and are descendants of this node. Wagtail will allow the "illogical" placement of child nodes under a parent, so it's necessary for a parent model to index only those children which make sense.
+
 
 Leaves
 ``````
@@ -148,6 +156,7 @@ The model for the leaf could provide a function that traverses the tree in the o
 
 Since Wagtail doesn't limit what Page-derived classes can be assigned as parents and children, the reverse tree traversal needs to accommodate cases which might not be expected, such as the lack of a "logical" parent to a leaf.
 
+
 Other Relationships
 ```````````````````
 Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). Since there's no restriction on the combination of model classes that can be used at any point in the tree, and it's largely up to the models to define their interrelations, the possibilities are really endless.
@@ -155,8 +164,16 @@ Your ``Page``-derived models might have other interrelationships which extend th
 
 Anatomy of a Wagtail Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-route() -> serve() -> render() -> template
 
+For going beyond the basics of model definition and interrelation, it might help to know how Wagtail handles requests and constructs responses. In short, it goes something like:
+
+  #.  Django gets a request and routes through Wagtail's URL dispatcher definitions
+  #.  Starting from the root content piece, Wagtail traverses the page tree, letting the model for each piece of content along the path decide how to ``route()`` the next step in the path.
+  #.  A model class decides that routing is done and it's now time to ``serve()`` content.
+  #.  The model constructs a context, finds a template to pass it to, and renders the content.
+  #.  The templates are rendered and the response object is sent back to the requester.
+
+You can apply custom behavior to this process by overriding the ``route()`` and ``serve()`` methods of the ``Page`` class in your own models.
 
 
 Model Recipes
@@ -339,9 +356,6 @@ Iterating through ``self.tags.all`` will display each tag associated with ``self
 This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfill even the most exotic taxonomic schemes.
 
 
-
-
-
 Page Data Clusters with ParentalKey
 -----------------------------------
 
@@ -369,7 +383,9 @@ For each of your ``Page``-derived models, Wagtail will look for a template in th
           blog_index_page.html
       models.py
 
-Class names are converted from camel case to underscores. For example, the template for model class ``BlogIndexPage`` would be assumed to be ``blog_index_page.html``. 
+Class names are converted from camel case to underscores. For example, the template for model class ``BlogIndexPage`` would be assumed to be ``blog_index_page.html``. For more information, see the Django documentation for the `application directories template loader`_.
+
+.. _application directories template loader: https://docs.djangoproject.com/en/dev/ref/templates/api/
 
 
 Self
