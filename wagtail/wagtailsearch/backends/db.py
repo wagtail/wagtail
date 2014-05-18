@@ -3,8 +3,6 @@ from django.db import models
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchResults
 from wagtail.wagtailsearch.indexed import Indexed
 
-import string
-
 
 class DBSearchResults(BaseSearchResults):
     def _do_search(self):
@@ -45,6 +43,8 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
+    results_class = DBSearchResults
+
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
 
@@ -65,19 +65,3 @@ class DBSearch(BaseSearch):
 
     def delete(self, obj):
         pass # Not needed
-
-    def search(self, query_set, query_string, fields=None):
-        # Model must be a descendant of Indexed
-        if not issubclass(query_set.model, Indexed):
-            return query_set.none()
-
-        # Clean up query string
-        if query_string is not None:
-            query_string = "".join([c for c in query_string if c not in string.punctuation])
-
-        # Don't search using blank query strings (this upsets ElasticSearch)
-        if query_string == "":
-            return query_set.none()
-
-        # Return search results
-        return DBSearchResults(self, query_set, query_string, fields=fields)

@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-import string
-
 from django.db import models
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
@@ -101,6 +99,8 @@ class ElasticSearch(BaseSearch):
     """
     This represents a connection to an instance of ElasticSearch.
     """
+    results_class = ElasticSearchResults
+
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
 
@@ -278,23 +278,3 @@ class ElasticSearch(BaseSearch):
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
-
-    def search(self, query_set, query_string, fields=None):
-        """
-        This runs a search query on the index.
-        Returns an ElasticSearchResults object.
-        """
-        # Model must be a descendant of Indexed
-        if not issubclass(query_set.model, Indexed):
-            return query_set.none()
-
-        # Clean up query string
-        if query_string is not None:
-            query_string = "".join([c for c in query_string if c not in string.punctuation])
-
-        # Don't search using blank query strings (this upsets ElasticSearch)
-        if query_string == "":
-            return query_set.none()
-
-        # Return search results
-        return ElasticSearchResults(self, query_set, query_string, fields=fields)

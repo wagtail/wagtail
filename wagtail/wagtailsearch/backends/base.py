@@ -3,42 +3,11 @@ from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.wagtailsearch.indexed import Indexed
 
+import string
+
 
 class InvalidSearchBackendError(ImproperlyConfigured):
     pass
-
-
-class BaseSearch(object):
-    def __init__(self, params):
-        pass
-
-    def object_can_be_indexed(self, obj):
-        # Object must be a decendant of Indexed and be a django model
-        if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
-            return False
-
-        return True
-
-    def reset_index(self):
-        return NotImplemented
-
-    def add_type(self, model):
-        return NotImplemented
-
-    def refresh_index(self):
-        return NotImplemented
-
-    def add(self, obj):
-        return NotImplemented
-
-    def add_bulk(self, obj_list):
-        return NotImplemented
-
-    def delete(self, obj):
-        return NotImplemented
-
-    def search(self, query_set, query_string, fields=None):
-        return NotImplemented
 
 
 class BaseSearchResults(object):
@@ -125,3 +94,51 @@ class BaseSearchResults(object):
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
         return repr(data)
+
+
+class BaseSearch(object):
+    results_class = BaseSearchResults
+
+    def __init__(self, params):
+        pass
+
+    def object_can_be_indexed(self, obj):
+        # Object must be a decendant of Indexed and be a django model
+        if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
+            return False
+
+        return True
+
+    def reset_index(self):
+        return NotImplemented
+
+    def add_type(self, model):
+        return NotImplemented
+
+    def refresh_index(self):
+        return NotImplemented
+
+    def add(self, obj):
+        return NotImplemented
+
+    def add_bulk(self, obj_list):
+        return NotImplemented
+
+    def delete(self, obj):
+        return NotImplemented
+
+    def search(self, queryset, query_string, fields=None):
+        # Model must be a descendant of Indexed
+        if not issubclass(queryset.model, Indexed):
+            return queryset.none()
+
+        # Clean up query string
+        if query_string is not None:
+            query_string = "".join([c for c in query_string if c not in string.punctuation])
+
+        # Don't search using blank query strings (this upsets ElasticSearch)
+        if query_string == "":
+            return queryset.none()
+
+        # Return search results
+        return self.results_class(self, queryset, query_string, fields=fields)
