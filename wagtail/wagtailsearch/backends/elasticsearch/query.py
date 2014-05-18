@@ -1,4 +1,5 @@
 from .document import ElasticSearchType
+import json
 
 
 class FilterError(Exception):
@@ -200,3 +201,6 @@ class ElasticSearchQuery(object):
             }
 
         return query
+
+    def __repr__(self):
+        return json.dumps(self.to_es())
