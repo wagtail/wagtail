@@ -32,37 +32,8 @@ class ElasticSearchResults(BaseSearchResults):
             self._query = ElasticSearchQuery(self.queryset, self.query_string, self.fields)
         return self._query
 
-    def _get_pks(self):
-        """
-        This gets a list of primary keys for the results of this query ordered
-        by relevance.
-        """
-        # Get query
-        query = self._get_query().to_es()
-
-        # Params for elasticsearch query
-        params = dict(
-            index=self.backend.es_index,
-            body=dict(query=query),
-            _source=False,
-            fields='pk',
-            from_=self.start,
-        )
-
-        # Add size if set
-        if self.stop is not None:
-            params['size'] = self.stop - self.start
-
-        # Send to ElasticSearch
-        hits = self.backend.es.search(**params)
-
-        # Get pks from results
-        pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
-
-        # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
-        return [pk[0] if isinstance(pk, list) else pk for pk in pks]
-
     def _do_count(self):
+        # Get query
         query = self._get_query().to_es()
 
         # Elasticsearch 1.x
@@ -89,8 +60,30 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
     def _do_search(self):
-        # Get list of PKs from ElasticSearch
-        pks = self._get_pks()
+        # Get query
+        query = self._get_query().to_es()
+
+        # Params for elasticsearch query
+        params = dict(
+            index=self.backend.es_index,
+            body=dict(query=query),
+            _source=False,
+            fields='pk',
+            from_=self.start,
+        )
+
+        # Add size if set
+        if self.stop is not None:
+            params['size'] = self.stop - self.start
+
+        # Send to ElasticSearch
+        hits = self.backend.es.search(**params)
+
+        # Get pks from results
+        pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
+
+        # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
+        pks = [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
