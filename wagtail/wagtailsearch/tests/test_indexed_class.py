@@ -39,17 +39,26 @@ class TestGetSearchFields(TestCase):
                 'filter': True,
                 'search': True,
                 'type': 'CharField',
-                'attname': 'title'
+                'attname': 'title',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
             },
             'callable_indexed_field': {
                 'filter': False,
-                'search': True
+                'search': True,
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'content': {
                 'filter': False,
                 'search': True,
                 'type': 'TextField',
-                'attname': 'content'
+                'attname': 'content',
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'published_date': {
                 'filter': True,
@@ -77,7 +86,10 @@ class TestGetSearchFields(TestCase):
                 'filter': False,
                 'search': True,
                 'type': 'TextField',
-                'attname': 'extra_content'
+                'attname': 'extra_content',
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
 
             # Inherited
@@ -91,17 +103,26 @@ class TestGetSearchFields(TestCase):
                 'filter': True,
                 'search': True,
                 'type': 'CharField',
-                'attname': 'title'
+                'attname': 'title',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
             },
             'callable_indexed_field': {
                 'filter': False,
-                'search': True
+                'search': True,
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'content': {
                 'filter': False,
                 'search': True,
                 'type': 'TextField',
-                'attname': 'content'
+                'attname': 'content',
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'published_date': {
                 'filter': True,
@@ -129,7 +150,10 @@ class TestGetSearchFields(TestCase):
                 'filter': False,
                 'search': True,
                 'type': 'TextField',
-                'attname': 'extra_content'
+                'attname': 'extra_content',
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
         }
 
@@ -145,17 +169,26 @@ class TestGetSearchFields(TestCase):
                 'filter': True,
                 'search': True,
                 'type': 'CharField',
-                'attname': 'title'
+                'attname': 'title',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
             },
             'callable_indexed_field': {
                 'filter': False,
-                'search': True
+                'search': True,
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'content': {
                 'filter': False,
                 'search': True,
                 'type': 'TextField',
-                'attname': 'content'
+                'attname': 'content',
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
         }
 
@@ -183,7 +216,10 @@ class TestGetSearchFields(TestCase):
                 'filter': True,
                 'search': True,
                 'type': 'CharField',
-                'attname': 'title'
+                'attname': 'title',
+                'boost': None,
+                'partial_match': True,
+                'es_extra': {}
             },
             'published_date': {
                 'filter': True,
@@ -242,10 +278,16 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
             'title': {
                 'search': True,
                 'filter': False,
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
             'content': {
                 'search': True,
                 'filter': False,
+                'boost': None,
+                'partial_match': False,
+                'es_extra': {}
             },
         }
 

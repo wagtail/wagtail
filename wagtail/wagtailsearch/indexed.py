@@ -148,7 +148,7 @@ class Indexed(object):
             field_config['filter'] = field in filter_fields
 
             # Extra search configuration
-            if field in search_fields and search_fields[field]:
+            if field in search_fields:
                 field_config['partial_match'] = search_fields[field].get('partial_match', False)
                 field_config['boost'] = search_fields[field].get('boost', None)
                 field_config['es_extra'] = search_fields[field].get('es_extra', {})
