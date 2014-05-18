@@ -182,6 +182,11 @@ class ElasticSearchType(object):
                 'index': 'not_analyzed',
                 'include_in_all': False,
             },
+            'partials': {
+                'type': 'string',
+                'analyzer': 'edgengram_analyzer',
+                'include_in_all': False,
+            }
         }
 
         for name, field in self.get_fields().items():
@@ -226,6 +231,7 @@ class ElasticSearchDocument(object):
         }
 
         # Add fields
+        partials = []
         for name, field in self.es_type.get_fields().items():
             if hasattr(self.obj, field.attname):
                 # Get field value
@@ -244,5 +250,15 @@ class ElasticSearchDocument(object):
                     doc[field.get_search_name()] = value
                 if field.filter_field:
                     doc[field.get_filter_name()] = value
+
+                # Add value to partials if this has partial match enabled
+                if field.partial_match:
+                    partials.append(str(value))
+
+        # Partials must be sorted to allow them to be easily checked in unit tests
+        partials.sort()
+
+        # Add partials to doc
+        doc['partials'] = partials
 
         return doc
