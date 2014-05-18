@@ -14,9 +14,9 @@ class TagSearchable(Indexed):
     """
 
     search_fields = {
-        'title': dict(partial_match=True, boost=100),
-        'get_tags': dict(),
-    )
+        'title': dict(partial_match=True, boost=10),
+        'get_tags': dict(partial_match=True, boost=10),
+    }
 
     @property
     def get_tags(self):
