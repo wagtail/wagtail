@@ -36,10 +36,44 @@ The ``Page`` class actually has alot more to it, but these are probably the only
 Anatomy of a Wagtail Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-So what does a Wagtail model definition look like?
+So what does a Wagtail model definition look like? Here's a model representing a typical blog post:
 
+.. code-block:: python
 
+  from django.db import models
 
+  from wagtail.wagtailcore.models import Page
+  from wagtail.wagtailcore.fields import RichTextField
+  from wagtail.wagtailadmin.edit_handlers import FieldPanel
+  from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+  from wagtail.wagtailimages.models import Image
+
+  class BlogPage(Page):
+    body = RichTextField()
+    date = models.DateField("Post date")
+    feed_image = models.ForeignKey(
+      'wagtailimages.Image',
+      null=True,
+      blank=True,
+      on_delete=models.SET_NULL,
+      related_name='+'
+    )
+
+  BlogPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('date'),
+    FieldPanel('body', classname="full"),
+  ]
+
+  BlogPage.promote_panels = [
+    FieldPanel('slug'),
+    FieldPanel('seo_title'),
+    FieldPanel('show_in_menus'),
+    FieldPanel('search_description'),
+    ImageChooserPanel('feed_image'),
+  ]
+
+To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your classname. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``date``) and Wagtail models (``feed_image`` and ``body``).
 
 
 
