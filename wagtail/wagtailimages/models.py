@@ -4,7 +4,7 @@ import os.path
 from taggit.managers import TaggableManager
 
 from django.core.files import File
-from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist, ValidationError
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
@@ -17,6 +17,8 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
+from .utils import validate_image_format
+
 
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
@@ -34,12 +36,7 @@ class AbstractImage(models.Model, TagSearchable):
             filename = prefix[:-1] + dot + extension
         return os.path.join(folder_name, filename)
 
-    def file_extension_validator(ffile):
-        extension = ffile.name.split(".")[-1].lower()
-        if extension not in ["gif", "jpg", "jpeg", "png"]:
-            raise ValidationError(_("Not a valid image format. Please use a gif, jpeg or png file instead."))
-
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[file_extension_validator])
+    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[validate_image_format])
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
