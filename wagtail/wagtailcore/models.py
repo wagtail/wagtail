@@ -632,7 +632,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         # Yield paths for child pages
         for child in self.get_children().live():
-            for path in child.get_medusa_paths():
+            for path in child.specific.get_medusa_paths():
                 yield '/' + child.slug + path
 
     def get_ancestors(self, inclusive=False):
