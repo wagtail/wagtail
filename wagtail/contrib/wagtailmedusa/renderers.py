@@ -1,5 +1,6 @@
 from django_medusa.renderers import StaticSiteRenderer
 from wagtail.wagtailcore.models import Site
+from wagtail.wagtaildocs.models import Document
 
 
 class PageRenderer(StaticSiteRenderer):
@@ -14,4 +15,10 @@ class PageRenderer(StaticSiteRenderer):
         return site.root_page.get_medusa_paths()
 
 
-renderers = [PageRenderer]
+class DocumentRenderer(StaticSiteRenderer):
+    def get_paths(self):
+        # Return list of paths to documents
+        return (doc.url for doc in Document.objects.all())
+
+
+renderers = [PageRenderer, DocumentRenderer]
