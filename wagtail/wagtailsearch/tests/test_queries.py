@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, unittest
 from StringIO import StringIO
 from wagtail.tests.utils import unittest
 
