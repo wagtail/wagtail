@@ -16,12 +16,13 @@ def validate_image_format(f):
     if extension not in ['gif', 'jpeg', 'png']:
         raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension."))
 
-    # Open image file
-    file_position = f.tell()
-    f.seek(0)
-    image = Image.open(f)
-    f.seek(file_position)
+    if not f.closed:
+        # Open image file
+        file_position = f.tell()
+        f.seek(0)
+        image = Image.open(f)
+        f.seek(file_position)
 
-    # Check that the internal format matches the extension
-    if image.format.upper() != extension.upper():
-        raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension.") % (extension.upper()))
+        # Check that the internal format matches the extension
+        if image.format.upper() != extension.upper():
+            raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension.") % (extension.upper()))
