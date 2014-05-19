@@ -1,5 +1,5 @@
 from django_medusa.renderers import StaticSiteRenderer
-from .models import Site
+from wagtail.wagtailcore.models import Site
 
 
 class PageRenderer(StaticSiteRenderer):
