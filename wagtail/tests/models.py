@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
+from django.conf.urls import url
+from django.http import HttpResponse
 
 from modelcluster.fields import ParentalKey
 
@@ -12,6 +14,7 @@ from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsearch import indexed
+from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -383,9 +386,31 @@ class SearchTestOldConfig(models.Model, indexed.Indexed):
         },
     }
 
+
 class SearchTestOldConfigList(models.Model, indexed.Indexed):
     """
     This tests that the Indexed class can correctly handle models that
     use the old "indexed_fields" configuration format using a list.
     """
     indexed_fields = ['title', 'content']
+
+
+def routable_page_external_view(request, arg):
+    return HttpResponse("EXTERNAL VIEW: " + arg)
+
+class RoutablePageTest(RoutablePage):
+    subpage_urls = (
+        url(r'^$', 'serve', name='main'),
+        url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
+        url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
+        url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
+    )
+
+    def archive_by_year(self, request, year):
+        return HttpResponse("ARCHIVE BY YEAR: " + str(year))
+
+    def archive_by_author(self, request, author_slug):
+        return HttpResponse("ARCHIVE BY AUTHOR: " + author_slug)
+
+    def serve(self, request):
+        return HttpResponse("SERVE VIEW")
