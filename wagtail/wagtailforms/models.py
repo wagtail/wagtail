@@ -140,12 +140,16 @@ class AbstractForm(Page):
     class Meta:
         abstract = True
 
+    def get_form_parameters(self):
+        return {}
+
     def serve(self, request):
         fb = self.form_builder(self.form_fields.all())
         form_class = fb.get_form_class()
+        form_params = self.get_form_parameters()
 
         if request.method == 'POST':
-            self.form = form_class(request.POST)
+            self.form = form_class(request.POST, **form_params)
 
             if self.form.is_valid():
                 # remove csrf_token from form.data
@@ -170,7 +174,7 @@ class AbstractForm(Page):
                     'self': self,
                 })
         else:
-            self.form = form_class()
+            self.form = form_class(**form_params)
 
         return render(request, self.template, {
             'self': self,

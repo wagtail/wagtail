@@ -8,7 +8,7 @@ class TestFormSubmission(TestCase):
 
     def test_get_form(self):
         response = self.client.get('/contact-us/')
-        self.assertContains(response, "Your email")
+        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
         self.assertNotContains(response, "Thank you for your feedback")
 
     def test_post_invalid_form(self):
