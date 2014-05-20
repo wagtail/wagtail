@@ -26,7 +26,7 @@ Then add 'django_medusa' and 'wagtail.contrib.wagtailmedusa' to INSTALLED_APPS:
 
 
 Replacing GET parameters with custom routing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Pages which require GET parameters (eg, pagination) don't generate suitable filenames for generated HTML files so they need to be changed to use custom routing instead.
 
