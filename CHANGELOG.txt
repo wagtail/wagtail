@@ -24,6 +24,7 @@ Changelog
  * Fix: Page slugs are now validated on page edit
  * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
  * Fix: Moving or changing a site root page no longer causes URLs for subpages to change to 'None'
+ * Fix: Eliminated raw SQL queries from wagtailcore / wagtailadmin, to ensure cross-database compatibility
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~

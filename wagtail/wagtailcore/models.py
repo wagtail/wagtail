@@ -638,17 +638,9 @@ def get_navigation_menu_items():
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
     navigable_content_type_ids = get_navigable_page_content_type_ids()
     if navigable_content_type_ids:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR content_type_id IN %s OR depth = 2
-            ORDER BY path
-        """, [tuple(navigable_content_type_ids)])
+        pages = Page.objects.filter(Q(content_type__in=navigable_content_type_ids)|Q(depth=2)|Q(numchild__gt=0)).order_by('path')
     else:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR depth = 2
-            ORDER BY path
-        """)
+        pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)

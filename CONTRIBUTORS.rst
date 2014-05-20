@@ -25,6 +25,7 @@ Contributors
 * Miguel Vieira
 * Ben Emery
 * David Smith
+* Ben Margolis
 
 Translators
 ===========

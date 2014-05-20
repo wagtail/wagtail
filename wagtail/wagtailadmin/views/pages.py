@@ -41,28 +41,6 @@ def index(request, parent_page_id=None):
 
 
 @permission_required('wagtailadmin.access_admin')
-def select_type(request):
-    # Get the list of page types that can be created within the pages that currently exist
-    existing_page_types = ContentType.objects.raw("""
-        SELECT DISTINCT content_type_id AS id FROM wagtailcore_page
-    """)
-
-    all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
-    page_types = set()
-    for content_type in existing_page_types:
-        allowed_subpage_types = content_type.model_class().clean_subpage_types()
-        for subpage_type in allowed_subpage_types:
-            subpage_content_type = ContentType.objects.get_for_model(subpage_type)
-
-            page_types.add(subpage_content_type)
-
-    return render(request, 'wagtailadmin/pages/select_type.html', {
-        'page_types': page_types,
-        'all_page_types': all_page_types
-    })
-
-
-@permission_required('wagtailadmin.access_admin')
 def add_subpage(request, parent_page_id):
     parent_page = get_object_or_404(Page, id=parent_page_id).specific
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
@@ -76,38 +54,6 @@ def add_subpage(request, parent_page_id):
         'page_types': page_types,
         'all_page_types': all_page_types,
     })
-
-
-@permission_required('wagtailadmin.access_admin')
-def select_location(request, content_type_app_name, content_type_model_name):
-    try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
-
-    page_class = content_type.model_class()
-    # page_class must be a Page type and not some other random model
-    if not issubclass(page_class, Page):
-        raise Http404
-
-    # find all the valid locations (parent pages) where a page of the chosen type can be added
-    parent_pages = page_class.allowed_parent_pages()
-
-    if len(parent_pages) == 0:
-        # user cannot create a page of this type anywhere - fail with an error
-        messages.error(request, _("Sorry, you do not have access to create a page of type <em>'{0}'</em>.").format(content_type.name))
-        return redirect('wagtailadmin_pages_select_type')
-    elif len(parent_pages) == 1:
-        # only one possible location - redirect them straight there
-        messages.warning(request, _("Pages of this type can only be created as children of <em>'{0}'</em>. This new page will be saved there.").format(parent_pages[0].title))
-        return redirect('wagtailadmin_pages_create', content_type_app_name, content_type_model_name, parent_pages[0].id)
-    else:
-        # prompt them to select a location
-        return render(request, 'wagtailadmin/pages/select_location.html', {
-            'content_type': content_type,
-            'page_class': page_class,
-            'parent_pages': parent_pages,
-        })
 
 
 @permission_required('wagtailadmin.access_admin')

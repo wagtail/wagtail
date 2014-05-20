@@ -116,7 +116,7 @@ img{
 }
 
 .nav-wrapper{
-    @include box-shadow(inset -2px 0px 10px 0px rgba(0, 0, 0, 0.5));
+    @include box-shadow(inset -5px 0px 5px -3px rgba(0, 0, 0, 0.3));
     position:relative;
     background: $color-grey-1;
     margin-left: -100%;
@@ -777,13 +777,8 @@ footer, .logo{
     .wrapper{
         max-width:$breakpoint-desktop-larger;
     }
-    .nav-wrapper{
-        @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-
-        .inner{
-            background:$color-grey-1;
-            @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-        }
+    .nav-wrapper .inner{
+         background:$color-grey-1;
     }
 
     footer{

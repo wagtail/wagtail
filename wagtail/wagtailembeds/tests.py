@@ -8,6 +8,20 @@ class TestEmbeds(TestCase):
     def setUp(self):
         self.hit_count = 0
 
+    def dummy_finder(self, url, max_width=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'thumbnail_url': '',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+        }
+
     def test_get_embed(self):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
 
@@ -31,19 +45,22 @@ class TestEmbeds(TestCase):
         embed = get_embed('www.test.com/4321', finder=self.dummy_finder)
         self.assertEqual(self.hit_count, 3)
 
-    def dummy_finder(self, url, max_width=None):
-        # Up hit count
-        self.hit_count += 1
-
-        # Return a pretend record
+    def dummy_finder_invalid_width(self, url, max_width=None):
+        # Return a record with an invalid width
         return {
             'title': "Test: " + url,
             'type': 'video',
             'thumbnail_url': '',
-            'width': max_width if max_width else 640,
+            'width': '100%',
             'height': 480,
             'html': "<p>Blah blah blah</p>",
         }
+
+    def test_invalid_width(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder_invalid_width)
+
+        # Width must be set to None
+        self.assertEqual(embed.width, None)
 
 
 class TestChooser(TestCase):
