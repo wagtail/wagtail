@@ -79,11 +79,11 @@ class AbstractFormField(Orderable):
 
     panels = [
         FieldPanel('label'),
-        FieldPanel('field_type', classname="formbuilder-type"),
+        FieldPanel('help_text'),
         FieldPanel('required'),
+        FieldPanel('field_type', classname="formbuilder-type"),
         FieldPanel('choices', classname="formbuilder-choices"),
         FieldPanel('default_value', classname="formbuilder-default"),
-        FieldPanel('help_text'),
     ]
 
     class Meta:
