@@ -4,11 +4,6 @@
     CSS declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
 
-{% comment %}
-    TODO: have a mechanism for sub-apps to specify their own declarations -
-    ideally wagtailadmin shouldn't have to know anything at all about wagtailimages and friends
-{% endcomment %}
-
 {% compress css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/page-editor.scss" type="text/x-scss" />
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/panels/rich-text.scss" type="text/x-scss" />

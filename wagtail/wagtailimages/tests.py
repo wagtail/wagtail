@@ -4,9 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-import unittest2 as unittest
-
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, unittest
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 

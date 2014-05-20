@@ -1,7 +1,6 @@
 from django.test import TestCase
-import unittest2 as unittest
 from wagtail.tests.models import SimplePage, EventPage
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, unittest
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
 
@@ -35,32 +34,6 @@ class TestPageExplorer(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.root_page, response.context['parent_page'])
         self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
-
-
-class TestPageSelectTypeLocation(TestCase):
-    def setUp(self):
-        # Find root page
-        self.root_page = Page.objects.get(id=2)
-
-        # Login
-        login(self.client)
-
-    def test_select_type(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_type'))
-        self.assertEqual(response.status_code, 200)
-
-    @unittest.expectedFailure # For some reason, this returns a 302...
-    def test_select_location_testpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('tests', 'eventpage')))
-        self.assertEqual(response.status_code, 200)
-
-    def test_select_location_nonexistanttype(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('notanapp', 'notamodel')))
-        self.assertEqual(response.status_code, 404)
-
-    def test_select_location_nonpagetype(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('wagtailimages', 'image')))
-        self.assertEqual(response.status_code, 404)
 
 
 class TestPageCreation(TestCase):
