@@ -53,13 +53,13 @@ For example, lets say we have a Blog Index which uses pagination. We can overrid
 Rendering pages which use custom routing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For page types that override the route method, we need to let django medusa know which URLs it responds on. This is done by overriding the 'get_staticsite_paths' method to make it yield one string per URL path.
+For page types that override the route method, we need to let django medusa know which URLs it responds on. This is done by overriding the 'get_static_site_paths' method to make it yield one string per URL path.
 
 For example, the BlogIndex above would need to yield one URL for each page of results:
 
 .. code:: python
 
-    def get_staticsite_paths(self):
+    def get_static_site_paths(self):
         # Get page count
         page_count = ...
 
@@ -68,7 +68,7 @@ For example, the BlogIndex above would need to yield one URL for each page of re
             yield '/%d/' % (page + 1)
 
         # Yield from superclass
-        for path in super(BlogIndex, self).get_staticsite_paths():
+        for path in super(BlogIndex, self).get_static_site_paths():
             yield path
 
 

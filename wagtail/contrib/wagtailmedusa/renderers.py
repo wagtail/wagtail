@@ -12,7 +12,7 @@ class PageRenderer(StaticSiteRenderer):
             return []
 
         # Return list of paths
-        return site.root_page.get_staticsite_paths()
+        return site.root_page.get_static_site_paths()
 
 
 class DocumentRenderer(StaticSiteRenderer):
