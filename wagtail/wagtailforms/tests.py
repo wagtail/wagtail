@@ -8,7 +8,7 @@ class TestFormSubmission(TestCase):
 
     def test_get_form(self):
         response = self.client.get('/contact-us/')
-        self.assertContains(response, "Your email")
+        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
         self.assertNotContains(response, "Thank you for your feedback")
 
     def test_post_invalid_form(self):
@@ -38,14 +38,14 @@ class TestFormsBackend(TestCase):
 
         self.client.login(username='eventeditor', password='password')
         response = self.client.get('/admin/forms/')
-        self.assertFalse(response.context['form_pages'].filter(id=form_page.id).exists())
+        self.assertFalse(form_page in response.context['form_pages'])
 
     def test_can_see_forms_with_permission(self):
         form_page = Page.objects.get(url_path='/home/contact-us/')
 
         self.client.login(username='siteeditor', password='password')
         response = self.client.get('/admin/forms/')
-        self.assertTrue(response.context['form_pages'].filter(id=form_page.id).exists())
+        self.assertTrue(form_page in response.context['form_pages'])
 
     def test_can_get_submissions(self):
         form_page = Page.objects.get(url_path='/home/contact-us/')

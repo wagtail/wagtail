@@ -2,6 +2,12 @@ import django.forms
 from django.utils.datastructures import SortedDict
 
 
+class BaseForm(django.forms.Form):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        return super(BaseForm, self).__init__(*args, **kwargs)
+
+
 class FormBuilder():
     formfields = SortedDict()
 
@@ -67,7 +73,7 @@ class FormBuilder():
         return django.forms.BooleanField(**options)
 
     def get_form_class(self):
-        return type('WagtailForm', (django.forms.Form,), self.formfields)
+        return type('WagtailForm', (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):
