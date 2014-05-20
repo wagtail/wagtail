@@ -10,7 +10,7 @@ It supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support
 
    gettingstarted
    building_your_site
-   panels
+   editing_api
    snippets
    wagtail_search
    advanced_topics
