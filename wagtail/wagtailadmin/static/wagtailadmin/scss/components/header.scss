@@ -115,10 +115,6 @@ header{
         padding-top:1.5em;
         padding-bottom:1.5em;
 
-        &.nice-padding{
-            @include nice-padding();
-        }
-
         .left{
             float:left;
             margin-right:0;
