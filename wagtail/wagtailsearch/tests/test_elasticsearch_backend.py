@@ -1,4 +1,4 @@
-import unittest2 as unittest
+from wagtail.tests.utils import unittest
 import json
 import datetime
 
