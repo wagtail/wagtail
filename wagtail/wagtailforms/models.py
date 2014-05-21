@@ -131,12 +131,12 @@ class AbstractForm(Page):
         form_params = self.get_form_parameters()
 
         if request.method == 'POST':
-            self.form = form_class(request.POST, **form_params)
+            form = form_class(request.POST, **form_params)
 
-            if self.form.is_valid():
+            if form.is_valid():
                 # remove csrf_token from form.data
                 form_data = dict(
-                    i for i in self.form.data.items()
+                    i for i in form.data.items()
                     if i[0] != 'csrfmiddlewaretoken'
                 )
 
@@ -148,7 +148,7 @@ class AbstractForm(Page):
                 # If we have a form_processing_backend call its process method
                 if hasattr(self, 'form_processing_backend'):
                     form_processor = self.form_processing_backend()
-                    form_processor.process(self, self.form)
+                    form_processor.process(self, form)
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
@@ -156,11 +156,11 @@ class AbstractForm(Page):
                     'self': self,
                 })
         else:
-            self.form = form_class(**form_params)
+            form = form_class(**form_params)
 
         return render(request, self.template, {
             'self': self,
-            'form': self.form,
+            'form': form,
         })
 
     def get_page_modes(self):
