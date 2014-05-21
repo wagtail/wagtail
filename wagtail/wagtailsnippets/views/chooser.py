@@ -6,10 +6,7 @@ from django.contrib.auth.decorators import permission_required
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
 
-import six
-
-if six.PY2:
-    str = unicode
+from six import text_type
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -39,7 +36,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
 
     snippet_json = json.dumps({
         'id': item.id,
-        'string': str(item),
+        'string': text_type(item),
     })
 
     return render_modal_workflow(

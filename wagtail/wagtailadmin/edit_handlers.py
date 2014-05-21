@@ -22,10 +22,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
 
-import six
-
-if six.PY2:
-    str = unicode
+from six import text_type
 
 
 class FriendlyDateInput(forms.DateInput):
@@ -365,7 +362,7 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = [
-            str(self.form[field_name])
+            text_type(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
