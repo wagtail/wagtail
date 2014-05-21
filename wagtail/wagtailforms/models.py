@@ -7,7 +7,7 @@ from unidecode import unidecode
 import json
 import re
 
-from wagtail.wagtailcore.models import PageBase, Page, Orderable, UserPagePermissionsProxy, get_page_types
+from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailforms.backends.email import EmailFormProcessor
 
@@ -107,21 +107,8 @@ def get_forms_for_user(user):
     return editable_pages.filter(content_type__in=get_form_types())
 
 
-class FormBase(PageBase):
-    """Metaclass for Forms"""
-    def __init__(cls, name, bases, dct):
-        super(FormBase, cls).__init__(name, bases, dct)
-
-        if not cls.is_abstract:
-            # Check if form_processing_backend is ok
-            if hasattr(cls, 'form_processing_backend'):
-                cls.form_processing_backend.validate_usage(cls)
-
-
 class AbstractForm(Page):
     """A Form Page. Pages implementing a form should inhert from it"""
-
-    __metaclass__ = FormBase
 
     form_builder = FormBuilder
     is_abstract = True  # Don't display me in "Add"
