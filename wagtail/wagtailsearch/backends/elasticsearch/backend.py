@@ -25,14 +25,15 @@ class ElasticSearchResults(BaseSearchResults):
         new._query = self._query
         return new
 
-    def _get_query(self):
+    @property
+    def query(self):
         if self._query is None:
             self._query = ElasticSearchQuery(self.queryset, self.query_string, self.fields)
         return self._query
 
     def _do_count(self):
         # Get query
-        query = self._get_query().to_es()
+        query = self.query.to_es()
 
         # Elasticsearch 1.x
         count = self.backend.es.count(
@@ -59,7 +60,7 @@ class ElasticSearchResults(BaseSearchResults):
 
     def _do_search(self):
         # Get query
-        query = self._get_query().to_es()
+        query = self.query.to_es()
 
         # Params for elasticsearch query
         params = dict(
