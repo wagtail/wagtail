@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
@@ -9,7 +7,7 @@ from unidecode import unidecode
 import json
 import re
 
-from wagtail.wagtailcore.models import PageBase, Page, Orderable, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import PageBase, Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailforms.backends.email import EmailFormProcessor
 
@@ -91,15 +89,14 @@ class AbstractFormField(Orderable):
         ordering = ['sort_order']
 
 
-FORM_MODEL_CLASSES = []
-_FORM_CONTENT_TYPES = []
-
+_FORM_CONTENT_TYPES = None
 
 def get_form_types():
     global _FORM_CONTENT_TYPES
-    if len(_FORM_CONTENT_TYPES) != len(FORM_MODEL_CLASSES):
+    if _FORM_CONTENT_TYPES is None:
         _FORM_CONTENT_TYPES = [
-            ContentType.objects.get_for_model(cls) for cls in FORM_MODEL_CLASSES
+            ct for ct in get_page_types()
+            if issubclass(ct.model_class(), AbstractForm)
         ]
     return _FORM_CONTENT_TYPES
 
@@ -116,8 +113,6 @@ class FormBase(PageBase):
         super(FormBase, cls).__init__(name, bases, dct)
 
         if not cls.is_abstract:
-            # register this type in the list of page content types
-            FORM_MODEL_CLASSES.append(cls)
             # Check if form_processing_backend is ok
             if hasattr(cls, 'form_processing_backend'):
                 cls.form_processing_backend.validate_usage(cls)
