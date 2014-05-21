@@ -8,4 +8,4 @@ register = template.Library()
 
 @register.filter
 def richtext(value):
-    return mark_safe(expand_db_html(value))
+    return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')

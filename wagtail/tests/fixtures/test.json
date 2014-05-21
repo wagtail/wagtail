@@ -142,6 +142,29 @@
 },
 
 {
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "About us",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010002",
+        "url_path": "/home/about-us/",
+        "slug": "about-us"
+    }
+},
+{
+    "pk": 7,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>We are really good.</p>"
+    }
+},
+
+{
     "pk": 1,
     "model": "wagtailcore.site",
     "fields": {

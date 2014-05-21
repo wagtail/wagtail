@@ -1,13 +1,8 @@
 from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, unittest
 from six import StringIO
-
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
 
 
 class TestHitCounter(TestCase):

@@ -26,6 +26,8 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
 * Tests! But not enough; we're working hard to improve this
 
+It supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support are in progress.
+
 Find out more at `wagtail.io <http://wagtail.io/>`_. Documentation is at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_.
 
 Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
