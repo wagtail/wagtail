@@ -115,7 +115,7 @@ img{
 }
 
 .nav-wrapper{
-    @include box-shadow(inset -2px 0px 10px 0px rgba(0, 0, 0, 0.5));
+    @include box-shadow(inset -5px 0px 5px -3px rgba(0, 0, 0, 0.3));
     position:relative;
     background: $color-grey-1;
     margin-left: -100%;
@@ -185,6 +185,10 @@ img{
                 background-color:$color-grey-1;
             }
 
+            a:before{
+                font-size:1.2rem;
+            }
+
             .menu-snippets &.menu-snippets,
             .menu-users &.menu-users,
             .menu-snippets &.menu-snippets,
@@ -197,20 +201,6 @@ img{
                 a{
                     color:white;
                 }
-
-                /*
-                &:after{
-                    content: " ";
-                    width: 0px;
-                    height: 0px;
-                    display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 0.9em;
-                    border: 0.7em solid #fff;
-                    border-color: transparent #fff transparent transparent;
-                }
-                */
             }
         }
 
@@ -414,7 +404,7 @@ header{
             width:1em;
             display:none;
             margin-right:0.4em;
-            font-size:1.5em;
+            font-size:1.3em;
         }
     }
 
@@ -914,13 +904,8 @@ footer, .logo{
     .wrapper{
         max-width:$breakpoint-desktop-larger;
     }
-    .nav-wrapper{
-        @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-
-        .inner{
-            background:$color-grey-1;
-            @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-        }
+    .nav-wrapper .inner{
+         background:$color-grey-1;
     }
 
     footer{

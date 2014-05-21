@@ -271,7 +271,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return self.url_path
 
-    @transaction.commit_on_success  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
+    @transaction.atomic  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
         update_descendant_url_paths = False
 
@@ -294,6 +294,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         if update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
+
+        # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
+        if Site.objects.filter(root_page=self).exists():
+            cache.delete('wagtail_site_root_paths')
+
         return result
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
@@ -302,6 +307,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
             update_statement = """
                 UPDATE wagtailcore_page
                 SET url_path = %s || substr(url_path, %s)
+                WHERE path LIKE %s AND id <> %s
+            """
+        elif connection.vendor == 'mysql':
+            update_statement = """
+                UPDATE wagtailcore_page
+                SET url_path= CONCAT(%s, substring(url_path, %s))
                 WHERE path LIKE %s AND id <> %s
             """
         else:
@@ -532,7 +543,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return (not self.live) and (not self.get_descendants().filter(live=True).exists())
 
-    @transaction.commit_on_success  # only commit when all descendants are properly updated
+    @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
         Extension to the treebeard 'move' method to ensure that url_path is updated too.
@@ -563,7 +574,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         url = self.full_url
         if url:
             url_info = urlparse(url)
-            hostname = url_info.netloc
+            hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or 80
         else:
@@ -608,6 +619,19 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return self.serve(self.dummy_request())
 
+    def get_static_site_paths(self):
+        """
+        This is a generator of URL paths to feed into a static site generator
+        Override this if you would like to create static versions of subpages
+        """
+        # Yield paths for this page
+        yield '/'
+
+        # Yield paths for child pages
+        for child in self.get_children().live():
+            for path in child.specific.get_static_site_paths():
+                yield '/' + child.slug + path
+
     def get_ancestors(self, inclusive=False):
         return Page.objects.ancestor_of(self, inclusive)
 
@@ -624,17 +648,9 @@ def get_navigation_menu_items():
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
     navigable_content_type_ids = get_navigable_page_content_type_ids()
     if navigable_content_type_ids:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR content_type_id IN %s OR depth = 2
-            ORDER BY path
-        """, [tuple(navigable_content_type_ids)])
+        pages = Page.objects.filter(Q(content_type__in=navigable_content_type_ids)|Q(depth=2)|Q(numchild__gt=0)).order_by('path')
     else:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR depth = 2
-            ORDER BY path
-        """)
+        pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
