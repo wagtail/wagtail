@@ -1,7 +1,7 @@
 import sys
 import os
-from StringIO import StringIO
-from urlparse import urlparse
+from six import StringIO
+from six.moves.urllib.parse import urlparse
 
 import six
 
