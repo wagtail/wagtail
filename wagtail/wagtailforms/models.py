@@ -9,7 +9,7 @@ import re
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailforms.backends.email import EmailFormProcessor
+from wagtail.wagtailadmin import tasks
 
 from .forms import FormBuilder
 
@@ -125,6 +125,18 @@ class AbstractForm(Page):
     def get_form_parameters(self):
         return {}
 
+    def process_form_submission(self, form):
+        # remove csrf_token from form.data
+        form_data = dict(
+            i for i in form.data.items()
+            if i[0] != 'csrfmiddlewaretoken'
+        )
+
+        FormSubmission.objects.create(
+            form_data=json.dumps(form_data),
+            page=self,
+        )
+
     def serve(self, request):
         fb = self.form_builder(self.form_fields.all())
         form_class = fb.get_form_class()
@@ -134,17 +146,7 @@ class AbstractForm(Page):
             form = form_class(request.POST, **form_params)
 
             if form.is_valid():
-                # remove csrf_token from form.data
-                form_data = dict(
-                    i for i in form.data.items()
-                    if i[0] != 'csrfmiddlewaretoken'
-                )
-
-                FormSubmission.objects.create(
-                    form_data=json.dumps(form_data),
-                    page=self,
-                )
-
+                self.process_form_submission(form)
                 # If we have a form_processing_backend call its process method
                 if hasattr(self, 'form_processing_backend'):
                     form_processor = self.form_processing_backend()
@@ -181,11 +183,18 @@ class AbstractForm(Page):
 class AbstractEmailForm(AbstractForm):
     """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
     is_abstract = True  # Don't display me in "Add"
-    form_processing_backend = EmailFormProcessor
 
     to_address = models.CharField(max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
     from_address = models.CharField(max_length=255, blank=True)
     subject = models.CharField(max_length=255, blank=True)
+
+    def process_form_submission(self, form):
+        super(AbstractEmailForm, self).process_form_submission(form)
+
+        if self.to_address:
+            content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
+            tasks.send_email_task.delay(self.subject, content, [self.to_address], self.from_address,)
+
 
     class Meta:
         abstract = True
