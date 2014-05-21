@@ -356,10 +356,7 @@ Iterating through ``self.tags.all`` will display each tag associated with ``self
 This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfill even the most exotic taxonomic schemes.
 
 
-Page Data Clusters with ParentalKey
------------------------------------
 
-The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page.
 
 
 
