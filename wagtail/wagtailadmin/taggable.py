@@ -14,16 +14,8 @@ class TagSearchable(Indexed):
     """
 
     search_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-        'get_tags': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
+        'title': dict(partial_match=True, boost=10),
+        'get_tags': dict(partial_match=True, boost=10),
     }
 
     @property

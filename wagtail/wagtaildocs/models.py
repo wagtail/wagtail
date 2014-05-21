@@ -21,14 +21,7 @@ class Document(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    indexed_fields = {
-        'uploaded_by_user_id': {
-            'type': 'integer',
-            'store': 'yes',
-            'indexed': 'no',
-            'boost': 0,
-        },
-    }
+    search_filter_fields = ['uploaded_by_user']
 
     def __unicode__(self):
         return self.title

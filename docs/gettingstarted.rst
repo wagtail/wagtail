@@ -102,12 +102,17 @@ Required dependencies
 =====================
 
 -  `pip <https://github.com/pypa/pip>`_
+-  `libjpeg <http://ijg.org/>`_
+-  `libxml2 <http://xmlsoft.org/>`_
+-  `libxslt <http://xmlsoft.org/XSLT/>`_
+-  `zlib <http://www.zlib.net/>`_
 
 Optional dependencies
 =====================
 
 -  `PostgreSQL`_
 -  `Elasticsearch`_
+-  `Redis`_
 
 Installation
 ============
@@ -137,6 +142,7 @@ with a regular Django project.
 .. _the Wagtail codebase: https://github.com/torchbox/wagtail
 .. _PostgreSQL: http://www.postgresql.org
 .. _Elasticsearch: http://www.elasticsearch.org
+.. _Redis: http://redis.io/
 
 _`Remove the demo app`
 ~~~~~~~~~~~~~~~~~~~~~~

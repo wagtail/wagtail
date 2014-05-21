@@ -24,6 +24,8 @@ Contributors
 * v1kku
 * Miguel Vieira
 * Ben Emery
+* David Smith
+* Ben Margolis
 
 Translators
 ===========

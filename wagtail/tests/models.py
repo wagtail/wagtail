@@ -1,11 +1,11 @@
 from django.db import models
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsearch import Indexed
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -187,31 +187,49 @@ class EventIndex(Page):
     intro = RichTextField(blank=True)
     ajax_template = 'tests/includes/event_listing.html'
 
-    def get_context(self, request):
+    def get_events(self):
+        return self.get_children().live().type(EventPage)
+
+    def get_paginator(self):
+        return Paginator(self.get_events(), 4)
+
+    def get_context(self, request, page=1):
+        # Pagination
+        paginator = self.get_paginator()
+        try:
+            events = paginator.page(page)
+        except PageNotAnInteger:
+            events = paginator.page(1)
+        except EmptyPage:
+            events = paginator.page(paginator.num_pages)
+
+        # Update context
         context = super(EventIndex, self).get_context(request)
-        context['events'] = EventPage.objects.filter(live=True)
+        context['events'] = events
         return context
+
+    def route(self, request, path_components):
+        if self.live and len(path_components) == 1:
+            try:
+                return self.serve(request, page=int(path_components[0]))
+            except (TypeError, ValueError):
+                pass
+
+        return super(EventIndex, self).route(request, path_components)
+
+    def get_static_site_paths(self):
+        # Get page count
+        page_count = self.get_paginator().num_pages
+
+        # Yield a path for each page
+        for page in range(page_count):
+            yield '/%d/' % (page + 1)
+
+        # Yield from superclass
+        for path in super(EventIndex, self).get_static_site_paths():
+            yield path
 
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
 ]
-
-
-# For testing search
-class SearchTest(models.Model, Indexed):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    live = models.BooleanField(default=False)
-    published_date = models.DateField(null=True)
-
-    search_fields = ('title', 'content', 'callable_indexed_field')
-
-    def callable_indexed_field(self):
-        return "Callable"
-
-
-class SearchTestChild(SearchTest):
-    extra_content = models.TextField()
-
-    search_fields = 'extra_content'

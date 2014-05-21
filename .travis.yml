@@ -12,7 +12,7 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 elasticsearch==0.4.4 wand
+  - pip install psycopg2 elasticsearch wand
   - pip install coveralls unittest2
 # Pre-test configuration
 before_script:
