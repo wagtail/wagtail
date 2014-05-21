@@ -22,6 +22,11 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
 
+import six
+
+if six.PY2:
+    str = unicode
+
 
 class FriendlyDateInput(forms.DateInput):
     """
