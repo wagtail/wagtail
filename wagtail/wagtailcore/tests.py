@@ -162,6 +162,47 @@ class TestServeView(TestCase):
         self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
 
+class TestStaticSitePaths(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=1)
+
+        # For simple tests
+        self.home_page = self.root_page.add_child(instance=SimplePage(title="Homepage", slug="home"))
+        self.about_page = self.home_page.add_child(instance=SimplePage(title="About us", slug="about"))
+        self.contact_page = self.home_page.add_child(instance=SimplePage(title="Contact", slug="contact"))
+
+        # For custom tests
+        self.event_index = self.root_page.add_child(instance=EventIndex(title="Events", slug="events"))
+        for i in range(20):
+            self.event_index.add_child(instance=EventPage(title="Event " + str(i), slug="event" + str(i)))
+
+    def test_local_static_site_paths(self):
+        paths = list(self.about_page.get_static_site_paths())
+
+        self.assertEqual(paths, ['/'])
+
+    def test_child_static_site_paths(self):
+        paths = list(self.home_page.get_static_site_paths())
+
+        self.assertEqual(paths, ['/', '/about/', '/contact/'])
+
+    def test_custom_static_site_paths(self):
+        paths = list(self.event_index.get_static_site_paths())
+
+        # Event index path
+        expected_paths = ['/']
+
+        # One path for each page of results
+        expected_paths.extend(['/' + str(i + 1) + '/' for i in range(5)])
+
+        # One path for each event page
+        expected_paths.extend(['/event' + str(i) + '/' for i in range(20)])
+
+        paths.sort()
+        expected_paths.sort()
+        self.assertEqual(paths, expected_paths)
+
+
 class TestPageUrlTags(TestCase):
     fixtures = ['test.json']
 
