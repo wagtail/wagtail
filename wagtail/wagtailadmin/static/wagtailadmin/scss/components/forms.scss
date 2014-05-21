@@ -67,6 +67,41 @@ input, textarea, select, .richtext, .tagit{
     }
 }
 
+/* select boxes */
+.typed_choice_field .input{
+    position:relative;
+
+    select{
+        outline:none;
+    }
+
+    &:after{
+        @include border-radius(0 6px 6px 0);
+        z-index:0;
+        position:absolute;
+        right:1px;
+        top:1px;
+        height:95%;
+        width:1.5em;
+        font-family:wagtail;
+        content:"q";
+        border:1px solid $color-input-border;
+        border-width:0 0 0 1px;
+        text-align:center;
+        line-height:1.4em;
+        font-size:3em;
+        pointer-events:none;
+        color:$color-grey-3;
+        background-color:$color-fieldset-hover;
+        margin:0px 1px 0 0;
+    }
+
+    .ie &:after{
+        display:none;
+    }
+}
+
+/* radio and check boxes */
 input[type=radio], input[type=checkbox]{
     @include border-radius(0);
     cursor:pointer;
@@ -415,7 +450,7 @@ li.focused > .help{
 
 .fields li{
     padding-top:0.5em;
-    padding-bottom:1em;
+    padding-bottom:1.2em;
 }
 
 .field-content .input li{
@@ -636,6 +671,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .image_field &,
         .file_field &{
             padding-top:0;
+        }
+
+        .boolean_field &{
+            padding-bottom:0;
         }
     }
 
