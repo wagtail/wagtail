@@ -11,6 +11,7 @@
 @import "components/listing.scss";
 @import "components/messages.scss";
 @import "components/formatters.scss";
+@import "components/header.scss";
 
 @import "fonts.scss";
 
@@ -115,7 +116,7 @@ img{
 }
 
 .nav-wrapper{
-    @include box-shadow(inset -2px 0px 10px 0px rgba(0, 0, 0, 0.5));
+    @include box-shadow(inset -5px 0px 5px -3px rgba(0, 0, 0, 0.3));
     position:relative;
     background: $color-grey-1;
     margin-left: -100%;
@@ -384,88 +385,6 @@ body.explorer-open {
         }
     }
 }
-
-header{
-    padding-top:1em;
-    padding-bottom:1em;
-    background-color: $color-header-bg;
-    margin-bottom:2em;
-    color:white;
-
-    h1, h2{
-        margin:0;
-        color:white;
-    }
-
-    h1{
-        padding:0.2em 0;
-
-        &.icon:before{
-            width:1em;
-            display:none;
-            margin-right:0.4em;
-            font-size:1.5em;
-        }
-    }
-
-    .col{
-        float:left;
-        margin-right:2em;
-    }
-    .left{
-        float:left;
-
-        .hasform &:first-child{
-            padding-bottom:0.5em;
-            float:none;
-        }
-    }
-        .search-bar input{
-           @include border-radius(3px);
-            width:auto;
-            border-width:0;
-        }
-    .right{
-        text-align:right;
-        float:right;
-    }
-
-    /* For case where content below header should merge with it */
-    &.merged{
-        margin-bottom:0;
-    }
-    &.tab-merged, &.no-border{
-        border:0;
-    }
-    &.merged.no-border{
-        padding-bottom:0;
-    }
-    &.no-v-padding{
-        padding-top:0;
-        padding-bottom:0;
-    }
-    /*
-    &.hasform h1{
-        margin-top:0.2em;
-    }
-    */
-    .button{
-        background-color:$color-teal-darker;
-        &:hover{
-            background-color:$color-teal-dark;
-        }
-    }
-    /* necessary on mobile only to make way for hamburger menu */
-    &.nice-padding{
-        padding-left:4em;
-    }
-}
-
-.page-explorer header{
-    margin-bottom:0;
-    padding-bottom:0em;
-}
-
 
 footer{
     @include row();
@@ -832,52 +751,6 @@ footer, .logo{
         }
     }
 
-    header{
-        padding-top:1.5em;
-        padding-bottom:1.5em;
-
-        &.nice-padding{
-            @include nice-padding();
-        }
-
-        .left{
-            float:left;
-            margin-right:0;
-
-            &:first-child{
-                padding-bottom:0;
-                float:left;
-            }
-        }
-        .second{
-            clear:none;
-
-            .right, .left{
-                float:right;
-            }
-        }
-
-        h1.icon:before{
-            display:inline-block;
-        }
-
-        .col3{
-            @include column(3);
-        }
-        .col3.addbutton{
-            width:auto;
-        }
-        .col6{
-            @include column(6);
-        }
-        .col9{
-            @include column(9);
-        }
-        .breadcrumb{
-            margin-left:-($desktop-nice-padding);
-            margin-right:-($desktop-nice-padding);
-        }
-    }
     footer{
         width:80%;
         margin-left:50px;
@@ -904,13 +777,8 @@ footer, .logo{
     .wrapper{
         max-width:$breakpoint-desktop-larger;
     }
-    .nav-wrapper{
-        @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-
-        .inner{
-            background:$color-grey-1;
-            @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-        }
+    .nav-wrapper .inner{
+         background:$color-grey-1;
     }
 
     footer{
