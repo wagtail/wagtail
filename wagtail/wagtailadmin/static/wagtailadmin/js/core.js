@@ -128,7 +128,7 @@ $(function(){
         $(window.headerSearch.termInput).trigger('focus');
 
         function search () {
-            var workingClasses = "working icon icon-spinner";
+            var workingClasses = "icon-spinner";
 
             $(window.headerSearch.termInput).parent().addClass(workingClasses);
             search_next_index++;
