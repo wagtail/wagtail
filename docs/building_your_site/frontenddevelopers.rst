@@ -51,6 +51,13 @@ The syntax for displaying/manipulating an image is thus::
 
     {% image [image] [method]-[dimension(s)] %}
 
+For example::
+
+    {% image self.photo width-400 %}
+
+    <!-- or a square thumbnail: -->
+    {% image self.photo fill-80x80 %}
+
 The ``image`` is the Django object refering to the image. If your page model defined a field called "photo" then ``image`` would probably be ``self.photo``. The ``method`` defines which resizing algorithm to use and ``dimension(s)`` provides height and/or width values (as ``[height]`` or ``[width]x[height]``) to refine that algorithm.
 
 Note that a space separates ``image`` and ``method``, but not ``method`` and ``dimensions``. A hyphen between ``width`` and ``dimensions`` is mandatory.
