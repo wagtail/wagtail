@@ -60,7 +60,7 @@ For example::
 
 The ``image`` is the Django object refering to the image. If your page model defined a field called "photo" then ``image`` would probably be ``self.photo``. The ``method`` defines which resizing algorithm to use and ``dimension(s)`` provides height and/or width values (as ``[width|height]`` or ``[width]x[height]``) to refine that algorithm.
 
-Note that a space separates ``image`` and ``method``, but not ``method`` and ``dimensions``. A hyphen between ``width`` and ``dimensions`` is mandatory.
+Note that a space separates ``image`` and ``method``, but not ``method`` and ``dimensions``: a hyphen between ``method`` and ``dimensions`` is mandatory. Multiple dimensions must be separated by an ``x``.
 
 The available ``method`` s are:
 
