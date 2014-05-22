@@ -13,7 +13,7 @@ MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 if not settings.configured:
 
     try:
-        import elasticutils
+        import elasticsearch
         has_elasticsearch = True
     except ImportError:
         has_elasticsearch = False
@@ -80,7 +80,9 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
+            'wagtail.wagtaileditorspicks',
             'wagtail.tests',
+            'wagtail.wagtailsearch.tests',
         ],
 
         # Using DatabaseCache to make sure that the cache is cleared between tests.

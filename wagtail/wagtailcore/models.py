@@ -22,7 +22,7 @@ from treebeard.mp_tree import MP_Node
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from wagtail.wagtailsearch import Indexed
 
 
 class SiteManager(models.Manager):
@@ -179,6 +179,9 @@ class PageManager(models.Manager):
     def not_type(self, model):
         return self.get_query_set().not_type(model)
 
+    def search(self, query_string, fields=None):
+        return self.get_query_set().search(query_string, fields=fields)
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -232,21 +235,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    indexed_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 100,
-        },
-        'live': {
-            'type': 'boolean',
-            'index': 'not_analyzed',
-        },
-        'path': {
-            'type': 'string',
-            'index': 'not_analyzed',
-        },
+    search_fields = {
+        'title': dict(partial_match=True, boost=100),
     }
+    search_filter_fields = ['slug', 'live', 'owner', 'path', 'depth']
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -459,14 +451,20 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
+        # Create query set
+        query_set = cls.objects.all()
+
         # Filters
-        filters = extra_filters.copy()
         if not show_unpublished:
-            filters['live'] = True
+            query_set = query_set.filter(live=True)
+        query_set = query_set.filter(**extra_filters)
 
         # Path
         if path:
-            filters['path__startswith'] = path
+            query_set = query_set.filter(path__startswith = path)
+
+        # Prefetch related
+        query_set = query_set.prefetch_related(*prefetch_related)
 
         # Fields
         fields = None
@@ -474,8 +472,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             fields = ['title']
 
         # Search
-        s = get_search_backend()
-        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return query_set.search(query_string, fields=fields)
 
     @classmethod
     def clean_subpage_types(cls):

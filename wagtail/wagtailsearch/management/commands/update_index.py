@@ -20,25 +20,20 @@ class Command(BaseCommand):
         # Eg, if BlogPost inherits from Page and both of these models are indexed
         # If we were to add all objects from both models into the index, all the BlogPosts will have two entries
         for model in indexed_models:
-            # Get toplevel content type
-            toplevel_content_type = model.indexed_get_toplevel_content_type()
+            # Get base content type
+            base_content_type = model._get_base_content_type_name()
 
             # Loop through objects
             for obj in model.objects.all():
-                # Check if this object has an "object_indexed" function
-                if hasattr(obj, "object_indexed"):
-                    if obj.object_indexed() is False:
-                        continue
-
                 # Get key for this object
-                key = toplevel_content_type + ":" + str(obj.pk)
+                key = base_content_type + ':' + str(obj.pk)
 
                 # Check if this key already exists
                 if key in object_set:
                     # Conflict, work out who should get this space
-                    # The object with the longest content type string gets the space
+                    # The object with the longest qualified content type string gets the space
                     # Eg, "wagtailcore.Page-myapp.BlogPost" kicks out "wagtailcore.Page"
-                    if len(obj.indexed_get_content_type()) > len(object_set[key].indexed_get_content_type()):
+                    if len(obj._get_qualified_content_type_name()) > len(object_set[key]._get_qualified_content_type_name()):
                         # Take the spot
                         object_set[key] = obj
                 else:
@@ -62,10 +57,8 @@ class Command(BaseCommand):
 
         # Add objects to index
         self.stdout.write("Adding objects")
-        results = s.add_bulk(object_set.values())
-        if results:
-            for result in results:
-                self.stdout.write(result[0] + ' ' + str(result[1]))
+        for result in s.add_bulk(object_set.values()):
+            self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
         self.stdout.write("Refreshing index")
