@@ -1,13 +1,15 @@
 from django.utils.text import slugify
 from django.utils.html import format_html
 
+from six import text_type
+
 
 class MenuItem(object):
     def __init__(self, label, url, name=None, classnames='', order=1000):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(label))
+        self.name = (name or slugify(text_type(label)))
         self.order = order
 
     def render_html(self):
