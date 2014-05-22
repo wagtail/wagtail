@@ -82,8 +82,6 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     except EmptyPage:
         pages = paginator.page(paginator.num_pages)
 
-    print page_class
-
     return render(request, 'wagtailadmin/pages/content_type_use.html', {
         'pages': pages,
         'app_name': content_type_app_name,

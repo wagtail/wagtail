@@ -13,6 +13,8 @@ It supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support
    wagtail_search
    deploying
    performance
+   form_builder
+   static_site_generation
    contributing
    support
    roadmap

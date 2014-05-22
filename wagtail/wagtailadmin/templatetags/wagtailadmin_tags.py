@@ -8,6 +8,7 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy
 from wagtail.wagtailcore.util import camelcase_to_underscore
 
+
 register = template.Library()
 
 
