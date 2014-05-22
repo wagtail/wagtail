@@ -1,6 +1,9 @@
 Advanced Topics
 ~~~~~~~~~~~~~~~~
 
+.. note::
+    This documentation is currently being written.
+
 replacing image processing backend
 
 custom image processing tags?

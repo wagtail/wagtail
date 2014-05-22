@@ -2,6 +2,10 @@
 Editing API
 ===========
 
+.. note::
+    This documentation is currently being written.
+    
+
 Wagtail provides a highly-customizable editing interface consisting of several components:
 
   * **Fields** — built-in content types to augment the basic types provided by Django.
@@ -93,6 +97,8 @@ If you're interested in extending the capabilities of the Wagtail editor, See :r
 Images
 ------
 
+.. code-block:: python
+
   from wagtail.wagtailimages.models import Image
 
   feed_image = models.ForeignKey(
@@ -107,6 +113,8 @@ Images
 Documents
 ---------
 
+.. code-block:: python
+
   from wagtail.wagtaildocs.models import Document
 
   link_document = models.ForeignKey(
@@ -119,6 +127,8 @@ Documents
 
 Pages and Page-derived Models
 -----------------------------
+
+.. code-block:: python
 
   from wagtail.wagtailcore.models import Page
 
@@ -136,6 +146,8 @@ Snippets (and Basic Django Models?)
 --------
 
 Snippets are not not subclasses, so you must include the model class directly. A chooser is provided which takes the snippet class.
+
+.. code-block:: python
 
   advert = models.ForeignKey(
     'demo.Advert',
