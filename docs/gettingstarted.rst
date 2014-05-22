@@ -4,7 +4,7 @@ Getting Started
 On Ubuntu
 ~~~~~~~~~
 
-If you have a fresh instance of Ubuntu 13.04 or 13.10, you can install Wagtail,
+If you have a fresh instance of Ubuntu 13.04 or later, you can install Wagtail,
 along with a demonstration site containing a set of standard templates and page
 types, in one step. As the root user::
 
