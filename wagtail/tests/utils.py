@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 
+
 # We need to make sure that we're using the same unittest library that Django uses internally
 # Otherwise, we get issues with the "SkipTest" and "ExpectedFailure" exceptions being recognised as errors
 try:

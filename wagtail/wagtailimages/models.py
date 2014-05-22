@@ -20,22 +20,23 @@ from wagtail.wagtailimages.backends import get_image_backend
 from .utils import validate_image_format
 
 
+
+def get_upload_to(image, filename):
+    folder_name = 'original_images'
+    filename = image.file.field.storage.get_valid_name(filename)
+
+    # do a unidecode in the filename and then
+    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+    while len(os.path.join(folder_name, filename)) >= 95:
+        prefix, dot, extension = filename.rpartition('.')
+        filename = prefix[:-1] + dot + extension
+    return os.path.join(folder_name, filename)
+
+
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
-
-    def get_upload_to(self, filename):
-        folder_name = 'original_images'
-        filename = self.file.field.storage.get_valid_name(filename)
-
-        # do a unidecode in the filename and then
-        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
-
-        while len(os.path.join(folder_name, filename)) >= 95:
-            prefix, dot, extension = filename.rpartition('.')
-            filename = prefix[:-1] + dot + extension
-        return os.path.join(folder_name, filename)
-
     file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[validate_image_format])
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -190,17 +191,16 @@ class Filter(models.Model):
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
-        
+
         method = getattr(backend, self.method_name)
 
         image = method(image, self.method_arg)
 
         output = StringIO.StringIO()
         backend.save_image(image, output, file_format)
-        
+
         # and then close the input file
         input_file.close()
-        
 
         # generate new filename derived from old one, inserting the filter spec string before the extension
         input_filename_parts = os.path.basename(input_file.name).split('.')
@@ -210,7 +210,11 @@ class Filter(models.Model):
         output_filename = '.'.join(output_filename_parts)
 
         output_file = File(output, name=output_filename)
-        
+
+        # Django 1.7 has a bug where it will attempt to get the file size after
+        # the file has been closed. This initialises the size cache so it doesn't
+        # perform that check
+        output_file._size = output.tell()
 
         return output_file
 

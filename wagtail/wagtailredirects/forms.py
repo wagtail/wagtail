@@ -8,3 +8,4 @@ class RedirectForm(forms.ModelForm):
 
     class Meta:
         model = models.Redirect
+        exclude = tuple()

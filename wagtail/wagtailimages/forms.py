@@ -11,7 +11,10 @@ def get_image_form():
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
         # a bit pointless here
-        widgets={'file': forms.FileInput()})
+        widgets={'file': forms.FileInput()},
+
+        exclude=tuple()
+    )
 
 
 class ImageInsertionForm(forms.Form):

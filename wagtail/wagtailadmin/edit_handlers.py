@@ -212,8 +212,8 @@ def get_form_for_model(
     if fields is not None:
         attrs['fields'] = fields
 
-    if exclude is not None:
-        attrs['exclude'] = exclude
+    attrs['exclude'] = exclude or []
+
     if issubclass(model, Page):
         attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path', 'depth', 'numchild']
 

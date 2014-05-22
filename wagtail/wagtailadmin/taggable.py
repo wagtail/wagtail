@@ -35,9 +35,9 @@ class TagSearchable(Indexed):
         # Run search query
         search_backend = get_search_backend()
         if prefetch_tags:
-            results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)
+            results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters, fields=['title', 'get_tags'])
         else:
-            results = search_backend.search(q, cls, filters=filters)
+            results = search_backend.search(q, cls, filters=filters, fields=['title', 'get_tags'])
 
         # If results_per_page is set, return a paginator
         if results_per_page is not None:
