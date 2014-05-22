@@ -95,6 +95,9 @@ The available ``method`` s are:
     Wagtail *does not allow deforming or stretching images*. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
 
+To request the "original" version of an image, it is suggested you use the lack of upscalling support by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown, at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+
+
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
