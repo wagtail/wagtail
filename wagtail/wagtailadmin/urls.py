@@ -43,7 +43,7 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^$', home.home, name='wagtailadmin_home'),
-
+    url(r'^version/$', home.version, name='wagtailadmin_version'),
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
