@@ -622,6 +622,19 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return self.serve(self.dummy_request())
 
+    def get_static_site_paths(self):
+        """
+        This is a generator of URL paths to feed into a static site generator
+        Override this if you would like to create static versions of subpages
+        """
+        # Yield paths for this page
+        yield '/'
+
+        # Yield paths for child pages
+        for child in self.get_children().live():
+            for path in child.specific.get_static_site_paths():
+                yield '/' + child.slug + path
+
     def get_ancestors(self, inclusive=False):
         return Page.objects.ancestor_of(self, inclusive)
 
@@ -638,17 +651,9 @@ def get_navigation_menu_items():
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
     navigable_content_type_ids = get_navigable_page_content_type_ids()
     if navigable_content_type_ids:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR content_type_id IN %s OR depth = 2
-            ORDER BY path
-        """, [tuple(navigable_content_type_ids)])
+        pages = Page.objects.filter(Q(content_type__in=navigable_content_type_ids)|Q(depth=2)|Q(numchild__gt=0)).order_by('path')
     else:
-        pages = Page.objects.raw("""
-            SELECT * FROM wagtailcore_page
-            WHERE numchild > 0 OR depth = 2
-            ORDER BY path
-        """)
+        pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -794,6 +799,37 @@ class UserPagePermissionsProxy(object):
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
 
+    def editable_pages(self):
+        """Return a queryset of the pages that this user has permission to edit"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        # Translate each of the user's permission rules into a Q-expression
+        q_expressions = []
+        for perm in self.permissions:
+            if perm.permission_type == 'add':
+                # user has edit permission on any subpage of perm.page
+                # (including perm.page itself) that is owned by them
+                q_expressions.append(
+                    Q(path__startswith=perm.page.path, owner=self.user)
+                )
+            elif perm.permission_type == 'edit':
+                # user has edit permission on any subpage of perm.page
+                # (including perm.page itself) regardless of owner
+                q_expressions.append(
+                    Q(path__startswith=perm.page.path)
+                )
+
+        if q_expressions:
+            all_rules = q_expressions[0]
+            for expr in q_expressions[1:]:
+                all_rules = all_rules | expr
+            return Page.objects.filter(all_rules)
+        else:
+            return Page.objects.none()
 
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):

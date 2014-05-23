@@ -49,8 +49,6 @@ urlpatterns += [
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
-    url(r'^pages/new/$', pages.select_type, name='wagtailadmin_pages_select_type'),
-    url(r'^pages/new/(\w+)/(\w+)/$', pages.select_location, name='wagtailadmin_pages_select_location'),
     url(r'^pages/new/(\w+)/(\w+)/(\d+)/$', pages.create, name='wagtailadmin_pages_create'),
     url(r'^pages/new/(\w+)/(\w+)/(\d+)/preview/$', pages.preview_on_create, name='wagtailadmin_pages_preview_on_create'),
     url(r'^pages/usage/(\w+)/(\w+)/$', pages.content_type_use, name='wagtailadmin_pages_type_use'),

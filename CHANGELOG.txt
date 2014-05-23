@@ -5,7 +5,9 @@ Changelog
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
  * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
+ * Added support for generating static sites using django-medusa
  * Added custom Query set for Pages with some handy methods for querying pages
+ * Added 'wagtailforms' module for creating form pages on a site, and handling form submissions
  * Editor's guide documentation
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
@@ -24,6 +26,8 @@ Changelog
  * Fix: Page slugs are now validated on page edit
  * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
  * Fix: Moving or changing a site root page no longer causes URLs for subpages to change to 'None'
+ * Fix: Eliminated raw SQL queries from wagtailcore / wagtailadmin, to ensure cross-database compatibility
+ * Fix: Snippets menu item is hidden for administrators if no snippet types are defined
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
