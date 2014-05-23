@@ -38,7 +38,7 @@ Getting started
 
 Documentation
 ~~~~~~~~~~~~~
-`wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_.
+Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_. and always being updated.
 
 Compatibility
 ~~~~~~~~~~~~~
