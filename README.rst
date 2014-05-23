@@ -42,7 +42,7 @@ Documentation
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtao; supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support are in progress.
+Wagtail supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support are in progress.
 
 Contributing
 ~~~~~~~~~~~~
