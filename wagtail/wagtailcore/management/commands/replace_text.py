@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.management.base import BaseCommand
 from django.db import models
 
@@ -24,7 +26,7 @@ class Command(BaseCommand):
             revision.save(update_fields=['content_json'])
 
         for content_type in get_page_types():
-            print "scanning %s" % content_type.name
+            print("scanning %s" % content_type.name)
             page_class = content_type.model_class()
 
             try:

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
-import models
+from .models import Query, EditorsPick
 
 
 class QueryForm(forms.Form):
@@ -20,14 +20,14 @@ class EditorsPickForm(forms.ModelForm):
         self.fields['page'].widget = forms.HiddenInput()
 
     class Meta:
-        model = models.EditorsPick
+        model = EditorsPick
 
         widgets = {
             'description': forms.Textarea(attrs=dict(rows=3)),
         }
 
 
-EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
+EditorsPickFormSetBase = inlineformset_factory(Query, EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
 
 
 class EditorsPickFormSet(EditorsPickFormSetBase):

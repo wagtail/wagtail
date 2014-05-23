@@ -3,6 +3,7 @@ import os.path
 from taggit.managers import TaggableManager
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.dispatch import Signal
@@ -13,6 +14,7 @@ from django.utils.translation import ugettext_lazy  as _
 from wagtail.wagtailadmin.taggable import TagSearchable
 
 
+@python_2_unicode_compatible
 class Document(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.FileField(upload_to='documents' , verbose_name=_('File'))
@@ -30,7 +32,7 @@ class Document(models.Model, TagSearchable):
         },
     }
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property

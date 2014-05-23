@@ -11,7 +11,7 @@ except ImportError:
 from django.utils import six
 import sys
 from django.conf import settings
-from base import InvalidSearchBackendError
+from .base import InvalidSearchBackendError
 
 
 # Pinched from django 1.7 source code.

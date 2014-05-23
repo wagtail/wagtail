@@ -22,6 +22,8 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.util import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
 
+from six import text_type
+
 
 class FriendlyDateInput(forms.DateInput):
     """
@@ -360,12 +362,12 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = [
-            unicode(self.form[field_name])
+            text_type(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
 
-        return mark_safe(u''.join(missing_fields_html))
+        return mark_safe(''.join(missing_fields_html))
 
     def render_form_content(self):
         """
@@ -425,7 +427,7 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
     def render_js(self):
-        return mark_safe(u'\n'.join([handler.render_js() for handler in self.children]))
+        return mark_safe('\n'.join([handler.render_js() for handler in self.children]))
 
     def rendered_fields(self):
         result = []

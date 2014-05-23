@@ -3,7 +3,7 @@ A generic HTML whitelisting engine, designed to accommodate subclassing to overr
 specific rules.
 """
 from bs4 import BeautifulSoup, NavigableString, Tag
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
@@ -80,7 +80,7 @@ class Whitelister(object):
         """Clean up an HTML string to contain just the allowed elements / attributes"""
         doc = BeautifulSoup(html, 'lxml')
         cls.clean_node(doc, doc)
-        return unicode(doc)
+        return doc.decode()
 
     @classmethod
     def clean_node(cls, doc, node):

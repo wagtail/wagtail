@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.management.base import BaseCommand
 
 from wagtail.wagtailcore.models import Page
@@ -15,8 +17,8 @@ class Command(BaseCommand):
         pages = from_page.get_children()
 
         # Move the pages
-        print 'Moving ' + str(len(pages)) + ' pages from "' + from_page.title + '" to "' + to_page.title + '"'
+        print('Moving ' + str(len(pages)) + ' pages from "' + from_page.title + '" to "' + to_page.title + '"')
         for page in pages:
             page.move(to_page, pos='last-child')
 
-        print 'Done'
+        print('Done')

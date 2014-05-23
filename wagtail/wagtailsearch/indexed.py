@@ -1,4 +1,5 @@
 from django.db import models
+import six
 
 
 class Indexed(object):
@@ -37,7 +38,7 @@ class Indexed(object):
         indexed_fields = cls.indexed_fields
         if isinstance(indexed_fields, tuple):
             indexed_fields = list(indexed_fields)
-        if isinstance(indexed_fields, basestring):
+        if isinstance(indexed_fields, six.string_types):
             indexed_fields = [indexed_fields]
         if isinstance(indexed_fields, list):
             indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
@@ -49,7 +50,7 @@ class Indexed(object):
         if parent:
             # Add parent fields into this list
             parent_indexed_fields = parent.indexed_get_indexed_fields()
-            indexed_fields = dict(parent_indexed_fields.items() + indexed_fields.items())
+            indexed_fields = dict(list(parent_indexed_fields.items()) + list(indexed_fields.items()))
         return indexed_fields
 
     def indexed_get_document_id(self):

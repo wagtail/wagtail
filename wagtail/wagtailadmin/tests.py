@@ -4,6 +4,11 @@ from wagtail.tests.utils import login, unittest
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
 
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
+
 
 class TestHome(TestCase):
     def setUp(self):
