@@ -14,10 +14,31 @@ https://docs.djangoproject.com/en/dev/topics/templates/
 Python programmers new to Django/Wagtail may prefer more technical documentation: 
 https://docs.djangoproject.com/en/dev/ref/templates/api/
 
-========================
-Page content and variables
-========================
+==========================
+Displaying Pages
+==========================
 
+Template Location
+-----------------
+
+For each of your ``Page``-derived models, Wagtail will look for a template in the following location, relative to your project root::
+
+    project/
+        app/
+            templates/
+                app/
+                    blog_index_page.html
+            models.py
+
+Class names are converted from camel case to underscores. For example, the template for model class ``BlogIndexPage`` would be assumed to be ``blog_index_page.html``. For more information, see the Django documentation for the `application directories template loader`_.
+
+.. _application directories template loader: https://docs.djangoproject.com/en/dev/ref/templates/api/
+
+
+Self
+----
+
+By default, the context passed to a model's template consists of two properties: ``self`` and ``request``. ``self`` is the model object being displayed. ``request`` is the normal Django request object. So, to include the title of a ``Page``, use ``{{ self.title }}``.
 
 ========================
 Static files (css, js, images)
@@ -104,13 +125,41 @@ The available ``method`` s are:
 
 To request the "original" version of an image, it is suggested you rely on the lack of upscalling support by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown, at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
 
-
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
+This filter is required for use with any ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display. **Note that the template tag loaded differs from the name of the filter.**
+
+.. code-block:: django
+
+    {% load rich_text %}
+    ...
+    {{ body|richtext }}
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
+
+**pageurl**
+
+Takes a ``Page``-derived object and returns its URL as relative (``/foo/bar/``) if it's within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
+
+.. code-block:: django
+
+    {% load pageurl %}
+    ...
+    <a href="{% pageurl blog %}">
+
+**slugurl**
+
+Takes a ``slug`` string and returns the URL for the ``Page``-derived object with that slug. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site.
+
+.. code-block:: django
+
+    {% load slugurl %}
+    ...
+    <a href="{% slugurl blogslug %}">
+
+
 
 
 Static files (tag)
@@ -121,7 +170,15 @@ Misc
 ~~~~~~~~~~
 
 
+
 ========================
 Wagtail User Bar
 ========================
 
+This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object.
+
+.. code-block:: django
+
+    {% load wagtailuserbar %}
+    ...
+    {% wagtailuserbar %}
