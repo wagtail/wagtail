@@ -127,7 +127,7 @@ Lets also add a simple interface for the search with a ``<input>`` element to ga
     <div id="json-results"></div>
   </div>
 
-Finally, we'll use JQuery to make the aynchronous requests and handle the interactivity:
+Finally, we'll use JQuery to make the asynchronous requests and handle the interactivity:
 
 .. code-block:: guess
  
@@ -186,7 +186,7 @@ Results are returned as a JSON object with this structure:
     ]
   }
 
-What if you wanted access to the rest of the results context or didn't feel like using JSON? Wagtail also provides a generalized AJAX interface where you can use your own template to serve results asyncronously.
+What if you wanted access to the rest of the results context or didn't feel like using JSON? Wagtail also provides a generalized AJAX interface where you can use your own template to serve results asynchronously.
 
 The AJAX interface uses the same view as the normal HTML search, ``wagtailsearch_search``, but will serve different results if Django classifies the request as AJAX (``request.is_ajax()``). Another entry in your project settings will let you override the template used to serve this response:
 
@@ -194,7 +194,7 @@ The AJAX interface uses the same view as the normal HTML search, ``wagtailsearch
 
   WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
 
-In this template, you'll have access to the same context variablies provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits`` and editor's picks, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
+In this template, you'll have access to the same context variables provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits`` and editor's picks, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
 
 .. _editors-picks:
 

@@ -4,7 +4,7 @@ For Django developers
 .. note::
     This documentation is currently being written.
 
-Wagtail requires a little careful setup to define the types of content that you want to present through your website. The basic unit of content in Wagtail is the ``Page``, and all of your page-level content will inherit basic webpage-related properties from it. But for the most part, you will be defining content yourself, through the contruction of Django models using Wagtail's ``Page`` as a base.
+Wagtail requires a little careful setup to define the types of content that you want to present through your website. The basic unit of content in Wagtail is the ``Page``, and all of your page-level content will inherit basic webpage-related properties from it. But for the most part, you will be defining content yourself, through the construction of Django models using Wagtail's ``Page`` as a base.
 
 Wagtail organizes content created from your models in a tree, which can have any structure and combination of model objects in it. Wagtail doesn't prescribe ways to organize and interrelate your content, but here we've sketched out some strategies for organizing your models.
 
@@ -82,7 +82,7 @@ So what does a Wagtail model definition look like? Here's a model representing a
         ImageChooserPanel('feed_image'),
     ]
 
-To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your classname. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
+To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your class name. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
 
 Next, the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the Wagtail admin page edit interface. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The ``ImageChooserPanel``, for instance, lets one browse the image library, upload new images, and input image metadata. The ``RichTextField`` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
 
@@ -117,23 +117,28 @@ It might be handy to think of the ``Page``-derived models you want to create as 
 
 Nodes
 `````
-Parent nodes on the Wagtail tree probably want to organize and display a browsable index of their descendents. A blog, for instance, needs a way to show a list of individual posts.
+Parent nodes on the Wagtail tree probably want to organize and display a browse-able index of their descendants. A blog, for instance, needs a way to show a list of individual posts.
 
 A Parent node could provide its own function returning its descendant objects.
 
 .. code-block:: python
 
     class EventPageIndex(Page):
-        ...
+        # ...
         def events(self):
-            # Get list of event pages that are descendants of this page
-            events = EventPage.objects.filter(
-                live=True,
-                path__startswith=self.path
-            )
+            # Get list of live event pages that are descendants of this page
+            events = EventPage.objects.live().descendant_of(self)
+
+            # Filter events list to get ones that are either
+            # running now or start in the future
+            events = events.filter(date_from__gte=date.today())
+
+            # Order by date
+            events = events.order_by('date_from')
+
             return events
 
-This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live=True``) and are descendants of this node. Wagtail will allow the "illogical" placement of child nodes under a parent, so it's necessary for a parent model to index only those children which make sense.
+This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live()``) and are children of this node (``descendant_of(self)``). By setting a ``subpage_types`` class property in your model, you can specify which models are allowed to be set as children, but Wagtail will allow any ``Page``-derived model by default. Regardless, it's smart for a parent model to provide an index filtered to make sense.
 
 
 Leaves
@@ -146,23 +151,18 @@ The model for the leaf could provide a function that traverses the tree in the o
 
 .. code-block:: python
 
-    class BlogPage(Page):
-        ...
-        def blog_index(self):
-            # Find blog index in ancestors
-            for ancestor in reversed(self.get_ancestors()):
-                if isinstance(ancestor.specific, BlogIndexPage):
-                    return ancestor
+    class EventPage(Page):
+        # ...
+        def event_index(self):
+            # Find closest ancestor which is an event index
+            return self.get_ancestors().type(EventIndexPage).last()
 
-            # No ancestors are blog indexes, just return first blog index in database
-            return BlogIndexPage.objects.first()
-
-Since Wagtail doesn't limit what Page-derived classes can be assigned as parents and children, the reverse tree traversal needs to accommodate cases which might not be expected, such as the lack of a "logical" parent to a leaf.
+If defined, ``subpage_types`` will also limit the parent models allowed to contain a leaf. If not, Wagtail will allow any combination of parents and leafs to be associated in the Wagtail tree. Like with index pages, it's a good idea to make sure that the index is actually of the expected model to contain the leaf.
 
 
 Other Relationships
 ```````````````````
-Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). Since there's no restriction on the combination of model classes that can be used at any point in the tree, and it's largely up to the models to define their interrelations, the possibilities are really endless.
+Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). It's largely up to the models to define their interrelations, the possibilities are really endless.
 
 
 Anatomy of a Wagtail Request
@@ -173,10 +173,105 @@ For going beyond the basics of model definition and interrelation, it might help
     #.  Django gets a request and routes through Wagtail's URL dispatcher definitions
     #.  Starting from the root content piece, Wagtail traverses the page tree, letting the model for each piece of content along the path decide how to ``route()`` the next step in the path.
     #.  A model class decides that routing is done and it's now time to ``serve()`` content.
-    #.  The model constructs a context, finds a template to pass it to, and renders the content.
-    #.  The templates are rendered and the response object is sent back to the requester.
+    #.  ``serve()`` constructs a context using ``get_context()``
+    #.  ``serve()`` finds a template to pass it to using ``get_template()``
+    #.  A response object is returned by ``serve()`` and Django responds to the requester.
 
-You can apply custom behavior to this process by overriding the ``route()`` and ``serve()`` methods of the ``Page`` class in your own models.
+You can apply custom behavior to this process by overriding ``Page`` class methods such as ``route()`` and ``serve()`` in your own models. For examples, see :ref:`model_recipes`.
+
+
+Page Properties and Methods Reference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
+
+Properties:
+
+specific
+url
+full_url
+relative_url
+has_unpublished_changes
+status_string
+subpage_types
+indexed_fields
+
+
+Methods:
+
+route
+serve
+get_context
+get_template
+is_navigable
+get_other_siblings
+get_ancestors
+get_descendants
+get_siblings
+search
+get_page_modes
+show_as_mode
+
+
+
+
+
+Page Queryset Methods
+~~~~~~~~~~~~~~~~~~~~~
+
+The ``Page`` class uses a custom Django model manager which provides these methods for structuring queries on ``Page`` objects.
+
+get_query_set()
+    return PageQuerySet(self.model).order_by('path')
+
+live(self):
+    return self.get_query_set().live()
+
+not_live(self):
+    return self.get_query_set().not_live()
+
+page(self, other):
+    return self.get_query_set().page(other)
+
+not_page(self, other):
+    return self.get_query_set().not_page(other)
+
+descendant_of(self, other, inclusive=False):
+    return self.get_query_set().descendant_of(other, inclusive)
+
+not_descendant_of(self, other, inclusive=False):
+    return self.get_query_set().not_descendant_of(other, inclusive)
+
+child_of(self, other):
+    return self.get_query_set().child_of(other)
+
+not_child_of(self, other):
+    return self.get_query_set().not_child_of(other)
+
+ancestor_of(self, other, inclusive=False):
+    return self.get_query_set().ancestor_of(other, inclusive)
+
+not_ancestor_of(self, other, inclusive=False):
+    return self.get_query_set().not_ancestor_of(other, inclusive)
+
+parent_of(self, other):
+    return self.get_query_set().parent_of(other)
+
+not_parent_of(self, other):
+    return self.get_query_set().not_parent_of(other)
+
+sibling_of(self, other, inclusive=False):
+    return self.get_query_set().sibling_of(other, inclusive)
+
+not_sibling_of(self, other, inclusive=False):
+    return self.get_query_set().not_sibling_of(other, inclusive)
+
+type(self, model):
+    return self.get_query_set().type(model)
+
+not_type(self, model):
+    return self.get_query_set().not_type(model)
+
 
 
 Site
