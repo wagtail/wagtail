@@ -19,7 +19,7 @@ Displaying Pages
 ==========================
 
 Template Location
------------------
+~~~~~~~~~~~~~~~~~
 
 For each of your ``Page``-derived models, Wagtail will look for a template in the following location, relative to your project root::
 
@@ -36,7 +36,7 @@ Class names are converted from camel case to underscores. For example, the templ
 
 
 Self
-----
+~~~~
 
 By default, the context passed to a model's template consists of two properties: ``self`` and ``request``. ``self`` is the model object being displayed. ``request`` is the normal Django request object. So, to include the title of a ``Page``, use ``{{ self.title }}``.
 
@@ -45,9 +45,8 @@ Static files (css, js, images)
 ========================
 
 
-
 Images
-~~~~~~~~~~
+~~~~~~
 
 Images uploaded to Wagtail go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
 
@@ -55,7 +54,7 @@ Unlike other CMS, adding images to a page does not involve choosing a "version" 
 
 Images from the library **must** be requested using this syntax, but images in your codebase can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
 
-Read more about the image manipulation syntax here :ref:`Images tag <image-tag>`.
+Read more about the image manipulation syntax here :ref:`image_tag`.
 
 
 ========================
@@ -64,7 +63,9 @@ Template tags & filters
 
 In addition to Django's standard tags and filters, Wagtail provides some of it's own, which can be ``load``-ed `as you would any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_
 
-.. _image-tag:
+
+.. _image_tag:
+
 Images (tag)
 ~~~~~~~~~~~~
 
@@ -123,8 +124,9 @@ The available ``method`` s are:
     Wagtail *does not allow deforming or stretching images*. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
 
-To request the "original" version of an image, it is suggested you rely on the lack of upscalling support by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown, at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+To request the "original" version of an image, it is suggested you rely on the lack of upscaling support by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown, at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
 
+.. _rich-text-filter:
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
