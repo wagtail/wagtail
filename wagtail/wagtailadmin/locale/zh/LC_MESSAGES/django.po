@@ -35,7 +35,7 @@ msgstr "请输入用户名"
 
 #: .\forms.py:45
 msgid "Enter password"
-msgstr ""
+msgstr "请输入密码"
 
 #: .\forms.py:50
 msgid "Enter your email address to reset your password"
@@ -89,7 +89,7 @@ msgstr "登录Wagtail"
 
 #: .\templates\wagtailadmin\login.html:42
 msgid "Forgotten it?"
-msgstr "忘记了？"
+msgstr "忘记密码？"
 
 #: .\templates\wagtailadmin\account\account.html:4
 msgid "Account"
@@ -104,7 +104,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号可以设置多个电子邮件地址的头像图片。"
+msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮箱。一个Gravatar账号可以设置多个电子邮箱的头像图片。"
 
 #: .\templates\wagtailadmin\account\account.html:23
 #: .\templates\wagtailadmin\account\change_password.html:4
@@ -113,7 +113,7 @@ msgstr "修改密码"
 
 #: .\templates\wagtailadmin\account\account.html:27
 msgid "Change the password you use to log in."
-msgstr "修改您用于登录的密码。"
+msgstr "修改登录密码。"
 
 #: .\templates\wagtailadmin\account\change_password.html:16
 msgid "Change Password"
