@@ -1,5 +1,7 @@
 # Production-configured Wagtail installation.
 # BUT, SECURE SERVICES/ACCOUNT FOR FULL PRODUCTION USE!
+# For a non-dummy email backend configure Django's EMAIL_BACKEND
+# in settings/production.py post-installation.
 # Tested on Debian 7.0.
 # Tom Dyson and Neal Todd
 
