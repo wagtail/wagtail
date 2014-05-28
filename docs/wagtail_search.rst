@@ -1,14 +1,14 @@
 Search
 ======
 
-Wagtail provides a very comprehensive, extensible, and flexible search interface. In addition, it provides ways to promote search results through "Editor's Picks." Wagtail also collects simple statistics on queries made through the search interface.
+Wagtail provides a comprehensive and extensible search interface. In addition, it provides ways to promote search results through "Editor's Picks." Wagtail also collects simple statistics on queries made through the search interface.
 
 Default Page Search
 -------------------
 
-Wagtail provides a default frontend search interface which indexes the ``title`` field common to all ``Page``-derived models. Lets take a look at all the components of the search interface.
+Wagtail provides a default frontend search interface which indexes the ``title`` field common to all ``Page``-derived models. Let's take a look at all the components of the search interface.
 
-The most basic search functionality just needs a search box which submits a request. Since this will be reused throughout the site, lets put it in ``mysite/includes/search_box.html`` and then use ``{% include ... %}`` to weave it into templates:
+The most basic search functionality just needs a search box which submits a request. Since this will be reused throughout the site, let's put it in ``mysite/includes/search_box.html`` and then use ``{% include ... %}`` to weave it into templates:
 
 .. code-block:: django
 
@@ -17,15 +17,15 @@ The most basic search functionality just needs a search box which submits a requ
     <input type="submit" value="Search">
   </form>
 
-The form is submitted to the url of the ``wagtailsearch_search`` view, with the search terms variable ``q``. The view will use its own (very) basic search results template.
+The form is submitted to the url of the ``wagtailsearch_search`` view, with the search terms variable ``q``. The view will use its own basic search results template.
 
-Lets use our own template for the results, though. First, in your project's ``settings.py``, define a path to your template:
+Let's use our own template for the results, though. First, in your project's ``settings.py``, define a path to your template:
 
 .. code-block:: python
 
   WAGTAILSEARCH_RESULTS_TEMPLATE = 'mysite/search_results.html'
 
-Next, lets look at the template itself:
+Next, let's look at the template itself:
 
 .. code-block:: django
 
@@ -82,7 +82,7 @@ Editor's Picks are a way of explicitly linking relevant content to search terms,
   ``editors_pick.description``
     The description entered when choosing the pick, perhaps explaining why the page is relevant to the search terms.
 
-Putting this all together, a block of your search results template displaying Editor's Picks might look like this:
+Putting this all together, a block of your search results template displaying editor's Picks might look like this:
 
 .. code-block:: django
 
@@ -106,10 +106,10 @@ Putting this all together, a block of your search results template displaying Ed
     {% endif %}
   {% endwith %}
 
-Asyncronous Search with JSON and AJAX
--------------------------------------
+Asynchronous Search with JSON and AJAX
+--------------------------------------
 
-Wagtail's provides JSON search results when queries are made to the ``wagtailsearch_suggest`` view. To take advantage of it, we need a way to make that URL available to a static script. Instead of hard-coding it, lets set a global variable in our ``base.html``:
+Wagtail provides JSON search results when queries are made to the ``wagtailsearch_suggest`` view. To take advantage of it, we need a way to make that URL available to a static script. Instead of hard-coding it, let's set a global variable in our ``base.html``:
 
 .. code-block:: django
 
@@ -117,7 +117,7 @@ Wagtail's provides JSON search results when queries are made to the ``wagtailsea
     var wagtailJSONSearchURL = "{% url 'wagtailsearch_suggest' %}";
   </script>
 
-Lets also add a simple interface for the search with a ``<input>`` element to gather search terms and a ``<div>`` to display the results:
+Now add a simple interface for the search with a ``<input>`` element to gather search terms and a ``<div>`` to display the results:
 
 .. code-block:: html
 
@@ -130,7 +130,7 @@ Lets also add a simple interface for the search with a ``<input>`` element to ga
 Finally, we'll use JQuery to make the asynchronous requests and handle the interactivity:
 
 .. code-block:: guess
- 
+
   $(function() {
 
     // cache the elements
@@ -220,15 +220,42 @@ The default DB search backend uses Django's ``__icontains`` filter.
 
 Elasticsearch Backend
 `````````````````````
+Prerequisites are the Elasticsearch service itself and, via pip, the `elasticutils`_ and `pyelasticsearch`_ packages:
+
+.. code-block:: guess
+
+  pip install elasticutils pyelasticsearch
+
+.. note::
+    The dependency on pyelasticsearch is scheduled to be replaced by a dependency on `elasticsearch-py`_.
+
+The backend is configured in settings:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+          'URLS': ['http://localhost:9200'],
+          'INDEX': 'wagtail',
+          'TIMEOUT': 5,
+          'FORCE_NEW': False,
+      }
+  }
+
+Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticutils. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
+
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
 -  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
 -  Use your Searchly dashboard to create a new index, e.g. 'wagtaildemo'
 -  Note the connection URL from your Searchly dashboard
--  Update ``WAGTAILSEARCH_ES_URLS`` and ``WAGTAILSEARCH_ES_INDEX`` in
-   your local settings
+-  Configure ``URLS`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
 -  Run ``./manage.py update_index``
 
+.. _elasticutils: http://elasticutils.readthedocs.org
+.. _pyelasticsearch: http://pyelasticsearch.readthedocs.org
+.. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Searchly: http://www.searchly.com/
 .. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up
 

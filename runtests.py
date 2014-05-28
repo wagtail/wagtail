@@ -26,6 +26,8 @@ if not settings.configured:
     if has_elasticsearch:
         WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
             'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+            'TIMEOUT': 10,
+            'max_retries': 1,
         }
 
     settings.configure(

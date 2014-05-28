@@ -187,33 +187,29 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 Properties:
 
-specific
-url
-full_url
-relative_url
-has_unpublished_changes
-status_string
-subpage_types
-indexed_fields
-
+* specific
+* url
+* full_url
+* relative_url
+* has_unpublished_changes
+* status_string
+* subpage_types
+* indexed_fields
 
 Methods:
 
-route
-serve
-get_context
-get_template
-is_navigable
-get_other_siblings
-get_ancestors
-get_descendants
-get_siblings
-search
-get_page_modes
-show_as_mode
-
-
-
+* route
+* serve
+* get_context
+* get_template
+* is_navigable
+* get_other_siblings
+* get_ancestors
+* get_descendants
+* get_siblings
+* search
+* get_page_modes
+* show_as_mode
 
 
 Page Queryset Methods
