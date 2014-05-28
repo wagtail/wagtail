@@ -242,15 +242,14 @@ The backend is configured in settings:
       }
   }
 
-Other than `BACKEND` the other keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticutils. In addition, any other keys are passed directly to the Elasticsearch constructor as keyword arguments (e.g. ``'max_retries': 1``).
+Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticutils. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
 -  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
 -  Use your Searchly dashboard to create a new index, e.g. 'wagtaildemo'
 -  Note the connection URL from your Searchly dashboard
--  Update ``WAGTAILSEARCH_ES_URLS`` and ``WAGTAILSEARCH_ES_INDEX`` in
-   your local settings
+-  Configure ``URL`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
 -  Run ``./manage.py update_index``
 
 .. _elasticutils: http://elasticutils.readthedocs.org
