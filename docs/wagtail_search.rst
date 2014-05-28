@@ -235,7 +235,7 @@ The backend is configured in settings:
   WAGTAILSEARCH_BACKENDS = {
       'default': {
           'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-          'URL': ['http://localhost:9200'],
+          'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
           'FORCE_NEW': False,
@@ -249,7 +249,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
 -  Use your Searchly dashboard to create a new index, e.g. 'wagtaildemo'
 -  Note the connection URL from your Searchly dashboard
--  Configure ``URL`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
+-  Configure ``URLS`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
 -  Run ``./manage.py update_index``
 
 .. _elasticutils: http://elasticutils.readthedocs.org
