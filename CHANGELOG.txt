@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3 (xx.xx.20xx)
+0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
  * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
