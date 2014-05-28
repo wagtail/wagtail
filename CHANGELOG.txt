@@ -9,6 +9,7 @@ Changelog
  * Added custom Query set for Pages with some handy methods for querying pages
  * Added 'wagtailforms' module for creating form pages on a site, and handling form submissions
  * Editor's guide documentation
+ * Expanded developer documentation
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
  * Added 'slugurl' template tag to output the URL of a page with a given slug
@@ -16,7 +17,7 @@ Changelog
  * Added 'insert_editor_css' and 'insert_editor_js' hooks for passing in custom CSS / JS to the editor interface
  * Made JPEG compression level configurable through the IMAGE_COMPRESSION_QUALITY setting, and increased default to 85
  * Added document_served signal which gets fired when a document is downloaded
- * Added translation for Portuguese Brazil
+ * Added translations for Portuguese Brazil and Traditional Chinese (Taiwan).
  * Made compatible with Python 2.6
  * 'richtext' template filter now wraps output in <div class="rich-text"></div>, to assist in styling
  * Embeds now save author_name and provider_name if set by oEmbed provider
