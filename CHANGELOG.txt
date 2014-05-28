@@ -29,6 +29,7 @@ Changelog
  * Fix: Eliminated raw SQL queries from wagtailcore / wagtailadmin, to ensure cross-database compatibility
  * Fix: Snippets menu item is hidden for administrators if no snippet types are defined
  * Fix: 'Upload' tab in image chooser now retains focus if submit action returns a form error.
+ * Fix: Search input now appears on image chooser after form validation error.
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
