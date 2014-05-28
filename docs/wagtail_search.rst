@@ -253,7 +253,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
    your local settings
 -  Run ``./manage.py update_index``
 
-.. _elasticututils: http://elasticutils.readthedocs.org
+.. _elasticutils: http://elasticutils.readthedocs.org
 .. _pyelasticsearch: http://pyelasticsearch.readthedocs.org
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Searchly: http://www.searchly.com/
