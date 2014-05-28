@@ -87,11 +87,13 @@ li, .home{
 .action{
     @include transition(background-color 0.2s ease, color 0.2s ease);
     background-color:$color-teal;
-    color:white;
+    color:$color-teal;
 
     &:before{
         margin-right:0.4em;
         vertical-align:middle;
+        font-size:1.7em;
+        color:white;
     }
 
     &:hover{

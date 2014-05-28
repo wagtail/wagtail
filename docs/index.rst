@@ -9,11 +9,15 @@ It supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support
    :maxdepth: 3
 
    gettingstarted
-   building_your_site
+   building_your_site/index
+   editing_api
+   snippets
    wagtail_search
+   form_builder
+   model_recipes
+   advanced_topics
    deploying
    performance
-   form_builder
    static_site_generation
    contributing
    support

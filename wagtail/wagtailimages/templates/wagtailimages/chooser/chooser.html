@@ -5,13 +5,13 @@
 
 {% if uploadform %}
     <ul class="tab-nav merged">
-        <li class="active"><a href="#search" >{% trans "Search" %}</a></li>
-        <li><a href="#upload">{% trans "Upload" %}</a></li>
+        <li class="{% if not uploadform.errors %}active{% endif %}"><a href="#search" >{% trans "Search" %}</a></li>
+        <li class="{% if uploadform.errors %}active{% endif %}"><a href="#upload">{% trans "Upload" %}</a></li>
     </ul>
 {% endif %}
 
 <div class="tab-content">
-    <section id="search" class="active nice-padding">
+    <section id="search" class="{% if not uploadform.errors %}active{% endif %} nice-padding">
         <form class="image-search search-bar" action="{% url 'wagtailimages_chooser' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off">
             <ul class="fields">
                 {% for field in searchform %}
@@ -33,7 +33,7 @@
         </div>
     </section>
     {% if uploadform %}
-        <section id="upload" class="nice-padding">
+        <section id="upload" class="{% if uploadform.errors %}active{% endif %} nice-padding">
             <form class="image-upload" action="{% url 'wagtailimages_chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <ul class="fields">

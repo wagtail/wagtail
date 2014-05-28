@@ -26,6 +26,7 @@ Contributors
 * Ben Emery
 * David Smith
 * Ben Margolis
+* Tom Talbot
 
 Translators
 ===========
