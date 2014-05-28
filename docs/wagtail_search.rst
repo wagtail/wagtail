@@ -242,7 +242,7 @@ The backend is configured in settings:
       }
   }
 
-Other than `BACKEND` the other keys are optional and default to the values shown. In addition any other keys are passed directly to the Elasticsearch constructor as keyword arguments (e.g. `'max_retries': 1`).
+Other than `BACKEND` the other keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticutils. In addition, any other keys are passed directly to the Elasticsearch constructor as keyword arguments (e.g. ``'max_retries': 1``).
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
@@ -253,7 +253,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
    your local settings
 -  Run ``./manage.py update_index``
 
-.. _elasticutuils: http://elasticutils.readthedocs.org
+.. _elasticututils: http://elasticutils.readthedocs.org
 .. _pyelasticsearch: http://pyelasticsearch.readthedocs.org
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Searchly: http://www.searchly.com/
