@@ -220,6 +220,30 @@ The default DB search backend uses Django's ``__icontains`` filter.
 
 Elasticsearch Backend
 `````````````````````
+Prerequisites are the Elasticsearch service itself and, via pip, the `elasticutils`_ and `pyelasticsearch`_ packages:
+
+.. code-block:: guess
+
+  pip install elasticutils pyelasticsearch
+
+NB: The dependency on pyelasticsearch is scheduled to be replaced by a dependency on `elasticsearch-py`_.
+
+The backend is configured in settings:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+          'URL': ['http://localhost:9200'],
+          'INDEX': 'wagtail',
+          'TIMEOUT': 5,
+          'FORCE_NEW': False,
+      }
+  }
+
+Other than `BACKEND` the other keys are optional and default to the values shown. In addition any other keys are passed directly to the Elasticsearch constructor as keyword arguments (e.g. `'max_retries': 1`).
+
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
 -  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
@@ -229,6 +253,9 @@ If you prefer not to run an Elasticsearch server in development or production, t
    your local settings
 -  Run ``./manage.py update_index``
 
+.. _elasticutuils: http://elasticutils.readthedocs.org
+.. _pyelasticsearch: http://pyelasticsearch.readthedocs.org
+.. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Searchly: http://www.searchly.com/
 .. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up
 
