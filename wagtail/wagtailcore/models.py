@@ -235,8 +235,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    go_live_datetime = models.DateTimeField(verbose_name=_("Go live date/time"), blank=True, null=True)
-    expiry_datetime = models.DateTimeField(verbose_name=_("Expiry date/time"), blank=True, null=True)
+    go_live_datetime = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expiry_datetime = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
     indexed_fields = {
