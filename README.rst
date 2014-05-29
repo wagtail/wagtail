@@ -4,7 +4,7 @@
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master
     :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
 
-.. image:: https://pypip.in/v/wagtail/badge.png?asdf
+.. image:: https://pypip.in/v/wagtail/badge.png?zxcv
     :target: https://crate.io/packages/wagtail/
 
 Wagtail CMS
