@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.translation import ugettext as _ 
+from django.utils import timezone
+from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -132,16 +133,32 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
             is_submitting = bool(request.POST.get('action-submit'))
+            go_live_datetime = form.cleaned_data.get('go_live_datetime')
+            future_go_live = go_live_datetime and go_live_datetime > timezone.now()
+            approved_go_live_datetime = None
 
             if is_publishing:
-                page.live = True
                 page.has_unpublished_changes = False
+                page.expired = False
+                if future_go_live:
+                    page.live = False
+                    # Set approved_go_live_datetime only if is publishing
+                    # and the future_go_live is actually in future
+                    approved_go_live_datetime = go_live_datetime
+                else:
+                    page.live = True
             else:
                 page.live = False
                 page.has_unpublished_changes = True
 
             parent_page.add_child(instance=page)  # assign tree parameters - will cause page to be saved
-            page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
+
+            # Pass approved_go_live_datetime to save_revision
+            page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+                approved_go_live_datetime = approved_go_live_datetime
+            )
 
             if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title))
@@ -158,7 +175,10 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be created due to errors."))
+            if form.errors and form.errors.get('__all__'):
+                messages.error(request, _("The page could not be created: ") + ', '.join(form.errors['__all__']))
+            else:
+                messages.error(request, _("The page could not be created due to errors."))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         form = form_class(instance=page)
@@ -202,12 +222,25 @@ def edit(request, page_id):
         if form.is_valid():
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit'))
+            go_live_datetime = form.cleaned_data.get('go_live_datetime')
+            future_go_live = go_live_datetime and go_live_datetime > timezone.now()
+            approved_go_live_datetime = None
 
             if is_publishing:
-                page.live = True
                 page.has_unpublished_changes = False
+                page.expired = False
+                if future_go_live:
+                    page.live = False
+                    # Set approved_go_live_datetime only if publishing
+                    approved_go_live_datetime = go_live_datetime
+                else:
+                    page.live = True
                 form.save()
-                page.revisions.update(submitted_for_moderation=False)
+                # Clear approved_go_live_datetime for older revisions
+                page.revisions.update(
+                    submitted_for_moderation=False,
+                    approved_go_live_datetime=None,
+                )
             else:
                 # not publishing the page
                 if page.live:
@@ -219,7 +252,11 @@ def edit(request, page_id):
                     page.has_unpublished_changes = True
                     form.save()
 
-            page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
+            page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+                approved_go_live_datetime = approved_go_live_datetime
+            )
 
             if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title))
@@ -236,7 +273,11 @@ def edit(request, page_id):
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be saved due to validation errors"))
+            if form.errors and form.errors.get('__all__'):
+                messages.error(request, _("The page could not be saved: ") + ', '.join(form.errors['__all__']))
+            else:
+                messages.error(request, _("The page could not be saved due to validation errors"))
+
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
@@ -414,6 +455,8 @@ def unpublish(request, page_id):
         parent_id = page.get_parent().id
         page.live = False
         page.save()
+        # Since page is unpublished clear the approved_go_live_datetime of all revisions
+        page.revisions.update(approved_go_live_datetime=None)
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
         return redirect('wagtailadmin_explore', parent_id)
 
