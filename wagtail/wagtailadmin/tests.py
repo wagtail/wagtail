@@ -3,11 +3,10 @@ from django.core import management
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.test import TestCase
-import unittest
-from StringIO import StringIO
 from wagtail.tests.models import SimplePage, EventPage
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, unittest
 from wagtail.wagtailcore.models import Page, PageRevision
+from django.core.urlresolvers import reverse
 
 
 class TestHome(TestCase):
@@ -29,7 +28,7 @@ class TestPageExplorer(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Login
         login(self.client)
@@ -39,32 +38,6 @@ class TestPageExplorer(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.root_page, response.context['parent_page'])
         self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
-
-
-class TestPageSelectTypeLocation(TestCase):
-    def setUp(self):
-        # Find root page
-        self.root_page = Page.objects.get(id=2)
-
-        # Login
-        login(self.client)
-
-    def test_select_type(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_type'))
-        self.assertEqual(response.status_code, 200)
-
-    @unittest.expectedFailure  # For some reason, this returns a 302...
-    def test_select_location_testpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('tests', 'eventpage')))
-        self.assertEqual(response.status_code, 200)
-
-    def test_select_location_nonexistanttype(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('notanapp', 'notamodel')))
-        self.assertEqual(response.status_code, 404)
-
-    def test_select_location_nonpagetype(self):
-        response = self.client.get(reverse('wagtailadmin_pages_select_location', args=('wagtailimages', 'image')))
-        self.assertEqual(response.status_code, 404)
 
 
 class TestPageCreation(TestCase):
@@ -111,8 +84,8 @@ class TestPageCreation(TestCase):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_datetime': str(go_live_datetime),
-            'expiry_datetime': str(expiry_datetime),
+            'go_live_datetime': str(go_live_datetime).split('.')[0],
+            'expiry_datetime': str(expiry_datetime).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -134,8 +107,8 @@ class TestPageCreation(TestCase):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_datetime': str(timezone.now() + timedelta(days=2)),
-            'expiry_datetime': str(timezone.now() + timedelta(days=1)),
+            'go_live_datetime': str(timezone.now() + timedelta(days=2)).split('.')[0],
+            'expiry_datetime': str(timezone.now() + timedelta(days=1)).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -148,7 +121,7 @@ class TestPageCreation(TestCase):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expiry_datetime': str(timezone.now() + timedelta(days=-1)),
+            'expiry_datetime': str(timezone.now() + timedelta(days=-1)).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -182,8 +155,8 @@ class TestPageCreation(TestCase):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_datetime': str(go_live_datetime),
-            'expiry_datetime': str(expiry_datetime),
+            'go_live_datetime': str(go_live_datetime).split('.')[0],
+            'expiry_datetime': str(expiry_datetime).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -209,7 +182,7 @@ class TestPageCreation(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Attempt to create a new one with the same slug
         post_data = {
@@ -243,14 +216,14 @@ class TestPageEdit(TestCase):
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
         self.child_page.live = True
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
         self.child_page.save_revision()
 
         # Add event page (to test edit handlers)
         self.event_page = EventPage()
         self.event_page.title = "Event page"
         self.event_page.slug = "event-page"
-        self.root_page.add_child(self.event_page)
+        self.root_page.add_child(instance=self.event_page)
 
         # Login
         login(self.client)
@@ -283,8 +256,8 @@ class TestPageEdit(TestCase):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_datetime': str(go_live_datetime),
-            'expiry_datetime': str(expiry_datetime),
+            'go_live_datetime': str(go_live_datetime).split('.')[0],
+            'expiry_datetime': str(expiry_datetime).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -329,8 +302,8 @@ class TestPageEdit(TestCase):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_datetime': str(go_live_datetime),
-            'expiry_datetime': str(expiry_datetime),
+            'go_live_datetime': str(go_live_datetime).split('.')[0],
+            'expiry_datetime': str(expiry_datetime).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -352,8 +325,8 @@ class TestPageEdit(TestCase):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_datetime': str(go_live_datetime),
-            'expiry_datetime': str(expiry_datetime),
+            'go_live_datetime': str(go_live_datetime).split('.')[0],
+            'expiry_datetime': str(expiry_datetime).split('.')[0],
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -395,7 +368,7 @@ class TestPageDelete(TestCase):
         self.child_page = SimplePage()
         self.child_page.title = "Hello world!"
         self.child_page.slug = "hello-world"
-        self.root_page.add_child(self.child_page)
+        self.root_page.add_child(instance=self.child_page)
 
         # Login
         login(self.client)
@@ -454,18 +427,18 @@ class TestPageMove(TestCase):
         self.section_a = SimplePage()
         self.section_a.title = "Section A"
         self.section_a.slug = "section-a"
-        self.root_page.add_child(self.section_a)
+        self.root_page.add_child(instance=self.section_a)
 
         self.section_b = SimplePage()
         self.section_b.title = "Section B"
         self.section_b.slug = "section-b"
-        self.root_page.add_child(self.section_b)
+        self.root_page.add_child(instance=self.section_b)
 
         # Add test page into section A
         self.test_page = SimplePage()
         self.test_page.title = "Hello world!"
         self.test_page.slug = "hello-world"
-        self.section_a.add_child(self.test_page)
+        self.section_a.add_child(instance=self.test_page)
 
         # Login
         login(self.client)
@@ -511,7 +484,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = False
         page.go_live_datetime = timezone.now() - timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
 
         page.save_revision(
             approved_go_live_datetime = timezone.now() - timedelta(days=1)
@@ -531,7 +504,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = False
         page.go_live_datetime = timezone.now() - timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
 
         page.save_revision(approved_go_live_datetime = timezone.now() - timedelta(days=1))
         p = Page.objects.get(slug='hello-world')
@@ -548,7 +521,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = False
         page.go_live_datetime = timezone.now() + timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
         page.save_revision(approved_go_live_datetime = timezone.now() - timedelta(days=1))
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
@@ -564,7 +537,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = True
         page.expiry_datetime = timezone.now() - timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
         management.call_command('publish_scheduled_pages', )
@@ -578,7 +551,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = True
         page.expiry_datetime = timezone.now() + timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
         management.call_command('publish_scheduled_pages', )
@@ -592,7 +565,7 @@ class TestPublishScheduledPages(TestCase):
         page.slug = "hello-world"
         page.live = False
         page.expiry_datetime = timezone.now() - timedelta(days=1)
-        self.root_page.add_child(page)
+        self.root_page.add_child(instance=page)
         page.save_revision(submitted_for_moderation = True)
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)

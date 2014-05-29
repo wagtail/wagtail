@@ -1,24 +1,36 @@
 Changelog
 =========
 
-0.3 (xx.xx.20xx)
+0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
  * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
+ * Added support for generating static sites using django-medusa
  * Added custom Query set for Pages with some handy methods for querying pages
+ * Added 'wagtailforms' module for creating form pages on a site, and handling form submissions
  * Editor's guide documentation
+ * Expanded developer documentation
  * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
  * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
  * Added 'slugurl' template tag to output the URL of a page with a given slug
  * MultiFieldPanel definitions now accept a 'classname' attribute, including a special classname of 'collapsible' to allow showing / hiding them on click
  * Added 'insert_editor_css' and 'insert_editor_js' hooks for passing in custom CSS / JS to the editor interface
  * Made JPEG compression level configurable through the IMAGE_COMPRESSION_QUALITY setting, and increased default to 85
- * Added translation for Portuguese Brazil
+ * Added document_served signal which gets fired when a document is downloaded
+ * Added translations for Portuguese Brazil and Traditional Chinese (Taiwan).
+ * Made compatible with Python 2.6
+ * 'richtext' template filter now wraps output in <div class="rich-text"></div>, to assist in styling
+ * Embeds now save author_name and provider_name if set by oEmbed provider
  * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
  * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
  * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
  * Fix: Page slugs are now validated on page edit
  * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
+ * Fix: Moving or changing a site root page no longer causes URLs for subpages to change to 'None'
+ * Fix: Eliminated raw SQL queries from wagtailcore / wagtailadmin, to ensure cross-database compatibility
+ * Fix: Snippets menu item is hidden for administrators if no snippet types are defined
+ * Fix: 'Upload' tab in image chooser now retains focus if submit action returns a form error.
+ * Fix: Search input now appears on image chooser after form validation error.
 
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~

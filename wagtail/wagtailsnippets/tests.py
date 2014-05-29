@@ -5,7 +5,7 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-import unittest
+from wagtail.tests.utils import unittest
 
 from django.test import TestCase
 

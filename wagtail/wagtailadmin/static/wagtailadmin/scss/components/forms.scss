@@ -21,22 +21,13 @@ legend{
     @include visuallyhidden();
 }
 
-.fields li{
-    padding-top:0.5em;
-    padding-bottom:0.5em;
-}
-
-.field{
-    padding:0 0 0.6em 0;
-}
-
 label{
     font-weight:bold;
     color:$color-grey-1;
     font-size:1.1em;
     display:block;
     padding:0 0 0.8em 0;
-    line-height:1em;
+    line-height:1.3em;
 
     .checkbox &,
     .radio &{
@@ -47,10 +38,10 @@ label{
 input, textarea, select, .richtext, .tagit{
     @include border-radius(6px);
     @include border-box();
-    font-family:Open Sans,Arial,sans-serif;
     width:100%;
-    border:1px dashed $color-input-border;
-    padding:1.2em;
+    font-family:Open Sans,Arial,sans-serif;
+    border:1px solid $color-input-border;
+    padding:0.9em 1.2em;
     background-color:$color-fieldset-hover;
     -webkit-appearance: none;
     color:$color-text-input;
@@ -76,10 +67,44 @@ input, textarea, select, .richtext, .tagit{
     }
 }
 
-input[type=radio],input[type=checkbox]{
+/* select boxes */
+.typed_choice_field .input{
+    position:relative;
+
+    select{
+        outline:none;
+    }
+
+    &:after{
+        @include border-radius(0 6px 6px 0);
+        z-index:0;
+        position:absolute;
+        right:1px;
+        top:1px;
+        height:95%;
+        width:1.5em;
+        font-family:wagtail;
+        content:"q";
+        border:1px solid $color-input-border;
+        border-width:0 0 0 1px;
+        text-align:center;
+        line-height:1.4em;
+        font-size:3em;
+        pointer-events:none;
+        color:$color-grey-3;
+        background-color:$color-fieldset-hover;
+        margin:0px 1px 0 0;
+    }
+
+    .ie &:after{
+        display:none;
+    }
+}
+
+/* radio and check boxes */
+input[type=radio], input[type=checkbox]{
     @include border-radius(0);
     cursor:pointer;
-    float:left;
     border:0;
 }
 
@@ -142,6 +167,7 @@ input[type=checkbox]:checked:before{
 
 /* Core button style */
 input[type=submit], input[type=reset], input[type=button], .button, button{
+    font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width:auto;
     padding:0.7em 1em;
@@ -160,8 +186,9 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     overflow:hidden;
     position:relative;
     font-weight:normal;
+    outline:none;
     -moz-appearance: none;
-    -moz-box-sizing:content-box;
+    -moz-box-sizing:border-box;
 
     &.button-small{
         padding:0.55em 0.8em;
@@ -169,13 +196,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-secondary{
-        border:1px solid $color-button;
         color:$color-button;
         background-color:white;
-    }
-
-    &.icon:before{
-        font-size:1.5em;
     }
 
     &.icon.text-replace:before{
@@ -254,6 +276,13 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     + .button,
     + button{
         margin-left:1em;
+    }
+}
+
+button.icon{
+    &:before,
+    &:after{
+        line-height:0;
     }
 }
 
@@ -346,17 +375,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 .help, .error-message{
     font-size:0.85em;
     font-weight:normal;
-    margin:0 0 0.5em 0;
+    margin:0.5em 0 0 0;
+}
+.error-message{
+    color:$color-red;
 }
 .help{
     color:$color-grey-2;
 }
-
-/* permanently show checkbox/radio help as they have no focus state */
-.boolean_field .help, .radio .help{
-    opacity:1;
-}
-
 
 fieldset:hover > .help,
 .field.focused + .help,
@@ -376,18 +402,77 @@ li.focused > .help{
     font-size:13px;
 }
 
-.error-message{
-    margin:0;
-    color:$color-red;
-    clear:both;
-}
-
 .error input, .error textarea, .error select, .error .tagit{
     border-color:$color-red;
     background-color:$color-input-error-bg;
 }
 
+/* Layouts for particular kinds of of fields */
+
+/* permanently show checkbox/radio help as they have no focus state */
+.boolean_field .help, .radio .help{
+    opacity:1;
+}
+.iconfield {
+    position:relative;
+
+    input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]){
+        padding-left:2.5em;
+    }
+
+    &:before, &:after{
+        font-family:wagtail;
+        position:absolute;
+        top:0.4em;
+        font-size:1.4em;
+        color:$color-grey-3;
+    }
+    &:before{
+        left:0.5em;
+    }
+    &:after{
+        right:0.5em;
+    }
+
+    /* special case for search spinners */
+    &.icon-spinner:after{
+        color:$color-teal;
+        opacity:0.8;
+        font-size:20px;
+        width:20px;
+        height:20px;
+        line-height:23px;
+        text-align:center;
+        top:0.3em;
+
+    }
+}
+
+.fields li{
+    padding-top:0.5em;
+    padding-bottom:1.2em;
+}
+
+.field-content .input li{
+    label{
+        width:auto;
+        float:none;
+    }
+}
+
+.input{
+    clear:both;
+}
+
 /* field sizing */
+
+.field-small{
+    input, textarea, select, .richtext, .tagit{
+        @include border-radius(3px);
+        padding:0.4em 1em;
+    }
+}
+
 .field{
     &.col1,
     &.col2,
@@ -449,7 +534,7 @@ ul.inline li:first-child, li.inline:first-child{
             display:block;
             float:left;
             color:$color-grey-3;
-            line-height:0.85em;
+            line-height:1em;
             font-size:2.5em;
             margin-right:0.3em;
         }
@@ -491,7 +576,6 @@ ul.inline li:first-child, li.inline:first-child{
     .unchosen, .chosen{
         &:before{
             content:"b";
-            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
         }
     }
 }
@@ -564,112 +648,6 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
-
-/* search bars (search integrated into header area) */
-.search-bar{
-    margin-top:-2em;
-    padding-top:1em;
-    padding-bottom:1em;
-    margin-bottom:2em;
-
-    &.full-width{
-        @include nice-padding();
-        background-color:$color-header-bg;
-        border-bottom:1px solid $color-grey-4;
-    }
-
-    label{
-        display:none;
-    }
-
-    .fields{
-        position:relative;
-        clear:both;
-
-        .field input{
-            padding-left:3em;
-
-            &:focus{
-                background-color:white;
-            }
-        }
-        .field:before, .field:after{
-            font-family:wagtail;
-            position:absolute;
-            top:1em;
-            font-size:25px;
-            
-        }
-        .field:before{
-            left:0.5em;
-            content:"f";
-            color:$color-grey-3;
-        }
-        .field:after{
-            color:$color-teal;
-            opacity:0.8;
-            font-size:20px;
-            width:20px;
-            height:20px;
-            line-height:23px;
-            text-align:center;
-            top:0.3em;
-            right:0.5em;
-        }
-    }
-    .submit{
-        display:none;
-        position:absolute;
-        right:0;
-        top:0;
-        input{
-            padding:1.55em 2em;
-        }
-    }
-    .taglist{
-        font-size:0.9em;
-        line-height:2.4em;
-        h3{
-            display:inline;
-        }
-        a{
-            white-space: nowrap
-        }
-    }
-
-    &.small{
-        margin:0;
-        padding:0;
-        .fields{
-            li{
-                padding:0;
-            }
-            .field{
-                padding:0;
-            }
-            .field input{
-                padding:0.4em 1.4em 0.4em 2em;
-
-                 &:focus{
-                    background-color:white;
-                }
-            }
-            .field:before{
-                font-size:1.1rem;
-                top:0.45em;
-            }
-
-        }
-    }
-}
-
-/* mozilla specific hack */
-@-moz-document url-prefix() { 
-    .search-bar .fields .field:after{
-        line-height:20px;
-    }
-}
-
 /* Transitions */
 fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
@@ -682,11 +660,22 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 }
 
 @media screen and (min-width: $breakpoint-mobile){
-    .help{
-        opacity:1;
-    }
-    .fields{
-        max-width:800px;
+    label{
+        @include column(2);
+        padding-top:1.2em;
+        padding-left:0;
+
+        .model_multiple_choice_field &,
+        .boolean_field &,
+        .model_choice_field &,
+        .image_field &,
+        .file_field &{
+            padding-top:0;
+        }
+
+        .boolean_field &{
+            padding-bottom:0;
+        }
     }
 
     input[type=submit], input[type=reset], input[type=button], .button, button{
@@ -701,5 +690,21 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
                 line-height:2.15em;
             }
         }
+    }
+
+    .help{
+        opacity:1;
+    }
+    .fields{
+        max-width:800px;
+    }
+
+    .field{
+        @include row();
+    }
+
+    .field-content{
+        @include column(10);
+        padding-right:0;
     }
 }

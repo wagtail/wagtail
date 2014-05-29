@@ -1,5 +1,11 @@
 import sys
-from importlib import import_module
+
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
+
 from django.conf import settings
 from datetime import datetime
 from django.utils import six
@@ -71,7 +77,9 @@ def embedly(url, max_width=None, key=None):
 
     # Return embed as a dict
     return {
-        'title': oembed['title'],
+        'title': oembed['title'] if 'title' in oembed else '',
+        'author_name': oembed['author_name'] if 'author_name' in oembed else '',
+        'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
@@ -108,7 +116,9 @@ def oembed(url, max_width=None):
 
     # Return embed as a dict
     return {
-        'title': oembed['title'],
+        'title': oembed['title'] if 'title' in oembed else '',
+        'author_name': oembed['author_name'] if 'author_name' in oembed else '',
+        'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
@@ -141,6 +151,17 @@ def get_embed(url, max_width=None, finder=None):
     if not finder:
         finder = get_default_finder()
     embed_dict = finder(url, max_width)
+
+    # Make sure width and height are valid integers before inserting into database
+    try:
+        embed_dict['width'] = int(embed_dict['width'])
+    except (TypeError, ValueError):
+        embed_dict['width'] = None
+
+    try:
+        embed_dict['height'] = int(embed_dict['height'])
+    except (TypeError, ValueError):
+        embed_dict['height'] = None
 
     # Create database record
     embed, created = Embed.objects.get_or_create(

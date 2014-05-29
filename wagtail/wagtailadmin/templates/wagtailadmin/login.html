@@ -28,15 +28,19 @@
           
             <ul class="fields">
                 <li class="full">
-                    <div class="field icon icon-user">
+                    <div class="field">
                         {{ form.username.label_tag }}
-                        {{ form.username }}
+                        <div class="input iconfield icon-user">
+                            {{ form.username }}
+                        </div>
                     </div>
                 </li>
                 <li class="full">
-                    <div class="field icon icon-password">
+                    <div class="field">
                         {{ form.password.label_tag }}
-                        {{ form.password }}
+                        <div class="input iconfield icon-password">
+                            {{ form.password }}
+                        </div>
                     </div>
                     {% if show_password_reset %}
                         <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>

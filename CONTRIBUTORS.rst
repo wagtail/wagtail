@@ -24,6 +24,10 @@ Contributors
 * v1kku
 * Miguel Vieira
 * Ben Emery
+* David Smith
+* Ben Margolis
+* Tom Talbot
+* Jeffrey Hearn
 
 Translators
 ===========
@@ -31,7 +35,7 @@ Translators
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: David Llop
-* Chinese: Lihan Li
+* Chinese: Lihan Li, tulpar008, wwj718
 * French: Sylvain Fankhauser
 * Galician: fooflare
 * German: Karl Sander, Johannes Spielmann
@@ -41,3 +45,4 @@ Translators
 * Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
 * Spanish: Unai Zalakain, fooflare
+* Traditional Chinese (Taiwan): wdv4758h

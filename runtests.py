@@ -26,20 +26,23 @@ if not settings.configured:
     if has_elasticsearch:
         WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
             'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+            'TIMEOUT': 10,
+            'max_retries': 1,
         }
 
     settings.configure(
         DATABASES={
             'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
                 'NAME': 'wagtaildemo',
-                'USER': 'postgres',
+                'USER': os.environ.get('DATABASE_USER', 'postgres'),
             }
         },
         ROOT_URLCONF='wagtail.tests.urls',
         STATIC_URL='/static/',
         STATIC_ROOT=STATIC_ROOT,
         MEDIA_ROOT=MEDIA_ROOT,
+        USE_TZ=True,
         STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
@@ -80,8 +83,19 @@ if not settings.configured:
             'wagtail.wagtailembeds',
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
+            'wagtail.wagtailforms',
             'wagtail.tests',
         ],
+
+        # Using DatabaseCache to make sure that the cache is cleared between tests.
+        # This prevents false-positives in some wagtail core tests where we are
+        # changing the 'wagtail_root_paths' key which may cause future tests to fail.
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+                'LOCATION': 'cache',
+            }
+        },
         PASSWORD_HASHERS=(
             'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
         ),

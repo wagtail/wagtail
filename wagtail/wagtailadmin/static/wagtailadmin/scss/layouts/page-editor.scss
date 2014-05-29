@@ -148,7 +148,6 @@
             display:block;
             float:none;
 
-
             .help{
                 display:none;
             }
@@ -269,8 +268,8 @@
     }
 
     &.collapsible {
-        // li.collapsed gets its height from the fieldset only, which is now hidden
-        // and h2 has position:absolute which doesn't add to it either, so it would be 0 without this
+        /* li.collapsed gets its height from the fieldset only, which is now hidden
+        and h2 has position:absolute which doesn't add to it either, so it would be 0 without this */
         min-height: 41px;
 
         h2{
@@ -306,11 +305,34 @@
     }
 }
 
+footer .preview{
+    button, .button{
+        background-color:lighten($color-grey-2,10%);
+        border-color:lighten($color-grey-2,10%);
 
-/* styles applied to an element as it is being reordered */
-.preview{
-    padding-top:1em;
-    padding-bottom:0.5em;
+        &:hover{
+            background-color:$color-grey-2;
+            border-color:$color-grey-2;
+        }
+    }
+    .dropdown{
+        input[type=button], input[type=submit], button, .button{
+            background-color:lighten($color-grey-2,10%);
+            border-color:lighten($color-grey-2,10%);
+
+            &:hover{
+                background-color:$color-grey-2;
+                border-color:$color-grey-2;
+            }
+        }
+        ul, .dropdown-toggle{
+            background-color:lighten($color-grey-2,10%);
+        }
+        .dropdown-toggle:hover,
+        &.open > .button + .dropdown-toggle{
+            background-color:$color-grey-2;
+        }
+    }
 }
 
 @media screen and (min-width: $breakpoint-mobile){
@@ -320,6 +342,10 @@
             @include column(10);
             padding-left:0;
             padding-right:0;
+
+            fieldset{
+                width:100%;
+            }
         }
 
         .object-help{
@@ -348,6 +374,12 @@
             .field{
                 padding:0;
             }
+            .field-content{
+                display: block;
+                float: none;
+                width: auto;
+                padding: inherit; 
+            }
         }
         .multiple{
             @include column(10);
@@ -357,6 +389,13 @@
 
         &.empty .add{
             margin:0 0 0 -50px;
+        }
+
+        &.single-field label{
+            display: block;
+            float: none;
+            width: auto;
+            padding:auto;
         }
     }
 }

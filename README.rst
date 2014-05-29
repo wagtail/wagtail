@@ -4,7 +4,7 @@
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master
     :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
 
-.. image:: https://pypip.in/v/wagtail/badge.png?asdf
+.. image:: https://pypip.in/v/wagtail/badge.png?zxcv
     :target: https://crate.io/packages/wagtail/
 
 Wagtail CMS
@@ -26,7 +26,7 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
 * Tests! But not enough; we're working hard to improve this
 
-Find out more at `wagtail.io <http://wagtail.io/>`_. Documentation is at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_.
+Find out more at `wagtail.io <http://wagtail.io/>`_.
 
 Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
@@ -36,6 +36,15 @@ Getting started
 * See the `Getting Started <http://wagtail.readthedocs.org/en/latest/gettingstarted.html#getting-started>`_ docs for installation (with the demo app) on a fresh Debian/Ubuntu box with production-ready dependencies, on OS X and on a Vagrant box.
 * `Serafeim Papastefanos <https://github.com/spapas>`_ has written a `tutorial <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_ with all the steps to build a simple Wagtail site from scratch.
 
+Documentation
+~~~~~~~~~~~~~
+Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_. and always being updated.
+
+Compatibility
+~~~~~~~~~~~~~
+Wagtail supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support are in progress.
+
 Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in! Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_. Our immediate priorities are better docs, more tests, internationalisation and localisation.
+

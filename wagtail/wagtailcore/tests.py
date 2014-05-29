@@ -3,8 +3,8 @@ from django.http import HttpRequest, Http404
 
 from django.contrib.auth.models import User
 
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import EventPage
+from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
+from wagtail.tests.models import EventPage, EventIndex, SimplePage
 
 
 class TestRouting(TestCase):
@@ -160,6 +160,47 @@ class TestServeView(TestCase):
         # should only render the content of includes/event_listing.html, not the whole page
         self.assertNotContains(response, '<h1>Events</h1>')
         self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
+
+
+class TestStaticSitePaths(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=1)
+
+        # For simple tests
+        self.home_page = self.root_page.add_child(instance=SimplePage(title="Homepage", slug="home"))
+        self.about_page = self.home_page.add_child(instance=SimplePage(title="About us", slug="about"))
+        self.contact_page = self.home_page.add_child(instance=SimplePage(title="Contact", slug="contact"))
+
+        # For custom tests
+        self.event_index = self.root_page.add_child(instance=EventIndex(title="Events", slug="events"))
+        for i in range(20):
+            self.event_index.add_child(instance=EventPage(title="Event " + str(i), slug="event" + str(i)))
+
+    def test_local_static_site_paths(self):
+        paths = list(self.about_page.get_static_site_paths())
+
+        self.assertEqual(paths, ['/'])
+
+    def test_child_static_site_paths(self):
+        paths = list(self.home_page.get_static_site_paths())
+
+        self.assertEqual(paths, ['/', '/about/', '/contact/'])
+
+    def test_custom_static_site_paths(self):
+        paths = list(self.event_index.get_static_site_paths())
+
+        # Event index path
+        expected_paths = ['/']
+
+        # One path for each page of results
+        expected_paths.extend(['/' + str(i + 1) + '/' for i in range(5)])
+
+        # One path for each event page
+        expected_paths.extend(['/event' + str(i) + '/' for i in range(20)])
+
+        paths.sort()
+        expected_paths.sort()
+        self.assertEqual(paths, expected_paths)
 
 
 class TestPageUrlTags(TestCase):
@@ -335,6 +376,62 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(homepage_perms.can_move_to(root))
         self.assertFalse(homepage_perms.can_move_to(unpublished_event_page))
+
+    def test_editable_pages_for_user_with_add_permission(self):
+        event_editor = User.objects.get(username='eventeditor')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(event_editor).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_user_with_edit_permission(self):
+        event_moderator = User.objects.get(username='eventmoderator')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(event_moderator).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_inactive_user(self):
+        user = User.objects.get(username='inactiveuser')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(user).editable_pages()
+
+        self.assertFalse(editable_pages.filter(id=homepage.id).exists())
+        self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertFalse(editable_pages.filter(id=someone_elses_event_page.id).exists())
+
+    def test_editable_pages_for_superuser(self):
+        user = User.objects.get(username='superuser')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        editable_pages = UserPagePermissionsProxy(user).editable_pages()
+
+        self.assertTrue(editable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertTrue(editable_pages.filter(id=someone_elses_event_page.id).exists())
 
 
 class TestPageQuerySet(TestCase):
@@ -582,3 +679,100 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+
+class TestMovePage(TestCase):
+    fixtures = ['test.json']
+
+    def test_move_page(self):
+        about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        events_index.move(about_us_page, pos='last-child')
+
+        # re-fetch events index to confirm that db fields have been updated
+        events_index = EventIndex.objects.get(id=events_index.id)
+        self.assertEqual(events_index.url_path, '/home/about-us/events/')
+        self.assertEqual(events_index.depth, 4)
+        self.assertEqual(events_index.get_parent().id, about_us_page.id)
+
+        # children of events_index should also have been updated
+        christmas = events_index.get_children().get(slug='christmas')
+        self.assertEqual(christmas.depth, 5)
+        self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
+
+
+class TestIssue7(TestCase):
+    """
+    This tests for an issue where if a site root page was moved, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was moved. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/7
+    """
+
+    fixtures = ['test.json']
+
+    def test_issue7(self):
+        # Get homepage, root page and site
+        root_page = Page.objects.get(id=1)
+        homepage = Page.objects.get(url_path='/home/')
+        default_site = Site.objects.get(is_default_site=True)
+
+        # Create a new homepage under current homepage
+        new_homepage = SimplePage(title="New Homepage", slug="new-homepage")
+        homepage.add_child(instance=new_homepage)
+
+        # Set new homepage as the site root page
+        default_site.root_page = new_homepage
+        default_site.save()
+
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
+        # Move new homepage to root
+        new_homepage.move(root_page, pos='last-child')
+
+        # Get fresh instance of new_homepage
+        new_homepage = Page.objects.get(id=new_homepage.id)
+
+        # Check url
+        self.assertEqual(new_homepage.url, '/')
+
+
+class TestIssue157(TestCase):
+    """
+    This tests for an issue where if a site root pages slug was changed, all the page 
+    urls in that site would change to None.
+
+    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
+    cleared when a site root page was changed. Which left all the child pages
+    thinking that they are no longer in the site and return None as their url.
+
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/157
+    """
+
+    fixtures = ['test.json']
+
+    def test_issue157(self):
+        # Get homepage
+        homepage = Page.objects.get(url_path='/home/')
+
+        # Warm up the cache by getting the url
+        _ = homepage.url
+
+        # Change homepage title and slug
+        homepage.title = "New home"
+        homepage.slug = "new-home"
+        homepage.save()
+
+        # Get fresh instance of homepage
+        homepage = Page.objects.get(id=homepage.id)
+
+        # Check url
+        self.assertEqual(homepage.url, '/')

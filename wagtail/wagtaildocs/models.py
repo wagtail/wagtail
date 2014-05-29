@@ -5,6 +5,7 @@ from taggit.managers import TaggableManager
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.dispatch import Signal
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
@@ -37,6 +38,14 @@ class Document(models.Model, TagSearchable):
         return os.path.basename(self.file.name)
 
     @property
+    def file_extension(self):
+        parts = self.filename.split('.')
+        if len(parts) > 1:
+            return parts[-1]
+        else:
+            return ''
+
+    @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
 
@@ -56,3 +65,6 @@ class Document(models.Model, TagSearchable):
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+
+
+document_served = Signal(providing_args=['request'])
