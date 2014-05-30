@@ -454,6 +454,37 @@ class TestApproveRejectModeration(TestCase):
         self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
         self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
 
+    def test_approve_moderation_view_bad_revision_id(self):
+        """
+        This tests that the approve moderation view handles invalid revision ids correctly
+        """
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(12345, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user recieved a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_approve_moderation_view_bad_permissions(self):
+        """
+        This tests that the approve moderation view doesn't allow users without moderation permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
     def test_reject_moderation_view(self):
         """
         This posts to the reject moderation view and checks that the page was rejected
@@ -476,3 +507,34 @@ class TestApproveRejectModeration(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
         self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
+
+    def test_reject_moderation_view_bad_revision_id(self):
+        """
+        This tests that the reject moderation view handles invalid revision ids correctly
+        """
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(12345, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user recieved a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_reject_moderation_view_bad_permissions(self):
+        """
+        This tests that the reject moderation view doesn't allow users without moderation permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
