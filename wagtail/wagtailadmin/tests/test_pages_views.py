@@ -635,3 +635,19 @@ class TestApproveRejectModeration(TestCase):
 
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
+
+
+class TestContentTypeUse(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.user = login(self.client)
+
+    def test_content_type_use(self):
+        # Get use of event page
+        response = self.client.get(reverse('wagtailadmin_pages_type_use', args=('tests', 'eventpage')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
+        self.assertContains(response, "Christmas")
