@@ -1,9 +1,10 @@
 from django.test import TestCase
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login, unittest
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import User, Permission
+from django.core import mail
 
 
 class TestPageExplorer(TestCase):
@@ -409,3 +410,69 @@ class TestPageUnpublish(TestCase):
 
         # Check that the page was unpublished
         self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
+
+
+class TestApproveRejectModeration(TestCase):
+    def setUp(self):
+        self.submitter = User.objects.create_superuser(
+            username='submitter',
+            email='submitter@email.com',
+            password='password',
+        )
+
+        self.user = login(self.client)
+
+        # Create a page and submit it for moderation
+        root_page = Page.objects.get(id=2)
+        self.page = SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            live=False,
+        )
+        root_page.add_child(instance=self.page)
+
+        self.page.save_revision(user=self.submitter, submitted_for_moderation=True)
+        self.revision = self.page.get_latest_revision()
+
+    def test_approve_moderation_view(self):
+        """
+        This posts to the approve moderation view and checks that the page was approved
+        """
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user was redirected
+        self.assertEqual(response.status_code, 302)
+
+        # Page must be live
+        self.assertTrue(Page.objects.get(id=self.page.id).live)
+
+        # Submitter must recieve an approved email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
+
+    def test_reject_moderation_view(self):
+        """
+        This posts to the reject moderation view and checks that the page was rejected
+        """
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user was redirected
+        self.assertEqual(response.status_code, 302)
+
+        # Page must not be live
+        self.assertFalse(Page.objects.get(id=self.page.id).live)
+
+        # Revision must no longer be submitted for moderation
+        self.assertFalse(PageRevision.objects.get(id=self.revision.id).submitted_for_moderation)
+
+        # Submitter must recieve a rejected email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
