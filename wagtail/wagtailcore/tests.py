@@ -821,3 +821,23 @@ class TestFixTreeCommand(TestCase):
 
         # Check if its fixed
         self.assertEqual(Page.objects.get(url_path='/home/').depth, old_depth)
+
+
+class TestMovePagesCommand(TestCase):
+    fixtures = ['test.json']
+
+    def run_command(self, from_, to):
+        management.call_command('move_pages', str(from_), str(to), interactive=False, stdout=StringIO())
+
+    def test_move_pages(self):
+        # Get pages
+        events_index = Page.objects.get(url_path='/home/events/')
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        page_ids = events_index.get_children().values_list('id', flat=True)
+
+        # Move all events into "about us"
+        self.run_command(events_index.id, about_us.id)
+
+        # Check that all pages moved
+        for page_id in page_ids:
+            self.assertEqual(Page.objects.get(id=page_id).get_parent(), about_us)
