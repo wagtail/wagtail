@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Inli
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailsnippets.models import register_snippet
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -252,3 +253,20 @@ FormPage.content_panels = [
         FieldPanel('subject', classname="full"),
     ], "Email")
 ]
+
+
+# Snippets
+
+class Advert(models.Model):
+  url = models.URLField(null=True, blank=True)
+  text = models.CharField(max_length=255)
+
+  panels = [
+    FieldPanel('url'),
+    FieldPanel('text'),
+  ]
+
+  def __unicode__(self):
+    return self.text
+
+register_snippet(Advert)
