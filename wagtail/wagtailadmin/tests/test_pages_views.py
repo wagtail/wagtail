@@ -636,6 +636,14 @@ class TestApproveRejectModeration(TestCase):
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
 
+    def test_preview_for_moderation(self):
+        response = self.client.get(reverse('wagtailadmin_pages_preview_for_moderation', args=(self.revision.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertContains(response, "Hello world!")
+
 
 class TestContentTypeUse(TestCase):
     fixtures = ['test.json']
