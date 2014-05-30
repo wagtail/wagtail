@@ -111,6 +111,36 @@ class TestPageCreation(TestCase):
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
 
+    def test_create_simplepage_post_submit(self):
+        # Create a moderator user for testing email
+        moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
+
+        # Submit
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the page and check it
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        self.assertEqual(page.title, post_data['title'])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+
+        # The latest revision for the page should now be in moderation
+        self.assertTrue(page.get_latest_revision().submitted_for_moderation)
+
+        # Check that the moderator got an email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
+
     def test_create_simplepage_post_existingslug(self):
         # This tests the existing slug checking on page save
 
@@ -218,6 +248,34 @@ class TestPageEdit(TestCase):
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
+
+    def test_page_edit_post_submit(self):
+        # Create a moderator user for testing email
+        moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
+
+        # Tests submitting from edit page
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+    
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # The latest revision for the page should now be in moderation
+        self.assertTrue(child_page_new.get_latest_revision().submitted_for_moderation)
+
+        # Check that the moderator got an email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation') # Note: should this be "I've been edited!"?
 
 
 class TestPageDelete(TestCase):
