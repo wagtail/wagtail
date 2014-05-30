@@ -1,5 +1,7 @@
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
+from django.core import management
+from StringIO import StringIO
 
 from django.contrib.auth.models import User
 
@@ -776,3 +778,46 @@ class TestIssue157(TestCase):
 
         # Check url
         self.assertEqual(homepage.url, '/')
+
+
+class TestFixTreeCommand(TestCase):
+    fixtures = ['test.json']
+
+    def run_command(self):
+        management.call_command('fixtree', interactive=False, stdout=StringIO())
+
+    def test_fixes_numchild(self):
+        # Get homepage and save old value
+        homepage = Page.objects.get(url_path='/home/')
+        old_numchild = homepage.numchild
+
+        # Break it
+        homepage.numchild = 12345
+        homepage.save()
+
+        # Check that its broken
+        self.assertEqual(Page.objects.get(url_path='/home/').numchild, 12345)
+
+        # Call command
+        self.run_command()
+
+        # Check if its fixed
+        self.assertEqual(Page.objects.get(url_path='/home/').numchild, old_numchild)
+
+    def test_fixes_depth(self):
+        # Get homepage and save old value
+        homepage = Page.objects.get(url_path='/home/')
+        old_depth = homepage.depth
+
+        # Break it
+        homepage.depth = 12345
+        homepage.save()
+
+        # Check that its broken
+        self.assertEqual(Page.objects.get(url_path='/home/').depth, 12345)
+
+        # Call command
+        self.run_command()
+
+        # Check if its fixed
+        self.assertEqual(Page.objects.get(url_path='/home/').depth, old_depth)
