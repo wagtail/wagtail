@@ -33,11 +33,25 @@ class TestPageCreation(TestCase):
         self.root_page = Page.objects.get(id=2)
 
         # Login
-        login(self.client)
+        self.user = login(self.client)
 
     def test_add_subpage(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_add_subpage_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get add subpage page
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.root_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
 
     def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(100000, )))
@@ -46,6 +60,20 @@ class TestPageCreation(TestCase):
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
+
+    def test_create_simplepage_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get page
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -133,14 +161,28 @@ class TestPageEdit(TestCase):
         self.root_page.add_child(instance=self.event_page)
 
         # Login
-        login(self.client)
+        self.user = login(self.client)
 
-    def test_edit_page(self):
+    def test_page_edit(self):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-    def test_edit_post(self):
+    def test_page_edit_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get edit page
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_page_edit_post(self):
         # Tests simple editing
         post_data = {
             'title': "I've been edited!",
@@ -156,7 +198,7 @@ class TestPageEdit(TestCase):
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertTrue(child_page_new.has_unpublished_changes)
 
-    def test_edit_post_publish(self):
+    def test_page_edit_post_publish(self):
         # Tests publish from edit page
         post_data = {
             'title': "I've been edited!",
@@ -189,13 +231,27 @@ class TestPageDelete(TestCase):
         self.root_page.add_child(instance=self.child_page)
 
         # Login
-        login(self.client)
+        self.user = login(self.client)
 
-    def test_delete(self):
+    def test_page_delete(self):
         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
 
-    def test_delete_post(self):
+    def test_page_delete_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get delete page
+        response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_page_delete_post(self):
         post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
 
@@ -259,11 +315,25 @@ class TestPageMove(TestCase):
         self.section_a.add_child(instance=self.test_page)
 
         # Login
-        login(self.client)
+        self.user = login(self.client)
 
     def test_page_move(self):
         response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_page_move_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get move page
+        response = self.client.get(reverse('wagtailadmin_pages_move', args=(self.test_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
 
     def test_page_move_confirm(self):
         response = self.client.get(reverse('wagtailadmin_pages_move_confirm', args=(self.test_page.id, self.section_b.id)))
