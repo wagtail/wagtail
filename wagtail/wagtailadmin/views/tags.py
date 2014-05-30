@@ -16,4 +16,4 @@ def autocomplete(request):
 
     response = json.dumps([tag.name for tag in tags])
 
-    return HttpResponse(response, mimetype='text/javascript')
+    return HttpResponse(response, content_type='text/javascript')

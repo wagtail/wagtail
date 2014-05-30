@@ -24,7 +24,7 @@ class Command(BaseCommand):
             revision.save(update_fields=['content_json'])
 
         for content_type in get_page_types():
-            print "scanning %s" % content_type.name
+            self.stdout.write("scanning %s" % content_type.name)
             page_class = content_type.model_class()
 
             try:

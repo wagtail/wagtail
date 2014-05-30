@@ -113,6 +113,8 @@ def chooser_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form()
 
+    searchform = SearchForm()
+
     if request.POST:
         image = Image(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image)
@@ -138,7 +140,7 @@ def chooser_upload(request):
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form}
+        {'images': images, 'uploadform': form, 'searchform': searchform}
     )
 
 

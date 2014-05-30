@@ -1,5 +1,7 @@
-# Production-configured Wagtail installation
-# (secure services/account for full production use).
+# Production-configured Wagtail installation.
+# BUT, SECURE SERVICES/ACCOUNT FOR FULL PRODUCTION USE!
+# For a non-dummy email backend configure Django's EMAIL_BACKEND
+# in settings/production.py post-installation.
 # Tested on Ubuntu 13.04 and 13.10.
 # Tom Dyson and Neal Todd
 
@@ -40,6 +42,7 @@ aptitude -y install openjdk-7-jre-headless
 curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.0.deb
 dpkg -i elasticsearch-1.0.0.deb
 rm elasticsearch-1.0.0.deb
+perl -pi -e"s/# network.host: 192.168.0.1/network.host: 127.0.0.1/" /etc/elasticsearch/elasticsearch.yml
 update-rc.d elasticsearch defaults 95 10
 service elasticsearch start
 
