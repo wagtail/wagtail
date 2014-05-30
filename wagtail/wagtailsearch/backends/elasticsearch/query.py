@@ -104,7 +104,7 @@ class ElasticSearchQuery(object):
                     }
                 }
 
-            raise FilterError('Could not apply filter on ElasticSearch results "' + field + '__' + lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognosed.')
+            raise FilterError('Could not apply filter on ElasticSearch results "' + field + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
 
         # Get child filters
         connector = where_node.connector

@@ -253,7 +253,7 @@ class ElasticSearchDocument(object):
 
                 # Add value to partials if this has partial match enabled
                 if field.partial_match:
-                    partials.append(str(value))
+                    partials.append(unicode(value))
 
         # Partials must be sorted to allow them to be easily checked in unit tests
         partials.sort()
