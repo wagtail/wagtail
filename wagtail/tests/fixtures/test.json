@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 2,
+        "numchild": 3,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -62,7 +62,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Christmas",
-        "numchild": 1,
+        "numchild": 0,
         "show_in_menus": true,
         "live": true,
         "depth": 4,
@@ -90,7 +90,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Tentative Unpublished Event",
-        "numchild": 1,
+        "numchild": 0,
         "show_in_menus": true,
         "live": false,
         "depth": 4,
@@ -118,7 +118,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Someone Else's Event",
-        "numchild": 1,
+        "numchild": 0,
         "show_in_menus": true,
         "live": false,
         "depth": 4,
