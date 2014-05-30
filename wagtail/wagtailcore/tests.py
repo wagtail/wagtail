@@ -841,3 +841,20 @@ class TestMovePagesCommand(TestCase):
         # Check that all pages moved
         for page_id in page_ids:
             self.assertEqual(Page.objects.get(id=page_id).get_parent(), about_us)
+
+
+class TestReplaceTextCommand(TestCase):
+    fixtures = ['test.json']
+
+    def run_command(self, from_text, to_text):
+        management.call_command('replace_text', from_text, to_text, interactive=False, stdout=StringIO())
+
+    def test_replace_text(self):
+        # Check that the christmas page is definitely about christmas
+        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Christmas")
+
+        # Make it about easter
+        self.run_command("Christmas", "Easter")
+
+        # Check that its now about easter
+        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Easter")
