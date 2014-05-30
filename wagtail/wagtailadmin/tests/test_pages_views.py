@@ -3,6 +3,7 @@ from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login, unittest
 from wagtail.wagtailcore.models import Page
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import Permission
 
 
 class TestPageExplorer(TestCase):
@@ -271,3 +272,70 @@ class TestPageMove(TestCase):
     def test_page_set_page_position(self):
         response = self.client.get(reverse('wagtailadmin_pages_set_page_position', args=(self.test_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+
+class TestPageUnpublish(TestCase):
+    def setUp(self):
+        self.user = login(self.client)
+
+        # Create a page to unpublish
+        root_page = Page.objects.get(id=2)
+        self.page = SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            live=True,
+        )
+        root_page.add_child(instance=self.page)
+
+    def test_unpublish_view(self):
+        """
+        This tests that the unpublish view responds with an unpublish confirm page
+        """
+        # Get unpublish page
+        response = self.client.get(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )))
+
+        # Check that the user recieved an unpublish confirm page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/confirm_unpublish.html')
+
+    def test_unpublish_view_invalid_page_id(self):
+        """
+        This tests that the unpublish view returns an error if the page id is invalid
+        """
+        # Get unpublish page
+        response = self.client.get(reverse('wagtailadmin_pages_unpublish', args=(12345, )))
+
+        # Check that the user recieved a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unpublish_view_bad_permissions(self):
+        """
+        This tests that the unpublish view doesn't allow users without unpublish permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get unpublish page
+        response = self.client.get(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_unpublish_view_post(self):
+        """
+        This posts to the unpublish view and checks that the page was unpublished
+        """
+        # Post to the unpublish page
+        response = self.client.post(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user was redirected
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the page was unpublished
+        self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
