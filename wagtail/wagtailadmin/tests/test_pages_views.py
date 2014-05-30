@@ -277,6 +277,21 @@ class TestPageEdit(TestCase):
         self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
         self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation') # Note: should this be "I've been edited!"?
 
+    def test_preview_on_edit(self):
+        # Tests submitting from edit page
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_preview_on_edit', args=(self.child_page.id, )), post_data)
+
+        # Check the response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertContains(response, "I&#39;ve been edited!")
+
 
 class TestPageDelete(TestCase):
     def setUp(self):
