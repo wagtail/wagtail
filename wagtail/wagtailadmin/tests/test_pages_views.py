@@ -268,25 +268,36 @@ class TestPageSearch(TestCase):
         # Login
         login(self.client)
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_pages_search'), params)
+    def get(self, params=None, **extra):
+        return self.client.get(reverse('wagtailadmin_pages_search'), params or {}, **extra)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_view(self):
+        response = self.get()
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+        self.assertEqual(response.status_code, 200)
 
     def test_search(self):
         response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+        self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_ajax(self):
+        response = self.get({'q': "Hello"}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateNotUsed(response, 'wagtailadmin/pages/search.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search_results.html')
         self.assertEqual(response.context['query_string'], "Hello")
 
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
         for page in pages:
-            response = self.get({'p': page})
+            response = self.get({'q': "Hello", 'p': page})
             self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
 
     def test_root_can_appear_in_search_results(self):
-        response = self.client.get('/admin/pages/search/?q=roo')
+        response = self.get({'q': "roo"})
         self.assertEqual(response.status_code, 200)
         # 'pages' list in the response should contain root
         results = response.context['pages']
