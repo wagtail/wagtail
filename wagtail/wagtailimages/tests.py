@@ -84,10 +84,10 @@ class TestRenditions(TestCase):
         # default backend should be pillow
         backend = get_image_backend()
         self.assertTrue(isinstance(backend, PillowBackend))
-        
+
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
-        
+
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
@@ -114,7 +114,7 @@ class TestRenditions(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
-        
+
 
 class TestRenditionsWand(TestCase):
     def setUp(self):
@@ -134,18 +134,18 @@ class TestRenditionsWand(TestCase):
 
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
-        
+
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
-        
+
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
-        
+
         # Check size
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
-        
+
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
 
@@ -160,7 +160,7 @@ class TestRenditionsWand(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
-        
+
 
 class TestImageTag(TestCase):
     def setUp(self):

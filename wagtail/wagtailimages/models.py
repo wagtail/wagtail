@@ -180,27 +180,25 @@ class Filter(models.Model):
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
-        
         backend = get_image_backend(backend_name)
-        
+
         if not self.method:
             self._parse_spec_string()
-        
+
         # If file is closed, open it
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
-        
+
         method = getattr(backend, self.method_name)
 
         image = method(image, self.method_arg)
 
         output = StringIO.StringIO()
         backend.save_image(image, output, file_format)
-        
+
         # and then close the input file
         input_file.close()
-        
 
         # generate new filename derived from old one, inserting the filter spec string before the extension
         input_filename_parts = os.path.basename(input_file.name).split('.')
@@ -210,7 +208,6 @@ class Filter(models.Model):
         output_filename = '.'.join(output_filename_parts)
 
         output_file = File(output, name=output_filename)
-        
 
         return output_file
 
