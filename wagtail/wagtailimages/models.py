@@ -161,15 +161,17 @@ class Filter(models.Model):
         # and save the results to self.method_name and self.method_arg
         try:
             (method_name_simple, method_arg_string) = self.spec.split('-')
-            self.method_name = Filter.OPERATION_NAMES[method_name_simple]
+            method_name = Filter.OPERATION_NAMES[method_name_simple]
 
             if method_name_simple in ('max', 'min', 'fill'):
                 # method_arg_string is in the form 640x480
                 (width, height) = [int(i) for i in method_arg_string.split('x')]
-                self.method_arg = (width, height)
+                method_arg = (width, height)
             else:
                 # method_arg_string is a single number
-                self.method_arg = int(method_arg_string)
+                method_arg = int(method_arg_string)
+
+            return method_name, method_arg
 
         except (ValueError, KeyError):
             raise ValueError("Invalid image filter spec: %r" % self.spec)
@@ -180,36 +182,33 @@ class Filter(models.Model):
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
+        # Get image backend
         backend = get_image_backend(backend_name)
 
-        if not self.method:
-            self._parse_spec_string()
-
-        # If file is closed, open it
+        # Open image file
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
 
-        method = getattr(backend, self.method_name)
+        # Parse filter spec string
+        method_name, method_arg = self._parse_spec_string()
 
-        image = method(image, self.method_arg)
+        # Run filter
+        method_f = getattr(backend, method_name)
+        image = method_f(image, method_arg)
 
+        # Save
         output = StringIO.StringIO()
         backend.save_image(image, output, file_format)
 
-        # and then close the input file
+        # Close input file
         input_file.close()
 
-        # generate new filename derived from old one, inserting the filter spec string before the extension
-        input_filename_parts = os.path.basename(input_file.name).split('.')
-        filename_without_extension = '.'.join(input_filename_parts[:-1])
-        filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-        output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
-        output_filename = '.'.join(output_filename_parts)
+        # Generate new filename derived from old one, inserting the filter spec string before the extension
+        filename_noext, ext = os.path.splitext(input_file.name)
+        output_filename = '.'.join([filename_noext[:60], self.spec]) + ext
 
-        output_file = File(output, name=output_filename)
-
-        return output_file
+        return File(output, name=output_filename)
 
 
 class AbstractRendition(models.Model):
