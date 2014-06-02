@@ -33,6 +33,16 @@ def index(request, parent_page_id=None):
     else:
         ordering = 'title'
 
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(pages, 50)
+    try:
+        pages = paginator.page(p)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
+
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
         'ordering': ordering,

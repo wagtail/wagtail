@@ -230,3 +230,23 @@
         {% endif %}
     </tbody>
 </table>
+
+{% if parent_page and pages and pages.paginator %}
+    <div class="pagination">
+        <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
+            Page {{ page_number }} of {{ num_pages }}.
+        {% endblocktrans %}</p>
+        <ul>
+            <li class="prev">
+                {% if pages.has_previous %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
+                {% endif %}
+            </li>
+            <li class="next">
+                {% if pages.has_next %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+{% endif %}
