@@ -1,3 +1,5 @@
+import warnings
+
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
 
@@ -235,9 +237,15 @@ class TestServeView(TestCase):
         """
         Test that route() methods that return an HttpResponse are correctly handled
         """
-        response = self.client.get('/old-style-route/')
-        expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')
+        with warnings.catch_warnings(record=True) as w:
+            response = self.client.get('/old-style-route/')
 
+            # Check that a DeprecationWarning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertTrue("Page.route should return a Page" in str(w[-1].message))
+
+        expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['self'], expected_page)
         self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
