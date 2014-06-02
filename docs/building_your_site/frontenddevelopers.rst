@@ -179,7 +179,9 @@ In some cases greater control over the ``img`` tag is required, for example to a
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
-This filter is required for use with any field that generates raw HTML e.g ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display.
+This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly it also expands internal shorthand references to embedded images and links made in the Wagtail editor into fully-baked HTML ready for display.
+
+Only fields using ``RichTextField`` need this applied in the template.
 
 .. code-block:: django
 
@@ -193,7 +195,8 @@ This filter is required for use with any field that generates raw HTML e.g ``Ric
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
-**pageurl**
+pageurl
+--------
 
 Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 
@@ -203,7 +206,8 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
     ...
     <a href="{% pageurl self.blog_page %}">
 
-**slugurl**
+slugurl
+--------
 
 Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. This is most useful when creating shared page furniture e.g top level navigation or site-wide links.
 
