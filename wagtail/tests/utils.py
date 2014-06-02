@@ -26,7 +26,7 @@ def login(client):
 
 class WagtailTestCase(TestCase):
     def login(self):
-        login(self.client)
+        return login(self.client)
 
     # From: https://github.com/django/django/blob/255449c1ee61c14778658caae8c430fa4d76afd6/django/contrib/auth/tests/test_views.py#L70-L85
     def assertURLEqual(self, url, expected, parse_qs=False):
