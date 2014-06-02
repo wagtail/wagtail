@@ -250,6 +250,10 @@ class TestServeView(TestCase):
         self.assertEqual(response.context['self'], expected_page)
         self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
 
+    def test_before_serve_hook(self):
+        response = self.client.get('/events/', HTTP_USER_AGENT='GoogleBot')
+        self.assertContains(response, 'bad googlebot no cookie')
+
 
 class TestStaticSitePaths(TestCase):
     def setUp(self):

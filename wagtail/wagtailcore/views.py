@@ -2,6 +2,8 @@ import warnings
 
 from django.http import HttpResponse, Http404
 
+from wagtail.wagtailcore import hooks
+
 
 def serve(request, path):
     # we need a valid Site object corresponding to this request (set in wagtail.wagtailcore.middleware.SiteMiddleware)
@@ -17,5 +19,10 @@ def serve(request, path):
             DeprecationWarning
         )
         return page
+
+    for fn in hooks.get_hooks('before_serve_page'):
+        result = fn(page, request)
+        if isinstance(result, HttpResponse):
+            return result
 
     return page.serve(request)
