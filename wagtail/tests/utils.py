@@ -15,19 +15,15 @@ except ImportError:
     import unittest
 
 
-def login(client):
-    # Create a user
-    user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
-
-    # Login
-    client.login(username='test', password='password')
-
-    return user
-
-
 class WagtailTestUtils(object):
     def login(self):
-        return login(self.client)
+        # Create a user
+        user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
+
+        # Login
+        self.client.login(username='test', password='password')
+
+        return user
 
     # From: https://github.com/django/django/blob/255449c1ee61c14778658caae8c430fa4d76afd6/django/contrib/auth/tests/test_views.py#L70-L85
     def assertURLEqual(self, url, expected, parse_qs=False):

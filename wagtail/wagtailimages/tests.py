@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from wagtail.tests.utils import login, unittest, WagtailTestUtils
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
@@ -187,9 +187,9 @@ class TestImageTag(TestCase):
 ## ===== ADMIN VIEWS =====
 
 
-class TestImageIndexView(TestCase):
+class TestImageIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_index'), params)
@@ -219,7 +219,7 @@ class TestImageIndexView(TestCase):
 
 class TestImageAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_add_image'), params)
@@ -254,7 +254,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
 class TestImageEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -289,7 +289,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -322,9 +322,9 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(images.count(), 0)
 
 
-class TestImageChooserView(TestCase):
+class TestImageChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser'), params)
@@ -347,9 +347,9 @@ class TestImageChooserView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestImageChooserChosenView(TestCase):
+class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -368,9 +368,9 @@ class TestImageChooserChosenView(TestCase):
     # TODO: Test posting
 
 
-class TestImageChooserUploadView(TestCase):
+class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser_upload'), params)

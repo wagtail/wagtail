@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from wagtail.wagtailredirects import models
-from wagtail.tests.utils import login, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
 
 
@@ -66,9 +66,9 @@ class TestRedirects(TestCase):
         self.assertTrue(r.has_header('Location'))
 
 
-class TestRedirectsIndexView(TestCase):
+class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_index'), params)
@@ -92,7 +92,7 @@ class TestRedirectsIndexView(TestCase):
 
 class TestRedirectsAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_add_redirect'), params)
@@ -139,7 +139,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.redirect.save()
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), params)
@@ -188,7 +188,7 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         self.redirect.save()
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), params)

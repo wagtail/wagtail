@@ -2,13 +2,13 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from wagtail.tests.utils import login, unittest, WagtailTestUtils
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.tests.models import Advert
 
 
-class TestSnippetIndexView(TestCase):
+class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_index'), params)
@@ -22,9 +22,9 @@ class TestSnippetIndexView(TestCase):
         self.assertContains(self.get(), "Adverts")
 
 
-class TestSnippetListView(TestCase):
+class TestSnippetListView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_list',
@@ -42,7 +42,7 @@ class TestSnippetListView(TestCase):
 
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_create',
@@ -82,7 +82,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.test_snippet.url = 'http://www.example.com/'
         self.test_snippet.save()
 
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_edit',
@@ -132,7 +132,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.test_snippet.url = 'http://www.example.com/'
         self.test_snippet.save()
 
-        login(self.client)
+        self.login()
 
     def test_delete_get(self):
         response = self.client.get(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )))

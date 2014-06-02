@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wagtail.tests.utils import login, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestUserIndexView(TestCase):
+class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_index'), params)
@@ -30,7 +30,7 @@ class TestUserIndexView(TestCase):
 
 class TestUserCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_create'), params)
@@ -69,7 +69,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, user_id=None):
         return self.client.get(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), params)

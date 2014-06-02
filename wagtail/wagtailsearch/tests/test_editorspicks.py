@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.tests.utils import login
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailsearch import models
 
 
@@ -45,9 +45,9 @@ class TestEditorsPicks(TestCase):
         self.assertEqual(models.Query.get("root page").editors_picks.last().description, "Last editors pick")
 
 
-class TestEditorsPicksIndexView(TestCase):
+class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/', params)
@@ -69,9 +69,9 @@ class TestEditorsPicksIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestEditorsPicksAddView(TestCase):
+class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/add/', params)
@@ -81,10 +81,12 @@ class TestEditorsPicksAddView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/add.html')
 
+    # TODO: Test posting
 
-class TestEditorsPicksEditView(TestCase):
+
+class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an editors pick to edit
         self.query = models.Query.get("Hello")
@@ -98,10 +100,12 @@ class TestEditorsPicksEditView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/edit.html')
 
+    # TODO: Test posting
 
-class TestEditorsPicksDeleteView(TestCase):
+
+class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an editors pick to delete
         self.query = models.Query.get("Hello")
@@ -114,3 +118,5 @@ class TestEditorsPicksDeleteView(TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/confirm_delete.html')
+
+    # TODO: Test posting

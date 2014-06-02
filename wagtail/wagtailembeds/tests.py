@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
-from wagtail.tests.utils import login
 from wagtail.wagtailembeds import get_embed
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestEmbeds(TestCase):
@@ -63,10 +63,10 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.width, None)
 
 
-class TestChooser(TestCase):
+class TestChooser(TestCase, WagtailTestUtils):
     def setUp(self):
         # login
-        login(self.client)
+        self.login()
 
     def test_chooser(self):
         r = self.client.get('/admin/embeds/chooser/')
