@@ -3,7 +3,7 @@ from django.conf import settings
 
 from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 
 
 urlpatterns = [
