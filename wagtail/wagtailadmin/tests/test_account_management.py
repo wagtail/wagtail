@@ -1,11 +1,12 @@
-from wagtail.tests.utils import unittest, WagtailTestCase
+from django.test import TestCase
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 
 
-class TestAuthentication(WagtailTestCase):
+class TestAuthentication(TestCase, WagtailTestUtils):
     """
     This tests that users can login and logout of the admin interface
     """
@@ -78,7 +79,7 @@ class TestAuthentication(WagtailTestCase):
         self.assertFalse('_auth_user_id' in self.client.session)
 
 
-class TestAccountSection(WagtailTestCase):
+class TestAccountSection(TestCase, WagtailTestUtils):
     """
     This tests that the accounts section is working
     """
@@ -149,7 +150,7 @@ class TestAccountSection(WagtailTestCase):
         self.assertTrue(User.objects.get(username='test').check_password('password'))
 
 
-class TestPasswordReset(WagtailTestCase):
+class TestPasswordReset(TestCase, WagtailTestUtils):
     """
     This tests that the password reset is working
     """

@@ -1,12 +1,13 @@
+from django.test import TestCase
 from wagtail.tests.models import SimplePage, EventPage
-from wagtail.tests.utils import unittest, WagtailTestCase
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission
 from django.core import mail
 
 
-class TestPageExplorer(WagtailTestCase):
+class TestPageExplorer(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -27,7 +28,7 @@ class TestPageExplorer(WagtailTestCase):
         self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
 
 
-class TestPageCreation(WagtailTestCase):
+class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -188,7 +189,7 @@ class TestPageCreation(WagtailTestCase):
         self.assertContains(response, "New page!")
 
 
-class TestPageEdit(WagtailTestCase):
+class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -311,7 +312,7 @@ class TestPageEdit(WagtailTestCase):
         self.assertContains(response, "I&#39;ve been edited!")
 
 
-class TestPageDelete(WagtailTestCase):
+class TestPageDelete(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -355,7 +356,7 @@ class TestPageDelete(WagtailTestCase):
         self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
 
 
-class TestPageSearch(WagtailTestCase):
+class TestPageSearch(TestCase, WagtailTestUtils):
     def setUp(self):
         # Login
         self.login()
@@ -396,7 +397,7 @@ class TestPageSearch(WagtailTestCase):
         self.assertTrue(any([r.slug == 'root' for r in results]))
 
 
-class TestPageMove(WagtailTestCase):
+class TestPageMove(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -448,7 +449,7 @@ class TestPageMove(WagtailTestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestPageUnpublish(WagtailTestCase):
+class TestPageUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
 
@@ -516,7 +517,7 @@ class TestPageUnpublish(WagtailTestCase):
         self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
 
 
-class TestApproveRejectModeration(WagtailTestCase):
+class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
         self.submitter = User.objects.create_superuser(
             username='submitter',
@@ -654,7 +655,7 @@ class TestApproveRejectModeration(WagtailTestCase):
         self.assertContains(response, "Hello world!")
 
 
-class TestContentTypeUse(WagtailTestCase):
+class TestContentTypeUse(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):

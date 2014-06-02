@@ -24,7 +24,7 @@ def login(client):
     return user
 
 
-class WagtailTestCase(TestCase):
+class WagtailTestUtils(object):
     def login(self):
         return login(self.client)
 
