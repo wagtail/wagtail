@@ -1,9 +1,6 @@
 For Front End developers
 ========================
 
-.. note::
-    This documentation is currently being written.
-
 .. contents::
 
 ========================
