@@ -1,6 +1,8 @@
 Changelog
 =========
 
+ * When logged in user visits login page, they are now redirected to the dashboard
+
 0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
