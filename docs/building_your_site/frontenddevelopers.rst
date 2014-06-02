@@ -71,11 +71,11 @@ Any file within the static folder should be inserted into your HTML using the ``
 User images
 ~~~~~~~~~~~
 
-Images uploaded to Wagtail by its users go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
+Images uploaded to Wagtail by its users (as opposed to a developer's static files, above) go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
 
 Unlike other CMS, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur *on the fly* when the image is requested, via a special syntax within the template.
 
-Images from the library **must** be requested using this syntax, but images in your codebase can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
+Images from the library **must** be requested using this syntax, but a developer's static images can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
 
 Read more about the image manipulation syntax here :ref:`image_tag`.
 
@@ -92,7 +92,9 @@ In addition to Django's standard tags and filters, Wagtail provides some of it's
 Images (tag)
 ~~~~~~~~~~~~
 
-The syntax for displaying/manipulating an image is thus::
+The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
+
+The syntax for the tag is thus::
 
     {% image [image] [method]-[dimension(s)] %}
 
@@ -153,6 +155,24 @@ The available ``method`` s are:
 
 .. Note::
     Wagtail does not make the "original" version of an image explicitly available. To request it, it's suggested you rely on the lack of upscaling by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+
+
+.. _image_tag_alt:
+
+More control over the ``img`` tag
+---------------------------------
+
+In some cases greater control over the ``img`` tag is required, for example to add a custom ``class``. Rather than generating the ``img`` element for you, Wagtail can assign the relevant data to another object using Django's ``as`` syntax:
+
+.. code-block:: django
+    
+    {% load image %}
+    ...
+    {% image self.photo width-400 as tmp_photo %}
+
+    <img src="{{ tmp_photo.src }}" width="{{ tmp_photo.width }}" 
+        height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
+
 
 .. _rich-text-filter:
 
