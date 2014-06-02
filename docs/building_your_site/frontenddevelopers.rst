@@ -4,9 +4,13 @@ For Front End developers
 .. note::
     This documentation is currently being written.
 
+.. contents::
+
 ========================
 Overview
 ========================
+
+This page is aimed at non-Django-literate Front End developers.
 
 Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation: 
 https://docs.djangoproject.com/en/dev/topics/templates/
@@ -14,41 +18,63 @@ https://docs.djangoproject.com/en/dev/topics/templates/
 Python programmers new to Django/Wagtail may prefer more technical documentation: 
 https://docs.djangoproject.com/en/dev/ref/templates/api/
 
+You should be familiar with Django templating basics before continuing with this documentation.
+
 ==========================
-Displaying Pages
+Templates
 ==========================
 
-Template Location
-~~~~~~~~~~~~~~~~~
+Every type of page or "content type" in Wagtail is defined in "The Model": a file called ``models.py``. The name of each "page model" is prefixing with ``class``. e.g If your site has a blog, you might have a ``BlogPage`` page model and another called ``BlogPageListing``. The names of the models are up to the developer.
 
-For each of your ``Page``-derived models, Wagtail will look for a template in the following location, relative to your project root::
+For each type of page in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves.
 
-    project/
-        app/
+To find a suitable template, Wagtail converts CamelCase names to underscore_case. So for a ``BlogPage``, a template file ``blog_page.html`` will be expected. The name of the template file can be overridden per model if necessary.
+
+Template files are assumed to exist here::
+
+    name_of_project/
+        name_of_app/
             templates/
-                app/
-                    blog_index_page.html
+                name_of_app/
+                    blog_page.html
             models.py
 
-Class names are converted from camel case to underscores. For example, the template for model class ``BlogIndexPage`` would be assumed to be ``blog_index_page.html``. For more information, see the Django documentation for the `application directories template loader`_.
+
+For more information, see the Django documentation for the `application directories template loader`_.
 
 .. _application directories template loader: https://docs.djangoproject.com/en/dev/ref/templates/api/
 
 
-Self
-~~~~
+Page content
+~~~~~~~~~~~~
 
-By default, the context passed to a model's template consists of two properties: ``self`` and ``request``. ``self`` is the model object being displayed. ``request`` is the normal Django request object. So, to include the title of a ``Page``, use ``{{ self.title }}``.
+The data/content entered into each page is accessed/output through Django's ``{{ double-brace }}`` notation. Each field from the model must be accessed by prefixing ``self.``. e.g the page title ``{{ self.title }}`` or another field ``{{ self.author }}``.
 
-========================
-Static files (css, js, images)
-========================
+Additionally ``request.`` is available and contains Django's request object.
 
+==============
+Static assets
+==============
 
-Images
-~~~~~~
+Static files e.g CSS, JS and images are typically stored here::
+    
+    name_of_project/
+        name_of_app/
+            static/
+                name_of_app/
+                    css/
+                    js/
+                    images/
+            models.py
 
-Images uploaded to Wagtail go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
+(The names "css", "js" etc aren't important, only their position within the tree.)    
+
+Any file within the static folder should be inserted into your HTML using the ``{% static %}`` tag. More about it: :ref:`static_tag`.
+
+User images
+~~~~~~~~~~~
+
+Images uploaded to Wagtail by its users go into the image library and from there are added to pages via the :doc:`page editor interface </editor_manual/new_pages/inserting_images>`.
 
 Unlike other CMS, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur *on the fly* when the image is requested, via a special syntax within the template.
 
@@ -73,16 +99,21 @@ The syntax for displaying/manipulating an image is thus::
 
     {% image [image] [method]-[dimension(s)] %}
 
-For example::
+For example:
+
+.. code-block:: django
+
+    {% load image %}
+    ...
 
     {% image self.photo width-400 %}
 
     <!-- or a square thumbnail: -->
     {% image self.photo fill-80x80 %}
 
-The ``image`` is the Django object refering to the image. If your page model defined a field called "photo" then ``image`` would probably be ``self.photo``. The ``method`` defines which resizing algorithm to use and ``dimension(s)`` provides height and/or width values (as ``[width|height]`` or ``[width]x[height]``) to refine that algorithm.
+In the above syntax ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``self.photo``. The ``[method]`` defines which resizing algorithm to use and ``[dimension(s)]`` provides height and/or width values (as ``[width|height]`` or ``[width]x[height]``) to refine that algorithm.
 
-Note that a space separates ``image`` and ``method``, but not ``method`` and ``dimensions``: a hyphen between ``method`` and ``dimensions`` is mandatory. Multiple dimensions must be separated by an ``x``.
+Note that a space separates ``[image]`` and ``[method]``, but not ``[method]`` and ``[dimensions]``: a hyphen between ``[method]`` and ``[dimensions]`` is mandatory. Multiple dimensions must be separated by an ``x``.
 
 The available ``method`` s are:
 
@@ -123,53 +154,63 @@ The available ``method`` s are:
 .. Note::
     Wagtail *does not allow deforming or stretching images*. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
-
-To request the "original" version of an image, it is suggested you rely on the lack of upscaling support by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown, at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+.. Note::
+    Wagtail does not make the "original" version of an image explicitly available. To request it, it's suggested you rely on the lack of upscaling by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
 
 .. _rich-text-filter:
+
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
-This filter is required for use with any ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display. **Note that the template tag loaded differs from the name of the filter.**
+This filter is required for use with any field that generates raw HTML e.g ``RichTextField``. It will expand internal shorthand references to embeds and links made in the Wagtail editor into fully-baked HTML ready for display.
 
 .. code-block:: django
 
     {% load rich_text %}
     ...
-    {{ body|richtext }}
+    {{ self.body|richtext }}
+
+.. Note::
+    Note that the template tag loaded differs from the name of the filter.
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
 **pageurl**
 
-Takes a ``Page``-derived object and returns its URL as relative (``/foo/bar/``) if it's within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
+Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 
 .. code-block:: django
 
     {% load pageurl %}
     ...
-    <a href="{% pageurl blog %}">
+    <a href="{% pageurl self.blog_page %}">
 
 **slugurl**
 
-Takes a ``slug`` string and returns the URL for the ``Page``-derived object with that slug. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site.
+Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for the matching Page. Like ``pageurl``, will try to provide a relative link if possible, but will default to an absolute link if on a different site. This is most useful when creating shared page furniture e.g top level navigation or site-wide links.
 
 .. code-block:: django
 
     {% load slugurl %}
     ...
-    <a href="{% slugurl blogslug %}">
+    <a href="{% slugurl self.your_slug %}">
 
 
-
+.. _static_tag:
 
 Static files (tag)
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
+Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between  local and a live environments.
 
-Misc
-~~~~~~~~~~
+.. code-block:: django
+
+    {% load static %}
+    ...
+    <img src="{% static "name_of_app/myimage.jpg" %}" alt="My image"/>
+
+Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
 
 
 
@@ -177,10 +218,19 @@ Misc
 Wagtail User Bar
 ========================
 
-This tag provides a Wagtail icon and flyout menu on the top-right of a page for a logged-in user with editing capabilities, with the option of editing the current Page-derived object or adding a new sibling object.
+This tag provides a contextual flyout menu on the top-right of a page for logged-in users. The menu gives editors the ability to edit the current page or add another at the same level. Moderators are also given the ability to accept or reject a page previewed as part of content moderation.
 
 .. code-block:: django
 
     {% load wagtailuserbar %}
     ...
     {% wagtailuserbar %}
+
+By default the User Bar appears in the top right of the browser window, flush with the edge. If this conflicts with your design it can be moved with a css rule in your own CSS files e.g to move it down from the top:
+
+.. code-block:: css
+
+    #wagtail-userbar{
+       top:200px
+    }
+
