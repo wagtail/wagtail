@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 3,
+        "numchild": 4,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -254,6 +254,29 @@
         "default_value": "",
         "help_text": "",
         "page": 8
+    }
+},
+
+{
+    "pk": 10,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Old style route method",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "pagewitholdstyleroutemethod"],
+        "path": "000100010004",
+        "url_path": "/home/old-style-route/",
+        "slug": "old-style-route"
+    }
+},
+{
+    "pk": 10,
+    "model": "tests.pagewitholdstyleroutemethod",
+    "fields": {
+        "content": "<p>Test with old style route method</p>"
     }
 },
 

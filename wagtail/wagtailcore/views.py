@@ -1,4 +1,6 @@
-from django.http import Http404
+import warnings
+
+from django.http import HttpResponse, Http404
 
 
 def serve(request, path):
@@ -8,4 +10,12 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    return request.site.root_page.specific.route(request, path_components)
+    page = request.site.root_page.specific.route(request, path_components)
+    if isinstance(page, HttpResponse):
+        warnings.warn(
+            "Page.route should return a Page, not an HttpResponse",
+            DeprecationWarning
+        )
+        return page
+
+    return page.serve(request)

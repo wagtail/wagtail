@@ -106,6 +106,19 @@ class SimplePage(Page):
     content = models.TextField()
 
 
+class PageWithOldStyleRouteMethod(Page):
+    """
+    Prior to Wagtail 0.4, the route() method on Page returned an HttpResponse
+    rather than a Page instance. As subclasses of Page may override route,
+    we need to continue accepting this convention (albeit as a deprecated API).
+    """
+    content = models.TextField()
+    template = 'tests/simple_page.html'
+
+    def route(self, request, path_components):
+        return self.serve(request)
+
+
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
