@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, WagtailTestUtils
 
 
 class TestUserIndexView(TestCase):
@@ -28,7 +28,7 @@ class TestUserIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestUserCreateView(TestCase):
+class TestUserCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -55,6 +55,7 @@ class TestUserCreateView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -62,7 +63,7 @@ class TestUserCreateView(TestCase):
         self.assertEqual(users.first().email, 'test@user.com')
 
 
-class TestUserEditView(TestCase):
+class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
         self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
@@ -96,6 +97,7 @@ class TestUserEditView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)

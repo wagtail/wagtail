@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import login, unittest, WagtailTestUtils
 from wagtail.tests.models import Advert
 
 
@@ -40,7 +40,7 @@ class TestSnippetListView(TestCase):
         self.assertContains(self.get(), "Add advert")
 
 
-class TestSnippetCreateView(TestCase):
+class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -68,13 +68,14 @@ class TestSnippetCreateView(TestCase):
         response = self.post(post_data={'text': 'test_advert',
                                         'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='test_advert')
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/')
 
 
-class TestSnippetEditView(TestCase):
+class TestSnippetEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.test_snippet = Advert()
         self.test_snippet.text = 'test_advert'
@@ -117,13 +118,14 @@ class TestSnippetEditView(TestCase):
         response = self.post(post_data={'text': 'edited_test_advert',
                                         'url': 'http://www.example.com/edited'})
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='edited_test_advert')
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/edited')
 
 
-class TestSnippetDelete(TestCase):
+class TestSnippetDelete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.test_snippet = Advert()
         self.test_snippet.text = 'test_advert'
@@ -142,6 +144,7 @@ class TestSnippetDelete(TestCase):
 
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)

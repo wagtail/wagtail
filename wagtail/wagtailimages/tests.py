@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import login, unittest, WagtailTestUtils
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
@@ -217,7 +217,7 @@ class TestImageIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestImageAddView(TestCase):
+class TestImageAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -240,6 +240,7 @@ class TestImageAddView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -251,7 +252,7 @@ class TestImageAddView(TestCase):
         self.assertEqual(image.height, 480)
 
 
-class TestImageEditView(TestCase):
+class TestImageEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -279,13 +280,14 @@ class TestImageEditView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
         self.assertEqual(image.title, "Edited")
 
 
-class TestImageDeleteView(TestCase):
+class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -313,6 +315,7 @@ class TestImageDeleteView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
 
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")

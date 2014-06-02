@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from wagtail.wagtailredirects import models
-from wagtail.tests.utils import login
+from wagtail.tests.utils import login, WagtailTestUtils
 from django.core.urlresolvers import reverse
 
 
@@ -90,7 +90,7 @@ class TestRedirectsIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsAddView(TestCase):
+class TestRedirectsAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         login(self.client)
 
@@ -114,6 +114,7 @@ class TestRedirectsAddView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -131,7 +132,7 @@ class TestRedirectsAddView(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsEditView(TestCase):
+class TestRedirectsEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(old_path='/test', redirect_link='http://www.test.com/')
@@ -163,6 +164,7 @@ class TestRedirectsEditView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
 
         # Check that the redirect was edited
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -179,7 +181,7 @@ class TestRedirectsEditView(TestCase):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
-class TestRedirectsDeleteView(TestCase):
+class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(old_path='/test', redirect_link='http://www.test.com/')
@@ -209,6 +211,7 @@ class TestRedirectsDeleteView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
 
         # Check that the redirect was deleted
         redirects = models.Redirect.objects.filter(old_path='/test')
