@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
 from .base import BaseImageBackend
-
 from wand.image import Image
+
 
 class WandBackend(BaseImageBackend):
     def __init__(self, params):
