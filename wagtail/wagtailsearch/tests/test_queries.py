@@ -146,8 +146,11 @@ class TestQueryChooserView(TestCase):
     def get(self, params={}):
         return self.client.get('/admin/search/queries/chooser/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})

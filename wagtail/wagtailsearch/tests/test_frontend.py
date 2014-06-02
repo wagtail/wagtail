@@ -5,8 +5,10 @@ class TestSearchView(TestCase):
     def get(self, params={}):
         return self.client.get('/search/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/search_results.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -24,8 +26,10 @@ class TestSuggestionsView(TestCase):
     def get(self, params={}):
         return self.client.get('/search/suggest/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # TODO: Check that a valid JSON document was returned
 
     def test_search(self):
         response = self.get({'q': "Hello"})

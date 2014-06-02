@@ -52,8 +52,10 @@ class TestEditorsPicksIndexView(TestCase):
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -74,8 +76,10 @@ class TestEditorsPicksAddView(TestCase):
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/add/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/add.html')
 
 
 class TestEditorsPicksEditView(TestCase):
@@ -89,8 +93,10 @@ class TestEditorsPicksEditView(TestCase):
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/edit.html')
 
 
 class TestEditorsPicksDeleteView(TestCase):
@@ -104,5 +110,7 @@ class TestEditorsPicksDeleteView(TestCase):
     def get(self, params={}):
         return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/confirm_delete.html')

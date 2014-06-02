@@ -73,8 +73,10 @@ class TestRedirectsIndexView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -98,8 +100,10 @@ class TestRedirectsAddView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailredirects_add_redirect'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/add.html')
 
     def test_add(self):
         response = self.post({
@@ -142,8 +146,10 @@ class TestRedirectsEditView(TestCase):
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
@@ -188,8 +194,10 @@ class TestRedirectsDeleteView(TestCase):
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/confirm_delete.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)

@@ -13,8 +13,10 @@ class TestSnippetIndexView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/index.html')
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
@@ -29,8 +31,10 @@ class TestSnippetListView(TestCase):
                                        args=('tests', 'advert')),
                                params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
@@ -50,8 +54,10 @@ class TestSnippetCreateView(TestCase):
                                args=('tests', 'advert')),
                                post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -87,8 +93,10 @@ class TestSnippetEditView(TestCase):
                                         args=('tests', 'advert', self.test_snippet.id)),
                                 post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets_edit',

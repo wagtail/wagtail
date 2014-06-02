@@ -11,8 +11,10 @@ class TestUserIndexView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -36,8 +38,10 @@ class TestUserCreateView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailusers_create'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/create.html')
 
     def test_create(self):
         response = self.post({
@@ -72,8 +76,10 @@ class TestUserEditView(TestCase):
     def post(self, post_data={}, user_id=None):
         return self.client.post(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)

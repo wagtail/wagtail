@@ -46,8 +46,10 @@ class TestDocumentIndexView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -74,8 +76,12 @@ class TestDocumentAddView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_add_document'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+    # TODO: Test posting
 
 
 class TestDocumentEditView(TestCase):
@@ -88,8 +94,12 @@ class TestDocumentEditView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+    # TODO: Test posting
 
 
 class TestDocumentDeleteView(TestCase):
@@ -102,8 +112,12 @@ class TestDocumentDeleteView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+
+    # TODO: Test posting
 
 
 class TestDocumentChooserView(TestCase):
@@ -113,8 +127,11 @@ class TestDocumentChooserView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_chooser'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -138,8 +155,12 @@ class TestDocumentChooserChosenView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+
+    # TODO: Test posting
 
 
 class TestDocumentChooserUploadView(TestCase):
@@ -149,8 +170,13 @@ class TestDocumentChooserUploadView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_chooser_upload'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+
+    # TODO: Test document upload with chooser
 
 
 class TestDocumentFilenameProperties(TestCase):

@@ -12,7 +12,7 @@ class TestHome(TestCase):
         # Login
         login(self.client)
 
-    def test_status_code(self):
+    def test_simple(self):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
 

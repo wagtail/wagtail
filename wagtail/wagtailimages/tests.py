@@ -194,8 +194,10 @@ class TestImageIndexView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -225,8 +227,10 @@ class TestImageAddView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_add_image'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
     def test_add(self):
         response = self.post({
@@ -263,8 +267,10 @@ class TestImageEditView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
     def test_edit(self):
         response = self.post({
@@ -295,8 +301,10 @@ class TestImageDeleteView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_delete_image', args=(self.image.id,)), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
 
     def test_delete(self):
         response = self.post({
@@ -318,8 +326,11 @@ class TestImageChooserView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -346,8 +357,12 @@ class TestImageChooserChosenView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/image_chosen.js')
+
+    # TODO: Test posting
 
 
 class TestImageChooserUploadView(TestCase):
@@ -357,5 +372,10 @@ class TestImageChooserUploadView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser_upload'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
+
+    # TODO: Test uploading through chooser
