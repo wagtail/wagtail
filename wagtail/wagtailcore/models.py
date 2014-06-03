@@ -9,6 +9,8 @@ from modelcluster.models import ClusterableModel
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -1150,3 +1152,8 @@ class PagePermissionTester(object):
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
+
+
+class PageViewRestriction(models.Model):
+    page = models.ForeignKey('Page', related_name='view_restrictions')
+    password = models.CharField(max_length=255)
