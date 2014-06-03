@@ -731,5 +731,7 @@ Page.promote_panels = [
         FieldPanel('seo_title'),
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
+        FieldPanel('go_live_at'),
+        FieldPanel('expire_at'),
     ], ugettext_lazy('Common page configuration')),
 ]
