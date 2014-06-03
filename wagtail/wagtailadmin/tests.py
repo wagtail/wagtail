@@ -1,7 +1,9 @@
 from datetime import timedelta
+
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.test import TestCase
+
 from wagtail.tests.models import SimplePage, EventPage
 from wagtail.tests.utils import login, unittest
 from wagtail.wagtailcore.models import Page, PageRevision
@@ -266,8 +268,10 @@ class TestPageEdit(TestCase):
 
         # The page will still be live
         self.assertTrue(child_page_new.live)
+
         # A revision with approved_go_live_at should not exist
         self.assertFalse(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
+
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(go_live_at.date())).exists())
         self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(expire_at.date())).exists())
@@ -309,8 +313,10 @@ class TestPageEdit(TestCase):
         self.assertEqual(response.status_code, 302)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
         # The page should not be live anymore
         self.assertFalse(child_page_new.live)
+
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
 
@@ -332,8 +338,10 @@ class TestPageEdit(TestCase):
         self.assertEqual(response.status_code, 302)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
         # The page should not be live anymore
         self.assertFalse(child_page_new.live)
+
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
 
@@ -352,10 +360,13 @@ class TestPageEdit(TestCase):
         self.assertEqual(response.status_code, 302)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
         # The page should be live now
         self.assertTrue(child_page_new.live)
+
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
+
 
 class TestPageDelete(TestCase):
     def setUp(self):

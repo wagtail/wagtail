@@ -787,97 +787,120 @@ class TestPublishScheduledPagesCommand(TestCase):
         self.root_page = Page.objects.get(id=2)
 
     def test_go_live_page_will_be_published(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = False
-        page.go_live_at = timezone.now() - timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            go_live_at=timezone.now() - timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
 
-        page.save_revision(
-            approved_go_live_at = timezone.now() - timedelta(days=1)
-        )
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
-        management.call_command('publish_scheduled_pages', verbosity=3, interactive=False)
-        #management.call_command('publish_scheduled_pages', dryrun=True, verbosity=3, interactive=False)
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
     def test_go_live_page_will_be_published(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = False
-        page.go_live_at = timezone.now() - timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            go_live_at=timezone.now() - timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
 
-        page.save_revision(approved_go_live_at = timezone.now() - timedelta(days=1))
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
-        management.call_command('publish_scheduled_pages', )
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
     def test_future_go_live_page_will_not_be_published(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = False
-        page.go_live_at = timezone.now() + timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            go_live_at=timezone.now() + timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
-        page.save_revision(approved_go_live_at = timezone.now() - timedelta(days=1))
+
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
-        management.call_command('publish_scheduled_pages', )
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
     def test_expired_page_will_be_unpublished(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = True
-        page.expire_at = timezone.now() - timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=True,
+            expire_at=timezone.now() - timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
+
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
-        management.call_command('publish_scheduled_pages', )
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(p.expired)
 
     def test_future_expired_page_will_not_be_unpublished(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = True
-        page.expire_at = timezone.now() + timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=True,
+            expire_at=timezone.now() + timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
+
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
-        management.call_command('publish_scheduled_pages', )
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
         self.assertFalse(p.expired)
 
     def test_expired_pages_are_dropped_from_mod_queue(self):
-        page = SimplePage()
-        page.title = "Hello world!"
-        page.slug = "hello-world"
-        page.live = False
-        page.expire_at = timezone.now() - timedelta(days=1)
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            expire_at=timezone.now() - timedelta(days=1),
+        )
         self.root_page.add_child(instance=page)
-        page.save_revision(submitted_for_moderation = True)
+
+        page.save_revision(submitted_for_moderation=True)
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
         self.assertTrue(PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists())
-        management.call_command('publish_scheduled_pages', )
+
+        management.call_command('publish_scheduled_pages')
+
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists())
