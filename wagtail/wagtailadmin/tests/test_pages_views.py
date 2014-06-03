@@ -25,7 +25,7 @@ class TestPageExplorer(TestCase):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.root_page, response.context['parent_page'])
-        self.assertTrue(response.context['pages'].filter(id=self.child_page.id).exists())
+        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.child_page.id).exists())
 
 
 class TestPageCreation(TestCase):
