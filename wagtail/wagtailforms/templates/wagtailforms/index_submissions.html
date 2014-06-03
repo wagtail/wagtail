@@ -1,6 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load localize %}
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block extra_js %}
