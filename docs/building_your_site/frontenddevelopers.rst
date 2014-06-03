@@ -7,8 +7,6 @@ For Front End developers
 Overview
 ========================
 
-This page is aimed at non-Django-literate Front End developers.
-
 Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation: 
 https://docs.djangoproject.com/en/dev/topics/templates/
 
@@ -75,7 +73,7 @@ Images uploaded to Wagtail by its users (as opposed to a developer's static file
 
 Unlike other CMS, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur *on the fly* when the image is requested, via a special syntax within the template.
 
-Images from the library **must** be requested using this syntax, but a developer's static images can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
+Images from the library must be requested using this syntax, but a developer's static images can be added via conventional means e.g ``img`` tags. Only images from the library can be manipulated on the fly.
 
 Read more about the image manipulation syntax here :ref:`image_tag`.
 
@@ -84,7 +82,7 @@ Read more about the image manipulation syntax here :ref:`image_tag`.
 Template tags & filters
 ========================
 
-In addition to Django's standard tags and filters, Wagtail provides some of it's own, which can be ``load``-ed `as you would any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_
+In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be ``load``-ed `as you would any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_
 
 
 .. _image_tag:
@@ -146,15 +144,15 @@ The available ``method`` s are:
 
         Resize and **crop** to fill the **exact** dimensions. 
 
-        This can be particularly useful for websites requiring square thumbnails of arbitrary images. e.g A landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have it's height reduced to 200, then it's width (ordinarily 400) cropped to 200. 
+        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200. 
 
         **The crop always aligns on the centre of the image.**
 
 .. Note::
-    Wagtail *does not allow deforming or stretching images*. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
+    Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
 .. Note::
-    Wagtail does not make the "original" version of an image explicitly available. To request it, it's suggested you rely on the lack of upscaling by requesting an image much larger than it's maximum dimensions. e.g to insert an image who's dimensions are uncertain/unknown at it's maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+    Wagtail does not make the "original" version of an image explicitly available. To request it, you could rely on the lack of upscaling by requesting an image larger than its maximum dimensions. e.g to insert an image whose dimensions are unknown at its maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
 
 
 .. _image_tag_alt:
