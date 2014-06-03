@@ -125,7 +125,7 @@ def create(request, content_type_app_name, content_type_model_name):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' created.").format(
-                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]), 
+                    snippet_type=capfirst(get_snippet_type_name(content_type)[0]),
                     instance=instance
                 )
             )
@@ -166,7 +166,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
             messages.success(
                 request,
                 _("{snippet_type} '{instance}' updated.").format(
-                    snippet_type=capfirst(snippet_type_name), 
+                    snippet_type=capfirst(snippet_type_name),
                     instance=instance
                 )
             )
@@ -202,7 +202,7 @@ def delete(request, content_type_app_name, content_type_model_name, id):
         messages.success(
             request,
             _("{snippet_type} '{instance}' deleted.").format(
-                snippet_type=capfirst(snippet_type_name), 
+                snippet_type=capfirst(snippet_type_name),
                 instance=instance
             )
         )
