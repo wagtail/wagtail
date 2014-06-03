@@ -1,3 +1,6 @@
+import os, subprocess, json
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.conf import settings
@@ -65,7 +68,31 @@ class RecentEditsPanel(object):
             'last_edits': self.last_edits,
         }, RequestContext(self.request))
 
+@permission_required('wagtailadmin.access_admin')
+def version(request):
+    wagtailgit = os.path.join(os.path.dirname(__file__), '..', '..', '..', '.git')
 
+    if not os.path.isdir(wagtailgit):
+        # This does not appear to be a Git repository.
+        return HttpResponse(status="404", mimetype="text/javascript")
+
+    try:
+        p = subprocess.Popen(["git", "--git-dir=" + os.path.abspath(wagtailgit), "describe", "--tags"],
+                             stdout=subprocess.PIPE)
+    except: #EnvironmentError: Should this be more specific?
+        # misc issues
+        return HttpResponse(status="404", mimetype="text/javascript")
+    
+    stdout = p.communicate()[0]
+    
+    if p.returncode != 0:
+        # unable to run git
+        return HttpResponse(status="404", mimetype="text/javascript")
+
+    response = json.dumps({ "version": stdout })
+
+    return HttpResponse(response, mimetype='text/javascript')
+    
 @permission_required('wagtailadmin.access_admin')
 def home(request):
 

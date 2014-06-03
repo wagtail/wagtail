@@ -10,6 +10,13 @@
     {% endcompress %}
 {% endblock %}
 
+{% block extra_js %}
+    {% compress js %}
+        <script>window.versionUrl = "{% url 'wagtailadmin_version' %}";</script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/home.js"></script>
+    {% endcompress %}
+{% endblock %}
+
 {% block content %}
     <header class="merged nice-padding">
         <div class="row row-flush">
@@ -33,4 +40,7 @@
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
     {% endif %}
 
+    <div class="nice-padding">
+        <div id="version" class="version">{% trans 'Wagtail version' %}: <span id="version-no"></span></div>
+    </div>
 {% endblock %}
