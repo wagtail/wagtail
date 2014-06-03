@@ -183,6 +183,9 @@
     "pk": 8,
     "model": "tests.formpage",
     "fields": {
+        "to_address": "to@email.com",
+        "from_address": "from@email.com",
+        "subject": "The subject"
     }
 },
 

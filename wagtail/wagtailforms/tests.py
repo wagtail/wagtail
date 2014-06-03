@@ -1,32 +1,50 @@
 from django.test import TestCase
+from django.core import mail
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
+
 
 class TestFormSubmission(TestCase):
     fixtures = ['test.json']
 
     def test_get_form(self):
         response = self.client.get('/contact-us/')
+
+        # Check response
         self.assertContains(response, """<label for="id_your-email">Your email</label>""")
-        self.assertNotContains(response, "Thank you for your feedback")
+        self.assertTemplateUsed(response, 'tests/form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob', 'your-message': 'hello world'
         })
-        self.assertNotContains(response, "Thank you for your feedback")
+
+        # Check response
         self.assertContains(response, "Enter a valid email address.")
+        self.assertTemplateUsed(response, 'tests/form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob@example.com', 'your-message': 'hello world'
         })
-        self.assertNotContains(response, "Your email")
-        self.assertContains(response, "Thank you for your feedback")
 
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that an email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "The subject")
+        self.assertTrue("Your message: hello world" in mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].to, ['to@email.com'])
+        self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
+
+        # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
-
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
 
 
