@@ -28,19 +28,11 @@
 {% endcompress %}
 
 {% comment %}
-    Put it outside compress to be sure that offline compression also works fine.
-{% endcomment %}
-{% get_localized_datepicker_js %}
-
-{% comment %}
     Additional js from widgets media. Allows for custom widgets in admin panel.
 {% endcomment %}
 {{ edit_handler.form.media.js }}
 
 <script>
-    {% get_date_format_override as format_override %}
-    window.overrideDateInputFormat ='{{ format_override }}';
-
     (function() {
         function fixPrefix(str) {return str;}
 
