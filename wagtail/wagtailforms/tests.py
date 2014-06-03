@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.core import mail
+from django import forms
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
+from wagtail.wagtailforms.forms import FormBuilder
 
 
 class TestFormSubmission(TestCase):
@@ -46,6 +48,26 @@ class TestFormSubmission(TestCase):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+
+class TestFormBuilder(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
+        self.fb = FormBuilder(self.form_page.form_fields.all())
+
+    def test_fields(self):
+        """
+        This tests that all fields were added to the form with the correct types
+        """
+        form_class = self.fb.get_form_class()
+        
+        self.assertTrue('your-email' in form_class.base_fields.keys())
+        self.assertTrue('your-message' in form_class.base_fields.keys())
+
+        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
+        self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
 
 
 class TestFormsBackend(TestCase):
