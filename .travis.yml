@@ -13,7 +13,7 @@ services:
 install:
   - python setup.py install
   - pip install psycopg2 pyelasticsearch elasticutils==0.8.2 wand
-  - pip install coveralls unittest2
+  - pip install coveralls
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
