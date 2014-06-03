@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.3.1 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~~~
+ * Fix: When constructing dummy requests for pages with no routable URL, fall back on a hostname from ALLOWED_HOSTS and finally 'localhost', to avoid 'Invalid HTTP_HOST header' errors on preview when DEBUG=False.
+ * Fix: Ensure that url_path is populated when previewing a newly created page, to avoid unnecessarily taking the above fallback.
+
 0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
