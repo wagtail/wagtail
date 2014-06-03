@@ -2,6 +2,7 @@ Changelog
 =========
 
  * When logged in user visits login page, they are now redirected to the dashboard
+ * Fix: Deleting an item from an InlinePanel, then generating a validation error on saving, no longer causes the deleted item to confusingly reappear with an error of it's own.
 
 0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
