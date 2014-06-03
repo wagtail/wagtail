@@ -235,8 +235,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    go_live_datetime = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
-    expiry_datetime = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
     indexed_fields = {
@@ -382,12 +382,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_datetime=None):
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
         self.revisions.create(
             content_json=self.to_json(),
             user=user,
             submitted_for_moderation=submitted_for_moderation,
-            approved_go_live_datetime=approved_go_live_datetime,
+            approved_go_live_at=approved_go_live_at,
         )
 
     def get_latest_revision(self):
@@ -472,11 +472,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def clean(self):
         super(Page, self).clean()
 
-        if self.go_live_datetime and self.expiry_datetime:
-            if self.go_live_datetime > self.expiry_datetime:
+        if self.go_live_at and self.expire_at:
+            if self.go_live_at > self.expire_at:
                 raise ValidationError(ugettext('Go live date/time should be before expiry datetime.'))
 
-        if self.expiry_datetime and self.expiry_datetime < timezone.now():
+        if self.expire_at and self.expire_at < timezone.now():
             raise ValidationError(ugettext('Expiry date/time should be in the future'))
 
     @classmethod
@@ -567,7 +567,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     @property
     def approved_schedule(self):
-        return self.revisions.exclude(approved_go_live_datetime__isnull=True).exists()
+        return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
         """
@@ -742,7 +742,7 @@ class PageRevision(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
-    approved_go_live_datetime = models.DateTimeField(null=True, blank=True)
+    approved_go_live_at = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -776,18 +776,18 @@ class PageRevision(models.Model):
 
     def publish(self):
         page = self.as_page_object()
-        if page.go_live_datetime and page.go_live_datetime > timezone.now():
+        if page.go_live_at and page.go_live_at > timezone.now():
             # if we have a go_live in the future don't make the page live
             page.live = False
-            # Instead set the approved_go_live_datetime of this revision
-            self.approved_go_live_datetime = page.go_live_datetime
+            # Instead set the approved_go_live_at of this revision
+            self.approved_go_live_at = page.go_live_at
             self.save()
-            # And clear the the approved_go_live_datetime of any other revisions
-            page.revisions.exclude(id=self.id).update(approved_go_live_datetime=None)
+            # And clear the the approved_go_live_at of any other revisions
+            page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
         else:
             page.live = True
-            # If page goes live clear the approved_go_live_datetime of all revisions
-            page.revisions.update(approved_go_live_datetime=None)
+            # If page goes live clear the approved_go_live_at of all revisions
+            page.revisions.update(approved_go_live_at=None)
         page.expired = False # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False

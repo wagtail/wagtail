@@ -133,18 +133,18 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
             is_submitting = bool(request.POST.get('action-submit'))
-            go_live_datetime = form.cleaned_data.get('go_live_datetime')
-            future_go_live = go_live_datetime and go_live_datetime > timezone.now()
-            approved_go_live_datetime = None
+            go_live_at = form.cleaned_data.get('go_live_at')
+            future_go_live = go_live_at and go_live_at > timezone.now()
+            approved_go_live_at = None
 
             if is_publishing:
                 page.has_unpublished_changes = False
                 page.expired = False
                 if future_go_live:
                     page.live = False
-                    # Set approved_go_live_datetime only if is publishing
+                    # Set approved_go_live_at only if is publishing
                     # and the future_go_live is actually in future
-                    approved_go_live_datetime = go_live_datetime
+                    approved_go_live_at = go_live_at
                 else:
                     page.live = True
             else:
@@ -153,11 +153,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             parent_page.add_child(instance=page)  # assign tree parameters - will cause page to be saved
 
-            # Pass approved_go_live_datetime to save_revision
+            # Pass approved_go_live_at to save_revision
             page.save_revision(
                 user=request.user,
                 submitted_for_moderation=is_submitting,
-                approved_go_live_datetime = approved_go_live_datetime
+                approved_go_live_at = approved_go_live_at
             )
 
             if is_publishing:
@@ -222,24 +222,24 @@ def edit(request, page_id):
         if form.is_valid():
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit'))
-            go_live_datetime = form.cleaned_data.get('go_live_datetime')
-            future_go_live = go_live_datetime and go_live_datetime > timezone.now()
-            approved_go_live_datetime = None
+            go_live_at = form.cleaned_data.get('go_live_at')
+            future_go_live = go_live_at and go_live_at > timezone.now()
+            approved_go_live_at = None
 
             if is_publishing:
                 page.has_unpublished_changes = False
                 page.expired = False
                 if future_go_live:
                     page.live = False
-                    # Set approved_go_live_datetime only if publishing
-                    approved_go_live_datetime = go_live_datetime
+                    # Set approved_go_live_at only if publishing
+                    approved_go_live_at = go_live_at
                 else:
                     page.live = True
                 form.save()
-                # Clear approved_go_live_datetime for older revisions
+                # Clear approved_go_live_at for older revisions
                 page.revisions.update(
                     submitted_for_moderation=False,
-                    approved_go_live_datetime=None,
+                    approved_go_live_at=None,
                 )
             else:
                 # not publishing the page
@@ -255,7 +255,7 @@ def edit(request, page_id):
             page.save_revision(
                 user=request.user,
                 submitted_for_moderation=is_submitting,
-                approved_go_live_datetime = approved_go_live_datetime
+                approved_go_live_at = approved_go_live_at
             )
 
             if is_publishing:
@@ -455,8 +455,8 @@ def unpublish(request, page_id):
         parent_id = page.get_parent().id
         page.live = False
         page.save()
-        # Since page is unpublished clear the approved_go_live_datetime of all revisions
-        page.revisions.update(approved_go_live_datetime=None)
+        # Since page is unpublished clear the approved_go_live_at of all revisions
+        page.revisions.update(approved_go_live_at=None)
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
         return redirect('wagtailadmin_explore', parent_id)
 

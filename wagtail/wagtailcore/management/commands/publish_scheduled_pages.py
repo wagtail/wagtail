@@ -8,11 +8,11 @@ from wagtail.wagtailcore.models import Page, PageRevision
 
 
 def revision_date_expired(r):
-    expiry_str = json.loads(r.content_json).get('expiry_datetime')
+    expiry_str = json.loads(r.content_json).get('expire_at')
     if not expiry_str:
         return False
-    expiry_datetime = dateparse.parse_datetime(expiry_str)
-    if expiry_datetime < timezone.now():
+    expire_at = dateparse.parse_datetime(expiry_str)
+    if expire_at < timezone.now():
         return True
     else:
         return False
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         # 1. get all expired pages with live = True
         expired_pages = Page.objects.filter(
             live=True,
-            expiry_datetime__lt=timezone.now()
+            expire_at__lt=timezone.now()
         )
         if dryrun:
             if expired_pages:
@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 print "---------------\t\t----\t\t----"
                 for ep in expired_pages:
                     print "{0}\t{1}\t{2}".format(
-                        ep.expiry_datetime.strftime("%Y-%m-%d %H:%M"),
+                        ep.expire_at.strftime("%Y-%m-%d %H:%M"),
                         ep.slug,
                         ep.title
                     )
@@ -71,7 +71,7 @@ class Command(BaseCommand):
                     rev_data = json.loads(er.content_json)
                     print "{0}\t{1}\t{2}".format(
                         dateparse.parse_datetime(
-                            rev_data.get('expiry_datetime')
+                            rev_data.get('expire_at')
                         ).strftime("%Y-%m-%d %H:%M"),
                         rev_data.get('slug'),
                         rev_data.get('title')
@@ -85,7 +85,7 @@ class Command(BaseCommand):
 
         # 3. get all revisions that need to be published
         revs_for_publishing = PageRevision.objects.filter(
-            approved_go_live_datetime__lt=timezone.now()
+            approved_go_live_at__lt=timezone.now()
         )
         if dryrun:
             print "---------------------------------"
@@ -96,7 +96,7 @@ class Command(BaseCommand):
                 for rp in revs_for_publishing:
                     rev_data = json.loads(rp.content_json)
                     print "{0}\t\t{1}\t{2}".format(
-                        rp.approved_go_live_datetime.strftime("%Y-%m-%d %H:%M"),
+                        rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),
                         rev_data.get('slug'),
                         rev_data.get('title')
                     )
