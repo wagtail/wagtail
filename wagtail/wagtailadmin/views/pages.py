@@ -157,7 +157,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page.save_revision(
                 user=request.user,
                 submitted_for_moderation=is_submitting,
-                approved_go_live_at = approved_go_live_at
+                approved_go_live_at=approved_go_live_at
             )
 
             if is_publishing:
@@ -255,7 +255,7 @@ def edit(request, page_id):
             page.save_revision(
                 user=request.user,
                 submitted_for_moderation=is_submitting,
-                approved_go_live_at = approved_go_live_at
+                approved_go_live_at=approved_go_live_at
             )
 
             if is_publishing:
