@@ -1,7 +1,23 @@
+try:
+    from embedly import Embedly
+    patch_me = 'embedly.Embedly.oembed'
+except ImportError:
+    patch_me = 'wagtail.wagtailembeds.embeds.MockEmbedly.oembed'
+
 from django.test import TestCase
 from django.test.client import Client
+
+from mock import patch
+
 from wagtail.tests.utils import login
 from wagtail.wagtailembeds import get_embed
+from wagtail.wagtailembeds.embeds import (
+    embedly,
+    EmbedNotFoundException,
+    EmbedlyException,
+    AccessDeniedEmbedlyException,
+    MockEmbedly
+)
 
 
 class TestEmbeds(TestCase):
@@ -73,3 +89,82 @@ class TestChooser(TestCase):
         self.assertEqual(r.status_code, 200)
 
         # TODO: Test submitting
+
+
+class TestEmbedly(TestCase):
+    @patch(patch_me)
+    def test_embedly_oembed_called_with_correct_arguments(self, oembed):
+        oembed.return_value = {'type': 'photo',
+                               'url': 'http://www.example.com'}
+
+        embedly('http://www.example.com', key='foo')
+        oembed.assert_called_with('http://www.example.com', better=False)
+
+        embedly('http://www.example.com', max_width=100, key='foo')
+        oembed.assert_called_with('http://www.example.com', maxwidth=100, better=False)
+
+    @patch(patch_me)
+    def test_embedly_errors(self, oembed):
+        oembed.return_value = {'type': 'photo',
+                               'url': 'http://www.example.com',
+                               'error': True,
+                               'error_code': 401}
+        self.assertRaises(AccessDeniedEmbedlyException,
+                          embedly, 'http://www.example.com', key='foo')
+
+        oembed.return_value['error_code'] = 403
+        self.assertRaises(AccessDeniedEmbedlyException,
+                          embedly, 'http://www.example.com', key='foo')
+
+        oembed.return_value['error_code'] = 404
+        self.assertRaises(EmbedNotFoundException,
+                          embedly, 'http://www.example.com', key='foo')
+
+        oembed.return_value['error_code'] = 999
+        self.assertRaises(EmbedlyException, embedly,
+                          'http://www.example.com', key='foo')
+
+    @patch(patch_me)
+    def test_embedly_html_conversion(self, oembed):
+        oembed.return_value = {'type': 'photo',
+                               'url': 'http://www.example.com'}
+        result = embedly('http://www.example.com', key='foo')
+        self.assertEqual(result['html'], '<img src="http://www.example.com" />')
+
+        oembed.return_value = {'type': 'something else',
+                               'html': '<foo>bar</foo>'}
+        result = embedly('http://www.example.com', key='foo')
+        self.assertEqual(result['html'], '<foo>bar</foo>')
+
+    @patch(patch_me)
+    def test_embedly_return_value(self, oembed):
+        oembed.return_value = {'type': 'something else',
+                               'html': '<foo>bar</foo>'}
+        result = embedly('http://www.example.com', key='foo')
+        self.assertEqual(result, {
+            'title': '',
+            'author_name': '',
+            'provider_name': '',
+            'type': 'something else',
+            'thumbnail_url': None,
+            'width': None,
+            'height': None,
+            'html': '<foo>bar</foo>'})
+
+        oembed.return_value = {'type': 'something else',
+                               'author_name': 'Alice',
+                               'provider_name': 'Bob',
+                               'title': 'foo',
+                               'thumbnail_url': 'http://www.example.com',
+                               'width': 100,
+                               'height': 100,
+                               'html': '<foo>bar</foo>'}
+        result = embedly('http://www.example.com', key='foo')
+        self.assertEqual(result, {'type': 'something else',
+                                  'author_name': 'Alice',
+                                  'provider_name': 'Bob',
+                                  'title': 'foo',
+                                  'thumbnail_url': 'http://www.example.com',
+                                  'width': 100,
+                                  'height': 100,
+                                  'html': '<foo>bar</foo>'})

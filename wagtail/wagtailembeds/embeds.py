@@ -16,9 +16,13 @@ import json
 
 
 class EmbedNotFoundException(Exception): pass
-
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
+
+# This is here for unit testing. It is used if Embedly is not installed.
+class MockEmbedly():
+    def oembed():
+        pass
 
 
 # Pinched from django 1.7 source code.
@@ -45,14 +49,16 @@ def import_string(dotted_path):
 
 
 def embedly(url, max_width=None, key=None):
-    from embedly import Embedly
-
     # Get embedly key
     if key is None:
         key = settings.EMBEDLY_KEY
 
-    # Get embedly client
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    try:
+        from embedly import Embedly
+        # Get embedly client
+        client = Embedly(key)
+    except ImportError:
+        client = MockEmbedly(key)
 
     # Call embedly
     if max_width is not None:
