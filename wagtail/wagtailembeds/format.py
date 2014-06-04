@@ -17,7 +17,7 @@ def embed_to_frontend_html(url):
                 ratio = "0"
 
             # Render template
-            render_to_string('wagtailembeds/embed_frontend.html', {
+            return render_to_string('wagtailembeds/embed_frontend.html', {
                 'embed': embed,
                 'ratio': ratio,
             })
