@@ -49,6 +49,7 @@ class TestAuthentication(TestCase):
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(self.client.session['_auth_user_id'], User.objects.get(username='test').id)
 
+    @unittest.expectedFailure # See: https://github.com/torchbox/wagtail/issues/25
     def test_already_logged_in_redirect(self):
         """
         This tests that a user who is already logged in is automatically

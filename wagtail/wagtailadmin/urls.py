@@ -5,8 +5,15 @@ from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailadmin import hooks
 
-
 urlpatterns = [
+    url(
+        r'^login/$', 'django.contrib.auth.views.login', {
+            'template_name': 'wagtailadmin/login.html',
+            'authentication_form': LoginForm,
+            'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
+        }, name='wagtailadmin_login'
+    ),
+
     # Password reset
     url(
         r'^password_reset/$', 'django.contrib.auth.views.password_reset', {
@@ -74,7 +81,6 @@ urlpatterns += [
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
-    url(r'^login/$', account.login, name='wagtailadmin_login'),
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
