@@ -79,31 +79,43 @@ class TestFormBuilder(TestCase):
 class TestFormsBackend(TestCase):
     fixtures = ['test.json']
 
-    def test_cannot_see_forms_without_permission(self):
-        form_page = Page.objects.get(url_path='/home/contact-us/')
+    def setUp(self):
+        self.client.login(username='siteeditor', password='password')
+        self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
+    def test_cannot_see_forms_without_permission(self):
+        # Login with as a user without permission to see forms
         self.client.login(username='eventeditor', password='password')
+
         response = self.client.get('/admin/forms/')
-        self.assertFalse(form_page in response.context['form_pages'])
+
+        # Check that the user cannot see the form page
+        self.assertFalse(self.form_page in response.context['form_pages'])
 
     def test_can_see_forms_with_permission(self):
-        form_page = Page.objects.get(url_path='/home/contact-us/')
-
-        self.client.login(username='siteeditor', password='password')
         response = self.client.get('/admin/forms/')
-        self.assertTrue(form_page in response.context['form_pages'])
 
-    def test_can_get_submissions(self):
-        form_page = Page.objects.get(url_path='/home/contact-us/')
+        # Check that the user can see the form page
+        self.assertTrue(self.form_page in response.context['form_pages'])
 
-        self.client.login(username='siteeditor', password='password')
+    def test_list_submissions(self):
+        response = self.client.get('/admin/forms/submissions/%d/' % self.form_page.id)
 
-        response = self.client.get('/admin/forms/submissions/%d/' % form_page.id)
+        # Check response
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['data_rows']), 2)
 
-        response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014' % form_page.id)
+    def test_list_submissions_filtered(self):
+        response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014' % self.form_page.id)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['data_rows']), 1)
 
-        response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014&action=CSV' % form_page.id)
+    def test_list_submissions_csv_export(self):
+        response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014&action=CSV' % self.form_page.id)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
         data_line = response.content.split("\n")[1]
         self.assertTrue('new@example.com' in data_line)
