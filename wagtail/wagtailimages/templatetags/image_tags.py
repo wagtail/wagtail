@@ -33,7 +33,6 @@ def image(parser, token):
                 name,value = bit.split('=')
             except:
                 raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 [ custom-attr=\"value\" [ ... ] ] %%} or {%% image self.photo max-320x200 as img %%}")
-            if name
             attrs[name] = parser.compile_filter(value) # setup to resolve context variables as value
 
         return ImageNode(image_var, filter_spec, attrs=attrs)
