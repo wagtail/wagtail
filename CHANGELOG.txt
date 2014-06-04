@@ -3,7 +3,6 @@ Changelog
 
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
- * When logged in user visits login page, they are now redirected to the dashboard
 
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~
