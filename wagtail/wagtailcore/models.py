@@ -812,12 +812,18 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
-    def serve_password_required_response(self, request, form):
-        return TemplateResponse(request, self.password_required_template, {
-            'self': self,
-            'request': request,
-            'form': form,
-        })
+    def serve_password_required_response(self, request, form, action_url):
+        """
+        Serve a response indicating that the user has been denied access to view this page,
+        and must supply a password.
+        form = a Django form object containing the password input
+            (and zero or more hidden fields that also need to be output on the template)
+        action_url = URL that this form should be POSTed to
+        """
+        context = self.get_context(request)
+        context['form'] = form
+        context['action_url'] = action_url
+        return TemplateResponse(request, self.password_required_template, context)
 
 
 def get_navigation_menu_items():
