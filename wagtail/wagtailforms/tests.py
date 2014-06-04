@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 from django.core import mail
 from django import forms
@@ -5,6 +7,7 @@ from django import forms
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.forms import FormBuilder
+from wagtail.tests.models import FormPage
 
 
 class TestFormSubmission(TestCase):
@@ -99,12 +102,73 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
 
 
-class TestFormsBackend(TestCase):
+class TestFormsIndex(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
         self.client.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
+
+    def make_form_pages(self):
+        """
+        This makes 100 form pages and adds them as children to 'contact-us'
+        This is used to test pagination on the forms index
+        """
+        for i in range(100):
+            self.form_page.add_child(instance=FormPage(
+                title="Form " + str(i),
+                slug='form-' + str(i),
+                live=True
+            ))
+
+    def test_forms_index(self):
+        response = self.client.get('/admin/forms/')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index.html')
+
+    def test_forms_index_pagination(self):
+        # Create some more form pages to make pagination kick in
+        self.make_form_pages()
+
+        # Get page two
+        response = self.client.get('/admin/forms/', {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['form_pages'].number, 2)
+
+    def test_forms_index_pagination_invalid(self):
+        # Create some more form pages to make pagination kick in
+        self.make_form_pages()
+
+        # Get page two
+        response = self.client.get('/admin/forms/', {'p': 'Hello world!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index.html')
+
+        # Check that it got page one
+        self.assertEqual(response.context['form_pages'].number, 1)
+
+    def test_forms_index_pagination_out_of_range(self):
+        # Create some more form pages to make pagination kick in
+        self.make_form_pages()
+
+        # Get page two
+        response = self.client.get('/admin/forms/', {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index.html')
+
+        # Check that it got the last page
+        self.assertEqual(response.context['form_pages'].number, response.context['form_pages'].paginator.num_pages)
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
@@ -121,19 +185,78 @@ class TestFormsBackend(TestCase):
         # Check that the user can see the form page
         self.assertTrue(self.form_page in response.context['form_pages'])
 
+
+class TestFormsSubmissions(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.client.login(username='siteeditor', password='password')
+        self.form_page = Page.objects.get(url_path='/home/contact-us/')
+
+    def make_list_submissions(self):
+        """
+        This makes 100 submissions to test pagination on the forms submissions page
+        """
+        for i in range(100):
+            submission = FormSubmission(
+                page=self.form_page,
+                form_data=json.dumps({
+                    'hello': 'world'
+                })
+            )
+            submission.save()
+
     def test_list_submissions(self):
         response = self.client.get('/admin/forms/submissions/%d/' % self.form_page.id)
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
         self.assertEqual(len(response.context['data_rows']), 2)
 
-    def test_list_submissions_filtered(self):
+    def test_list_submissions_filtering(self):
         response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014' % self.form_page.id)
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
         self.assertEqual(len(response.context['data_rows']), 1)
+
+    def test_list_submissions_pagination(self):
+        self.make_list_submissions()
+
+        response = self.client.get('/admin/forms/submissions/%d/' % self.form_page.id, {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['submissions'].number, 2)
+
+    def test_list_submissions_pagination_invalid(self):
+        self.make_list_submissions()
+
+        response = self.client.get('/admin/forms/submissions/%d/' % self.form_page.id, {'p': 'Hello World!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['submissions'].number, 1)
+
+    def test_list_submissions_pagination_out_of_range(self):
+        self.make_list_submissions()
+
+        response = self.client.get('/admin/forms/submissions/%d/' % self.form_page.id, {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index_submissions.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
 
     def test_list_submissions_csv_export(self):
         response = self.client.get('/admin/forms/submissions/%d/?date_from=01%%2F01%%2F2014&action=CSV' % self.form_page.id)
