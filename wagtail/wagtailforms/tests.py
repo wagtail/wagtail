@@ -56,6 +56,29 @@ class TestFormSubmission(TestCase):
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
 
 
+class TestPageModes(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
+
+    def test_form(self):
+        response = self.form_page.show_as_mode('form')
+
+        # Check response
+        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertTemplateUsed(response, 'tests/form_page.html')
+        self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
+
+    def test_landing(self):
+        response = self.form_page.show_as_mode('landing')
+
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+
 class TestFormBuilder(TestCase):
     fixtures = ['test.json']
 
