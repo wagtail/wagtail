@@ -12,6 +12,7 @@ from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
+from django.template.loader import render_to_string
 
 from unidecode import unidecode
 
@@ -225,9 +226,9 @@ class AbstractRendition(models.Model):
     def url(self):
         return self.file.url
 
-    def img_tag(self):
+    def img_tag(self, attrs={}):
         return mark_safe(
-            '<img src="%s" width="%d" height="%d" alt="%s">' % (escape(self.url), self.width, self.height, escape(self.image.title))
+            render_to_string('wagtailimages/imagetag.html',{'self' : self, 'attrs' : attrs, })
         )
 
     class Meta:

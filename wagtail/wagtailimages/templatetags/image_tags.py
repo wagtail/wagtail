@@ -7,32 +7,46 @@ register = template.Library()
 # Local cache of filters, avoid hitting the DB
 filters = {}
 
+
 @register.tag(name="image")
 def image(parser, token):
-    args = token.split_contents()
+    bits = token.split_contents()[1:]
+    image_var = bits[0]
+    filter_spec = bits[1]
+    bits = bits[2:]
 
-    if len(args) == 3:
+    if len(bits) == 0:
         # token is of the form {% image self.photo max-320x200 %}
-        tag_name, image_var, filter_spec = args
         return ImageNode(image_var, filter_spec)
 
-    elif len(args) == 5:
+    elif len(bits) == 2:
         # token is of the form {% image self.photo max-320x200 as img %}
-        tag_name, image_var, filter_spec, as_token, out_var = args
 
-        if as_token != 'as':
-            raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
+        if bits[0] == 'as':
+            return ImageNode(image_var, filter_spec, output_var_name=bits[1])
 
-        return ImageNode(image_var, filter_spec, out_var)
+    if len(bits) > 0:
+        # customized <img> attrs
+        attrs = {}
+        for bit in bits:
+            try:
+                name,value = bit.split('=')
+            except:
+                raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 [ custom-attr=\"value\" [ ... ] ] %%} or {%% image self.photo max-320x200 as img %%}")
+            if name
+            attrs[name] = parser.compile_filter(value) # setup to resolve context variables as value
 
-    else:
-        raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 %%} or {%% image self.photo max-320x200 as img %%}")
+        return ImageNode(image_var, filter_spec, attrs=attrs)
+
+    # something is wrong if we made it this far
+    raise template.TemplateSyntaxError("'image' tag should be of the form {%% image self.photo max-320x200 [ custom-attr=\"value\" [ ... ] ] %%} or {%% image self.photo max-320x200 as img %%}")
 
 
 class ImageNode(template.Node):
-    def __init__(self, image_var_name, filter_spec, output_var_name=None):
+    def __init__(self, image_var_name, filter_spec, output_var_name=None, attrs={}):
         self.image_var = template.Variable(image_var_name)
         self.output_var_name = output_var_name
+        self.attrs = attrs
 
         if filter_spec not in filters:
             filters[filter_spec], _ = Filter.objects.get_or_create(spec=filter_spec)
@@ -66,4 +80,7 @@ class ImageNode(template.Node):
             return ''
         else:
             # render the rendition's image tag now
-            return rendition.img_tag()
+            resolved_attrs = {}
+            for key in self.attrs:
+                resolved_attrs[key] = self.attrs[key].resolve(context)
+            return rendition.img_tag(resolved_attrs)
