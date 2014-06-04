@@ -3,6 +3,7 @@ import warnings
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageViewRestriction
@@ -43,7 +44,15 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     if request.POST:
         form = PasswordPageViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
-            # TODO: record 'has authenticated against this page view restriction' flag in the session
+            has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
+            passed_restrictions = request.session.setdefault('passed_page_view_restrictions', [])
+            if restriction.id not in passed_restrictions:
+                passed_restrictions.append(restriction.id)
+            if not has_existing_session:
+                # if this is a session we've created, set it to expire at the end
+                # of the browser session
+                request.session.set_expiry(0)
+
             return redirect(form.cleaned_data['return_url'])
     else:
         form = PasswordPageViewRestrictionForm(instance=restriction)
