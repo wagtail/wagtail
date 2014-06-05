@@ -257,16 +257,19 @@ FormPage.content_panels = [
 
 # Snippets
 
+# Snippets
+
 class Advert(models.Model):
-  url = models.URLField(null=True, blank=True)
-  text = models.CharField(max_length=255)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
 
-  panels = [
-    FieldPanel('url'),
-    FieldPanel('text'),
-  ]
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
 
-  def __unicode__(self):
-    return self.text
+    def __unicode__(self):
+        return self.text
+
 
 register_snippet(Advert)
