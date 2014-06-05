@@ -57,22 +57,19 @@ function initDateChooser(id) {
     $('#' + id).datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
-        mask: '9999-19-39'
     });
 }
 
 function initTimeChooser(id) {
     $('#' + id).datetimepicker({
         datepicker: false,
-        format: 'H:i:s',
-        mask: '29:59:59'
+        format: 'H:i',
     });
 }
 
 function initDateTimeChooser(id) {
     $('#' + id).datetimepicker({
-        format: 'Y-m-d H:i:s',
-        mask: '9999-19-39 29:59:59'
+        format: 'Y-m-d H:i',
     });
 }
 
