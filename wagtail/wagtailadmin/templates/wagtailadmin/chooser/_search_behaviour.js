@@ -1,6 +1,6 @@
-modal.ajaxifyForm($('form.search-bar', modal.body));
+modal.ajaxifyForm($('form.search-form', modal.body));
 
-var searchUrl = $('form.search-bar', modal.body).attr('action');
+var searchUrl = $('form.search-form', modal.body).attr('action');
 
 function search() {
     $.ajax({

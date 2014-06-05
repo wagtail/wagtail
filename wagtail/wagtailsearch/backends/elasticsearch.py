@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 
 from elasticutils import get_es, S
 
@@ -58,12 +57,23 @@ class ElasticSearch(BaseSearch):
         super(ElasticSearch, self).__init__(params)
 
         # Get settings
-        self.es_urls = params.get('URLS', ['http://localhost:9200'])
-        self.es_index = params.get('INDEX', 'wagtail')
+        self.es_urls = params.pop('URLS', ['http://localhost:9200'])
+        self.es_index = params.pop('INDEX', 'wagtail')
+        self.es_timeout = params.pop('TIMEOUT', 5)
+        self.es_force_new = params.pop('FORCE_NEW', False)
 
         # Get ElasticSearch interface
-        self.es = get_es(urls=self.es_urls)
-        self.s = S().es(urls=self.es_urls).indexes(self.es_index)
+        # Any remaining params are passed into the ElasticSearch constructor
+        self.es = get_es(
+            urls=self.es_urls,
+            timeout=self.es_timeout,
+            force_new=self.es_force_new,
+            **params)
+        self.s = S().es(
+            urls=self.es_urls,
+            timeout=self.es_timeout,
+            force_new=self.es_force_new,
+            **params).indexes(self.es_index)
 
     def reset_index(self):
         # Delete old index

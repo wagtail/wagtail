@@ -18,7 +18,7 @@ except ImportError:
 
 setup(
     name='wagtail',
-    version='0.2',
+    version='0.3.1',
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',

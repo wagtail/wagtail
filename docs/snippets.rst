@@ -1,9 +1,12 @@
+
+.. _snippets:
+
 Snippets
 ========
 
 Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are models which do not inherit the ``Page`` class and are thus not organized into the Wagtail tree, but can still be made editable by assigning panels and identifying the model as a snippet with ``register_snippet()``.
 
-Snippets are not searchable or orderable in the Wagtail admin, so decide carefully if the content type you would want to build into a snippet might be more suited to a page.
+Snippets are not search-able or order-able in the Wagtail admin, so decide carefully if the content type you would want to build into a snippet might be more suited to a page.
 
 Snippet Models
 --------------

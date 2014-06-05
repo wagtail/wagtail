@@ -581,7 +581,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
             path = url_info.path
             port = url_info.port or 80
         else:
-            hostname = 'example.com'
+            # Cannot determine a URL to this page - cobble one together based on
+            # whatever we find in ALLOWED_HOSTS
+            try:
+                hostname = settings.ALLOWED_HOSTS[0]
+            except IndexError:
+                hostname = 'localhost'
             path = '/'
             port = 80
 

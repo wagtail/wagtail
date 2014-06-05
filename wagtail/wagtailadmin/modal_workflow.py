@@ -23,4 +23,4 @@ def render_modal_workflow(request, html_template, js_template, template_vars={})
 
     response_text = "{%s}" % ','.join(response_keyvars)
 
-    return HttpResponse(response_text, mimetype="text/javascript")
+    return HttpResponse(response_text, content_type="text/javascript")

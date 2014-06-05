@@ -26,6 +26,8 @@ if not settings.configured:
     if has_elasticsearch:
         WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
             'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+            'TIMEOUT': 10,
+            'max_retries': 1,
         }
 
     settings.configure(
@@ -40,6 +42,7 @@ if not settings.configured:
         STATIC_URL='/static/',
         STATIC_ROOT=STATIC_ROOT,
         MEDIA_ROOT=MEDIA_ROOT,
+        USE_TZ=True,
         STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',

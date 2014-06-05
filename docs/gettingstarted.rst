@@ -166,4 +166,4 @@ Once you've experimented with the demo app and are ready to build your pages via
     COMMIT;
     EOF
     rm -r demo media/images/* media/original_images/*
-    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settingsbase.py
+    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settings/base.py

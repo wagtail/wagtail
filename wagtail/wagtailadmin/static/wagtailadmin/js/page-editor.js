@@ -180,6 +180,17 @@ function InlinePanel(opts) {
                 self.updateMoveButtonDisabledStates();
             });
         }
+
+        /* Hide container on page load if it is marked as deleted. Remove the error
+         message so that it doesn't count towards the number of errors on the tab at the
+         top of the page. */
+        if ( $('#' + deleteInputId).val() === "1" ) {
+            $('#' + childId).hide(0, function() {
+                self.updateMoveButtonDisabledStates();
+                self.setHasContent();
+            });
+            $('#' + childId).find(".error-message").remove();
+        }
     };
 
     self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
