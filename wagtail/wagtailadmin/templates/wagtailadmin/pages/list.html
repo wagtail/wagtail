@@ -48,6 +48,9 @@
                         {% else %}
                             <h2>{{ parent_page.title }}</h2>
                         {% endif %}
+
+                        {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=parent_page only %}
+
                         <ul class="actions">
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                 <li><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}" class="button button-small">{% trans 'Edit' %}</a></li>

@@ -16,6 +16,9 @@
             <div class="right col3">
                  {% trans "Status:" %} {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
             </div>
+
+            {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=page only %}
+
         </div>
     </header>
 

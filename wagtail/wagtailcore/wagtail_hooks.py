@@ -1,11 +1,10 @@
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import PageViewRestriction
 from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
 
 def check_view_restrictions(page, request):
-    restrictions = PageViewRestriction.objects.filter(page__in=page.get_ancestors(inclusive=True))
+    restrictions = page.get_view_restrictions()
 
     if restrictions:
         passed_restrictions = request.session.get('passed_page_view_restrictions', [])

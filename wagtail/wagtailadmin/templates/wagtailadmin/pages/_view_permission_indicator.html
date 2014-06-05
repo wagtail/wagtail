@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if page.get_view_restrictions %}
+    <div>{% trans 'Private' %}</div>
+{% else %}
+    <div>{% trans 'Public' %}</div>
+{% endif %}
