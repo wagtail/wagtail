@@ -26,17 +26,6 @@ def explorer_subnav(nodes):
     }
 
 
-@register.assignment_tag
-def get_wagtailadmin_tab_urls():
-    resolver = urlresolvers.get_resolver(None)
-    return [
-        (key, value[2].get("title", key))
-        for key, value
-        in resolver.reverse_dict.items()
-        if isinstance(key, basestring) and key.startswith('wagtailadmin_tab_')
-    ]
-
-
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     menu_items = [
