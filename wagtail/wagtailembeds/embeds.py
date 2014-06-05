@@ -58,7 +58,7 @@ def embedly(url, max_width=None, key=None):
         # Get embedly client
         client = Embedly(key)
     except ImportError:
-        client = MockEmbedly(key)
+        client = MockEmbedly()
 
     # Call embedly
     if max_width is not None:
