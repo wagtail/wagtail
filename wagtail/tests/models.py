@@ -273,3 +273,21 @@ class Advert(models.Model):
 
 
 register_snippet(Advert)
+
+
+# AlphaSnippet is not registered here as this is done
+# during the tests it are needed for
+class AlphaSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text
+
+
+# ZuluSnippet is not registered here as this is done
+# during the tests it are needed for
+class ZuluSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text
