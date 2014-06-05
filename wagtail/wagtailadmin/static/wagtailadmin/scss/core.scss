@@ -626,7 +626,7 @@ footer, .logo{
         padding-right:$desktop-nice-padding;
     }
 
-    body{
+    .wrapper{
         margin-left:$menu-width;
     }
 
@@ -645,7 +645,7 @@ footer, .logo{
         left:0;
         height:100%;
         width:$menu-width;
-        margin-left: -$menu-width;
+        margin-left: 0;
 
         .inner{
             height:100%;
