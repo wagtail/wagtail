@@ -40,7 +40,7 @@
 
         &:after{
             @include border-radius(50px);
-            @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+            @include box-shadow(1px 2px 2px rgba(0, 0, 0, 0.1));
             position:absolute;
             right:-0.5em;
             top:-0.5em;
