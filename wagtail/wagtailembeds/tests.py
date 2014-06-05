@@ -1,3 +1,6 @@
+from mock import patch
+import urllib2
+
 try:
     from embedly import Embedly
     patch_me = 'embedly.Embedly.oembed'
@@ -6,8 +9,6 @@ except ImportError:
 
 from django.test import TestCase
 from django.test.client import Client
-
-from mock import patch
 
 from wagtail.tests.utils import login
 from wagtail.wagtailembeds import get_embed
@@ -18,6 +19,7 @@ from wagtail.wagtailembeds.embeds import (
     AccessDeniedEmbedlyException,
     MockEmbedly
 )
+from wagtail.wagtailembeds.embeds import oembed as wagtail_oembed
 
 
 class TestEmbeds(TestCase):
@@ -168,3 +170,58 @@ class TestEmbedly(TestCase):
                                   'width': 100,
                                   'height': 100,
                                   'html': '<foo>bar</foo>'})
+
+
+class TestOembed(TestCase):
+    def setUp(self):
+        class DummyResponse(object):
+            def read(self):
+                return "foo"
+        self.dummy_response = DummyResponse()
+
+    def test_oembed_invalid_provider(self):
+        self.assertRaises(EmbedNotFoundException, wagtail_oembed, "foo")
+
+    def test_oembed_invalid_request(self):
+        config = {'side_effect': urllib2.URLError('foo')}
+        with patch.object(urllib2, 'urlopen', **config) as urlopen:
+            self.assertRaises(EmbedNotFoundException, wagtail_oembed,
+                              "http://www.youtube.com/watch/")
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_oembed_photo_request(self, loads, urlopen) :
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        result = wagtail_oembed("http://www.youtube.com/watch/")
+        self.assertEqual(result['type'], 'photo')
+        self.assertEqual(result['html'], '<img src="http://www.example.com" />')
+        loads.assert_called_with("foo")
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_oembed_return_values(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {
+            'type': 'something',
+            'url': 'http://www.example.com',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html'
+        }
+        result = wagtail_oembed("http://www.youtube.com/watch/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html'
+        })
