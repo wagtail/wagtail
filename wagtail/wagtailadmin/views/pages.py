@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.translation import ugettext as _ 
+from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -32,6 +32,17 @@ def index(request, parent_page_id=None):
             pages = pages.order_by(ordering)
     else:
         ordering = 'title'
+
+    # Pagination
+    if ordering != 'ord':
+        p = request.GET.get('p', 1)
+        paginator = Paginator(pages, 50)
+        try:
+            pages = paginator.page(p)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
 
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
@@ -348,6 +359,10 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
 
     if form.is_valid():
         form.save(commit=False)
+
+        # ensure that our unsaved page instance has a suitable url set
+        parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        page.set_url_path(parent_page)
 
         # This view will generally be invoked as an AJAX request; as such, in the case of
         # an error Django will return a plaintext response. This isn't what we want, since

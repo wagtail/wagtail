@@ -226,19 +226,6 @@ img{
             }
         }
 
-        .more{
-            border:0;
-
-            > a{
-                &:before{
-                    margin-right:0.4em;
-                }
-                font-size:0.8em;
-                padding:0.2em 1.2em;
-                background-color:$color-grey-1-1;
-            }
-        }
-
         .avatar{
             display:none;
         }
@@ -310,10 +297,6 @@ img{
                 }
             }
         }
-    }
-
-    .js .nav-main .more ul{
-        display:none;
     }
 
     .explorer{
@@ -626,7 +609,7 @@ footer, .logo{
         padding-right:$desktop-nice-padding;
     }
 
-    body{
+    .wrapper{
         margin-left:$menu-width;
     }
 
@@ -645,7 +628,7 @@ footer, .logo{
         left:0;
         height:100%;
         width:$menu-width;
-        margin-left: -$menu-width;
+        margin-left: 0;
 
         .inner{
             height:100%;
