@@ -177,7 +177,7 @@ class TestSnippetOrdering(TestCase):
         register_snippet(AlphaSnippet)
 
     def test_snippets_ordering(self):
-        # Ensure AlphaSnippet is before Zulu Snippet
+        # Ensure AlphaSnippet is before ZuluSnippet
         # Cannot check first and last position as other snippets
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
