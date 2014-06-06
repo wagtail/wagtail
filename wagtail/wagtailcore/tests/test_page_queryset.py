@@ -254,3 +254,21 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+    def test_published_next(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        current_page = Page.objects.descendant_of(events_index).live().first()
+
+        # All pages must be live
+        while current_page:
+            self.assertTrue(current_page.live)
+            current_page = current_page.get_next_published_sibling()
+
+    def test_published_prev(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        current_page = Page.objects.descendant_of(events_index).live().last()
+
+        # All pages must be live
+        while current_page:
+            self.assertTrue(current_page.live)
+            current_page = current_page.get_prev_published_sibling()

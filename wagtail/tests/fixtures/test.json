@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 3,
+        "numchild": 4,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -183,6 +183,34 @@
     "pk": 8,
     "model": "tests.formpage",
     "fields": {
+    }
+},
+
+{
+    "pk": 9,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Ameristralia Day",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010004",
+        "url_path": "/home/events/final-event/",
+        "slug": "final-event",
+        "owner": 3
+    }
+},
+{
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-04-22",
+        "audience": "public",
+        "location": "Ameristralia",
+        "body": "<p>come celebrate the independence of Ameristralia</p>",
+        "cost": "Free"
     }
 },
 
