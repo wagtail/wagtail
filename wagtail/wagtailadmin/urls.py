@@ -89,6 +89,7 @@ urlpatterns += [
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
 ]
 
+
 # Import additional urlpatterns from any apps that define a register_admin_urls hook
 for fn in hooks.get_hooks('register_admin_urls'):
     urls = fn()
