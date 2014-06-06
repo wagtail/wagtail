@@ -275,8 +275,12 @@ class Advert(models.Model):
 register_snippet(Advert)
 
 
-# AlphaSnippet is not registered here as this is done
-# during the tests it is needed for
+# AlphaSnippet and ZuluSnippet are for testing ordering of
+# snippets when registering.  They are named as such to ensure
+# thier orderign is clear.  They are registered during testing
+# to ensure specific [in]correct register ordering
+
+# AlphaSnippet is registered during TestSnippetOrdering
 class AlphaSnippet(models.Model):
     text = models.CharField(max_length=255)
 
@@ -284,8 +288,7 @@ class AlphaSnippet(models.Model):
         return self.text
 
 
-# ZuluSnippet is not registered here as this is done
-# during the tests it is needed for
+# ZuluSnippet is registered during TestSnippetOrdering
 class ZuluSnippet(models.Model):
     text = models.CharField(max_length=255)
 
