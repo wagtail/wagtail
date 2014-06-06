@@ -103,6 +103,7 @@ if not settings.configured:
         WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
         WAGTAIL_SITE_NAME='Test Site',
         LOGIN_REDIRECT_URL = 'wagtailadmin_home',
+        LOGIN_URL='wagtailadmin_login',
     )
 
 

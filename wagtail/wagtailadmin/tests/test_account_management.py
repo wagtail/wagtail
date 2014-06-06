@@ -67,7 +67,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         """
         This tests that the user can logout
         """
-        # Get logout page page
+        # Get logout page
         response = self.client.get(reverse('wagtailadmin_logout'))
 
         # Check that the user was redirected to the login page
@@ -76,6 +76,41 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Check that the user was logged out
         self.assertFalse('_auth_user_id' in self.client.session)
+
+    def test_not_logged_in_redirect(self):
+        """
+        This tests that a not logged in user is redirected to the
+        login page
+        """
+        # Logout
+        self.client.logout()
+
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+
+    @unittest.expectedFailure
+    def test_not_logged_in_redirect_default_settings(self):
+        """
+        This does the same as the above test but checks that it
+        redirects to the correct place when the user has not set
+        the LOGIN_URL setting correctly
+        """
+        # Logout
+        self.client.logout()
+
+        # Get dashboard with default LOGIN_URL setting
+        with self.settings(LOGIN_URL='django.contrib.auth.views.login'):
+            response = self.client.get(reverse('wagtailadmin_home'))
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        # Note: The user will be redirected to 'django.contrib.auth.views.login' but
+        # this must be the same URL as 'wagtailadmin_login'
+        self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
