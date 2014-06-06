@@ -10,7 +10,7 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks
+from wagtail.wagtailadmin import tasks, hooks, signals
 
 from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
 
@@ -124,6 +124,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     #     return redirect('wagtailadmin_pages_select_type')
 
     page = page_class(owner=request.user)
+    signals.init_new_page.send(sender=create,page=page,parent=parent_page)
     edit_handler_class = get_page_edit_handler(page_class)
     form_class = edit_handler_class.get_form_class(page_class)
 
