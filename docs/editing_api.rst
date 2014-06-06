@@ -211,7 +211,7 @@ You can explicitly link ``Page``-derived models together using the ``Page`` mode
 Snippets
 --------
 
-Snippets are not subclasses, so you must include the model class directly. A chooser is provided which takes the field name snippet class.
+Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
 
 .. code-block:: python
 
@@ -248,6 +248,12 @@ Full-Width Input
 Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a ``MultiFieldPanel``, which places its child fields into a formset.
 
 
+Titles
+------
+
+Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
+
+
 Required Fields
 ---------------
 
@@ -264,18 +270,10 @@ Without a panel definition, a default form field (without label) will be used to
 .. _Django model field reference (editable): https://docs.djangoproject.com/en/dev/ref/models/fields/#editable
 
 
-
-
-
-
-
-
-
-
-
-
 MultiFieldPanel
 ~~~~~~~~~~~~~~~
+
+The ``MultiFieldPanel`` groups a list of child fields into a fieldset, which can also be collapsed into a heading bar to save space.
 
 .. code-block:: python
 
@@ -294,8 +292,7 @@ MultiFieldPanel
     # ...
   ]
 
-
-
+By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding the classname ``collapsible`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the classname parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
 
 
 .. _inline_panels:
@@ -303,7 +300,55 @@ MultiFieldPanel
 Inline Panels and Model Clusters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page.
+The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page. For instance, you can create objects related through a ``ForeignKey`` relationship on the fly and save them to a draft revision of a ``Page`` object. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before linking them to a Page.
+
+Let's look at the example of adding related links to a ``Page``-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+
+.. code-block:: python
+
+  from wagtail.wagtailcore.models import Orderable, Page
+  from modelcluster.fields import ParentalKey
+
+  # The abstract model for related links, complete with panels
+  class RelatedLink(models.Model):
+      title = models.CharField(max_length=255)
+      link_external = models.URLField("External link", blank=True)
+
+      panels = [
+          FieldPanel('title'),
+          FieldPanel('link_external'),
+      ]
+
+      class Meta:
+          abstract = True
+
+  # The real model which combines the abstract model, an
+  # Orderable helper class, and what amounts to a ForeignKey link
+  # to the model we want to add related links to (BookPage)
+  class BookPageRelatedLinks(Orderable, RelatedLink):
+      page = ParentalKey('demo.BookPage', related_name='related_links')
+
+  class BookPage( Page ):
+    # ...
+
+  BookPage.content_panels = [
+    # ...
+    InlinePanel( BookPage, 'related_links', label="Related Links" ),
+  ]
+
+The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an ``InlinePanel`` to provide an interface for it all. Let's look again at the parameters that ``InlinePanel`` accepts:
+
+.. code-block:: python
+
+  InlinePanel( base_model, relation_name, panels=None, label='', help_text='' )
+
+``base_model`` is the model you're extending with the cluster. The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
+
+For another example of using model clusters, see :ref:`tagging`
+
+For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_ ).
+
+.. _the django-modelcluster github page: https://github.com/torchbox/django-modelcluster
 
 
 .. _extending_wysiwyg:
@@ -311,12 +356,205 @@ The ``django-modelcluster`` module allows for streamlined relation of extra mode
 Extending the WYSIWYG Editor (hallo.js)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Adding hallo.js plugins:
-https://github.com/torchbox/wagtail/commit/1ecc215759142e6cafdacb185bbfd3f8e9cd3185
+To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+
+.. code-block:: javascript
+
+  registerHalloPlugin(name, opts);
+
+hallo.js plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
+
+For information on developing custom hallo.js plugins, see the project's page: https://github.com/bergie/hallo
 
 
 Edit Handler API
 ~~~~~~~~~~~~~~~~
 
 
+Hooks
+-----
+
+On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
+
+Registering functions with a Wagtail hook follows the following pattern:
+
+.. code-block:: python
+
+  from wagtail.wagtailadmin import hooks
+
+  hooks.register('hook', function)
+
+Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
+
+.. _construct_wagtail_edit_bird:
+
+``construct_wagtail_edit_bird``
+  Add or remove items from the wagtail userbar. Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the ``request`` object and a list of menu objects, ``items``. The menu item objects must have a ``render`` method which can take a ``request`` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information.
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import hooks
+
+    class UserbarPuppyLinkItem(object):
+      def render(self, request):
+        return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
+        + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+
+    def add_puppy_link_item(request, items):
+      return items.append( UserbarPuppyLinkItem() )
+
+    hooks.register('construct_wagtail_edit_bird', add_puppy_link_item)
+
+.. _construct_homepage_panels:
+
+``construct_homepage_panels``
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``.
+
+  .. code-block:: python
+
+    from django.utils.safestring import mark_safe
+
+    from wagtail.wagtailadmin import hooks
+
+    class WelcomePanel(object):
+      order = 50
+
+      def render(self):
+        return mark_safe("""
+        <section class="panel summary nice-padding">
+          <h3>No, but seriously -- welcome to the admin homepage.</h3>
+        </section>
+        """)
+
+    def add_another_welcome_panel(request, panels):
+      return panels.append( WelcomePanel() )
+
+    hooks.register('construct_homepage_panels', add_another_welcome_panel)
+
+.. _after_create_page:
+
+``after_create_page``
+  Do something with a ``Page`` object after it has been saved to the database (as a published page or a revision). The callable passed to this hook should take a ``request`` object and a ``page`` object. The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object. By default, Wagtail will instead redirect to the Explorer page for the new page's parent.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.wagtailadmin import hooks
+
+    def do_after_page_create(request, page):
+      return HttpResponse("Congrats on making content!", content_type="text/plain")
+    hooks.register('after_create_page', do_after_page_create)
+
+.. _after_edit_page:
+
+``after_edit_page``
+  Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+
+.. _after_delete_page:
+
+``after_delete_page``
+  Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
+
+.. _register_admin_urls:
+
+``register_admin_urls``
+  Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see `url dispatcher`_.
+
+  .. _url dispatcher: https://docs.djangoproject.com/en/dev/topics/http/urls/
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+    from django.conf.urls import url
+
+    from wagtail.wagtailadmin import hooks
+
+    def admin_view( request ):
+      return HttpResponse( \
+        "I have approximate knowledge of many things!", \
+        content_type="text/plain")
+
+    def urlconf_time():
+      return [
+        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
+      ]
+    hooks.register('register_admin_urls', urlconf_time)
+
+.. _construct_main_menu:
+
+``construct_main_menu``
+  Add, remove, or alter ``MenuItem`` objects from the Wagtail admin menu. The callable passed to this hook must take a ``request`` object and a list of ``menu_items``; it must return a list of menu items. New items can be constructed from the ``MenuItem`` class by passing in: a ``label`` which will be the text in the menu item, the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up), CSS class ``name`` applied to the wrapping ``<li>`` of the menu item as ``"menu-{name}"``, CSS ``classnames`` which are used to give the link an icon, and an ``order`` integer which determine's the item's place in the menu. 
+
+  .. code-block:: python
+
+    from django.core.urlresolvers import reverse
+
+    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailadmin.menu import MenuItem
+
+    def construct_main_menu(request, menu_items):
+      menu_items.append(
+        MenuItem( 'Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+      )
+    hooks.register('construct_main_menu', construct_main_menu)
+
+
+.. _insert_editor_js:
+
+``insert_editor_js``
+  Add additional Javascript files or code snippets to the page editor. Output must be compatible with ``compress``, as local static includes or string.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html, format_html_join
+    from django.conf import settings
+
+    from wagtail.wagtailadmin import hooks
+
+    def editor_js():
+      js_files = [
+        'demo/js/hallo-plugins/hallo-demo-plugin.js',
+      ]
+      js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+        ((settings.STATIC_URL, filename) for filename in js_files)
+      )
+      return js_includes + format_html(
+        """
+        <script>
+          registerHalloPlugin('demoeditor');
+        </script>
+        """
+      )
+    hooks.register('insert_editor_js', editor_js)
+
+.. _insert_editor_css:
+
+``insert_editor_css``
+  Add additional CSS or SCSS files or snippets to the page editor. Output must be compatible with ``compress``, as local static includes or string.
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+    from django.conf import settings
+
+    from wagtail.wagtailadmin import hooks
+
+    def editor_css():
+      return format_html('<link rel="stylesheet" href="' \
+      + settings.STATIC_URL \
+      + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
+    hooks.register('insert_editor_css', editor_css)
+
+
+Content Index Pages (CRUD)
+--------------------------
+
+
+Custom Choosers
+---------------
+
+
+Tests
+-----
 
