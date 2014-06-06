@@ -84,6 +84,13 @@ urlpatterns += [
 ]
 
 
+# This is here to make sure that 'django.contrib.auth.views.login' is reversed correctly
+# It must be placed after 'wagtailadmin_login' to prevent this from being used
+urlpatterns += [
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+]
+
+
 # Import additional urlpatterns from any apps that define a register_admin_urls hook
 for fn in hooks.get_hooks('register_admin_urls'):
     urls = fn()

@@ -92,7 +92,6 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.assertURLEqual(response.url, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
-    @unittest.expectedFailure
     def test_not_logged_in_redirect_default_settings(self):
         """
         This does the same as the above test but checks that it
