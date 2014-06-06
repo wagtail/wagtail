@@ -87,8 +87,6 @@ urlpatterns += [
 
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
-
-    url(r'^styleguide/$', styleguide.index, name='wagtailadmin_styleguide'),
 ]
 
 # Import additional urlpatterns from any apps that define a register_admin_urls hook

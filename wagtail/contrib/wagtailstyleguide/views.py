@@ -5,10 +5,6 @@ from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 
-from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
-from wagtail.wagtailadmin import hooks
-from wagtail.wagtailcore.models import Page, PageRevision
-
 from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
@@ -41,7 +37,7 @@ def index(request):
     messages.warning(request, _("Warning message"))
     messages.error(request, _("Error message"))
 
-    return render(request, 'wagtailadmin/styleguide/base.html', {
+    return render(request, 'wagtailstyleguide/base.html', {
         'search_form': form,
         'example_form': example_form,
     })
