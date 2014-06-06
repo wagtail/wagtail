@@ -346,9 +346,9 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
 
 For another example of using model clusters, see :ref:`tagging`
 
-For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_ ).
+For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_.
 
-.. _the django-modelcluster github page: https://github.com/torchbox/django-modelcluster
+.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
 
 
 .. _extending_wysiwyg:

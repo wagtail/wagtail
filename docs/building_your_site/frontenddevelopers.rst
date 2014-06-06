@@ -1,7 +1,8 @@
 For Front End developers
 ========================
 
-.. contents::
+.. contents:: Contents
+    :local:
 
 ========================
 Overview
