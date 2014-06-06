@@ -1,0 +1,3 @@
+function(modal) {
+    modal.close();
+}

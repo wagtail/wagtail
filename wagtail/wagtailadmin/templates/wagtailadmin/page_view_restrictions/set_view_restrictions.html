@@ -3,5 +3,28 @@
 {% include "wagtailadmin/shared/header.html" with title=title_str %}
 
 <div class="nice-padding">
-    <p>form for setting access restrictions goes here</p>
+    <form action="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" method="POST">
+        {% csrf_token %}
+        <ul>
+            <li>
+                {# 'This page is viewable by all visitors' #}
+                {{ form.restriction_type.0 }}
+            </li>
+            <li>
+                {# 'This page is only viewable to users who enter this password:' #}
+                {{ form.restriction_type.1 }}
+
+                {# FIXME: need distinct CSS styling for the 'disabled' state #}
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <p class="error-message">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+            </li>
+        </ul>
+        <input type="submit" value="Set restriction">
+    </form>
 </div>
