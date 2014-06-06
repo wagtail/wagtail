@@ -83,3 +83,12 @@ class PageViewRestrictionForm(forms.Form):
         ('password', ugettext_lazy("This page is only viewable to users who enter this password:")),
     ], widget=forms.RadioSelect)
     password = forms.CharField(required=False)
+
+    def clean(self):
+        cleaned_data = super(PageViewRestrictionForm, self).clean()
+
+        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
+            self._errors["password"] = self.error_class([_('This field is required.')])
+            del cleaned_data['password']
+
+        return cleaned_data
