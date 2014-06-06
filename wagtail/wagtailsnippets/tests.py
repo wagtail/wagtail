@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.tests.models import Advert
 
+from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_edit_handler
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -148,3 +150,32 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
+
+
+class TestSnippetChooserPanel(TestCase):
+    def setUp(self):
+        content_type = get_content_type_from_url_params('tests',
+                                                        'advert')
+
+        test_snippet = Advert()
+        test_snippet.text = 'test_advert'
+        test_snippet.url = 'http://www.example.com/'
+        test_snippet.save()
+
+        edit_handler_class = get_snippet_edit_handler(Advert)
+        form_class = edit_handler_class.get_form_class(Advert)
+        form = form_class(instance=test_snippet)
+
+        self.snippet_chooser_panel_class = SnippetChooserPanel('text', content_type)
+        self.snippet_chooser_panel = self.snippet_chooser_panel_class(instance=test_snippet,
+                                                                      form=form)
+
+    def test_create_snippet_chooser_panel_class(self):
+        self.assertEqual(self.snippet_chooser_panel_class.__name__, '_SnippetChooserPanel')
+
+    def test_render_as_field(self):
+        self.assertTrue('test_advert' in self.snippet_chooser_panel.render_as_field())
+
+    def test_render_js(self):
+        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'contenttypes/contenttype');"
+                        in self.snippet_chooser_panel.render_js())
