@@ -3,15 +3,25 @@
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block extra_js %}
+    {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
+
     <script>
         $(function() {
             $('#id_date_from').datetimepicker({
                 timepicker: false,
-                format: 'Y-m-d'
+                format: 'Y-m-d',
+                i18n: {
+                    lang: window.dateTimePickerTranslations
+                },
+                lang: 'lang'
             });
             $('#id_date_to').datetimepicker({
                 timepicker: false,
-                format: 'Y-m-d'
+                format: 'Y-m-d',
+                i18n: {
+                    lang: window.dateTimePickerTranslations
+                },
+                lang: 'lang'
             });
         });
     </script>

@@ -54,23 +54,55 @@ function insertRichTextDeleteControl(elem) {
 }
 
 function initDateChooser(id) {
-    $('#' + id).datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-    });
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
+        });
+    } else {
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+        });
+    }
 }
 
 function initTimeChooser(id) {
-    $('#' + id).datetimepicker({
-        datepicker: false,
-        format: 'H:i',
-    });
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
+        });
+    } else {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+        });
+    }
 }
 
 function initDateTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            language: 'lang'
+        });
+    } else {
     $('#' + id).datetimepicker({
-        format: 'Y-m-d H:i',
-    });
+            format: 'Y-m-d H:i',
+        });
+    }
 }
 
 function initTagField(id, autocompleteUrl) {
