@@ -1,6 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
-{% load wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags compress %}
 {% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
@@ -18,6 +17,12 @@
         {% include "wagtailadmin/pages/list.html" with sortable=1 allow_navigation=1 full_width=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %} 
     </form>
 
+{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}wagtailadmin/scss/components/view-permission-indicator.scss">
+    {% endcompress %}
 {% endblock %}
 
 {% block extra_js %}

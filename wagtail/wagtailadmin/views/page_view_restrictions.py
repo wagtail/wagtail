@@ -39,7 +39,9 @@ def set_view_restrictions(request, page_id):
                         page=page, password = form.cleaned_data['password'])
 
             return render_modal_workflow(
-                request, None, 'wagtailadmin/page_view_restrictions/set_view_restrictions_done.js'
+                request, None, 'wagtailadmin/page_view_restrictions/set_view_restrictions_done.js', {
+                    'is_public': (form.cleaned_data['restriction_type'] == 'none')
+                }
             )
 
     else:  # request is a GET

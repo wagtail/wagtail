@@ -5,17 +5,20 @@
 {% endif %}
 
 {% with page.get_view_restrictions as has_view_restrictions %}
-    {% if has_view_restrictions %}
-        {% trans 'Private' as label %}
-    {% else %}
-        {% trans 'Public' as label %}
-    {% endif %}
-
     {% if page_perms.can_set_view_restrictions %}
-        <div>
-            <a href="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" class="button button-small action-set-view-permissions">{{ label }}</a>
+        <div class="view-permission-indicator {% if has_view_restrictions %}private{% else %}public{% endif %}">
+            <a href="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" class="button button-small action-set-view-permissions">
+                {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+                <span class="label-public">{% trans 'Public' %}</span>
+                <span class="label-private">{% trans 'Private' %}</span>
+            </a>
         </div>
     {% else %}
-        <div>{{ label }}</div>
+        {# Read-only display, for users who don't have permission to set view restrictions #}
+        {% if has_view_restrictions %}
+            <div class="view-permission-indicator private"><span class="label-private">{% trans 'Private' %}</span></div>
+        {% else %}
+            <div class="view-permission-indicator public"><span class="label-public">{% trans 'Public' %}</span></div>
+        {% endif %}
     {% endif %}
 {% endwith %}
