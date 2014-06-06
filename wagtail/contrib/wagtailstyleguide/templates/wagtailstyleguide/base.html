@@ -240,6 +240,8 @@
                     {% for field in example_form %}
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
+                        {% elif field.name == 'date' %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with input_classes="iconfield icon-date" %}
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
@@ -253,8 +255,6 @@
 
             <h3>Time picker</h3>
             <div class="timepicker"></div>
-
-
 
             <p>TODO: Rich text</p>            
             <p>TODO: page chooser</p>
@@ -388,10 +388,7 @@
             </ul>
 
         </section>
-
-
     </div>
-
    
 {% endblock %}
 
