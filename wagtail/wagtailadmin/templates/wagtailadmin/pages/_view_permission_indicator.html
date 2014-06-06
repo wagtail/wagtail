@@ -1,6 +1,21 @@
-{% load i18n %}
-{% if page.get_view_restrictions %}
-    <div>{% trans 'Private' %}</div>
-{% else %}
-    <div>{% trans 'Public' %}</div>
+{% load i18n wagtailadmin_tags %}
+
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
 {% endif %}
+
+{% with page.get_view_restrictions as has_view_restrictions %}
+    {% if has_view_restrictions %}
+        {% trans 'Private' as label %}
+    {% else %}
+        {% trans 'Public' as label %}
+    {% endif %}
+
+    {% if page_perms.can_set_view_restrictions %}
+        <div>
+            <a href="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" class="button button-small action-set-view-permissions">{{ label }}</a>
+        </div>
+    {% else %}
+        <div>{{ label }}</div>
+    {% endif %}
+{% endwith %}

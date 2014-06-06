@@ -1112,6 +1112,9 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('publish' in self.permissions)
 
+    def can_set_view_restrictions(self):
+        return self.can_publish()
+
     def can_publish_subpage(self):
         """
         Niggly special case for creating and publishing a page in one go.

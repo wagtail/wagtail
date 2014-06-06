@@ -1,0 +1,8 @@
+{% load i18n %}
+{% trans "Access restricted" as title_str %}
+{% include "wagtailadmin/shared/header.html" with title=title_str %}
+
+<div class="nice-padding">
+    {% trans "Access to this page is restricted because it is within the section:" %}
+    <b>{{ page_with_restriction.title }}</b>
+</div>

@@ -49,7 +49,7 @@
                             <h2>{{ parent_page.title }}</h2>
                         {% endif %}
 
-                        {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=parent_page only %}
+                        {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=parent_page page_perms=parent_page_perms only %}
 
                         <ul class="actions">
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}

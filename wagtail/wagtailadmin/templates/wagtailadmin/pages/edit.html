@@ -6,6 +6,7 @@
 {% block bodyclass %}menu-explorer  page-editor{% endblock %}
 
 {% block content %}
+    {% page_permissions page as page_perms %}
     <header class="merged tab-merged nice-padding">
         {% include "wagtailadmin/shared/breadcrumb.html" with page=page %}
 
@@ -17,7 +18,7 @@
                  {% trans "Status:" %} {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
             </div>
 
-            {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=page only %}
+            {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=page page_perms=page_perms only %}
 
         </div>
     </header>
@@ -25,8 +26,7 @@
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
-    
-        {% page_permissions page as page_perms %}
+
         <footer>
             <ul>
                 <li class="actions">
