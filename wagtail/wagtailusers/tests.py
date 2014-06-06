@@ -1,18 +1,20 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from wagtail.tests.utils import login
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestUserIndexView(TestCase):
+class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -26,9 +28,9 @@ class TestUserIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestUserCreateView(TestCase):
+class TestUserCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailusers_create'), params)
@@ -36,8 +38,10 @@ class TestUserCreateView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailusers_create'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/create.html')
 
     def test_create(self):
         response = self.post({
@@ -51,6 +55,7 @@ class TestUserCreateView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -58,13 +63,13 @@ class TestUserCreateView(TestCase):
         self.assertEqual(users.first().email, 'test@user.com')
 
 
-class TestUserEditView(TestCase):
+class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
         self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, user_id=None):
         return self.client.get(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), params)
@@ -72,8 +77,10 @@ class TestUserEditView(TestCase):
     def post(self, post_data={}, user_id=None):
         return self.client.post(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)
@@ -90,6 +97,7 @@ class TestUserEditView(TestCase):
 
         # Should redirect back to index
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)
