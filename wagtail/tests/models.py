@@ -6,6 +6,8 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailsnippets.models import register_snippet
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -234,3 +236,61 @@ EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
 ]
+
+
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', related_name='form_fields')
+
+class FormPage(AbstractEmailForm):
+    pass
+
+FormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address', classname="full"),
+        FieldPanel('from_address', classname="full"),
+        FieldPanel('subject', classname="full"),
+    ], "Email")
+]
+
+
+# Snippets
+
+# Snippets
+
+class Advert(models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __unicode__(self):
+        return self.text
+
+
+register_snippet(Advert)
+
+
+# AlphaSnippet and ZuluSnippet are for testing ordering of
+# snippets when registering.  They are named as such to ensure
+# thier ordering is clear.  They are registered during testing
+# to ensure specific [in]correct register ordering
+
+# AlphaSnippet is registered during TestSnippetOrdering
+class AlphaSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text
+
+
+# ZuluSnippet is registered during TestSnippetOrdering
+class ZuluSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text

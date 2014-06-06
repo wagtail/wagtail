@@ -93,17 +93,6 @@ $(function(){
         });
     });
 
-    $(".nav-main .more > a").bind('click keydown', function(){
-        var currentAlt = $(this).data('altstate');
-        var newAlt = $(this).html();
-
-        $(this).html(currentAlt);
-        $(this).data('altstate', newAlt);
-        $(this).toggleClass('icon-arrow-up icon-arrow-down');
-        $(this).parent().find('ul').toggle('fast');
-        return false;
-    });
-
     $('#menu-search input').bind('focus', function(){
         $('#menu-search').addClass('focussed');
     }).bind('blur', function(){
@@ -128,7 +117,7 @@ $(function(){
         $(window.headerSearch.termInput).trigger('focus');
 
         function search () {
-            var workingClasses = "working icon icon-spinner";
+            var workingClasses = "icon-spinner";
 
             $(window.headerSearch.termInput).parent().addClass(workingClasses);
             search_next_index++;

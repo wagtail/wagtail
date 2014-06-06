@@ -18,7 +18,7 @@ except ImportError:
 
 setup(
     name='wagtail',
-    version='0.2',
+    version='0.3.1',
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
@@ -51,6 +51,7 @@ setup(
         "Pillow>=2.3.0",
         "beautifulsoup4>=4.3.2",
         "lxml>=3.3.0",
+        'unicodecsv>=0.9.4',
         'Unidecode>=0.04.14',
         "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
     ],

@@ -4,7 +4,7 @@ Getting Started
 On Ubuntu
 ~~~~~~~~~
 
-If you have a fresh instance of Ubuntu 13.04 or 13.10, you can install Wagtail,
+If you have a fresh instance of Ubuntu 13.04 or later, you can install Wagtail,
 along with a demonstration site containing a set of standard templates and page
 types, in one step. As the root user::
 
@@ -166,4 +166,4 @@ Once you've experimented with the demo app and are ready to build your pages via
     COMMIT;
     EOF
     rm -r demo media/images/* media/original_images/*
-    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settingsbase.py
+    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settings/base.py

@@ -1,0 +1,843 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"PO-Revision-Date: 2014-05-01 12:09+0000\n"
+"Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\edit_handlers.py:81 .\edit_handlers.py:130 .\edit_handlers.py:134
+msgid "Please type a valid time"
+msgstr "請輸入一個有效的時間"
+
+#: .\edit_handlers.py:724
+msgid "Common page configuration"
+msgstr "一般頁面設定"
+
+#: .\forms.py:18
+msgid "Search term"
+msgstr "搜尋關鍵字"
+
+#: .\forms.py:42
+msgid "Enter your username"
+msgstr "請輸入您的帳號"
+
+#: .\forms.py:45
+msgid "Enter password"
+msgstr "請輸入密碼"
+
+#: .\forms.py:50
+msgid "Enter your email address to reset your password"
+msgstr "請輸入您的電子信箱來重新設定密碼"
+
+#: .\forms.py:59
+msgid "Please fill your email address."
+msgstr "請輸入您的電子信箱"
+
+#: .\forms.py:72
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "對不起，您不能在此重新設定您的密碼，因為您的帳號是由其他伺服器所管理。"
+
+#: .\forms.py:75
+msgid "This email address is not recognised."
+msgstr "找不到這個電子信箱。"
+
+#: .\templates\wagtailadmin\base.html:7 .\templates\wagtailadmin\home.html:4
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\templates\wagtailadmin\base.html:31
+msgid "Menu"
+msgstr "選單"
+
+#: .\templates\wagtailadmin\home.html:22
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "歡迎進入 %(site_name)s 的 Wagtail 內容管理系統"
+
+#: .\templates\wagtailadmin\home.html:33
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "這是您的 Dashboard，會顯示對於已建立的內容有幫助的訊息。"
+
+#: .\templates\wagtailadmin\login.html:4
+#: .\templates\wagtailadmin\login.html:55
+msgid "Sign in"
+msgstr "登入"
+
+#: .\templates\wagtailadmin\login.html:18
+msgid "Your username and password didn't match. Please try again."
+msgstr "您的帳號和密碼輸入錯誤，請再試一次。"
+
+#: .\templates\wagtailadmin\login.html:26
+msgid "Sign in to Wagtail"
+msgstr "登入 Wagtail"
+
+#: .\templates\wagtailadmin\login.html:42
+msgid "Forgotten it?"
+msgstr "忘記了嗎?"
+
+#: .\templates\wagtailadmin\account\account.html:4
+msgid "Account"
+msgstr "帳號"
+
+#: .\templates\wagtailadmin\account\account.html:11
+msgid "Set gravatar"
+msgstr "設定 gravatar"
+
+#: .\templates\wagtailadmin\account\account.html:15
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr "您的頭像是由 Gravatar 所提供，並且已經聯結你的電子信箱。一個 Gravatar 帳號可以設定多個電子信箱的頭像圖片。"
+
+#: .\templates\wagtailadmin\account\account.html:23
+#: .\templates\wagtailadmin\account\change_password.html:4
+msgid "Change password"
+msgstr "修改密碼"
+
+#: .\templates\wagtailadmin\account\account.html:27
+msgid "Change the password you use to log in."
+msgstr "修改登入用的密碼。"
+
+#: .\templates\wagtailadmin\account\change_password.html:16
+msgid "Change Password"
+msgstr "修改密碼"
+
+#: .\templates\wagtailadmin\account\change_password.html:19
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "您的密碼不能在這更改。請聯絡網站管理員。"
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:4
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:42
+#: .\templates\wagtailadmin\account\password_reset\done.html:4
+#: .\templates\wagtailadmin\account\password_reset\form.html:37
+msgid "Reset password"
+msgstr "重新設定密碼"
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:15
+msgid "Password change successful"
+msgstr "密碼修改成功"
+
+#: .\templates\wagtailadmin\account\password_reset\complete.html:16
+msgid "Login"
+msgstr "登入"
+
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:4
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:26
+msgid "Set your new password"
+msgstr "設定您的新密碼"
+
+#: .\templates\wagtailadmin\account\password_reset\confirm.html:19
+msgid "The passwords do not match. Please try again."
+msgstr "密碼不一致，請再試一次。"
+
+#: .\templates\wagtailadmin\account\password_reset\done.html:15
+msgid "Check your email"
+msgstr "請檢查您的電子信箱"
+
+#: .\templates\wagtailadmin\account\password_reset\done.html:16
+msgid "A link to reset your password has been emailed to you."
+msgstr "一個重新設定密碼連結已經寄到您的電子信箱了"
+
+#: .\templates\wagtailadmin\account\password_reset\email.txt:2
+msgid "Please follow the link below to reset your password"
+msgstr "請點擊下面的連結來重新設定您的密碼"
+
+#: .\templates\wagtailadmin\account\password_reset\email_subject.txt:2
+msgid "Password reset"
+msgstr "密碼已經重新設定"
+
+#: .\templates\wagtailadmin\account\password_reset\form.html:27
+msgid "Reset your password"
+msgstr "重新設定您的密碼"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:5
+#: .\templates\wagtailadmin\chooser\_link_types.html:7
+msgid "Internal link"
+msgstr "內部連結"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:11
+#: .\templates\wagtailadmin\chooser\_link_types.html:13
+msgid "External link"
+msgstr "外部連結"
+
+#: .\templates\wagtailadmin\chooser\_link_types.html:17
+#: .\templates\wagtailadmin\chooser\_link_types.html:19
+msgid "Email link"
+msgstr "電子信箱連結"
+
+#: .\templates\wagtailadmin\chooser\_search_form.html:7
+#: .\templates\wagtailadmin\pages\search.html:3
+#: .\templates\wagtailadmin\pages\search.html:16
+#: .\templatetags\wagtailadmin_nav.py:44
+msgid "Search"
+msgstr "搜尋"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:3
+#: .\templatetags\wagtailadmin_nav.py:43
+msgid "Explorer"
+msgstr "瀏覽"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:5
+#: .\templates\wagtailadmin\pages\index.html:15
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:10
+msgid "Home"
+msgstr "首頁"
+
+#: .\templates\wagtailadmin\chooser\_search_results.html:13
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\n            有一個符合"
+msgstr[1] "\n            有 $(counter)s 個符合"
+
+#: .\templates\wagtailadmin\chooser\browse.html:2
+#: .\templates\wagtailadmin\chooser\search.html:2
+#: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:13
+msgid "Choose a page"
+msgstr "選擇一個頁面"
+
+#: .\templates\wagtailadmin\chooser\email_link.html:2
+msgid "Add an email link"
+msgstr "新增一個電子信箱"
+
+#: .\templates\wagtailadmin\chooser\email_link.html:14
+#: .\templates\wagtailadmin\chooser\external_link.html:14
+msgid "Insert link"
+msgstr "插入一個連結"
+
+#: .\templates\wagtailadmin\chooser\external_link.html:2
+msgid "Add an external link"
+msgstr "新增一個外部連結"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:20
+msgid "Clear choice"
+msgstr "清除選擇"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:22
+msgid "Choose another item"
+msgstr "選擇其他選項"
+
+#: .\templates\wagtailadmin\edit_handlers\chooser_panel.html:27
+msgid "Choose an item"
+msgstr "選擇一個選項"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:5
+msgid "Move up"
+msgstr "往上移動"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:6
+msgid "Move down"
+msgstr "往下移動"
+
+#: .\templates\wagtailadmin\edit_handlers\inline_panel_child.html:8
+#: .\templates\wagtailadmin\pages\confirm_delete.html:7
+#: .\templates\wagtailadmin\pages\edit.html:36
+#: .\templates\wagtailadmin\pages\list.html:68
+#: .\templates\wagtailadmin\pages\list.html:188
+msgid "Delete"
+msgstr "刪除"
+
+#: .\templates\wagtailadmin\edit_handlers\page_chooser_panel.html:12
+msgid "Choose another page"
+msgstr "選擇另外一個頁面"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:5
+msgid "Pages awaiting moderation"
+msgstr "這些頁面正等待審核"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:13
+#: .\templates\wagtailadmin\home\recent_edits.html:12
+#: .\templates\wagtailadmin\pages\list.html:101
+msgid "Title"
+msgstr "標題"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:14
+#: .\templates\wagtailadmin\pages\list.html:22
+msgid "Parent"
+msgstr "上一層"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:15
+#: .\templates\wagtailadmin\pages\list.html:24
+#: .\templates\wagtailadmin\pages\list.html:116
+msgid "Type"
+msgstr "類型"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:16
+msgid "Edited"
+msgstr "編輯"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:23
+#: .\templates\wagtailadmin\home\recent_edits.html:21
+#: .\templates\wagtailadmin\pages\list.html:167
+#: .\templates\wagtailadmin\pages\list.html:176
+msgid "Edit this page"
+msgstr "編輯這個頁面"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:28
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:12
+msgid "Approve"
+msgstr "通過"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:34
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:17
+msgid "Reject"
+msgstr "拒絕"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:37
+#: .\templates\wagtailadmin\home\recent_edits.html:23
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:9
+#: .\templates\wagtailadmin\pages\list.html:56
+#: .\templates\wagtailadmin\pages\list.html:176
+msgid "Edit"
+msgstr "編輯"
+
+#: .\templates\wagtailadmin\home\pages_for_moderation.html:38
+#: .\templates\wagtailadmin\pages\create.html:24
+#: .\templates\wagtailadmin\pages\edit.html:42
+msgid "Preview"
+msgstr "預覽"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:5
+msgid "Your most recent edits"
+msgstr "你最近的編輯"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:13
+msgid "Date"
+msgstr "日期"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:14
+#: .\templates\wagtailadmin\pages\list.html:25
+#: .\templates\wagtailadmin\pages\list.html:128
+msgid "Status"
+msgstr "狀態"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:25
+#: .\templates\wagtailadmin\pages\list.html:59
+#: .\templates\wagtailadmin\pages\list.html:179
+msgid "View draft"
+msgstr "觀看草稿"
+
+#: .\templates\wagtailadmin\home\recent_edits.html:28
+#: .\templates\wagtailadmin\pages\list.html:62
+#: .\templates\wagtailadmin\pages\list.html:182
+msgid "View live"
+msgstr "觀看線上版"
+
+#: .\templates\wagtailadmin\home\site_summary.html:3
+msgid "Site summary"
+msgstr "網站摘要"
+
+#: .\templates\wagtailadmin\home\site_summary.html:6
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_pages)s</span> Page\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_pages)s</span> Pages\n"
+"            "
+msgstr[0] "\n                <span>%(total_pages)s</span> 頁面\n            "
+msgstr[1] "\n                <span>%(total_pages)s</span> 頁面\n            "
+
+#: .\templates\wagtailadmin\home\site_summary.html:13
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_images)s</span> Image\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_images)s</span> Images\n"
+"            "
+msgstr[0] "\n                <span>%(total_images)s</span> 圖片\n            "
+msgstr[1] "\n                <span>%(total_images)s</span> 圖片\n            "
+
+#: .\templates\wagtailadmin\home\site_summary.html:20
+#, python-format
+msgid ""
+"\n"
+"                <span>%(total_docs)s</span> Document\n"
+"            "
+msgid_plural ""
+"\n"
+"                <span>%(total_docs)s</span> Documents\n"
+"            "
+msgstr[0] "\n                <span>%(total_docs)s</span> 文件\n            "
+msgstr[1] "\n                <span>%(total_docs)s</span> 文件\n            "
+
+#: .\templates\wagtailadmin\notifications\approved.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "這個頁面 \"%(title)s\" 已經通過"
+
+#: .\templates\wagtailadmin\notifications\approved.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "這個頁面 \"%(title)s\" 已經通過"
+
+#: .\templates\wagtailadmin\notifications\approved.html:4
+msgid "You can view the page here:"
+msgstr "你可以在此觀看這個頁面"
+
+#: .\templates\wagtailadmin\notifications\rejected.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "這個頁面 \"%(title)s\" 已經被拒絕"
+
+#: .\templates\wagtailadmin\notifications\rejected.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "這個頁面 \"%(title)s\" 已經被拒絕"
+
+#: .\templates\wagtailadmin\notifications\rejected.html:4
+#: .\templates\wagtailadmin\notifications\submitted.html:5
+msgid "You can edit the page here:"
+msgstr "你可以在此編輯這個頁面："
+
+#: .\templates\wagtailadmin\notifications\submitted.html:1
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "這個頁面 \"%(page)s\" 已經送審"
+
+#: .\templates\wagtailadmin\notifications\submitted.html:2
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr "這個頁面 \"%(page)s\" 已經送審。"
+
+#: .\templates\wagtailadmin\notifications\submitted.html:4
+msgid "You can preview the page here:"
+msgstr "你可以在此預覽這個頁面："
+
+#: .\templates\wagtailadmin\pages\_moderator_userbar.html:4
+#, python-format
+msgid ""
+"\n"
+"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
+"        "
+msgstr "\n            預覽 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 送審。\n        "
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:6
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "以 %(title)s 為題建立一個頁面"
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:9
+msgid "Create a page in"
+msgstr "在這建立一個頁面"
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:13
+msgid "Choose which type of page you'd like to create."
+msgstr "選擇希望建立的頁面類型。"
+
+#: .\templates\wagtailadmin\pages\add_subpage.html:26
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "%(page_type)s 類的頁面"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr "刪除 %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:12
+msgid "Are you sure you want to delete this page?"
+msgstr "你確定要刪除這頁嗎？"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:14
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
+"                "
+msgstr[0] "\n                    這也會刪除一個子頁面。                "
+msgstr[1] "\n                    這也會刪除 %(descendant_count)s 個子頁面。                "
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:22
+msgid ""
+"Alternatively you can unpublish the page. This removes the page from public "
+"view and you can edit or publish it again later."
+msgstr "你可以選擇取消發佈此頁面。此頁面將將無法從外部觀看，你可以編輯後再次發。"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:26
+msgid "Delete it"
+msgstr "刪除"
+
+#: .\templates\wagtailadmin\pages\confirm_delete.html:26
+msgid "Unpublish it"
+msgstr "取消發佈"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:3
+#, python-format
+msgid "Move %(title)s"
+msgstr "移動 %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:6
+#: .\templates\wagtailadmin\pages\list.html:65
+#: .\templates\wagtailadmin\pages\list.html:185
+msgid "Move"
+msgstr "移動"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:11
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "你確定想要移動此頁面至 '%(title)s' 嗎？"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:13
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "你確定要移動此頁面和其所有子頁面至 '%(title)s' 嗎？"
+
+#: .\templates\wagtailadmin\pages\confirm_move.html:18
+msgid "Yes, move this page"
+msgstr "是的，移動此頁面"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:3
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消發佈 %(title)s"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:6
+#: .\templates\wagtailadmin\pages\edit.html:33
+#: .\templates\wagtailadmin\pages\list.html:71
+#: .\templates\wagtailadmin\pages\list.html:191
+msgid "Unpublish"
+msgstr "取消發佈"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:10
+msgid "Are you sure you want to unpublish this page?"
+msgstr "你確定想取消發佈此頁面嗎？"
+
+#: .\templates\wagtailadmin\pages\confirm_unpublish.html:13
+msgid "Yes, unpublish it"
+msgstr "是的，取消發佈"
+
+#: .\templates\wagtailadmin\pages\content_type_use.html:7
+msgid "Pages using"
+msgstr "頁面正在使用"
+
+#: .\templates\wagtailadmin\pages\create.html:5
+#, python-format
+msgid "New %(page_type)s"
+msgstr "新 %(page_type)s 分類"
+
+#: .\templates\wagtailadmin\pages\create.html:9
+msgid "New"
+msgstr "新"
+
+#: .\templates\wagtailadmin\pages\create.html:21
+msgid "Save as draft"
+msgstr "儲存為草稿"
+
+#: .\templates\wagtailadmin\pages\create.html:26
+#: .\templates\wagtailadmin\pages\edit.html:39
+msgid "Publish"
+msgstr "發佈"
+
+#: .\templates\wagtailadmin\pages\create.html:28
+#: .\templates\wagtailadmin\pages\edit.html:41
+msgid "Submit for moderation"
+msgstr "送審"
+
+#: .\templates\wagtailadmin\pages\edit.html:5
+#, python-format
+msgid "Editing %(title)s"
+msgstr "編輯 %(title)s"
+
+#: .\templates\wagtailadmin\pages\edit.html:12
+#, python-format
+msgid "Editing <span>%(title)s</span>"
+msgstr "編輯 <span>%(title)s</span>"
+
+#: .\templates\wagtailadmin\pages\edit.html:15
+msgid "Status:"
+msgstr "狀態："
+
+#: .\templates\wagtailadmin\pages\edit.html:29
+msgid "Save draft"
+msgstr "儲存草稿"
+
+#: .\templates\wagtailadmin\pages\edit.html:52
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "上一次編輯：%(last_mod)s"
+
+#: .\templates\wagtailadmin\pages\edit.html:54
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "作者 %(modified_by)s"
+
+#: .\templates\wagtailadmin\pages\index.html:4
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "瀏覽%(title)s"
+
+#: .\templates\wagtailadmin\pages\list.html:53
+#: .\templates\wagtailadmin\pages\list.html:194
+msgid "Add child page"
+msgstr "新增子頁面"
+
+#: .\templates\wagtailadmin\pages\list.html:94
+msgid "Disable ordering of child pages"
+msgstr "禁止子頁面的排序"
+
+#: .\templates\wagtailadmin\pages\list.html:94
+#: .\templates\wagtailadmin\pages\list.html:96
+msgid "Order"
+msgstr "排序"
+
+#: .\templates\wagtailadmin\pages\list.html:96
+msgid "Enable ordering of child pages"
+msgstr "開啟子頁面排序"
+
+#: .\templates\wagtailadmin\pages\list.html:149
+msgid "Drag"
+msgstr "拖曳"
+
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#, python-format
+msgid "Explorer subpages of '%(title)s'"
+msgstr "瀏覽 '%(title)s' 的子頁面"
+
+#: .\templates\wagtailadmin\pages\list.html:220
+#: .\templates\wagtailadmin\pages\list.html:224
+#: .\templates\wagtailadmin\pages\list.html:228
+msgid "Explore"
+msgstr "瀏覽"
+
+#: .\templates\wagtailadmin\pages\list.html:228
+#, python-format
+msgid "Explorer child pages of '%(title)s'"
+msgstr "瀏覽 '%(title)s' 的子頁面"
+
+#: .\templates\wagtailadmin\pages\list.html:230
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "新增子頁面至 '%(title)s'"
+
+#: .\templates\wagtailadmin\pages\list.html:230
+msgid "Add subpage"
+msgstr "新增子頁面"
+
+#: .\templates\wagtailadmin\pages\list.html:239
+msgid "No pages have been created."
+msgstr "沒有已儲存的頁面"
+
+#: .\templates\wagtailadmin\pages\list.html:239
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
+msgstr "為什麼不 <a href=\"%(add_page_url)s\"> 新增一個頁面呢</a>？"
+
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:3
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "為 %(title)s 選擇一個新的母頁面"
+
+#: .\templates\wagtailadmin\pages\move_choose_destination.html:7
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "為 <span>%(title)s</span> 選擇一個新的母頁面"
+
+#: .\templates\wagtailadmin\pages\search_results.html:6
+#, python-format
+msgid ""
+"\n"
+"                    There is one match\n"
+"                "
+msgid_plural ""
+"\n"
+"                    There are %(counter)s matches\n"
+"                "
+msgstr[0] "\n            有一個符合"
+msgstr[1] "\n            有 $(counter)s 個符合"
+
+#: .\templates\wagtailadmin\pages\search_results.html:17
+#, python-format
+msgid ""
+"\n"
+"                Page %(page_number)s of %(num_pages)s.\n"
+"            "
+msgstr "\n                第 %(page_number)s / %(num_pages)s頁。\n            "
+
+#: .\templates\wagtailadmin\pages\search_results.html:24
+#: .\templates\wagtailadmin\pages\search_results.html:26
+#: .\templates\wagtailadmin\shared\pagination_nav.html:8
+#: .\templates\wagtailadmin\shared\pagination_nav.html:10
+#: .\templates\wagtailadmin\shared\pagination_nav.html:14
+msgid "Previous"
+msgstr "往前"
+
+#: .\templates\wagtailadmin\pages\search_results.html:33
+#: .\templates\wagtailadmin\pages\search_results.html:35
+#: .\templates\wagtailadmin\shared\pagination_nav.html:21
+#: .\templates\wagtailadmin\shared\pagination_nav.html:23
+#: .\templates\wagtailadmin\shared\pagination_nav.html:25
+msgid "Next"
+msgstr "往後"
+
+#: .\templates\wagtailadmin\pages\search_results.html:43
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "對不起，沒有任何頁面符合 \"<em>%(query_string)s</em>\""
+
+#: .\templates\wagtailadmin\pages\search_results.html:45
+msgid "Enter a search term above"
+msgstr "請輸入關鍵字"
+
+#: .\templates\wagtailadmin\pages\select_location.html:3
+#, python-format
+msgid "Where do you want to create a %(page_type)s"
+msgstr "你想在哪建立 %(page_type)s"
+
+#: .\templates\wagtailadmin\pages\select_location.html:5
+msgid "Where do you want to create this"
+msgstr "你想在哪建立這個"
+
+#: .\templates\wagtailadmin\pages\select_type.html:3
+#: .\templates\wagtailadmin\pages\select_type.html:6
+msgid "Create a new page"
+msgstr "建立一個新頁面"
+
+#: .\templates\wagtailadmin\pages\select_type.html:10
+msgid ""
+"Your new page will be saved in the <em>top level</em> of your website. You "
+"can move it after saving."
+msgstr "你的新頁面將會儲存到網站的 <em>最上層</em> 你可以在儲存後移動它。"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:15
+msgid "Account settings"
+msgstr "帳號設定"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:16
+msgid "Log out"
+msgstr "登出"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:20
+msgid "More"
+msgstr "更多"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:22
+msgid "Redirects"
+msgstr "重導向"
+
+#: .\templates\wagtailadmin\shared\main_nav.html:23
+msgid "Editors Picks"
+msgstr "編者精選"
+
+#: .\templates\wagtailadmin\shared\pagination_nav.html:3
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "第 %(page_num)s 頁  共 %(total_pages)s 頁"
+
+#: .\templatetags\wagtailadmin_nav.py:52
+msgid "Images"
+msgstr "圖片"
+
+#: .\templatetags\wagtailadmin_nav.py:56
+msgid "Documents"
+msgstr "文件"
+
+#: .\templatetags\wagtailadmin_nav.py:61
+msgid "Snippets"
+msgstr "片段"
+
+#: .\templatetags\wagtailadmin_nav.py:66
+msgid "Users"
+msgstr "使用者"
+
+#: .\views\account.py:26
+msgid "Your password has been changed successfully!"
+msgstr "您的密碼已經更改成功。"
+
+#: .\views\pages.py:99
+msgid "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
+msgstr "對不起，你沒有建立 <em>'{0}'</em> 類型頁面的權限。"
+
+#: .\views\pages.py:103
+msgid ""
+"Pages of this type can only be created as children of <em>'{0}'</em>. This "
+"new page will be saved there."
+msgstr "這一類的頁面只能建立為 <em>'{0}'</em> 的子頁面。此頁面將會儲存在那邊。"
+
+#: .\views\pages.py:166
+msgid "This slug is already in use"
+msgstr "這個地址已被使用"
+
+#: .\views\pages.py:187 .\views\pages.py:254 .\views\pages.py:589
+msgid "Page '{0}' published."
+msgstr "第 '{0}' 頁已發佈。"
+
+#: .\views\pages.py:189 .\views\pages.py:256
+msgid "Page '{0}' submitted for moderation."
+msgstr "第 '{0}' 頁已送審。"
+
+#: .\views\pages.py:192
+msgid "Page '{0}' created."
+msgstr "第 '{0}' 頁已建立。"
+
+#: .\views\pages.py:201
+msgid "The page could not be created due to errors."
+msgstr "這頁面因有錯誤而無法建立。"
+
+#: .\views\pages.py:259
+msgid "Page '{0}' updated."
+msgstr "第 '{0}' 頁已更新"
+
+#: .\views\pages.py:268
+msgid "The page could not be saved due to validation errors"
+msgstr "這頁面因有驗證錯誤而無法儲存。"
+
+#: .\views\pages.py:280
+msgid "This page is currently awaiting moderation"
+msgstr "這頁正等待審核"
+
+#: .\views\pages.py:298
+msgid "Page '{0}' deleted."
+msgstr "第 '{0}' 頁已刪除"
+
+#: .\views\pages.py:428
+msgid "Page '{0}' unpublished."
+msgstr "第 '{0}' 頁已取消發佈"
+
+#: .\views\pages.py:479
+msgid "Page '{0}' moved."
+msgstr "第 '{0}' 頁已移動。"
+
+#: .\views\pages.py:584 .\views\pages.py:602 .\views\pages.py:621
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "第 '{0}' 頁目前不需要等待審核。"
+
+#: .\views\pages.py:608
+msgid "Page '{0}' rejected for publication."
+msgstr "第 '{0}' 頁已被拒絕發佈。"

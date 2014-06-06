@@ -85,3 +85,16 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Send email
     send_mail(email_subject, email_content, from_email, email_addresses)
+
+
+@task
+def send_email_task(email_subject, email_content, email_addresses, from_email=None):
+    if not from_email:
+        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+            from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
+        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
+            from_email = settings.DEFAULT_FROM_EMAIL
+        else:
+            from_email = 'webmaster@localhost'
+
+    send_mail(email_subject, email_content, from_email, email_addresses)
