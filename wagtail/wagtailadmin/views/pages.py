@@ -123,7 +123,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     #     messages.error(request, "Sorry, you do not have access to create a page of type '%s' here." % content_type.name)
     #     return redirect('wagtailadmin_pages_select_type')
 
-    page = page_class(owner=request.user)
+    page = page_class(owner=request.user,parent=parent_page)
     edit_handler_class = get_page_edit_handler(page_class)
     form_class = edit_handler_class.get_form_class(page_class)
 
