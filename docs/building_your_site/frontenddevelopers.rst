@@ -190,6 +190,32 @@ Only fields using ``RichTextField`` need this applied in the template.
 .. Note::
     Note that the template tag loaded differs from the name of the filter.
 
+Responsive Embeds
+-----------------
+
+Wagtail embeds and images are included at their full width, which may overflow the bounds of the content container you've defined in your templates. To make images and embeds responsive -- meaning they'll resize to fit their container -- include the following CSS.
+
+.. code-block:: css
+
+    .rich-text img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .responsive-object {
+        position: relative;
+    }
+        .responsive-object iframe,
+        .responsive-object object,
+        .responsive-object embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
