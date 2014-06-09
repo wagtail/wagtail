@@ -25,7 +25,7 @@ From your app directory, you can safely remove ``admin.py`` and ``views.py``, si
 
 .. _Django Settings: https://docs.djangoproject.com/en/dev/topics/settings/
 
-.. _Django URL Dispatcher:https://docs.djangoproject.com/en/dev/topics/http/urls/
+.. _Django URL Dispatcher: https://docs.djangoproject.com/en/dev/topics/http/urls/
 
 What follows is a settings reference which skips many boilerplate Django settings. If you just want to get your Wagtail install up quickly without fussing with settings at the moment, see :ref:`complete_example_config`.
 
@@ -161,7 +161,7 @@ Authentication
 
 .. code-block:: python
 
-  LOGIN_URL = 'wagtail.wagtailadmin.views.account.login'
+  LOGIN_URL = 'wagtailadmin_login'
   LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 These settings variables set the Django authentication system to redirect to the Wagtail admin login. If you plan to use the Django authentication module to log in non-privileged users, you should set these variables to your own login views. See `Django User Authentication`_.
@@ -243,7 +243,7 @@ Email Notifications
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
 
 
 Other Django Settings Used by Wagtail
@@ -271,18 +271,6 @@ For information on what these settings do, see `Django Settings`_.
 .. _Django Settings: https://docs.djangoproject.com/en/dev/ref/settings/
 
 
-URL Configuration (urls.py)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-There's one more setting that must be included in ``settings.py``:
-
-.. code-block:: python
-
-  ROOT_URLCONF = 'myproject.urls'
-
-This setting bootstraps your project's URL patterns and views into the Django server. The root urlconf will include URL patterns for Wagtail and any URLs for your own app functionality (developed external to Wagtail).
-
-
 Search Signal Handlers
 ----------------------
 
@@ -292,7 +280,7 @@ Search Signal Handlers
   
   wagtailsearch_register_signal_handlers()
 
-This loads Wagtail's search signal handlers, which need to be loaded very early in the Django life cycle. While not technically a urlconf, this is a convenient place to load them.
+This loads Wagtail's search signal handlers, which need to be loaded very early in the Django life cycle. While not technically a urlconf, this is a convenient place to load them. Calling this function registers signal handlers to watch for when indexed models get saved or deleted. This allows wagtailsearch to update ElasticSearch automatically.
 
 
 URL Patterns
@@ -437,7 +425,7 @@ settings.py
   )
 
   # Make this unique, and don't share it with anybody.
-  SECRET_KEY = 'wq21wtjo3@d_qfjvd-#td!%7gfy2updj2z+nev^k$iy%=m4_tr'
+  SECRET_KEY = 'change-me'
 
   # List of callables that know how to import templates from various sources.
   TEMPLATE_LOADERS = (
@@ -505,7 +493,7 @@ settings.py
   )
 
   # Auth settings
-  LOGIN_URL = 'django.contrib.auth.views.login'
+  LOGIN_URL = 'wagtailadmin_login'
   LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
   # A sample logging configuration. The only tangible logging
