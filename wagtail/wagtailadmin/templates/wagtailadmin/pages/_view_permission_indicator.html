@@ -1,24 +1,23 @@
 {% load i18n wagtailadmin_tags %}
 
+{% test_page_is_public page as is_public %}
 {% if not page_perms %}
     {% page_permissions page as page_perms %}
 {% endif %}
 
-{% with page.get_view_restrictions as has_view_restrictions %}
-    {% if page_perms.can_set_view_restrictions %}
-        <div class="view-permission-indicator {% if has_view_restrictions %}private{% else %}public{% endif %}">
-            <a href="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" class="button button-small action-set-view-permissions">
-                {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
-                <span class="label-public">{% trans 'Public' %}</span>
-                <span class="label-private">{% trans 'Private' %}</span>
-            </a>
-        </div>
+{% if page_perms.can_set_view_restrictions %}
+    <div class="view-permission-indicator {% if is_public %}public{% else %}private{% endif %}">
+        <a href="{% url 'wagtailadmin_pages_set_view_restrictions' page.id %}" class="button button-small action-set-view-permissions">
+            {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+            <span class="label-public">{% trans 'Public' %}</span>
+            <span class="label-private">{% trans 'Private' %}</span>
+        </a>
+    </div>
+{% else %}
+    {# Read-only display, for users who don't have permission to set view restrictions #}
+    {% if is_public %}
+        <div class="view-permission-indicator public"><span class="label-public">{% trans 'Public' %}</span></div>
     {% else %}
-        {# Read-only display, for users who don't have permission to set view restrictions #}
-        {% if has_view_restrictions %}
-            <div class="view-permission-indicator private"><span class="label-private">{% trans 'Private' %}</span></div>
-        {% else %}
-            <div class="view-permission-indicator public"><span class="label-public">{% trans 'Public' %}</span></div>
-        {% endif %}
+        <div class="view-permission-indicator private"><span class="label-private">{% trans 'Private' %}</span></div>
     {% endif %}
-{% endwith %}
+{% endif %}

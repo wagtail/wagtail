@@ -42,6 +42,11 @@
                         {% else %}
                             <h2>{{ parent_page.title }}</h2>
                         {% endif %}
+
+                        {% test_page_is_public parent_page as is_public %}
+                        {% if not is_public %}
+                            <em>(private)</em>
+                        {% endif %}
                     {% else %}
                         {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                             <h2><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a></h2>
@@ -154,6 +159,11 @@
                                     <a class="choose-page" href="#{{ page.id }}" data-id="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}">{{ page.title }}</a>
                                 {% else %}
                                     {{ page.title }}
+                                {% endif %}
+
+                                {% test_page_is_public page as is_public %}
+                                {% if not is_public %}
+                                    <em>(private)</em>
                                 {% endif %}
                             {% else %}
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}

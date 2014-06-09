@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 
 
@@ -86,6 +86,26 @@ def page_permissions(context, page):
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)
+
+
+@register.assignment_tag(takes_context=True)
+def test_page_is_public(context, page):
+    """
+    Usage: {% test_page_is_public page as is_public %}
+    Sets 'is_public' to True iff there are no page view restrictions in place on
+    this page.
+    Caches the list of page view restrictions in the context, to avoid repeated
+    DB queries on repeated calls.
+    """
+    if 'all_page_view_restriction_paths' not in context:
+        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list('page__path', flat=True)
+
+    is_private = any([
+        page.path.startswith(restricted_path)
+        for restricted_path in context['all_page_view_restriction_paths']
+    ])
+
+    return not is_private
 
 
 @register.simple_tag
