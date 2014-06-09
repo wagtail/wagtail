@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from wagtail.tests.utils import login, unittest
-from wagtail.tests.models import Advert
+from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
+from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_edit_handler
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
@@ -168,3 +169,16 @@ class TestSnippetChooserPanel(TestCase):
     def test_render_js(self):
         self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'contenttypes/contenttype');"
                         in self.snippet_chooser_panel.render_js())
+
+
+class TestSnippetOrdering(TestCase):
+    def setUp(self):
+        register_snippet(ZuluSnippet)
+        register_snippet(AlphaSnippet)
+
+    def test_snippets_ordering(self):
+        # Ensure AlphaSnippet is before ZuluSnippet
+        # Cannot check first and last position as other snippets
+        # may get registered elsewhere during test
+        self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
+                        SNIPPET_MODELS.index(ZuluSnippet))
