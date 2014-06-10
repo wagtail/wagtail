@@ -124,7 +124,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     #     return redirect('wagtailadmin_pages_select_type')
 
     page = page_class(owner=request.user)
-    signals.init_new_page.send(sender=create, page=page, parent=parent_page)
     edit_handler_class = get_page_edit_handler(page_class)
     form_class = edit_handler_class.get_form_class(page_class)
 
@@ -173,6 +172,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             messages.error(request, _("The page could not be created due to errors."))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
+        signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
