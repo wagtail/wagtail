@@ -2,7 +2,8 @@ Changelog
 =========
 
 0.4 (xx.xx.20xx)
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
+ * Added 'original' as a resizing rule supported by the 'image' tag
 
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~
