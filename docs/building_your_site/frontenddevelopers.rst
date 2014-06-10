@@ -94,7 +94,7 @@ The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, set
 
 The syntax for the tag is thus::
 
-    {% image [image] [method]-[dimension(s)] %}
+    {% image [image] [resize-rule] %}
 
 For example:
 
@@ -108,15 +108,19 @@ For example:
     <!-- or a square thumbnail: -->
     {% image self.photo fill-80x80 %}
 
-In the above syntax ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``self.photo``. The ``[method]`` defines which resizing algorithm to use and ``[dimension(s)]`` provides height and/or width values (as ``[width|height]`` or ``[width]x[height]``) to refine that algorithm.
+In the above syntax ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``self.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page; various resizing methods are supported, to cater for different usage cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
 
-Note that a space separates ``[image]`` and ``[method]``, but not ``[method]`` and ``[dimensions]``: a hyphen between ``[method]`` and ``[dimensions]`` is mandatory. Multiple dimensions must be separated by an ``x``.
+Note that a space separates ``[image]`` and ``[resize-rule]``, but the resize rule must not contain spaces.
 
-The available ``method`` s are:
+The available resizing methods are:
 
 .. glossary::
     ``max`` 
         (takes two dimensions)
+
+        .. code-block:: django
+
+            {% image self.photo max-1000x500 %}
 
         Fit **within** the given dimensions. 
 
@@ -125,6 +129,10 @@ The available ``method`` s are:
     ``min`` 
         (takes two dimensions)
 
+        .. code-block:: django
+
+            {% image self.photo min-500x200 %}
+
         **Cover** the given dimensions.
 
         This may result in an image slightly **larger** than the dimensions you specify. e.g A square image of width 2000, height 2000, treated with the ``min`` dimensions ``500x200`` (landscape) would have it's height and width changed to 500, i.e matching the width required, but greater than the height.
@@ -132,15 +140,27 @@ The available ``method`` s are:
     ``width`` 
         (takes one dimension)
 
+        .. code-block:: django
+
+            {% image self.photo width-640 %}
+
         Reduces the width of the image to the dimension specified.
 
     ``height`` 
         (takes one dimension)
 
+        .. code-block:: django
+
+            {% image self.photo height-480 %}
+
         Resize the height of the image to the dimension specified.. 
 
     ``fill`` 
         (takes two dimensions)
+
+        .. code-block:: django
+
+            {% image self.photo fill-200x200 %}
 
         Resize and **crop** to fill the **exact** dimensions. 
 
@@ -148,11 +168,17 @@ The available ``method`` s are:
 
         **The crop always aligns on the centre of the image.**
 
-.. Note::
-    Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
+    ``original`` 
+        (takes no dimensions)
+
+        .. code-block:: django
+
+            {% image self.photo original %}
+
+        Leaves the image at its original size - no resizing is performed.
 
 .. Note::
-    Wagtail does not make the "original" version of an image explicitly available. To request it, you could rely on the lack of upscaling by requesting an image larger than its maximum dimensions. e.g to insert an image whose dimensions are unknown at its maximum size, try: ``{% image self.image width-10000 %}``. This assumes the image is unlikely to be larger than 10000px wide.
+    Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
 
 .. _image_tag_alt:
