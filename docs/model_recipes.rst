@@ -118,6 +118,8 @@ Will return::
     tauntaun kennel bed and breakfast
 
 
+.. _tagging:
+
 Tagging
 -------
 
