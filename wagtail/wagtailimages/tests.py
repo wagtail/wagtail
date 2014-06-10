@@ -107,6 +107,13 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
 
+    def test_resize_to_original(self):
+        rendition = self.image.get_rendition('original')
+
+        # Check size
+        self.assertEqual(rendition.width, 640)
+        self.assertEqual(rendition.height, 480)
+
     def test_cache(self):
         # Get two renditions with the same filter
         first_rendition = self.image.get_rendition('width-400')
@@ -152,6 +159,13 @@ class TestRenditionsWand(TestCase):
         # Check size
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
+
+    def test_resize_to_original(self):
+        rendition = self.image.get_rendition('original')
+
+        # Check size
+        self.assertEqual(rendition.width, 640)
+        self.assertEqual(rendition.height, 480)
 
     def test_cache(self):
         # Get two renditions with the same filter
