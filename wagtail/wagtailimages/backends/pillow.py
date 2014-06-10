@@ -1,5 +1,8 @@
-from base import BaseImageBackend
+from __future__ import absolute_import
+
+from .base import BaseImageBackend
 import PIL.Image
+
 
 class PillowBackend(BaseImageBackend):
     def __init__(self, params):
