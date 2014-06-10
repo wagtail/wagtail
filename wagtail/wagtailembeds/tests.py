@@ -119,21 +119,30 @@ class TestEmbedly(TestCase):
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_403(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value['error_code'] = 403
+            oembed.return_value = {'type': 'photo',
+                                   'url': 'http://www.example.com',
+                                   'error': True,
+                                   'error_code': 403}
             self.assertRaises(AccessDeniedEmbedlyException,
                               wagtail_embedly, 'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_404(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value['error_code'] = 404
+            oembed.return_value = {'type': 'photo',
+                                   'url': 'http://www.example.com',
+                                   'error': True,
+                                   'error_code': 404}
             self.assertRaises(EmbedNotFoundException,
                               wagtail_embedly, 'http://www.example.com', key='foo')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_other_error(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value['error_code'] = 999
+            oembed.return_value = {'type': 'photo',
+                                   'url': 'http://www.example.com',
+                                   'error': True,
+                                   'error_code': 999}
             self.assertRaises(EmbedlyException, wagtail_embedly,
                               'http://www.example.com', key='foo')
 
