@@ -31,30 +31,45 @@
             <tr class="index {% if not parent_page.live %} inactive{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-choose{% endif %}{% endif %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% if moving %}
-                        {% if parent_page.can_choose %}
-                            <h2><a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id parent_page.id %}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
+                        <h2>
+                            {% if parent_page.can_choose %}
+                                <a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id parent_page.id %}">{{ parent_page.title }}</a><
+                            {% else %}
+                                {{ parent_page.title }}
+                            {% endif %}
+
+                            {% test_page_is_public parent_page as is_public %}
+                            {% if not is_public %}
+                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
+                        </h2>
                     {% elif choosing %}
-                        {% if parent_page.can_choose %}
-                            <h2><a class="choose-page" href="#{{ parent_page.id }}" data-id="{{ parent_page.id }}" data-title="{{ parent_page.title }}" data-url="{{ parent_page.url }}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
+                        <h2>
+                            {% if parent_page.can_choose %}
+                                <a class="choose-page" href="#{{ parent_page.id }}" data-id="{{ parent_page.id }}" data-title="{{ parent_page.title }}" data-url="{{ parent_page.url }}">{{ parent_page.title }}</a>
+                            {% else %}
+                                {{ parent_page.title }}
+                            {% endif %}
 
-                        {% test_page_is_public parent_page as is_public %}
-                        {% if not is_public %}
-                            <em>(private)</em>
-                        {% endif %}
+                            {% test_page_is_public parent_page as is_public %}
+                            {% if not is_public %}
+                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
+                        </h2>
                     {% else %}
-                        {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                            <h2><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
+                        <h2>
+                            {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
+                                <a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a>
+                            {% else %}
+                                    {{ parent_page.title }}
+                            {% endif %}
 
-                        {% include "wagtailadmin/pages/_view_permission_indicator.html" with page=parent_page page_perms=parent_page_perms only %}
+                            {% test_page_is_public parent_page as is_public %}
+                            {% if not is_public %}
+                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
+                        </h2>
+                        
 
                         <ul class="actions">
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
@@ -160,17 +175,17 @@
                                 {% else %}
                                     {{ page.title }}
                                 {% endif %}
-
-                                {% test_page_is_public page as is_public %}
-                                {% if not is_public %}
-                                    <em>(private)</em>
-                                {% endif %}
                             {% else %}
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                     <a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a>
                                 {% else %}
                                     {{ page.title }}
                                 {% endif %}
+                            {% endif %}
+
+                            {% test_page_is_public page as is_public %}
+                            {% if not is_public %}
+                            <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
                             {% endif %}
                         </h2>
                         {% if not moving and not choosing %}

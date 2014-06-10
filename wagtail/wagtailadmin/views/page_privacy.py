@@ -7,7 +7,7 @@ from wagtail.wagtailadmin.forms import PageViewRestrictionForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 
 @permission_required('wagtailadmin.access_admin')
-def set_view_restrictions(request, page_id):
+def set_privacy(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_set_view_restrictions():
@@ -39,7 +39,7 @@ def set_view_restrictions(request, page_id):
                         page=page, password = form.cleaned_data['password'])
 
             return render_modal_workflow(
-                request, None, 'wagtailadmin/page_view_restrictions/set_view_restrictions_done.js', {
+                request, None, 'wagtailadmin/page_privacy/set_privacy_done.js', {
                     'is_public': (form.cleaned_data['restriction_type'] == 'none')
                 }
             )
@@ -60,7 +60,7 @@ def set_view_restrictions(request, page_id):
         # display a message indicating that there is a restriction at ancestor level -
         # do not provide the form for setting up new restrictions
         return render_modal_workflow(
-            request, 'wagtailadmin/page_view_restrictions/ancestor_restriction.html', None,
+            request, 'wagtailadmin/page_privacy/ancestor_privacy.html', None,
             {
                 'page_with_restriction': restriction.page,
             }
@@ -69,8 +69,8 @@ def set_view_restrictions(request, page_id):
         # no restriction set at ancestor level - can set restrictions here
         return render_modal_workflow(
             request,
-            'wagtailadmin/page_view_restrictions/set_view_restrictions.html',
-            'wagtailadmin/page_view_restrictions/set_view_restrictions.js', {
+            'wagtailadmin/page_privacy/set_privacy.html',
+            'wagtailadmin/page_privacy/set_privacy.js', {
                 'page': page,
                 'form': form,
             }

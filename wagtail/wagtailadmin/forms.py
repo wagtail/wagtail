@@ -78,9 +78,9 @@ class PasswordResetForm(PasswordResetForm):
 
 
 class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(choices=[
-        ('none', ugettext_lazy("This page is viewable by all visitors")),
-        ('password', ugettext_lazy("This page is only viewable to users who enter this password:")),
+    restriction_type = forms.ChoiceField(label="Visibility", choices=[
+        ('none', ugettext_lazy("Public")),
+        ('password', ugettext_lazy("Private, accessible with the following password")),
     ], widget=forms.RadioSelect)
     password = forms.CharField(required=False)
 

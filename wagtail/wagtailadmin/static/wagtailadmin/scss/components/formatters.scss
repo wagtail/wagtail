@@ -121,8 +121,8 @@
     color:lighten($color-grey-2,30%);
     -webkit-font-smoothing: auto;
     font-size:0.80em;
-    margin:0 0.5em;
-    background:white url("#{$static-root}bg-dark-diag.svg");
+    margin:0 0.5em 0.5em;
+    background:white url(   "#{$static-root}bg-dark-diag.svg");
 
     &.primary{
         color:$color-grey-2;
@@ -135,6 +135,20 @@ a.status-tag.primary:hover{
     border-color:$color-teal;
     color:$color-teal;
 }
+
+.privacy-indicator {
+    &.public {
+        .label-private { 
+            display: none;
+        }
+    }
+    &.private {
+        .label-public {
+            display: none;
+        }
+    }
+}
+
 
 /* free tagging tags from taggit */
 .tag{
@@ -173,6 +187,7 @@ a.tag:hover{
         margin-right:1em;
     }
 }
+
 
 /* make a block-level element inline */
 .inline{

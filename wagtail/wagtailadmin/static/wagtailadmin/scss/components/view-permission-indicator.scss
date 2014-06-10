@@ -1,8 +1,0 @@
-.view-permission-indicator {
-    &.public {
-        .label-private { display: none; }
-    }
-    &.private {
-        .label-public { display: none; }
-    }
-}
