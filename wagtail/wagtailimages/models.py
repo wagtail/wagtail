@@ -1,5 +1,6 @@
 import StringIO
 import os.path
+import re
 
 from taggit.managers import TaggableManager
 
@@ -150,6 +151,7 @@ class Filter(models.Model):
         'width': 'resize_to_width',
         'height': 'resize_to_height',
         'fill': 'resize_to_fill',
+        'original': 'no_operation',
     }
 
     def __init__(self, *args, **kwargs):
@@ -157,22 +159,34 @@ class Filter(models.Model):
         self.method = None  # will be populated when needed, by parsing the spec string
 
     def _parse_spec_string(self):
-        # parse the spec string, which is formatted as (method)-(arg),
-        # and save the results to self.method_name and self.method_arg
-        try:
-            (method_name_simple, method_arg_string) = self.spec.split('-')
-            self.method_name = Filter.OPERATION_NAMES[method_name_simple]
+        # parse the spec string and save the results to
+        # self.method_name and self.method_arg. There are various possible
+        # formats to match against:
+        # 'original'
+        # 'width-200'
+        # 'max-320x200'
 
-            if method_name_simple in ('max', 'min', 'fill'):
-                # method_arg_string is in the form 640x480
-                (width, height) = [int(i) for i in method_arg_string.split('x')]
-                self.method_arg = (width, height)
-            else:
-                # method_arg_string is a single number
-                self.method_arg = int(method_arg_string)
+        if self.spec == 'original':
+            self.method_name = Filter.OPERATION_NAMES['original']
+            self.method_arg = None
+            return
 
-        except (ValueError, KeyError):
-            raise ValueError("Invalid image filter spec: %r" % self.spec)
+        match = re.match(r'(width|height)-(\d+)$', self.spec)
+        if match:
+            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
+            self.method_arg = int(match.group(2))
+            return
+
+        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
+        if match:
+            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
+            width = int(match.group(2))
+            height = int(match.group(3))
+            self.method_arg = (width, height)
+            return
+
+        # Spec is not one of our recognised patterns
+        raise ValueError("Invalid image filter spec: %r" % self.spec)
 
     def process_image(self, input_file, backend_name='default'):
         """

@@ -130,3 +130,8 @@ class BaseImageBackend(object):
         """
         resized_image = self.resize_to_min(image, size)
         return self.crop_to_centre(resized_image, size)
+
+
+    def no_operation(self, image, param):
+        """Return the image unchanged"""
+        return image
