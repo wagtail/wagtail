@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from .base import BaseImageBackend
 from wand.image import Image
+from wand.api import library
 
 
 class WandBackend(BaseImageBackend):
@@ -10,6 +11,7 @@ class WandBackend(BaseImageBackend):
 
     def open_image(self, input_file):
         image = Image(file=input_file)
+        image.wand = library.MagickCoalesceImages(image.wand)
         return image
 
     def save_image(self, image, output, format):
