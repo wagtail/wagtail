@@ -28,6 +28,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.url_routing import RouteResult
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
@@ -416,7 +417,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         else:
             # request is for this very page
             if self.live:
-                return self
+                return RouteResult(self)
             else:
                 raise Http404
 

@@ -21,7 +21,7 @@ def whitelister_element_rules():
 hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
 
 
-def block_googlebot(page, request):
+def block_googlebot(page, request, serve_args, serve_kwargs):
     if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 hooks.register('before_serve_page', block_googlebot)

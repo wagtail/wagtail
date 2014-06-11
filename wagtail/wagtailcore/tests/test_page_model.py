@@ -138,7 +138,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.path = '/events/christmas/'
-        found_page = homepage.route(request, ['events', 'christmas'])
+        (found_page, args, kwargs) = homepage.route(request, ['events', 'christmas'])
         self.assertEqual(found_page, christmas_page)
 
     def test_request_serving(self):
@@ -243,7 +243,7 @@ class TestServeView(TestCase):
             # Check that a DeprecationWarning has been triggered
             self.assertEqual(len(w), 1)
             self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
-            self.assertTrue("Page.route should return a Page" in str(w[-1].message))
+            self.assertTrue("Page.route should return an instance of wagtailcore.url_routing.RouteResult" in str(w[-1].message))
 
         expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')
         self.assertEqual(response.status_code, 200)
