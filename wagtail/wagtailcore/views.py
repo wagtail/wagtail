@@ -49,6 +49,7 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
             passed_restrictions = request.session.setdefault('passed_page_view_restrictions', [])
             if restriction.id not in passed_restrictions:
                 passed_restrictions.append(restriction.id)
+                request.session['passed_page_view_restrictions'] = passed_restrictions
             if not has_existing_session:
                 # if this is a session we've created, set it to expire at the end
                 # of the browser session
