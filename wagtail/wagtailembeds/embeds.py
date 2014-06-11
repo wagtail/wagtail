@@ -45,12 +45,13 @@ def import_string(dotted_path):
 
 def embedly(url, max_width=None, key=None):
     from embedly import Embedly
-    # Get embedly client
-    client = Embedly(key=key)
 
     # Get embedly key
     if key is None:
         key = settings.EMBEDLY_KEY
+
+    # Get embedly client
+    client = Embedly(key=key)
 
     # Call embedly
     if max_width is not None:
