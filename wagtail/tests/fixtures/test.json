@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 4,
+        "numchild": 5,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -277,6 +277,52 @@
     "model": "tests.pagewitholdstyleroutemethod",
     "fields": {
         "content": "<p>Test with old style route method</p>"
+    }
+},
+
+{
+    "pk": 11,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret plans",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010005",
+        "url_path": "/home/secret-plans/",
+        "slug": "secret-plans"
+    }
+},
+{
+    "pk": 11,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>muahahahaha</p>"
+    }
+},
+
+{
+    "pk": 12,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Steal underpants",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "simplepage"],
+        "path": "0001000100050001",
+        "url_path": "/home/secret-plans/steal-underpants/",
+        "slug": "steal-underpants"
+    }
+},
+{
+    "pk": 12,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>it's really important for something</p>"
     }
 },
 
@@ -536,6 +582,15 @@
         "created_at": "2014-01-01T12:00:00.000Z",
         "width": 0,
         "height": 0
+    }
+},
+
+{
+    "pk": 1,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 11,
+        "password": "swordfish"
     }
 }
 ]
