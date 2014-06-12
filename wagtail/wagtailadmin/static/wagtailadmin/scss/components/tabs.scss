@@ -25,7 +25,7 @@
         display:block;
         padding:0 20px;
         color:white;
-        border-top:0.3em solid $color-teal-darker;
+        border-top:0.3em solid lighten($color-teal-darker, 3%);
         border-bottom:1px solid transparent;
 
         &:hover{
