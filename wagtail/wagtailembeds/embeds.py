@@ -16,7 +16,6 @@ import json
 
 
 class EmbedNotFoundException(Exception): pass
-
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
 
