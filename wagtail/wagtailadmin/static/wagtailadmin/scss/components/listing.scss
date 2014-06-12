@@ -343,7 +343,6 @@ ul.listing{
                 background:$color-teal-darker;
             }
         }
-
     }
 }
 ul.listing{
@@ -357,6 +356,8 @@ table.listing{
 
  /* explorer specific tweaks */
 .page-explorer .listing {
+    position:relative;
+
     .index{
         color:white;
         background-color:$color-header-bg;
@@ -364,6 +365,13 @@ table.listing{
         td{
             padding-top:1.5em;
             padding-bottom:1.5em;
+        }
+
+        .privacy-indicator{
+            opacity:1;
+            position:absolute;
+            right:5%;
+            top:2em;
         }
 
         .title{
@@ -375,9 +383,20 @@ table.listing{
                 a:hover{
                     color:white;
                 }
+
+                .privacy-indicator{
+                    position:relative;
+                    right:auto;
+                    top:auto;
+                    opacity:0.7;
+                }
             }
+
         }
+
+        
     }
+
 
     .privacy-indicator{
         font-size:0.9em;

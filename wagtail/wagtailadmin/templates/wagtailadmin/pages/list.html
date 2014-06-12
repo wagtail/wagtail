@@ -63,13 +63,9 @@
                             {% else %}
                                     {{ parent_page.title }}
                             {% endif %}
-
-                            {% test_page_is_public parent_page as is_public %}
-                            {% if not is_public %}
-                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
-                            {% endif %}
                         </h2>
                         
+                        {% include "wagtailadmin/pages/_privacy_indicator.html" with page=parent_page %}
 
                         <ul class="actions">
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
