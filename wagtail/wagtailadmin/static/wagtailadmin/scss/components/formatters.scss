@@ -137,6 +137,12 @@ a.status-tag.primary:hover{
 }
 
 .privacy-indicator {
+    .label-private, .label-public{
+        &:before{
+            font-size:1.5em;
+            color:$color-teal;
+        }
+    }
     &.public {
         .label-private { 
             display: none;

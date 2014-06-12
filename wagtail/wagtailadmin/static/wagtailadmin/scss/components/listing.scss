@@ -368,6 +368,7 @@ table.listing{
         }
 
         .privacy-indicator{
+            font-size:1em;
             opacity:1;
             position:absolute;
             right:5%;
@@ -383,20 +384,10 @@ table.listing{
                 a:hover{
                     color:white;
                 }
-
-                .privacy-indicator{
-                    position:relative;
-                    right:auto;
-                    top:auto;
-                    opacity:0.7;
-                }
             }
 
         }
-
-        
     }
-
 
     .privacy-indicator{
         font-size:0.9em;
