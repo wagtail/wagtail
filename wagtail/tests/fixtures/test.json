@@ -312,7 +312,7 @@
         "show_in_menus": true,
         "live": true,
         "depth": 4,
-        "content_type": ["tests", "simplepage"],
+        "content_type": ["tests", "eventpage"],
         "path": "0001000100050001",
         "url_path": "/home/secret-plans/steal-underpants/",
         "slug": "steal-underpants"
@@ -320,9 +320,13 @@
 },
 {
     "pk": 12,
-    "model": "tests.simplepage",
+    "model": "tests.eventpage",
     "fields": {
-        "content": "<p>it's really important for something</p>"
+        "date_from": "2015-07-04",
+        "audience": "private",
+        "location": "Marks and Spencer",
+        "body": "<p>meet in the menswear department at noon</p>",
+        "cost": "free"
     }
 },
 

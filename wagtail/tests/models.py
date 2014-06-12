@@ -179,6 +179,8 @@ class EventPage(Page):
     indexed_fields = ('get_audience_display', 'location', 'body')
     search_name = "Event"
 
+    password_required_template = 'tests/event_page_password_required.html'
+
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('date_from'),
