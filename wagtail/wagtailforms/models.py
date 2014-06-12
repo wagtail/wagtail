@@ -170,11 +170,10 @@ class AbstractForm(Page):
             'form': form,
         })
 
-    def get_page_modes(self):
-        return [
-            ('form', 'Form'),
-            ('landing', 'Landing page'),
-        ]
+    preview_modes = [
+        ('form', 'Form'),
+        ('landing', 'Landing page'),
+    ]
 
     def show_as_mode(self, mode):
         if mode == 'landing':

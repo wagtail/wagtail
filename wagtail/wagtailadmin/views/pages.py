@@ -230,7 +230,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
-        'display_modes': page.get_page_modes(),
+        'display_modes': page.preview_modes,
         'form': form, # Used in unit tests
     })
 
@@ -361,7 +361,7 @@ def edit(request, page_id):
         'page': page,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
-        'display_modes': page.get_page_modes(),
+        'display_modes': page.preview_modes,
         'form': form, # Used in unit tests
     })
 
@@ -409,12 +409,8 @@ def preview_on_edit(request, page_id):
     if form.is_valid():
         form.save(commit=False)
 
-        try:
-            display_mode = request.GET['mode']
-        except KeyError:
-            display_mode = page.get_page_modes()[0][0]
-
-        response = page.show_as_mode(display_mode)
+        preview_mode = request.GET.get('mode', page.default_preview_mode)
+        response = page.show_as_mode(preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -425,7 +421,7 @@ def preview_on_edit(request, page_id):
         response = render(request, 'wagtailadmin/pages/edit.html', {
             'page': page,
             'edit_handler': edit_handler,
-            'display_modes': page.get_page_modes(),
+            'display_modes': page.preview_modes,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -458,11 +454,8 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         page.depth = parent_page.depth + 1
         page.path = Page._get_children_path_interval(parent_page.path)[1]
 
-        try:
-            display_mode = request.GET['mode']
-        except KeyError:
-            display_mode = page.get_page_modes()[0][0]
-        response = page.show_as_mode(display_mode)
+        preview_mode = request.GET.get('mode', page.default_preview_mode)
+        response = page.show_as_mode(preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -476,7 +469,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'page_class': page_class,
             'parent_page': parent_page,
             'edit_handler': edit_handler,
-            'display_modes': page.get_page_modes(),
+            'display_modes': page.preview_modes,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response

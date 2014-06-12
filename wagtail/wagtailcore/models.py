@@ -706,19 +706,28 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
                                 "request middleware returned a response")
         return request
 
-    def get_page_modes(self):
+    @property
+    def preview_modes(self):
         """
-        Return a list of (internal_name, display_name) tuples for the modes in which
+        A list of (internal_name, display_name) tuples for the modes in which
         this page can be displayed for preview/moderation purposes. Ordinarily a page
         will only have one display mode, but subclasses of Page can override this -
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
+        return self.get_page_modes()
+
+    def get_page_modes(self):
+        # Deprecated accessor for the preview_modes property
         return [('', 'Default')]
+
+    @property
+    def default_preview_mode(self):
+        return self.preview_modes[0][0]
 
     def show_as_mode(self, mode_name):
         """
-        Given an internal name from the get_page_modes() list, return an HTTP response
+        Given an internal name from the preview_modes list, return an HTTP response
         indicative of the page being viewed in that mode. By default this passes a
         dummy request into the serve() mechanism, ensuring that it matches the behaviour
         on the front-end; subclasses that define additional page modes will need to
