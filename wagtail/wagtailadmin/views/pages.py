@@ -409,13 +409,6 @@ def preview_on_edit(request, page_id):
     if form.is_valid():
         form.save(commit=False)
 
-        # This view will generally be invoked as an AJAX request; as such, in the case of
-        # an error Django will return a plaintext response. This isn't what we want, since
-        # we will be writing the response back to an HTML page regardless of success or
-        # failure - as such, we strip out the X-Requested-With header to get Django to return
-        # an HTML error response
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)
-
         try:
             display_mode = request.GET['mode']
         except KeyError:
@@ -464,13 +457,6 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         # Set treebeard attributes
         page.depth = parent_page.depth + 1
         page.path = Page._get_children_path_interval(parent_page.path)[1]
-
-        # This view will generally be invoked as an AJAX request; as such, in the case of
-        # an error Django will return a plaintext response. This isn't what we want, since
-        # we will be writing the response back to an HTML page regardless of success or
-        # failure - as such, we strip out the X-Requested-With header to get Django to return
-        # an HTML error response
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)
 
         try:
             display_mode = request.GET['mode']
