@@ -334,16 +334,24 @@ $(function() {
     /* Set up behaviour of preview button */
     $('.action-preview').click(function() {
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
-
+       
         $.ajax({
             type: "POST",
             url: $(this).data('action'),
             data: $('#page-edit-form').serialize(),
             success: function(data, textStatus, request) {
                 if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                    previewWindow.document.open();
-                    previewWindow.document.write(data);
-                    previewWindow.document.close();
+                    var pdoc = previewWindow.document;
+                    var frame = pdoc.getElementById('preview-frame');
+                    
+                    frame = (frame.contentWindow) ? frame.contentWindow : (frame.contentDocument.document) ? frame.contentDocument.document : frame.contentDocument;
+                    frame.document.open();
+                    frame.document.write(data);                 
+                    frame.document.close();
+
+                    var removeTimeout = setTimeout(function(){
+                        pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
+                    }, 100) /* just enough to give effect without adding discernible slowness */
                 } else {
                     previewWindow.close();
                     document.open();

@@ -395,7 +395,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         return response
 
 
-def preview_placeholder(request):
+def preview(request):
     """
     The HTML of a previewed page is written to the destination browser window using document.write.
     This overwrites any previous content in the window, while keeping its URL intact. This in turn
@@ -416,8 +416,13 @@ def preview_placeholder(request):
     Since we're going to this trouble, we'll also take the opportunity to display a spinner on the
     placeholder page, providing some much-needed visual feedback.
     """
-    return render(request, 'wagtailadmin/pages/preview_placeholder.html')
+    return render(request, 'wagtailadmin/pages/preview.html')
 
+def preview_loading(request):
+    """
+    This page is blank, but must be real HTML so it's DOM can be written to once the preview of the page has rendered
+    """
+    return HttpResponse("<html><head><title></title></head><body></body></html>")
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
