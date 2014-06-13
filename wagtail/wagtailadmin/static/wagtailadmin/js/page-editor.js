@@ -334,7 +334,7 @@ $(function() {
     /* Set up behaviour of preview button */
     $('.action-preview').click(function() {
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
-       
+
         $.ajax({
             type: "POST",
             url: $(this).data('action'),
@@ -343,8 +343,8 @@ $(function() {
                 if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
                     var pdoc = previewWindow.document;
                     var frame = pdoc.getElementById('preview-frame');
-                    
-                    frame = (frame.contentWindow) ? frame.contentWindow : (frame.contentDocument.document) ? frame.contentDocument.document : frame.contentDocument;
+
+                    frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                     frame.document.open();
                     frame.document.write(data);                 
                     frame.document.close();
