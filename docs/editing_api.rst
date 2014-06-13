@@ -371,8 +371,8 @@ Edit Handler API
 ~~~~~~~~~~~~~~~~
 
 
-Hooks
------
+Admin Hooks
+-----------
 
 On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
 
@@ -545,6 +545,38 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
       + settings.STATIC_URL \
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
     hooks.register('insert_editor_css', editor_css)
+
+
+Image Formats in the Rich Text Editor
+-------------------------------------
+
+On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customize the formatting options shown to the editor when inserting images in the ``RichTextField`` editor.
+
+As an example, add a "thumbnail" format:
+
+.. code-block:: python
+  # image_formats.py
+  from wagtail.wagtailimages.formats import Format, register_image_format
+
+  register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
+
+
+To begin, import the the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` takes the following init arguments:
+
+``name``
+  The unique key used to identify the format. To unregister this format, call ``unregister_image_format`` with this string as the only argument.
+
+``label``
+  The label used in the chooser form when inserting the image into the ``RichTextField``.
+
+``classnames``
+  The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
+
+``filter_spec``
+  The string specification to create the image rendition. For more, see the :ref:`image_tag`.
+
+
+To unregister, call ``unregister_image_format`` with the string of the ``name`` of the ``Format`` as the only argument.
 
 
 Content Index Pages (CRUD)
