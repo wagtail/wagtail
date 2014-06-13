@@ -8,8 +8,8 @@ class RouteResult(object):
     """
     def __init__(self, page, args=None, kwargs=None):
         self.page = page
-        self.args = [] if args is None else args
-        self.kwargs = {} if kwargs is None else kwargs
+        self.args = args or []
+        self.kwargs = kwargs or {}
 
     def __getitem__(self, index):
         return (self.page, self.args, self.kwargs)[index]
