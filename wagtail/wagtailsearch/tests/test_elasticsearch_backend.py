@@ -5,7 +5,7 @@ import datetime
 from django.test import TestCase
 from django.db.models import Q
 
-from . import models
+from wagtail.tests import models
 from .test_backends import BackendTests
 
 

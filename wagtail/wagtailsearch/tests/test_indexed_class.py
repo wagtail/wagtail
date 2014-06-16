@@ -1,5 +1,5 @@
 from django.test import TestCase
-from . import models
+from wagtail.tests import models
 import json
 
 

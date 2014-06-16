@@ -85,7 +85,6 @@ if not settings.configured:
             'wagtail.wagtailredirects',
             'wagtail.wagtailforms',
             'wagtail.tests',
-            'wagtail.wagtailsearch.tests',
         ],
 
         # Using DatabaseCache to make sure that the cache is cleared between tests.
