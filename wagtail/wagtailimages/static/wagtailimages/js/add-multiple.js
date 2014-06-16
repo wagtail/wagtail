@@ -33,7 +33,6 @@ $(function () {
                 jform.find('#id_'+ im_li.attr('id') +'-tags').tagit(window.tagit_opts);
             });
 
-            im_li
             $("#image-forms").append(im_li);
         }
     });

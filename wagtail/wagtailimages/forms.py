@@ -15,10 +15,8 @@ def get_image_form():
 
 
 def get_image_form_for_multi():
-        return modelform_factory(
-        get_image_model(),
-        # exclude the file widget
-        exclude=('file',))
+    # exclude the file widget
+    return modelform_factory( get_image_model(), exclude=('file',))
 
 
 class ImageInsertionForm(forms.Form):
