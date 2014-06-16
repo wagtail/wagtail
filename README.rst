@@ -1,7 +1,7 @@
 .. image:: https://travis-ci.org/torchbox/wagtail.png?branch=master
     :target: https://travis-ci.org/torchbox/wagtail
 
-.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master
+.. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master&zxcv
     :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
 
 .. image:: https://pypip.in/v/wagtail/badge.png?zxcv
@@ -24,7 +24,7 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Support for tree-based content organisation
 * Optional preview->submit->approve workflow
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
-* Tests! But not enough; we're working hard to improve this
+* Excellent test coverage
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
 

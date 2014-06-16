@@ -386,23 +386,23 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         return revision.as_page_object()
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         return {
             'self': self,
             'request': request,
         }
 
-    def get_template(self, request):
+    def get_template(self, request, *args, **kwargs):
         if request.is_ajax():
             return self.ajax_template or self.template
         else:
             return self.template
 
-    def serve(self, request):
+    def serve(self, request, *args, **kwargs):
         return TemplateResponse(
             request, 
-            self.get_template(request), 
-            self.get_context(request)
+            self.get_template(request, *args, **kwargs), 
+            self.get_context(request, *args, **kwargs)
         )
 
     def is_navigable(self):
@@ -578,7 +578,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
             path = url_info.path
             port = url_info.port or 80
         else:
-            hostname = 'example.com'
+            # Cannot determine a URL to this page - cobble one together based on
+            # whatever we find in ALLOWED_HOSTS
+            try:
+                hostname = settings.ALLOWED_HOSTS[0]
+            except IndexError:
+                hostname = 'localhost'
             path = '/'
             port = 80
 

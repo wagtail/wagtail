@@ -45,12 +45,12 @@ def index(request):
 
 
 def save_editorspicks(query, new_query, editors_pick_formset):
-    # Set sort_order
-    for i, form in enumerate(editors_pick_formset.ordered_forms):
-        form.instance.sort_order = i
-
     # Save
     if editors_pick_formset.is_valid():
+        # Set sort_order
+        for i, form in enumerate(editors_pick_formset.ordered_forms):
+            form.instance.sort_order = i
+
         editors_pick_formset.save()
 
         # If query was changed, move all editors picks to the new query
@@ -72,10 +72,14 @@ def add(request):
 
             # Save editors picks
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
-
             if save_editorspicks(query, query, editors_pick_formset):
                 messages.success(request, _("Editor's picks for '{0}' created.").format(query))
                 return redirect('wagtailsearch_editorspicks_index')
+            else:
+                if len(editors_pick_formset.non_form_errors()):
+                    messages.error(request, " ".join(error for error in editors_pick_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
+                else:
+                    messages.error(request, _("Recommendations have not been created due to errors"))  # specific errors will be displayed within form fields
         else:
             editors_pick_formset = forms.EditorsPickFormSet()
     else:
@@ -95,15 +99,22 @@ def edit(request, query_id):
     if request.POST:
         # Get query
         query_form = forms.QueryForm(request.POST)
+        # and the recommendations
+        editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
+
         if query_form.is_valid():
             new_query = models.Query.get(query_form['query_string'].value())
 
             # Save editors picks
-            editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
-
             if save_editorspicks(query, new_query, editors_pick_formset):
                 messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query))
                 return redirect('wagtailsearch_editorspicks_index')
+            else:
+                if len(editors_pick_formset.non_form_errors()):
+                    messages.error(request, " ".join(error for error in editors_pick_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
+                else:
+                    messages.error(request, _("Recommendations have not been saved due to errors"))  # specific errors will be displayed within form fields
+
     else:
         query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
         editors_pick_formset = forms.EditorsPickFormSet(instance=query)

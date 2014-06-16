@@ -5,9 +5,10 @@ from indexed import Indexed
 import datetime
 import string
 
+MAX_QUERY_STRING_LENGTH = 255
 
 class Query(models.Model):
-    query_string = models.CharField(max_length=255, unique=True)
+    query_string = models.CharField(max_length=MAX_QUERY_STRING_LENGTH, unique=True)
 
     def save(self, *args, **kwargs):
         # Normalise query string
@@ -48,6 +49,9 @@ class Query(models.Model):
 
     @staticmethod
     def normalise_query_string(query_string):
+        # Truncate query string
+        if len(query_string) > MAX_QUERY_STRING_LENGTH:
+            query_string = query_string[:MAX_QUERY_STRING_LENGTH]
         # Convert query_string to lowercase
         query_string = query_string.lower()
 
