@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/base.html" %}
+{% load image_tags %}
+{% load i18n %}
+{% block titletag %}{% trans "Add multiple images" %}{% endblock %}
+{% block bodyclass %}menu-images{% endblock %}
+{% block extra_css %}
+    {% include "wagtailadmin/shared/tag_field_css.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.iframe-transport.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
+
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        window.tagit_opts = {
+            autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        };
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Add image" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
+
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
+            <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
+            {% csrf_token %}
+        </form>
+
+        <ul class="multiple" id="image-forms">
+        </ul>
+    </div>
+
+{% endblock %}
