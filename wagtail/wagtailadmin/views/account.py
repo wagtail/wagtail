@@ -3,8 +3,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.views import logout as auth_logout
+from django.contrib.auth.views import logout as auth_logout, login as auth_login
 from django.utils.translation import ugettext as _ 
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.cache import never_cache
+
+from wagtail.wagtailadmin import forms
+
 
 @permission_required('wagtailadmin.access_admin')
 def account(request):
@@ -35,6 +40,21 @@ def change_password(request):
         'form': form,
         'can_change_password': can_change_password,
     })
+
+
+@sensitive_post_parameters()
+@never_cache
+def login(request):
+    if request.user.is_authenticated():
+        return redirect('wagtailadmin_home')
+    else:
+        return auth_login(request,
+            template_name='wagtailadmin/login.html',
+            authentication_form=forms.LoginForm,
+            extra_context={
+                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True),
+            },
+        )
 
 
 def logout(request):
