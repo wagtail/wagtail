@@ -65,7 +65,7 @@ Wagtail instance available as the basis for your new site:
 -  Install `Vagrant <http://www.vagrantup.com/>`_ 1.1+
 -  Clone the demonstration site, create the Vagrant box and initialise Wagtail::
 
-	git clone git@github.com:torchbox/wagtaildemo.git
+	git clone https://github.com/torchbox/wagtaildemo.git
 	cd wagtaildemo
 	vagrant up
 	vagrant ssh
