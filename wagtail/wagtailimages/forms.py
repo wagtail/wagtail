@@ -17,9 +17,7 @@ def get_image_form():
 def get_image_form_for_multi():
         return modelform_factory(
         get_image_model(),
-        # set the 'file' widget to a FileInput rather than the default ClearableFileInput
-        # so that when editing, we don't get the 'currently: ...' banner which is
-        # a bit pointless here
+        # exclude the file widget
         exclude=('file',))
 
 
