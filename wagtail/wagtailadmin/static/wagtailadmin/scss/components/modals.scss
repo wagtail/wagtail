@@ -80,7 +80,7 @@ $zindex-modal-background: 500;
     background-color: black;
     // Fade for backdrop
     &.fade { opacity:0; }
-    &.in { opacity:0.7; }
+    &.in { opacity:0.5; }
 }
 
 .modal .close{
