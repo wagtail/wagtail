@@ -461,7 +461,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         # Path
         if path:
-            query_set = query_set.filter(path__startswith = path)
+            query_set = query_set.filter(path__startswith=path)
 
         # Prefetch related
         query_set = query_set.prefetch_related(*prefetch_related)
