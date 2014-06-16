@@ -188,6 +188,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "New page!")
 
+        # Check that the treebeard attributes were set correctly on the page object
+        self.assertEqual(response.context['self'].depth, self.root_page.depth + 1)
+        self.assertTrue(response.context['self'].path.startswith(self.root_page.path))
+        self.assertEqual(response.context['self'].get_parent(), self.root_page)
+
 
 class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
