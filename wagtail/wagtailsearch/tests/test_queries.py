@@ -53,6 +53,16 @@ class TestQueryStringNormalisation(TestCase):
         for query in queries:
             self.assertNotEqual(self.query, models.Query.get(query))
 
+    def test_truncation(self):
+        test_querystring = 'a' * 1000
+        result = models.Query.normalise_query_string(test_querystring)
+        self.assertEqual(len(result), 255)
+
+    def test_no_truncation(self):
+        test_querystring = 'a' * 10
+        result = models.Query.normalise_query_string(test_querystring)
+        self.assertEqual(len(result), 10)
+
 
 class TestQueryPopularity(TestCase):
     def test_query_popularity(self):

@@ -224,10 +224,13 @@ Prerequisites are the Elasticsearch service itself and, via pip, the `elasticuti
 
 .. code-block:: guess
 
-  pip install elasticutils pyelasticsearch
+  pip install elasticutils==0.8.2 pyelasticsearch
 
 .. note::
-    The dependency on pyelasticsearch is scheduled to be replaced by a dependency on `elasticsearch-py`_.
+    ElasticUtils 0.9+ is not supported.
+
+.. note::
+    The dependency on elasticutils and pyelasticsearch is scheduled to be replaced by a dependency on `elasticsearch-py`_.
 
 The backend is configured in settings:
 
