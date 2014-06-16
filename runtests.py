@@ -102,7 +102,7 @@ if not settings.configured:
         COMPRESS_ENABLED=False,  # disable compression so that we can run tests on the content of the compress tag
         WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
         WAGTAIL_SITE_NAME='Test Site',
-        LOGIN_REDIRECT_URL = 'wagtailadmin_home',
+        LOGIN_REDIRECT_URL='wagtailadmin_home',
     )
 
 
