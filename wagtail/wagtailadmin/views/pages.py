@@ -420,7 +420,7 @@ def preview(request):
 
 def preview_loading(request):
     """
-    This page is blank, but must be real HTML so it's DOM can be written to once the preview of the page has rendered
+    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
     """
     return HttpResponse("<html><head><title></title></head><body></body></html>")
 
