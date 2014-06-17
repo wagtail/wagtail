@@ -8,10 +8,8 @@ except ImportError:
     no_embedly = True
 
 from django.test import TestCase
-from django.test.client import Client
 
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.utils import unittest
+from wagtail.tests.utils import WagtailTestUtils, unittest
 
 from wagtail.wagtailembeds import get_embed
 from wagtail.wagtailembeds.embeds import (
@@ -19,8 +17,7 @@ from wagtail.wagtailembeds.embeds import (
     EmbedlyException,
     AccessDeniedEmbedlyException,
 )
-from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly
-from wagtail.wagtailembeds.embeds import oembed as wagtail_oembed
+from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
 
 
 
