@@ -555,10 +555,6 @@ def get_which_page_edit_handler(page_class):
         return get_default_panels(page_class)
 
 
-def set_page_edit_handler(page_class, handlers):
-    page_class.handlers = handlers
-
-
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
         PAGE_EDIT_HANDLERS[page_class] = TabbedInterface(get_which_page_edit_handler(page_class))
