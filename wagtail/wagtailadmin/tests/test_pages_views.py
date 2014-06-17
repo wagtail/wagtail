@@ -218,7 +218,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
         self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
 
-    def test_create_simplepage_post_existingslug(self):
+    def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save
 
         # Create a page
@@ -238,6 +238,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Should not be redirected (as the save should fail)
         self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'slug', "This slug is already in use")
 
     def test_create_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', 100000)))
@@ -370,6 +373,29 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
         self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation') # Note: should this be "I've been edited!"?
+
+    def test_page_edit_post_existing_slug(self):
+        # This tests the existing slug checking on page edit
+
+        # Create a page
+        self.child_page = SimplePage()
+        self.child_page.title = "Hello world 2"
+        self.child_page.slug = "hello-world2"
+        self.root_page.add_child(instance=self.child_page)
+
+        # Attempt to change the slug to one thats already in use
+        post_data = {
+            'title': "Hello world 2",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        # Should not be redirected (as the save should fail)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'slug', "This slug is already in use")
 
     def test_preview_on_edit(self):
         post_data = {

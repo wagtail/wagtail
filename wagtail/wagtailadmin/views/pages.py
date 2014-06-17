@@ -179,6 +179,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'display_modes': page.get_page_modes(),
+        'form': form, # Used in unit tests
     })
 
 
@@ -264,6 +265,7 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'display_modes': page.get_page_modes(),
+        'form': form, # Used in unit tests
     })
 
 
