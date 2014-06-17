@@ -529,12 +529,37 @@ def set_page_position(request, page_to_move_id):
 PAGE_EDIT_HANDLERS = {}
 
 
+def get_default_panels(page_class):
+    handlers = []
+
+    try:
+        handlers.append(ObjectList(page_class.content_panels, heading='Content'))
+    except AttributeError:
+        pass
+
+    try:
+        handlers.append(ObjectList(page_class.promote_panels, heading='Promote'))
+    except AttributeError:
+        pass
+
+    try:
+        handlers.append(ObjectList(page_class.settings_panels, heading='Settings', classes='tab-right settings'))
+    except AttributeError:
+        pass
+
+    return handlers
+
+
+def get_which_page_edit_handler(page_class):
+    try:
+        return page_class.handlers
+    except AttributeError:
+        return get_default_panels(page_class)
+
+
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
-        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
-            ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote')
-        ])
+        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface(get_which_page_edit_handler(page_class))
 
     return PAGE_EDIT_HANDLERS[page_class]
 
