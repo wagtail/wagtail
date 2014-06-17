@@ -111,15 +111,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     except ContentType.DoesNotExist:
         raise Http404
 
-    page_class = content_type.model_class()
-
     # page must be in the list of allowed subpage types for this parent ID
-    # == Restriction temporarily relaxed so that as superusers we can add index pages and things -
-    # == TODO: reinstate this for regular editors when we have distinct user types
-    #
-    # if page_class not in parent_page.clean_subpage_types():
-    #     messages.error(request, "Sorry, you do not have access to create a page of type '%s' here." % content_type.name)
-    #     return redirect('wagtailadmin_pages_select_type')
+    if content_type not in parent_page.clean_subpage_types():
+        raise PermissionDenied
+
+    page_class = content_type.model_class()
 
     page = page_class(owner=request.user)
     edit_handler_class = get_page_edit_handler(page_class)

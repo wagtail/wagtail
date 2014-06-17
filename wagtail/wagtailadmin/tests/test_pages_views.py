@@ -719,3 +719,16 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Standard Child')
         self.assertEqual(0, len(response.context['page_types']))
+
+    def test_cannot_add_invalid_subpage_type(self):
+        # cannot add SimplePage as a child of BusinessIndex, as SimplePage is not present in subpage_types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_index.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # likewise for BusinessChild which has an empty subpage_types list
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_child.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # but we can add a BusinessChild to BusinessIndex
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.business_index.id)))
+        self.assertEqual(response.status_code, 200)
