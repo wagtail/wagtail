@@ -454,6 +454,17 @@ def ObjectList(children, heading=""):
     })
 
 
+class BaseFieldRowPanel(BaseCompositeEditHandler):
+    template = "wagtailadmin/edit_handlers/field_row_panel.html"
+
+
+def FieldRowPanel(children, classname=None):
+    return type('_FieldRowPanel', (BaseFieldRowPanel,), {
+        'children': children,
+        'classname': classname,
+    })
+
+
 class BaseMultiFieldPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/multi_field_panel.html"
 
