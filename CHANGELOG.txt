@@ -2,7 +2,15 @@ Changelog
 =========
 
 0.4 (xx.xx.20xx)
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
+ * Added 'original' as a resizing rule supported by the 'image' tag
+ * Hallo.js updated to version 1.0.4
+ * Snippets are now ordered alphabetically
+ * Removed the "More" section from the admin menu
+ * Added pagination to page listings in admin
+ * Fix: Animated GIFs are now coalesced before resizing
+ * Fix: Wand backend clones images before modifying them
+ * Fix: Admin breadcrumb now positioned correctly on mobile
 
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~

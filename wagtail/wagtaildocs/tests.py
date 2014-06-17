@@ -1,6 +1,6 @@
 from django.test import TestCase
 from wagtail.wagtaildocs import models
-from wagtail.tests.utils import login
+from wagtail.tests.utils import WagtailTestUtils
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
@@ -39,15 +39,17 @@ class TestDocumentPermissions(TestCase):
 ## ===== ADMIN VIEWS =====
 
 
-class TestDocumentIndexView(TestCase):
+class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -67,20 +69,24 @@ class TestDocumentIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestDocumentAddView(TestCase):
+class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_add_document'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+    # TODO: Test posting
 
 
-class TestDocumentEditView(TestCase):
+class TestDocumentEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create a document to edit
         self.document = models.Document.objects.create(title="Test document")
@@ -88,13 +94,17 @@ class TestDocumentEditView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+    # TODO: Test posting
 
 
-class TestDocumentDeleteView(TestCase):
+class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create a document to delete
         self.document = models.Document.objects.create(title="Test document")
@@ -102,19 +112,26 @@ class TestDocumentDeleteView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
+
+    # TODO: Test posting
 
 
-class TestDocumentChooserView(TestCase):
+class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_chooser'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -128,9 +145,9 @@ class TestDocumentChooserView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestDocumentChooserChosenView(TestCase):
+class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create a document to choose
         self.document = models.Document.objects.create(title="Test document")
@@ -138,19 +155,28 @@ class TestDocumentChooserChosenView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+
+    # TODO: Test posting
 
 
-class TestDocumentChooserUploadView(TestCase):
+class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtaildocs_chooser_upload'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
+
+    # TODO: Test document upload with chooser
 
 
 class TestDocumentFilenameProperties(TestCase):

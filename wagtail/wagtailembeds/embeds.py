@@ -16,7 +16,6 @@ import json
 
 
 class EmbedNotFoundException(Exception): pass
-
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
 
@@ -52,7 +51,7 @@ def embedly(url, max_width=None, key=None):
         key = settings.EMBEDLY_KEY
 
     # Get embedly client
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    client = Embedly(key=key)
 
     # Call embedly
     if max_width is not None:
