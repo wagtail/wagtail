@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core import management
 from wagtail.wagtailsearch import models
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from StringIO import StringIO
 
 
@@ -52,6 +52,16 @@ class TestQueryStringNormalisation(TestCase):
 
         for query in queries:
             self.assertNotEqual(self.query, models.Query.get(query))
+
+    def test_truncation(self):
+        test_querystring = 'a' * 1000
+        result = models.Query.normalise_query_string(test_querystring)
+        self.assertEqual(len(result), 255)
+
+    def test_no_truncation(self):
+        test_querystring = 'a' * 10
+        result = models.Query.normalise_query_string(test_querystring)
+        self.assertEqual(len(result), 10)
 
 
 class TestQueryPopularity(TestCase):
@@ -139,15 +149,18 @@ class TestGarbageCollectCommand(TestCase):
     # TODO: Test that this command is acctually doing its job
 
 
-class TestQueryChooserView(TestCase):
+class TestQueryChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get('/admin/search/queries/chooser/', params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})

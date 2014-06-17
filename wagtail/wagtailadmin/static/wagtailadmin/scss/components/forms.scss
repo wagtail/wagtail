@@ -650,6 +650,13 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
+/* search-bars */
+.search-bar{
+    .required label:after{
+        display:none;
+    }
+}
+
 /* Transitions */
 fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);

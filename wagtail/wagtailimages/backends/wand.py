@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 
 from .base import BaseImageBackend
-
 from wand.image import Image
+from wand.api import library
+
 
 class WandBackend(BaseImageBackend):
     def __init__(self, params):
@@ -10,6 +11,7 @@ class WandBackend(BaseImageBackend):
 
     def open_image(self, input_file):
         image = Image(file=input_file)
+        image.wand = library.MagickCoalesceImages(image.wand)
         return image
 
     def save_image(self, image, output, format):
@@ -18,8 +20,9 @@ class WandBackend(BaseImageBackend):
         image.save(file=output)
 
     def resize(self, image, size):
-        image.resize(size[0], size[1])
-        return image
+        new_image = image.clone()
+        new_image.resize(size[0], size[1])
+        return new_image
 
     def crop_to_centre(self, image, size):
         (original_width, original_height) = image.size
@@ -34,7 +37,9 @@ class WandBackend(BaseImageBackend):
 
         left = (original_width - final_width) / 2
         top = (original_height - final_height) / 2
-        image.crop(
+
+        new_image = image.clone()
+        new_image.crop(
             left=left, top=top, right=left + final_width, bottom=top + final_height
         )
-        return image
+        return new_image

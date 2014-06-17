@@ -431,12 +431,12 @@ footer{
 .breadcrumb{
     @include unlist();
 }
+
 .breadcrumb{
     @include clearfix();
     overflow:hidden;
-    background:$color-teal-darker;
+    padding-top:1.4em;
     font-size:0.85em;
-
 
     li {
         display: block;
@@ -469,7 +469,7 @@ footer{
                 content:"n";
                 padding-left:20px;
                 font-size:2em;
-                color:$color-teal;
+                color:$color-teal-darker;
                 line-height:0.9em;
             }
         }
@@ -738,6 +738,19 @@ footer, .logo{
     footer{
         width:80%;
         margin-left:50px;
+    }
+
+    .breadcrumb{
+        padding-top:0;
+        background:$color-teal-darker;
+
+        li {
+            a, span{
+                &:after{
+                    color:$color-teal;
+                }
+            }
+        }
     }
 
     /* Z-indexes */
