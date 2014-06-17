@@ -1,5 +1,6 @@
 from StringIO import StringIO
 from urlparse import urlparse
+import warnings
 
 from modelcluster.models import ClusterableModel
 
@@ -99,30 +100,29 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-LEAF_PAGE_MODEL_CLASSES = []
-_LEAF_PAGE_CONTENT_TYPE_IDS = []
-
-
 def get_leaf_page_content_type_ids():
-    global _LEAF_PAGE_CONTENT_TYPE_IDS
-    if len(_LEAF_PAGE_CONTENT_TYPE_IDS) != len(LEAF_PAGE_MODEL_CLASSES):
-        _LEAF_PAGE_CONTENT_TYPE_IDS = [
-            ContentType.objects.get_for_model(cls).id for cls in LEAF_PAGE_MODEL_CLASSES
-        ]
-    return _LEAF_PAGE_CONTENT_TYPE_IDS
-
-
-NAVIGABLE_PAGE_MODEL_CLASSES = []
-_NAVIGABLE_PAGE_CONTENT_TYPE_IDS = []
-
+    warnings.warn("""
+        get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
+        setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
+        this incorrect assumption.
+    """, DeprecationWarning)
+    return [
+        content_type.id
+        for content_type in get_page_types()
+        if not getattr(content_type.model_class(), 'subpage_types', None)
+    ]
 
 def get_navigable_page_content_type_ids():
-    global _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
-    if len(_NAVIGABLE_PAGE_CONTENT_TYPE_IDS) != len(NAVIGABLE_PAGE_MODEL_CLASSES):
-        _NAVIGABLE_PAGE_CONTENT_TYPE_IDS = [
-            ContentType.objects.get_for_model(cls).id for cls in NAVIGABLE_PAGE_MODEL_CLASSES
-        ]
-    return _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
+    warnings.warn("""
+        get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
+        setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
+        this incorrect assumption.
+    """, DeprecationWarning)
+    return [
+        content_type.id
+        for content_type in get_page_types()
+        if getattr(content_type.model_class(), 'subpage_types', None)
+    ]
 
 
 class PageManager(models.Manager):
@@ -207,10 +207,6 @@ class PageBase(models.base.ModelBase):
         if not cls.is_abstract:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
-        if cls.subpage_types:
-            NAVIGABLE_PAGE_MODEL_CLASSES.append(cls)
-        else:
-            LEAF_PAGE_MODEL_CLASSES.append(cls)
 
 
 class Page(MP_Node, ClusterableModel, Indexed):
