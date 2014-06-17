@@ -447,7 +447,7 @@ class BaseObjectList(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
-def ObjectList(children, heading="", classes=None):
+def ObjectList(children, heading="", classes=""):
     return type('_ObjectList', (BaseObjectList,), {
         'children': children,
         'heading': heading,

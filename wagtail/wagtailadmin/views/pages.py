@@ -531,40 +531,40 @@ PAGE_EDIT_HANDLERS = {}
 
 
 def get_default_panels(page_class):
-    panels = []
+    handlers = []
 
     try:
-        panels.append(ObjectList(page_class.content_panels, heading='Content'))
+        handlers.append(ObjectList(page_class.content_panels, heading='Content'))
     except AttributeError:
         pass
 
     try:
-        panels.append(ObjectList(page_class.promote_panels, heading='Promote'))
+        handlers.append(ObjectList(page_class.promote_panels, heading='Promote'))
     except AttributeError:
         pass
 
     try:
-        panels.append(ObjectList(page_class.settings_panels, heading='Settings', classes='settings'))
+        handlers.append(ObjectList(page_class.settings_panels, heading='Settings', classes='tab-right settings'))
     except AttributeError:
         pass
 
-    return panels
+    return handlers
 
 
-def get_panels(page_class):
+def get_which_page_edit_handler(page_class):
     try:
-        return page_class.panels
+        return page_class.handlers
     except AttributeError:
         return get_default_panels(page_class)
 
 
-def set_panels(page_class, panels):
-    page_class.panels = panels
+def set_page_edit_handler(page_class, handlers):
+    page_class.handlers = handlers
 
 
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
-        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface(get_panels(page_class))
+        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface(get_which_page_edit_handler(page_class))
 
     return PAGE_EDIT_HANDLERS[page_class]
 
