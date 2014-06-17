@@ -155,9 +155,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
 
             if is_publishing:
-                message = mark_safe(render_to_string(self.template, {
-                    'self': self
-                }))
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
