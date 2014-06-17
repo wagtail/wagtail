@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.tests.models import SimplePage, EventPage
+from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
@@ -669,3 +669,36 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
         self.assertContains(response, "Christmas")
+
+
+class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add standard page
+        self.standard_index = StandardIndex()
+        self.standard_index.title = "Standard Index"
+        self.standard_index.slug = "standard-index"
+        self.root_page.add_child(instance=self.standard_index)
+
+        # Add business page
+        self.business_index = BusinessIndex()
+        self.business_index.title = "Business Index"
+        self.business_index.slug = "business-index"
+        self.root_page.add_child(instance=self.business_index)
+
+        # Login
+        self.login()
+
+    def test_standard_subpage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.standard_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Standard Child')
+        self.assertContains(response, 'Business Child')
+
+    def test_business_subpage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Standard Child')
+        self.assertContains(response, 'Business Child')

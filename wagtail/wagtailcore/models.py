@@ -484,7 +484,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
             where required
         """
         if cls._clean_subpage_types is None:
-            res = []
+            if len(cls.subpage_types) == 0:
+                res = get_page_types()
+            else:
+                res = []
+            
             for page_type in cls.subpage_types:
                 if isinstance(page_type, basestring):
                     try:
@@ -496,13 +500,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
                     model = get_model(app_label, model_name)
                     if model:
-                        res.append(model)
+                        res.append(ContentType.objects.get_for_model(model))
                     else:
                         raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
 
                 else:
                     # assume it's already a model class
-                    res.append(page_type)
+                    res.append(ContentType.objects.get_for_model(page_type))
 
             cls._clean_subpage_types = res
 
