@@ -25,16 +25,14 @@ def index(request, parent_page_id=None):
     pages = parent_page.get_children().prefetch_related('content_type')
 
     # Get page ordering
-    if 'ordering' in request.GET:
-        ordering = request.GET['ordering']
-
-        if ordering in ['title', '-title', 'content_type', '-content_type', 'live', '-live']:
-            pages = pages.order_by(ordering)
-    else:
+    ordering = request.GET.get('ordering', 'title')
+    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'ord']:
         ordering = 'title'
 
     # Pagination
     if ordering != 'ord':
+        pages = pages.order_by(ordering)
+
         p = request.GET.get('p', 1)
         paginator = Paginator(pages, 50)
         try:
