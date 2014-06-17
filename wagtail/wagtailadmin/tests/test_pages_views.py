@@ -5,6 +5,7 @@ from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission
 from django.core import mail
+from django.core.paginator import Paginator
 
 
 class TestPageExplorer(TestCase, WagtailTestUtils):
@@ -13,9 +14,10 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
+        self.child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+        )
         self.root_page.add_child(instance=self.child_page)
 
         # Login
@@ -24,8 +26,80 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
     def test_explore(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(self.root_page, response.context['parent_page'])
         self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.child_page.id).exists())
+
+    def test_explore_root(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
+        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
+
+    def test_ordering(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'content_type'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], 'content_type')
+
+    def test_invalid_ordering(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'invalid_order'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], 'title')
+
+    def test_reordering(self):
+        response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'ord'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(response.context['ordering'], 'ord')
+
+        # Pages must not be paginated
+        self.assertNotIsInstance(response.context['pages'], Paginator)
+
+    def make_pages(self):
+        for i in range(150):
+            self.root_page.add_child(instance=SimplePage(
+                title="Page " + str(i),
+                slug="page-" + str(i),
+            ))
+
+    def test_pagination(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['pages'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 'Hello World!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['pages'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):
