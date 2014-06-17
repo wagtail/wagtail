@@ -843,6 +843,8 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
+        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+            return False
         return self.user.is_superuser or ('add' in self.permissions)
 
     def can_edit(self):
@@ -897,9 +899,12 @@ class PagePermissionTester(object):
         """
         Niggly special case for creating and publishing a page in one go.
         Differs from can_publish in that we want to be able to publish subpages of root, but not
-        to be able to publish root itself
+        to be able to publish root itself. (Also, can_publish_subpage returns false if the page
+        does not allow subpages at all.)
         """
         if not self.user.is_active:
+            return False
+        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
