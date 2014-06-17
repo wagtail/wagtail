@@ -155,6 +155,9 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
 
             if is_publishing:
+                message = mark_safe(render_to_string(self.template, {
+                    'self': self
+                }))
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
@@ -527,12 +530,41 @@ def set_page_position(request, page_to_move_id):
 PAGE_EDIT_HANDLERS = {}
 
 
+def get_default_panels(page_class):
+    panels = []
+
+    try:
+        panels.append(ObjectList(page_class.content_panels, heading='Content'))
+    except AttributeError:
+        pass
+
+    try:
+        panels.append(ObjectList(page_class.promote_panels, heading='Promote'))
+    except AttributeError:
+        pass
+
+    try:
+        panels.append(ObjectList(page_class.settings_panels, heading='Settings', classes='settings'))
+    except AttributeError:
+        pass
+
+    return panels
+
+
+def get_panels(page_class):
+    try:
+        return page_class.panels
+    except AttributeError:
+        return get_default_panels(page_class)
+
+
+def set_panels(page_class, panels):
+    page_class.panels = panels
+
+
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
-        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
-            ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote')
-        ])
+        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface(get_panels(page_class))
 
     return PAGE_EDIT_HANDLERS[page_class]
 
