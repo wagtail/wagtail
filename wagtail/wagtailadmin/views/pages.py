@@ -362,6 +362,10 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
         page.set_url_path(parent_page)
 
+        # Set treebeard attributes
+        page.depth = parent_page.depth + 1
+        page.path = Page._get_children_path_interval(parent_page.path)[1]
+
         # This view will generally be invoked as an AJAX request; as such, in the case of
         # an error Django will return a plaintext response. This isn't what we want, since
         # we will be writing the response back to an HTML page regardless of success or
