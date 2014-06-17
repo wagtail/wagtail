@@ -306,4 +306,4 @@ class BusinessIndex(Page):
     subpage_types = ['tests.BusinessChild']
 
 class BusinessChild(Page):
-    pass
+    subpage_types = []

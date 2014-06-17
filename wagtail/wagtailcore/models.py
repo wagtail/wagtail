@@ -253,9 +253,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def __unicode__(self):
         return self.title
 
-    # by default pages do not allow any kind of subpages
-    subpage_types = []
-
     is_abstract = True  # don't offer Page in the list of page types a superuser can create
 
     def set_url_path(self, parent):
@@ -478,29 +475,30 @@ class Page(MP_Node, ClusterableModel, Indexed):
             where required
         """
         if cls._clean_subpage_types is None:
-            if len(cls.subpage_types) == 0:
+            subpage_types = getattr(cls, 'subpage_types', None)
+            if subpage_types is None:
+                # if subpage_types is not specified on the Page class, allow all page types as subpages
                 res = get_page_types()
             else:
                 res = []
-            
-            for page_type in cls.subpage_types:
-                if isinstance(page_type, basestring):
-                    try:
-                        app_label, model_name = page_type.split(".")
-                    except ValueError:
-                        # If we can't split, assume a model in current app
-                        app_label = cls._meta.app_label
-                        model_name = page_type
+                for page_type in cls.subpage_types:
+                    if isinstance(page_type, basestring):
+                        try:
+                            app_label, model_name = page_type.split(".")
+                        except ValueError:
+                            # If we can't split, assume a model in current app
+                            app_label = cls._meta.app_label
+                            model_name = page_type
 
-                    model = get_model(app_label, model_name)
-                    if model:
-                        res.append(ContentType.objects.get_for_model(model))
+                        model = get_model(app_label, model_name)
+                        if model:
+                            res.append(ContentType.objects.get_for_model(model))
+                        else:
+                            raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
+
                     else:
-                        raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
-
-                else:
-                    # assume it's already a model class
-                    res.append(ContentType.objects.get_for_model(page_type))
+                        # assume it's already a model class
+                        res.append(ContentType.objects.get_for_model(page_type))
 
             cls._clean_subpage_types = res
 

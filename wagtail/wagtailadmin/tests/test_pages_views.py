@@ -688,6 +688,12 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.business_index.slug = "business-index"
         self.root_page.add_child(instance=self.business_index)
 
+        # Add business child
+        self.business_child = BusinessChild()
+        self.business_child.title = "Business Child"
+        self.business_child.slug = "business-child"
+        self.business_index.add_child(instance=self.business_child)
+
         # Login
         self.login()
 
@@ -702,3 +708,9 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Standard Child')
         self.assertContains(response, 'Business Child')
+
+    def test_business_child_subpage(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Standard Child')
+        self.assertEqual(0, len(response.context['page_types']))
