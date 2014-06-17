@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from wagtail.tests.utils import login
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestStyleGuide(TestCase):
+class TestStyleGuide(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login();
 
     def test_styleguide(self):
         response = self.client.get(reverse('wagtailstyleguide'))
