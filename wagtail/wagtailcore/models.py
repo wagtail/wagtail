@@ -1,5 +1,3 @@
-import sys
-import os
 from StringIO import StringIO
 from urlparse import urlparse
 
