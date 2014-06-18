@@ -116,7 +116,39 @@ class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/add.html')
 
-    # TODO: Test posting
+    def test_post(self):
+        # Submit
+        post_data = {
+            'query_string': "test",
+            'editors_picks-TOTAL_FORMS': 1,
+            'editors_picks-INITIAL_FORMS': 0,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+            'editors_picks-0-DELETE': '',
+            'editors_picks-0-ORDER': 0,
+            'editors_picks-0-page': 1,
+            'editors_picks-0-description': "Hello",
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_add'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that the editors pick was created
+        self.assertTrue(models.Query.get('test').editors_picks.filter(page_id=1).exists())
+
+    def test_post_without_recommendations(self):
+        # Submit
+        post_data = {
+            'query_string': "test",
+            'editors_picks-TOTAL_FORMS': 0,
+            'editors_picks-INITIAL_FORMS': 0,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_add'), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(response, 'editors_pick_formset', None, None, "Please specify at least one recommendation for this search term.")
 
 
 class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
@@ -125,14 +157,92 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
 
         # Create an editors pick to edit
         self.query = models.Query.get("Hello")
-        self.query.editors_picks.create(page_id=1, description="Root page")
+        self.editors_pick = self.query.editors_picks.create(page_id=1, description="Root page")
+        self.editors_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/edit.html')
 
-    # TODO: Test posting
+    def test_post(self):
+        # Submit
+        post_data = {
+            'query_string': "Hello",
+            'editors_picks-TOTAL_FORMS': 2,
+            'editors_picks-INITIAL_FORMS': 2,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+            'editors_picks-0-id': self.editors_pick.id,
+            'editors_picks-0-DELETE': '',
+            'editors_picks-0-ORDER': 0,
+            'editors_picks-0-page': 1,
+            'editors_picks-0-description': "Description has changed", # Change
+            'editors_picks-1-id': self.editors_pick_2.id,
+            'editors_picks-1-DELETE': '',
+            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-page': 2,
+            'editors_picks-1-description': "Homepage",
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that the editors pick description was edited
+        self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick.id).description, "Description has changed")
+
+    def test_post_delete_recommendation(self):
+        # Submit
+        post_data = {
+            'query_string': "Hello",
+            'editors_picks-TOTAL_FORMS': 2,
+            'editors_picks-INITIAL_FORMS': 2,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+            'editors_picks-0-id': self.editors_pick.id,
+            'editors_picks-0-DELETE': '',
+            'editors_picks-0-ORDER': 0,
+            'editors_picks-0-page': 1,
+            'editors_picks-0-description': "Root page",
+            'editors_picks-1-id': self.editors_pick_2.id,
+            'editors_picks-1-DELETE': 1,
+            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-page': 2,
+            'editors_picks-1-description': "Homepage",
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that the recommendation was deleted
+        self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick_2.id).exists())
+
+        # The other recommendation should still exist
+        self.assertTrue(models.EditorsPick.objects.filter(id=self.editors_pick.id).exists())
+
+    def test_post_without_recommendations(self):
+        # Submit
+        post_data = {
+            'query_string': "Hello",
+            'editors_picks-TOTAL_FORMS': 2,
+            'editors_picks-INITIAL_FORMS': 2,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+            'editors_picks-0-id': self.editors_pick.id,
+            'editors_picks-0-DELETE': 1,
+            'editors_picks-0-ORDER': 0,
+            'editors_picks-0-page': 1,
+            'editors_picks-0-description': "Description has changed", # Change
+            'editors_picks-1-id': self.editors_pick_2.id,
+            'editors_picks-1-DELETE': 1,
+            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-page': 2,
+            'editors_picks-1-description': "Homepage",
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(response, 'editors_pick_formset', None, None, "Please specify at least one recommendation for this search term.")
 
 
 class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
@@ -141,11 +251,26 @@ class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
 
         # Create an editors pick to delete
         self.query = models.Query.get("Hello")
-        self.query.editors_picks.create(page_id=1, description="Root page")
+        self.editors_pick = self.query.editors_picks.create(page_id=1, description="Root page")
+        self.editors_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearch_editorspicks_delete', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/confirm_delete.html')
 
-    # TODO: Test posting
+    def test_post(self):
+        # Submit
+        post_data = {
+            'foo': 'bar',
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_delete', args=(self.query.id, )), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that both recommendations were deleted
+        self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick_2.id).exists())
+
+        # The other recommendation should still exist
+        self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick.id).exists())
