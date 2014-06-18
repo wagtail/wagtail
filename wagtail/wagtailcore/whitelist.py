@@ -89,7 +89,10 @@ class Whitelister(object):
             cls.clean_string_node(doc, node)
         elif isinstance(node, Tag):
             cls.clean_tag_node(doc, node)
-        else:
+        # This branch is here in case node is a BeautifulSoup object that does
+        # not inherit from NavigableString or Tag. I can't find any examples
+        # of such a thing at the moment, so this branch is untested.
+        else:  # pragma: no cover
             cls.clean_unknown_node(doc, node)
 
     @classmethod
