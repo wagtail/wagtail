@@ -645,11 +645,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def get_siblings(self, inclusive=True):
         return Page.objects.sibling_of(self, inclusive)
 
-    def get_next_published_sibling(self):
-        return self.get_siblings().live().filter(path__gt=self.path).order_by('path').first()
+    def get_next_siblings(self):
+        return self.get_siblings().filter(path__gt=self.path).order_by('path')
 
-    def get_prev_published_sibling(self):
-        return self.get_siblings().live().filter(path__lt=self.path).order_by('-path').first()
+    def get_prev_siblings(self):
+        return self.get_siblings().filter(path__lt=self.path).order_by('-path')
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,

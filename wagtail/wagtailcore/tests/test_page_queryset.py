@@ -262,7 +262,7 @@ class TestPageQuerySet(TestCase):
         # All pages must be live
         while current_page:
             self.assertTrue(current_page.live)
-            current_page = current_page.get_next_published_sibling()
+            current_page = current_page.get_next_siblings().live().first()
 
     def test_published_prev(self):
         events_index = Page.objects.get(url_path='/home/events/')
@@ -271,4 +271,4 @@ class TestPageQuerySet(TestCase):
         # All pages must be live
         while current_page:
             self.assertTrue(current_page.live)
-            current_page = current_page.get_prev_published_sibling()
+            current_page = current_page.get_prev_siblings().live().first()
