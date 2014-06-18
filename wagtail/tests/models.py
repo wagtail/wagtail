@@ -294,3 +294,16 @@ class ZuluSnippet(models.Model):
 
     def __unicode__(self):
         return self.text
+
+
+class StandardIndex(Page):
+    pass
+
+class StandardChild(Page):
+    pass
+
+class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild']
+
+class BusinessChild(Page):
+    subpage_types = []

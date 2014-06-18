@@ -1,4 +1,6 @@
 function(modal) {
+    var searchUrl = $('form.image-search', modal.body).attr('action');
+
     function ajaxifyLinks (context) {
         $('.listing a', context).click(function() {
             modal.loadUrl(this.href);
@@ -12,7 +14,6 @@ function(modal) {
         });
     }
 
-    var searchUrl = $('form.image-search', modal.body).attr('action');
     function search() {
         $.ajax({
             url: searchUrl,
@@ -24,8 +25,8 @@ function(modal) {
         });
         return false;
     }
-    function setPage(page) {
 
+    function setPage(page) {
         if($('#id_q').val().length){
             dataObj = {q: $('#id_q').val(), p: page};
         }else{
