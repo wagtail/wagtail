@@ -296,6 +296,7 @@ button.icon{
 
     > li{
         position:relative;
+        overflow:hidden;
         background-color:white;
         padding:1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
         margin-bottom:1em;

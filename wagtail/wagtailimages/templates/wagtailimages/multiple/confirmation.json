@@ -1,0 +1,4 @@
+{
+    "image_id": {{ image_id }},
+    "success": {% if success %}true{% else %}false{% endif %}
+}
