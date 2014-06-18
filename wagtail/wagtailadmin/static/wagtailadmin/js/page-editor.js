@@ -53,57 +53,56 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
-function initDateChoosers(context) {
-    $('input.friendly_date', context).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('input.localized_date', context).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+function initDateChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
         });
     } else {
-        $('input.localized_date', context).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
         });
     }
+}
 
-}
-function initFriendlyDateChooser(id) {
-    $('#' + id).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-}
-function initLocalizedDateChooser(id) {
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('#' + id).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+function initTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
         });
     } else {
-        $('#' + id).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
         });
     }
-
 }
 
-function initTimeChoosers(context) {
-    $('input.friendly_time', context).timepicker({
-        timeFormat: 'g.ia'
-    });
-    $('input.localized_time', context).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
-}
-function initFriendlyTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'g.ia'
-    });
-}
-function initLocalizedTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
+function initDateTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            language: 'lang'
+        });
+    } else {
+    $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i',
+        });
+    }
 }
 
 function initTagField(id, autocompleteUrl) {
@@ -320,8 +319,6 @@ function initCollapsibleBlocks(){
 }
 
 $(function() {
-    initDateChoosers();
-    initTimeChoosers();
     initSlugAutoPopulate();
     initSlugCleaning();
     initErrorDetection();
