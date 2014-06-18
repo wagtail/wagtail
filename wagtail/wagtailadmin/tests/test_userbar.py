@@ -49,7 +49,7 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/userbar/base.html')
 
-    def test_userbar_anonymous_user_cannot_see(self):
+    def test_userbar_frontend_anonymous_user_cannot_see(self):
         # Logout
         self.client.logout()
 
@@ -66,13 +66,13 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
         self.homepage.save_revision()
         self.revision = self.homepage.get_latest_revision()
 
-    def test_userbar_frontend(self):
+    def test_userbar_moderation(self):
         response = self.client.get(reverse('wagtailadmin_userbar_moderation', args=(self.revision.id, )))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/userbar/base.html')
 
-    def test_userbar_anonymous_user_cannot_see(self):
+    def test_userbar_moderation_anonymous_user_cannot_see(self):
         # Logout
         self.client.logout()
 
