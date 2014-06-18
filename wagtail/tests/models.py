@@ -296,6 +296,19 @@ class ZuluSnippet(models.Model):
         return self.text
 
 
+class StandardIndex(Page):
+    pass
+
+class StandardChild(Page):
+    pass
+
+class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild']
+
+class BusinessChild(Page):
+    subpage_types = []
+
+
 # MODELS FOR TESTING WAGTAILSEARCH
 
 

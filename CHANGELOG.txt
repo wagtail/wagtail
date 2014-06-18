@@ -1,6 +1,12 @@
 Changelog
 =========
 
+ * Search: Added search_fields/search_filter_fields settings (with backwards compatibility with old indexed_fields setting)
+ * Search: Queries now operate on querysets to allow more complex filtering
+ * Search: ElasticSearch backend now uses elasticsearch-py instead of ElasticUtils/pyelasticsearch
+ * Search: ElasticSearch now indexes fields with correct type (eg, IntegerField now indexed as an integer)
+ * Search: Improved ElasticSearch backend (many more unit tests, results caching)
+
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
  * Added 'original' as a resizing rule supported by the 'image' tag
@@ -8,11 +14,7 @@ Changelog
  * Snippets are now ordered alphabetically
  * Removed the "More" section from the admin menu
  * Added pagination to page listings in admin
-  * Search: Added search_fields/search_filter_fields settings (with backwards compatibility with old indexed_fields setting)
- * Search: Queries now operate on querysets to allow more complex filtering
- * Search: ElasticSearch backend now uses elasticsearch-py instead of ElasticUtils/pyelasticsearch
- * Search: ElasticSearch now indexes fields with correct type (eg, IntegerField now indexed as an integer)
- * Search: Improved ElasticSearch backend (many more unit tests, results caching)
+ * Support for setting a subpage_types property on page models, to define which page types are allowed as subpages
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile

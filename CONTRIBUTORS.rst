@@ -28,6 +28,7 @@ Contributors
 * Ben Margolis
 * Tom Talbot
 * Jeffrey Hearn
+* Robert Clark
 
 Translators
 ===========
