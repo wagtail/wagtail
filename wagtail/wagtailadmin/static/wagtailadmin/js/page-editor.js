@@ -53,56 +53,56 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
-function initDateChoosers(context) {
-    $('input.friendly_date', context).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('input.localized_date', context).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+function initDateChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
         });
     } else {
-        $('input.localized_date', context).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
         });
     }
 }
-function initFriendlyDateChooser(id) {
-    $('#' + id).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-}
-function initLocalizedDateChooser(id) {
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('#' + id).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+
+function initTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
         });
     } else {
-        $('#' + id).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
         });
     }
-
 }
 
-function initTimeChoosers(context) {
-    $('input.friendly_time', context).timepicker({
-        timeFormat: 'g.ia'
-    });
-    $('input.localized_time', context).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
-}
-function initFriendlyTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'g.ia'
-    });
-}
-function initLocalizedTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
+function initDateTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            language: 'lang'
+        });
+    } else {
+    $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i',
+        });
+    }
 }
 
 function initTagField(id, autocompleteUrl) {
@@ -319,8 +319,6 @@ function initCollapsibleBlocks(){
 }
 
 $(function() {
-    initDateChoosers();
-    initTimeChoosers();
     initSlugAutoPopulate();
     initSlugCleaning();
     initErrorDetection();
@@ -331,7 +329,9 @@ $(function() {
     });
 
     /* Set up behaviour of preview button */
-    $('.action-preview').click(function() {
+    $('.action-preview').click(function(e) {        
+        e.preventDefault();
+        
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
 
         $.ajax({
@@ -340,9 +340,18 @@ $(function() {
             data: $('#page-edit-form').serialize(),
             success: function(data, textStatus, request) {
                 if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                    previewWindow.document.open();
-                    previewWindow.document.write(data);
-                    previewWindow.document.close();
+                    var pdoc = previewWindow.document;
+                    var frame = pdoc.getElementById('preview-frame');
+
+                    frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
+                    frame.document.open();
+                    frame.document.write(data);                 
+                    frame.document.close();
+
+                    var hideTimeout = setTimeout(function(){
+                        pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
+                        clearTimeout(hideTimeout);
+                    }, 50) // just enough to give effect without adding discernible slowness
                 } else {
                     previewWindow.close();
                     document.open();
@@ -356,11 +365,11 @@ $(function() {
                 error output rather than giving a 'friendly' error message so that
                 developers can debug template errors. (On a production site, we'd
                 typically be serving a friendly custom 500 page anyhow.) */
+
                 previewWindow.document.open();
                 previewWindow.document.write(xhr.responseText);
                 previewWindow.document.close();
             }
         });
-        return false;
     });
 });
