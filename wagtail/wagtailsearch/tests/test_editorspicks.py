@@ -179,7 +179,7 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-0-description': "Description has changed", # Change
             'editors_picks-1-id': self.editors_pick_2.id,
             'editors_picks-1-DELETE': '',
-            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-ORDER': 1,
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
@@ -190,6 +190,37 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
 
         # Check that the editors pick description was edited
         self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick.id).description, "Description has changed")
+
+    def test_post_reorder(self):
+        # Check order before reordering
+        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.editors_pick)
+        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.editors_pick_2)
+
+        # Submit
+        post_data = {
+            'query_string': "Hello",
+            'editors_picks-TOTAL_FORMS': 2,
+            'editors_picks-INITIAL_FORMS': 2,
+            'editors_picks-MAX_NUM_FORMS': 1000,
+            'editors_picks-0-id': self.editors_pick.id,
+            'editors_picks-0-DELETE': '',
+            'editors_picks-0-ORDER': 1, # Change
+            'editors_picks-0-page': 1,
+            'editors_picks-0-description': "Root page",
+            'editors_picks-1-id': self.editors_pick_2.id,
+            'editors_picks-1-DELETE': '',
+            'editors_picks-1-ORDER': 0, # Change
+            'editors_picks-1-page': 2,
+            'editors_picks-1-description': "Homepage",
+        }
+        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that the recommendations were reordered
+        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.editors_pick_2)
+        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.editors_pick)
 
     def test_post_delete_recommendation(self):
         # Submit
@@ -205,7 +236,7 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-0-description': "Root page",
             'editors_picks-1-id': self.editors_pick_2.id,
             'editors_picks-1-DELETE': 1,
-            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-ORDER': 1,
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
@@ -234,7 +265,7 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-0-description': "Description has changed", # Change
             'editors_picks-1-id': self.editors_pick_2.id,
             'editors_picks-1-DELETE': 1,
-            'editors_picks-1-ORDER': 0,
+            'editors_picks-1-ORDER': 1,
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
