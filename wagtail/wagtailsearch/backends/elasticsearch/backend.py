@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from django.db import models
+from django.utils.functional import cached_property
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
@@ -16,20 +17,9 @@ class ElasticSearchResults(BaseSearchResults):
     """
     This represents a lazy set of results from running a query on an ElasticSearch backend.
     """
-    def __init__(self, *args, **kwargs):
-        self._query = None
-        super(ElasticSearchResults, self).__init__(*args, **kwargs)
-
-    def _clone(self):
-        new = super(ElasticSearchResults, self)._clone()
-        new._query = self._query
-        return new
-
-    @property
+    @cached_property
     def query(self):
-        if self._query is None:
-            self._query = ElasticSearchQuery(self.queryset, self.query_string, self.fields)
-        return self._query
+        return ElasticSearchQuery(self.queryset, self.query_string, self.fields)
 
     def _do_count(self):
         # Get query
