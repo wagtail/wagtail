@@ -135,6 +135,12 @@ class PageManager(models.Manager):
     def not_live(self):
         return self.get_queryset().not_live()
 
+    def in_menu(self):
+        return self.get_query_set().in_menu()
+
+    def not_in_menu(self):
+        return self.get_query_set().not_in_menu()
+
     def page(self, other):
         return self.get_queryset().page(other)
 
