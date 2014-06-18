@@ -55,13 +55,11 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted([ContentType.objects.get_for_model(model_class) for model_class in parent_page.clean_subpage_types()], key=lambda pagetype: pagetype.name.lower())
-    all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
-        'all_page_types': all_page_types,
     })
 
 
@@ -363,6 +361,10 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         # ensure that our unsaved page instance has a suitable url set
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
         page.set_url_path(parent_page)
+
+        # Set treebeard attributes
+        page.depth = parent_page.depth + 1
+        page.path = Page._get_children_path_interval(parent_page.path)[1]
 
         # This view will generally be invoked as an AJAX request; as such, in the case of
         # an error Django will return a plaintext response. This isn't what we want, since
