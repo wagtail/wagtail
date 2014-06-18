@@ -15,7 +15,6 @@
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
-        //
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
         };
@@ -25,7 +24,6 @@
 {% block content %}
     {% trans "Add image" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
-
 
     <div class="nice-padding">
         <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
