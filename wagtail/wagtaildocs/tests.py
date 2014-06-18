@@ -110,22 +110,58 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
 
-    # TODO: Test posting
+    def test_post(self):
+        # Build a fake file
+        fake_file = ContentFile("A boring example document")
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document should be created
+        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
 
 
 class TestDocumentEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+        # Build a fake file
+        fake_file = ContentFile("A boring example document")
+        fake_file.name = 'test.txt'
+
         # Create a document to edit
-        self.document = models.Document.objects.create(title="Test document")
+        self.document = models.Document.objects.create(title="Test document", file=fake_file)
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
-    # TODO: Test posting
+    def test_post(self):
+        # Build a fake file
+        fake_file = ContentFile("A boring example document")
+        fake_file.name = 'test.txt'
+
+        # Submit title change
+        post_data = {
+            'title': "Test document changed!",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs_edit_document', args=(self.document.id,)), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document title should be changed
+        self.assertEqual(models.Document.objects.get(id=self.document.id).title, "Test document changed!")
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
@@ -140,7 +176,18 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
 
-    # TODO: Test posting
+    def test_delete(self):
+        # Submit title change
+        post_data = {
+            'foo': 'bar'
+        }
+        response = self.client.post(reverse('wagtaildocs_delete_document', args=(self.document.id,)), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document should be deleted
+        self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
 
 
 class TestDocumentChooserView(TestCase, WagtailTestUtils):
@@ -212,8 +259,6 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
 
-    # TODO: Test posting
-
 
 class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -225,7 +270,24 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
 
-    # TODO: Test document upload with chooser
+    def test_post(self):
+        # Build a fake file
+        fake_file = ContentFile("A boring example document")
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs_chooser_upload'), post_data)
+
+        # Check that the response is a javascript file saying the document was chosen
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
+        self.assertContains(response, "modal.respond('documentChosen'")
+
+        # Document should be created
+        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
 
 
 class TestDocumentFilenameProperties(TestCase):
