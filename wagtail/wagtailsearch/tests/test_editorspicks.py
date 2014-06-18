@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailsearch import models
 
@@ -67,6 +68,51 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
         for page in pages:
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
+
+    def make_editors_picks(self):
+        for i in range(50):
+            models.EditorsPick.objects.create(
+                query=models.Query.get("query " + str(i)),
+                page_id=1,
+                sort_order=0,
+                description="First editors pick",
+            )
+
+    def test_pagination(self):
+        self.make_editors_picks()
+
+        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['queries'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_editors_picks()
+
+        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 'Hello World!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['queries'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_editors_picks()
+
+        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['queries'].number, response.context['queries'].paginator.num_pages)
 
 
 class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
