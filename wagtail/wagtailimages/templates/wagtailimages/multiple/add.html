@@ -1,28 +1,16 @@
 {% extends "wagtailadmin/base.html" %}
-{% load image_tags %}
-{% load i18n %}
+{% load image_tags i18n compress static %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/add-multiple.scss" type="text/x-scss" />
+    {% endcompress %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
 {% endblock %}
 
-{% block extra_js %}
-    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.iframe-transport.js"></script>
-    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload.js"></script>
-    <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
-
-    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    <script>
-        window.tagit_opts = {
-            autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-        };
-    </script>
-{% endblock %}
-
 {% block content %}
-    {% trans "Add image" as add_str %}
+    {% trans "Add images" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
 
     <div class="nice-padding">
@@ -31,8 +19,62 @@
             {% csrf_token %}
         </form>
 
-        <ul class="multiple" id="image-forms">
+        <div id="overall-progress" class="progress progress-secondary">
+            <div class="bar" style="width: 0%;"></div>
+        </div>
+
+        <ul id="upload-list" class="upload-list drop-zone multiple">
+            <li class="drop-zone-help">Drag and drop images into this area to upload</li>
         </ul>
     </div>
 
+    <script id="upload-list-item" type="text/template">
+        <li>
+            <div class="left">
+                <div class="preview">
+                    <div class="thumb icon icon-image"></div>
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right"></div>            
+        </li>
+    </script>
+
+    <ul class="upload-list multiple" id="upload-list-item" type="text/template">
+        <li>
+            <div class="left">
+                <div class="preview">
+                    <div class="thumb icon icon-image"></div>
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right"></div>            
+        </li>
+    </ul>
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- this exact order of plugins is vital -->
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/load-image.min.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/canvas-to-blob.min.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.iframe-transport.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-process.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-image.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
+    
+    <!-- Main script -->
+    <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
+    
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        window.tagit_opts = {
+            autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+        };
+    </script>
 {% endblock %}

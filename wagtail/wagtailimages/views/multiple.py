@@ -32,7 +32,7 @@ def add(request):
             image.save()
             form = ImageForm(instance=image, prefix='image-%d'%image.id)
 
-            return render(request, 'wagtailimages/multiple/edit.html', {
+            return render(request, 'wagtailimages/multiple/edit_form.html', {
                 'image': image,
                 'form': form
             })

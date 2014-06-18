@@ -1,0 +1,12 @@
+.progress{
+    @include border-radius(1.5em);
+    @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
+    background-color:$color-teal-dark;
+    border:1px solid white;
+
+    .bar{
+        @include border-radius(1.5em);
+        background-color:$color-teal;
+        height:1.5em;
+    }
+}

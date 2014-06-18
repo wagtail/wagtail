@@ -1,0 +1,40 @@
+@import "../../wagtailadmin/static/wagtailadmin/scss/variables.scss";
+@import "../../wagtailadmin/static/wagtailadmin/scss/mixins.scss";
+@import "../../wagtailadmin/static/wagtailadmin/scss/grid.scss";
+
+.upload-list{
+    .preview{
+        width:150px;
+        min-height:150px;
+        border: 3px solid $color-grey-4;
+        display:block;
+        position:relative;
+        text-align:center;
+        padding:1em;
+
+        .progress{
+            position:absolute;
+            z-index:2;
+            top:60%;
+            left:10%;
+            right:10%;
+            width:80%;
+        }
+    }
+    .thumb{
+        position:absolute;
+        z-index:1;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
+    .thumb:before{
+        position:absolute;
+        top:0;
+        bottom:0;
+        font-size:9em;
+        color:lighten($color-grey-4, 4%);
+        margin:0;
+    }
+}

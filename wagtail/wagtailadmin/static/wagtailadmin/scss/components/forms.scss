@@ -656,6 +656,18 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
+/* file drop zones */
+.drop-zone{
+    @include border-radius(5px);
+    border:5px dashed $color-grey-4;
+    padding:$mobile-nice-padding;
+
+    .drop-zone-help{
+        border:0;
+    }
+}
+
+
 /* Transitions */
 fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
