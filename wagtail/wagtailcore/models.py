@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 
 from wagtail.wagtailsearch import Indexed, get_search_backend

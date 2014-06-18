@@ -19,7 +19,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
 
 
