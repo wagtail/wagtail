@@ -12,7 +12,11 @@ from django import forms
 from django.db import models
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
+from django.core.exceptions import (
+    ObjectDoesNotExist,
+    ImproperlyConfigured,
+    ValidationError
+)
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -33,7 +37,8 @@ class FriendlyDateInput(forms.DateInput):
         if attrs:
             default_attrs.update(attrs)
 
-        super(FriendlyDateInput, self).__init__(attrs=default_attrs, format='%d %b %Y')
+        super(FriendlyDateInput, self).__init__(attrs=default_attrs,
+                                                format='%d %b %Y')
 
 
 class FriendlyTimeInput(forms.TimeInput):
@@ -46,7 +51,8 @@ class FriendlyTimeInput(forms.TimeInput):
         if attrs:
             default_attrs.update(attrs)
 
-        super(FriendlyTimeInput, self).__init__(attrs=default_attrs, format='%I.%M%p')
+        super(FriendlyTimeInput, self).__init__(attrs=default_attrs,
+                                                format='%I.%M%p')
 
 
 class FriendlyTimeField(forms.CharField):
@@ -87,7 +93,7 @@ class LocalizedDateInput(forms.DateInput):
     and adds class="friendly_date" to be picked up by jquery datepicker.
     """
     def __init__(self, attrs=None):
-        default_attrs = {'class': 'localized_date', 'localize':True}
+        default_attrs = {'class': 'localized_date', 'localize': True}
         if attrs:
             default_attrs.update(attrs)
 
@@ -104,7 +110,8 @@ class LocalizedTimeInput(forms.TimeInput):
         if attrs:
             default_attrs.update(attrs)
         # Just use 24-hour format
-        super(LocalizedTimeInput, self).__init__(attrs=default_attrs, format='%H:%M')
+        super(LocalizedTimeInput, self).__init__(attrs=default_attrs,
+                                                 format='%H:%M')
 
 
 class LocalizedTimeField(forms.CharField):
@@ -118,7 +125,7 @@ class LocalizedTimeField(forms.CharField):
         match = expr.match(time_string.lower())
         if match:
             # Pull out values from string
-            hour_string, minute_string= match.groups()
+            hour_string, minute_string = match.groups()
 
             # Convert hours and minutes to integers
             hour = int(hour_string)
@@ -126,31 +133,38 @@ class LocalizedTimeField(forms.CharField):
                 minute = int(minute_string)
             else:
                 minute = 0
-            if hour>=24 or hour < 0 or minute >=60 or minute < 0:
+            if hour >= 24 or hour < 0 or minute >= 60 or minute < 0:
                 raise ValidationError(_("Please type a valid time"))
 
             return datetime.time(hour=hour, minute=minute)
         else:
-            raise ValidationError(_("Please type a valid time") )
+            raise ValidationError(_("Please type a valid time"))
 
 
-if hasattr(settings, 'USE_L10N') and settings.USE_L10N==True:
+if hasattr(settings, 'USE_L10N') and settings.USE_L10N is True:
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': LocalizedDateInput},
-        models.TimeField: {'widget': LocalizedTimeInput, 'form_class': LocalizedTimeField},
+        models.TimeField: {'widget': LocalizedTimeInput,
+                           'form_class': LocalizedTimeField},
     }
-else: # Fall back to friendly date/time
+else:  # Fall back to friendly date/time
     FORM_FIELD_OVERRIDES = {
         models.DateField: {'widget': FriendlyDateInput},
-        models.TimeField: {'widget': FriendlyTimeInput, 'form_class': FriendlyTimeField},
+        models.TimeField: {'widget': FriendlyTimeInput,
+                           'form_class': FriendlyTimeField},
     }
 
 WIDGET_JS = {
-    FriendlyDateInput: (lambda id: "initFriendlyDateChooser(fixPrefix('%s'));" % id),
-    FriendlyTimeInput: (lambda id: "initFriendlyTimeChooser(fixPrefix('%s'));" % id),
-    LocalizedDateInput: (lambda id: "initLocalizedDateChooser(fixPrefix('%s'));" % id),
-    LocalizedTimeInput: (lambda id: "initLocalizedTimeChooser(fixPrefix('%s'));" % id),
-    RichTextArea: (lambda id: "makeRichTextEditable(fixPrefix('%s'));" % id),
+    FriendlyDateInput: (lambda id: "initFriendlyDateChooser(fixPrefix('%s'));"
+                        % id),
+    FriendlyTimeInput: (lambda id: "initFriendlyTimeChooser(fixPrefix('%s'));"
+                        % id),
+    LocalizedDateInput: (lambda id: "initLocalizedDateChooser(fixPrefix('%s'));"
+                         % id),
+    LocalizedTimeInput: (lambda id: "initLocalizedTimeChooser(fixPrefix('%s'));"
+                         % id),
+    RichTextArea: (lambda id: "makeRichTextEditable(fixPrefix('%s'));"
+                   % id),
     TagWidget: (
         lambda id: "initTagField(fixPrefix('%s'), '%s');" % (
             id, addslashes(reverse('wagtailadmin_tag_autocomplete'))
@@ -159,7 +173,8 @@ WIDGET_JS = {
 }
 
 
-# Callback to allow us to override the default form fields provided for each model field.
+# Callback to allow us to override the default form fields provided
+# for each model field.
 def formfield_for_dbfield(db_field, **kwargs):
     # snarfed from django/contrib/admin/options.py
 
@@ -177,13 +192,13 @@ def formfield_for_dbfield(db_field, **kwargs):
 class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
     # Override the behaviour of the regular ModelForm metaclass -
     # which handles the translation of model fields to form fields -
-    # to use our own formfield_for_dbfield function to do that translation.
-    # This is done by sneaking a formfield_callback property into the class
-    # being defined (unless the class already provides a formfield_callback
-    # of its own).
+    # to use our own formfield_for_dbfield function to do that
+    # translation. This is done by sneaking a formfield_callback
+    # property into the class being defined (unless the class already
+    # provides a formfield_callback of its own).
 
-    # while we're at it, we'll also set extra_form_count to 0, as we're creating
-    # extra forms in JS
+    # while we're at it, we'll also set extra_form_count to 0, as
+    # we're creating extra forms in JS
     extra_form_count = 0
 
     def __new__(cls, name, bases, attrs):
@@ -200,8 +215,8 @@ WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', 
 
 
 def get_form_for_model(
-    model,
-    fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
+    model, fields=None, exclude=None, formsets=None,
+    exclude_formsets=None, widgets=None
 ):
 
     # django's modelform_factory with a bit of custom behaviour
@@ -215,7 +230,8 @@ def get_form_for_model(
     if exclude is not None:
         attrs['exclude'] = exclude
     if issubclass(model, Page):
-        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path', 'depth', 'numchild']
+        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path',
+                                                       'depth', 'numchild']
 
     if widgets is not None:
         attrs['widgets'] = widgets
@@ -232,7 +248,9 @@ def get_form_for_model(
         'Meta': type('Meta', (object,), attrs)
     }
 
-    return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
+    return WagtailAdminModelFormMetaclass(class_name,
+                                          (WagtailAdminModelForm,),
+                                          form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -247,7 +265,8 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     if issubclass(model, Page):
         _exclude = ['content_type', 'path', 'depth', 'numchild']
 
-    fields = fields_for_model(model, exclude=_exclude, formfield_callback=formfield_for_dbfield)
+    fields = fields_for_model(model, exclude=_exclude,
+                              formfield_callback=formfield_for_dbfield)
 
     for field_name, field in fields.items():
         try:
