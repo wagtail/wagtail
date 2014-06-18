@@ -56,11 +56,46 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
+    def make_docs(self):
+        for i in range(50):
+            document = models.Document(title="Test " + str(i))
+            document.save()
+
     def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
-        for page in pages:
-            response = self.get({'p': page})
-            self.assertEqual(response.status_code, 200)
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_index'), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['documents'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_index'), {'p': 'Hello World!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['documents'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_index'), {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['documents'].number, response.context['documents'].paginator.num_pages)
 
     def test_ordering(self):
         orderings = ['title', '-created_at']
@@ -138,11 +173,46 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
+    def make_docs(self):
+        for i in range(50):
+            document = models.Document(title="Test " + str(i))
+            document.save()
+
     def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
-        for page in pages:
-            response = self.get({'p': page})
-            self.assertEqual(response.status_code, 200)
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['documents'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 'Hello World!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['documents'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_docs()
+
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['documents'].number, response.context['documents'].paginator.num_pages)
 
 
 class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
