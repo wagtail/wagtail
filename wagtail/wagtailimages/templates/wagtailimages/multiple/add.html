@@ -15,6 +15,7 @@
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
+        //
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
         };
