@@ -332,7 +332,9 @@ $(function() {
     });
 
     /* Set up behaviour of preview button */
-    $('.action-preview').click(function() {
+    $('.action-preview').click(function(e) {        
+        e.preventDefault();
+        
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
 
         $.ajax({
@@ -349,9 +351,10 @@ $(function() {
                     frame.document.write(data);                 
                     frame.document.close();
 
-                    var removeTimeout = setTimeout(function(){
+                    var hideTimeout = setTimeout(function(){
                         pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
-                    }, 100) /* just enough to give effect without adding discernible slowness */
+                        clearTimeout(hideTimeout);
+                    }, 50) // just enough to give effect without adding discernible slowness
                 } else {
                     previewWindow.close();
                     document.open();
@@ -365,11 +368,11 @@ $(function() {
                 error output rather than giving a 'friendly' error message so that
                 developers can debug template errors. (On a production site, we'd
                 typically be serving a friendly custom 500 page anyhow.) */
+
                 previewWindow.document.open();
                 previewWindow.document.write(xhr.responseText);
                 previewWindow.document.close();
             }
         });
-        return false;
     });
 });
