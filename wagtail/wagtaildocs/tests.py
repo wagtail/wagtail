@@ -43,16 +43,13 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_index'), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
 
     def test_search(self):
-        response = self.get({'q': "Hello"})
+        response = self.client.get(reverse('wagtaildocs_index'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -100,7 +97,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_ordering(self):
         orderings = ['title', '-created_at']
         for ordering in orderings:
-            response = self.get({'ordering': ordering})
+            response = self.client.get(reverse('wagtaildocs_index'), {'ordering': ordering})
             self.assertEqual(response.status_code, 200)
 
 
@@ -108,11 +105,8 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_add_document'), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_add_document'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
 
@@ -126,11 +120,8 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # Create a document to edit
         self.document = models.Document.objects.create(title="Test document")
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
@@ -144,11 +135,8 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         # Create a document to delete
         self.document = models.Document.objects.create(title="Test document")
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
 
@@ -159,17 +147,14 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_chooser'), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
 
     def test_search(self):
-        response = self.get({'q': "Hello"})
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -222,11 +207,8 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
         # Create a document to choose
         self.document = models.Document.objects.create(title="Test document")
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
 
@@ -237,11 +219,8 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get(reverse('wagtaildocs_chooser_upload'), params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtaildocs_chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
