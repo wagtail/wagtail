@@ -126,56 +126,56 @@ def get_navigable_page_content_type_ids():
 
 
 class PageManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
     def live(self):
-        return self.get_query_set().live()
+        return self.get_queryset().live()
 
     def not_live(self):
-        return self.get_query_set().not_live()
+        return self.get_queryset().not_live()
 
     def page(self, other):
-        return self.get_query_set().page(other)
+        return self.get_queryset().page(other)
 
     def not_page(self, other):
-        return self.get_query_set().not_page(other)
+        return self.get_queryset().not_page(other)
 
     def descendant_of(self, other, inclusive=False):
-        return self.get_query_set().descendant_of(other, inclusive)
+        return self.get_queryset().descendant_of(other, inclusive)
 
     def not_descendant_of(self, other, inclusive=False):
-        return self.get_query_set().not_descendant_of(other, inclusive)
+        return self.get_queryset().not_descendant_of(other, inclusive)
 
     def child_of(self, other):
-        return self.get_query_set().child_of(other)
+        return self.get_queryset().child_of(other)
 
     def not_child_of(self, other):
-        return self.get_query_set().not_child_of(other)
+        return self.get_queryset().not_child_of(other)
 
     def ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().ancestor_of(other, inclusive)
+        return self.get_queryset().ancestor_of(other, inclusive)
 
     def not_ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().not_ancestor_of(other, inclusive)
+        return self.get_queryset().not_ancestor_of(other, inclusive)
 
     def parent_of(self, other):
-        return self.get_query_set().parent_of(other)
+        return self.get_queryset().parent_of(other)
 
     def not_parent_of(self, other):
-        return self.get_query_set().not_parent_of(other)
+        return self.get_queryset().not_parent_of(other)
 
     def sibling_of(self, other, inclusive=False):
-        return self.get_query_set().sibling_of(other, inclusive)
+        return self.get_queryset().sibling_of(other, inclusive)
 
     def not_sibling_of(self, other, inclusive=False):
-        return self.get_query_set().not_sibling_of(other, inclusive)
+        return self.get_queryset().not_sibling_of(other, inclusive)
 
     def type(self, model):
-        return self.get_query_set().type(model)
+        return self.get_queryset().type(model)
 
     def not_type(self, model):
-        return self.get_query_set().not_type(model)
+        return self.get_queryset().not_type(model)
 
 
 class PageBase(models.base.ModelBase):
@@ -697,8 +697,8 @@ class Orderable(models.Model):
 
 
 class SubmittedRevisionsManager(models.Manager):
-    def get_query_set(self):
-        return super(SubmittedRevisionsManager, self).get_query_set().filter(submitted_for_moderation=True)
+    def get_queryset(self):
+        return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
 class PageRevision(models.Model):
