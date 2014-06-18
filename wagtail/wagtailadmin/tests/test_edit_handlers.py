@@ -287,17 +287,6 @@ class TestFieldPanel(TestCase):
         self.assertRegexpMatches(result,
                                  '<p class="error-message">')
 
-    def test_render_js(self):
-        field = self.FakeField()
-        bound_field = self.FakeField()
-        widget = FriendlyDateInput()
-        field.widget = widget
-        bound_field.field = field
-        self.field_panel.bound_field = bound_field
-        result = self.field_panel.render_js()
-        self.assertEqual(result,
-                         "initFriendlyDateChooser(fixPrefix('id for label'));")
-
     def test_render_js_unknown_widget(self):
         field = self.FakeField()
         bound_field = self.FakeField()
