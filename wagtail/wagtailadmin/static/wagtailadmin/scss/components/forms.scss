@@ -68,6 +68,7 @@ input, textarea, select, .richtext, .tagit{
 }
 
 /* select boxes */
+.choice_field .input,
 .typed_choice_field .input{
     position:relative;
 
@@ -296,7 +297,7 @@ button.icon{
     > li{
         position:relative;
         background-color:white;
-        padding:1em 1.5em;
+        padding:1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
         margin-bottom:1em;
         border:1px solid lighten($color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
         @include border-radius(2px);
@@ -318,6 +319,7 @@ button.icon{
     /* Object controls */
     .controls{
         position:absolute;
+        z-index:1;
         right:1em;
         top:1em;
         color:white;
@@ -645,6 +647,13 @@ ul.tagit li.tagit-choice-editable{
     }
     .ui-icon-close:hover:before{
         color:$color-red
+    }
+}
+
+/* search-bars */
+.search-bar{
+    .required label:after{
+        display:none;
     }
 }
 

@@ -57,13 +57,11 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted([ContentType.objects.get_for_model(model_class) for model_class in parent_page.clean_subpage_types()], key=lambda pagetype: pagetype.name.lower())
-    all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
-        'all_page_types': all_page_types,
     })
 
 
@@ -364,6 +362,10 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
         page.set_url_path(parent_page)
 
+        # Set treebeard attributes
+        page.depth = parent_page.depth + 1
+        page.path = Page._get_children_path_interval(parent_page.path)[1]
+
         # This view will generally be invoked as an AJAX request; as such, in the case of
         # an error Django will return a plaintext response. This isn't what we want, since
         # we will be writing the response back to an HTML page regardless of success or
@@ -395,7 +397,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         return response
 
 
-def preview_placeholder(request):
+def preview(request):
     """
     The HTML of a previewed page is written to the destination browser window using document.write.
     This overwrites any previous content in the window, while keeping its URL intact. This in turn
@@ -416,8 +418,13 @@ def preview_placeholder(request):
     Since we're going to this trouble, we'll also take the opportunity to display a spinner on the
     placeholder page, providing some much-needed visual feedback.
     """
-    return render(request, 'wagtailadmin/pages/preview_placeholder.html')
+    return render(request, 'wagtailadmin/pages/preview.html')
 
+def preview_loading(request):
+    """
+    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
+    """
+    return HttpResponse("<html><head><title></title></head><body></body></html>")
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):

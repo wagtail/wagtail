@@ -16,14 +16,38 @@
         padding-bottom:1.3em;
         color:white;
     }
+
+    li:before{
+        margin-right:0.5em;
+        font-size:1.5em;
+        vertical-align:middle;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
     .error{
         background-color:$color-red;
+
+        &:before{
+            font-family:wagtail;
+            content:"!";
+        }
     }
     .warning{
         background-color:$color-orange;
+
+        &:before{
+            font-family:wagtail;
+            content:"!";
+        }
     }
     .success{
-        background-color:$color-teal-dark;
+        background-color:$color-green;
+
+        &:before{
+            font-family:wagtail;
+            content:"9";
+        }
     }
 }
 
@@ -46,6 +70,11 @@
         li{
             padding-left:$desktop-nice-padding;
             padding-right:$desktop-nice-padding;
+
+            &:before{
+                margin-left:-0.75em;
+            }
+
         }
         &:before{
             content: "";
