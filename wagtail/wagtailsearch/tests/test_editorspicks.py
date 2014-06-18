@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailsearch import models
 
@@ -50,24 +51,15 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/', params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtailsearch_editorspicks_index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
 
     def test_search(self):
-        response = self.get({'q': "Hello"})
+        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
-
-    def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
-        for page in pages:
-            response = self.get({'p': page})
-            self.assertEqual(response.status_code, 200)
 
     def make_editors_picks(self):
         for i in range(50):
@@ -119,11 +111,8 @@ class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/add/', params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtailsearch_editorspicks_add'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/add.html')
 
@@ -138,11 +127,8 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
         self.query = models.Query.get("Hello")
         self.query.editors_picks.create(page_id=1, description="Root page")
 
-    def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/', params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/edit.html')
 
@@ -157,11 +143,8 @@ class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
         self.query = models.Query.get("Hello")
         self.query.editors_picks.create(page_id=1, description="Root page")
 
-    def get(self, params={}):
-        return self.client.get('/admin/search/editorspicks/' + str(self.query.id) + '/delete/', params)
-
     def test_simple(self):
-        response = self.get()
+        response = self.client.get(reverse('wagtailsearch_editorspicks_delete', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/confirm_delete.html')
 
