@@ -1,5 +1,15 @@
 $zindex-modal-background: 500;
 
+.fade {
+    opacity: 0;
+    @include transition(opacity .15s linear);
+    
+    &.in {
+        opacity: 1;
+    }
+}
+
+
 // Kill the scroll on the body
 .modal-open {
     overflow: hidden;
@@ -70,7 +80,7 @@ $zindex-modal-background: 500;
     background-color: black;
     // Fade for backdrop
     &.fade { opacity:0; }
-    &.in { opacity:0.7; }
+    &.in { opacity:0.5; }
 }
 
 .modal .close{

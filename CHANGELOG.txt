@@ -1,6 +1,27 @@
 Changelog
 =========
 
+0.4 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~
+ * Added 'original' as a resizing rule supported by the 'image' tag
+ * Hallo.js updated to version 1.0.4
+ * Snippets are now ordered alphabetically
+ * Removed the "More" section from the admin menu
+ * Added pagination to page listings in admin
+ * Support for setting a subpage_types property on page models, to define which page types are allowed as subpages
+ * Added a new datetime picker
+ * Added styleguide
+ * Aesthetic improvements to preview experience
+ * Fix: Animated GIFs are now coalesced before resizing
+ * Fix: Wand backend clones images before modifying them
+ * Fix: Admin breadcrumb now positioned correctly on mobile
+
+0.3.1 (03.06.2014)
+~~~~~~~~~~~~~~~~~~
+ * Fix: When constructing dummy requests for pages with no routable URL, fall back on a hostname from ALLOWED_HOSTS and finally 'localhost', to avoid 'Invalid HTTP_HOST header' errors on preview when DEBUG=False.
+ * Fix: Ensure that url_path is populated when previewing a newly created page, to avoid unnecessarily taking the above fallback.
+ * Fix: Deleting an item from an InlinePanel, then generating a validation error on saving, no longer causes the deleted item to confusingly reappear with an error of its own.
+
 0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end

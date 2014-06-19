@@ -257,16 +257,53 @@ FormPage.content_panels = [
 
 # Snippets
 
+# Snippets
+
 class Advert(models.Model):
-  url = models.URLField(null=True, blank=True)
-  text = models.CharField(max_length=255)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
 
-  panels = [
-    FieldPanel('url'),
-    FieldPanel('text'),
-  ]
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
 
-  def __unicode__(self):
-    return self.text
+    def __unicode__(self):
+        return self.text
+
 
 register_snippet(Advert)
+
+
+# AlphaSnippet and ZuluSnippet are for testing ordering of
+# snippets when registering.  They are named as such to ensure
+# thier ordering is clear.  They are registered during testing
+# to ensure specific [in]correct register ordering
+
+# AlphaSnippet is registered during TestSnippetOrdering
+class AlphaSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text
+
+
+# ZuluSnippet is registered during TestSnippetOrdering
+class ZuluSnippet(models.Model):
+    text = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.text
+
+
+class StandardIndex(Page):
+    pass
+
+class StandardChild(Page):
+    pass
+
+class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild']
+
+class BusinessChild(Page):
+    subpage_types = []
