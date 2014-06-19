@@ -195,9 +195,20 @@ class EditHandler(object):
         return ""
 
     def field_classnames(self):
+        classname = self.field_type() + "test"
+        
+        if self.bound_field.field.required:
+            classname += " required"
+        if self.bound_field.errors:
+            classname += " error"
+
+        return classname
+
+
+    def input_classnames(self):
         """
-        Additional classnames to add to the <li> when rendering this within a
-        <ul class="fields">
+        Additional classnames to add to the .input surrounding the input field.
+        Mainly used to identify certain field types boolean_field, url_field, date_field etc
         """
         return ""
 
@@ -367,16 +378,7 @@ class BaseFieldPanel(EditHandler):
     def field_type(self):
         return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
 
-    def field_classnames(self):
-        classname = self.field_type()
-        if self.bound_field.field.required:
-            classname += " required"
-        if self.bound_field.errors:
-            classname += " error"
-
-        return classname
-
-    object_template = "wagtailadmin/edit_handlers/field_panel_object.html"
+    object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {

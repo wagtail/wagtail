@@ -8,7 +8,7 @@
                 <form class="col search-form" action="{% url search_url %}" method="get">
                     <ul class="fields">
                         {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field input_classes="field-small iconfield icon-search" %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
                         {% endfor %}
                         <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
                     </ul>

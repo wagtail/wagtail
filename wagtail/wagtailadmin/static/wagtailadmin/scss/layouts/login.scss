@@ -44,6 +44,7 @@ form{
     }
 }
     label{
+        width:auto;
         color:white;
     }
     input[type=submit]{
@@ -85,22 +86,7 @@ form{
         }
         .iconfield:before{
             display:none;
-        }
-
-    .full label{
-        @include border-radius(2px);
-        text-transform:uppercase;
-        padding:2px 5px;
-        position:absolute;
-        top:0;
-        left:0;
-        margin-top:-1px;
-        font-size:0.7em;
-        z-index:1;
-        margin:0.2em 0;
-        line-height:1.5em;
-        font-weight:normal;
-    }
+        }   
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     .full input{

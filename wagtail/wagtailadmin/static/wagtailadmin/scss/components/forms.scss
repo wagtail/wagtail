@@ -419,43 +419,85 @@ li.focused > .help{
 .boolean_field .help, .radio .help{
     opacity:1;
 }
-.iconfield {
-    position:relative;
+
+/* 
+    This is expected to go on the parent of the input/select/textarea
+    so in most cases .input
+*/
+.iconfield, /* generic */
+.date_field,
+.time_field,
+.date_time_field,
+.url_field{
+    .input{
+        position:relative;
+
+        &:before, &:after{
+            font-family:wagtail;
+            position:absolute;
+            top:0.5em;
+            line-height:100%;
+            font-size:2em;
+            color:$color-grey-3;
+        }
+        &:before{
+            left:0.3em;
+        }
+        &:after{
+            right:0.5em;
+        }
+    }
 
     input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]){
         padding-left:2.5em;
     }
 
-    &:before, &:after{
-        font-family:wagtail;
-        position:absolute;
-        top:0.4em;
-        font-size:1.4em;
-        color:$color-grey-3;
-    }
-    &:before{
-        left:0.5em;
-    }
-    &:after{
-        right:0.5em;
+    /* smaller fields required slight repositioning of icons */
+    &.field-small{
+        .input{
+            &:before, &:after{
+                font-size:1.5em;
+                top:0.3em;
+            }
+            &:before{
+                left:0.5em;
+            }
+            &:after{
+                right:0.5em;
+            }
+        }
     }
 
     /* special case for search spinners */
     &.icon-spinner:after{
         color:$color-teal;
         opacity:0.8;
-        font-size:20px;
-        width:20px;
-        height:20px;
-        line-height:23px;
         text-align:center;
         top:0.3em;
+    }
+}
 
+.date_field,
+.date_time_field{
+    .input:before{
+        @extend .icon-date:before;
+    }
+}
+
+.time_field{
+    .input:before{
+        @extend .icon-time:before;
+    }
+}
+
+.url_field{
+    .input:before{
+        @extend .icon-link:before;
     }
 }
 
 
-.fields li{
+.fields > li{
     @include clearfix();
     padding-top:0.5em;
     padding-bottom:1.2em;
@@ -679,17 +721,16 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include column(2);
         padding-top:1.2em;
         padding-left:0;
+    }
 
-        .model_multiple_choice_field &,
-        .boolean_field &,
-        .model_choice_field &,
-        .image_field &,
-        .file_field &{
+    /* these fields are formatted differently and label alignment must change */
+    .model_multiple_choice_field,
+    .boolean_field,
+    .model_choice_field,
+    .image_field,
+    .file_field{
+        label{
             padding-top:0;
-        }
-
-        .boolean_field &{
-            padding-bottom:0;
         }
     }
 
@@ -721,5 +762,5 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     .field-content{
         @include column(10);
         padding-right:0;
-    }
+    }   
 }
