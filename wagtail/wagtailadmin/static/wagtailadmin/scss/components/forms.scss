@@ -1,3 +1,9 @@
+/* 
+    These are the generic stylings for forms of any type. 
+    If you're styling something specific to the page editing interface,
+    it probably ought to go in layouts/page-editor.scss
+*/
+
 form {
     ul, li{
         list-style-type:none;
@@ -292,6 +298,7 @@ button.icon{
     overflow:hidden;
 
     > li{
+        @include row();
         position:relative;
         background-color:white;
         padding:1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
@@ -446,6 +453,7 @@ li.focused > .help{
 
     }
 }
+
 
 .fields li{
     @include row();

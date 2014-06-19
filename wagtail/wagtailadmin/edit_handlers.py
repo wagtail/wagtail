@@ -602,17 +602,30 @@ def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
     })
 
 
+# This allows users to include the publishing panel in their own per-model override
+# without having to write these fields out by hand, potentially losing 'classname' 
+# and therefore the associated styling of the publishing panel
+def PublishingPanel():
+    return MultiFieldPanel([
+        FieldPanel('go_live_at'),
+        FieldPanel('expire_at'),
+    ], ugettext_lazy('Scheduled publishing'), classname="publishing")
+
+
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 Page.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
+
 Page.promote_panels = [
     MultiFieldPanel([
         FieldPanel('slug'),
         FieldPanel('seo_title'),
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
-        FieldPanel('go_live_at'),
-        FieldPanel('expire_at'),
     ], ugettext_lazy('Common page configuration')),
+]
+
+Page.settings_panels = [
+    PublishingPanel()
 ]

@@ -2,7 +2,6 @@
     @include row();
     padding:0;
     background:$color-grey-4;
-    overflow:hidden;
 
     li{
         list-style-type:none;
@@ -22,10 +21,10 @@
         text-decoration:none;
         display:block;
         padding:0.7em;
-        padding-bottom:1em;
-        margin-bottom:-0.3em;
         color:white;
         border-top:0.3em solid lighten($color-teal-darker, 3%);
+        max-height:1.2em;
+        overflow:hidden;
 
         &:hover{
             color:white;
