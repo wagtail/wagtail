@@ -10,7 +10,7 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
-from django.utils.html import escape
+from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 
@@ -242,8 +242,12 @@ class AbstractRendition(models.Model):
             'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
         )
 
-    def img_tag(self):
-        return mark_safe('<img %s>' % self.attrs)
+    def img_tag(self, extra_attributes=None):
+        if extra_attributes:
+            extra_attributes_string = format_html_join(' ', '{0}="{1}"', extra_attributes.items())
+            return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
+        else:
+            return mark_safe('<img %s>' % self.attrs)
 
     class Meta:
         abstract = True
