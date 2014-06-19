@@ -581,7 +581,8 @@ def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
         PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
             ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote')
+            ObjectList(page_class.promote_panels, heading='Promote'),
+            ObjectList(page_class.settings_panels, heading='Settings', classes="tab-right settings")
         ])
 
     return PAGE_EDIT_HANDLERS[page_class]

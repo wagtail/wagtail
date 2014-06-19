@@ -140,6 +140,10 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
+def set_page_edit_handler(page_class, handlers):
+    page_class.handlers = handlers
+
+
 class EditHandler(object):
     """
     Abstract class providing sensible default behaviours for objects implementing
@@ -326,10 +330,11 @@ class BaseObjectList(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
-def ObjectList(children, heading=""):
+def ObjectList(children, heading="", classes=""):
     return type('_ObjectList', (BaseObjectList,), {
         'children': children,
         'heading': heading,
+        'classes': classes
     })
 
 

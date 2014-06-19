@@ -6,9 +6,6 @@ form {
         margin:0;
         padding:0;
     }
-    li{
-        @include row();
-    }
 }
 
 fieldset{
@@ -451,6 +448,7 @@ li.focused > .help{
 }
 
 .fields li{
+    @include row();
     padding-top:0.5em;
     padding-bottom:1.2em;
 }
