@@ -12,6 +12,7 @@ Changelog
  * Added a new datetime picker widget
  * Added styleguide (mainly for wagtail developers)
  * Aesthetic improvements to preview experience
+ * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
  * Added an 'attrs' property to image rendition objects to output src, width, height and alt attributes all in one go
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
