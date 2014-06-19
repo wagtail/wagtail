@@ -90,6 +90,9 @@ In addition to Django's standard tags and filters, Wagtail provides some of its 
 Images (tag)
 ~~~~~~~~~~~~
 
+.. versionchanged:: 0.4
+    The 'image_tags' tags library was renamed to 'wagtailimages_tags'
+
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
 The syntax for the tag is thus::
@@ -203,6 +206,9 @@ In some cases greater control over the ``img`` tag is required, for example to a
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
+.. versionchanged:: 0.4
+    The 'rich_text' tags library was renamed to 'wagtailcore_tags'
+
 This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly it also expands internal shorthand references to embedded images and links made in the Wagtail editor into fully-baked HTML ready for display.
 
 Only fields using ``RichTextField`` need this applied in the template.
@@ -244,6 +250,9 @@ Wagtail embeds and images are included at their full width, which may overflow t
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
+
+.. versionchanged:: 0.4
+    The 'pageurl' tags library was renamed to 'wagtailcore_tags'
 
 pageurl
 --------
