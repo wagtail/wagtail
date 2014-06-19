@@ -497,17 +497,20 @@ li.focused > .help{
 }
 
 
+/* This is specifically for model that are a generated set of checkboxes/radios */
+.model_multiple_choice_field .input li,
+.choice_field .input li{
+    label{
+        display:block;
+        width:auto;
+        float:none;
+    }
+}
+
 .fields > li{
     @include clearfix();
     padding-top:0.5em;
     padding-bottom:1.2em;
-}
-
-.field-content .input li{
-    label{
-        width:auto;
-        float:none;
-    }
 }
 
 .input{

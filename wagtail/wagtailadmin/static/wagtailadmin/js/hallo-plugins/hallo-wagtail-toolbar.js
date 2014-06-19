@@ -33,6 +33,7 @@
         }
       },
       _getPosition: function(event, selection) {
+        alert('here');
         var offset, position, width;
         if (!event) {
           return;
