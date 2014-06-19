@@ -100,7 +100,7 @@ For example:
 
 .. code-block:: django
 
-    {% load image %}
+    {% load wagtailimages_tags %}
     ...
 
     {% image self.photo width-400 %}
@@ -190,7 +190,7 @@ In some cases greater control over the ``img`` tag is required, for example to a
 
 .. code-block:: django
     
-    {% load image %}
+    {% load wagtailimages_tags %}
     ...
     {% image self.photo width-400 as tmp_photo %}
 
@@ -209,7 +209,7 @@ Only fields using ``RichTextField`` need this applied in the template.
 
 .. code-block:: django
 
-    {% load rich_text %}
+    {% load wagtailcore_tags %}
     ...
     {{ self.body|richtext }}
 
@@ -252,7 +252,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 
 .. code-block:: django
 
-    {% load pageurl %}
+    {% load wagtailcore_tags %}
     ...
     <a href="{% pageurl self.blog_page %}">
 
@@ -263,7 +263,7 @@ Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for 
 
 .. code-block:: django
 
-    {% load slugurl %}
+    {% load wagtailcore_tags %}
     ...
     <a href="{% slugurl self.your_slug %}">
 
