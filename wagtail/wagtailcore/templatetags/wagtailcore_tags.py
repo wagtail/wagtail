@@ -1,6 +1,8 @@
 from django import template
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.rich_text import expand_db_html
 
 register = template.Library()
 
@@ -23,3 +25,8 @@ def slugurl(context, slug):
         return page.relative_url(context['request'].site)
     else:
         return None
+
+
+@register.filter
+def richtext(value):
+    return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')

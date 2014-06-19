@@ -2,7 +2,7 @@ import warnings
 
 warnings.warn(
     "The rich_text tags has been renamed. "
-    "Use wagtailrichtext_tags instead.", DeprecationWarning)
+    "Use wagtailcore_tags instead.", DeprecationWarning)
 
 
-from wagtail.wagtailcore.templatetags.wagtailrichtext_tags import register
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import register
