@@ -9,6 +9,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 
 from wagtail.wagtailadmin import forms
+from wagtail.wagtailusers.forms import NotificationPreferencesForm
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -39,6 +40,24 @@ def change_password(request):
     return render(request, 'wagtailadmin/account/change_password.html', {
         'form': form,
         'can_change_password': can_change_password,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def notification_preferences(request):
+
+    if request.POST:
+        form = NotificationPreferencesForm(request.POST, instance=request.user.get_profile())
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = NotificationPreferencesForm(instance=request.user.get_profile())
+
+    return render(request, 'wagtailadmin/account/notification_preferences.html', {
+        'form': form,
     })
 
 

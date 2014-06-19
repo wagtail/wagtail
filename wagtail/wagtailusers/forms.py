@@ -1,9 +1,8 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
-User = get_user_model()
+from wagtail.wagtailusers.models import User, UserProfile
 
 
 # extend Django's UserCreationForm with an 'is_superuser' field
@@ -130,3 +129,9 @@ class UserEditForm(forms.ModelForm):
             user.save()
             self.save_m2m()
         return user
+
+
+class NotificationPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("submitted_notifications", "approved_notifications", "rejected_notifications")
