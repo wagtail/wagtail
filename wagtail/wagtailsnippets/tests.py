@@ -70,8 +70,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
                                         'url': 'http://www.example.com/'})
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='test_advert')
         self.assertEqual(snippets.count(), 1)
@@ -120,8 +119,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
                                         'url': 'http://www.example.com/edited'})
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='edited_test_advert')
         self.assertEqual(snippets.count(), 1)
@@ -146,8 +144,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
 
         # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)

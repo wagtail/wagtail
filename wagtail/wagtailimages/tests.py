@@ -253,8 +253,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -293,8 +292,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
@@ -328,8 +326,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
