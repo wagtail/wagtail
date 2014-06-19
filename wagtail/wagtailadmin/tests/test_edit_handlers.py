@@ -1,6 +1,8 @@
 from mock import MagicMock
 
 from django.test import TestCase
+from django.core.exceptions import ImproperlyConfigured
+from django.forms.widgets import HiddenInput
 
 from wagtail.wagtailadmin.edit_handlers import (
     get_form_for_model,
@@ -15,7 +17,8 @@ from wagtail.wagtailadmin.edit_handlers import (
     TabbedInterface,
     BaseObjectList,
     ObjectList,
-    PageChooserPanel
+    PageChooserPanel,
+    InlinePanel
 )
 from wagtail.wagtailcore.models import Page, Site
 
@@ -144,7 +147,7 @@ class TestBaseCompositeEditHandler(TestCase):
             form=True)
 
     def tearDown(self):
-        BaseCompositeEditHandler.children = None
+        del BaseCompositeEditHandler.children
 
     def test_object_classnames_no_classname(self):
         result = self.base_composite_edit_handler.object_classnames()
@@ -184,9 +187,10 @@ class TestBaseTabbedInterface(TestCase):
             instance=True,
             form=True)
         result = self.base_tabbed_interface.render()
-        self.assertRegexpMatches(result, '<ul')
-        self.assertRegexpMatches(result, '<li')
-        self.assertRegexpMatches(result, '<div')
+        self.assertIn('<ul', result)
+        self.assertIn('<li', result)
+        self.assertIn('<div', result)
+        del BaseTabbedInterface.children
 
     def test_render_js(self):
         fake_child = self.FakeChild()
@@ -196,6 +200,7 @@ class TestBaseTabbedInterface(TestCase):
             form=True)
         result = self.base_tabbed_interface.render_js()
         self.assertEqual(result, "foo")
+        del BaseTabbedInterface.children
 
     def test_rendered_fields(self):
         fake_child = self.FakeChild()
@@ -205,6 +210,7 @@ class TestBaseTabbedInterface(TestCase):
             form=True)
         result = self.base_tabbed_interface.rendered_fields()
         self.assertEqual(result, ["bar"])
+        del BaseTabbedInterface.children
 
 
 class TestTabbedInterface(TestCase):
@@ -280,12 +286,12 @@ class TestFieldPanel(TestCase):
 
     def test_render_as_object(self):
         result = self.field_panel.render_as_object()
-        self.assertRegexpMatches(result,
-                                 '<legend>label</legend>')
-        self.assertRegexpMatches(result,
-                                 '<li class="fake_class error">')
-        self.assertRegexpMatches(result,
-                                 '<p class="error-message">')
+        self.assertIn('<legend>label</legend>',
+                      result)
+        self.assertIn('<li class="fake_class error">',
+                      result)
+        self.assertIn('<p class="error-message">',
+                      result)
 
     def test_render_js_unknown_widget(self):
         field = self.FakeField()
@@ -304,10 +310,10 @@ class TestFieldPanel(TestCase):
         bound_field.field = field
         self.field_panel.bound_field = bound_field
         result = self.field_panel.render_as_field()
-        self.assertRegexpMatches(result,
-                                 '<p class="help">help text</p>')
-        self.assertRegexpMatches(result,
-                                 '<span>errors</span>')
+        self.assertIn('<p class="help">help text</p>',
+                      result)
+        self.assertIn('<span>errors</span>',
+                      result)
 
     def test_rendered_fields(self):
         result = self.field_panel.rendered_fields()
@@ -343,13 +349,14 @@ class TestPageChooserPanel(TestCase):
             class FakeParent(object):
                 id = 1
 
+            name = 'fake page'
+
             def get_parent(self):
                 return self.FakeParent()
 
         def __init__(self):
             fake_page = self.FakePage()
             self.barbecue = fake_page
-
 
     def setUp(self):
         fake_field = self.FakeField()
@@ -360,4 +367,140 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js(self):
         result = self.page_chooser_panel.render_js()
-        self.assertEqual(result, "createPageChooser(fixPrefix('id for label'), 'wagtailcore.page', 1);")
+        self.assertEqual(result,
+                         "createPageChooser(fixPrefix('id for label'), 'wagtailcore.page', 1);")
+
+    def test_get_chosen_item(self):
+        result = self.page_chooser_panel.get_chosen_item()
+        self.assertEqual(result.name, 'fake page')
+
+    def test_render_as_field(self):
+        result = self.page_chooser_panel.render_as_field()
+        self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn('<span>errors</span>', result)
+
+    def test_widget_overrides(self):
+        result = self.page_chooser_panel.widget_overrides()
+        self.assertEqual(result, {'barbecue': HiddenInput})
+
+    def test_target_content_type(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'wagtailcore.site'
+        ).target_content_type()
+        self.assertEqual(result.name, 'site')
+
+    def test_target_content_type_malformed_type(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'snowman'
+        )
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
+
+    def test_target_content_type_nonexistent_type(self):
+        result = PageChooserPanel(
+            'barbecue',
+            'snowman.lorry'
+        )
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
+
+
+class TestInlinePanel(TestCase):
+    class FakeField(object):
+        class FakeFormset(object):
+            class FakeForm(object):
+                class FakeInstance(object):
+                    def __repr__(self):
+                        return 'fake instance'
+                fields = {'DELETE': MagicMock(),
+                          'ORDER': MagicMock()}
+                instance = FakeInstance()
+
+                def __repr__(self):
+                    return 'fake form'
+
+            forms = [FakeForm()]
+            empty_form = FakeForm()
+            can_order = True
+
+        label = 'label'
+        help_text = 'help text'
+        errors = ['errors']
+        id_for_label = 'id for label'
+        formsets = {'formset': FakeFormset()}
+
+    class FakeInstance(object):
+        class FakePage(object):
+            class FakeParent(object):
+                id = 1
+
+            name = 'fake page'
+
+            def get_parent(self):
+                return self.FakeParent()
+
+        def __init__(self):
+            fake_page = self.FakePage()
+            self.barbecue = fake_page
+
+    def setUp(self):
+        self.fake_field = self.FakeField()
+        self.fake_instance = self.FakeInstance()
+        self.mock_panel = MagicMock()
+        self.mock_panel.name = 'mock panel'
+        self.mock_model = MagicMock()
+        self.mock_model.formset.related.model.panels = [self.mock_panel]
+
+    def test_get_panel_definitions_no_panels(self):
+        """
+        Check that get_panel_definitions returns the panels set on the model
+        when no panels are set on the InlinePanel
+        """
+        inline_panel = InlinePanel(self.mock_model, 'formset')(
+            instance=self.fake_instance,
+            form=self.fake_field)
+        result = inline_panel.get_panel_definitions()
+        self.assertEqual(result[0].name, 'mock panel')
+        expected_calls = '[call(instance=fake instance, form=fake form),\n call(instance=fake instance, form=fake form)]'
+        self.assertEqual(str(self.mock_panel.mock_calls), expected_calls)
+
+    def test_get_panel_definitions(self):
+        """
+        Check that get_panel_definitions returns the panels set on
+        InlinePanel
+        """
+        other_mock_panel = MagicMock()
+        other_mock_panel.name = 'other mock panel'
+        inline_panel = InlinePanel(self.mock_model,
+                                   'formset',
+                                   panels=[other_mock_panel])(
+            instance=self.fake_instance,
+            form=self.fake_field)
+        result = inline_panel.get_panel_definitions()
+        self.assertEqual(result[0].name, 'other mock panel')
+        expected_calls = '[call(instance=fake instance, form=fake form),\n call(instance=fake instance, form=fake form)]'
+        self.assertEqual(str(other_mock_panel.mock_calls), expected_calls)
+
+    def test_required_formsets(self):
+        inline_panel = InlinePanel(self.mock_model, 'formset')(
+            instance=self.fake_instance,
+            form=self.fake_field)
+        self.assertEqual(inline_panel.required_formsets(), ['formset'])
+
+    def test_render(self):
+        inline_panel = InlinePanel(self.mock_model,
+                                   'formset',
+                                   label='foo')(
+            instance=self.fake_instance,
+            form=self.fake_field)
+        self.assertIn('Add foo', inline_panel.render())
+
+    def test_render_js(self):
+        inline_panel = InlinePanel(self.mock_model,
+                                   'formset')(
+            instance=self.fake_instance,
+            form=self.fake_field)
+        self.assertIn('var panel = InlinePanel({',
+                      inline_panel.render_js())
