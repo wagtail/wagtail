@@ -68,8 +68,8 @@ class AbstractImage(models.Model, TagSearchable):
         except ObjectDoesNotExist:
             file_field = self.file
 
-			# If we have a backend attribute then pass it to process
-			# image - else pass 'default'
+            # If we have a backend attribute then pass it to process
+            # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
             generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
 
