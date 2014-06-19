@@ -43,8 +43,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_login'), post_data)
 
         # Check that the user was redirected to the dashboard
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
         # Check that the user was logged in
         self.assertTrue('_auth_user_id' in self.client.session)
@@ -60,8 +59,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_login'))
 
         # Check that the user was redirected to the dashboard
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_logout(self):
         """
@@ -71,8 +69,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_logout'))
 
         # Check that the user was redirected to the login page
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_login'))
+        self.assertRedirects(response, reverse('wagtailadmin_login'))
 
         # Check that the user was logged out
         self.assertFalse('_auth_user_id' in self.client.session)
@@ -89,8 +86,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
 
         # Check that the user was redirected to the login page and that next was set correctly
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
     def test_not_logged_in_redirect_default_settings(self):
         """
@@ -109,7 +105,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Note: The user will be redirected to 'django.contrib.auth.views.login' but
         # this must be the same URL as 'wagtailadmin_login'
         self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
 
 
 class TestAccountSection(TestCase, WagtailTestUtils):
@@ -154,8 +150,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
 
         # Check that the user was redirected to the account page
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailadmin_account'))
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
         self.assertTrue(User.objects.get(username='test').check_password('newpassword'))
@@ -214,8 +209,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('password_reset'), post_data)
 
         # Check that the user was redirected to the done page
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('password_reset_done'))
+        self.assertRedirects(response, reverse('password_reset_done'))
 
         # Check that a password reset email was sent to the user
         self.assertEqual(len(mail.outbox), 1)
@@ -306,8 +300,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('password_reset_confirm', kwargs=self.url_kwargs), post_data)
 
         # Check that the user was redirected to the complete page
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('password_reset_complete'))
+        self.assertRedirects(response, reverse('password_reset_complete'))
 
         # Check that the password was changed
         self.assertTrue(User.objects.get(username='test').check_password('newpassword'))

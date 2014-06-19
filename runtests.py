@@ -84,6 +84,7 @@ if not settings.configured:
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
             'wagtail.wagtailforms',
+            'wagtail.contrib.wagtailstyleguide',
             'wagtail.tests',
         ],
 
