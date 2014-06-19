@@ -210,6 +210,20 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('alt="Test image"' in result)
 
+    def render_image_tag_with_extra_attributes(self, image, title):
+        temp = template.Template('{% load image_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        context = template.Context({'image_obj': image, 'title': title})
+        return temp.render(context)
+
+    def test_image_tag_with_extra_attributes(self):
+        result = self.render_image_tag_with_extra_attributes(self.image, 'My Wonderful Title')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('class="photo"' in result)
+        self.assertTrue('title="my wonderful title"' in result)
+
 ## ===== ADMIN VIEWS =====
 
 
