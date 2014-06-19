@@ -1,0 +1,3 @@
+{% load i18n %}{% block notification %}{% endblock %}
+
+{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}
