@@ -79,7 +79,7 @@
         -webkit-font-smoothing: auto;
         background:$color-salmon-light;
         text-transform:uppercase;
-        padding:0.9em 0 0.9em 4em;
+        padding:0.9em 0 0.9em 4.1em;
         font-size:0.95em;
         margin:0 0 0.2em 0;
         line-height:1.5em;
@@ -188,9 +188,9 @@
     &.publishing{
         h2:before{
             content:"7";
-            font-size:2.5em;
+            font-size:2.4em;
             line-height:1.4em;
-            width:1.3em;
+            width:1.4em;
         }
        
     }
