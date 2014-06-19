@@ -5,6 +5,8 @@ specific rules.
 from bs4 import BeautifulSoup, NavigableString, Tag
 from urlparse import urlparse
 
+from wagtail.wagtailadmin import hooks
+
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
 
@@ -65,7 +67,8 @@ class Whitelister(object):
         'h6': allow_without_attributes,
         'hr': allow_without_attributes,
         'i': allow_without_attributes,
-        'img': attribute_rule({'src': check_url, 'width': True, 'height': True, 'alt': True}),
+        'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
+                               'alt': True}),
         'li': allow_without_attributes,
         'ol': allow_without_attributes,
         'p': allow_without_attributes,
@@ -77,7 +80,12 @@ class Whitelister(object):
 
     @classmethod
     def clean(cls, html):
-        """Clean up an HTML string to contain just the allowed elements / attributes"""
+        """Clean up an HTML string to contain just the allowed elements /
+        attributes"""
+        for fn in hooks.get_hooks('construct_whitelister_element_rules'):
+            cls.element_rules = dict(
+                cls.element_rules.items() + fn().items())
+
         doc = BeautifulSoup(html, 'lxml')
         cls.clean_node(doc, doc)
         return unicode(doc)
