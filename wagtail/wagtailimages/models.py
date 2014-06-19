@@ -236,10 +236,14 @@ class AbstractRendition(models.Model):
     def url(self):
         return self.file.url
 
-    def img_tag(self):
+    @property
+    def attrs(self):
         return mark_safe(
-            '<img src="%s" width="%d" height="%d" alt="%s">' % (escape(self.url), self.width, self.height, escape(self.image.title))
+            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
         )
+
+    def img_tag(self):
+        return mark_safe('<img %s>' % self.attrs)
 
     class Meta:
         abstract = True

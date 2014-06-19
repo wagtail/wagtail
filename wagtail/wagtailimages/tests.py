@@ -197,6 +197,18 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('alt="Test image"' in result)
 
+    def render_image_tag_as(self, image, filter_spec):
+        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        context = template.Context({'image_obj': image})
+        return temp.render(context)
+
+    def test_image_tag_attrs(self):
+        result = self.render_image_tag_as(self.image, 'width-400')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('alt="Test image"' in result)
 
 ## ===== ADMIN VIEWS =====
 
