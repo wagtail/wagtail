@@ -38,7 +38,7 @@ class DBSearch(BaseSearch):
 
         # Get fields
         if fields is None:
-            fields = model.indexed_get_indexed_fields().keys()
+            fields = [field.field_name for field in model.get_searchable_search_fields()]
 
         # Start will all objects
         query = model.objects.all()
