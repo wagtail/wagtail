@@ -49,7 +49,7 @@ class Indexed(object):
             if isinstance(indexed_fields, string_types):
                 indexed_fields = [indexed_fields]
             if isinstance(indexed_fields, list):
-                indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
+                indexed_fields = dict((field, dict(type='string')) for field in indexed_fields)
             if not isinstance(indexed_fields, dict):
                 raise ValueError()
 
@@ -139,7 +139,7 @@ class BaseField(object):
         return self.get_attname(cls) + self.suffix
 
     def __repr__(self):
-        return "<%s: %s>" % (self.__class__.__name__, self.field_name)
+        return '<%s: %s>' % (self.__class__.__name__, self.field_name)
 
 
 class SearchField(BaseField):
