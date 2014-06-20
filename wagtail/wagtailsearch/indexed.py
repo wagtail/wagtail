@@ -65,28 +65,6 @@ class Indexed(object):
             indexed_fields = parent_indexed_fields
         return indexed_fields
 
-    def indexed_get_document_id(self):
-        return self.indexed_get_toplevel_content_type() + ":" + str(self.pk)
-
-    def indexed_build_document(self):
-        # Get content type, indexed fields and id
-        content_type = self.indexed_get_content_type()
-        indexed_fields = self.indexed_get_indexed_fields()
-        doc_id = self.indexed_get_document_id()
-
-        # Build document
-        doc = dict(pk=str(self.pk), content_type=content_type, id=doc_id)
-        for field in indexed_fields.keys():
-            if hasattr(self, field):
-                doc[field] = getattr(self, field)
-
-                # Check if this field is callable
-                if hasattr(doc[field], "__call__"):
-                    # Call it
-                    doc[field] = doc[field]()
-
-        return doc
-
     indexed_fields = ()
 
 

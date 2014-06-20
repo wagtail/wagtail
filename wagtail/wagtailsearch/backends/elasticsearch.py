@@ -40,10 +40,25 @@ class ElasticSearchMapping(object):
         }
 
     def get_document_id(self, obj):
-        return obj.indexed_build_document()['id']
+        return obj.indexed_get_toplevel_content_type() + ':' + str(obj.pk)
 
     def get_document(self, obj):
-        return obj.indexed_build_document()
+        # Get content type, indexed fields and id
+        content_type = obj.indexed_get_content_type()
+        indexed_fields = obj.indexed_get_indexed_fields()
+
+        # Build document
+        doc = dict(pk=str(obj.pk), content_type=content_type)
+        for field in indexed_fields.keys():
+            if hasattr(obj, field):
+                doc[field] = getattr(obj, field)
+
+                # Check if this field is callable
+                if hasattr(doc[field], "__call__"):
+                    # Call it
+                    doc[field] = doc[field]()
+
+        return doc
 
     def __repr__(self):
         return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
