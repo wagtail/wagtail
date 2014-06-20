@@ -45,6 +45,9 @@ class ElasticSearchMapping(object):
     def get_document(self, obj):
         return obj.indexed_build_document()
 
+    def __repr__(self):
+        return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
+
 
 class ElasticSearchQuery(object):
     def __init__(self, model, query_string, fields=None, filters={}):
