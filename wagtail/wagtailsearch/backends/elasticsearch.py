@@ -12,6 +12,40 @@ from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
+class ElasticSearchMapping(object):
+    def __init__(self, model):
+        self.model = model
+
+    def get_document_type(self):
+        return self.model.indexed_get_content_type()
+
+    def get_mapping(self):
+        # Get type name
+        content_type = self.get_document_type()
+
+        # Get indexed fields
+        indexed_fields = self.model.indexed_get_indexed_fields()
+
+        # Make field list
+        fields = {
+            'pk': dict(type='string', index='not_analyzed', store='yes'),
+            'content_type': dict(type='string'),
+        }
+        fields.update(indexed_fields)
+
+        return {
+            content_type: {
+                'properties': fields,
+            }
+        }
+
+    def get_document_id(self, obj):
+        return obj.indexed_build_document()['id']
+
+    def get_document(self, obj):
+        return obj.indexed_build_document()
+
+
 class ElasticSearchQuery(object):
     def __init__(self, model, query_string, fields=None, filters={}):
         self.model = model
@@ -330,25 +364,11 @@ class ElasticSearch(BaseSearch):
         self.es.indices.create(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
-        # Get type name
-        content_type = model.indexed_get_content_type()
-
-        # Get indexed fields
-        indexed_fields = model.indexed_get_indexed_fields()
-
-        # Make field list
-        fields = {
-            "pk": dict(type="string", index="not_analyzed", store="yes"),
-            "content_type": dict(type="string"),
-        }
-        fields.update(indexed_fields)
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.es_index, doc_type=content_type, body={
-            content_type: {
-                "properties": fields,
-            }
-        })
+        self.es.indices.put_mapping(index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
 
     def refresh_index(self):
         self.es.indices.refresh(self.es_index)
@@ -358,11 +378,11 @@ class ElasticSearch(BaseSearch):
         if not self.object_can_be_indexed(obj):
             return
 
-        # Build document
-        doc = obj.indexed_build_document()
+        # Get mapping
+        mapping = ElasticSearchMapping(obj.__class__)
 
-        # Add to index
-        self.es.index(self.es_index, obj.indexed_get_content_type(), doc, id=doc["id"])
+        # Add document to index
+        self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
 
     def add_bulk(self, obj_list):
         # Group all objects by their type
@@ -372,27 +392,30 @@ class ElasticSearch(BaseSearch):
             if not self.object_can_be_indexed(obj):
                 continue
 
-            # Get object type
-            obj_type = obj.indexed_get_content_type()
+            # Get mapping
+            mapping = ElasticSearchMapping(obj.__class__)
+
+            # Get document type
+            doc_type = mapping.get_document_type()
 
             # If type is currently not in set, add it
-            if obj_type not in type_set:
-                type_set[obj_type] = []
+            if doc_type not in type_set:
+                type_set[doc_type] = []
 
-            # Add object to set
-            type_set[obj_type].append(obj.indexed_build_document())
+            # Add document to set
+            type_set[doc_type].append((mapping.get_document_id(obj), mapping.get_document(obj)))
 
         # Loop through each type and bulk add them
-        for type_name, type_objects in type_set.items():
+        for type_name, type_documents in type_set.items():
             # Get list of actions
             actions = []
-            for obj in type_objects:
+            for doc_id, doc in type_documents:
                 action = {
                     '_index': self.es_index,
                     '_type': type_name,
-                    '_id': obj['id'],
+                    '_id': doc_id,
                 }
-                action.update(obj)
+                action.update(doc)
                 actions.append(action)
 
             bulk(self.es, actions)
@@ -402,12 +425,15 @@ class ElasticSearch(BaseSearch):
         if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
             return
 
+        # Get mapping
+        mapping = ElasticSearchMapping(obj.__class__)
+
         # Delete document
         try:
             self.es.delete(
                 self.es_index,
-                obj.indexed_get_content_type(),
-                obj.indexed_get_document_id(),
+                mapping.get_document_type(),
+                mapping.get_document_id(obj),
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
