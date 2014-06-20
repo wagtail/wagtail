@@ -25,14 +25,16 @@ def index(request, parent_page_id=None):
     pages = parent_page.get_children().prefetch_related('content_type')
 
     # Get page ordering
-    ordering = request.GET.get('ordering', 'title')
-    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'ord']:
+    if 'ordering' in request.GET:
+        ordering = request.GET['ordering']
+
+        if ordering in ['title', '-title', 'content_type', '-content_type', 'live', '-live']:
+            pages = pages.order_by(ordering)
+    else:
         ordering = 'title'
 
     # Pagination
     if ordering != 'ord':
-        pages = pages.order_by(ordering)
-
         p = request.GET.get('p', 1)
         paginator = Paginator(pages, 50)
         try:
@@ -177,7 +179,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'display_modes': page.get_page_modes(),
-        'form': form, # Used in unit tests
     })
 
 
@@ -263,7 +264,6 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'display_modes': page.get_page_modes(),
-        'form': form, # Used in unit tests
     })
 
 
@@ -419,6 +419,12 @@ def preview(request):
     placeholder page, providing some much-needed visual feedback.
     """
     return render(request, 'wagtailadmin/pages/preview.html')
+
+def preview_loading(request):
+    """
+    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
+    """
+    return HttpResponse("<html><head><title></title></head><body></body></html>")
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
