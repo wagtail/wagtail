@@ -420,12 +420,6 @@ def preview(request):
     """
     return render(request, 'wagtailadmin/pages/preview.html')
 
-def preview_loading(request):
-    """
-    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
-    """
-    return HttpResponse("<html><head><title></title></head><body></body></html>")
-
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id)
