@@ -173,7 +173,7 @@ class ElasticSearchResults(object):
         # Return results in order given by ElasticSearch
         return [results[str(pk)] for pk in pks if results[str(pk)]]
 
-    def _do_count(self):
+    def count(self):
         # Get query
         query = self.query.to_es()
 
@@ -219,7 +219,7 @@ class ElasticSearchResults(object):
         return iter(self._do_search())
 
     def __len__(self):
-        return self._do_count()
+        return len(self._do_search())
 
 
 class ElasticSearch(BaseSearch):
