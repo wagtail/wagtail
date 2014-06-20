@@ -1,5 +1,6 @@
 from django.test import TestCase
 from wagtail.wagtailcore.rich_text import DbWhitelister
+from wagtail.wagtailcore.whitelist import Whitelister
 
 from bs4 import BeautifulSoup
 
@@ -37,7 +38,13 @@ class TestDbWhitelister(TestCase):
 
     def test_whitelist_hooks(self):
         # wagtail.tests.wagtail_hooks overrides the whitelist to permit <blockquote> and <a target="...">
-        input_html = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank" tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character>'
+        input_html = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank" tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
         output_html = DbWhitelister.clean(input_html)
-        expected = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank">stand in water</a>.</blockquote><p>- Gumby'
+        expected = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank">stand in water</a>.</blockquote><p>- Gumby</p>'
+        self.assertHtmlEqual(expected, output_html)
+
+        # check that the base Whitelister class is unaffected by these custom whitelist rules
+        input_html = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank" tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
+        output_html = Whitelister.clean(input_html)
+        expected = 'I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1">stand in water</a>.<p>- Gumby</p>'
         self.assertHtmlEqual(expected, output_html)

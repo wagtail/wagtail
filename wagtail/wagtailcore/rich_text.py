@@ -13,6 +13,8 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 
+from wagtail.wagtailadmin import hooks
+
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
 # of 'special' HTML elements in rich text - ones which we do not want to include
@@ -158,6 +160,18 @@ LINK_HANDLERS = {
 # Prepare a whitelisting engine with custom behaviour:
 # rewrite any elements with a data-embedtype or data-linktype attribute
 class DbWhitelister(Whitelister):
+    has_loaded_custom_whitelist_rules = False
+
+    @classmethod
+    def clean(cls, html):
+        if not cls.has_loaded_custom_whitelist_rules:
+            for fn in hooks.get_hooks('construct_whitelister_element_rules'):
+                cls.element_rules = dict(
+                    cls.element_rules.items() + fn().items())
+            cls.has_loaded_custom_whitelist_rules = True
+
+        return super(DbWhitelister, cls).clean(html)
+
     @classmethod
     def clean_tag_node(cls, doc, tag):
         if 'data-embedtype' in tag.attrs:

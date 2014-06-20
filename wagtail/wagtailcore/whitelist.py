@@ -5,8 +5,6 @@ specific rules.
 from bs4 import BeautifulSoup, NavigableString, Tag
 from urlparse import urlparse
 
-from wagtail.wagtailadmin import hooks
-
 
 ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
 
@@ -82,10 +80,6 @@ class Whitelister(object):
     def clean(cls, html):
         """Clean up an HTML string to contain just the allowed elements /
         attributes"""
-        for fn in hooks.get_hooks('construct_whitelister_element_rules'):
-            cls.element_rules = dict(
-                cls.element_rules.items() + fn().items())
-
         doc = BeautifulSoup(html, 'lxml')
         cls.clean_node(doc, doc)
         return unicode(doc)
