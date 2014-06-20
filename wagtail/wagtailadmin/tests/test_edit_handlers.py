@@ -137,34 +137,54 @@ class TestEditHandler(TestCase):
 
 
 class TestBaseCompositeEditHandler(TestCase):
-    def setUp(self):
+    def test_object_classnames_no_classname(self):
         mock = MagicMock()
         mock.widget_overrides.return_value = {'foo': 'bar'}
         mock.required_formsets.return_value = {'baz': 'quux'}
         BaseCompositeEditHandler.children = [mock]
-        self.base_composite_edit_handler = BaseCompositeEditHandler(
+        base_composite_edit_handler = BaseCompositeEditHandler(
             instance=True,
             form=True)
-
-    def tearDown(self):
+        result = base_composite_edit_handler.object_classnames()
+        self.assertEqual(result, "multi-field")
         del BaseCompositeEditHandler.children
 
-    def test_object_classnames_no_classname(self):
-        result = self.base_composite_edit_handler.object_classnames()
-        self.assertEqual(result, "multi-field")
-
     def test_object_classnames(self):
-        self.base_composite_edit_handler.classname = "foo"
-        result = self.base_composite_edit_handler.object_classnames()
+        mock = MagicMock()
+        mock.widget_overrides.return_value = {'foo': 'bar'}
+        mock.required_formsets.return_value = {'baz': 'quux'}
+        BaseCompositeEditHandler.children = [mock]
+        base_composite_edit_handler = BaseCompositeEditHandler(
+            instance=True,
+            form=True)
+        base_composite_edit_handler.classname = "foo"
+        result = base_composite_edit_handler.object_classnames()
         self.assertEqual(result, "multi-field foo")
+        del BaseCompositeEditHandler.children
 
     def test_widget_overrides(self):
-        result = self.base_composite_edit_handler.widget_overrides()
+        mock = MagicMock()
+        mock.widget_overrides.return_value = {'foo': 'bar'}
+        mock.required_formsets.return_value = {'baz': 'quux'}
+        BaseCompositeEditHandler.children = [mock]
+        base_composite_edit_handler = BaseCompositeEditHandler(
+            instance=True,
+            form=True)
+        result = base_composite_edit_handler.widget_overrides()
         self.assertEqual(result, {'foo': 'bar'})
+        del BaseCompositeEditHandler.children
 
     def test_required_formsets(self):
-        result = self.base_composite_edit_handler.required_formsets()
+        mock = MagicMock()
+        mock.widget_overrides.return_value = {'foo': 'bar'}
+        mock.required_formsets.return_value = {'baz': 'quux'}
+        BaseCompositeEditHandler.children = [mock]
+        base_composite_edit_handler = BaseCompositeEditHandler(
+            instance=True,
+            form=True)
+        result = base_composite_edit_handler.required_formsets()
         self.assertEqual(result, ['baz'])
+        del BaseCompositeEditHandler.children
 
 
 class TestBaseTabbedInterface(TestCase):
