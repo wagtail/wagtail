@@ -186,7 +186,24 @@ The available resizing methods are:
 More control over the ``img`` tag
 ---------------------------------
 
-In some cases greater control over the ``img`` tag is required, for example to add a custom ``class``. Rather than generating the ``img`` element for you, Wagtail can assign the relevant data to another object using Django's ``as`` syntax:
+Greater control over the ``img`` tag is often required, for example to add a custom ``class``. This can be most easily achieved in two ways:
+
+.. versionadded:: 0.4
+
+Adding attributes to the  {% image %} tag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Simply add extra attributes with the syntax ``attribute="value"`` to the tag:
+
+.. code-block:: django
+
+    {% image self.photo width-400 class="foo" id="bar" %}
+
+
+Generating the image "as"
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail can assign the image data to another object using Django's ``as`` syntax:
 
 .. code-block:: django
     
@@ -197,11 +214,16 @@ In some cases greater control over the ``img`` tag is required, for example to a
     <img src="{{ tmp_photo.src }}" width="{{ tmp_photo.width }}" 
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 
+
+The ``attrs`` shortcut
+-----------------------
+
 You can also use the ``attrs`` property as a shorthand to output the ``src``, ``width``, ``height`` and ``alt`` attributes in one go:
 
 .. code-block:: django
 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
+
 
 .. _rich-text-filter:
 
