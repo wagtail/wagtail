@@ -33,7 +33,7 @@ function makeRichTextEditable(id) {
 
     richText.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarcssClass: 'testy',
+        toolbarCssClass: (input.closest('.object').hasClass('full')) ? 'full' : '',
         plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
