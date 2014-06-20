@@ -112,6 +112,7 @@ class Indexed(object):
 
 class BaseField(object):
     searchable = False
+    suffix = ''
 
     def __init__(self, field_name, **kwargs):
         self.field_name = field_name
@@ -127,16 +128,8 @@ class BaseField(object):
         except models.fields.FieldDoesNotExist:
             return self.field_name
 
-    def to_dict(self, cls):
-        dic = {
-            'type': 'string'
-        }
-
-        if 'es_extra' in self.kwargs:
-            for key, value in self.kwargs['es_extra'].items():
-                dic[key] = value
-
-        return dic
+    def get_index_name(self, cls):
+        return self.get_attname(cls) + self.suffix
 
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, self.field_name)
@@ -150,23 +143,6 @@ class SearchField(BaseField):
         self.boost = boost
         self.partial_match = partial_match
 
-    def to_dict(self, cls):
-        dic = super(SearchField, self).to_dict(cls)
-
-        if self.boost and 'boost' not in dic:
-            dic['boost'] = self.boost
-
-        if self.partial_match and 'analyzer' not in dic:
-            dic['analyzer'] = 'edgengram_analyzer'
-
-        return dic
-
 
 class FilterField(BaseField):
-    def to_dict(self, cls):
-        dic = super(FilterField, self).to_dict(cls)
-
-        if 'index' not in dic:
-            dic['index'] = 'not_analyzed'
-
-        return dic
+    suffix = '_filter'
