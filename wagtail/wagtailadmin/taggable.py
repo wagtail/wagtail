@@ -13,17 +13,9 @@ class TagSearchable(Indexed):
     for models that provide those things.
     """
 
-    indexed_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-        'get_tags': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
+    search_fields = {
+        'title': dict(partial_match=True, boost=10),
+        'get_tags': dict(partial_match=True, boost=10),
     }
 
     @property
@@ -31,13 +23,20 @@ class TagSearchable(Indexed):
         return ' '.join([tag.name for tag in self.tags.all()])
 
     @classmethod
-    def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):
-        # Run search query
-        search_backend = get_search_backend()
+    def search(cls, query_string, results_per_page=None, page=1, prefetch_tags=False, filters={}):
+        # Create query set
+        query_set = cls.objects.all()
+
+        # Apply filters
+        query_set = query_set.filter(**filters)
+
+        # Prefetch tags
         if prefetch_tags:
-            results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)
-        else:
-            results = search_backend.search(q, cls, filters=filters)
+            query_set = query_set.prefetch_related('tagged_items__tag')
+
+        # Get results
+        search_backend = get_search_backend()
+        results = search_backend.search(query_set, query_string)
 
         # If results_per_page is set, return a paginator
         if results_per_page is not None:

@@ -8,6 +8,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailsearch.indexed import Indexed
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -160,8 +161,7 @@ class EventPage(Page):
         related_name='+'
     )
 
-    indexed_fields = ('get_audience_display', 'location', 'body')
-    search_name = "Event"
+    search_fields = ('get_audience_display', 'location', 'body')
 
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -307,3 +307,61 @@ class BusinessIndex(Page):
 
 class BusinessChild(Page):
     subpage_types = []
+
+
+# MODELS FOR TESTING WAGTAILSEARCH
+
+
+class SearchTest(models.Model, Indexed):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    live = models.BooleanField(default=False)
+    published_date = models.DateField(null=True)
+
+    search_fields = {
+        'title': dict(partial_match=True),
+        'content': dict(),
+        'callable_indexed_field': dict()
+    }
+    search_filter_fields = ['title', 'live', 'published_date']
+
+    def callable_indexed_field(self):
+        return "Callable"
+
+
+class SearchTestChild(SearchTest):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
+    extra_content = models.TextField()
+
+    search_fields = {
+        'subtitle': dict(partial_match=True),
+        'extra_content': dict(),
+    }
+
+
+class SearchTestOldConfig(models.Model, Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format.
+    """
+    indexed_fields = {
+        # A search field with predictive search and boosting
+        'title': {
+            'type': 'string',
+            'analyzer': 'edgengram_analyzer',
+            'boost': 100,
+        },
+
+        # A filter field
+        'live': {
+            'type': 'boolean',
+            'index': 'not_analyzed',
+        },
+    }
+
+class SearchTestOldConfigList(models.Model, Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format using a list.
+    """
+    indexed_fields = ['title', 'content']
