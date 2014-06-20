@@ -1,3 +1,5 @@
+import warnings
+
 from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
@@ -64,8 +66,7 @@ class DBSearch(BaseSearch):
         # Distinct
         query = query.distinct()
 
-        # Prefetch related
-        for prefetch in prefetch_related:
-            query = query.prefetch_related(prefetch)
+        # Give deprecation warning if prefetch_related was used
+        warnings.warn("prefetch_related on search queries is no longer implemented. ", DeprecationWarning)
 
         return query

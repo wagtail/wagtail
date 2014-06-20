@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import string
 import json
+import warnings
 
 from django.db import models
 
@@ -112,10 +113,9 @@ class ElasticSearchQuery(object):
 
 
 class ElasticSearchResults(object):
-    def __init__(self, backend, query, prefetch_related=[]):
+    def __init__(self, backend, query):
         self.backend = backend
         self.query = query
-        self.prefetch_related = prefetch_related
 
     def _do_search(self, offset=0, limit=None):
         # Params for elasticsearch query
@@ -172,10 +172,6 @@ class ElasticSearchResults(object):
 
             # Get results
             results = self.query.model.objects.filter(pk__in=pk_list)
-
-            # Prefetch related
-            for prefetch in self.prefetch_related:
-                results = results.prefetch_related(prefetch)
 
             # Put results into a dictionary (using primary key as the key)
             results_dict = dict((str(result.pk), result) for result in results)
@@ -361,5 +357,8 @@ class ElasticSearch(BaseSearch):
         if not query_string:
             return []
 
+        # Give deprecation warning if prefetch_related was used
+        warnings.warn("prefetch_related on search queries is no longer implemented. ", DeprecationWarning)
+
         # Return search results
-        return ElasticSearchResults(self, ElasticSearchQuery(model, query_string, fields=fields, filters=filters), prefetch_related=prefetch_related)
+        return ElasticSearchResults(self, ElasticSearchQuery(model, query_string, fields=fields, filters=filters))
