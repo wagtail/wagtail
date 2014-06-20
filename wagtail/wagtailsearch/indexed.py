@@ -15,13 +15,13 @@ class Indexed(object):
     @classmethod
     def indexed_get_content_type(cls):
         # Work out content type
-        content_type = (cls._meta.app_label + "_" + cls.__name__).lower()
+        content_type = (cls._meta.app_label + '_' + cls.__name__).lower()
 
         # Get parent content type
         parent = cls.indexed_get_parent()
         if parent:
             parent_content_type = parent.indexed_get_content_type()
-            return parent_content_type + "_" + content_type
+            return parent_content_type + '_' + content_type
         else:
             return content_type
 
@@ -33,7 +33,7 @@ class Indexed(object):
             return parent.indexed_get_content_type()
         else:
             # At toplevel, return this content type
-            return (cls._meta.app_label + "_" + cls.__name__).lower()
+            return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
     def indexed_get_indexed_fields(cls):
