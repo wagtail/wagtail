@@ -346,7 +346,7 @@ $(function() {
         function submitPreview(enhanced){
             $.ajax({
                 type: "POST",
-                url: $(this).data('action'),
+                url: $this.data('action'),
                 data: $('#page-edit-form').serialize(),
                 success: function(data, textStatus, request) {
                     if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
