@@ -41,7 +41,7 @@ class ElasticSearchMapping(object):
         # Make field list
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes'),
-            'content_type': dict(type='string'),
+            'content_type': dict(type='string', index='not_analyzed'),
         }
 
         fields.update(dict(
