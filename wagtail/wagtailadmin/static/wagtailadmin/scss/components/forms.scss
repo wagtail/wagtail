@@ -517,7 +517,7 @@ li.focused > .help{
     clear:both;
 }
 
-/* field sizing */
+/* field sizing and alignment */
 
 .field-small{
     input, textarea, select, .richtext, .tagit{
@@ -525,6 +525,15 @@ li.focused > .help{
         padding:0.4em 1em;
     }
 }
+
+.field-col{
+    float:left;
+}
+
+.labels-above{
+    
+}
+
 
 .field{
     &.col1,
