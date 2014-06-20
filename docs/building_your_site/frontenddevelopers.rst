@@ -190,8 +190,7 @@ Greater control over the ``img`` tag is often required, for example to add a cus
 
 .. versionadded:: 0.4
 
-Adding attributes to the  {% image %} tag
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Adding attributes to the  {% image %} tag**
 
 Simply add extra attributes with the syntax ``attribute="value"`` to the tag:
 
@@ -200,8 +199,8 @@ Simply add extra attributes with the syntax ``attribute="value"`` to the tag:
     {% image self.photo width-400 class="foo" id="bar" %}
 
 
-Generating the image "as"
-~~~~~~~~~~~~~~~~~~~~~~~~~
+**Generating the image "as"**
+
 
 Wagtail can assign the image data to another object using Django's ``as`` syntax:
 
