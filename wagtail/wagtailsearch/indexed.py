@@ -94,6 +94,9 @@ class BaseField(object):
 
         return dic
 
+    def __repr__(self):
+        return "<%s: %s>" % (self.__class__.__name__, self.field_name)
+
 
 class SearchField(BaseField):
     def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
