@@ -12,7 +12,6 @@ from wagtail.wagtailadmin.edit_handlers import (
     RichTextFieldPanel,
     EditHandler,
     WagtailAdminModelForm,
-    BaseCompositeEditHandler,
     BaseTabbedInterface,
     TabbedInterface,
     BaseObjectList,
@@ -136,107 +135,63 @@ class TestEditHandler(TestCase):
         self.assertEqual(self.edit_handler.render_form_content(), "foobar")
 
 
-class TestBaseCompositeEditHandler(TestCase):
-    def test_object_classnames_no_classname(self):
-        mock = MagicMock()
-        mock.widget_overrides.return_value = {'foo': 'bar'}
-        mock.required_formsets.return_value = {'baz': 'quux'}
-        BaseCompositeEditHandler.children = [mock]
-        base_composite_edit_handler = BaseCompositeEditHandler(
-            instance=True,
-            form=True)
-        result = base_composite_edit_handler.object_classnames()
-        self.assertEqual(result, "multi-field")
-        del BaseCompositeEditHandler.children
-
-    def test_object_classnames(self):
-        mock = MagicMock()
-        mock.widget_overrides.return_value = {'foo': 'bar'}
-        mock.required_formsets.return_value = {'baz': 'quux'}
-        BaseCompositeEditHandler.children = [mock]
-        base_composite_edit_handler = BaseCompositeEditHandler(
-            instance=True,
-            form=True)
-        base_composite_edit_handler.classname = "foo"
-        result = base_composite_edit_handler.object_classnames()
-        self.assertEqual(result, "multi-field foo")
-        del BaseCompositeEditHandler.children
-
-    def test_widget_overrides(self):
-        mock = MagicMock()
-        mock.widget_overrides.return_value = {'foo': 'bar'}
-        mock.required_formsets.return_value = {'baz': 'quux'}
-        BaseCompositeEditHandler.children = [mock]
-        base_composite_edit_handler = BaseCompositeEditHandler(
-            instance=True,
-            form=True)
-        result = base_composite_edit_handler.widget_overrides()
-        self.assertEqual(result, {'foo': 'bar'})
-        del BaseCompositeEditHandler.children
-
-    def test_required_formsets(self):
-        mock = MagicMock()
-        mock.widget_overrides.return_value = {'foo': 'bar'}
-        mock.required_formsets.return_value = {'baz': 'quux'}
-        BaseCompositeEditHandler.children = [mock]
-        base_composite_edit_handler = BaseCompositeEditHandler(
-            instance=True,
-            form=True)
-        result = base_composite_edit_handler.required_formsets()
-        self.assertEqual(result, ['baz'])
-        del BaseCompositeEditHandler.children
-
-
-class TestBaseTabbedInterface(TestCase):
+class TestTabbedInterface(TestCase):
     class FakeChild(object):
         class FakeGrandchild(object):
             def render_js(self):
-                return "foo"
+                return "rendered js"
 
             def rendered_fields(self):
-                return ["bar"]
+                return ["rendered fields"]
+
+        def widget_overrides(self):
+            return {'foo': 'bar'}
+
+        def required_formsets(self):
+            return {'baz': 'quux'}
 
         def __call__(self, *args, **kwargs):
             fake_grandchild = self.FakeGrandchild()
             return fake_grandchild
 
+    def setUp(self):
+        fake_child = self.FakeChild()
+        self.TabbedInterfaceClass = TabbedInterface([fake_child])
+        self.tabbed_interface = self.TabbedInterfaceClass(instance=True,
+                                                          form=True)
+
+    def test_tabbed_interface(self):
+        self.assertTrue(issubclass(self.TabbedInterfaceClass,
+                                   BaseTabbedInterface))
+
+    def test_object_classnames_no_classname(self):
+        result = self.tabbed_interface.object_classnames()
+        self.assertEqual(result, 'multi-field')
+
+    def test_object_classnames(self):
+        self.tabbed_interface.classname = 'foo'
+        result = self.tabbed_interface.object_classnames()
+        self.assertEqual(result, 'multi-field foo')
+
+    def test_widget_overrides(self):
+        result = self.tabbed_interface.widget_overrides()
+        self.assertEqual(result, {'foo': 'bar'})
+
+    def test_required_formsets(self):
+        result = self.tabbed_interface.required_formsets()
+        self.assertEqual(result, ['baz'])
+
     def test_render(self):
-        mock = MagicMock()
-        BaseTabbedInterface.children = [mock]
-        self.base_tabbed_interface = BaseTabbedInterface(
-            instance=True,
-            form=True)
-        result = self.base_tabbed_interface.render()
-        self.assertIn('<ul', result)
-        self.assertIn('<li', result)
-        self.assertIn('<div', result)
-        del BaseTabbedInterface.children
+        result = self.tabbed_interface.render()
+        self.assertIn('<div class="tab-content">', result)
 
     def test_render_js(self):
-        fake_child = self.FakeChild()
-        BaseTabbedInterface.children = [fake_child]
-        self.base_tabbed_interface = BaseTabbedInterface(
-            instance=True,
-            form=True)
-        result = self.base_tabbed_interface.render_js()
-        self.assertEqual(result, "foo")
-        del BaseTabbedInterface.children
+        result = self.tabbed_interface.render_js()
+        self.assertEqual(result, 'rendered js')
 
     def test_rendered_fields(self):
-        fake_child = self.FakeChild()
-        BaseTabbedInterface.children = [fake_child]
-        self.base_tabbed_interface = BaseTabbedInterface(
-            instance=True,
-            form=True)
-        result = self.base_tabbed_interface.rendered_fields()
-        self.assertEqual(result, ["bar"])
-        del BaseTabbedInterface.children
-
-
-class TestTabbedInterface(TestCase):
-    def test_tabbed_interface(self):
-        tabbed_interface = TabbedInterface(['foo'])
-        self.assertTrue(issubclass(tabbed_interface, BaseTabbedInterface))
+        result = self.tabbed_interface.rendered_fields()
+        self.assertEqual(result, ["rendered fields"])
 
 
 class TestObjectList(TestCase):
