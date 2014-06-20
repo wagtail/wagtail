@@ -60,6 +60,7 @@ function initDateChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             timepicker: false,
+            scrollInput:false,
             format: 'Y-m-d',
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -69,6 +70,7 @@ function initDateChooser(id) {
     } else {
         $('#' + id).datetimepicker({
             timepicker: false,
+            scrollInput:false,
             format: 'Y-m-d',
         });
     }
@@ -78,6 +80,7 @@ function initTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             datepicker: false,
+            scrollInput:false,
             format: 'H:i',
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -96,6 +99,7 @@ function initDateTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             format: 'Y-m-d H:i',
+            scrollInput:false,
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
