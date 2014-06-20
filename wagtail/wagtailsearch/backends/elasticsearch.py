@@ -137,7 +137,18 @@ class ElasticSearchResults(object):
         pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
 
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
-        return [pk[0] if isinstance(pk, list) else pk for pk in pks]
+        pks = [pk[0] if isinstance(pk, list) else pk for pk in pks]
+
+        # Initialise results dictionary
+        results = dict((str(pk), None) for pk in pks)
+
+        # Find objects in database and add them to dict
+        queryset = self.query.model.objects.filter(pk__in=pks)
+        for obj in queryset:
+            results[str(obj.pk)] = obj
+
+        # Return results in order given by ElasticSearch
+        return [results[str(pk)] for pk in pks if results[str(pk)]]
 
     def _do_count(self):
         query = self.query.to_es()
@@ -159,32 +170,11 @@ class ElasticSearchResults(object):
 
     def __getitem__(self, key):
         if isinstance(key, slice):
-            # Get primary keys
-            pk_list_unclean = self._do_search(key.start, key.stop - key.start)
-
-            # Remove duplicate keys (and preserve order)
-            seen_pks = set()
-            pk_list = []
-            for pk in pk_list_unclean:
-                if pk not in seen_pks:
-                    seen_pks.add(pk)
-                    pk_list.append(pk)
-
-            # Get results
-            results = self.query.model.objects.filter(pk__in=pk_list)
-
-            # Put results into a dictionary (using primary key as the key)
-            results_dict = dict((str(result.pk), result) for result in results)
-
-            # Build new list with items in the correct order
-            results_sorted = [results_dict[str(pk)] for pk in pk_list if str(pk) in results_dict]
-
-            # Return the list
-            return results_sorted
+            # Run query
+            return self._do_search(key.start, key.stop - key.start)
         else:
             # Return a single item
-            pk = self._do_search(key, key + 1)[0]
-            return self.query.model.objects.get(pk=pk)
+            return self._do_search(key, key + 1)[0]
 
     def __len__(self):
         return self._do_count()
