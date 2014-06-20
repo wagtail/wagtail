@@ -651,11 +651,6 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Page must be live
         self.assertTrue(Page.objects.get(id=self.page.id).live)
 
-        # Submitter must recieve an approved email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
-
     def test_approve_moderation_view_bad_revision_id(self):
         """
         This tests that the approve moderation view handles invalid revision ids correctly
@@ -704,11 +699,6 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
 
         # Revision must no longer be submitted for moderation
         self.assertFalse(PageRevision.objects.get(id=self.revision.id).submitted_for_moderation)
-
-        # Submitter must recieve a rejected email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
 
     def test_reject_moderation_view_bad_revision_id(self):
         """
@@ -855,3 +845,136 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_subindex.id, )))
         # BusinessChild is the only valid subpage type of BusinessSubIndex, so redirect straight there
         self.assertRedirects(response, reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.business_subindex.id)))
+
+
+class TestNotificationPreferences(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+        # Create two moderator users for testing 'submitted' email
+        self.moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.moderator2 = User.objects.create_superuser('moderator2', 'moderator2@email.com', 'password')
+
+        # Create a submitter for testing 'rejected' and 'approved' emails
+        self.submitter = User.objects.create_user('submitter', 'submitter@email.com', 'password')
+
+        # User profiles for moderator2 and the submitter
+        self.moderator2_profile = self.moderator2.get_profile()
+        self.submitter_profile = self.submitter.get_profile()
+
+        # Create a page and submit it for moderation
+        self.child_page = SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            live=False,
+        )
+        self.root_page.add_child(instance=self.child_page)
+
+        # POST data to edit the page
+        self.post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+
+    def submit(self):
+        return self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), self.post_data)
+
+    def silent_submit(self):
+        """
+        Sets up the child_page as needing moderation, without making a request
+        """
+        self.child_page.save_revision(user=self.submitter, submitted_for_moderation=True)
+        self.revision = self.child_page.get_latest_revision()
+
+    def approve(self):
+        return self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+    def reject(self):
+        return self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+    def test_vanilla_profile(self):
+        # Check that the vanilla profile has rejected notifications on
+        self.assertEqual(self.submitter_profile.rejected_notifications, True)
+
+        # Check that the vanilla profile has approved notifications on
+        self.assertEqual(self.submitter_profile.approved_notifications, True)
+
+    def test_submit_notifications_sent(self):
+        # Submit
+        self.submit()
+
+        # Check that both the moderators got an email, and no others
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn(self.moderator.email, mail.outbox[0].to)
+        self.assertIn(self.moderator2.email, mail.outbox[0].to)
+        self.assertEqual(len(mail.outbox[0].to), 2)
+
+    def test_submit_notification_preferences_respected(self):
+        # moderator2 doesn't want emails
+        self.moderator2_profile.submitted_notifications = False
+        self.moderator2_profile.save()
+
+        # Submit
+        self.submit()
+
+        # Check that only one moderator got an email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual([self.moderator.email], mail.outbox[0].to)
+
+    def test_approved_notifications(self):
+        # Set up the page version
+        self.silent_submit()
+        # Approve
+        self.approve()
+
+        # Submitter must recieve an approved email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
+
+    def test_approved_notifications_preferences_respected(self):
+        # Submitter doesn't want 'approved' emails
+        self.submitter_profile.approved_notifications = False
+        self.submitter_profile.save()
+
+        # Set up the page version
+        self.silent_submit()
+        # Approve
+        self.approve()
+
+        # No email to send
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_rejected_notifications(self):
+        # Set up the page version
+        self.silent_submit()
+        # Reject
+        self.reject()
+
+        # Submitter must recieve a rejected email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
+
+    def test_rejected_notification_preferences_respected(self):
+        # Submitter doesn't want 'rejected' emails
+        self.submitter_profile.rejected_notifications = False
+        self.submitter_profile.save()
+
+        # Set up the page version
+        self.silent_submit()
+        # Reject
+        self.reject()
+
+        # No email to send
+        self.assertEqual(len(mail.outbox), 0)
