@@ -28,15 +28,17 @@
                     </small>
                 </li>
             {% endif %}
-            <li class="row row-flush">
-                <div class="col6">
-                    <a href="{% url 'wagtailadmin_account_notification_preferences' %}" class="button button-primary">{% trans "Notification preferences" %}</a>
-                </div>
+            {% if show_notification_preferences %}
+                <li class="row row-flush">
+                    <div class="col6">
+                        <a href="{% url 'wagtailadmin_account_notification_preferences' %}" class="button button-primary">{% trans "Notification preferences" %}</a>
+                    </div>
 
-                <small class="col6">
-                    {% trans "Choose which email notifications to receive." %}
-                </small>
-            </li>
+                    <small class="col6">
+                        {% trans "Choose which email notifications to receive." %}
+                    </small>
+                </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

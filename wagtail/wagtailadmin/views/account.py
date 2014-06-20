@@ -10,12 +10,17 @@ from django.views.decorators.cache import never_cache
 
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
+from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
 @permission_required('wagtailadmin.access_admin')
 def account(request):
+    user_perms = UserPagePermissionsProxy(request.user)
+    show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
+
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
+        'show_notification_preferences': show_notification_preferences
     })
 
 
@@ -55,6 +60,11 @@ def notification_preferences(request):
             return redirect('wagtailadmin_account')
     else:
         form = NotificationPreferencesForm(instance=request.user.get_profile())
+
+    # quick-and-dirty catch-all in case the form has been rendered with no
+    # fields, as the user has no customisable permissions
+    if not form.fields:
+        return redirect('wagtailadmin_account')
 
     return render(request, 'wagtailadmin/account/notification_preferences.html', {
         'form': form,
