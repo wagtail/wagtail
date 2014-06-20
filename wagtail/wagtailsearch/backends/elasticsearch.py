@@ -112,7 +112,7 @@ class ElasticSearchResults(object):
         self.query = query
         self.prefetch_related = prefetch_related
 
-    def _get_results_pks(self, offset=0, limit=None):
+    def _do_search(self, offset=0, limit=None):
         # Params for elasticsearch query
         params = dict(
             index=self.backend.es_index,
@@ -134,7 +134,7 @@ class ElasticSearchResults(object):
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
         return [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
-    def _get_count(self):
+    def _do_count(self):
         query = self.query.to_es()
 
         # Elasticsearch 1.x
@@ -155,7 +155,7 @@ class ElasticSearchResults(object):
     def __getitem__(self, key):
         if isinstance(key, slice):
             # Get primary keys
-            pk_list_unclean = self._get_results_pks(key.start, key.stop - key.start)
+            pk_list_unclean = self._do_search(key.start, key.stop - key.start)
 
             # Remove duplicate keys (and preserve order)
             seen_pks = set()
@@ -182,11 +182,11 @@ class ElasticSearchResults(object):
             return results_sorted
         else:
             # Return a single item
-            pk = self._get_results_pks(key, key + 1)[0]
+            pk = self._do_search(key, key + 1)[0]
             return self.query.model.objects.get(pk=pk)
 
     def __len__(self):
-        return self._get_count()
+        return self._do_count()
 
 
 class ElasticSearch(BaseSearch):
