@@ -101,6 +101,13 @@ class Indexed(object):
             # Add the field
             search_fields.append(SearchField(field_name, boost=boost, partial_match=partial_match, es_extra=config))
 
+        # Remove any duplicate entries into search fields
+        # We need to take into account that fields can be indexed as both a SearchField and as a FilterField
+        search_fields_dict = {}
+        for field in search_fields:
+            search_fields_dict[(field.field_name, type(field))] = field
+        search_fields = search_fields_dict.values()
+
         return search_fields
 
     @classmethod
