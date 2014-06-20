@@ -177,6 +177,41 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the password was not changed
         self.assertTrue(User.objects.get(username='test').check_password('password'))
 
+    def test_notification_preferences_view(self):
+        """
+        This tests that the notification preferences view responds with the
+        notification preferences page
+        """
+        # Get notification preferences page
+        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
+
+        # Check that the user recieved a notification preferences page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/notification_preferences.html')
+
+    def test_notification_preferences_view_post(self):
+        """
+        This posts to the notification preferences view and checks that the
+        user's profile is updated
+        """
+        # Post new values to the notification preferences page
+        post_data = {
+            'submitted_notifications': u'false',
+            'approved_notifications': u'false',
+            'rejected_notifications': u'true',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_notification_preferences'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        profile = User.objects.get(username='test').get_profile()
+
+        # Check that the notification preferences are as submitted
+        self.assertFalse(profile.submitted_notifications)
+        self.assertFalse(profile.approved_notifications)
+        self.assertTrue(profile.rejected_notifications)
+
 
 class TestPasswordReset(TestCase, WagtailTestUtils):
     """
