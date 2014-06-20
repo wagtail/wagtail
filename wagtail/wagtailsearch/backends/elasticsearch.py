@@ -1,5 +1,8 @@
 from __future__ import absolute_import
 
+import string
+import json
+
 from django.db import models
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
@@ -8,7 +11,6 @@ from elasticsearch.helpers import bulk
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
-import string
 
 
 class ElasticSearchQuery(object):
@@ -104,6 +106,9 @@ class ElasticSearchQuery(object):
                 }
             }
         }
+
+    def __repr__(self):
+        return json.dumps(self.to_es())
 
 
 class ElasticSearchResults(object):
