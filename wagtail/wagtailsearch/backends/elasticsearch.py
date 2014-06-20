@@ -13,6 +13,32 @@ from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class ElasticSearchMapping(object):
+    TYPE_MAP = {
+        'AutoField': 'integer',
+        'BinaryField': 'binary',
+        'BooleanField': 'boolean',
+        'CharField': 'string',
+        'CommaSeparatedIntegerField': 'string',
+        'DateField': 'date',
+        'DateTimeField': 'date',
+        'DecimalField': 'double',
+        'FileField': 'string',
+        'FilePathField': 'string',
+        'FloatField': 'double',
+        'IntegerField': 'integer',
+        'BigIntegerField': 'long',
+        'IPAddressField': 'string',
+        'GenericIPAddressField': 'string',
+        'NullBooleanField': 'boolean',
+        'OneToOneField': 'integer',
+        'PositiveIntegerField': 'integer',
+        'PositiveSmallIntegerField': 'integer',
+        'SlugField': 'string',
+        'SmallIntegerField': 'integer',
+        'TextField': 'string',
+        'TimeField': 'date',
+    }
+
     def __init__(self, model):
         self.model = model
 
@@ -20,7 +46,7 @@ class ElasticSearchMapping(object):
         return self.model.indexed_get_content_type()
 
     def get_field_mapping(self, field):
-        mapping = {'type': 'string'}
+        mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
 
         if isinstance(field, SearchField):
             if field.boost:
@@ -60,14 +86,8 @@ class ElasticSearchMapping(object):
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
-        for field in [field.get_attname(self.model) for field in self.model.get_search_fields()]:
-            if hasattr(obj, field):
-                doc[field] = getattr(obj, field)
-
-                # Check if this field is callable
-                if hasattr(doc[field], '__call__'):
-                    # Call it
-                    doc[field] = doc[field]()
+        for field in self.model.get_search_fields():
+            doc[field.get_index_name(self.model)] = field.get_value(obj)
 
         return doc
 

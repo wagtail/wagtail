@@ -138,6 +138,26 @@ class BaseField(object):
     def get_index_name(self, cls):
         return self.get_attname(cls) + self.suffix
 
+    def get_type(self, cls):
+        if 'type' in self.kwargs:
+            return self.kwargs['type']
+
+        try:
+            field = self.get_field(cls)
+            return field.get_internal_type()
+        except models.fields.FieldDoesNotExist:
+            return 'CharField'
+
+    def get_value(self, obj):
+        try:
+            field = self.get_field(obj.__class__)
+            return field._get_val_from_obj(obj)
+        except models.fields.FieldDoesNotExist:
+            value = getattr(obj, self.field_name, None)
+            if hasattr(value, '__call__'):
+                value = value()
+            return value
+
     def __repr__(self):
         return '<%s: %s>' % (self.__class__.__name__, self.field_name)
 
