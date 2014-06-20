@@ -19,6 +19,9 @@ class ElasticSearchMapping(object):
     def get_document_type(self):
         return self.model.indexed_get_content_type()
 
+    def get_field_mapping(self, field):
+        return field.get_attname(self.model), field.to_dict(self.model)
+
     def get_mapping(self):
         # Make field list
         fields = {
@@ -26,8 +29,9 @@ class ElasticSearchMapping(object):
             'content_type': dict(type='string'),
         }
 
-        for field in self.model.get_search_fields():
-            fields[field.get_attname(self.model)] = field.to_dict(self.model)
+        fields.update(dict(
+            self.get_field_mapping(field) for field in self.model.get_search_fields()
+        ))
 
         return {
             self.get_document_type(): {
