@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailusers.models import User, UserProfile
+from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
 # extend Django's UserCreationForm with an 'is_superuser' field
@@ -132,6 +133,15 @@ class UserEditForm(forms.ModelForm):
 
 
 class NotificationPreferencesForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(NotificationPreferencesForm, self).__init__(*args, **kwargs)
+        user_perms = UserPagePermissionsProxy(self.instance.user)
+        if not user_perms.can_publish_pages():
+            del self.fields['submitted_notifications']
+        if not user_perms.can_edit_pages():
+            del self.fields['approved_notifications']
+            del self.fields['rejected_notifications']
+
     class Meta:
         model = UserProfile
         fields = ("submitted_notifications", "approved_notifications", "rejected_notifications")
