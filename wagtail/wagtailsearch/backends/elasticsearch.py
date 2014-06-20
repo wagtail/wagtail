@@ -221,6 +221,12 @@ class ElasticSearchResults(object):
     def __len__(self):
         return len(self._do_search())
 
+    def __repr__(self):
+        data = list(self[:21])
+        if len(data) > 20:
+            data[-1] = "...(remaining elements truncated)..."
+        return repr(data)
+
 
 class ElasticSearch(BaseSearch):
     def __init__(self, params):
