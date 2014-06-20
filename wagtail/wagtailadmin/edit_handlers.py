@@ -193,10 +193,15 @@ class EditHandler(object):
         Subclasses of EditHandler should override this, invoking super(B, self).classes() to
         append more classes specific to the situation.
         """
+
+        classes = []
+
         try:
-            return self.classname
+            classes.append(self.classname)
         except AttributeError:
-            return ""
+            pass
+
+        return classes
 
     def field_type(self):
         """
@@ -343,12 +348,8 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
 
     def classes(self):
         classes = super(BaseMultiFieldPanel, self).classes()
-
-        try:
-            classes += " multi-field " 
-        except (AttributeError, TypeError):
-            pass
-
+        classes.append("multi-field")
+   
         return classes
 
 def MultiFieldPanel(children, heading="", classname=""):
@@ -371,12 +372,13 @@ class BaseFieldPanel(EditHandler):
         classes = super(BaseFieldPanel, self).classes();
 
         if self.bound_field.field.required:
-            classes += " required "
+            classes.append("required")
         if self.bound_field.errors:
-            classes += " error "
+            classes.append("error")
         
-        classes += self.field_type() + " single-field "
-
+        classes.append(self.field_type())
+        classes.append("single-field")
+        
         return classes
 
     def field_type(self):
@@ -616,7 +618,7 @@ def PublishingPanel():
         FieldRowPanel([
             FieldPanel('go_live_at'),
             FieldPanel('expire_at'),
-        ], classname="labels-above"),   
+        ], classname="label-above"),   
     ], ugettext_lazy('Scheduled publishing'), classname="publishing")
 
 

@@ -507,10 +507,17 @@ li.focused > .help{
     }
 }
 
-.fields > li{
+.fields > li,
+.field-col{
     @include clearfix();
     padding-top:0.5em;
     padding-bottom:1.2em;
+}
+
+.field-row{
+    @include clearfix();
+    /* negative margin the bottom so it doesn't add too much space */
+    margin-bottom:-1.2em;
 }
 
 .input{
@@ -525,15 +532,6 @@ li.focused > .help{
         padding:0.4em 1em;
     }
 }
-
-.field-col{
-    float:left;
-}
-
-.labels-above{
-    
-}
-
 
 .field{
     &.col1,
@@ -746,6 +744,15 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
     }
 
+    .label-above{
+        .field > label{
+            display:block;
+            padding:0 0 0.8em 0;
+            float:none;
+            width:auto;
+        }
+    }
+
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
         padding:0.75em 1.4em;
@@ -771,8 +778,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include row();
     }
 
+    .field-col{
+        float:left;
+        padding-left:0 !important;
+    }
+
     .field-content{
         @include column(10);
         padding-right:0;
+        padding-left:0;
     }   
 }
