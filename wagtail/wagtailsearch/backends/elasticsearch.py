@@ -3,14 +3,12 @@ from __future__ import absolute_import
 import json
 
 from django.db import models
-from django.db.models.query import QuerySet
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed, SearchField, FilterField
-from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class ElasticSearchMapping(object):
@@ -576,35 +574,5 @@ class ElasticSearch(BaseSearch):
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
 
-    def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None):
-        # Find model/queryset
-        if isinstance(model_or_queryset, QuerySet):
-            model = model_or_queryset.model
-            queryset = model_or_queryset
-        else:
-            model = model_or_queryset
-            queryset = model_or_queryset.objects.all()
-
-        # Model must be a descendant of Indexed and be a django model
-        if not issubclass(model, Indexed) or not issubclass(model, models.Model):
-            return []
-
-        # Normalise query string
-        if query_string is not None:
-            query_string = normalise_query_string(query_string)
-
-        # Check that theres still a query string after the clean up
-        if query_string == "":
-            return []
-
-        # Apply filters to queryset
-        if filters:
-            queryset = queryset.filter(**filters)
-
-        # Prefetch related
-        if prefetch_related:
-            for prefetch in prefetch_related:
-                queryset = queryset.prefetch_related(prefetch)
-
-        # Return search results
+    def _search(self, queryset, query_string, fields=None):
         return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
