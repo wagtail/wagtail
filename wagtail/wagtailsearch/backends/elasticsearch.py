@@ -122,7 +122,7 @@ class ElasticSearchQuery(object):
     def __init__(self, queryset, query_string, fields=None):
         self.queryset = queryset
         self.query_string = query_string
-        self.fields = fields or ['_all', 'partials']
+        self.fields = fields or ['_all', '_partials']
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
