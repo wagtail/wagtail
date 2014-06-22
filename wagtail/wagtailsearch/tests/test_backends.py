@@ -6,9 +6,9 @@ from django.conf import settings
 from django.core import management
 
 from wagtail.tests.utils import unittest
-from wagtail.wagtailsearch import models, get_search_backend
+from wagtail.tests import models
+from wagtail.wagtailsearch.backends import get_search_backend, InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch
-from wagtail.wagtailsearch.backends import InvalidSearchBackendError
 
 
 class BackendTests(object):

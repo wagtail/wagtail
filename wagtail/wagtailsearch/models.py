@@ -78,29 +78,3 @@ class EditorsPick(models.Model):
 
     class Meta:
         ordering = ('sort_order', )
-
-
-# Used for tests
-
-class SearchTest(models.Model, indexed.Indexed):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    live = models.BooleanField(default=False)
-
-    search_fields = (
-        indexed.SearchField('title'),
-        indexed.SearchField('content'),
-        indexed.SearchField('callable_indexed_field'),
-        indexed.FilterField('live'),
-    )
-
-    def callable_indexed_field(self):
-        return "Callable"
-
-
-class SearchTestChild(SearchTest):
-    extra_content = models.TextField()
-
-    search_fields = SearchTest.search_fields + (
-        indexed.SearchField('extra_content'),
-    )
