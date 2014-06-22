@@ -260,15 +260,24 @@ class ElasticSearchQuery(object):
 
         # Filters
         filters = self._get_filters()
-
-        return {
-            'filtered': {
-                'query': query,
-                'filter': {
-                    'and': filters,
+        if len(filters) == 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': filters[0],
                 }
             }
-        }
+        elif len(filters) > 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': {
+                        'and': filters,
+                    }
+                }
+            }
+
+        return query
 
     def __repr__(self):
         return json.dumps(self.to_es())
