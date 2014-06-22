@@ -28,42 +28,43 @@ class DBSearch(BaseSearch):
         pass # Not needed
 
     def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
-        # Normalise query string
-        query_string = normalise_query_string(query_string)
-
-        # Get terms
-        terms = query_string.split()
-        if not terms:
-            return model.objects.none()
-
         # Get fields
         if fields is None:
             fields = [field.field_name for field in model.get_searchable_search_fields()]
 
-        # Start will all objects
+        # Start with all objects
         query = model.objects.all()
 
         # Apply filters
         if filters:
             query = query.filter(**filters)
 
-        # Filter by terms
-        for term in terms:
-            term_query = models.Q()
-            for field_name in fields:
-                # Check if the field exists (this will filter out indexed callables)
-                try:
-                    model._meta.get_field_by_name(field_name)
-                except:
-                    continue
+        if query_string is not None:
+            # Normalise query string
+            query_string = normalise_query_string(query_string)
 
-                # Filter on this field
-                term_query |= models.Q(**{'%s__icontains' % field_name: term})
+            # Get terms
+            terms = query_string.split()
+            if not terms:
+                return model.objects.none()
 
-            query = query.filter(term_query)
+            # Filter by terms
+            for term in terms:
+                term_query = models.Q()
+                for field_name in fields:
+                    # Check if the field exists (this will filter out indexed callables)
+                    try:
+                        model._meta.get_field_by_name(field_name)
+                    except:
+                        continue
 
-        # Distinct
-        query = query.distinct()
+                    # Filter on this field
+                    term_query |= models.Q(**{'%s__icontains' % field_name: term})
+
+                query = query.filter(term_query)
+
+            # Distinct
+            query = query.distinct()
 
         # Prefetch related
         if prefetch_related:

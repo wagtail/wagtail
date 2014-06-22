@@ -248,15 +248,20 @@ class ElasticSearchQuery(object):
 
     def to_es(self):
         # Query
-        query = {
-            'query_string': {
-                'query': self.query_string,
+        if self.query_string is not None:
+            query = {
+                'query_string': {
+                    'query': self.query_string,
+                }
             }
-        }
 
-        # Fields
-        if self.fields:
-            query['query_string']['fields'] = self.fields
+            # Fields
+            if self.fields:
+                query['query_string']['fields'] = self.fields
+        else:
+            query = {
+                'match_all': {}
+            }
 
         # Filters
         filters = self._get_filters()
@@ -585,10 +590,11 @@ class ElasticSearch(BaseSearch):
             return []
 
         # Normalise query string
-        query_string = normalise_query_string(query_string)
+        if query_string is not None:
+            query_string = normalise_query_string(query_string)
 
         # Check that theres still a query string after the clean up
-        if not query_string:
+        if query_string == "":
             return []
 
         # Apply filters to queryset
