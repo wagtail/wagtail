@@ -346,3 +346,31 @@ class SearchTestChild(SearchTest):
         indexed.SearchField('subtitle', partial_match=True),
         indexed.SearchField('extra_content'),
     ]
+
+
+class SearchTestOldConfig(models.Model, indexed.Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format.
+    """
+    indexed_fields = {
+        # A search field with predictive search and boosting
+        'title': {
+            'type': 'string',
+            'analyzer': 'edgengram_analyzer',
+            'boost': 100,
+        },
+
+        # A filter field
+        'live': {
+            'type': 'boolean',
+            'index': 'not_analyzed',
+        },
+    }
+
+class SearchTestOldConfigList(models.Model, indexed.Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format using a list.
+    """
+    indexed_fields = ['title', 'content']
