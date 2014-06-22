@@ -323,21 +323,26 @@ class SearchTest(models.Model, indexed.Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)
+    published_date = models.DateField(null=True)
 
-    search_fields = (
-        indexed.SearchField('title'),
+    search_fields = [
+        indexed.SearchField('title', partial_match=True),
         indexed.SearchField('content'),
         indexed.SearchField('callable_indexed_field'),
+        indexed.FilterField('title'),
         indexed.FilterField('live'),
-    )
+        indexed.FilterField('published_date'),
+    ]
 
     def callable_indexed_field(self):
         return "Callable"
 
 
 class SearchTestChild(SearchTest):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     extra_content = models.TextField()
 
-    search_fields = SearchTest.search_fields + (
+    search_fields = SearchTest.search_fields + [
+        indexed.SearchField('subtitle', partial_match=True),
         indexed.SearchField('extra_content'),
-    )
+    ]
