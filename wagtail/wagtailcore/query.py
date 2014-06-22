@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.wagtailsearch.backends import get_search_backend
+
 
 class PageQuerySet(MP_NodeQuerySet):
     """
@@ -107,3 +109,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def not_type(self, model):
         return self.exclude(self.type_q(model))
+
+    def search(self, query_string, fields=None, backend='default'):
+        search_backend = get_search_backend(backend)
+        return search_backend.search(query_string, self, fields=None)

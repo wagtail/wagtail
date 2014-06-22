@@ -228,6 +228,9 @@ class PageManager(models.Manager):
     def not_type(self, model):
         return self.get_queryset().not_type(model)
 
+    def search(self, query_string, fields=None, backend='default'):
+        return self.get_queryset().search(query_string, fields=fields, backend=backend)
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
