@@ -91,7 +91,7 @@ class SearchTest(models.Model, indexed.Indexed):
         indexed.SearchField('title'),
         indexed.SearchField('content'),
         indexed.SearchField('callable_indexed_field'),
-        indexed.SearchField('live'),
+        indexed.FilterField('live'),
     )
 
     def callable_indexed_field(self):
