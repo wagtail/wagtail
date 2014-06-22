@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import json
 
 from django.db import models
+from django.db.models.sql.where import SubqueryConstraint
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
@@ -201,7 +202,16 @@ class ElasticSearchQuery(object):
                     }
                 }
 
-            raise FilterError('Could not apply filter on ElasticSearch results "' + field_name + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
+            if lookup == 'in':
+                return {
+                    'terms': {
+                        field_index_name: value,
+                    }
+                }
+
+            raise FilterError('Could not apply filter on ElasticSearch results: "' + field_name + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
+        elif isinstance(where_node, SubqueryConstraint):
+            raise FilterError('Could not apply filter on ElasticSearch results: Subqueries are not allowed.')
 
         # Get child filters
         connector = where_node.connector
