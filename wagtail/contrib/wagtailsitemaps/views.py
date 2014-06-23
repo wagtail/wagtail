@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.cache import cache
+from django.conf import settings
 
 from .sitemap_generator import Sitemap
 
@@ -14,7 +15,7 @@ def sitemap(request):
         sitemap = Sitemap(request.site)
         sitemap_xml = sitemap.render()
 
-        cache.set(cache_key, sitemap_xml, 6000)
+        cache.set(cache_key, sitemap_xml, getattr(settings, 'WAGTAILSITEMAPS_CACHE_TIMEOUT', 6000))
 
     # Build response
     response = HttpResponse(sitemap_xml)
