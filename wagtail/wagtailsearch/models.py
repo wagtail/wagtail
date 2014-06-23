@@ -34,13 +34,6 @@ class Query(models.Model):
         return hits if hits else 0
 
     @classmethod
-    def garbage_collect(cls):
-        """
-        Deletes all Query records that have no daily hits or editors picks
-        """
-        cls.objects.filter(daily_hits__isnull=True, editors_picks__isnull=True).delete()
-
-    @classmethod
     def get(cls, query_string):
         return cls.objects.get_or_create(query_string=normalise_query_string(query_string))[0]
 
