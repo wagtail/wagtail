@@ -13,7 +13,7 @@ MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 if not settings.configured:
 
     try:
-        import elasticutils
+        import elasticsearch
         has_elasticsearch = True
     except ImportError:
         has_elasticsearch = False
