@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from wagtail.wagtailredirects import models
-from wagtail.tests.utils import login
+from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
 
 
@@ -66,15 +66,17 @@ class TestRedirects(TestCase):
         self.assertTrue(r.has_header('Location'))
 
 
-class TestRedirectsIndexView(TestCase):
+class TestRedirectsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -88,9 +90,9 @@ class TestRedirectsIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsAddView(TestCase):
+class TestRedirectsAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_add_redirect'), params)
@@ -98,8 +100,10 @@ class TestRedirectsAddView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailredirects_add_redirect'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/add.html')
 
     def test_add(self):
         response = self.post({
@@ -109,7 +113,7 @@ class TestRedirectsAddView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -127,14 +131,14 @@ class TestRedirectsAddView(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsEditView(TestCase):
+class TestRedirectsEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(old_path='/test', redirect_link='http://www.test.com/')
         self.redirect.save()
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), params)
@@ -142,8 +146,10 @@ class TestRedirectsEditView(TestCase):
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
@@ -156,7 +162,7 @@ class TestRedirectsEditView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was edited
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -173,14 +179,14 @@ class TestRedirectsEditView(TestCase):
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
 
-class TestRedirectsDeleteView(TestCase):
+class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(old_path='/test', redirect_link='http://www.test.com/')
         self.redirect.save()
 
         # Login
-        login(self.client)
+        self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), params)
@@ -188,8 +194,10 @@ class TestRedirectsDeleteView(TestCase):
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailredirects/confirm_delete.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
@@ -200,7 +208,7 @@ class TestRedirectsDeleteView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was deleted
         redirects = models.Redirect.objects.filter(old_path='/test')

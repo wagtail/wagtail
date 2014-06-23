@@ -3,9 +3,10 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import SimplePage
-from wagtail.tests.utils import login
+from wagtail.tests.utils import WagtailTestUtils
 
-class TestChooserBrowse(TestCase):
+
+class TestChooserBrowse(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -15,13 +16,15 @@ class TestChooserBrowse(TestCase):
         self.child_page.slug = "foobarbaz"
         self.root_page.add_child(instance=self.child_page)
 
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
     def test_search(self):
         response = self.get({'q': "foobarbaz"})
@@ -39,7 +42,7 @@ class TestChooserBrowse(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestChooserBrowseChild(TestCase):
+class TestChooserBrowseChild(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -49,7 +52,7 @@ class TestChooserBrowseChild(TestCase):
         self.child_page.slug = "foobarbaz"
         self.root_page.add_child(instance=self.child_page)
 
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_child',
@@ -59,8 +62,10 @@ class TestChooserBrowseChild(TestCase):
         return self.client.get(reverse('wagtailadmin_choose_page_child',
                                        args=(9999999,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
     def test_search(self):
         response = self.get({'q': "foobarbaz"})
@@ -77,9 +82,9 @@ class TestChooserBrowseChild(TestCase):
         self.assertEqual(self.get_invalid().status_code, 404)
 
 
-class TestChooserExternalLink(TestCase):
+class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_external_link'), params)
@@ -87,8 +92,10 @@ class TestChooserExternalLink(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailadmin_choose_page_external_link'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/external_link.html')
 
     def test_get_with_param(self):
         self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
@@ -99,9 +106,9 @@ class TestChooserExternalLink(TestCase):
         self.assertContains(request, "'title': 'http://www.example.com/'")
 
 
-class TestChooserEmailLink(TestCase):
+class TestChooserEmailLink(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_email_link'), params)
@@ -109,8 +116,10 @@ class TestChooserEmailLink(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailadmin_choose_page_email_link'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/email_link.html')
 
     def test_get_with_param(self):
         self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)

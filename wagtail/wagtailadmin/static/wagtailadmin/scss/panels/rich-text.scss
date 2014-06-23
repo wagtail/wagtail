@@ -147,8 +147,9 @@
         }
     }
 }
+
 @media screen and (min-width: $breakpoint-mobile){
     .hallotoolbar{
         left:$menu-width + $desktop-nice-padding;
     }
- }
+}

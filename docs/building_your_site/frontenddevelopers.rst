@@ -197,6 +197,11 @@ In some cases greater control over the ``img`` tag is required, for example to a
     <img src="{{ tmp_photo.src }}" width="{{ tmp_photo.width }}" 
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 
+You can also use the ``attrs`` property as a shorthand to output the ``src``, ``width``, ``height`` and ``alt`` attributes in one go:
+
+.. code-block:: django
+
+    <img {{ tmp_photo.attrs }} class="my-custom-class" />
 
 .. _rich-text-filter:
 

@@ -1,7 +1,6 @@
-import sys
-import os
 from StringIO import StringIO
 from urlparse import urlparse
+import warnings
 
 from modelcluster.models import ClusterableModel
 
@@ -19,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
@@ -101,83 +100,82 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-LEAF_PAGE_MODEL_CLASSES = []
-_LEAF_PAGE_CONTENT_TYPE_IDS = []
-
-
 def get_leaf_page_content_type_ids():
-    global _LEAF_PAGE_CONTENT_TYPE_IDS
-    if len(_LEAF_PAGE_CONTENT_TYPE_IDS) != len(LEAF_PAGE_MODEL_CLASSES):
-        _LEAF_PAGE_CONTENT_TYPE_IDS = [
-            ContentType.objects.get_for_model(cls).id for cls in LEAF_PAGE_MODEL_CLASSES
-        ]
-    return _LEAF_PAGE_CONTENT_TYPE_IDS
-
-
-NAVIGABLE_PAGE_MODEL_CLASSES = []
-_NAVIGABLE_PAGE_CONTENT_TYPE_IDS = []
-
+    warnings.warn("""
+        get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
+        setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
+        this incorrect assumption.
+    """, DeprecationWarning)
+    return [
+        content_type.id
+        for content_type in get_page_types()
+        if not getattr(content_type.model_class(), 'subpage_types', None)
+    ]
 
 def get_navigable_page_content_type_ids():
-    global _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
-    if len(_NAVIGABLE_PAGE_CONTENT_TYPE_IDS) != len(NAVIGABLE_PAGE_MODEL_CLASSES):
-        _NAVIGABLE_PAGE_CONTENT_TYPE_IDS = [
-            ContentType.objects.get_for_model(cls).id for cls in NAVIGABLE_PAGE_MODEL_CLASSES
-        ]
-    return _NAVIGABLE_PAGE_CONTENT_TYPE_IDS
+    warnings.warn("""
+        get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
+        setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
+        this incorrect assumption.
+    """, DeprecationWarning)
+    return [
+        content_type.id
+        for content_type in get_page_types()
+        if getattr(content_type.model_class(), 'subpage_types', None)
+    ]
 
 
 class PageManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
     def live(self):
-        return self.get_query_set().live()
+        return self.get_queryset().live()
 
     def not_live(self):
-        return self.get_query_set().not_live()
+        return self.get_queryset().not_live()
 
     def page(self, other):
-        return self.get_query_set().page(other)
+        return self.get_queryset().page(other)
 
     def not_page(self, other):
-        return self.get_query_set().not_page(other)
+        return self.get_queryset().not_page(other)
 
     def descendant_of(self, other, inclusive=False):
-        return self.get_query_set().descendant_of(other, inclusive)
+        return self.get_queryset().descendant_of(other, inclusive)
 
     def not_descendant_of(self, other, inclusive=False):
-        return self.get_query_set().not_descendant_of(other, inclusive)
+        return self.get_queryset().not_descendant_of(other, inclusive)
 
     def child_of(self, other):
-        return self.get_query_set().child_of(other)
+        return self.get_queryset().child_of(other)
 
     def not_child_of(self, other):
-        return self.get_query_set().not_child_of(other)
+        return self.get_queryset().not_child_of(other)
 
     def ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().ancestor_of(other, inclusive)
+        return self.get_queryset().ancestor_of(other, inclusive)
 
     def not_ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().not_ancestor_of(other, inclusive)
+        return self.get_queryset().not_ancestor_of(other, inclusive)
 
     def parent_of(self, other):
-        return self.get_query_set().parent_of(other)
+        return self.get_queryset().parent_of(other)
 
     def not_parent_of(self, other):
-        return self.get_query_set().not_parent_of(other)
+        return self.get_queryset().not_parent_of(other)
 
     def sibling_of(self, other, inclusive=False):
-        return self.get_query_set().sibling_of(other, inclusive)
+        return self.get_queryset().sibling_of(other, inclusive)
 
     def not_sibling_of(self, other, inclusive=False):
-        return self.get_query_set().not_sibling_of(other, inclusive)
+        return self.get_queryset().not_sibling_of(other, inclusive)
 
     def type(self, model):
-        return self.get_query_set().type(model)
+        return self.get_queryset().type(model)
 
     def not_type(self, model):
-        return self.get_query_set().not_type(model)
+        return self.get_queryset().not_type(model)
 
 
 class PageBase(models.base.ModelBase):
@@ -209,10 +207,6 @@ class PageBase(models.base.ModelBase):
         if not cls.is_abstract:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
-        if cls.subpage_types:
-            NAVIGABLE_PAGE_MODEL_CLASSES.append(cls)
-        else:
-            LEAF_PAGE_MODEL_CLASSES.append(cls)
 
 
 class Page(MP_Node, ClusterableModel, Indexed):
@@ -258,9 +252,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def __unicode__(self):
         return self.title
-
-    # by default pages do not allow any kind of subpages
-    subpage_types = []
 
     is_abstract = True  # don't offer Page in the list of page types a superuser can create
 
@@ -416,10 +407,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def is_navigable(self):
         """
         Return true if it's meaningful to browse subpages of this page -
-        i.e. it currently has subpages, or its page type indicates that sub-pages are supported,
+        i.e. it currently has subpages,
         or it's at the top level (this rule necessary for empty out-of-the-box sites to have working navigation)
         """
-        return (not self.is_leaf()) or (self.content_type_id not in get_leaf_page_content_type_ids()) or self.depth == 2
+        return (not self.is_leaf()) or self.depth == 2
 
     def get_other_siblings(self):
         # get sibling pages excluding self
@@ -484,25 +475,30 @@ class Page(MP_Node, ClusterableModel, Indexed):
             where required
         """
         if cls._clean_subpage_types is None:
-            res = []
-            for page_type in cls.subpage_types:
-                if isinstance(page_type, basestring):
-                    try:
-                        app_label, model_name = page_type.split(".")
-                    except ValueError:
-                        # If we can't split, assume a model in current app
-                        app_label = cls._meta.app_label
-                        model_name = page_type
+            subpage_types = getattr(cls, 'subpage_types', None)
+            if subpage_types is None:
+                # if subpage_types is not specified on the Page class, allow all page types as subpages
+                res = get_page_types()
+            else:
+                res = []
+                for page_type in cls.subpage_types:
+                    if isinstance(page_type, basestring):
+                        try:
+                            app_label, model_name = page_type.split(".")
+                        except ValueError:
+                            # If we can't split, assume a model in current app
+                            app_label = cls._meta.app_label
+                            model_name = page_type
 
-                    model = get_model(app_label, model_name)
-                    if model:
-                        res.append(model)
+                        model = get_model(app_label, model_name)
+                        if model:
+                            res.append(ContentType.objects.get_for_model(model))
+                        else:
+                            raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
+
                     else:
-                        raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
-
-                else:
-                    # assume it's already a model class
-                    res.append(page_type)
+                        # assume it's already a model class
+                        res.append(ContentType.objects.get_for_model(page_type))
 
             cls._clean_subpage_types = res
 
@@ -652,13 +648,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
-    # or are a non-leaf type (indicating that they *could* have children),
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
-    navigable_content_type_ids = get_navigable_page_content_type_ids()
-    if navigable_content_type_ids:
-        pages = Page.objects.filter(Q(content_type__in=navigable_content_type_ids)|Q(depth=2)|Q(numchild__gt=0)).order_by('path')
-    else:
-        pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
+    pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -706,8 +697,8 @@ class Orderable(models.Model):
 
 
 class SubmittedRevisionsManager(models.Manager):
-    def get_query_set(self):
-        return super(SubmittedRevisionsManager, self).get_query_set().filter(submitted_for_moderation=True)
+    def get_queryset(self):
+        return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
 class PageRevision(models.Model):

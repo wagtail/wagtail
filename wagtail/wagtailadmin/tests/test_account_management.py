@@ -1,17 +1,17 @@
 from django.test import TestCase
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 
 
-class TestAuthentication(TestCase):
+class TestAuthentication(TestCase, WagtailTestUtils):
     """
     This tests that users can login and logout of the admin interface
     """
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def test_login_view(self):
         """
@@ -43,13 +43,12 @@ class TestAuthentication(TestCase):
         response = self.client.post(reverse('wagtailadmin_login'), post_data)
 
         # Check that the user was redirected to the dashboard
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
         # Check that the user was logged in
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(self.client.session['_auth_user_id'], User.objects.get(username='test').id)
 
-    @unittest.expectedFailure # See: https://github.com/torchbox/wagtail/issues/25
     def test_already_logged_in_redirect(self):
         """
         This tests that a user who is already logged in is automatically
@@ -60,28 +59,61 @@ class TestAuthentication(TestCase):
         response = self.client.get(reverse('wagtailadmin_login'))
 
         # Check that the user was redirected to the dashboard
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_logout(self):
         """
         This tests that the user can logout
         """
-        # Get logout page page
+        # Get logout page
         response = self.client.get(reverse('wagtailadmin_logout'))
 
         # Check that the user was redirected to the login page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailadmin_login'))
 
         # Check that the user was logged out
         self.assertFalse('_auth_user_id' in self.client.session)
 
+    def test_not_logged_in_redirect(self):
+        """
+        This tests that a not logged in user is redirected to the
+        login page
+        """
+        # Logout
+        self.client.logout()
 
-class TestAccountSection(TestCase):
+        # Get dashboard
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+
+    def test_not_logged_in_redirect_default_settings(self):
+        """
+        This does the same as the above test but checks that it
+        redirects to the correct place when the user has not set
+        the LOGIN_URL setting correctly
+        """
+        # Logout
+        self.client.logout()
+
+        # Get dashboard with default LOGIN_URL setting
+        with self.settings(LOGIN_URL='django.contrib.auth.views.login'):
+            response = self.client.get(reverse('wagtailadmin_home'))
+
+        # Check that the user was redirected to the login page and that next was set correctly
+        # Note: The user will be redirected to 'django.contrib.auth.views.login' but
+        # this must be the same URL as 'wagtailadmin_login'
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=' + reverse('wagtailadmin_home'))
+
+
+class TestAccountSection(TestCase, WagtailTestUtils):
     """
     This tests that the accounts section is working
     """
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def test_account_view(self):
         """
@@ -117,8 +149,8 @@ class TestAccountSection(TestCase):
         }
         response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
 
-        # Check that the user was redirected
-        self.assertEqual(response.status_code, 302)
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
         self.assertTrue(User.objects.get(username='test').check_password('newpassword'))
@@ -146,7 +178,7 @@ class TestAccountSection(TestCase):
         self.assertTrue(User.objects.get(username='test').check_password('password'))
 
 
-class TestPasswordReset(TestCase):
+class TestPasswordReset(TestCase, WagtailTestUtils):
     """
     This tests that the password reset is working
     """
@@ -176,8 +208,8 @@ class TestPasswordReset(TestCase):
         }
         response = self.client.post(reverse('password_reset'), post_data)
 
-        # Check that the user was redirected
-        self.assertEqual(response.status_code, 302)
+        # Check that the user was redirected to the done page
+        self.assertRedirects(response, reverse('password_reset_done'))
 
         # Check that a password reset email was sent to the user
         self.assertEqual(len(mail.outbox), 1)
@@ -267,8 +299,8 @@ class TestPasswordReset(TestCase):
         }
         response = self.client.post(reverse('password_reset_confirm', kwargs=self.url_kwargs), post_data)
 
-        # Check that the user was redirected
-        self.assertEqual(response.status_code, 302)
+        # Check that the user was redirected to the complete page
+        self.assertRedirects(response, reverse('password_reset_complete'))
 
         # Check that the password was changed
         self.assertTrue(User.objects.get(username='test').check_password('newpassword'))
