@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild
+from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
@@ -771,41 +771,87 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
-        # Add standard page
+        # Add standard page (allows subpages of any type)
         self.standard_index = StandardIndex()
         self.standard_index.title = "Standard Index"
         self.standard_index.slug = "standard-index"
         self.root_page.add_child(instance=self.standard_index)
 
-        # Add business page
+        # Add business page (allows BusinessChild and BusinessSubIndex as subpages)
         self.business_index = BusinessIndex()
         self.business_index.title = "Business Index"
         self.business_index.slug = "business-index"
         self.root_page.add_child(instance=self.business_index)
 
-        # Add business child
+        # Add business child (allows no subpages)
         self.business_child = BusinessChild()
         self.business_child.title = "Business Child"
         self.business_child.slug = "business-child"
         self.business_index.add_child(instance=self.business_child)
 
+        # Add business subindex (allows only BusinessChild as subpages)
+        self.business_subindex = BusinessSubIndex()
+        self.business_subindex.title = "Business Subindex"
+        self.business_subindex.slug = "business-subindex"
+        self.business_index.add_child(instance=self.business_subindex)
+
         # Login
         self.login()
 
     def test_standard_subpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.standard_index.id, )))
+        add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.standard_index.id, ))
+
+        # explorer should contain a link to 'add child page'
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.standard_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, add_subpage_url)
+
+        # add_subpage should give us the full set of page types to choose
+        response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Standard Child')
         self.assertContains(response, 'Business Child')
 
     def test_business_subpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, )))
+        add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, ))
+
+        # explorer should contain a link to 'add child page'
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.business_index.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, add_subpage_url)
+
+        # add_subpage should give us a cut-down set of page types to choose
+        response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'Standard Child')
         self.assertContains(response, 'Business Child')
 
     def test_business_child_subpage(self):
-        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, )))
+        add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, ))
+
+        # explorer should not contain a link to 'add child page', as this page doesn't accept subpages
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.business_child.id, )))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'Standard Child')
-        self.assertEqual(0, len(response.context['page_types']))
+        self.assertNotContains(response, add_subpage_url)
+
+        # this also means that fetching add_subpage is blocked at the permission-check level
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, )))
+        self.assertEqual(response.status_code, 403)
+
+    def test_cannot_add_invalid_subpage_type(self):
+        # cannot add SimplePage as a child of BusinessIndex, as SimplePage is not present in subpage_types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_index.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # likewise for BusinessChild which has an empty subpage_types list
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_child.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # but we can add a BusinessChild to BusinessIndex
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.business_index.id)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_not_prompted_for_page_type_when_only_one_choice(self):
+        response = self.client.get(reverse('wagtailadmin_pages_add_subpage', args=(self.business_subindex.id, )))
+        # BusinessChild is the only valid subpage type of BusinessSubIndex, so redirect straight there
+        self.assertRedirects(response, reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.business_subindex.id)))
