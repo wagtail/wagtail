@@ -238,11 +238,19 @@ class EditHandler(object):
         in rendered_fields
         """
         rendered_fields = self.rendered_fields()
-        missing_fields_html = [
-            unicode(self.form[field_name])
-            for field_name in self.form.fields
-            if field_name not in rendered_fields
-        ]
+        missing_fields_html = []
+        misconfigured_fields = []
+
+        for field_name in self.form.fields:
+            if field_name not in rendered_fields:
+                if isinstance(self.form[field_name].field.widget, forms.HiddenInput):
+                    missing_fields_html.append(unicode(self.form[field_name]))
+                else:
+                    misconfigured_fields.append(self.form[field_name])
+
+        if misconfigured_fields:
+            template = "wagtailadmin/edit_handlers/misconfigured_fields.html"
+            missing_fields_html.append(mark_safe(render_to_string(template, { 'misconfigured_fields': misconfigured_fields })))
 
         return mark_safe(u''.join(missing_fields_html))
 
