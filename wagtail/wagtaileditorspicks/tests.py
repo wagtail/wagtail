@@ -310,3 +310,28 @@ class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
 
         # The other recommendation should still exist
         self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick.id).exists())
+
+
+class TestQueryChooserView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtaileditorspicks_queries_chooser'), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/queries/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/queries/chooser/chooser.js')
+
+    def test_search(self):
+        response = self.get({'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_pagination(self):
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)

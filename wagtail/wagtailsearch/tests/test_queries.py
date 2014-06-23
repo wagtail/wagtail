@@ -112,28 +112,3 @@ class TestGarbageCollectCommand(TestCase):
         management.call_command('search_garbage_collect', interactive=False, stdout=StringIO())
 
     # TODO: Test that this command is acctually doing its job
-
-
-class TestQueryChooserView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.login()
-
-    def get(self, params={}):
-        return self.client.get('/admin/search/queries/chooser/', params)
-
-    def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.js')
-
-    def test_search(self):
-        response = self.get({'q': "Hello"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['query_string'], "Hello")
-
-    def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
-        for page in pages:
-            response = self.get({'p': page})
-            self.assertEqual(response.status_code, 200)
