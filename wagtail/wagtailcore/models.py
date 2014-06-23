@@ -623,13 +623,32 @@ class Page(MP_Node, ClusterableModel, Indexed):
         """
         return self.serve(self.dummy_request())
 
+    def get_internal_paths(self):
+        """
+        This returns a list of paths within this page.
+        This is used for static sites, sitemaps and cache invalidation.
+        """
+        return ['/']
+
+    def get_sitemap_urls(self):
+        latest_revision = self.get_latest_revision()
+
+        return [
+            {
+                'location': self.url + url[1:],
+                'lastmod': latest_revision.created_at if latest_revision else None
+            }
+            for url in self.get_internal_paths()
+        ]
+
     def get_static_site_paths(self):
         """
         This is a generator of URL paths to feed into a static site generator
         Override this if you would like to create static versions of subpages
         """
         # Yield paths for this page
-        yield '/'
+        for url in self.get_internal_paths():
+            yield url
 
         # Yield paths for child pages
         for child in self.get_children().live():

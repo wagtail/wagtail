@@ -12,12 +12,8 @@ class Sitemap(object):
 
     def get_urls(self):
         for page in self.get_pages():
-            latest_revision = page.get_latest_revision()
-
-            yield {
-                'location': page.url,
-                'lastmod': latest_revision.created_at if latest_revision else None
-            }
+            for url in page.get_sitemap_urls():
+                yield url
 
     def render(self):
         return render_to_string(self.template, {
