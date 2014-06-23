@@ -2,7 +2,8 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailsearch import models
+from wagtail.wagtailsearch.models import Query
+from wagtail.wagtaileditorspicks import models
 
 
 class QueryForm(forms.Form):
@@ -28,7 +29,7 @@ class EditorsPickForm(forms.ModelForm):
         }
 
 
-EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
+EditorsPickFormSetBase = inlineformset_factory(Query, models.EditorsPick, form=EditorsPickForm, can_order=True, can_delete=True, extra=0)
 
 
 class EditorsPickFormSet(EditorsPickFormSetBase):
@@ -49,7 +50,7 @@ class EditorsPickFormSet(EditorsPickFormSetBase):
         # Check there is at least one non-deleted form.
         non_deleted_forms = self.total_form_count()
         non_empty_forms = 0
-        for i in range(0, self.total_form_count()):
+        for i in xrange(0, self.total_form_count()):
             form = self.forms[i]
             if self.can_delete and self._should_delete_form(form):
                 non_deleted_forms -= 1

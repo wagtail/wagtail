@@ -2,49 +2,50 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailsearch import models
+from wagtail.wagtailsearch.models import Query
+from wagtail.wagtaileditorspicks import models
 
 
 class TestEditorsPicks(TestCase):
     def test_editors_pick_create(self):
         # Create an editors pick to the root page
         models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+            query=Query.get("root page"),
             page_id=1,
             sort_order=0,
             description="First editors pick",
         )
 
         # Check
-        self.assertEqual(models.Query.get("root page").editors_picks.count(), 1)
-        self.assertEqual(models.Query.get("root page").editors_picks.first().page_id, 1)
+        self.assertEqual(Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(Query.get("root page").editors_picks.first().page_id, 1)
 
     def test_editors_pick_ordering(self):
         # Add 3 editors picks in a different order to their sort_order values
         # They should be ordered by their sort order values and not their insertion order
         models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+            query=Query.get("root page"),
             page_id=1,
             sort_order=0,
             description="First editors pick",
         )
         models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+            query=Query.get("root page"),
             page_id=1,
             sort_order=2,
             description="Last editors pick",
         )
         models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+            query=Query.get("root page"),
             page_id=1,
             sort_order=1,
             description="Middle editors pick",
         )
 
         # Check
-        self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
-        self.assertEqual(models.Query.get("root page").editors_picks.first().description, "First editors pick")
-        self.assertEqual(models.Query.get("root page").editors_picks.last().description, "Last editors pick")
+        self.assertEqual(Query.get("root page").editors_picks.count(), 3)
+        self.assertEqual(Query.get("root page").editors_picks.first().description, "First editors pick")
+        self.assertEqual(Query.get("root page").editors_picks.last().description, "Last editors pick")
 
 
 class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
@@ -52,19 +53,19 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearch_editorspicks_index'))
+        response = self.client.get(reverse('wagtaileditorspicks_index'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/index.html')
 
     def test_search(self):
-        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'q': "Hello"})
+        response = self.client.get(reverse('wagtaileditorspicks_index'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
     def make_editors_picks(self):
         for i in range(50):
             models.EditorsPick.objects.create(
-                query=models.Query.get("query " + str(i)),
+                query=Query.get("query " + str(i)),
                 page_id=1,
                 sort_order=0,
                 description="First editors pick",
@@ -73,11 +74,11 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_editors_picks()
 
-        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 2})
+        response = self.client.get(reverse('wagtaileditorspicks_index'), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/index.html')
 
         # Check that we got the correct page
         self.assertEqual(response.context['queries'].number, 2)
@@ -85,11 +86,11 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_editors_picks()
 
-        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaileditorspicks_index'), {'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/index.html')
 
         # Check that we got page one
         self.assertEqual(response.context['queries'].number, 1)
@@ -97,11 +98,11 @@ class TestEditorsPicksIndexView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_editors_picks()
 
-        response = self.client.get(reverse('wagtailsearch_editorspicks_index'), {'p': 99999})
+        response = self.client.get(reverse('wagtaileditorspicks_index'), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/index.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/index.html')
 
         # Check that we got the last page
         self.assertEqual(response.context['queries'].number, response.context['queries'].paginator.num_pages)
@@ -112,9 +113,9 @@ class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearch_editorspicks_add'))
+        response = self.client.get(reverse('wagtaileditorspicks_add'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/add.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/add.html')
 
     def test_post(self):
         # Submit
@@ -128,13 +129,13 @@ class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
             'editors_picks-0-page': 1,
             'editors_picks-0-description': "Hello",
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_add'), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_add'), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+        self.assertRedirects(response, reverse('wagtaileditorspicks_index'))
 
         # Check that the editors pick was created
-        self.assertTrue(models.Query.get('test').editors_picks.filter(page_id=1).exists())
+        self.assertTrue(Query.get('test').editors_picks.filter(page_id=1).exists())
 
     def test_post_without_recommendations(self):
         # Submit
@@ -144,7 +145,7 @@ class TestEditorsPicksAddView(TestCase, WagtailTestUtils):
             'editors_picks-INITIAL_FORMS': 0,
             'editors_picks-MAX_NUM_FORMS': 1000,
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_add'), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_add'), post_data)
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
@@ -156,14 +157,14 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
         self.login()
 
         # Create an editors pick to edit
-        self.query = models.Query.get("Hello")
+        self.query = Query.get("Hello")
         self.editors_pick = self.query.editors_picks.create(page_id=1, description="Root page")
         self.editors_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )))
+        response = self.client.get(reverse('wagtaileditorspicks_edit', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/edit.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/edit.html')
 
     def test_post(self):
         # Submit
@@ -183,18 +184,18 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_edit', args=(self.query.id, )), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+        self.assertRedirects(response, reverse('wagtaileditorspicks_index'))
 
         # Check that the editors pick description was edited
         self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick.id).description, "Description has changed")
 
     def test_post_reorder(self):
         # Check order before reordering
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.editors_pick)
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.editors_pick_2)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.editors_pick)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.editors_pick_2)
 
         # Submit
         post_data = {
@@ -213,18 +214,18 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_edit', args=(self.query.id, )), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+        self.assertRedirects(response, reverse('wagtaileditorspicks_index'))
 
         # Check that the ordering has been saved correctly
         self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick.id).sort_order, 1)
         self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick_2.id).sort_order, 0)
 
         # Check that the recommendations were reordered
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.editors_pick_2)
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.editors_pick)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.editors_pick_2)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.editors_pick)
 
     def test_post_delete_recommendation(self):
         # Submit
@@ -244,10 +245,10 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_edit', args=(self.query.id, )), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+        self.assertRedirects(response, reverse('wagtaileditorspicks_index'))
 
         # Check that the recommendation was deleted
         self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick_2.id).exists())
@@ -273,7 +274,7 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_edit', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_edit', args=(self.query.id, )), post_data)
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
@@ -285,24 +286,24 @@ class TestEditorsPicksDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
         # Create an editors pick to delete
-        self.query = models.Query.get("Hello")
+        self.query = Query.get("Hello")
         self.editors_pick = self.query.editors_picks.create(page_id=1, description="Root page")
         self.editors_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearch_editorspicks_delete', args=(self.query.id, )))
+        response = self.client.get(reverse('wagtaileditorspicks_delete', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/editorspicks/confirm_delete.html')
+        self.assertTemplateUsed(response, 'wagtaileditorspicks/confirm_delete.html')
 
     def test_post(self):
         # Submit
         post_data = {
             'foo': 'bar',
         }
-        response = self.client.post(reverse('wagtailsearch_editorspicks_delete', args=(self.query.id, )), post_data)
+        response = self.client.post(reverse('wagtaileditorspicks_delete', args=(self.query.id, )), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+        self.assertRedirects(response, reverse('wagtaileditorspicks_index'))
 
         # Check that both recommendations were deleted
         self.assertFalse(models.EditorsPick.objects.filter(id=self.editors_pick_2.id).exists())

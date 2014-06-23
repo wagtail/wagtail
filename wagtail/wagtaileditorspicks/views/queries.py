@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import permission_required
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 
-from wagtail.wagtailsearch import models
+from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
