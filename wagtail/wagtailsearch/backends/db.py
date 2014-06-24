@@ -66,7 +66,9 @@ class DBSearch(BaseSearch):
         # Distinct
         query = query.distinct()
 
-        # Give deprecation warning if prefetch_related was used
-        warnings.warn("prefetch_related on search queries is no longer implemented. ", DeprecationWarning)
+        # Prefetch related
+        if prefetch_related:
+            for prefetch in prefetch_related:
+                query = query.prefetch_related(prefetch)
 
         return query
