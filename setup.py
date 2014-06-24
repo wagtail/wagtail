@@ -53,6 +53,7 @@ setup(
         "lxml>=3.3.0",
         'unicodecsv>=0.9.4',
         'Unidecode>=0.04.14',
+        'requests==2.3.0',
         "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
     ],
     zip_safe=False,
