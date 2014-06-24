@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.forms import SearchForm
 
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Site, Page, PageRevision, UserPagePermissionsProxy
 
 from wagtail.wagtaildocs.models import Document
 
@@ -27,6 +27,7 @@ class SiteSummaryPanel(object):
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
             'total_images': get_image_model().objects.count(),
             'total_docs': Document.objects.count(),
+            'root_page': Site.find_for_request(self.request).root_page,
             'search_form': SearchForm(),
         }, RequestContext(self.request))
 
