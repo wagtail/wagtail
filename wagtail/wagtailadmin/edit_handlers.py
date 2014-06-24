@@ -1,6 +1,4 @@
 import copy
-import re
-import datetime
 
 from taggit.forms import TagWidget
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
@@ -9,13 +7,13 @@ from django.template.loader import render_to_string
 from django.template.defaultfilters import addslashes
 from django.utils.safestring import mark_safe
 from django import forms
-from django.db import models
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
+from django.core.exceptions import (
+    ObjectDoesNotExist,
+    ImproperlyConfigured,
+)
 from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
@@ -38,7 +36,8 @@ WIDGET_JS = {
 }
 
 
-# Callback to allow us to override the default form fields provided for each model field.
+# Callback to allow us to override the default form fields provided
+# for each model field.
 def formfield_for_dbfield(db_field, **kwargs):
     # snarfed from django/contrib/admin/options.py
 
@@ -56,13 +55,13 @@ def formfield_for_dbfield(db_field, **kwargs):
 class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
     # Override the behaviour of the regular ModelForm metaclass -
     # which handles the translation of model fields to form fields -
-    # to use our own formfield_for_dbfield function to do that translation.
-    # This is done by sneaking a formfield_callback property into the class
-    # being defined (unless the class already provides a formfield_callback
-    # of its own).
+    # to use our own formfield_for_dbfield function to do that
+    # translation. This is done by sneaking a formfield_callback
+    # property into the class being defined (unless the class already
+    # provides a formfield_callback of its own).
 
-    # while we're at it, we'll also set extra_form_count to 0, as we're creating
-    # extra forms in JS
+    # while we're at it, we'll also set extra_form_count to 0, as
+    # we're creating extra forms in JS
     extra_form_count = 0
 
     def __new__(cls, name, bases, attrs):
@@ -79,8 +78,8 @@ WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', 
 
 
 def get_form_for_model(
-    model,
-    fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
+    model, fields=None, exclude=None, formsets=None,
+    exclude_formsets=None, widgets=None
 ):
 
     # django's modelform_factory with a bit of custom behaviour
@@ -94,7 +93,8 @@ def get_form_for_model(
     if exclude is not None:
         attrs['exclude'] = exclude
     if issubclass(model, Page):
-        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path', 'depth', 'numchild']
+        attrs['exclude'] = attrs.get('exclude', []) + ['content_type', 'path',
+                                                       'depth', 'numchild']
 
     if widgets is not None:
         attrs['widgets'] = widgets
@@ -111,7 +111,9 @@ def get_form_for_model(
         'Meta': type('Meta', (object,), attrs)
     }
 
-    return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
+    return WagtailAdminModelFormMetaclass(class_name,
+                                          (WagtailAdminModelForm,),
+                                          form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -126,7 +128,8 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     if issubclass(model, Page):
         _exclude = ['content_type', 'path', 'depth', 'numchild']
 
-    fields = fields_for_model(model, exclude=_exclude, formfield_callback=formfield_for_dbfield)
+    fields = fields_for_model(model, exclude=_exclude,
+                              formfield_callback=formfield_for_dbfield)
 
     for field_name, field in fields.items():
         try:
