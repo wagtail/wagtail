@@ -1,5 +1,9 @@
 from __future__ import absolute_import
 
+import string
+import json
+import warnings
+
 from django.db import models
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
@@ -8,17 +12,13 @@ from elasticsearch.helpers import bulk
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
 
-import string
 
-
-class ElasticSearchResults(object):
-    def __init__(self, backend, model, query_string, fields=None, filters={}, prefetch_related=[]):
-        self.backend = backend
+class ElasticSearchQuery(object):
+    def __init__(self, model, query_string, fields=None, filters={}):
         self.model = model
         self.query_string = query_string
-        self.fields = fields
+        self.fields = fields or ['_all']
         self.filters = filters
-        self.prefetch_related = prefetch_related
 
     def _get_filters(self):
         # Filters
@@ -83,7 +83,7 @@ class ElasticSearchResults(object):
 
         return filters
 
-    def _get_query(self):
+    def to_es(self):
         # Query
         query = {
             'query_string': {
@@ -107,26 +107,84 @@ class ElasticSearchResults(object):
             }
         }
 
-    def _get_results_pks(self, offset=0, limit=None):
-        query = self._get_query()
-        query['from'] = offset
-        if limit is not None:
-            query['size'] = limit
+    def __repr__(self):
+        return json.dumps(self.to_es())
 
-        hits = self.backend.es.search(
+
+class ElasticSearchResults(object):
+    def __init__(self, backend, query, prefetch_related=None):
+        self.backend = backend
+        self.query = query
+        self.prefetch_related = prefetch_related
+        self.start = 0
+        self.stop = None
+        self._results_cache = None
+        self._count_cache = None
+
+    def _set_limits(self, start=None, stop=None):
+        if stop is not None:
+            if self.stop is not None:
+                self.stop = min(self.stop, self.start + stop)
+            else:
+                self.stop = self.start + stop
+
+        if start is not None:
+            if self.stop is not None:
+                self.start = min(self.stop, self.start + start)
+            else:
+                self.start = self.start + start
+
+    def _clone(self):
+        klass = self.__class__
+        new = klass(self.backend, self.query, prefetch_related=self.prefetch_related)
+        new.start = self.start
+        new.stop = self.stop
+        return new
+
+    def _do_search(self):
+        # Params for elasticsearch query
+        params = dict(
             index=self.backend.es_index,
-            body=dict(query=query),
+            body=dict(query=self.query.to_es()),
             _source=False,
             fields='pk',
+            from_=self.start,
         )
 
+        # Add size if set
+        if self.stop is not None:
+            params['size'] = self.stop - self.start
+
+        # Send to ElasticSearch
+        hits = self.backend.es.search(**params)
+
+        # Get pks from results
         pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
 
         # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
-        return [pk[0] if isinstance(pk, list) else pk for pk in pks]
+        pks = [pk[0] if isinstance(pk, list) else pk for pk in pks]
 
-    def _get_count(self):
-        query = self._get_query()
+        # Initialise results dictionary
+        results = dict((str(pk), None) for pk in pks)
+
+        # Get queryset
+        queryset = self.query.model.objects.filter(pk__in=pks)
+
+        # Add prefetch related
+        if self.prefetch_related:
+            for prefetch in self.prefetch_related:
+                queryset = queryset.prefetch_related(prefetch)
+
+        # Find objects in database and add them to dict
+        for obj in queryset:
+            results[str(obj.pk)] = obj
+
+        # Return results in order given by ElasticSearch
+        return [results[str(pk)] for pk in pks if results[str(pk)]]
+
+    def _do_count(self):
+        # Get query
+        query = self.query.to_es()
 
         # Elasticsearch 1.x
         count = self.backend.es.count(
@@ -141,43 +199,62 @@ class ElasticSearchResults(object):
                 body=query,
             )
 
-        return count['count']
+        # Get count
+        hit_count = count['count']
+
+        # Add limits
+        hit_count -= self.start
+        if self.stop is not None:
+            hit_count = min(hit_count, self.stop - self.start)
+
+        return max(hit_count, 0)
+
+    def results(self):
+        if self._results_cache is None:
+            self._results_cache = self._do_search()
+        return self._results_cache
+
+    def count(self):
+        if self._count_cache is None:
+            if self._results_cache is not None:
+                self._count_cache = len(self._results_cache)
+            else:
+                self._count_cache = self._do_count()
+        return self._count_cache
 
     def __getitem__(self, key):
+        new = self._clone()
+
         if isinstance(key, slice):
-            # Get primary keys
-            pk_list_unclean = self._get_results_pks(key.start, key.stop - key.start)
+            # Set limits
+            start = int(key.start) if key.start else None
+            stop = int(key.stop) if key.stop else None
+            new._set_limits(start, stop)
 
-            # Remove duplicate keys (and preserve order)
-            seen_pks = set()
-            pk_list = []
-            for pk in pk_list_unclean:
-                if pk not in seen_pks:
-                    seen_pks.add(pk)
-                    pk_list.append(pk)
+            # Copy results cache
+            if self._results_cache is not None:
+                new._results_cache = self._results_cache[key]
 
-            # Get results
-            results = self.model.objects.filter(pk__in=pk_list)
-
-            # Prefetch related
-            for prefetch in self.prefetch_related:
-                results = results.prefetch_related(prefetch)
-
-            # Put results into a dictionary (using primary key as the key)
-            results_dict = dict((str(result.pk), result) for result in results)
-
-            # Build new list with items in the correct order
-            results_sorted = [results_dict[str(pk)] for pk in pk_list if str(pk) in results_dict]
-
-            # Return the list
-            return results_sorted
+            return new
         else:
-            # Return a single item
-            pk = self._get_results_pks(key, key + 1)[0]
-            return self.model.objects.get(pk=pk)
+            if self._results_cache is not None:
+                return self._results_cache[key]
+
+            new.start = key
+            new.stop = key + 1
+            return list(new)[0]
+
+    def __iter__(self):
+        return iter(self.results())
 
     def __len__(self):
-        return self._get_count()
+        return len(self.results())
+
+    def __repr__(self):
+        data = list(self[:21])
+        if len(data) > 20:
+            data[-1] = "...(remaining elements truncated)..."
+        return repr(data)
 
 
 class ElasticSearch(BaseSearch):
@@ -348,4 +425,4 @@ class ElasticSearch(BaseSearch):
             return []
 
         # Return search results
-        return ElasticSearchResults(self, model, query_string, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return ElasticSearchResults(self, ElasticSearchQuery(model, query_string, fields=fields, filters=filters), prefetch_related=prefetch_related)
