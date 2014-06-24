@@ -1,6 +1,5 @@
 *.pyc
 .DS_Store
-/.ropeproject/
 /.coverage
 /dist/
 /MANIFEST
