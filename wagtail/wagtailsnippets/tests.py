@@ -78,12 +78,10 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.test_snippet = Advert()
-        self.test_snippet.text = 'test_advert'
-        self.test_snippet.url = 'http://www.example.com/'
-        self.test_snippet.save()
+    fixtures = ['wagtail/tests/fixtures/test.json']
 
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
         self.login()
 
     def get(self, params={}):
@@ -127,12 +125,10 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.test_snippet = Advert()
-        self.test_snippet.text = 'test_advert'
-        self.test_snippet.url = 'http://www.example.com/'
-        self.test_snippet.save()
+    fixtures = ['wagtail/tests/fixtures/test.json']
 
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
         self.login()
 
     def test_delete_get(self):
@@ -151,14 +147,13 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
 
 class TestSnippetChooserPanel(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
     def setUp(self):
         content_type = get_content_type_from_url_params('tests',
                                                         'advert')
 
-        test_snippet = Advert()
-        test_snippet.text = 'test_advert'
-        test_snippet.url = 'http://www.example.com/'
-        test_snippet.save()
+        test_snippet = Advert.objects.get(id=1)
 
         edit_handler_class = get_snippet_edit_handler(Advert)
         form_class = edit_handler_class.get_form_class(Advert)

@@ -418,5 +418,13 @@
         "page": 8,
         "submit_time": "2014-01-01T12:00:00.000Z"
     }
+},
+{
+    "pk": 1,
+    "model": "tests.advert",
+    "fields": {
+        "text": "test_advert",
+        "url": "http://www.example.com"
+    }
 }
 ]
