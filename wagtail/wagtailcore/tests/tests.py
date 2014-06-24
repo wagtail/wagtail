@@ -30,8 +30,8 @@ class TestIssue7(TestCase):
     left all the child pages thinking that they are no longer in the
     site and return None as their url.
 
-    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682 Discussion:
-    https://github.com/torchbox/wagtail/issues/7
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/7
     """
 
     fixtures = ['test.json']
@@ -73,8 +73,8 @@ class TestIssue157(TestCase):
     Which left all the child pages thinking that they are no longer in
     the site and return None as their url.
 
-    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682 Discussion:
-    https://github.com/torchbox/wagtail/issues/157
+    Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
+    Discussion: https://github.com/torchbox/wagtail/issues/157
     """
 
     fixtures = ['test.json']
