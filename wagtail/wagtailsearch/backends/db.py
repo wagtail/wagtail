@@ -1,3 +1,5 @@
+import warnings
+
 from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
@@ -65,7 +67,8 @@ class DBSearch(BaseSearch):
         query = query.distinct()
 
         # Prefetch related
-        for prefetch in prefetch_related:
-            query = query.prefetch_related(prefetch)
+        if prefetch_related:
+            for prefetch in prefetch_related:
+                query = query.prefetch_related(prefetch)
 
         return query

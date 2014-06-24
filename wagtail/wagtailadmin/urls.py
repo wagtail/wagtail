@@ -50,7 +50,6 @@ urlpatterns += [
     url(r'^pages/(\d+)/edit/preview/$', pages.preview_on_edit, name='wagtailadmin_pages_preview_on_edit'),
 
     url(r'^pages/preview/$', pages.preview, name='wagtailadmin_pages_preview'),
-    url(r'^pages/preview_loading/$', pages.preview_loading, name='wagtailadmin_pages_preview_loading'),
 
     url(r'^pages/(\d+)/view_draft/$', pages.view_draft, name='wagtailadmin_pages_view_draft'),
     url(r'^pages/(\d+)/add_subpage/$', pages.add_subpage, name='wagtailadmin_pages_add_subpage'),

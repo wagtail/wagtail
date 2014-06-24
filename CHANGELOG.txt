@@ -3,6 +3,7 @@ Changelog
 
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
+ * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
  * Added 'original' as a resizing rule supported by the 'image' tag
  * Hallo.js updated to version 1.0.4
  * Snippets are now ordered alphabetically
@@ -14,6 +15,7 @@ Changelog
  * Aesthetic improvements to preview experience
  * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
  * Added an 'attrs' property to image rendition objects to output src, width, height and alt attributes all in one go
+ * Added 'construct_whitelister_element_rules' hook for customising the HTML whitelist used when saving rich text fields
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile

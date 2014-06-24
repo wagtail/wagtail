@@ -329,9 +329,9 @@ $(function() {
     });
 
     /* Set up behaviour of preview button */
-    $('.action-preview').click(function(e) {        
+    $('.action-preview').click(function(e) {
         e.preventDefault();
-        
+
         var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
 
         $.ajax({
@@ -340,18 +340,9 @@ $(function() {
             data: $('#page-edit-form').serialize(),
             success: function(data, textStatus, request) {
                 if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                    var pdoc = previewWindow.document;
-                    var frame = pdoc.getElementById('preview-frame');
-
-                    frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
-                    frame.document.open();
-                    frame.document.write(data);                 
-                    frame.document.close();
-
-                    var hideTimeout = setTimeout(function(){
-                        pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
-                        clearTimeout(hideTimeout);
-                    }, 50) // just enough to give effect without adding discernible slowness
+                    previewWindow.document.open();
+                    previewWindow.document.write(data);
+                    previewWindow.document.close();
                 } else {
                     previewWindow.close();
                     document.open();

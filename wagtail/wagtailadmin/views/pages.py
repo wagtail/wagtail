@@ -12,7 +12,7 @@ from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import tasks, hooks
 
-from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
+from wagtail.wagtailcore.models import Page, PageRevision
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -56,6 +56,12 @@ def add_subpage(request, parent_page_id):
         raise PermissionDenied
 
     page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
+
+    if len(page_types) == 1:
+        # Only one page type is available - redirect straight to the create form rather than
+        # making the user choose
+        content_type = page_types[0]
+        return redirect('wagtailadmin_pages_create', content_type.app_label, content_type.model, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
@@ -109,15 +115,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     except ContentType.DoesNotExist:
         raise Http404
 
-    page_class = content_type.model_class()
-
     # page must be in the list of allowed subpage types for this parent ID
-    # == Restriction temporarily relaxed so that as superusers we can add index pages and things -
-    # == TODO: reinstate this for regular editors when we have distinct user types
-    #
-    # if page_class not in parent_page.clean_subpage_types():
-    #     messages.error(request, "Sorry, you do not have access to create a page of type '%s' here." % content_type.name)
-    #     return redirect('wagtailadmin_pages_select_type')
+    if content_type not in parent_page.clean_subpage_types():
+        raise PermissionDenied
+
+    page_class = content_type.model_class()
 
     page = page_class(owner=request.user)
     edit_handler_class = get_page_edit_handler(page_class)
@@ -419,12 +421,6 @@ def preview(request):
     placeholder page, providing some much-needed visual feedback.
     """
     return render(request, 'wagtailadmin/pages/preview.html')
-
-def preview_loading(request):
-    """
-    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
-    """
-    return HttpResponse("<html><head><title></title></head><body></body></html>")
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
