@@ -3,15 +3,15 @@ from django.db.models.signals import post_save, post_delete
 
 from wagtail.wagtailcore.models import Page
 
-from wagtail.contrib.wagtailfrontendcache import purger
+from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
 
 
 def post_save_signal_handler(instance, **kwargs):
-    purger.purge_page_from_cache(instance)
+    purge_page_from_cache(instance)
 
 
 def post_delete_signal_handler(instance, **kwargs):
-    purger.purge_page_from_cache(instance)
+    purge_page_from_cache(instance)
 
 
 def register_signal_handlers():
