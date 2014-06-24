@@ -210,8 +210,10 @@ class TestBaseFieldPanel(TestCase):
 
     def setUp(self):
         fake_field = self.FakeField()
-        BaseFieldPanel.field_name = 'barbecue'
-        self.base_field_panel = BaseFieldPanel(
+        fake_base_field_panel = type('_FieldPanel',
+                                     (BaseFieldPanel,),
+                                     {'field_name': 'barbecue'})
+        self.base_field_panel = fake_base_field_panel(
             instance=True,
             form={'barbecue': fake_field})
 
