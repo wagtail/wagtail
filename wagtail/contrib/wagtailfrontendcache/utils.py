@@ -25,9 +25,11 @@ class CustomHTTPAdapter(HTTPAdapter):
 
 
 def purge_page_from_cache(page):
+    # Get session
     varnish_url = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', 'http://127.0.0.1:8000/')
-
-    # Purge
     session = requests.Session()
     session.mount('http://', CustomHTTPAdapter(varnish_url))
-    session.request('PURGE', page.full_url)
+
+    # Purge paths from cache
+    for path in page.get_cached_paths():
+        session.request('PURGE', page.full_url + path[1:])
