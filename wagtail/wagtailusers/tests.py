@@ -54,8 +54,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -96,8 +95,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)

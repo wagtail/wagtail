@@ -546,6 +546,28 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
     hooks.register('insert_editor_css', editor_css)
 
+.. _construct_whitelister_element_rules:
+
+``construct_whitelister_element_rules``
+  .. versionadded:: 0.4
+  Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
+
+  The ``wagtail.wagtailcore.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
+
+  For example, the following hook function will add the ``<blockquote>`` element to the whitelist, and allow the ``target`` attribute on ``<a>`` elements:
+
+  .. code-block:: python
+
+    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
+
+    def whitelister_element_rules():
+        return {
+            'blockquote': allow_without_attributes,
+            'a': attribute_rule({'href': check_url, 'target': True}),
+        }
+    hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
+
 
 Image Formats in the Rich Text Editor
 -------------------------------------

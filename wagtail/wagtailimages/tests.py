@@ -197,6 +197,32 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('alt="Test image"' in result)
 
+    def render_image_tag_as(self, image, filter_spec):
+        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        context = template.Context({'image_obj': image})
+        return temp.render(context)
+
+    def test_image_tag_attrs(self):
+        result = self.render_image_tag_as(self.image, 'width-400')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('alt="Test image"' in result)
+
+    def render_image_tag_with_extra_attributes(self, image, title):
+        temp = template.Template('{% load image_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        context = template.Context({'image_obj': image, 'title': title})
+        return temp.render(context)
+
+    def test_image_tag_with_extra_attributes(self):
+        result = self.render_image_tag_with_extra_attributes(self.image, 'My Wonderful Title')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('class="photo"' in result)
+        self.assertTrue('title="my wonderful title"' in result)
 
 ## ===== ADMIN VIEWS =====
 
@@ -253,8 +279,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -293,8 +318,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
@@ -328,8 +352,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
