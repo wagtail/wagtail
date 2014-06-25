@@ -1,3 +1,5 @@
+from mock import MagicMock
+
 from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
@@ -6,7 +8,11 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.templatetags import image_tags
+from wagtail.wagtailimages.formats import (
+    Format,
+    get_image_format,
+    register_image_format
+)
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
@@ -419,3 +425,49 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
 
     # TODO: Test uploading through chooser
+
+
+class TestFormat(TestCase):
+    def setUp(self):
+        # test format
+        self.format = Format(
+            'test name',
+            'test label',
+            'test classnames',
+            'test filter spec'
+        )
+        # test image
+        self.image = MagicMock()
+        self.image.id = 0
+
+    def test_editor_attributes(self):
+        result = self.format.editor_attributes(
+            self.image,
+            'test alt text'
+        )
+        self.assertEqual(result,
+                         'data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" ')
+
+    def test_image_to_editor_html(self):
+        result = self.format.image_to_editor_html(
+            self.image,
+            'test alt text'
+        )
+        self.assertRegexpMatches(
+            result,
+            '<img data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
+            )
+
+    def test_image_to_html_no_classnames(self):
+        self.format.classnames = None
+        result = self.format.image_to_html(self.image, 'test alt text')
+        self.assertRegexpMatches(
+            result,
+            '<img src="[^"]+" width="1" height="1" alt="test alt text">'
+        )
+        self.format.classnames = 'test classnames'
+
+    def test_get_image_format(self):
+        register_image_format(self.format)
+        result = get_image_format('test name')
+        self.assertEqual(result, self.format)
