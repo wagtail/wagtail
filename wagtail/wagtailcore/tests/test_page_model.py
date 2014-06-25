@@ -16,6 +16,7 @@ class TestRouting(TestCase):
         default_site = Site.objects.get(is_default_site=True)
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+        alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
 
         # requests without a Host: header should be directed to the default site
         request = HttpRequest()
@@ -27,6 +28,12 @@ class TestRouting(TestCase):
         request.path = '/'
         request.META['HTTP_HOST'] = 'events.example.com'
         self.assertEqual(Site.find_for_request(request), events_site)
+
+        # ports in the Host: header should be respected
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = 'events.example.com:8765'
+        self.assertEqual(Site.find_for_request(request), alternate_port_events_site)
 
         # requests with an unrecognised Host: header should be directed to the default site
         request = HttpRequest()
