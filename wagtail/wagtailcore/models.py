@@ -803,29 +803,20 @@ class UserPagePermissionsProxy(object):
         if self.user.is_superuser:
             return Page.objects.all()
 
-        # Translate each of the user's permission rules into a Q-expression
-        q_expressions = []
-        for perm in self.permissions:
-            if perm.permission_type == 'add':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) that is owned by them
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path, owner=self.user)
-                )
-            elif perm.permission_type == 'edit':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) regardless of owner
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path)
-                )
+        editable_pages = Page.objects.none()
 
-        if q_expressions:
-            all_rules = q_expressions[0]
-            for expr in q_expressions[1:]:
-                all_rules = all_rules | expr
-            return Page.objects.filter(all_rules)
-        else:
-            return Page.objects.none()
+        for perm in self.permissions.filter(permission_type='add'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) that is owned by them
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True).filter(owner=self.user)
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return editable_pages
+
 
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):
