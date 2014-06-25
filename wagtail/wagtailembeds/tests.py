@@ -81,6 +81,19 @@ class TestEmbeds(TestCase):
         # Width must be set to None
         self.assertEqual(embed.width, None)
 
+    def test_no_html(self) :
+        def no_html_finder(url, max_width=None):
+            """
+            A finder which returns everything but HTML
+            """
+            embed = self.dummy_finder(url, max_width)
+            embed['html'] = None
+            return embed
+
+        embed = get_embed('www.test.com/1234', max_width=400, finder=no_html_finder)
+
+        self.assertEqual(embed.html, '')
+
 
 class TestChooser(TestCase, WagtailTestUtils):
     def setUp(self):
