@@ -312,7 +312,29 @@ class TestEmbedlyFilter(TestCase):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}
+        temp = template.Template("{% load embed_filters %}{{ 'http://www.youtube.com/watch/'|embed }}")
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_embedly_filter(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
         temp = template.Template("{% load embed_filters %}{{ 'http://www.youtube.com/watch/'|embedly }}")
         context = template.Context()
         result = temp.render(context)
         self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_embed_filter_nonexistent_type(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'foo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template("{% load embed_filters %}{{ 'http://www.youtube.com/watch/'|embed }}")
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '')
