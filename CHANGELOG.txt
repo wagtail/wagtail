@@ -19,6 +19,8 @@ Changelog
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
+ * Fix: Page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+ * Fix: Embeds - Fixed crash when no HTML field is sent back from the embed provider
 
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~
