@@ -31,7 +31,16 @@
                 var elem;
 
                 elem = $(imageData.html).get(0);
-                lastSelection.insertNode(elem);
+
+                // Insert the image straight in the document, if it is in an empty <p>
+                if (lastSelection.startContainer == lastSelection.endContainer &&
+                        lastSelection.startOffset == lastSelection.endOffset &&
+                        lastSelection.startOffset === 0) {
+                    lastSelection.startContainer.parentNode.insertBefore(elem, lastSelection.startContainer);
+                } else {
+                    lastSelection.insertNode(elem);
+                }
+
                 if (elem.getAttribute('contenteditable') === 'false') {
                   insertRichTextDeleteControl(elem);
                 }
