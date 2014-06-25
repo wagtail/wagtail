@@ -224,3 +224,47 @@ class TestMovePage(TestCase):
         christmas = events_index.get_children().get(slug='christmas')
         self.assertEqual(christmas.depth, 5)
         self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
+
+
+class TestDuplicatePage(TestCase):
+    fixtures = ['test.json']
+
+    def test_duplicate_page_copies(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+
+        # Duplicate it
+        new_about_us = about_us.duplicate(title="New about us", slug='new-about-us')
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us, SimplePage)
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.slug, 'new-about-us')
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(about_us.id, new_about_us.id)
+
+    def test_duplicate_page_copies_child_objects(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Duplicate it
+        new_christmas_event = christmas_event.duplicate(title="New christmas event", slug='new-christmas-event')
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+    def test_duplicate_page_copies_recursively(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Duplicate it
+        new_events_index = events_index.duplicate(recursive=True, title="New events index", slug='new-events-index')
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")

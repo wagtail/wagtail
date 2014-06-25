@@ -556,6 +556,27 @@ class Page(MP_Node, ClusterableModel, Indexed):
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
+    def duplicate(self, recursive=False, **update_fields):
+        page_copy = Page.objects.get(id=self.id).specific
+        page_copy.pk = None
+        page_copy.id = None
+
+        for field, value in update_fields.items():
+            setattr(page_copy, field, value)
+
+        page_copy = self.add_sibling(instance=page_copy)
+
+        # Duplicate child objects
+        if hasattr(self._meta, 'child_relations'):
+            for child_relation in self._meta.child_relations:
+                pass
+
+        # Duplicate child pages
+        if recursive:
+            pass
+
+        return page_copy
+
     def permissions_for_user(self, user):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
