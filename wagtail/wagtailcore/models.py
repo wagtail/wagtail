@@ -15,6 +15,7 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from treebeard.mp_tree import MP_Node
 
@@ -62,6 +63,25 @@ class Site(models.Model):
             return 'https://%s' % self.hostname
         else:
             return 'http://%s:%d' % (self.hostname, self.port)
+
+    def clean_fields(self, exclude=None):
+        super(Site, self).clean_fields(exclude)
+        # Only one site can have the is_default_site flag set
+        try:
+            default = Site.objects.get(is_default_site=True)
+        except Site.DoesNotExist:
+            pass
+        except Site.MultipleObjectsReturned:
+            raise
+        else:
+            if self.is_default_site and self.pk != default.pk:
+                raise ValidationError(
+                    {'is_default_site': [
+                        _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
+                        % { 'hostname': default.hostname }
+                        ]
+                        },
+                    )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
