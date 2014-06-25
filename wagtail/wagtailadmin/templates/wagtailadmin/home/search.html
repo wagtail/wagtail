@@ -1,0 +1,17 @@
+<section class="panel nice-padding">
+    <div class="row row-flush">
+        <form class="search-form" action="{% url "wagtailadmin_pages_search" %}" method="get">
+            <div class="col10">
+
+                <label class="visuallyhidden" for="{{ search_form.q.id_for_label }}">{{ search_form.q.label }}</label>
+                <div class="input field-small iconfield icon-search">
+                    {{ search_form.q }}
+                </div>
+            </div>
+            <div class="col2">
+                <input value="Search" type="submit" class="button-full-width">
+
+            </div>
+        <form>
+    </div>
+</section>
