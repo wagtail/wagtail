@@ -31,10 +31,13 @@ class SiteManager(models.Manager):
 
 
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, unique=True, db_index=True)
+    hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
     is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
+
+    class Meta:
+        unique_together = ('hostname', 'port')
 
     def natural_key(self):
         return (self.hostname,)
@@ -46,9 +49,25 @@ class Site(models.Model):
     def find_for_request(request):
         """Find the site object responsible for responding to this HTTP request object"""
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]
-            # find a Site matching this specific hostname
-            return Site.objects.get(hostname=hostname)
+            try:
+                hostname, port = request.META['HTTP_HOST'].split(':')
+            except ValueError:
+                hostname = request.META['HTTP_HOST']
+                port = '80' # FIXME do we want this default?
+            except KeyError:
+                # explicit routing straight to the final except clause
+                raise
+            try:
+                # find a Site matching this specific hostname
+                return Site.objects.get(hostname=hostname)
+            except Site.MultipleObjectsReturned:
+                try:
+                    # as there were more than one, try matching by port too
+                    return Site.objects.get(hostname=hostname, port=int(port))
+                except Site.DoesNotExist:
+                    # explicit acknowledgement that this is another route to
+                    # the final except clause
+                    raise
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -79,8 +98,7 @@ class Site(models.Model):
                     {'is_default_site': [
                         _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
                         % { 'hostname': default.hostname }
-                        ]
-                        },
+                        ]}
                     )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
