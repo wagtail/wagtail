@@ -197,7 +197,7 @@ ul.listing{
     .button{
         color:$color-teal;
         border-color:$color-grey-3;
-        background:transparent;
+        background:white;
 
         &:hover{
             border-color:$color-teal;
@@ -334,6 +334,7 @@ ul.listing{
             margin-top:1em;
         }
         .button{
+            background-color:transparent;
             color:white;
             border-color:$color-teal-darker;
 
