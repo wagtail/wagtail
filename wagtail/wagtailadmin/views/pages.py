@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.forms import SearchForm, CopyForm
 from wagtail.wagtailadmin import tasks, hooks
 
 from wagtail.wagtailcore.models import Page, PageRevision
@@ -525,6 +525,59 @@ def set_page_position(request, page_to_move_id):
             page_to_move.move(parent_page, pos='last-child')
 
     return HttpResponse('')
+
+
+@permission_required('wagtailadmin.access_admin')
+def copy(request, page_id):
+    page = Page.objects.get(id=page_id)
+    subpage_count = page.get_descendants().count()
+    parent_page = page.get_parent()
+
+    # Make sure this user has permission to add subpages on the parent
+    if not parent_page.permissions_for_user(request.user).can_add_subpage():
+        raise PermissionDenied
+
+    # Create the form
+    form = CopyForm(request.POST or None, initial={
+        'new_title': page.title,
+        'new_slug': page.slug,
+        'copy_subpages': True,
+    })
+
+    # Stick an extra validator into the form to make sure that the slug is not already in use
+    def clean_slug(slug):
+        # Make sure the slug isn't already in use
+        if parent_page.get_children().filter(slug=slug).count() > 0:
+            raise ValidationError(_("This slug is already in use"))
+        return slug
+    form.fields['new_slug'].clean = clean_slug
+
+    # Check if user is submitting
+    if request.method == 'POST' and form.is_valid():
+        # Copy the page
+        page.copy(
+            recursive=form.cleaned_data['copy_subpages'],
+            update_attrs={
+                'title': form.cleaned_data['new_title'],
+                'slug': form.cleaned_data['new_slug'],
+            }
+        )
+
+        # Give a success message back to the user
+        if form.cleaned_data['copy_subpages']:
+            messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, subpage_count))
+        else:
+            messages.success(request, _("Page '{0}' copied.").format(page.title))
+
+        # Redirect to explore of parent page
+        return redirect('wagtailadmin_explore', parent_page.id)
+
+    return render(request, 'wagtailadmin/pages/copy.html', {
+        'page': page,
+        'subpage_count': subpage_count,
+        'parent_page': parent_page,
+        'form': form,
+    })
 
 
 PAGE_EDIT_HANDLERS = {}

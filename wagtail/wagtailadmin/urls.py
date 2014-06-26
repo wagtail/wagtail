@@ -63,6 +63,8 @@ urlpatterns += [
     url(r'^pages/(\d+)/move/(\d+)/confirm/$', pages.move_confirm, name='wagtailadmin_pages_move_confirm'),
     url(r'^pages/(\d+)/set_position/$', pages.set_page_position, name='wagtailadmin_pages_set_page_position'),
 
+    url(r'^pages/(\d+)/copy/$', pages.copy, name='wagtailadmin_pages_copy'),
+
     url(r'^pages/moderation/(\d+)/approve/$', pages.approve_moderation, name='wagtailadmin_pages_approve_moderation'),
     url(r'^pages/moderation/(\d+)/reject/$', pages.reject_moderation, name='wagtailadmin_pages_reject_moderation'),
     url(r'^pages/moderation/(\d+)/preview/$', pages.preview_for_moderation, name='wagtailadmin_pages_preview_for_moderation'),

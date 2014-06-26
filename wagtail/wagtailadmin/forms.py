@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
+
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         _placeholder = kwargs.pop('placeholder', None)
@@ -75,3 +76,14 @@ class PasswordResetForm(PasswordResetForm):
             raise forms.ValidationError(_("This email address is not recognised."))
 
         return cleaned_data
+
+
+YES_OR_NO = (
+    (True, ugettext_lazy("Yes")),
+    (False, ugettext_lazy("No")),
+)
+
+class CopyForm(forms.Form):
+    new_title = forms.CharField()
+    new_slug = forms.CharField()
+    copy_subpages = forms.BooleanField(widget=forms.RadioSelect(choices=(YES_OR_NO)), required=False)

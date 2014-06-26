@@ -547,6 +547,71 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
+class TestPageCopy(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Create a page
+        self.test_page = SimplePage()
+        self.test_page.title = "Hello world!"
+        self.test_page.slug = "hello-world"
+        self.root_page.add_child(instance=self.test_page)
+
+        # Login
+        self.user = self.login()
+
+    def test_page_copy(self):
+        response = self.client.get(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/copy.html')
+
+    def test_page_copy_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get copy page
+        response = self.client.get(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )))
+
+        # Check that the user recieved a 403 response
+        self.assertEqual(response.status_code, 403)
+
+    def test_page_copy_post(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that the copy exists
+        self.assertTrue(self.root_page.get_children().filter(slug='hello-world-2').exists())
+
+    def test_page_copy_post_existing_slug(self):
+        # This tests the existing slug checking on page copy
+
+        # Attempt to copy the page but forget to change the slug
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world',
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Should not be redirected (as the save should fail)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'new_slug', "This slug is already in use")
+
+
 class TestPageUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
