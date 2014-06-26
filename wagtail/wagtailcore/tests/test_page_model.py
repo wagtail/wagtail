@@ -274,3 +274,19 @@ class TestCopyPage(TestCase):
 
         # Check that the url path was updated
         self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
+
+    def test_copy_page_copies_recursively_with_child_objects(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, title="New events index", slug='new-events-index')
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page")

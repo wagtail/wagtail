@@ -587,7 +587,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         # Copy child pages
         if recursive:
             for child_page in self.get_children():
-                child_page.copy(recursive=True, to=page_copy)
+                child_page.specific.copy(recursive=True, to=page_copy)
 
         return page_copy
 
