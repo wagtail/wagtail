@@ -573,16 +573,15 @@ class Page(MP_Node, ClusterableModel, Indexed):
             page_copy = self.add_sibling(instance=page_copy)
 
         # Copy child objects
-        if hasattr(self._meta, 'child_relations'):
-            for child_relation in self._meta.child_relations:
-                parental_key_name = child_relation.field.attname
-                child_objects = getattr(self, child_relation.get_accessor_name(), None)
+        for child_relation in getattr(self._meta, 'child_relations', []):
+            parental_key_name = child_relation.field.attname
+            child_objects = getattr(self, child_relation.get_accessor_name(), None)
 
-                if child_objects:
-                    for child_object in child_objects.all():
-                        child_object.pk = None
-                        setattr(child_object, parental_key_name, page_copy.id)
-                        child_object.save()
+            if child_objects:
+                for child_object in child_objects.all():
+                    child_object.pk = None
+                    setattr(child_object, parental_key_name, page_copy.id)
+                    child_object.save()
 
         # Copy child pages
         if recursive:
