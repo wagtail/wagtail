@@ -367,7 +367,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False):
-        self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+        return self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
 
     def get_latest_revision(self):
         try:
