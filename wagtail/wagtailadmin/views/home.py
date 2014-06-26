@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.forms import SearchForm
 
-from wagtail.wagtailcore.models import Site, Page, PageRevision, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
 
 from wagtail.wagtaildocs.models import Document
 
