@@ -15,6 +15,7 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 
 from treebeard.mp_tree import MP_Node
 
@@ -323,7 +324,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         cursor.execute(update_statement, 
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
-    @property
+    @cached_property
     def specific(self):
         """
             Return this page in its most specific subclassed form.
@@ -337,7 +338,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    @property
+    @cached_property
     def specific_class(self):
         """
             return the class that this page would be if instantiated in its
