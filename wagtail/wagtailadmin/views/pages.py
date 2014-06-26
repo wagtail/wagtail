@@ -14,6 +14,8 @@ from wagtail.wagtailadmin import tasks, hooks
 
 from wagtail.wagtailcore.models import Page, PageRevision
 
+from wagtail.wagtailadmin.sirtrevor import custom_blocks_registry
+
 
 @permission_required('wagtailadmin.access_admin')
 def index(request, parent_page_id=None):
@@ -45,7 +47,7 @@ def index(request, parent_page_id=None):
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
         'ordering': ordering,
-        'pages': pages,
+        'pages': pages
     })
 
 
@@ -179,6 +181,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'display_modes': page.get_page_modes(),
+        'blocks': custom_blocks_registry,
         'form': form, # Used in unit tests
     })
 
@@ -266,6 +269,7 @@ def edit(request, page_id):
         'errors_debug': errors_debug,
         'display_modes': page.get_page_modes(),
         'form': form, # Used in unit tests
+        'blocks': custom_blocks_registry,
     })
 
 

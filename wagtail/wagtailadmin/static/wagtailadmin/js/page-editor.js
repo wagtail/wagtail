@@ -1,5 +1,5 @@
 function makeRichTextEditable(id) {
-    new SirTrevor.Editor({ el: $('#' + id) });
+    new SirTrevor.Editor({ el: $('#' + id), blockTypes: window.blocksST });
 }
 
 function initDateChooser(id) {
