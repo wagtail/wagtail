@@ -556,15 +556,21 @@ class Page(MP_Node, ClusterableModel, Indexed):
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
-    def copy(self, recursive=False, **update_fields):
+    def copy(self, recursive=False, to=None, **update_fields):
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
         page_copy.id = None
+        page_copy.depth = None
+        page_copy.numchild = 0
+        page_copy.path = None
 
         for field, value in update_fields.items():
             setattr(page_copy, field, value)
 
-        page_copy = self.add_sibling(instance=page_copy)
+        if to:
+            page_copy = to.add_child(instance=page_copy)
+        else:
+            page_copy = self.add_sibling(instance=page_copy)
 
         # Copy child objects
         if hasattr(self._meta, 'child_relations'):
@@ -573,7 +579,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         # Copy child pages
         if recursive:
-            pass
+            for child_page in self.get_children():
+                child_page.copy(recursive=True, to=page_copy)
 
         return page_copy
 

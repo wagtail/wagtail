@@ -243,6 +243,9 @@ class TestCopyPage(TestCase):
         # Check that new_about_us is a different page
         self.assertNotEqual(about_us.id, new_about_us.id)
 
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
+
     def test_copy_page_copies_child_objects(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
@@ -268,3 +271,6 @@ class TestCopyPage(TestCase):
         # Check that the event exists in both places
         self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
         self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+
+        # Check that the url path was updated
+        self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
