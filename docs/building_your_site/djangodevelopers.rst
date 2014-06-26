@@ -203,7 +203,6 @@ Methods:
 * get_context
 * get_template
 * is_navigable
-* get_other_siblings
 * get_ancestors
 * get_descendants
 * get_siblings

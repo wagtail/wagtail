@@ -409,6 +409,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return (not self.is_leaf()) or self.depth == 2
 
     def get_other_siblings(self):
+        warnings.warn(
+            "The 'Page.get_other_siblings()' method has been replaced. "
+            "Use 'Page.get_siblings(inclusive=False)' instead.", DeprecationWarning)
+
         # get sibling pages excluding self
         return self.get_siblings().exclude(id=self.id)
 
