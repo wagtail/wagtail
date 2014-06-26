@@ -370,12 +370,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
 
     def get_latest_revision(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return False
-
-        return revision
+        return self.revisions.order_by('-created_at').first()
 
     def get_latest_revision_as_page(self):
         try:
