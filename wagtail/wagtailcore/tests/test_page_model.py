@@ -233,7 +233,7 @@ class TestCopyPage(TestCase):
         about_us = SimplePage.objects.get(url_path='/home/about-us/')
 
         # Copy it
-        new_about_us = about_us.copy(title="New about us", slug='new-about-us')
+        new_about_us = about_us.copy(update_attrs={'title': "New about us", 'slug': 'new-about-us'})
 
         # Check that new_about_us is correct
         self.assertIsInstance(new_about_us, SimplePage)
@@ -250,7 +250,7 @@ class TestCopyPage(TestCase):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(title="New christmas event", slug='new-christmas-event')
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the speakers were copied
         self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
@@ -263,7 +263,7 @@ class TestCopyPage(TestCase):
         christmas_event = Page.objects.get(url_path='/home/events/christmas/')
 
         # Copy it
-        new_christmas_event = christmas_event.copy(title="New christmas event", slug='new-christmas-event')
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the type of the new page is correct
         self.assertIsInstance(new_christmas_event, EventPage)
@@ -275,7 +275,7 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, title="New events index", slug='new-events-index')
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
@@ -292,7 +292,7 @@ class TestCopyPage(TestCase):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 
         # Copy it
-        new_events_index = events_index.copy(recursive=True, title="New events index", slug='new-events-index')
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
 
         # Get christmas event
         old_christmas_event = events_index.get_children().filter(slug='christmas').first()
