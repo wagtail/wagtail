@@ -373,12 +373,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return self.revisions.order_by('-created_at').first()
 
     def get_latest_revision_as_page(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return self.specific
+        latest_revision = self.get_latest_revision()
 
-        return revision.as_page_object()
+        if latest_revision:
+            return latest_revision.as_page_object()
+        else:
+            return self.specific
 
     def get_context(self, request, *args, **kwargs):
         return {
