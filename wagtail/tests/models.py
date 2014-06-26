@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Inli
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailsettings.models import register_setting, BaseSetting
 from wagtail.wagtailsnippets.models import register_snippet
 
 
@@ -294,6 +295,19 @@ class ZuluSnippet(models.Model):
 
     def __unicode__(self):
         return self.text
+
+
+# Settings
+
+@register_setting
+class TestSetting(BaseSetting):
+    title = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('email'),
+    ]
 
 
 class StandardIndex(Page):
