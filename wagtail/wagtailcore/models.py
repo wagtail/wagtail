@@ -745,6 +745,9 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+    def __unicode__(self):
+        return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
     ('edit', 'Edit'),
