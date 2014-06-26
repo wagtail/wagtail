@@ -258,6 +258,19 @@ class TestCopyPage(TestCase):
         # Check that the speakers weren't removed from old page
         self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
 
+    def test_copy_page_copies_child_objects_with_nonspecific_class(self):
+        # Get chrismas page as Page instead of EventPage
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(title="New christmas event", slug='new-christmas-event')
+
+        # Check that the type of the new page is correct
+        self.assertIsInstance(new_christmas_event, EventPage)
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
     def test_copy_page_copies_recursively(self):
         events_index = EventIndex.objects.get(url_path='/home/events/')
 

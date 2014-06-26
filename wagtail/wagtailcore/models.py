@@ -557,6 +557,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
     def copy(self, recursive=False, to=None, **update_fields):
+        # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
         page_copy.id = None
@@ -573,9 +574,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
             page_copy = self.add_sibling(instance=page_copy)
 
         # Copy child objects
-        for child_relation in getattr(self._meta, 'child_relations', []):
+        specific_self = self.specific
+        for child_relation in getattr(specific_self._meta, 'child_relations', []):
             parental_key_name = child_relation.field.attname
-            child_objects = getattr(self, child_relation.get_accessor_name(), None)
+            child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
 
             if child_objects:
                 for child_object in child_objects.all():
