@@ -1,9 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
 
-from wagtail.wagtailusers.models import User, UserProfile
+from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
+
+
+User = get_user_model()
 
 
 # extend Django's UserCreationForm with an 'is_superuser' field

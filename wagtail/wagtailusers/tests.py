@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from wagtail.wagtailusers.models import User, UserProfile
+from django.contrib.auth.models import User
+
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailusers.models import UserProfile
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
