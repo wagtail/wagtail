@@ -1,12 +1,7 @@
-from StringIO import StringIO
+from django.test import TestCase
 
-from django.test import TestCase, Client
-from django.http import HttpRequest, Http404
-from django.core import management
-from django.contrib.auth.models import User
-
-from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage, EventIndex, SimplePage
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.tests.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
@@ -15,22 +10,25 @@ class TestPageUrlTags(TestCase):
     def test_pageurl_tag(self):
         response = self.client.get('/events/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
+        self.assertContains(response,
+                            '<a href="/events/christmas/">Christmas</a>')
 
     def test_slugurl_tag(self):
         response = self.client.get('/events/christmas/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="/events/">Back to events index</a>')
+        self.assertContains(response,
+                            '<a href="/events/">Back to events index</a>')
 
 
 class TestIssue7(TestCase):
     """
-    This tests for an issue where if a site root page was moved, all the page 
-    urls in that site would change to None.
+    This tests for an issue where if a site root page was moved, all
+    the page urls in that site would change to None.
 
-    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
-    cleared when a site root page was moved. Which left all the child pages
-    thinking that they are no longer in the site and return None as their url.
+    The issue was caused by the 'wagtail_site_root_paths' cache
+    variable not being cleared when a site root page was moved. Which
+    left all the child pages thinking that they are no longer in the
+    site and return None as their url.
 
     Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
     Discussion: https://github.com/torchbox/wagtail/issues/7
@@ -67,12 +65,13 @@ class TestIssue7(TestCase):
 
 class TestIssue157(TestCase):
     """
-    This tests for an issue where if a site root pages slug was changed, all the page 
-    urls in that site would change to None.
+    This tests for an issue where if a site root pages slug was
+    changed, all the page urls in that site would change to None.
 
-    The issue was caused by the 'wagtail_site_root_paths' cache variable not being
-    cleared when a site root page was changed. Which left all the child pages
-    thinking that they are no longer in the site and return None as their url.
+    The issue was caused by the 'wagtail_site_root_paths' cache
+    variable not being cleared when a site root page was changed.
+    Which left all the child pages thinking that they are no longer in
+    the site and return None as their url.
 
     Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
     Discussion: https://github.com/torchbox/wagtail/issues/157
