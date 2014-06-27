@@ -844,9 +844,9 @@ class UserPagePermissionsProxy(object):
         for perm in self.permissions:
             if perm.permission_type == 'publish':
                 # user has publish permission on any subpage of perm.page
-                # (including perm.page itself) that is owned by them
+                # (including perm.page itself)
                 q_expressions.append(
-                    Q(path__startswith=perm.page.path, owner=self.user)
+                    Q(path__startswith=perm.page.path)
                 )
 
         if q_expressions:
