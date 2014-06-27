@@ -7,6 +7,7 @@ try:
 except ImportError:
     no_embedly = True
 
+from django import template
 from django.test import TestCase
 
 from wagtail.tests.utils import WagtailTestUtils, unittest
@@ -18,7 +19,8 @@ from wagtail.wagtailembeds.embeds import (
     AccessDeniedEmbedlyException,
 )
 from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
-
+from wagtail.wagtailembeds.templatetags.embed_filters import embed as embed_filter
+from wagtail.wagtailembeds.templatetags.embed_filters import embedly as embedly_filter
 
 
 class TestEmbeds(TestCase):
@@ -258,3 +260,81 @@ class TestOembed(TestCase):
             'height': 'test_height',
             'html': 'test_html'
         })
+
+
+class TestEmbedFilter(TestCase):
+    def setUp(self):
+        class DummyResponse(object):
+            def read(self):
+                return "foo"
+        self.dummy_response = DummyResponse()
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_valid_embed(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        result = embed_filter('http://www.youtube.com/watch/')
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_filter(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embed }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_filter_nonexistent_type(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'foo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embed }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '')
+
+
+class TestEmbedlyFilter(TestEmbedFilter):
+    def setUp(self):
+        class DummyResponse(object):
+            def read(self):
+                return "foo"
+        self.dummy_response = DummyResponse()
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_valid_embed(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        result = embedly_filter('http://www.youtube.com/watch/')
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_filter(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('urllib2.urlopen')
+    @patch('json.loads')
+    def test_render_filter_nonexistent_type(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'foo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '')

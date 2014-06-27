@@ -217,8 +217,8 @@ class TestPagePermission(TestCase):
         self.assertTrue(can_edit_pages)
 
         self.assertFalse(publishable_pages.filter(id=homepage.id).exists())
-        self.assertFalse(publishable_pages.filter(id=christmas_page.id).exists())
-        self.assertFalse(publishable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertTrue(publishable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(publishable_pages.filter(id=unpublished_event_page.id).exists())
         self.assertTrue(publishable_pages.filter(id=someone_elses_event_page.id).exists())
 
         self.assertTrue(can_publish_pages)

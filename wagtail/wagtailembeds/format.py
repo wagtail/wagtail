@@ -1,6 +1,5 @@
 from __future__ import division  # Use true division
 
-from django.utils.html import escape
 from django.template.loader import render_to_string
 
 from wagtail.wagtailembeds import get_embed

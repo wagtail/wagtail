@@ -34,6 +34,27 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_in_menu(self):
+        pages = Page.objects.in_menu()
+
+        # All pages must be be in the menus
+        for page in pages:
+            self.assertTrue(page.show_in_menus)
+
+        # Check that the events index is in the results
+        events_index = Page.objects.get(url_path='/home/events/')
+        self.assertTrue(pages.filter(id=events_index.id).exists())
+
+    def test_not_in_menu(self):
+        pages = Page.objects.not_in_menu()
+
+        # All pages must not be in menus
+        for page in pages:
+            self.assertFalse(page.show_in_menus)
+
+        # Check that the root page is in the results
+        self.assertTrue(pages.filter(id=1).exists())
+
     def test_page(self):
         homepage = Page.objects.get(url_path='/home/')
         pages = Page.objects.page(homepage)

@@ -17,6 +17,9 @@ Changelog
  * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
  * Added an 'attrs' property to image rendition objects to output src, width, height and alt attributes all in one go
  * Added 'construct_whitelister_element_rules' hook for customising the HTML whitelist used when saving rich text fields
+ * Added 'in_menu' and 'not_in_menu' methods to PageQuerySet
+ * Added 'get_next_siblings' and 'get_prev_siblings' to Page
+ * Added init_new_page signal
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
