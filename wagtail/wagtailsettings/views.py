@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.contrib.contenttypes.models import ContentType
