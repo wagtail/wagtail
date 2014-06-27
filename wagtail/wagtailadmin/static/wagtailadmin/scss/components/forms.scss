@@ -55,6 +55,7 @@ input, textarea, select, .richtext, .tagit{
         border: 0 !important;
         margin-top:-3px !important; 
         margin-bottom: -2px !important; 
+        line-height:1em !important;
     }
 
     &:hover{
@@ -76,13 +77,14 @@ input, textarea, select, .richtext, .tagit{
         outline:none;
     }
 
-    &:after{
+    /* Add select arrow back on browsers where native ui has been removed */
+    select ~ span:after{
         @include border-radius(0 6px 6px 0);
         z-index:0;
         position:absolute;
-        right:1px;
+        right:0px;
         top:1px;
-        height:95%;
+        bottom:0px;
         width:1.5em;
         font-family:wagtail;
         content:"q";
@@ -94,12 +96,14 @@ input, textarea, select, .richtext, .tagit{
         pointer-events:none;
         color:$color-grey-3;
         background-color:$color-fieldset-hover;
-        margin:0px 1px 0 0;
+        margin:0px 1px 1px 0;
+
+        .ie &{
+            display:none;
+        }
     }
 
-    .ie &:after{
-        display:none;
-    }
+    
 }
 
 /* radio and check boxes */
@@ -166,7 +170,9 @@ input[type=checkbox]:checked:before{
     color:$color-teal;
 }
 
-/* Core button style */
+/* Core button style 
+Note that these styles include methods to render buttons the same x-browser, described here:
+http://cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights */
 input[type=submit], input[type=reset], input[type=button], .button, button{
     font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
@@ -182,7 +188,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     position:relative;
     -webkit-font-smoothing: auto;
     vertical-align: middle;
-    line-height:1em;
     display:inline-block;
     overflow:hidden;
     position:relative;
@@ -278,6 +283,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     + button{
         margin-left:1em;
     }
+}
+
+/* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+input[type=submit], input[type=reset], input[type=button], button{
+    padding:0 1em;
+    height: em; 
+    vertical-align: middle;
+    line-height:inherit;
 }
 
 button.icon{
@@ -394,7 +407,7 @@ li.focused > .help{
     opacity:1;
 }
 
-.required label:after{
+.required .field > label:after{
     content:"*";
     color:$color-red;
     font-weight:bold;
@@ -652,7 +665,7 @@ ul.tagit li.tagit-choice-editable{
 
 /* search-bars */
 .search-bar{
-    .required label:after{
+    .required .field > label:after{
         display:none;
     }
 }
@@ -674,6 +687,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         padding-top:1.2em;
         padding-left:0;
 
+        .choice_field &,
         .model_multiple_choice_field &,
         .boolean_field &,
         .model_choice_field &,
@@ -691,6 +705,11 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
         padding:0.75em 1.4em;
 
+        padding:0 1.4em;
+        height: 2.8em; 
+        vertical-align: middle;
+        line-height:inherit;
+
         &.bicolor{
             padding-left:3.5em;
 
@@ -700,6 +719,15 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             }
         }
     }
+
+    /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+    input[type=submit], input[type=reset], input[type=button], button{
+        padding:0 1.4em;
+        height: 2.8em; 
+        vertical-align: middle;
+        line-height:inherit;
+    }
+
 
     .help{
         opacity:1;
