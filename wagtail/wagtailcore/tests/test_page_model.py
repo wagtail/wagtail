@@ -15,8 +15,10 @@ class TestRouting(TestCase):
     def test_find_site_for_request(self):
         default_site = Site.objects.get(is_default_site=True)
         events_page = Page.objects.get(url_path='/home/events/')
+        about_page = Page.objects.get(url_path='/home/about-us/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
         alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
+        about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
         unrecognised_port = '8000'
         unrecognised_hostname = 'unknown.site.com'
 
@@ -61,8 +63,17 @@ class TestRouting(TestCase):
         request.META['SERVER_PORT'] = unrecognised_port
         self.assertEqual(Site.find_for_request(request), default_site)
 
+        # requests on an unrecognised port should be directed to the site with
+        # matching hostname if there is no ambiguity
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = about_site.hostname
+        request.META['SERVER_PORT'] = unrecognised_port
+        self.assertEqual(Site.find_for_request(request), about_site)
+
         # requests on an unrecognised port should be directed to the default
-        # site, even if their hostname (but not port) matches another entry
+        # site, even if their hostname (but not port) matches more than one
+        # other entry
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = events_site.hostname
