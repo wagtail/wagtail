@@ -226,23 +226,13 @@ class TestMovePage(TestCase):
         self.assertEqual(christmas.url_path, '/home/about-us/events/christmas/')
 
 
-class TestPagePagination(TestCase):
+class TestPrevNextSiblings(TestCase):
     fixtures = ['test.json']
 
-    def test_published_next(self):
-        events_index = Page.objects.get(url_path='/home/events/')
-        current_page = Page.objects.descendant_of(events_index).live().first()
+    def test_get_next_siblings(self):
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+        self.assertTrue(christmas_event.get_next_siblings().filter(url_path='/home/events/final-event/').exists())
 
-        # All pages must be live
-        while current_page:
-            self.assertTrue(current_page.live)
-            current_page = current_page.get_next_siblings().live().first()
-
-    def test_published_prev(self):
-        events_index = Page.objects.get(url_path='/home/events/')
-        current_page = Page.objects.descendant_of(events_index).live().last()
-
-        # All pages must be live
-        while current_page:
-            self.assertTrue(current_page.live)
-            current_page = current_page.get_prev_siblings().live().first()
+    def test_get_prev_siblings(self):
+        final_event = Page.objects.get(url_path='/home/events/final-event/')
+        self.assertTrue(final_event.get_prev_siblings().filter(url_path='/home/events/christmas/').exists())
