@@ -239,18 +239,21 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = []
-        misconfigured_fields = []
+        misconfigured_field_names = []
 
         for field_name in self.form.fields:
             if field_name not in rendered_fields:
                 if isinstance(self.form[field_name].field.widget, forms.HiddenInput):
                     missing_fields_html.append(unicode(self.form[field_name]))
                 else:
-                    misconfigured_fields.append(self.form[field_name])
+                    misconfigured_field_names.append(field_name)
 
-        if misconfigured_fields:
-            template = "wagtailadmin/edit_handlers/misconfigured_fields.html"
-            missing_fields_html.append(mark_safe(render_to_string(template, { 'misconfigured_fields': misconfigured_fields })))
+        if misconfigured_field_names:
+            raise ImproperlyConfigured("The page class %(modelname)s has fields which are not allocated to a panel: %(fields)s " %
+                    {
+                        'modelname': self.instance.__class__.__name__,
+                        'fields': misconfigured_field_names
+                        })
 
         return mark_safe(u''.join(missing_fields_html))
 
