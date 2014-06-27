@@ -26,8 +26,8 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class SiteManager(models.Manager):
-    def get_by_natural_key(self, hostname):
-        return self.get(hostname=hostname)
+    def get_by_natural_key(self, hostname, port):
+        return self.get(hostname=hostname, port=port)
 
 
 class Site(models.Model):
@@ -40,7 +40,7 @@ class Site(models.Model):
         unique_together = ('hostname', 'port')
 
     def natural_key(self):
-        return (self.hostname,)
+        return (self.hostname, self.port)
 
     def __unicode__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
