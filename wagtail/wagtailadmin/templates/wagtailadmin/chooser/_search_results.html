@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if not is_searching %}
     <h2>{% trans "Explorer" %}</h2>
-    {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page %}
+    {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
 
 {% else %}
     <h2>

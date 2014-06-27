@@ -303,6 +303,9 @@ class StandardChild(Page):
     pass
 
 class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild', 'tests.BusinessSubIndex']
+
+class BusinessSubIndex(Page):
     subpage_types = ['tests.BusinessChild']
 
 class BusinessChild(Page):

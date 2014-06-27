@@ -1,0 +1,18 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% trans "Notification Preferences" as prefs_str %}
+    {% include "wagtailadmin/shared/header.html" with title=prefs_str %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailadmin_account_notification_preferences' %}" method="POST">
+            {% csrf_token %}
+            <ul class="listing">
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+                <input type="submit" value="{% trans 'Update' %}" />
+            </ul>
+        </form>
+    </div>
+{% endblock %}

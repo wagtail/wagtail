@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailusers.models import UserProfile
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
@@ -54,8 +56,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -96,8 +97,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)
@@ -116,3 +116,19 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
+
+
+class TestUserProfileCreation(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a user
+        self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
+
+    def test_user_created_without_profile(self):
+        self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)
+        with self.assertRaises(UserProfile.DoesNotExist):
+            self.test_user.userprofile
+
+    def test_user_profile_created_when_method_called(self):
+        self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
+        # and get it from the db too
+        self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)

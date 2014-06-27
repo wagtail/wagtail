@@ -113,8 +113,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -163,8 +162,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was edited
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -210,8 +208,7 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
-        self.assertURLEqual(response.url, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects_index'))
 
         # Check that the redirect was deleted
         redirects = models.Redirect.objects.filter(old_path='/test')
