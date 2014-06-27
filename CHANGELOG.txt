@@ -4,6 +4,7 @@ Changelog
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
  * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
+ * Added notification preferences
  * Added 'original' as a resizing rule supported by the 'image' tag
  * Hallo.js updated to version 1.0.4
  * Snippets are now ordered alphabetically
