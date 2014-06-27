@@ -47,27 +47,26 @@ class Site(models.Model):
 
     @staticmethod
     def find_for_request(request):
-        """Find the site object responsible for responding to this HTTP request object"""
+        """
+            Find the site object responsible for responding to this HTTP
+            request object. Try:
+             - unique hostname first
+             - then hostname and port
+             - if there is no matching hostname at all, or no matching
+               hostname:port combination, fall back to the unique default site,
+               or raise an exception
+            NB this means that high-numbered ports on an extant hostname may
+            still be routed to a different hostname which is set as the default
+        """
         try:
-            try:
-                hostname, port = request.META['HTTP_HOST'].split(':')
-            except ValueError:
-                hostname = request.META['HTTP_HOST']
-                port = '443' if request.is_secure() else '80'
-            except KeyError:
-                # explicit routing straight to the final except clause
-                raise
+            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
             try:
                 # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname)
+                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
             except Site.MultipleObjectsReturned:
-                try:
-                    # as there were more than one, try matching by port too
-                    return Site.objects.get(hostname=hostname, port=int(port))
-                except Site.DoesNotExist:
-                    # explicit acknowledgement that this is another route to
-                    # the final except clause
-                    raise
+                # as there were more than one, try matching by port too
+                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
