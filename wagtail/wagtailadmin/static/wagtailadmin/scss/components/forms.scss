@@ -570,11 +570,6 @@ ul.inline li:first-child, li.inline:first-child{
         .chosen { display: none; }
         .unchosen { display: block; }
     }
-
-    input[type=button]{
-        font-size:0.85em;
-        padding:0.5em 0.5em;
-    }
 }
 
 /* standard way of doing a chooser where the chosen object's title is overlayed */
