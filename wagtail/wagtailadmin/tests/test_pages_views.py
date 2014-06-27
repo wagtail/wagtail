@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.core import mail
 from django.core.paginator import Paginator
 
@@ -189,7 +190,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
-        moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Submit
         post_data = {
@@ -349,7 +350,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
-        moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Tests submitting from edit page
         post_data = {
@@ -618,7 +619,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.submitter = User.objects.create_superuser(
+        self.submitter = get_user_model().objects.create_superuser(
             username='submitter',
             email='submitter@email.com',
             password='password',
@@ -858,6 +859,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.user = self.login()
 
         # Create two moderator users for testing 'submitted' email
+        User = get_user_model()
         self.moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
         self.moderator2 = User.objects.create_superuser('moderator2', 'moderator2@email.com', 'password')
 

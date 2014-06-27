@@ -2,7 +2,8 @@ from mock import MagicMock
 
 from django.test import TestCase
 from django import template
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -16,6 +17,7 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+
 
 def get_test_image_file():
     from StringIO import StringIO
@@ -49,6 +51,7 @@ class TestImage(TestCase):
 class TestImagePermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
+        User = get_user_model()
         self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')

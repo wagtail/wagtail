@@ -354,7 +354,7 @@
 
 {
     "pk": 1,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "superuser",
         "first_name": "",
@@ -371,7 +371,7 @@
 },
 {
     "pk": 2,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "eventeditor",
         "first_name": "",
@@ -389,7 +389,7 @@
 },
 {
     "pk": 3,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "eventmoderator",
         "first_name": "",
@@ -407,7 +407,7 @@
 },
 {
     "pk": 4,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "inactiveuser",
         "first_name": "",
@@ -425,7 +425,7 @@
 },
 {
     "pk": 5,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "siteeditor",
         "first_name": "",
@@ -443,7 +443,7 @@
 },
 {
     "pk": 6,
-    "model": "auth.user",
+    "model": "tests.customuser",
     "fields": {
         "username": "admin_only_user",
         "first_name": "",

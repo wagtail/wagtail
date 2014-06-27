@@ -3,7 +3,7 @@ from StringIO import StringIO
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
 from django.core import management
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
 from wagtail.tests.models import EventPage, EventIndex, SimplePage
@@ -13,7 +13,7 @@ class TestPagePermission(TestCase):
     fixtures = ['test.json']
 
     def test_nonpublisher_page_permissions(self):
-        event_editor = User.objects.get(username='eventeditor')
+        event_editor = get_user_model().objects.get(username='eventeditor')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -67,7 +67,7 @@ class TestPagePermission(TestCase):
 
 
     def test_publisher_page_permissions(self):
-        event_moderator = User.objects.get(username='eventmoderator')
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -114,7 +114,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
 
     def test_inactive_user_has_no_permissions(self):
-        user = User.objects.get(username='inactiveuser')
+        user = get_user_model().objects.get(username='inactiveuser')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
 
@@ -132,7 +132,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(unpub_perms.can_move_to(christmas_page))
 
     def test_superuser_has_full_permissions(self):
-        user = User.objects.get(username='superuser')
+        user = get_user_model().objects.get(username='superuser')
         homepage = Page.objects.get(url_path='/home/')
         root = Page.objects.get(url_path='/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -170,7 +170,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_move_to(unpublished_event_page))
 
     def test_editable_pages_for_user_with_add_permission(self):
-        event_editor = User.objects.get(username='eventeditor')
+        event_editor = get_user_model().objects.get(username='eventeditor')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -197,7 +197,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(can_publish_pages)
 
     def test_editable_pages_for_user_with_edit_permission(self):
-        event_moderator = User.objects.get(username='eventmoderator')
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -224,7 +224,7 @@ class TestPagePermission(TestCase):
         self.assertTrue(can_publish_pages)
 
     def test_editable_pages_for_inactive_user(self):
-        user = User.objects.get(username='inactiveuser')
+        user = get_user_model().objects.get(username='inactiveuser')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -251,7 +251,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(can_publish_pages)
 
     def test_editable_pages_for_superuser(self):
-        user = User.objects.get(username='superuser')
+        user = get_user_model().objects.get(username='superuser')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
@@ -278,7 +278,7 @@ class TestPagePermission(TestCase):
         self.assertTrue(can_publish_pages)
 
     def test_editable_pages_for_non_editing_user(self):
-        user = User.objects.get(username='admin_only_user')
+        user = get_user_model().objects.get(username='admin_only_user')
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
