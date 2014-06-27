@@ -19,12 +19,3 @@ def embed(url, max_width=None):
             return ''
     except:
         return ''
-
-
-@register.filter
-def embedly(url, max_width=None):
-    warnings.warn(
-        "The 'embedly' filter has been renamed. "
-        "Use 'embed' instead.", DeprecationWarning)
-
-    return embed(url, max_width)
