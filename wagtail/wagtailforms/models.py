@@ -1,5 +1,5 @@
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 
@@ -111,7 +111,6 @@ class AbstractForm(Page):
     """A Form Page. Pages implementing a form should inhert from it"""
 
     form_builder = FormBuilder
-    landing_page_path = 'done'
     is_abstract = True  # Don't display me in "Add"
 
     def __init__(self, *args, **kwargs):
@@ -153,8 +152,11 @@ class AbstractForm(Page):
                     form_processor = self.form_processing_backend()
                     form_processor.process(self, form)
 
-                # Redirect to the landing page
-                return redirect(self.url + self.landing_page_path + '/')
+                # render the landing_page
+                # TODO: It is much better to redirect to it
+                return render(request, self.landing_page_template, {
+                    'self': self,
+                })
         else:
             form = form_class(**form_params)
 
@@ -162,18 +164,6 @@ class AbstractForm(Page):
             'self': self,
             'form': form,
         })
-
-    def serve_landing(self, request):
-        return render(request, self.landing_page_template, {
-            'self': self,
-        })
-
-    def route(self, request, path_components):
-        # Check if this request is for the landing page
-        if self.live and path_components == [self.landing_page_path]:
-            return self.serve_landing(request)
-
-        return super(AbstractForm, self).route(request, path_components)
 
     def get_page_modes(self):
         return [
@@ -183,7 +173,9 @@ class AbstractForm(Page):
 
     def show_as_mode(self, mode):
         if mode == 'landing':
-            return self.serve_landing(self.dummy_request())
+            return render(self.dummy_request(), self.landing_page_template, {
+                'self': self,
+            })
         else:
             return super(AbstractForm, self).show_as_mode(mode)
 

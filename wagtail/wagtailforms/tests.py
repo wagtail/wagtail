@@ -38,7 +38,9 @@ class TestFormSubmission(TestCase):
         })
 
         # Check response
-        self.assertEqual(response.status_code, 302)
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -50,14 +52,6 @@ class TestFormSubmission(TestCase):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
-
-    def test_get_landing_page(self):
-        response = self.client.get('/contact-us/done/')
-
-        # Check response
-        self.assertContains(response, "Thank you for your feedback.")
-        self.assertTemplateNotUsed(response, 'tests/form_page.html')
-        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
 
 
 class TestPageModes(TestCase):
