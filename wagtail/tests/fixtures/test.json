@@ -266,6 +266,16 @@
     }
 },
 {
+    "pk": 6,
+    "model": "auth.group",
+    "fields": {
+        "name": "Admin non-editors",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"]
+        ]
+    }
+},
+{
     "pk": 1,
     "model": "wagtailcore.grouppagepermission",
     "fields": {
@@ -398,6 +408,24 @@
         "user_permissions": [],
         "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
         "email": "siteeditor@example.com"
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin_only_user",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Admin non-editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "admin_only_user@example.com"
     }
 },
 
