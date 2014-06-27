@@ -20,7 +20,7 @@
             </div>
         {% endif %}
 
-        <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
             <h1>{% trans "Sign in to Wagtail" %}</h1>

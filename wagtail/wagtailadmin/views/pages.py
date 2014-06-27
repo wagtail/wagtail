@@ -10,9 +10,9 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks
+from wagtail.wagtailadmin import tasks, hooks, signals
 
-from wagtail.wagtailcore.models import Page, PageRevision, get_page_types
+from wagtail.wagtailcore.models import Page, PageRevision
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -25,13 +25,22 @@ def index(request, parent_page_id=None):
     pages = parent_page.get_children().prefetch_related('content_type')
 
     # Get page ordering
-    if 'ordering' in request.GET:
-        ordering = request.GET['ordering']
-
-        if ordering in ['title', '-title', 'content_type', '-content_type', 'live', '-live']:
-            pages = pages.order_by(ordering)
-    else:
+    ordering = request.GET.get('ordering', 'title')
+    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'ord']:
         ordering = 'title'
+
+    # Pagination
+    if ordering != 'ord':
+        pages = pages.order_by(ordering)
+
+        p = request.GET.get('p', 1)
+        paginator = Paginator(pages, 50)
+        try:
+            pages = paginator.page(p)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
 
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
@@ -46,13 +55,17 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted([ContentType.objects.get_for_model(model_class) for model_class in parent_page.clean_subpage_types()], key=lambda pagetype: pagetype.name.lower())
-    all_page_types = sorted(get_page_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
+
+    if len(page_types) == 1:
+        # Only one page type is available - redirect straight to the create form rather than
+        # making the user choose
+        content_type = page_types[0]
+        return redirect('wagtailadmin_pages_create', content_type.app_label, content_type.model, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
-        'all_page_types': all_page_types,
     })
 
 
@@ -102,15 +115,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     except ContentType.DoesNotExist:
         raise Http404
 
-    page_class = content_type.model_class()
-
     # page must be in the list of allowed subpage types for this parent ID
-    # == Restriction temporarily relaxed so that as superusers we can add index pages and things -
-    # == TODO: reinstate this for regular editors when we have distinct user types
-    #
-    # if page_class not in parent_page.clean_subpage_types():
-    #     messages.error(request, "Sorry, you do not have access to create a page of type '%s' here." % content_type.name)
-    #     return redirect('wagtailadmin_pages_select_type')
+    if content_type not in parent_page.clean_subpage_types():
+        raise PermissionDenied
+
+    page_class = content_type.model_class()
 
     page = page_class(owner=request.user)
     edit_handler_class = get_page_edit_handler(page_class)
@@ -161,6 +170,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             messages.error(request, _("The page could not be created due to errors."))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
+        signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
@@ -170,6 +180,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'parent_page': parent_page,
         'edit_handler': edit_handler,
         'display_modes': page.get_page_modes(),
+        'form': form, # Used in unit tests
     })
 
 
@@ -255,6 +266,7 @@ def edit(request, page_id):
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'display_modes': page.get_page_modes(),
+        'form': form, # Used in unit tests
     })
 
 
@@ -353,6 +365,10 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         parent_page = get_object_or_404(Page, id=parent_page_id).specific
         page.set_url_path(parent_page)
 
+        # Set treebeard attributes
+        page.depth = parent_page.depth + 1
+        page.path = Page._get_children_path_interval(parent_page.path)[1]
+
         # This view will generally be invoked as an AJAX request; as such, in the case of
         # an error Django will return a plaintext response. This isn't what we want, since
         # we will be writing the response back to an HTML page regardless of success or
@@ -384,7 +400,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         return response
 
 
-def preview_placeholder(request):
+def preview(request):
     """
     The HTML of a previewed page is written to the destination browser window using document.write.
     This overwrites any previous content in the window, while keeping its URL intact. This in turn
@@ -405,8 +421,13 @@ def preview_placeholder(request):
     Since we're going to this trouble, we'll also take the opportunity to display a spinner on the
     placeholder page, providing some much-needed visual feedback.
     """
-    return render(request, 'wagtailadmin/pages/preview_placeholder.html')
+    return render(request, 'wagtailadmin/pages/preview.html')
 
+def preview_loading(request):
+    """
+    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
+    """
+    return HttpResponse("<html><head><title></title></head><body></body></html>")
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):

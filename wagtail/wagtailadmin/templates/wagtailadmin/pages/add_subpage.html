@@ -12,9 +12,9 @@
     <div class="nice-padding">
         <p>{% trans "Choose which type of page you'd like to create." %}</p>
 
-        {% if all_page_types %}
+        {% if page_types %}
             <ul class="listing">
-                {% for content_type in all_page_types %}
+                {% for content_type in page_types %}
                     <li>
                         <div class="row row-flush">
                             <div class="col6">

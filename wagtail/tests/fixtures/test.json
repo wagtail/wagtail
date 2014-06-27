@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 3,
+        "numchild": 4,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -190,6 +190,34 @@
 },
 
 {
+    "pk": 9,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Ameristralia Day",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010004",
+        "url_path": "/home/events/final-event/",
+        "slug": "final-event",
+        "owner": 3
+    }
+},
+{
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-04-22",
+        "audience": "public",
+        "location": "Ameristralia",
+        "body": "<p>come celebrate the independence of Ameristralia</p>",
+        "cost": "Free"
+    }
+},
+
+{
     "pk": 1,
     "model": "tests.formfield",
     "fields": {
@@ -265,6 +293,16 @@
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.group",
+    "fields": {
+        "name": "Admin non-editors",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"]
         ]
     }
 },
@@ -401,6 +439,24 @@
         "user_permissions": [],
         "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
         "email": "siteeditor@example.com"
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin_only_user",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Admin non-editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "admin_only_user@example.com"
     }
 },
 

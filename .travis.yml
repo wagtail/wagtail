@@ -12,7 +12,7 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 pyelasticsearch elasticutils==0.8.2 wand
+  - pip install psycopg2 elasticsearch wand embedly
   - pip install coveralls
 # Pre-test configuration
 before_script:

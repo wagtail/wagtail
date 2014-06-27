@@ -3,13 +3,25 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.views import logout as auth_logout
+from django.contrib.auth.views import logout as auth_logout, login as auth_login
 from django.utils.translation import ugettext as _ 
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.cache import never_cache
+
+from wagtail.wagtailadmin import forms
+from wagtail.wagtailusers.forms import NotificationPreferencesForm
+from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailcore.models import UserPagePermissionsProxy
+
 
 @permission_required('wagtailadmin.access_admin')
 def account(request):
+    user_perms = UserPagePermissionsProxy(request.user)
+    show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
+
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
+        'show_notification_preferences': show_notification_preferences
     })
 
 
@@ -35,6 +47,44 @@ def change_password(request):
         'form': form,
         'can_change_password': can_change_password,
     })
+
+
+@permission_required('wagtailadmin.access_admin')
+def notification_preferences(request):
+
+    if request.POST:
+        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your preferences have been updated successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = NotificationPreferencesForm(instance=UserProfile.get_for_user(request.user))
+
+    # quick-and-dirty catch-all in case the form has been rendered with no
+    # fields, as the user has no customisable permissions
+    if not form.fields:
+        return redirect('wagtailadmin_account')
+
+    return render(request, 'wagtailadmin/account/notification_preferences.html', {
+        'form': form,
+    })
+
+
+@sensitive_post_parameters()
+@never_cache
+def login(request):
+    if request.user.is_authenticated():
+        return redirect('wagtailadmin_home')
+    else:
+        return auth_login(request,
+            template_name='wagtailadmin/login.html',
+            authentication_form=forms.LoginForm,
+            extra_context={
+                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True),
+            },
+        )
 
 
 def logout(request):

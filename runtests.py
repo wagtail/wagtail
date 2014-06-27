@@ -13,7 +13,7 @@ MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 if not settings.configured:
 
     try:
-        import elasticutils
+        import elasticsearch
         has_elasticsearch = True
     except ImportError:
         has_elasticsearch = False
@@ -84,6 +84,7 @@ if not settings.configured:
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
             'wagtail.wagtailforms',
+            'wagtail.contrib.wagtailstyleguide',
             'wagtail.tests',
         ],
 
@@ -101,7 +102,9 @@ if not settings.configured:
         ),
         COMPRESS_ENABLED=False,  # disable compression so that we can run tests on the content of the compress tag
         WAGTAILSEARCH_BACKENDS=WAGTAILSEARCH_BACKENDS,
-        WAGTAIL_SITE_NAME='Test Site'
+        WAGTAIL_SITE_NAME='Test Site',
+        LOGIN_REDIRECT_URL='wagtailadmin_home',
+        LOGIN_URL='wagtailadmin_login',
     )
 
 

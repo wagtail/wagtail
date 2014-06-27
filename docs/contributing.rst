@@ -17,6 +17,26 @@ Coding guidelines
 * PEP8. We ask that all Python contributions adhere to the `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501). The `pep8 tool <http://pep8.readthedocs.org/en/latest/>`_ makes it easy to check your code, e.g. ``pep8 --ignore=E501 your_file.py``.
 * Tests. Wagtail has a suite of tests, which we are committed to improving and expanding. We run continuous integration at `travis-ci.org/torchbox/wagtail <https://travis-ci.org/torchbox/wagtail>`_ to ensure that no commits or pull requests introduce test failures. If your contributions add functionality to Wagtail, please include the additional tests to cover it; if your contributions alter existing functionality, please update the relevant tests accordingly.
 
+Styleguide
+~~~~~~~~~~
+
+Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
+
+To install the styleguide module on your site, add it to the list of ``INSTALLED_APPS`` in your settings:
+
+.. code-block:: python
+
+	INSTALLED_APPS = (
+	   ...
+	   'wagtail.contrib.wagtailstyleguide',
+	   ...
+	)
+
+At present the styleguide is static: new UI components must be added to it manually, and there are no hooks into it for other modules to use. We hope to support hooks in the future.
+
+The styleguide doesn't currently provide examples of all the core interface components; notably the Page, Document, Image and Snippet chooser interfaces are not currently represented.
+
+
 Translations
 ~~~~~~~~~~~~
 

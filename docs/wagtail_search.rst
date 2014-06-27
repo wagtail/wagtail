@@ -1,3 +1,6 @@
+
+.. _search:
+
 Search
 ======
 
@@ -220,14 +223,14 @@ The default DB search backend uses Django's ``__icontains`` filter.
 
 Elasticsearch Backend
 `````````````````````
-Prerequisites are the Elasticsearch service itself and, via pip, the `elasticutils`_ and `pyelasticsearch`_ packages:
+Prerequisites are the Elasticsearch service itself and, via pip, the `elasticsearch-py`_ package:
 
 .. code-block:: guess
 
-  pip install elasticutils pyelasticsearch
+  pip install elasticsearch
 
 .. note::
-    The dependency on pyelasticsearch is scheduled to be replaced by a dependency on `elasticsearch-py`_.
+  If you are using Elasticsearch < 1.0, install elasticsearch-py version 0.4.5: ```pip install elasticsearch==0.4.5```
 
 The backend is configured in settings:
 
@@ -243,7 +246,7 @@ The backend is configured in settings:
       }
   }
 
-Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticutils. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
+Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticsearch-py. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
@@ -253,8 +256,6 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -  Configure ``URLS`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
 -  Run ``./manage.py update_index``
 
-.. _elasticutils: http://elasticutils.readthedocs.org
-.. _pyelasticsearch: http://pyelasticsearch.readthedocs.org
 .. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
 .. _Searchly: http://www.searchly.com/
 .. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up

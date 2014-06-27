@@ -160,6 +160,15 @@ class TestDBBackend(BackendTests, TestCase):
 class TestElasticSearchBackend(BackendTests, TestCase):
     backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
 
+    def test_search_with_spaces_only(self):
+        # Search for some space characters and hope it doesn't crash
+        results = self.backend.search("   ", models.SearchTest)
+
+        # Queries are lazily evaluated, force it to run
+        list(results)
+
+        # Didn't crash, yay!
+
 
 @override_settings(WAGTAILSEARCH_BACKENDS={
     'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}

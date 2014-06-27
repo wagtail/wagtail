@@ -4,7 +4,6 @@
 {% block css %}
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.timepicker.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/core.scss" type="text/x-scss" />
     {% endcompress %}
 
@@ -16,8 +15,9 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-1.10.3.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery-ui-1.10.3.js"></script>
-        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.timepicker.min.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.datetimepicker.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.autosize.js"></script>
+        <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-transition.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-modal.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>

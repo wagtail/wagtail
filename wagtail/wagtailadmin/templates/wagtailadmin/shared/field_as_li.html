@@ -1,5 +1,5 @@
 {% load wagtailadmin_tags %}
-<li class="{{ field.css_classes }} {{ field|fieldtype }} {{ li_classes }} {% if field.errors %}error{% endif %}">
+<li class="{% if field.field.required %}required{% endif %} {{ field.css_classes }} {{ field|fieldtype }} {{ li_classes }} {% if field.errors %}error{% endif %}">
     <div class="field">
         {{ field.label_tag }}
         <div class="field-content">

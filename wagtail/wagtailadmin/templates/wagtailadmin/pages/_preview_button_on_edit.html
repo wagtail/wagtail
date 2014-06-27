@@ -1,4 +1,4 @@
-<button class="action-preview button {% if icon %}icon icon-view{% endif %}"
+<button class="action-preview {% if icon %}icon icon-view{% endif %}"
     data-action="{% url 'wagtailadmin_pages_preview_on_edit' page.id %}{% if mode %}?mode={{ mode|urlencode }}{% endif %}"
-    data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}"
+    data-placeholder="{% url 'wagtailadmin_pages_preview' %}"
     data-windowname="wagtail_preview_{{ page.id }}">{{ label }}</button>

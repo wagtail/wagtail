@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.templatetags import image_tags
 
@@ -84,10 +84,10 @@ class TestRenditions(TestCase):
         # default backend should be pillow
         backend = get_image_backend()
         self.assertTrue(isinstance(backend, PillowBackend))
-        
+
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
-        
+
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
@@ -107,6 +107,13 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
 
+    def test_resize_to_original(self):
+        rendition = self.image.get_rendition('original')
+
+        # Check size
+        self.assertEqual(rendition.width, 640)
+        self.assertEqual(rendition.height, 480)
+
     def test_cache(self):
         # Get two renditions with the same filter
         first_rendition = self.image.get_rendition('width-400')
@@ -114,7 +121,7 @@ class TestRenditions(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
-        
+
 
 class TestRenditionsWand(TestCase):
     def setUp(self):
@@ -134,24 +141,31 @@ class TestRenditionsWand(TestCase):
 
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
-        
+
         # Check size
         self.assertEqual(rendition.width, 400)
         self.assertEqual(rendition.height, 300)
-        
+
     def test_resize_to_max(self):
         rendition = self.image.get_rendition('max-100x100')
-        
+
         # Check size
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
-        
+
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
 
         # Check size
         self.assertEqual(rendition.width, 160)
         self.assertEqual(rendition.height, 120)
+
+    def test_resize_to_original(self):
+        rendition = self.image.get_rendition('original')
+
+        # Check size
+        self.assertEqual(rendition.width, 640)
+        self.assertEqual(rendition.height, 480)
 
     def test_cache(self):
         # Get two renditions with the same filter
@@ -160,7 +174,7 @@ class TestRenditionsWand(TestCase):
 
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
-        
+
 
 class TestImageTag(TestCase):
     def setUp(self):
@@ -183,19 +197,47 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('alt="Test image"' in result)
 
+    def render_image_tag_as(self, image, filter_spec):
+        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        context = template.Context({'image_obj': image})
+        return temp.render(context)
+
+    def test_image_tag_attrs(self):
+        result = self.render_image_tag_as(self.image, 'width-400')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('alt="Test image"' in result)
+
+    def render_image_tag_with_extra_attributes(self, image, title):
+        temp = template.Template('{% load image_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        context = template.Context({'image_obj': image, 'title': title})
+        return temp.render(context)
+
+    def test_image_tag_with_extra_attributes(self):
+        result = self.render_image_tag_with_extra_attributes(self.image, 'My Wonderful Title')
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('class="photo"' in result)
+        self.assertTrue('title="my wonderful title"' in result)
 
 ## ===== ADMIN VIEWS =====
 
 
-class TestImageIndexView(TestCase):
+class TestImageIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -215,9 +257,9 @@ class TestImageIndexView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestImageAddView(TestCase):
+class TestImageAddView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_add_image'), params)
@@ -225,8 +267,10 @@ class TestImageAddView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_add_image'), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
     def test_add(self):
         response = self.post({
@@ -235,7 +279,7 @@ class TestImageAddView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -247,9 +291,9 @@ class TestImageAddView(TestCase):
         self.assertEqual(image.height, 480)
 
 
-class TestImageEditView(TestCase):
+class TestImageEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -263,8 +307,10 @@ class TestImageEditView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
     def test_edit(self):
         response = self.post({
@@ -272,16 +318,16 @@ class TestImageEditView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
         self.assertEqual(image.title, "Edited")
 
 
-class TestImageDeleteView(TestCase):
+class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -295,8 +341,10 @@ class TestImageDeleteView(TestCase):
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailimages_delete_image', args=(self.image.id,)), post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
 
     def test_delete(self):
         response = self.post({
@@ -304,22 +352,25 @@ class TestImageDeleteView(TestCase):
         })
 
         # Should redirect back to index
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailimages_index'))
 
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
         self.assertEqual(images.count(), 0)
 
 
-class TestImageChooserView(TestCase):
+class TestImageChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -333,9 +384,9 @@ class TestImageChooserView(TestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class TestImageChooserChosenView(TestCase):
+class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -346,16 +397,25 @@ class TestImageChooserChosenView(TestCase):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_image_chosen', args=(self.image.id,)), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/image_chosen.js')
+
+    # TODO: Test posting
 
 
-class TestImageChooserUploadView(TestCase):
+class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages_chooser_upload'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
+
+    # TODO: Test uploading through chooser

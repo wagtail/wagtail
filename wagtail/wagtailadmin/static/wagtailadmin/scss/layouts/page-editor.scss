@@ -6,11 +6,8 @@
     margin-bottom:10em;
 }
 
-.page-editor header {
-
-}
 .page-editor .breadcrumb{
-    margin-top:-1.8em;
+    margin-top:-1.2em;
     margin-bottom:2em;
 }
 .page-editor .modal .breadcrumb{
@@ -336,6 +333,9 @@ footer .preview{
 }
 
 @media screen and (min-width: $breakpoint-mobile){
+    .page-editor .breadcrumb{
+        margin-top:-1.8em;
+    }
     .object{
         fieldset{
             max-width:1024px;

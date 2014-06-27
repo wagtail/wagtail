@@ -1,6 +1,7 @@
-import re
+import warnings
 
+warnings.warn(
+    "The wagtail.wagtailcore.util module has been renamed. "
+    "Use wagtail.wagtailcore.utils instead.", DeprecationWarning)
 
-def camelcase_to_underscore(str):
-    # http://djangosnippets.org/snippets/585/
-    return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+from .utils import *

@@ -1,3 +1,6 @@
+
+.. _inserting_videos:
+
 Inserting videos into body content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

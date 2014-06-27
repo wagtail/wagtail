@@ -1,8 +1,8 @@
 Original Authors
 ================
 
-* Matthew Westcott matthew.westcott@torchbox.com
-* David Cranwell david.cranwell@torchbox.com
+* Matthew Westcott matthew.westcott@torchbox.com twitter: @gasmanic
+* David Cranwell david.cranwell@torchbox.com twitter: @davecranwell
 * Karl Hobley karl.hobley@torchbox.com
 * Helen Chapman helen.chapman@torchbox.com
 
@@ -28,6 +28,8 @@ Contributors
 * Ben Margolis
 * Tom Talbot
 * Jeffrey Hearn
+* Robert Clark
+* Tim Heap
 
 Translators
 ===========

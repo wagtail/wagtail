@@ -52,6 +52,7 @@ ul.listing{
             }
         }
 
+        /*
         .dropdown{
             padding:0;
         }
@@ -65,6 +66,7 @@ ul.listing{
             background-color:white;
             margin-left:-$grid-gutter-width * 2;
         }
+        */
     }
 
     &.full-width td:first-child,
@@ -177,7 +179,6 @@ ul.listing{
         @include clearfix();
         margin-top:0.8em;
         text-transform:uppercase;
-        font-size:0.85em;
         margin-bottom:-0.5em;
 
         a{
@@ -195,7 +196,7 @@ ul.listing{
     .button{
         color:$color-teal;
         border-color:$color-grey-3;
-        background:transparent;
+        background:white;
 
         &:hover{
             border-color:$color-teal;
@@ -325,13 +326,11 @@ ul.listing{
                 opacity:0.7;
             }
         }
-        a{
-            color:auto;
-        }
         .actions{
             margin-top:1em;
         }
         .button{
+            background-color:transparent;
             color:white;
             border-color:$color-teal-darker;
 

@@ -16,7 +16,6 @@ import json
 
 
 class EmbedNotFoundException(Exception): pass
-
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
 
@@ -52,7 +51,7 @@ def embedly(url, max_width=None, key=None):
         key = settings.EMBEDLY_KEY
 
     # Get embedly client
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    client = Embedly(key=key)
 
     # Call embedly
     if max_width is not None:
@@ -162,6 +161,10 @@ def get_embed(url, max_width=None, finder=None):
         embed_dict['height'] = int(embed_dict['height'])
     except (TypeError, ValueError):
         embed_dict['height'] = None
+
+    # Make sure html field is valid
+    if 'html' not in embed_dict or not embed_dict['html']:
+        embed_dict['html'] = ''
 
     # Create database record
     embed, created = Embed.objects.get_or_create(
