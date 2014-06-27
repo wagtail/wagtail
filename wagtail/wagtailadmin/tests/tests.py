@@ -1,26 +1,26 @@
 from django.test import TestCase
 from wagtail.tests.models import SimplePage, EventPage
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.tasks import send_email_task
 from django.core.urlresolvers import reverse
 from django.core import mail
 
 
-class TestHome(TestCase):
+class TestHome(TestCase, WagtailTestUtils):
     def setUp(self):
         # Login
-        login(self.client)
+        self.login()
 
-    def test_status_code(self):
+    def test_simple(self):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
 
 
-class TestEditorHooks(TestCase):
+class TestEditorHooks(TestCase, WagtailTestUtils):
     def setUp(self):
         self.homepage = Page.objects.get(id=2)
-        login(self.client)
+        self.login()
 
     def test_editor_css_and_js_hooks_on_add(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.homepage.id)))

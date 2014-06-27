@@ -1,5 +1,5 @@
-{% load i18n %}{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation{% endblocktrans %}
+{% extends 'wagtailadmin/notifications/base_notification.html' %}{% block notification %}{% load i18n %}{% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation{% endblocktrans %}
 {% blocktrans with page=revision.page|safe %}The page "{{ page }}" has been submitted for moderation.{% endblocktrans %}
 
 {% trans "You can preview the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}
-{% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}
+{% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}{% endblock %}

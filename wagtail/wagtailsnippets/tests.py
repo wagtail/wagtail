@@ -2,46 +2,50 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from wagtail.tests.utils import login, unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_edit_handler
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
-class TestSnippetIndexView(TestCase):
+class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_index'), params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/index.html')
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
 
 
-class TestSnippetListView(TestCase):
+class TestSnippetListView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_list',
                                        args=('tests', 'advert')),
                                params)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
 
 
-class TestSnippetCreateView(TestCase):
+class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_create',
@@ -53,8 +57,10 @@ class TestSnippetCreateView(TestCase):
                                args=('tests', 'advert')),
                                post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -64,21 +70,21 @@ class TestSnippetCreateView(TestCase):
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
                                         'url': 'http://www.example.com/'})
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='test_advert')
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/')
 
 
-class TestSnippetEditView(TestCase):
+class TestSnippetEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.test_snippet = Advert()
         self.test_snippet.text = 'test_advert'
         self.test_snippet.url = 'http://www.example.com/'
         self.test_snippet.save()
 
-        login(self.client)
+        self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets_edit',
@@ -90,8 +96,10 @@ class TestSnippetEditView(TestCase):
                                         args=('tests', 'advert', self.test_snippet.id)),
                                 post_data)
 
-    def test_status_code(self):
-        self.assertEqual(self.get().status_code, 200)
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets_edit',
@@ -111,21 +119,21 @@ class TestSnippetEditView(TestCase):
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
                                         'url': 'http://www.example.com/edited'})
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='edited_test_advert')
         self.assertEqual(snippets.count(), 1)
         self.assertEqual(snippets.first().url, 'http://www.example.com/edited')
 
 
-class TestSnippetDelete(TestCase):
+class TestSnippetDelete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.test_snippet = Advert()
         self.test_snippet.text = 'test_advert'
         self.test_snippet.url = 'http://www.example.com/'
         self.test_snippet.save()
 
-        login(self.client)
+        self.login()
 
     def test_delete_get(self):
         response = self.client.get(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )))
@@ -136,7 +144,7 @@ class TestSnippetDelete(TestCase):
         response = self.client.post(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
 
         # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)

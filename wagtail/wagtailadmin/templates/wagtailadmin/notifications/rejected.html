@@ -1,4 +1,4 @@
-{% load i18n %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected{% endblocktrans %}
+{% extends 'wagtailadmin/notifications/base_notification.html' %}{% block notification %}{% load i18n %}{% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected{% endblocktrans %}
 {% blocktrans with title=revision.page.title|safe %}The page "{{ title }}" has been rejected.{% endblocktrans %}
 
-{% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}
+{% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages_edit' revision.page.id %}{% endblock %}

@@ -5,15 +5,8 @@ from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailadmin import hooks
 
-urlpatterns = [
-    url(
-        r'^login/$', 'django.contrib.auth.views.login', {
-            'template_name': 'wagtailadmin/login.html',
-            'authentication_form': LoginForm,
-            'extra_context': {'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)},
-        }, name='wagtailadmin_login'
-    ),
 
+urlpatterns = [
     # Password reset
     url(
         r'^password_reset/$', 'django.contrib.auth.views.password_reset', {
@@ -56,7 +49,8 @@ urlpatterns += [
     url(r'^pages/(\d+)/edit/$', pages.edit, name='wagtailadmin_pages_edit'),
     url(r'^pages/(\d+)/edit/preview/$', pages.preview_on_edit, name='wagtailadmin_pages_preview_on_edit'),
 
-    url(r'^pages/preview_placeholder/$', pages.preview_placeholder, name='wagtailadmin_pages_preview_placeholder'),
+    url(r'^pages/preview/$', pages.preview, name='wagtailadmin_pages_preview'),
+    url(r'^pages/preview_loading/$', pages.preview_loading, name='wagtailadmin_pages_preview_loading'),
 
     url(r'^pages/(\d+)/view_draft/$', pages.view_draft, name='wagtailadmin_pages_view_draft'),
     url(r'^pages/(\d+)/add_subpage/$', pages.add_subpage, name='wagtailadmin_pages_add_subpage'),
@@ -81,12 +75,21 @@ urlpatterns += [
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
+    url(r'^login/$', account.login, name='wagtailadmin_login'),
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
+    url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
+]
+
+
+# This is here to make sure that 'django.contrib.auth.views.login' is reversed correctly
+# It must be placed after 'wagtailadmin_login' to prevent this from being used
+urlpatterns += [
+    url(r'^login/$', 'django.contrib.auth.views.login'),
 ]
 
 

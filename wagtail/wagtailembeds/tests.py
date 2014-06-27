@@ -8,10 +8,8 @@ except ImportError:
     no_embedly = True
 
 from django.test import TestCase
-from django.test.client import Client
 
-from wagtail.tests.utils import login
-from wagtail.tests.utils import unittest
+from wagtail.tests.utils import WagtailTestUtils, unittest
 
 from wagtail.wagtailembeds import get_embed
 from wagtail.wagtailembeds.embeds import (
@@ -19,8 +17,8 @@ from wagtail.wagtailembeds.embeds import (
     EmbedlyException,
     AccessDeniedEmbedlyException,
 )
-from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly
-from wagtail.wagtailembeds.embeds import oembed as wagtail_oembed
+from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
+
 
 
 class TestEmbeds(TestCase):
@@ -81,11 +79,24 @@ class TestEmbeds(TestCase):
         # Width must be set to None
         self.assertEqual(embed.width, None)
 
+    def test_no_html(self) :
+        def no_html_finder(url, max_width=None):
+            """
+            A finder which returns everything but HTML
+            """
+            embed = self.dummy_finder(url, max_width)
+            embed['html'] = None
+            return embed
 
-class TestChooser(TestCase):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=no_html_finder)
+
+        self.assertEqual(embed.html, '')
+
+
+class TestChooser(TestCase, WagtailTestUtils):
     def setUp(self):
         # login
-        login(self.client)
+        self.login()
 
     def test_chooser(self):
         r = self.client.get('/admin/embeds/chooser/')

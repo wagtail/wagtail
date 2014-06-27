@@ -3,14 +3,28 @@ Changelog
 
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
+ * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
+ * Added notification preferences
  * Added 'original' as a resizing rule supported by the 'image' tag
  * Hallo.js updated to version 1.0.4
  * Snippets are now ordered alphabetically
  * Removed the "More" section from the admin menu
  * Added pagination to page listings in admin
+ * Support for setting a subpage_types property on page models, to define which page types are allowed as subpages
+ * Added a new datetime picker widget
+ * Added styleguide (mainly for wagtail developers)
+ * Aesthetic improvements to preview experience
+ * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
+ * Added an 'attrs' property to image rendition objects to output src, width, height and alt attributes all in one go
+ * Added 'construct_whitelister_element_rules' hook for customising the HTML whitelist used when saving rich text fields
+ * Added 'in_menu' and 'not_in_menu' methods to PageQuerySet
+ * Added 'get_next_siblings' and 'get_prev_siblings' to Page
+ * Added init_new_page signal
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
+ * Fix: Page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+ * Fix: Embeds - Fixed crash when no HTML field is sent back from the embed provider
 
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~

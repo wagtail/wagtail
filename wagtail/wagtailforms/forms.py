@@ -8,22 +8,9 @@ class BaseForm(django.forms.Form):
         return super(BaseForm, self).__init__(*args, **kwargs)
 
 
-class FormBuilder():
-    formfields = SortedDict()
-
+class FormBuilder(object):
     def __init__(self, fields):
-        for field in fields:
-            options = self.get_options(field)
-            f = getattr(self, "create_"+field.field_type+"_field")(field, options)
-            self.formfields[field.clean_name] = f
-
-    def get_options(self, field):
-        options = {}
-        options['label'] = field.label
-        options['help_text'] = field.help_text
-        options['required'] = field.required
-        options['initial'] = field.default_value
-        return options
+        self.fields = fields
 
     def create_singleline_field(self, field, options):
         # TODO: This is a default value - it may need to be changed
@@ -72,16 +59,52 @@ class FormBuilder():
     def create_checkbox_field(self, field, options):
         return django.forms.BooleanField(**options)
 
+    FIELD_TYPES = {
+        'singleline': create_singleline_field,
+        'multiline': create_multiline_field,
+        'date': create_date_field,
+        'datetime': create_datetime_field,
+        'email': create_email_field,
+        'url': create_url_field,
+        'number': create_number_field,
+        'dropdown': create_dropdown_field,
+        'radio': create_radio_field,
+        'checkboxes': create_checkboxes_field,
+        'checkbox': create_checkbox_field,
+    }
+
+    @property
+    def formfields(self):
+        formfields = SortedDict()
+
+        for field in self.fields:
+            options = self.get_field_options(field)
+
+            if field.field_type in self.FIELD_TYPES:
+                formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
+            else:
+                raise Exception("Unrecognised field type: " + form.field_type)
+
+        return formfields
+
+    def get_field_options(self, field):
+        options = {}
+        options['label'] = field.label
+        options['help_text'] = field.help_text
+        options['required'] = field.required
+        options['initial'] = field.default_value
+        return options
+
     def get_form_class(self):
         return type('WagtailForm', (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):
-    date_from = django.forms.DateField(
+    date_from = django.forms.DateTimeField(
         required=False,
         widget=django.forms.DateInput(attrs={'placeholder': 'Date from'})
     )
-    date_to = django.forms.DateField(
+    date_to = django.forms.DateTimeField(
         required=False,
         widget=django.forms.DateInput(attrs={'placeholder': 'Date to'})
     )

@@ -65,7 +65,8 @@ class Whitelister(object):
         'h6': allow_without_attributes,
         'hr': allow_without_attributes,
         'i': allow_without_attributes,
-        'img': attribute_rule({'src': check_url, 'width': True, 'height': True, 'alt': True}),
+        'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
+                               'alt': True}),
         'li': allow_without_attributes,
         'ol': allow_without_attributes,
         'p': allow_without_attributes,
@@ -77,7 +78,8 @@ class Whitelister(object):
 
     @classmethod
     def clean(cls, html):
-        """Clean up an HTML string to contain just the allowed elements / attributes"""
+        """Clean up an HTML string to contain just the allowed elements /
+        attributes"""
         doc = BeautifulSoup(html, 'lxml')
         cls.clean_node(doc, doc)
         return unicode(doc)
