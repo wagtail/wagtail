@@ -23,7 +23,7 @@ def construct_main_menu(request, menu_items):
         menu_items.append(MenuItem(
             _('Settings'),
             urlresolvers.reverse('wagtailsettings_index'),
-            classnames='icon icon-setting',
+            classnames='icon icon-cogs',
             order=1000
         ))
 hooks.register('construct_main_menu', construct_main_menu)

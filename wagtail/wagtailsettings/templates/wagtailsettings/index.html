@@ -4,7 +4,7 @@
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title="Settings" icon="setting" %}
+    {% include "wagtailadmin/shared/header.html" with title="Settings" icon="cogs" %}
 
     <div class="nice-padding">
         <ul class="listing">
@@ -13,7 +13,7 @@
                     <div class="row row-flush title">
                         <h2>
                             <a href="{% url 'wagtailsettings_edit' content_type.app_label content_type.model %}" class="col6">
-                                {{ name|capfirst }} 
+                                {{ name|capfirst }}
                             </a>
                         </h2>
                         <small class="col6">{{ description }}</small>
