@@ -135,6 +135,12 @@ class PageManager(models.Manager):
     def not_live(self):
         return self.get_queryset().not_live()
 
+    def in_menu(self):
+        return self.get_queryset().in_menu()
+
+    def not_in_menu(self):
+        return self.get_queryset().not_in_menu()
+
     def page(self, other):
         return self.get_queryset().page(other)
 
@@ -645,6 +651,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def get_siblings(self, inclusive=True):
         return Page.objects.sibling_of(self, inclusive)
 
+    def get_next_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -826,6 +838,41 @@ class UserPagePermissionsProxy(object):
             return Page.objects.filter(all_rules)
         else:
             return Page.objects.none()
+
+    def can_edit_pages(self):
+        """Return True if the user has permission to edit any pages"""
+        return True if self.editable_pages().count() else False
+
+    def publishable_pages(self):
+        """Return a queryset of the pages that this user has permission to publish"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        # Translate each of the user's permission rules into a Q-expression
+        q_expressions = []
+        for perm in self.permissions:
+            if perm.permission_type == 'publish':
+                # user has publish permission on any subpage of perm.page
+                # (including perm.page itself)
+                q_expressions.append(
+                    Q(path__startswith=perm.page.path)
+                )
+
+        if q_expressions:
+            all_rules = q_expressions[0]
+            for expr in q_expressions[1:]:
+                all_rules = all_rules | expr
+            return Page.objects.filter(all_rules)
+        else:
+            return Page.objects.none()
+
+    def can_publish_pages(self):
+        """Return True if the user has permission to publish any pages"""
+        return True if self.publishable_pages().count() else False
+
 
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):
