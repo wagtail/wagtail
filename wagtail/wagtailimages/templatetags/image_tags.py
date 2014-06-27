@@ -5,4 +5,4 @@ warnings.warn(
     "Use {% load wagtailimages_tags %} instead.", DeprecationWarning)
 
 
-from wagtail.wagtailimages.templatetags.wagtailimages_tags import register
+from wagtail.wagtailimages.templatetags.wagtailimages_tags import register, image

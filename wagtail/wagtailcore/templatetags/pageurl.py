@@ -5,4 +5,4 @@ warnings.warn(
     "Use {% load wagtailcore_tags %} instead.", DeprecationWarning)
 
 
-from wagtail.wagtailcore.templatetags.wagtailcore_tags import register
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import register, pageurl

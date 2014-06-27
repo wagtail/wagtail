@@ -5,4 +5,4 @@ warnings.warn(
     "Use {% load wagtailembeds_tags %} instead.", DeprecationWarning)
 
 
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import register
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import register, embed, embedly
