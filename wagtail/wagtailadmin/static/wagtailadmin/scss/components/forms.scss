@@ -177,28 +177,32 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width:auto;
-    padding:0.7em 1em;
+    height:2.4em;
+    line-height:2.4em;
+    padding:0 1em;
+    font-size:0.9em;
+    font-weight:normal;
+    vertical-align: middle;
+    display:inline-block;
     background-color: $color-button;
     border:1px solid $color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
-    font-size:0.9em;
     white-space: nowrap;
     position:relative;
-    -webkit-font-smoothing: auto;
-    vertical-align: middle;
-    display:inline-block;
     overflow:hidden;
-    position:relative;
-    font-weight:normal;
     outline:none;
+    box-sizing:border-box;
+    -webkit-font-smoothing: auto;
     -moz-appearance: none;
     -moz-box-sizing:border-box;
 
     &.button-small{
-        padding:0.55em 0.8em;
-        font-size:1em;
+        padding:0 0.8em;
+        height:2em;
+        line-height:2em;
+        font-size:0.85em;
     }
 
     &.button-secondary{
@@ -266,7 +270,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-small.bicolor{
-        padding: 0.65em 0.8em;
         padding-left:3.5em;
 
         &:before{
@@ -288,9 +291,13 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
 input[type=submit], input[type=reset], input[type=button], button{
     padding:0 1em;
-    height: em; 
-    vertical-align: middle;
+    height: 2.4em; 
     line-height:inherit;
+
+    &.button-small{
+        height:2em;
+        line-height:inherit;
+    }
 }
 
 button.icon{
@@ -703,29 +710,45 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
-        padding:0.75em 1.4em;
-
         padding:0 1.4em;
-        height: 2.8em; 
-        vertical-align: middle;
-        line-height:inherit;
+        height: 3em; 
+        line-height:3em;
+
+        &.button-small{
+            height:2.3em;
+            line-height:2.2em;
+        }
 
         &.bicolor{
             padding-left:3.5em;
 
             &:before{
                 width:2.2em;
-                line-height:2.15em;
+                line-height:2.45em;
+            }
+        }
+
+        &.button-small.bicolor{
+            line-height:2.3em;
+
+            &:before{
+                line-height:1.85em;
             }
         }
     }
 
     /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
     input[type=submit], input[type=reset], input[type=button], button{
-        padding:0 1.4em;
-        height: 2.8em; 
-        vertical-align: middle;
         line-height:inherit;
+
+        &.button-small, &.bicolor,
+        &.button-small.bicolor{
+           line-height:inherit; 
+        }
+
+        &.button-small{
+            height:2.3em;
+        }
     }
 
 
