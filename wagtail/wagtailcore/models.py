@@ -827,6 +827,41 @@ class UserPagePermissionsProxy(object):
         else:
             return Page.objects.none()
 
+    def can_edit_pages(self):
+        """Return True if the user has permission to edit any pages"""
+        return True if self.editable_pages().count() else False
+
+    def publishable_pages(self):
+        """Return a queryset of the pages that this user has permission to publish"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        # Translate each of the user's permission rules into a Q-expression
+        q_expressions = []
+        for perm in self.permissions:
+            if perm.permission_type == 'publish':
+                # user has publish permission on any subpage of perm.page
+                # (including perm.page itself)
+                q_expressions.append(
+                    Q(path__startswith=perm.page.path)
+                )
+
+        if q_expressions:
+            all_rules = q_expressions[0]
+            for expr in q_expressions[1:]:
+                all_rules = all_rules | expr
+            return Page.objects.filter(all_rules)
+        else:
+            return Page.objects.none()
+
+    def can_publish_pages(self):
+        """Return True if the user has permission to publish any pages"""
+        return True if self.publishable_pages().count() else False
+
+
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):
         self.user = user_perms.user
