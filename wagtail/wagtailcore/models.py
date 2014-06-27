@@ -15,6 +15,7 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 
 from treebeard.mp_tree import MP_Node
 
@@ -329,7 +330,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         cursor.execute(update_statement, 
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
-    @property
+    @cached_property
     def specific(self):
         """
             Return this page in its most specific subclassed form.
@@ -343,7 +344,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    @property
+    @cached_property
     def specific_class(self):
         """
             return the class that this page would be if instantiated in its
@@ -373,23 +374,18 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False):
-        self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+        return self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
 
     def get_latest_revision(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return False
-
-        return revision
+        return self.revisions.order_by('-created_at').first()
 
     def get_latest_revision_as_page(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return self.specific
+        latest_revision = self.get_latest_revision()
 
-        return revision.as_page_object()
+        if latest_revision:
+            return latest_revision.as_page_object()
+        else:
+            return self.specific
 
     def get_context(self, request, *args, **kwargs):
         return {
@@ -419,6 +415,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return (not self.is_leaf()) or self.depth == 2
 
     def get_other_siblings(self):
+        warnings.warn(
+            "The 'Page.get_other_siblings()' method has been replaced. "
+            "Use 'Page.get_siblings(inclusive=False)' instead.", DeprecationWarning)
+
         # get sibling pages excluding self
         return self.get_siblings().exclude(id=self.id)
 
@@ -757,6 +757,9 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+    def __unicode__(self):
+        return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
     ('edit', 'Edit'),
@@ -815,29 +818,20 @@ class UserPagePermissionsProxy(object):
         if self.user.is_superuser:
             return Page.objects.all()
 
-        # Translate each of the user's permission rules into a Q-expression
-        q_expressions = []
-        for perm in self.permissions:
-            if perm.permission_type == 'add':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) that is owned by them
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path, owner=self.user)
-                )
-            elif perm.permission_type == 'edit':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) regardless of owner
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path)
-                )
+        editable_pages = Page.objects.none()
 
-        if q_expressions:
-            all_rules = q_expressions[0]
-            for expr in q_expressions[1:]:
-                all_rules = all_rules | expr
-            return Page.objects.filter(all_rules)
-        else:
-            return Page.objects.none()
+        for perm in self.permissions.filter(permission_type='add'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) that is owned by them
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True).filter(owner=self.user)
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return editable_pages
+
 
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
