@@ -29,6 +29,7 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
+* Tim Heap
 
 Translators
 ===========

@@ -1,8 +1,12 @@
+from StringIO import StringIO
+
 from django.test import TestCase
 from django.core import management
+
 from wagtail.wagtailsearch import models
 from wagtail.tests.utils import unittest, WagtailTestUtils
-from StringIO import StringIO
+from wagtail.wagtailsearch.utils import normalise_query_string
+
 
 
 class TestHitCounter(TestCase):
@@ -55,12 +59,12 @@ class TestQueryStringNormalisation(TestCase):
 
     def test_truncation(self):
         test_querystring = 'a' * 1000
-        result = models.Query.normalise_query_string(test_querystring)
+        result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 255)
 
     def test_no_truncation(self):
         test_querystring = 'a' * 10
-        result = models.Query.normalise_query_string(test_querystring)
+        result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 10)
 
 
