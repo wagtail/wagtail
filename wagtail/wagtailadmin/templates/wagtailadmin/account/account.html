@@ -1,5 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
+
+{% block titletag %}{% trans "Account" %}{% endblock %}
 {% block content %}
     {% trans "Account" as account_str %}
     {% include "wagtailadmin/shared/header.html" with title=account_str %}
@@ -25,6 +27,17 @@
 
                     <small class="col6">
                         {% trans "Change the password you use to log in." %}
+                    </small>
+                </li>
+            {% endif %}
+            {% if show_notification_preferences %}
+                <li class="row row-flush">
+                    <div class="col6">
+                        <a href="{% url 'wagtailadmin_account_notification_preferences' %}" class="button button-primary">{% trans "Notification preferences" %}</a>
+                    </div>
+
+                    <small class="col6">
+                        {% trans "Choose which email notifications to receive." %}
                     </small>
                 </li>
             {% endif %}

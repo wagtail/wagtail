@@ -58,6 +58,7 @@ input, textarea, select, .richtext, .tagit{
         border: 0 !important;
         margin-top:-3px !important; 
         margin-bottom: -2px !important; 
+        line-height:1em !important;
     }
 
     &:hover{
@@ -79,13 +80,14 @@ input, textarea, select, .richtext, .tagit{
         outline:none;
     }
 
-    &:after{
+    /* Add select arrow back on browsers where native ui has been removed */
+    select ~ span:after{
         @include border-radius(0 6px 6px 0);
         z-index:0;
         position:absolute;
-        right:1px;
+        right:0px;
         top:1px;
-        height:95%;
+        bottom:0px;
         width:1.5em;
         font-family:wagtail;
         content:"q";
@@ -97,12 +99,14 @@ input, textarea, select, .richtext, .tagit{
         pointer-events:none;
         color:$color-grey-3;
         background-color:$color-fieldset-hover;
-        margin:0px 1px 0 0;
+        margin:0px 1px 1px 0;
+
+        .ie &{
+            display:none;
+        }
     }
 
-    .ie &:after{
-        display:none;
-    }
+    
 }
 
 /* radio and check boxes */
@@ -169,34 +173,39 @@ input[type=checkbox]:checked:before{
     color:$color-teal;
 }
 
-/* Core button style */
+/* Core button style 
+Note that these styles include methods to render buttons the same x-browser, described here:
+http://cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights */
 input[type=submit], input[type=reset], input[type=button], .button, button{
     font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width:auto;
-    padding:0.7em 1em;
+    height:2.4em;
+    line-height:2.4em;
+    padding:0 1em;
+    font-size:0.9em;
+    font-weight:normal;
+    vertical-align: middle;
+    display:inline-block;
     background-color: $color-button;
     border:1px solid $color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
-    font-size:0.9em;
     white-space: nowrap;
     position:relative;
-    -webkit-font-smoothing: auto;
-    vertical-align: middle;
-    line-height:1em;
-    display:inline-block;
     overflow:hidden;
-    position:relative;
-    font-weight:normal;
     outline:none;
+    box-sizing:border-box;
+    -webkit-font-smoothing: auto;
     -moz-appearance: none;
     -moz-box-sizing:border-box;
 
     &.button-small{
-        padding:0.55em 0.8em;
-        font-size:1em;
+        padding:0 0.8em;
+        height:2em;
+        line-height:2em;
+        font-size:0.85em;
     }
 
     &.button-secondary{
@@ -264,7 +273,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 
     &.button-small.bicolor{
-        padding: 0.65em 0.8em;
         padding-left:3.5em;
 
         &:before{
@@ -280,6 +288,18 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     + .button,
     + button{
         margin-left:1em;
+    }
+}
+
+/* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+input[type=submit], input[type=reset], input[type=button], button{
+    padding:0 1em;
+    height: 2.4em; 
+    line-height:inherit;
+
+    &.button-small{
+        height:2em;
+        line-height:inherit;
     }
 }
 
@@ -398,7 +418,7 @@ li.focused > .help{
     opacity:1;
 }
 
-.required label:after{
+.required .field > label:after{
     content:"*";
     color:$color-red;
     font-weight:bold;
@@ -608,11 +628,6 @@ ul.inline li:first-child, li.inline:first-child{
         .chosen { display: none; }
         .unchosen { display: block; }
     }
-
-    input[type=button]{
-        font-size:0.85em;
-        padding:0.5em 0.5em;
-    }
 }
 
 /* standard way of doing a chooser where the chosen object's title is overlayed */
@@ -710,7 +725,7 @@ ul.tagit li.tagit-choice-editable{
 
 /* search-bars */
 .search-bar{
-    .required label:after{
+    .required .field > label:after{
         display:none;
     }
 }
@@ -731,15 +746,13 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include column(2);
         padding-top:1.2em;
         padding-left:0;
-    }
 
-    /* these fields are formatted differently and label alignment must change */
-    .model_multiple_choice_field,
-    .boolean_field,
-    .model_choice_field,
-    .image_field,
-    .file_field{
-        label{
+        .choice_field &,
+        .model_multiple_choice_field &,
+        .boolean_field &,
+        .model_choice_field &,
+        .image_field &,
+        .file_field &{
             padding-top:0;
         }
     }
@@ -755,17 +768,47 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
     input[type=submit], input[type=reset], input[type=button], .button, button{
         font-size:0.95em;
-        padding:0.75em 1.4em;
+        padding:0 1.4em;
+        height: 3em; 
+        line-height:3em;
+
+        &.button-small{
+            height:2.3em;
+            line-height:2.2em;
+        }
 
         &.bicolor{
             padding-left:3.5em;
 
             &:before{
                 width:2.2em;
-                line-height:2.15em;
+                line-height:2.45em;
+            }
+        }
+
+        &.button-small.bicolor{
+            line-height:2.3em;
+
+            &:before{
+                line-height:1.85em;
             }
         }
     }
+
+    /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+    input[type=submit], input[type=reset], input[type=button], button{
+        line-height:inherit;
+
+        &.button-small, &.bicolor,
+        &.button-small.bicolor{
+           line-height:inherit; 
+        }
+
+        &.button-small{
+            height:2.3em;
+        }
+    }
+
 
     .help{
         opacity:1;

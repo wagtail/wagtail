@@ -21,7 +21,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.util import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
@@ -129,56 +129,62 @@ def get_navigable_page_content_type_ids():
 
 
 class PageManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
 
     def live(self):
-        return self.get_query_set().live()
+        return self.get_queryset().live()
 
     def not_live(self):
-        return self.get_query_set().not_live()
+        return self.get_queryset().not_live()
+
+    def in_menu(self):
+        return self.get_queryset().in_menu()
+
+    def not_in_menu(self):
+        return self.get_queryset().not_in_menu()
 
     def page(self, other):
-        return self.get_query_set().page(other)
+        return self.get_queryset().page(other)
 
     def not_page(self, other):
-        return self.get_query_set().not_page(other)
+        return self.get_queryset().not_page(other)
 
     def descendant_of(self, other, inclusive=False):
-        return self.get_query_set().descendant_of(other, inclusive)
+        return self.get_queryset().descendant_of(other, inclusive)
 
     def not_descendant_of(self, other, inclusive=False):
-        return self.get_query_set().not_descendant_of(other, inclusive)
+        return self.get_queryset().not_descendant_of(other, inclusive)
 
     def child_of(self, other):
-        return self.get_query_set().child_of(other)
+        return self.get_queryset().child_of(other)
 
     def not_child_of(self, other):
-        return self.get_query_set().not_child_of(other)
+        return self.get_queryset().not_child_of(other)
 
     def ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().ancestor_of(other, inclusive)
+        return self.get_queryset().ancestor_of(other, inclusive)
 
     def not_ancestor_of(self, other, inclusive=False):
-        return self.get_query_set().not_ancestor_of(other, inclusive)
+        return self.get_queryset().not_ancestor_of(other, inclusive)
 
     def parent_of(self, other):
-        return self.get_query_set().parent_of(other)
+        return self.get_queryset().parent_of(other)
 
     def not_parent_of(self, other):
-        return self.get_query_set().not_parent_of(other)
+        return self.get_queryset().not_parent_of(other)
 
     def sibling_of(self, other, inclusive=False):
-        return self.get_query_set().sibling_of(other, inclusive)
+        return self.get_queryset().sibling_of(other, inclusive)
 
     def not_sibling_of(self, other, inclusive=False):
-        return self.get_query_set().not_sibling_of(other, inclusive)
+        return self.get_queryset().not_sibling_of(other, inclusive)
 
     def type(self, model):
-        return self.get_query_set().type(model)
+        return self.get_queryset().type(model)
 
     def not_type(self, model):
-        return self.get_query_set().not_type(model)
+        return self.get_queryset().not_type(model)
 
 
 class PageBase(models.base.ModelBase):
@@ -676,6 +682,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def get_siblings(self, inclusive=True):
         return Page.objects.sibling_of(self, inclusive)
 
+    def get_next_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -728,8 +740,8 @@ class Orderable(models.Model):
 
 
 class SubmittedRevisionsManager(models.Manager):
-    def get_query_set(self):
-        return super(SubmittedRevisionsManager, self).get_query_set().filter(submitted_for_moderation=True)
+    def get_queryset(self):
+        return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
 class PageRevision(models.Model):
@@ -872,6 +884,41 @@ class UserPagePermissionsProxy(object):
         else:
             return Page.objects.none()
 
+    def can_edit_pages(self):
+        """Return True if the user has permission to edit any pages"""
+        return True if self.editable_pages().count() else False
+
+    def publishable_pages(self):
+        """Return a queryset of the pages that this user has permission to publish"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        # Translate each of the user's permission rules into a Q-expression
+        q_expressions = []
+        for perm in self.permissions:
+            if perm.permission_type == 'publish':
+                # user has publish permission on any subpage of perm.page
+                # (including perm.page itself)
+                q_expressions.append(
+                    Q(path__startswith=perm.page.path)
+                )
+
+        if q_expressions:
+            all_rules = q_expressions[0]
+            for expr in q_expressions[1:]:
+                all_rules = all_rules | expr
+            return Page.objects.filter(all_rules)
+        else:
+            return Page.objects.none()
+
+    def can_publish_pages(self):
+        """Return True if the user has permission to publish any pages"""
+        return True if self.publishable_pages().count() else False
+
+
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):
         self.user = user_perms.user
@@ -887,6 +934,8 @@ class PagePermissionTester(object):
 
     def can_add_subpage(self):
         if not self.user.is_active:
+            return False
+        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -942,9 +991,12 @@ class PagePermissionTester(object):
         """
         Niggly special case for creating and publishing a page in one go.
         Differs from can_publish in that we want to be able to publish subpages of root, but not
-        to be able to publish root itself
+        to be able to publish root itself. (Also, can_publish_subpage returns false if the page
+        does not allow subpages at all.)
         """
         if not self.user.is_active:
+            return False
+        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)

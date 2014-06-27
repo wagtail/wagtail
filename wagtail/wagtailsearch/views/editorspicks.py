@@ -13,6 +13,7 @@ from wagtail.wagtailadmin.forms import SearchForm
 @permission_required('wagtailadmin.access_admin')
 @vary_on_headers('X-Requested-With')
 def index(request):
+    is_searching = False
     page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")
 
@@ -21,6 +22,7 @@ def index(request):
     # Search
     if query_string:
         queries = queries.filter(query_string__icontains=query_string)
+        is_searching = True
 
     # Pagination
     paginator = Paginator(queries, 20)
@@ -33,11 +35,13 @@ def index(request):
 
     if request.is_ajax():
         return render(request, "wagtailsearch/editorspicks/results.html", {
+            'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
         })
     else:
         return render(request, 'wagtailsearch/editorspicks/index.html', {
+            'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
             'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search editor's picks")),

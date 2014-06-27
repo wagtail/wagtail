@@ -162,6 +162,10 @@ def get_embed(url, max_width=None, finder=None):
     except (TypeError, ValueError):
         embed_dict['height'] = None
 
+    # Make sure html field is valid
+    if 'html' not in embed_dict or not embed_dict['html']:
+        embed_dict['html'] = ''
+
     # Create database record
     embed, created = Embed.objects.get_or_create(
         url=url,

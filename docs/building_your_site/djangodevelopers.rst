@@ -1,8 +1,14 @@
 For Django developers
 =====================
 
+.. contents:: Contents
+    :local:
+
 .. note::
     This documentation is currently being written.
+
+Overview
+~~~~~~~~
 
 Wagtail requires a little careful setup to define the types of content that you want to present through your website. The basic unit of content in Wagtail is the ``Page``, and all of your page-level content will inherit basic webpage-related properties from it. But for the most part, you will be defining content yourself, through the construction of Django models using Wagtail's ``Page`` as a base.
 
@@ -269,6 +275,7 @@ not_type(self, model):
     return self.get_query_set().not_type(model)
 
 
+.. _wagtail_site_admin:
 
 Site
 ~~~~
@@ -278,3 +285,13 @@ Django's built-in admin interface provides the way to map a "site" (hostname or 
 Access this by going to ``/django-admin/`` and then "Home › Wagtailcore › Sites." To try out a development site, add a single site with the hostname ``localhost`` at port ``8000`` and map it to one of the pieces of content you have created.
 
 Wagtail's developers plan to move the site settings into the Wagtail admin interface.
+
+
+.. _redirects:
+
+Redirects
+~~~~~~~~~
+
+Wagtail provides a simple interface for creating arbitrary redirects to and from any URL.
+
+.. image:: ../images/screen_wagtail_redirects.png

@@ -1,3 +1,6 @@
+
+.. _form_builder:
+
 Form builder
 ============
 
