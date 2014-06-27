@@ -53,7 +53,7 @@ class Site(models.Model):
                 hostname, port = request.META['HTTP_HOST'].split(':')
             except ValueError:
                 hostname = request.META['HTTP_HOST']
-                port = '80' # FIXME do we want this default?
+                port = '443' if request.is_secure() else '80'
             except KeyError:
                 # explicit routing straight to the final except clause
                 raise
