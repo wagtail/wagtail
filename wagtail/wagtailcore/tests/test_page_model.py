@@ -233,6 +233,15 @@ class TestPrevNextSiblings(TestCase):
         christmas_event = Page.objects.get(url_path='/home/events/christmas/')
         self.assertTrue(christmas_event.get_next_siblings().filter(url_path='/home/events/final-event/').exists())
 
+    def test_get_next_siblings_inclusive(self):
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+
+        # First element must always be the current page
+        self.assertEqual(christmas_event.get_next_siblings(inclusive=True).first(), christmas_event)
+
     def test_get_prev_siblings(self):
         final_event = Page.objects.get(url_path='/home/events/final-event/')
         self.assertTrue(final_event.get_prev_siblings().filter(url_path='/home/events/christmas/').exists())
+
+        # First element must always be the current page
+        self.assertEqual(final_event.get_prev_siblings(inclusive=True).first(), final_event)
