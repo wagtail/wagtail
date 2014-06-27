@@ -1,11 +1,13 @@
 from django.test import TestCase
-from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
-from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.wagtailcore.models import Page, PageRevision
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission
 from django.core import mail
 from django.core.paginator import Paginator
+
+from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
+from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailusers.models import UserProfile
 
 
 class TestPageExplorer(TestCase, WagtailTestUtils):
@@ -863,8 +865,8 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.submitter = User.objects.create_user('submitter', 'submitter@email.com', 'password')
 
         # User profiles for moderator2 and the submitter
-        self.moderator2_profile = self.moderator2.get_profile()
-        self.submitter_profile = self.submitter.get_profile()
+        self.moderator2_profile = UserProfile.get_for_user(self.moderator2)
+        self.submitter_profile = UserProfile.get_for_user(self.submitter)
 
         # Create a page and submit it for moderation
         self.child_page = SimplePage(

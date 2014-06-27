@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
-User.get_profile = lambda u: UserProfile.objects.get_or_create(user=u)[0]
-
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -25,6 +23,10 @@ class UserProfile(models.Model):
             default=True,
             help_text=_("Receive notification when your page edit is rejected")
             )
+
+    @classmethod
+    def get_for_user(cls, user):
+        return cls.objects.get_or_create(user=user)[0]
 
     def __unicode__(self):
         return self.user.username

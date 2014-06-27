@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 from wagtail.wagtailcore.models import PageRevision, GroupPagePermission
+from wagtail.wagtailusers.models import UserProfile
 
 # The following will check to see if we can import task from celery - 
 # if not then we definitely haven't installed it
@@ -62,7 +63,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of email addresses
     email_addresses = [
         recipient.email for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id and getattr(recipient.get_profile(), notification + '_notifications')
+        if recipient.email and recipient.id != excluded_user_id and getattr(UserProfile.get_for_user(recipient), notification + '_notifications')
     ]
 
     # Return if there are no email addresses

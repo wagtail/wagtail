@@ -127,6 +127,6 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
             self.test_user.userprofile
 
     def test_user_profile_created_when_method_called(self):
-        self.assertIsInstance(self.test_user.get_profile(), UserProfile)
+        self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)

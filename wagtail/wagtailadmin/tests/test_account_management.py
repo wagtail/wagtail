@@ -1,9 +1,11 @@
 from django.test import TestCase
-from wagtail.tests.utils import unittest, WagtailTestUtils
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
+
+from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.wagtailusers.models import UserProfile
 
 
 class TestAuthentication(TestCase, WagtailTestUtils):
@@ -205,7 +207,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = User.objects.get(username='test').get_profile()
+        profile = UserProfile.get_for_user(User.objects.get(username='test'))
 
         # Check that the notification preferences are as submitted
         self.assertFalse(profile.submitted_notifications)

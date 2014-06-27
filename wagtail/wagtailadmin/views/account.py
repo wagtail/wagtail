@@ -10,6 +10,7 @@ from django.views.decorators.cache import never_cache
 
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
+from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
@@ -52,14 +53,14 @@ def change_password(request):
 def notification_preferences(request):
 
     if request.POST:
-        form = NotificationPreferencesForm(request.POST, instance=request.user.get_profile())
+        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
 
         if form.is_valid():
             form.save()
             messages.success(request, _("Your preferences have been updated successfully!"))
             return redirect('wagtailadmin_account')
     else:
-        form = NotificationPreferencesForm(instance=request.user.get_profile())
+        form = NotificationPreferencesForm(instance=UserProfile.get_for_user(request.user))
 
     # quick-and-dirty catch-all in case the form has been rendered with no
     # fields, as the user has no customisable permissions
