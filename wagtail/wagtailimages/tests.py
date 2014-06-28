@@ -191,7 +191,7 @@ class TestImageTag(TestCase):
         )
 
     def render_image_tag(self, image, filter_spec):
-        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + '%}')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + '%}')
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -204,7 +204,7 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_as(self, image, filter_spec):
-        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -217,7 +217,7 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
-        temp = template.Template('{% load image_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
         context = template.Context({'image_obj': image, 'title': title})
         return temp.render(context)
 

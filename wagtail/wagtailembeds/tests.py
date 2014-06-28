@@ -19,8 +19,7 @@ from wagtail.wagtailembeds.embeds import (
     AccessDeniedEmbedlyException,
 )
 from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
-from wagtail.wagtailembeds.templatetags.embed_filters import embed as embed_filter
-from wagtail.wagtailembeds.templatetags.embed_filters import embedly as embedly_filter
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter, embedly as embedly_filter
 
 
 class TestEmbeds(TestCase):
@@ -284,7 +283,7 @@ class TestEmbedFilter(TestCase):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}
-        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embed }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
         context = template.Context()
         result = temp.render(context)
         self.assertEqual(result, '<img src="http://www.example.com" />')
@@ -295,7 +294,7 @@ class TestEmbedFilter(TestCase):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'foo',
                               'url': 'http://www.example.com'}
-        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embed }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
         context = template.Context()
         result = temp.render(context)
         self.assertEqual(result, '')
