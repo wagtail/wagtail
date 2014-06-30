@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.signals import page_published
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -170,6 +171,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(page.live)
 
     def test_create_simplepage_post_publish(self):
+        # Connect a mock signal handler to page_published signal
+        signal_fired = [False]
+        signal_page = [None]
+        def page_published_handler(sender, page, **kwargs):
+            signal_fired[0] = True
+            signal_page[0] = page
+        page_published.connect(page_published_handler)
+
+        # Post
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -186,6 +196,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
+
+        # Check that the page_published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_page[0], page)
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
@@ -327,6 +341,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTrue(child_page_new.has_unpublished_changes)
 
     def test_page_edit_post_publish(self):
+        # Connect a mock signal handler to page_published signal
+        signal_fired = [False]
+        signal_page = [None]
+        def page_published_handler(sender, page, **kwargs):
+            signal_fired[0] = True
+            signal_page[0] = page
+        page_published.connect(page_published_handler)
+
         # Tests publish from edit page
         post_data = {
             'title': "I've been edited!",
@@ -342,6 +364,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the page was edited
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertEqual(child_page_new.title, post_data['title'])
+
+        # Check that the page_published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_page[0], child_page_new)
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
