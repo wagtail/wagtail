@@ -31,11 +31,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # Autodoc may need to import some models modules which require django settings
 # be configured
-from django.conf import settings
-
-if not settings.configured:
-    from wagtail.tests.settings import SETTINGS
-    settings.configure(**SETTINGS)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
 # -- General configuration ------------------------------------------------

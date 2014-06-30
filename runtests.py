@@ -6,11 +6,10 @@ import shutil
 from django.conf import settings
 from django.core.management import execute_from_command_line
 
-from wagtail.tests.settings import SETTINGS, STATIC_ROOT, MEDIA_ROOT
+from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT
 
 
-if not settings.configured:
-    settings.configure(**SETTINGS)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
 def runtests():
