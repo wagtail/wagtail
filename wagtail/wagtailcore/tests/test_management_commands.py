@@ -117,27 +117,6 @@ class TestPublishScheduledPagesCommand(TestCase):
         self.assertTrue(p.live)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
-    def test_go_live_page_will_be_published(self):
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            live=False,
-            go_live_at=timezone.now() - timedelta(days=1),
-        )
-        self.root_page.add_child(instance=page)
-
-        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
-
-        p = Page.objects.get(slug='hello-world')
-        self.assertFalse(p.live)
-        self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
-
-        management.call_command('publish_scheduled_pages')
-
-        p = Page.objects.get(slug='hello-world')
-        self.assertTrue(p.live)
-        self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
-
     def test_future_go_live_page_will_not_be_published(self):
         page = SimplePage(
             title="Hello world!",
