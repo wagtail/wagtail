@@ -8,7 +8,6 @@ from django.db import models, connection, transaction
 from django.db.models import get_model, Q
 from django.http import Http404
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
 from django.contrib.contenttypes.models import ContentType
@@ -465,16 +464,6 @@ class Page(MP_Node, ClusterableModel, Indexed):
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
                 return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
-
-    def clean(self):
-        super(Page, self).clean()
-
-        if self.go_live_at and self.expire_at:
-            if self.go_live_at > self.expire_at:
-                raise ValidationError(ugettext('Go live date/time should be before expiry datetime.'))
-
-        if self.expire_at and self.expire_at < timezone.now():
-            raise ValidationError(ugettext('Expiry date/time should be in the future'))
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):

@@ -137,6 +137,32 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             return slug
         form.fields['slug'].clean = clean_slug
 
+        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
+        def clean():
+            cleaned_data = form_class.clean(form)
+
+            # Go live must be before expire
+            go_live_at = cleaned_data.get('go_live_at')
+            expire_at = cleaned_data.get('expire_at')
+
+            if go_live_at and expire_at:
+                if go_live_at > expire_at:
+                    msg = _('Go live date/time must be before expiry date/time')
+                    form._errors['go_live_at'] = form.error_class([msg])
+                    form._errors['expire_at'] = form.error_class([msg])
+                    del cleaned_data['go_live_at']
+                    del cleaned_data['expire_at']
+
+            # Expire must be in the future
+            expire_at = cleaned_data.get('expire_at')
+
+            if expire_at and expire_at < timezone.now():
+                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
+                del cleaned_data['expire_at']
+
+            return cleaned_data
+        form.clean = clean
+
         if form.is_valid():
             page = form.save(commit=False)  # don't save yet, as we need treebeard to assign tree params
 
@@ -229,6 +255,32 @@ def edit(request, page_id):
                 raise ValidationError(_("This slug is already in use"))
             return slug
         form.fields['slug'].clean = clean_slug
+
+        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
+        def clean():
+            cleaned_data = form_class.clean(form)
+
+            # Go live must be before expire
+            go_live_at = cleaned_data.get('go_live_at')
+            expire_at = cleaned_data.get('expire_at')
+
+            if go_live_at and expire_at:
+                if go_live_at > expire_at:
+                    msg = _('Go live date/time must be before expiry date/time')
+                    form._errors['go_live_at'] = form.error_class([msg])
+                    form._errors['expire_at'] = form.error_class([msg])
+                    del cleaned_data['go_live_at']
+                    del cleaned_data['expire_at']
+
+            # Expire must be in the future
+            expire_at = cleaned_data.get('expire_at')
+
+            if expire_at and expire_at < timezone.now():
+                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
+                del cleaned_data['expire_at']
+
+            return cleaned_data
+        form.clean = clean
 
         if form.is_valid():
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()

@@ -207,9 +207,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
-        # Should be redirected to explorer page
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['edit_handler'].form.errors)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
+        self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
 
     def test_create_simplepage_scheduled_expire_in_the_past(self):
         post_data = {
@@ -220,9 +222,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
-        # Should be redirected to explorer page
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['edit_handler'].form.errors)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
 
     def test_create_simplepage_post_publish(self):
         post_data = {
@@ -436,6 +439,36 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(go_live_at.date())).exists())
         self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(expire_at.date())).exists())
+
+    def test_edit_scheduled_go_live_before_expiry(self):
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'go_live_at': str(timezone.now() + timedelta(days=2)).split('.')[0],
+            'expire_at': str(timezone.now() + timedelta(days=1)).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'go_live_at', "Go live date/time must be before expiry date/time")
+        self.assertFormError(response, 'form', 'expire_at', "Go live date/time must be before expiry date/time")
+
+    def test_edit_scheduled_expire_in_the_past(self):
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'expire_at': str(timezone.now() + timedelta(days=-1)).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
 
     def test_page_edit_post_publish(self):
         # Tests publish from edit page
