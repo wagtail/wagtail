@@ -609,6 +609,7 @@ def approve_moderation(request, revision_id):
 
     if request.POST:
         revision.publish()
+        page_published.send(sender=revision.page.__class__, page=revision.page.specific)
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'approved', request.user.id)
 
