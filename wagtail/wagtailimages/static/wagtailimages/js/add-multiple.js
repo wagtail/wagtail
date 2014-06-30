@@ -34,8 +34,8 @@ $(function(){
                 return $this.fileupload('process', data);
             }).always(function () {
                 data.context.removeClass('processing');
-                data.context.find('.preview').each(function (index, elm) {
-                    console.log(data.files[index]);
+                data.context.find('.preview .thumb').each(function (index, elm) {
+                    $(elm).addClass('hasthumb')
                     $(elm).append(data.files[index].preview);
                 });
             }).done(function () {
@@ -103,15 +103,15 @@ $(function(){
                 //jform.find('#id_'+ im_li.attr('id') +'-tags').tagit(window.tagit_opts);
             });
         },
-        
+      
+        fail: function(e, data){
+            var itemElement = $(data.context);
+            itemElement.addClass('failed');
+        },
+
         always: function(e, data){
             var itemElement = $(data.context);
             itemElement.removeClass('uploading');
         },
-        
-        fail: function(e, data){
-            var itemElement = $(data.context);
-            itemElement.addClass('failed');
-        }
     });
 });

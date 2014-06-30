@@ -23,9 +23,10 @@
             <div class="bar" style="width: 0%;"></div>
         </div>
 
-        <ul id="upload-list" class="upload-list drop-zone multiple">
-            <li class="drop-zone-help">Drag and drop images into this area to upload</li>
-        </ul>
+        <div class="drop-zone">
+            <p >Drag and drop images into this area to upload</p>
+            <ul id="upload-list" class="upload-list multiple"></ul>
+        </div>
     </div>
 
     <script id="upload-list-item" type="text/template">
@@ -43,10 +44,38 @@
     </script>
 
     <ul class="upload-list multiple" id="upload-list-item" type="text/template">
-        <li>
+        <li class="uploading">
             <div class="left">
                 <div class="preview">
-                    <div class="thumb icon icon-image"></div>
+                    <div class="thumb icon icon-image">
+                        <img src="http://instasrc.com/150x150/nature" />
+                    </div>
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right"></div>            
+        </li>
+        <li class="failed hasthumb">
+            <div class="left">
+                <div class="preview">
+                    <div class="thumb icon icon-image">
+                        <img src="http://instasrc.com/150x150/architecture" />
+                    </div>
+                    <div class="progress">
+                        <div class="bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right"></div>            
+        </li>
+        <li class="done">
+            <div class="left">
+                <div class="preview">
+                    <div class="thumb icon icon-image">
+                        <img src="http://instasrc.com/150x150/art" />
+                    </div>
                     <div class="progress">
                         <div class="bar" style="width: 0%;"></div>
                     </div>
