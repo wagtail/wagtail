@@ -279,6 +279,11 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
     }
 
+    &.button-full-width {
+        display: block;
+        width: 100%;
+    }
+
     + input[type=submit],
     + input[type=reset],
     + input[type=button],

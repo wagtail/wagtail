@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from django.conf import settings
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailadmin.forms import SearchForm
@@ -27,7 +28,19 @@ class SiteSummaryPanel(object):
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
             'total_images': get_image_model().objects.count(),
             'total_docs': Document.objects.count(),
-            'search_form': SearchForm(),
+        }, RequestContext(self.request))
+
+
+class SearchPanel(object):
+    name = 'search'
+    order = 150
+
+    def __init__(self, request):
+        self.request = request
+
+    def render(self):
+        return render_to_string('wagtailadmin/home/search.html', {
+            'search_form': SearchForm(placeholder_suffix=_('pages')),
         }, RequestContext(self.request))
 
 
@@ -71,6 +84,7 @@ def home(request):
 
     panels = [
         SiteSummaryPanel(request),
+        SearchPanel(request),
         PagesForModerationPanel(request),
         RecentEditsPanel(request),
     ]

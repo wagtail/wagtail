@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+from django.utils.encoding import force_text
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -12,7 +13,7 @@ class SearchForm(forms.Form):
         if _placeholder is not None:
             placeholder = _placeholder
         else:
-            placeholder = 'Search {0}'.format(placeholder_suffix)
+            placeholder = 'Search {0}'.format(force_text(placeholder_suffix))
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
