@@ -191,6 +191,10 @@ Page Properties and Methods Reference
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
+.. automodule:: wagtail.wagtailcore.models
+.. autoclass:: Page
+    :members:
+
 Properties:
 
 * specific
