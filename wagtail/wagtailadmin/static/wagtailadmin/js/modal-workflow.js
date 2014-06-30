@@ -12,6 +12,7 @@ function ModalWorkflow(opts) {
 
     var self = {};
     var responseCallbacks = opts.responses || {};
+    self.st = opts.st || {};
 
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
     $('body > .modal').remove();

@@ -267,3 +267,12 @@ class Rendition(AbstractRendition):
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+
+from wagtail.wagtailadmin.sirtrevor import BaseBlock, register_block
+
+class ImageBlock(BaseBlock):
+    name = "Image"
+    template = "wagtailimages/sirtrevor/image.html"
+    js = "wagtailimages/js/sirtrevor-image.js"
+
+register_block(ImageBlock)
