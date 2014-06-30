@@ -149,29 +149,37 @@
         <section id="buttons">
             <h2>Buttons</h2>
 
-            <div href="" class="button">button</div>
+            <a href="#" class="button">button</a>
 
-            <div href="" class="button button-secondary">button-secondary</div>
+            <a href="#" class="button button-secondary">button-secondary</a>
 
-            <div href="" class="button yes">yes</div>
+            <a href="#" class="button yes">yes</a>
 
-            <div href="" class="button no">no / serious</div>
+            <a href="#" class="button no">no / serious</a>
 
-            <div href="" class="button bicolor icon icon-plus">bicolor with icon</div>
+            <a href="#" class="button bicolor icon icon-plus">bicolor with icon</a>
 
-            <div href="" class="button button-small">button-small</div>
+            <a href="#" class="button button-small">button-small</a>
 
-            <div href="" class="button bicolor button-small icon icon-plus">bicolo button-small</div>
+            <a href="#" class="button bicolor button-small icon icon-plus">bicolo button-small</a>
 
-            <div href="" class="button button-secondary no">mixed 1</div>
+            <a href="#" class="button button-secondary no">mixed 1</a>
 
-            <div href="" class="button no bicolor icon icon-cog">mixed 2</div>
+            <a href="#" class="button no bicolor icon icon-cog">mixed 2</a>
+
+            <div class="button no bicolor icon icon-cog">button on a div</div>
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
 
             <button>button</button>
 
+            <button class="button-small">small button</button>
+
             <button class="bicolor icon icon-plus">bicolor with icon</button>
+
+            <input type="submit" class="bicolor icon icon-plus" value="bicolor only supported on button elements" />
+
+            <button class="icon icon-view">button</button>
         </section>
 
         <section id="dropdowns">
@@ -191,7 +199,7 @@
 
                 <div class="col3">
                     <div class="dropdown dropdown-button">
-                        <div class="button">drop down</div>
+                        <input type="button" value="drop down" class="button" />
                         <div class="dropdown-toggle icon icon-arrow-down"></div>
                         <ul role="menu">
                             <li><a href="#">Items in this list do not match button width</a></li>
@@ -220,6 +228,24 @@
                             <li><a href="#">item 2</a></li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="#" class="button" value="drop down">Link button</a>
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul role="menu">
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <button>button for comparison of height</button>
                 </div>
             </div>
         </section>
