@@ -240,15 +240,15 @@
             margin:0 0 0 -20px;
             cursor:pointer;
 
-            a{
-                font-size: 0em;
-                line-height: 0;
+            .button{
+                @include border-radius(0);
                 overflow: visible;
-                display:block;
+                display:inline-block;
+                padding:0;
+                width:3.45em;
 
                 &:before{
                     position:relative;
-                    color:white;
                     padding:0;
                     line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;
