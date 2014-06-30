@@ -217,61 +217,36 @@ Methods:
 * show_as_mode
 
 
-Page Queryset Methods
-~~~~~~~~~~~~~~~~~~~~~
+Page Queryset
+~~~~~~~~~~~~~
 
-The ``Page`` class uses a custom Django model manager which provides these methods for structuring queries on ``Page`` objects.
+All models that inherit from ``Page`` are given some extra Queryset methods accessible from their ``.objects`` attribute.
 
-get_query_set()
-    return PageQuerySet(self.model).order_by('path')
+Examples:
 
-live(self):
-    return self.get_query_set().live()
+ - Selecting only live pages
 
-not_live(self):
-    return self.get_query_set().not_live()
+    .. code-block:: python
 
-page(self, other):
-    return self.get_query_set().page(other)
+        live_pages = Page.objects.live()
 
-not_page(self, other):
-    return self.get_query_set().not_page(other)
+ - Selecting published EventPages that are descendants of events_index
 
-descendant_of(self, other, inclusive=False):
-    return self.get_query_set().descendant_of(other, inclusive)
+    .. code-block:: python
 
-not_descendant_of(self, other, inclusive=False):
-    return self.get_query_set().not_descendant_of(other, inclusive)
+        events = EventPage.objects.live().descendant_of(events_index)
 
-child_of(self, other):
-    return self.get_query_set().child_of(other)
+ - Getting a list of menu items
 
-not_child_of(self, other):
-    return self.get_query_set().not_child_of(other)
+    .. code-block:: python
 
-ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().ancestor_of(other, inclusive)
+        # This gets a queryset of live children of the homepage with ``show_in_menus`` set
+        menu_items = homepage.get_children().live().in_menu()
 
-not_ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().not_ancestor_of(other, inclusive)
 
-parent_of(self, other):
-    return self.get_query_set().parent_of(other)
-
-not_parent_of(self, other):
-    return self.get_query_set().not_parent_of(other)
-
-sibling_of(self, other, inclusive=False):
-    return self.get_query_set().sibling_of(other, inclusive)
-
-not_sibling_of(self, other, inclusive=False):
-    return self.get_query_set().not_sibling_of(other, inclusive)
-
-type(self, model):
-    return self.get_query_set().type(model)
-
-not_type(self, model):
-    return self.get_query_set().not_type(model)
+.. automodule:: wagtail.wagtailcore.query
+.. autoclass:: PageQuerySet
+    :members:
 
 
 .. _wagtail_site_admin:
