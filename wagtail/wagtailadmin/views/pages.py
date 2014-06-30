@@ -115,11 +115,16 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     except ContentType.DoesNotExist:
         raise Http404
 
+    # Get class
+    page_class = content_type.model_class()
+
+    # Make sure the class is a descendant of Page
+    if not issubclass(page_class, Page):
+        raise Http404
+
     # page must be in the list of allowed subpage types for this parent ID
     if content_type not in parent_page.clean_subpage_types():
         raise PermissionDenied
-
-    page_class = content_type.model_class()
 
     page = page_class(owner=request.user)
     edit_handler_class = get_page_edit_handler(page_class)

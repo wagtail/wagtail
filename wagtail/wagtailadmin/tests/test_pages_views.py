@@ -245,7 +245,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', 100000)))
         self.assertEqual(response.status_code, 404)
 
-    @unittest.expectedFailure # FIXME: Crashes!
     def test_create_nonpagetype(self):
         response = self.client.get(reverse('wagtailadmin_pages_create', args=('wagtailimages', 'image', self.root_page.id)))
         self.assertEqual(response.status_code, 404)
