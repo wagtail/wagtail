@@ -103,6 +103,11 @@ class SimplePage(Page):
     content = models.TextField()
 
 
+SimplePage.content_panels = Page.content_panels + [
+        FieldPanel('content')
+    ]
+
+
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
