@@ -1,8 +1,11 @@
+from datetime import timedelta
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission
 from django.core import mail
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
 from wagtail.tests.utils import unittest, WagtailTestUtils
@@ -169,6 +172,58 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
 
+    def test_create_simplepage_scheduled(self):
+        go_live_at = timezone.now() + timedelta(days=1)
+        expire_at = timezone.now() + timedelta(days=2)
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'go_live_at': str(go_live_at).split('.')[0],
+            'expire_at': str(expire_at).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the page and check the scheduled times
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        self.assertEquals(page.go_live_at.date(), go_live_at.date())
+        self.assertEquals(page.expire_at.date(), expire_at.date())
+        self.assertEquals(page.expired, False)
+        self.assertTrue(page.status_string, "draft")
+
+        # No revisions with approved_go_live_at
+        self.assertFalse(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
+
+    def test_create_simplepage_scheduled_go_live_before_expiry(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'go_live_at': str(timezone.now() + timedelta(days=2)).split('.')[0],
+            'expire_at': str(timezone.now() + timedelta(days=1)).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['edit_handler'].form.errors)
+
+    def test_create_simplepage_scheduled_expire_in_the_past(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'expire_at': str(timezone.now() + timedelta(days=-1)).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['edit_handler'].form.errors)
+
     def test_create_simplepage_post_publish(self):
         post_data = {
             'title': "New page!",
@@ -186,6 +241,34 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
+
+    def test_create_simplepage_post_publish_scheduled(self):
+        go_live_at = timezone.now() + timedelta(days=1)
+        expire_at = timezone.now() + timedelta(days=2)
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': str(go_live_at).split('.')[0],
+            'expire_at': str(expire_at).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the page and check it
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        self.assertEquals(page.go_live_at.date(), go_live_at.date())
+        self.assertEquals(page.expire_at.date(), expire_at.date())
+        self.assertEquals(page.expired, False)
+
+        # A revision with approved_go_live_at should exist now
+        self.assertTrue(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
+        # But Page won't be live
+        self.assertFalse(page.live)
+        self.assertTrue(page.status_string, "scheduled")
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
@@ -327,6 +410,33 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertTrue(child_page_new.has_unpublished_changes)
 
+    def test_edit_post_scheduled(self):
+        go_live_at = timezone.now() + timedelta(days=1)
+        expire_at = timezone.now() + timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'go_live_at': str(go_live_at).split('.')[0],
+            'expire_at': str(expire_at).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page will still be live
+        self.assertTrue(child_page_new.live)
+
+        # A revision with approved_go_live_at should not exist
+        self.assertFalse(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
+
+        # But a revision with go_live_at and expire_at in their content json *should* exist
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(go_live_at.date())).exists())
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(expire_at.date())).exists())
+
     def test_page_edit_post_publish(self):
         # Tests publish from edit page
         post_data = {
@@ -346,6 +456,77 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
+
+    def test_edit_post_publish_scheduled(self):
+        go_live_at = timezone.now() + timedelta(days=1)
+        expire_at = timezone.now() + timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': str(go_live_at).split('.')[0],
+            'expire_at': str(expire_at).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should not be live anymore
+        self.assertFalse(child_page_new.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
+
+    def test_edit_post_publish_now_an_already_scheduled(self):
+        # First let's publish a page with a go_live_at in the future
+        go_live_at = timezone.now() + timedelta(days=1)
+        expire_at = timezone.now() + timedelta(days=2)
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': str(go_live_at).split('.')[0],
+            'expire_at': str(expire_at).split('.')[0],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should not be live anymore
+        self.assertFalse(child_page_new.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
+
+        # Now, let's edit it and publish it right now
+        go_live_at = timezone.now()
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-publish': "Publish",
+            'go_live_at': "",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+
+        # The page should be live now
+        self.assertTrue(child_page_new.live)
+
+        # And a revision with approved_go_live_at should not exist
+        self.assertFalse(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
 
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
