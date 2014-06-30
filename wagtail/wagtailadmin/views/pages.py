@@ -210,10 +210,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            if form.errors and form.errors.get('__all__'):
-                messages.error(request, _("The page could not be created: ") + ', '.join(form.errors['__all__']))
-            else:
-                messages.error(request, _("The page could not be created due to errors."))
+            messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
         signals.init_new_page.send(sender=create, page=page, parent=parent_page)
@@ -336,10 +333,7 @@ def edit(request, page_id):
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            if form.errors and form.errors.get('__all__'):
-                messages.error(request, _("The page could not be saved: ") + ', '.join(form.errors['__all__']))
-            else:
-                messages.error(request, _("The page could not be saved due to validation errors"))
+            messages.error(request, _("The page could not be saved due to validation errors"))
 
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
