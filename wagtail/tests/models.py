@@ -260,6 +260,28 @@ FormPage.content_panels = [
 ]
 
 
+class NoPanelsPage(Page):
+    """
+    We don't declare any panels for this page type.
+    """
+    content = models.TextField(blank=True)
+
+
+class NotInheritingPanelsPage(Page):
+    """
+    We declare panels for the one field in this page type, but not for those
+    inherited from Page.
+    """
+    content = models.TextField(blank=True)
+
+NotInheritingPanelsPage.content_panels = [
+    FieldPanel('content')
+    ]
+
+
+
+
+
 # Snippets
 
 # Snippets
