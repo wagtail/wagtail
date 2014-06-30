@@ -174,9 +174,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # Connect a mock signal handler to page_published signal
         signal_fired = [False]
         signal_page = [None]
-        def page_published_handler(sender, page, **kwargs):
+        def page_published_handler(sender, instance, **kwargs):
             signal_fired[0] = True
-            signal_page[0] = page
+            signal_page[0] = instance
         page_published.connect(page_published_handler)
 
         # Post
@@ -345,9 +345,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Connect a mock signal handler to page_published signal
         signal_fired = [False]
         signal_page = [None]
-        def page_published_handler(sender, page, **kwargs):
+        def page_published_handler(sender, instance, **kwargs):
             signal_fired[0] = True
-            signal_page[0] = page
+            signal_page[0] = instance
         page_published.connect(page_published_handler)
 
         # Tests publish from edit page
@@ -672,9 +672,9 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Connect a mock signal handler to page_published signal
         signal_fired = [False]
         signal_page = [None]
-        def page_published_handler(sender, page, **kwargs):
+        def page_published_handler(sender, instance, **kwargs):
             signal_fired[0] = True
-            signal_page[0] = page
+            signal_page[0] = instance
         page_published.connect(page_published_handler)
 
         # Post
