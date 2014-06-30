@@ -93,7 +93,7 @@ def edit(request, content_type_app_name, content_type_model_name):
     model = content_type.model_class()
     setting_type_name = get_setting_type_name(content_type)[0]
 
-    (instance, created) = model.objects.get_or_create(site=request.site)
+    instance = model.for_site(request.site)
     edit_handler_class = get_setting_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 

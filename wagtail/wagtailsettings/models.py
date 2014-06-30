@@ -29,3 +29,8 @@ class BaseSetting(models.Model):
 
     class Meta:
         abstract = True
+
+    @classmethod
+    def for_site(cls, site):
+        instance, created = cls.objects.get_or_create(site=site)
+        return instance
