@@ -477,5 +477,23 @@
         "page": 8,
         "submit_time": "2014-01-01T12:00:00.000Z"
     }
+},
+{
+    "pk": 1,
+    "model": "wagtaildocs.Document",
+    "fields": {
+        "title": "test document",
+        "created_at": "2014-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "wagtailimages.Image",
+    "fields": {
+        "title": "test image",
+        "created_at": "2014-01-01T12:00:00.000Z",
+        "width": 0,
+        "height": 0
+    }
 }
 ]

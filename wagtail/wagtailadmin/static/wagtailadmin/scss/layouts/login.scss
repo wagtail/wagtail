@@ -84,7 +84,7 @@ form{
         .field{
             padding:0;
         }
-        .iconfield:before{
+        .iconfield .input:before{
             display:none;
         }   
 
@@ -159,7 +159,7 @@ form{
         margin:0px (-$desktop-nice-padding);
 
         .iconfield{
-            &:before{
+            .input:before{
                 display:inline-block;
                 position: absolute;
                 color:$color-grey-4;
