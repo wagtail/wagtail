@@ -21,7 +21,7 @@ class BackendTests(object):
 
     def setUp(self):
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
-        for (backend_name, backend_conf) in settings.WAGTAILSEARCH_BACKENDS.iteritems():
+        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
             if backend_conf['BACKEND'] == self.backend_path:
                 self.backend = get_search_backend(backend_name)
                 break
