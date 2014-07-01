@@ -8,39 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'PageRevision.approved_go_live_at'
-        db.add_column(u'wagtailcore_pagerevision', 'approved_go_live_at',
-                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
-                      keep_default=False)
+        # Removing unique constraint on 'Site', fields ['hostname']
+        db.delete_unique(u'wagtailcore_site', ['hostname'])
 
-        # Adding field 'Page.go_live_at'
-        db.add_column(u'wagtailcore_page', 'go_live_at',
-                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Page.expire_at'
-        db.add_column(u'wagtailcore_page', 'expire_at',
-                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Page.expired'
-        db.add_column(u'wagtailcore_page', 'expired',
-                      self.gf('django.db.models.fields.BooleanField')(default=False),
-                      keep_default=False)
+        # Adding unique constraint on 'Site', fields ['hostname', 'port']
+        db.create_unique(u'wagtailcore_site', ['hostname', 'port'])
 
 
     def backwards(self, orm):
-        # Deleting field 'PageRevision.approved_go_live_at'
-        db.delete_column(u'wagtailcore_pagerevision', 'approved_go_live_at')
+        # Removing unique constraint on 'Site', fields ['hostname', 'port']
+        db.delete_unique(u'wagtailcore_site', ['hostname', 'port'])
 
-        # Deleting field 'Page.go_live_at'
-        db.delete_column(u'wagtailcore_page', 'go_live_at')
-
-        # Deleting field 'Page.expire_at'
-        db.delete_column(u'wagtailcore_page', 'expire_at')
-
-        # Deleting field 'Page.expired'
-        db.delete_column(u'wagtailcore_page', 'expired')
+        # Adding unique constraint on 'Site', fields ['hostname']
+        db.create_unique(u'wagtailcore_site', ['hostname'])
 
 
     models = {
@@ -91,9 +71,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Page'},
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'pages'", 'to': u"orm['contenttypes.ContentType']"}),
             'depth': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'expired': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'expire_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'go_live_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'has_unpublished_changes': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'live': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -109,7 +86,6 @@ class Migration(SchemaMigration):
         },
         u'wagtailcore.pagerevision': {
             'Meta': {'object_name': 'PageRevision'},
-            'approved_go_live_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'content_json': ('django.db.models.fields.TextField', [], {}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -118,8 +94,8 @@ class Migration(SchemaMigration):
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
         },
         u'wagtailcore.site': {
-            'Meta': {'object_name': 'Site'},
-            'hostname': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255', 'db_index': 'True'}),
+            'Meta': {'unique_together': "(('hostname', 'port'),)", 'object_name': 'Site'},
+            'hostname': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_default_site': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'port': ('django.db.models.fields.IntegerField', [], {'default': '80'}),

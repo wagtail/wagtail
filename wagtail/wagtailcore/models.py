@@ -17,6 +17,7 @@ from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from treebeard.mp_tree import MP_Node
@@ -28,29 +29,47 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class SiteManager(models.Manager):
-    def get_by_natural_key(self, hostname):
-        return self.get(hostname=hostname)
+    def get_by_natural_key(self, hostname, port):
+        return self.get(hostname=hostname, port=port)
 
 
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, unique=True, db_index=True)
+    hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
     is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
+    class Meta:
+        unique_together = ('hostname', 'port')
+
     def natural_key(self):
-        return (self.hostname,)
+        return (self.hostname, self.port)
 
     def __unicode__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
     def find_for_request(request):
-        """Find the site object responsible for responding to this HTTP request object"""
+        """
+            Find the site object responsible for responding to this HTTP
+            request object. Try:
+             - unique hostname first
+             - then hostname and port
+             - if there is no matching hostname at all, or no matching
+               hostname:port combination, fall back to the unique default site,
+               or raise an exception
+            NB this means that high-numbered ports on an extant hostname may
+            still be routed to a different hostname which is set as the default
+        """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]
-            # find a Site matching this specific hostname
-            return Site.objects.get(hostname=hostname)
+            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
+            try:
+                # find a Site matching this specific hostname
+                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
+            except Site.MultipleObjectsReturned:
+                # as there were more than one, try matching by port too
+                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -65,6 +84,24 @@ class Site(models.Model):
             return 'https://%s' % self.hostname
         else:
             return 'http://%s:%d' % (self.hostname, self.port)
+
+    def clean_fields(self, exclude=None):
+        super(Site, self).clean_fields(exclude)
+        # Only one site can have the is_default_site flag set
+        try:
+            default = Site.objects.get(is_default_site=True)
+        except Site.DoesNotExist:
+            pass
+        except Site.MultipleObjectsReturned:
+            raise
+        else:
+            if self.is_default_site and self.pk != default.pk:
+                raise ValidationError(
+                    {'is_default_site': [
+                        _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
+                        % { 'hostname': default.hostname }
+                        ]}
+                    )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
