@@ -1,5 +1,5 @@
 
-Editing API
+Defining models with the Editing API
 ===========
 
 .. note::
@@ -22,18 +22,30 @@ Defining Panels
 
 A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types, you just need to add a panel for each field you want to show in the Wagtail page editor, in the order you want them to appear.
 
-There are three types of panels:
-
+There are four basic types of panels:
+  
   ``FieldPanel( field_name, classname=None )``
     This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
 
   ``MultiFieldPanel( children, heading="", classname=None )``
     This panel condenses several ``FieldPanel`` s or choosers, from a list or tuple, under a single ``heading`` string.
 
-  ``InlinePanel( base_model, relation_name, panels=None, label='', help_text='' )``
+  ``InlinePanel( base_model, relation_name, panels=None, classname=None, label='', help_text='' )``
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. This is a very powerful, but tricky feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
-Wagtail provides a tabbed interface to help organize panels. ``content_panels`` is the main tab, used for the meat of your model content. The other, ``promote_panels``, is suggested for organizing metadata about the content, such as SEO information and other machine-readable information. Since you're writing the panel definitions, you can organize them however you want.
+  ``FieldRowPanel( children, classname=None)``
+    This panel is purely aesthetic. It creates a columnar layout in the editing interface, where each of the child Panels appears alongside each others rather than below. Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it would be intuitive to find the start and end date on the same "row".
+
+    FieldRowPanel should be used in combination with ``col*`` classnames added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is layed out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+
+  **(In addition to these four, there are also Chooser Panels, detailed below.)**
+
+
+Wagtail provides a tabbed interface to help organize panels. Three such tabs are provided:
+
+* ``content_panels`` is the main tab, used for the bulk of your model's fields. 
+* ``promote_panels`` is suggested for organizing fields regarding the promotion of the page around the site and the internet e.g A field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO friendly titles, OpenGraph meta tag content and other machine-readable information.
+* ``settings_panels`` is essentially for non-copy fields. By default it contains the page's scheduled publishing fields. Other suggested fields e.g: a field to switch between one layout/style and another.  
 
 Let's look at an example of a panel definition:
 
@@ -55,7 +67,10 @@ Let's look at an example of a panel definition:
   ExamplePage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('body', classname="full"),
-    FieldPanel('date'),
+    FieldRowPanel([
+      FieldPanel('start_date', classname="col3"),
+      FieldPanel('end_date', classname="col3"),
+    ]),    
     ImageChooserPanel('splash_image'),
     DocumentChooserPanel('free_download'),
     PageChooserPanel('related_page'),
@@ -254,6 +269,12 @@ Titles
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
 
 
+Col*
+------
+
+Fields within a ``FieldRowPanel`` can have their width dictated in terms of the number of columns it should span. The ``FieldRowPanel`` is always considered to be 12 columns wide regardless of browser size or the nesting of ``FieldRowPanel`` in any other type of panel. Specify a number of columns thus: ``col3``, ``col4``, ``col6`` etc (up to 12). The resulting width with be *relative* to the full width of the ``FieldRowPanel``.
+
+
 Required Fields
 ---------------
 
@@ -346,9 +367,9 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
 
 For another example of using model clusters, see :ref:`tagging`
 
-For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_ ).
+For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_.
 
-.. _the django-modelcluster github page: https://github.com/torchbox/django-modelcluster
+.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
 
 
 .. _extending_wysiwyg:

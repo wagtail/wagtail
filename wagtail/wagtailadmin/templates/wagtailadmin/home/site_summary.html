@@ -3,25 +3,31 @@
     <h2 class="visuallyhidden">{% trans "Site summary" %}</h2>
     <ul class="stats">
         <li class="icon icon-doc-empty-inverse">
+            <a href="{% url 'wagtailadmin_explore_root' %}">
             {% blocktrans count counter=total_pages %}
                 <span>{{ total_pages }}</span> Page
             {% plural %}
                 <span>{{ total_pages }}</span> Pages
             {% endblocktrans %}
+            </a>
         </li>
         <li class="icon icon-image">
+            <a href="{% url 'wagtailimages_index' %}">
             {% blocktrans count counter=total_images %}
                 <span>{{ total_images }}</span> Image
             {% plural %}
                 <span>{{ total_images }}</span> Images
             {% endblocktrans %}
+            </a>
         </li>
         <li class="icon icon-doc-full-inverse">
+            <a href="{% url 'wagtaildocs_index' %}">
             {% blocktrans count counter=total_docs %}
                 <span>{{ total_docs }}</span> Document
             {% plural %}
                 <span>{{ total_docs }}</span> Documents
             {% endblocktrans %}
+            </a>
         </li>
     </ul>
 </section>

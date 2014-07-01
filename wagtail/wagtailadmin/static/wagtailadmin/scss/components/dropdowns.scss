@@ -2,29 +2,19 @@
     position:relative;
     @include clearfix();
 
-    .dropdown-toggle{
-        color:white;
-        text-transform:uppercase;
-        background-color:$color-teal;
-        line-height:3em;
-        padding-left:1em;
-        padding-right:1em;
-        cursor:pointer;
-
-        &:before,
-        &:after{
-            margin:0;
-        }   
-    }
-
-    input[type=button], input[type=submit], button, .button{
-        padding:1em 0;
+    input[type=submit], input[type=reset], input[type=button], button, .button{
+        padding:0;
         display:block;
         width:100%;
+        height:3em;
+        line-height:3em;
         text-align:left;
         padding-left:1em;
+        float:left;
     }
-
+    input[type=submit], input[type=reset], input[type=button], button{
+        line-height:inherit;
+    }
 
     ul{
         @include unlist();
@@ -41,6 +31,7 @@
             border-color: rgba(255,255,255,0.2);
             border-style: solid;
             border-width:1px 0 0 0;
+            overflow:hidden;
         }
 
         a{
@@ -115,24 +106,25 @@
         li{ 
             border-width:0 0 1px 0;
         }
-    }
+    }   
 
-   
-    .button{
-        float:left;
-
-        &:hover{
-            background-color:$color-teal-darker;
-        }
-    }
-
-    & > .button + .dropdown-toggle{
+    .dropdown-toggle{
+        color:white;
+        text-transform:uppercase;
+        background-color:$color-teal;
+        line-height:2.8em;
+        cursor:pointer;
+        height:100%;
         border-left:1px solid rgba(255,255,255,0.2);
         position:absolute;
         right:0;
-        height:100%;
         padding:0 0.5em;
         text-align:center;
+
+        &:before,
+        &:after{
+            margin:0;
+        }
 
         &:before{
             width:1em;
@@ -143,7 +135,8 @@
             background-color:$color-teal-darker;
         }
     }
-    &.open > .button + .dropdown-toggle{
+
+    &.open .dropdown-toggle{
         background-color:$color-teal-darker;
     }
 
@@ -192,55 +185,6 @@
         }
     }
 }
-
-h2 .dropdown{
-    display:inline-block;
-    font-size:0.7em;
-    margin-right:0.5em;
-    vertical-align:middle;
-
-    .dropdown-toggle{
-        padding:0.5em 0;
-        border-right:1px solid $color-grey-3;
-
-        /* icon */
-        &:before{
-            opacity:0.5;
-            padding:0.2em;
-            height:1.1em;
-            text-align:left;
-        }
-        &:hover{
-            background-color:$color-teal;
-            border-color:transparent;
-        }
-    }
-    &.open{
-        .dropdown-toggle{
-            background-color:$color-teal;
-        }
-
-        ul{
-            left:auto;
-        }
-    }
-
-    .dropdown-toggle:hover{
-        background-color:$color-grey-3;
-        &:before{
-            color:white;
-            opacity:1;
-        }
-    }
-    &.open .dropdown-toggle:before{
-        background-color:$color-teal;
-        color:white;
-        opacity:1;
-    }
-
-
-}
-
 
 /* Transitions */
 .dropdown ul{

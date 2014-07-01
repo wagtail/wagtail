@@ -5,12 +5,13 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks
+from wagtail.wagtailadmin import tasks, hooks, signals
 
 from wagtail.wagtailcore.models import Page, PageRevision
 
@@ -115,11 +116,16 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     except ContentType.DoesNotExist:
         raise Http404
 
+    # Get class
+    page_class = content_type.model_class()
+
+    # Make sure the class is a descendant of Page
+    if not issubclass(page_class, Page):
+        raise Http404
+
     # page must be in the list of allowed subpage types for this parent ID
     if content_type not in parent_page.clean_subpage_types():
         raise PermissionDenied
-
-    page_class = content_type.model_class()
 
     page = page_class(owner=request.user)
     edit_handler_class = get_page_edit_handler(page_class)
@@ -136,21 +142,63 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             return slug
         form.fields['slug'].clean = clean_slug
 
+        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
+        def clean():
+            cleaned_data = form_class.clean(form)
+
+            # Go live must be before expire
+            go_live_at = cleaned_data.get('go_live_at')
+            expire_at = cleaned_data.get('expire_at')
+
+            if go_live_at and expire_at:
+                if go_live_at > expire_at:
+                    msg = _('Go live date/time must be before expiry date/time')
+                    form._errors['go_live_at'] = form.error_class([msg])
+                    form._errors['expire_at'] = form.error_class([msg])
+                    del cleaned_data['go_live_at']
+                    del cleaned_data['expire_at']
+
+            # Expire must be in the future
+            expire_at = cleaned_data.get('expire_at')
+
+            if expire_at and expire_at < timezone.now():
+                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
+                del cleaned_data['expire_at']
+
+            return cleaned_data
+        form.clean = clean
+
         if form.is_valid():
             page = form.save(commit=False)  # don't save yet, as we need treebeard to assign tree params
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
             is_submitting = bool(request.POST.get('action-submit'))
+            go_live_at = form.cleaned_data.get('go_live_at')
+            future_go_live = go_live_at and go_live_at > timezone.now()
+            approved_go_live_at = None
 
             if is_publishing:
-                page.live = True
                 page.has_unpublished_changes = False
+                page.expired = False
+                if future_go_live:
+                    page.live = False
+                    # Set approved_go_live_at only if is publishing
+                    # and the future_go_live is actually in future
+                    approved_go_live_at = go_live_at
+                else:
+                    page.live = True
             else:
                 page.live = False
                 page.has_unpublished_changes = True
 
             parent_page.add_child(instance=page)  # assign tree parameters - will cause page to be saved
-            page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
+
+            # Pass approved_go_live_at to save_revision
+            page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+                approved_go_live_at=approved_go_live_at
+            )
 
             if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title))
@@ -167,9 +215,10 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be created due to errors."))
+            messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
     else:
+        signals.init_new_page.send(sender=create, page=page, parent=parent_page)
         form = form_class(instance=page)
         edit_handler = edit_handler_class(instance=page, form=form)
 
@@ -209,15 +258,54 @@ def edit(request, page_id):
             return slug
         form.fields['slug'].clean = clean_slug
 
+        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
+        def clean():
+            cleaned_data = form_class.clean(form)
+
+            # Go live must be before expire
+            go_live_at = cleaned_data.get('go_live_at')
+            expire_at = cleaned_data.get('expire_at')
+
+            if go_live_at and expire_at:
+                if go_live_at > expire_at:
+                    msg = _('Go live date/time must be before expiry date/time')
+                    form._errors['go_live_at'] = form.error_class([msg])
+                    form._errors['expire_at'] = form.error_class([msg])
+                    del cleaned_data['go_live_at']
+                    del cleaned_data['expire_at']
+
+            # Expire must be in the future
+            expire_at = cleaned_data.get('expire_at')
+
+            if expire_at and expire_at < timezone.now():
+                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
+                del cleaned_data['expire_at']
+
+            return cleaned_data
+        form.clean = clean
+
         if form.is_valid():
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit'))
+            go_live_at = form.cleaned_data.get('go_live_at')
+            future_go_live = go_live_at and go_live_at > timezone.now()
+            approved_go_live_at = None
 
             if is_publishing:
-                page.live = True
                 page.has_unpublished_changes = False
+                page.expired = False
+                if future_go_live:
+                    page.live = False
+                    # Set approved_go_live_at only if publishing
+                    approved_go_live_at = go_live_at
+                else:
+                    page.live = True
                 form.save()
-                page.revisions.update(submitted_for_moderation=False)
+                # Clear approved_go_live_at for older revisions
+                page.revisions.update(
+                    submitted_for_moderation=False,
+                    approved_go_live_at=None,
+                )
             else:
                 # not publishing the page
                 if page.live:
@@ -229,7 +317,11 @@ def edit(request, page_id):
                     page.has_unpublished_changes = True
                     form.save()
 
-            page.save_revision(user=request.user, submitted_for_moderation=is_submitting)
+            page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+                approved_go_live_at=approved_go_live_at
+            )
 
             if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title))
@@ -247,6 +339,7 @@ def edit(request, page_id):
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
             messages.error(request, _("The page could not be saved due to validation errors"))
+
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
@@ -422,6 +515,12 @@ def preview(request):
     """
     return render(request, 'wagtailadmin/pages/preview.html')
 
+def preview_loading(request):
+    """
+    This page is blank, but must be real HTML so its DOM can be written to once the preview of the page has rendered
+    """
+    return HttpResponse("<html><head><title></title></head><body></body></html>")
+
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id)
@@ -432,6 +531,8 @@ def unpublish(request, page_id):
         parent_id = page.get_parent().id
         page.live = False
         page.save()
+        # Since page is unpublished clear the approved_go_live_at of all revisions
+        page.revisions.update(approved_go_live_at=None)
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
         return redirect('wagtailadmin_explore', parent_id)
 
@@ -534,7 +635,8 @@ def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
         PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
             ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote')
+            ObjectList(page_class.promote_panels, heading='Promote'),
+            ObjectList(page_class.settings_panels, heading='Settings', classname="settings")
         ])
 
     return PAGE_EDIT_HANDLERS[page_class]

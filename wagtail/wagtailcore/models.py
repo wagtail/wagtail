@@ -14,7 +14,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
+from django.utils import timezone
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+from django.utils.functional import cached_property
 
 from treebeard.mp_tree import MP_Node
 
@@ -25,29 +29,47 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class SiteManager(models.Manager):
-    def get_by_natural_key(self, hostname):
-        return self.get(hostname=hostname)
+    def get_by_natural_key(self, hostname, port):
+        return self.get(hostname=hostname, port=port)
 
 
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, unique=True, db_index=True)
+    hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
     is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
+    class Meta:
+        unique_together = ('hostname', 'port')
+
     def natural_key(self):
-        return (self.hostname,)
+        return (self.hostname, self.port)
 
     def __unicode__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
     def find_for_request(request):
-        """Find the site object responsible for responding to this HTTP request object"""
+        """
+            Find the site object responsible for responding to this HTTP
+            request object. Try:
+             - unique hostname first
+             - then hostname and port
+             - if there is no matching hostname at all, or no matching
+               hostname:port combination, fall back to the unique default site,
+               or raise an exception
+            NB this means that high-numbered ports on an extant hostname may
+            still be routed to a different hostname which is set as the default
+        """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]
-            # find a Site matching this specific hostname
-            return Site.objects.get(hostname=hostname)
+            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
+            try:
+                # find a Site matching this specific hostname
+                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
+            except Site.MultipleObjectsReturned:
+                # as there were more than one, try matching by port too
+                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -62,6 +84,24 @@ class Site(models.Model):
             return 'https://%s' % self.hostname
         else:
             return 'http://%s:%d' % (self.hostname, self.port)
+
+    def clean_fields(self, exclude=None):
+        super(Site, self).clean_fields(exclude)
+        # Only one site can have the is_default_site flag set
+        try:
+            default = Site.objects.get(is_default_site=True)
+        except Site.DoesNotExist:
+            pass
+        except Site.MultipleObjectsReturned:
+            raise
+        else:
+            if self.is_default_site and self.pk != default.pk:
+                raise ValidationError(
+                    {'is_default_site': [
+                        _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
+                        % { 'hostname': default.hostname }
+                        ]}
+                    )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
@@ -134,6 +174,12 @@ class PageManager(models.Manager):
 
     def not_live(self):
         return self.get_queryset().not_live()
+
+    def in_menu(self):
+        return self.get_queryset().in_menu()
+
+    def not_in_menu(self):
+        return self.get_queryset().not_in_menu()
 
     def page(self, other):
         return self.get_queryset().page(other)
@@ -225,6 +271,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
+
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expired = models.BooleanField(default=False, editable=False)
 
     indexed_fields = {
         'title': {
@@ -320,10 +370,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
+        cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
-    @property
+    @cached_property
     def specific(self):
         """
             Return this page in its most specific subclassed form.
@@ -337,7 +387,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    @property
+    @cached_property
     def specific_class(self):
         """
             return the class that this page would be if instantiated in its
@@ -366,24 +416,24 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False):
-        self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
+        return self.revisions.create(
+            content_json=self.to_json(),
+            user=user,
+            submitted_for_moderation=submitted_for_moderation,
+            approved_go_live_at=approved_go_live_at,
+        )
 
     def get_latest_revision(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return False
-
-        return revision
+        return self.revisions.order_by('-created_at').first()
 
     def get_latest_revision_as_page(self):
-        try:
-            revision = self.revisions.order_by('-created_at')[0]
-        except IndexError:
-            return self.specific
+        latest_revision = self.get_latest_revision()
 
-        return revision.as_page_object()
+        if latest_revision:
+            return latest_revision.as_page_object()
+        else:
+            return self.specific
 
     def get_context(self, request, *args, **kwargs):
         return {
@@ -399,8 +449,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def serve(self, request, *args, **kwargs):
         return TemplateResponse(
-            request, 
-            self.get_template(request, *args, **kwargs), 
+            request,
+            self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs)
         )
 
@@ -413,6 +463,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
         return (not self.is_leaf()) or self.depth == 2
 
     def get_other_siblings(self):
+        warnings.warn(
+            "The 'Page.get_other_siblings()' method has been replaced. "
+            "Use 'Page.get_siblings(inclusive=False)' instead.", DeprecationWarning)
+
         # get sibling pages excluding self
         return self.get_siblings().exclude(id=self.id)
 
@@ -527,12 +581,21 @@ class Page(MP_Node, ClusterableModel, Indexed):
     @property
     def status_string(self):
         if not self.live:
-            return "draft"
+            if self.expired:
+                return "expired"
+            elif self.approved_schedule:
+                return "scheduled"
+            else:
+                return "draft"
         else:
             if self.has_unpublished_changes:
                 return "live + draft"
             else:
                 return "live"
+
+    @property
+    def approved_schedule(self):
+        return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
         """
@@ -645,6 +708,12 @@ class Page(MP_Node, ClusterableModel, Indexed):
     def get_siblings(self, inclusive=True):
         return Page.objects.sibling_of(self, inclusive)
 
+    def get_next_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
+
+    def get_prev_siblings(self, inclusive=False):
+        return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -707,6 +776,7 @@ class PageRevision(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
+    approved_go_live_at = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -740,10 +810,26 @@ class PageRevision(models.Model):
 
     def publish(self):
         page = self.as_page_object()
-        page.live = True
+        if page.go_live_at and page.go_live_at > timezone.now():
+            # if we have a go_live in the future don't make the page live
+            page.live = False
+            # Instead set the approved_go_live_at of this revision
+            self.approved_go_live_at = page.go_live_at
+            self.save()
+            # And clear the the approved_go_live_at of any other revisions
+            page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
+        else:
+            page.live = True
+            # If page goes live clear the approved_go_live_at of all revisions
+            page.revisions.update(approved_go_live_at=None)
+        page.expired = False # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
+
+    def __unicode__(self):
+        return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
@@ -803,18 +889,39 @@ class UserPagePermissionsProxy(object):
         if self.user.is_superuser:
             return Page.objects.all()
 
+        editable_pages = Page.objects.none()
+
+        for perm in self.permissions.filter(permission_type='add'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) that is owned by them
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True).filter(owner=self.user)
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return editable_pages
+
+
+    def can_edit_pages(self):
+        """Return True if the user has permission to edit any pages"""
+        return True if self.editable_pages().count() else False
+
+    def publishable_pages(self):
+        """Return a queryset of the pages that this user has permission to publish"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
         # Translate each of the user's permission rules into a Q-expression
         q_expressions = []
         for perm in self.permissions:
-            if perm.permission_type == 'add':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) that is owned by them
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path, owner=self.user)
-                )
-            elif perm.permission_type == 'edit':
-                # user has edit permission on any subpage of perm.page
-                # (including perm.page itself) regardless of owner
+            if perm.permission_type == 'publish':
+                # user has publish permission on any subpage of perm.page
+                # (including perm.page itself)
                 q_expressions.append(
                     Q(path__startswith=perm.page.path)
                 )
@@ -826,6 +933,11 @@ class UserPagePermissionsProxy(object):
             return Page.objects.filter(all_rules)
         else:
             return Page.objects.none()
+
+    def can_publish_pages(self):
+        """Return True if the user has permission to publish any pages"""
+        return True if self.publishable_pages().count() else False
+
 
 class PagePermissionTester(object):
     def __init__(self, user_perms, page):

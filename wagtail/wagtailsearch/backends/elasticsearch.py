@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-import string
 import json
 import warnings
 
@@ -11,6 +10,7 @@ from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class ElasticSearchQuery(object):
@@ -417,8 +417,8 @@ class ElasticSearch(BaseSearch):
         if not issubclass(model, Indexed) or not issubclass(model, models.Model):
             return []
 
-        # Clean up query string
-        query_string = "".join([c for c in query_string if c not in string.punctuation])
+        # Normalise query string
+        query_string = normalise_query_string(query_string)
 
         # Check that theres still a query string after the clean up
         if not query_string:

@@ -25,9 +25,6 @@
     }
 }
 
-.objects{
-    background:url("#{$static-root}bg-dark-diag.svg");
-}
 .object{
     position:relative;
     overflow:hidden;
@@ -80,9 +77,9 @@
 
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
-        background:$color-grey-3;
+        background:$color-salmon-light;
         text-transform:uppercase;
-        padding:0.9em 0 0.9em 4em;
+        padding:0.9em 0 0.9em 4.1em;
         font-size:0.95em;
         margin:0 0 0.2em 0;
         line-height:1.5em;
@@ -92,10 +89,10 @@
         left:0;
         right:0;
         z-index:1;
-        text-shadow:1px 1px 1px rgba(255,255,255,0.5);
-        @include box-shadow(0 0 7px 0 rgba(0,0,0,0.4));
+        overflow:hidden;
 
         &:before{
+            text-shadow:none;
             font-family:wagtail;
             text-transform:none;
             content:"q";
@@ -108,10 +105,11 @@
             line-height:1.8em;
             left:0px;
             width:1.7em;
-            opacity:0.15;
+            color:white;
             padding:0;
             margin:0;
             cursor:pointer;
+            background-color:$color-salmon;
         }
     }
 
@@ -186,6 +184,17 @@
         }
     }
 
+    /* special panel for the publishing fields, requires a bit more pizzazz */
+    &.publishing{
+        h2:before{
+            content:"7";
+            font-size:2.4em;
+            line-height:1.4em;
+            width:1.4em;
+        }
+       
+    }
+
     &.title input,
     &.title textarea{
         font-size:2em;
@@ -235,20 +244,20 @@
             top:0px;
             left:0px;
             width:3.3em;
-            background-color:$color-teal;
             padding:0;
             margin:0 0 0 -20px;
             cursor:pointer;
 
-            a{
-                font-size: 0em;
-                line-height: 0;
+            .button{
+                @include border-radius(0);
                 overflow: visible;
-                display:block;
+                display:inline-block;
+                padding:0;
+                width:3.45em;
+                background-color:$color-salmon;
 
                 &:before{
                     position:relative;
-                    color:white;
                     padding:0;
                     line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;

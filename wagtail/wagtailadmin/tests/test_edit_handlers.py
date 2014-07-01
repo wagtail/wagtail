@@ -94,14 +94,6 @@ class TestEditHandler(TestCase):
     def test_edit_handler_init_no_form(self):
         self.assertRaises(ValueError, EditHandler, instance=True)
 
-    def test_object_classnames(self):
-        result = self.edit_handler.object_classnames()
-        self.assertEqual(result, "")
-
-    def test_field_classnames(self):
-        result = self.edit_handler.field_classnames()
-        self.assertEqual(result, "")
-
     def test_field_type(self):
         result = self.edit_handler.field_type()
         self.assertEqual(result, "")
@@ -164,15 +156,6 @@ class TestTabbedInterface(TestCase):
         self.assertTrue(issubclass(self.TabbedInterfaceClass,
                                    BaseTabbedInterface))
 
-    def test_object_classnames_no_classname(self):
-        result = self.tabbed_interface.object_classnames()
-        self.assertEqual(result, 'multi-field')
-
-    def test_object_classnames(self):
-        self.tabbed_interface.classname = 'foo'
-        result = self.tabbed_interface.object_classnames()
-        self.assertEqual(result, 'multi-field foo')
-
     def test_widget_overrides(self):
         result = self.tabbed_interface.widget_overrides()
         self.assertEqual(result, {'foo': 'bar'})
@@ -217,31 +200,12 @@ class TestBaseFieldPanel(TestCase):
             instance=True,
             form={'barbecue': fake_field})
 
-    def test_object_classnames_no_classname(self):
-        result = self.base_field_panel.object_classnames()
-        self.assertEqual(result, "single-field")
-
-    def test_object_classnames(self):
-        self.base_field_panel.classname = "bar"
-        result = self.base_field_panel.object_classnames()
-        self.assertEqual(result, "single-field bar")
-
     def test_field_type(self):
         fake_object = self.FakeClass()
         another_fake_object = self.FakeClass()
         fake_object.field = another_fake_object
         self.base_field_panel.bound_field = fake_object
         self.assertEqual(self.base_field_panel.field_type(), 'fake_class')
-
-    def test_field_classnames(self):
-        fake_object = self.FakeClass()
-        another_fake_object = self.FakeClass()
-        another_fake_object.required = True
-        fake_object.errors = True
-        fake_object.field = another_fake_object
-        self.base_field_panel.bound_field = fake_object
-        self.assertEqual(self.base_field_panel.field_classnames(),
-                         'fake_class required error')
 
 
 class TestFieldPanel(TestCase):
@@ -264,8 +228,6 @@ class TestFieldPanel(TestCase):
     def test_render_as_object(self):
         result = self.field_panel.render_as_object()
         self.assertIn('<legend>label</legend>',
-                      result)
-        self.assertIn('<li class="fake_class error">',
                       result)
         self.assertIn('<p class="error-message">',
                       result)

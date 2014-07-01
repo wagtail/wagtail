@@ -1,9 +1,8 @@
-import warnings
-
 from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class DBSearch(BaseSearch):
@@ -29,6 +28,9 @@ class DBSearch(BaseSearch):
         pass # Not needed
 
     def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
+        # Normalise query string
+        query_string = normalise_query_string(query_string)
+
         # Get terms
         terms = query_string.split()
         if not terms:
