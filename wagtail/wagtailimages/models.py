@@ -1,6 +1,7 @@
-import StringIO
 import os.path
 import re
+
+from six import BytesIO
 
 from taggit.managers import TaggableManager
 
@@ -208,7 +209,7 @@ class Filter(models.Model):
 
         image = method(image, self.method_arg)
 
-        output = StringIO.StringIO()
+        output = BytesIO()
         backend.save_image(image, output, file_format)
 
         # and then close the input file

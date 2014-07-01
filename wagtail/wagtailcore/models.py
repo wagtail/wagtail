@@ -1,6 +1,7 @@
-from StringIO import StringIO
-from urlparse import urlparse
 import warnings
+
+from six import StringIO
+from six.moves.urllib.parse import urlparse
 
 from modelcluster.models import ClusterableModel
 

@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 
 try:
     from importlib import import_module
@@ -6,13 +7,16 @@ except ImportError:
     # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
     from django.utils.importlib import import_module
 
+from six.moves.urllib.request import urlopen, Request
+from six.moves.urllib.error import URLError
+from six.moves.urllib.parse import urlencode
+
 from django.conf import settings
-from datetime import datetime
 from django.utils import six
+
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
-import urllib2, urllib
-import json
+
 
 
 class EmbedNotFoundException(Exception): pass
@@ -99,11 +103,11 @@ def oembed(url, max_width=None):
         params['maxwidth'] = max_width
 
     # Perform request
-    request = urllib2.Request(provider + '?' + urllib.urlencode(params))
+    request = Request(provider + '?' + urlencode(params))
     request.add_header('User-agent', 'Mozilla/5.0')
     try:
-        r = urllib2.urlopen(request)
-    except urllib2.URLError:
+        r = urlopen(request)
+    except URLError:
         raise EmbedNotFoundException
     oembed = json.loads(r.read())
 
