@@ -83,7 +83,7 @@ class Whitelister(object):
         attributes"""
         doc = BeautifulSoup(html, 'lxml')
         cls.clean_node(doc, doc)
-        return unicode(doc)
+        return doc.decode()
 
     @classmethod
     def clean_node(cls, doc, node):
