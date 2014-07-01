@@ -1,7 +1,8 @@
 from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
-import models
+
+from wagtail.wagtailsearch import models
 
 
 class QueryForm(forms.Form):
