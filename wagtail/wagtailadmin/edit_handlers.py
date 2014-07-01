@@ -140,6 +140,10 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
+def set_page_edit_handler(page_class, handlers):
+    page_class.handlers = handlers
+
+
 class EditHandler(object):
     """
     Abstract class providing sensible default behaviours for objects implementing
@@ -183,19 +187,21 @@ class EditHandler(object):
     heading = ""
     help_text = ""
 
-    def object_classnames(self):
+    def classes(self):
         """
-        Additional classnames to add to the <li class="object"> when rendering this
-        within an ObjectList
+        Additional CSS classnames to add to whatever kind of object this is at output. 
+        Subclasses of EditHandler should override this, invoking super(B, self).classes() to
+        append more classes specific to the situation.
         """
-        return ""
 
-    def field_classnames(self):
-        """
-        Additional classnames to add to the <li> when rendering this within a
-        <ul class="fields">
-        """
-        return ""
+        classes = []
+
+        try:
+            classes.append(self.classname)
+        except AttributeError:
+            pass
+
+        return classes
 
     def field_type(self):
         """
@@ -261,12 +267,6 @@ class BaseCompositeEditHandler(EditHandler):
     """
     _widget_overrides = None
 
-    def object_classnames(self):
-        try:
-            return "multi-field " + self.classname
-        except (AttributeError, TypeError):
-            return "multi-field"
-
     @classmethod
     def widget_overrides(cls):
         if cls._widget_overrides is None:
@@ -326,18 +326,33 @@ class BaseObjectList(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
-def ObjectList(children, heading=""):
+def ObjectList(children, heading="", classname=""):
     return type('_ObjectList', (BaseObjectList,), {
         'children': children,
         'heading': heading,
+        'classname': classname
     })
 
+
+class BaseFieldRowPanel(BaseCompositeEditHandler):
+    template = "wagtailadmin/edit_handlers/field_row_panel.html"
+
+def FieldRowPanel(children, classname=""):
+    return type('_FieldRowPanel', (BaseFieldRowPanel,), {
+        'children': children,
+        'classname': classname,
+    })
 
 class BaseMultiFieldPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/multi_field_panel.html"
 
+    def classes(self):
+        classes = super(BaseMultiFieldPanel, self).classes()
+        classes.append("multi-field")
+   
+        return classes
 
-def MultiFieldPanel(children, heading="", classname=None):
+def MultiFieldPanel(children, heading="", classname=""):
     return type('_MultiFieldPanel', (BaseMultiFieldPanel,), {
         'children': children,
         'heading': heading,
@@ -353,25 +368,23 @@ class BaseFieldPanel(EditHandler):
         self.heading = self.bound_field.label
         self.help_text = self.bound_field.help_text
 
-    def object_classnames(self):
-        try:
-            return "single-field " + self.classname
-        except (AttributeError, TypeError):
-            return "single-field"
+    def classes(self):
+        classes = super(BaseFieldPanel, self).classes();
+
+        if self.bound_field.field.required:
+            classes.append("required")
+        if self.bound_field.errors:
+            classes.append("error")
+        
+        classes.append(self.field_type())
+        classes.append("single-field")
+        
+        return classes
 
     def field_type(self):
         return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
 
-    def field_classnames(self):
-        classname = self.field_type()
-        if self.bound_field.field.required:
-            classname += " required"
-        if self.bound_field.errors:
-            classname += " error"
-
-        return classname
-
-    object_template = "wagtailadmin/edit_handlers/field_panel_object.html"
+    object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
@@ -401,7 +414,7 @@ class BaseFieldPanel(EditHandler):
         return [self.field_name]
 
 
-def FieldPanel(field_name, classname=None):
+def FieldPanel(field_name, classname=""):
     return type('_FieldPanel', (BaseFieldPanel,), {
         'field_name': field_name,
         'classname': classname,
@@ -597,10 +610,23 @@ def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
     })
 
 
+# This allows users to include the publishing panel in their own per-model override
+# without having to write these fields out by hand, potentially losing 'classname' 
+# and therefore the associated styling of the publishing panel
+def PublishingPanel():
+    return MultiFieldPanel([
+        FieldRowPanel([
+            FieldPanel('go_live_at'),
+            FieldPanel('expire_at'),
+        ], classname="label-above"),   
+    ], ugettext_lazy('Scheduled publishing'), classname="publishing")
+
+
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 Page.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
+
 Page.promote_panels = [
     MultiFieldPanel([
         FieldPanel('slug'),
@@ -608,4 +634,8 @@ Page.promote_panels = [
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
     ], ugettext_lazy('Common page configuration')),
+]
+
+Page.settings_panels = [
+    PublishingPanel()
 ]

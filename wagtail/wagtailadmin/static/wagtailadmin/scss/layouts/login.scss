@@ -44,6 +44,7 @@ form{
     }
 }
     label{
+        width:auto;
         color:white;
     }
     input[type=submit]{
@@ -83,24 +84,9 @@ form{
         .field{
             padding:0;
         }
-        .iconfield:before{
+        .iconfield .input:before{
             display:none;
-        }
-
-    .full label{
-        @include border-radius(2px);
-        text-transform:uppercase;
-        padding:2px 5px;
-        position:absolute;
-        top:0;
-        left:0;
-        margin-top:-1px;
-        font-size:0.7em;
-        z-index:1;
-        margin:0.2em 0;
-        line-height:1.5em;
-        font-weight:normal;
-    }
+        }   
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     .full input{
@@ -173,7 +159,7 @@ form{
         margin:0px (-$desktop-nice-padding);
 
         .iconfield{
-            &:before{
+            .input:before{
                 display:inline-block;
                 position: absolute;
                 color:$color-grey-4;

@@ -14,6 +14,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
+from django.utils import timezone
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
@@ -270,6 +272,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expired = models.BooleanField(default=False, editable=False)
+
     indexed_fields = {
         'title': {
             'type': 'string',
@@ -364,7 +370,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
+        cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     @cached_property
@@ -410,8 +416,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False):
-        return self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
+        return self.revisions.create(
+            content_json=self.to_json(),
+            user=user,
+            submitted_for_moderation=submitted_for_moderation,
+            approved_go_live_at=approved_go_live_at,
+        )
 
     def get_latest_revision(self):
         return self.revisions.order_by('-created_at').first()
@@ -438,8 +449,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def serve(self, request, *args, **kwargs):
         return TemplateResponse(
-            request, 
-            self.get_template(request, *args, **kwargs), 
+            request,
+            self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs)
         )
 
@@ -570,12 +581,21 @@ class Page(MP_Node, ClusterableModel, Indexed):
     @property
     def status_string(self):
         if not self.live:
-            return "draft"
+            if self.expired:
+                return "expired"
+            elif self.approved_schedule:
+                return "scheduled"
+            else:
+                return "draft"
         else:
             if self.has_unpublished_changes:
                 return "live + draft"
             else:
                 return "live"
+
+    @property
+    def approved_schedule(self):
+        return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
         """
@@ -756,6 +776,7 @@ class PageRevision(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
+    approved_go_live_at = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -789,13 +810,26 @@ class PageRevision(models.Model):
 
     def publish(self):
         page = self.as_page_object()
-        page.live = True
+        if page.go_live_at and page.go_live_at > timezone.now():
+            # if we have a go_live in the future don't make the page live
+            page.live = False
+            # Instead set the approved_go_live_at of this revision
+            self.approved_go_live_at = page.go_live_at
+            self.save()
+            # And clear the the approved_go_live_at of any other revisions
+            page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
+        else:
+            page.live = True
+            # If page goes live clear the approved_go_live_at of all revisions
+            page.revisions.update(approved_go_live_at=None)
+        page.expired = False # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
     def __unicode__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),

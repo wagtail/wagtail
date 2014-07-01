@@ -1,11 +1,14 @@
+"use strict";
+
 var halloPlugins = {
     'halloformat': {},
     'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
     'hallolists': {},
     'hallohr': {},
     'halloreundo': {},
-    'hallowagtaillink': {},
+    'hallowagtaillink': {}
 };
+
 function registerHalloPlugin(name, opts) {
     halloPlugins[name] = (opts || {});
 }
@@ -30,7 +33,7 @@ function makeRichTextEditable(id) {
 
     richText.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarcssClass: 'testy',
+        toolbarCssClass: (input.closest('.object').hasClass('full')) ? 'full' : '',
         plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
@@ -57,6 +60,7 @@ function initDateChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             timepicker: false,
+            scrollInput:false,
             format: 'Y-m-d',
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -66,6 +70,7 @@ function initDateChooser(id) {
     } else {
         $('#' + id).datetimepicker({
             timepicker: false,
+            scrollInput:false,
             format: 'Y-m-d',
         });
     }
@@ -75,6 +80,7 @@ function initTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             datepicker: false,
+            scrollInput:false,
             format: 'H:i',
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -93,6 +99,7 @@ function initDateTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             format: 'Y-m-d H:i',
+            scrollInput:false,
             i18n: {
                 lang: window.dateTimePickerTranslations
             },
@@ -197,7 +204,7 @@ function InlinePanel(opts) {
 
     self.updateMoveButtonDisabledStates = function() {
         if (opts.canOrder) {
-            forms = self.formsUl.children('li:visible');
+            var forms = self.formsUl.children('li:visible');
             forms.each(function(i) {
                 $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
                 $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
