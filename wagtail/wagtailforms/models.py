@@ -1,12 +1,15 @@
+import json
+import re
+
+from six import text_type
+
+from unidecode import unidecode
+
 from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
-
-from unidecode import unidecode
-import json
-import re
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -75,7 +78,7 @@ class AbstractFormField(Orderable):
         # unidecode will return an ascii string while slugify wants a
         # unicode string on the other hand, slugify returns a safe-string
         # which will be converted to a normal str
-        return str(slugify(unicode(unidecode(self.label))))
+        return str(slugify(text_type(unidecode(self.label))))
 
     panels = [
         FieldPanel('label'),
