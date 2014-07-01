@@ -2,6 +2,7 @@ import copy
 import re
 import datetime
 
+from six import string_types
 from six import text_type
 
 from taggit.forms import TagWidget
@@ -485,7 +486,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     def target_content_type(cls):
         if cls._target_content_type is None:
             if cls.page_type:
-                if isinstance(cls.page_type, basestring):
+                if isinstance(cls.page_type, string_types):
                     # translate the passed model name into an actual model class
                     from django.db.models import get_model
                     try:

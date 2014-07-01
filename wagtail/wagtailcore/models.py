@@ -1,6 +1,7 @@
 import warnings
 
 import six
+from six import string_types
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
@@ -536,7 +537,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
             else:
                 res = []
                 for page_type in cls.subpage_types:
-                    if isinstance(page_type, basestring):
+                    if isinstance(page_type, string_types):
                         try:
                             app_label, model_name = page_type.split(".")
                         except ValueError:
