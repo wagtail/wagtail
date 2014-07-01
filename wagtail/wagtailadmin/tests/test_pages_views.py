@@ -4,10 +4,20 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission
 from django.core import mail
+from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
+from wagtail.tests.models import (
+        SimplePage,
+        EventPage,
+        NoPanelsPage,
+        NotInheritingPanelsPage,
+        StandardIndex,
+        StandardChild,
+        BusinessIndex,
+        BusinessChild,
+        BusinessSubIndex)
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailusers.models import UserProfile
@@ -1193,3 +1203,57 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
+
+
+class TestPageConfiguration(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.login()
+
+        # Add child page
+        self.child_page = SimplePage()
+        self.child_page.title = "Child Page"
+        self.child_page.slug = "child-page"
+        self.root_page.add_child(instance=self.child_page)
+
+        # Add misconfigured child page 1 - no panels declared
+        self.no_panels_child_page = NoPanelsPage()
+        self.no_panels_child_page.title = "No Panels Page"
+        self.no_panels_child_page.slug = "no-panels-page"
+        self.root_page.add_child(instance=self.no_panels_child_page)
+
+        # Add misconfigured child page 1 - parent class's fields not in panels
+        self.non_inherited_panels_child_page = NotInheritingPanelsPage()
+        self.non_inherited_panels_child_page.title = "Panels Not Inherited Page"
+        self.non_inherited_panels_child_page.slug = "panels-not-inherited-page"
+        self.root_page.add_child(instance=self.non_inherited_panels_child_page)
+
+    def test_normal_page_create_view(self):
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+    def test_normal_page_edit_view(self):
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+    def test_no_panels_page_create_view(self):
+        # A page model with panels not declared should raise an error on create
+        with self.assertRaises(ImproperlyConfigured):
+            response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'nopanelspage', self.root_page.id, )))
+
+    def test_no_panels_page_edit_view(self):
+        # A page model with panels not declared should raise an error on edit
+        with self.assertRaises(ImproperlyConfigured):
+            response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.no_panels_child_page.id, )))
+
+    def test_non_inherited_panels_page_create_view(self):
+        # A page model which does not declare panels from its base class should
+        # raise an error on create
+        with self.assertRaises(ImproperlyConfigured):
+            response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'notinheritingpanelspage', self.root_page.id, )))
+
+    def test_non_inherited_panels_page_edit_view(self):
+        # A page model which does not declare panels from its base class should
+        # raise an error on edit
+        with self.assertRaises(ImproperlyConfigured):
+            response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.non_inherited_panels_child_page.id, )))

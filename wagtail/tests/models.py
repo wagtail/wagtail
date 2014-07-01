@@ -103,6 +103,11 @@ class SimplePage(Page):
     content = models.TextField()
 
 
+SimplePage.content_panels = Page.content_panels + [
+        FieldPanel('content')
+    ]
+
+
 # Event page
 
 class EventPageCarouselItem(Orderable, CarouselItem):
@@ -253,6 +258,28 @@ FormPage.content_panels = [
         FieldPanel('subject', classname="full"),
     ], "Email")
 ]
+
+
+class NoPanelsPage(Page):
+    """
+    We don't declare any panels for this page type.
+    """
+    content = models.TextField(blank=True)
+
+
+class NotInheritingPanelsPage(Page):
+    """
+    We declare panels for the one field in this page type, but not for those
+    inherited from Page.
+    """
+    content = models.TextField(blank=True)
+
+NotInheritingPanelsPage.content_panels = [
+    FieldPanel('content')
+    ]
+
+
+
 
 
 # Snippets
