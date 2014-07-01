@@ -338,7 +338,7 @@ $(function() {
     /* Set up behaviour of preview button */
     $('.action-preview').click(function(e) {
         e.preventDefault();
-        $this = $(this);
+        var $this = $(this);
 
         var previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
         
