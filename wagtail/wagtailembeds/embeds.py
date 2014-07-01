@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime
+import json
 
 try:
     from importlib import import_module
@@ -7,7 +8,11 @@ except ImportError:
     # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
     from django.utils.importlib import import_module
 
-from six.moves.urllib.request import urlopen, Request
+
+# Needs to be imported like this to allow @patch to work in tests
+from six.moves.urllib import request as urllib_request
+
+from six.moves.urllib.request import Request
 from six.moves.urllib.error import URLError
 from six.moves.urllib.parse import urlencode
 
@@ -106,7 +111,7 @@ def oembed(url, max_width=None):
     request = Request(provider + '?' + urlencode(params))
     request.add_header('User-agent', 'Mozilla/5.0')
     try:
-        r = urlopen(request)
+        r = urllib_request.urlopen(request)
     except URLError:
         raise EmbedNotFoundException
     oembed = json.loads(r.read())

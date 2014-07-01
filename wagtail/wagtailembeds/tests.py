@@ -1,4 +1,6 @@
 from six.moves.urllib.request import urlopen
+import six.moves.urllib.request
+from six.moves.urllib.error import URLError
 
 from mock import patch
 
@@ -218,8 +220,8 @@ class TestOembed(TestCase):
         self.assertRaises(EmbedNotFoundException, wagtail_oembed, "foo")
 
     def test_oembed_invalid_request(self):
-        config = {'side_effect': urllib2.URLError('foo')}
-        with patch.object(urllib2, 'urlopen', **config) as urlopen:
+        config = {'side_effect': URLError('foo')}
+        with patch.object(six.moves.urllib.request, 'urlopen', **config) as urlopen:
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 
@@ -278,7 +280,7 @@ class TestEmbedFilter(TestCase):
         result = embed_filter('http://www.youtube.com/watch/')
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopenn')
+    @patch('six.moves.urllib.request.urlopen')
     @patch('json.loads')
     def test_render_filter(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
