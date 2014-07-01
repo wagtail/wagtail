@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.utils.encoding import python_2_unicode_compatible
 
 from unidecode import unidecode
 import json
@@ -32,6 +33,7 @@ FORM_FIELD_CHOICES = (
 HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
 
 
+@python_2_unicode_compatible
 class FormSubmission(models.Model):
     """Data for a Form submission."""
 
@@ -43,7 +45,7 @@ class FormSubmission(models.Model):
     def get_data(self):
         return json.loads(self.form_data)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.form_data
 
 
