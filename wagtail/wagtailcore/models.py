@@ -696,12 +696,22 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         """
         return ['/']
 
+    def get_sitemap_urls(self):
+        latest_revision = self.get_latest_revision()
+
+        return [
+            {
+                'location': self.url,
+                'lastmod': latest_revision.created_at if latest_revision else None
+            }
+        ]
+
     def get_static_site_paths(self):
         """
         This is a generator of URL paths to feed into a static site generator
         Override this if you would like to create static versions of subpages
         """
-        # Yield paths for this page
+        # Yield path for this page
         yield '/'
 
         # Yield paths for child pages
