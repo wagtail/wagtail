@@ -3,6 +3,7 @@ import six.moves.urllib.request
 from six.moves.urllib.error import URLError
 
 from mock import patch
+import warnings
 
 try:
     import embedly
@@ -325,9 +326,16 @@ class TestEmbedlyFilter(TestEmbedFilter):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}
-        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embedly }}')
         context = template.Context()
-        result = temp.render(context)
+        with warnings.catch_warnings(record=True) as w:
+            result = temp.render(context)
+
+            # Check that a DeprecationWarning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertTrue("The 'embedly' filter has been renamed. Use 'embed' instead" in str(w[-1].message))
+
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
     @patch('six.moves.urllib.request.urlopen')
@@ -336,7 +344,7 @@ class TestEmbedlyFilter(TestEmbedFilter):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'foo',
                               'url': 'http://www.example.com'}
-        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embedly }}')
         context = template.Context()
         result = temp.render(context)
         self.assertEqual(result, '')
