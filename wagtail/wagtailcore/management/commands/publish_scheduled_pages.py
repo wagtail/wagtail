@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import datetime
 import json
 from optparse import make_option
@@ -31,7 +33,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         dryrun = False
         if options['dryrun']:
-            print "Will do a dry run."
+            print("Will do a dry run.")
             dryrun = True
 
         # 1. get all expired pages with live = True
@@ -41,17 +43,17 @@ class Command(BaseCommand):
         )
         if dryrun:
             if expired_pages:
-                print "Expired pages to be deactivated:"
-                print "Expiry datetime\t\tSlug\t\tName"
-                print "---------------\t\t----\t\t----"
+                print("Expired pages to be deactivated:")
+                print("Expiry datetime\t\tSlug\t\tName")
+                print("---------------\t\t----\t\t----")
                 for ep in expired_pages:
-                    print "{0}\t{1}\t{2}".format(
+                    print("{0}\t{1}\t{2}".format(
                         ep.expire_at.strftime("%Y-%m-%d %H:%M"),
                         ep.slug,
                         ep.title
-                    )
+                    ))
             else:
-                print "No expired pages to be deactivated found."
+                print("No expired pages to be deactivated found.")
         else:
             expired_pages.update(expired=True, live=False)
 
@@ -62,22 +64,22 @@ class Command(BaseCommand):
             ) if revision_date_expired(r)
         ]
         if dryrun:
-            print "---------------------------------"
+            print("---------------------------------")
             if expired_revs:
-                print "Expired revisions to be dropped from moderation queue:"
-                print "Expiry datetime\t\tSlug\t\tName"
-                print "---------------\t\t----\t\t----"
+                print("Expired revisions to be dropped from moderation queue:")
+                print("Expiry datetime\t\tSlug\t\tName")
+                print("---------------\t\t----\t\t----")
                 for er in expired_revs:
                     rev_data = json.loads(er.content_json)
-                    print "{0}\t{1}\t{2}".format(
+                    print("{0}\t{1}\t{2}".format(
                         dateparse.parse_datetime(
                             rev_data.get('expire_at')
                         ).strftime("%Y-%m-%d %H:%M"),
                         rev_data.get('slug'),
                         rev_data.get('title')
-                    )
+                    ))
             else:
-                print "No expired revision to be dropped from moderation."
+                print("No expired revision to be dropped from moderation.")
         else:
             for er in expired_revs:
                 er.submitted_for_moderation = False
@@ -88,20 +90,20 @@ class Command(BaseCommand):
             approved_go_live_at__lt=timezone.now()
         )
         if dryrun:
-            print "---------------------------------"
+            print("---------------------------------")
             if revs_for_publishing:
-                print "Revisions to be published:"
-                print "Go live datetime\t\tSlug\t\tName"
-                print "---------------\t\t\t----\t\t----"
+                print("Revisions to be published:")
+                print("Go live datetime\t\tSlug\t\tName")
+                print("---------------\t\t\t----\t\t----")
                 for rp in revs_for_publishing:
                     rev_data = json.loads(rp.content_json)
-                    print "{0}\t\t{1}\t{2}".format(
+                    print("{0}\t\t{1}\t{2}".format(
                         rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),
                         rev_data.get('slug'),
                         rev_data.get('title')
-                    )
+                    ))
             else:
-                print "No pages to go live."
+                print("No pages to go live.")
         else:
             for rp in revs_for_publishing:
                 # just run publish for the revision -- since the approved go

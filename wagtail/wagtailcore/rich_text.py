@@ -166,8 +166,8 @@ class DbWhitelister(Whitelister):
     def clean(cls, html):
         if not cls.has_loaded_custom_whitelist_rules:
             for fn in hooks.get_hooks('construct_whitelister_element_rules'):
-                cls.element_rules = dict(
-                    cls.element_rules.items() + fn().items())
+                cls.element_rules = cls.element_rules.copy()
+                cls.element_rules.update(fn())
             cls.has_loaded_custom_whitelist_rules = True
 
         return super(DbWhitelister, cls).clean(html)
