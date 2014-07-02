@@ -476,7 +476,7 @@ li.focused > .help{
     &.field-small{
         .input{
             &:before, &:after{
-                font-size:1.5em;
+                font-size:1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
                 top:0.3em;
             }
             &:before{
