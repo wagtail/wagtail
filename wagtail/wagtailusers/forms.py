@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
@@ -134,6 +135,34 @@ class UserEditForm(forms.ModelForm):
             user.save()
             self.save_m2m()
         return user
+
+
+class GroupForm(forms.ModelForm):
+    required_css_class = "required"
+
+    error_messages = {
+        'duplicate_name': _("A group with that name already exists."),
+    }
+
+    is_superuser = forms.BooleanField(
+        label=_("Administrator"),
+        required=False,
+        help_text=_("Administrators have the ability to manage user accounts.")
+    )
+
+    class Meta:
+        model = Group
+        fields = ("name", "permissions", )
+
+    def clean_name(self):
+        # Since Group.name is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        name = self.cleaned_data["name"]
+        try:
+            Group._default_manager.exclude(id=self.instance.id).get(name=name)
+        except Group.DoesNotExist:
+            return name
+        raise forms.ValidationError(self.error_messages['duplicate_name'])
 
 
 class NotificationPreferencesForm(forms.ModelForm):
