@@ -2,7 +2,7 @@
     :target: https://travis-ci.org/torchbox/wagtail
 
 .. image:: https://coveralls.io/repos/torchbox/wagtail/badge.png?branch=master&zxcv1
-    :target: https://coveralls.io/r/torchbox/wagtail?branch=master 
+    :target: https://coveralls.io/r/torchbox/wagtail?branch=master
 
 .. image:: https://pypip.in/v/wagtail/badge.png?zxcv
     :target: https://crate.io/packages/wagtail/
@@ -38,15 +38,19 @@ Getting started
 
 Documentation
 ~~~~~~~~~~~~~
-Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_. and always being updated.
+Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and always being updated.
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.6.2+ on Python 2.6 and 2.7. Django 1.7 and Python 3 support are in progress.
+Wagtail supports Django 1.6.2+ on Python 2.6, 2.7, 3.3 and 3.4.
+
+Django 1.7 support is in progress pending further release candidate testing.
+
+Wagtail's dependencies are summarised at `requirements.io <https://requires.io/github/torchbox/wagtail/requirements>`_.
 
 Contributing
 ~~~~~~~~~~~~
-If you're a Python or Django developer, fork the repo and get stuck in! 
+If you're a Python or Django developer, fork the repo and get stuck in!
 
 We suggest you start by checking the `Help develop me! <https://github.com/torchbox/wagtail/issues?labels=Help+develop+me%21>`_ label.
 
