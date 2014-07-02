@@ -69,7 +69,7 @@ Another problem is pages that list other pages (such as a blog index) will not b
 
 This can be solved by using the ``purge_page_from_cache`` utility function which can be found in the ``wagtail.contrib.wagtailfrontendcache.utils`` module.
 
-Lets take the the above BlogIndexPage as an example. We need to register a signal handler to run when one of the BlogPages get updated/deleted. This signal handler should call the ``purge_page_from_cache`` function on all BlogIndexPages that contain the BlogPage being updated/deleted.
+Let's take the the above BlogIndexPage as an example. We need to register a signal handler to run when one of the BlogPages get updated/deleted. This signal handler should call the ``purge_page_from_cache`` function on all BlogIndexPages that contain the BlogPage being updated/deleted.
 
 
 .. code-block:: python
