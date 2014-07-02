@@ -304,9 +304,7 @@ input[type=submit], input[type=reset], input[type=button], button{
 }
 
 .multiple{
-    @include transition(max-height 10s ease);
     padding:0;
-    max-height:10000px;
     max-width:1024px - 50px;
     overflow:hidden;
 
