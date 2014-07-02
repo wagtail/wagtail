@@ -255,12 +255,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
 
-<<<<<<< HEAD
         # Check that the page_published signal was fired
         self.assertTrue(signal_fired[0])
         self.assertEqual(signal_page[0], page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
-=======
+
     def test_create_simplepage_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
         expire_at = timezone.now() + timedelta(days=2)
@@ -288,7 +287,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # But Page won't be live
         self.assertFalse(page.live)
         self.assertTrue(page.status_string, "scheduled")
->>>>>>> master
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
