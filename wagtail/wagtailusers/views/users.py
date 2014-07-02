@@ -60,14 +60,14 @@ def index(request):
         users = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, "wagtailusers/results.html", {
+        return render(request, "wagtailusers/users/results.html", {
             'users': users,
             'is_searching': is_searching,
             'query_string': q,
             'ordering': ordering,
         })
     else:
-        return render(request, "wagtailusers/index.html", {
+        return render(request, "wagtailusers/users/index.html", {
             'search_form': form,
             'users': users,
             'is_searching': is_searching,
@@ -82,13 +82,13 @@ def create(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' created.").format(user))
-            return redirect('wagtailusers_index')
+            return redirect('wagtailusers_users_index')
         else:
             messages.error(request, _("The user could not be created due to errors.") )
     else:
         form = UserCreationForm()
 
-    return render(request, 'wagtailusers/create.html', {
+    return render(request, 'wagtailusers/users/create.html', {
         'form': form,
     })
 
@@ -101,13 +101,13 @@ def edit(request, user_id):
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user))
-            return redirect('wagtailusers_index')
+            return redirect('wagtailusers_users_index')
         else:
             messages.error(request, _("The user could not be saved due to errors."))
     else:
         form = UserEditForm(instance=user)
 
-    return render(request, 'wagtailusers/edit.html', {
+    return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
     })
