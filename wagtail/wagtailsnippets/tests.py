@@ -150,9 +150,7 @@ class TestSnippetChooserPanel(TestCase):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
     def setUp(self):
-        content_type = get_content_type_from_url_params('tests',
-                                                        'advert')
-
+        content_type = Advert
         test_snippet = Advert.objects.get(id=1)
 
         edit_handler_class = get_snippet_edit_handler(Advert)
@@ -170,7 +168,7 @@ class TestSnippetChooserPanel(TestCase):
         self.assertTrue('test_advert' in self.snippet_chooser_panel.render_as_field())
 
     def test_render_js(self):
-        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'contenttypes/contenttype');"
+        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'tests/advert');"
                         in self.snippet_chooser_panel.render_js())
 
 
