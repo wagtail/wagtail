@@ -1,6 +1,9 @@
-from StringIO import StringIO
-from urlparse import urlparse
 import warnings
+
+import six
+from six import string_types
+from six import StringIO
+from six.moves.urllib.parse import urlparse
 
 from modelcluster.models import ClusterableModel
 
@@ -19,6 +22,7 @@ from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
+from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
@@ -33,6 +37,7 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
+@python_2_unicode_compatible
 class Site(models.Model):
     hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
@@ -45,7 +50,7 @@ class Site(models.Model):
     def natural_key(self):
         return (self.hostname, self.port)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
@@ -255,9 +260,8 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class Page(MP_Node, ClusterableModel, Indexed):
-    __metaclass__ = PageBase
-
+@python_2_unicode_compatible
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -300,7 +304,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             # created as
             self.content_type = ContentType.objects.get_for_model(self)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     is_abstract = True  # don't offer Page in the list of page types a superuser can create
@@ -536,7 +540,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 res = []
                 for page_type in cls.subpage_types:
-                    if isinstance(page_type, basestring):
+                    if isinstance(page_type, string_types):
                         try:
                             app_label, model_name = page_type.split(".")
                         except ValueError:
@@ -770,6 +774,7 @@ class SubmittedRevisionsManager(models.Manager):
         return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
+@python_2_unicode_compatible
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
@@ -827,7 +832,7 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
 
 

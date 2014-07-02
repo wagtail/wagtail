@@ -1,3 +1,5 @@
+from six import text_type
+
 from django.utils.text import slugify
 from django.utils.html import format_html
 
@@ -7,7 +9,7 @@ class MenuItem(object):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(unicode(label)))
+        self.name = (name or slugify(text_type(label)))
         self.order = order
 
     def render_html(self):

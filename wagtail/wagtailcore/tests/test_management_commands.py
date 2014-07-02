@@ -1,5 +1,6 @@
-from StringIO import StringIO
 from datetime import timedelta
+
+from six import StringIO
 
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
