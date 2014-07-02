@@ -1,0 +1,37 @@
+<table class="listing">
+    <tr>
+        <th>Object</th>
+        <th>Add</th>
+        <th>Change</th>
+        <th>Delete</th>
+        <th>Others</th>
+    </tr>
+    {% for content_perms_dict in perms_array %}
+    <tr>
+        <td>{{ content_perms_dict.object|capfirst }}</td>
+        <td>
+            {% with content_perms_dict.add as perm_tuple %}
+            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+            {% endwith %}
+        </td>
+        <td>
+            {% with content_perms_dict.change as perm_tuple %}
+            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+            {% endwith %}
+        </td>
+        <td>
+            {% with content_perms_dict.delete as perm_tuple %}
+            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+            {% endwith %}
+        </td>
+        <td>
+        {% for perm_tuple in content_perms_dict.others %}
+            <label for="id_permissions_{{ perm_tuple.0.id }}">
+                <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}"> {{ perm_tuple.0.name }}
+            </label>
+        {% if not forloop.last %}<br>{% endif %}
+        {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
