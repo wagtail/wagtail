@@ -35,6 +35,7 @@ install_requires = [
     "lxml>=3.3.0",
     "Unidecode>=0.04.14",
     "six==1.7.3",
+    'requests==2.3.0',
 ]
 
 

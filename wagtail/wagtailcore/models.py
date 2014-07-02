@@ -690,6 +690,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         """
         return self.serve(self.dummy_request())
 
+    def get_cached_paths(self):
+        """
+        This returns a list of paths to invalidate in a frontend cache
+        """
+        return ['/']
+
     def get_sitemap_urls(self):
         latest_revision = self.get_latest_revision()
 

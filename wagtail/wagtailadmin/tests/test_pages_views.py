@@ -10,6 +10,7 @@ from django.utils import timezone
 from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.signals import page_published
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -228,6 +229,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
 
     def test_create_simplepage_post_publish(self):
+        # Connect a mock signal handler to page_published signal
+        signal_fired = [False]
+        signal_page = [None]
+        def page_published_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_page[0] = instance
+        page_published.connect(page_published_handler)
+
+        # Post
         post_data = {
             'title': "New page!",
             'content': "Some content",
@@ -244,6 +254,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
+
+        # Check that the page_published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_page[0], page)
+        self.assertEqual(signal_page[0], signal_page[0].specific)
 
     def test_create_simplepage_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
@@ -470,6 +485,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'expire_at', "Expiry date/time must be in the future")
 
     def test_page_edit_post_publish(self):
+        # Connect a mock signal handler to page_published signal
+        signal_fired = [False]
+        signal_page = [None]
+        def page_published_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_page[0] = instance
+        page_published.connect(page_published_handler)
+
         # Tests publish from edit page
         post_data = {
             'title': "I've been edited!",
@@ -485,6 +508,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the page was edited
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertEqual(child_page_new.title, post_data['title'])
+
+        # Check that the page_published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_page[0], child_page_new)
+        self.assertEqual(signal_page[0], signal_page[0].specific)
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
@@ -855,6 +883,14 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         """
         This posts to the approve moderation view and checks that the page was approved
         """
+        # Connect a mock signal handler to page_published signal
+        signal_fired = [False]
+        signal_page = [None]
+        def page_published_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_page[0] = instance
+        page_published.connect(page_published_handler)
+
         # Post
         response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
             'foo': "Must post something or the view won't see this as a POST request",
@@ -865,6 +901,11 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
 
         # Page must be live
         self.assertTrue(Page.objects.get(id=self.page.id).live)
+
+        # Check that the page_published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_page[0], self.page)
+        self.assertEqual(signal_page[0], signal_page[0].specific)
 
     def test_approve_moderation_view_bad_revision_id(self):
         """
