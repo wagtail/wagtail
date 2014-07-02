@@ -2,6 +2,9 @@ import copy
 import re
 import datetime
 
+from six import string_types
+from six import text_type
+
 from taggit.forms import TagWidget
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
@@ -245,7 +248,7 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = [
-            unicode(self.form[field_name])
+            text_type(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
@@ -483,7 +486,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     def target_content_type(cls):
         if cls._target_content_type is None:
             if cls.page_type:
-                if isinstance(cls.page_type, basestring):
+                if isinstance(cls.page_type, string_types):
                     # translate the passed model name into an actual model class
                     from django.db.models import get_model
                     try:

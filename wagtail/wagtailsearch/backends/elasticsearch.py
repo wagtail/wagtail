@@ -338,10 +338,11 @@ class ElasticSearch(BaseSearch):
         indexed_fields = model.indexed_get_indexed_fields()
 
         # Make field list
-        fields = dict({
+        fields = {
             "pk": dict(type="string", index="not_analyzed", store="yes"),
             "content_type": dict(type="string"),
-        }.items() + indexed_fields.items())
+        }
+        fields.update(indexed_fields)
 
         # Put mapping
         self.es.indices.put_mapping(index=self.es_index, doc_type=content_type, body={
