@@ -23,6 +23,7 @@ class ExampleForm(forms.Form):
     url = forms.URLField(required=True)
     email = forms.EmailField(max_length=254)
     date = forms.DateField()
+    time = forms.TimeField()
     select = forms.ChoiceField(choices=CHOICES)
     boolean = forms.BooleanField(required=False)
 

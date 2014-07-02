@@ -14,7 +14,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
+from django.utils import timezone
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from treebeard.mp_tree import MP_Node
@@ -26,29 +29,47 @@ from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
 class SiteManager(models.Manager):
-    def get_by_natural_key(self, hostname):
-        return self.get(hostname=hostname)
+    def get_by_natural_key(self, hostname, port):
+        return self.get(hostname=hostname, port=port)
 
 
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, unique=True, db_index=True)
+    hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
     is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
+    class Meta:
+        unique_together = ('hostname', 'port')
+
     def natural_key(self):
-        return (self.hostname,)
+        return (self.hostname, self.port)
 
     def __unicode__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
     def find_for_request(request):
-        """Find the site object responsible for responding to this HTTP request object"""
+        """
+            Find the site object responsible for responding to this HTTP
+            request object. Try:
+             - unique hostname first
+             - then hostname and port
+             - if there is no matching hostname at all, or no matching
+               hostname:port combination, fall back to the unique default site,
+               or raise an exception
+            NB this means that high-numbered ports on an extant hostname may
+            still be routed to a different hostname which is set as the default
+        """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]
-            # find a Site matching this specific hostname
-            return Site.objects.get(hostname=hostname)
+            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
+            try:
+                # find a Site matching this specific hostname
+                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
+            except Site.MultipleObjectsReturned:
+                # as there were more than one, try matching by port too
+                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -63,6 +84,24 @@ class Site(models.Model):
             return 'https://%s' % self.hostname
         else:
             return 'http://%s:%d' % (self.hostname, self.port)
+
+    def clean_fields(self, exclude=None):
+        super(Site, self).clean_fields(exclude)
+        # Only one site can have the is_default_site flag set
+        try:
+            default = Site.objects.get(is_default_site=True)
+        except Site.DoesNotExist:
+            pass
+        except Site.MultipleObjectsReturned:
+            raise
+        else:
+            if self.is_default_site and self.pk != default.pk:
+                raise ValidationError(
+                    {'is_default_site': [
+                        _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
+                        % { 'hostname': default.hostname }
+                        ]}
+                    )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
@@ -233,6 +272,10 @@ class Page(MP_Node, ClusterableModel, Indexed):
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expired = models.BooleanField(default=False, editable=False)
+
     indexed_fields = {
         'title': {
             'type': 'string',
@@ -327,7 +370,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement, 
+        cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     @cached_property
@@ -373,8 +416,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False):
-        return self.revisions.create(content_json=self.to_json(), user=user, submitted_for_moderation=submitted_for_moderation)
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
+        return self.revisions.create(
+            content_json=self.to_json(),
+            user=user,
+            submitted_for_moderation=submitted_for_moderation,
+            approved_go_live_at=approved_go_live_at,
+        )
 
     def get_latest_revision(self):
         return self.revisions.order_by('-created_at').first()
@@ -401,8 +449,8 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def serve(self, request, *args, **kwargs):
         return TemplateResponse(
-            request, 
-            self.get_template(request, *args, **kwargs), 
+            request,
+            self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs)
         )
 
@@ -533,12 +581,21 @@ class Page(MP_Node, ClusterableModel, Indexed):
     @property
     def status_string(self):
         if not self.live:
-            return "draft"
+            if self.expired:
+                return "expired"
+            elif self.approved_schedule:
+                return "scheduled"
+            else:
+                return "draft"
         else:
             if self.has_unpublished_changes:
                 return "live + draft"
             else:
                 return "live"
+
+    @property
+    def approved_schedule(self):
+        return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
         """
@@ -733,6 +790,7 @@ class PageRevision(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
+    approved_go_live_at = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -766,13 +824,26 @@ class PageRevision(models.Model):
 
     def publish(self):
         page = self.as_page_object()
-        page.live = True
+        if page.go_live_at and page.go_live_at > timezone.now():
+            # if we have a go_live in the future don't make the page live
+            page.live = False
+            # Instead set the approved_go_live_at of this revision
+            self.approved_go_live_at = page.go_live_at
+            self.save()
+            # And clear the the approved_go_live_at of any other revisions
+            page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
+        else:
+            page.live = True
+            # If page goes live clear the approved_go_live_at of all revisions
+            page.revisions.update(approved_go_live_at=None)
+        page.expired = False # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
     def __unicode__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add'),
