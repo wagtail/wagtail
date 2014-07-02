@@ -258,5 +258,5 @@ class TestFormsSubmissions(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_line = response.content.split("\n")[1]
+        data_line = response.content.decode().split("\n")[1]
         self.assertTrue('new@example.com' in data_line)

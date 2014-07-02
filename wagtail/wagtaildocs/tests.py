@@ -1,9 +1,13 @@
+from six import b
+
 from django.test import TestCase
-from wagtail.wagtaildocs import models
-from wagtail.tests.utils import WagtailTestUtils
+
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
+
+from wagtail.wagtaildocs import models
+from wagtail.tests.utils import WagtailTestUtils
 
 # TODO: Test serve view
 
@@ -112,7 +116,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile("A boring example document")
+        fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
         # Submit
@@ -134,7 +138,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.login()
 
         # Build a fake file
-        fake_file = ContentFile("A boring example document")
+        fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
         # Create a document to edit
@@ -147,7 +151,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile("A boring example document")
+        fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
         # Submit title change
@@ -272,7 +276,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile("A boring example document")
+        fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
         # Submit

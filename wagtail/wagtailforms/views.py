@@ -1,5 +1,11 @@
 import datetime
-import unicodecsv
+
+try:
+    import unicodecsv as csv
+    using_unicodecsv = True
+except ImportError:
+    import csv
+    using_unicodecsv = False
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
@@ -65,7 +71,11 @@ def list_submissions(request, page_id):
         # return a CSV instead
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment;filename=export.csv'
-        writer = unicodecsv.writer(response, encoding='utf-8')
+
+        if using_unicodecsv:
+            writer = csv.writer(response, encoding='utf-8')
+        else:
+            writer = csv.writer(response)
 
         header_row = ['Submission date'] + [label for name, label in data_fields]
 
