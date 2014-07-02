@@ -24,7 +24,9 @@ Wagtail is a Django content management system built originally for the `Royal Co
 * Support for tree-based content organisation
 * Optional preview->submit->approve workflow
 * Fast out of the box. `Varnish <https://www.varnish-cache.org/>`_-friendly if you need it
-* Excellent test coverage
+* A simple `form builder <http://docs.wagtail.io/en/latest/form_builder.html>`_
+* Optional `static site generation <http://docs.wagtail.io/en/latest/static_site_generation.html>`_
+* Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
 
