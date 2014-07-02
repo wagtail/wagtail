@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import SimplePage
@@ -46,6 +47,9 @@ class TestSitemapGenerator(TestCase):
         # Check that a URL has made it into the xml
         self.assertIn('/hello-world/', xml)
 
+        # Make sure the unpublished page didn't make it into the xml
+        self.assertNotIn('/unpublished/', xml)
+
 
 class TestSitemapView(TestCase):
     def test_sitemap_view(self):
@@ -56,10 +60,19 @@ class TestSitemapView(TestCase):
         self.assertEqual(response['Content-Type'], 'text/xml; charset=utf-8')
 
     def test_sitemap_view_cache(self):
+        cache_key = 'wagtail-sitemap:%d' % Site.objects.get(is_default_site=True).id
+
+        # Check that the key is not in the cache
+        self.assertFalse(cache.has_key(cache_key))
+
+        # Hit the view
         first_response = self.client.get('/sitemap.xml')
 
         self.assertEqual(first_response.status_code, 200)
         self.assertTemplateUsed(first_response, 'wagtailsitemaps/sitemap.xml')
+
+        # Check that the key is in the cache
+        self.assertTrue(cache.has_key(cache_key))
 
         # Hit the view again. Should come from the cache this time
         second_response = self.client.get('/sitemap.xml')
