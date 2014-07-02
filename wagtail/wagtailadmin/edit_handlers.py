@@ -113,7 +113,7 @@ def get_form_for_model(
     # Give this new form class a reasonable name.
     class_name = model.__name__ + str('Form')
     form_class_attrs = {
-        'Meta': type(b'Meta', (object,), attrs)
+        'Meta': type(str('Meta'), (object,), attrs)
     }
 
     return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
@@ -324,7 +324,7 @@ class BaseTabbedInterface(BaseCompositeEditHandler):
 
 
 def TabbedInterface(children):
-    return type(b'_TabbedInterface', (BaseTabbedInterface,), {'children': children})
+    return type(str('_TabbedInterface'), (BaseTabbedInterface,), {'children': children})
 
 
 class BaseObjectList(BaseCompositeEditHandler):
@@ -332,7 +332,7 @@ class BaseObjectList(BaseCompositeEditHandler):
 
 
 def ObjectList(children, heading="", classname=""):
-    return type(b'_ObjectList', (BaseObjectList,), {
+    return type(str('_ObjectList'), (BaseObjectList,), {
         'children': children,
         'heading': heading,
         'classname': classname
@@ -343,7 +343,7 @@ class BaseFieldRowPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/field_row_panel.html"
 
 def FieldRowPanel(children, classname=""):
-    return type(b'_FieldRowPanel', (BaseFieldRowPanel,), {
+    return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {
         'children': children,
         'classname': classname,
     })
@@ -358,7 +358,7 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 def MultiFieldPanel(children, heading="", classname=""):
-    return type(b'_MultiFieldPanel', (BaseMultiFieldPanel,), {
+    return type(str('_MultiFieldPanel'), (BaseMultiFieldPanel,), {
         'children': children,
         'heading': heading,
         'classname': classname,
@@ -420,7 +420,7 @@ class BaseFieldPanel(EditHandler):
 
 
 def FieldPanel(field_name, classname=""):
-    return type(b'_FieldPanel', (BaseFieldPanel,), {
+    return type(str('_FieldPanel'), (BaseFieldPanel,), {
         'field_name': field_name,
         'classname': classname,
     })
@@ -432,7 +432,7 @@ class BaseRichTextFieldPanel(BaseFieldPanel):
 
 
 def RichTextFieldPanel(field_name):
-    return type(b'_RichTextFieldPanel', (BaseRichTextFieldPanel,), {
+    return type(str('_RichTextFieldPanel'), (BaseRichTextFieldPanel,), {
         'field_name': field_name,
     })
 
@@ -523,7 +523,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 def PageChooserPanel(field_name, page_type=None):
-    return type(b'_PageChooserPanel', (BasePageChooserPanel,), {
+    return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
         'field_name': field_name,
         'page_type': page_type,
     })
@@ -606,7 +606,7 @@ class BaseInlinePanel(EditHandler):
 
 def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
     rel = getattr(base_model, relation_name).related
-    return type(b'_InlinePanel', (BaseInlinePanel,), {
+    return type(str('_InlinePanel'), (BaseInlinePanel,), {
         'relation_name': relation_name,
         'related': rel,
         'panels': panels,
