@@ -11,12 +11,12 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_index'), params)
+        return self.client.get(reverse('wagtailusers_users_index'), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/index.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -35,15 +35,15 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_create'), params)
+        return self.client.get(reverse('wagtailusers_users_create'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailusers_create'), post_data)
+        return self.client.post(reverse('wagtailusers_users_create'), post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/create.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
 
     def test_create(self):
         response = self.post({
@@ -56,7 +56,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -73,15 +73,15 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, user_id=None):
-        return self.client.get(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), params)
+        return self.client.get(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), params)
  
     def post(self, post_data={}, user_id=None):
-        return self.client.post(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/edit.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)
@@ -97,7 +97,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)
