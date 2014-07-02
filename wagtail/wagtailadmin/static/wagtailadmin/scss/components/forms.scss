@@ -264,7 +264,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             left:0;
             top:0;
             width:2em;
-            line-height:2em;
+            line-height:1.85em;
             height:100%;
             text-align:center;    
             background-color:rgba(0,0,0,0.2);
@@ -278,7 +278,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         &:before{
             width:2em;
             font-size:0.9rem;
-            line-height:2em;
+            line-height:1.65em;
         }
     }
 
@@ -300,13 +300,6 @@ input[type=submit], input[type=reset], input[type=button], button{
     &.button-small{
         height:2em;
         line-height:inherit;
-    }
-}
-
-button.icon{
-    &:before,
-    &:after{
-        line-height:0;
     }
 }
 
@@ -778,11 +771,12 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
 
         &.bicolor{
-            padding-left:3.5em;
+            padding-left:3.7em;
 
             &:before{
-                width:2.2em;
-                line-height:2.45em;
+                width:2em;
+                line-height:2.2em;
+                font-size:1.1rem;
             }
         }
 
