@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group, Permission
@@ -198,9 +200,9 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         """
         # Post new values to the notification preferences page
         post_data = {
-            'submitted_notifications': u'false',
-            'approved_notifications': u'false',
-            'rejected_notifications': u'true',
+            'submitted_notifications': 'false',
+            'approved_notifications': 'false',
+            'rejected_notifications': 'true',
         }
         response = self.client.post(reverse('wagtailadmin_account_notification_preferences'), post_data)
 

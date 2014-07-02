@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import copy
 import re
 import datetime
@@ -253,7 +255,7 @@ class EditHandler(object):
             if field_name not in rendered_fields
         ]
 
-        return mark_safe(u''.join(missing_fields_html))
+        return mark_safe(''.join(missing_fields_html))
 
     def render_form_content(self):
         """
@@ -307,7 +309,7 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
     def render_js(self):
-        return mark_safe(u'\n'.join([handler.render_js() for handler in self.children]))
+        return mark_safe('\n'.join([handler.render_js() for handler in self.children]))
 
     def rendered_fields(self):
         result = []
