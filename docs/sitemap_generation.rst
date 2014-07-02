@@ -49,7 +49,7 @@ Each dictionary can contain the following:
  - **changefreq**
  - **priority**
 
-You can add more but yoBy default, all published pages in your website will be added to the site map.u will need to override the ``wagtailsitemaps/sitemap.xml`` template in order for them to be displayed in the sitemap.
+You can add more but you will need to override the ``wagtailsitemaps/sitemap.xml`` template in order for them to be displayed in the sitemap.
 
 
 Cache
