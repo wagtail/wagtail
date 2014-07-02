@@ -1,18 +1,20 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
-from indexed import Indexed
-import datetime
-import string
+from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
 
-MAX_QUERY_STRING_LENGTH = 255
 
+@python_2_unicode_compatible
 class Query(models.Model):
     query_string = models.CharField(max_length=MAX_QUERY_STRING_LENGTH, unique=True)
 
     def save(self, *args, **kwargs):
         # Normalise query string
-        self.query_string = self.normalise_query_string(self.query_string)
+        self.query_string = normalise_query_string(self.query_string)
 
         super(Query, self).save(*args, **kwargs)
 
@@ -23,7 +25,7 @@ class Query(models.Model):
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.query_string
 
     @property
@@ -40,28 +42,12 @@ class Query(models.Model):
 
     @classmethod
     def get(cls, query_string):
-        return cls.objects.get_or_create(query_string=cls.normalise_query_string(query_string))[0]
+        return cls.objects.get_or_create(query_string=normalise_query_string(query_string))[0]
 
     @classmethod
     def get_most_popular(cls, date_since=None):
         # TODO: Implement date_since
         return cls.objects.filter(daily_hits__isnull=False).annotate(_hits=models.Sum('daily_hits__hits')).distinct().order_by('-_hits')
-
-    @staticmethod
-    def normalise_query_string(query_string):
-        # Truncate query string
-        if len(query_string) > MAX_QUERY_STRING_LENGTH:
-            query_string = query_string[:MAX_QUERY_STRING_LENGTH]
-        # Convert query_string to lowercase
-        query_string = query_string.lower()
-
-        # Strip punctuation characters
-        query_string = ''.join([c for c in query_string if c not in string.punctuation])
-
-        # Remove double spaces
-        query_string = ' '.join(query_string.split())
-
-        return query_string
 
 
 class QueryDailyHits(models.Model):

@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.encoding import python_2_unicode_compatible
+
 from modelcluster.fields import ParentalKey
+
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
@@ -259,6 +262,7 @@ FormPage.content_panels = [
 
 # Snippets
 
+@python_2_unicode_compatible
 class Advert(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -268,7 +272,7 @@ class Advert(models.Model):
         FieldPanel('text'),
     ]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 
@@ -281,18 +285,20 @@ register_snippet(Advert)
 # to ensure specific [in]correct register ordering
 
 # AlphaSnippet is registered during TestSnippetOrdering
+@python_2_unicode_compatible
 class AlphaSnippet(models.Model):
     text = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 
 # ZuluSnippet is registered during TestSnippetOrdering
+@python_2_unicode_compatible
 class ZuluSnippet(models.Model):
     text = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 
@@ -303,6 +309,9 @@ class StandardChild(Page):
     pass
 
 class BusinessIndex(Page):
+    subpage_types = ['tests.BusinessChild', 'tests.BusinessSubIndex']
+
+class BusinessSubIndex(Page):
     subpage_types = ['tests.BusinessChild']
 
 class BusinessChild(Page):

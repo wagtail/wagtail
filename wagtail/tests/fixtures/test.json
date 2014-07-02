@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 3,
+        "numchild": 4,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
@@ -183,6 +183,37 @@
     "pk": 8,
     "model": "tests.formpage",
     "fields": {
+        "to_address": "to@email.com",
+        "from_address": "from@email.com",
+        "subject": "The subject"
+    }
+},
+
+{
+    "pk": 9,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Ameristralia Day",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100010004",
+        "url_path": "/home/events/final-event/",
+        "slug": "final-event",
+        "owner": 3
+    }
+},
+{
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-04-22",
+        "audience": "public",
+        "location": "Ameristralia",
+        "body": "<p>come celebrate the independence of Ameristralia</p>",
+        "cost": "Free"
     }
 },
 
@@ -262,6 +293,16 @@
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.group",
+    "fields": {
+        "name": "Admin non-editors",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"]
         ]
     }
 },
@@ -400,6 +441,24 @@
         "email": "siteeditor@example.com"
     }
 },
+{
+    "pk": 6,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin_only_user",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Admin non-editors"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "admin_only_user@example.com"
+    }
+},
 
 {
     "pk": 1,
@@ -417,6 +476,24 @@
         "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
         "page": 8,
         "submit_time": "2014-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "wagtaildocs.Document",
+    "fields": {
+        "title": "test document",
+        "created_at": "2014-01-01T12:00:00.000Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "wagtailimages.Image",
+    "fields": {
+        "title": "test image",
+        "created_at": "2014-01-01T12:00:00.000Z",
+        "width": 0,
+        "height": 0
     }
 }
 ]

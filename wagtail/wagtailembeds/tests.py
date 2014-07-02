@@ -1,5 +1,8 @@
+from six.moves.urllib.request import urlopen
+import six.moves.urllib.request
+from six.moves.urllib.error import URLError
+
 from mock import patch
-import urllib2
 
 try:
     import embedly
@@ -7,6 +10,7 @@ try:
 except ImportError:
     no_embedly = True
 
+from django import template
 from django.test import TestCase
 
 from wagtail.tests.utils import WagtailTestUtils, unittest
@@ -18,7 +22,7 @@ from wagtail.wagtailembeds.embeds import (
     AccessDeniedEmbedlyException,
 )
 from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
-
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter, embedly as embedly_filter
 
 
 class TestEmbeds(TestCase):
@@ -78,6 +82,19 @@ class TestEmbeds(TestCase):
 
         # Width must be set to None
         self.assertEqual(embed.width, None)
+
+    def test_no_html(self) :
+        def no_html_finder(url, max_width=None):
+            """
+            A finder which returns everything but HTML
+            """
+            embed = self.dummy_finder(url, max_width)
+            embed['html'] = None
+            return embed
+
+        embed = get_embed('www.test.com/1234', max_width=400, finder=no_html_finder)
+
+        self.assertEqual(embed.html, '')
 
 
 class TestChooser(TestCase, WagtailTestUtils):
@@ -203,12 +220,12 @@ class TestOembed(TestCase):
         self.assertRaises(EmbedNotFoundException, wagtail_oembed, "foo")
 
     def test_oembed_invalid_request(self):
-        config = {'side_effect': urllib2.URLError('foo')}
-        with patch.object(urllib2, 'urlopen', **config) as urlopen:
+        config = {'side_effect': URLError('foo')}
+        with patch.object(six.moves.urllib.request, 'urlopen', **config) as urlopen:
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 
-    @patch('urllib2.urlopen')
+    @patch('six.moves.urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen) :
         urlopen.return_value = self.dummy_response
@@ -219,7 +236,7 @@ class TestOembed(TestCase):
         self.assertEqual(result['html'], '<img src="http://www.example.com" />')
         loads.assert_called_with("foo")
 
-    @patch('urllib2.urlopen')
+    @patch('six.moves.urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_return_values(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
@@ -245,3 +262,81 @@ class TestOembed(TestCase):
             'height': 'test_height',
             'html': 'test_html'
         })
+
+
+class TestEmbedFilter(TestCase):
+    def setUp(self):
+        class DummyResponse(object):
+            def read(self):
+                return "foo"
+        self.dummy_response = DummyResponse()
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_valid_embed(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        result = embed_filter('http://www.youtube.com/watch/')
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_render_filter(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_render_filter_nonexistent_type(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'foo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '')
+
+
+class TestEmbedlyFilter(TestEmbedFilter):
+    def setUp(self):
+        class DummyResponse(object):
+            def read(self):
+                return "foo"
+        self.dummy_response = DummyResponse()
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_valid_embed(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        result = embedly_filter('http://www.youtube.com/watch/')
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_render_filter(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'photo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '<img src="http://www.example.com" />')
+
+    @patch('six.moves.urllib.request.urlopen')
+    @patch('json.loads')
+    def test_render_filter_nonexistent_type(self, loads, urlopen):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {'type': 'foo',
+                              'url': 'http://www.example.com'}
+        temp = template.Template('{% load embed_filters %}{{ "http://www.youtube.com/watch/"|embedly }}')
+        context = template.Context()
+        result = temp.render(context)
+        self.assertEqual(result, '')

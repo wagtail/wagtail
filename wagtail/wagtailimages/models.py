@@ -1,6 +1,7 @@
-import StringIO
 import os.path
 import re
+
+from six import BytesIO
 
 from taggit.managers import TaggableManager
 
@@ -13,6 +14,7 @@ from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from unidecode import unidecode
 
@@ -21,6 +23,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from .utils import validate_image_format
 
 
+@python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
 
@@ -54,7 +57,7 @@ class AbstractImage(models.Model, TagSearchable):
         },
     }
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_rendition(self, filter):
@@ -208,7 +211,7 @@ class Filter(models.Model):
 
         image = method(image, self.method_arg)
 
-        output = StringIO.StringIO()
+        output = BytesIO()
         backend.save_image(image, output, file_format)
 
         # and then close the input file

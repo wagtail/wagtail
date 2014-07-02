@@ -9,10 +9,12 @@ from django.dispatch import Signal
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 
 
+@python_2_unicode_compatible
 class Document(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.FileField(upload_to='documents' , verbose_name=_('File'))
@@ -30,7 +32,7 @@ class Document(models.Model, TagSearchable):
         },
     }
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
