@@ -48,7 +48,7 @@ Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in! 
 
-We suggest you start by checking the ["Help develop me!"](https://github.com/torchbox/wagtail/issues?labels=Help+develop+me%21) label.
+We suggest you start by checking the `Help develop me! <https://github.com/torchbox/wagtail/issues?labels=Help+develop+me%21>`_ label.
 
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_. Our immediate priorities are better docs, more tests, internationalisation and localisation.
 
