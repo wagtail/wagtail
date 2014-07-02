@@ -77,7 +77,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', (ClusterForm,), {})
+WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
