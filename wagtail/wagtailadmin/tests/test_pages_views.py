@@ -7,8 +7,8 @@ from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, StandardIndex, StandardChild, BusinessIndex, BusinessChild, BusinessSubIndex
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.models import SimplePage, EventPage, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published
 from wagtail.wagtailusers.models import UserProfile

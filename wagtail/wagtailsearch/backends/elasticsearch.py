@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 import json
-import warnings
 
 from django.db import models
 

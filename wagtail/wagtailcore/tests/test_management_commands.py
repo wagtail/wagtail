@@ -2,14 +2,12 @@ from datetime import timedelta
 
 from six import StringIO
 
-from django.test import TestCase, Client
-from django.http import HttpRequest, Http404
+from django.test import TestCase
 from django.core import management
-from django.contrib.auth.models import User
 from django.utils import timezone
 
-from wagtail.wagtailcore.models import Page, PageRevision, Site, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage, EventIndex, SimplePage
+from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.tests.models import SimplePage
 
 
 class TestFixTreeCommand(TestCase):

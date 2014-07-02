@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-import datetime
 import json
 from optparse import make_option
 

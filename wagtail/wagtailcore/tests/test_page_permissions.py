@@ -1,12 +1,8 @@
-from six import StringIO
-
-from django.test import TestCase, Client
-from django.http import HttpRequest, Http404
-from django.core import management
+from django.test import TestCase
 from django.contrib.auth.models import User
 
-from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage, EventIndex, SimplePage
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
+from wagtail.tests.models import EventPage
 
 
 class TestPagePermission(TestCase):
