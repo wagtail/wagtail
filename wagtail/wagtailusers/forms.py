@@ -38,7 +38,7 @@ class UserCreationForm(BaseUserCreationForm):
         username = self.cleaned_data["username"]
         try:
             # When called from BaseUserCreationForm, the method fails if using a AUTH_MODEL_MODEL,
-            # This is because the following line tries to perform a lookup on 
+            # This is because the following line tries to perform a lookup on
             # the default "auth_user" table.
             User._default_manager.get(username=username)
         except User.DoesNotExist:

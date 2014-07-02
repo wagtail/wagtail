@@ -75,6 +75,7 @@ def index(request):
             'query_string': q,
         })
 
+
 @permission_required(change_user_perm)
 def create(request):
     if request.POST:

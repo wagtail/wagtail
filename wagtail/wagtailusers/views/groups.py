@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
-from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
@@ -47,7 +46,7 @@ def index(request):
 
         if ordering in ['name', 'username']:
             if ordering != 'name':
-                users = users.order_by(ordering)
+                groups = groups.order_by(ordering)
     else:
         ordering = 'name'
 
@@ -75,6 +74,7 @@ def index(request):
             'ordering': ordering,
             'query_string': q,
         })
+
 
 @permission_required(change_user_perm)
 def create(request):
