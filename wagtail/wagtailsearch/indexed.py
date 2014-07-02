@@ -55,7 +55,7 @@ class Indexed(object):
         parent = cls.indexed_get_parent(require_model=False)
         if parent:
             # Add parent fields into this list
-            parent_indexed_fields = parent.indexed_get_indexed_fields()
+            parent_indexed_fields = parent.indexed_get_indexed_fields().copy()
             parent_indexed_fields.update(indexed_fields)
             indexed_fields = parent_indexed_fields
         return indexed_fields
