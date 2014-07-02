@@ -35,7 +35,7 @@
                 <td class="username">{{ user.username }}</td>
                 <td class="level">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
                 <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
-            </li>
+            </tr>
         {% endfor %}
     </tbody>
 </table>
