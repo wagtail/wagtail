@@ -2,6 +2,7 @@ language: python
 # Test matrix
 python:
     - 2.7
+    - 3.2
     - 3.4
 env:
     - DJANGO_VERSION=Django==1.6.5

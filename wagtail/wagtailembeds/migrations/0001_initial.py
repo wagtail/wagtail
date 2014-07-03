@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
@@ -13,8 +15,8 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Embed'
-        db.create_table(u'wagtailembeds_embed', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        db.create_table('wagtailembeds_embed', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
             ('max_width', self.gf('django.db.models.fields.SmallIntegerField')
              (null=True, blank=True)),
@@ -30,24 +32,24 @@ class Migration(SchemaMigration):
             ('last_updated', self.gf('django.db.models.fields.DateTimeField')
              (auto_now=True, blank=True)),
         ))
-        db.send_create_signal(u'wagtailembeds', ['Embed'])
+        db.send_create_signal('wagtailembeds', ['Embed'])
 
         # Adding unique constraint on 'Embed', fields ['url', 'max_width']
-        db.create_unique(u'wagtailembeds_embed', ['url', 'max_width'])
+        db.create_unique('wagtailembeds_embed', ['url', 'max_width'])
 
     def backwards(self, orm):
         # Removing unique constraint on 'Embed', fields ['url', 'max_width']
-        db.delete_unique(u'wagtailembeds_embed', ['url', 'max_width'])
+        db.delete_unique('wagtailembeds_embed', ['url', 'max_width'])
 
         # Deleting model 'Embed'
-        db.delete_table(u'wagtailembeds_embed')
+        db.delete_table('wagtailembeds_embed')
 
     models = {
-        u'wagtailembeds.embed': {
+        'wagtailembeds.embed': {
             'Meta': {'unique_together': "(('url', 'max_width'),)", 'object_name': 'Embed'},
             'height': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'html': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'max_width': ('django.db.models.fields.SmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'thumbnail_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
