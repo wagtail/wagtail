@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 
 
 urlpatterns = [

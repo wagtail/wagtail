@@ -13,7 +13,7 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation

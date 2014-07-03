@@ -396,7 +396,7 @@ Registering functions with a Wagtail hook follows the following pattern:
 
 .. code-block:: python
 
-  from wagtail.wagtailadmin import hooks
+  from wagtail.wagtailcore import hooks
 
   hooks.register('hook', function)
 
@@ -409,7 +409,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class UserbarPuppyLinkItem(object):
       def render(self, request):
@@ -430,7 +430,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.utils.safestring import mark_safe
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class WelcomePanel(object):
       order = 50
@@ -456,7 +456,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.http import HttpResponse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def do_after_page_create(request, page):
       return HttpResponse("Congrats on making content!", content_type="text/plain")
@@ -484,7 +484,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.http import HttpResponse
     from django.conf.urls import url
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def admin_view( request ):
       return HttpResponse( \
@@ -506,7 +506,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.core.urlresolvers import reverse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
     def construct_main_menu(request, menu_items):
@@ -526,7 +526,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html, format_html_join
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def editor_js():
       js_files = [
@@ -554,7 +554,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def editor_css():
       return format_html('<link rel="stylesheet" href="' \
@@ -574,7 +574,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
     def whitelister_element_rules():
