@@ -1,8 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 

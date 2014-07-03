@@ -1,38 +1,100 @@
-from StringIO import StringIO
-
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
-from django.core import management
-from django.contrib.auth.models import User
 
-from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import EventPage, EventIndex, SimplePage
+
+
+class TestSiteRouting(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.default_site = Site.objects.get(is_default_site=True)
+        events_page = Page.objects.get(url_path='/home/events/')
+        about_page = Page.objects.get(url_path='/home/about-us/')
+        self.events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+        self.alternate_port_events_site = Site.objects.create(hostname='events.example.com', root_page=events_page, port='8765')
+        self.about_site = Site.objects.create(hostname='about.example.com', root_page=about_page)
+        self.unrecognised_port = '8000'
+        self.unrecognised_hostname = 'unknown.site.com'
+
+    def test_no_host_header_routes_to_default_site(self):
+        # requests without a Host: header should be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_valid_headers_route_to_specific_site(self):
+        # requests with a known Host: header should be directed to the specific site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.events_site.hostname
+        request.META['SERVER_PORT'] = self.events_site.port
+        self.assertEqual(Site.find_for_request(request), self.events_site)
+
+    def test_ports_in_request_headers_are_respected(self):
+        # ports in the Host: header should be respected
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.alternate_port_events_site.hostname
+        request.META['SERVER_PORT'] = self.alternate_port_events_site.port
+        self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
+
+    def test_unrecognised_host_header_routes_to_default_site(self):
+        # requests with an unrecognised Host: header should be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.unrecognised_hostname
+        request.META['SERVER_PORT'] = '80'
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_unrecognised_port_and_default_host_routes_to_default_site(self):
+        # requests to the default host on an unrecognised port should be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.default_site.hostname
+        request.META['SERVER_PORT'] = self.unrecognised_port
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
+        # requests with an unrecognised Host: header _and_ an unrecognised port
+        # hould be directed to the default site
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.unrecognised_hostname
+        request.META['SERVER_PORT'] = self.unrecognised_port
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
+        # requests on an unrecognised port should be directed to the site with
+        # matching hostname if there is no ambiguity
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.about_site.hostname
+        request.META['SERVER_PORT'] = self.unrecognised_port
+        self.assertEqual(Site.find_for_request(request), self.about_site)
+
+    def test_unrecognised_port_on_known_hostname_routes_to_default_site_if_ambiguity(self):
+        # requests on an unrecognised port should be directed to the default
+        # site, even if their hostname (but not port) matches more than one
+        # other entry
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = self.events_site.hostname
+        request.META['SERVER_PORT'] = self.unrecognised_port
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_port_in_http_host_header_is_ignored(self):
+        # port in the HTTP_HOST header is ignored
+        request = HttpRequest()
+        request.path = '/'
+        request.META['HTTP_HOST'] = "%s:%s" % (self.events_site.hostname, self.events_site.port)
+        request.META['SERVER_PORT'] = self.alternate_port_events_site.port
+        self.assertEqual(Site.find_for_request(request), self.alternate_port_events_site)
 
 
 class TestRouting(TestCase):
     fixtures = ['test.json']
-
-    def test_find_site_for_request(self):
-        default_site = Site.objects.get(is_default_site=True)
-        events_page = Page.objects.get(url_path='/home/events/')
-        events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
-
-        # requests without a Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        self.assertEqual(Site.find_for_request(request), default_site)
-
-        # requests with a known Host: header should be directed to the specific site
-        request = HttpRequest()
-        request.path = '/'
-        request.META['HTTP_HOST'] = 'events.example.com'
-        self.assertEqual(Site.find_for_request(request), events_site)
-
-        # requests with an unrecognised Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        request.META['HTTP_HOST'] = 'unknown.example.com'
-        self.assertEqual(Site.find_for_request(request), default_site)
 
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
@@ -245,3 +307,82 @@ class TestPrevNextSiblings(TestCase):
 
         # First element must always be the current page
         self.assertEqual(final_event.get_prev_siblings(inclusive=True).first(), final_event)
+
+
+class TestCopyPage(TestCase):
+    fixtures = ['test.json']
+
+    def test_copy_page_copies(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+
+        # Copy it
+        new_about_us = about_us.copy(update_attrs={'title': "New about us", 'slug': 'new-about-us'})
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us, SimplePage)
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.slug, 'new-about-us')
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(about_us.id, new_about_us.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
+
+    def test_copy_page_copies_child_objects(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+    def test_copy_page_copies_child_objects_with_nonspecific_class(self):
+        # Get chrismas page as Page instead of EventPage
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the type of the new page is correct
+        self.assertIsInstance(new_christmas_event, EventPage)
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+    def test_copy_page_copies_recursively(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+
+        # Check that the url path was updated
+        self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
+
+    def test_copy_page_copies_recursively_with_child_objects(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page")

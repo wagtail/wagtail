@@ -1,4 +1,5 @@
 from mock import MagicMock
+from django.utils import six
 
 from django.test import TestCase
 from django import template
@@ -20,11 +21,11 @@ from wagtail.wagtailimages.backends.pillow import PillowBackend
 
 
 def get_test_image_file():
-    from StringIO import StringIO
+    from six import BytesIO
     from PIL import Image
     from django.core.files.images import ImageFile
 
-    f = StringIO()
+    f = BytesIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
     return ImageFile(f, name='test.png')
@@ -194,7 +195,7 @@ class TestImageTag(TestCase):
         )
 
     def render_image_tag(self, image, filter_spec):
-        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + '%}')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + '%}')
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -207,7 +208,7 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_as(self, image, filter_spec):
-        temp = template.Template('{% load image_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -220,7 +221,7 @@ class TestImageTag(TestCase):
         self.assertTrue('alt="Test image"' in result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
-        temp = template.Template('{% load image_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj width-400 class="photo" title=title|lower %}')
         context = template.Context({'image_obj': image, 'title': title})
         return temp.render(context)
 
@@ -456,16 +457,14 @@ class TestFormat(TestCase):
             self.image,
             'test alt text'
         )
-        self.assertRegexpMatches(
-            result,
+        six.assertRegex(self, result,
             '<img data-embedtype="image" data-id="0" data-format="test name" data-alt="test alt text" class="test classnames" src="[^"]+" width="1" height="1" alt="test alt text">',
-            )
+        )
 
     def test_image_to_html_no_classnames(self):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
-        self.assertRegexpMatches(
-            result,
+        six.assertRegex(self, result,
             '<img src="[^"]+" width="1" height="1" alt="test alt text">'
         )
         self.format.classnames = 'test classnames'

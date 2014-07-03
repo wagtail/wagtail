@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load image_tags %}
+{% load wagtailimages_tags %}
 {% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_css %}
