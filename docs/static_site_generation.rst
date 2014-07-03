@@ -25,8 +25,19 @@ Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_
     ]
 
 
+Rendering
+~~~~~~~~~
+
+To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called 'medusa_output'. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits django-medusa's ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
+
+To test, open the 'medusa_output' folder in a terminal and run ``python -m SimpleHTTPServer``.
+
+
+Advanced topics
+~~~~~~~~~~~~~~~
+
 Replacing GET parameters with custom routing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------
 
 Pages which require GET parameters (e.g. for pagination) don't generate suitable filenames for generated HTML files so they need to be changed to use custom routing instead.
 
@@ -51,7 +62,7 @@ For example, let's say we have a Blog Index which uses pagination. We can overri
 
 
 Rendering pages which use custom routing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
 For page types that override the ``route`` method, we need to let django medusa know which URLs it responds on. This is done by overriding the ``get_static_site_paths`` method to make it yield one string per URL path.
 
@@ -70,14 +81,6 @@ For example, the BlogIndex above would need to yield one URL for each page of re
         # Yield from superclass
         for path in super(BlogIndex, self).get_static_site_paths():
             yield path
-
-
-Rendering
-~~~~~~~~~
-
-To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called 'medusa_output'. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits django-medusa's ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
-
-To test, open the 'medusa_output' folder in a terminal and run ``python -m SimpleHTTPServer``.
 
 
 .. _django medusa: https://github.com/mtigas/django-medusa
