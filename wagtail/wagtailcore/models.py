@@ -706,6 +706,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
                                 "request middleware returned a response")
         return request
 
+    DEFAULT_PREVIEW_MODES = [('', 'Default')]
+
     @property
     def preview_modes(self):
         """
@@ -715,11 +717,16 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        return self.get_page_modes()
+        modes = self.get_page_modes()
+        if modes is not Page.DEFAULT_PREVIEW_MODES:
+            # User has overriden get_page_modes instead of using preview_modes
+            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", DeprecationWarning)
+
+        return modes
 
     def get_page_modes(self):
         # Deprecated accessor for the preview_modes property
-        return [('', 'Default')]
+        return Page.DEFAULT_PREVIEW_MODES
 
     @property
     def default_preview_mode(self):
