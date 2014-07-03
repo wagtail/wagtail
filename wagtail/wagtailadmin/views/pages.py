@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -395,7 +396,7 @@ def delete(request, page_id):
 @permission_required('wagtailadmin.access_admin')
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    return page.serve(request)
+    return page.serve_preview(page.dummy_request(), page.default_preview_mode)
 
 
 def get_preview_response(page, preview_mode):
@@ -729,6 +730,7 @@ def reject_moderation(request, revision_id):
 
 
 @permission_required('wagtailadmin.access_admin')
+@require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
@@ -742,4 +744,6 @@ def preview_for_moderation(request, revision_id):
 
     request.revision_id = revision_id
 
-    return page.serve(request)
+    # pass in the real user request rather than page.dummy_request(), so that request.user
+    # and request.revision_id will be picked up by the wagtail user bar
+    return page.serve_preview(request, page.default_preview_mode)
