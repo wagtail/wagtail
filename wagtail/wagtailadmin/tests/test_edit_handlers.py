@@ -357,8 +357,6 @@ class TestInlinePanel(TestCase):
             form=self.fake_field)
         result = inline_panel.get_panel_definitions()
         self.assertEqual(result[0].name, 'mock panel')
-        expected_calls = '[call(instance=fake instance, form=fake form),\n call(instance=fake instance, form=fake form)]'
-        self.assertEqual(str(self.mock_panel.mock_calls), expected_calls)
 
     def test_get_panel_definitions(self):
         """
@@ -374,8 +372,6 @@ class TestInlinePanel(TestCase):
             form=self.fake_field)
         result = inline_panel.get_panel_definitions()
         self.assertEqual(result[0].name, 'other mock panel')
-        expected_calls = '[call(instance=fake instance, form=fake form),\n call(instance=fake instance, form=fake form)]'
-        self.assertEqual(str(other_mock_panel.mock_calls), expected_calls)
 
     def test_required_formsets(self):
         inline_panel = InlinePanel(self.mock_model, 'formset')(
