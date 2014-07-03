@@ -622,6 +622,43 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
+    def copy(self, recursive=False, to=None, update_attrs=None):
+        # Make a copy
+        page_copy = Page.objects.get(id=self.id).specific
+        page_copy.pk = None
+        page_copy.id = None
+        page_copy.depth = None
+        page_copy.numchild = 0
+        page_copy.path = None
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                setattr(page_copy, field, value)
+
+        if to:
+            page_copy = to.add_child(instance=page_copy)
+        else:
+            page_copy = self.add_sibling(instance=page_copy)
+
+        # Copy child objects
+        specific_self = self.specific
+        for child_relation in getattr(specific_self._meta, 'child_relations', []):
+            parental_key_name = child_relation.field.attname
+            child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
+
+            if child_objects:
+                for child_object in child_objects.all():
+                    child_object.pk = None
+                    setattr(child_object, parental_key_name, page_copy.id)
+                    child_object.save()
+
+        # Copy child pages
+        if recursive:
+            for child_page in self.get_children():
+                child_page.specific.copy(recursive=True, to=page_copy)
+
+        return page_copy
+
     def permissions_for_user(self, user):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page

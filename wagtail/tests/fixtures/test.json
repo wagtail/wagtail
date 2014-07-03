@@ -86,6 +86,17 @@
 },
 
 {
+    "pk": 1,
+    "model": "tests.eventpagespeaker",
+    "fields": {
+        "page": 4,
+        "first_name": "Santa",
+        "last_name": "Claus",
+        "sort_order": 0
+    }
+},
+
+{
     "pk": 5,
     "model": "wagtailcore.page",
     "fields": {
