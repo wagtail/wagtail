@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html
 
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailembeds import urls
 
 

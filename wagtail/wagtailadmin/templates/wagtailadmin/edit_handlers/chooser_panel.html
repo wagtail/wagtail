@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/edit_handlers/field_panel_field.html" %}
+{% extends "wagtailadmin/shared/field.html" %}
 {% load i18n %}
 {% comment %}
     Either the chosen or unchosen div will be shown, depending on the presence
@@ -17,14 +17,14 @@
 
             <div class="actions">
                 {% if not field.field.required %}
-                    <input type="button" class="button-secondary action-clear" value="{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}">
+                    <input type="button" class="action-clear button-small button-secondary" value="{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}">
                 {% endif %}
-                <input type="button" class="button-secondary action-choose" value="{% block choose_another_button_label %}{% trans "Choose another item" %}{% endblock %}">
+                <input type="button" class="action-choose button-small button-secondary" value="{% block choose_another_button_label %}{% trans "Choose another item" %}{% endblock %}">
             </div>
         </div>
 
         <div class="unchosen">
-            <input type="button" class="action-choose button-secondary" value="{% block choose_button_label %}{% trans "Choose an item" %}{% endblock %}">
+            <input type="button" class="action-choose button-small button-secondary" value="{% block choose_button_label %}{% trans "Choose an item" %}{% endblock %}">
         </div>
 
     </div>

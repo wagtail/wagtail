@@ -1,3 +1,5 @@
+from six import string_types
+
 from django.db import models
 
 
@@ -35,21 +37,27 @@ class Indexed(object):
     def indexed_get_indexed_fields(cls):
         # Get indexed fields for this class as dictionary
         indexed_fields = cls.indexed_fields
-        if isinstance(indexed_fields, tuple):
-            indexed_fields = list(indexed_fields)
-        if isinstance(indexed_fields, basestring):
-            indexed_fields = [indexed_fields]
-        if isinstance(indexed_fields, list):
-            indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
-        if not isinstance(indexed_fields, dict):
-            raise ValueError()
+        if isinstance(indexed_fields, dict):
+            # Make sure we have a copy to prevent us accidentally changing the configuration
+            indexed_fields = indexed_fields.copy()
+        else:
+            # Convert to dict
+            if isinstance(indexed_fields, tuple):
+                indexed_fields = list(indexed_fields)
+            if isinstance(indexed_fields, string_types):
+                indexed_fields = [indexed_fields]
+            if isinstance(indexed_fields, list):
+                indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
+            if not isinstance(indexed_fields, dict):
+                raise ValueError()
 
         # Get indexed fields for parent class
         parent = cls.indexed_get_parent(require_model=False)
         if parent:
             # Add parent fields into this list
-            parent_indexed_fields = parent.indexed_get_indexed_fields()
-            indexed_fields = dict(parent_indexed_fields.items() + indexed_fields.items())
+            parent_indexed_fields = parent.indexed_get_indexed_fields().copy()
+            parent_indexed_fields.update(indexed_fields)
+            indexed_fields = parent_indexed_fields
         return indexed_fields
 
     def indexed_get_document_id(self):

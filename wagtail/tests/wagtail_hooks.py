@@ -1,4 +1,4 @@
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
 def editor_css():

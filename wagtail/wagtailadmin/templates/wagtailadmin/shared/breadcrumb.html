@@ -9,6 +9,6 @@
         {% endif %}
     {% endfor %}
     {% if include_self %}
-        <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>>{{ page.title }}</a></li>
+        <li><a href="{% if choosing %}{% url 'wagtailadmin_choose_page_child' page.id %}?{{ querystring }}{% else %}{% url 'wagtailadmin_explore' page.id %}{% endif %}" {% if choosing %}class="navigate-pages"{% endif %}>{{ page.title }}</a></li>
     {% endif %}
 </ul>

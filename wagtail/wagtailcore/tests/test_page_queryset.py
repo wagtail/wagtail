@@ -1,12 +1,7 @@
-from StringIO import StringIO
+from django.test import TestCase
 
-from django.test import TestCase, Client
-from django.http import HttpRequest, Http404
-from django.core import management
-from django.contrib.auth.models import User
-
-from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage, EventIndex, SimplePage
+from wagtail.wagtailcore.models import Page
+from wagtail.tests.models import EventPage
 
 
 class TestPageQuerySet(TestCase):
@@ -33,6 +28,27 @@ class TestPageQuerySet(TestCase):
         # Check that "someone elses event" is in the results
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_in_menu(self):
+        pages = Page.objects.in_menu()
+
+        # All pages must be be in the menus
+        for page in pages:
+            self.assertTrue(page.show_in_menus)
+
+        # Check that the events index is in the results
+        events_index = Page.objects.get(url_path='/home/events/')
+        self.assertTrue(pages.filter(id=events_index.id).exists())
+
+    def test_not_in_menu(self):
+        pages = Page.objects.not_in_menu()
+
+        # All pages must not be in menus
+        for page in pages:
+            self.assertFalse(page.show_in_menus)
+
+        # Check that the root page is in the results
+        self.assertTrue(pages.filter(id=1).exists())
 
     def test_page(self):
         homepage = Page.objects.get(url_path='/home/')

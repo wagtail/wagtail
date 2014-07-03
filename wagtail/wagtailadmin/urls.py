@@ -1,9 +1,8 @@
 from django.conf.urls import url
-from django.conf import settings
 
-from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
+from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 
 
 urlpatterns = [
@@ -50,6 +49,7 @@ urlpatterns += [
     url(r'^pages/(\d+)/edit/preview/$', pages.preview_on_edit, name='wagtailadmin_pages_preview_on_edit'),
 
     url(r'^pages/preview/$', pages.preview, name='wagtailadmin_pages_preview'),
+    url(r'^pages/preview_loading/$', pages.preview_loading, name='wagtailadmin_pages_preview_loading'),
 
     url(r'^pages/(\d+)/view_draft/$', pages.view_draft, name='wagtailadmin_pages_view_draft'),
     url(r'^pages/(\d+)/add_subpage/$', pages.add_subpage, name='wagtailadmin_pages_add_subpage'),
@@ -79,6 +79,7 @@ urlpatterns += [
     url(r'^login/$', account.login, name='wagtailadmin_login'),
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
+    url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
