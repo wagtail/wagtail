@@ -4,7 +4,7 @@ Changelog
 0.4 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
  * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
- * Python 3.3 and 3.4 support
+ * Python 3.2, 3.3 and 3.4 support
  * Added scheduled publishing
  * Added frontend cache invalidator
  * Added sitemap generator
@@ -28,6 +28,7 @@ Changelog
  * Added 'get_next_siblings' and 'get_prev_siblings' to Page
  * Added init_new_page signal
  * Added page_published signal
+ * Added copy method to Page to allow copying of pages
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
