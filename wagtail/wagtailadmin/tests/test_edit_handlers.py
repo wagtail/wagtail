@@ -186,15 +186,15 @@ class TestFieldPanel(TestCase):
         self.assertEqual(self.field_panel.field_type(), 'fake_class')
 
     def test_widget_overrides(self):
-        result = self.field_panel.widget_overrides()
+        result = FieldPanel.widget_overrides()
         self.assertEqual(result, {})
 
     def test_required_formsets(self):
-        result = self.field_panel.required_formsets()
+        result = FieldPanel.required_formsets()
         self.assertEqual(result, [])
 
     def test_get_form_class(self):
-        result = self.field_panel.get_form_class(Page)
+        result = FieldPanel.get_form_class(Page)
         self.assertTrue(issubclass(result, WagtailAdminModelForm))
 
     def test_render_js(self):

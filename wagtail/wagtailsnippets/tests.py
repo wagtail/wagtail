@@ -5,8 +5,11 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
-from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_edit_handler
+from wagtail.wagtailsnippets.views.snippets import (
+    get_snippet_edit_handler
+)
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
