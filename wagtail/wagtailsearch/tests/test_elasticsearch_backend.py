@@ -113,15 +113,26 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'and': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+
+        # Make sure field filters are sorted (as they can be in any order which may cause false positives)
+        query = query.to_es()
+        field_filters = query['filtered']['filter']['and'][1]['and']
+        field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
+
+        self.assertDictEqual(query, expected_result)
 
     def test_or_filter(self):
         # Create a query
         query = self.ElasticSearchQuery(models.SearchTest.objects.filter(Q(title="Test") | Q(live=True)), "Hello")
 
+        # Make sure field filters are sorted (as they can be in any order which may cause false positives)
+        query = query.to_es()
+        field_filters = query['filtered']['filter']['and'][1]['or']
+        field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
+
         # Check it
-        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'or': [{'term': {'title_filter': 'Test'}}, {'term': {'live_filter': True}}]}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
-        self.assertDictEqual(query.to_es(), expected_result)
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'or': [{'term': {'live_filter': True}}, {'term': {'title_filter': 'Test'}}]}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        self.assertDictEqual(query, expected_result)
 
     def test_negated_filter(self):
         # Create a query
