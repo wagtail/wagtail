@@ -706,25 +706,64 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
                                 "request middleware returned a response")
         return request
 
-    def get_page_modes(self):
+    DEFAULT_PREVIEW_MODES = [('', 'Default')]
+
+    @property
+    def preview_modes(self):
         """
-        Return a list of (internal_name, display_name) tuples for the modes in which
+        A list of (internal_name, display_name) tuples for the modes in which
         this page can be displayed for preview/moderation purposes. Ordinarily a page
         will only have one display mode, but subclasses of Page can override this -
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        return [('', 'Default')]
+        modes = self.get_page_modes()
+        if modes is not Page.DEFAULT_PREVIEW_MODES:
+            # User has overriden get_page_modes instead of using preview_modes
+            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", DeprecationWarning)
+
+        return modes
+
+    def get_page_modes(self):
+        # Deprecated accessor for the preview_modes property
+        return Page.DEFAULT_PREVIEW_MODES
+
+    @property
+    def default_preview_mode(self):
+        return self.preview_modes[0][0]
+
+    def serve_preview(self, request, mode_name):
+        """
+        Return an HTTP response for use in page previews. Normally this would be equivalent
+        to self.serve(request), since we obviously want the preview to be indicative of how
+        it looks on the live site. However, there are a couple of cases where this is not
+        appropriate, and custom behaviour is required:
+
+        1) The page has custom routing logic that derives some additional required
+        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
+        previewing, so there's no way to know what args we should pass. In such a case,
+        the page model needs to implement its own version of serve_preview.
+
+        2) The page has several different renderings that we would like to be able to see
+        when previewing - for example, a form page might have one rendering that displays
+        the form, and another rendering to display a landing page when the form is posted.
+        This can be done by setting a custom preview_modes list on the page model -
+        Wagtail will allow the user to specify one of those modes when previewing, and
+        pass the chosen mode_name to serve_preview so that the page model can decide how
+        to render it appropriately. (Page models that do not specify their own preview_modes
+        list will always receive an empty string as mode_name.)
+
+        Any templates rendered during this process should use the 'request' object passed
+        here - this ensures that request.user and other properties are set appropriately for
+        the wagtail user bar to be displayed. This request will always be a GET.
+        """
+        return self.serve(request)
 
     def show_as_mode(self, mode_name):
-        """
-        Given an internal name from the get_page_modes() list, return an HTTP response
-        indicative of the page being viewed in that mode. By default this passes a
-        dummy request into the serve() mechanism, ensuring that it matches the behaviour
-        on the front-end; subclasses that define additional page modes will need to
-        implement alternative logic to serve up the appropriate view here.
-        """
-        return self.serve(self.dummy_request())
+        # Deprecated API for rendering previews. If this returns something other than None,
+        # we know that a subclass of Page has overridden this, and we should try to work with
+        # that response if possible.
+        return None
 
     def get_cached_paths(self):
         """

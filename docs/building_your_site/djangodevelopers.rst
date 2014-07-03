@@ -201,6 +201,7 @@ Properties:
 * status_string
 * subpage_types
 * indexed_fields
+* preview_modes
 
 Methods:
 
@@ -213,8 +214,7 @@ Methods:
 * get_descendants
 * get_siblings
 * search
-* get_page_modes
-* show_as_mode
+* serve_preview
 
 
 Page Queryset Methods

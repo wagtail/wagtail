@@ -1,3 +1,5 @@
+import warnings
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -7,6 +9,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -230,7 +233,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         'page_class': page_class,
         'parent_page': parent_page,
         'edit_handler': edit_handler,
-        'display_modes': page.get_page_modes(),
+        'preview_modes': page.preview_modes,
         'form': form, # Used in unit tests
     })
 
@@ -361,7 +364,7 @@ def edit(request, page_id):
         'page': page,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
-        'display_modes': page.get_page_modes(),
+        'preview_modes': page.preview_modes,
         'form': form, # Used in unit tests
     })
 
@@ -393,7 +396,28 @@ def delete(request, page_id):
 @permission_required('wagtailadmin.access_admin')
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    return page.serve(request)
+    return page.serve_preview(page.dummy_request(), page.default_preview_mode)
+
+
+def get_preview_response(page, preview_mode):
+    """
+    Helper function for preview_on_edit and preview_on_create -
+    return a page's preview response via either serve_preview or the deprecated
+    show_as_mode method
+    """
+    # Check the deprecated Page.show_as_mode method, as subclasses of Page
+    # might be overriding that to return a response
+    response = page.show_as_mode(preview_mode)
+    if response:
+        warnings.warn(
+            "Defining 'show_as_mode' on a page model is deprecated. Use 'serve_preview' instead",
+            DeprecationWarning
+        )
+        return response
+    else:
+        # show_as_mode did not return a response, so go ahead and use the 'proper'
+        # serve_preview method
+        return page.serve_preview(page.dummy_request(), preview_mode)
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -409,19 +433,8 @@ def preview_on_edit(request, page_id):
     if form.is_valid():
         form.save(commit=False)
 
-        # This view will generally be invoked as an AJAX request; as such, in the case of
-        # an error Django will return a plaintext response. This isn't what we want, since
-        # we will be writing the response back to an HTML page regardless of success or
-        # failure - as such, we strip out the X-Requested-With header to get Django to return
-        # an HTML error response
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)
-
-        try:
-            display_mode = request.GET['mode']
-        except KeyError:
-            display_mode = page.get_page_modes()[0][0]
-
-        response = page.show_as_mode(display_mode)
+        preview_mode = request.GET.get('mode', page.default_preview_mode)
+        response = get_preview_response(page, preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -432,7 +445,7 @@ def preview_on_edit(request, page_id):
         response = render(request, 'wagtailadmin/pages/edit.html', {
             'page': page,
             'edit_handler': edit_handler,
-            'display_modes': page.get_page_modes(),
+            'preview_modes': page.preview_modes,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -465,18 +478,8 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         page.depth = parent_page.depth + 1
         page.path = Page._get_children_path_interval(parent_page.path)[1]
 
-        # This view will generally be invoked as an AJAX request; as such, in the case of
-        # an error Django will return a plaintext response. This isn't what we want, since
-        # we will be writing the response back to an HTML page regardless of success or
-        # failure - as such, we strip out the X-Requested-With header to get Django to return
-        # an HTML error response
-        request.META.pop('HTTP_X_REQUESTED_WITH', None)
-
-        try:
-            display_mode = request.GET['mode']
-        except KeyError:
-            display_mode = page.get_page_modes()[0][0]
-        response = page.show_as_mode(display_mode)
+        preview_mode = request.GET.get('mode', page.default_preview_mode)
+        response = get_preview_response(page, preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -490,7 +493,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
             'page_class': page_class,
             'parent_page': parent_page,
             'edit_handler': edit_handler,
-            'display_modes': page.get_page_modes(),
+            'preview_modes': page.preview_modes,
         })
         response['X-Wagtail-Preview'] = 'error'
         return response
@@ -727,6 +730,7 @@ def reject_moderation(request, revision_id):
 
 
 @permission_required('wagtailadmin.access_admin')
+@require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
@@ -740,4 +744,6 @@ def preview_for_moderation(request, revision_id):
 
     request.revision_id = revision_id
 
-    return page.serve(request)
+    # pass in the real user request rather than page.dummy_request(), so that request.user
+    # and request.revision_id will be picked up by the wagtail user bar
+    return page.serve_preview(request, page.default_preview_mode)
