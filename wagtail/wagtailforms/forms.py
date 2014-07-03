@@ -59,32 +59,33 @@ class FormBuilder(object):
     def create_checkbox_field(self, field, options):
         return django.forms.BooleanField(**options)
 
-    FIELD_TYPES = {
-        'singleline': create_singleline_field,
-        'multiline': create_multiline_field,
-        'date': create_date_field,
-        'datetime': create_datetime_field,
-        'email': create_email_field,
-        'url': create_url_field,
-        'number': create_number_field,
-        'dropdown': create_dropdown_field,
-        'radio': create_radio_field,
-        'checkboxes': create_checkboxes_field,
-        'checkbox': create_checkbox_field,
-    }
-
     @property
     def formfields(self):
+        """Create django form fields for each AbstractFormField. """
         formfields = SortedDict()
 
         for field in self.fields:
             options = self.get_field_options(field)
 
-            if field.field_type in self.FIELD_TYPES:
-                formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
-            else:
-                raise Exception("Unrecognised field type: " + form.field_type)
+            # Get the list of available field types from the
+            # AbstractFormField.
+            field_types = (choice[0] for choice in field.FORM_FIELD_CHOICES)
 
+            if field.field_type not in field_types:
+                raise Exception("Invalid Field Type: " + form.field_type)
+
+            # The field type is defined implicitly by a naming convention.
+            field_type_fn = "create_%s_field" % (field.field_type,)
+
+            # If the field creation function is not defined, we should tell 
+            # the developer before anything else happens.
+            if not hasattr(self, field_type_fn):
+                raise Exception("Function %s.%s is not defined." %
+                        (self.__class__field_type_fn, form.field_type))
+
+            # Create a field
+            _fn = getattr(self, field_type_fn)
+            formfields[field.clean_name] = _fn(field, options)
         return formfields
 
     def get_field_options(self, field):

@@ -18,19 +18,6 @@ from wagtail.wagtailadmin import tasks
 from .forms import FormBuilder
 
 
-FORM_FIELD_CHOICES = (
-    ('singleline',   _('Single line text')),
-    ('multiline',    _('Multi-line text')),
-    ('email',        _('Email')),
-    ('number',       _('Number')),
-    ('url',          _('URL')),
-    ('checkbox',     _('Checkbox')),
-    ('checkboxes',   _('Checkboxes')),
-    ('dropdown',     _('Drop down')),
-    ('radio',        _('Radio buttons')),
-    ('date',         _('Date')),
-    ('datetime',     _('Date/time')),
-)
 
 
 HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
@@ -54,6 +41,20 @@ class FormSubmission(models.Model):
 
 class AbstractFormField(Orderable):
     """Database Fields required for building a Django Form field."""
+
+    FORM_FIELD_CHOICES = (
+        ('singleline',   _('Single line text')),
+        ('multiline',    _('Multi-line text')),
+        ('email',        _('Email')),
+        ('number',       _('Number')),
+        ('url',          _('URL')),
+        ('checkbox',     _('Checkbox')),
+        ('checkboxes',   _('Checkboxes')),
+        ('dropdown',     _('Drop down')),
+        ('radio',        _('Radio buttons')),
+        ('date',         _('Date')),
+        ('datetime',     _('Date/time')),
+    )
 
     label = models.CharField(
         max_length=255,
@@ -88,6 +89,7 @@ class AbstractFormField(Orderable):
         FieldPanel('choices', classname="formbuilder-choices"),
         FieldPanel('default_value', classname="formbuilder-default"),
     ]
+
 
     class Meta:
         abstract = True
@@ -198,7 +200,6 @@ class AbstractEmailForm(AbstractForm):
         if self.to_address:
             content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
             tasks.send_email_task.delay(self.subject, content, [self.to_address], self.from_address,)
-
 
     class Meta:
         abstract = True
