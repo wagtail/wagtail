@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django import template
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
@@ -95,4 +97,4 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return u''.join(snippets)
+    return ''.join(snippets)
