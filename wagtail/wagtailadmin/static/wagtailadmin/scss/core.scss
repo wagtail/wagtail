@@ -12,6 +12,7 @@
 @import "components/messages.scss";
 @import "components/formatters.scss";
 @import "components/header.scss";
+@import "components/datetimepicker.scss";
 
 @import "fonts.scss";
 
@@ -213,12 +214,13 @@ img{
             color: #AAA;
             padding: 0.9em 1.2em;
             position:relative;
-            font-size:0.9em;
+            font-size:0.85em;
             font-weight:400;
             white-space:nowrap;
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
             &:before{
+                vertical-align:-20%;
                 margin-right:0.5em;
             }
             &:hover{
@@ -392,11 +394,6 @@ footer{
     .actions{
         width:250px;
         margin-right:$grid-gutter-width/2;
-
-        .button{
-            padding-top:1em;
-            padding-bottom:1em;
-        }
     }
 
     .meta{

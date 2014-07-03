@@ -2,12 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
 
 
-
-@permission_required('wagtailadmin.access_admin')
+@permission_required('wagtailadmin.access_admin', raise_exception=True)
 def for_frontend(request, page_id):
     items = [
         EditPageItem(Page.objects.get(id=page_id)),
@@ -29,7 +28,7 @@ def for_frontend(request, page_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
+@permission_required('wagtailadmin.access_admin', raise_exception=True)
 def for_moderation(request, revision_id):
     items = [
         EditPageItem(PageRevision.objects.get(id=revision_id).page),

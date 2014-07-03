@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
 EMBED_TYPES = (
@@ -9,6 +10,7 @@ EMBED_TYPES = (
 )
 
 
+@python_2_unicode_compatible
 class Embed(models.Model):
     url = models.URLField()
     max_width = models.SmallIntegerField(null=True, blank=True)
@@ -25,5 +27,5 @@ class Embed(models.Model):
     class Meta:
         unique_together = ('url', 'max_width')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.url

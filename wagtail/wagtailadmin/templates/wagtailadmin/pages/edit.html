@@ -47,12 +47,12 @@
 
                 <li class="actions preview">
                     {% trans 'Preview' as preview_label %}
-                    {% if display_modes|length > 1 %}
+                    {% if preview_modes|length > 1 %}
                         <div class="dropdown dropup dropdown-button match-width">
                             {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% for mode_name, mode_display_name in display_modes %}
+                                {% for mode_name, mode_display_name in preview_modes %}
                                     <li>
                                         {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
                                     </li>
@@ -70,7 +70,7 @@
                             {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
                             {% if page.get_latest_revision.user %}
                                 {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.username %}by {{ modified_by }}{% endblocktrans %}
-                                {% if request.user.email %}
+                                {% if page.get_latest_revision.user.email %}
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}

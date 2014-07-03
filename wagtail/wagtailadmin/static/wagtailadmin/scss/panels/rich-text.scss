@@ -3,10 +3,13 @@
 
 .hallotoolbar{
     position:absolute;
-    left:$mobile-nice-padding;
     z-index:5;
     margin-top:4em;
-    margin-left:0em;
+    margin-left:1.2em;
+}
+/* full is added to hallotoolbar when invoked on a field set to the full layout style */
+.hallotoolbar.full{
+    margin-left:$mobile-nice-padding;
 }
 .hallotoolbar.affixed{
     position:fixed;
@@ -14,6 +17,7 @@
 }
 .hallotoolbar button{
     @include border-radius(0);
+    height:2.4em;
 }
 
 .richtext {
@@ -147,8 +151,9 @@
         }
     }
 }
+
 @media screen and (min-width: $breakpoint-mobile){
-    .hallotoolbar{
-        left:$menu-width + $desktop-nice-padding;
+    .hallotoolbar.full{
+        margin-left:$desktop-nice-padding;
     }
- }
+}

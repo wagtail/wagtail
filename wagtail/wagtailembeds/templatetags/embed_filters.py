@@ -1,24 +1,8 @@
-from django import template
-from django.utils.safestring import mark_safe
+import warnings
 
-from wagtail.wagtailembeds import get_embed
-
-
-register = template.Library()
+warnings.warn(
+    "The embed_filters tag library has been moved to wagtailembeds_tags. "
+    "Use {% load wagtailembeds_tags %} instead.", DeprecationWarning)
 
 
-@register.filter
-def embed(url, max_width=None):
-    embed = get_embed(url, max_width=max_width)
-    try:
-        if embed is not None:
-            return mark_safe(embed.html)
-        else:
-            return ''
-    except:
-        return ''
-
-
-@register.filter
-def embedly(url, max_width=None):
-    return embed(url, max_width)
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import register, embed, embedly

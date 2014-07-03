@@ -8,10 +8,15 @@ except ImportError:
     # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
     from django.utils.importlib import import_module
 
-from django.utils import six
 import sys
+
+from django.utils import six
 from django.conf import settings
-from base import InvalidSearchBackendError
+from django.core.exceptions import ImproperlyConfigured
+
+
+class InvalidSearchBackendError(ImproperlyConfigured):
+    pass
 
 
 # Pinched from django 1.7 source code.

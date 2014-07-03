@@ -1,6 +1,7 @@
-import StringIO
 import os.path
 import re
+
+from six import BytesIO
 
 from taggit.managers import TaggableManager
 
@@ -10,9 +11,10 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
-from django.utils.html import escape
+from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from unidecode import unidecode
 
@@ -21,6 +23,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from .utils import validate_image_format
 
 
+@python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
 
@@ -54,7 +57,7 @@ class AbstractImage(models.Model, TagSearchable):
         },
     }
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_rendition(self, filter):
@@ -68,8 +71,8 @@ class AbstractImage(models.Model, TagSearchable):
         except ObjectDoesNotExist:
             file_field = self.file
 
-			# If we have a backend attribute then pass it to process
-			# image - else pass 'default'
+            # If we have a backend attribute then pass it to process
+            # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
             generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
 
@@ -208,7 +211,7 @@ class Filter(models.Model):
 
         image = method(image, self.method_arg)
 
-        output = StringIO.StringIO()
+        output = BytesIO()
         backend.save_image(image, output, file_format)
 
         # and then close the input file
@@ -236,10 +239,18 @@ class AbstractRendition(models.Model):
     def url(self):
         return self.file.url
 
-    def img_tag(self):
+    @property
+    def attrs(self):
         return mark_safe(
-            '<img src="%s" width="%d" height="%d" alt="%s">' % (escape(self.url), self.width, self.height, escape(self.image.title))
+            'src="%s" width="%d" height="%d" alt="%s"' % (escape(self.url), self.width, self.height, escape(self.image.title))
         )
+
+    def img_tag(self, extra_attributes=None):
+        if extra_attributes:
+            extra_attributes_string = format_html_join(' ', '{0}="{1}"', extra_attributes.items())
+            return mark_safe('<img %s %s>' % (self.attrs, extra_attributes_string))
+        else:
+            return mark_safe('<img %s>' % self.attrs)
 
     class Meta:
         abstract = True

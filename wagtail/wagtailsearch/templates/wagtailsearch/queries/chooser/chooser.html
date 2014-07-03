@@ -2,15 +2,16 @@
 {% trans "Popular search terms" as pop_str %}
 {% include "wagtailadmin/shared/header.html" with title=pop_str %}
 
-<form class="query-search search-bar full-width" action="{% url 'wagtailsearch_queries_chooserresults' %}" method="GET" autocomplete="off">
-    <ul class="fields">
-        {% for field in searchform %}
-            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-        {% endfor %}
-        <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
-    </ul>
-</form>
 <div class="nice-padding">
+    <form class="query-search search-bar full-width" action="{% url 'wagtailsearch_queries_chooserresults' %}" method="GET" autocomplete="off">
+        <ul class="fields">
+            {% for field in searchform %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+            {% endfor %}
+            <li class="submit"><input type="submit" value="{% trans 'Search' %}" /></li>
+        </ul>
+    </form>
+
     <div id="query-results">
         {% include "wagtailsearch/queries/chooser/results.html" %}
     </div>

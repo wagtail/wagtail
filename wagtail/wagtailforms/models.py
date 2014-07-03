@@ -1,11 +1,15 @@
+import json
+import re
+
+from six import text_type
+
+from unidecode import unidecode
+
 from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
-
-from unidecode import unidecode
-import json
-import re
+from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -32,6 +36,7 @@ FORM_FIELD_CHOICES = (
 HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
 
 
+@python_2_unicode_compatible
 class FormSubmission(models.Model):
     """Data for a Form submission."""
 
@@ -43,7 +48,7 @@ class FormSubmission(models.Model):
     def get_data(self):
         return json.loads(self.form_data)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.form_data
 
 
@@ -73,7 +78,7 @@ class AbstractFormField(Orderable):
         # unidecode will return an ascii string while slugify wants a
         # unicode string on the other hand, slugify returns a safe-string
         # which will be converted to a normal str
-        return str(slugify(unicode(unidecode(self.label))))
+        return str(slugify(text_type(unidecode(self.label))))
 
     panels = [
         FieldPanel('label'),
@@ -165,19 +170,18 @@ class AbstractForm(Page):
             'form': form,
         })
 
-    def get_page_modes(self):
-        return [
-            ('form', 'Form'),
-            ('landing', 'Landing page'),
-        ]
+    preview_modes = [
+        ('form', 'Form'),
+        ('landing', 'Landing page'),
+    ]
 
-    def show_as_mode(self, mode):
+    def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(self.dummy_request(), self.landing_page_template, {
+            return render(request, self.landing_page_template, {
                 'self': self,
             })
         else:
-            return super(AbstractForm, self).show_as_mode(mode)
+            return super(AbstractForm, self).serve_preview(request, mode)
 
 
 class AbstractEmailForm(AbstractForm):

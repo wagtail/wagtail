@@ -190,11 +190,11 @@ Load Alternate Templates by Overriding get_template()
 
 
 
-Page Modes
-----------
+Preview Modes
+-------------
 
-get_page_modes
-show_as_mode
+preview_modes
+serve_preview
 
 
 

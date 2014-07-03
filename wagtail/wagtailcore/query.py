@@ -16,6 +16,15 @@ class PageQuerySet(MP_NodeQuerySet):
     def not_live(self):
         return self.exclude(self.live_q())
 
+    def in_menu_q(self):
+        return Q(show_in_menus=True)
+
+    def in_menu(self):
+        return self.filter(self.in_menu_q())
+
+    def not_in_menu(self):
+        return self.exclude(self.in_menu_q())
+
     def page_q(self, other):
         return Q(id=other.id)
 

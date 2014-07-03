@@ -13,7 +13,7 @@ MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
 if not settings.configured:
 
     try:
-        import elasticutils
+        import elasticsearch
         has_elasticsearch = True
     except ImportError:
         has_elasticsearch = False
@@ -43,6 +43,7 @@ if not settings.configured:
         STATIC_ROOT=STATIC_ROOT,
         MEDIA_ROOT=MEDIA_ROOT,
         USE_TZ=True,
+        TIME_ZONE='UTC',
         STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
@@ -84,6 +85,8 @@ if not settings.configured:
             'wagtail.wagtailsearch',
             'wagtail.wagtailredirects',
             'wagtail.wagtailforms',
+            'wagtail.contrib.wagtailstyleguide',
+            'wagtail.contrib.wagtailsitemaps',
             'wagtail.tests',
         ],
 

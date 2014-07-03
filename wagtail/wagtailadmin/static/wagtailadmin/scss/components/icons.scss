@@ -96,7 +96,6 @@
 .icon-unlocked:before {
     content: "p";
 }
-
 .icon-doc-full-inverse:before {
     content: "r";
 }
@@ -210,9 +209,9 @@
 }
 .icon-spinner:after{
     width:1em;
-    animation: spin 1s infinite;
-    -webkit-animation: spin 1s infinite;
-    -moz-animation: spin 1s infinite;
+    animation: spin 0.5s infinite linear;
+    -webkit-animation: spin 0.5s infinite linear;
+    -moz-animation: spin 0.5s infinite linear;
     content:"1";
 }
 .icon-pick:before{
@@ -221,9 +220,11 @@
 .icon-redirect:before{
     content:"3";
 }
+/* Credit: Icon made by Zurb from Flaticon.com */
 .icon-view:before{
-    content:"4"; /* Credit: Icon made by Zurb from Flaticon.com */
-    font-size:1.5rem;
+    content:"4"; 
+    vertical-align:-4.5px;
+    font-size:1.3rem;
 }
 .icon-collapse-down:before{
     content:"5";
@@ -233,6 +234,9 @@
 }
 .icon-date:before{
     content:"7";
+}
+.icon-time:before{
+    content:"8";
 }
 .icon-success:before{
     content:"9";

@@ -1,30 +1,28 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load localize %}
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block extra_js %}
-    {% get_localized_datepicker_js %}
-    {% get_date_format_override as format_override %}
-    
+    {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
+
     <script>
-        window.overrideDateInputFormat ='{{ format_override }}';
         $(function() {
-            if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-                $('#id_date_from').datepicker({
-                    dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
-                });
-                $('#id_date_to').datepicker({
-                    dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
-                });
-            } else {
-                $('#id_date_from').datepicker({
-                    constrainInput: false, /* showOn: 'button', */ firstDay: 1
-                });
-                $('#id_date_to').datepicker({
-                    constrainInput: false, /* showOn: 'button', */ firstDay: 1
-                });
-            }
+            $('#id_date_from').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                i18n: {
+                    lang: window.dateTimePickerTranslations
+                },
+                lang: 'lang'
+            });
+            $('#id_date_to').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                i18n: {
+                    lang: window.dateTimePickerTranslations
+                },
+                lang: 'lang'
+            });
         });
     </script>
 {% endblock %}
@@ -41,7 +39,7 @@
                     <div class="col search-bar">
                         <ul class="fields row rowflush">
                             {% for field in select_date_form %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=field input_classes="field-small iconfield icon-date" li_classes="col4" %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" li_classes="col4" %}
                             {% endfor %}
                             <li class="submit col2">
                                 <button name="action" value="filter" class="button">{% trans 'Filter' %}</button>
