@@ -1,11 +1,6 @@
 from django.db import models
-from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.wagtailsearch.indexed import Indexed
-
-
-class InvalidSearchBackendError(ImproperlyConfigured):
-    pass
 
 
 class BaseSearch(object):

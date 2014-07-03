@@ -11,9 +11,11 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import tasks, hooks, signals
+from wagtail.wagtailadmin import tasks, signals
 
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.signals import page_published
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -201,6 +203,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             )
 
             if is_publishing:
+                page_published.send(sender=page_class, instance=page)
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
@@ -324,6 +327,7 @@ def edit(request, page_id):
             )
 
             if is_publishing:
+                page_published.send(sender=page.__class__, instance=page)
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
@@ -343,7 +347,7 @@ def edit(request, page_id):
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (
                 repr(edit_handler.form.errors)
-                + repr([(name, formset.errors) for (name, formset) in edit_handler.form.formsets.iteritems() if formset.errors])
+                + repr([(name, formset.errors) for (name, formset) in edit_handler.form.formsets.items() if formset.errors])
             )
     else:
         form = form_class(instance=page)
@@ -696,6 +700,7 @@ def approve_moderation(request, revision_id):
 
     if request.POST:
         revision.publish()
+        page_published.send(sender=revision.page.__class__, instance=revision.page.specific)
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'approved', request.user.id)
 
