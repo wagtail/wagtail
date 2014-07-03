@@ -186,15 +186,15 @@ class TestFieldPanel(TestCase):
         self.assertEqual(self.field_panel.field_type(), 'fake_class')
 
     def test_widget_overrides(self):
-        result = FieldPanel.widget_overrides()
+        result = FieldPanel('barbecue', 'snowman').widget_overrides()
         self.assertEqual(result, {})
 
     def test_required_formsets(self):
-        result = FieldPanel.required_formsets()
+        result = FieldPanel('barbecue', 'snowman').required_formsets()
         self.assertEqual(result, [])
 
     def test_get_form_class(self):
-        result = FieldPanel.get_form_class(Page)
+        result = FieldPanel('barbecue', 'snowman').get_form_class(Page)
         self.assertTrue(issubclass(result, WagtailAdminModelForm))
 
     def test_render_js(self):
