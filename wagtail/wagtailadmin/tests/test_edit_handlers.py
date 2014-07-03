@@ -63,70 +63,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
             self.assertTrue(issubclass(panel, BaseFieldPanel))
 
 
-class TestEditHandler(TestCase):
-    class FakeForm(dict):
-        def __init__(self, *args, **kwargs):
-            self.fields = self.fields_iterator()
-
-        def fields_iterator(self):
-            for i in self:
-                yield i
-
-    def setUp(self):
-        self.edit_handler = EditHandler(form=True, instance=True)
-        self.edit_handler.render = lambda: "foo"
-
-    def test_widget_overrides(self):
-        result = EditHandler.widget_overrides()
-        self.assertEqual(result, {})
-
-    def test_required_formsets(self):
-        result = EditHandler.required_formsets()
-        self.assertEqual(result, [])
-
-    def test_get_form_class(self):
-        result = EditHandler.get_form_class(Page)
-        self.assertTrue(issubclass(result, WagtailAdminModelForm))
-
-    def test_edit_handler_init_no_instance(self):
-        self.assertRaises(ValueError, EditHandler, form=True)
-
-    def test_edit_handler_init_no_form(self):
-        self.assertRaises(ValueError, EditHandler, instance=True)
-
-    def test_field_type(self):
-        result = self.edit_handler.field_type()
-        self.assertEqual(result, "")
-
-    def test_render_as_object(self):
-        result = self.edit_handler.render_as_object()
-        self.assertEqual(result, "foo")
-
-    def test_render_as_field(self):
-        result = self.edit_handler.render_as_field()
-        self.assertEqual(result, "foo")
-
-    def test_render_js(self):
-        result = self.edit_handler.render_js()
-        self.assertEqual(result, "")
-
-    def test_rendered_fields(self):
-        result = self.edit_handler.rendered_fields()
-        self.assertEqual(result, [])
-
-    def test_render_missing_fields(self):
-        fake_form = self.FakeForm()
-        fake_form["foo"] = "bar"
-        self.edit_handler.form = fake_form
-        self.assertEqual(self.edit_handler.render_missing_fields(), "bar")
-
-    def test_render_form_content(self):
-        fake_form = self.FakeForm()
-        fake_form["foo"] = "bar"
-        self.edit_handler.form = fake_form
-        self.assertEqual(self.edit_handler.render_form_content(), "foobar")
-
-
 class TestTabbedInterface(TestCase):
     class FakeChild(object):
         class FakeGrandchild(object):
@@ -183,40 +119,24 @@ class TestObjectList(TestCase):
         self.assertTrue(issubclass(object_list, BaseObjectList))
 
 
-class TestBaseFieldPanel(TestCase):
-    class FakeClass(object):
-        required = False
-
-    class FakeField(object):
-        label = 'label'
-        help_text = 'help text'
-
-    def setUp(self):
-        fake_field = self.FakeField()
-        fake_base_field_panel = type('_FieldPanel',
-                                     (BaseFieldPanel,),
-                                     {'field_name': 'barbecue'})
-        self.base_field_panel = fake_base_field_panel(
-            instance=True,
-            form={'barbecue': fake_field})
-
-    def test_field_type(self):
-        fake_object = self.FakeClass()
-        another_fake_object = self.FakeClass()
-        fake_object.field = another_fake_object
-        self.base_field_panel.bound_field = fake_object
-        self.assertEqual(self.base_field_panel.field_type(), 'fake_class')
-
-
 class TestFieldPanel(TestCase):
     class FakeClass(object):
         required = False
+        widget = 'fake widget'
 
     class FakeField(object):
         label = 'label'
         help_text = 'help text'
         errors = ['errors']
         id_for_label = 'id for label'
+
+    class FakeForm(dict):
+        def __init__(self, *args, **kwargs):
+            self.fields = self.fields_iterator()
+
+        def fields_iterator(self):
+            for i in self:
+                yield i
 
     def setUp(self):
         fake_field = self.FakeField()
@@ -257,6 +177,41 @@ class TestFieldPanel(TestCase):
     def test_rendered_fields(self):
         result = self.field_panel.rendered_fields()
         self.assertEqual(result, ['barbecue'])
+
+    def test_field_type(self):
+        fake_object = self.FakeClass()
+        another_fake_object = self.FakeClass()
+        fake_object.field = another_fake_object
+        self.field_panel.bound_field = fake_object
+        self.assertEqual(self.field_panel.field_type(), 'fake_class')
+
+    def test_widget_overrides(self):
+        result = self.field_panel.widget_overrides()
+        self.assertEqual(result, {})
+
+    def test_required_formsets(self):
+        result = self.field_panel.required_formsets()
+        self.assertEqual(result, [])
+
+    def test_get_form_class(self):
+        result = self.field_panel.get_form_class(Page)
+        self.assertTrue(issubclass(result, WagtailAdminModelForm))
+
+    def test_render_js(self):
+        result = self.field_panel.render_js()
+        self.assertEqual(result, "")
+
+    def test_render_missing_fields(self):
+        fake_form = self.FakeForm()
+        fake_form["foo"] = "bar"
+        self.field_panel.form = fake_form
+        self.assertEqual(self.field_panel.render_missing_fields(), "bar")
+
+    def test_render_form_content(self):
+        fake_form = self.FakeForm()
+        fake_form["foo"] = "bar"
+        self.field_panel.form = fake_form
+        self.assertIn("bar", self.field_panel.render_form_content())
 
 
 class TestRichTextFieldPanel(TestCase):
