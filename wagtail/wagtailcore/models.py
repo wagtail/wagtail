@@ -285,8 +285,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
     search_fields = (
         indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.FilterField('id'),
         indexed.FilterField('live'),
+        indexed.FilterField('owner'),
+        indexed.FilterField('content_type'),
         indexed.FilterField('path'),
+        indexed.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
