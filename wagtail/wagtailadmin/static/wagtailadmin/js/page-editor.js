@@ -247,7 +247,10 @@ function InlinePanel(opts) {
             }
             self.initChildControls(fixPrefix(opts.emptyChildFormPrefix));
             if (opts.canOrder) {
-                $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount);
+                /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
+                Therefore formcount and order are currently equal and order must be incremented
+                to ensure it's *greater* than previous item */
+                $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount + 1);
             }
             self.updateMoveButtonDisabledStates();
 
