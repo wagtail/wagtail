@@ -43,6 +43,7 @@ if not settings.configured:
         STATIC_ROOT=STATIC_ROOT,
         MEDIA_ROOT=MEDIA_ROOT,
         USE_TZ=True,
+        TIME_ZONE='UTC',
         STATICFILES_FINDERS=(
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',
             'compressor.finders.CompressorFinder',
