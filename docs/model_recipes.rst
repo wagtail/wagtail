@@ -194,7 +194,7 @@ Preview Modes
 -------------
 
 preview_modes
-show_as_mode
+serve_preview
 
 
 

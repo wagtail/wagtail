@@ -214,7 +214,7 @@ Methods:
 * get_descendants
 * get_siblings
 * search
-* show_as_mode
+* serve_preview
 
 
 Page Queryset Methods

@@ -175,13 +175,13 @@ class AbstractForm(Page):
         ('landing', 'Landing page'),
     ]
 
-    def show_as_mode(self, mode):
+    def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(self.dummy_request(), self.landing_page_template, {
+            return render(request, self.landing_page_template, {
                 'self': self,
             })
         else:
-            return super(AbstractForm, self).show_as_mode(mode)
+            return super(AbstractForm, self).serve_preview(request, mode)
 
 
 class AbstractEmailForm(AbstractForm):

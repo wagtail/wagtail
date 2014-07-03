@@ -1,3 +1,5 @@
+import warnings
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -396,6 +398,27 @@ def view_draft(request, page_id):
     return page.serve(request)
 
 
+def get_preview_response(page, preview_mode):
+    """
+    Helper function for preview_on_edit and preview_on_create -
+    return a page's preview response via either serve_preview or the deprecated
+    show_as_mode method
+    """
+    # Check the deprecated Page.show_as_mode method, as subclasses of Page
+    # might be overriding that to return a response
+    response = page.show_as_mode(preview_mode)
+    if response:
+        warnings.warn(
+            "Defining 'show_as_mode' on a page model is deprecated. Use 'serve_preview' instead",
+            DeprecationWarning
+        )
+        return response
+    else:
+        # show_as_mode did not return a response, so go ahead and use the 'proper'
+        # serve_preview method
+        return page.serve_preview(page.dummy_request(), preview_mode)
+
+
 @permission_required('wagtailadmin.access_admin')
 def preview_on_edit(request, page_id):
     # Receive the form submission that would typically be posted to the 'edit' view. If submission is valid,
@@ -410,7 +433,7 @@ def preview_on_edit(request, page_id):
         form.save(commit=False)
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.show_as_mode(preview_mode)
+        response = get_preview_response(page, preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
@@ -455,7 +478,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         page.path = Page._get_children_path_interval(parent_page.path)[1]
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = page.show_as_mode(preview_mode)
+        response = get_preview_response(page, preview_mode)
 
         response['X-Wagtail-Preview'] = 'ok'
         return response
