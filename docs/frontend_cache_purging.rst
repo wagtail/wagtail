@@ -100,3 +100,18 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
     @register(pre_delete, sender=BlogPage)
     def blog_deleted_handler(instance):
         blog_page_changed(instance)
+
+
+Purging individual URLs
+-----------------------
+
+``wagtail.contrib.wagtailfrontendcache.utils`` provides another utils function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
+
+For example, this could be useful for purging a single page of blogs:
+
+.. code-block:: python
+
+    from wagtail.contrib.wagtailfrontendcache.utils import purge_url_from_cache
+
+    # Purge the first page of the blog index
+    purge_url_from_cache(blog_index.url + '?page=1')
