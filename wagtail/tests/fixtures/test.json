@@ -491,6 +491,14 @@
 },
 {
     "pk": 1,
+    "model": "tests.advert",
+    "fields": {
+        "text": "test_advert",
+        "url": "http://www.example.com"
+        }
+},
+{
+    "pk": 1,
     "model": "wagtaildocs.Document",
     "fields": {
         "title": "test document",
