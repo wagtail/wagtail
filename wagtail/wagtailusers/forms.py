@@ -2,8 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 
+from wagtail.wagtailadmin import hooks
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
@@ -138,6 +139,13 @@ class UserEditForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GroupForm, self).__init__(*args, **kwargs)
+        self.registered_permissions = Permission.objects.none()
+        for fn in hooks.get_hooks('register_permissions'):
+            self.registered_permissions = self.registered_permissions | fn()
+        self.fields['permissions'].queryset = self.registered_permissions
+
     required_css_class = "required"
 
     error_messages = {
@@ -163,6 +171,20 @@ class GroupForm(forms.ModelForm):
         except Group.DoesNotExist:
             return name
         raise forms.ValidationError(self.error_messages['duplicate_name'])
+
+    def save(self):
+        # We go back to the object to read (in order to reapply) the
+        # permissions which were set on this group, but which are not
+        # accessible in the wagtail admin interface, as otherwise these would
+        # be clobbered by this form.
+        try:
+            untouchable_permissions = self.instance.permissions.exclude(pk__in=self.registered_permissions)
+        except AttributeError:
+            # this form is not bound; we're probably creating a new group
+            untouchable_permissions = Permission.objects.none()
+        group = super(GroupForm, self).save()
+        group.permissions.add(*untouchable_permissions)
+        return group
 
 
 class NotificationPreferencesForm(forms.ModelForm):
