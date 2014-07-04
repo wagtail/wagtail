@@ -246,6 +246,16 @@ Email Notifications
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
 
 
+Private Pages
+-------------
+
+.. code-block:: python
+
+  PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+
+This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+
 Other Django Settings Used by Wagtail
 -------------------------------------
 
