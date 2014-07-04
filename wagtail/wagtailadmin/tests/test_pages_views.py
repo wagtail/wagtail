@@ -7,8 +7,8 @@ from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.models import SimplePage, EventPage, EventPageCarouselItem, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published
 from wagtail.wagtailusers.models import UserProfile
@@ -652,6 +652,116 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
         self.assertContains(response, "I&#39;ve been edited!")
+
+
+class TestPageEditReordering(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add event page
+        self.event_page = EventPage()
+        self.event_page.title = "Event page"
+        self.event_page.slug = "event-page"
+        self.event_page.carousel_items = [
+            EventPageCarouselItem(caption='1234567', sort_order=1),
+            EventPageCarouselItem(caption='7654321', sort_order=2),
+            EventPageCarouselItem(caption='abcdefg', sort_order=3),
+        ]
+        self.root_page.add_child(instance=self.event_page)
+
+        # Login
+        self.user = self.login()
+
+    def check_order(self, response, expected_order):
+        inline_panel = response.context['edit_handler'].children[0].children[9]
+        order = [form.instance.caption for form in inline_panel.formset]
+        self.assertEqual(order, expected_order)
+
+    def test_order(self):
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.check_order(response, ['1234567', '7654321', 'abcdefg'])
+
+    def test_reorder(self):
+        post_data = {
+            'title': "Event page",
+            'slug': 'event-page',
+
+            'date_from': '01/01/2014',
+            'cost': '$10',
+            'audience': 'public',
+            'location': 'somewhere',
+
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 1000,
+            'related_links-TOTAL_FORMS': 0,
+
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 1000,
+            'speakers-TOTAL_FORMS': 0,
+
+            'carousel_items-INITIAL_FORMS': 3,
+            'carousel_items-MAX_NUM_FORMS': 1000,
+            'carousel_items-TOTAL_FORMS': 3,
+            'carousel_items-0-id': self.event_page.carousel_items.all()[0].id,
+            'carousel_items-0-caption': self.event_page.carousel_items.all()[0].caption,
+            'carousel_items-0-ORDER': 2,
+            'carousel_items-1-id': self.event_page.carousel_items.all()[1].id,
+            'carousel_items-1-caption': self.event_page.carousel_items.all()[1].caption,
+            'carousel_items-1-ORDER': 3,
+            'carousel_items-2-id': self.event_page.carousel_items.all()[2].id,
+            'carousel_items-2-caption': self.event_page.carousel_items.all()[2].caption,
+            'carousel_items-2-ORDER': 1,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check order
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )))
+
+        self.assertEqual(response.status_code, 200)
+        self.check_order(response, ['abcdefg', '1234567', '7654321'])
+
+    @unittest.expectedFailure
+    def test_reorder_with_validation_error(self):
+        post_data = {
+            'title': "", # Validation error
+            'slug': 'event-page',
+
+            'date_from': '01/01/2014',
+            'cost': '$10',
+            'audience': 'public',
+            'location': 'somewhere',
+
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 1000,
+            'related_links-TOTAL_FORMS': 0,
+
+            'speakers-INITIAL_FORMS': 0,
+            'speakers-MAX_NUM_FORMS': 1000,
+            'speakers-TOTAL_FORMS': 0,
+
+            'carousel_items-INITIAL_FORMS': 3,
+            'carousel_items-MAX_NUM_FORMS': 1000,
+            'carousel_items-TOTAL_FORMS': 3,
+            'carousel_items-0-id': self.event_page.carousel_items.all()[0].id,
+            'carousel_items-0-caption': self.event_page.carousel_items.all()[0].caption,
+            'carousel_items-0-ORDER': 2,
+            'carousel_items-1-id': self.event_page.carousel_items.all()[1].id,
+            'carousel_items-1-caption': self.event_page.carousel_items.all()[1].caption,
+            'carousel_items-1-ORDER': 3,
+            'carousel_items-2-id': self.event_page.carousel_items.all()[2].id,
+            'carousel_items-2-caption': self.event_page.carousel_items.all()[2].caption,
+            'carousel_items-2-ORDER': 1,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.event_page.id, )), post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.check_order(response, ['abcdefg', '1234567', '7654321'])
 
 
 class TestPageDelete(TestCase, WagtailTestUtils):
