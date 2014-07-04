@@ -3,12 +3,14 @@ from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailsnippets import urls
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippets
+from wagtail.wagtailsnippets.models import get_snippet_content_types
 
 
 def register_admin_urls():
@@ -36,3 +38,10 @@ def editor_js():
         urlresolvers.reverse('wagtailsnippets_choose_generic')
     )
 hooks.register('insert_editor_js', editor_js)
+
+
+def register_permissions():
+    snippet_content_types = get_snippet_content_types()
+    snippet_permissions = Permission.objects.filter(content_type__in=snippet_content_types)
+    return snippet_permissions
+hooks.register('register_permissions', register_permissions)
