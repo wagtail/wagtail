@@ -1,5 +1,5 @@
 
-.. _search:
+.. _wagtail_search:
 
 Search
 ======

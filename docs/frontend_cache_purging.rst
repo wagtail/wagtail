@@ -1,3 +1,5 @@
+.. _frontend_cache_purging:
+
 Frontend cache purging
 ======================
 
