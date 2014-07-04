@@ -675,7 +675,7 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
 
     def check_order(self, response, expected_order):
         inline_panel = response.context['edit_handler'].children[0].children[9]
-        order = [form.instance.caption for form in inline_panel.formset]
+        order = [child.form.instance.caption for child in inline_panel.children]
         self.assertEqual(order, expected_order)
 
     def test_order(self):
@@ -726,7 +726,6 @@ class TestPageEditReordering(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.check_order(response, ['abcdefg', '1234567', '7654321'])
 
-    @unittest.expectedFailure
     def test_reorder_with_validation_error(self):
         post_data = {
             'title': "", # Validation error
