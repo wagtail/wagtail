@@ -58,8 +58,8 @@ Wagtail routes requests by iterating over the path components (separated with a 
                 # find a matching child or 404
                 try:
                     subpage = self.get_children().get(slug=child_slug)
-                    except Page.DoesNotExist:
-                raise Http404
+                except Page.DoesNotExist:
+                    raise Http404
 
                 # delegate further routing
                 return subpage.specific.route(request, remaining_components)
@@ -67,13 +67,16 @@ Wagtail routes requests by iterating over the path components (separated with a 
             else:
                 # request is for this very page
                 if self.live:
-                    # use the serve() method to render the request if the page is published
-                    return self.serve(request)
+                    # Return a RouteResult that will tell Wagtail to call
+                    # this page's serve() method
+                    return RouteResult(self)
                 else:
                     # the page matches the request, but isn't published, so 404
                     raise Http404
 
-The contract is pretty simple. ``route()`` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling ``route()`` again on one of its children in the Wagtail tree, or ends the routing process by serving something -- either normally through the ``self.serve()`` method or by raising a 404 error.
+``route()`` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling ``route()`` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
+
+The ``RouteResult`` object (defined in wagtail.wagtailcore.url_routing) encapsulates all the information Wagtail needs to call a page's ``serve()`` method and return a final response: this information consists of the page object, and any additional args / kwargs to be passed to ``serve()``.
 
 By overriding the ``route()`` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
 
@@ -82,6 +85,7 @@ First, ``models.py``:
 .. code-block:: python
 
     from django.shortcuts import render
+    from wagtail.wagtailcore.url_routing import RouteResult
 
     ...
 
@@ -89,15 +93,20 @@ First, ``models.py``:
   
         def route(self, request, path_components):
             if path_components:
-                return render(request, self.template, {
-                    'self': self,
-                    'echo': ' '.join(path_components),
-                })
+                # tell Wagtail to call self.serve() with an additional 'path_components' kwarg
+                return RouteResult(self, kwargs={'path_components': path_components})
             else:
                 if self.live:
-                    return self.serve(request)
-            else:
-                raise Http404
+                    # tell Wagtail to call self.serve() with no further args
+                    return RouteResult(self)
+                else:
+                    raise Http404
+
+        def serve(self, path_components=[]):
+            render(request, self.template, {
+                'self': self,
+                'echo': ' '.join(path_components),
+            })
 
     Echoer.content_panels = [
         FieldPanel('title', classname="full title"),
@@ -107,7 +116,7 @@ First, ``models.py``:
         MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
     ]
 
-This model, ``Echoer``, doesn't define any properties, but does subclass ``Page`` so objects will be able to have a custom title and slug. The template just has to display our ``{{ echo }}`` property. We're skipping the ``serve()`` method entirely, but you could include your render code there to stay consistent with Wagtail's conventions.
+This model, ``Echoer``, doesn't define any properties, but does subclass ``Page`` so objects will be able to have a custom title and slug. The template just has to display our ``{{ echo }}`` property.
 
 Now, once creating a new ``Echoer`` page in the Wagtail admin titled "Echo Base," requests such as::
 
@@ -117,6 +126,12 @@ Will return::
 
     tauntaun kennel bed and breakfast
 
+Be careful if you're introducing new required arguments to the ``serve()`` method - Wagtail still needs to be able to display a default view of the page for previewing and moderation, and by default will attempt to do this by calling ``serve()`` with a request object and no further arguments. If your ``serve()`` method does not accept that as a method signature, you will need to override the page's ``serve_preview()`` method to call ``serve()`` with suitable arguments:
+
+.. code-block:: python
+
+    def serve_preview(self, request, mode_name):
+        return self.serve(request, color='purple')
 
 .. _tagging:
 
