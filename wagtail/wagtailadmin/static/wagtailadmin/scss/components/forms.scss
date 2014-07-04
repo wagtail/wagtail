@@ -1,3 +1,9 @@
+/* 
+    These are the generic stylings for forms of any type. 
+    If you're styling something specific to the page editing interface,
+    it probably ought to go in layouts/page-editor.scss
+*/
+
 form {
     ul, li{
         list-style-type:none;
@@ -5,9 +11,6 @@ form {
     ul{
         margin:0;
         padding:0;
-    }
-    li{
-        @include row();
     }
 }
 
@@ -261,7 +264,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             left:0;
             top:0;
             width:2em;
-            line-height:2em;
+            line-height:1.85em;
             height:100%;
             text-align:center;    
             background-color:rgba(0,0,0,0.2);
@@ -275,7 +278,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         &:before{
             width:2em;
             font-size:0.9rem;
-            line-height:2em;
+            line-height:1.65em;
         }
     }
 
@@ -300,21 +303,13 @@ input[type=submit], input[type=reset], input[type=button], button{
     }
 }
 
-button.icon{
-    &:before,
-    &:after{
-        line-height:0;
-    }
-}
-
 .multiple{
-    @include transition(max-height 10s ease);
     padding:0;
-    max-height:10000px;
     max-width:1024px - 50px;
     overflow:hidden;
 
     > li{
+        @include row();
         position:relative;
         overflow:hidden;
         background-color:white;
@@ -436,58 +431,112 @@ li.focused > .help{
 .boolean_field .help, .radio .help{
     opacity:1;
 }
-.iconfield {
-    position:relative;
+
+/* 
+    This is expected to go on the parent of the input/select/textarea
+    so in most cases .input
+*/
+.iconfield, /* generic */
+.date_field,
+.time_field,
+.date_time_field,
+.url_field{
+    .input{
+        position:relative;
+
+        &:before, &:after{
+            font-family:wagtail;
+            position:absolute;
+            top:0.5em;
+            line-height:100%;
+            font-size:2em;
+            color:$color-grey-3;
+        }
+        &:before{
+            left:0.3em;
+        }
+        &:after{
+            right:0.5em;
+        }
+    }
 
     input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]){
         padding-left:2.5em;
     }
 
-    &:before, &:after{
-        font-family:wagtail;
-        position:absolute;
-        top:0.4em;
-        font-size:1.4em;
-        color:$color-grey-3;
-    }
-    &:before{
-        left:0.5em;
-    }
-    &:after{
-        right:0.5em;
+    /* smaller fields required slight repositioning of icons */
+    &.field-small{
+        .input{
+            &:before, &:after{
+                font-size:1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
+                top:0.3em;
+            }
+            &:before{
+                left:0.5em;
+            }
+            &:after{
+                right:0.5em;
+            }
+        }
     }
 
     /* special case for search spinners */
     &.icon-spinner:after{
         color:$color-teal;
         opacity:0.8;
-        font-size:20px;
-        width:20px;
-        height:20px;
-        line-height:23px;
         text-align:center;
         top:0.3em;
-
     }
 }
 
-.fields li{
+.date_field,
+.date_time_field{
+    .input:before{
+        @extend .icon-date:before;
+    }
+}
+
+.time_field{
+    .input:before{
+        @extend .icon-time:before;
+    }
+}
+
+.url_field{
+    .input:before{
+        @extend .icon-link:before;
+    }
+}
+
+
+/* This is specifically for model that are a generated set of checkboxes/radios */
+.model_multiple_choice_field .input li,
+.choice_field .input li{
+    label{
+        display:block;
+        width:auto;
+        float:none;
+    }
+}
+
+.fields > li,
+.field-col{
+    @include clearfix();
     padding-top:0.5em;
     padding-bottom:1.2em;
 }
 
-.field-content .input li{
-    label{
-        width:auto;
-        float:none;
-    }
+.field-row{
+    @include clearfix();
+    /* negative margin the bottom so it doesn't add too much space */
+    margin-bottom:-1.2em;
 }
 
 .input{
     clear:both;
 }
 
-/* field sizing */
+/* field sizing and alignment */
 
 .field-small{
     input, textarea, select, .richtext, .tagit{
@@ -715,9 +764,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .file_field &{
             padding-top:0;
         }
+    }
 
-        .boolean_field &{
-            padding-bottom:0;
+    .label-above{
+        .field > label{
+            display:block;
+            padding:0 0 0.8em 0;
+            float:none;
+            width:auto;
         }
     }
 
@@ -733,11 +787,12 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
 
         &.bicolor{
-            padding-left:3.5em;
+            padding-left:3.7em;
 
             &:before{
-                width:2.2em;
-                line-height:2.45em;
+                width:2em;
+                line-height:2.2em;
+                font-size:1.1rem;
             }
         }
 
@@ -776,8 +831,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include row();
     }
 
+    .field-col{
+        float:left;
+        padding-left:0 !important;
+    }
+
     .field-content{
         @include column(10);
         padding-right:0;
-    }
+        padding-left:0;
+    }   
 }
