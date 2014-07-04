@@ -402,6 +402,23 @@ Registering functions with a Wagtail hook follows the following pattern:
 
 Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
 
+.. _before_serve_page:
+
+``before_serve_page``
+  .. versionadded:: 0.4
+
+  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    def block_googlebot(page, request, serve_args, serve_kwargs):
+        if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+            return HttpResponse("<h1>bad googlebot no cookie</h1>")
+
+    hooks.register('before_serve_page', block_googlebot)
+
 .. _construct_wagtail_edit_bird:
 
 ``construct_wagtail_edit_bird``
