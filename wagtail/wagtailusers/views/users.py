@@ -111,3 +111,14 @@ def edit(request, user_id):
         'user': user,
         'form': form,
     })
+
+@permission_required(change_user_perm)
+@vary_on_headers('X-Requested-With')
+def toggle(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.POST:
+        user.is_active = not user.is_active
+        user.save(update_fields=['is_active'])
+        return render(request, 'wagtailusers/status.html', { 'user': user })
+    else:
+        return redirect('wagtailusers_index')
