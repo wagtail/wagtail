@@ -147,7 +147,7 @@ class TestElasticSearchQuery(TestCase):
         query = self.ElasticSearchQuery(models.SearchTest.objects.all(), "Hello", fields=['title'])
 
         # Check it
-        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'tests_searchtest'}}, 'query': {'multi_match': {'query': 'Hello', 'fields': ['title']}}}}
+        expected_result = {'filtered': {'filter': {'prefix': {'content_type': 'tests_searchtest'}}, 'query': {'match': {'title': 'Hello'}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_exact_lookup(self):

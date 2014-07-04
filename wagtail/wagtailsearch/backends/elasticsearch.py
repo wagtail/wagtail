@@ -121,7 +121,7 @@ class ElasticSearchQuery(object):
     def __init__(self, queryset, query_string, fields=None):
         self.queryset = queryset
         self.query_string = query_string
-        self.fields = fields or ['_all', '_partials']
+        self.fields = fields
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
@@ -257,15 +257,21 @@ class ElasticSearchQuery(object):
     def to_es(self):
         # Query
         if self.query_string is not None:
-            query = {
-                'multi_match': {
-                    'query': self.query_string,
-                }
-            }
+            fields = self.fields or ['_all', '_partials']
 
-            # Fields
-            if self.fields:
-                query['multi_match']['fields'] = self.fields
+            if len(fields) == 1:
+                query = {
+                    'match': {
+                        fields[0]: self.query_string,
+                    }
+                }
+            else:
+                query = {
+                    'multi_match': {
+                        'query': self.query_string,
+                        'fields': fields,
+                    }
+                }
         else:
             query = {
                 'match_all': {}
