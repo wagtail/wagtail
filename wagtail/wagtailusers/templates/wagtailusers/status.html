@@ -1,0 +1,6 @@
+{% load i18n %}
+<td class="status">
+    <a class="status-tag {% if user.is_active %}primary{% endif %}" href="{% url 'wagtailusers_toggle' user.id %}">
+        {% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}
+    </a>
+</td>

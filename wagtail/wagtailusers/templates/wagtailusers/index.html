@@ -11,6 +11,11 @@
             targetOutput: "#user-results"
         }
     </script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/toggle.js"></script>
+    <script>
+        toggle('.status-tag');
+    </script>
 {% endblock %}
 
 {% block content %}

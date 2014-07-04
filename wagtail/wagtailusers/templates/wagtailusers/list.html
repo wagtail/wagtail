@@ -34,7 +34,11 @@
                 </td>
                 <td class="username">{{ user.username }}</td>
                 <td class="level">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
-                <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
+                <td class="status">
+                    <a class="status-tag {% if user.is_active %}primary{% endif %}" href="{% url 'wagtailusers_toggle' user.id %}">
+                        {% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
