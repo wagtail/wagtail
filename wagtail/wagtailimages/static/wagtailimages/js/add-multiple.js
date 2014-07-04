@@ -29,11 +29,14 @@ $(function(){
 
             $('#upload-list').append(li);
             data.context = li;
-           
+
             data.process(function () {
                 return $this.fileupload('process', data);
             }).always(function () {
                 data.context.removeClass('processing');
+                data.context.find('.left').each(function(index, elm){
+                    $(elm).append(data.files[index].name);
+                });
                 data.context.find('.preview .thumb').each(function (index, elm) {
                     $(elm).addClass('hasthumb')
                     $(elm).append(data.files[index].preview);
@@ -68,21 +71,27 @@ $(function(){
                 $(this).find('.progress').attr('aria-valuenow', progress).find('.bar').css(
                     'width',
                     progress + '%'
-                );
+                ).html(progress + '%');
             });
         },
         
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#overall-progress').attr('aria-valuenow', progress).find('.bar').css(
+            $('#overall-progress').removeClass('done').addClass('active').attr('aria-valuenow', progress).find('.bar').css(
                 'width',
                 progress + '%'
-            );
+            ).html(progress + '%');
+
+            console.log(progress);
+            if (progress >= 100){
+                $('#overall-progress').removeClass('active').addClass('done');
+            }
         },
         
         done: function (e, data) {
             var itemElement = $(data.context);
-            $('.right', itemElement).append(data.result).addClass('done');
+            itemElement.addClass('upload-success')
+            $('.right', itemElement).append(data.result);
 
             $('form', itemElement).each(function(){
                 var jform = $(this);
@@ -99,19 +108,17 @@ $(function(){
                     });
 
                 });
-
-                //jform.find('#id_'+ im_li.attr('id') +'-tags').tagit(window.tagit_opts);
             });
         },
       
         fail: function(e, data){
             var itemElement = $(data.context);
-            itemElement.addClass('failed');
+            itemElement.addClass('upload-failure');
         },
 
         always: function(e, data){
             var itemElement = $(data.context);
-            itemElement.removeClass('uploading');
+            itemElement.removeClass('upload-uploading');
         },
     });
 });

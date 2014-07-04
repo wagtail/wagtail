@@ -14,24 +14,27 @@
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
-            <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
-            {% csrf_token %}
-        </form>
+        <div class="drop-zone">
+            <p>Drag and drop images into this area to upload</p>
+            
+            <form class="replace-file-input" action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
+                <button class="bicolor icon icon-plus">Or choose from your computer</button>
+                <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
+                {% csrf_token %}
+            </form>
+        </div>
 
         <div id="overall-progress" class="progress progress-secondary">
-            <div class="bar" style="width: 0%;"></div>
+            <div class="bar" style="width: 0%;">0%</div>
         </div>
 
-        <div class="drop-zone">
-            <p >Drag and drop images into this area to upload</p>
-            <ul id="upload-list" class="upload-list multiple"></ul>
-        </div>
+        <ul id="upload-list" class="upload-list multiple"></ul>
+
     </div>
 
     <script id="upload-list-item" type="text/template">
-        <li>
-            <div class="left">
+        <li class="row">
+            <div class="left col3">
                 <div class="preview">
                     <div class="thumb icon icon-image"></div>
                     <div class="progress">
@@ -39,13 +42,17 @@
                     </div>
                 </div>
             </div>
-            <div class="right"></div>            
+            <div class="right col9">
+                <p class="status-msg success">Upload successful. Please enter more information about this image</p>
+                <p class="status-msg failure">Sorry, upload failed.</p>
+            </div>            
         </li>
     </script>
 
+    <!--
     <ul class="upload-list multiple" id="upload-list-item" type="text/template">
         <li class="uploading">
-            <div class="left">
+            <div class="left col3">
                 <div class="preview">
                     <div class="thumb icon icon-image">
                         <img src="http://instasrc.com/150x150/nature" />
@@ -55,7 +62,10 @@
                     </div>
                 </div>
             </div>
-            <div class="right"></div>            
+            <div class="right col9">
+                <p class="status-msg success">Upload successful. Please enter more information about this image</p>
+                <p class="status-msg failure">Sorry, upload failed.</p>
+            </div>            
         </li>
         <li class="failed hasthumb">
             <div class="left">
@@ -84,6 +94,7 @@
             <div class="right"></div>            
         </li>
     </ul>
+    -->
 
 {% endblock %}
 

@@ -187,3 +187,12 @@ a.tag:hover{
 .overflow{
     overflow:auto;
 }
+
+.status-msg{
+    &.success{
+        color:$color-green;
+    }
+    &.failure{
+        color:$color-red;
+    }
+}

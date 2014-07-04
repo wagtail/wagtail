@@ -2,11 +2,36 @@
 @import "../../wagtailadmin/static/wagtailadmin/scss/mixins.scss";
 @import "../../wagtailadmin/static/wagtailadmin/scss/grid.scss";
 
-.drop-zone-help{
-    background-color:transparent;  
+.replace-file-input{
+    position:relative;
+
+    input[type=file]{
+        opacity:0;
+        position:absolute;
+        top:0;
+        left:0;
+
+        &:hover{
+            cursor:pointer;
+        }
+    }
+
+    &:hover{
+        cursor:pointer;
+
+        button{
+            background-color:$color-teal-darker;
+        }
+    }
 }
 
 .upload-list{
+    > li{
+        padding:1em;
+    }
+    .left{
+        text-align:center;
+    }
 
     .preview{
         width:150px;
@@ -14,10 +39,12 @@
         display:block;
         position:relative;
         text-align:center;
-        padding:1em;
+        max-width:100%;
+        margin:auto;
     }
     .progress, .thumb, .thumb:before, canvas, img{
         position:absolute;
+        max-width:100%;
     }
     .progress{
         z-index:4;
@@ -26,11 +53,11 @@
         right:20%;
         width:60%;
         @include box-shadow(0 0 5px 2px rgba(255, 255, 255, 0.4));
-        border:1px solid white;
     }
     .thumb{
         top:0;right:0;bottom:0;left:0;
         z-index:1;
+        width:100%;
     }
 
     .thumb:before, canvas, img{
@@ -53,19 +80,31 @@
     }
 
     .hasthumb{
-        .thumb:before{
+        &:before{
             display:none;        
         }
     }
 
+    .status-msg{
+        display:none;
+    }
 
-    .uploading{
+    .upload-uploading{
 
     }
-    .done{
-        border-color:$color-green;
+    .upload-success{
+        .progress{
+            opacity:0;
+        }
+        .status-msg.success{
+            display:block;
+        }
     }
-    .failed{
+    .upload-failure{
         border-color:$color-red;
+        
+        .status-msg.failure{
+            display:block;
+        }
     }
 }
