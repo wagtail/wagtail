@@ -1,10 +1,5 @@
 $(function(){
-    function process_result(data) {
-        var result = $.parseJSON(data);
-        if (result.success) {
-            $('li#image-'+result.image_id).slideUp(function() { $(this).remove(); });
-        }
-    }
+    
 
     // prevents browser default drag/drop
     $(document).bind('drop dragover', function (e) {
@@ -98,13 +93,23 @@ $(function(){
 
                 jform.submit(function(event) { //convert save to an ajax call
                     event.preventDefault();
-                    $.post(this.action, $(this).serialize(), process_result);
+                    $.post(this.action, $(this).serialize(), function(data) {
+                        var result = $.parseJSON(data);
+                        if (result.success) {
+                            itemElement.slideUp(function(){$(this).remove()});
+                        }
+                    });
                 });
 
-                jform.find('a').each(function(){ //convert delete to an ajax call
+                jform.find('.delete').each(function(){ //convert delete to an ajax call
                     $(this).click(function(event) {
                         event.preventDefault();
-                        $.post(this.href, jform.serialize(), process_result);
+                        $.post(this.href, jform.serialize(), function(data) {
+                            var result = $.parseJSON(data);
+                            if (result.success) {
+                                itemElement.slideUp(function(){$(this).remove()});
+                            }
+                        });
                     });
 
                 });
