@@ -258,14 +258,14 @@ class ElasticSearchQuery(object):
         # Query
         if self.query_string is not None:
             query = {
-                'query_string': {
+                'multi_match': {
                     'query': self.query_string,
                 }
             }
 
             # Fields
             if self.fields:
-                query['query_string']['fields'] = self.fields
+                query['multi_match']['fields'] = self.fields
         else:
             query = {
                 'match_all': {}
