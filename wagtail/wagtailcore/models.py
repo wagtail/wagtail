@@ -229,6 +229,12 @@ class PageManager(models.Manager):
     def not_type(self, model):
         return self.get_queryset().not_type(model)
 
+    def public(self):
+        return self.get_queryset().public()
+
+    def not_public(self):
+        return self.get_queryset().not_public()
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
