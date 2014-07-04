@@ -192,8 +192,9 @@ More control over the ``img`` tag
 
 Wagtail provides two shorcuts to give greater control over the ``img`` element:
 
-.. versionadded:: 0.4
 **Adding attributes to the  {% image %} tag**
+
+.. versionadded:: 0.4
 
 Extra attributes can be specified with the syntax ``attribute="value"``:
 
@@ -215,9 +216,10 @@ Wagtail can assign the image data to another object using Django's ``as`` syntax
     <img src="{{ tmp_photo.src }}" width="{{ tmp_photo.width }}" 
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 
-.. versionadded:: 0.4
 The ``attrs`` shortcut
 -----------------------
+
+.. versionadded:: 0.4
 
 You can also use the ``attrs`` property as a shorthand to output the ``src``, ``width``, ``height`` and ``alt`` attributes in one go:
 

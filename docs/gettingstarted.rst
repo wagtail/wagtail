@@ -40,7 +40,7 @@ Once you've experimented with the demo app and are ready to build your pages via
 On OS X
 ~~~~~~~
 
-Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`_ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
+Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`__ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
 
     mkvirtualenv wagtaildemo
     git clone https://github.com/torchbox/wagtaildemo.git
@@ -75,10 +75,10 @@ Wagtail instance available as the basis for your new site:
 	./manage.py runserver 0.0.0.0:8000
 
 -  This will make the app accessible on the host machine as
-`localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin
-interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
-is located on the host machine, exported to the VM as a shared folder; code
-editing and Git operations will generally be done on the host.
+   `localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin
+   interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
+   is located on the host machine, exported to the VM as a shared folder; code
+   editing and Git operations will generally be done on the host.
 
 Using Docker
 ~~~~~~~~~~~~
@@ -101,7 +101,7 @@ use the following steps:
 Required dependencies
 =====================
 
--  `pip <https://github.com/pypa/pip>`_
+-  `pip <https://github.com/pypa/pip>`__
 -  `libjpeg <http://ijg.org/>`_
 -  `libxml2 <http://xmlsoft.org/>`_
 -  `libxslt <http://xmlsoft.org/XSLT/>`_

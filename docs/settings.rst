@@ -3,7 +3,7 @@
 Configuring Django for Wagtail
 ==============================
 
-To install Wagtail completely from scratch, create a new Django project and an app within that project. For instructions on these tasks, see `Writing your first Django app`_. Your project directory will look like the following::
+To install Wagtail completely from scratch, create a new Django project and an app within that project. For instructions on these tasks, see `Writing your first Django app <https://docs.djangoproject.com/en/dev/intro/tutorial01/>`_. Your project directory will look like the following::
 
   myproject/
       myproject/
@@ -19,13 +19,7 @@ To install Wagtail completely from scratch, create a new Django project and an a
           views.py
       manage.py
 
-From your app directory, you can safely remove ``admin.py`` and ``views.py``, since Wagtail will provide this functionality for your models. Configuring Django to load Wagtail involves adding modules and variables to ``settings.py`` and urlconfs to ``urls.py``. For a more complete view of what's defined in these files, see `Django Settings`_ and `Django URL Dispatcher`_. 
-
-.. _Writing your first Django app: https://docs.djangoproject.com/en/dev/intro/tutorial01/
-
-.. _Django Settings: https://docs.djangoproject.com/en/dev/topics/settings/
-
-.. _Django URL Dispatcher: https://docs.djangoproject.com/en/dev/topics/http/urls/
+From your app directory, you can safely remove ``admin.py`` and ``views.py``, since Wagtail will provide this functionality for your models. Configuring Django to load Wagtail involves adding modules and variables to ``settings.py`` and urlconfs to ``urls.py``. For a more complete view of what's defined in these files, see `Django Settings <https://docs.djangoproject.com/en/dev/topics/settings/>`__ and `Django URL Dispatcher <https://docs.djangoproject.com/en/dev/topics/http/urls/>`_. 
 
 What follows is a settings reference which skips many boilerplate Django settings. If you just want to get your Wagtail install up quickly without fussing with settings at the moment, see :ref:`complete_example_config`.
 
@@ -266,9 +260,7 @@ Other Django Settings Used by Wagtail
   TEMPLATE_CONTEXT_PROCESSORS
   USE_I18N
 
-For information on what these settings do, see `Django Settings`_.
-
-.. _Django Settings: https://docs.djangoproject.com/en/dev/ref/settings/
+For information on what these settings do, see `Django Settings <https://docs.djangoproject.com/en/dev/ref/settings/>`__.
 
 
 Search Signal Handlers
