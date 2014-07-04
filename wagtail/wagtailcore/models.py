@@ -13,7 +13,6 @@ from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
-from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -820,26 +819,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
     def get_view_restrictions(self):
         """Return a query set of all page view restrictions that apply to this page"""
         return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
-
-    def check_view_restrictions(self, request):
-        """
-        Check whether there are any view restrictions on this page which are
-        not fulfilled by the given request object. If there are, return an
-        HttpResponse that will notify the user of that restriction (and possibly
-        include a password / login form that will allow them to proceed). If
-        there are no such restrictions, return None
-        """
-        restrictions = self.get_view_restrictions()
-
-        if restrictions:
-            passed_restrictions = request.session.get('passed_page_view_restrictions', [])
-            for restriction in restrictions:
-                if restriction.id not in passed_restrictions:
-                    from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
-                    form = PasswordPageViewRestrictionForm(instance=restriction,
-                        initial={'return_url': request.get_full_path()})
-                    action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, self.id])
-                    return self.serve_password_required_response(request, form, action_url)
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
     def serve_password_required_response(self, request, form, action_url):
