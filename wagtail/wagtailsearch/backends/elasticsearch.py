@@ -20,21 +20,17 @@ class ElasticSearchMapping(object):
         return self.model.indexed_get_content_type()
 
     def get_mapping(self):
-        # Get type name
-        content_type = self.get_document_type()
-
-        # Get indexed fields
-        indexed_fields = self.model.indexed_get_indexed_fields()
-
         # Make field list
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes'),
             'content_type': dict(type='string'),
         }
-        fields.update(indexed_fields)
+
+        for field in self.model.get_search_fields():
+            fields[field.get_attname(self.model)] = field.to_dict(self.model)
 
         return {
-            content_type: {
+            self.get_document_type(): {
                 'properties': fields,
             }
         }
@@ -43,13 +39,9 @@ class ElasticSearchMapping(object):
         return obj.indexed_get_toplevel_content_type() + ':' + str(obj.pk)
 
     def get_document(self, obj):
-        # Get content type, indexed fields and id
-        content_type = obj.indexed_get_content_type()
-        indexed_fields = obj.indexed_get_indexed_fields()
-
         # Build document
-        doc = dict(pk=str(obj.pk), content_type=content_type)
-        for field in indexed_fields.keys():
+        doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
+        for field in [field.get_attname(self.model) for field in self.model.get_search_fields()]:
             if hasattr(obj, field):
                 doc[field] = getattr(obj, field)
 
