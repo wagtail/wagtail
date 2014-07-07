@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group, Permission
 
 from wagtail.wagtailadmin import hooks
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
+from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
 
 
 User = get_user_model()
@@ -185,6 +185,18 @@ class GroupForm(forms.ModelForm):
         group = super(GroupForm, self).save()
         group.permissions.add(*untouchable_permissions)
         return group
+
+
+class GroupPagePermissionForm(forms.ModelForm):
+    class Meta:
+        model = GroupPagePermission
+        fields = ('page', 'permission_type')
+
+
+class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super(BaseGroupPagePermissionFormSet, self).__init__(*args, **kwargs)
+        self.form = GroupPagePermissionForm
 
 
 class NotificationPreferencesForm(forms.ModelForm):

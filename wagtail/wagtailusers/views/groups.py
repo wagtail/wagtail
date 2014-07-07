@@ -6,9 +6,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.forms.models import inlineformset_factory
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailusers.forms import GroupForm
+from wagtail.wagtailusers.forms import GroupForm, BaseGroupPagePermissionFormSet
+from wagtail.wagtailcore.models import GroupPagePermission
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 User = get_user_model()
@@ -97,18 +99,28 @@ def create(request):
 @permission_required(change_user_perm)
 def edit(request, group_id):
     group = get_object_or_404(Group, id=group_id)
+    GroupPagePermissionFormSet = inlineformset_factory(
+        Group,
+        GroupPagePermission,
+        formset=BaseGroupPagePermissionFormSet,
+        extra=0
+    )
     if request.POST:
         form = GroupForm(request.POST, instance=group)
-        if form.is_valid():
+        formset = GroupPagePermissionFormSet(request.POST, instance=group)
+        if form.is_valid() and formset.is_valid():
             group = form.save()
+            formset.save()
             messages.success(request, _("Group '{0}' updated.").format(group))
             return redirect('wagtailusers_groups_index')
         else:
             messages.error(request, _("The group could not be saved due to errors."))
     else:
         form = GroupForm(instance=group)
+        formset = GroupPagePermissionFormSet(instance=group)
 
     return render(request, 'wagtailusers/groups/edit.html', {
         'group': group,
         'form': form,
+        'formset': formset,
     })
