@@ -89,13 +89,15 @@
         display:none;
     }
 
+    .upload-complete{
+        .progress{
+            opacity:0;
+        }
+    }
     .upload-uploading{
 
     }
     .upload-success{
-        .progress{
-            opacity:0;
-        }
         .status-msg.success{
             display:block;
         }

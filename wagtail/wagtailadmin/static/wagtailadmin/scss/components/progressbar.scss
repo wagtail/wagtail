@@ -1,16 +1,13 @@
 .progress{
     @include border-radius(1.2em);
-    @include transition(opacity 0.3s ease);
     background-color:$color-teal-dark;
     border:1px solid $color-teal;
     opacity:0;
 
     &.active{
-    	opacity:1;
-    }
-    &.done{
-    	opacity:0;
-    }   
+        opacity:1;
+        @include transition(opacity 0.3s ease);
+    } 
 
     .bar{
         @include border-radius(1.5em);

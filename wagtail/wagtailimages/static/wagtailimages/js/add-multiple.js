@@ -63,7 +63,7 @@ $(function(){
 
             var progress = Math.floor(data.loaded / data.total * 100);
             data.context.each(function () {
-                $(this).find('.progress').attr('aria-valuenow', progress).find('.bar').css(
+                $(this).find('.progress').addClass('active').attr('aria-valuenow', progress).find('.bar').css(
                     'width',
                     progress + '%'
                 ).html(progress + '%');
@@ -72,14 +72,13 @@ $(function(){
         
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#overall-progress').removeClass('done').addClass('active').attr('aria-valuenow', progress).find('.bar').css(
+            $('#overall-progress').addClass('active').attr('aria-valuenow', progress).find('.bar').css(
                 'width',
                 progress + '%'
             ).html(progress + '%');
 
-            console.log(progress);
             if (progress >= 100){
-                $('#overall-progress').removeClass('active').addClass('done');
+                $('#overall-progress').removeClass('active').find('.bar').css('width','0%');
             }
         },
         
@@ -123,7 +122,7 @@ $(function(){
 
         always: function(e, data){
             var itemElement = $(data.context);
-            itemElement.removeClass('upload-uploading');
+            itemElement.removeClass('upload-uploading').addClass('upload-complete');
         },
     });
 });
