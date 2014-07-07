@@ -27,5 +27,12 @@
         {{ form.id }}
         {{ form.ORDER }}
         {{ form.DELETE }}
+        {% if form.non_field_errors %}
+            <p class="error-message">
+                {% for error in form.non_field_errors %}
+                    <span>{{ error|escape }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
     </fieldset>
 </li>

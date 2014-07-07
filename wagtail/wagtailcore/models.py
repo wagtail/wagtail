@@ -955,6 +955,9 @@ class GroupPagePermission(models.Model):
     page = models.ForeignKey('Page', related_name='group_permissions')
     permission_type = models.CharField(max_length=20, choices=PAGE_PERMISSION_TYPE_CHOICES)
 
+    class Meta:
+        unique_together = ('group', 'page', 'permission_type')
+
 
 class UserPagePermissionsProxy(object):
     """Helper object that encapsulates all the page permission rules that this user has
