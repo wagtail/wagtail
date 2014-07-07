@@ -20,6 +20,7 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
+from wagtail.wagtailsearch import indexed
 from .utils import validate_image_format
 
 
@@ -48,14 +49,9 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    indexed_fields = {
-        'uploaded_by_user_id': {
-            'type': 'integer',
-            'store': 'yes',
-            'indexed': 'no',
-            'boost': 0,
-        },
-    }
+    search_fields = TagSearchable.search_fields + (
+        indexed.FilterField('uploaded_by_user'),
+    )
 
     def __str__(self):
         return self.title

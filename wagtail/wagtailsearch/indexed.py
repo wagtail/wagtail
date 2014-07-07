@@ -35,6 +35,11 @@ class Indexed(object):
 
     @classmethod
     def indexed_get_indexed_fields(cls):
+        # New way
+        if hasattr(cls, 'search_fields'):
+            return dict((field.get_attname(cls), field.to_dict(cls)) for field in cls.search_fields)
+
+        # Old way
         # Get indexed fields for this class as dictionary
         indexed_fields = cls.indexed_fields
         if isinstance(indexed_fields, dict):
@@ -83,3 +88,58 @@ class Indexed(object):
         return doc
 
     indexed_fields = ()
+
+
+class BaseField(object):
+    def __init__(self, field_name, **kwargs):
+        self.field_name = field_name
+        self.kwargs = kwargs
+
+    def get_field(self, cls):
+        return cls._meta.get_field_by_name(self.field_name)[0]
+
+    def get_attname(self, cls):
+        try:
+            field = self.get_field(cls)
+            return field.attname
+        except models.fields.FieldDoesNotExist:
+            return self.field_name
+
+    def to_dict(self, cls):
+        dic = {
+            'type': 'string'
+        }
+
+        if 'es_extra' in self.kwargs:
+            for key, value in self.kwargs['es_extra'].items():
+                dic[key] = value
+
+        return dic
+
+
+class SearchField(BaseField):
+    def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
+        super(SearchField, self).__init__(field_name, **kwargs)
+        self.boost = boost
+        self.partial_match = partial_match
+
+    def to_dict(self, cls):
+        dic = super(SearchField, self).to_dict(cls)
+
+        if self.boost and 'boost' not in dic:
+            dic['boost'] = self.boost
+
+        if self.partial_match and 'analyzer' not in dic:
+            dic['analyzer'] = 'edgengram_analyzer'
+
+        return dic
+
+
+class FilterField(BaseField):
+    def to_dict(self, cls):
+        dic = super(FilterField, self).to_dict(cls)
+
+        if 'index' not in dic:
+            dic['index'] = 'not_analyzed'
+
+        return dic
