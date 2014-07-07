@@ -22,7 +22,7 @@ class DBSearch(BaseSearch):
         pass # Not needed
 
     def add_bulk(self, obj_list):
-        pass # Not needed
+        return [] # Not needed
 
     def delete(self, obj):
         pass # Not needed
@@ -49,7 +49,7 @@ class DBSearch(BaseSearch):
 
         # Filter by terms
         for term in terms:
-            term_query = None
+            term_query = models.Q()
             for field_name in fields:
                 # Check if the field exists (this will filter out indexed callables)
                 try:
@@ -58,11 +58,8 @@ class DBSearch(BaseSearch):
                     continue
 
                 # Filter on this field
-                field_filter = {'%s__icontains' % field_name: term}
-                if term_query is None:
-                    term_query = models.Q(**field_filter)
-                else:
-                    term_query |= models.Q(**field_filter)
+                term_query |= models.Q(**{'%s__icontains' % field_name: term})
+
             query = query.filter(term_query)
 
         # Distinct

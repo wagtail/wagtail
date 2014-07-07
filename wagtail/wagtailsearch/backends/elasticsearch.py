@@ -41,7 +41,7 @@ class ElasticSearchMapping(object):
         # Make field list
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes'),
-            'content_type': dict(type='string'),
+            'content_type': dict(type='string', index='not_analyzed'),
         }
 
         fields.update(dict(
@@ -65,7 +65,7 @@ class ElasticSearchMapping(object):
                 doc[field] = getattr(obj, field)
 
                 # Check if this field is callable
-                if hasattr(doc[field], "__call__"):
+                if hasattr(doc[field], '__call__'):
                     # Call it
                     doc[field] = doc[field]()
 
@@ -346,43 +346,43 @@ class ElasticSearch(BaseSearch):
 
         # Settings
         INDEX_SETTINGS = {
-            "settings": {
-                "analysis": {
-                    "analyzer": {
-                        "ngram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["ngram"]
+            'settings': {
+                'analysis': {
+                    'analyzer': {
+                        'ngram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['ngram']
                         },
-                        "edgengram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["edgengram"]
+                        'edgengram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['edgengram']
                         }
                     },
-                    "tokenizer": {
-                        "ngram_tokenizer": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15,
+                    'tokenizer': {
+                        'ngram_tokenizer': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15,
                         },
-                        "edgengram_tokenizer": {
-                            "type": "edgeNGram",
-                            "min_gram": 2,
-                            "max_gram": 15,
-                            "side": "front"
+                        'edgengram_tokenizer': {
+                            'type': 'edgeNGram',
+                            'min_gram': 2,
+                            'max_gram': 15,
+                            'side': 'front'
                         }
                     },
-                    "filter": {
-                        "ngram": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15
+                    'filter': {
+                        'ngram': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15
                         },
-                        "edgengram": {
-                            "type": "edgeNGram",
-                            "min_gram": 1,
-                            "max_gram": 15
+                        'edgengram': {
+                            'type': 'edgeNGram',
+                            'min_gram': 1,
+                            'max_gram': 15
                         }
                     }
                 }
@@ -447,6 +447,7 @@ class ElasticSearch(BaseSearch):
                 action.update(doc)
                 actions.append(action)
 
+            yield type_name, len(type_documents)
             bulk(self.es, actions)
 
     def delete(self, obj):

@@ -11,11 +11,6 @@ from wagtail.wagtailsearch.backends.db import DBSearch
 from wagtail.wagtailsearch.backends import InvalidSearchBackendError
 
 
-# Register wagtailsearch signal handlers
-from wagtail.wagtailsearch import register_signal_handlers
-register_signal_handlers()
-
-
 class BackendTests(object):
     # To test a specific backend, subclass BackendTests and define self.backend_path.
 
@@ -41,21 +36,25 @@ class BackendTests(object):
         testa = models.SearchTest()
         testa.title = "Hello World"
         testa.save()
+        self.backend.add(testa)
         self.testa = testa
 
         testb = models.SearchTest()
         testb.title = "Hello"
         testb.live = True
         testb.save()
+        self.backend.add(testb)
 
         testc = models.SearchTestChild()
         testc.title = "Hello"
         testc.live = True
         testc.save()
+        self.backend.add(testc)
 
         testd = models.SearchTestChild()
         testd.title = "World"
         testd.save()
+        self.backend.add(testd)
 
         # Refresh the index
         self.backend.refresh_index()
@@ -130,6 +129,7 @@ class BackendTests(object):
 
     def test_delete(self):
         # Delete one of the objects
+        self.backend.delete(self.testa)
         self.testa.delete()
 
         # Refresh index

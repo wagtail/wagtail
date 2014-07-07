@@ -15,13 +15,13 @@ class Indexed(object):
     @classmethod
     def indexed_get_content_type(cls):
         # Work out content type
-        content_type = (cls._meta.app_label + "_" + cls.__name__).lower()
+        content_type = (cls._meta.app_label + '_' + cls.__name__).lower()
 
         # Get parent content type
         parent = cls.indexed_get_parent()
         if parent:
             parent_content_type = parent.indexed_get_content_type()
-            return parent_content_type + "_" + content_type
+            return parent_content_type + '_' + content_type
         else:
             return content_type
 
@@ -33,7 +33,7 @@ class Indexed(object):
             return parent.indexed_get_content_type()
         else:
             # At toplevel, return this content type
-            return (cls._meta.app_label + "_" + cls.__name__).lower()
+            return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
     def indexed_get_indexed_fields(cls):
@@ -49,7 +49,7 @@ class Indexed(object):
             if isinstance(indexed_fields, string_types):
                 indexed_fields = [indexed_fields]
             if isinstance(indexed_fields, list):
-                indexed_fields = dict((field, dict(type="string")) for field in indexed_fields)
+                indexed_fields = dict((field, dict(type='string')) for field in indexed_fields)
             if not isinstance(indexed_fields, dict):
                 raise ValueError()
 
@@ -101,6 +101,13 @@ class Indexed(object):
             # Add the field
             search_fields.append(SearchField(field_name, boost=boost, partial_match=partial_match, es_extra=config))
 
+        # Remove any duplicate entries into search fields
+        # We need to take into account that fields can be indexed as both a SearchField and as a FilterField
+        search_fields_dict = {}
+        for field in search_fields:
+            search_fields_dict[(field.field_name, type(field))] = field
+        search_fields = search_fields_dict.values()
+
         return search_fields
 
     @classmethod
@@ -132,7 +139,7 @@ class BaseField(object):
         return self.get_attname(cls) + self.suffix
 
     def __repr__(self):
-        return "<%s: %s>" % (self.__class__.__name__, self.field_name)
+        return '<%s: %s>' % (self.__class__.__name__, self.field_name)
 
 
 class SearchField(BaseField):
