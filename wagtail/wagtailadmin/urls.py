@@ -38,6 +38,8 @@ urlpatterns += [
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
+    url(r'^explorer-nav/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
+
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 

@@ -163,7 +163,6 @@ img{
     }
 
     .nav-main{
-
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -225,6 +224,15 @@ img{
             }
             &:hover{
                 color:white;
+            }
+
+            /* only really used for spinners */
+            &:after{
+                font-size:1.5em;
+                margin:0;
+                position:absolute;
+                right:0.5em;
+                margin-top:0.15em;
             }
         }
 
