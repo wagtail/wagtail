@@ -8,7 +8,7 @@ from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.indexed import Indexed, SearchField, FilterField
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
@@ -19,6 +19,24 @@ class ElasticSearchMapping(object):
     def get_document_type(self):
         return self.model.indexed_get_content_type()
 
+    def get_field_mapping(self, field):
+        mapping = {'type': 'string'}
+
+        if isinstance(field, SearchField):
+            if field.boost:
+                mapping['boost'] = field.boost
+
+            if field.partial_match:
+                mapping['analyzer'] = 'edgengram_analyzer'
+        elif isinstance(field, FilterField):
+            mapping['index'] = 'not_analyzed'
+
+        if 'es_extra' in field.kwargs:
+            for key, value in field.kwargs['es_extra'].items():
+                mapping[key] = value
+
+        return field.get_index_name(self.model), mapping
+
     def get_mapping(self):
         # Make field list
         fields = {
@@ -26,8 +44,9 @@ class ElasticSearchMapping(object):
             'content_type': dict(type='string'),
         }
 
-        for field in self.model.get_search_fields():
-            fields[field.get_attname(self.model)] = field.to_dict(self.model)
+        fields.update(dict(
+            self.get_field_mapping(field) for field in self.model.get_search_fields()
+        ))
 
         return {
             self.get_document_type(): {
