@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
@@ -157,6 +158,11 @@ def edit(request, content_type_app_name, content_type_model_name, id):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
+    usage_url = reverse('wagtailsnippets_usage',
+                        args=(content_type_app_name,
+                              content_type_model_name,
+                              id))
+
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=instance)
 
@@ -183,6 +189,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
         'snippet_type_name': snippet_type_name,
         'instance': instance,
         'edit_handler': edit_handler,
+        'usage_url': usage_url
     })
 
 
@@ -211,5 +218,16 @@ def delete(request, content_type_app_name, content_type_model_name, id):
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
+        'instance': instance,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, content_type_app_name, content_type_model_name, id):
+    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
+    model = content_type.model_class()
+    instance = get_object_or_404(model, id=id)
+
+    return render(request, "wagtailsnippets/snippets/usage.html", {
         'instance': instance,
     })

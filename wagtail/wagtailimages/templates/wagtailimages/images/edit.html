@@ -13,10 +13,10 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
-    
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" usage_count=image.usage_count usage_url=usage_url %}
+
     <div class="row row-flush nice-padding">
-       
+
         <div class="col7">
             <form action="{% url 'wagtailimages_edit_image' image.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -33,7 +33,7 @@
                     <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-            
+
         </div>
         <div class="col5">
             {% image image max-800x600 %}

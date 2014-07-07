@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from wagtail.wagtailadmin.utils import usage_count, used_by
 
 SNIPPET_MODELS = []
 
@@ -18,5 +19,7 @@ def get_snippet_content_types():
 
 def register_snippet(model):
     if model not in SNIPPET_MODELS:
+        model.usage_count = usage_count
+        model.used_by = used_by
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)

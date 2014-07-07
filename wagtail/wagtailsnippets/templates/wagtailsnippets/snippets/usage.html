@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=document.title %}{{ title }} Usage{% endblocktrans %}{% endblock %}
+{% block content %}
+
+    {% include "wagtailadmin/shared/header.html" with title="Usage" %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+          {% for u in document.used_by %}
+            <li>
+              <a href="{{ u.url }}">{{ u.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

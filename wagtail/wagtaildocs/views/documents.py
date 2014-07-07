@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -101,6 +102,9 @@ def edit(request, document_id):
     if not doc.is_editable_by_user(request.user):
         raise PermissionDenied
 
+    usage_url = reverse('wagtaildocs_document_usage',
+                        args=(doc.id,))
+
     if request.POST:
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc)
@@ -121,6 +125,7 @@ def edit(request, document_id):
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
         'form': form,
+        'usage_url': usage_url
     })
 
 
@@ -137,5 +142,14 @@ def delete(request, document_id):
         return redirect('wagtaildocs_index')
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
+        'document': doc,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, document_id):
+    doc = get_object_or_404(Document, id=document_id)
+
+    return render(request, "wagtaildocs/documents/usage.html", {
         'document': doc,
     })

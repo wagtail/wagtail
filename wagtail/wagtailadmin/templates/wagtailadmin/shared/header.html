@@ -16,6 +16,11 @@
             {% endif %}
         </div>
         <div class="right">
+            {% if usage_count or usage_count == 0 %}
+                <div class="usagecount">
+                  <a href="{{ usage_url }}">Used {{ usage_count }} Time{% if not usage_count == 1 %}s{% endif %}</a>
+                </div>
+            {% endif %}
             {% if add_link %}
                 <div class="addbutton">
                     <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>

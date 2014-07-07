@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -80,6 +81,9 @@ def edit(request, image_id):
     if not image.is_editable_by_user(request.user):
         raise PermissionDenied
 
+    usage_url = reverse('wagtailimages_image_usage',
+                        args=(image.id,))
+
     if request.POST:
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image)
@@ -101,6 +105,7 @@ def edit(request, image_id):
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
+        'usage_url': usage_url
     })
 
 
@@ -140,4 +145,15 @@ def add(request):
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, image_id):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    print dir(image)
+
+    return render(request, "wagtailimages/images/usage.html", {
+        'image': image,
     })

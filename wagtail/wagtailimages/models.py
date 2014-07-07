@@ -21,6 +21,7 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from .utils import validate_image_format
+from wagtail.wagtailadmin.utils import usage_count, used_by
 
 
 @python_2_unicode_compatible
@@ -47,6 +48,14 @@ class AbstractImage(models.Model, TagSearchable):
     uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
+
+    @property
+    def usage_count(self):
+        return usage_count(self)
+
+    @property
+    def used_by(self):
+        return used_by(self)
 
     indexed_fields = {
         'uploaded_by_user_id': {
