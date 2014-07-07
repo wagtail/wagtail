@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
+from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 
 
