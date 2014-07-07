@@ -55,6 +55,9 @@ def save_editorspicks(query, new_query, editors_pick_formset):
         for i, form in enumerate(editors_pick_formset.ordered_forms):
             form.instance.sort_order = i
 
+            # Make sure the form is marked as changed so it gets saved with the new order
+            form.has_changed = lambda: True
+
         editors_pick_formset.save()
 
         # If query was changed, move all editors picks to the new query

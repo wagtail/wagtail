@@ -25,10 +25,10 @@ This command moves a selection of pages from one section of the tree to another.
 Options:
 
  - **from**
-  This is the **id** of the page to move pages from. All descendants of this page will be moved to the destination. After the operation is complete, this page will have no children.
+   This is the **id** of the page to move pages from. All descendants of this page will be moved to the destination. After the operation is complete, this page will have no children.
 
  - **to**
-  This is the **id** of the page to move pages to.
+   This is the **id** of the page to move pages to.
 
 update_index
 ------------

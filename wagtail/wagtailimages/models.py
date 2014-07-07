@@ -20,6 +20,7 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
+from wagtail.wagtailsearch import indexed
 from .utils import validate_image_format
 from wagtail.wagtailadmin.utils import usage_count, used_by
 
@@ -57,14 +58,9 @@ class AbstractImage(models.Model, TagSearchable):
     def used_by(self):
         return used_by(self)
 
-    indexed_fields = {
-        'uploaded_by_user_id': {
-            'type': 'integer',
-            'store': 'yes',
-            'indexed': 'no',
-            'boost': 0,
-        },
-    }
+    search_fields = TagSearchable.search_fields + (
+        indexed.FilterField('uploaded_by_user'),
+    )
 
     def __str__(self):
         return self.title

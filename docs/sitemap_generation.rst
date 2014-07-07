@@ -1,3 +1,5 @@
+.. _sitemap_generation:
+
 Sitemap generation
 ==================
 

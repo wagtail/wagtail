@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch import indexed
 from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
 
 
@@ -76,18 +76,26 @@ class EditorsPick(models.Model):
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     description = models.TextField(blank=True)
 
+    def __repr__(self):
+        return 'EditorsPick(query="' + self.query.query_string + '", page="' + self.page.title + '")'
+
     class Meta:
         ordering = ('sort_order', )
 
 
 # Used for tests
 
-class SearchTest(models.Model, Indexed):
+class SearchTest(models.Model, indexed.Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)
 
-    indexed_fields = ("title", "content", "callable_indexed_field", "live")
+    search_fields = (
+        indexed.SearchField('title'),
+        indexed.SearchField('content'),
+        indexed.SearchField('callable_indexed_field'),
+        indexed.SearchField('live'),
+    )
 
     def callable_indexed_field(self):
         return "Callable"
@@ -96,4 +104,6 @@ class SearchTest(models.Model, Indexed):
 class SearchTestChild(SearchTest):
     extra_content = models.TextField()
 
-    indexed_fields = "extra_content"
+    search_fields = SearchTest.search_fields + (
+        indexed.SearchField('extra_content'),
+    )
