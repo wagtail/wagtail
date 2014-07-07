@@ -110,8 +110,9 @@ $(function(){
                             }
                         });
                     });
-
                 });
+
+                jform.find('.tag_field input').tagit(window.tagit_opts);
             });
         },
       

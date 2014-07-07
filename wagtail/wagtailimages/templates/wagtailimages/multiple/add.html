@@ -15,10 +15,10 @@
 
     <div class="nice-padding">
         <div class="drop-zone">
-            <p>Drag and drop images into this area to upload</p>
+            <p>{% trans "Drag and drop images into this area to upload" %}</p>
             
             <form class="replace-file-input" action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
-                <button class="bicolor icon icon-plus">Or choose from your computer</button>
+                <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
                 <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
                 {% csrf_token %}
             </form>
@@ -29,7 +29,6 @@
         </div>
 
         <ul id="upload-list" class="upload-list multiple"></ul>
-
     </div>
 
     <script id="upload-list-item" type="text/template">
@@ -43,59 +42,11 @@
                 </div>
             </div>
             <div class="right col9">
-                <p class="status-msg success">Upload successful. Please enter more information about this image</p>
-                <p class="status-msg failure">Sorry, upload failed.</p>
+                <p class="status-msg success">{% trans "Upload successful. Please enter more information about this image" %}</p>
+                <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
             </div>            
         </li>
     </script>
-
-    <!--
-    <ul class="upload-list multiple" id="upload-list-item" type="text/template">
-        <li class="uploading">
-            <div class="left col3">
-                <div class="preview">
-                    <div class="thumb icon icon-image">
-                        <img src="http://instasrc.com/150x150/nature" />
-                    </div>
-                    <div class="progress">
-                        <div class="bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="right col9">
-                <p class="status-msg success">Upload successful. Please enter more information about this image</p>
-                <p class="status-msg failure">Sorry, upload failed.</p>
-            </div>            
-        </li>
-        <li class="failed hasthumb">
-            <div class="left">
-                <div class="preview">
-                    <div class="thumb icon icon-image">
-                        <img src="http://instasrc.com/150x150/architecture" />
-                    </div>
-                    <div class="progress">
-                        <div class="bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="right"></div>            
-        </li>
-        <li class="done">
-            <div class="left">
-                <div class="preview">
-                    <div class="thumb icon icon-image">
-                        <img src="http://instasrc.com/150x150/art" />
-                    </div>
-                    <div class="progress">
-                        <div class="bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="right"></div>            
-        </li>
-    </ul>
-    -->
-
 {% endblock %}
 
 {% block extra_js %}
@@ -110,6 +61,8 @@
     
     <!-- Main script -->
     <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
+    
+    {% include "wagtailadmin/shared/tag_field_js.html" %}
     
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
