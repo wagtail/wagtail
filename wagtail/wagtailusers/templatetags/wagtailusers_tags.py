@@ -30,7 +30,7 @@ def format_permissions(permission_bound_field):
     permissions = permission_bound_field.field._queryset
     # get a distinct list of the content types that these permissions relate to
     content_type_ids = set(permissions.values_list('content_type_id', flat=True))
-    initial = permission_bound_field.form.initial['permissions']
+    initial = permission_bound_field.form.initial.get('permissions', [])
 
     object_perms = []
     other_perms = []

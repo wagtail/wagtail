@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load image_tags %}
+{% load wagtailusers_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Add group" %}{% endblock %}
 {% block bodyclass %}menu-groups{% endblock %}
@@ -13,9 +14,17 @@
         <div class="nice-padding">
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.permissions %}
+                {% format_permissions permission_bound_field=form.permissions %}
+                {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
                 <li><input type="submit" value='{% trans "Add group" %}' /></li>
             </ul>
         </div>
     </form>
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script type="text/javascript">
+        {% include "wagtailusers/groups/includes/page_permissions_formset.js" with formset=formset only %}
+    </script>
 {% endblock %}

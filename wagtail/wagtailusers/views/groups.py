@@ -80,19 +80,30 @@ def index(request):
 
 @permission_required(change_user_perm)
 def create(request):
+    GroupPagePermissionFormSet = inlineformset_factory(
+        Group,
+        GroupPagePermission,
+        formset=BaseGroupPagePermissionFormSet,
+        extra=0
+    )
     if request.POST:
         form = GroupForm(request.POST)
-        if form.is_valid():
+        formset = GroupPagePermissionFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
             group = form.save()
+            formset.instance = group
+            formset.save()
             messages.success(request, _("Group '{0}' created.").format(group))
             return redirect('wagtailusers_groups_index')
         else:
             messages.error(request, _("The group could not be created due to errors."))
     else:
         form = GroupForm()
+        formset = GroupPagePermissionFormSet()
 
     return render(request, 'wagtailusers/groups/create.html', {
         'form': form,
+        'formset': formset,
     })
 
 

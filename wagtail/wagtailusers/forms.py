@@ -179,7 +179,7 @@ class GroupForm(forms.ModelForm):
         # be clobbered by this form.
         try:
             untouchable_permissions = self.instance.permissions.exclude(pk__in=self.registered_permissions)
-        except AttributeError:
+        except ValueError:
             # this form is not bound; we're probably creating a new group
             untouchable_permissions = Permission.objects.none()
         group = super(GroupForm, self).save()
