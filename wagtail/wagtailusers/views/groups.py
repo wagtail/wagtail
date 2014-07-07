@@ -87,7 +87,7 @@ def create(request):
             messages.success(request, _("Group '{0}' created.").format(group))
             return redirect('wagtailusers_groups_index')
         else:
-            messages.error(request, _("The group could not be created due to errors.") )
+            messages.error(request, _("The group could not be created due to errors."))
     else:
         form = GroupForm()
 
