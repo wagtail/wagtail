@@ -24,7 +24,7 @@ PY3 = sys.version_info[0] == 3
 
 install_requires = [
     "Django>=1.6.2,<1.7",
-    "South>=0.8.4",
+    "South==1.0.0",
     "django-compressor>=1.4",
     "django-libsass>=0.2",
     "django-modelcluster>=0.3",
