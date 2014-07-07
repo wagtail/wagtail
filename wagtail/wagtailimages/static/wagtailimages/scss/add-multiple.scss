@@ -3,13 +3,19 @@
 @import "../../wagtailadmin/static/wagtailadmin/scss/grid.scss";
 
 .replace-file-input{
+    display:inline-block;
     position:relative;
 
     input[type=file]{
+        padding:0;
         opacity:0;
         position:absolute;
         top:0;
-        left:0;
+        right:0;
+        direction:ltr;
+        width:auto;
+        display:block;
+        font-size:5em;
 
         &:hover{
             cursor:pointer;

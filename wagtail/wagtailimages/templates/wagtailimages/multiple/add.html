@@ -17,9 +17,11 @@
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload" %}</p>
             
-            <form class="replace-file-input" action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
-                <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
-                <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
+            <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
+                <div class="replace-file-input">
+                    <button class="bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages_add_multiple' %}" multiple>
+                </div>
                 {% csrf_token %}
             </form>
         </div>
@@ -63,7 +65,7 @@
     <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
     
     {% include "wagtailadmin/shared/tag_field_js.html" %}
-    
+
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         window.tagit_opts = {
