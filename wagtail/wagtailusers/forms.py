@@ -188,6 +188,10 @@ class GroupForm(forms.ModelForm):
 
 
 class GroupPagePermissionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GroupPagePermissionForm, self).__init__(*args, **kwargs)
+        self.fields['page'].widget = forms.HiddenInput()
+
     class Meta:
         model = GroupPagePermission
         fields = ('page', 'permission_type')
@@ -197,6 +201,14 @@ class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
     def __init__(self, *args, **kwargs):
         super(BaseGroupPagePermissionFormSet, self).__init__(*args, **kwargs)
         self.form = GroupPagePermissionForm
+        for form in self.forms:
+            form.fields['DELETE'].widget = forms.HiddenInput()
+
+    @property
+    def empty_form(self):
+        empty_form = super(BaseGroupPagePermissionFormSet, self).empty_form
+        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        return empty_form
 
 
 class NotificationPreferencesForm(forms.ModelForm):
