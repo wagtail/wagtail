@@ -166,6 +166,13 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         return self.client.get(reverse('wagtailusers_groups_create'), params)
 
     def post(self, post_data={}):
+        post_defaults = {
+            u'page_permissions-TOTAL_FORMS': [u'0'],
+            u'page_permissions-MAX_NUM_FORMS': [u'1000'],
+            u'page_permissions-INITIAL_FORMS': [u'0'],
+        }
+        for k, v in post_defaults.iteritems():
+            post_data[k] = post_data.get(k, v)
         return self.client.post(reverse('wagtailusers_groups_create'), post_data)
 
     def test_simple(self):
@@ -198,6 +205,14 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         return self.client.get(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), params)
 
     def post(self, post_data={}, group_id=None):
+        post_defaults = {
+            u'name': 'test group',
+            u'page_permissions-TOTAL_FORMS': [u'0'],
+            u'page_permissions-MAX_NUM_FORMS': [u'1000'],
+            u'page_permissions-INITIAL_FORMS': [u'0'],
+        }
+        for k, v in post_defaults.iteritems():
+            post_data[k] = post_data.get(k, v)
         return self.client.post(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), post_data)
 
     def test_simple(self):
