@@ -171,6 +171,8 @@ Other Relationships
 Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). It's largely up to the models to define their interrelations, the possibilities are really endless.
 
 
+.. _anatomy_of_a_wagtail_request:
+
 Anatomy of a Wagtail Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
