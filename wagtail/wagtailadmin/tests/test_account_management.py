@@ -14,16 +14,10 @@ class TestAuthentication(TestCase, WagtailTestUtils):
     """
     This tests that users can login and logout of the admin interface
     """
-    def setUp(self):
-        self.login()
-
     def test_login_view(self):
         """
         This tests that the login view responds with a login page
         """
-        # Logout so we can test the login view
-        self.client.logout()
-
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
 
@@ -36,8 +30,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This posts user credentials to the login view and checks that
         the user was logged in successfully
         """
-        # Logout so we can test the login view
-        self.client.logout()
+        # Create user to log in with
+        user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         post_data = {
@@ -59,6 +53,9 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         redirected to the admin dashboard if they try to access the login
         page
         """
+        # Login
+        self.login()
+
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
 
@@ -88,6 +85,9 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         """
         This tests that the user can logout
         """
+        # Login
+        self.login()
+
         # Get logout page
         response = self.client.get(reverse('wagtailadmin_logout'))
 
@@ -102,9 +102,6 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests that a not logged in user is redirected to the
         login page
         """
-        # Logout
-        self.client.logout()
-
         # Get dashboard
         response = self.client.get(reverse('wagtailadmin_home'))
 
@@ -117,9 +114,6 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         redirects to the correct place when the user has not set
         the LOGIN_URL setting correctly
         """
-        # Logout
-        self.client.logout()
-
         # Get dashboard with default LOGIN_URL setting
         with self.settings(LOGIN_URL='django.contrib.auth.views.login'):
             response = self.client.get(reverse('wagtailadmin_home'))
