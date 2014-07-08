@@ -58,7 +58,7 @@ A new module has been added (``wagtail.contrib.wagtailfrontendcache``) which inv
 Notification preferences
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Users can now decide which notifications they recieve from Wagtail using a new "Notification preferences" section located in the accound settings section.
+Users can now decide which notifications they recieve from Wagtail using a new "Notification preferences" section located in the account settings.
 
 
 Minor features
