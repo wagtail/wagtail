@@ -6,6 +6,7 @@ Wagtail 0.4 release notes
 Whats new
 =========
 
+
 Front-end permissions
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -31,14 +32,11 @@ TODO: Link to docs
 Search on QuerySet with Elasticsearch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Its now possible to perform searches with Elasticsearch on ``PageQuerySet``s.
-
-Example:
+Its now possible to perform searches with Elasticsearch on ``PageQuerySet``s:
 
     >>> from wagtail.wagtailcore.models import Page
     >>> Page.objects.live().descendant_of(events_index).search("Hello")
     [<Page: Event 1>, <Page: Event 2>]
-
 
 
 Sitemap generation
@@ -65,6 +63,7 @@ Users can now decide which notifications they recieve from Wagtail using a new "
 
 Minor features
 ~~~~~~~~~~~~~~
+
 
 Core
 ----
@@ -119,6 +118,7 @@ Bug fixes
 Backwards incompatible changes
 ==============================
 
+
 ElasticUtils/pyelasticsearch has now been replaced with elasticsearch-py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -128,8 +128,45 @@ TODO
 Deprecated features
 ===================
 
- * Renamed some template tag libraries
 
-TODO: Write some more about renamed template tags
+Template tag libraries renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO: Search wagtail codebase for any new DeprecationWarnings
+The following template tag libraries have been renamed:
+
+ * ``pageurl`` => ``wagtailcore_tags``
+ * ``rich_text`` => ``wagtailcore_tags``
+ * ``embed_filters`` => ``wagtailembeds_tags``
+ * ``image_tags`` => ``wagtailimages_tags``
+
+
+New search field configuration format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
+
+TODO: Needs docs!
+
+
+Page.route method should now return a RouteResult instead of an HttpResponse
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
+
+
+Hooks have been moved into wagtailcore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
+
+
+Page.show_as_mode renamed to Page.serve_preview
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
+
+
+Page.get_other_siblings deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Please use ``my_page.get_siblings(inclusive=False)`` instead.
