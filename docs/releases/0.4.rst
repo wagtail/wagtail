@@ -7,12 +7,12 @@ Whats new
 =========
 
 
-Front-end permissions
-~~~~~~~~~~~~~~~~~~~~~
+Private Pages
+~~~~~~~~~~~~~
 
 Wagtail now supports password protecting pages on the frontend allowing sections of your website to be made private.
 
-TODO: Link to docs
+:ref:`private_pages`
 
 
 Python 3 support
@@ -26,9 +26,7 @@ Scheduled publishing
 
 Editors can now schedule pages to be published or unpublished at specified times.
 
-A new management command has been added (``publish_scheduled_pages``) to publish pages that have been scheduled by an Editor.
-
-TODO: Link to docs
+A new management command has been added (:ref:`publish_scheduled_pages`) to publish pages that have been scheduled by an Editor.
 
 
 Search on QuerySet with Elasticsearch
@@ -46,7 +44,7 @@ Sitemap generation
 
 A new module has been added (``wagtail.contrib.wagtailsitemaps``) which produces XML sitemaps for Wagtail sites.
 
-TODO: Link to docs
+:ref:`sitemap_generation`
 
 
 Front-end cache invalidation
@@ -54,7 +52,7 @@ Front-end cache invalidation
 
 A new module has been added (``wagtail.contrib.wagtailfrontendcache``) which invalidates pages in a frontend cache when they are updated or deleted in Wagtail.
 
-TODO: Link to docs
+:ref:`frontend_cache_purging`
 
 
 Notification preferences
@@ -129,7 +127,7 @@ If you are using the elasticsearch backend, you must install the ``elasticsearch
 
 .. note::
 
-    If you are using an older version of Elasticsearch (< 1.0) you must install elasticsearch-py 0.4.x.
+    If you are using an older version of Elasticsearch (< 1.0) you must install ``elasticsearch`` version 0.4.x.
 
 
 Deprecated features
@@ -152,15 +150,13 @@ New search field configuration format
 
 ``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
 
-TODO: Needs docs!
-
 
 Page.route method should now return a RouteResult
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, the ``route`` method called ``serve`` and returned a ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
 
-TODO: Link to docs
+:ref:`anatomy_of_a_wagtail_request`
 
 
 Wagtailadmins ``hooks`` module has moved to wagtailcore
@@ -171,8 +167,8 @@ If you use any ``wagtail_hooks.py`` files in your project, you may have an impor
 Change this to: ``from wagtail.wagtailcore import hooks``
 
 
-Page.show_as_mode renamed to Page.serve_preview
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Page.show_as_mode replaced with Page.serve_preview
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TODO
 
