@@ -6,7 +6,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailusers.models import UserProfile
 
 
@@ -64,6 +64,25 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    @unittest.expectedFailure
+    def test_logged_in_as_non_privilaged_user_doesnt_redirect(self):
+        """
+        This tests that if the user is logged in but hasn't got permission
+        to access the admin, they are not redirected to the admin
+
+        This tests issue #431
+        """
+        # Login as unprivilaged user
+        User.objects.create(username='unprivilaged', password='123')
+        self.client.login(username='unprivilaged', password='123')
+
+        # Get login page
+        response = self.client.get(reverse('wagtailadmin_login'))
+
+        # Check that the user recieved a login page and was not redirected
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/login.html')
 
     def test_logout(self):
         """
