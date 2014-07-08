@@ -10,7 +10,9 @@ Whats new
 Front-end permissions
 ~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+Wagtail now supports password protecting pages on the frontend allowing sections of your website to be made private.
+
+TODO: Link to docs
 
 
 Python 3 support
@@ -80,8 +82,8 @@ Core
 Admin
 -----
 
- * Removed the "More" section from the admin menu
- * Added pagination to page listings in admin
+ * Removed the "More" section from the menu
+ * Added pagination to page listings
  * Added a new datetime picker widget
  * Updated hallo.js to version 1.0.4
  * Aesthetic improvements to preview experience
@@ -119,10 +121,15 @@ Backwards incompatible changes
 ==============================
 
 
-ElasticUtils/pyelasticsearch has now been replaced with elasticsearch-py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ElasticUtils replaced with elasticsearch-py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+If you are using the elasticsearch backend, you must install the ``elasticsearch`` module into your environment.
+
+
+.. note::
+
+    If you are using an older version of Elasticsearch (< 1.0) you must install elasticsearch-py 0.4.x.
 
 
 Deprecated features
@@ -143,25 +150,29 @@ The following template tag libraries have been renamed:
 New search field configuration format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
+``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
 
 TODO: Needs docs!
 
 
-Page.route method should now return a RouteResult instead of an HttpResponse
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Page.route method should now return a RouteResult
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+Previously, the ``route`` method called ``serve`` and returned a ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
+
+TODO: Link to docs
 
 
-Hooks have been moved into wagtailcore
+Wagtailadmins ``hooks`` module has moved to wagtailcore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+If you use any ``wagtail_hooks.py`` files in your project, you may have an import like: ``from wagtail.wagtailadmin import hooks``
+
+Change this to: ``from wagtail.wagtailcore import hooks``
 
 
 Page.show_as_mode renamed to Page.serve_preview
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TODO
 
