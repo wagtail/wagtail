@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
 
