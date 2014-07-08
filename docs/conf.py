@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Wagtail Documentation'
+project = u'Wagtail'
 copyright = u'2014, Torchbox'
 
 # The version info for the project you're documenting, acts as replacement for
