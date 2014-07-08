@@ -8,15 +8,112 @@ from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.indexed import Indexed, SearchField, FilterField
 from wagtail.wagtailsearch.utils import normalise_query_string
+
+
+class ElasticSearchMapping(object):
+    TYPE_MAP = {
+        'AutoField': 'integer',
+        'BinaryField': 'binary',
+        'BooleanField': 'boolean',
+        'CharField': 'string',
+        'CommaSeparatedIntegerField': 'string',
+        'DateField': 'date',
+        'DateTimeField': 'date',
+        'DecimalField': 'double',
+        'FileField': 'string',
+        'FilePathField': 'string',
+        'FloatField': 'double',
+        'IntegerField': 'integer',
+        'BigIntegerField': 'long',
+        'IPAddressField': 'string',
+        'GenericIPAddressField': 'string',
+        'NullBooleanField': 'boolean',
+        'OneToOneField': 'integer',
+        'PositiveIntegerField': 'integer',
+        'PositiveSmallIntegerField': 'integer',
+        'SlugField': 'string',
+        'SmallIntegerField': 'integer',
+        'TextField': 'string',
+        'TimeField': 'date',
+    }
+
+    def __init__(self, model):
+        self.model = model
+
+    def get_document_type(self):
+        return self.model.indexed_get_content_type()
+
+    def get_field_mapping(self, field):
+        mapping = {'type': self.TYPE_MAP.get(field.get_type(self.model), 'string')}
+
+        if isinstance(field, SearchField):
+            if field.boost:
+                mapping['boost'] = field.boost
+
+            if field.partial_match:
+                mapping['analyzer'] = 'edgengram_analyzer'
+
+            mapping['include_in_all'] = True
+        elif isinstance(field, FilterField):
+            mapping['index'] = 'not_analyzed'
+            mapping['include_in_all'] = False
+
+        if 'es_extra' in field.kwargs:
+            for key, value in field.kwargs['es_extra'].items():
+                mapping[key] = value
+
+        return field.get_index_name(self.model), mapping
+
+    def get_mapping(self):
+        # Make field list
+        fields = {
+            'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
+            'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
+            '_partials': dict(type='string', analyzer='edgengram_analyzer', include_in_all=False),
+        }
+
+        fields.update(dict(
+            self.get_field_mapping(field) for field in self.model.get_search_fields()
+        ))
+
+        return {
+            self.get_document_type(): {
+                'properties': fields,
+            }
+        }
+
+    def get_document_id(self, obj):
+        return obj.indexed_get_toplevel_content_type() + ':' + str(obj.pk)
+
+    def get_document(self, obj):
+        # Build document
+        doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
+        partials = []
+        for field in self.model.get_search_fields():
+            value = field.get_value(obj)
+
+            doc[field.get_index_name(self.model)] = value
+
+            # Check if this field should be added into _partials
+            if isinstance(field, SearchField) and field.partial_match:
+                partials.append(value)
+
+        # Add partials to document
+        doc['_partials'] = partials
+
+        return doc
+
+    def __repr__(self):
+        return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
 
 
 class ElasticSearchQuery(object):
     def __init__(self, model, query_string, fields=None, filters={}):
         self.model = model
         self.query_string = query_string
-        self.fields = fields or ['_all']
+        self.fields = fields or ['_all', '_partials']
         self.filters = filters
 
     def _get_filters(self):
@@ -283,43 +380,43 @@ class ElasticSearch(BaseSearch):
 
         # Settings
         INDEX_SETTINGS = {
-            "settings": {
-                "analysis": {
-                    "analyzer": {
-                        "ngram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["ngram"]
+            'settings': {
+                'analysis': {
+                    'analyzer': {
+                        'ngram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['ngram']
                         },
-                        "edgengram_analyzer": {
-                            "type": "custom",
-                            "tokenizer": "lowercase",
-                            "filter": ["edgengram"]
+                        'edgengram_analyzer': {
+                            'type': 'custom',
+                            'tokenizer': 'lowercase',
+                            'filter': ['edgengram']
                         }
                     },
-                    "tokenizer": {
-                        "ngram_tokenizer": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15,
+                    'tokenizer': {
+                        'ngram_tokenizer': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15,
                         },
-                        "edgengram_tokenizer": {
-                            "type": "edgeNGram",
-                            "min_gram": 2,
-                            "max_gram": 15,
-                            "side": "front"
+                        'edgengram_tokenizer': {
+                            'type': 'edgeNGram',
+                            'min_gram': 2,
+                            'max_gram': 15,
+                            'side': 'front'
                         }
                     },
-                    "filter": {
-                        "ngram": {
-                            "type": "nGram",
-                            "min_gram": 3,
-                            "max_gram": 15
+                    'filter': {
+                        'ngram': {
+                            'type': 'nGram',
+                            'min_gram': 3,
+                            'max_gram': 15
                         },
-                        "edgengram": {
-                            "type": "edgeNGram",
-                            "min_gram": 1,
-                            "max_gram": 15
+                        'edgengram': {
+                            'type': 'edgeNGram',
+                            'min_gram': 1,
+                            'max_gram': 15
                         }
                     }
                 }
@@ -330,25 +427,11 @@ class ElasticSearch(BaseSearch):
         self.es.indices.create(self.es_index, INDEX_SETTINGS)
 
     def add_type(self, model):
-        # Get type name
-        content_type = model.indexed_get_content_type()
-
-        # Get indexed fields
-        indexed_fields = model.indexed_get_indexed_fields()
-
-        # Make field list
-        fields = {
-            "pk": dict(type="string", index="not_analyzed", store="yes"),
-            "content_type": dict(type="string"),
-        }
-        fields.update(indexed_fields)
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
 
         # Put mapping
-        self.es.indices.put_mapping(index=self.es_index, doc_type=content_type, body={
-            content_type: {
-                "properties": fields,
-            }
-        })
+        self.es.indices.put_mapping(index=self.es_index, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
 
     def refresh_index(self):
         self.es.indices.refresh(self.es_index)
@@ -358,11 +441,11 @@ class ElasticSearch(BaseSearch):
         if not self.object_can_be_indexed(obj):
             return
 
-        # Build document
-        doc = obj.indexed_build_document()
+        # Get mapping
+        mapping = ElasticSearchMapping(obj.__class__)
 
-        # Add to index
-        self.es.index(self.es_index, obj.indexed_get_content_type(), doc, id=doc["id"])
+        # Add document to index
+        self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
 
     def add_bulk(self, obj_list):
         # Group all objects by their type
@@ -372,29 +455,33 @@ class ElasticSearch(BaseSearch):
             if not self.object_can_be_indexed(obj):
                 continue
 
-            # Get object type
-            obj_type = obj.indexed_get_content_type()
+            # Get mapping
+            mapping = ElasticSearchMapping(obj.__class__)
+
+            # Get document type
+            doc_type = mapping.get_document_type()
 
             # If type is currently not in set, add it
-            if obj_type not in type_set:
-                type_set[obj_type] = []
+            if doc_type not in type_set:
+                type_set[doc_type] = []
 
-            # Add object to set
-            type_set[obj_type].append(obj.indexed_build_document())
+            # Add document to set
+            type_set[doc_type].append((mapping.get_document_id(obj), mapping.get_document(obj)))
 
         # Loop through each type and bulk add them
-        for type_name, type_objects in type_set.items():
+        for type_name, type_documents in type_set.items():
             # Get list of actions
             actions = []
-            for obj in type_objects:
+            for doc_id, doc in type_documents:
                 action = {
                     '_index': self.es_index,
                     '_type': type_name,
-                    '_id': obj['id'],
+                    '_id': doc_id,
                 }
-                action.update(obj)
+                action.update(doc)
                 actions.append(action)
 
+            yield type_name, len(type_documents)
             bulk(self.es, actions)
 
     def delete(self, obj):
@@ -402,12 +489,15 @@ class ElasticSearch(BaseSearch):
         if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
             return
 
+        # Get mapping
+        mapping = ElasticSearchMapping(obj.__class__)
+
         # Delete document
         try:
             self.es.delete(
                 self.es_index,
-                obj.indexed_get_content_type(),
-                obj.indexed_get_document_id(),
+                mapping.get_document_type(),
+                mapping.get_document_id(obj),
             )
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception

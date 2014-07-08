@@ -75,7 +75,7 @@ def notification_preferences(request):
 @sensitive_post_parameters()
 @never_cache
 def login(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated() and request.user.has_perm('wagtailadmin.access_admin'):
         return redirect('wagtailadmin_home')
     else:
         return auth_login(request,

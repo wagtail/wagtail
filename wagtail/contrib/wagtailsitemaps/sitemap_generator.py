@@ -8,7 +8,7 @@ class Sitemap(object):
         self.site = site
 
     def get_pages(self):
-        return self.site.root_page.get_descendants(inclusive=True).live().order_by('path')
+        return self.site.root_page.get_descendants(inclusive=True).live().public().order_by('path')
 
     def get_urls(self):
         for page in self.get_pages():
