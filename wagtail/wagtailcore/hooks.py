@@ -1,4 +1,5 @@
 from django.conf import settings
+from imp import find_module
 try:
     from importlib import import_module
 except ImportError:
@@ -13,6 +14,45 @@ _hooks = {}
 #        ...
 
 
+def recursive_step(pathname, module):
+    """
+    Given a pathname and a module name expected at that path, use find_module()
+    to return the combined pathname of the input pathname and the module name,
+    if it exists and is importable.
+    """
+    if pathname:
+        f, pathname, description = find_module(module, [pathname])
+    else:
+        f, pathname, description = find_module(module)
+    return pathname
+
+
+def recursively_find_module(app_module, submodule):
+    """
+    Given a dotted python path and a submodule, check to see whether the
+    submodule exists and is importable at that dotted python path.
+
+    This has to happen recursively, as find_module ignores hierarchichal module
+    names:
+    https://docs.python.org/2.7/library/imp.html?highlight=imp#imp.find_module
+
+    NB find_module raises ImportError if the designated module does not exist,
+    but this is distinct from an ImportError raised when importing that module.
+    """
+    nested_modules = app_module.split('.')
+
+    pathname = None  # initially
+    for module in nested_modules:
+        pathname = recursive_step(pathname, module)
+
+    try:
+        pathname = recursive_step(pathname, submodule)
+    except ImportError:
+        return False
+    else:
+        return True
+
+
 def register(hook_name, fn):
     if hook_name not in _hooks:
         _hooks[hook_name] = []
@@ -25,10 +65,8 @@ def search_for_hooks():
     global _searched_for_hooks
     if not _searched_for_hooks:
         for app_module in settings.INSTALLED_APPS:
-            try:
+            if recursively_find_module(app_module, 'wagtail_hooks'):
                 import_module('%s.wagtail_hooks' % app_module)
-            except ImportError:
-                continue
 
         _searched_for_hooks = True
 
