@@ -151,8 +151,8 @@ New search field configuration format
 ``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
 
 
-Page.route method should now return a RouteResult
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``Page.route`` method should now return a ``RouteResult``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, the ``route`` method called ``serve`` and returned a ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
 
@@ -167,13 +167,9 @@ If you use any ``wagtail_hooks.py`` files in your project, you may have an impor
 Change this to: ``from wagtail.wagtailcore import hooks``
 
 
-Page.show_as_mode replaced with Page.serve_preview
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Miscellaneous
+~~~~~~~~~~~~~
 
-TODO
-
-
-Page.get_other_siblings deprecated
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Please use ``my_page.get_siblings(inclusive=False)`` instead.
+ * ``Page.show_as_mode``  replaced with ``Page.serve_preview``
+ * ``Page.get_page_modes`` method replaced with ``Page.preview_modes`` property
+ * ``Page.get_other_siblings`` replaced with ``Page.get_siblings(inclusive=False)``
