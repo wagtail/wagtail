@@ -62,16 +62,16 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
-    def test_logged_in_as_non_privilaged_user_doesnt_redirect(self):
+    def test_logged_in_as_non_privileged_user_doesnt_redirect(self):
         """
         This tests that if the user is logged in but hasn't got permission
         to access the admin, they are not redirected to the admin
 
         This tests issue #431
         """
-        # Login as unprivilaged user
-        User.objects.create(username='unprivilaged', password='123')
-        self.client.login(username='unprivilaged', password='123')
+        # Login as unprivileged user
+        User.objects.create(username='unprivileged', password='123')
+        self.client.login(username='unprivileged', password='123')
 
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
