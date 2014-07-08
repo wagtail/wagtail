@@ -71,6 +71,7 @@ class ElasticSearchMapping(object):
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
             'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
+            '_partials': dict(type='string', analyzer='edgengram_analyzer', include_in_all=False),
         }
 
         fields.update(dict(
@@ -89,8 +90,18 @@ class ElasticSearchMapping(object):
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
+        partials = []
         for field in self.model.get_search_fields():
-            doc[field.get_index_name(self.model)] = field.get_value(obj)
+            value = field.get_value(obj)
+
+            doc[field.get_index_name(self.model)] = value
+
+            # Check if this field should be added into _partials
+            if isinstance(field, SearchField) and field.partial_match:
+                partials.append(value)
+
+        # Add partials to document
+        doc['_partials'] = partials
 
         return doc
 
@@ -102,7 +113,7 @@ class ElasticSearchQuery(object):
     def __init__(self, model, query_string, fields=None, filters={}):
         self.model = model
         self.query_string = query_string
-        self.fields = fields or ['_all']
+        self.fields = fields or ['_all', '_partials']
         self.filters = filters
 
     def _get_filters(self):
