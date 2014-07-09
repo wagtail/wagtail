@@ -1,6 +1,6 @@
 
 Defining models with the Editing API
-===========
+====================================
 
 .. note::
     This documentation is currently being written.
@@ -251,7 +251,7 @@ Field Customization
 
 By adding CSS classnames to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customization covered there. (See `Django model field reference`_ ).
 
-.. _Django model field reference:https://docs.djangoproject.com/en/dev/ref/models/fields/
+.. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
 
 
 Full-Width Input
@@ -374,7 +374,7 @@ For more on ``django-modelcluster``, visit `the django-modelcluster github proje
 Extending the WYSIWYG Editor (hallo.js)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
 
 .. code-block:: javascript
 
@@ -401,6 +401,23 @@ Registering functions with a Wagtail hook follows the following pattern:
   hooks.register('hook', function)
 
 Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
+
+.. _before_serve_page:
+
+``before_serve_page``
+  .. versionadded:: 0.4
+
+  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    def block_googlebot(page, request, serve_args, serve_kwargs):
+        if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+            return HttpResponse("<h1>bad googlebot no cookie</h1>")
+
+    hooks.register('before_serve_page', block_googlebot)
 
 .. _construct_wagtail_edit_bird:
 
@@ -565,7 +582,8 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
-  .. versionadded:: 0.4
+.. versionadded:: 0.4
+
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
   The ``wagtail.wagtailcore.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
@@ -593,6 +611,7 @@ On loading, Wagtail will search for any app with the file ``image_formats.py`` a
 As an example, add a "thumbnail" format:
 
 .. code-block:: python
+
   # image_formats.py
   from wagtail.wagtailimages.formats import Format, register_image_format
 

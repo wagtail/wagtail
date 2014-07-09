@@ -27,8 +27,10 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class SiteManager(models.Manager):
@@ -227,6 +229,12 @@ class PageManager(models.Manager):
     def not_type(self, model):
         return self.get_queryset().not_type(model)
 
+    def public(self):
+        return self.get_queryset().public()
+
+    def not_public(self):
+        return self.get_queryset().not_public()
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -260,7 +268,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -279,21 +287,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
-    indexed_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 100,
-        },
-        'live': {
-            'type': 'boolean',
-            'index': 'not_analyzed',
-        },
-        'path': {
-            'type': 'string',
-            'index': 'not_analyzed',
-        },
-    }
+    search_fields = (
+        indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.FilterField('live'),
+        indexed.FilterField('path'),
+    )
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -415,7 +413,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
         else:
             # request is for this very page
             if self.live:
-                return self.serve(request)
+                return RouteResult(self)
             else:
                 raise Http404
 
@@ -523,7 +521,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
 
         # Search
         s = get_search_backend()
-        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return s.search(query_string, cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
     def clean_subpage_types(cls):
@@ -809,6 +807,24 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, Indexed)):
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
+    def get_view_restrictions(self):
+        """Return a query set of all page view restrictions that apply to this page"""
+        return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+
+    password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+    def serve_password_required_response(self, request, form, action_url):
+        """
+        Serve a response indicating that the user has been denied access to view this page,
+        and must supply a password.
+        form = a Django form object containing the password input
+            (and zero or more hidden fields that also need to be output on the template)
+        action_url = URL that this form should be POSTed to
+        """
+        context = self.get_context(request)
+        context['form'] = form
+        context['action_url'] = action_url
+        return TemplateResponse(request, self.password_required_template, context)
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -1093,6 +1109,9 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('publish' in self.permissions)
 
+    def can_set_view_restrictions(self):
+        return self.can_publish()
+
     def can_publish_subpage(self):
         """
         Niggly special case for creating and publishing a page in one go.
@@ -1150,3 +1169,8 @@ class PagePermissionTester(object):
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
+
+
+class PageViewRestriction(models.Model):
+    page = models.ForeignKey('Page', related_name='view_restrictions')
+    password = models.CharField(max_length=255)

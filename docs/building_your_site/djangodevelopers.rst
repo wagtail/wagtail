@@ -171,15 +171,18 @@ Other Relationships
 Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). It's largely up to the models to define their interrelations, the possibilities are really endless.
 
 
+.. _anatomy_of_a_wagtail_request:
+
 Anatomy of a Wagtail Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For going beyond the basics of model definition and interrelation, it might help to know how Wagtail handles requests and constructs responses. In short, it goes something like:
 
     #.  Django gets a request and routes through Wagtail's URL dispatcher definitions
-    #.  Starting from the root content piece, Wagtail traverses the page tree, letting the model for each piece of content along the path decide how to ``route()`` the next step in the path.
-    #.  A model class decides that routing is done and it's now time to ``serve()`` content.
-    #.  ``serve()`` constructs a context using ``get_context()``
+    #.  Wagtail checks the hostname of the request to determine which ``Site`` record will handle this request.
+    #.  Starting from the root page of that site, Wagtail traverses the page tree, calling the ``route()`` method and letting each page model decide whether it will handle the request itself or pass it on to a child page.
+    #.  The page responsible for handling the request returns a ``RouteResult`` object from ``route()``, which identifies the page along with any additional args/kwargs to be passed to ``serve()``.
+    #.  Wagtail calls ``serve()``, which constructs a context using ``get_context()``
     #.  ``serve()`` finds a template to pass it to using ``get_template()``
     #.  A response object is returned by ``serve()`` and Django responds to the requester.
 

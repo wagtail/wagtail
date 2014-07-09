@@ -312,12 +312,19 @@ class TestInlinePanel(TestCase):
                           'ORDER': MagicMock()}
                 instance = FakeInstance()
 
+                cleaned_data = {
+                    'ORDER': 0,
+                }
+
                 def __repr__(self):
                     return 'fake form'
 
             forms = [FakeForm()]
             empty_form = FakeForm()
             can_order = True
+
+            def is_valid(self):
+                return True
 
         label = 'label'
         help_text = 'help text'
