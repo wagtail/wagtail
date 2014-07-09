@@ -3,8 +3,12 @@
 {% block titletag %}{% trans "Sites" %}{% endblock %}
 {% block content %}
     {% trans "Sites" as sites_str %}
-    {% trans "Add a site" as add_a_site_str %}
-    {% include "wagtailadmin/shared/header.html" with title=sites_str add_link="wagtailsites_create" add_text=add_a_site_str icon="radio-empty" %}
+    {% if perms.site.add_site %}
+        {% trans "Add a site" as add_a_site_str %}
+        {% include "wagtailadmin/shared/header.html" with title=sites_str add_link="wagtailsites_create" add_text=add_a_site_str icon="radio-empty" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=sites_str icon="radio-empty" %}
+    {% endif %}
 
     <div class="nice-padding">
         <div id="sites-list">
