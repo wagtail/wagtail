@@ -7,6 +7,27 @@ Wagtailsearch: For python developers
 ====================================
 
 
+Basic useage
+============
+
+All searches are performed on Django QuerySets:
+
+.. code-block:: python
+
+    # Search future EventPages
+    >>> from wagtail.wagtailcore.models import EventPage
+    EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
+
+
+All methods of ``PageQuerySet`` are supported by wagtailsearch:
+
+.. code-block:: python
+
+    # Search all live EventPages that are under the events index
+    >>> EventPage.objects.live().descendant_of(events_index).search("Hello")
+    [<EventPage: Event 1>, <EventPage: Event 2>]
+
+
 Indexing extra fields
 =====================
 
