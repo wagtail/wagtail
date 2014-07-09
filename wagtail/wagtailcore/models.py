@@ -774,7 +774,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
         return [
             {
-                'location': self.url,
+                'location': self.full_url,
                 'lastmod': latest_revision.created_at if latest_revision else None
             }
         ]
