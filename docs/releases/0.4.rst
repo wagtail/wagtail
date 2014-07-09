@@ -99,7 +99,7 @@ Search
  * Major refactor of Elasticsearch backend
  * Use ``match`` instead of ``query_string`` queries
  * Fields are now indexed in Elasticsearch with their correct type
- * Filter fields are no longer included in '_all' (in Elasticsearch)
+ * Filter fields are no longer included in '_all'
  * Fields with partial matching are now indexed together into '_partials'
 
 
