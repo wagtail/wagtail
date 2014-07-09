@@ -24,7 +24,7 @@ All methods of ``PageQuerySet`` are supported by wagtailsearch:
 .. code-block:: python
 
     # Search all live EventPages that are under the events index
-    >>> EventPage.objects.live().descendant_of(events_index).search("Hello")
+    >>> EventPage.objects.live().descendant_of(events_index).search("Event")
     [<EventPage: Event 1>, <EventPage: Event 2>]
 
 
