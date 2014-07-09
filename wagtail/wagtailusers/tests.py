@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group, Permission
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import Page, GroupPagePermission
 

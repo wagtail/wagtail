@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Permission
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 
 
 def register_permissions():
