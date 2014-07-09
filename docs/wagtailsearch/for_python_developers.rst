@@ -133,14 +133,14 @@ To do this, inherit from ``indexed.Indexed`` and add some ``search_fields`` to t
         author = models.ForeignKey(Author)
         published_date = models.DateTimeField()
 
-        search_fields = [
+        search_fields = (
             indexed.SearchField('title', partial_match=True, boost=10),
             indexed.SearchField('get_genre_display'),
 
             indexed.FilterField('genre'),
             indexed.FilterField('author'),
             indexed.FilterField('published_date'),
-        ]
+        )
 
     # As this model doesn't have a search method in its QuerySet, we have to call search directly on the backend
     >>> from wagtail.wagtailsearch.backends import get_search_backend
