@@ -10,7 +10,7 @@ Wagtailsearch: For python developers
 Basic usage
 ===========
 
-All searches are performed on Django QuerySets:
+All searches are performed on Django QuerySets. Wagtail provides a ``search`` method on the queryset for all page models:
 
 .. code-block:: python
 
