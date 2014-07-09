@@ -2,8 +2,8 @@
 .. _wagtailsearch:
 
 
-Wagtailsearch
-=============
+Search
+======
 
 Wagtail provides a comprehensive and extensible search interface. In addition, it provides ways to promote search results through "Editor's Picks." Wagtail also collects simple statistics on queries made through the search interface.
 
