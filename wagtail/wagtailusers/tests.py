@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group, Permission
@@ -6,6 +7,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import Page, GroupPagePermission
+import six
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
@@ -169,11 +171,11 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
 
     def post(self, post_data={}):
         post_defaults = {
-            u'page_permissions-TOTAL_FORMS': [u'0'],
-            u'page_permissions-MAX_NUM_FORMS': [u'1000'],
-            u'page_permissions-INITIAL_FORMS': [u'0'],
+            'page_permissions-TOTAL_FORMS': ['0'],
+            'page_permissions-MAX_NUM_FORMS': ['1000'],
+            'page_permissions-INITIAL_FORMS': ['0'],
         }
-        for k, v in post_defaults.iteritems():
+        for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
         return self.client.post(reverse('wagtailusers_groups_create'), post_data)
 
@@ -195,13 +197,13 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
     def test_group_create_adding_permissions(self):
         response = self.post({
             'name': "test group",
-            u'page_permissions-0-id': [u''],
-            u'page_permissions-0-page': [u'1'],
-            u'page_permissions-0-permission_type': [u'publish'],
-            u'page_permissions-1-id': [u''],
-            u'page_permissions-1-page': [u'1'],
-            u'page_permissions-1-permission_type': [u'edit'],
-            u'page_permissions-TOTAL_FORMS': [u'2'],
+            'page_permissions-0-id': [''],
+            'page_permissions-0-page': ['1'],
+            'page_permissions-0-permission_type': ['publish'],
+            'page_permissions-1-id': [''],
+            'page_permissions-1-page': ['1'],
+            'page_permissions-1-permission_type': ['edit'],
+            'page_permissions-TOTAL_FORMS': ['2'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups_index'))
@@ -213,13 +215,13 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         # Try to submit duplicate page permission entries
         response = self.post({
             'name': "test group",
-            u'page_permissions-0-id': [u''],
-            u'page_permissions-0-page': [u'1'],
-            u'page_permissions-0-permission_type': [u'publish'],
-            u'page_permissions-1-id': [u''],
-            u'page_permissions-1-page': [u'1'],
-            u'page_permissions-1-permission_type': [u'publish'],
-            u'page_permissions-TOTAL_FORMS': [u'2'],
+            'page_permissions-0-id': [''],
+            'page_permissions-0-page': ['1'],
+            'page_permissions-0-permission_type': ['publish'],
+            'page_permissions-1-id': [''],
+            'page_permissions-1-page': ['1'],
+            'page_permissions-1-permission_type': ['publish'],
+            'page_permissions-TOTAL_FORMS': ['2'],
         })
 
         self.assertEqual(response.status_code, 200)
@@ -253,16 +255,16 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
     def post(self, post_data={}, group_id=None):
         post_defaults = {
-            u'name': 'test group',
-            u'permissions': [self.existing_permission.id],
-            u'page_permissions-TOTAL_FORMS': [u'1'],
-            u'page_permissions-MAX_NUM_FORMS': [u'1000'],
-            u'page_permissions-INITIAL_FORMS': [u'1'],  # as we have one page permission already
-            u'page_permissions-0-id': [self.root_add_permission.id],
-            u'page_permissions-0-page': [self.root_add_permission.page.id],
-            u'page_permissions-0-permission_type': [self.root_add_permission.permission_type]
+            'name': 'test group',
+            'permissions': [self.existing_permission.id],
+            'page_permissions-TOTAL_FORMS': ['1'],
+            'page_permissions-MAX_NUM_FORMS': ['1000'],
+            'page_permissions-INITIAL_FORMS': ['1'],  # as we have one page permission already
+            'page_permissions-0-id': [self.root_add_permission.id],
+            'page_permissions-0-page': [self.root_add_permission.page.id],
+            'page_permissions-0-permission_type': [self.root_add_permission.permission_type]
         }
-        for k, v in post_defaults.iteritems():
+        for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
         return self.client.post(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), post_data)
 
@@ -305,13 +307,13 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # The test group has one page permission to begin with
         self.assertEqual(self.test_group.page_permissions.count(), 1)
         response = self.post({
-            u'page_permissions-1-id': [u''],
-            u'page_permissions-1-page': [u'1'],
-            u'page_permissions-1-permission_type': [u'publish'],
-            u'page_permissions-2-id': [u''],
-            u'page_permissions-2-page': [u'1'],
-            u'page_permissions-2-permission_type': [u'edit'],
-            u'page_permissions-TOTAL_FORMS': [u'3'],
+            'page_permissions-1-id': [''],
+            'page_permissions-1-page': ['1'],
+            'page_permissions-1-permission_type': ['publish'],
+            'page_permissions-2-id': [''],
+            'page_permissions-2-page': ['1'],
+            'page_permissions-2-permission_type': ['edit'],
+            'page_permissions-TOTAL_FORMS': ['3'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups_index'))
@@ -323,7 +325,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.test_group.page_permissions.count(), 1)
 
         response = self.post({
-            u'page_permissions-0-DELETE': [u'1'],
+            'page_permissions-0-DELETE': ['1'],
         })
 
         self.assertRedirects(response, reverse('wagtailusers_groups_index'))
@@ -355,10 +357,10 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
     def test_duplicate_page_permissions_error(self):
         # Try to submit duplicate page permission entries
         response = self.post({
-            u'page_permissions-1-id': [u''],
-            u'page_permissions-1-page': [self.root_add_permission.page.id],
-            u'page_permissions-1-permission_type': [self.root_add_permission.permission_type],
-            u'page_permissions-TOTAL_FORMS': [u'2'],
+            'page_permissions-1-id': [''],
+            'page_permissions-1-page': [self.root_add_permission.page.id],
+            'page_permissions-1-permission_type': [self.root_add_permission.permission_type],
+            'page_permissions-TOTAL_FORMS': ['2'],
         })
 
         self.assertEqual(response.status_code, 200)
