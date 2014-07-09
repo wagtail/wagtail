@@ -16,7 +16,7 @@ All searches are performed on Django QuerySets. Wagtail provides a ``search`` me
 
     # Search future EventPages
     >>> from wagtail.wagtailcore.models import EventPage
-    EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
+    >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
 
 
 All methods of ``PageQuerySet`` are supported by wagtailsearch:
