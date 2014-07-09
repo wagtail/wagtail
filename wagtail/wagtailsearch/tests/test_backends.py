@@ -1,17 +1,18 @@
 from six import StringIO
+import warnings
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
 
-from wagtail.tests.utils import unittest
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.tests import models
 from wagtail.wagtailsearch.backends import get_search_backend, InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch
 
 
-class BackendTests(object):
+class BackendTests(WagtailTestUtils):
     # To test a specific backend, subclass BackendTests and define self.backend_path.
 
     def setUp(self):
@@ -144,7 +145,8 @@ class BackendTests(object):
         self.backend.reset_index()
 
         # Run update_index command
-        management.call_command('update_index', backend=self.backend, interactive=False, stdout=StringIO())
+        with self.ignore_deprecation_warnings():  # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
+            management.call_command('update_index', backend=self.backend, interactive=False, stdout=StringIO())
 
         # Check that there are still 3 results
         results = self.backend.search("Hello", models.SearchTest)

@@ -1,8 +1,10 @@
+import warnings
+
 from django.test import TestCase
-from wagtail.tests import models
-import json
 
 from wagtail.wagtailsearch import indexed
+from wagtail.tests import models
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestContentTypeNames(TestCase):
@@ -15,10 +17,11 @@ class TestContentTypeNames(TestCase):
         self.assertEqual(name, 'tests_searchtest_tests_searchtestchild')
 
 
-class TestIndexedFieldsBackwardsCompatibility(TestCase):
+class TestIndexedFieldsBackwardsCompatibility(TestCase, WagtailTestUtils):
     def test_indexed_fields_backwards_compatibility(self):
         # Get search fields
-        search_fields = models.SearchTestOldConfig.get_search_fields()
+        with self.ignore_deprecation_warnings():
+            search_fields = models.SearchTestOldConfig.get_search_fields()
 
         search_fields_dict = dict(
             ((field.field_name, type(field)), field)
@@ -36,7 +39,8 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase):
 
     def test_indexed_fields_backwards_compatibility_list(self):
         # Get search fields
-        search_fields = models.SearchTestOldConfigList.get_search_fields()
+        with self.ignore_deprecation_warnings():
+            search_fields = models.SearchTestOldConfigList.get_search_fields()
 
         search_fields_dict = dict(
             ((field.field_name, type(field)), field)
