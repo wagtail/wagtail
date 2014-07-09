@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Sites" %}{% endblock %}
+{% block content %}
+    {% trans "Sites" as sites_str %}
+    {% trans "Add a site" as add_a_site_str %}
+    {% include "wagtailadmin/shared/header.html" with title=sites_str add_link="wagtailsites_create" add_text=add_a_site_str icon="radio-empty" %}
+
+    <div class="nice-padding">
+        <div id="sites-list">
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th class="hostname">
+                            {% trans "Site" %}
+                            {% if ordering == "site" %}
+                                <a href="{% url 'wagtailsites_index' %}" class="icon icon-arrow-down-after teal"></a>
+                            {% else %}
+                                <a href="{% url 'wagtailsites_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                            {% endif %}
+                        </th>
+                        <th class="port">{% trans "Port" %}</th>
+                        <th class="root-page">{% trans "Root page" %}</th>
+                        <th class="is-default-site">{% trans "Default?" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for site in sites %}
+                        <tr>
+                            <td class="hostname">
+                                <h2>
+                                    <a href="{% url 'wagtailsites_edit' site.id %}">{{ site.hostname }}</a>
+                                </h2>
+                            </td>
+                            <td class="port">{{ site.port }}</td>
+                            <td class="root-page">{{ site.root_page }}</td>
+                            <td class="is-default-site"><div class="status-tag {% if site.is_default_site %}primary{% endif %}">{% if site.is_default_site %}{% trans "Default" %}{% endif %}</div></td>
+                        </li>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
