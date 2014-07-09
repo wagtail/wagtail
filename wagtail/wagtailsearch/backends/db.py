@@ -2,7 +2,6 @@ from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
-from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class DBSearch(BaseSearch):
@@ -27,26 +26,16 @@ class DBSearch(BaseSearch):
     def delete(self, obj):
         pass # Not needed
 
-    def search(self, query_string, model, fields=None, filters=None, prefetch_related=None):
-        # Get fields
-        if fields is None:
-            fields = [field.field_name for field in model.get_searchable_search_fields()]
-
-        # Start with all objects
-        query = model.objects.all()
-
-        # Apply filters
-        if filters:
-            query = query.filter(**filters)
-
+    def _search(self, queryset, query_string, fields=None):
         if query_string is not None:
-            # Normalise query string
-            query_string = normalise_query_string(query_string)
+            # Get fields
+            if fields is None:
+                fields = [field.field_name for field in queryset.model.get_searchable_search_fields()]
 
             # Get terms
             terms = query_string.split()
             if not terms:
-                return model.objects.none()
+                return queryset.model.objects.none()
 
             # Filter by terms
             for term in terms:
@@ -54,21 +43,16 @@ class DBSearch(BaseSearch):
                 for field_name in fields:
                     # Check if the field exists (this will filter out indexed callables)
                     try:
-                        model._meta.get_field_by_name(field_name)
+                        queryset.model._meta.get_field_by_name(field_name)
                     except:
                         continue
 
                     # Filter on this field
                     term_query |= models.Q(**{'%s__icontains' % field_name: term})
 
-                query = query.filter(term_query)
+                queryset = queryset.filter(term_query)
 
             # Distinct
-            query = query.distinct()
+            queryset = queryset.distinct()
 
-        # Prefetch related
-        if prefetch_related:
-            for prefetch in prefetch_related:
-                query = query.prefetch_related(prefetch)
-
-        return query
+        return queryset

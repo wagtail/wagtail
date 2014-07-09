@@ -21,7 +21,11 @@ class TagSearchable(indexed.Indexed):
 
     @property
     def get_tags(self):
-        return ' '.join([tag.name for tag in self.tags.all()])
+        return ' '.join([tag.name for tag in self.prefetched_tags()])
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return super(TagSearchable, cls).get_indexed_objects().prefetch_related('tagged_items__tag')
 
     @classmethod
     def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):
