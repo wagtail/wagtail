@@ -191,7 +191,6 @@ class TestElasticSearchQuery(TestCase):
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_gt_lookup(self):
-        # This shares the same code path as gte, lt and lte so theres no need to test those
         # This also tests conversion of python dates to strings
 
         # Create a query
@@ -199,6 +198,30 @@ class TestElasticSearchQuery(TestCase):
 
         # Check it
         expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'range': {'published_date_filter': {'gt': '2014-04-29'}}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
+    def test_lt_lookup(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lt=datetime.datetime(2014, 4, 29)), "Hello")
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'range': {'published_date_filter': {'lt': '2014-04-29'}}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
+    def test_gte_lookup(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__gte=datetime.datetime(2014, 4, 29)), "Hello")
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'range': {'published_date_filter': {'gte': '2014-04-29'}}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
+        self.assertDictEqual(query.to_es(), expected_result)
+
+    def test_lte_lookup(self):
+        # Create a query
+        query = self.ElasticSearchQuery(models.SearchTest.objects.filter(published_date__lte=datetime.datetime(2014, 4, 29)), "Hello")
+
+        # Check it
+        expected_result = {'filtered': {'filter': {'and': [{'prefix': {'content_type': 'tests_searchtest'}}, {'range': {'published_date_filter': {'lte': '2014-04-29'}}}]}, 'query': {'query_string': {'query': 'Hello', 'fields': ['_all', '_partials']}}}}
         self.assertDictEqual(query.to_es(), expected_result)
 
     def test_range_lookup(self):
