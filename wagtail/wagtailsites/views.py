@@ -52,3 +52,17 @@ def edit(request, site_id):
         'site': site,
         'form': form,
     })
+
+
+@permission_required('site.delete_site')
+def delete(request, site_id):
+    site = get_object_or_404(Site, id=site_id)
+
+    if request.POST:
+        site.delete()
+        messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
+        return redirect('wagtailsites_index')
+
+    return render(request, "wagtailsites/confirm_delete.html", {
+        'site': site,
+    })
