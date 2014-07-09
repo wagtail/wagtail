@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
 
 
-@permission_required('site.change_site')
+def user_has_site_model_perm(user):
+    for verb in ['add', 'change', 'delete']:
+        if user.has_perm('site.%s_site' % verb):
+            return True
+    return False
+
+
+@user_passes_test(user_has_site_model_perm)
 def index(request):
     sites = Site.objects.all()
     return render(request, 'wagtailsites/index.html', {
