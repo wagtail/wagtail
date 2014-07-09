@@ -7,8 +7,8 @@ Wagtailsearch: For python developers
 ====================================
 
 
-Basic useage
-============
+Basic usage
+===========
 
 All searches are performed on Django QuerySets:
 
