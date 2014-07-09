@@ -1,9 +1,9 @@
 
 .. _wagtailsearch_backends:
 
-======================
-Wagtailsearch backends
-======================
+========
+Backends
+========
 
 
 Wagtail can degrade to a database-backed text search, but we strongly recommend `Elasticsearch`_.
