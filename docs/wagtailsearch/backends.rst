@@ -11,6 +11,8 @@ Wagtail can degrade to a database-backed text search, but we strongly recommend 
 .. _Elasticsearch: http://www.elasticsearch.org/
 
 
+.. _wagtailsearch_backends_database:
+
 Database Backend
 ===============
 

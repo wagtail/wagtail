@@ -87,7 +87,7 @@ Indexing callables and other attributes
 
  .. note::
 
-     This is not supported in the `Database Backend`_
+     This is not supported in the :ref:`wagtailsearch_backends_database`
 
 
 Search/filter fields do not need to be Django fields, they could be any method or attribute on your class.
@@ -134,12 +134,12 @@ To do this, inherit from ``indexed.Indexed`` and add some ``search_fields`` to t
         published_date = models.DateTimeField()
 
         search_fields = [
-            SearchField('title', partial_match=True, boost=10),
-            SearchField('get_genre_display'),
+            indexed.SearchField('title', partial_match=True, boost=10),
+            indexed.SearchField('get_genre_display'),
 
-            FilterField('genre'),
-            FilterField('author'),
-            FilterField('published_date'),
+            indexed.FilterField('genre'),
+            indexed.FilterField('author'),
+            indexed.FilterField('published_date'),
         ]
 
     # As this model doesn't have a search method in its QuerySet, we have to call search directly on the backend
