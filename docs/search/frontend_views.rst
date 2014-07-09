@@ -2,8 +2,8 @@
 .. _wagtailsearch_frontend_views:
 
 
-Wagtailsearch frontend views
-============================
+Frontend views
+==============
 
 
 Default Page Search

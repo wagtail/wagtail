@@ -2,9 +2,9 @@
 .. _wagtailsearch_for_python_developers:
 
 
-====================================
-Wagtailsearch: For python developers
-====================================
+=====================
+For python developers
+=====================
 
 
 Basic usage
