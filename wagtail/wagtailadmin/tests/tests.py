@@ -1,9 +1,12 @@
 from django.test import TestCase
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.tasks import send_email_task
 from django.core.urlresolvers import reverse
 from django.core import mail
+
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.models import EventPage, EventPageRelatedLink
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.tasks import send_email_task
+from wagtail.wagtaildocs.models import Document
 
 
 class TestHome(TestCase, WagtailTestUtils):
@@ -43,3 +46,20 @@ class TestSendEmailTask(TestCase):
         self.assertEqual(mail.outbox[0].subject, "Test subject")
         self.assertEqual(mail.outbox[0].body, "Test content")
         self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+
+
+class TestUsageCount(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def test_unused_document_usage_count(self):
+        doc = Document.objects.get(id=1)
+        self.assertEqual(doc.usage_count, 0)
+
+    def test_used_document_usage_count(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        self.assertEqual(doc.usage_count, 1)

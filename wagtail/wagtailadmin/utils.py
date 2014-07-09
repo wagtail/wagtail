@@ -2,7 +2,7 @@ from wagtail.wagtailcore.models import Page
 
 
 def usage_count(self):
-    """The number of times that an selfect has been used"""
+    """The number of times that an obect has been used"""
     count = 0
     relations = self._meta.get_all_related_objects(
         include_hidden=True,
