@@ -70,6 +70,7 @@ Core
 
  * Any extra arguments given to ``Page.serve`` are now passed through to ``get_context`` and ``get_template``
  * Added ``in_menu`` and ``not_in_menu`` methods to ``PageQuerySet``
+ * Added ``search`` method to ``PageQuerySet``
  * Added ``get_next_siblings`` and ``get_prev_siblings`` to ``Page``
  * Added ``page_published`` signal
  * Added ``copy`` method to ``Page`` to allow copying of pages
@@ -90,6 +91,18 @@ Admin
  * Added ``init_new_page`` signal
 
 
+Search
+------
+
+ * Added a new way to configure searchable/filterable fields on models
+ * Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
+ * Major refactor of Elasticsearch backend
+ * Use ``match`` instead of ``query_string`` queries
+ * Fields are now indexed in Elasticsearch with their correct type
+ * Filter fields are no longer included in '_all' (in Elasticsearch)
+ * Fields with partial matching are now indexed together into '_partials'
+
+
 Images
 ------
 
@@ -100,6 +113,7 @@ Images
 
 Other
 -----
+
  * Added styleguide (mainly for wagtail developers)
 
 
