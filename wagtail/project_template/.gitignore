@@ -1,0 +1,7 @@
+*.pyc
+.DS_Store
+/.venv/
+/*/*/settings/local.py
+/static/
+/media/
+Vagrantfile.local
