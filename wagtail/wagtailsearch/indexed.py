@@ -118,6 +118,10 @@ class Indexed(object):
     def get_filterable_search_fields(cls):
         return filter(lambda field: isinstance(field, FilterField), cls.get_search_fields())
 
+    @classmethod
+    def get_indexed_objects(cls):
+        return cls.objects.all()
+
     indexed_fields = ()
 
 

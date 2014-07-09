@@ -235,6 +235,9 @@ class PageManager(models.Manager):
     def not_public(self):
         return self.get_queryset().not_public()
 
+    def search(self, query_string, fields=None, backend='default'):
+        return self.get_queryset().search(query_string, fields=fields, backend=backend)
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -289,8 +292,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
     search_fields = (
         indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.FilterField('id'),
         indexed.FilterField('live'),
+        indexed.FilterField('owner'),
+        indexed.FilterField('content_type'),
         indexed.FilterField('path'),
+        indexed.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
