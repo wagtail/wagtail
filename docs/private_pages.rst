@@ -21,7 +21,7 @@ This template will receive the same set of context variables that the blocked pa
  - **form** - A Django form object for the password prompt; this will contain a field named ``password`` as its only visible field. A number of hidden fields may also be present, so the page must loop over ``form.hidden_fields`` if not using one of Django's rendering helpers such as ``form.as_p``.
  - **action_url** - The URL that the password form should be submitted to, as a POST request.
 
-A basic template suitable for use as PASSWORD_REQUIRED_TEMPLATE might look like this:
+A basic template suitable for use as ``PASSWORD_REQUIRED_TEMPLATE`` might look like this:
 
  .. code-block:: django
 
