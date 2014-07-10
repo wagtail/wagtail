@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
+from django.test.utils import override_settings
 from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
@@ -9,6 +10,7 @@ from wagtail.wagtailsnippets.views.snippets import (
     get_snippet_edit_handler
 )
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailcore.models import Page
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -185,3 +187,29 @@ class TestSnippetOrdering(TestCase):
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
                         SNIPPET_MODELS.index(ZuluSnippet))
+
+
+class TestUsageCount(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def test_snippet_usage_count_not_enabled(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(advert.usage_count(), None)
+
+    @override_settings(USAGE_COUNT=True)
+    def test_snippet_usage_count(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(advert.usage_count(), 1)
+
+
+class TestUsedBy(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def test_snippet_used_by_not_enabled(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(advert.used_by(), [])
+
+    @override_settings(USAGE_COUNT=True)
+    def test_snippet_used_by(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(type(advert.used_by()[0]), Page)

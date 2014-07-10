@@ -273,9 +273,11 @@ FormPage.content_panels = [
 ]
 
 
-# Snippets
 
 # Snippets
+class AdvertPlacement(models.Model):
+    page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
+    advert = models.ForeignKey('tests.Advert', related_name='+')
 
 @python_2_unicode_compatible
 class Advert(models.Model):

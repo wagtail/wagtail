@@ -2,6 +2,7 @@ from mock import MagicMock
 from django.utils import six
 
 from django.test import TestCase
+from django.test.utils import override_settings
 from django import template
 from django.contrib.auth.models import User, Group, Permission
 from django.core.urlresolvers import reverse
@@ -17,6 +18,8 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.tests.models import EventPage, EventPageCarouselItem
+
 
 def get_test_image_file():
     from six import BytesIO
@@ -470,3 +473,55 @@ class TestFormat(TestCase):
         register_image_format(self.format)
         result = get_image_format('test name')
         self.assertEqual(result, self.format)
+
+
+class TestUsageCount(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_image_usage_count_not_enabled(self):
+        self.assertEqual(self.image.usage_count, None)
+
+    @override_settings(USAGE_COUNT=True)
+    def test_unused_image_usage_count(self):
+        self.assertEqual(self.image.usage_count, 0)
+
+    @override_settings(USAGE_COUNT=True)
+    def test_used_image_document_usage_count(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertEqual(self.image.usage_count, 1)
+
+
+class TestUsedBy(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_image_used_by_not_enabled(self):
+        self.assertEqual(self.image.used_by, [])
+
+    @override_settings(USAGE_COUNT=True)
+    def test_unused_image_used_by(self):
+        self.assertEqual(self.image.used_by, [])
+
+    @override_settings(USAGE_COUNT=True)
+    def test_used_image_document_used_by(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertEqual(self.image.used_by, [page])
