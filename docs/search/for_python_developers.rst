@@ -35,7 +35,7 @@ Fields need to be explicitly added to the search configuration in order for you 
 
 You can add new fields to the search index by overriding the ``search_fields`` property and appending a list of extra ``SearchField``/``FilterField`` objects to it.
 
-``Page`` sets a default value to ``search_fields`` indexing the ``title`` field as a ``SearchField`` and some other generally useful fields as ``FilterField``s.
+The default value of ``search_fields`` (as set in ``Page``) indexes the ``title`` field as a ``SearchField`` and some other generally useful fields as ``FilterField`` rules.
 
 
 Quick example

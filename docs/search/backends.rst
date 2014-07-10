@@ -14,7 +14,7 @@ Wagtail can degrade to a database-backed text search, but we strongly recommend 
 .. _wagtailsearch_backends_database:
 
 Database Backend
-===============
+================
 
 The default DB search backend uses Django's ``__icontains`` filter.
 

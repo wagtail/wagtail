@@ -32,7 +32,7 @@ A new management command has been added (:ref:`publish_scheduled_pages`) to publ
 Search on QuerySet with Elasticsearch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Its now possible to perform searches with Elasticsearch on ``PageQuerySet``s:
+Its now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
 
     >>> from wagtail.wagtailcore.models import Page
     >>> Page.objects.live().descendant_of(events_index).search("Hello")
@@ -174,7 +174,7 @@ Previously, the ``route`` method called ``serve`` and returned a ``HttpResponse`
 
 
 Wagtailadmins ``hooks`` module has moved to wagtailcore
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you use any ``wagtail_hooks.py`` files in your project, you may have an import like: ``from wagtail.wagtailadmin import hooks``
 
