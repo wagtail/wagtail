@@ -6,6 +6,7 @@ Changelog
  * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
  * Python 3.2, 3.3 and 3.4 support
  * Added scheduled publishing
+ * Added support for private (password-protected) pages
  * Added frontend cache invalidator
  * Added sitemap generator
  * Added notification preferences
