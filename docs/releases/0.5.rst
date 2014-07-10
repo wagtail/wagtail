@@ -7,11 +7,6 @@ Wagtail 0.5 release notes - IN DEVELOPMENT
     :depth: 1
 
 
-.. note::
-
-    Wagtail 0.5 is currently in development.
-
-
 Whats new
 =========
 
