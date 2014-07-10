@@ -152,8 +152,6 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    print dir(image)
-
     return render(request, "wagtailimages/images/usage.html", {
         'image': image,
     })
