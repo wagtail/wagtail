@@ -218,7 +218,7 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
         
 
 .. Note::      
-    The image property used for the `src` attribute is actually `image.url`, not `image.src`.
+    The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
 
 
 The ``attrs`` shortcut
