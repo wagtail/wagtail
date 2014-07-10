@@ -2,8 +2,9 @@
 Wagtail 0.4 release notes
 =========================
 
-.. contents:: Contents
+.. contents::
     :local:
+    :depth: 1
 
 
 What's new
