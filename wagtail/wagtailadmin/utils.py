@@ -1,21 +1,13 @@
 from wagtail.wagtailcore.models import Page
-
-
-def usage_count(self):
-    """The number of times that an obect has been used"""
-    count = 0
-    relations = self._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
-    for relation in relations:
-        count += relation.model._base_manager.filter(
-            **{relation.field.name: self.id}
-        ).count()
-    return count
+from django.conf import settings
 
 
 def used_by(self):
+    """Returns the pages that an object was used in."""
+
+    if not hasattr(settings, 'USAGE_COUNT') or not settings.USAGE_COUNT:
+        return []
+
     related_objects = []
     result = []
 
@@ -34,3 +26,12 @@ def used_by(self):
             result.append(r.page)
 
     return result
+
+
+def usage_count(self):
+    """Returns the number of times that an obect has been used in a page"""
+
+    if not hasattr(settings, 'USAGE_COUNT') or not settings.USAGE_COUNT:
+        return None
+
+    return len(used_by(self))

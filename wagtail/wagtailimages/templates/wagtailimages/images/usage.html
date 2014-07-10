@@ -6,12 +6,45 @@
     {% include "wagtailadmin/shared/header.html" with title="Usage" %}
 
     <div class="nice-padding">
-        <ul class="listing">
-          {% for u in image.used_by %}
-            <li>
-              <a href="{{ u.url }}">{{ u.title }}</a>
-            </li>
+        <section>
+            <table class="listing">
+                <col />
+                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Parent" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+          {% for page in image.used_by %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <h2><a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></h2>
+                        </td>
+                        <td>
+                          {% if page.get_parent %}
+                            <a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a>
+                          {% endif %}
+                        </td>
+                        <td>
+                          {{ page.content_type.model_class.get_verbose_name }}
+                        </td>
+                        <td>
+                          {% if page.live %}
+                          <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
+                          {% else %}
+                          <span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span>
+                          {% endif %}
+                        </td>
+                    </tr>
           {% endfor %}
-        </ul>
+                </tbody>
+            </table>
+        </section>
     </div>
 {% endblock %}
