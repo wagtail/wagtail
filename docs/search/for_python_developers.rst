@@ -3,7 +3,7 @@
 
 
 =====================
-For python developers
+For Python developers
 =====================
 
 
