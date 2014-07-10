@@ -38,6 +38,8 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
 
+.. _overriding_route_method:
+
 Adding Endpoints with Custom route() Methods
 --------------------------------------------
 

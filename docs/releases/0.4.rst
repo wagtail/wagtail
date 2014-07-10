@@ -158,19 +158,21 @@ The following template tag libraries have been renamed:
  * ``embed_filters`` => ``wagtailembeds_tags``
  * ``image_tags`` => ``wagtailimages_tags``
 
+The old names will continue to work, but output a ``DeprecationWarning`` - you are advised to update any ``{% load %}`` tags in your templates to refer to the new names.
+
 
 New search field configuration format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``.
+``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_for_python_developers` for how to define a ``search_fields`` property on your models.
 
 
 ``Page.route`` method should now return a ``RouteResult``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously, the ``route`` method called ``serve`` and returned a ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
+Previously, the ``route`` method called ``serve`` and returned an ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
 
-:ref:`anatomy_of_a_wagtail_request`
+If you are overriding ``Page.route`` on any of your page models, you will need to update the method to return a ``RouteResult`` object. The old method of returning an ``HttpResponse`` will continue to work, but this will throw a ``DeprecationWarning`` and bypass the ``before_serve_page`` hook, which means in particular that :ref:`private_pages` will not work on those page types. See :ref:`overriding_route_method`.
 
 
 Wagtailadmins ``hooks`` module has moved to wagtailcore
