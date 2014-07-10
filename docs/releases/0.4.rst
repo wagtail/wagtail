@@ -3,14 +3,14 @@ Wagtail 0.4 release notes
 =========================
 
 
-Whats new
-=========
+What's new
+==========
 
 
 Private Pages
 ~~~~~~~~~~~~~
 
-Wagtail now supports password protecting pages on the frontend allowing sections of your website to be made private.
+Wagtail now supports password protecting pages on the frontend, allowing sections of your website to be made private.
 
 :ref:`private_pages`
 
@@ -26,13 +26,13 @@ Scheduled publishing
 
 Editors can now schedule pages to be published or unpublished at specified times.
 
-A new management command has been added (:ref:`publish_scheduled_pages`) to publish pages that have been scheduled by an Editor.
+A new management command has been added (:ref:`publish_scheduled_pages`) to publish pages that have been scheduled by an editor.
 
 
 Search on QuerySet with Elasticsearch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Its now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
+It's now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
 
     >>> from wagtail.wagtailcore.models import Page
     >>> Page.objects.live().descendant_of(events_index).search("Hello")
@@ -58,7 +58,7 @@ A new module has been added (``wagtail.contrib.wagtailfrontendcache``) which inv
 Notification preferences
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Users can now decide which notifications they recieve from Wagtail using a new "Notification preferences" section located in the account settings.
+Users can now decide which notifications they receive from Wagtail using a new "Notification preferences" section located in the account settings.
 
 
 Minor features
@@ -114,22 +114,22 @@ Images
 Other
 -----
 
- * Added styleguide (mainly for wagtail developers)
+ * Added styleguide, for Wagtail developers
 
 
 Bug fixes
 ~~~~~~~~~
 
  * Animated GIFs are now coalesced before resizing
- * Wand backend clones images before modifying them
- * Admin breadcrumb now positioned correctly on mobile
- * Page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
- * Embeds - Fixed crash when no HTML field is sent back from the embed provider
+ * The Wand backend clones images before modifying them
+ * The admin breadcrumb is now positioned correctly on mobile
+ * The page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+ * Embeds - fixed crash when no HTML field is sent back from the embed provider
  * Multiple sites with same hostname but different ports are now allowed
- * No longer possible to create multiple sites with ``is_default_site = True``
+ * It is no longer possible to create multiple sites with ``is_default_site = True``
 
 
-Backwards incompatible changes
+Backwards-incompatible changes
 ==============================
 
 
