@@ -2,6 +2,10 @@
 Wagtail 0.5 release notes
 =========================
 
+.. contents:: Contents
+    :local:
+
+
 .. note::
 
     Wagtail 0.5 is currently in development.
