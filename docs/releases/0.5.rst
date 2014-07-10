@@ -1,0 +1,27 @@
+=========================
+Wagtail 0.5 release notes
+=========================
+
+.. note::
+
+    Wagtail 0.5 is currently in development.
+
+
+Whats new
+=========
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+
+Backwards incompatible changes
+==============================
+
+
+Deprecated features
+===================
