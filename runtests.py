@@ -78,6 +78,7 @@ if not settings.configured:
             'wagtail.wagtailcore',
             'wagtail.wagtailadmin',
             'wagtail.wagtaildocs',
+            'wagtail.wagtailsettings',
             'wagtail.wagtailsnippets',
             'wagtail.wagtailusers',
             'wagtail.wagtailimages',

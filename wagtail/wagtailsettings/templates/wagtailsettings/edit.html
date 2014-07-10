@@ -1,0 +1,29 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-settings{% endblock %}
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=setting_type_name|capfirst icon="cogs" %}
+
+    <form action="{% url 'wagtailsettings_edit' content_type.app_label content_type.model %}" method="POST">
+        {% csrf_token %}
+        {{ edit_handler.render_form_content }}
+
+        <footer>
+            <ul>
+                <li class="actions">
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
+                </li>
+            </ul>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
