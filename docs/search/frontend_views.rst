@@ -1,10 +1,10 @@
 
-.. _wagtail_search:
+.. _wagtailsearch_frontend_views:
 
-Search
-======
 
-Wagtail provides a comprehensive and extensible search interface. In addition, it provides ways to promote search results through "Editor's Picks." Wagtail also collects simple statistics on queries made through the search interface.
+Frontend views
+==============
+
 
 Default Page Search
 -------------------
@@ -71,43 +71,6 @@ The search view provides a context with a few useful variables.
   ``query``
     A Wagtail ``Query`` object matching the terms. The ``Query`` model provides several class methods for viewing the statistics of all queries, but exposes only one property for single objects, ``query.hits``, which tracks the number of time the search string has been used over the lifetime of the site. ``Query`` also joins to the Editor's Picks functionality though ``query.editors_picks``. See :ref:`editors-picks`.
 
-Editor's Picks
---------------
-
-Editor's Picks are a way of explicitly linking relevant content to search terms, so results pages can contain curated content instead of being at the mercy of the search algorithm. In a template using the search results view, editor's picks can be accessed through the variable ``query.editors_picks``. To include editor's picks in your search results template, use the following properties.
-
-``query.editors_picks.all``
-  This gathers all of the editor's picks objects relating to the current query, in order according to their sort order in the Wagtail admin. You can then iterate through them using a ``{% for ... %}`` loop. Each editor's pick object provides these properties:
-
-  ``editors_pick.page``
-    The page object associated with the pick. Use ``{% pageurl editors_pick.page %}`` to generate a URL or provide other properties of the page object.
-
-  ``editors_pick.description``
-    The description entered when choosing the pick, perhaps explaining why the page is relevant to the search terms.
-
-Putting this all together, a block of your search results template displaying editor's Picks might look like this:
-
-.. code-block:: django
-
-  {% with query.editors_picks.all as editors_picks %}
-    {% if editors_picks %}
-      <div class="well">
-      <h3>Editors picks</h3>
-	<ul>
-	  {% for editors_pick in editors_picks %}
-	    <li>
-	      <h4>
-		<a href="{% pageurl editors_pick.page %}">
-		  {{ editors_pick.page.title }}
-		</a>
-	      </h4>
-	      <p>{{ editors_pick.description|safe }}</p>
-	    </li>
-	  {% endfor %}
-	</ul>
-      </div>
-    {% endif %}
-  {% endwith %}
 
 Asynchronous Search with JSON and AJAX
 --------------------------------------
@@ -142,30 +105,30 @@ Finally, we'll use JQuery to make the asynchronous requests and handle the inter
     // when there's something in the input box, make the query
     searchBox.on('input', function() {
       if( searchBox.val() == ''){
-	resultsBox.html('');
-	return;
+    resultsBox.html('');
+    return;
       }
       // make the request to the Wagtail JSON search view
       $.ajax({
-	url: wagtailJSONSearchURL + "?q=" +  searchBox.val(),
-	dataType: "json"
+    url: wagtailJSONSearchURL + "?q=" +  searchBox.val(),
+    dataType: "json"
       })
       .done(function(data) {
-	console.log(data);
-	if( data == undefined ){
-	  resultsBox.html('');
-	  return;
-	}
-	// we're in business!  let's format the results
-	var htmlOutput = '';
-	data.forEach(function(element, index, array){
-	  htmlOutput += '<p><a href="' + element.url + '">' + element.title + '</a></p>';
-	});
-	// and display them
-	resultsBox.html(htmlOutput);
+    console.log(data);
+    if( data == undefined ){
+      resultsBox.html('');
+      return;
+    }
+    // we're in business!  let's format the results
+    var htmlOutput = '';
+    data.forEach(function(element, index, array){
+      htmlOutput += '<p><a href="' + element.url + '">' + element.title + '</a></p>';
+    });
+    // and display them
+    resultsBox.html(htmlOutput);
       })
       .error(function(data){
-	console.log(data);
+    console.log(data);
       });
     });
 
@@ -178,12 +141,12 @@ Results are returned as a JSON object with this structure:
   {
     [
       {
-	title: "Lumpy Space Princess",
-	url: "/oh-my-glob/"
+    title: "Lumpy Space Princess",
+    url: "/oh-my-glob/"
       },
       {
-	title: "Lumpy Space",
-	url: "/no-smooth-posers/"
+    title: "Lumpy Space",
+    url: "/no-smooth-posers/"
       },
       ...
     ]
@@ -199,67 +162,8 @@ The AJAX interface uses the same view as the normal HTML search, ``wagtailsearch
 
 In this template, you'll have access to the same context variables provided to the HTML template. You could provide a template in JSON format with extra properties, such as ``query.hits`` and editor's picks, or render an HTML snippet that can go directly into your results ``<div>``. If you need more flexibility, such as multiple formats/templates based on differing requests, you can set up a custom search view.
 
-.. _editors-picks:
 
-
-Indexing Custom Fields & Custom Search Views
---------------------------------------------
+Custom Search Views
+-------------------
 
 This functionality is still under active development to provide a streamlined interface, but take a look at ``wagtail/wagtail/wagtailsearch/views/frontend.py`` if you are interested in coding custom search views.
-
-
-Search Backends
----------------
-
-Wagtail can degrade to a database-backed text search, but we strongly recommend `Elasticsearch`_.
-
-.. _Elasticsearch: http://www.elasticsearch.org/
-
-
-Default DB Backend
-``````````````````
-The default DB search backend uses Django's ``__icontains`` filter.
-
-
-Elasticsearch Backend
-`````````````````````
-Prerequisites are the Elasticsearch service itself and, via pip, the `elasticsearch-py`_ package:
-
-.. code-block:: guess
-
-  pip install elasticsearch
-
-.. note::
-  If you are using Elasticsearch < 1.0, install elasticsearch-py version 0.4.5: ```pip install elasticsearch==0.4.5```
-
-The backend is configured in settings:
-
-.. code-block:: python
-
-  WAGTAILSEARCH_BACKENDS = {
-      'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-          'URLS': ['http://localhost:9200'],
-          'INDEX': 'wagtail',
-          'TIMEOUT': 5,
-          'FORCE_NEW': False,
-      }
-  }
-
-Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticsearch-py. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
-
-If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
-
--  Sign up for an account at `dashboard.searchly.com/users/sign\_up`_
--  Use your Searchly dashboard to create a new index, e.g. 'wagtaildemo'
--  Note the connection URL from your Searchly dashboard
--  Configure ``URLS`` and ``INDEX`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS``
--  Run ``./manage.py update_index``
-
-.. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
-.. _Searchly: http://www.searchly.com/
-.. _dashboard.searchly.com/users/sign\_up: https://dashboard.searchly.com/users/sign_up
-
-Rolling Your Own
-````````````````
-Wagtail search backends implement the interface defined in ``wagtail/wagtail/wagtailsearch/backends/base.py``. At a minimum, the backend's ``search()`` method must return a collection of objects or ``model.objects.none()``. For a fully-featured search backend, examine the Elasticsearch backend code in ``elasticsearch.py``.

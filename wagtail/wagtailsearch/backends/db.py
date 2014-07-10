@@ -2,7 +2,6 @@ from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed
-from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class DBSearch(BaseSearch):
@@ -27,47 +26,33 @@ class DBSearch(BaseSearch):
     def delete(self, obj):
         pass # Not needed
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
-        # Normalise query string
-        query_string = normalise_query_string(query_string)
+    def _search(self, queryset, query_string, fields=None):
+        if query_string is not None:
+            # Get fields
+            if fields is None:
+                fields = [field.field_name for field in queryset.model.get_searchable_search_fields()]
 
-        # Get terms
-        terms = query_string.split()
-        if not terms:
-            return model.objects.none()
+            # Get terms
+            terms = query_string.split()
+            if not terms:
+                return queryset.model.objects.none()
 
-        # Get fields
-        if fields is None:
-            fields = [field.field_name for field in model.get_searchable_search_fields()]
+            # Filter by terms
+            for term in terms:
+                term_query = models.Q()
+                for field_name in fields:
+                    # Check if the field exists (this will filter out indexed callables)
+                    try:
+                        queryset.model._meta.get_field_by_name(field_name)
+                    except:
+                        continue
 
-        # Start will all objects
-        query = model.objects.all()
+                    # Filter on this field
+                    term_query |= models.Q(**{'%s__icontains' % field_name: term})
 
-        # Apply filters
-        if filters:
-            query = query.filter(**filters)
+                queryset = queryset.filter(term_query)
 
-        # Filter by terms
-        for term in terms:
-            term_query = models.Q()
-            for field_name in fields:
-                # Check if the field exists (this will filter out indexed callables)
-                try:
-                    model._meta.get_field_by_name(field_name)
-                except:
-                    continue
+            # Distinct
+            queryset = queryset.distinct()
 
-                # Filter on this field
-                term_query |= models.Q(**{'%s__icontains' % field_name: term})
-
-            query = query.filter(term_query)
-
-        # Distinct
-        query = query.distinct()
-
-        # Prefetch related
-        if prefetch_related:
-            for prefetch in prefetch_related:
-                query = query.prefetch_related(prefetch)
-
-        return query
+        return queryset

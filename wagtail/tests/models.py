@@ -11,6 +11,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailsearch import indexed
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -333,3 +334,60 @@ class BusinessSubIndex(Page):
 
 class BusinessChild(Page):
     subpage_types = []
+
+
+class SearchTest(models.Model, indexed.Indexed):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    live = models.BooleanField(default=False)
+    published_date = models.DateField(null=True)
+
+    search_fields = [
+        indexed.SearchField('title', partial_match=True),
+        indexed.SearchField('content'),
+        indexed.SearchField('callable_indexed_field'),
+        indexed.FilterField('title'),
+        indexed.FilterField('live'),
+        indexed.FilterField('published_date'),
+    ]
+
+    def callable_indexed_field(self):
+        return "Callable"
+
+
+class SearchTestChild(SearchTest):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
+    extra_content = models.TextField()
+
+    search_fields = SearchTest.search_fields + [
+        indexed.SearchField('subtitle', partial_match=True),
+        indexed.SearchField('extra_content'),
+    ]
+
+
+class SearchTestOldConfig(models.Model, indexed.Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format.
+    """
+    indexed_fields = {
+        # A search field with predictive search and boosting
+        'title': {
+            'type': 'string',
+            'analyzer': 'edgengram_analyzer',
+            'boost': 100,
+        },
+
+        # A filter field
+        'live': {
+            'type': 'boolean',
+            'index': 'not_analyzed',
+        },
+    }
+
+class SearchTestOldConfigList(models.Model, indexed.Indexed):
+    """
+    This tests that the Indexed class can correctly handle models that
+    use the old "indexed_fields" configuration format using a list.
+    """
+    indexed_fields = ['title', 'content']

@@ -235,6 +235,9 @@ class PageManager(models.Manager):
     def not_public(self):
         return self.get_queryset().not_public()
 
+    def search(self, query_string, fields=None, backend='default'):
+        return self.get_queryset().search(query_string, fields=fields, backend=backend)
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -289,8 +292,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
     search_fields = (
         indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.FilterField('id'),
         indexed.FilterField('live'),
+        indexed.FilterField('owner'),
+        indexed.FilterField('content_type'),
         indexed.FilterField('path'),
+        indexed.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -521,7 +528,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
         # Search
         s = get_search_backend()
-        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return s.search(query_string, cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
     def clean_subpage_types(cls):
@@ -774,7 +781,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
         return [
             {
-                'location': self.url,
+                'location': self.full_url,
                 'lastmod': latest_revision.created_at if latest_revision else None
             }
         ]

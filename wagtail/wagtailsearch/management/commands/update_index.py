@@ -24,7 +24,7 @@ class Command(BaseCommand):
             toplevel_content_type = model.indexed_get_toplevel_content_type()
 
             # Loop through objects
-            for obj in model.objects.all():
+            for obj in model.get_indexed_objects():
                 # Get key for this object
                 key = toplevel_content_type + ':' + str(obj.pk)
 
