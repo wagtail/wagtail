@@ -1,5 +1,5 @@
 
-.. _wagtailsearch_editors_picks:
+.. _editors-picks:
 
 
 Editors picks
