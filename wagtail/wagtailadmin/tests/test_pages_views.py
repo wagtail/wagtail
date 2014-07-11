@@ -837,6 +837,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that the copy exists
         self.assertTrue(self.root_page.get_children().filter(slug='hello-world-2').exists())
 
+        # Check that the owner of the page is set correctly
+        self.assertEqual(self.root_page.get_children().filter(slug='hello-world-2').first().owner, self.user)
+
     def test_page_copy_post_existing_slug(self):
         # This tests the existing slug checking on page copy
 

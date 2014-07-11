@@ -660,13 +660,16 @@ def copy(request, page_id):
     # Check if user is submitting
     if request.method == 'POST' and form.is_valid():
         # Copy the page
-        page.copy(
+        new_page = page.copy(
             recursive=form.cleaned_data['copy_subpages'],
             update_attrs={
                 'title': form.cleaned_data['new_title'],
                 'slug': form.cleaned_data['new_slug'],
             }
         )
+
+        # Assign usef of this request as the owner of all the new pages
+        new_page.get_descendants(inclusive=True).update(owner=request.user)
 
         # Give a success message back to the user
         if form.cleaned_data['copy_subpages']:
