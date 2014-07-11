@@ -14,10 +14,17 @@
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_title %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_slug %}
 
-                {% if subpage_count %}
+                {% if pages_to_copy.count > 1 %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.copy_subpages %}
                     <li class="help">
-                        {% blocktrans %}This will copy {{ subpage_count }} subpages.{% endblocktrans %}
+                        {% blocktrans with copy_page_count=pages_to_copy.count|add:'-1' %}This will copy {{ copy_page_count }} subpages.{% endblocktrans %}
+                    </li>
+                {% endif %}
+
+                {% if can_publish %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.publish_copies %}
+                    <li class="help">
+                        {% blocktrans with live_page_count=pages_to_copy.live.count %}{{ live_page_count }} of the pages being copied are live. Would you like to publish their copies?{% endblocktrans %}
                     </li>
                 {% endif %}
             </ul>

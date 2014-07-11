@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Group, Permission
 from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
@@ -796,18 +796,40 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Create a page
-        self.test_page = SimplePage()
-        self.test_page.title = "Hello world!"
-        self.test_page.slug = "hello-world"
-        self.root_page.add_child(instance=self.test_page)
+        self.test_page = self.root_page.add_child(instance=SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            live=True,
+        ))
+
+        # Create a couple of child pages
+        self.test_child_page = self.test_page.add_child(instance=SimplePage(
+            title="Child page",
+            slug='child-page',
+            live=True,
+        ))
+
+        self.test_unpublished_child_page = self.test_page.add_child(instance=SimplePage(
+            title="Unpublished Child page",
+            slug='unpublished-child-page',
+            live=False,
+        ))
 
         # Login
         self.user = self.login()
 
     def test_page_copy(self):
         response = self.client.get(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )))
+
+        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/copy.html')
+
+        # Make sure all fields are in the form
+        self.assertContains(response, "New title")
+        self.assertContains(response, "New slug")
+        self.assertContains(response, "Copy subpages")
+        self.assertContains(response, "Publish copies")
 
     def test_page_copy_bad_permissions(self):
         # Remove privileges from user
@@ -828,17 +850,101 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_title': "Hello world 2",
             'new_slug': 'hello-world-2',
             'copy_subpages': False,
+            'publish_copies': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
 
         # Check that the user was redirected to the parents explore page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
+
         # Check that the copy exists
-        self.assertTrue(self.root_page.get_children().filter(slug='hello-world-2').exists())
+        self.assertNotEqual(page_copy, None)
+
+        # Check that the copy is not live
+        self.assertFalse(page_copy.live)
 
         # Check that the owner of the page is set correctly
-        self.assertEqual(self.root_page.get_children().filter(slug='hello-world-2').first().owner, self.user)
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were not copied
+        self.assertEqual(page_copy.get_children().count(), 0)
+
+    def test_page_copy_post_copy_subpages(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'copy_subpages': True,
+            'publish_copies': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
+
+        # Check that the copy exists
+        self.assertNotEqual(page_copy, None)
+
+        # Check that the copy is not live
+        self.assertFalse(page_copy.live)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were copied
+        self.assertEqual(page_copy.get_children().count(), 2)
+
+        # Check the the child pages
+        # Neither of them should be live
+        child_copy = page_copy.get_children().filter(slug='child-page').first()
+        self.assertNotEqual(child_copy, None)
+        self.assertFalse(child_copy.live)
+
+        unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
+        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertFalse(unpublished_child_copy.live)
+
+    def test_page_copy_post_copy_subpages_publish_copies(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'copy_subpages': True,
+            'publish_copies': True,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
+
+        # Check that the copy exists
+        self.assertNotEqual(page_copy, None)
+
+        # Check that the copy is live
+        self.assertTrue(page_copy.live)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were copied
+        self.assertEqual(page_copy.get_children().count(), 2)
+
+        # Check the the child pages
+        # The child_copy should be live but the unpublished_child_copy shouldn't
+        child_copy = page_copy.get_children().filter(slug='child-page').first()
+        self.assertNotEqual(child_copy, None)
+        self.assertTrue(child_copy.live)
+
+        unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
+        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertFalse(unpublished_child_copy.live)
 
     def test_page_copy_post_existing_slug(self):
         # This tests the existing slug checking on page copy
@@ -856,6 +962,71 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'new_slug', "This slug is already in use")
+
+    def test_page_copy_no_publish_permission(self):
+        # Turn user into an editor who can add pages but not publish them
+        self.user.is_superuser = False
+        self.user.groups.add(
+            Group.objects.get(name="Editors"),
+        )
+        self.user.save()
+
+        # Get copy page
+        response = self.client.get(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )))
+
+        # The user should have access to the copy page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/copy.html')
+
+        # Make sure the "publish copies" field is hidden
+        self.assertNotContains(response, "Publish copies")
+
+    def test_page_copy_no_publish_permission_post_copy_subpages_publish_copies(self):
+        # This tests that unprivileged users cannot publish copied pages even if they hack their browser
+
+        # Turn user into an editor who can add pages but not publish them
+        self.user.is_superuser = False
+        self.user.groups.add(
+            Group.objects.get(name="Editors"),
+        )
+        self.user.save()
+
+        # Post
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'copy_subpages': True,
+            'publish_copies': True,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
+
+        # Check that the copy exists
+        self.assertNotEqual(page_copy, None)
+
+        # Check that the copy is not live
+        self.assertFalse(page_copy.live)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were copied
+        self.assertEqual(page_copy.get_children().count(), 2)
+
+        # Check the the child pages
+        # Neither of them should be live
+        child_copy = page_copy.get_children().filter(slug='child-page').first()
+        self.assertNotEqual(child_copy, None)
+        self.assertFalse(child_copy.live)
+
+        unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
+        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertFalse(unpublished_child_copy.live)
 
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):

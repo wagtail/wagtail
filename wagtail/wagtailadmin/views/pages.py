@@ -635,18 +635,21 @@ def set_page_position(request, page_to_move_id):
 @permission_required('wagtailadmin.access_admin')
 def copy(request, page_id):
     page = Page.objects.get(id=page_id)
-    subpage_count = page.get_descendants().count()
     parent_page = page.get_parent()
 
     # Make sure this user has permission to add subpages on the parent
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
+    # Check if the user has permission to publish subpages on the parent
+    can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
+
     # Create the form
     form = CopyForm(request.POST or None, initial={
         'new_title': page.title,
         'new_slug': page.slug,
         'copy_subpages': True,
+        'publish_copies': True,
     })
 
     # Stick an extra validator into the form to make sure that the slug is not already in use
@@ -668,12 +671,19 @@ def copy(request, page_id):
             }
         )
 
-        # Assign usef of this request as the owner of all the new pages
+        # Check if we should keep copied subpages published
+        publish_copies = can_publish and form.cleaned_data['publish_copies']
+
+        # Unpublish copied pages if we need to
+        if not publish_copies:
+            new_page.get_descendants(inclusive=True).update(live=False)
+
+        # Assign user of this request as the owner of all the new pages
         new_page.get_descendants(inclusive=True).update(owner=request.user)
 
         # Give a success message back to the user
         if form.cleaned_data['copy_subpages']:
-            messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, subpage_count))
+            messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, new_page.get_descendants().count()))
         else:
             messages.success(request, _("Page '{0}' copied.").format(page.title))
 
@@ -682,8 +692,9 @@ def copy(request, page_id):
 
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
-        'subpage_count': subpage_count,
+        'pages_to_copy': page.get_descendants(inclusive=True),
         'parent_page': parent_page,
+        'can_publish': can_publish,
         'form': form,
     })
 
