@@ -4,31 +4,28 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
-class TagSearchable(Indexed):
+class TagSearchable(indexed.Indexed):
     """
     Mixin to provide a 'search' method, searching on the 'title' field and tags,
     for models that provide those things.
     """
 
-    indexed_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-        'get_tags': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 10,
-        },
-    }
+    search_fields = (
+        indexed.SearchField('title', partial_match=True, boost=10),
+        indexed.SearchField('get_tags', partial_match=True, boost=10)
+    )
 
     @property
     def get_tags(self):
-        return ' '.join([tag.name for tag in self.tags.all()])
+        return ' '.join([tag.name for tag in self.prefetched_tags()])
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return super(TagSearchable, cls).get_indexed_objects().prefetch_related('tagged_items__tag')
 
     @classmethod
     def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):

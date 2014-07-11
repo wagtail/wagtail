@@ -1,4 +1,6 @@
-from wagtail.wagtailadmin import hooks
+from django.http import HttpResponse
+
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
 def editor_css():
@@ -17,3 +19,9 @@ def whitelister_element_rules():
         'a': attribute_rule({'href': check_url, 'target': True}),
     }
 hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
+
+
+def block_googlebot(page, request, serve_args, serve_kwargs):
+    if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+        return HttpResponse("<h1>bad googlebot no cookie</h1>")
+hooks.register('before_serve_page', block_googlebot)

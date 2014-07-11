@@ -5,6 +5,10 @@ header{
     margin-bottom:2em;
     color:white;
 
+    a{
+        color:white;
+    }
+
     h1, h2{
         margin:0;
         color:white;
@@ -96,19 +100,6 @@ header{
         padding:0;
     }
 }
-
-/* mozilla specific hack */
-@-moz-document url-prefix() { 
-    .iconfield.icon-spinner:after{
-        line-height:20px;
-    }
-}
-
-.page-explorer header{
-    margin-bottom:0;
-    padding-bottom:0em;
-}
-
 
 @media screen and (min-width: $breakpoint-mobile){
     header{

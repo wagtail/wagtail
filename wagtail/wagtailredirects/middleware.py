@@ -1,6 +1,6 @@
 from django import http
 
-import models
+from wagtail.wagtailredirects import models
 
 
 # Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py

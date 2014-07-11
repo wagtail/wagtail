@@ -8,7 +8,7 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 
-import models
+from wagtail.wagtailredirects import models
 
 
 REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)

@@ -2829,6 +2829,7 @@
         } else {
 
         }
+
         return this.toolbar.css('left', this.element.offset().left - 2);
       },
       _updatePosition: function(position) {},

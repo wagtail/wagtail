@@ -1,8 +1,7 @@
 {% load i18n %}
 <table class="listing chooser">
-    <col />
-    <col width="40%"/>
-    <col />
+    <col width="50%"/>
+    <col width="50%"/>
     <thead>
         <tr>
             <th class="title">{% trans "Terms" %}</th>
@@ -20,7 +19,7 @@
                 </tr>
             {% endfor %}
         {% else %}
-            <tr><td colspan="3" class="no-results-message"><p>{% trans "No results found" %}</p></td></tr>
+            <tr><td colspan="100%" class="no-results-message"><p>{% trans "No results found" %}</p></td></tr>
         {% endif %}
     </tbody>
 </table>

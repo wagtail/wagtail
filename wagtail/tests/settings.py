@@ -28,9 +28,8 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-MEDIA_ROOT=MEDIA_ROOT
-
 USE_TZ = True
+TIME_ZONE = 'UTC'
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
@@ -72,6 +71,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
     'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.wagtailsitemaps',
     'wagtail.tests',
 ]
 

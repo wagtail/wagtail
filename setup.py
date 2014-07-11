@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import sys
+
+
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -16,9 +19,35 @@ except ImportError:
     pass
 
 
+PY3 = sys.version_info[0] == 3
+
+
+install_requires = [
+    "Django>=1.6.2,<1.7",
+    "South>=0.8.4",
+    "django-compressor>=1.4",
+    "django-libsass>=0.2",
+    "django-modelcluster>=0.3",
+    "django-taggit==0.11.2",
+    "django-treebeard==2.0",
+    "Pillow>=2.3.0",
+    "beautifulsoup4>=4.3.2",
+    "lxml>=3.3.0",
+    "Unidecode>=0.04.14",
+    "six==1.7.3",
+    'requests==2.3.0',
+]
+
+
+if not PY3:
+    install_requires += [
+        "unicodecsv>=0.9.4"
+    ]
+
+
 setup(
     name='wagtail',
-    version='0.3.1',
+    version='0.4',
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
@@ -37,23 +66,13 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
         'Framework :: Django',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
-    install_requires=[
-        "Django>=1.6.2,<1.7",
-        "South>=0.8.4",
-        "django-compressor>=1.3",
-        "django-libsass>=0.1",
-        "django-modelcluster>=0.1",
-        "django-taggit==0.11.2",
-        "django-treebeard==2.0",
-        "Pillow>=2.3.0",
-        "beautifulsoup4>=4.3.2",
-        "lxml>=3.3.0",
-        'unicodecsv>=0.9.4',
-        'Unidecode>=0.04.14',
-        "BeautifulSoup==3.2.1",  # django-compressor gets confused if we have lxml but not BS3 installed
-    ],
+    install_requires=install_requires,
     zip_safe=False,
 )

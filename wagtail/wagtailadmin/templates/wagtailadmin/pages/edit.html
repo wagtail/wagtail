@@ -6,6 +6,7 @@
 {% block bodyclass %}menu-explorer  page-editor{% endblock %}
 
 {% block content %}
+    {% page_permissions page as page_perms %}
     <header class="merged tab-merged nice-padding">
         {% include "wagtailadmin/shared/breadcrumb.html" with page=page %}
 
@@ -14,7 +15,14 @@
                 <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page.title %}Editing <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
-                 {% trans "Status:" %} {% if page.live %}<a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>{% else %}<span class="status-tag">{{ page.status_string }}</span>{% endif %}
+                {% trans "Status" %}
+                {% if page.live %}
+                    <a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>
+                {% else %}
+                    <span class="status-tag">{{ page.status_string }}</span>
+                {% endif %}
+
+                {% include "wagtailadmin/pages/_privacy_indicator.html" with page=page page_perms=page_perms only %}
             </div>
         </div>
     </header>
@@ -22,8 +30,7 @@
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
-    
-        {% page_permissions page as page_perms %}
+
         <footer>
             <ul>
                 <li class="actions">
@@ -47,12 +54,12 @@
 
                 <li class="actions preview">
                     {% trans 'Preview' as preview_label %}
-                    {% if display_modes|length > 1 %}
+                    {% if preview_modes|length > 1 %}
                         <div class="dropdown dropup dropdown-button match-width">
                             {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
-                                {% for mode_name, mode_display_name in display_modes %}
+                                {% for mode_name, mode_display_name in preview_modes %}
                                     <li>
                                         {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
                                     </li>
@@ -70,7 +77,7 @@
                             {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
                             {% if page.get_latest_revision.user %}
                                 {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.username %}by {{ modified_by }}{% endblocktrans %}
-                                {% if request.user.email %}
+                                {% if page.get_latest_revision.user.email %}
                                     <span class="avatar small icon icon-user"><img src="{% gravatar_url page.get_latest_revision.user.email 25 %}" /></span>
                                 {% endif %}
                             {% endif %}

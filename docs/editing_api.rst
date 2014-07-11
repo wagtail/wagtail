@@ -1,28 +1,26 @@
 
-Editing API
-===========
+Defining models with the Editing API
+====================================
 
 .. note::
     This documentation is currently being written.
-    
 
 Wagtail provides a highly-customizable editing interface consisting of several components:
 
-  * **Fields** — built-in content types to augment the basic types provided by Django.
+  * **Fields** — built-in content types to augment the basic types provided by Django
   * **Panels** — the basic editing blocks for fields, groups of fields, and related object clusters
   * **Choosers** — interfaces for finding related objects in a ForeignKey relationship
 
-Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and Javascript for further customization, including extending the hallo.js rich text editor.
+Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customization, including extending the hallo.js rich text editor.
 
 There is also an Edit Handler API for creating your own Wagtail editor components.
-
 
 Defining Panels
 ~~~~~~~~~~~~~~~
 
-A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types, you just need to add a panel for each field you want to show in the Wagtail page editor, in the order you want them to appear.
+A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types; implementors just need to add a panel for each field they want to show in the Wagtail page editor, in the order they want them to appear.
 
-There are three types of panels:
+There are four basic types of panels:
 
   ``FieldPanel( field_name, classname=None )``
     This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
@@ -30,10 +28,21 @@ There are three types of panels:
   ``MultiFieldPanel( children, heading="", classname=None )``
     This panel condenses several ``FieldPanel`` s or choosers, from a list or tuple, under a single ``heading`` string.
 
-  ``InlinePanel( base_model, relation_name, panels=None, label='', help_text='' )``
+  ``InlinePanel( base_model, relation_name, panels=None, classname=None, label='', help_text='' )``
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. This is a very powerful, but tricky feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
-Wagtail provides a tabbed interface to help organize panels. ``content_panels`` is the main tab, used for the meat of your model content. The other, ``promote_panels``, is suggested for organizing metadata about the content, such as SEO information and other machine-readable information. Since you're writing the panel definitions, you can organize them however you want.
+  ``FieldRowPanel( children, classname=None)``
+    This panel is purely aesthetic. It creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below. Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
+
+    FieldRowPanel should be used in combination with ``col*`` classnames added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is layed out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+
+  **(In addition to these four, there are also Chooser Panels, detailed below.)**
+
+Wagtail provides a tabbed interface to help organize panels. Three such tabs are provided:
+
+* ``content_panels`` is the main tab, used for the bulk of your model's fields.
+* ``promote_panels`` is suggested for organizing fields regarding the promotion of the page around the site and the Internet. For example, a field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO-friendly titles, OpenGraph meta tag content and other machine-readable information.
+* ``settings_panels`` is essentially for non-copy fields. By default it contains the page's scheduled publishing fields. Other suggested fields could include a field to switch between one layout/style and another.
 
 Let's look at an example of a panel definition:
 
@@ -55,7 +64,10 @@ Let's look at an example of a panel definition:
   ExamplePage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('body', classname="full"),
-    FieldPanel('date'),
+    FieldRowPanel([
+      FieldPanel('start_date', classname="col3"),
+      FieldPanel('end_date', classname="col3"),
+    ]),
     ImageChooserPanel('splash_image'),
     DocumentChooserPanel('free_download'),
     PageChooserPanel('related_page'),
@@ -119,7 +131,7 @@ One of the features of Wagtail is a unified image library, which you can access 
       on_delete=models.SET_NULL,
       related_name='+'
     )
-    
+
   BookPage.content_panels = [
     ImageChooserPanel('cover'),
     # ...
@@ -225,7 +237,7 @@ Snippets are vanilla Django models you create yourself without a Wagtail-provide
       on_delete=models.SET_NULL,
       related_name='+'
     )
-    
+
   BookPage.content_panels = [
     SnippetChooserPanel('advert', Advert),
     # ...
@@ -239,7 +251,7 @@ Field Customization
 
 By adding CSS classnames to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customization covered there. (See `Django model field reference`_ ).
 
-.. _Django model field reference:https://docs.djangoproject.com/en/dev/ref/models/fields/
+.. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
 
 
 Full-Width Input
@@ -252,6 +264,12 @@ Titles
 ------
 
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
+
+
+Col*
+------
+
+Fields within a ``FieldRowPanel`` can have their width dictated in terms of the number of columns it should span. The ``FieldRowPanel`` is always considered to be 12 columns wide regardless of browser size or the nesting of ``FieldRowPanel`` in any other type of panel. Specify a number of columns thus: ``col3``, ``col4``, ``col6`` etc (up to 12). The resulting width with be *relative* to the full width of the ``FieldRowPanel``.
 
 
 Required Fields
@@ -356,7 +374,7 @@ For more on ``django-modelcluster``, visit `the django-modelcluster github proje
 Extending the WYSIWYG Editor (hallo.js)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
 
 .. code-block:: javascript
 
@@ -366,10 +384,8 @@ hallo.js plugin names are prefixed with the ``"IKS."`` namespace, but the ``name
 
 For information on developing custom hallo.js plugins, see the project's page: https://github.com/bergie/hallo
 
-
 Edit Handler API
 ~~~~~~~~~~~~~~~~
-
 
 Admin Hooks
 -----------
@@ -380,11 +396,28 @@ Registering functions with a Wagtail hook follows the following pattern:
 
 .. code-block:: python
 
-  from wagtail.wagtailadmin import hooks
+  from wagtail.wagtailcore import hooks
 
   hooks.register('hook', function)
 
 Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
+
+.. _before_serve_page:
+
+``before_serve_page``
+  .. versionadded:: 0.4
+
+  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    def block_googlebot(page, request, serve_args, serve_kwargs):
+        if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+            return HttpResponse("<h1>bad googlebot no cookie</h1>")
+
+    hooks.register('before_serve_page', block_googlebot)
 
 .. _construct_wagtail_edit_bird:
 
@@ -393,7 +426,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class UserbarPuppyLinkItem(object):
       def render(self, request):
@@ -414,7 +447,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.utils.safestring import mark_safe
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class WelcomePanel(object):
       order = 50
@@ -440,7 +473,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.http import HttpResponse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def do_after_page_create(request, page):
       return HttpResponse("Congrats on making content!", content_type="text/plain")
@@ -468,7 +501,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.http import HttpResponse
     from django.conf.urls import url
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def admin_view( request ):
       return HttpResponse( \
@@ -484,13 +517,13 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 .. _construct_main_menu:
 
 ``construct_main_menu``
-  Add, remove, or alter ``MenuItem`` objects from the Wagtail admin menu. The callable passed to this hook must take a ``request`` object and a list of ``menu_items``; it must return a list of menu items. New items can be constructed from the ``MenuItem`` class by passing in: a ``label`` which will be the text in the menu item, the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up), CSS class ``name`` applied to the wrapping ``<li>`` of the menu item as ``"menu-{name}"``, CSS ``classnames`` which are used to give the link an icon, and an ``order`` integer which determine's the item's place in the menu. 
+  Add, remove, or alter ``MenuItem`` objects from the Wagtail admin menu. The callable passed to this hook must take a ``request`` object and a list of ``menu_items``; it must return a list of menu items. New items can be constructed from the ``MenuItem`` class by passing in: a ``label`` which will be the text in the menu item, the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up), CSS class ``name`` applied to the wrapping ``<li>`` of the menu item as ``"menu-{name}"``, CSS ``classnames`` which are used to give the link an icon, and an ``order`` integer which determine's the item's place in the menu.
 
   .. code-block:: python
 
     from django.core.urlresolvers import reverse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
     def construct_main_menu(request, menu_items):
@@ -510,7 +543,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html, format_html_join
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def editor_js():
       js_files = [
@@ -538,7 +571,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def editor_css():
       return format_html('<link rel="stylesheet" href="' \
@@ -549,7 +582,8 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
-  .. versionadded:: 0.4
+.. versionadded:: 0.4
+
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
   The ``wagtail.wagtailcore.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
@@ -558,7 +592,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
     def whitelister_element_rules():
@@ -577,6 +611,7 @@ On loading, Wagtail will search for any app with the file ``image_formats.py`` a
 As an example, add a "thumbnail" format:
 
 .. code-block:: python
+
   # image_formats.py
   from wagtail.wagtailimages.formats import Format, register_image_format
 
@@ -611,4 +646,3 @@ Custom Choosers
 
 Tests
 -----
-

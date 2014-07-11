@@ -2,7 +2,7 @@ from django.core import urlresolvers
 from django.conf.urls import include, url
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailsearch.urls import admin as admin_urls
 
 from wagtail.wagtailadmin.menu import MenuItem

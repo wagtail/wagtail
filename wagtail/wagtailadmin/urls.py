@@ -1,9 +1,8 @@
 from django.conf.urls import url
-from django.conf import settings
 
-from wagtail.wagtailadmin.forms import LoginForm, PasswordResetForm
-from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailadmin.forms import PasswordResetForm
+from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar, page_privacy
+from wagtail.wagtailcore import hooks
 
 
 urlpatterns = [
@@ -67,6 +66,8 @@ urlpatterns += [
     url(r'^pages/moderation/(\d+)/approve/$', pages.approve_moderation, name='wagtailadmin_pages_approve_moderation'),
     url(r'^pages/moderation/(\d+)/reject/$', pages.reject_moderation, name='wagtailadmin_pages_reject_moderation'),
     url(r'^pages/moderation/(\d+)/preview/$', pages.preview_for_moderation, name='wagtailadmin_pages_preview_for_moderation'),
+
+    url(r'^pages/(\d+)/privacy/$', page_privacy.set_privacy, name='wagtailadmin_pages_set_privacy'),
 
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),
     url(r'^choose-page/(\d+)/$', chooser.browse, name='wagtailadmin_choose_page_child'),

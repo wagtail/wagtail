@@ -1,13 +1,15 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
-from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_edit_handler
+from wagtail.wagtailsnippets.views.snippets import (
+    get_snippet_edit_handler
+)
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -78,12 +80,10 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.test_snippet = Advert()
-        self.test_snippet.text = 'test_advert'
-        self.test_snippet.url = 'http://www.example.com/'
-        self.test_snippet.save()
+    fixtures = ['wagtail/tests/fixtures/test.json']
 
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
         self.login()
 
     def get(self, params={}):
@@ -127,12 +127,10 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.test_snippet = Advert()
-        self.test_snippet.text = 'test_advert'
-        self.test_snippet.url = 'http://www.example.com/'
-        self.test_snippet.save()
+    fixtures = ['wagtail/tests/fixtures/test.json']
 
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
         self.login()
 
     def test_delete_get(self):
@@ -151,14 +149,11 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
 
 class TestSnippetChooserPanel(TestCase):
-    def setUp(self):
-        content_type = get_content_type_from_url_params('tests',
-                                                        'advert')
+    fixtures = ['wagtail/tests/fixtures/test.json']
 
-        test_snippet = Advert()
-        test_snippet.text = 'test_advert'
-        test_snippet.url = 'http://www.example.com/'
-        test_snippet.save()
+    def setUp(self):
+        content_type = Advert
+        test_snippet = Advert.objects.get(id=1)
 
         edit_handler_class = get_snippet_edit_handler(Advert)
         form_class = edit_handler_class.get_form_class(Advert)
@@ -175,7 +170,7 @@ class TestSnippetChooserPanel(TestCase):
         self.assertTrue('test_advert' in self.snippet_chooser_panel.render_as_field())
 
     def test_render_js(self):
-        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'contenttypes/contenttype');"
+        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'tests/advert');"
                         in self.snippet_chooser_panel.render_js())
 
 

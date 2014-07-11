@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch import models
 
 
@@ -217,6 +217,10 @@ class TestEditorsPicksEditView(TestCase, WagtailTestUtils):
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearch_editorspicks_index'))
+
+        # Check that the ordering has been saved correctly
+        self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick.id).sort_order, 1)
+        self.assertEqual(models.EditorsPick.objects.get(id=self.editors_pick_2.id).sort_order, 0)
 
         # Check that the recommendations were reordered
         self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.editors_pick_2)
