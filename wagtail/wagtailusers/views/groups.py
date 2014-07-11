@@ -133,3 +133,17 @@ def edit(request, group_id):
         'form': form,
         'formset': formset,
     })
+
+
+@permission_required('auth.delete_group')
+def delete(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+
+    if request.POST:
+        group.delete()
+        messages.success(request, _("Group '{0}' deleted.").format(group.name))
+        return redirect('wagtailusers_groups_index')
+
+    return render(request, "wagtailusers/groups/confirm_delete.html", {
+        'group': group,
+    })
