@@ -13,7 +13,15 @@
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.hostname %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.port %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.root_page %}
+
+                {% trans "Choose a different root page" as choose_another_text_str %}
+                {% trans "Choose a root page" as choose_one_text_str %}
+                {% if form.instance.root_page %}
+                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.root_page page=form.instance.root_page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+                {% else %}
+                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.root_page is_chosen=False choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+                {% endif %}
+
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_default_site %}
                 <li><input type="submit" value="{% trans 'Save' %}" />
                 {% if perms.site.delete_site %}
@@ -23,4 +31,11 @@
             </ul>
         </div>
     </form>
+{% endblock %}
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script type="text/javascript">
+        {% include "wagtailsites/includes/site_form.js" %}
+    </script>
 {% endblock %}
