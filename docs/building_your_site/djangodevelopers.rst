@@ -194,87 +194,130 @@ Page Properties and Methods Reference
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
-Properties:
+.. automodule:: wagtail.wagtailcore.models
+.. autoclass:: Page
 
-* specific
-* url
-* full_url
-* relative_url
-* has_unpublished_changes
-* status_string
-* subpage_types
-* indexed_fields
-* preview_modes
+    .. method:: specific
 
-Methods:
+        Return this page in its most specific subclassed form.
 
-* route
-* serve
-* get_context
-* get_template
-* is_navigable
-* get_ancestors
-* get_descendants
-* get_siblings
-* search
-* serve_preview
+    .. automethod:: url
+
+    .. automethod:: full_url
+
+    .. automethod:: relative_url
+
+    .. automethod:: is_navigable
+
+    .. automethod:: route
+
+    .. automethod:: serve
+
+    .. automethod:: get_context
+
+    .. automethod:: get_template
+
+    .. automethod:: preview_modes
+
+    .. automethod:: serve_preview
+
+    .. automethod:: get_ancestors
+
+    .. automethod:: get_descendants
+
+    .. automethod:: get_siblings
+
+    .. automethod:: search
 
 
-Page Queryset Methods
-~~~~~~~~~~~~~~~~~~~~~
+Page Queryset
+~~~~~~~~~~~~~
 
-The ``Page`` class uses a custom Django model manager which provides these methods for structuring queries on ``Page`` objects.
+All models that inherit from ``Page`` are given some extra Queryset methods accessible from their ``.objects`` attribute.
 
-get_query_set()
-    return PageQuerySet(self.model).order_by('path')
+Examples:
 
-live(self):
-    return self.get_query_set().live()
+ - Selecting only live pages
 
-not_live(self):
-    return self.get_query_set().not_live()
+    .. code-block:: python
 
-page(self, other):
-    return self.get_query_set().page(other)
+        live_pages = Page.objects.live()
 
-not_page(self, other):
-    return self.get_query_set().not_page(other)
+ - Selecting published EventPages that are descendants of events_index
 
-descendant_of(self, other, inclusive=False):
-    return self.get_query_set().descendant_of(other, inclusive)
+    .. code-block:: python
 
-not_descendant_of(self, other, inclusive=False):
-    return self.get_query_set().not_descendant_of(other, inclusive)
+        events = EventPage.objects.live().descendant_of(events_index)
 
-child_of(self, other):
-    return self.get_query_set().child_of(other)
+ - Getting a list of menu items
 
-not_child_of(self, other):
-    return self.get_query_set().not_child_of(other)
+    .. code-block:: python
 
-ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().ancestor_of(other, inclusive)
+        # This gets a queryset of live children of the homepage with ``show_in_menus`` set
+        menu_items = homepage.get_children().live().in_menu()
 
-not_ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().not_ancestor_of(other, inclusive)
 
-parent_of(self, other):
-    return self.get_query_set().parent_of(other)
+.. automodule:: wagtail.wagtailcore.query
+.. autoclass:: PageQuerySet
 
-not_parent_of(self, other):
-    return self.get_query_set().not_parent_of(other)
+    .. automethod:: live
 
-sibling_of(self, other, inclusive=False):
-    return self.get_query_set().sibling_of(other, inclusive)
+    .. automethod:: not_live
 
-not_sibling_of(self, other, inclusive=False):
-    return self.get_query_set().not_sibling_of(other, inclusive)
+    .. automethod:: in_menu
 
-type(self, model):
-    return self.get_query_set().type(model)
+        .. note::
 
-not_type(self, model):
-    return self.get_query_set().not_type(model)
+            To put your page in menus, set the show_in_menus flag to true:
+
+            .. code-block:: python
+
+                # Add 'my_page' to the menu
+                my_page.show_in_menus = True
+
+    .. automethod:: not_in_menu
+
+    .. automethod:: page
+
+        .. note::
+
+            This will not add the page to the queryset if it doesn't already contain it.
+
+            If you would like to add a page to a queryset, create another queryset with just
+            that page and combine them with the ``|`` operator:
+
+            .. code-block:: python
+
+                # Force `my_page` into `queryset`
+                queryset = queryset | Page.objects.page(my_page)
+
+    .. automethod:: not_page
+
+    .. automethod:: descendant_of
+
+    .. automethod:: not_descendant_of
+
+    .. automethod:: child_of
+
+    .. automethod:: not_child_of
+
+    .. automethod:: ancestor_of
+
+    .. automethod:: not_ancestor_of
+
+    .. automethod:: sibling_of
+
+    .. automethod:: not_sibling_of
+
+    .. automethod:: type
+
+    .. automethod:: not_type
+
+    .. automethod:: public
+
+    .. automethod:: not_public
+
+    .. automethod:: search
 
 
 .. _wagtail_site_admin:
