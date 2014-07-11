@@ -1,0 +1,49 @@
++{% load i18n %}
++{{ formset.management_form }}
++<ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
++    {% for form in formset.forms %}
++        {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=fo
++    {% endfor %}
++</ul>
++
++<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE"
++    {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formse
++</script>
++
++<p class="add">
++    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add"
++</p>
+
+
+
++{% load i18n %}
++{% comment %}
++    TODO - DRY this form with /wagtailsearch/templates/wagtailsearch/editorspicks/include
++{% endcomment %}
++<li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{
++    <ul class="controls">
++        <li class="icon text-replace icon-bin" id="{{ form.DELETE.id_for_label }}-button"
++    </ul>
++
++    <fieldset>
++        <legend>{% trans "Page permissions" %}</legend>
++        <ul class="fields">
++            <li class="model_choice_field">
++                {% trans "Choose a different root page" as choose_another_text_str %}
++                {% trans "Choose a root page" as choose_one_text_str %}
++                {% if form.instance.page %}
++                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with 
++                {% else %}
++                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with 
++                {% endif %}
++            </li>
++            <li class="char_field">
++                {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field
++            </li>
++        </ul>
++
++        {{ form.id }}
++        {{ form.ORDER }}
++        {{ form.DELETE }}
++    </fieldset>
++</li>
