@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -11,10 +11,15 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import GroupForm, BaseGroupPagePermissionFormSet
 from wagtail.wagtailcore.models import GroupPagePermission
 
-change_group_perm = "auth.change_group"
+
+def user_has_group_model_perm(user):
+    for verb in ['add', 'change', 'delete']:
+        if user.has_perm('auth.%s_group' % verb):
+            return True
+    return False
 
 
-@permission_required(change_group_perm)
+@user_passes_test(user_has_group_model_perm)
 @vary_on_headers('X-Requested-With')
 def index(request):
     q = None
@@ -71,7 +76,7 @@ def index(request):
         })
 
 
-@permission_required(change_group_perm)
+@permission_required('auth.add_group')
 def create(request):
     GroupPagePermissionFormSet = inlineformset_factory(
         Group,
@@ -100,7 +105,7 @@ def create(request):
     })
 
 
-@permission_required(change_group_perm)
+@permission_required('auth.change_group')
 def edit(request, group_id):
     group = get_object_or_404(Group, id=group_id)
     GroupPagePermissionFormSet = inlineformset_factory(
