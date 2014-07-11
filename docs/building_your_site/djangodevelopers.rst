@@ -196,32 +196,38 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 .. automodule:: wagtail.wagtailcore.models
 .. autoclass:: Page
-    :members:
 
-Properties:
+    .. method:: specific
 
-* specific
-* url
-* full_url
-* relative_url
-* has_unpublished_changes
-* status_string
-* subpage_types
-* indexed_fields
-* preview_modes
+        Return this page in its most specific subclassed form.
 
-Methods:
+    .. automethod:: url
 
-* route
-* serve
-* get_context
-* get_template
-* is_navigable
-* get_ancestors
-* get_descendants
-* get_siblings
-* search
-* serve_preview
+    .. automethod:: full_url
+
+    .. automethod:: relative_url
+
+    .. automethod:: is_navigable
+
+    .. automethod:: route
+
+    .. automethod:: serve
+
+    .. automethod:: get_context
+
+    .. automethod:: get_template
+
+    .. automethod:: preview_modes
+
+    .. automethod:: serve_preview
+
+    .. automethod:: get_ancestors
+
+    .. automethod:: get_descendants
+
+    .. automethod:: get_siblings
+
+    .. automethod:: search
 
 
 Page Queryset
