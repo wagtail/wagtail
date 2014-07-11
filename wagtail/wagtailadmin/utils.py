@@ -1,5 +1,8 @@
-from wagtail.wagtailcore.models import Page
 from django.conf import settings
+
+from modelcluster.fields import ParentalKey
+
+from wagtail.wagtailcore.models import Page
 
 
 def used_by(self):
@@ -22,8 +25,10 @@ def used_by(self):
     for r in related_objects:
         if isinstance(r, Page):
             result.append(r)
-        elif hasattr(r, 'page'):
-            result.append(r.page)
+        else:
+            parental_keys = get_parental_keys(r)
+            for parental_key in parental_keys:
+                result.append(getattr(r, parental_key.name))
 
     return result
 
@@ -35,3 +40,7 @@ def usage_count(self):
         return None
 
     return len(used_by(self))
+
+
+def get_parental_keys(obj):
+    return [field for field in obj._meta.fields if type(field) == ParentalKey]
