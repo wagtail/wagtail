@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
@@ -9,135 +9,152 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"POT-Creation-Date: 2014-07-11 10:52+0000\n"
 "PO-Revision-Date: 2014-03-14 21:15+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
+"el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\forms.py:12 .\forms.py:73
+#: forms.py:18 forms.py:95
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
-#: .\forms.py:14
+#: forms.py:20
 msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης λογαριασμών χρηστών."
+msgstr ""
+"Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης "
+"λογαριασμών χρηστών."
 
-#: .\forms.py:17 .\forms.py:58
+#: forms.py:23 forms.py:80
 msgid "Email"
 msgstr "Email"
 
-#: .\forms.py:18 .\forms.py:59
+#: forms.py:24 forms.py:81
 msgid "First Name"
 msgstr "Όνομα"
 
-#: .\forms.py:19 .\forms.py:60
+#: forms.py:25 forms.py:82
 msgid "Last Name"
 msgstr "Επίθετο"
 
-#: .\forms.py:46
+#: forms.py:68
 msgid "A user with that username already exists."
 msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο όνομα χρήστη."
 
-#: .\forms.py:47
+#: forms.py:69
 msgid "The two password fields didn't match."
 msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
-#: .\forms.py:50 .\templates\wagtailusers\list.html:15
+#: forms.py:72 templates/wagtailusers/list.html:15
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: .\forms.py:53
+#: forms.py:75
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Απαραίτητο. Λιγότερο από 30 χαρακτήρες. Επιτρέπονται μόνο γράμματα, αριθμοί και οι χαρακτήρες @/./+/-/_."
+msgstr ""
+"Απαραίτητο. Λιγότερο από 30 χαρακτήρες. Επιτρέπονται μόνο γράμματα, αριθμοί "
+"και οι χαρακτήρες @/./+/-/_."
 
-#: .\forms.py:55
+#: forms.py:77
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./+/-/_."
+msgstr ""
+"Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./"
+"+/-/_."
 
-#: .\forms.py:63
+#: forms.py:85
 msgid "Password"
 msgstr "Κωδικός"
 
-#: .\forms.py:66
+#: forms.py:88
 msgid "Leave blank if not changing."
 msgstr "Αφήστε κενό αν δεν το αλλάζετε."
 
-#: .\forms.py:68
+#: forms.py:90
 msgid "Password confirmation"
 msgstr "Επιβεβαίωση κωδικού."
 
-#: .\forms.py:70
+#: forms.py:92
 msgid "Enter the same password as above, for verification."
 msgstr "Εισάγετε τον ίδιο κωδικό για επιβεβαίωση"
 
-#: .\forms.py:75
+#: forms.py:97
 msgid "Administrators have the ability to manage user accounts."
-msgstr "Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
+msgstr ""
+"Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
 
-#: .\templates\wagtailusers\create.html:4
-#: .\templates\wagtailusers\create.html:8
-#: .\templates\wagtailusers\create.html:35
-msgid "Add user"
-msgstr "Προσθήκη χρήστη"
+#: models.py:13
+msgid "Receive notification when a page is submitted for moderation"
+msgstr ""
 
-#: .\templates\wagtailusers\create.html:12
-#: .\templates\wagtailusers\edit.html:12
-msgid "Account"
-msgstr "Λογαριασμός"
+#: models.py:18
+msgid "Receive notification when your page edit is approved"
+msgstr ""
 
-#: .\templates\wagtailusers\create.html:13
-#: .\templates\wagtailusers\create.html:28
-#: .\templates\wagtailusers\edit.html:13
-msgid "Roles"
-msgstr "Ρόλοι"
+#: models.py:23
+msgid "Receive notification when your page edit is rejected"
+msgstr ""
 
-#: .\templates\wagtailusers\edit.html:4 .\templates\wagtailusers\edit.html:8
-msgid "Editing"
-msgstr "Διόρθωση"
-
-#: .\templates\wagtailusers\edit.html:30 .\templates\wagtailusers\edit.html:37
-msgid "Save"
-msgstr "Αποθήκευση"
-
-#: .\templates\wagtailusers\index.html:4
-#: .\templates\wagtailusers\index.html:17
+#: wagtail_hooks.py:21 templates/wagtailusers/index.html:4
+#: templates/wagtailusers/index.html:17
 msgid "Users"
 msgstr "Χρήστες"
 
-#: .\templates\wagtailusers\index.html:18
+#: templates/wagtailusers/create.html:4 templates/wagtailusers/create.html:8
+#: templates/wagtailusers/create.html:35
+msgid "Add user"
+msgstr "Προσθήκη χρήστη"
+
+#: templates/wagtailusers/create.html:12 templates/wagtailusers/edit.html:12
+msgid "Account"
+msgstr "Λογαριασμός"
+
+#: templates/wagtailusers/create.html:13 templates/wagtailusers/create.html:28
+#: templates/wagtailusers/edit.html:13
+msgid "Roles"
+msgstr "Ρόλοι"
+
+#: templates/wagtailusers/edit.html:4 templates/wagtailusers/edit.html.py:8
+msgid "Editing"
+msgstr "Διόρθωση"
+
+#: templates/wagtailusers/edit.html:30 templates/wagtailusers/edit.html:37
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: templates/wagtailusers/index.html:18
 msgid "Add a user"
 msgstr "Προσθήκη χρήστη"
 
-#: .\templates\wagtailusers\list.html:7
+#: templates/wagtailusers/list.html:7
 msgid "Name"
 msgstr "Όνομα"
 
-#: .\templates\wagtailusers\list.html:22
+#: templates/wagtailusers/list.html:22
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: .\templates\wagtailusers\list.html:23
+#: templates/wagtailusers/list.html:23
 msgid "Status"
 msgstr "Κατάσταση"
 
-#: .\templates\wagtailusers\list.html:36
+#: templates/wagtailusers/list.html:36
 msgid "Admin"
 msgstr "Διαχειριστής"
 
-#: .\templates\wagtailusers\list.html:37
+#: templates/wagtailusers/list.html:37
 msgid "Active"
 msgstr "Ενεργός"
 
-#: .\templates\wagtailusers\list.html:37
+#: templates/wagtailusers/list.html:37
 msgid "Inactive"
 msgstr "Μη ενεργός"
 
-#: .\templates\wagtailusers\results.html:5
+#: templates/wagtailusers/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -147,37 +164,43 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
-msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
+msgstr[0] ""
+"\n"
+"Βρέθηκε ένα αποτέλεσμα"
+msgstr[1] ""
+"\n"
+"Βρέθηκαν %(counter)s αποτελέσματα"
 
-#: .\templates\wagtailusers\results.html:18
+#: templates/wagtailusers/results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Λυπούμαστε, δε ταιριάζουν χρήστες με το \"<em>%(query_string)s</em>\""
 
-#: .\templates\wagtailusers\results.html:21
+#: templates/wagtailusers/results.html:21
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_create_url)s\">add some</a>?"
-msgstr "Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s\">προσθέσετε μερικούς</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s"
+"\">προσθέσετε μερικούς</a>?"
 
-#: .\views\users.py:21 .\views\users.py:28
+#: views/users.py:30 views/users.py:37
 msgid "Search users"
 msgstr "Αναζήτηση χρηστών"
 
-#: .\views\users.py:75
+#: views/users.py:84
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
-#: .\views\users.py:78
+#: views/users.py:87
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
-#: .\views\users.py:94
+#: views/users.py:103
 msgid "User '{0}' updated."
 msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
-#: .\views\users.py:97
+#: views/users.py:106
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
