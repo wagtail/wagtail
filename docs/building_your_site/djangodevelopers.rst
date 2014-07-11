@@ -253,7 +253,65 @@ Examples:
 
 .. automodule:: wagtail.wagtailcore.query
 .. autoclass:: PageQuerySet
-    :members:
+
+    .. automethod:: live
+
+    .. automethod:: not_live
+
+    .. automethod:: in_menu
+
+        .. note::
+
+            To put your page in menus, set the show_in_menus flag to true:
+
+            .. code-block:: python
+
+                # Add 'my_page' to the menu
+                my_page.show_in_menus = True
+
+    .. automethod:: not_in_menu
+
+    .. automethod:: page
+
+        .. note::
+
+            This will not add the page to the queryset if it doesn't already contain it.
+
+            If you would like to add a page to a queryset, create another queryset with just
+            that page and combine them with the ``|`` operator:
+
+            .. code-block:: python
+
+                # Force `my_page` into `queryset`
+                queryset = queryset | Page.objects.page(my_page)
+
+    .. automethod:: not_page
+
+    .. automethod:: descendant_of
+
+    .. automethod:: not_descendant_of
+
+    .. automethod:: child_of
+
+    .. automethod:: not_child_of
+
+    .. automethod:: ancestor_of
+
+    .. automethod:: not_ancestor_of
+
+    .. automethod:: sibling_of
+
+    .. automethod:: not_sibling_of
+
+    .. automethod:: type
+
+    .. automethod:: not_type
+
+    .. automethod:: public
+
+    .. automethod:: not_public
+
+    .. automethod:: search
 
 
 .. _wagtail_site_admin:

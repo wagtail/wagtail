@@ -27,15 +27,6 @@ class PageQuerySet(MP_NodeQuerySet):
     def in_menu(self):
         """
         This filters the queryset to only contain pages that are in the menus.
-
-        .. note::
-
-            To put your page in menus, set the show_in_menus flag to true:
-
-            .. code-block:: python
-
-                # Add 'my_page' to the menu
-                my_page.show_in_menus = True
         """
         return self.filter(self.in_menu_q())
 
@@ -48,18 +39,6 @@ class PageQuerySet(MP_NodeQuerySet):
     def page(self, other):
         """
         This filters the queryset so it only contains the specified page.
-
-        .. note::
-
-            This will not add the page to the queryset if it doesn't already contain it.
-
-            If you would like to add a page to a queryset, create another queryset with just
-            that page and combine them with the ``|`` operator:
-
-            .. code-block:: python
-
-                # Force `my_page` into `queryset`
-                queryset = queryset | Page.objects.page(my_page)
         """
         return self.filter(self.page_q(other))
 
