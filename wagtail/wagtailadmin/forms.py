@@ -83,3 +83,20 @@ class CopyForm(forms.Form):
     new_slug = forms.CharField()
     copy_subpages = forms.BooleanField(required=False)
     publish_copies = forms.BooleanField(required=False)
+
+
+class PageViewRestrictionForm(forms.Form):
+    restriction_type = forms.ChoiceField(label="Visibility", choices=[
+        ('none', ugettext_lazy("Public")),
+        ('password', ugettext_lazy("Private, accessible with the following password")),
+    ], widget=forms.RadioSelect)
+    password = forms.CharField(required=False)
+
+    def clean(self):
+        cleaned_data = super(PageViewRestrictionForm, self).clean()
+
+        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
+            self._errors["password"] = self.error_class([_('This field is required.')])
+            del cleaned_data['password']
+
+        return cleaned_data

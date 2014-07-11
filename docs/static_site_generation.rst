@@ -45,6 +45,8 @@ For example, let's say we have a Blog Index which uses pagination. We can overri
 
 .. code:: python
 
+    from wagtail.wagtailcore.url_routing import RouteResult
+
     class BlogIndex(Page):
         ...
 
@@ -54,7 +56,7 @@ For example, let's say we have a Blog Index which uses pagination. We can overri
         def route(self, request, path_components):
             if self.live and len(path_components) == 2 and path_components[0] == 'page':
                 try:
-                    return self.serve(request, page=int(path_components[1]))
+                    return RouteResult(self, kwargs={'page': int(path_components[1])})
                 except (TypeError, ValueError):
                     pass
 

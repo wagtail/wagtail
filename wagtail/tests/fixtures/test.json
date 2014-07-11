@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 3,
+        "numchild": 5,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -254,6 +254,79 @@
         "default_value": "",
         "help_text": "",
         "page": 8
+    }
+},
+
+{
+    "pk": 10,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Old style route method",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "pagewitholdstyleroutemethod"],
+        "path": "000100010004",
+        "url_path": "/home/old-style-route/",
+        "slug": "old-style-route"
+    }
+},
+{
+    "pk": 10,
+    "model": "tests.pagewitholdstyleroutemethod",
+    "fields": {
+        "content": "<p>Test with old style route method</p>"
+    }
+},
+
+{
+    "pk": 11,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret plans",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010005",
+        "url_path": "/home/secret-plans/",
+        "slug": "secret-plans"
+    }
+},
+{
+    "pk": 11,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>muahahahaha</p>"
+    }
+},
+
+{
+    "pk": 12,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Steal underpants",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100050001",
+        "url_path": "/home/secret-plans/steal-underpants/",
+        "slug": "steal-underpants"
+    }
+},
+{
+    "pk": 12,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-07-04",
+        "audience": "private",
+        "location": "Marks and Spencer",
+        "body": "<p>meet in the menswear department at noon</p>",
+        "cost": "free"
     }
 },
 
@@ -491,6 +564,14 @@
 },
 {
     "pk": 1,
+    "model": "tests.advert",
+    "fields": {
+        "text": "test_advert",
+        "url": "http://www.example.com"
+        }
+},
+{
+    "pk": 1,
     "model": "wagtaildocs.Document",
     "fields": {
         "title": "test document",
@@ -505,6 +586,15 @@
         "created_at": "2014-01-01T12:00:00.000Z",
         "width": 0,
         "height": 0
+    }
+},
+
+{
+    "pk": 1,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 11,
+        "password": "swordfish"
     }
 }
 ]

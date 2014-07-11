@@ -24,12 +24,17 @@ class CustomHTTPAdapter(HTTPAdapter):
         return super(CustomHTTPAdapter, self).get_connection(self.cache_url, proxies)
 
 
-def purge_page_from_cache(page):
+def purge_url_from_cache(url):
     # Get session
     cache_server_url = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', 'http://127.0.0.1:8000/')
     session = requests.Session()
     session.mount('http://', CustomHTTPAdapter(cache_server_url))
 
-    # Purge paths from cache
-    for path in page.get_cached_paths():
-        session.request('PURGE', page.full_url + path[1:])
+    # Send purge request to cache
+    session.request('PURGE', url)
+
+
+def purge_page_from_cache(page):
+    # Purge cached paths from cache
+    for path in page.specific.get_cached_paths():
+        purge_url_from_cache(page.full_url + path[1:])

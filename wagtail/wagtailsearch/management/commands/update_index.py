@@ -24,14 +24,9 @@ class Command(BaseCommand):
             toplevel_content_type = model.indexed_get_toplevel_content_type()
 
             # Loop through objects
-            for obj in model.objects.all():
-                # Check if this object has an "object_indexed" function
-                if hasattr(obj, "object_indexed"):
-                    if obj.object_indexed() is False:
-                        continue
-
+            for obj in model.get_indexed_objects():
                 # Get key for this object
-                key = toplevel_content_type + ":" + str(obj.pk)
+                key = toplevel_content_type + ':' + str(obj.pk)
 
                 # Check if this key already exists
                 if key in object_set:
@@ -62,10 +57,8 @@ class Command(BaseCommand):
 
         # Add objects to index
         self.stdout.write("Adding objects")
-        results = s.add_bulk(object_set.values())
-        if results:
-            for result in results:
-                self.stdout.write(result[0] + ' ' + str(result[1]))
+        for result in s.add_bulk(object_set.values()):
+            self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
         self.stdout.write("Refreshing index")

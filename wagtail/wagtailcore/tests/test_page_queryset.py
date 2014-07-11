@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.tests.models import EventPage
 
 
@@ -270,3 +270,43 @@ class TestPageQuerySet(TestCase):
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
         self.assertTrue(pages.filter(id=homepage.id).exists())
+
+    def test_public(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        homepage = Page.objects.get(url_path='/home/')
+
+        # Add PageViewRestriction to events_index
+        PageViewRestriction.objects.create(page=events_index, password='hello')
+
+        # Get public pages
+        pages = Page.objects.public()
+
+        # Check that the homepage is in the results
+        self.assertTrue(pages.filter(id=homepage.id).exists())
+
+        # Check that the events index is not in the results
+        self.assertFalse(pages.filter(id=events_index.id).exists())
+
+        # Check that the event is not in the results
+        self.assertFalse(pages.filter(id=event.id).exists())
+
+    def test_not_public(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        event = Page.objects.get(url_path='/home/events/christmas/')
+        homepage = Page.objects.get(url_path='/home/')
+
+        # Add PageViewRestriction to events_index
+        PageViewRestriction.objects.create(page=events_index, password='hello')
+
+        # Get public pages
+        pages = Page.objects.not_public()
+
+        # Check that the homepage is not in the results
+        self.assertFalse(pages.filter(id=homepage.id).exists())
+
+        # Check that the events index is in the results
+        self.assertTrue(pages.filter(id=events_index.id).exists())
+
+        # Check that the event is in the results
+        self.assertTrue(pages.filter(id=event.id).exists())

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.cache import cache
 
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
 from wagtail.tests.models import SimplePage
 
 from .sitemap_generator import Sitemap
@@ -23,6 +23,13 @@ class TestSitemapGenerator(TestCase):
             live=False,
         ))
 
+        self.protected_child_page = self.home_page.add_child(instance=SimplePage(
+            title="Protected",
+            slug='protected',
+            live=True,
+        ))
+        PageViewRestriction.objects.create(page=self.protected_child_page, password='hello')
+
         self.site = Site.objects.get(is_default_site=True)
 
     def test_get_pages(self):
@@ -31,23 +38,27 @@ class TestSitemapGenerator(TestCase):
 
         self.assertIn(self.child_page.page_ptr, pages)
         self.assertNotIn(self.unpublished_child_page.page_ptr, pages)
+        self.assertNotIn(self.protected_child_page.page_ptr, pages)
 
     def test_get_urls(self):
         sitemap = Sitemap(self.site)
         urls = [url['location'] for url in sitemap.get_urls()]
 
-        self.assertIn('/', urls) # Homepage
-        self.assertIn('/hello-world/', urls) # Child page
+        self.assertIn('http://localhost/', urls) # Homepage
+        self.assertIn('http://localhost/hello-world/', urls) # Child page
 
     def test_render(self):
         sitemap = Sitemap(self.site)
         xml = sitemap.render()
 
         # Check that a URL has made it into the xml
-        self.assertIn('/hello-world/', xml)
+        self.assertIn('http://localhost/hello-world/', xml)
 
         # Make sure the unpublished page didn't make it into the xml
-        self.assertNotIn('/unpublished/', xml)
+        self.assertNotIn('http://localhost/unpublished/', xml)
+
+        # Make sure the protected page didn't make it into the xml
+        self.assertNotIn('http://localhost/protected/', xml)
 
 
 class TestSitemapView(TestCase):

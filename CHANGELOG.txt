@@ -1,14 +1,16 @@
 Changelog
 =========
 
-0.4 (xx.xx.20xx)
+0.4 (10.07.2014)
 ~~~~~~~~~~~~~~~~
  * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
  * Python 3.2, 3.3 and 3.4 support
  * Added scheduled publishing
+ * Added support for private (password-protected) pages
  * Added frontend cache invalidator
  * Added sitemap generator
  * Added notification preferences
+ * Added a new way to configure searchable/filterable fields on models
  * Added 'original' as a resizing rule supported by the 'image' tag
  * Hallo.js updated to version 1.0.4
  * Snippets are now ordered alphabetically
@@ -29,6 +31,14 @@ Changelog
  * Added init_new_page signal
  * Added page_published signal
  * Added copy method to Page to allow copying of pages
+ * Added ``search`` method to ``PageQuerySet``
+ * Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
+ * Major refactor of Elasticsearch backend
+ * Use ``match`` instead of ``query_string`` queries
+ * Fields are now indexed in Elasticsearch with their correct type
+ * Filter fields are no longer included in '_all' (in Elasticsearch)
+ * Fields with partial matching are now indexed together into '_partials'
+
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
