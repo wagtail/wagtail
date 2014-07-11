@@ -3,7 +3,7 @@ from django import template
 register = template.Library()
 
 
-@register.inclusion_tag('wagtailusers/formatted_permissions.html')
+@register.inclusion_tag('wagtailusers/groups/includes/formatted_permissions.html')
 def format_permissions(permission_bound_field):
     """
         Given a bound field with a queryset of Permission objects, constructs a
