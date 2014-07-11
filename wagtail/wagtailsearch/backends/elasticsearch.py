@@ -205,7 +205,7 @@ class ElasticSearchQuery(object):
             if lookup == 'in':
                 return {
                     'terms': {
-                        field_index_name: value,
+                        field_index_name: list(value),
                     }
                 }
 
