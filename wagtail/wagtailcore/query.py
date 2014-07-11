@@ -177,11 +177,20 @@ class PageQuerySet(MP_NodeQuerySet):
         return q
 
     def public(self):
+        """
+        This filters the queryset to only contain pages that are not in a private section
+        """
         return self.filter(self.public_q())
 
     def not_public(self):
+        """
+        This filters the queryset to only contain pages that are in a private section
+        """
         return self.exclude(self.public_q())
 
     def search(self, query_string, fields=None, backend='default'):
+        """
+        This runs a search query on all the pages in the queryset
+        """
         search_backend = get_search_backend(backend)
         return search_backend.search(query_string, self, fields=None)
