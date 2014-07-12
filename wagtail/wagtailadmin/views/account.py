@@ -81,7 +81,7 @@ def login(request):
             template_name='wagtailadmin/login.html',
             authentication_form=forms.LoginForm,
             extra_context={
-                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True),
+                'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True),
                 'username_field': get_user_model().USERNAME_FIELD,
             },
         )
