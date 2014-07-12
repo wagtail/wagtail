@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import url
 
 from wagtail.wagtailadmin.forms import PasswordResetForm
@@ -6,34 +7,6 @@ from wagtail.wagtailcore import hooks
 
 
 urlpatterns = [
-    # Password reset
-    url(
-        r'^password_reset/$', 'django.contrib.auth.views.password_reset', {
-            'template_name': 'wagtailadmin/account/password_reset/form.html',
-            'email_template_name': 'wagtailadmin/account/password_reset/email.txt',
-            'subject_template_name': 'wagtailadmin/account/password_reset/email_subject.txt',
-            'password_reset_form': PasswordResetForm,
-        }, name='password_reset'
-    ),
-    url(
-        r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {
-            'template_name': 'wagtailadmin/account/password_reset/done.html'
-        }, name='password_reset_done'
-    ),
-    url(
-        r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        'django.contrib.auth.views.password_reset_confirm',
-        {'template_name': 'wagtailadmin/account/password_reset/confirm.html'},
-        name='password_reset_confirm',
-    ),
-    url(
-        r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete',
-        {'template_name': 'wagtailadmin/account/password_reset/complete.html'},
-        name='password_reset_complete'
-    ),
-]
-
-urlpatterns += [
     url(r'^$', home.home, name='wagtailadmin_home'),
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
@@ -78,13 +51,45 @@ urlpatterns += [
 
     url(r'^login/$', account.login, name='wagtailadmin_login'),
     url(r'^account/$', account.account, name='wagtailadmin_account'),
-    url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 
     url(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
 ]
+
+if getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', True):
+    urlpatterns += [
+        url(
+            r'^password_reset/$', 'django.contrib.auth.views.password_reset', {
+                'template_name': 'wagtailadmin/account/password_reset/form.html',
+                'email_template_name': 'wagtailadmin/account/password_reset/email.txt',
+                'subject_template_name': 'wagtailadmin/account/password_reset/email_subject.txt',
+                'password_reset_form': PasswordResetForm,
+            }, name='password_reset'
+        ),
+        url(
+            r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {
+                'template_name': 'wagtailadmin/account/password_reset/done.html'
+            }, name='password_reset_done'
+        ),
+        url(
+            r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+            'django.contrib.auth.views.password_reset_confirm',
+            {'template_name': 'wagtailadmin/account/password_reset/confirm.html'},
+            name='password_reset_confirm',
+        ),
+        url(
+            r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete',
+            {'template_name': 'wagtailadmin/account/password_reset/complete.html'},
+            name='password_reset_complete'
+        ),
+    ]
+
+if getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True):
+    urlpatterns += [
+        url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
+    ]
 
 
 # This is here to make sure that 'django.contrib.auth.views.login' is reversed correctly
