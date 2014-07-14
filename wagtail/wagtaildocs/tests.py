@@ -413,4 +413,4 @@ class TestUsedBy(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs_document_usage',
                                            args=(1,)))
         # There's no usage so there should be no table rows
-        self.assertRegex(str(response.content), '<tbody>(\s|\n)*</tbody>')
+        self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')
