@@ -102,9 +102,6 @@ def edit(request, document_id):
     if not doc.is_editable_by_user(request.user):
         raise PermissionDenied
 
-    usage_url = reverse('wagtaildocs_document_usage',
-                        args=(doc.id,))
-
     if request.POST:
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc)
@@ -124,8 +121,7 @@ def edit(request, document_id):
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
-        'form': form,
-        'usage_url': usage_url
+        'form': form
     })
 
 

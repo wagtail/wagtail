@@ -1,3 +1,4 @@
+{% load wagtailadmin_tags %}
 <header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     <div class="row">
         <div class="left">
@@ -16,9 +17,10 @@
             {% endif %}
         </div>
         <div class="right">
-            {% if usage_count or usage_count == 0 %}
+            {% usage_count_enabled as uc_enabled %}
+            {% if uc_enabled and usage_object %}
                 <div class="usagecount">
-                  <a href="{{ usage_url }}">Used {{ usage_count }} Time{% if not usage_count == 1 %}s{% endif %}</a>
+                  <a href="{{ usage_object.usage_url }}">Used {{ usage_object.used_by.count }} Time{% if not usage_count == 1 %}s{% endif %}</a>
                 </div>
             {% endif %}
             {% if add_link %}

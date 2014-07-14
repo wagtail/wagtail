@@ -15,6 +15,7 @@ from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.urlresolvers import reverse
 
 from unidecode import unidecode
 
@@ -22,7 +23,7 @@ from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from .utils import validate_image_format
-from wagtail.wagtailadmin.utils import usage_count, used_by
+from wagtail.wagtailadmin.utils import used_by
 
 
 @python_2_unicode_compatible
@@ -51,12 +52,13 @@ class AbstractImage(models.Model, TagSearchable):
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
     @property
-    def usage_count(self):
-        return usage_count(self)
-
-    @property
     def used_by(self):
         return used_by(self)
+
+    @property
+    def usage_url(self):
+        return reverse('wagtailimages_image_usage',
+                       args=(self.id,))
 
     search_fields = TagSearchable.search_fields + (
         indexed.FilterField('uploaded_by_user'),

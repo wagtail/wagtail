@@ -158,11 +158,6 @@ def edit(request, content_type_app_name, content_type_model_name, id):
     edit_handler_class = get_snippet_edit_handler(model)
     form_class = edit_handler_class.get_form_class(model)
 
-    usage_url = reverse('wagtailsnippets_usage',
-                        args=(content_type_app_name,
-                              content_type_model_name,
-                              id))
-
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=instance)
 
@@ -188,8 +183,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'instance': instance,
-        'edit_handler': edit_handler,
-        'usage_url': usage_url
+        'edit_handler': edit_handler
     })
 
 

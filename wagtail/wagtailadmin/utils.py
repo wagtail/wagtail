@@ -1,5 +1,3 @@
-from django.conf import settings
-
 from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page
@@ -8,39 +6,31 @@ from wagtail.wagtailcore.models import Page
 def used_by(self):
     """Returns the pages that an object was used in."""
 
-    if not hasattr(settings, 'USAGE_COUNT') or not settings.USAGE_COUNT:
-        return []
+    pages = Page.objects.none()
 
-    related_objects = []
-    result = []
-
-    relations = self._meta.get_all_related_objects(
+    # get all the relation objects for self
+    relations = type(self)._meta.get_all_related_objects(
         include_hidden=True,
         include_proxy_eq=True
     )
     for relation in relations:
-        related_objects.extend(list(relation.model._base_manager.filter(
-            **{relation.field.name: self.id}
-        )))
-    for r in related_objects:
-        if isinstance(r, Page):
-            result.append(r)
+        # if the relation is between self and a page, get the page
+        if issubclass(relation.model, Page):
+            pages |= Page.objects.filter(
+                id__in=relation.model._base_manager.filter(**{
+                    relation.field.name: self.id
+                }).values_list('id', flat=True)
+            )
         else:
-            parental_keys = get_parental_keys(r)
-            for parental_key in parental_keys:
-                result.append(getattr(r, parental_key.name))
+        # if the relation is between self and an object that has a page as a
+        # property, return the page
+            for f in relation.model._meta.fields:
+                if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
+                    pages |= Page.objects.filter(
+                        id__in=relation.model._base_manager.filter(
+                            **{
+                                relation.field.name: self.id
+                            }).values_list(f.attname, flat=True)
+                    )
 
-    return result
-
-
-def usage_count(self):
-    """Returns the number of times that an obect has been used in a page"""
-
-    if not hasattr(settings, 'USAGE_COUNT') or not settings.USAGE_COUNT:
-        return None
-
-    return len(used_by(self))
-
-
-def get_parental_keys(obj):
-    return [field for field in obj._meta.fields if type(field) == ParentalKey]
+    return pages

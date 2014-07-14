@@ -13,7 +13,7 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" usage_count=image.usage_count usage_url=usage_url %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" usage_object=image %}
 
     <div class="row row-flush nice-padding">
 
