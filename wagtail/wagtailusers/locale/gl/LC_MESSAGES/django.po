@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
@@ -9,135 +9,148 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-14 23:02+0200\n"
+"POT-Creation-Date: 2014-07-11 10:52+0000\n"
 "PO-Revision-Date: 2014-03-23 10:33+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/language/gl/)\n"
+"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
+"language/gl/)\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\forms.py:12 .\forms.py:73
+#: forms.py:18 forms.py:95
 msgid "Administrator"
 msgstr "Administrador"
 
-#: .\forms.py:14
+#: forms.py:20
 msgid "If ticked, this user has the ability to manage user accounts."
-msgstr "Se está marcado, este usuario ten a capacidade de xestionar contas de usuario."
+msgstr ""
+"Se está marcado, este usuario ten a capacidade de xestionar contas de "
+"usuario."
 
-#: .\forms.py:17 .\forms.py:58
+#: forms.py:23 forms.py:80
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: .\forms.py:18 .\forms.py:59
+#: forms.py:24 forms.py:81
 msgid "First Name"
 msgstr "Nome"
 
-#: .\forms.py:19 .\forms.py:60
+#: forms.py:25 forms.py:82
 msgid "Last Name"
 msgstr "Apelidos"
 
-#: .\forms.py:46
+#: forms.py:68
 msgid "A user with that username already exists."
 msgstr "Un usuario con ese nome xa existe."
 
-#: .\forms.py:47
+#: forms.py:69
 msgid "The two password fields didn't match."
 msgstr "Os dous campos de contrasinal non coinciden."
 
-#: .\forms.py:50 .\templates\wagtailusers\list.html:15
+#: forms.py:72 templates/wagtailusers/list.html:15
 msgid "Username"
 msgstr "Nome de usuario"
 
-#: .\forms.py:53
+#: forms.py:75
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Obrigatorio. 30 caracteres ou menos. Letras, díxitos e @/./+/-/_ soamente."
+msgstr ""
+"Obrigatorio. 30 caracteres ou menos. Letras, díxitos e @/./+/-/_ soamente."
 
-#: .\forms.py:55
+#: forms.py:77
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Este valor debe conter só letras, números e os caracteres @/./+/-/_."
 
-#: .\forms.py:63
+#: forms.py:85
 msgid "Password"
 msgstr "Contrasinal"
 
-#: .\forms.py:66
+#: forms.py:88
 msgid "Leave blank if not changing."
 msgstr "Deixa en branco se non cambia."
 
-#: .\forms.py:68
+#: forms.py:90
 msgid "Password confirmation"
 msgstr "Confirmación de contrasinal"
 
-#: .\forms.py:70
+#: forms.py:92
 msgid "Enter the same password as above, for verification."
 msgstr "Introduce a mesma contrasinal que arriba, para verificación."
 
-#: .\forms.py:75
+#: forms.py:97
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Os administradores teñen a capacidade de xestionar contas de usuario."
 
-#: .\templates\wagtailusers\create.html:4
-#: .\templates\wagtailusers\create.html:8
-#: .\templates\wagtailusers\create.html:35
-msgid "Add user"
-msgstr "Engadir usuario"
+#: models.py:13
+msgid "Receive notification when a page is submitted for moderation"
+msgstr ""
 
-#: .\templates\wagtailusers\create.html:12
-#: .\templates\wagtailusers\edit.html:12
-msgid "Account"
-msgstr "Conta"
+#: models.py:18
+msgid "Receive notification when your page edit is approved"
+msgstr ""
 
-#: .\templates\wagtailusers\create.html:13
-#: .\templates\wagtailusers\create.html:28
-#: .\templates\wagtailusers\edit.html:13
-msgid "Roles"
-msgstr "Roles"
+#: models.py:23
+msgid "Receive notification when your page edit is rejected"
+msgstr ""
 
-#: .\templates\wagtailusers\edit.html:4 .\templates\wagtailusers\edit.html:8
-msgid "Editing"
-msgstr "Editando"
-
-#: .\templates\wagtailusers\edit.html:30 .\templates\wagtailusers\edit.html:37
-msgid "Save"
-msgstr "Gardar"
-
-#: .\templates\wagtailusers\index.html:4
-#: .\templates\wagtailusers\index.html:17
+#: wagtail_hooks.py:21 templates/wagtailusers/index.html:4
+#: templates/wagtailusers/index.html:17
 msgid "Users"
 msgstr "Usuarios"
 
-#: .\templates\wagtailusers\index.html:18
+#: templates/wagtailusers/create.html:4 templates/wagtailusers/create.html:8
+#: templates/wagtailusers/create.html:35
+msgid "Add user"
+msgstr "Engadir usuario"
+
+#: templates/wagtailusers/create.html:12 templates/wagtailusers/edit.html:12
+msgid "Account"
+msgstr "Conta"
+
+#: templates/wagtailusers/create.html:13 templates/wagtailusers/create.html:28
+#: templates/wagtailusers/edit.html:13
+msgid "Roles"
+msgstr "Roles"
+
+#: templates/wagtailusers/edit.html:4 templates/wagtailusers/edit.html.py:8
+msgid "Editing"
+msgstr "Editando"
+
+#: templates/wagtailusers/edit.html:30 templates/wagtailusers/edit.html:37
+msgid "Save"
+msgstr "Gardar"
+
+#: templates/wagtailusers/index.html:18
 msgid "Add a user"
 msgstr "Engadir un usuario"
 
-#: .\templates\wagtailusers\list.html:7
+#: templates/wagtailusers/list.html:7
 msgid "Name"
 msgstr "Nome"
 
-#: .\templates\wagtailusers\list.html:22
+#: templates/wagtailusers/list.html:22
 msgid "Level"
 msgstr "Nivel"
 
-#: .\templates\wagtailusers\list.html:23
+#: templates/wagtailusers/list.html:23
 msgid "Status"
 msgstr "Estado"
 
-#: .\templates\wagtailusers\list.html:36
+#: templates/wagtailusers/list.html:36
 msgid "Admin"
 msgstr "Admin"
 
-#: .\templates\wagtailusers\list.html:37
+#: templates/wagtailusers/list.html:37
 msgid "Active"
 msgstr "Activo"
 
-#: .\templates\wagtailusers\list.html:37
+#: templates/wagtailusers/list.html:37
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: .\templates\wagtailusers\results.html:5
+#: templates/wagtailusers/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -147,37 +160,45 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\n            Hai unha coincidencia\n        "
-msgstr[1] "\n            Hai %(counter)s coincidencias\n        "
+msgstr[0] ""
+"\n"
+"            Hai unha coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hai %(counter)s coincidencias\n"
+"        "
 
-#: .\templates\wagtailusers\results.html:18
+#: templates/wagtailusers/results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningún usuario coincide con \"<em>%(query_string)s</em>\""
 
-#: .\templates\wagtailusers\results.html:21
+#: templates/wagtailusers/results.html:21
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_create_url)s\">add some</a>?"
-msgstr "Non hai usuarios configurados. ¿Por qué non <a href=\"%(wagtailusers_create_url)s\">engadir algún</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Non hai usuarios configurados. ¿Por qué non <a href="
+"\"%(wagtailusers_create_url)s\">engadir algún</a>?"
 
-#: .\views\users.py:21 .\views\users.py:28
+#: views/users.py:30 views/users.py:37
 msgid "Search users"
 msgstr "Buscar usuarios"
 
-#: .\views\users.py:75
+#: views/users.py:84
 msgid "User '{0}' created."
 msgstr "Usuario '{0}' creado."
 
-#: .\views\users.py:78
+#: views/users.py:87
 msgid "The user could not be created due to errors."
 msgstr "O usuario non puido ser creado debido a erros."
 
-#: .\views\users.py:94
+#: views/users.py:103
 msgid "User '{0}' updated."
 msgstr "Usuario '{0}' actualizado."
 
-#: .\views\users.py:97
+#: views/users.py:106
 msgid "The user could not be saved due to errors."
 msgstr "O usuario non puido ser gardado debido a erros."
