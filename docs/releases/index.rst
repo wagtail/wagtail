@@ -5,3 +5,4 @@ Release notes
    :maxdepth: 1
 
    0.4
+   0.4.1
