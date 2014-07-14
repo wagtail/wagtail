@@ -6,10 +6,11 @@ class RouteResult(object):
     a Page instance that we will call serve(*args, **kwargs) on, rather
     than a view function.
     """
-    def __init__(self, page, args=None, kwargs=None):
+    def __init__(self, page, view=None, args=None, kwargs=None):
         self.page = page
         self.args = args or []
         self.kwargs = kwargs or {}
+        self.view = view or page.serve
 
     def __getitem__(self, index):
-        return (self.page, self.args, self.kwargs)[index]
+        return (self.page, self.view, self.args, self.kwargs)[index]

@@ -25,13 +25,13 @@ def serve(request, path):
         )
         return route_result
 
-    (page, args, kwargs) = route_result
+    (page, view, args, kwargs) = route_result
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):
             return result
 
-    return page.serve(request, *args, **kwargs)
+    return view(request, *args, **kwargs)
 
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):
