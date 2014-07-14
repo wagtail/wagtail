@@ -7,13 +7,26 @@ except ImportError:
 
 _hooks = {}
 
-# TODO: support 'register' as a decorator:
-#    @hooks.register('construct_main_menu')
-#    def construct_main_menu(menu_items):
-#        ...
 
+def register(hook_name, fn=None):
+    """
+    Register hook for ``hook_name``. Can be used as a decorator::
 
-def register(hook_name, fn):
+        @register('hook_name')
+        def my_hook(...):
+            pass
+
+    or as a function call::
+
+        def my_hook(...):
+            pass
+        register('hook_name', my_hook)
+    """
+
+    # Pretend to be a decorator if fn is not supplied
+    if fn is None:
+        return lambda fn: register(hook_name, fn)
+
     if hook_name not in _hooks:
         _hooks[hook_name] = []
     _hooks[hook_name].append(fn)

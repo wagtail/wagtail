@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.5 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~
+ * Added decorator syntax for hooks
+
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~
  * ElasticSearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
