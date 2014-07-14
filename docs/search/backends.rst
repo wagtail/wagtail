@@ -41,11 +41,10 @@ The backend is configured in settings:
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
-          'FORCE_NEW': False,
       }
   }
 
-Other than ``BACKEND`` the keys are optional and default to the values shown. ``FORCE_NEW`` is used by elasticsearch-py. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
+Other than ``BACKEND`` the keys are optional and default to the values shown. In addition, any other keys are passed directly to the Elasticsearch constructor as case-sensitive keyword arguments (e.g. ``'max_retries': 1``).
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including `Searchly`_, who offer a free account suitable for testing and development. To use Searchly:
 
