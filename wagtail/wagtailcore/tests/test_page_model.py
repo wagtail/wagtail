@@ -138,7 +138,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.path = '/events/christmas/'
-        (found_page, args, kwargs) = homepage.route(request, ['events', 'christmas'])
+        (found_page, view, args, kwargs) = homepage.route(request, ['events', 'christmas'])
         self.assertEqual(found_page, christmas_page)
 
     def test_request_serving(self):
