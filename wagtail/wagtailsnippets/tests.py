@@ -192,24 +192,16 @@ class TestSnippetOrdering(TestCase):
 class TestUsageCount(TestCase):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
-    def test_snippet_usage_count_not_enabled(self):
-        advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.usage_count(), None)
-
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.usage_count(), 1)
+        self.assertEqual(advert.used_by().count(), 1)
 
 
 class TestUsedBy(TestCase):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
-    def test_snippet_used_by_not_enabled(self):
-        advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.used_by(), [])
-
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_used_by(self):
         advert = Advert.objects.get(id=1)
         self.assertEqual(type(advert.used_by()[0]), Page)

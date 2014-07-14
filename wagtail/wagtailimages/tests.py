@@ -19,6 +19,7 @@ from wagtail.wagtailimages.formats import (
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
 from wagtail.tests.models import EventPage, EventPageCarouselItem
+from wagtail.wagtailcore.models import Page
 
 
 def get_test_image_file():
@@ -484,21 +485,18 @@ class TestUsageCount(TestCase):
             file=get_test_image_file(),
         )
 
-    def test_image_usage_count_not_enabled(self):
-        self.assertEqual(self.image.usage_count, None)
-
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_image_usage_count(self):
-        self.assertEqual(self.image.usage_count, 0)
+        self.assertEqual(self.image.used_by.count(), 0)
 
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_image_document_usage_count(self):
         page = EventPage.objects.get(id=4)
         event_page_carousel_item = EventPageCarouselItem()
         event_page_carousel_item.page = page
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
-        self.assertEqual(self.image.usage_count, 1)
+        self.assertEqual(self.image.used_by.count(), 1)
 
 
 class TestUsedBy(TestCase):
@@ -511,17 +509,17 @@ class TestUsedBy(TestCase):
         )
 
     def test_image_used_by_not_enabled(self):
-        self.assertEqual(self.image.used_by, [])
+        self.assertEqual(list(self.image.used_by), [])
 
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_image_used_by(self):
-        self.assertEqual(self.image.used_by, [])
+        self.assertEqual(list(self.image.used_by), [])
 
-    @override_settings(USAGE_COUNT=True)
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_image_document_used_by(self):
         page = EventPage.objects.get(id=4)
         event_page_carousel_item = EventPageCarouselItem()
         event_page_carousel_item.page = page
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
-        self.assertEqual(self.image.used_by, [page])
+        self.assertTrue(issubclass(Page, type(self.image.used_by[0])))
