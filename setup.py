@@ -47,7 +47,7 @@ if not PY3:
 
 setup(
     name='wagtail',
-    version='0.4',
+    version='0.4.1',
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
