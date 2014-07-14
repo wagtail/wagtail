@@ -397,3 +397,54 @@ class TestElasticSearchMappingInheritance(TestCase):
         }
 
         self.assertDictEqual(document, expected_result)
+
+
+class TestBackendConfiguration(TestCase):
+    def setUp(self):
+        # Import using a try-catch block to prevent crashes if the elasticsearch-py
+        # module is not installed
+        try:
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+        except ImportError:
+            raise unittest.SkipTest("elasticsearch-py not installed")
+
+        self.ElasticSearch = ElasticSearch
+
+    def test_default_settings(self):
+        backend = self.ElasticSearch(params={})
+
+        self.assertEqual(len(backend.es_hosts), 1)
+        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
+        self.assertEqual(backend.es_hosts[0]['port'], 9200)
+        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+
+    def test_hosts(self):
+        # This tests that HOSTS goes to es_hosts
+        backend = self.ElasticSearch(params={
+            'HOSTS': [
+                {
+                    'host': '127.0.0.1',
+                    'port': 9300,
+                    'use_ssl': True,
+                }
+            ]
+        })
+
+        self.assertEqual(len(backend.es_hosts), 1)
+        self.assertEqual(backend.es_hosts[0]['host'], '127.0.0.1')
+        self.assertEqual(backend.es_hosts[0]['port'], 9300)
+        self.assertEqual(backend.es_hosts[0]['use_ssl'], True)
+
+    def test_urls(self):
+        # This test backwards compatibility with old URLS setting
+        backend = self.ElasticSearch(params={
+            'URLS': ['http://localhost:12345', 'https://127.0.0.1:54321'],
+        })
+
+        self.assertEqual(len(backend.es_hosts), 2)
+        self.assertEqual(backend.es_hosts[0]['host'], 'localhost')
+        self.assertEqual(backend.es_hosts[0]['port'], 12345)
+        self.assertEqual(backend.es_hosts[0]['use_ssl'], False)
+        self.assertEqual(backend.es_hosts[1]['host'], '127.0.0.1')
+        self.assertEqual(backend.es_hosts[1]['port'], 54321)
+        self.assertEqual(backend.es_hosts[1]['use_ssl'], True)
