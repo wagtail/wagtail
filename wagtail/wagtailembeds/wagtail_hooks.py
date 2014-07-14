@@ -7,13 +7,14 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailembeds import urls
 
 
+@hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
         url(r'^embeds/', include(urls)),
     ]
-hooks.register('register_admin_urls', register_admin_urls)
 
 
+@hooks.register('insert_editor_js')
 def editor_js():
     return format_html("""
             <script src="{0}{1}"></script>
@@ -26,4 +27,3 @@ def editor_js():
         'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
         urlresolvers.reverse('wagtailembeds_chooser')
     )
-hooks.register('insert_editor_js', editor_js)
