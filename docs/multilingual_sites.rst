@@ -132,14 +132,14 @@ You can make use of these methods in your template by doing:
 
 .. code-block:: django
 
-    {% if self.english_page and self.get_langage != 'en' %}
+    {% if self.english_page and self.get_language != 'en' %}
         <a href="{{ self.english_page.url }}">{% trans "View in English" %}</a>
     {% endif %}
 
-    {% if self.french_page and self.get_langage != 'fr' %}
+    {% if self.french_page and self.get_language != 'fr' %}
         <a href="{{ self.french_page.url }}">{% trans "View in French" %}</a>
     {% endif %}
 
-    {% if self.spanish_page and self.get_langage != 'es' %}
+    {% if self.spanish_page and self.get_language != 'es' %}
         <a href="{{ self.spanish_page.url }}">{% trans "View in Spanish" %}</a>
     {% endif %}
