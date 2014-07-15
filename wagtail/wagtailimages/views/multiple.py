@@ -16,7 +16,7 @@ def add(request):
     Image = get_image_model()
     ImageForm = get_image_form_for_multi()
 
-    if request.POST:
+    if request.method == 'POST':
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
@@ -45,7 +45,7 @@ def edit(request, image_id, callback=None):
     if not image.is_editable_by_user(request.user):
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-'+image_id)
         if form.is_valid():
             form.save()
@@ -67,7 +67,7 @@ def delete(request, image_id):
     if not image.is_editable_by_user(request.user):
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         image.delete()
         return render(request, 'wagtailimages/multiple/confirmation.json', {
             'success': True,
