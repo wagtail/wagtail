@@ -1,18 +1,11 @@
 import json
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
-from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
-from django.forms.models import modelformset_factory
-from django.template.loader import render_to_string
-from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 
-from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
 
