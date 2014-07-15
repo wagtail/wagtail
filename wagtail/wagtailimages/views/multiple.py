@@ -37,7 +37,7 @@ def add(request):
     else:
         pass
 
-    return render(request, "wagtailimages/multiple/add.html", {})
+    return render(request, 'wagtailimages/multiple/add.html', {})
 
 
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
@@ -54,17 +54,17 @@ def edit(request, image_id, callback=None):
         form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-'+image_id)
         if form.is_valid():
             form.save()
-            return HttpResponse(render_to_string("wagtailimages/multiple/confirmation.json", {
+            return render(request, 'wagtailimages/multiple/confirmation.json', {
                 'success': True,
                 'image_id': image_id
-            }))
+            }, content_type='application/json')
         else:
             pass
 
-    return HttpResponse(render_to_string("wagtailimages/multiple/confirmation.json", {
+    return render(request, 'wagtailimages/multiple/confirmation.json', {
         'success': False,
         'image_id': image_id
-    }))
+    }, content_type='application/json')
 
 
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
@@ -76,12 +76,12 @@ def delete(request, image_id):
 
     if request.POST:
         image.delete()
-        return HttpResponse(render_to_string("wagtailimages/multiple/confirmation.json", {
+        return render(request, 'wagtailimages/multiple/confirmation.json', {
             'success': True,
             'image_id': image_id
-        }))
+        }, content_type='application/json')
     else:
-        return HttpResponse(render_to_string("wagtailimages/multiple/confirmation.json", {
+        return render(request, 'wagtailimages/multiple/confirmation.json', {
             'success': False,
             'image_id': image_id
-        }))
+        }, content_type='application/json')
