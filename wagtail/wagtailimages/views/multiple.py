@@ -10,6 +10,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.forms.models import modelformset_factory
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailimages.models import get_image_model
