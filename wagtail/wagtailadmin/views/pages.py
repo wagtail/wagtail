@@ -376,7 +376,7 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
-        page_unpublished.send(sender=page.specific_class, instance=page)
+        page_unpublished.send(sender=page.specific_class, instance=page.specific)
         parent_id = page.get_parent().id
         page.delete()
         messages.success(request, _("Page '{0}' deleted.").format(page.title))
@@ -536,7 +536,7 @@ def unpublish(request, page_id):
         raise PermissionDenied
 
     if request.POST:
-        page_unpublished.send(sender=page.specific_class, instance=page)
+        page_unpublished.send(sender=page.specific_class, instance=page.specific)
         parent_id = page.get_parent().id
         page.live = False
         page.save()
