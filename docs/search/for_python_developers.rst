@@ -31,6 +31,11 @@ All methods of ``PageQuerySet`` are supported by wagtailsearch:
 Indexing extra fields
 =====================
 
+.. versionchanged:: 0.4
+
+    The ``indexed_fields`` configuration format was replaced with ``search_fields``
+
+
 Fields need to be explicitly added to the search configuration in order for you to be able to search/filter on them.
 
 You can add new fields to the search index by overriding the ``search_fields`` property and appending a list of extra ``SearchField``/``FilterField`` objects to it.

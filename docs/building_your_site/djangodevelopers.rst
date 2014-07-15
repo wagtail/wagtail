@@ -381,6 +381,8 @@ Examples:
 
     .. automethod:: public
 
+        See: :ref:`private_pages`
+
         .. note::
 
             This doesn't filter out unpublished pages. If you want to only have published public pages, use ``.live().public()``
@@ -393,6 +395,8 @@ Examples:
             all_pages = Page.objects.live().public()
 
     .. automethod:: search
+
+        See: :ref:`wagtailsearch_for_python_developers`
 
         Example:
 
