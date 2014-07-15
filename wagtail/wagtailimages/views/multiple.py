@@ -57,6 +57,7 @@ def edit(request, image_id, callback=None):
     return render(request, 'wagtailimages/multiple/confirmation.json', {
         'success': False,
         'image': image,
+        'form': form,
     }, content_type='application/json')
 
 
