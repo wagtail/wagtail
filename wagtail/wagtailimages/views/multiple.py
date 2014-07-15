@@ -51,12 +51,12 @@ def edit(request, image_id, callback=None):
             form.save()
             return render(request, 'wagtailimages/multiple/confirmation.json', {
                 'success': True,
-                'image_id': image_id
+                'image': image,
             }, content_type='application/json')
 
     return render(request, 'wagtailimages/multiple/confirmation.json', {
         'success': False,
-        'image_id': image_id
+        'image': image,
     }, content_type='application/json')
 
 
@@ -71,10 +71,10 @@ def delete(request, image_id):
         image.delete()
         return render(request, 'wagtailimages/multiple/confirmation.json', {
             'success': True,
-            'image_id': image_id
+            'image': image,
         }, content_type='application/json')
     else:
         return render(request, 'wagtailimages/multiple/confirmation.json', {
             'success': False,
-            'image_id': image_id
+            'image': image,
         }, content_type='application/json')
