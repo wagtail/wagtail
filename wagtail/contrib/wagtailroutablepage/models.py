@@ -12,6 +12,7 @@ class RoutablePage(Page):
     """
     This class extends Page by adding methods to allow urlconfs to be embedded inside pages
     """
+    #: Set this to a tuple of ``django.conf.urls.url`` objects.
     subpage_urls = None
 
     def reverse_subpage(self, name, args=None, kwargs=None):

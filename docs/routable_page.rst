@@ -53,9 +53,18 @@ The ``RoutablePage`` class
 .. automodule:: wagtail.contrib.wagtailroutablepage.models
 .. autoclass:: RoutablePage
 
-    .. attribute:: subpage_urls
+    .. autoattribute:: subpage_urls
 
-        Set this to a tuple of ``django.conf.urls.url`` objects.
+        Example:
+
+        .. code-block:: python
+
+            from django.conf.urls import url
+
+            subpage_urls = (
+                url(r'^$', 'serve', name='main'),
+                url(r'^archive/$', 'archive', name='archive'),
+            )
 
     .. automethod:: resolve_subpage
 
