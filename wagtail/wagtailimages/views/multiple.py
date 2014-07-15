@@ -13,14 +13,14 @@ from wagtail.wagtailimages.forms import get_image_form_for_multi
 @permission_required('wagtailimages.add_image')
 @vary_on_headers('X-Requested-With')
 def add(request):
+    Image = get_image_model()
     ImageForm = get_image_form_for_multi()
-    ImageModel = get_image_model()
 
     if request.POST and request.is_ajax():
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
         else:
-            image = ImageModel(uploaded_by_user=request.user,  title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+            image = Image(uploaded_by_user=request.user,  title=request.FILES['files[]'].name, file=request.FILES['files[]'])
             image.save()
             form = ImageForm(instance=image, prefix='image-%d'%image.id)
 
