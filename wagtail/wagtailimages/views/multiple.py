@@ -16,18 +16,21 @@ def add(request):
     Image = get_image_model()
     ImageForm = get_image_form_for_multi()
 
-    if request.POST and request.is_ajax():
+    if request.POST:
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
-        else:
-            image = Image(uploaded_by_user=request.user,  title=request.FILES['files[]'].name, file=request.FILES['files[]'])
-            image.save()
-            form = ImageForm(instance=image, prefix='image-%d'%image.id)
 
-            return render(request, 'wagtailimages/multiple/edit_form.html', {
-                'image': image,
-                'form': form
-            })
+        image = Image(uploaded_by_user=request.user,  title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+        image.save()
+        form = ImageForm(instance=image, prefix='image-%d'%image.id)
+
+        return render(request, 'wagtailimages/multiple/edit_form.html', {
+            'image': image,
+            'form': form
+        })
 
     return render(request, 'wagtailimages/multiple/add.html', {})
 
