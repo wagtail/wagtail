@@ -25,7 +25,10 @@ def register(hook_name, fn=None):
 
     # Pretend to be a decorator if fn is not supplied
     if fn is None:
-        return lambda fn: register(hook_name, fn)
+        def decorator(fn):
+            register(hook_name, fn)
+            return fn
+        return decorator
 
     if hook_name not in _hooks:
         _hooks[hook_name] = []
