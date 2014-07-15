@@ -1,6 +1,6 @@
-============
-RoutablePage
-============
+====================================
+Embedding URL configuration in Pages
+====================================
 
 .. versionadded:: 0.5
 
