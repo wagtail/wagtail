@@ -28,8 +28,6 @@ def add(request):
                 'image': image,
                 'form': form
             })
-    else:
-        pass
 
     return render(request, 'wagtailimages/multiple/add.html', {})
 
@@ -52,8 +50,6 @@ def edit(request, image_id, callback=None):
                 'success': True,
                 'image_id': image_id
             }, content_type='application/json')
-        else:
-            pass
 
     return render(request, 'wagtailimages/multiple/confirmation.json', {
         'success': False,
