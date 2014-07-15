@@ -381,10 +381,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
+    #: Return this page in its most specific subclassed form.
     @cached_property
     def specific(self):
         """
-            Return this page in its most specific subclassed form.
+        Return this page in its most specific subclassed form.
         """
         # the ContentType.objects manager keeps a cache, so this should potentially
         # avoid a database lookup over doing self.content_type. I think.
@@ -395,11 +396,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    #: Return the class that this page would be if instantiated in its
+    #: most specific form
     @cached_property
     def specific_class(self):
         """
-            return the class that this page would be if instantiated in its
-            most specific form
+        Return the class that this page would be if instantiated in its
+        most specific form
         """
         content_type = ContentType.objects.get_for_id(self.content_type_id)
         return content_type.model_class()
