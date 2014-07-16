@@ -33,6 +33,9 @@ sys.path.insert(0, os.path.abspath('..'))
 # be configured
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
+# Use SQLite3 database engine so it doesn't attempt to use psycopg2 on RTD
+os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
+
 
 # -- General configuration ------------------------------------------------
 
