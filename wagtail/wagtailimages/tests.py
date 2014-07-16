@@ -17,7 +17,7 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
-from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError
+from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError, generate_signature, verify_signature
 
 
 def get_test_image_file():
@@ -498,3 +498,17 @@ class TestFilterSpecParsing(TestCase):
     def test_bad(self):
         for filter_spec in self.bad:
             self.assertRaises(InvalidFilterSpecError, parse_filter_spec, filter_spec)
+
+
+class TestSignatureGeneration(TestCase):
+    def test_signature_generation(self):
+        self.assertEqual(generate_signature(100, 'fill-800x600'), b'xnZOzQyUg6pkfciqcfRJRosOrGg=')
+
+    def test_signature_verification(self):
+        self.assertTrue(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
+
+    def test_signature_changes_on_image_id(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
+
+    def test_signature_changes_on_filter_spec(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
