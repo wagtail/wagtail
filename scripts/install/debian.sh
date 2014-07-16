@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Production-configured Wagtail installation.
 # BUT, SECURE SERVICES/ACCOUNT FOR FULL PRODUCTION USE!
 # For a non-dummy email backend configure Django's EMAIL_BACKEND
@@ -12,7 +13,7 @@ PROJECT_ROOT=/usr/local/django
 
 echo "This script overwrites key files, and should only be run on a new box."
 read -p "Type 'yes' to confirm: " CONFIRM
-[ “$CONFIRM” == “yes” ] || exit
+[ "$CONFIRM" == "yes" ] || exit
 
 read -p "Enter a name for your project [$PROJECT]: " U_PROJECT
 if [ ! -z "$U_PROJECT" ]; then
