@@ -20,7 +20,8 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
-from wagtail.wagtailimages.utils import validate_image_format, parse_filter_spec
+from wagtail.wagtailimages.utils import validate_image_format
+from wagtail.wagtailimages import image_processor
 
 
 @python_2_unicode_compatible
@@ -149,21 +150,11 @@ class Filter(models.Model):
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
-        backend = get_image_backend(backend_name)
-
-        method_name, method_arg = parse_filter_spec(self.spec)
-
         # If file is closed, open it
         input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
 
-        # Call method
-        method = getattr(backend, method_name)
-        image = method(image, method_arg)
-
-        output = BytesIO()
-        backend.save_image(image, output, file_format)
+        # Process the image
+        output = image_processor.process_image(input_file, BytesIO(), self.spec, backend_name=backend_name)
 
         # and then close the input file
         input_file.close()
@@ -175,9 +166,7 @@ class Filter(models.Model):
         output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
         output_filename = '.'.join(output_filename_parts)
 
-        output_file = File(output, name=output_filename)
-
-        return output_file
+        return File(output, name=output_filename)
 
 
 class AbstractRendition(models.Model):
