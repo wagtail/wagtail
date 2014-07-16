@@ -197,13 +197,13 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 .. automodule:: wagtail.wagtailcore.models
 .. autoclass:: Page
 
-    .. method:: specific
+    .. autoattribute:: specific
 
-        Return this page in its most specific subclassed form.
+    .. autoattribute:: specific_class
 
-    .. automethod:: url
+    .. autoattribute:: url
 
-    .. automethod:: full_url
+    .. autoattribute:: full_url
 
     .. automethod:: relative_url
 
@@ -217,7 +217,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_template
 
-    .. automethod:: preview_modes
+    .. autoattribute:: preview_modes
 
     .. automethod:: serve_preview
 
@@ -381,6 +381,8 @@ Examples:
 
     .. automethod:: public
 
+        See: :ref:`private_pages`
+
         .. note::
 
             This doesn't filter out unpublished pages. If you want to only have published public pages, use ``.live().public()``
@@ -393,6 +395,8 @@ Examples:
             all_pages = Page.objects.live().public()
 
     .. automethod:: search
+
+        See: :ref:`wagtailsearch_for_python_developers`
 
         Example:
 

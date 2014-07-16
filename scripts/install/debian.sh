@@ -62,7 +62,7 @@ pip install -r requirements/production.txt
 swapoff -v /tmpswap
 rm /tmpswap
 
-echo SECRET_KEY = \"`python -c 'import random; print "".join([random.SystemRandom().choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'`\" > $PROJECT/settings.local.py
+echo SECRET_KEY = \"`python -c 'import random; print "".join([random.SystemRandom().choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'`\" > $PROJECT/settings/local.py
 echo ALLOWED_HOSTS = [\'$SERVER_IP\',] >> $PROJECT/settings/local.py
 createdb -Upostgres $PROJECT
 ./manage.py syncdb --settings=$PROJECT.settings.production
