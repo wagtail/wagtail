@@ -5,7 +5,8 @@ urlpatterns = [
     url(r'^$', images.index, name='wagtailimages_index'),
     url(r'^(\d+)/$', images.edit, name='wagtailimages_edit_image'),
     url(r'^(\d+)/delete/$', images.delete, name='wagtailimages_delete_image'),
-    url(r'^(\d+)/generate_url/(.*)/', images.generate_url, name='wagtailimages_generate_url'),
+    url(r'^(\d+)/generate_url/$', images.url_generator, name='wagtailimages_url_generator'),
+    url(r'^(\d+)/generate_url/(.*)/$', images.generate_url, name='wagtailimages_generate_url'),
     url(r'^add/$', images.add, name='wagtailimages_add_image'),
 
     url(r'^chooser/$', chooser.chooser, name='wagtailimages_chooser'),

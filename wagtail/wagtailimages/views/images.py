@@ -107,18 +107,33 @@ def edit(request, image_id):
     # Check if we should enable the frontend url generator
     try:
         reverse('wagtailimages_serve', args=('foo', '1', 'bar'))
-        url_generator_form = URLGeneratorForm(initial={
-            'filter_method': 'original',
-            'width': image.width,
-            'height': image.height,
-        })
+        url_generator_enabled = True
     except NoReverseMatch:
-        url_generator_form = None
+        url_generator_enabled = False
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
-        'url_generator_form': url_generator_form,
+        'url_generator_enabled': url_generator_enabled,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
+def url_generator(request, image_id):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    if not image.is_editable_by_user(request.user):
+        raise PermissionDenied
+
+    form = URLGeneratorForm(initial={
+        'filter_method': 'original',
+        'width': image.width,
+        'height': image.height,
+    })
+
+    return render(request, "wagtailimages/images/url_generator.html", {
+        'image': image,
+        'form': form,
     })
 
 

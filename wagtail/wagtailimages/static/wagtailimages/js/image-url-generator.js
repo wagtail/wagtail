@@ -6,6 +6,7 @@ $(function() {
         var $widthField = $form.find('input#id_width');
         var $heightField = $form.find('input#id_height');
         var $result = $this.find('div.result');
+        var $preview = $this.find('img.preview');
 
         var generatorUrl = $this.data('generatorUrl');
 
@@ -33,9 +34,11 @@ $(function() {
             $.getJSON(generatorUrl.replace('__filterspec__', filterSpec))
                 .done(function(data) {
                     $result.text(data['url']);
+                    $preview.attr('src', data['url']);
                 })
                 .fail(function(data) {
                     $result.text(data.responseJSON['error']);
+                    $preview.attr('src', '');
                 });
         }
 
