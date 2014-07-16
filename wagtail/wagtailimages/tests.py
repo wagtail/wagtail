@@ -17,6 +17,8 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError
+
 
 def get_test_image_file():
     from six import BytesIO
@@ -470,3 +472,29 @@ class TestFormat(TestCase):
         register_image_format(self.format)
         result = get_image_format('test name')
         self.assertEqual(result, self.format)
+
+
+class TestFilterSpecParsing(TestCase):
+    good = {
+        'original': ('no_operation', None),
+        'min-800x600': ('resize_to_min', (800, 600)),
+        'max-800x600': ('resize_to_max', (800, 600)),
+        'fill-800x600': ('resize_to_fill', (800, 600)),
+        'width-800': ('resize_to_width', 800),
+        'height-600': ('resize_to_height', 600),
+    }
+
+    bad = [
+        'original-800x600', # Shouldn't have parameters
+        'abcdefg', # Filter doesn't exist
+        'min', 'max', 'fill', 'width', 'height' , # Should have parameters
+    ]
+
+    def test_good(self):
+        for filter_spec, expected_result in self.good.items():
+            self.assertEqual(parse_filter_spec(filter_spec), expected_result)
+
+
+    def test_bad(self):
+        for filter_spec in self.bad:
+            self.assertRaises(InvalidFilterSpecError, parse_filter_spec, filter_spec)
