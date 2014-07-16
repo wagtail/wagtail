@@ -494,7 +494,6 @@ class TestFilterSpecParsing(TestCase):
         for filter_spec, expected_result in self.good.items():
             self.assertEqual(parse_filter_spec(filter_spec), expected_result)
 
-
     def test_bad(self):
         for filter_spec in self.bad:
             self.assertRaises(InvalidFilterSpecError, parse_filter_spec, filter_spec)
