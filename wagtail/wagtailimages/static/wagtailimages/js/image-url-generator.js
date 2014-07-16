@@ -45,5 +45,22 @@ $(function() {
         $form.change(formChangeHandler);
         $form.keyup(formChangeHandler);
         formChangeHandler();
+
+        // When the user clicks the URL, automatically select the whole thing (for easier copying)
+        $result.click(function() {
+            if (document.selection) {
+                document.selection.empty();
+
+                var range = document.body.createTextRange();
+                range.moveToElementText(this);
+                range.select();
+            } else if (window.getSelection) {
+                window.getSelection().removeAllRanges();
+
+                var range = document.createRange();
+                range.selectNodeContents(this);
+                window.getSelection().addRange(range);
+            }
+        });
     });
 });
