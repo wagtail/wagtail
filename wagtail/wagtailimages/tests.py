@@ -526,7 +526,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content, "Cannot POST to this view without AJAX")
 
     def test_add_post_nofile(self):
         """
@@ -536,7 +535,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content, "Must upload a file")
 
     def test_edit_get(self):
         """
@@ -554,13 +552,21 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         # Send request
         response = self.client.post(reverse('wagtailimages_edit_multiple', args=(self.image.id, )), {
-            'title': "New title!",
-            'tags': "",
+            ('image-%d-title' % self.image.id): "New title!",
+            ('image-%d-tags' % self.image.id): "",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('image_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], self.image.id)
+        self.assertTrue(response_json['success'])
 
     def test_edit_post_noajax(self):
         """
@@ -568,20 +574,12 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         # Send request
         response = self.client.post(reverse('wagtailimages_edit_multiple', args=(self.image.id, )), {
-            'title': "New title!",
-            'tags': "",
+            ('image-%d-title' % self.image.id): "New title!",
+            ('image-%d-tags' % self.image.id): "",
         })
 
         # Check response
         self.assertEqual(response.status_code, 400)
-
-        # Check JSON
-        response_json = json.loads(response.content)
-        self.assertIn('image_id', response_json)
-        self.assertNotIn('form', response_json)
-        self.assertIn('success', response_json)
-        self.assertEqual(response_json['image_id'], self.image.id)
-        self.assertTrue(response_json['success'])
 
     def test_edit_post_validation_error(self):
         """
@@ -590,8 +588,8 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         # Send request
         response = self.client.post(reverse('wagtailimages_edit_multiple', args=(self.image.id, )), {
-            'title': "", # Required
-            'tags': "",
+            ('image-%d-title' % self.image.id): "", # Required
+            ('image-%d-tags' % self.image.id): "",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
@@ -603,7 +601,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertFormError(response, 'form', 'title', "This field is required.")
 
         # Check JSON
-        response_json = json.loads(response.content)
+        response_json = json.loads(response.content.decode())
         self.assertIn('image_id', response_json)
         self.assertIn('form', response_json)
         self.assertIn('success', response_json)
@@ -635,7 +633,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertFalse(Image.objects.filter(id=self.image.id).exists())
 
         # Check JSON
-        response_json = json.loads(response.content)
+        response_json = json.loads(response.content.decode())
         self.assertIn('image_id', response_json)
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], self.image.id)
