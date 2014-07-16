@@ -1,6 +1,6 @@
 
 Defining models with the Editing API
-===========
+====================================
 
 .. note::
     This documentation is currently being written.
@@ -251,7 +251,7 @@ Field Customization
 
 By adding CSS classnames to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customization covered there. (See `Django model field reference`_ ).
 
-.. _Django model field reference:https://docs.djangoproject.com/en/dev/ref/models/fields/
+.. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
 
 
 Full-Width Input
@@ -374,7 +374,7 @@ For more on ``django-modelcluster``, visit `the django-modelcluster github proje
 Extending the WYSIWYG Editor (hallo.js)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
 
 .. code-block:: javascript
 
@@ -392,15 +392,45 @@ Admin Hooks
 
 On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
 
-Registering functions with a Wagtail hook follows the following pattern:
+.. versionadded:: 0.5
+  Decorator syntax was added in 0.5; earlier versions only supported ``hooks.register`` as an ordinary function call.
+
+Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
 .. code-block:: python
 
-  from wagtail.wagtailadmin import hooks
+  from wagtail.wagtailcore import hooks
 
-  hooks.register('hook', function)
+  @hooks.register('name_of_hook')
+  def my_hook_function(arg1, arg2...)
+      # your code here
 
-Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
+
+Alternatively, ``hooks.register`` can be called as an ordinary function, passing in the name of the hook and a handler function defined elsewhere:
+
+.. code-block:: python
+
+  hooks.register('name_of_hook', my_hook_function)
+
+
+The available hooks are:
+
+.. _before_serve_page:
+
+``before_serve_page``
+  .. versionadded:: 0.4
+
+  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
+    @hooks.register('before_serve_page')
+    def block_googlebot(page, request, serve_args, serve_kwargs):
+        if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
+            return HttpResponse("<h1>bad googlebot no cookie</h1>")
+
 
 .. _construct_wagtail_edit_bird:
 
@@ -409,17 +439,17 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class UserbarPuppyLinkItem(object):
       def render(self, request):
         return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
         + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
 
+    @hooks.register('construct_wagtail_edit_bird')
     def add_puppy_link_item(request, items):
       return items.append( UserbarPuppyLinkItem() )
 
-    hooks.register('construct_wagtail_edit_bird', add_puppy_link_item)
 
 .. _construct_homepage_panels:
 
@@ -430,7 +460,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.utils.safestring import mark_safe
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     class WelcomePanel(object):
       order = 50
@@ -442,10 +472,10 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         </section>
         """)
 
+    @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
       return panels.append( WelcomePanel() )
 
-    hooks.register('construct_homepage_panels', add_another_welcome_panel)
 
 .. _after_create_page:
 
@@ -456,11 +486,12 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.http import HttpResponse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
+    @hooks.register('after_create_page')
     def do_after_page_create(request, page):
       return HttpResponse("Congrats on making content!", content_type="text/plain")
-    hooks.register('after_create_page', do_after_page_create)
+
 
 .. _after_edit_page:
 
@@ -484,18 +515,18 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.http import HttpResponse
     from django.conf.urls import url
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
     def admin_view( request ):
       return HttpResponse( \
         "I have approximate knowledge of many things!", \
         content_type="text/plain")
 
+    @hooks.register('register_admin_urls')
     def urlconf_time():
       return [
         url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
       ]
-    hooks.register('register_admin_urls', urlconf_time)
 
 .. _construct_main_menu:
 
@@ -506,14 +537,14 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from django.core.urlresolvers import reverse
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
+    @hooks.register('construct_main_menu')
     def construct_main_menu(request, menu_items):
       menu_items.append(
         MenuItem( 'Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
       )
-    hooks.register('construct_main_menu', construct_main_menu)
 
 
 .. _insert_editor_js:
@@ -526,8 +557,9 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html, format_html_join
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
+    @hooks.register('insert_editor_js')
     def editor_js():
       js_files = [
         'demo/js/hallo-plugins/hallo-demo-plugin.js',
@@ -542,7 +574,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         </script>
         """
       )
-    hooks.register('insert_editor_js', editor_js)
+
 
 .. _insert_editor_css:
 
@@ -554,18 +586,19 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from django.utils.html import format_html
     from django.conf import settings
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
 
+    @hooks.register('insert_editor_css')
     def editor_css():
       return format_html('<link rel="stylesheet" href="' \
       + settings.STATIC_URL \
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
-    hooks.register('insert_editor_css', editor_css)
 
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
-  .. versionadded:: 0.4
+.. versionadded:: 0.4
+
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
   The ``wagtail.wagtailcore.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
@@ -574,15 +607,15 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
   .. code-block:: python
 
-    from wagtail.wagtailadmin import hooks
+    from wagtail.wagtailcore import hooks
     from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
+    @hooks.register('construct_whitelister_element_rules')
     def whitelister_element_rules():
         return {
             'blockquote': allow_without_attributes,
             'a': attribute_rule({'href': check_url, 'target': True}),
         }
-    hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
 
 
 Image Formats in the Rich Text Editor
@@ -593,6 +626,7 @@ On loading, Wagtail will search for any app with the file ``image_formats.py`` a
 As an example, add a "thumbnail" format:
 
 .. code-block:: python
+
   # image_formats.py
   from wagtail.wagtailimages.formats import Format, register_image_format
 

@@ -1,0 +1,40 @@
+==========================================
+Wagtail 0.5 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Whats new
+=========
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+Core
+----
+
+ * Hooks can now be defined using decorator syntax:
+
+  .. code-block:: python
+
+    @hooks.register('construct_main_menu')
+    def construct_main_menu(request, menu_items):
+        menu_items.append(
+            MenuItem('Kittens!', '/kittens/', classnames='icon icon-folder-inverse', order=1000)
+        )
+
+
+Bug fixes
+~~~~~~~~~
+
+
+Backwards incompatible changes
+==============================
+
+
+Deprecated features
+===================

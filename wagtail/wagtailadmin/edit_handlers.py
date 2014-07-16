@@ -1,6 +1,9 @@
+from __future__ import unicode_literals
+
 import copy
-import re
-import datetime
+
+from six import string_types
+from six import text_type
 
 from taggit.forms import TagWidget
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
@@ -9,13 +12,10 @@ from django.template.loader import render_to_string
 from django.template.defaultfilters import addslashes
 from django.utils.safestring import mark_safe
 from django import forms
-from django.db import models
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured, ValidationError
+from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
@@ -72,7 +72,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
-WagtailAdminModelForm = WagtailAdminModelFormMetaclass('WagtailAdminModelForm', (ClusterForm,), {})
+WagtailAdminModelForm = WagtailAdminModelFormMetaclass(str('WagtailAdminModelForm'), (ClusterForm,), {})
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
@@ -108,7 +108,7 @@ def get_form_for_model(
     # Give this new form class a reasonable name.
     class_name = model.__name__ + str('Form')
     form_class_attrs = {
-        'Meta': type('Meta', (object,), attrs)
+        'Meta': type(str('Meta'), (object,), attrs)
     }
 
     return WagtailAdminModelFormMetaclass(class_name, (WagtailAdminModelForm,), form_class_attrs)
@@ -245,12 +245,12 @@ class EditHandler(object):
         """
         rendered_fields = self.rendered_fields()
         missing_fields_html = [
-            unicode(self.form[field_name])
+            text_type(self.form[field_name])
             for field_name in self.form.fields
             if field_name not in rendered_fields
         ]
 
-        return mark_safe(u''.join(missing_fields_html))
+        return mark_safe(''.join(missing_fields_html))
 
     def render_form_content(self):
         """
@@ -304,7 +304,7 @@ class BaseCompositeEditHandler(EditHandler):
         }))
 
     def render_js(self):
-        return mark_safe(u'\n'.join([handler.render_js() for handler in self.children]))
+        return mark_safe('\n'.join([handler.render_js() for handler in self.children]))
 
     def rendered_fields(self):
         result = []
@@ -319,7 +319,7 @@ class BaseTabbedInterface(BaseCompositeEditHandler):
 
 
 def TabbedInterface(children):
-    return type('_TabbedInterface', (BaseTabbedInterface,), {'children': children})
+    return type(str('_TabbedInterface'), (BaseTabbedInterface,), {'children': children})
 
 
 class BaseObjectList(BaseCompositeEditHandler):
@@ -327,7 +327,7 @@ class BaseObjectList(BaseCompositeEditHandler):
 
 
 def ObjectList(children, heading="", classname=""):
-    return type('_ObjectList', (BaseObjectList,), {
+    return type(str('_ObjectList'), (BaseObjectList,), {
         'children': children,
         'heading': heading,
         'classname': classname
@@ -338,7 +338,7 @@ class BaseFieldRowPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/field_row_panel.html"
 
 def FieldRowPanel(children, classname=""):
-    return type('_FieldRowPanel', (BaseFieldRowPanel,), {
+    return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {
         'children': children,
         'classname': classname,
     })
@@ -353,7 +353,7 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 def MultiFieldPanel(children, heading="", classname=""):
-    return type('_MultiFieldPanel', (BaseMultiFieldPanel,), {
+    return type(str('_MultiFieldPanel'), (BaseMultiFieldPanel,), {
         'children': children,
         'heading': heading,
         'classname': classname,
@@ -415,7 +415,7 @@ class BaseFieldPanel(EditHandler):
 
 
 def FieldPanel(field_name, classname=""):
-    return type('_FieldPanel', (BaseFieldPanel,), {
+    return type(str('_FieldPanel'), (BaseFieldPanel,), {
         'field_name': field_name,
         'classname': classname,
     })
@@ -427,7 +427,7 @@ class BaseRichTextFieldPanel(BaseFieldPanel):
 
 
 def RichTextFieldPanel(field_name):
-    return type('_RichTextFieldPanel', (BaseRichTextFieldPanel,), {
+    return type(str('_RichTextFieldPanel'), (BaseRichTextFieldPanel,), {
         'field_name': field_name,
     })
 
@@ -483,7 +483,7 @@ class BasePageChooserPanel(BaseChooserPanel):
     def target_content_type(cls):
         if cls._target_content_type is None:
             if cls.page_type:
-                if isinstance(cls.page_type, basestring):
+                if isinstance(cls.page_type, string_types):
                     # translate the passed model name into an actual model class
                     from django.db.models import get_model
                     try:
@@ -518,7 +518,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
 
 def PageChooserPanel(field_name, page_type=None):
-    return type('_PageChooserPanel', (BasePageChooserPanel,), {
+    return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
         'field_name': field_name,
         'page_type': page_type,
     })
@@ -575,6 +575,11 @@ class BaseInlinePanel(EditHandler):
                 child_edit_handler_class(instance=subform.instance, form=subform)
             )
 
+        # if this formset is valid, it may have been re-ordered; respect that
+        # in case the parent form errored and we need to re-render
+        if self.formset.can_order and self.formset.is_valid():
+            self.children = sorted(self.children, key=lambda x: x.form.cleaned_data['ORDER'])
+
         empty_form = self.formset.empty_form
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         if self.formset.can_order:
@@ -601,7 +606,7 @@ class BaseInlinePanel(EditHandler):
 
 def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
     rel = getattr(base_model, relation_name).related
-    return type('_InlinePanel', (BaseInlinePanel,), {
+    return type(str('_InlinePanel'), (BaseInlinePanel,), {
         'relation_name': relation_name,
         'related': rel,
         'panels': panels,

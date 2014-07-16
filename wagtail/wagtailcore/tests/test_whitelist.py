@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 
 from django.test import TestCase
 from wagtail.wagtailcore.whitelist import (

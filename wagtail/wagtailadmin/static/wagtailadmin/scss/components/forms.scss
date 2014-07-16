@@ -69,6 +69,10 @@ input, textarea, select, .richtext, .tagit{
         outline:none;
         background-color:$color-input-focus;
     }
+    &:disabled, &[disabled], &:disabled:hover, &[disabled]:hover{
+        background-color:inherit;
+        cursor:not-allowed;
+    }  
 }
 
 /* select boxes */
@@ -135,6 +139,7 @@ input[type=radio]:before{
     display:block;
     content:"K";
     width: 1em;
+    height:1em;
     line-height: 1.1em;
     padding: 4px;
     background-color: white;
@@ -760,6 +765,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .choice_field &,
         .model_multiple_choice_field &,
         .boolean_field &,
+        .choice_field &,
         .model_choice_field &,
         .image_field &,
         .file_field &{

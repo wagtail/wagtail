@@ -1,6 +1,9 @@
-from StringIO import StringIO
-from urlparse import urlparse
 import warnings
+
+import six
+from six import string_types
+from six import StringIO
+from six.moves.urllib.parse import urlparse
 
 from modelcluster.models import ClusterableModel
 
@@ -15,17 +18,19 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
-from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
+from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
+from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class SiteManager(models.Manager):
@@ -33,6 +38,7 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
+@python_2_unicode_compatible
 class Site(models.Model):
     hostname = models.CharField(max_length=255, db_index=True)
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
@@ -45,7 +51,7 @@ class Site(models.Model):
     def natural_key(self):
         return (self.hostname, self.port)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.hostname + ("" if self.port == 80 else (":%d" % self.port)) + (" [default]" if self.is_default_site else "")
 
     @staticmethod
@@ -223,6 +229,15 @@ class PageManager(models.Manager):
     def not_type(self, model):
         return self.get_queryset().not_type(model)
 
+    def public(self):
+        return self.get_queryset().public()
+
+    def not_public(self):
+        return self.get_queryset().not_public()
+
+    def search(self, query_string, fields=None, backend='default'):
+        return self.get_queryset().search(query_string, fields=fields, backend=backend)
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -255,9 +270,8 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class Page(MP_Node, ClusterableModel, Indexed):
-    __metaclass__ = PageBase
-
+@python_2_unicode_compatible
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -276,21 +290,15 @@ class Page(MP_Node, ClusterableModel, Indexed):
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
-    indexed_fields = {
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 100,
-        },
-        'live': {
-            'type': 'boolean',
-            'index': 'not_analyzed',
-        },
-        'path': {
-            'type': 'string',
-            'index': 'not_analyzed',
-        },
-    }
+    search_fields = (
+        indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.FilterField('id'),
+        indexed.FilterField('live'),
+        indexed.FilterField('owner'),
+        indexed.FilterField('content_type'),
+        indexed.FilterField('path'),
+        indexed.FilterField('depth'),
+    )
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
@@ -300,7 +308,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             # created as
             self.content_type = ContentType.objects.get_for_model(self)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     is_abstract = True  # don't offer Page in the list of page types a superuser can create
@@ -373,10 +381,11 @@ class Page(MP_Node, ClusterableModel, Indexed):
         cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
+    #: Return this page in its most specific subclassed form.
     @cached_property
     def specific(self):
         """
-            Return this page in its most specific subclassed form.
+        Return this page in its most specific subclassed form.
         """
         # the ContentType.objects manager keeps a cache, so this should potentially
         # avoid a database lookup over doing self.content_type. I think.
@@ -387,11 +396,13 @@ class Page(MP_Node, ClusterableModel, Indexed):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    #: Return the class that this page would be if instantiated in its
+    #: most specific form
     @cached_property
     def specific_class(self):
         """
-            return the class that this page would be if instantiated in its
-            most specific form
+        Return the class that this page would be if instantiated in its
+        most specific form
         """
         content_type = ContentType.objects.get_for_id(self.content_type_id)
         return content_type.model_class()
@@ -412,7 +423,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
         else:
             # request is for this very page
             if self.live:
-                return self.serve(request)
+                return RouteResult(self)
             else:
                 raise Http404
 
@@ -520,7 +531,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
         # Search
         s = get_search_backend()
-        return s.search(query_string, model=cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
+        return s.search(query_string, cls, fields=fields, filters=filters, prefetch_related=prefetch_related)
 
     @classmethod
     def clean_subpage_types(cls):
@@ -536,7 +547,7 @@ class Page(MP_Node, ClusterableModel, Indexed):
             else:
                 res = []
                 for page_type in cls.subpage_types:
-                    if isinstance(page_type, basestring):
+                    if isinstance(page_type, string_types):
                         try:
                             app_label, model_name = page_type.split(".")
                         except ValueError:
@@ -619,6 +630,43 @@ class Page(MP_Node, ClusterableModel, Indexed):
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
+    def copy(self, recursive=False, to=None, update_attrs=None):
+        # Make a copy
+        page_copy = Page.objects.get(id=self.id).specific
+        page_copy.pk = None
+        page_copy.id = None
+        page_copy.depth = None
+        page_copy.numchild = 0
+        page_copy.path = None
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                setattr(page_copy, field, value)
+
+        if to:
+            page_copy = to.add_child(instance=page_copy)
+        else:
+            page_copy = self.add_sibling(instance=page_copy)
+
+        # Copy child objects
+        specific_self = self.specific
+        for child_relation in getattr(specific_self._meta, 'child_relations', []):
+            parental_key_name = child_relation.field.attname
+            child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
+
+            if child_objects:
+                for child_object in child_objects.all():
+                    child_object.pk = None
+                    setattr(child_object, parental_key_name, page_copy.id)
+                    child_object.save()
+
+        # Copy child pages
+        if recursive:
+            for child_page in self.get_children():
+                child_page.specific.copy(recursive=True, to=page_copy)
+
+        return page_copy
+
     def permissions_for_user(self, user):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
@@ -666,32 +714,87 @@ class Page(MP_Node, ClusterableModel, Indexed):
                                 "request middleware returned a response")
         return request
 
-    def get_page_modes(self):
+    DEFAULT_PREVIEW_MODES = [('', 'Default')]
+
+    @property
+    def preview_modes(self):
         """
-        Return a list of (internal_name, display_name) tuples for the modes in which
+        A list of (internal_name, display_name) tuples for the modes in which
         this page can be displayed for preview/moderation purposes. Ordinarily a page
         will only have one display mode, but subclasses of Page can override this -
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        return [('', 'Default')]
+        modes = self.get_page_modes()
+        if modes is not Page.DEFAULT_PREVIEW_MODES:
+            # User has overriden get_page_modes instead of using preview_modes
+            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", DeprecationWarning)
+
+        return modes
+
+    def get_page_modes(self):
+        # Deprecated accessor for the preview_modes property
+        return Page.DEFAULT_PREVIEW_MODES
+
+    @property
+    def default_preview_mode(self):
+        return self.preview_modes[0][0]
+
+    def serve_preview(self, request, mode_name):
+        """
+        Return an HTTP response for use in page previews. Normally this would be equivalent
+        to self.serve(request), since we obviously want the preview to be indicative of how
+        it looks on the live site. However, there are a couple of cases where this is not
+        appropriate, and custom behaviour is required:
+
+        1) The page has custom routing logic that derives some additional required
+        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
+        previewing, so there's no way to know what args we should pass. In such a case,
+        the page model needs to implement its own version of serve_preview.
+
+        2) The page has several different renderings that we would like to be able to see
+        when previewing - for example, a form page might have one rendering that displays
+        the form, and another rendering to display a landing page when the form is posted.
+        This can be done by setting a custom preview_modes list on the page model -
+        Wagtail will allow the user to specify one of those modes when previewing, and
+        pass the chosen mode_name to serve_preview so that the page model can decide how
+        to render it appropriately. (Page models that do not specify their own preview_modes
+        list will always receive an empty string as mode_name.)
+
+        Any templates rendered during this process should use the 'request' object passed
+        here - this ensures that request.user and other properties are set appropriately for
+        the wagtail user bar to be displayed. This request will always be a GET.
+        """
+        return self.serve(request)
 
     def show_as_mode(self, mode_name):
+        # Deprecated API for rendering previews. If this returns something other than None,
+        # we know that a subclass of Page has overridden this, and we should try to work with
+        # that response if possible.
+        return None
+
+    def get_cached_paths(self):
         """
-        Given an internal name from the get_page_modes() list, return an HTTP response
-        indicative of the page being viewed in that mode. By default this passes a
-        dummy request into the serve() mechanism, ensuring that it matches the behaviour
-        on the front-end; subclasses that define additional page modes will need to
-        implement alternative logic to serve up the appropriate view here.
+        This returns a list of paths to invalidate in a frontend cache
         """
-        return self.serve(self.dummy_request())
+        return ['/']
+
+    def get_sitemap_urls(self):
+        latest_revision = self.get_latest_revision()
+
+        return [
+            {
+                'location': self.full_url,
+                'lastmod': latest_revision.created_at if latest_revision else None
+            }
+        ]
 
     def get_static_site_paths(self):
         """
         This is a generator of URL paths to feed into a static site generator
         Override this if you would like to create static versions of subpages
         """
-        # Yield paths for this page
+        # Yield path for this page
         yield '/'
 
         # Yield paths for child pages
@@ -713,6 +816,24 @@ class Page(MP_Node, ClusterableModel, Indexed):
 
     def get_prev_siblings(self, inclusive=False):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
+
+    def get_view_restrictions(self):
+        """Return a query set of all page view restrictions that apply to this page"""
+        return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+
+    password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+    def serve_password_required_response(self, request, form, action_url):
+        """
+        Serve a response indicating that the user has been denied access to view this page,
+        and must supply a password.
+        form = a Django form object containing the password input
+            (and zero or more hidden fields that also need to be output on the template)
+        action_url = URL that this form should be POSTed to
+        """
+        context = self.get_context(request)
+        context['form'] = form
+        context['action_url'] = action_url
+        return TemplateResponse(request, self.password_required_template, context)
 
 
 def get_navigation_menu_items():
@@ -770,6 +891,7 @@ class SubmittedRevisionsManager(models.Manager):
         return super(SubmittedRevisionsManager, self).get_queryset().filter(submitted_for_moderation=True)
 
 
+@python_2_unicode_compatible
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
@@ -827,7 +949,7 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
 
 
@@ -903,10 +1025,9 @@ class UserPagePermissionsProxy(object):
 
         return editable_pages
 
-
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
-        return True if self.editable_pages().count() else False
+        return self.editable_pages().exists()
 
     def publishable_pages(self):
         """Return a queryset of the pages that this user has permission to publish"""
@@ -916,27 +1037,18 @@ class UserPagePermissionsProxy(object):
         if self.user.is_superuser:
             return Page.objects.all()
 
-        # Translate each of the user's permission rules into a Q-expression
-        q_expressions = []
-        for perm in self.permissions:
-            if perm.permission_type == 'publish':
-                # user has publish permission on any subpage of perm.page
-                # (including perm.page itself)
-                q_expressions.append(
-                    Q(path__startswith=perm.page.path)
-                )
+        publishable_pages = Page.objects.none()
 
-        if q_expressions:
-            all_rules = q_expressions[0]
-            for expr in q_expressions[1:]:
-                all_rules = all_rules | expr
-            return Page.objects.filter(all_rules)
-        else:
-            return Page.objects.none()
+        for perm in self.permissions.filter(permission_type='publish'):
+            # user has publish permission on any subpage of perm.page
+            # (including perm.page itself)
+            publishable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return publishable_pages
 
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
-        return True if self.publishable_pages().count() else False
+        return self.publishable_pages().exists()
 
 
 class PagePermissionTester(object):
@@ -1007,6 +1119,9 @@ class PagePermissionTester(object):
 
         return self.user.is_superuser or ('publish' in self.permissions)
 
+    def can_set_view_restrictions(self):
+        return self.can_publish()
+
     def can_publish_subpage(self):
         """
         Niggly special case for creating and publishing a page in one go.
@@ -1064,3 +1179,8 @@ class PagePermissionTester(object):
         else:
             # no publishing required, so the already-tested 'add' permission is sufficient
             return True
+
+
+class PageViewRestriction(models.Model):
+    page = models.ForeignKey('Page', related_name='view_restrictions')
+    password = models.CharField(max_length=255)

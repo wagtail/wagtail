@@ -1,10 +1,10 @@
-from StringIO import StringIO
+from six import StringIO
 
 from django.test import TestCase
 from django.core import management
 
 from wagtail.wagtailsearch import models
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 

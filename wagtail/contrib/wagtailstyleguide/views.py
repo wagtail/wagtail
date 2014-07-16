@@ -1,16 +1,10 @@
 from django import forms
-from django.db import models
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 
-from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailcore.fields import RichTextField
 
 
 CHOICES = (

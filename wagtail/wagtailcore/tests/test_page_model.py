@@ -1,12 +1,10 @@
-from StringIO import StringIO
+import warnings
 
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
-from django.core import management
-from django.contrib.auth.models import User
 
-from wagtail.wagtailcore.models import Page, Site, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage, EventIndex, SimplePage
+from wagtail.wagtailcore.models import Page, Site
+from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod
 
 
 class TestSiteRouting(TestCase):
@@ -140,8 +138,13 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.path = '/events/christmas/'
-        response = homepage.route(request, ['events', 'christmas'])
+        (found_page, args, kwargs) = homepage.route(request, ['events', 'christmas'])
+        self.assertEqual(found_page, christmas_page)
 
+    def test_request_serving(self):
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        request = HttpRequest()
+        response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context_data['self'], christmas_page)
         used_template = response.resolve_template(response.template_name)
@@ -230,6 +233,28 @@ class TestServeView(TestCase):
         self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
 
+    def test_old_style_routing(self):
+        """
+        Test that route() methods that return an HttpResponse are correctly handled
+        """
+        with warnings.catch_warnings(record=True) as w:
+            response = self.client.get('/old-style-route/')
+
+            # Check that a DeprecationWarning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertTrue("Page.route should return an instance of wagtailcore.url_routing.RouteResult" in str(w[-1].message))
+
+        expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['self'], expected_page)
+        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
+
+    def test_before_serve_hook(self):
+        response = self.client.get('/events/', HTTP_USER_AGENT='GoogleBot')
+        self.assertContains(response, 'bad googlebot no cookie')
+
+
 class TestStaticSitePaths(TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=1)
@@ -311,3 +336,82 @@ class TestPrevNextSiblings(TestCase):
 
         # First element must always be the current page
         self.assertEqual(final_event.get_prev_siblings(inclusive=True).first(), final_event)
+
+
+class TestCopyPage(TestCase):
+    fixtures = ['test.json']
+
+    def test_copy_page_copies(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+
+        # Copy it
+        new_about_us = about_us.copy(update_attrs={'title': "New about us", 'slug': 'new-about-us'})
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us, SimplePage)
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.slug, 'new-about-us')
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(about_us.id, new_about_us.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
+
+    def test_copy_page_copies_child_objects(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+    def test_copy_page_copies_child_objects_with_nonspecific_class(self):
+        # Get chrismas page as Page instead of EventPage
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the type of the new page is correct
+        self.assertIsInstance(new_christmas_event, EventPage)
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+    def test_copy_page_copies_recursively(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+
+        # Check that the url path was updated
+        self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
+
+    def test_copy_page_copies_recursively_with_child_objects(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'})
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page")

@@ -171,15 +171,18 @@ Other Relationships
 Your ``Page``-derived models might have other interrelationships which extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (``post->post->post``). It might make sense for subtrees to interrelate, such as in a discussion forum (``forum->post->replies``) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (``events = EventPage.objects.all``). It's largely up to the models to define their interrelations, the possibilities are really endless.
 
 
+.. _anatomy_of_a_wagtail_request:
+
 Anatomy of a Wagtail Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For going beyond the basics of model definition and interrelation, it might help to know how Wagtail handles requests and constructs responses. In short, it goes something like:
 
     #.  Django gets a request and routes through Wagtail's URL dispatcher definitions
-    #.  Starting from the root content piece, Wagtail traverses the page tree, letting the model for each piece of content along the path decide how to ``route()`` the next step in the path.
-    #.  A model class decides that routing is done and it's now time to ``serve()`` content.
-    #.  ``serve()`` constructs a context using ``get_context()``
+    #.  Wagtail checks the hostname of the request to determine which ``Site`` record will handle this request.
+    #.  Starting from the root page of that site, Wagtail traverses the page tree, calling the ``route()`` method and letting each page model decide whether it will handle the request itself or pass it on to a child page.
+    #.  The page responsible for handling the request returns a ``RouteResult`` object from ``route()``, which identifies the page along with any additional args/kwargs to be passed to ``serve()``.
+    #.  Wagtail calls ``serve()``, which constructs a context using ``get_context()``
     #.  ``serve()`` finds a template to pass it to using ``get_template()``
     #.  A response object is returned by ``serve()`` and Django responds to the requester.
 
@@ -191,87 +194,216 @@ Page Properties and Methods Reference
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
-Properties:
+.. automodule:: wagtail.wagtailcore.models
+.. autoclass:: Page
 
-* specific
-* url
-* full_url
-* relative_url
-* has_unpublished_changes
-* status_string
-* subpage_types
-* indexed_fields
+    .. autoattribute:: specific
 
-Methods:
+    .. autoattribute:: specific_class
 
-* route
-* serve
-* get_context
-* get_template
-* is_navigable
-* get_ancestors
-* get_descendants
-* get_siblings
-* search
-* get_page_modes
-* show_as_mode
+    .. autoattribute:: url
+
+    .. autoattribute:: full_url
+
+    .. automethod:: relative_url
+
+    .. automethod:: is_navigable
+
+    .. automethod:: route
+
+    .. automethod:: serve
+
+    .. automethod:: get_context
+
+    .. automethod:: get_template
+
+    .. autoattribute:: preview_modes
+
+    .. automethod:: serve_preview
+
+    .. automethod:: get_ancestors
+
+    .. automethod:: get_descendants
+
+    .. automethod:: get_siblings
+
+    .. automethod:: search
 
 
-Page Queryset Methods
-~~~~~~~~~~~~~~~~~~~~~
+Page Queryset Reference
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``Page`` class uses a custom Django model manager which provides these methods for structuring queries on ``Page`` objects.
+All models that inherit from ``Page`` are given some extra Queryset methods accessible from their ``.objects`` attribute.
 
-get_query_set()
-    return PageQuerySet(self.model).order_by('path')
+Examples:
 
-live(self):
-    return self.get_query_set().live()
+ - Selecting only live pages
 
-not_live(self):
-    return self.get_query_set().not_live()
+    .. code-block:: python
 
-page(self, other):
-    return self.get_query_set().page(other)
+        live_pages = Page.objects.live()
 
-not_page(self, other):
-    return self.get_query_set().not_page(other)
+ - Selecting published EventPages that are descendants of events_index
 
-descendant_of(self, other, inclusive=False):
-    return self.get_query_set().descendant_of(other, inclusive)
+    .. code-block:: python
 
-not_descendant_of(self, other, inclusive=False):
-    return self.get_query_set().not_descendant_of(other, inclusive)
+        events = EventPage.objects.live().descendant_of(events_index)
 
-child_of(self, other):
-    return self.get_query_set().child_of(other)
+ - Getting a list of menu items
 
-not_child_of(self, other):
-    return self.get_query_set().not_child_of(other)
+    .. code-block:: python
 
-ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().ancestor_of(other, inclusive)
+        # This gets a queryset of live children of the homepage with ``show_in_menus`` set
+        menu_items = homepage.get_children().live().in_menu()
 
-not_ancestor_of(self, other, inclusive=False):
-    return self.get_query_set().not_ancestor_of(other, inclusive)
 
-parent_of(self, other):
-    return self.get_query_set().parent_of(other)
+.. automodule:: wagtail.wagtailcore.query
+.. autoclass:: PageQuerySet
 
-not_parent_of(self, other):
-    return self.get_query_set().not_parent_of(other)
+    .. automethod:: live
 
-sibling_of(self, other, inclusive=False):
-    return self.get_query_set().sibling_of(other, inclusive)
+        Example:
 
-not_sibling_of(self, other, inclusive=False):
-    return self.get_query_set().not_sibling_of(other, inclusive)
+        .. code-block:: python
 
-type(self, model):
-    return self.get_query_set().type(model)
+            published_pages = Page.objects.live()
 
-not_type(self, model):
-    return self.get_query_set().not_type(model)
+    .. automethod:: not_live
+
+        Example:
+
+        .. code-block:: python
+
+            unpublished_pages = Page.objects.not_live()
+
+    .. automethod:: in_menu
+
+        Example:
+
+        .. code-block:: python
+
+            # Build a menu from live pages that are children of the homepage
+            menu_items = homepage.get_children().live().in_menu()
+
+
+        .. note::
+
+            To put your page in menus, set the show_in_menus flag to true:
+
+            .. code-block:: python
+
+                # Add 'my_page' to the menu
+                my_page.show_in_menus = True
+
+    .. automethod:: page
+
+        Example:
+
+        .. code-block:: python
+
+            # Append an extra page to a queryset
+            new_queryset = old_queryset | Page.objects.page(page_to_add)
+
+    .. automethod:: not_page
+
+        Example:
+
+        .. code-block:: python
+
+            # Remove a page from a queryset
+            new_queryset = old_queryset & Page.objects.not_page(page_to_remove)
+
+    .. automethod:: descendant_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get EventPages that are under the special_events Page
+            special_events = EventPage.objects.descendant_of(special_events_index)
+
+            # Alternative way
+            special_events = special_events_index.get_descendants()
+
+    .. automethod:: not_descendant_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get EventPages that are not under the archived_events Page
+            non_archived_events = EventPage.objects.not_descendant_of(archived_events_index)
+
+    .. automethod:: child_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get a list of sections
+            sections = Page.objects.child_of(homepage)
+
+            # Alternative way
+            sections = homepage.get_children()
+
+    .. automethod:: ancestor_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the current section
+            current_section = Page.objects.ancestor_of(current_page).child_of(homepage).first()
+
+            # Alternative way
+            current_section = current_page.get_ancestors().child_of(homepage).first()
+
+    .. automethod:: not_ancestor_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the other sections
+            other_sections = Page.objects.not_ancestor_of(current_page).child_of(homepage)
+
+    .. automethod:: sibling_of
+
+        Example:
+
+        .. code-block:: python
+
+            # Get list of siblings
+            siblings = Page.objects.sibling_of(current_page)
+
+            # Alternative way
+            siblings = current_page.get_siblings()
+
+    .. automethod:: public
+
+        See: :ref:`private_pages`
+
+        .. note::
+
+            This doesn't filter out unpublished pages. If you want to only have published public pages, use ``.live().public()``
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all the pages that are viewable by the public
+            all_pages = Page.objects.live().public()
+
+    .. automethod:: search
+
+        See: :ref:`wagtailsearch_for_python_developers`
+
+        Example:
+
+        .. code-block:: python
+
+            # Search future events
+            results = EventPage.objects.live().filter(date__gt=timezone.now()).search("Hello")
 
 
 .. _wagtail_site_admin:

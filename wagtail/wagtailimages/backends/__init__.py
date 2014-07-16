@@ -8,11 +8,15 @@ except ImportError:
     # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
     from django.utils.importlib import import_module
 
-from django.utils import six
 import sys
-from django.conf import settings
 
-from base import InvalidImageBackendError
+from django.utils import six
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+
+
+class InvalidImageBackendError(ImproperlyConfigured):
+    pass
 
 # Pinched from django 1.7 source code.
 # TODO: Replace this with "from django.utils.module_loading import import_string"

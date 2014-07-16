@@ -343,7 +343,6 @@ ul.listing{
                 background:$color-teal-darker;
             }
         }
-
     }
 }
 ul.listing{
@@ -357,6 +356,8 @@ table.listing{
 
  /* explorer specific tweaks */
 .page-explorer .listing {
+    position:relative;
+
     .index{
         color:white;
         background-color:$color-header-bg;
@@ -364,6 +365,14 @@ table.listing{
         td{
             padding-top:1.5em;
             padding-bottom:1.5em;
+        }
+
+        .privacy-indicator{
+            font-size:1em;
+            opacity:1;
+            position:absolute;
+            right:5%;
+            top:2em;
         }
 
         .title{
@@ -376,7 +385,13 @@ table.listing{
                     color:white;
                 }
             }
+
         }
+    }
+
+    .privacy-indicator{
+        font-size:0.9em;
+        opacity:0.7;
     }
 
     .table-headers{
