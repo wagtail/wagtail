@@ -2,14 +2,16 @@ from __future__ import absolute_import
 
 import json
 
+from six.moves.urllib.parse import urlparse
+
 from django.db import models
+from django.db.models.sql.where import SubqueryConstraint
 
 from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
 from wagtail.wagtailsearch.indexed import Indexed, SearchField, FilterField
-from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class ElasticSearchMapping(object):
@@ -71,6 +73,7 @@ class ElasticSearchMapping(object):
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
             'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
+            '_partials': dict(type='string', analyzer='edgengram_analyzer', include_in_all=False),
         }
 
         fields.update(dict(
@@ -89,8 +92,18 @@ class ElasticSearchMapping(object):
     def get_document(self, obj):
         # Build document
         doc = dict(pk=str(obj.pk), content_type=self.model.indexed_get_content_type())
+        partials = []
         for field in self.model.get_search_fields():
-            doc[field.get_index_name(self.model)] = field.get_value(obj)
+            value = field.get_value(obj)
+
+            doc[field.get_index_name(self.model)] = value
+
+            # Check if this field should be added into _partials
+            if isinstance(field, SearchField) and field.partial_match:
+                partials.append(value)
+
+        # Add partials to document
+        doc['_partials'] = partials
 
         return doc
 
@@ -98,12 +111,132 @@ class ElasticSearchMapping(object):
         return '<ElasticSearchMapping: %s>' % (self.model.__name__, )
 
 
+class FilterError(Exception):
+    pass
+
+
+class FieldError(Exception):
+    pass
+
+
 class ElasticSearchQuery(object):
-    def __init__(self, model, query_string, fields=None, filters={}):
-        self.model = model
+    def __init__(self, queryset, query_string, fields=None):
+        self.queryset = queryset
         self.query_string = query_string
-        self.fields = fields or ['_all']
-        self.filters = filters
+        self.fields = fields
+
+    def _get_filters_from_where(self, where_node):
+        # Check if this is a leaf node
+        if isinstance(where_node, tuple):
+            field_name = where_node[0].col
+            lookup = where_node[1]
+            value = where_node[3]
+
+            # Get field
+            field = dict(
+                (field.get_attname(self.queryset.model), field)
+                for field in self.queryset.model.get_filterable_search_fields()
+            ).get(field_name, None)
+
+            # Give error if the field doesn't exist
+            if field is None:
+                raise FieldError('Cannot filter ElasticSearch results with field "' + field_name + '". Please add FilterField(\'' + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+
+            # Get the name of the field in the index
+            field_index_name = field.get_index_name(self.queryset.model)
+
+            # Find lookup
+            if lookup == 'exact':
+                if value is None:
+                    return {
+                        'missing': {
+                            'field': field_index_name,
+                        }
+                    }
+                else:
+                    return {
+                        'term': {
+                            field_index_name: value,
+                        }
+                    }
+
+            if lookup == 'isnull':
+                if value:
+                    return {
+                        'missing': {
+                            'field': field_index_name,
+                        }
+                    }
+                else:
+                    return {
+                        'not': {
+                            'missing': {
+                                'field': field_index_name,
+                            }
+                        }
+                    }
+
+            if lookup in ['startswith', 'prefix']:
+                return {
+                    'prefix': {
+                        field_index_name: value,
+                    }
+                }
+
+            if lookup in ['gt', 'gte', 'lt', 'lte']:
+                return {
+                    'range': {
+                        field_index_name: {
+                            lookup: value,
+                        }
+                    }
+                }
+
+            if lookup == 'range':
+                lower, upper = value
+
+                return {
+                    'range': {
+                        field_index_name: {
+                            'gte': lower,
+                            'lte': upper,
+                        }
+                    }
+                }
+
+            if lookup == 'in':
+                return {
+                    'terms': {
+                        field_index_name: value,
+                    }
+                }
+
+            raise FilterError('Could not apply filter on ElasticSearch results: "' + field_name + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
+        elif isinstance(where_node, SubqueryConstraint):
+            raise FilterError('Could not apply filter on ElasticSearch results: Subqueries are not allowed.')
+
+        # Get child filters
+        connector = where_node.connector
+        child_filters = [self._get_filters_from_where(child) for child in where_node.children]
+        child_filters = [child_filter for child_filter in child_filters if child_filter]
+
+        # Connect them
+        if child_filters:
+            if len(child_filters) == 1:
+                filter_out = child_filters[0]
+            else:
+                filter_out = {
+                    connector.lower(): [
+                        fil for fil in child_filters if fil is not None
+                    ]
+                }
+
+            if where_node.negated:
+                filter_out = {
+                    'not': filter_out
+                }
+
+            return filter_out
 
     def _get_filters(self):
         # Filters
@@ -112,85 +245,60 @@ class ElasticSearchQuery(object):
         # Filter by content type
         filters.append({
             'prefix': {
-                'content_type': self.model.indexed_get_content_type()
+                'content_type': self.queryset.model.indexed_get_content_type()
             }
         })
 
-        # Extra filters
-        if self.filters:
-            for key, value in self.filters.items():
-                if '__' in key:
-                    field, lookup = key.split('__')
-                else:
-                    field = key
-                    lookup = None
-
-                if lookup is None:
-                    if value is None:
-                        filters.append({
-                            'missing': {
-                                'field': field,
-                            }
-                        })
-                    else:
-                        filters.append({
-                            'term': {
-                                field: value
-                            }
-                        })
-
-                if lookup in ['startswith', 'prefix']:
-                    filters.append({
-                        'prefix': {
-                            field: value
-                        }
-                    })
-
-                if lookup in ['gt', 'gte', 'lt', 'lte']:
-                    filters.append({
-                        'range': {
-                            field: {
-                                lookup: value,
-                            }
-                        }
-                    })
-
-                if lookup == 'range':
-                    lower, upper = value
-                    filters.append({
-                        'range': {
-                            field: {
-                                'gte': lower,
-                                'lte': upper,
-                            }
-                        }
-                    })
+        # Apply filters from queryset
+        queryset_filters = self._get_filters_from_where(self.queryset.query.where)
+        if queryset_filters:
+            filters.append(queryset_filters)
 
         return filters
 
     def to_es(self):
         # Query
-        query = {
-            'query_string': {
-                'query': self.query_string,
-            }
-        }
+        if self.query_string is not None:
+            fields = self.fields or ['_all', '_partials']
 
-        # Fields
-        if self.fields:
-            query['query_string']['fields'] = self.fields
+            if len(fields) == 1:
+                query = {
+                    'match': {
+                        fields[0]: self.query_string,
+                    }
+                }
+            else:
+                query = {
+                    'multi_match': {
+                        'query': self.query_string,
+                        'fields': fields,
+                    }
+                }
+        else:
+            query = {
+                'match_all': {}
+            }
 
         # Filters
         filters = self._get_filters()
-
-        return {
-            'filtered': {
-                'query': query,
-                'filter': {
-                    'and': filters,
+        if len(filters) == 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': filters[0],
                 }
             }
-        }
+        elif len(filters) > 1:
+            query = {
+                'filtered': {
+                    'query': query,
+                    'filter': {
+                        'and': filters,
+                    }
+                }
+            }
+
+        return query
 
     def __repr__(self):
         return json.dumps(self.to_es())
@@ -252,15 +360,8 @@ class ElasticSearchResults(object):
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
 
-        # Get queryset
-        queryset = self.query.model.objects.filter(pk__in=pks)
-
-        # Add prefetch related
-        if self.prefetch_related:
-            for prefetch in self.prefetch_related:
-                queryset = queryset.prefetch_related(prefetch)
-
         # Find objects in database and add them to dict
+        queryset = self.query.queryset.filter(pk__in=pks)
         for obj in queryset:
             results[str(obj.pk)] = obj
 
@@ -347,17 +448,30 @@ class ElasticSearch(BaseSearch):
         super(ElasticSearch, self).__init__(params)
 
         # Get settings
+        self.es_hosts = params.pop('HOSTS', None)
         self.es_urls = params.pop('URLS', ['http://localhost:9200'])
         self.es_index = params.pop('INDEX', 'wagtail')
-        self.es_timeout = params.pop('TIMEOUT', 5)
-        self.es_force_new = params.pop('FORCE_NEW', False)
+        self.es_timeout = params.pop('TIMEOUT', 10)
+
+        # If HOSTS is not set, convert URLS setting to HOSTS
+        if self.es_hosts is None:
+            self.es_hosts = []
+
+            for url in self.es_urls:
+                parsed_url = urlparse(url)
+
+                self.es_hosts.append({
+                    'host': parsed_url.hostname,
+                    'port': parsed_url.port or 9200,
+                    'url_prefix': parsed_url.path,
+                    'use_ssl': parsed_url.scheme == 'https',
+                })
 
         # Get ElasticSearch interface
         # Any remaining params are passed into the ElasticSearch constructor
         self.es = Elasticsearch(
-            urls=self.es_urls,
+            hosts=self.es_hosts,
             timeout=self.es_timeout,
-            force_new=self.es_force_new,
             **params)
 
     def reset_index(self):
@@ -491,17 +605,5 @@ class ElasticSearch(BaseSearch):
         except NotFoundError:
             pass  # Document doesn't exist, ignore this exception
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
-        # Model must be a descendant of Indexed and be a django model
-        if not issubclass(model, Indexed) or not issubclass(model, models.Model):
-            return []
-
-        # Normalise query string
-        query_string = normalise_query_string(query_string)
-
-        # Check that theres still a query string after the clean up
-        if not query_string:
-            return []
-
-        # Return search results
-        return ElasticSearchResults(self, ElasticSearchQuery(model, query_string, fields=fields, filters=filters), prefetch_related=prefetch_related)
+    def _search(self, queryset, query_string, fields=None):
+        return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))

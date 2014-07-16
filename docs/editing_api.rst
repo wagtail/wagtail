@@ -392,15 +392,28 @@ Admin Hooks
 
 On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
 
-Registering functions with a Wagtail hook follows the following pattern:
+.. versionadded:: 0.5
+  Decorator syntax was added in 0.5; earlier versions only supported ``hooks.register`` as an ordinary function call.
+
+Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
 .. code-block:: python
 
   from wagtail.wagtailcore import hooks
 
-  hooks.register('hook', function)
+  @hooks.register('name_of_hook')
+  def my_hook_function(arg1, arg2...)
+      # your code here
 
-Where ``'hook'`` is one of the following hook strings and ``function`` is a function you've defined to handle the hook.
+
+Alternatively, ``hooks.register`` can be called as an ordinary function, passing in the name of the hook and a handler function defined elsewhere:
+
+.. code-block:: python
+
+  hooks.register('name_of_hook', my_hook_function)
+
+
+The available hooks are:
 
 .. _before_serve_page:
 
@@ -413,11 +426,11 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from wagtail.wagtailcore import hooks
 
+    @hooks.register('before_serve_page')
     def block_googlebot(page, request, serve_args, serve_kwargs):
         if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
             return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
-    hooks.register('before_serve_page', block_googlebot)
 
 .. _construct_wagtail_edit_bird:
 
@@ -433,10 +446,10 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
         + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
 
+    @hooks.register('construct_wagtail_edit_bird')
     def add_puppy_link_item(request, items):
       return items.append( UserbarPuppyLinkItem() )
 
-    hooks.register('construct_wagtail_edit_bird', add_puppy_link_item)
 
 .. _construct_homepage_panels:
 
@@ -459,10 +472,10 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         </section>
         """)
 
+    @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
       return panels.append( WelcomePanel() )
 
-    hooks.register('construct_homepage_panels', add_another_welcome_panel)
 
 .. _after_create_page:
 
@@ -475,9 +488,10 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from wagtail.wagtailcore import hooks
 
+    @hooks.register('after_create_page')
     def do_after_page_create(request, page):
       return HttpResponse("Congrats on making content!", content_type="text/plain")
-    hooks.register('after_create_page', do_after_page_create)
+
 
 .. _after_edit_page:
 
@@ -508,11 +522,11 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         "I have approximate knowledge of many things!", \
         content_type="text/plain")
 
+    @hooks.register('register_admin_urls')
     def urlconf_time():
       return [
         url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
       ]
-    hooks.register('register_admin_urls', urlconf_time)
 
 .. _construct_main_menu:
 
@@ -526,11 +540,11 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
+    @hooks.register('construct_main_menu')
     def construct_main_menu(request, menu_items):
       menu_items.append(
         MenuItem( 'Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
       )
-    hooks.register('construct_main_menu', construct_main_menu)
 
 
 .. _insert_editor_js:
@@ -545,6 +559,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from wagtail.wagtailcore import hooks
 
+    @hooks.register('insert_editor_js')
     def editor_js():
       js_files = [
         'demo/js/hallo-plugins/hallo-demo-plugin.js',
@@ -559,7 +574,7 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
         </script>
         """
       )
-    hooks.register('insert_editor_js', editor_js)
+
 
 .. _insert_editor_css:
 
@@ -573,11 +588,11 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
 
     from wagtail.wagtailcore import hooks
 
+    @hooks.register('insert_editor_css')
     def editor_css():
       return format_html('<link rel="stylesheet" href="' \
       + settings.STATIC_URL \
       + 'demo/css/vendor/font-awesome/css/font-awesome.min.css">')
-    hooks.register('insert_editor_css', editor_css)
 
 .. _construct_whitelister_element_rules:
 
@@ -595,12 +610,12 @@ Where ``'hook'`` is one of the following hook strings and ``function`` is a func
     from wagtail.wagtailcore import hooks
     from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
+    @hooks.register('construct_whitelister_element_rules')
     def whitelister_element_rules():
         return {
             'blockquote': allow_without_attributes,
             'a': attribute_rule({'href': check_url, 'target': True}),
         }
-    hooks.register('construct_whitelister_element_rules', whitelister_element_rules)
 
 
 Image Formats in the Rich Text Editor

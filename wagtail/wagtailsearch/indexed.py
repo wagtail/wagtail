@@ -112,13 +112,20 @@ class Indexed(object):
 
     @classmethod
     def get_searchable_search_fields(cls):
-        return filter(lambda field: field.searchable, cls.get_search_fields())
+        return filter(lambda field: isinstance(field, SearchField), cls.get_search_fields())
+
+    @classmethod
+    def get_filterable_search_fields(cls):
+        return filter(lambda field: isinstance(field, FilterField), cls.get_search_fields())
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return cls.objects.all()
 
     indexed_fields = ()
 
 
 class BaseField(object):
-    searchable = False
     suffix = ''
 
     def __init__(self, field_name, **kwargs):
@@ -163,8 +170,6 @@ class BaseField(object):
 
 
 class SearchField(BaseField):
-    searchable = True
-
     def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
         super(SearchField, self).__init__(field_name, **kwargs)
         self.boost = boost
