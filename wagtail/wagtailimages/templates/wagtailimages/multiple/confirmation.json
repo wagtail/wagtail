@@ -1,7 +1,0 @@
-{
-    "image_id": {{ image_id }},
-{% if form %}
-    "form": "{% filter escapejs %}{% include 'wagtailimages/multiple/edit_form.html' %}{% endfilter %}",
-{% endif %}
-    "success": {% if success %}true{% else %}false{% endif %}
-}

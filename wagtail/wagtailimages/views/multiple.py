@@ -5,10 +5,15 @@ from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.template.loader import render_to_string
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
+
+
+def json_response(document):
+    return HttpResponse(json.dumps(document), content_type='application/json')
 
 
 @permission_required('wagtailimages.add_image')
@@ -54,17 +59,19 @@ def edit(request, image_id, callback=None):
 
     if form.is_valid():
         form.save()
-        return render(request, 'wagtailimages/multiple/confirmation.json', {
+        return json_response({
             'success': True,
-            'image_id': image_id,
-        }, content_type='application/json')
+            'image_id': int(image_id),
+        })
     else:
-        return render(request, 'wagtailimages/multiple/confirmation.json', {
+        return json_response({
             'success': False,
-            'image_id': image_id,
-            'image': image,
-            'form': form,
-        }, content_type='application/json')
+            'image_id': int(image_id),
+            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                'image': image,
+                'form': form,
+            }),
+        })
 
 
 @require_POST
@@ -80,8 +87,7 @@ def delete(request, image_id):
 
     image.delete()
 
-    return render(request, 'wagtailimages/multiple/confirmation.json', {
+    return json_response({
         'success': True,
-        'image_id': image_id,
-    }, content_type='application/json')
-
+        'image_id': int(image_id),
+    })
