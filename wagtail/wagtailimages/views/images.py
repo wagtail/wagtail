@@ -14,7 +14,7 @@ from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 
 from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError, generate_signature
 
 
@@ -107,14 +107,18 @@ def edit(request, image_id):
     # Check if we should enable the frontend url generator
     try:
         reverse('wagtailimages_serve', args=('foo', '1', 'bar'))
-        url_generator_enabled = True
+        url_generator_form = URLGeneratorForm(initial={
+            'filter_method': 'original',
+            'width': image.width,
+            'height': image.height,
+        })
     except NoReverseMatch:
-        url_generator_enabled = False
+        url_generator_form = None
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
-        'url_generator_enabled': url_generator_enabled,
+        'url_generator_form': url_generator_form,
     })
 
 

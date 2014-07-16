@@ -39,8 +39,8 @@
                 </ul>
             </form>
 
-            {% if url_generator_enabled %}
-                {% include "wagtailimages/images/_url_generator.html" %}
+            {% if url_generator_form %}
+                {% include "wagtailimages/images/_url_generator.html" with form=url_generator_form %}
             {% endif %}
         </div>
         <div class="col5">

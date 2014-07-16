@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.models import modelform_factory
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_formats
@@ -24,3 +25,19 @@ class ImageInsertionForm(forms.Form):
         widget=forms.RadioSelect
     )
     alt_text = forms.CharField()
+
+
+class URLGeneratorForm(forms.Form):
+    filter_method = forms.ChoiceField(
+        label=_("Filter"),
+        choices=(
+            ('original', _("Original size")),
+            ('width', _("Resize to width")),
+            ('height', _("Resize to height")),
+            ('min', _("Resize to min")),
+            ('max', _("Resize to max")),
+            ('fill', _("Resize to fill")),
+        ),
+    )
+    width = forms.IntegerField(_("Width"), min_value=0)
+    height = forms.IntegerField(_("Height"), min_value=0)

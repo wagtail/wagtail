@@ -1,8 +1,11 @@
 <div class="image-url-generator" data-generator-url="{% url 'wagtailimages_generate_url' image.id '__filterspec__' %}">
     <h3>URL generator</h3>
 
-    Filter spec:
-    <input type="text" class="filter">
+    <form>
+        {% for field in form %}
+            {% include "wagtailadmin/shared/field_as_li.html" %}
+        {% endfor %}
+    </form>
 
     URL:
     <div class="result"></div>
