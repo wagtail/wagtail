@@ -29,6 +29,10 @@ def validate_image_format(f):
             raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension.") % (extension.upper()))
 
 
+class InvalidFilterSpecError(RuntimeError):
+    pass
+
+
 # TODO: Cache results from this method in something like Python 3.2s LRU cache (available in Django 1.7 as django.utils.lru_cache)
 def parse_filter_spec(filter_spec):
     # parse the spec string and save the results to
@@ -62,3 +66,5 @@ def parse_filter_spec(filter_spec):
         width = int(match.group(2))
         height = int(match.group(3))
         return OPERATION_NAMES[match.group(1)], (width, height)
+
+    raise InvalidFilterSpecError(filter_spec)
