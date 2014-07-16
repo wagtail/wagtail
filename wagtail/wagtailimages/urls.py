@@ -3,5 +3,5 @@ from wagtail.wagtailimages.views import frontend
 
 
 urlpatterns = [
-    url(r'^(\d*)/(.*)/$', frontend.serve, name='wagtailimages_serve'),
+    url(r'^(.*)/(\d*)/(.*)/$', frontend.serve, name='wagtailimages_serve'),
 ]
