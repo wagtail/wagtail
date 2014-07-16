@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -5,11 +7,15 @@ from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse, NoReverseMatch
+from django.http import HttpResponse
 
+from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError, generate_signature
 
 
 @permission_required('wagtailimages.add_image')
@@ -98,10 +104,58 @@ def edit(request, image_id):
     else:
         form = ImageForm(instance=image)
 
+    # Check if frontend image serving is enabled
+    try:
+        reverse('wagtailimages_serve', args=('foo', '1', 'bar'))
+        frontend_serve_enabled = True
+    except NoReverseMatch:
+        frontend_serve_enabled = False
+
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
+        'frontend_serve_enabled': frontend_serve_enabled,
     })
+
+
+def json_response(document, status=200):
+    return HttpResponse(json.dumps(document), content_type='application/json', status=status)
+
+
+@permission_required('wagtailadmin.access_admin')
+def generate_url(request, image_id, filter_spec):
+    # Get the image
+    Image = get_image_model()
+    try:
+        image = Image.objects.get(id=image_id)
+    except Image.DoesNotExist:
+        return json_response({
+            'error': "Cannot find image."
+        }, status=404)
+
+    # Check if this user has edit permission on this image
+    if not image.is_editable_by_user(request.user):
+        return json_response({
+            'error': "You do not have permission to generate a URL for this image."
+        }, status=403)
+
+    # Parse the filter spec to make sure its valid
+    try:
+        parse_filter_spec(filter_spec)
+    except InvalidFilterSpecError:
+        return json_response({
+            'error': "Invalid filter spec."
+        }, status=400)
+
+    # Generate url
+    signature = generate_signature(image_id, filter_spec)
+    url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
+
+    # Add default sites root URL to the beginning
+    site_root_url = Site.objects.get(is_default_site=True).root_url
+    url = site_root_url + url
+
+    return json_response({'url': url}, status=200)
 
 
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
