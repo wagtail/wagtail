@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags %}
+{% load static compress %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
@@ -9,6 +10,10 @@
 
 {% block extra_js %}
     {% include "wagtailadmin/shared/tag_field_js.html" %}
+
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'wagtailimages/js/image-url-generator.js' %}">
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -33,7 +38,10 @@
                     <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-            
+
+            {% if url_generator_enabled %}
+                {% include "wagtailimages/images/_url_generator.html" %}
+            {% endif %}
         </div>
         <div class="col5">
             {% image image max-800x600 %}

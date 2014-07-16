@@ -104,17 +104,17 @@ def edit(request, image_id):
     else:
         form = ImageForm(instance=image)
 
-    # Check if frontend image serving is enabled
+    # Check if we should enable the frontend url generator
     try:
         reverse('wagtailimages_serve', args=('foo', '1', 'bar'))
-        frontend_serve_enabled = True
+        url_generator_enabled = True
     except NoReverseMatch:
-        frontend_serve_enabled = False
+        url_generator_enabled = False
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
-        'frontend_serve_enabled': frontend_serve_enabled,
+        'url_generator_enabled': url_generator_enabled,
     })
 
 
