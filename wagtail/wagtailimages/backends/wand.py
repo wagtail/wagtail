@@ -33,7 +33,7 @@ class WandBackend(BaseImageBackend):
 
         if original_aspect_ratio < new_aspect_ratio:
             new_width = original_width
-            new_height = original_width * new_aspect_ratio
+            new_height = original_width / new_aspect_ratio
         else:
             new_width = original_height * new_aspect_ratio
             new_height = original_height
