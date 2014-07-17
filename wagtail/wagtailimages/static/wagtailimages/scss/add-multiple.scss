@@ -5,6 +5,7 @@
 .replace-file-input{
     display:inline-block;
     position:relative;
+    overflow:hidden;
 
     input[type=file]{
         padding:0;
