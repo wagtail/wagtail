@@ -3,6 +3,7 @@ import json
 from mock import MagicMock
 
 from django.utils import six
+from django.utils.http import urlquote
 from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
@@ -632,9 +633,15 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Check JSON
-        self.assertJSONEqual(response.content.decode(), json.dumps({
-            'url': 'http://localhost/images/3PKkdCPWIiaTs7CQn8_2Pu5rI34%3D/4/fill-800x600/',
-        }))
+        content_json = json.loads(response.content.decode())
+
+        self.assertEqual(list(content_json.keys()), ['url'])
+
+        expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
+            'image_id': self.image.id,
+        }
+        self.assertEqual(content_json['url'], expected_url)
 
     def test_get_bad_permissions(self):
         """
