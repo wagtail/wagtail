@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from __future__ import division
 
 from .base import BaseImageBackend
 from wand.image import Image
@@ -21,6 +22,24 @@ class WandBackend(BaseImageBackend):
 
     def resize(self, image, size):
         new_image = image.clone()
+        new_image.resize(size[0], size[1])
+        return new_image
+
+    def liquid_resize(self, image, size):
+        new_aspect_ratio = size[0] / size[1]
+
+        (original_width, original_height) = image.size
+        original_aspect_ratio = original_width / original_height
+
+        if original_aspect_ratio < new_aspect_ratio:
+            new_width = original_width
+            new_height = original_width / new_aspect_ratio
+        else:
+            new_width = original_height * new_aspect_ratio
+            new_height = original_height
+
+        new_image = image.clone()
+        new_image.liquid_rescale(int(new_width), int(new_height))
         new_image.resize(size[0], size[1])
         return new_image
 

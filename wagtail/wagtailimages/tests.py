@@ -1,6 +1,9 @@
-from mock import MagicMock
-from django.utils import six
+import json
 
+from mock import MagicMock
+
+from django.utils import six
+from django.utils.http import urlquote
 from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
@@ -17,6 +20,8 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.utils import parse_filter_spec, InvalidFilterSpecError, generate_signature, verify_signature
+
 
 def get_test_image_file():
     from six import BytesIO
@@ -173,6 +178,13 @@ class TestRenditionsWand(TestCase):
         # Check size
         self.assertEqual(rendition.width, 640)
         self.assertEqual(rendition.height, 480)
+
+    def test_liquid_resize(self):
+        rendition = self.image.get_rendition('liquid-120x120')
+
+        # Check size
+        self.assertEqual(rendition.width, 120)
+        self.assertEqual(rendition.height, 120)
 
     def test_cache(self):
         # Get two renditions with the same filter
@@ -470,3 +482,226 @@ class TestFormat(TestCase):
         register_image_format(self.format)
         result = get_image_format('test name')
         self.assertEqual(result, self.format)
+
+
+class TestFilterSpecParsing(TestCase):
+    good = {
+        'original': ('no_operation', None),
+        'min-800x600': ('resize_to_min', (800, 600)),
+        'max-800x600': ('resize_to_max', (800, 600)),
+        'fill-800x600': ('resize_to_fill', (800, 600)),
+        'liquid-800x600': ('liquid_resize', (800, 600)),
+        'width-800': ('resize_to_width', 800),
+        'height-600': ('resize_to_height', 600),
+    }
+
+    bad = [
+        'original-800x600', # Shouldn't have parameters
+        'abcdefg', # Filter doesn't exist
+        'min', 'max', 'fill', 'width', 'height' , # Should have parameters
+    ]
+
+    def test_good(self):
+        for filter_spec, expected_result in self.good.items():
+            self.assertEqual(parse_filter_spec(filter_spec), expected_result)
+
+    def test_bad(self):
+        for filter_spec in self.bad:
+            self.assertRaises(InvalidFilterSpecError, parse_filter_spec, filter_spec)
+
+
+class TestSignatureGeneration(TestCase):
+    def test_signature_generation(self):
+        self.assertEqual(generate_signature(100, 'fill-800x600'), b'xnZOzQyUg6pkfciqcfRJRosOrGg=')
+
+    def test_signature_verification(self):
+        self.assertTrue(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
+
+    def test_signature_changes_on_image_id(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
+
+    def test_signature_changes_on_filter_spec(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
+
+
+class TestFrontendServeView(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_get(self):
+        """
+        Test a valid GET request to the view
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/jpeg')
+
+    def test_get_invalid_signature(self):
+        """
+        Test that an invalid signature returns a 403 response
+        """
+        # Generate a signature for the incorrect image id
+        signature = generate_signature(self.image.id + 1, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_invalid_filter_spec(self):
+        """
+        Test that an invalid filter spec returns a 400 response
+
+        This is very unlikely to happen in reality. A user would have
+        to create signature for the invalid filter spec which can't be
+        done with Wagtails built in URL generator. We should test it
+        anyway though.
+        """
+        # Generate a signature with the invalid filterspec
+        signature = generate_signature(self.image.id, 'bad-filter-spec')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'bad-filter-spec')))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+
+class TestURLGeneratorView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        This tests that the view responds correctly for a user with edit permissions on this image
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_url_generator', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/url_generator.html')
+
+    def test_get_bad_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get
+        response = self.client.get(reverse('wagtailimages_url_generator', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
+
+class TestGenerateURLView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        This tests that the view responds correctly for a user with edit permissions on this image
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        content_json = json.loads(response.content.decode())
+
+        self.assertEqual(list(content_json.keys()), ['url'])
+
+        expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
+            'image_id': self.image.id,
+        }
+        self.assertEqual(content_json['url'], expected_url)
+
+    def test_get_bad_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'You do not have permission to generate a URL for this image.',
+        }))
+
+    def test_get_bad_image(self):
+        """
+        This tests that the view gives a 404 response if a user attempts to use it with an image which doesn't exist
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id + 1, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'Cannot find image.',
+        }))
+
+    def test_get_bad_filter_spec(self):
+        """
+        This tests that the view gives a 400 response if the user attempts to use it with an invalid filter spec
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'bad-filter-spec')))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'Invalid filter spec.',
+        }))

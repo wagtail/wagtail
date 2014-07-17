@@ -1,5 +1,4 @@
 import os.path
-import re
 
 from six import BytesIO
 
@@ -21,7 +20,8 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
-from .utils import validate_image_format
+from wagtail.wagtailimages.utils import validate_image_format
+from wagtail.wagtailimages import image_processor
 
 
 @python_2_unicode_compatible
@@ -144,71 +144,17 @@ class Filter(models.Model):
     """
     spec = models.CharField(max_length=255, db_index=True)
 
-    OPERATION_NAMES = {
-        'max': 'resize_to_max',
-        'min': 'resize_to_min',
-        'width': 'resize_to_width',
-        'height': 'resize_to_height',
-        'fill': 'resize_to_fill',
-        'original': 'no_operation',
-    }
-
-    def __init__(self, *args, **kwargs):
-        super(Filter, self).__init__(*args, **kwargs)
-        self.method = None  # will be populated when needed, by parsing the spec string
-
-    def _parse_spec_string(self):
-        # parse the spec string and save the results to
-        # self.method_name and self.method_arg. There are various possible
-        # formats to match against:
-        # 'original'
-        # 'width-200'
-        # 'max-320x200'
-
-        if self.spec == 'original':
-            self.method_name = Filter.OPERATION_NAMES['original']
-            self.method_arg = None
-            return
-
-        match = re.match(r'(width|height)-(\d+)$', self.spec)
-        if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
-            self.method_arg = int(match.group(2))
-            return
-
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
-        if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
-            width = int(match.group(2))
-            height = int(match.group(3))
-            self.method_arg = (width, height)
-            return
-
-        # Spec is not one of our recognised patterns
-        raise ValueError("Invalid image filter spec: %r" % self.spec)
-
     def process_image(self, input_file, backend_name='default'):
         """
         Given an input image file as a django.core.files.File object,
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
-        backend = get_image_backend(backend_name)
-
-        if not self.method:
-            self._parse_spec_string()
-
         # If file is closed, open it
         input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
 
-        method = getattr(backend, self.method_name)
-
-        image = method(image, self.method_arg)
-
-        output = BytesIO()
-        backend.save_image(image, output, file_format)
+        # Process the image
+        output = image_processor.process_image(input_file, BytesIO(), self.spec, backend_name=backend_name)
 
         # and then close the input file
         input_file.close()
@@ -220,9 +166,7 @@ class Filter(models.Model):
         output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
         output_filename = '.'.join(output_filename_parts)
 
-        output_file = File(output, name=output_filename)
-
-        return output_file
+        return File(output, name=output_filename)
 
 
 class AbstractRendition(models.Model):
