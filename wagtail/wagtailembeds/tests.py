@@ -22,7 +22,7 @@ from wagtail.wagtailembeds.embeds import (
     AccessDeniedEmbedlyException,
 )
 from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter, embedly as embedly_filter
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
 
 
 class TestEmbeds(TestCase):
