@@ -18,6 +18,6 @@ hooks.register('register_admin_urls', register_admin_urls)
 def construct_main_menu(request, menu_items):
     if request.user.is_superuser:
         menu_items.append(
-            MenuItem(_('Sites'), urlresolvers.reverse('wagtailsites_index'), classnames='icon icon-radio-empty', order=602)
+            MenuItem(_('Sites'), urlresolvers.reverse('wagtailsites_index'), classnames='icon icon-site', order=602)
         )
 hooks.register('construct_main_menu', construct_main_menu)
