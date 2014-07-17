@@ -5,7 +5,7 @@
 
 {% block extra_css %}
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/styleguide.scss" type="text/x-scss" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailstyleguide/scss/styleguide.scss" type="text/x-scss" />
     {% endcompress %}
 {% endblock %}
 
@@ -22,6 +22,7 @@
             <ul class="unlist">
                 <li><a href="#palette">Colour palette</a></li>
                 <li><a href="#typography">Typography</a></li>
+                <li><a href="#help">Help text</a></li>
                 <li><a href="#listings">Listings</a></li>
                 <li><a href="#buttons">Buttons</a></li>
                 <li><a href="#dropdowns">Dropdown buttons</a></li>
@@ -59,6 +60,7 @@
                 <li class="color-red">color-red</li>
                 <li class="color-orange">color-orange</li>
                 <li class="color-green">color-green</li>
+                <li class="color-blue">color-blue</li>
             </ul>
            
         </section>
@@ -85,6 +87,25 @@
             </ol>
 
             <code>This is an example of code</code>
+
+        </section>
+
+        <section id="help">
+            <h2>Help text</h2>
+
+            <p>Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+
+            <div class="help-block help-info">
+                This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do
+            </div>
+
+            <div class="help-block help-warning">
+                A warning message might be output in cases where a user's action could have serious consequences
+            </div>
+
+            <div class="help-block help-critical">
+                A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
+            </div>
 
         </section>
 
