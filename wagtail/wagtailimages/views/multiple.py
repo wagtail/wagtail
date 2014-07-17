@@ -30,7 +30,7 @@ def add(request):
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
 
-        image = Image(uploaded_by_user=request.user,  title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+        image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
         image.save()
         form = ImageForm(instance=image, prefix='image-%d'%image.id)
 

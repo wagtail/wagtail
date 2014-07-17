@@ -89,7 +89,6 @@ $(function(){
         done: function (e, data) {
             var itemElement = $(data.context);
             itemElement.addClass('upload-success')
-            $('.right', itemElement).append(data.result);
             // run tagit enhancement
             $('.tag_field input', itemElement).tagit(window.tagit_opts);
 
@@ -134,6 +133,8 @@ $(function(){
 
         always: function(e, data){
             var itemElement = $(data.context);
+            console.log(data);
+            $('.right', itemElement).append(data.result);
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         },
     });

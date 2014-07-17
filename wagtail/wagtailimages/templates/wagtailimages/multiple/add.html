@@ -15,7 +15,7 @@
 
     <div class="nice-padding">
         <div class="drop-zone">
-            <p>{% trans "Drag and drop images into this area to upload" %}</p>
+            <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
             
             <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="right col9">
-                <p class="status-msg success">{% trans "Upload successful. Please enter more information about this image" %}</p>
+                <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
                 <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
             </div>            
         </li>
