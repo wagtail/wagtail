@@ -8,6 +8,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
@@ -30,14 +31,23 @@ def add(request):
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
 
-        image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
-        image.save()
-        form = ImageForm(instance=image, prefix='image-%d'%image.id)
+        try:
+            image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+            image.save()
+            form = ImageForm(instance=image, prefix='image-%d' % image.id)
+        except:
+            return json_response({
+                'success': False,
+                'error_message': _("An error occurred: TODO"),
+            })
 
-        return render(request, 'wagtailimages/multiple/edit_form.html', {
-            'image': image,
-            'form': form
-        })
+        return json_response({
+            'success': True,
+            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                'image': image,
+                'form': form
+            }, context_instance=RequestContext(request))
+        })        
 
     return render(request, 'wagtailimages/multiple/add.html', {})
 

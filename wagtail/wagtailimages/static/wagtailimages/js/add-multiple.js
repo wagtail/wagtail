@@ -88,41 +88,55 @@ $(function(){
         
         done: function (e, data) {
             var itemElement = $(data.context);
-            itemElement.addClass('upload-success')
-            // run tagit enhancement
-            $('.tag_field input', itemElement).tagit(window.tagit_opts);
+            var response = $.parseJSON(data.result);
 
-            // ajax-enhance forms added on done() 
-            $('#upload-list').on('submit', 'form', function(e){
-                var form = $(this);
+            console.log(e);
+            console.log(data);
+
+            if(response.success){   
+                itemElement.addClass('upload-success')
+
+                $('.right', itemElement).append(response.form);
                 
-                e.preventDefault();
+                // run tagit enhancement
+                $('.tag_field input', itemElement).tagit(window.tagit_opts);
 
-                $.post(this.action, form.serialize(), function(data) {
-                    if (data.success) {
-                        itemElement.slideUp(function(){$(this).remove()});
-                    }else{
-                        console.log(data);
-                        form.replaceWith(data.form);
-                        // run tagit enhancement on new form
-                        $('.tag_field input', form).tagit(window.tagit_opts);
-                    }
-                });
-            });
-
-            $('#upload-list').on('click', '.delete', function(e){
-                var form = $(this);
-
-                e.preventDefault();
-
-                $.post(this.href, form.serialize(), function(data) {
-                    if (data.success) {
-                        itemElement.slideUp(function(){$(this).remove()});
-                    }else{
+                // ajax-enhance forms added on done() 
+                $('#upload-list').on('submit', 'form', function(e){
+                    var form = $(this);
                     
-                    }
+                    e.preventDefault();
+
+                    $.post(this.action, form.serialize(), function(data) {
+                        if (data.success) {
+                            itemElement.slideUp(function(){$(this).remove()});
+                        }else{
+                            console.log(data);
+                            form.replaceWith(data.form);
+                            // run tagit enhancement on new form
+                            $('.tag_field input', form).tagit(window.tagit_opts);
+                        }
+                    });
                 });
-            });
+
+                $('#upload-list').on('click', '.delete', function(e){
+                    var form = $(this);
+
+                    e.preventDefault();
+
+                    $.post(this.href, form.serialize(), function(data) {
+                        if (data.success) {
+                            itemElement.slideUp(function(){$(this).remove()});
+                        }else{
+                        
+                        }
+                    });
+                });
+
+            } else {
+                itemElement.addClass('upload-failure');
+                $('.right .error_messages', itemElement).append(response.error_message);
+            }          
 
         },
       
@@ -133,8 +147,6 @@ $(function(){
 
         always: function(e, data){
             var itemElement = $(data.context);
-            console.log(data);
-            $('.right', itemElement).append(data.result);
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         },
     });
