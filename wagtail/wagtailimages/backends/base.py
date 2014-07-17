@@ -27,11 +27,11 @@ class BaseImageBackend(object):
         """
         raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
 
-    def smart_resize(self, image, size):
+    def liquid_resize(self, image, size):
         """
-        resize image to the requested size, using smartcropping
+        resize image to the requested size, using Wands liquid rescaling
         """
-        raise NotImplementedError('subclasses of BaseImageBackend must provide a smart_resize() method')
+        raise NotImplementedError('subclasses of BaseImageBackend must provide a liquid_resize() method')
 
     def crop_to_centre(self, image, size):
         raise NotImplementedError('subclasses of BaseImageBackend must provide a crop_to_centre() method')

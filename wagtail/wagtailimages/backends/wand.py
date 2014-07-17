@@ -25,25 +25,23 @@ class WandBackend(BaseImageBackend):
         new_image.resize(size[0], size[1])
         return new_image
 
-    def smart_crop(self, image, aspect_ratio):
+    def liquid_resize(self, image, size):
+        new_aspect_ratio = size[0] / size[1]
+
         (original_width, original_height) = image.size
         original_aspect_ratio = original_width / original_height
 
-        if original_aspect_ratio < aspect_ratio:
+        if original_aspect_ratio < new_aspect_ratio:
             new_width = original_width
-            new_height = original_width * aspect_ratio
+            new_height = original_width * new_aspect_ratio
         else:
-            new_width = original_height * aspect_ratio
+            new_width = original_height * new_aspect_ratio
             new_height = original_height
 
         new_image = image.clone()
         new_image.liquid_rescale(int(new_width), int(new_height))
+        new_image.resize(size[0], size[1])
         return new_image
-
-    def smart_resize(self, image, size):
-        cropped_image = self.smart_crop(image, size[0] / size[1])
-        cropped_image.resize(size[0], size[1])
-        return cropped_image
 
     def crop_to_centre(self, image, size):
         (original_width, original_height) = image.size

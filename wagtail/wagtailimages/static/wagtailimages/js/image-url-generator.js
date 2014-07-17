@@ -24,7 +24,7 @@ $(function() {
                 $widthField.prop('disabled', true);
                 $heightField.prop('disabled', false);
                 filterSpec += '-' + $heightField.val();
-            } else if (filterSpec == 'min' || filterSpec == 'max' || filterSpec == 'fill' || filterSpec == 'smart') {
+            } else if (filterSpec == 'min' || filterSpec == 'max' || filterSpec == 'fill' || filterSpec == 'liquid') {
                 $widthField.prop('disabled', false);
                 $heightField.prop('disabled', false);
                 filterSpec += '-' + $widthField.val() + 'x' + $heightField.val();
