@@ -10,7 +10,7 @@ from wagtail.wagtailimages import image_processor
 def serve(request, signature, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not verify_signature(signature, image_id, filter_spec):
+    if not verify_signature(signature.encode(), image_id, filter_spec):
         raise PermissionDenied
 
     try:
