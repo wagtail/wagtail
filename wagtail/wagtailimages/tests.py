@@ -179,6 +179,13 @@ class TestRenditionsWand(TestCase):
         self.assertEqual(rendition.width, 640)
         self.assertEqual(rendition.height, 480)
 
+    def test_smart_resize(self):
+        rendition = self.image.get_rendition('smart-120x120')
+
+        # Check size
+        self.assertEqual(rendition.width, 120)
+        self.assertEqual(rendition.height, 120)
+
     def test_cache(self):
         # Get two renditions with the same filter
         first_rendition = self.image.get_rendition('width-400')
@@ -483,6 +490,7 @@ class TestFilterSpecParsing(TestCase):
         'min-800x600': ('resize_to_min', (800, 600)),
         'max-800x600': ('resize_to_max', (800, 600)),
         'fill-800x600': ('resize_to_fill', (800, 600)),
+        'smart-800x600': ('smart_resize', (800, 600)),
         'width-800': ('resize_to_width', 800),
         'height-600': ('resize_to_height', 600),
     }
