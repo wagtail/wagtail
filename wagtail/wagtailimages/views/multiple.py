@@ -38,7 +38,7 @@ def add(request):
         except:
             return json_response({
                 'success': False,
-                'error_message': _("An error occurred: TODO"),
+                'error_message': _("TODO: add here the message explaining what exactly occurred."),
             })
 
         return json_response({
