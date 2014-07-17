@@ -27,7 +27,7 @@ class TestDbWhitelister(TestCase):
     def test_image_embed_is_rewritten(self):
         input_html = '<p>OMG look at this picture of a kitten: <figure data-embedtype="image" data-id="5" data-format="image-with-caption" data-alt="A cute kitten" class="fancy-image"><img src="/media/images/kitten.jpg" width="320" height="200" alt="A cute kitten" /><figcaption>A kitten, yesterday.</figcaption></figure></p>'
         output_html = DbWhitelister.clean(input_html)
-        expected = '<p>OMG look at this picture of a kitten: <embed embedtype="image" id="5" format="image-with-caption" alt="A cute kitten" /></p>'
+        expected = '<p>OMG look at this picture of a kitten: </p><embed embedtype="image" id="5" format="image-with-caption" alt="A cute kitten" /><p></p>'
         self.assertHtmlEqual(expected, output_html)
 
     def test_media_embed_is_rewritten(self):
