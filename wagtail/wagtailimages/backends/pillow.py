@@ -3,7 +3,6 @@ from __future__ import absolute_import
 import PIL.Image
 
 from wagtail.wagtailimages.backends.base import BaseImageBackend
-from wagtail.wagtailimages.utils.crop import crop_to_centre
 
 
 class PillowBackend(BaseImageBackend):
@@ -22,10 +21,7 @@ class PillowBackend(BaseImageBackend):
             image = image.convert('RGB')
         return image.resize(size, PIL.Image.ANTIALIAS)
 
-    def crop_to_centre(self, image, size):
-        crop_box = crop_to_centre(image.size, size)
+    def crop(self, image, crop_box):
+        return image.crop(crop_box)
 
-        if crop_box.size != image.size:
-            return image.crop(crop_box)
-        else:
-            return image
+

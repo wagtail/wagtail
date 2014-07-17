@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from wagtail.wagtailimages.utils import crop
+
 
 class BaseImageBackend(object):
     def __init__(self, params):
@@ -27,8 +29,29 @@ class BaseImageBackend(object):
         """
         raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
 
+    def crop(self, image, crop_box):
+        raise NotImplementedError('subclasses of BaseImageBackend must provide a crop() method')
+
     def crop_to_centre(self, image, size):
-        raise NotImplementedError('subclasses of BaseImageBackend must provide a crop_to_centre() method')
+        crop_box = crop.crop_to_centre(image.size, size)
+        if crop_box.size != image.size:
+            return self.crop(image, crop_box)
+        else:
+            return image
+
+    def crop_to_point(self, image, size, focal_point):
+        crop_box = crop.crop_to_point(image.size, size, focal_point)
+        if crop_box.size != image.size:
+            return self.crop(image, crop_box)
+        else:
+            return image
+
+    def crop_to_points(self, image, size, focal_points):
+        crop_box = crop.crop_to_points(image.size, size, focal_points)
+        if crop_box.size != image.size:
+            return self.crop(image, crop_box)
+        else:
+            return image
 
     def resize_to_max(self, image, size):
         """
