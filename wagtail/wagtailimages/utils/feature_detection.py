@@ -15,7 +15,6 @@ from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 def detect_features(image_size, image_mode, image_data):
-    print opencv_available
     if opencv_available:
         image = cv.CreateImageHeader(image_size, cv.IPL_DEPTH_8U, 3)
         cv.SetData(image, image_data)
