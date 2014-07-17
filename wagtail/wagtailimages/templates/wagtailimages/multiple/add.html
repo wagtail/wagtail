@@ -68,6 +68,7 @@
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
+        window.simple_upload_url = "{% url 'wagtailimages_add_image' %}";
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
         };

@@ -1,4 +1,10 @@
 $(function(){
+    // Redirect users that don't support filereader
+    if(!$('html').hasClass('filereader')){
+        document.location.href = window.simple_upload_url;
+        return false;
+    }
+
     // prevents browser default drag/drop
     $(document).bind('drop dragover', function (e) {
         e.preventDefault();
@@ -84,6 +90,7 @@ $(function(){
             var itemElement = $(data.context);
             itemElement.addClass('upload-success')
             $('.right', itemElement).append(data.result);
+            // run tagit enhancement
             $('.tag_field input', itemElement).tagit(window.tagit_opts);
 
             // ajax-enhance forms added on done() 
@@ -98,6 +105,7 @@ $(function(){
                     }else{
                         console.log(data);
                         form.replaceWith(data.form);
+                        // run tagit enhancement on new form
                         $('.tag_field input', form).tagit(window.tagit_opts);
                     }
                 });
