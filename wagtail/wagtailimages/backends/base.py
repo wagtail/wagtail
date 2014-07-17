@@ -58,9 +58,19 @@ class BaseImageBackend(object):
 
     def smart_crop(self, image, size):
         image_mode, image_data = self.image_data_as_rgb(image)
-        focal_points = feature_detection.detect_features(image.size, image_mode, image_data)
 
-        return self.crop_to_points(image, size, focal_points)
+        # Face detection
+        faces = feature_detection.detect_faces(image.size, image_mode, image_data)
+        if faces:
+            return self.crop_to_points(image, size, faces)
+
+        # Feature detection
+        features = feature_detection.detect_features(image.size, image_mode, image_data)
+        if features:
+            return self.crop_to_points(image, size, features)
+
+        # Fall back to crop to centre
+        return self.crop_to_centre(image, size)
 
     def resize_to_max(self, image, size):
         """
