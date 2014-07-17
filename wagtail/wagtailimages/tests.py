@@ -18,6 +18,7 @@ from wagtail.wagtailimages.formats import (
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
 
+
 def get_test_image_file():
     from six import BytesIO
     from PIL import Image
