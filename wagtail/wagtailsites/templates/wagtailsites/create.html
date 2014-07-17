@@ -5,7 +5,7 @@
 {% block content %}
 
     {% trans "Add site" as add_site_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_site_str icon="radio-empty" %}
+    {% include "wagtailadmin/shared/header.html" with title=add_site_str icon="site" %}
 
     <form action="{% url 'wagtailsites_create' %}" method="POST">
         {% csrf_token %}

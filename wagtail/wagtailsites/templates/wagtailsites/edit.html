@@ -5,7 +5,7 @@
 {% block content %}
 
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=site.hostname icon="radio-empty" %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=site.hostname icon="site" %}
 
     <form action="{% url 'wagtailsites_edit' site.id %}" method="POST">
         {% csrf_token %}
