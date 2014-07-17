@@ -4,6 +4,7 @@ Changelog
 0.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
  * Added decorator syntax for hooks
+ * Replaced lxml dependency with html5lib, to simplify installation
 
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~
