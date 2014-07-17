@@ -68,6 +68,9 @@ class FocalPoint(object):
 
 def combine_focal_points(focal_points):
     # https://github.com/thumbor/thumbor/blob/fc75f2d617942e3548986fe8403ad717fc9978ba/thumbor/transformer.py#L255-L269
+    if not focal_points:
+        return
+
     total_weight = 0.0
     total_x = 0.0
     total_y = 0.0

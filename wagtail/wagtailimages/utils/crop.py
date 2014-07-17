@@ -1,4 +1,4 @@
-from wagtail.wagtailimages.utils.focal_point import combine_focal_points
+from wagtail.wagtailimages.utils.focal_point import FocalPoint, combine_focal_points
 
 
 class CropBox(object):
@@ -41,6 +41,9 @@ def crop_to_centre(image_size, crop_size):
 def crop_to_point(image_size, crop_size, focal_point):
     (original_width, original_height) = image_size
     (crop_width, crop_height) = crop_size
+
+    if not focal_point:
+        focal_point = FocalPoint(original_width / 2, original_height / 2)
 
     # Make sure final dimensions do not exceed original dimensions
     final_width = min(original_width, crop_width)

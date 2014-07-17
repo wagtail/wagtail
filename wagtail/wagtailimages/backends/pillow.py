@@ -24,4 +24,12 @@ class PillowBackend(BaseImageBackend):
     def crop(self, image, crop_box):
         return image.crop(crop_box)
 
+    def image_data_as_rgb(self, image):
+        # https://github.com/thumbor/thumbor/blob/f52360dc96eedd9fc914fcf19eaf2358f7e2480c/thumbor/engines/pil.py#L206-L215
+        if image.mode not in ['RGB', 'RGBA']:
+            if 'A' in image.mode:
+                image = image.convert('RGBA')
+            else:
+                image = image.convert('RGB')
 
+        return image.mode, image.tostring()

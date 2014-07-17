@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from wagtail.wagtailimages.utils import crop
+from wagtail.wagtailimages.utils import crop, focal_point, feature_detection
 
 
 class BaseImageBackend(object):
@@ -29,6 +29,9 @@ class BaseImageBackend(object):
         """
         raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
 
+    def image_data_as_rgb(self, image):
+        raise NotImplementedError('subclasses of BaseImageBackend must provide an image_data_as_rgb() method')
+
     def crop(self, image, crop_box):
         raise NotImplementedError('subclasses of BaseImageBackend must provide a crop() method')
 
@@ -52,6 +55,12 @@ class BaseImageBackend(object):
             return self.crop(image, crop_box)
         else:
             return image
+
+    def smart_crop(self, image, size):
+        image_mode, image_data = self.image_data_as_rgb(image)
+        focal_points = feature_detection.detect_features(image.size, image_mode, image_data)
+
+        return self.crop_to_points(image, size, focal_points)
 
     def resize_to_max(self, image, size):
         """
