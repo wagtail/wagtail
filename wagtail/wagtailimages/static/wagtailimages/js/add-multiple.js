@@ -17,7 +17,7 @@ $(function(){
         add: function (e, data) {
             var $this = $(this);
             var that = $this.data('blueimp-fileupload') || $this.data('fileupload')
-            var li = $($('#upload-list-item').html()).addClass('uploading')
+            var li = $($('#upload-list-item').html()).addClass('upload-uploading')
             var options = that.options;
 
             $('#upload-list').append(li);
@@ -84,34 +84,39 @@ $(function(){
             var itemElement = $(data.context);
             itemElement.addClass('upload-success')
             $('.right', itemElement).append(data.result);
+            $('.tag_field input', itemElement).tagit(window.tagit_opts);
 
-            $('form', itemElement).each(function(){
-                var jform = $(this);
+            // ajax-enhance forms added on done() 
+            $('#upload-list').on('submit', 'form', function(e){
+                var form = $(this);
+                
+                e.preventDefault();
 
-                jform.submit(function(event) { //convert save to an ajax call
-                    event.preventDefault();
-                    $.post(this.action, $(this).serialize(), function(data) {
-                        var result = $.parseJSON(data);
-                        if (result.success) {
-                            itemElement.slideUp(function(){$(this).remove()});
-                        }
-                    });
+                $.post(this.action, form.serialize(), function(data) {
+                    if (data.success) {
+                        itemElement.slideUp(function(){$(this).remove()});
+                    }else{
+                        console.log(data);
+                        form.replaceWith(data.form);
+                        $('.tag_field input', form).tagit(window.tagit_opts);
+                    }
                 });
-
-                jform.find('.delete').each(function(){ //convert delete to an ajax call
-                    $(this).click(function(event) {
-                        event.preventDefault();
-                        $.post(this.href, jform.serialize(), function(data) {
-                            var result = $.parseJSON(data);
-                            if (result.success) {
-                                itemElement.slideUp(function(){$(this).remove()});
-                            }
-                        });
-                    });
-                });
-
-                jform.find('.tag_field input').tagit(window.tagit_opts);
             });
+
+            $('#upload-list').on('click', '.delete', function(e){
+                var form = $(this);
+
+                e.preventDefault();
+
+                $.post(this.href, form.serialize(), function(data) {
+                    if (data.success) {
+                        itemElement.slideUp(function(){$(this).remove()});
+                    }else{
+                    
+                    }
+                });
+            });
+
         },
       
         fail: function(e, data){
