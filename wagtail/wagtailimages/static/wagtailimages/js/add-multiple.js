@@ -90,9 +90,6 @@ $(function(){
             var itemElement = $(data.context);
             var response = $.parseJSON(data.result);
 
-            console.log(e);
-            console.log(data);
-
             if(response.success){   
                 itemElement.addClass('upload-success')
 
@@ -100,41 +97,6 @@ $(function(){
                 
                 // run tagit enhancement
                 $('.tag_field input', itemElement).tagit(window.tagit_opts);
-
-                // ajax-enhance forms added on done() 
-                $('#upload-list').on('submit', 'form', function(e){
-                    var form = $(this);
-                    
-                    e.preventDefault();
-
-                    $.post(this.action, form.serialize(), function(data) {
-                        if (data.success) {
-                            itemElement.slideUp(function(){$(this).remove()});
-                        }else{
-                            console.log(data);
-                            form.replaceWith(data.form);
-                            // run tagit enhancement on new form
-                            $('.tag_field input', form).tagit(window.tagit_opts);
-                        }
-                    });
-                });
-
-                $('#upload-list').on('click', '.delete', function(e){
-                    var form = $(this).closest('form');
-
-                    e.preventDefault();
-
-                    var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
-    
-                    $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
-                        if (data.success) {
-                            itemElement.slideUp(function(){$(this).remove()});
-                        }else{
-                        
-                        }
-                    });
-                });
-
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);
@@ -152,4 +114,42 @@ $(function(){
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         },
     });
+
+    // ajax-enhance forms added on done() 
+    $('#upload-list').on('submit', 'form', function(e){
+        var form = $(this);
+        var itemElement = form.closest('#upload-list > li');
+
+        console.log(form);
+        
+        e.preventDefault();
+
+        $.post(this.action, form.serialize(), function(data) {
+            if (data.success) {
+                itemElement.slideUp(function(){$(this).remove()});
+            }else{
+                form.replaceWith(data.form);
+                // run tagit enhancement on new form
+                $('.tag_field input', form).tagit(window.tagit_opts);
+            }
+        });
+    });
+
+    $('#upload-list').on('click', '.delete', function(e){
+        var form = $(this).closest('form');
+        var itemElement = form.closest('#upload-list > li');
+        
+        e.preventDefault();
+
+        var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
+
+        $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
+            if (data.success) {
+                itemElement.slideUp(function(){$(this).remove()});
+            }else{
+            
+            }
+        });
+    });
+
 });
