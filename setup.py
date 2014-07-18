@@ -32,7 +32,7 @@ install_requires = [
     "django-treebeard==2.0",
     "Pillow>=2.3.0",
     "beautifulsoup4>=4.3.2",
-    "lxml>=3.3.0",
+    "html5lib==0.999",
     "Unidecode>=0.04.14",
     "six==1.7.3",
     'requests==2.3.0',

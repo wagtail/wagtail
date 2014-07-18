@@ -22,13 +22,14 @@
             </ul>
         </form>
 
-        <h2>URL</h2>
+        <h2 class="icon icon-link">{% trans "URL" %}</h2>
         <textarea id="result-url" rows="1"></textarea>
 
-        <h2>Preview</h2>
+        <h2 class="icon icon-view">{% trans "Preview" %}</h2>
         <div class="loading-mask inline-block">
             <img class="preview" src="" alt="Preview" />
         </div>
+        <p class="help-block help-info">{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
     </div>
 {% endblock %}
 
