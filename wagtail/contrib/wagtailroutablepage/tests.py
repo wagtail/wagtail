@@ -13,10 +13,10 @@ class TestRoutablePage(TestCase):
             live=True,
         ))
 
-    def test_resolve_serve_view(self):
+    def test_resolve_main_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage('/')
 
-        self.assertEqual(view, self.routable_page.serve)
+        self.assertEqual(view, self.routable_page.main)
         self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
@@ -41,7 +41,7 @@ class TestRoutablePage(TestCase):
         self.assertEqual(args, ('joe-bloggs', ))
         self.assertEqual(kwargs, {})
 
-    def test_reverse_serve_view(self):
+    def test_reverse_main_view(self):
         url = self.routable_page.reverse_subpage('main')
 
         self.assertEqual(url, '')
@@ -61,10 +61,10 @@ class TestRoutablePage(TestCase):
 
         self.assertEqual(url, 'external/joe-bloggs/')
 
-    def test_get_serve_view(self):
+    def test_get_main_view(self):
         response = self.client.get(self.routable_page.url)
 
-        self.assertContains(response, "SERVE VIEW")
+        self.assertContains(response, "MAIN VIEW")
 
     def test_get_archive_by_year_view(self):
         response = self.client.get(self.routable_page.url + 'archive/year/2014/')

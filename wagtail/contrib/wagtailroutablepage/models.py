@@ -55,11 +55,18 @@ class RoutablePage(Page):
                     path += '/'.join(path_components) + '/'
 
                 view, args, kwargs = self.resolve_subpage(path)
-                return RouteResult(self, view=view, args=args, kwargs=kwargs)
+                return RouteResult(self, args=(view, args, kwargs))
             except Http404:
                 pass
 
         return super(RoutablePage, self).route(request, path_components)
+
+    def serve(self, request, view, args, kwargs):
+        return view(request, *args, **kwargs)
+
+    def serve_preview(self, request, mode_name):
+        view, args, kwargs = self.resolve_subpage('/')
+        return view(*args, **kwargs)
 
     is_abstract = True
 

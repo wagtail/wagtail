@@ -400,7 +400,7 @@ def routable_page_external_view(request, arg):
 
 class RoutablePageTest(RoutablePage):
     subpage_urls = (
-        url(r'^$', 'serve', name='main'),
+        url(r'^$', 'main', name='main'),
         url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
         url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
         url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
@@ -412,5 +412,5 @@ class RoutablePageTest(RoutablePage):
     def archive_by_author(self, request, author_slug):
         return HttpResponse("ARCHIVE BY AUTHOR: " + author_slug)
 
-    def serve(self, request):
-        return HttpResponse("SERVE VIEW")
+    def main(self, request):
+        return HttpResponse("MAIN VIEW")
