@@ -9,7 +9,7 @@ urlpatterns = [
 
     url(r'^multiple/add/$', multiple.add, name='wagtailimages_add_multiple'),
     url(r'^multiple/(\d+)/$', multiple.edit, name='wagtailimages_edit_multiple'),
-    url(r'^multiple/(\d+)/delete$', multiple.delete, name='wagtailimages_delete_multiple'),
+    url(r'^multiple/(\d+)/delete/$', multiple.delete, name='wagtailimages_delete_multiple'),
 
     url(r'^chooser/$', chooser.chooser, name='wagtailimages_chooser'),
     url(r'^chooser/(\d+)/$', chooser.image_chosen, name='wagtailimages_image_chosen'),
