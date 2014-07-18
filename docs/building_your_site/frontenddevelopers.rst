@@ -181,6 +181,18 @@ The available resizing methods are:
 
         Leaves the image at its original size - no resizing is performed.
 
+    ``smart`` 
+        (takes two dimensions)
+
+        .. code-block:: django
+
+            {% image self.photo smart-200x200 %}
+
+        Similar to ``fill`` but resizes and crops based on the contents of the image.
+
+        This will perform face and feature detection using OpenCV which must be installed in order for the smart filter to work.
+
+
 .. Note::
     Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
