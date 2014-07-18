@@ -2,7 +2,7 @@
 
 {% templatetag openblock %} load static core_tags {% templatetag closeblock %}
 
-{% templatetag openblock %} block body_class {% templatetag closeblock %}template-{% templatetag openvariable %} self|content_type_slugified {% templatetag closevariable %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block body_class {% templatetag closeblock %}template-{% templatetag openvariable %} self|content_type|slugify {% templatetag closevariable %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
 {% templatetag openblock %} block content {% templatetag closeblock %}
     <h1>Welcome to your new Wagtail site!</h1>

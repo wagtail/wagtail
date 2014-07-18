@@ -12,7 +12,7 @@ from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
 # Absolute filesystem path to the Django project directory:
-DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+DJANGO_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
 # Absolute filesystem path to the top-level project folder:
 PROJECT_ROOT = dirname(DJANGO_ROOT)
@@ -122,6 +122,10 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+STATICFILES_DIRS = (
+    join(DJANGO_ROOT, 'static'),
+)
+
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
@@ -151,7 +155,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 TEMPLATE_DIRS = (
-    normpath(join(PROJECT_ROOT, 'templates')),
+    normpath(join(DJANGO_ROOT, 'templates')),
 )
 
 

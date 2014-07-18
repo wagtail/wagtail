@@ -1,4 +1,0 @@
--r base.txt
-
-Fabric==1.9.0
-Sphinx==1.2.2
