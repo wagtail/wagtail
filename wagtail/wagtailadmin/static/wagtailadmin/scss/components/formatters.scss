@@ -246,6 +246,10 @@ img{
     display:inline-block;
 }
 
+.block{
+    display:block;
+}
+
 .unlist{
     @include unlist();
 }
