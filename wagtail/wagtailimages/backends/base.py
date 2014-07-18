@@ -44,17 +44,31 @@ class BaseImageBackend(object):
 
     def crop_to_point(self, image, size, focal_point):
         crop_box = crop.crop_to_point(image.size, size, focal_point)
+
+        # Don't crop if we don't need to
         if crop_box.size != image.size:
-            return self.crop(image, crop_box)
-        else:
-            return image
+            image = self.crop(image, crop_box)
+
+        # If the focal points are too large, the cropping system may not
+        # crop it fully, resize the image if this has happened:
+        if crop_box.size != size:
+            image = self.resize_to_fill(image, size)
+
+        return image
 
     def crop_to_points(self, image, size, focal_points):
         crop_box = crop.crop_to_points(image.size, size, focal_points)
+
+        # Don't crop if we don't need to
         if crop_box.size != image.size:
-            return self.crop(image, crop_box)
-        else:
-            return image
+            image = self.crop(image, crop_box)
+
+        # If the focal points are too large, the cropping system may not
+        # crop it fully, resize the image if this has happened:
+        if crop_box.size != size:
+            image = self.resize_to_fill(image, size)
+
+        return image
 
     def smart_crop(self, image, size):
         image_mode, image_data = self.image_data_as_rgb(image)
@@ -160,7 +174,6 @@ class BaseImageBackend(object):
         """
         resized_image = self.resize_to_min(image, size)
         return self.crop_to_centre(resized_image, size)
-
 
     def no_operation(self, image, param):
         """Return the image unchanged"""

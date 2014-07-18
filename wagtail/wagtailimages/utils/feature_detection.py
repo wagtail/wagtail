@@ -45,7 +45,7 @@ def detect_features(image_size, image_mode, image_data):
 
 def detect_faces(image_size, image_mode, image_data):
     if opencv_available:
-        cascade_filename = os.path.join(os.path.dirname(__file__), 'face_detection', 'haarcascade_frontalface_alt.xml')
+        cascade_filename = os.path.join(os.path.dirname(__file__), 'face_detection', 'haarcascade_frontalface_alt2.xml')
         cascade = cv.Load(cascade_filename)
         image = get_cv_gray_image(image_size, image_mode, image_data)
 
