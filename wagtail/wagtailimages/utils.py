@@ -14,7 +14,7 @@ def validate_image_format(f):
         extension = 'jpeg'
 
     if extension not in ['gif', 'jpeg', 'png']:
-        raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension."))
+        raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png)."))
 
     if not f.closed:
         # Open image file
@@ -25,11 +25,11 @@ def validate_image_format(f):
             image = Image.open(f)
         except IOError:
             # Uploaded file is not even an image file (or corrupted)
-            raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension."))
+            raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png)."))
 
         f.seek(file_position)
 
         # Check that the internal format matches the extension
         # It is possible to upload PSD files if their extension is set to jpg, png or gif. This should catch them out
         if image.format.upper() != extension.upper():
-            raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension.") % (extension.upper()))
+            raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png).") % (extension.upper()))
