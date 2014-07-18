@@ -3,14 +3,37 @@
 
 {{ formset.management_form }}{# what is this? #}
 
-<ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
-    {% for form in formset.forms %}
-        {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=form only %}
-    {% endfor %}
-</ul>
+<table class="listing">
+    <col width="40%"/>
+    <col width="40%" />
+    <col />
+    <thead>
+        <tr>
+            <th>Page</th>
+            <th>Permission type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="id_{{ formset.prefix }}-FORMS">
+        {% for form in formset.forms %}
+            <tr id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+                {% if form.non_field_errors %}
+                    <p class="error-message">
+                        {% for error in form.non_field_errors %}
+                            <span>{{ error|escape }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=form only %}
+            </tr>
+        {% endfor %}
+    <tbody>
+</table>
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formset.empty_form only %}
+    <tr>
+        {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=formset.empty_form only %}
+    </tr>
 </script>
 
 <p class="add">

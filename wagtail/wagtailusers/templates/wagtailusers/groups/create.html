@@ -2,8 +2,16 @@
 {% load image_tags %}
 {% load wagtailusers_tags %}
 {% load i18n %}
+
 {% block titletag %}{% trans "Add group" %}{% endblock %}
 {% block bodyclass %}menu-groups{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailusers/scss/groups_edit.scss" type="text/x-scss" />
+    {% endcompress %}
+{% endblock %}
+
 {% block content %}
 
     {% trans "Add group" as add_group_str %}

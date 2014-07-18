@@ -1,38 +1,24 @@
 {% load i18n %}
-{% comment %}
-    TODO - DRY this form with /wagtailsearch/templates/wagtailsearch/editorspicks/includes/editorspicks_form.html
-{% endcomment %}
-<li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
-    <ul class="controls">
-        <li class="icon text-replace icon-bin" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</li>
-    </ul>
 
-    <fieldset>
-        <legend>{% trans "Page permissions" %}</legend>
-        <ul class="fields">
-            <li class="model_choice_field">
-                {% trans "Choose a different root page" as choose_another_text_str %}
-                {% trans "Choose a root page" as choose_one_text_str %}
-                {% if form.instance.page %}
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
-                {% else %}
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page is_chosen=False choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
-                {% endif %}
-            </li>
-            <li class="char_field">
-                {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.permission_type only %}
-            </li>
-        </ul>
+<td>
+    {% trans "Choose a different root page" as choose_another_text_str %}
+    {% trans "Choose a root page" as choose_one_text_str %}
+    
+    {% if form.instance.page %}
+        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+    {% else %}
+        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page is_chosen=False choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+    {% endif %}
+</td>
+<td>
+    {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.permission_type only %}
 
-        {{ form.id }}
-        {{ form.ORDER }}
-        {{ form.DELETE }}
-        {% if form.non_field_errors %}
-            <p class="error-message">
-                {% for error in form.non_field_errors %}
-                    <span>{{ error|escape }}</span>
-                {% endfor %}
-            </p>
-        {% endif %}
-    </fieldset>
-</li>
+    {{ form.id }}
+    {{ form.ORDER }}
+    {{ form.DELETE }}
+</td>
+
+<td>
+    <button class="icon icon-bin" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
+</td>
+

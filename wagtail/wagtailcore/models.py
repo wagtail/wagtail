@@ -944,9 +944,9 @@ class PageRevision(models.Model):
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
-    ('add', 'Add'),
-    ('edit', 'Edit'),
-    ('publish', 'Publish'),
+    ('add', 'Add / edit pages you own'),
+    ('edit', 'Add / edit any page'),
+    ('publish', 'Publish pages'),
 ]
 
 
