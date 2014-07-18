@@ -38,7 +38,7 @@
             {% image image max-800x600 %}
 
             {% if url_generator_enabled %}
-                <a href="{% url 'wagtailimages_url_generator' image.id %}">URL Generator</a>
+                <a href="{% url 'wagtailimages_url_generator' image.id %}" class="button bicolor icon icon-link">URL Generator</a>
             {% endif %}
         </div>
     </div>

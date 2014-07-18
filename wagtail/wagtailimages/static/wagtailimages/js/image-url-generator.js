@@ -1,17 +1,22 @@
 $(function() {
+    "use strict";
+
     $('.image-url-generator').each(function() {
         var $this = $(this);
         var $form = $this.find('form');
         var $filterMethodField = $form.find('select#id_filter_method');
         var $widthField = $form.find('input#id_width');
         var $heightField = $form.find('input#id_height');
-        var $result = $this.find('div.result');
+        var $result = $this.find('#result-url');
+        var $loadingMask = $this.find('.loading-mask')
         var $preview = $this.find('img.preview');
 
         var generatorUrl = $this.data('generatorUrl');
 
         function formChangeHandler() {
             var filterSpec = $filterMethodField.val();
+
+            $loadingMask.addClass('loading');
 
             if (filterSpec == 'original') {
                 $widthField.prop('disabled', true);
@@ -33,34 +38,24 @@ $(function() {
             // Fields with width and height
             $.getJSON(generatorUrl.replace('__filterspec__', filterSpec))
                 .done(function(data) {
-                    $result.text(data['url']);
+                    $result.val(data['url']);
                     $preview.attr('src', data['url']);
+                    $loadingMask.removeClass('loading');
                 })
                 .fail(function(data) {
-                    $result.text(data.responseJSON['error']);
+                    $result.val(data.responseJSON['error']);
                     $preview.attr('src', '');
+                    $loadingMask.removeClass('loading');
                 });
         }
 
-        $form.change(formChangeHandler);
-        $form.keyup(formChangeHandler);
+        $form.change($.debounce(500, formChangeHandler));
+        $form.keyup($.debounce(500, formChangeHandler));
         formChangeHandler();
 
         // When the user clicks the URL, automatically select the whole thing (for easier copying)
         $result.click(function() {
-            if (document.selection) {
-                document.selection.empty();
-
-                var range = document.body.createTextRange();
-                range.moveToElementText(this);
-                range.select();
-            } else if (window.getSelection) {
-                window.getSelection().removeAllRanges();
-
-                var range = document.createRange();
-                range.selectNodeContents(this);
-                window.getSelection().addRange(range);
-            }
+            $(this).select();
         });
     });
 });

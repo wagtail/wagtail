@@ -72,6 +72,7 @@ input, textarea, select, .richtext, .tagit{
     &:disabled, &[disabled], &:disabled:hover, &[disabled]:hover{
         background-color:inherit;
         cursor:not-allowed;
+        color:$color-grey-4;
     }  
 }
 
@@ -532,6 +533,7 @@ li.focused > .help{
 
 .field-row{
     @include clearfix();
+
     /* negative margin the bottom so it doesn't add too much space */
     margin-bottom:-1.2em;
 }
@@ -819,14 +821,31 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include row();
     }
 
+    .field-content{
+        @include column(10,0);
+    } 
+
     .field-col{
         float:left;
         padding-left:0 !important;
-    }
 
-    .field-content{
-        @include column(10);
-        padding-right:0;
-        padding-left:0;
-    }   
+        /* anything less than 4 columns or greater than 6 is impractical */
+        &.col4{
+            label{
+                @include column(2,0,4);
+            }
+            .field-content{
+                @include column(2, $padding, 4);
+            }
+        }
+        &.col6{
+            label{
+                @include column(2,0,6);
+            }
+            .field-content{
+                @include column(4, $padding, 6);
+            }
+        }
+    }
+  
 }
