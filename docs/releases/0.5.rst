@@ -35,7 +35,7 @@ Admin
 
  * Explorer nav now rendered separately and fetched with AJAX when needed.
 
-   This improves the general performance of the amdin interface for large sites.
+   This improves the general performance of the admin interface for large sites.
 
 
 Bug fixes
