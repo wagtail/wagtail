@@ -508,6 +508,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
         self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
 
         # Check image
@@ -517,6 +518,14 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check form
         self.assertIn('form', response.context)
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('image_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], response.context['image'].id)
+        self.assertTrue(response_json['success'])
 
     def test_add_post_noajax(self):
         """
@@ -535,6 +544,27 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+    def test_add_post_badfile(self):
+        """
+        This tests that the add view checks for a file when a user POSTs to it
+        """
+        response = self.client.post(reverse('wagtailimages_add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', "This is not an image!"),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertNotIn('image_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertIn('error_message', response_json)
+        self.assertFalse(response_json['success'])
+        self.assertEqual(response_json['error_message'], 'Not a valid image. Please use a gif, jpeg or png file with the correct file extension.')
 
     def test_edit_get(self):
         """
