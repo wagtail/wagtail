@@ -1,5 +1,8 @@
 {% load i18n %}
-{{ formset.management_form }}
+<h2>Page permissions</h2>
+
+{{ formset.management_form }}{# what is this? #}
+
 <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
     {% for form in formset.forms %}
         {% include "wagtailusers/groups/includes/page_permissions_form.html" with form=form only %}

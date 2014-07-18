@@ -8,23 +8,29 @@
 
     {% trans "Add group" as add_group_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_group_str icon="group" %}
-
-    <form action="{% url 'wagtailusers_groups_create' %}" method="POST">
-        {% csrf_token %}
-        <div class="nice-padding">
+    
+    <div class="nice-padding">
+        <form action="{% url 'wagtailusers_groups_create' %}" method="POST">
+            {% csrf_token %}
+            
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
-                {% format_permissions permission_bound_field=form.permissions %}
-                {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
+                <li>
+                    {% format_permissions permission_bound_field=form.permissions %}
+                </li>
+                <li>
+                    {% include "wagtailusers/groups/includes/page_permissions_formset.html" with formset=formset only %}
+                </li>
                 <li><input type="submit" value='{% trans "Add group" %}' /></li>
             </ul>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}
+
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
-    <script type="text/javascript">
+    <script>
         {% include "wagtailusers/groups/includes/page_permissions_formset.js" with formset=formset only %}
     </script>
 {% endblock %}
