@@ -92,26 +92,49 @@ Then in your own page templates, you can include your snippet template tag with:
 
   {% endblock %}
 
+
 Binding Pages to Snippets
 -------------------------
 
-An alternate strategy for including snippets might involve explicitly binding a specific page object to a specific snippet object. Lets add another snippet class to see how that might work:
+In the above example, the list of adverts is a fixed list, displayed as part of the template independently of the page content. This might be what you want for a common panel in a sidebar, say - but in other scenarios you may wish to refer to a snippet within page content. This can be done by defining a foreign key to the snippet model within your page model, and adding a ``SnippetChooserPanel`` to the page's ``content_panels`` definitions. For example, if you wanted to be able to specify an advert to appear on ``BookPage``:
+
+.. code-block:: python
+
+  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+  # ...
+  class BookPage(Page):
+    advert = models.ForeignKey(
+      'demo.Advert',
+      null=True,
+      blank=True,
+      on_delete=models.SET_NULL,
+      related_name='+'
+    )
+
+  BookPage.content_panels = [
+    SnippetChooserPanel('advert', Advert),
+    # ...
+  ]
+
+
+The snippet could then be accessed within your template as ``self.advert``.
+
+To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed on an inline child object of ``BookPage``, rather than on ``BookPage`` itself. Here this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
+
 
 .. code-block:: python
 
   from django.db import models
 
   from wagtail.wagtailcore.models import Page
-  from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
-  from wagtail.wagtailsnippets.models import register_snippet
   from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
   
   ...
 
-  class AdvertPlacement(models.Model):
-    page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
+  class BookPageAdvertPlacement(Orderable, models.Model):
+    page = ParentalKey('demo.BookPage', related_name='advert_placements')
     advert = models.ForeignKey('demo.Advert', related_name='+')
 
     class Meta:
@@ -119,25 +142,27 @@ An alternate strategy for including snippets might involve explicitly binding a 
       verbose_name_plural = "Advert Placements"
 
     panels = [
-      PageChooserPanel('page'),
       SnippetChooserPanel('advert', Advert),
     ]
 
     def __unicode__(self):
       return self.page.title + " -> " + self.advert.text
 
-  register_snippet(AdvertPlacement)
+  class BookPage(Page):
+    ...
 
-The class ``AdvertPlacement`` has two properties, ``page`` and ``advert``, which point to other models. Wagtail provides a ``PageChooserPanel`` and ``SnippetChooserPanel`` to let us make painless selection of those properties in the Wagtail admin. Note also the ``Meta`` class, which you can stock with the ``verbose_name`` and ``verbose_name_plural`` properties to override the snippet labels in the Wagtail admin. The text representation of the class has also gotten fancy, using both properties to construct a compound label showing the relationship it forms between a page and an Advert.
+  BookPage.content_panels = [
+    InlinePanel(BookPage, 'advert_placements', label="Adverts"),
+    # ...
+  ]
 
-With this snippet in place, we can use the reverse ``related_name`` lookup label ``advert_placements`` to iterate over any placements within our template files. In the template for a ``Page``-derived model, we could include the following:
+
+These child objects are now accessible through the page's ``advert_placements`` property, and from there we can access the linked Advert snippet as ``advert``. In the template for ``BookPage``, we could include the following:
 
 .. code-block:: django
 
-  {% if self.advert_placements %}
-    {% for advert_placement in self.advert_placements.all %}
-      <p><a href="{{ advert_placement.advert.url }}">{{ advert_placement.advert.text }}</a></p>
-    {% endfor %}
-  {% endif %}
+  {% for advert_placement in self.advert_placements.all %}
+    <p><a href="{{ advert_placement.advert.url }}">{{ advert_placement.advert.text }}</a></p>
+  {% endfor %}
 
 

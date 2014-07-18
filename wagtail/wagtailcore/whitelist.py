@@ -81,7 +81,7 @@ class Whitelister(object):
     def clean(cls, html):
         """Clean up an HTML string to contain just the allowed elements /
         attributes"""
-        doc = BeautifulSoup(html, 'lxml')
+        doc = BeautifulSoup(html, 'html5lib')
         cls.clean_node(doc, doc)
         return doc.decode()
 

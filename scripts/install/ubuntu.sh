@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Production-configured Wagtail installation.
 # BUT, SECURE SERVICES/ACCOUNT FOR FULL PRODUCTION USE!
 # For a non-dummy email backend configure Django's EMAIL_BACKEND
@@ -10,7 +11,7 @@ PROJECT_ROOT=/usr/local/django
 
 echo "This script overwrites key files, and should only be run on a new box."
 read -p "Type 'yes' to confirm: " CONFIRM
-[ “$CONFIRM” == “yes” ] || exit
+[ "$CONFIRM" == "yes" ] || exit
 
 read -p "Enter a name for your project [$PROJECT]: " U_PROJECT
 if [ ! -z "$U_PROJECT" ]; then
@@ -33,7 +34,7 @@ SERVER_IP=`ifconfig eth0 |grep "inet addr" | cut -d: -f2 | cut -d" " -f1`
 
 aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
-aptitude -y install postgresql-server-dev-all python-dev libxml2-dev libxslt-dev libjpeg62-dev
+aptitude -y install postgresql-server-dev-all python-dev libjpeg62-dev
 
 perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
 service postgresql reload
