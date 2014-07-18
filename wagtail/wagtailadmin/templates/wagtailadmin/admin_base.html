@@ -22,6 +22,9 @@
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/core.js"></script>
+        <script>
+            window.explorer_menu_url = "{% url 'wagtailadmin_explorer_nav' %}";
+        </script>
     {% endcompress %}
     
     {% block extra_js %}{% endblock %}
