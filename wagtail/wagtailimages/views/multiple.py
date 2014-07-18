@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import RequestContext
@@ -33,21 +33,25 @@ def add(request):
 
         try:
             image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+            image.full_clean()
             image.save()
+
+            # Success! Send back an edit form for this image to the user
             form = ImageForm(instance=image, prefix='image-%d' % image.id)
-        except:
+
+            return json_response({
+                'success': True,
+                'image_id': int(image.id),
+                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                    'image': image,
+                    'form': form,
+                }, context_instance=RequestContext(request)),
+            })
+        except ValidationError as e:
             return json_response({
                 'success': False,
-                'error_message': _("TODO: add here the message explaining what exactly occurred."),
+                'error_message': '\n'.join(e.messages),
             })
-
-        return json_response({
-            'success': True,
-            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                'image': image,
-                'form': form
-            }, context_instance=RequestContext(request))
-        })        
 
     return render(request, 'wagtailimages/multiple/add.html', {})
 
