@@ -58,6 +58,14 @@ kbd{
 .help-block{
     padding:1em;
     margin:1em 0;
+
+    p{
+        margin-top:0;
+
+        &:last-child{
+            margin-bottom:0;
+        }
+    }
 }
     .help-info, .help-warning, .help-critical{
         @include border-radius(3px);
