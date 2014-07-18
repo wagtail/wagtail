@@ -1,9 +1,12 @@
 import json
+import datetime
 
 from mock import MagicMock
+import dateutil.parser
 
 from django.utils import six
 from django.utils.http import urlquote
+from django.utils import timezone
 from django.test import TestCase
 from django import template
 from django.contrib.auth.models import User, Group, Permission
@@ -537,6 +540,14 @@ class TestFrontendServeView(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'image/jpeg')
+
+        # Make sure the cache headers are set to expire after at least one month
+        self.assertIn('Cache-Control', response)
+        self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
+        self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
+
+        self.assertIn('Expires', response)
+        self.assertTrue(dateutil.parser.parse(response['Expires']) > timezone.now() + datetime.timedelta(days=30))
 
     def test_get_invalid_signature(self):
         """
