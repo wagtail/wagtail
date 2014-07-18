@@ -120,11 +120,13 @@ $(function(){
                 });
 
                 $('#upload-list').on('click', '.delete', function(e){
-                    var form = $(this);
+                    var form = $(this).closest('form');
 
                     e.preventDefault();
 
-                    $.post(this.href, form.serialize(), function(data) {
+                    var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
+    
+                    $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
                         if (data.success) {
                             itemElement.slideUp(function(){$(this).remove()});
                         }else{
