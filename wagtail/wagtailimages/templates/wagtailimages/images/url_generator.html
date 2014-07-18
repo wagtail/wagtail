@@ -26,10 +26,12 @@
         <textarea id="result-url" rows="1"></textarea>
 
         <h2 class="icon icon-view">{% trans "Preview" %}</h2>
-        <div class="loading-mask inline-block">
-            <img class="preview" src="" alt="Preview" />
+        <div>
+            <div class="loading-mask inline-block">
+                <img class="preview" src="" alt="Preview" />
+            </div>
         </div>
-        <p class="help-block help-info">{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+        <p id="note-size" class="help-block help-warning">{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
     </div>
 {% endblock %}
 

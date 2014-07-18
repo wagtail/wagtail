@@ -10,6 +10,7 @@ $(function() {
         var $result = $this.find('#result-url');
         var $loadingMask = $this.find('.loading-mask')
         var $preview = $this.find('img.preview');
+        var $sizeNote = $('#note-size')
 
         var generatorUrl = $this.data('generatorUrl');
 
@@ -33,6 +34,13 @@ $(function() {
                 $widthField.prop('disabled', false);
                 $heightField.prop('disabled', false);
                 filterSpec += '-' + $widthField.val() + 'x' + $heightField.val();
+            }
+
+            // Display note about scaled down images if image is large
+            if($widthField.val() > $(window).width()){
+                $sizeNote.show();
+            }else{
+                $sizeNote.hide();
             }
 
             // Fields with width and height
