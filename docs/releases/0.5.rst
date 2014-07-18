@@ -30,6 +30,14 @@ Core
  * The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
 
 
+Admin
+-----
+
+ * Explorer nav now rendered separately and fetched with AJAX when needed.
+
+   This improves the general performance of the amdin interface for large sites.
+
+
 Bug fixes
 ~~~~~~~~~
 

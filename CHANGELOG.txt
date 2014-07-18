@@ -3,6 +3,7 @@ Changelog
 
 0.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
+ * Explorer nav now rendered separately and fetched with AJAX when needed
  * Added decorator syntax for hooks
  * Replaced lxml dependency with html5lib, to simplify installation
 
