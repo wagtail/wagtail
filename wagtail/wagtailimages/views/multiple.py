@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
+from wagtail.wagtailimages.utils import validate_image_format
 
 
 def json_response(document):
@@ -31,27 +32,31 @@ def add(request):
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
 
+        # Check that the uploaded file is valid
         try:
-            image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
-            image.full_clean()
-            image.save()
-
-            # Success! Send back an edit form for this image to the user
-            form = ImageForm(instance=image, prefix='image-%d' % image.id)
-
-            return json_response({
-                'success': True,
-                'image_id': int(image.id),
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'image': image,
-                    'form': form,
-                }, context_instance=RequestContext(request)),
-            })
+            validate_image_format(request.FILES['files[]'])
         except ValidationError as e:
             return json_response({
                 'success': False,
                 'error_message': '\n'.join(e.messages),
             })
+
+        # Save it
+        image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
+        image.save()
+
+        # Success! Send back an edit form for this image to the user
+        form = ImageForm(instance=image, prefix='image-%d' % image.id)
+
+        return json_response({
+            'success': True,
+            'image_id': int(image.id),
+            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                'image': image,
+                'form': form,
+            }, context_instance=RequestContext(request)),
+        })
+
 
     return render(request, 'wagtailimages/multiple/add.html', {})
 
