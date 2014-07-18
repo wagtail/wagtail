@@ -248,6 +248,7 @@ img{
                 font-weight:500;
                 text-transform:none;
                 text-align:center;
+                color:white;
 
                 &:before{
                     font-size:4em;
@@ -255,6 +256,7 @@ img{
                     text-align:center;
                     margin:0 0 0.2em 0;
                     width:100%;
+                    opacity:0.2;
                 }
             }
 
