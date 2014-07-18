@@ -550,7 +550,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         This tests that the add view checks for a file when a user POSTs to it
         """
         response = self.client.post(reverse('wagtailimages_add_multiple'), {
-            'files[]': SimpleUploadedFile('test.png', "This is not an image!"),
+            'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
