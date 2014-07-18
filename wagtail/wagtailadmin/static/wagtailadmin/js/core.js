@@ -21,6 +21,12 @@ $(function(){
         }
     });
 
+    $('.nav-main a').on('click', function(){
+        $('.nav-wrapper').toggleClass('submenu-active')
+        $(this).closest('li').toggleClass('active');
+        return false
+    })
+
     // Enable swishy section navigation menu
     $('.explorer').addClass('dl-menuwrapper').dlmenu({
         animationClasses : {
