@@ -8,7 +8,7 @@ from taggit.managers import TaggableManager
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html_join
@@ -23,7 +23,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from wagtail.wagtailimages.utils.validators import validate_image_format
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
-from wagtail.wagtailimages.utils.feature_detection import FeatureDetector
+from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
 
 
 @python_2_unicode_compatible
@@ -178,6 +178,19 @@ class AbstractImage(models.Model, TagSearchable):
 
 class Image(AbstractImage):
     pass
+
+
+# Do smartcropping calculations when user saves an image without a focal point
+@receiver(pre_save, sender=Image)
+def image_smartcrop(sender, instance, **kwargs):
+    if getattr(settings, 'WAGTAIL_SMARTCROP_ENABLED', False):
+        if not opencv_available:
+            raise ImproperlyConfigured("pyOpenCV could not be found.")
+
+        # Make sure the image doesn't already have a focal point
+        if instance.focal_point is None:
+            # Set the focal point
+            instance.focal_point = instance.get_suggested_focal_point()
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
