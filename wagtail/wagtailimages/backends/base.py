@@ -56,7 +56,7 @@ class BaseImageBackend(object):
 
         return image
 
-    def resize_to_max(self, image, size):
+    def resize_to_max(self, image, size, focal_point=None):
         """
         Resize image down to fit within the given dimensions, preserving aspect ratio.
         Will leave image unchanged if it's already within those dimensions.
@@ -80,7 +80,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_min(self, image, size):
+    def resize_to_min(self, image, size, focal_point=None):
         """
         Resize image down to cover the given dimensions, preserving aspect ratio.
         Will leave image unchanged if width or height is already within those limits.
@@ -104,7 +104,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_width(self, image, target_width):
+    def resize_to_width(self, image, target_width, focal_point=None):
         """
         Resize image down to the given width, preserving aspect ratio.
         Will leave image unchanged if it's already within that width.
@@ -120,7 +120,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_height(self, image, target_height):
+    def resize_to_height(self, image, target_height, focal_point=None):
         """
         Resize image down to the given height, preserving aspect ratio.
         Will leave image unchanged if it's already within that height.
@@ -136,15 +136,18 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_fill(self, image, size):
+    def resize_to_fill(self, image, size, focal_point=None):
         """
         Resize down and crop image to fill the given dimensions. Most suitable for thumbnails.
         (The final image will match the requested size, unless one or the other dimension is
         already smaller than the target size)
         """
-        resized_image = self.resize_to_min(image, size)
-        return self.crop_to_centre(resized_image, size)
+        if focal_point is not None:
+            return self.crop_to_point(image, size, focal_point)
+        else:
+            resized_image = self.resize_to_min(image, size)
+            return self.crop_to_centre(resized_image, size)
 
-    def no_operation(self, image, param):
+    def no_operation(self, image, param, focal_point=None):
         """Return the image unchanged"""
         return image
