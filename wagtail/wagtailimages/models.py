@@ -22,6 +22,7 @@ from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from wagtail.wagtailimages.utils.validators import validate_image_format
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 @python_2_unicode_compatible
@@ -49,12 +50,34 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
+    focal_point_x = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_y = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_width = models.PositiveIntegerField(default=0, editable=False)
+    focal_point_height = models.PositiveIntegerField(default=0, editable=False)
+
     search_fields = TagSearchable.search_fields + (
         indexed.FilterField('uploaded_by_user'),
     )
 
     def __str__(self):
         return self.title
+
+    @property
+    def focal_point(self):
+        if self.focal_point_x is not None and self.focal_point_y is not None:
+            return FocalPoint(
+                self.focal_point_x,
+                self.focal_point_y,
+                width=self.focal_point_width,
+                height=self.focal_point_height
+            )
+
+    @focal_point.setter
+    def focal_point(self, focal_point):
+        self.focal_point_x = focal_point.x
+        self.focal_point_y = focal_point.y
+        self.focal_point_width = focal_point.width
+        self.focal_point_height = focal_point.height
 
     def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
@@ -63,7 +86,16 @@ class AbstractImage(models.Model, TagSearchable):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         try:
-            rendition = self.renditions.get(filter=filter)
+            if focal_point:
+                rendition = self.renditions.get(
+                    filter=filter,
+                    focal_point_key=focal_point.get_key(),
+                )
+            else:
+                rendition = self.renditions.get(
+                    filter=filter,
+                    focal_point_key=None,
+                )
         except ObjectDoesNotExist:
             file_field = self.file
 
@@ -72,8 +104,18 @@ class AbstractImage(models.Model, TagSearchable):
             backend_name = getattr(self, 'backend', 'default')
             generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
 
-            rendition, created = self.renditions.get_or_create(
-                filter=filter, defaults={'file': generated_image_file})
+            if focal_point:
+                rendition, created = self.renditions.get_or_create(
+                    filter=filter,
+                    focal_point_key=focal_point.get_key(),
+                    defaults={'file': generated_image_file}
+                )
+            else:
+                rendition, created = self.renditions.get_or_create(
+                    filter=filter,
+                    focal_point_key=None,
+                    defaults={'file': generated_image_file}
+                )
 
         return rendition
 
@@ -213,11 +255,16 @@ class Filter(models.Model):
         # and then close the input file
         input_file.close()
 
-        # generate new filename derived from old one, inserting the filter spec string before the extension
+        # generate new filename derived from old one, inserting the filter spec and focal point string before the extension
+        if focal_point is not None:
+            focal_point_key = "focus-" + focal_point.get_key()
+        else:
+            focal_point_key = ""
+
         input_filename_parts = os.path.basename(input_file.name).split('.')
         filename_without_extension = '.'.join(input_filename_parts[:-1])
         filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-        output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
+        output_filename_parts = [filename_without_extension, focal_point_key, self.spec] + input_filename_parts[-1:]
         output_filename = '.'.join(output_filename_parts)
 
         output_file = File(output, name=output_filename)
@@ -230,6 +277,7 @@ class AbstractRendition(models.Model):
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
+    focal_point_key = models.CharField(max_length=255, null=True, editable=False)
 
     @property
     def url(self):
@@ -257,7 +305,7 @@ class Rendition(AbstractRendition):
 
     class Meta:
         unique_together = (
-            ('image', 'filter'),
+            ('image', 'filter', 'focal_point_key'),
         )
 
 

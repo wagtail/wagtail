@@ -65,6 +65,9 @@ class FocalPoint(object):
             self.x, self.y, self.width, self.height, self.weight, self.origin
         )
 
+    def get_key(self):
+        return "%(x)d-%(y)d-%(width)dx%(height)d" % self.to_dict()
+
 
 def combine_focal_points(focal_points):
     # https://github.com/thumbor/thumbor/blob/fc75f2d617942e3548986fe8403ad717fc9978ba/thumbor/transformer.py#L255-L269
