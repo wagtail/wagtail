@@ -10,6 +10,13 @@ Wagtail 0.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+RoutablePage
+~~~~~~~~~~~~
+
+A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
+
+:ref:`routable_page`
+
 
 Minor features
 ~~~~~~~~~~~~~~

@@ -1,3 +1,5 @@
+.. _routable_page:
+
 ====================================
 Embedding URL configuration in Pages
 ====================================
