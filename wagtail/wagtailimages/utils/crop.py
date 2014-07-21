@@ -1,3 +1,5 @@
+from __future__ import division
+
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
