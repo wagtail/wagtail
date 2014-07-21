@@ -93,7 +93,3 @@ def combine_focal_points(focal_points):
     height = max_y - min_y
 
     return FocalPoint(x, y, width=width, height=height, weight=total_weight)
-
-
-def largest_point(focal_points):
-    return sorted(focal_points, key=lambda point: point.weight, reverse=True)[0]

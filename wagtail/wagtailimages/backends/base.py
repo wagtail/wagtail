@@ -56,32 +56,18 @@ class BaseImageBackend(object):
 
         return image
 
-    def crop_to_points(self, image, size, focal_points):
-        crop_box = crop.crop_to_points(image.size, size, focal_points)
-
-        # Don't crop if we don't need to
-        if crop_box.size != image.size:
-            image = self.crop(image, crop_box)
-
-        # If the focal points are too large, the cropping system may not
-        # crop it fully, resize the image if this has happened:
-        if crop_box.size != size:
-            image = self.resize_to_fill(image, size)
-
-        return image
-
     def smart_crop(self, image, size):
         image_mode, image_data = self.image_data_as_rgb(image)
 
         # Face detection
         faces = feature_detection.detect_faces(image.size, image_mode, image_data)
         if faces:
-            return self.crop_to_points(image, size, faces)
+            return self.crop_to_point(image, size, focal_point.combine_points(faces))
 
         # Feature detection
         features = feature_detection.detect_features(image.size, image_mode, image_data)
         if features:
-            return self.crop_to_points(image, size, features)
+            return self.crop_to_point(image, size, focal_point.combine_points(features))
 
         # Fall back to crop to centre
         return self.crop_to_centre(image, size)

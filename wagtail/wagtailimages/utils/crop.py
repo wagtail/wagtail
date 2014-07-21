@@ -1,4 +1,4 @@
-from wagtail.wagtailimages.utils.focal_point import FocalPoint, combine_focal_points
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 class CropBox(object):
@@ -107,12 +107,3 @@ def crop_to_point(image_size, crop_size, focal_point):
         bottom = original_height
 
     return CropBox(left, top, right, bottom)
-
-
-def crop_to_points(image_size, crop_size, focal_points):
-    if len(focal_points) == 1:
-        focal_point = focal_points[0]
-    else:
-        focal_point = combine_focal_points(focal_points)
-
-    return crop_to_point(image_size, crop_size, focal_point)
