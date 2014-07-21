@@ -47,13 +47,9 @@ def crop_to_point(image_size, crop_size, focal_point):
     if not focal_point:
         focal_point = FocalPoint(original_width / 2, original_height / 2)
 
-    # Get size of focal point, add 15% extra to give some room around the edge
-    focal_point_width = focal_point.width * 1.15
-    focal_point_height = focal_point.height * 1.15
-
     # Make sure that the crop size is no smaller than the focal point
-    crop_width = max(crop_width, focal_point_width)
-    crop_height = max(crop_height, focal_point_height)
+    crop_width = max(crop_width, focal_point.width)
+    crop_height = max(crop_height, focal_point.height)
 
     # Make sure final dimensions do not exceed original dimensions
     final_width = min(original_width, crop_width)

@@ -96,6 +96,11 @@ class AbstractImage(models.Model, TagSearchable):
         feature_detector = FeatureDetector(image.size, image_mode, image_data)
         focal_point = feature_detector.get_focal_point()
 
+        # Add 20% extra room around the edge of the focal point
+        if focal_point:
+            focal_point.width *= 1.20
+            focal_point.height *= 1.20
+
         return focal_point
 
     def get_rendition(self, filter, focal_point=None):
