@@ -13,7 +13,7 @@ except ImportError:
         opencv_available = False
 
 
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
+from wagtail.wagtailimages.utils.focal_point import FocalPoint, combine_points
 
 
 def get_cv_gray_image(image_size, image_mode, image_data):
@@ -65,3 +65,17 @@ def detect_faces(image_size, image_mode, image_data):
             return [FocalPoint.from_square(face[0][0], face[0][1], face[0][2], face[0][3]) for face in faces]
 
     return []
+
+
+def get_focal_point(image_size, image_mode, image_data):
+    # Face detection
+    faces = feature_detection.detect_faces(image_size, image_mode, image_data)
+
+    if faces:
+        return combine_points(faces)
+
+    # Feature detection
+    features = feature_detection.detect_features(image_size, image_mode, image_data)
+
+    if features:
+        return focal_point.combine_points(features)
