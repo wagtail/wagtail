@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from wagtail.wagtailimages.utils import crop, focal_point, feature_detection
+from wagtail.wagtailimages.utils import crop
 
 
 class BaseImageBackend(object):
@@ -55,18 +55,6 @@ class BaseImageBackend(object):
             image = self.resize_to_fill(image, size)
 
         return image
-
-    def smart_crop(self, image, size):
-        image_mode, image_data = self.image_data_as_rgb(image)
-
-        # Use feature detection to find a focal point
-        feature_detector = feature_detection.FeatureDetector(image.size, image_mode, image_data)
-        focal_point = feature_detector.get_focal_point()
-        if focal_point:
-            return self.crop_to_point(image, size, focal_point)
-
-        # Fall back to crop to centre
-        return self.crop_to_centre(image, size)
 
     def resize_to_max(self, image, size):
         """

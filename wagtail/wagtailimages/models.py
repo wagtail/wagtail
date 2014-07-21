@@ -23,6 +23,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from wagtail.wagtailimages.utils.validators import validate_image_format
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
+from wagtail.wagtailimages.utils.feature_detection import FeatureDetector
 
 
 @python_2_unicode_compatible
@@ -69,7 +70,7 @@ class AbstractImage(models.Model, TagSearchable):
                 self.focal_point_x,
                 self.focal_point_y,
                 width=self.focal_point_width,
-                height=self.focal_point_height
+                height=self.focal_point_height,
             )
 
     @focal_point.setter
@@ -78,6 +79,24 @@ class AbstractImage(models.Model, TagSearchable):
         self.focal_point_y = focal_point.y
         self.focal_point_width = focal_point.width
         self.focal_point_height = focal_point.height
+
+    def get_suggested_focal_point(self, backend_name='default'):
+        backend = get_image_backend(backend_name)
+        image_file = self.file.file
+
+        # Make sure image is open and seeked to the beginning
+        image_file.open('rb')
+        image_file.seek(0)
+
+        # Load the image
+        image = backend.open_image(self.file.file)
+        image_mode, image_data = backend.image_data_as_rgb(image)
+
+        # Use feature detection to find a focal point
+        feature_detector = FeatureDetector(image.size, image_mode, image_data)
+        focal_point = feature_detector.get_focal_point()
+
+        return focal_point
 
     def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
