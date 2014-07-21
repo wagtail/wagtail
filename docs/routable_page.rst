@@ -4,15 +4,17 @@ Embedding URL configuration in Pages
 
 .. versionadded:: 0.5
 
-This document describes how to use Wagtails ``RoutablePage`` class. This class is designed for embedding URL configuration into pages.
+The ``RoutablePage`` class provides a convenient way for a page to respond on multiple sub-URLs with different views. For example, a blog section on a site might provide several different types of index page at URLs like ``/blog/2013/06/``, ``/blog/authors/bob/``, ``/blog/tagged/python/``, all served by the same ``BlogIndex`` page.
+
+A ``RoutablePage`` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns, using Django's urlconf scheme. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
 
 
 The basics
 ==========
 
-To use ``RoutablePage``. You need to make your class inherit from :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePage` and configure the ``subpage_urls`` attribute with your URL configuration.
+To use ``RoutablePage``, you need to make your class inherit from :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePage` and configure the ``subpage_urls`` attribute with your URL configuration.
 
-Heres a quick example of en ``EventPage`` with three views:
+Here's an example of an ``EventPage`` with three views:
 
 .. code-block:: python
 
