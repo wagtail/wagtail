@@ -60,7 +60,8 @@ class BaseImageBackend(object):
         image_mode, image_data = self.image_data_as_rgb(image)
 
         # Use feature detection to find a focal point
-        focal_point = feature_detection.get_focal_point(image.size, image_mode, image_data)
+        feature_detector = feature_detection.FeatureDetector(image.size, image_mode, image_data)
+        focal_point = feature_detector.get_focal_point()
         if focal_point:
             return self.crop_to_point(image, size, focal_point)
 
