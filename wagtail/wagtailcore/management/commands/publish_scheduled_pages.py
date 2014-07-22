@@ -56,11 +56,15 @@ class Command(BaseCommand):
             else:
                 print("No expired pages to be deactivated found.")
         else:
-            # Fire page_unpublished signal for all expired pages
-            for page in expired_pages:
-                page_unpublished.send(sender=page.specific_class, instance=page.specific)
+            # need to get the list of expired pages before the update,
+            # so that we can fire the page_unpublished signal on them afterwards
+            expired_pages_list = list(expired_pages)
 
             expired_pages.update(expired=True, live=False)
+
+            # Fire page_unpublished signal for all expired pages
+            for page in expired_pages_list:
+                page_unpublished.send(sender=page.specific_class, instance=page.specific)
 
         # 2. get all page revisions for moderation that have been expired
         expired_revs = [
