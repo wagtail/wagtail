@@ -483,6 +483,13 @@ class TestCropToPoint(TestCase):
             CropBox(270, 190, 370, 290),
         )
         
+    def test_basic_no_focal_point(self):
+        "If focal point is None, it should make one in the centre of the image"
+        self.assertEqual(
+            crop_to_point((640, 480), (100, 100), None),
+            CropBox(270, 190, 370, 290),
+        )
+
     def test_doesnt_exit_top_left(self):
         "Test that the cropbox doesn't exit the image at the top left"
         self.assertEqual(
