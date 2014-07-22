@@ -1,4 +1,5 @@
 import os.path
+import re
 
 from six import BytesIO
 
@@ -14,6 +15,7 @@ from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from unidecode import unidecode
 
@@ -21,7 +23,6 @@ from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from wagtail.wagtailimages.utils import validate_image_format
-from wagtail.wagtailimages import image_processor
 
 
 @python_2_unicode_compatible
@@ -70,7 +71,16 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
+            generated_image = filter.process_image(file_field.file, backend_name=backend_name)
+
+            # generate new filename derived from old one, inserting the filter spec string before the extension
+            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            filename_without_extension = '.'.join(input_filename_parts[:-1])
+            filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
+            output_filename_parts = [filename_without_extension, filter.spec] + input_filename_parts[-1:]
+            output_filename = '.'.join(output_filename_parts)
+
+            generated_image_file = File(generated_image, name=output_filename)
 
             rendition, created = self.renditions.get_or_create(
                 filter=filter, defaults={'file': generated_image_file})
@@ -144,29 +154,84 @@ class Filter(models.Model):
     """
     spec = models.CharField(max_length=255, db_index=True)
 
-    def process_image(self, input_file, backend_name='default'):
+    OPERATION_NAMES = {
+        'max': 'resize_to_max',
+        'min': 'resize_to_min',
+        'width': 'resize_to_width',
+        'height': 'resize_to_height',
+        'fill': 'resize_to_fill',
+        'original': 'no_operation',
+    }
+
+    class InvalidFilterSpecError(ValueError):
+        pass
+
+    def _parse_spec_string(self):
+        # parse the spec string and return the method name and method arg.
+        # There are various possible formats to match against:
+        # 'original'
+        # 'width-200'
+        # 'max-320x200'
+
+        if self.spec == 'original':
+            return Filter.OPERATION_NAMES['original'], None
+
+        match = re.match(r'(width|height)-(\d+)$', self.spec)
+        if match:
+            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
+
+        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
+        if match:
+            width = int(match.group(2))
+            height = int(match.group(3))
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
+
+        # Spec is not one of our recognised patterns
+        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
+
+    @cached_property
+    def _method(self):
+        return self._parse_spec_string()
+
+    def is_valid(self):
+        try:
+            self._parse_spec_string()
+            return True
+        except Filter.InvalidFilterSpecError:
+            return False
+
+    def process_image(self, input_file, output_file=None, backend_name='default'):
         """
         Given an input image file as a django.core.files.File object,
         generate an output image with this filter applied, returning it
         as another django.core.files.File object
         """
-        # If file is closed, open it
+        # Get backend
+        backend = get_image_backend(backend_name)
+
+        # Parse spec string
+        method_name, method_arg = self._method
+
+        # Open image
         input_file.open('rb')
+        image = backend.open_image(input_file)
+        file_format = image.format
 
-        # Process the image
-        output = image_processor.process_image(input_file, BytesIO(), self.spec, backend_name=backend_name)
+        # Process image
+        method = getattr(backend, method_name)
+        image = method(image, method_arg)
 
-        # and then close the input file
+        # Make sure we have an output file
+        if output_file is None:
+            output_file = BytesIO()
+
+        # Write output
+        backend.save_image(image, output_file, file_format)
+
+        # Close the input file
         input_file.close()
 
-        # generate new filename derived from old one, inserting the filter spec string before the extension
-        input_filename_parts = os.path.basename(input_file.name).split('.')
-        filename_without_extension = '.'.join(input_filename_parts[:-1])
-        filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-        output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
-        output_filename = '.'.join(output_filename_parts)
-
-        return File(output, name=output_filename)
+        return output_file
 
 
 class AbstractRendition(models.Model):

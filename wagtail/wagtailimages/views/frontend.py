@@ -3,9 +3,8 @@ from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import cache_page
 
-from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.utils import InvalidFilterSpecError, verify_signature
-from wagtail.wagtailimages import image_processor
+from wagtail.wagtailimages.models import get_image_model, Filter
+from wagtail.wagtailimages.utils import verify_signature
 
 
 @cache_page(60 * 60 * 24 * 60) # Cache for 60 days
@@ -16,6 +15,6 @@ def serve(request, signature, image_id, filter_spec):
         raise PermissionDenied
 
     try:
-        return image_processor.process_image(image.file.file, HttpResponse(content_type='image/jpeg'), filter_spec)
-    except InvalidFilterSpecError:
+        return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'))
+    except Filter.InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
