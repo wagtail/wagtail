@@ -383,12 +383,18 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
+        if page.live:
+            # fetch params to pass to the page_unpublished_signal, before the
+            # deletion happens
+            specific_class = page.specific_class
+            specific_page = page.specific
+
         parent_id = page.get_parent().id
         page.delete()
 
         # If the page is live, send the unpublished signal
         if page.live:
-            page_unpublished.send(sender=page.specific_class, instance=page.specific)
+            page_unpublished.send(sender=specific_class, instance=specific_page)
 
         messages.success(request, _("Page '{0}' deleted.").format(page.title))
 
