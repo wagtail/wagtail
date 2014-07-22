@@ -1,5 +1,5 @@
-For Django developers
-=====================
+Pages
+=====
 
 .. contents:: Contents
     :local:
@@ -416,13 +416,3 @@ Django's built-in admin interface provides the way to map a "site" (hostname or 
 Access this by going to ``/django-admin/`` and then "Home › Wagtailcore › Sites." To try out a development site, add a single site with the hostname ``localhost`` at port ``8000`` and map it to one of the pieces of content you have created.
 
 Wagtail's developers plan to move the site settings into the Wagtail admin interface.
-
-
-.. _redirects:
-
-Redirects
-~~~~~~~~~
-
-Wagtail provides a simple interface for creating arbitrary redirects to and from any URL.
-
-.. image:: ../_static/images/screen_wagtail_redirects.png
