@@ -7,8 +7,15 @@ Wagtail 0.5 release notes - IN DEVELOPMENT
     :depth: 1
 
 
-Whats new
-=========
+What's new
+==========
+
+RoutablePage
+~~~~~~~~~~~~
+
+A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
+
+:ref:`routable_page`
 
 
 Minor features
@@ -26,6 +33,16 @@ Core
         menu_items.append(
             MenuItem('Kittens!', '/kittens/', classnames='icon icon-folder-inverse', order=1000)
         )
+
+ * The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
+
+
+Admin
+-----
+
+ * Explorer nav now rendered separately and fetched with AJAX when needed.
+
+   This improves the general performance of the admin interface for large sites.
 
 
 Bug fixes

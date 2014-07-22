@@ -14,6 +14,17 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile
 
 
+def submittable_timestamp(timestamp):
+    """
+    Helper function to translate a possibly-timezone-aware datetime into the format used in the
+    go_live_at / expire_at form fields - "YYYY-MM-DD hh:mm", with no timezone indicator.
+    This will be interpreted as being in the server's timezone (settings.TIME_ZONE), so we
+    need to pass it through timezone.localtime to ensure that the client and server are in
+    agreement about what the timestamp means.
+    """
+    return str(timezone.localtime(timestamp)).split('.')[0]
+
+
 class TestPageExplorer(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -180,8 +191,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': str(go_live_at).split('.')[0],
-            'expire_at': str(expire_at).split('.')[0],
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -203,8 +214,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': str(timezone.now() + timedelta(days=2)).split('.')[0],
-            'expire_at': str(timezone.now() + timedelta(days=1)).split('.')[0],
+            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -219,7 +230,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'title': "New page!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': str(timezone.now() + timedelta(days=-1)).split('.')[0],
+            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -268,8 +279,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_at': str(go_live_at).split('.')[0],
-            'expire_at': str(expire_at).split('.')[0],
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
 
@@ -428,14 +439,16 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTrue(child_page_new.has_unpublished_changes)
 
     def test_edit_post_scheduled(self):
-        go_live_at = timezone.now() + timedelta(days=1)
-        expire_at = timezone.now() + timedelta(days=2)
+        # put go_live_at and expire_at several days away from the current date, to avoid
+        # false matches in content_json__contains tests
+        go_live_at = timezone.now() + timedelta(days=10)
+        expire_at = timezone.now() + timedelta(days=20)
         post_data = {
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': str(go_live_at).split('.')[0],
-            'expire_at': str(expire_at).split('.')[0],
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -459,8 +472,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'go_live_at': str(timezone.now() + timedelta(days=2)).split('.')[0],
-            'expire_at': str(timezone.now() + timedelta(days=1)).split('.')[0],
+            'go_live_at': submittable_timestamp(timezone.now() + timedelta(days=2)),
+            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -475,7 +488,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'title': "I've been edited!",
             'content': "Some content",
             'slug': 'hello-world',
-            'expire_at': str(timezone.now() + timedelta(days=-1)).split('.')[0],
+            'expire_at': submittable_timestamp(timezone.now() + timedelta(days=-1)),
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -525,8 +538,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_at': str(go_live_at).split('.')[0],
-            'expire_at': str(expire_at).split('.')[0],
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 
@@ -550,8 +563,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'content': "Some content",
             'slug': 'hello-world',
             'action-publish': "Publish",
-            'go_live_at': str(go_live_at).split('.')[0],
-            'expire_at': str(expire_at).split('.')[0],
+            'go_live_at': submittable_timestamp(go_live_at),
+            'expire_at': submittable_timestamp(expire_at),
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
 

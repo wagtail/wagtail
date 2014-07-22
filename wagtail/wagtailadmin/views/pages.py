@@ -17,8 +17,15 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import tasks, signals
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision
+from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
 from wagtail.wagtailcore.signals import page_published, page_unpublished
+
+
+@permission_required('wagtailadmin.access_admin')
+def explorer_nav(request):
+    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
+        'nodes': get_navigation_menu_items(),
+    })
 
 
 @permission_required('wagtailadmin.access_admin')

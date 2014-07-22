@@ -29,7 +29,6 @@ STATICFILES_FINDERS = (
 )
 
 USE_TZ = True
-TIME_ZONE = 'UTC'
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
@@ -72,6 +71,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailforms',
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailsitemaps',
+    'wagtail.contrib.wagtailroutablepage',
     'wagtail.tests',
 ]
 
