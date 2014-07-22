@@ -425,4 +425,4 @@ Redirects
 
 Wagtail provides a simple interface for creating arbitrary redirects to and from any URL.
 
-.. image:: ../images/screen_wagtail_redirects.png
+.. image:: ../_static/images/screen_wagtail_redirects.png

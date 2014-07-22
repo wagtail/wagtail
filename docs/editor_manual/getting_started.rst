@@ -15,4 +15,4 @@ __________
 * Access this by adding **/admin** onto the end of your root URL (e.g. www.example.com/admin).
 * Enter your username and password and click **Sign in**.
 
-.. image:: ../images/screen01_login.png
+.. image:: ../_static/images/screen01_login.png

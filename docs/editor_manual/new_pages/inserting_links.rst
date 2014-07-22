@@ -5,7 +5,7 @@ Similar to images, there are a variety of points at which you will want to add l
 
 Whichever way you insert a link, you will be presented with the form displayed below.
 
-.. image:: ../../images/screen19_link_form.png
+.. image:: ../../_static/images/screen19_link_form.png
 
 * Search for an existing page to link to using the search bar at the top of the pop-up.
 * Below the search bar you can select the type of link you want to insert. The following types are available:

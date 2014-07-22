@@ -11,11 +11,11 @@ __________________________________
 
 The carousel is where the main, featured images and videos associated with a page should be displayed.
 
-.. image:: ../../images/screen14_add_carousel_button.png
+.. image:: ../../_static/images/screen14_add_carousel_button.png
 
 * To insert a carousel item click the Add carousel content link in the Carousel content section.
 
-.. image:: ../../images/screen15_carousel_form.png
+.. image:: ../../_static/images/screen15_carousel_form.png
 
 * You can then insert an image by clicking the *Choose an image* button.
 * It is also possible to add videos to a carousel. Simply copy and paste the web address for the video (either YouTube or Vimeo) into the *Embed URL* field and click Insert. A poster image for the video can also be uploaded or selected from the CMS. This is the image displayed before a user has clicked play on the video.
@@ -38,7 +38,7 @@ When you click the *Choose an image* button you will be presented with a pop-up 
 
 The image below demonstrates finding and  inserting an image that is already present in the CMS image library.
 
-.. image:: ../../images/screen16_selecting_image_from_library.png
+.. image:: ../../_static/images/screen16_selecting_image_from_library.png
 
 #. Typing into the search box will automatically display the results below.
 #. Clicking one of the Popular tags will filter the search results by that tag.
@@ -46,7 +46,7 @@ The image below demonstrates finding and  inserting an image that is already pre
 
 **Uploading a new image to the CMS**
 
-.. image:: ../../images/screen17_upload_image.png
+.. image:: ../../_static/images/screen17_upload_image.png
 
 #. You must include an image title for your uploaded image
 #. Click the *Choose file* button to choose an image from your computer.
@@ -60,7 +60,7 @@ Images can also be inserted into the body text of a page. When editing the Body 
 
 In addition, the Wagtail Demo site allows you to chose an aligmnent for you image.
 
-.. image:: ../../images/screen18_image_alignment.png
+.. image:: ../../_static/images/screen18_image_alignment.png
 
 #. You can select how the image is displayed by selecting one of the format options.
 #. In the Wagtail Demo site, images inserted into the body text do not have embeded captions (these should be added as regular body text). However you must still provide specific alt text for your image.
