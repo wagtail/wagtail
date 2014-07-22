@@ -35,6 +35,7 @@ Core
         )
 
  * The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
+ * A ``page_unpublished`` signal has been added.
 
 
 Admin
