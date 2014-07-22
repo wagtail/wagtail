@@ -7,6 +7,7 @@ Changelog
  * Explorer nav now rendered separately and fetched with AJAX when needed
  * Added decorator syntax for hooks
  * Replaced lxml dependency with html5lib, to simplify installation
+ * Added page_unpublished signal
 
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~
