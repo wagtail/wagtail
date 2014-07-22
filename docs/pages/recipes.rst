@@ -1,8 +1,8 @@
 
 .. _model_recipes:
 
-Model Recipes
-=============
+Recipes
+=======
 
 Overriding the serve() Method
 -----------------------------
