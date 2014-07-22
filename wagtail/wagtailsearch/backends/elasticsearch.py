@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 import json
 
+from six.moves.urllib.parse import urlparse
+
 from django.db import models
 from django.db.models.sql.where import SubqueryConstraint
 
@@ -446,17 +448,30 @@ class ElasticSearch(BaseSearch):
         super(ElasticSearch, self).__init__(params)
 
         # Get settings
+        self.es_hosts = params.pop('HOSTS', None)
         self.es_urls = params.pop('URLS', ['http://localhost:9200'])
         self.es_index = params.pop('INDEX', 'wagtail')
-        self.es_timeout = params.pop('TIMEOUT', 5)
-        self.es_force_new = params.pop('FORCE_NEW', False)
+        self.es_timeout = params.pop('TIMEOUT', 10)
+
+        # If HOSTS is not set, convert URLS setting to HOSTS
+        if self.es_hosts is None:
+            self.es_hosts = []
+
+            for url in self.es_urls:
+                parsed_url = urlparse(url)
+
+                self.es_hosts.append({
+                    'host': parsed_url.hostname,
+                    'port': parsed_url.port or 9200,
+                    'url_prefix': parsed_url.path,
+                    'use_ssl': parsed_url.scheme == 'https',
+                })
 
         # Get ElasticSearch interface
         # Any remaining params are passed into the ElasticSearch constructor
         self.es = Elasticsearch(
-            urls=self.es_urls,
+            hosts=self.es_hosts,
             timeout=self.es_timeout,
-            force_new=self.es_force_new,
             **params)
 
     def reset_index(self):

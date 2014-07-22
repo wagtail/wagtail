@@ -157,9 +157,21 @@ LINK_HANDLERS = {
 }
 
 
-# Prepare a whitelisting engine with custom behaviour:
-# rewrite any elements with a data-embedtype or data-linktype attribute
 class DbWhitelister(Whitelister):
+    """
+    A custom whitelisting engine to convert the HTML as returned by the rich text editor
+    into the pseudo-HTML format stored in the database (in which images, documents and other
+    linked objects are identified by ID rather than URL):
+
+    * implements a 'construct_whitelister_element_rules' hook so that other apps can modify
+      the whitelist ruleset (e.g. to permit additional HTML elements beyond those in the base
+      Whitelister module);
+    * replaces any element with a 'data-embedtype' attribute with an <embed> element, with
+      attributes supplied by the handler for that type as defined in EMBED_HANDLERS;
+    * rewrites the attributes of any <a> element with a 'data-linktype' attribute, as
+      determined by the handler for that type defined in LINK_HANDLERS, while keeping the
+      element content intact.
+    """
     has_loaded_custom_whitelist_rules = False
 
     @classmethod
