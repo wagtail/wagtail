@@ -146,6 +146,18 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(image.used_by, 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
     return render(request, "wagtailimages/images/usage.html", {
         'image': image,
+        'used_by': used_by
     })

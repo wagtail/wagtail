@@ -146,6 +146,18 @@ def delete(request, document_id):
 def usage(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(doc.used_by, 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
     return render(request, "wagtaildocs/documents/usage.html", {
         'document': doc,
+        'used_by': used_by
     })

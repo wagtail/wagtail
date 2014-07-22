@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-          {% for page in document.used_by %}
+          {% for page in used_by %}
                     <tr>
                         <td class="title" valign="top">
                             <h2><a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></h2>
@@ -46,5 +46,18 @@
                 </tbody>
             </table>
         </section>
+    </div>
+    <div class="pagination">
+        {% if used_by.has_previous %}
+        <a href="?p={{ used_by.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span>
+          Page {{ used_by.number }} of {{ used_by.paginator.num_pages }}.
+        </span>
+
+        {% if used_by.has_next %}
+        <a href="?p={{ used_by.next_page_number }}">next</a>
+        {% endif %}
     </div>
 {% endblock %}
