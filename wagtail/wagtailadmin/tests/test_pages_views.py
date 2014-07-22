@@ -819,6 +819,33 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(signal_page[0], self.child_page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
 
+    def test_page_delete_notlive_post(self):
+        # Same as above, but this makes sure the page_unpublished signal is not fired
+        # when if the page is not live when it is deleted
+
+        # Unpublish the page
+        self.child_page.live = False
+        self.child_page.save()
+
+        # Connect a mock signal handler to page_unpublished signal
+        signal_fired = [False]
+        def page_unpublished_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+        page_unpublished.connect(page_unpublished_handler)
+
+        # Post
+        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that the page is gone
+        self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
+
+        # Check that the page_unpublished signal was not fired
+        self.assertFalse(signal_fired[0])
+
 
 class TestPageSearch(TestCase, WagtailTestUtils):
     def setUp(self):
