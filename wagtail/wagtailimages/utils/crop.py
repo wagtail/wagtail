@@ -25,6 +25,20 @@ class CropBox(object):
     def size(self):
         return self.width, self.height
 
+    def as_tuple(self):
+        return self.left, self.top, self.right, self.bottom
+
+    def __eq__(self, other):
+        return self.as_tuple() == other.as_tuple()
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __repr__(self):
+        return 'CropBox(left: %d, top: %d, right: %d, bottom: %d)' % (
+            self.left, self.top, self.right, self.bottom
+        )
+
 
 def crop_to_centre(image_size, crop_size):
     (original_width, original_height) = image_size
