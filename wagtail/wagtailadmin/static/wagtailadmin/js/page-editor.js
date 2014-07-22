@@ -95,10 +95,26 @@ function initTimeChooser(id) {
     }
 }
 
+function discardSeconds(dateTime) {
+    var splitDateTime = dateTime.split(' ');
+    var date = splitDateTime[0];
+    var time = splitDateTime[1];
+    var splitTime = time.split(':');
+    if (splitTime.length > 2) {
+        time = splitTime[0] + ':' + splitTime[1];
+    }
+    return date + ' ' + time;
+}
+
 function initDateTimeChooser(id) {
+    var dateTime = $('#' + id).val();
+    if (dateTime) {
+        dateTime = discardSeconds(dateTime);
+    }
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
             format: 'Y-m-d H:i',
+            value: dateTime,
             scrollInput:false,
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -107,7 +123,7 @@ function initDateTimeChooser(id) {
         });
     } else {
     $('#' + id).datetimepicker({
-            format: 'Y-m-d H:i',
+            format: 'Y-m-d H:i'
         });
     }
 }
@@ -344,7 +360,7 @@ $(function() {
         var $this = $(this);
 
         var previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
-        
+
         if(/MSIE/.test(navigator.userAgent)){
             submitPreview.call($this, false);
         } else {
@@ -361,22 +377,22 @@ $(function() {
                 success: function(data, textStatus, request) {
                     if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
                         var pdoc = previewWindow.document;
-                        
+
                         if(enhanced){
                             var frame = pdoc.getElementById('preview-frame');
 
                             frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                             frame.document.open();
-                            frame.document.write(data);                 
+                            frame.document.write(data);
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
                                 pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
                                 clearTimeout(hideTimeout);
-                            }) // just enough to give effect without adding discernible slowness                       
+                            }) // just enough to give effect without adding discernible slowness
                         } else {
                             pdoc.open();
-                            pdoc.write(data);                 
+                            pdoc.write(data);
                             pdoc.close()
                         }
                     } else {
@@ -400,6 +416,6 @@ $(function() {
             });
 
         }
-        
+
     });
 });
