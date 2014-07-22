@@ -18,7 +18,7 @@ from wagtail.wagtailadmin import tasks, signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-from wagtail.wagtailcore.signals import page_published
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -383,8 +383,19 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
+        if page.live:
+            # fetch params to pass to the page_unpublished_signal, before the
+            # deletion happens
+            specific_class = page.specific_class
+            specific_page = page.specific
+
         parent_id = page.get_parent().id
         page.delete()
+
+        # If the page is live, send the unpublished signal
+        if page.live:
+            page_unpublished.send(sender=specific_class, instance=specific_page)
+
         messages.success(request, _("Page '{0}' deleted.").format(page.title))
 
         for fn in hooks.get_hooks('after_delete_page'):
@@ -545,9 +556,14 @@ def unpublish(request, page_id):
         parent_id = page.get_parent().id
         page.live = False
         page.save()
+
         # Since page is unpublished clear the approved_go_live_at of all revisions
         page.revisions.update(approved_go_live_at=None)
+
+        page_unpublished.send(sender=page.specific_class, instance=page.specific)
+
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
+
         return redirect('wagtailadmin_explore', parent_id)
 
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
