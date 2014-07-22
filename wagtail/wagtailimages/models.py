@@ -298,7 +298,7 @@ class Filter(models.Model):
         if focal_point is not None:
             focal_point_key = "focus-" + focal_point.get_key()
         else:
-            focal_point_key = ""
+            focal_point_key = "focus-none"
 
         input_filename_parts = os.path.basename(input_file.name).split('.')
         filename_without_extension = '.'.join(input_filename_parts[:-1])
