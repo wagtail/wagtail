@@ -21,6 +21,7 @@ The presentation of your content, the actual webpages, includes the normal use o
     creating_pages
     writing_templates
     model_recipes
+    editing_api
     advanced_topics/queryset_methods
     advanced_topics/private_pages
     advanced_topics/routable_page
