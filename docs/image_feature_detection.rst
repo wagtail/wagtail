@@ -16,31 +16,35 @@ Feature detection requires OpenCV which can be a bit tricky to set up as it is n
 Installing OpenCV on Debian/Ubuntu
 ----------------------------------
 
-Debian and ubuntu provide python-opencv as a package installable with apt-get:
+Debian and ubuntu provide ``python-opencv`` as a package installable with apt-get:
 
  .. code-block:: bash
 
     sudo apt-get install python-opencv python-numpy
 
 
-If you are using a Virtual environment, you will need to make sure that you have site packages enabled.
+If you are using a Virtual environment, you will need to make sure that you have site packages enabled so python can see OpenCV.
 
-For Python 3, go into your virtualenv directory and open the ``pyvenv.cfg`` file then set ``include-system-site-packages`` to ``true``.
+For Python 3, go into your pyvenv directory and open the ``pyvenv.cfg`` file then set ``include-system-site-packages`` to ``true``.
 
 If you are using Virtualenv, go into your virtualenv directory and delete a file called ``lib/python-x.x/no-global-site-packages.txt``.
 
 
-You can test that its all working by opening up a python shell (with your virtual environment active) and typing:
+You can test that it's all working by opening up a python shell (with your virtual environment active) and typing:
 
  .. code-block:: python
 
     import cv
 
+If you don't see an ``ImportError``, it worked.
+
 
 Switching on feature detection
 ------------------------------
 
-To switch on feature detection, set the ``WAGTAIL_FEATURE_DETECTION_ENABLED`` setting to ``True``:
+Once OpenCV is installed, you need to switch on feature detection in Wagtail
+
+You can do this by seting the ``WAGTAIL_FEATURE_DETECTION_ENABLED`` setting to ``True``:
 
  .. code-block:: python
 
@@ -49,6 +53,19 @@ To switch on feature detection, set the ``WAGTAIL_FEATURE_DETECTION_ENABLED`` se
     WAGTAIL_FEATURE_DETECTION_ENABLED = True
 
 
-Feature detection runs when images are uploaded so any images you already have will behave as they used to.
+Feature detection runs when new images are uploaded in to Wagtail. If you already have images in your Wagtail site and would like to run feature detection on them, you will have to run it manually.
 
-If you have images in your site that you want to have 
+
+Manually running feature detection
+----------------------------------
+
+You can manually feature detection on all images by running the following code in the python shell:
+
+ .. code-block:: python
+
+    from wagtail.wagtailimages.models import Image
+
+    for image in Image.objects.all():
+        if image.focal_point is None:
+            image.focal_point = image.get_suggested_focal_point()
+            image.save()
