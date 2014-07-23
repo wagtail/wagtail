@@ -1,9 +1,6 @@
 Pages
 =====
 
-.. contents:: Contents
-    :local:
-
 .. note::
     This documentation is currently being written.
 
