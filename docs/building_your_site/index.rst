@@ -7,5 +7,4 @@ Building your site
 .. toctree::
    :maxdepth: 3
 
-   djangodevelopers
    frontenddevelopers
