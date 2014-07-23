@@ -1,5 +1,6 @@
 import os
 
+import django
 from django.conf import global_settings
 
 
@@ -57,7 +58,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
 
     'taggit',
-    'south',
     'compressor',
 
     'wagtail.wagtailcore',
@@ -75,6 +75,11 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.tests',
 ]
+
+# If we are using Django 1.6, add South to INSTALLED_APPS
+if django.VERSION[:2] == (1, 6):
+    INSTALLED_APPS.append('south')
+
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.
 # This prevents false-positives in some wagtail core tests where we are
