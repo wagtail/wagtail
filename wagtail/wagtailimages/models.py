@@ -183,7 +183,7 @@ class Image(AbstractImage):
 # Do smartcropping calculations when user saves an image without a focal point
 @receiver(pre_save, sender=Image)
 def image_feature_detection(sender, instance, **kwargs):
-    if getattr(settings, 'WAGTAIL_FEATURE_DETECTION_ENABLED', False):
+    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
         if not opencv_available:
             raise ImproperlyConfigured("pyOpenCV could not be found.")
 

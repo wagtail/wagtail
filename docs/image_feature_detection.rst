@@ -44,13 +44,13 @@ Switching on feature detection
 
 Once OpenCV is installed, you need to switch on feature detection in Wagtail
 
-You can do this by seting the ``WAGTAIL_FEATURE_DETECTION_ENABLED`` setting to ``True``:
+You can do this by seting the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting to ``True``:
 
  .. code-block:: python
 
     # settings.py
 
-    WAGTAIL_FEATURE_DETECTION_ENABLED = True
+    WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = True
 
 
 Feature detection runs when new images are uploaded in to Wagtail. If you already have images in your Wagtail site and would like to run feature detection on them, you will have to run it manually.
