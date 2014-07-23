@@ -25,12 +25,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'Image.focal_point_width'
         db.add_column('wagtailimages_image', 'focal_point_width',
-                      self.gf('django.db.models.fields.PositiveIntegerField')(default=0),
+                      self.gf('django.db.models.fields.PositiveIntegerField')(null=True),
                       keep_default=False)
 
         # Adding field 'Image.focal_point_height'
         db.add_column('wagtailimages_image', 'focal_point_height',
-                      self.gf('django.db.models.fields.PositiveIntegerField')(default=0),
+                      self.gf('django.db.models.fields.PositiveIntegerField')(null=True),
                       keep_default=False)
 
         # Adding field 'Rendition.focal_point_key'
@@ -111,8 +111,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Image'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'file': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'focal_point_height': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'focal_point_width': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'focal_point_height': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
+            'focal_point_width': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
             'focal_point_x': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
             'focal_point_y': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
             'height': ('django.db.models.fields.IntegerField', [], {}),

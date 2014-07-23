@@ -53,8 +53,8 @@ class AbstractImage(models.Model, TagSearchable):
 
     focal_point_x = models.PositiveIntegerField(null=True, editable=False)
     focal_point_y = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_width = models.PositiveIntegerField(default=0, editable=False)
-    focal_point_height = models.PositiveIntegerField(default=0, editable=False)
+    focal_point_width = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_height = models.PositiveIntegerField(null=True, editable=False)
 
     search_fields = TagSearchable.search_fields + (
         indexed.FilterField('uploaded_by_user'),
@@ -65,7 +65,10 @@ class AbstractImage(models.Model, TagSearchable):
 
     @property
     def focal_point(self):
-        if self.focal_point_x is not None and self.focal_point_y is not None:
+        if self.focal_point_x is not None and \
+           self.focal_point_y is not None and \
+           self.focal_point_width is not None and \
+           self.focal_point_height is not None:
             return FocalPoint(
                 self.focal_point_x,
                 self.focal_point_y,
