@@ -43,9 +43,6 @@ class TestGetFormForModel(TestCase):
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
-    class FakePage(Page):
-        pass
-
     def test_can_extract_panels(self):
         mock = MagicMock()
         mock.panels = 'foo'
@@ -58,7 +55,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
             self.assertNotEqual(panel.field_name, 'hostname')
 
     def test_extracted_objects_are_panels(self):
-        panels = extract_panel_definitions_from_model_class(self.FakePage)
+        panels = extract_panel_definitions_from_model_class(Page)
         for panel in panels:
             self.assertTrue(issubclass(panel, BaseFieldPanel))
 
