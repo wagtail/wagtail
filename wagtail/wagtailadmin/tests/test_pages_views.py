@@ -8,7 +8,11 @@ from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, EventPageCarouselItem, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex, TaggedPage, Advert, AdvertPlacement
+from wagtail.tests.models import (
+    SimplePage, EventPage, EventPageCarouselItem,
+    StandardIndex, StandardChild,
+    BusinessIndex, BusinessChild, BusinessSubIndex,
+    TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
@@ -1483,11 +1487,14 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, add_subpage_url)
 
-        # add_subpage should give us the full set of page types to choose
+        # add_subpage should give us choices of StandardChild, and BusinessIndex.
+        # BusinessSubIndex and BusinessChild are not allowed
         response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Standard Child')
-        self.assertContains(response, 'Business Child')
+        self.assertContains(response, StandardChild.get_verbose_name())
+        self.assertContains(response, BusinessIndex.get_verbose_name())
+        self.assertNotContains(response, BusinessSubIndex.get_verbose_name())
+        self.assertNotContains(response, BusinessChild.get_verbose_name())
 
     def test_business_subpage(self):
         add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, ))
@@ -1500,8 +1507,10 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         # add_subpage should give us a cut-down set of page types to choose
         response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'Standard Child')
-        self.assertContains(response, 'Business Child')
+        self.assertNotContains(response, StandardIndex.get_verbose_name())
+        self.assertNotContains(response, StandardChild.get_verbose_name())
+        self.assertContains(response, BusinessSubIndex.get_verbose_name())
+        self.assertContains(response, BusinessChild.get_verbose_name())
 
     def test_business_child_subpage(self):
         add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, ))
@@ -1516,12 +1525,16 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
     def test_cannot_add_invalid_subpage_type(self):
-        # cannot add SimplePage as a child of BusinessIndex, as SimplePage is not present in subpage_types
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_index.id)))
+        # cannot add StandardChild as a child of BusinessIndex, as StandardChild is not present in subpage_types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'standardchild', self.business_index.id)))
         self.assertEqual(response.status_code, 403)
 
         # likewise for BusinessChild which has an empty subpage_types list
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_child.id)))
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'standardchild', self.business_child.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # cannot add BusinessChild to StandardIndex, as BusinessChild restricts is parent page types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.standard_index.id)))
         self.assertEqual(response.status_code, 403)
 
         # but we can add a BusinessChild to BusinessIndex
