@@ -136,7 +136,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.clean_subpage_types():
+    if content_type not in parent_page.allowed_subpage_types():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
