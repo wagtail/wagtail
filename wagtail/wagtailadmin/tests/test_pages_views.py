@@ -464,8 +464,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertFalse(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
 
         # But a revision with go_live_at and expire_at in their content json *should* exist
-        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(go_live_at.date())).exists())
-        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(expire_at.date())).exists())
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(timezone.localtime(go_live_at).date())).exists())
+        self.assertTrue(PageRevision.objects.filter(page=child_page_new, content_json__contains=str(timezone.localtime(expire_at).date())).exists())
 
     def test_edit_scheduled_go_live_before_expiry(self):
         post_data = {
