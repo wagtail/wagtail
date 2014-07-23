@@ -519,7 +519,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                               for model_string in subpage_types]
                 except (NameError,) as err:
                     raise NameError(err.args[0] + ' (used in subpage_types')
-                res = map(ContentType.objects.get_for_model, models)
+                res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_subpage_types = res
 
@@ -542,7 +542,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                               for model_string in parent_page_types]
                 except NameError as err:
                     raise NameError(err.args[0] + ' (used in parent_page_types)')
-                res = map(ContentType.objects.get_for_model, models)
+                res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_parent_page_types = res
 
