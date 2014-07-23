@@ -22,6 +22,7 @@ The presentation of your content, the actual webpages, includes the normal use o
 
     theory
     creating_pages
+    writing_templates
     model_recipes
     advanced_topics/queryset_methods
     advanced_topics/private_pages
