@@ -81,6 +81,13 @@ if django.VERSION[:2] == (1, 6):
     INSTALLED_APPS.append('south')
 
 
+# As we don't have south migrations for tests, South thinks
+# the Django 1.7 migrations are South migrations.
+SOUTH_MIGRATION_MODULES = {
+    'tests': 'ignore',
+}
+
+
 # Using DatabaseCache to make sure that the cache is cleared between tests.
 # This prevents false-positives in some wagtail core tests where we are
 # changing the 'wagtail_root_paths' key which may cause future tests to fail.
