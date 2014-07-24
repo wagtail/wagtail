@@ -301,14 +301,6 @@ ul.listing{
         }
     }
 
-    td.children:hover{
-        background-color:$color-teal;
-
-        a:before{
-            color:white;
-        }
-    }
-
     table .no-results-message{
         padding-left:20px;
     }
@@ -539,8 +531,18 @@ table.listing{
         tr:hover .no-children a{
             opacity:1;
         }
+        tr:hover .children{
+            background-color:$color-teal;
 
-       
+            a:before{
+                color:white;
+            }
+        }
+
+        td.children:hover{
+            background-color:$color-teal-darker;
+        }
+
 
         table .no-results-message{
             padding-left:50px;
