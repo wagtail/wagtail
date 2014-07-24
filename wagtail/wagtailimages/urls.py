@@ -1,11 +1,15 @@
 from django.conf.urls import url
-from wagtail.wagtailimages.views import images, chooser
+from wagtail.wagtailimages.views import images, chooser, multiple
 
 urlpatterns = [
     url(r'^$', images.index, name='wagtailimages_index'),
     url(r'^(\d+)/$', images.edit, name='wagtailimages_edit_image'),
     url(r'^(\d+)/delete/$', images.delete, name='wagtailimages_delete_image'),
     url(r'^add/$', images.add, name='wagtailimages_add_image'),
+
+    url(r'^multiple/add/$', multiple.add, name='wagtailimages_add_multiple'),
+    url(r'^multiple/(\d+)/$', multiple.edit, name='wagtailimages_edit_multiple'),
+    url(r'^multiple/(\d+)/delete/$', multiple.delete, name='wagtailimages_delete_multiple'),
 
     url(r'^chooser/$', chooser.chooser, name='wagtailimages_chooser'),
     url(r'^chooser/(\d+)/$', chooser.image_chosen, name='wagtailimages_image_chosen'),

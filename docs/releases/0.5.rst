@@ -10,6 +10,12 @@ Wagtail 0.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Multiple image uploader
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The image uploader UI has been improved to allow multiples to be uploaded quickly.
+
+
 RoutablePage
 ~~~~~~~~~~~~
 
@@ -48,6 +54,8 @@ Admin
 
 Bug fixes
 ~~~~~~~~~
+
+ * Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
 
 
 Backwards incompatible changes

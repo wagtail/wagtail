@@ -101,18 +101,38 @@ ul.listing{
     &.full-width tbody tr:hover{
         background-color:#FDFDFD;
     }
-    &.chooser tr.can-choose a{
-        @include transition(none);
-    }
-    &.chooser tr.can-choose:hover{
-        background-color:$color-teal;
-        color:white;
-
-        a,a:hover{
-            color:white;
+    &.chooser {
+        tbody .title a{
+            display:block;
+            @include transition(none);
         }
-        .status-tag{
-            border-color:white;
+        tbody tr:hover{
+            background-color:$color-teal;
+            color:white;
+
+            .title a, .title a:hover{
+                color:white;
+            }
+            .status-tag{
+                border-color:white;
+            }
+        }
+        tbody tr.disabled td{
+            opacity:0.25;
+        }
+        tbody tr.disabled td.children{
+            opacity:1;
+        }
+        tbody tr.disabled:hover{
+            background-color:inherit;
+            color:inherit;
+
+            .title{
+                cursor:not-allowed;
+            }
+            .status-tag{
+                border-color:inherit;
+            }
         }
     }
 
@@ -309,8 +329,8 @@ ul.listing{
         padding-left:20px;
     }
 
-    .inactive h2{
-        opacity:0.5;
+    .unpublished h2{
+        opacity:0.7;
     }
 
     .index {
