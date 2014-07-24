@@ -24,6 +24,7 @@
                 <li><a href="#typography">Typography</a></li>
                 <li><a href="#help">Help text</a></li>
                 <li><a href="#listings">Listings</a></li>
+                <li><a href="#pagination">Pagination</a></li>
                 <li><a href="#buttons">Buttons</a></li>
                 <li><a href="#dropdowns">Dropdown buttons</a></li>
                 <li><a href="#header">Header</a></li>
@@ -173,6 +174,11 @@
                     </li>
                 </tbody>
             </table>
+        </section>
+
+        <section id="pagination">
+            <h2>Pagination</h2>
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=fake_pagination linkurl="wagtailadmin_explore" %}
         </section>
 
         <section id="buttons">
