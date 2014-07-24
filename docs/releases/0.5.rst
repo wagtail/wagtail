@@ -49,6 +49,8 @@ Admin
 Bug fixes
 ~~~~~~~~~
 
+ * Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
+
 
 Backwards incompatible changes
 ==============================
