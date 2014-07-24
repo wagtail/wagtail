@@ -22,9 +22,12 @@ $(function(){
     });
 
     $('.nav-main a').on('click', function(){
-        $('.nav-wrapper').toggleClass('submenu-active')
         $(this).closest('li').toggleClass('active');
-        return false
+        
+        if($(this).closest('li').find('.submenu')){
+            $('.nav-wrapper').toggleClass('submenu-active')
+            return false
+        }
     })
 
     // Enable swishy section navigation menu

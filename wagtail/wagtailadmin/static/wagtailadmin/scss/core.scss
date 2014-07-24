@@ -229,19 +229,32 @@ img{
             }
         }
 
+        li.active > a{
+            color:$color-orange;
+        }
+
+        li.active .submenu{
+            @include transition(width 0.2s ease);
+        }
+
         .submenu{
             @include transition(width 0.2s ease);
             background:$selected-highlight;
             position:fixed;
             height:100%;
             width:0;
+            padding:0;
             top:0;
             left:150px;
-            padding:0;
             overflow:auto;
             max-height:100%;
             border-right:1px solid rgba(0,0,0,0.1);
             @include box-shadow(5px 0 5px rgba(0,0,0,0.1));
+
+            h2,ul{
+                float:right;
+                width:150px;
+            }
 
             h2{
                 padding:0.2em 0;
@@ -274,13 +287,15 @@ img{
                     background-color:rgba(100,100,100,0.2);
                 }
             }
-            
-
         }
 
         li.active .submenu{
             width:150px;
             padding:0 1.5em 1.5em 1.5em;
+        }
+        li .submenu{
+            width:0;
+            padding:0;
         }
 
         .avatar{
