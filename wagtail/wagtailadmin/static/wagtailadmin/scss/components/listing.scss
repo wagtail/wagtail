@@ -160,7 +160,7 @@ ul.listing{
             text-transform:none;
             margin:0;
             font-size:1.15em;
-            font-weight:700;
+            font-weight:600;
             color:darken($color-grey-2, 10%);
             line-height:1.5em;
 
@@ -197,6 +197,7 @@ ul.listing{
         color:$color-teal;
         border-color:$color-grey-3;
         background:white;
+        font-size:0.84em; /* 0.01em difference to regular small buttons */
 
         &:hover{
             border-color:$color-teal;
@@ -322,6 +323,7 @@ ul.listing{
         .title h2{
             font-size:1.2em;
             opacity:1;
+
             a{
                 @include transition(opacity 0.2s ease);
             }
@@ -382,7 +384,7 @@ table.listing{
             h2{
                 color:white;
                 font-size:1.8em;
-                font-weight:600;
+                font-weight:500;
 
                 a:hover{
                     color:white;
