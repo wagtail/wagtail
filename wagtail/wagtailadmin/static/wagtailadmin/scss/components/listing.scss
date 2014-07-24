@@ -5,6 +5,9 @@ ul.listing{
 
 .listing{
     margin-bottom:2em;
+    color:lighten($color-text-base, 20%);
+    font-size:0.95em;
+
     ul{
         @include unlist();
     }
@@ -27,7 +30,8 @@ ul.listing{
     }
 
     thead{
-        color: $color-grey-2;
+        font-size:1.1em;
+        color: $color-text-base;
         border-bottom:1px solid $color-grey-4;
 
         th{
@@ -51,22 +55,6 @@ ul.listing{
                 right:0;
             }
         }
-
-        /*
-        .dropdown{
-            padding:0;
-        }
-        .dropdown-toggle{
-            display:block;
-            padding:1.5em;
-        }
-        .dropdown:hover,
-        .dropdown.open{
-            @include box-shadow(0px 0px 3px 0 rgba(0,0,0,0.2));
-            background-color:white;
-            margin-left:-$grid-gutter-width * 2;
-        }
-        */
     }
 
     &.full-width td:first-child,
@@ -87,20 +75,24 @@ ul.listing{
 
     tbody{
         border-bottom:1px dashed $color-input-border;
-    }
-    tbody tr{
-        border-top:1px dashed $color-input-border;
-        &:first-child{
+        
+        
+        tr{
             border-top:1px dashed $color-input-border;
+            
+            &:first-child{
+                border-top:1px dashed $color-input-border;
+            }
         }
-
     }
+
     &.full-width tbody{
         border:0;
     }
     &.full-width tbody tr:hover{
         background-color:#FDFDFD;
     }
+
     &.chooser {
         tbody .title a{
             display:block;
@@ -140,21 +132,9 @@ ul.listing{
         font-size:1em;
     }
 
-    .divider{
-        text-transform:uppercase;
-        font-size:0.8em;
-        background-color:$color-grey-3;
-        td{
-
-           padding-top:0.5em;
-           padding-bottom:0.5em;
-        }
-    }
-
     &.full-width .divider td{
         padding-left:20px;
     }
-
 
     /* specific columns */
     .bulk{
@@ -179,9 +159,9 @@ ul.listing{
         h2{
             text-transform:none;
             margin:0;
-            font-size:1.1em;
-            font-weight:700;
-            color:$color-grey-2;
+            font-size:1.15em;
+            font-weight:600;
+            color:darken($color-grey-2, 10%);
             line-height:1.5em;
 
             a{
@@ -217,6 +197,7 @@ ul.listing{
         color:$color-teal;
         border-color:$color-grey-3;
         background:white;
+        font-size:0.84em; /* 0.01em difference to regular small buttons */
 
         &:hover{
             border-color:$color-teal;
@@ -233,27 +214,30 @@ ul.listing{
     .children,
     .no-children{
         padding:0 !important;
-        border-left:1px dashed $color-input-border;
+       
         &:hover{
             background-color:$color-grey-5;
         }
-    }
-    .children a,
-    .no-children a{
-        display:block;
-        padding:2em 0;
+
+        a{
+            display:block;
+            padding:2em 0;
+        }
     }
 
     .children a{
         color:$color-teal;
         display:block;
+        
         &:before{
             font-size:3rem;
         }
     }
+
     .no-children a{
         color:$color-grey-3;
         display:block;
+        
         &:before{
             font-size:1.5rem;
         }
@@ -261,6 +245,7 @@ ul.listing{
             color:$color-teal;
         }
     }
+
     &.small .children a:before{
         font-size:30px;
     }
@@ -293,7 +278,6 @@ ul.listing{
         border:1px dashed $color-input-border;
         border-width:1px 0;
 
-
         td{
             display:none;
 
@@ -317,14 +301,6 @@ ul.listing{
         }
     }
 
-    td.children:hover{
-        background-color:$color-teal;
-
-        a:before{
-            color:white;
-        }
-    }
-
     table .no-results-message{
         padding-left:20px;
     }
@@ -339,6 +315,7 @@ ul.listing{
         .title h2{
             font-size:1.2em;
             opacity:1;
+
             a{
                 @include transition(opacity 0.2s ease);
             }
@@ -399,7 +376,7 @@ table.listing{
             h2{
                 color:white;
                 font-size:1.8em;
-                font-weight:600;
+                font-weight:500;
 
                 a:hover{
                     color:white;
@@ -546,14 +523,26 @@ table.listing{
         }
         .no-children {
             border-color:transparent;
+            
+            a{
+                opacity:0;
+            }
         }
-        .no-children a{
-            opacity:0;
+        tr:hover .no-children a{
+            opacity:1;
         }
-        .no-children:hover{
-            border-color:$color-input-border;
-            a{opacity:1;}
+        tr:hover .children{
+            background-color:$color-teal;
+
+            a:before{
+                color:white;
+            }
         }
+
+        td.children:hover{
+            background-color:$color-teal-darker;
+        }
+
 
         table .no-results-message{
             padding-left:50px;
