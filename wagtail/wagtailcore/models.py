@@ -1057,7 +1057,7 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1121,7 +1121,7 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
