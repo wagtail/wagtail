@@ -7,7 +7,7 @@ from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, EventPageCarouselItem, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex
+from wagtail.tests.models import SimplePage, EventPage, EventPageCarouselItem, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex, TaggedPage
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
@@ -1410,3 +1410,36 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
+
+
+class TestIssue197(TestCase, WagtailTestUtils):
+    def test_issue_197(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Create a tagged page with no tags
+        self.tagged_page = self.root_page.add_child(instance=TaggedPage(
+            title="Tagged page",
+            slug='tagged-page',
+            live=False,
+        ))
+
+        # Login
+        self.user = self.login()
+
+        # Add some tags and publish using edit view
+        post_data = {
+            'title': "Tagged page",
+            'slug':'tagged-page',
+            'tags': "hello, world",
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.tagged_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that both tags are in the pages tag set
+        page = TaggedPage.objects.get(id=self.tagged_page.id)
+        self.assertIn('hello', page.tags.slugs())
+        self.assertIn('world', page.tags.slugs())
