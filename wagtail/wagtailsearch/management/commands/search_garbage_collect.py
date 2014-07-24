@@ -9,8 +9,3 @@ class Command(NoArgsCommand):
         self.stdout.write("Cleaning daily hits records... ")
         models.QueryDailyHits.garbage_collect()
         self.stdout.write("Done")
-
-        # Clean queries
-        self.stdout.write("Cleaning query records... ")
-        models.Query.garbage_collect()
-        self.stdout.write("Done")
