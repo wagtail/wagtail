@@ -10,6 +10,19 @@ Wagtail 0.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Multiple image uploader
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The image uploader UI has been improved to allow multiples to be uploaded quickly.
+
+
+RoutablePage
+~~~~~~~~~~~~
+
+A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
+
+:ref:`routable_page`
+
 
 Minor features
 ~~~~~~~~~~~~~~
@@ -28,10 +41,21 @@ Core
         )
 
  * The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
+ * A ``page_unpublished`` signal has been added.
+
+
+Admin
+-----
+
+ * Explorer nav now rendered separately and fetched with AJAX when needed.
+
+   This improves the general performance of the admin interface for large sites.
 
 
 Bug fixes
 ~~~~~~~~~
+
+ * Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
 
 
 Backwards incompatible changes

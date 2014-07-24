@@ -173,7 +173,7 @@ input[type=checkbox]:before{
     height:20px;
     background-color:white;
     border:1px solid $color-grey-4;
-    color:$color-grey-4;
+    color:white;
 }
 input[type=checkbox]:checked:before{
     color:$color-teal;
@@ -317,6 +317,7 @@ input[type=submit], input[type=reset], input[type=button], button{
     > li{
         @include row();
         position:relative;
+        overflow:hidden;
         background-color:white;
         padding:1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
         margin-bottom:1em;
@@ -727,6 +728,25 @@ ul.tagit li.tagit-choice-editable{
         display:none;
     }
 }
+
+/* file drop zones */
+.drop-zone{
+    @include border-radius(5px);
+    border:2px dashed $color-grey-4;
+    padding:$mobile-nice-padding;
+    background-color:$color-grey-5;
+    margin-bottom:1em;
+    text-align:center;
+
+    .drop-zone-help{
+        border:0;
+    }
+    &.hovered{
+        border-color:$color-teal;
+        background-color:$color-input-focus;
+    }
+}
+
 
 /* Transitions */
 fieldset, input, textarea, select{

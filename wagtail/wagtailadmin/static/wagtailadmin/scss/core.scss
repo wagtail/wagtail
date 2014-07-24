@@ -13,6 +13,7 @@
 @import "components/messages.scss";
 @import "components/formatters.scss";
 @import "components/header.scss";
+@import "components/progressbar.scss";
 @import "components/datetimepicker.scss";
 
 @import "fonts.scss";
@@ -103,7 +104,6 @@ body{
     }
 
     .nav-main{
-
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -165,6 +165,15 @@ body{
             }
             &:hover{
                 color:white;
+            }
+
+            /* only really used for spinners */
+            &:after{
+                font-size:1.5em;
+                margin:0;
+                position:absolute;
+                right:0.5em;
+                margin-top:0.15em;
             }
         }
 

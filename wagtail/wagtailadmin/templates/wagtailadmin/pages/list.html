@@ -28,7 +28,7 @@
         {% endif %}
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
-            <tr class="index {% if not parent_page.live %} inactive{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-choose{% endif %}{% endif %}">
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% if moving %}
                         <h2>
@@ -153,7 +153,7 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} inactive{% endif %}{% if moving and page.can_choose %} can-choose{% elif choosing and page.can_choose %} can-choose{% else %} cant-choose{% endif %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
                     {% if orderable %}
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}

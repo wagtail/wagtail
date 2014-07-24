@@ -98,7 +98,7 @@ function initTimeChooser(id) {
 function initDateTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
-            format: 'Y-m-d H:i',
+            format: 'Y-m-d H:i:s',
             scrollInput:false,
             i18n: {
                 lang: window.dateTimePickerTranslations
@@ -106,8 +106,8 @@ function initDateTimeChooser(id) {
             language: 'lang'
         });
     } else {
-    $('#' + id).datetimepicker({
-            format: 'Y-m-d H:i',
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i:s',
         });
     }
 }

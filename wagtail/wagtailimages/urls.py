@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from wagtail.wagtailimages.views import frontend
 
 
