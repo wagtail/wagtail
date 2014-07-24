@@ -313,7 +313,13 @@ def edit(request, page_id):
                     approved_go_live_at = go_live_at
                 else:
                     page.live = True
-                form.save()
+
+                # We need save the page this way to workaround a bug
+                # in django-modelcluster causing m2m fields to not
+                # be committed to the database. See github issue #192
+                form.save(commit=False)
+                page.save()
+
                 # Clear approved_go_live_at for older revisions
                 page.revisions.update(
                     submitted_for_moderation=False,
@@ -328,7 +334,9 @@ def edit(request, page_id):
                     Page.objects.filter(id=page.id).update(has_unpublished_changes=True)
                 else:
                     page.has_unpublished_changes = True
-                    form.save()
+                    form.save(commit=False)
+                    page.save()
+
 
             page.save_revision(
                 user=request.user,
