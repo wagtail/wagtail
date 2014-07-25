@@ -1,7 +1,14 @@
+import logging
+
+from six.moves.urllib.parse import urlparse
+
 import requests
 from requests.adapters import HTTPAdapter
 
 from django.conf import settings
+
+
+logger = logging.getLogger('wagtail.frontendcache')
 
 
 class CustomHTTPAdapter(HTTPAdapter):
@@ -25,16 +32,51 @@ class CustomHTTPAdapter(HTTPAdapter):
 
 
 def purge_url_from_cache(url):
-    # Get session
-    cache_server_url = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', 'http://127.0.0.1:8000/')
-    session = requests.Session()
-    session.mount('http://', CustomHTTPAdapter(cache_server_url))
+    logger.info("Purging url from cache: %s", url)
 
-    # Send purge request to cache
-    session.request('PURGE', url)
+    # Purge from regular cache (Varnish/Squid/etc)
+    cache_server_url = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', None)
+    if cache_server_url is not None:
+        # Get session
+        session = requests.Session()
+        session.mount('http://', CustomHTTPAdapter(cache_server_url))
+
+        # Send purge request to cache
+        session.request('PURGE', url)
+
+    # Purge from CloudFlare
+    cloudflare_email = getattr(settings, 'WAGTAILFRONTENDCACHE_CLOUDFLARE_EMAIL', None)
+    if cloudflare_email is not None:
+        # Get token
+        cloudflare_token = getattr(settings, 'WAGTAILFRONTENDCACHE_CLOUDFLARE_TOKEN', '')
+
+        # Post
+        try:
+            response = requests.post('https://www.cloudflare.com/api_json.html', {
+                'email': cloudflare_email,
+                'tkn': cloudflare_token,
+                'a': 'zone_file_purge',
+                'z': urlparse(url).netloc,
+                'url': url
+            })
+        except requests.ConnectionError:
+            logger.error("Couldn't purge '%s' from Cloudflare: Connection error", url)
+            return
+
+        # Check for error
+        if response.status_code != 200:
+            logger.error("Couldn't purge '%s' from Cloudflare: Didn't recieve a 200 response (instead, we got '%d %s')", url, response.status_code, response.reason)
+            return
+
+        response_json = response.json()
+        if response_json['result'] == 'error':
+            logger.error("Couldn't purge '%s' from Cloudflare: Cloudflare error '%s'", url, response_json['msg'])
+            return
 
 
 def purge_page_from_cache(page):
+    logger.info("Purging page from cache: %d (title: '%s')", page.id, page.title)
+
     # Purge cached paths from cache
     for path in page.specific.get_cached_paths():
         purge_url_from_cache(page.full_url + path[1:])
