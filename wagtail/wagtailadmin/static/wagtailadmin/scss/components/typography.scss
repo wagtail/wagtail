@@ -69,7 +69,6 @@ kbd{
 }
     .help-info, .help-warning, .help-critical{
         @include border-radius(3px);
-        border:1px solid $color-grey-4;
         padding-left:3.5em;
         position:relative;
 
@@ -83,7 +82,7 @@ kbd{
         }
     }
     .help-info{
-        border-color:$color-blue;
+        background-color:lighten($color-blue, 30%);
 
         &:before{
             color:$color-blue;
@@ -91,7 +90,7 @@ kbd{
     }
 
     .help-warning{
-        border-color:$color-orange;
+        background-color:lighten($color-orange, 30%);
 
         &:before{
             color:$color-orange;
@@ -100,7 +99,7 @@ kbd{
     }
 
     .help-critical{
-        border-color:$color-red;
+        background-color:lighten($color-red, 40%);
 
         &:before{
             color:$color-red;

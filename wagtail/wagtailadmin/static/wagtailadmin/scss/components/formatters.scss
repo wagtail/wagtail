@@ -121,8 +121,8 @@
     color:lighten($color-grey-2,30%);
     -webkit-font-smoothing: auto;
     font-size:0.80em;
-    margin:0 0.5em 0.5em;
-    background:white url(   "#{$static-root}bg-dark-diag.svg");
+    margin:0 0.5em;
+    background:white url("#{$static-root}bg-dark-diag.svg");
 
     &.primary{
         color:$color-grey-2;
@@ -214,4 +214,13 @@ img{
 /* utility class to allow things to be scrollable if their contents can't wrap more nicely */
 .overflow{
     overflow:auto;
+}
+
+.status-msg{
+    &.success{
+        color:$color-green;
+    }
+    &.failure{
+        color:$color-red;
+    }
 }

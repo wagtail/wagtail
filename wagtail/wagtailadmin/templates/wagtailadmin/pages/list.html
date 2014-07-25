@@ -23,12 +23,12 @@
                 {% endif %}
                 <th class="type">{% trans 'Type' %}</th>
                 <th class="status">{% trans 'Status' %}</th>
-                <th class="children"></th>
+                <th></th>
             </tr>
         {% endif %}
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
-            <tr class="index {% if not parent_page.live %} inactive{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-choose{% endif %}{% endif %}">
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% if moving %}
                         <h2>
@@ -145,7 +145,7 @@
                         {% trans 'Status' %}
                     {% endif %}
                 </th>
-                <th class="children"></th>
+                <th></th>
             </tr>
         {% endif %}
     </thead>
@@ -153,7 +153,7 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} inactive{% endif %}{% if moving and page.can_choose %} can-choose{% elif choosing and page.can_choose %} can-choose{% else %} cant-choose{% endif %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
                     {% if orderable %}
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
@@ -239,7 +239,7 @@
                                 {% endif %}
                             {% else %}
                                 {% if page.is_navigable %}
-                                    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.title %}Explorer child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
+                                    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.title %}Explore child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
                                 {% elif page_perms.can_add_subpage %}
                                     <a href="{% url 'wagtailadmin_pages_add_subpage' page.id %}" class="icon text-replace icon-plus-inverse" title="{% blocktrans with title=page.title %}Add a child page to '{{ title }}'{% endblocktrans %}">{% trans 'Add subpage' %}</a>
                                 {% endif %}

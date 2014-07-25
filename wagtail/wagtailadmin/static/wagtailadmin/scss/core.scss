@@ -13,6 +13,7 @@
 @import "components/messages.scss";
 @import "components/formatters.scss";
 @import "components/header.scss";
+@import "components/progressbar.scss";
 @import "components/datetimepicker.scss";
 
 @import "fonts.scss";
@@ -172,6 +173,7 @@ body{
                 margin:0;
                 position:absolute;
                 right:0.5em;
+                top:0.5em;
                 margin-top:0.15em;
             }
         }

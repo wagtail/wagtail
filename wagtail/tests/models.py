@@ -4,7 +4,10 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.conf.urls import url
 from django.http import HttpResponse
 
+from taggit.models import TaggedItemBase
+
 from modelcluster.fields import ParentalKey
+from modelcluster.tags import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -416,3 +419,11 @@ class RoutablePageTest(RoutablePage):
 
     def main(self, request):
         return HttpResponse("MAIN VIEW")
+
+
+class TaggedPageTag(TaggedItemBase):
+    content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items')
+
+
+class TaggedPage(Page):
+    tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)

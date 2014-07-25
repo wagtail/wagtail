@@ -101,6 +101,13 @@ $(function(){
         }
     });
 
+    /* Dropzones */
+    $('.drop-zone').on('dragover', function(){
+        $(this).addClass('hovered');
+    }).on('dragleave dragend drop', function(){
+        $(this).removeClass('hovered');
+    });
+
     /* Header search behaviour */
     if(window.headerSearch){
         var search_current_index = 0;
