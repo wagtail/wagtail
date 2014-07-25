@@ -47,17 +47,5 @@
             </table>
         </section>
     </div>
-    <div class="pagination">
-        {% if used_by.has_previous %}
-        <a href="?p={{ used_by.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span>
-          Page {{ used_by.number }} of {{ used_by.paginator.num_pages }}.
-        </span>
-
-        {% if used_by.has_next %}
-        <a href="?p={{ used_by.next_page_number }}">next</a>
-        {% endif %}
-    </div>
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=used_by linkurl="-" %}
 {% endblock %}

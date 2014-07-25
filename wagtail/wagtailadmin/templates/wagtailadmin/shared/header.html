@@ -20,7 +20,7 @@
             {% usage_count_enabled as uc_enabled %}
             {% if uc_enabled and usage_object %}
                 <div class="usagecount">
-                  <a href="{{ usage_object.usage_url }}">Used {{ usage_object.used_by.count }} Time{% if not usage_count == 1 %}s{% endif %}</a>
+                  <a href="{{ usage_object.usage_url }}">Used {{ usage_object.used_by.count }} Time{% if not usage_object.used_by.count == 1 %}s{% endif %}</a>
                 </div>
             {% endif %}
             {% if add_link %}
