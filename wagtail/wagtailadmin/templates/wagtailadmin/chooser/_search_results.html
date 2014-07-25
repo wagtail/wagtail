@@ -1,11 +1,19 @@
 {% load i18n %}
+
+{% if is_restricted %}
+    <p class="help-block help-warning">
+        {% blocktrans with type=page_type.get_verbose_name %}
+            Only pages of type "{{ type }}" may be chosen for this field. Search results will exclude pages of other types.
+        {% endblocktrans %}
+    </p>
+{% endif %}
+
 {% if not is_searching %}
     <h2>{% trans "Explorer" %}</h2>
     {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
-
 {% else %}
     <h2>
-        {% blocktrans count counter=pages.count %}
+        {% blocktrans count counter=pages|length %}
             There is one match
         {% plural %}
             There are {{ counter }} matches
@@ -13,8 +21,10 @@
     </h2>
 {% endif %}
 
-{% if is_searching %}
-    {% include "wagtailadmin/pages/list.html" with choosing=1 show_parent=1 pages=pages parent_page=parent_page %}
-{% else %}
-    {% include "wagtailadmin/pages/list.html" with choosing=1 allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
+{% if pages %}
+    {% if is_searching%}
+        {% include "wagtailadmin/pages/list.html" with choosing=1 show_parent=1 pages=pages parent_page=parent_page %}
+    {% else %}
+        {% include "wagtailadmin/pages/list.html" with choosing=1 allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
+    {% endif %}
 {% endif %}
