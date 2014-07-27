@@ -4,9 +4,9 @@ Building your models
 
 If you're not already familiar with Django models, we recommend that you read the Django models documentation first. LINK TO DJANGO DOCS
 
-Wagtail page types are Django models that inherit from the ``wagtail.wagtailcore.models.Page`` model.
+Wagtail page types are Django models that inherit from the ``wagtail.wagtailcore.models.Page`` model. Each page type also has a template which is rendered when the user visits a page of that type.
 
-In this tutorial we will use the Wagtail project template to create a simple website with a blog.
+In this tutorial, we will use the project that we created in the previous tutorial to create a simple website with a blog.
 
 .. contents:: Contents
     :local:
@@ -71,7 +71,7 @@ Lets add a blog to this project. We need to create two new page types, ``BlogInd
     from wagtail.wagtailcore.fields import RichTextField
 
 
-    class BlogIndexpage(Page):
+    class BlogIndexPage(Page):
         def get_context(self, request):
             # Add list of blog entries to template context
             context = super(BlogIndexPage, self).get_context(request)
@@ -94,7 +94,7 @@ After performing the migrations, go into the admin and click "Add subpage" on th
 Creating the templates
 ----------------------
 
-By default, templates in Wagtail are named after the model with camelcase converted to underscores. For the above page types, Wagtail will look for the templates ``core/blog_index_page.html`` and ``core/blog_entry_page.html`` respectively.
+By default, templates in Wagtail are named after the model with camelcase letters converted to underscores. For the above page types, Wagtail will look for the templates ``core/blog_index_page.html`` and ``core/blog_entry_page.html`` respectively.
 
 Create both of these templates by copying ``home_page.html`` and clearing out the contents block.
 
@@ -123,7 +123,25 @@ Tagging
 
 Wagtail supports ``django-taggit``
 
+
+Child objects
+=============
+
 TODO:
+
+ - What they are how they work, etc (mention modelcluster and what it does, mention page revisions)
+ - Creating a child object and linking it to a Page with a ParentalKey
+ - InlinePanel
+
+Many to Many relationships
+==========================
+
+TODO
+
+
+
+TODO
+====
 
  - Adding new models and fields
  - Mention that all page types are Django models and support all fields and features they do
