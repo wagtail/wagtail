@@ -10,5 +10,4 @@ Getting started
     pages
     templates
     media
-    child_objects
 
