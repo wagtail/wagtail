@@ -26,6 +26,17 @@ This command works the same way as ``django-admin.py startproject`` except that 
  - A 'core' app with a HomePage model
 
 
+.. topic:: The ``dj`` and ``djrun`` aliases
+
+    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun``.
+
+    ``dj`` is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
+
+    ``djrun`` is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
+
+    The rest of this tutorial will assume that you are using these aliases. If you are not using Vagrant, you should replace ``dj`` with ``python manage.py``.
+
+
 Getting it running
 ==================
 
