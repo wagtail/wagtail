@@ -3,6 +3,8 @@ import warnings
 from django.test import TestCase, Client
 from django.http import HttpRequest, Http404
 
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod
 
@@ -240,9 +242,9 @@ class TestServeView(TestCase):
         with warnings.catch_warnings(record=True) as w:
             response = self.client.get('/old-style-route/')
 
-            # Check that a DeprecationWarning has been triggered
+            # Check that a RemovedInWagtail06Warning has been triggered
             self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail06Warning))
             self.assertTrue("Page.route should return an instance of wagtailcore.url_routing.RouteResult" in str(w[-1].message))
 
         expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')

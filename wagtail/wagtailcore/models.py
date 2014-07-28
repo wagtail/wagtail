@@ -25,6 +25,8 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -151,7 +153,7 @@ def get_leaf_page_content_type_ids():
         get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
         setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
         this incorrect assumption.
-    """, DeprecationWarning)
+    """, RemovedInWagtail06Warning)
     return [
         content_type.id
         for content_type in get_page_types()
@@ -163,7 +165,7 @@ def get_navigable_page_content_type_ids():
         get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
         setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
         this incorrect assumption.
-    """, DeprecationWarning)
+    """, RemovedInWagtail06Warning)
     return [
         content_type.id
         for content_type in get_page_types()
@@ -476,7 +478,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     def get_other_siblings(self):
         warnings.warn(
             "The 'Page.get_other_siblings()' method has been replaced. "
-            "Use 'Page.get_siblings(inclusive=False)' instead.", DeprecationWarning)
+            "Use 'Page.get_siblings(inclusive=False)' instead.", RemovedInWagtail06Warning)
 
         # get sibling pages excluding self
         return self.get_siblings().exclude(id=self.id)
@@ -728,7 +730,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         modes = self.get_page_modes()
         if modes is not Page.DEFAULT_PREVIEW_MODES:
             # User has overriden get_page_modes instead of using preview_modes
-            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", DeprecationWarning)
+            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", RemovedInWagtail06Warning)
 
         return modes
 
