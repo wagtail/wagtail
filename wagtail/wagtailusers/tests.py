@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailusers.models import UserProfile
@@ -11,12 +11,12 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_index'), params)
+        return self.client.get(reverse('wagtailusers_users_index'), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/index.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/index.html')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -35,15 +35,15 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_create'), params)
+        return self.client.get(reverse('wagtailusers_users_create'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailusers_create'), post_data)
+        return self.client.post(reverse('wagtailusers_users_create'), post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/create.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/create.html')
 
     def test_create(self):
         response = self.post({
@@ -56,7 +56,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
 
         # Check that the user was created
         users = User.objects.filter(username='testuser')
@@ -73,15 +73,15 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, user_id=None):
-        return self.client.get(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), params)
- 
+        return self.client.get(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), params)
+
     def post(self, post_data={}, user_id=None):
-        return self.client.post(reverse('wagtailusers_edit', args=(user_id or self.test_user.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/edit.html')
+        self.assertTemplateUsed(response, 'wagtailusers/users/edit.html')
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(user_id=100000).status_code, 404)
@@ -97,7 +97,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
 
         # Check that the user was edited
         user = User.objects.get(id=self.test_user.id)
@@ -132,3 +132,99 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(UserProfile.get_for_user(self.test_user), UserProfile)
         # and get it from the db too
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 1)
+
+
+class TestGroupIndexView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailusers_groups_index'), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/groups/index.html')
+
+    def test_search(self):
+        response = self.get({'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_pagination(self):
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+
+
+class TestGroupCreateView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailusers_groups_create'), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse('wagtailusers_groups_create'), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/groups/create.html')
+
+    def test_create(self):
+        response = self.post({
+            'name': "test group",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+
+        # Check that the user was created
+        groups = Group.objects.filter(name='test group')
+        self.assertEqual(groups.count(), 1)
+
+
+class TestGroupEditView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a group to edit
+        self.test_group = Group.objects.create(name='test group')
+
+        # Login
+        self.login()
+
+    def get(self, params={}, group_id=None):
+        return self.client.get(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), params)
+
+    def post(self, post_data={}, group_id=None):
+        return self.client.post(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), post_data)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/groups/edit.html')
+
+    def test_nonexistant_redirect(self):
+        self.assertEqual(self.get(group_id=100000).status_code, 404)
+
+    def test_edit(self):
+        response = self.post({
+            'name': "test group edited",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+
+        # Check that the group was edited
+        group = Group.objects.get(id=self.test_group.id)
+        self.assertEqual(group.name, 'test group edited')
+
+    def test_edit_validation_error(self):
+        # Leave "name" field blank. This should give a validation error
+        response = self.post({
+            'name': "",
+        })
+
+        # Should not redirect to index
+        self.assertEqual(response.status_code, 200)
