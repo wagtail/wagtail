@@ -32,7 +32,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         the user was logged in successfully
         """
         # Create user to log in with
-        user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         post_data = {
@@ -71,7 +71,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        User.objects.create(username='unprivileged', password='123')
+        get_user_model().objects.create(username='unprivileged', password='123')
         self.client.login(username='unprivileged', password='123')
 
         # Get login page
