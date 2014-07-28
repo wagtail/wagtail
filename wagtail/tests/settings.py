@@ -102,6 +102,8 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+AUTH_USER_MODEL = 'tests.CustomUser'
+
 try:
     # Only add Elasticsearch backend if the elasticsearch-py library is installed
     import elasticsearch
