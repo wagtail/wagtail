@@ -68,7 +68,5 @@ class RoutablePage(Page):
         view, args, kwargs = self.resolve_subpage('/')
         return view(*args, **kwargs)
 
-    is_abstract = True
-
     class Meta:
         abstract = True

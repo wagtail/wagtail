@@ -116,7 +116,6 @@ class AbstractForm(Page):
     """A Form Page. Pages implementing a form should inhert from it"""
 
     form_builder = FormBuilder
-    is_abstract = True  # Don't display me in "Add"
 
     def __init__(self, *args, **kwargs):
         super(AbstractForm, self).__init__(*args, **kwargs)
@@ -186,7 +185,6 @@ class AbstractForm(Page):
 
 class AbstractEmailForm(AbstractForm):
     """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
-    is_abstract = True  # Don't display me in "Add"
 
     to_address = models.CharField(max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
     from_address = models.CharField(max_length=255, blank=True)
