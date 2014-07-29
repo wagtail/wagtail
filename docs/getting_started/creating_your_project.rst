@@ -90,7 +90,7 @@ The docs directory contains Sphinx configuration, a Makefile and some starter do
 
 Docs are written in ReStructuredText and built by Sphinx.
 
-To build the docs, make sure you have Sphinx installed, cd to the docs directory and run ``make haml``.
+To build the docs, make sure you have Sphinx installed, then cd to the docs directory and run ``make haml``.
 
 
 Django settings
@@ -153,17 +153,23 @@ You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
 
 .. topic:: The ``dj`` and ``djrun`` aliases
 
-    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun``.
+    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun`` which can be used in the ``vagrant ssh`` session.
 
-    ``dj`` is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
+    .. glossary::
 
-    ``djrun`` is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
+        ``dj``
+        
+            This is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
+
+        ``djrun``
+        
+            This is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
 
     The rest of this tutorial will assume that you are using these aliases. If you are not using Vagrant, you should replace ``dj`` with ``python manage.py``.
 
 
 With a virtual environment
-==========================
+--------------------------
 
 TODO
 

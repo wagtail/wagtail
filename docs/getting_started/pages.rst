@@ -6,7 +6,7 @@ If you're not already familiar with Django models, we recommend that you read th
 
 Wagtail page types are Django models that inherit from the ``wagtail.wagtailcore.models.Page`` model. Each page type also has a template which is rendered when the user visits a page of that type.
 
-In this tutorial, we will use the project that we created in the previous tutorial to create a simple website with a blog.
+In this tutorial, we will use the project that we created in :doc:`creating_your_project` to create a simple website with a blog.
 
 .. contents:: Contents
     :local:
@@ -113,9 +113,38 @@ For the blog index, we have overridden the ``get_context`` method to add a list 
     </ul>
 
 
-Using PageChooserPanel
+Creating menus
+==============
+
+Now that the site has multiple pages, lets create some menus to make it easier for the user to navigate.
+
+
+Main menu
+---------
+
+.. code-block:: django
+
+    <header>
+        {% with request.site.root_page as home_page %}
+            <ul class="menu">
+                <li><a href="{{ home_page.url }}">{{ home_page.title }}</a></li>
+                {% for menu_item in home_page.get_children.live.in_menu %}
+                    <li><a href="{{ menu_item.url }}">{{ menu_item }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
+    </header>
+
+
+Breadcrumb
+----------
+
+
+Linking pages together
 ======================
 
+ForeignKey to another page
+PageChooserPanel
 
 
 Tagging
