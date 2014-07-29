@@ -54,7 +54,7 @@ You can test that OpenCV can be seen by Wagtail by opening up a python shell (wi
 
     import cv
 
-If you don't see an ``ImportError``, it worked.
+If you don't see an ``ImportError``, it worked. (If you see the error ``libdc1394 error: Failed to initialize libdc1394``, this is harmless and can be ignored.)
 
 
 Switching on feature detection in Wagtail
