@@ -6,35 +6,117 @@ Creating your project
 The ``wagtail-project`` command
 ===============================
 
-The easiest way to start a new project with wagtail is to use the ``wagtail-project`` command.
+The easiest way to start a new project with wagtail is to use the ``wagtail-project`` command. This command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look into in the next section.
 
 
-Usage:
+To create a project, cd into a directory where you would like to create your project and run the following command:
 
  .. code-block:: bash
 
-    wagtail-project project_name
+    wagtail-project mysite
 
 
-This command works the same way as ``django-admin.py startproject`` except that the produced project has a few extras:
+The project
+===========
 
- - Pre-configured to use Wagtail
- - A requirements.txt file
- - Sphinx docs
- - Vagrant configuration
- - Separated development and production settings
- - A 'core' app with a HomePage model
+Lets look at what ``wagtail-project`` created::
+
+    mysite/
+        docs/
+            Makefile
+            conf.py
+            index.rst
+            deploy.rst
+            install.rst
+        mysite/
+            core/
+            mysite/
+                settings/
+                    base.py
+                    dev.py
+                    production.py
+            static/
+            templates/
+                base.html
+                404.html
+                500.html
+            manage.py
+        vagrant/
+            provision.sh
+        Vagrantfile
+        fabfile.py
+        readme.rst
+        requirements.txt
+        
+
+The "core" app
+----------------
+
+Location: ``/mysite/core/``
+
+This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first setup your app.
 
 
-.. topic:: The ``dj`` and ``djrun`` aliases
+Vagrant configuration
+---------------------
 
-    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun``.
+Location: ``/Vagrantfile``, ``/vagrant/``
 
-    ``dj`` is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
+If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL, Elasticsearch and Redis inside a virtual machine.
 
-    ``djrun`` is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
+See below section `With Vagrant`_ for info on how to use Vagrant in development
 
-    The rest of this tutorial will assume that you are using these aliases. If you are not using Vagrant, you should replace ``dj`` with ``python manage.py``.
+If you do not want to use Vagrant, you can just delete these files.
+
+
+The "docs" directory
+----------------------
+
+Location: ``/docs``
+
+The docs directory contains Sphinx configuration, a Makefile and some starter documentation.
+
+Docs are written in ReStructuredText and built by Sphinx.
+
+To build the docs, make sure you have Sphinx installed, cd to the docs directory and run ``make haml``.
+
+
+Django settings
+---------------
+
+Location: ``/mysite/mysite/settings/``
+
+The Django settings files are split up into ``base.py``, ``dev.py``, ``production.py`` and ``local.py``.
+
+.. glossary::
+
+    ``base.py``
+
+        This file is for global settings that will be used in both development and production. Aim to keep most of your configuration in this file.
+
+    ``dev.py``
+
+        This file is for settings that will only be used by developers. For example: ``DEBUG = True``
+
+    ``production.py``
+
+        This file is for settings that will only run on a production server. For example: ``DEBUG = False``
+
+        .. warning::
+
+            It's easy to forget to test for syntax errors in ``production.py`` before deploying it.
+
+            We recommend that you run ``from mysite.settings import production`` from a python shell each time you change these settings to make sure that there are no syntax errors.
+
+    ``local.py``
+
+        This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
+
+        Use this for storing secrets and API keys.
+
+        .. tip::
+
+            On production servers, only store secrets in local.py (such as API keys, passwords, etc). This can save you headaches in the future if you are ever trying to debug why a server is behaving the way it is. If you are using multiple servers which need different settings we recommend that you create a different ``production.py`` file for each one.
 
 
 Getting it running
@@ -60,13 +142,20 @@ To setup the Vagrant box, run the following commands
 
 If you now visit http://localhost:8111 you should see a very basic "Welcome to your new Wagtail site!" page.
 
-You can browse the Wagtail admin interface at http://localhost:8111/admin
-
+You can browse the Wagtail admin interface at: http://localhost:8111/admin
 
 You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
 
 
-Next, you will need to create some page types so you can start adding some content and styling your website: :doc:`pages`
+.. topic:: The ``dj`` and ``djrun`` aliases
+
+    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun``.
+
+    ``dj`` is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
+
+    ``djrun`` is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
+
+    The rest of this tutorial will assume that you are using these aliases. If you are not using Vagrant, you should replace ``dj`` with ``python manage.py``.
 
 
 With a virtual environment
