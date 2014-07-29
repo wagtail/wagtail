@@ -1,7 +1,7 @@
 Creating new pages
 ~~~~~~~~~~~~~~~~~~
 
-.. image:: ../../images/screen08_add_page_button.png
+.. image:: ../../_static/images/screen08_add_page_button.png
 
 Create new pages by clicking the Add child page. This creates a child page of the section you are currently in. In this case a child page of the Homepage.
 
