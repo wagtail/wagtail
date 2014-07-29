@@ -117,19 +117,17 @@ class AbstractImage(models.Model, TagSearchable):
 
         return focal_point
 
-    def get_rendition(self, filter, focal_point=None):
-        focal_point = focal_point or self.focal_point
-
+    def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
             # assume we've been passed a filter spec string, rather than a Filter object
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         try:
-            if focal_point:
+            if self.focal_point:
                 rendition = self.renditions.get(
                     filter=filter,
-                    focal_point_key=focal_point.get_key(),
+                    focal_point_key=self.focal_point.get_key(),
                 )
             else:
                 rendition = self.renditions.get(
@@ -142,12 +140,12 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image_file = filter.process_image(file_field.file, focal_point=focal_point, backend_name=backend_name)
+            generated_image_file = filter.process_image(file_field.file, focal_point=self.focal_point, backend_name=backend_name)
 
-            if focal_point:
+            if self.focal_point:
                 rendition, created = self.renditions.get_or_create(
                     filter=filter,
-                    focal_point_key=focal_point.get_key(),
+                    focal_point_key=self.focal_point.get_key(),
                     defaults={'file': generated_image_file}
                 )
             else:
