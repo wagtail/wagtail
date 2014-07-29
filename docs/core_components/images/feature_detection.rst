@@ -1,6 +1,6 @@
-=======================
-Image Feature Detection
-=======================
+=================
+Feature Detection
+=================
 
 Wagtail has the ability to automatically detect faces and features inside your images and automatically crop the images to those features.
 
