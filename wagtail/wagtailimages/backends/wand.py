@@ -31,3 +31,11 @@ class WandBackend(BaseImageBackend):
             left=crop_box[0], top=crop_box[1], right=crop_box[2], bottom=crop_box[3]
         )
         return new_image
+
+    def image_data_as_rgb(self, image):
+        # Only return image data if this image is not animated
+        if image.animation:
+            return
+
+        return 'RGB', image.make_blob('RGB')
+

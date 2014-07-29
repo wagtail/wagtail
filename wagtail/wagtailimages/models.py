@@ -78,10 +78,16 @@ class AbstractImage(models.Model, TagSearchable):
 
     @focal_point.setter
     def focal_point(self, focal_point):
-        self.focal_point_x = focal_point.x
-        self.focal_point_y = focal_point.y
-        self.focal_point_width = focal_point.width
-        self.focal_point_height = focal_point.height
+        if focal_point is not None:
+            self.focal_point_x = focal_point.x
+            self.focal_point_y = focal_point.y
+            self.focal_point_width = focal_point.width
+            self.focal_point_height = focal_point.height
+        else:
+            self.focal_point_x = None
+            self.focal_point_y = None
+            self.focal_point_width = None
+            self.focal_point_height = None
 
     def get_suggested_focal_point(self, backend_name='default'):
         backend = get_image_backend(backend_name)
@@ -93,10 +99,15 @@ class AbstractImage(models.Model, TagSearchable):
 
         # Load the image
         image = backend.open_image(self.file.file)
-        image_mode, image_data = backend.image_data_as_rgb(image)
+        image_data = backend.image_data_as_rgb(image)
+
+        # Make sure we have image data
+        # If the image is animated, image_data_as_rgb will return None
+        if image_data is None:
+            return
 
         # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_mode, image_data)
+        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
         focal_point = feature_detector.get_focal_point()
 
         # Add 20% extra room around the edge of the focal point
