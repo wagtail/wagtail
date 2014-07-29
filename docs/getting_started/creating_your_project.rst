@@ -2,12 +2,14 @@
 Creating your project
 =====================
 
+.. contents:: Contents
+    :local:
+
 
 The ``wagtail-project`` command
 ===============================
 
 The easiest way to start a new project with wagtail is to use the ``wagtail-project`` command. This command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look into in the next section.
-
 
 To create a project, cd into a directory where you would like to create your project and run the following command:
 
@@ -57,10 +59,20 @@ Location: ``/mysite/core/``
 This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first setup your app.
 
 
+Default templates and static files
+----------------------------------
+
+Location: ``/mysite/templates/`` and ``/mysite/static/``
+
+The templates directory contains ``base.html``, ``404.html`` and ``500.html``. These files are very commonly needed on Wagtail sites to they have been added into the template.
+
+The static directory contains an empty javascript and sass file. Wagtail uses ``django-compressor`` for compiling and compressing static files. For more information, see: `Django Compressor Documentation <http://django-compressor.readthedocs.org/en/latest/>`_
+
+
 Vagrant configuration
 ---------------------
 
-Location: ``/Vagrantfile``, ``/vagrant/``
+Location: ``/Vagrantfile`` and ``/vagrant/``
 
 If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL, Elasticsearch and Redis inside a virtual machine.
 
@@ -102,21 +114,13 @@ The Django settings files are split up into ``base.py``, ``dev.py``, ``productio
 
         This file is for settings that will only run on a production server. For example: ``DEBUG = False``
 
-        .. warning::
-
-            It's easy to forget to test for syntax errors in ``production.py`` before deploying it.
-
-            We recommend that you run ``from mysite.settings import production`` from a python shell each time you change these settings to make sure that there are no syntax errors.
-
     ``local.py``
 
         This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
 
-        Use this for storing secrets and API keys.
-
         .. tip::
 
-            On production servers, only store secrets in local.py (such as API keys, passwords, etc). This can save you headaches in the future if you are ever trying to debug why a server is behaving the way it is. If you are using multiple servers which need different settings we recommend that you create a different ``production.py`` file for each one.
+            On production servers, we recommend that you only store secrets in local.py (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
 
 
 Getting it running
