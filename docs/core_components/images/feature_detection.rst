@@ -1,3 +1,5 @@
+.. _image_feature_detection:
+
 =================
 Feature Detection
 =================
