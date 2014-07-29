@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
-from wagtail.wagtailimages.utils import validate_image_format
+from wagtail.wagtailimages.utils.validators import validate_image_format
 
 
 def json_response(document):
