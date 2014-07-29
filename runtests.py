@@ -3,7 +3,6 @@ import sys
 import os
 import shutil
 
-from django.conf import settings
 from django.core.management import execute_from_command_line
 
 from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT

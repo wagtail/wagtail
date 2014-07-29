@@ -9,4 +9,4 @@ The Save/Preview/Submit for moderation menu is always present at the bottom of t
 * **Publish/Unpublish:** Clicking either the *Publish* or *Unpublish* buttons will take you to a confirmation screen asking you to confirm that you wish to publish or unpublish this page. If a page is published it will be accessible from its specific URL and will also be displayed in site search results. (moderators and administrators only)
 * **Delete:** Clicking this button will take you to a confirmation screen asking you to confirm that you wish to delete the current page. Be sure that this is actually what you want to do, as deleted pages are not recoverable. In many situations simply unpublishing the page will be enough. (moderators and administrators only)
 
-.. image:: ../../images/screen13_publish_menu.png
+.. image:: ../../_static/images/screen13_publish_menu.png

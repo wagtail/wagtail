@@ -121,7 +121,7 @@
     color:lighten($color-grey-2,30%);
     -webkit-font-smoothing: auto;
     font-size:0.80em;
-    margin:0 0.5em 0.5em;
+    margin:0 0.5em;
     background:white url("#{$static-root}bg-dark-diag.svg");
 
     &.primary{
