@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 
@@ -31,7 +32,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         the user was logged in successfully
         """
         # Create user to log in with
-        user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         post_data = {
@@ -45,7 +46,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Check that the user was logged in
         self.assertTrue('_auth_user_id' in self.client.session)
-        self.assertEqual(self.client.session['_auth_user_id'], User.objects.get(username='test').id)
+        self.assertEqual(self.client.session['_auth_user_id'], get_user_model().objects.get(username='test').id)
 
     def test_already_logged_in_redirect(self):
         """
@@ -70,7 +71,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        User.objects.create(username='unprivileged', password='123')
+        get_user_model().objects.create(username='unprivileged', password='123')
         self.client.login(username='unprivileged', password='123')
 
         # Get login page
@@ -169,7 +170,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
-        self.assertTrue(User.objects.get(username='test').check_password('newpassword'))
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
 
     def test_change_password_view_post_password_mismatch(self):
         """
@@ -191,7 +192,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(User.objects.get(username='test').check_password('password'))
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))
 
     def test_notification_preferences_view(self):
         """
@@ -221,7 +222,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(User.objects.get(username='test'))
+        profile = UserProfile.get_for_user(get_user_model().objects.get(username='test'))
 
         # Check that the notification preferences are as submitted
         self.assertFalse(profile.submitted_notifications)
@@ -235,7 +236,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a non-moderator user
-        self.submitter = User.objects.create_user('submitter', 'submitter@example.com', 'password')
+        self.submitter = get_user_model().objects.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
         self.client.login(username=self.submitter.username, password='password')
@@ -260,7 +261,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         admin_only_group = Group.objects.create(name='Admin Only')
         admin_only_group.permissions.add(Permission.objects.get(codename='access_admin'))
 
-        self.admin_only_user = User.objects.create_user('admin_only_user', 'admin_only_user@example.com', 'password')
+        self.admin_only_user = get_user_model().objects.create_user('admin_only_user', 'admin_only_user@example.com', 'password')
         self.admin_only_user.groups.add(admin_only_group)
 
         self.client.login(username=self.admin_only_user.username, password='password')
@@ -291,7 +292,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a user
-        User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
     def test_password_reset_view(self):
         """
@@ -368,7 +369,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         from django.utils.http import urlsafe_base64_encode
 
         # Get user
-        self.user = User.objects.get(username='test')
+        self.user = get_user_model().objects.get(username='test')
 
         # Generate a password reset token
         self.password_reset_token = PasswordResetTokenGenerator().make_token(self.user)
@@ -410,7 +411,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('password_reset_complete'))
 
         # Check that the password was changed
-        self.assertTrue(User.objects.get(username='test').check_password('newpassword'))
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
 
     def test_password_reset_confirm_view_post_password_mismatch(self):
         """
@@ -434,7 +435,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(User.objects.get(username='test').check_password('password'))
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))
 
     def test_password_reset_done_view(self):
         """

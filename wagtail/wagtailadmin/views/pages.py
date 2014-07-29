@@ -12,6 +12,8 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import tasks, signals
@@ -437,7 +439,7 @@ def get_preview_response(page, preview_mode):
     if response:
         warnings.warn(
             "Defining 'show_as_mode' on a page model is deprecated. Use 'serve_preview' instead",
-            DeprecationWarning
+            RemovedInWagtail06Warning
         )
         return response
     else:
