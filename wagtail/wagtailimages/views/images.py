@@ -168,11 +168,13 @@ def generate_url(request, image_id, filter_spec):
     signature = generate_signature(image_id, filter_spec)
     url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
 
-    # Add default sites root URL to the beginning
-    site_root_url = Site.objects.get(is_default_site=True).root_url
-    url = site_root_url + url
+    # Get site root url
+    try:
+        site_root_url = Site.objects.get(is_default_site=True).root_url
+    except Site.DoesNotExist:
+        site_root_url = Site.objects.first().root_url
 
-    return json_response({'url': url}, status=200)
+    return json_response({'url': site_root_url + url, 'local_url': url}, status=200)
 
 
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view

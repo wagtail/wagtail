@@ -831,13 +831,19 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         # Check JSON
         content_json = json.loads(response.content.decode())
 
-        self.assertEqual(list(content_json.keys()), ['url'])
+        self.assertEqual(set(content_json.keys()), set(['url', 'local_url']))
 
         expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
             'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
             'image_id': self.image.id,
         }
         self.assertEqual(content_json['url'], expected_url)
+
+        expected_local_url = '/images/%(signature)s/%(image_id)d/fill-800x600/' % {
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
+            'image_id': self.image.id,
+        }
+        self.assertEqual(content_json['local_url'], expected_local_url)
 
     def test_get_bad_permissions(self):
         """
