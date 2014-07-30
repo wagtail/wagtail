@@ -13,7 +13,7 @@ What's new
 Multiple image uploader
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The image uploader UI has been improved to allow multiples to be uploaded quickly.
+The image uploader UI has been improved to allow multiple images to be uploaded at once.
 
 
 Image feature detection
@@ -23,6 +23,13 @@ Wagtail can now apply face and feature detection on images using `OpenCV <http:/
 
 :ref:`image_feature_detection`
 
+
+Using images outside Wagtail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In normal use, Wagtail will generate resized versions of images at the point that they are referenced on a template, which means that those images are not easily accessible for use outside of Wagtail, such as displaying them on external sites. Wagtail now provides a way to obtain URLs to your images, at any size.
+
+:ref:`using_images_outside_wagtail`
 
 RoutablePage
 ~~~~~~~~~~~~

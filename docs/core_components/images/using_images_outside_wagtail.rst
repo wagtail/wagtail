@@ -1,3 +1,5 @@
+.. _using_images_outside_wagtail:
+
 ============================
 Using images outside Wagtail
 ============================

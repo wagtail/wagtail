@@ -10,6 +10,7 @@ Changelog
  * Added decorator syntax for hooks
  * Replaced lxml dependency with html5lib, to simplify installation
  * Added page_unpublished signal
+ * Added mechanism to obtain external URLs to images, at any size
 
  * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
 
