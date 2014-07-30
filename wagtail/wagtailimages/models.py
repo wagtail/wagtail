@@ -300,9 +300,8 @@ class Filter(models.Model):
 
     def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
         """
-        Given an input image file as a django.core.files.File object,
-        generate an output image with this filter applied, returning it
-        as another django.core.files.File object
+        Run this filter on the given image file then write the result into output_file and return it
+        If output_file is not given, a new BytesIO will be used instead
         """
         # Get backend
         backend = get_image_backend(backend_name)
