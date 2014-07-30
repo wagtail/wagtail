@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import cache_page
 
 from wagtail.wagtailimages.models import get_image_model, Filter
-from wagtail.wagtailimages.utils import verify_signature
+from wagtail.wagtailimages.utils.crypto import verify_signature
 
 
 @cache_page(60 * 60 * 24 * 60) # Cache for 60 days
