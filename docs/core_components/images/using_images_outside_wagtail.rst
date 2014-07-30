@@ -8,7 +8,7 @@ Wagtail provides a way for you to generate external URLs for images in your imag
 Setup
 =====
 
-You just need to add an entry in your URLs configuration to ``wagtail.wagtailimages.urls``:
+Add an entry in your URLs configuration for ``wagtail.wagtailimages.urls``:
 
  .. code-block:: python
 
@@ -27,7 +27,7 @@ You just need to add an entry in your URLs configuration to ``wagtail.wagtailima
 Generating URLs for images
 ==========================
 
-Once the above setup is done, a button should appear under the image preview on the image edit page. Clicking this button will take you to an interface where you can specify the size you want the image to be and it will generate you a URL and a preview of what the image is going to look like.
+Once the above setup is done, a button should appear under the image preview on the image edit page. Clicking this button will take you to an interface where you can specify the size you want the image to be, and it will generate a URL and a preview of what the image is going to look like.
 
 The filter box lets you choose how you would like the image to be resized:
 
@@ -63,8 +63,6 @@ The filter box lets you choose how you would like the image to be resized:
 
         This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200. 
 
-        **The crop always aligns on the centre of the image.**
-
 
 Using the URLs on your website or blog
 ======================================
@@ -79,4 +77,4 @@ Once you have generated a URL, you can put it straight into the ``src`` attribut
 Performance
 ===========
 
-Currently, Wagtail will resize the image every time it is requested. For high volume sites, it is recommended to use a frontend cache to reduce load on the backend servers.
+Currently, Wagtail will regenerate the image every time it is requested. For high volume sites, it is recommended to use a frontend cache to reduce load on the backend servers.
