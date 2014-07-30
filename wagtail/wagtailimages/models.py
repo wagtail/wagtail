@@ -141,7 +141,7 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name)
+            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
 
             # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
             if self.focal_point is not None:
