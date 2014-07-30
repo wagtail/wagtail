@@ -33,3 +33,4 @@ def validate_image_format(f):
         # It is possible to upload PSD files if their extension is set to jpg, png or gif. This should catch them out
         if image.format.upper() != extension.upper():
             raise ValidationError(_("Not a valid %s image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png).") % (extension.upper()))
+

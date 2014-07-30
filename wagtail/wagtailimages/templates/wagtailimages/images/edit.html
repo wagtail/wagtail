@@ -33,10 +33,13 @@
                     <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-            
         </div>
         <div class="col5">
             {% image image max-800x600 %}
+
+            {% if url_generator_enabled %}
+                <a href="{% url 'wagtailimages_url_generator' image.id %}" class="button bicolor icon icon-link">URL Generator</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

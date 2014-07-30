@@ -15,6 +15,7 @@ from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from unidecode import unidecode
 
@@ -140,7 +141,21 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image_file = filter.process_image(file_field.file, focal_point=self.focal_point, backend_name=backend_name)
+            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
+
+            # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
+            if self.focal_point is not None:
+                focal_point_key = "focus-" + self.focal_point.get_key()
+            else:
+                focal_point_key = "focus-none"
+
+            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            filename_without_extension = '.'.join(input_filename_parts[:-1])
+            filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
+            output_filename_parts = [filename_without_extension, focal_point_key, filter.spec] + input_filename_parts[-1:]
+            output_filename = '.'.join(output_filename_parts)
+
+            generated_image_file = File(generated_image, name=output_filename)
 
             if self.focal_point:
                 rendition, created = self.renditions.get_or_create(
@@ -246,79 +261,72 @@ class Filter(models.Model):
         'original': 'no_operation',
     }
 
-    def __init__(self, *args, **kwargs):
-        super(Filter, self).__init__(*args, **kwargs)
-        self.method = None  # will be populated when needed, by parsing the spec string
+    class InvalidFilterSpecError(ValueError):
+        pass
 
     def _parse_spec_string(self):
-        # parse the spec string and save the results to
-        # self.method_name and self.method_arg. There are various possible
-        # formats to match against:
+        # parse the spec string and return the method name and method arg.
+        # There are various possible formats to match against:
         # 'original'
         # 'width-200'
         # 'max-320x200'
 
         if self.spec == 'original':
-            self.method_name = Filter.OPERATION_NAMES['original']
-            self.method_arg = None
-            return
+            return Filter.OPERATION_NAMES['original'], None
 
         match = re.match(r'(width|height)-(\d+)$', self.spec)
         if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
-            self.method_arg = int(match.group(2))
-            return
+            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
 
         match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
         if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
             width = int(match.group(2))
             height = int(match.group(3))
-            self.method_arg = (width, height)
-            return
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
 
         # Spec is not one of our recognised patterns
-        raise ValueError("Invalid image filter spec: %r" % self.spec)
+        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
 
-    def process_image(self, input_file, focal_point=None, backend_name='default'):
+    @cached_property
+    def _method(self):
+        return self._parse_spec_string()
+
+    def is_valid(self):
+        try:
+            self._parse_spec_string()
+            return True
+        except Filter.InvalidFilterSpecError:
+            return False
+
+    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
         """
-        Given an input image file as a django.core.files.File object,
-        generate an output image with this filter applied, returning it
-        as another django.core.files.File object
+        Run this filter on the given image file then write the result into output_file and return it
+        If output_file is not given, a new BytesIO will be used instead
         """
+        # Get backend
         backend = get_image_backend(backend_name)
 
-        if not self.method:
-            self._parse_spec_string()
+        # Parse spec string
+        method_name, method_arg = self._method
 
-        # If file is closed, open it
+        # Open image
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
 
-        method = getattr(backend, self.method_name)
+        # Process image
+        method = getattr(backend, method_name)
+        image = method(image, method_arg, focal_point=focal_point)
 
-        image = method(image, self.method_arg, focal_point=focal_point)
+        # Make sure we have an output file
+        if output_file is None:
+            output_file = BytesIO()
 
-        output = BytesIO()
-        backend.save_image(image, output, file_format)
+        # Write output
+        backend.save_image(image, output_file, file_format)
 
-        # and then close the input file
+        # Close the input file
         input_file.close()
-
-        # generate new filename derived from old one, inserting the filter spec and focal point string before the extension
-        if focal_point is not None:
-            focal_point_key = "focus-" + focal_point.get_key()
-        else:
-            focal_point_key = "focus-none"
-
-        input_filename_parts = os.path.basename(input_file.name).split('.')
-        filename_without_extension = '.'.join(input_filename_parts[:-1])
-        filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-        output_filename_parts = [filename_without_extension, focal_point_key, self.spec] + input_filename_parts[-1:]
-        output_filename = '.'.join(output_filename_parts)
-
-        output_file = File(output, name=output_filename)
 
         return output_file
 
@@ -365,3 +373,4 @@ class Rendition(AbstractRendition):
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+

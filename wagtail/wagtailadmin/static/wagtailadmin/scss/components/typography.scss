@@ -56,8 +56,10 @@ kbd{
 /* Help text formatters */
 
 .help-block{
+    float:left;
     padding:1em;
     margin:1em 0;
+    clear:both;
 
     p{
         margin-top:0;

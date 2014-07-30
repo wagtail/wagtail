@@ -1,7 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags %}
-{% load compress i18n %}
-{% load gravatar %}
+{% load wagtailadmin_tags compress i18n static gravatar %}
 
 {% block extra_css %}
     {% compress css %}
@@ -419,6 +417,13 @@
             <div class="status-tag primary">Primary tag</div>
 
             <div class="status-tag">Secondary tag</div>
+
+            <h3>Loading mask</h3>
+            <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
+            <p>Remove the "loading" class to disable the effect</p>
+            <div class="loading-mask loading" style="width:200px">
+                <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
+            </div>
         </section>
 
         <section id="icons">
