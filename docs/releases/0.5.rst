@@ -69,6 +69,29 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Urlconf entries for ``/admin/images/``, ``/admin/embeds/`` etc need to be removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you created a Wagtail project prior to the release of Wagtail 0.3, it is likely to contain the following entries in its ``urls.py``:
+
+  .. code-block:: python
+
+    # TODO: some way of getting wagtailimages to register itself within wagtailadmin so that we
+    # don't have to define it separately here
+    url(r'^admin/images/', include(wagtailimages_urls)),
+    url(r'^admin/embeds/', include(wagtailembeds_urls)),
+    url(r'^admin/documents/', include(wagtaildocs_admin_urls)),
+    url(r'^admin/snippets/', include(wagtailsnippets_urls)),
+    url(r'^admin/search/', include(wagtailsearch_admin_urls)),
+    url(r'^admin/users/', include(wagtailusers_urls)),
+    url(r'^admin/redirects/', include(wagtailredirects_urls)),
+
+
+These entries (and the corresponding ``from wagtail.wagtail* import ...`` lines) need to be removed from ``urls.py``. (The entry for ``/admin/`` should be left in, however.)
+
+Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in future. In particular, this release changes the definition of wagtail.wagtailimages.urls in a backwards-incompatible way - as a result, leaving the entry in place will cause image choosing to fail in some cases.
+
+
 New fields on Image and Rendition models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
