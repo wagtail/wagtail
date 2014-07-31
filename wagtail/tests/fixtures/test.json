@@ -564,6 +564,14 @@
 },
 {
     "pk": 1,
+    "model": "tests.AdvertPlacement",
+    "fields": {
+        "page": 2,
+        "advert": 1
+        }
+},
+{
+    "pk": 1,
     "model": "tests.advert",
     "fields": {
         "text": "test_advert",
@@ -578,17 +586,6 @@
         "created_at": "2014-01-01T12:00:00.000Z"
     }
 },
-{
-    "pk": 1,
-    "model": "wagtailimages.Image",
-    "fields": {
-        "title": "test image",
-        "created_at": "2014-01-01T12:00:00.000Z",
-        "width": 0,
-        "height": 0
-    }
-},
-
 {
     "pk": 1,
     "model": "wagtailcore.pageviewrestriction",

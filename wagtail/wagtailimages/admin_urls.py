@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^(\d+)/generate_url/$', images.url_generator, name='wagtailimages_url_generator'),
     url(r'^(\d+)/generate_url/(.*)/$', images.generate_url, name='wagtailimages_generate_url'),
     url(r'^add/$', images.add, name='wagtailimages_add_image'),
+    url(r'^usage/(\d+)/$', images.usage, name='wagtailimages_image_usage'),
 
     url(r'^multiple/add/$', multiple.add, name='wagtailimages_add_multiple'),
     url(r'^multiple/(\d+)/$', multiple.edit, name='wagtailimages_edit_multiple'),

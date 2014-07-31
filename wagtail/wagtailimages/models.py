@@ -16,6 +16,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
+from django.core.urlresolvers import reverse
 
 from unidecode import unidecode
 
@@ -25,6 +26,7 @@ from wagtail.wagtailsearch import indexed
 from wagtail.wagtailimages.utils.validators import validate_image_format
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailadmin.utils import get_object_usage
 
 
 @python_2_unicode_compatible
@@ -56,6 +58,14 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_y = models.PositiveIntegerField(null=True, editable=False)
     focal_point_width = models.PositiveIntegerField(null=True, editable=False)
     focal_point_height = models.PositiveIntegerField(null=True, editable=False)
+
+    def get_usage(self):
+        return get_object_usage(self)
+
+    @property
+    def usage_url(self):
+        return reverse('wagtailimages_image_usage',
+                       args=(self.id,))
 
     search_fields = TagSearchable.search_fields + (
         indexed.FilterField('uploaded_by_user'),

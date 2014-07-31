@@ -8,6 +8,7 @@ from django.utils import six
 from django.utils.http import urlquote
 from django.utils import timezone
 from django.test import TestCase
+from django.test.utils import override_settings
 from django import template
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -27,6 +28,8 @@ from wagtail.wagtailimages.backends.pillow import PillowBackend
 from wagtail.wagtailimages.utils.crop import crop_to_point, CropBox
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.crypto import generate_signature, verify_signature
+from wagtail.tests.models import EventPage, EventPageCarouselItem
+from wagtail.wagtailcore.models import Page
 
 
 def get_test_image_file():
@@ -482,6 +485,55 @@ class TestFormat(TestCase):
         register_image_format(self.format)
         result = get_image_format('test name')
         self.assertEqual(result, self.format)
+
+
+class TestUsageCount(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_image_usage_count(self):
+        self.assertEqual(self.image.get_usage().count(), 0)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_image_document_usage_count(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertEqual(self.image.get_usage().count(), 1)
+
+
+class TestGetUsage(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_image_get_usage_not_enabled(self):
+        self.assertEqual(list(self.image.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_image_get_usage(self):
+        self.assertEqual(list(self.image.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_image_document_get_usage(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
 
 
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):

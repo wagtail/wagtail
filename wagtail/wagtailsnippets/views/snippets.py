@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
@@ -182,7 +184,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'instance': instance,
-        'edit_handler': edit_handler,
+        'edit_handler': edit_handler
     })
 
 
@@ -212,4 +214,27 @@ def delete(request, content_type_app_name, content_type_model_name, id):
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'instance': instance,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, content_type_app_name, content_type_model_name, id):
+    content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
+    model = content_type.model_class()
+    instance = get_object_or_404(model, id=id)
+
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(instance.get_usage(), 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
+    return render(request, "wagtailsnippets/snippets/usage.html", {
+        'instance': instance,
+        'used_by': used_by
     })

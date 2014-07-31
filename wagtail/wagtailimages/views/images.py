@@ -38,7 +38,6 @@ def index(request):
         if form.is_valid():
             query_string = form.cleaned_data['q']
 
-            is_searching = True
             if not request.user.has_perm('wagtailimages.change_image'):
                 # restrict to the user's own images
                 images = Image.search(query_string, filters={'uploaded_by_user_id': request.user.id})
@@ -213,4 +212,25 @@ def add(request):
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, image_id):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(image.get_usage(), 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
+    return render(request, "wagtailimages/images/usage.html", {
+        'image': image,
+        'used_by': used_by
     })

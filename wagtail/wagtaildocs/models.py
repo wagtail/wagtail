@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailadmin.utils import get_object_usage
 from wagtail.wagtailsearch import indexed
 
 
@@ -46,6 +47,14 @@ class Document(models.Model, TagSearchable):
     @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
+
+    def get_usage(self):
+        return get_object_usage(self)
+
+    @property
+    def usage_url(self):
+        return reverse('wagtaildocs_document_usage',
+                       args=(self.id,))
 
     def is_editable_by_user(self, user):
         if user.has_perm('wagtaildocs.change_document'):

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django import template
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
@@ -121,3 +122,13 @@ def hook_output(hook_name):
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
     return ''.join(snippets)
+
+
+@register.assignment_tag
+def usage_count_enabled():
+    if hasattr(
+            settings, 'WAGTAIL_USAGE_COUNT_ENABLED'
+    ) and settings.WAGTAIL_USAGE_COUNT_ENABLED:
+        return True
+    else:
+        return False
