@@ -20,7 +20,7 @@
             {% usage_count_enabled as uc_enabled %}
             {% if uc_enabled and usage_object %}
                 <div class="usagecount">
-                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.used_by.count %}Used {{ useage_count  }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
+                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count  }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
                 </div>
             {% endif %}
             {% if add_link %}

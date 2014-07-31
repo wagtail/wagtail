@@ -23,7 +23,7 @@ from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
 from .utils import validate_image_format
-from wagtail.wagtailadmin.utils import used_by
+from wagtail.wagtailadmin.utils import get_object_usage
 
 
 @python_2_unicode_compatible
@@ -51,9 +51,8 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    @property
-    def used_by(self):
-        return used_by(self)
+    def get_usage(self):
+        return get_object_usage(self)
 
     @property
     def usage_url(self):

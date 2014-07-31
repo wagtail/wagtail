@@ -225,7 +225,7 @@ def usage(request, content_type_app_name, content_type_model_name, id):
 
     # Pagination
     p = request.GET.get('p', 1)
-    paginator = Paginator(instance.used_by(), 20)
+    paginator = Paginator(instance.get_usage(), 20)
 
     try:
         used_by = paginator.page(p)

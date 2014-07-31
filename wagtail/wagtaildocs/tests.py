@@ -329,7 +329,7 @@ class TestUsageCount(TestCase, WagtailTestUtils):
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_document_usage_count(self):
         doc = Document.objects.get(id=1)
-        self.assertEqual(doc.used_by.count(), 0)
+        self.assertEqual(doc.get_usage().count(), 0)
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_document_usage_count(self):
@@ -339,7 +339,7 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        self.assertEqual(doc.used_by.count(), 1)
+        self.assertEqual(doc.get_usage().count(), 1)
 
     def test_usage_count_does_not_appear(self):
         doc = Document.objects.get(id=1)
@@ -371,30 +371,30 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Used 0 times')
 
 
-class TestUsedBy(TestCase, WagtailTestUtils):
+class TestGetUsage(TestCase, WagtailTestUtils):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
     def setUp(self):
         self.login()
 
-    def test_document_used_by_not_enabled(self):
+    def test_document_get_usage_not_enabled(self):
         doc = Document.objects.get(id=1)
-        self.assertEqual(list(doc.used_by), [])
+        self.assertEqual(list(doc.get_usage()), [])
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_unused_document_used_by(self):
+    def test_unused_document_get_usage(self):
         doc = Document.objects.get(id=1)
-        self.assertEqual(list(doc.used_by), [])
+        self.assertEqual(list(doc.get_usage()), [])
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
-    def test_used_document_used_by(self):
+    def test_used_document_get_usage(self):
         doc = Document.objects.get(id=1)
         page = EventPage.objects.get(id=4)
         event_page_related_link = EventPageRelatedLink()
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        self.assertTrue(issubclass(Page, type(doc.used_by[0])))
+        self.assertTrue(issubclass(Page, type(doc.get_usage()[0])))
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_page(self):

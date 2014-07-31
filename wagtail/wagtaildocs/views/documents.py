@@ -148,7 +148,7 @@ def usage(request, document_id):
 
     # Pagination
     p = request.GET.get('p', 1)
-    paginator = Paginator(doc.used_by, 20)
+    paginator = Paginator(doc.get_usage(), 20)
 
     try:
         used_by = paginator.page(p)

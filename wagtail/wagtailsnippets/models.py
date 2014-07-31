@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
-from wagtail.wagtailadmin.utils import used_by
+from wagtail.wagtailadmin.utils import get_object_usage
 
 SNIPPET_MODELS = []
 
@@ -21,7 +21,7 @@ def get_snippet_content_types():
 
 def register_snippet(model):
     if model not in SNIPPET_MODELS:
-        model.used_by = used_by
+        model.get_usage = get_object_usage
         model.usage_url = get_snippet_usage_url
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)

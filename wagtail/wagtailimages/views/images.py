@@ -148,7 +148,7 @@ def usage(request, image_id):
 
     # Pagination
     p = request.GET.get('p', 1)
-    paginator = Paginator(image.used_by, 20)
+    paginator = Paginator(image.get_usage(), 20)
 
     try:
         used_by = paginator.page(p)

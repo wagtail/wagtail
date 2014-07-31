@@ -195,7 +195,7 @@ class TestUsageCount(TestCase):
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.used_by().count(), 1)
+        self.assertEqual(advert.get_usage().count(), 1)
 
 
 class TestUsedBy(TestCase):
@@ -204,4 +204,4 @@ class TestUsedBy(TestCase):
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_used_by(self):
         advert = Advert.objects.get(id=1)
-        self.assertEqual(type(advert.used_by()[0]), Page)
+        self.assertEqual(type(advert.get_usage()[0]), Page)
