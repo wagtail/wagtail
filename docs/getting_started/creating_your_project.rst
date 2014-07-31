@@ -6,22 +6,24 @@ Creating your project
     :local:
 
 
-The ``wagtail-project`` command
-===============================
+The ``wagtail start`` command
+=============================
 
-The easiest way to start a new project with wagtail is to use the ``wagtail-project`` command. This command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look into in the next section.
+The easiest way to start a new project with wagtail is to use the ``wagtail start`` command. This command is installed into your environment when you install Wagtail (see: :doc:`installation`).
+
+The command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look into in the next section.
 
 To create a project, cd into a directory where you would like to create your project and run the following command:
 
  .. code-block:: bash
 
-    wagtail-project mysite
+    wagtail start mysite
 
 
 The project
 ===========
 
-Lets look at what ``wagtail-project`` created::
+Lets look at what ``wagtail start`` created::
 
     mysite/
         docs/
