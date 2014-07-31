@@ -64,7 +64,12 @@ def main():
     (options, args) = parser.parse_args()
 
     # Find command
-    command = args[0]
+    try:
+        command = args[0]
+    except IndexError:
+        parser.print_help()
+        return
+
     if command in COMMANDS:
         COMMANDS[command](parser, options, args)
     else:
