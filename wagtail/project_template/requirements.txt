@@ -5,7 +5,7 @@ wagtail==0.5
 
 # Recommended components (require additional setup)
 # psycopg2==2.5.2
-elasticsearch==1.1.1
+# elasticsearch==1.1.1
 django-redis-cache==0.13.0
 django-celery==3.1.10
 

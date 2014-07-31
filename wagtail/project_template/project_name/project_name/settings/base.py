@@ -200,10 +200,11 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 WAGTAIL_SITE_NAME = "{{ project_name }}"
 
-# Use Elasticsearch as the search backend for extra performance and better search results
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-        'INDEX': '{{ project_name }}',
-    },
-}
+# Use Elasticsearch as the search backend for extra performance and better search results:
+# http://wagtail.readthedocs.org/en/latest/core_components/search/backends.html#elasticsearch-backend
+# WAGTAILSEARCH_BACKENDS = {
+#     'default': {
+#         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+#         'INDEX': '{{ project_name }}',
+#     },
+# }
