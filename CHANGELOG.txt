@@ -6,6 +6,7 @@ Changelog
  * Added multiple image uploader
  * Added support for face and feature detection on images using the OpenCV library
  * Added RoutablePage model to allow embedding Django-style URL routing within a page
+ * Added image/document/snippet usage stats
  * Explorer nav now rendered separately and fetched with AJAX when needed
  * Added decorator syntax for hooks
  * Replaced lxml dependency with html5lib, to simplify installation

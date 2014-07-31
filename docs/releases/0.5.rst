@@ -31,12 +31,21 @@ In normal use, Wagtail will generate resized versions of images at the point tha
 
 :ref:`using_images_outside_wagtail`
 
+
 RoutablePage
 ~~~~~~~~~~~~
 
 A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
 
 :ref:`routable_page`
+
+
+Usage stats for images, documents and snippets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's now easier to find where a particular image, document or snippet is being used on your site.
+
+Set the ``WAGTAIL_USAGE_COUNT_ENABLED`` setting to ``True`` and an icon will appear on the edit page showing you which pages they have been used on.
 
 
 Minor features
