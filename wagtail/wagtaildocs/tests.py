@@ -350,7 +350,7 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.save()
         response = self.client.get(reverse('wagtaildocs_edit_document',
                                            args=(1,)))
-        self.assertNotContains(response, 'Used 1 Time')
+        self.assertNotContains(response, 'Used 1 time')
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_count_appears(self):
@@ -362,13 +362,13 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.save()
         response = self.client.get(reverse('wagtaildocs_edit_document',
                                            args=(1,)))
-        self.assertContains(response, 'Used 1 Time')
+        self.assertContains(response, 'Used 1 time')
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_count_zero_appears(self):
         response = self.client.get(reverse('wagtaildocs_edit_document',
                                            args=(1,)))
-        self.assertContains(response, 'Used 0 Times')
+        self.assertContains(response, 'Used 0 times')
 
 
 class TestUsedBy(TestCase, WagtailTestUtils):
