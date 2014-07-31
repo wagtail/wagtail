@@ -37,7 +37,13 @@ def check_old_style_urlconf():
     # A faulty urls.py will place wagtail.wagtailimages.urls at the same path that
     # wagtail.wagtailimages.admin_urls is loaded to, resulting in the wagtailimages_serve path
     # being equal to wagtailimages_index followed by three arbitrary args
-    wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args = ['123', '456', '789'])
+    try:
+        wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args = ['123', '456', '789'])
+    except urlresolvers.NoReverseMatch:
+        # wagtailimages_serve is not defined at all, so there's no collision
+        OLD_STYLE_URLCONF_CHECK_PASSED = True
+        return
+
     wagtailimages_index_path = urlresolvers.reverse('wagtailimages_index')
     if wagtailimages_serve_path == wagtailimages_index_path + '123/456/789/':
         raise ImproperlyConfigured("""Your urls.py contains an entry for %s that needs to be removed.
