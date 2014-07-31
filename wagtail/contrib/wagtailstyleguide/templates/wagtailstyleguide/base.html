@@ -1,11 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags %}
-{% load compress i18n %}
-{% load gravatar %}
+{% load wagtailadmin_tags compress i18n static gravatar %}
 
 {% block extra_css %}
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/styleguide.scss" type="text/x-scss" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailstyleguide/scss/styleguide.scss" type="text/x-scss" />
     {% endcompress %}
 {% endblock %}
 
@@ -22,7 +20,9 @@
             <ul class="unlist">
                 <li><a href="#palette">Colour palette</a></li>
                 <li><a href="#typography">Typography</a></li>
+                <li><a href="#help">Help text</a></li>
                 <li><a href="#listings">Listings</a></li>
+                <li><a href="#pagination">Pagination</a></li>
                 <li><a href="#buttons">Buttons</a></li>
                 <li><a href="#dropdowns">Dropdown buttons</a></li>
                 <li><a href="#header">Header</a></li>
@@ -59,6 +59,7 @@
                 <li class="color-red">color-red</li>
                 <li class="color-orange">color-orange</li>
                 <li class="color-green">color-green</li>
+                <li class="color-blue">color-blue</li>
             </ul>
            
         </section>
@@ -88,6 +89,26 @@
 
         </section>
 
+        <section id="help">
+            <h2>Help text</h2>
+
+            <p>Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+
+            <div class="help-block help-info">
+                <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
+                <p>It could be multiple lines</p>
+            </div>
+
+            <p class="help-block help-warning">
+                A warning message might be output in cases where a user's action could have serious consequences
+            </p>
+
+            <div class="help-block help-critical">
+                A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
+            </div>
+
+        </section>
+
         <section id="listings">
             <h2>Listings</h2>
 
@@ -103,14 +124,21 @@
                 <tbody>
                     <tr>
                         <td class="title">
-                            <h2>TD with title class</h2>
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                    <tr class="unpublished">
+                        <td class="title">
+                            <h2><a href="">Unpublished TD with title class</a></h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
                     </tr>
                     <tr>
                         <td class="title">
-                            <h2>TD with title class</h2>
+                            <h2><a href="">TD with title class</a></h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
@@ -120,9 +148,41 @@
 
             <h3><code>ul</code> listing</h3>
             <ul class="listing">
-                <li>List item</li>
-                <li>List item</li>
-                <li>List item</li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+            </ul>   
+
+
+            <h3><code>ul</code> listings with multiple columns</h3>
+            <ul class="listing">
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6 title">
+                            <h2><a href="">Something here</a></h2>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
             </ul>
 
             <h3>Listings used for choosing a list item</h3>
@@ -135,22 +195,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="can-choose">
+                    <tr>
                         <td class="title">
                             <h2><a href="#">TD with title class</a></h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
                     </li>
-                    <tr class="can-choose">
+                    <tr class="disabled">
                         <td class="title">
-                            <h2>TD with title class</h2>
+                            <h2>Disabled TD with title class</h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </li>
+                    <tr >
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
                         </td>
                         <td>Regular listing TD</td>
                         <td>Regular listing TD</td>
                     </li>
                 </tbody>
             </table>
+        </section>
+
+        <section id="pagination">
+            <h2>Pagination</h2>
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=fake_pagination linkurl="wagtailadmin_explore" %}
         </section>
 
         <section id="buttons">
@@ -345,6 +417,13 @@
             <div class="status-tag primary">Primary tag</div>
 
             <div class="status-tag">Secondary tag</div>
+
+            <h3>Loading mask</h3>
+            <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
+            <p>Remove the "loading" class to disable the effect</p>
+            <div class="loading-mask loading" style="width:200px">
+                <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
+            </div>
         </section>
 
         <section id="icons">
@@ -416,6 +495,7 @@
                 <li class="icon icon-date">date</li>
                 <li class="icon icon-time">time</li>
                 <li class="icon icon-form">form</li>
+                <li class="icon icon-site">site</li>
             </ul>
 
         </section>

@@ -1,13 +1,15 @@
 from six import b
 
 from django.test import TestCase
-
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 
-from wagtail.wagtaildocs import models
 from wagtail.tests.utils import WagtailTestUtils
+
+from wagtail.wagtaildocs import models
+
 
 # TODO: Test serve view
 
@@ -15,6 +17,7 @@ from wagtail.tests.utils import WagtailTestUtils
 class TestDocumentPermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
+        User = get_user_model()
         self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
         self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
         self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')

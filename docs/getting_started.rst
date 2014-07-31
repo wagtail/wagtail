@@ -50,12 +50,4 @@ This command will setup a skeleton Wagtail project with the following features i
  - Docs directory (with Sphinx configuration)
  - Split up settings configuration (different settings for dev and production)
  - Requirements
-
-
-Where to look next
-==================
-
-.. toctree::
-   :maxdepth: 2
-
-   building_your_site/index
+   

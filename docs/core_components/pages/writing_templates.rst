@@ -181,6 +181,7 @@ The available resizing methods are:
 
         Leaves the image at its original size - no resizing is performed.
 
+
 .. Note::
     Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 

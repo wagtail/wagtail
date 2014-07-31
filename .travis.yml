@@ -14,7 +14,7 @@ services:
 # Package installation
 install:
   - python setup.py install
-  - pip install psycopg2 elasticsearch wand embedly
+  - pip install psycopg2 elasticsearch wand embedly mock python-dateutil
   - pip install coveralls
 # Pre-test configuration
 before_script:

@@ -3,7 +3,16 @@ Changelog
 
 0.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
+ * Added multiple image uploader
+ * Added support for face and feature detection on images using the OpenCV library
+ * Added RoutablePage model to allow embedding Django-style URL routing within a page
+ * Explorer nav now rendered separately and fetched with AJAX when needed
  * Added decorator syntax for hooks
+ * Replaced lxml dependency with html5lib, to simplify installation
+ * Added page_unpublished signal
+ * Added mechanism to obtain external URLs to images, at any size
+
+ * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
 
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~

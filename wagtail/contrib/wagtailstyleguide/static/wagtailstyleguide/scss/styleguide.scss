@@ -1,6 +1,6 @@
-@import "../variables.scss";
-@import "../mixins.scss";
-@import "../grid.scss";
+@import "wagtailadmin/scss/variables.scss";
+@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/grid.scss";
 
 section{
     border-top:1px solid $color-grey-3;
@@ -49,6 +49,9 @@ section{
     }
     .color-green{
         background-color:$color-green;
+    }
+    .color-blue{
+        background-color:$color-blue;
     }
     .color-grey-1{
         background-color:$color-grey-1;

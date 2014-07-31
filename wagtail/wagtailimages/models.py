@@ -8,20 +8,23 @@ from taggit.managers import TaggableManager
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import indexed
-from .utils import validate_image_format
+from wagtail.wagtailimages.utils.validators import validate_image_format
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
+from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
 
 
 @python_2_unicode_compatible
@@ -49,12 +52,71 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
+    focal_point_x = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_y = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_width = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_height = models.PositiveIntegerField(null=True, editable=False)
+
     search_fields = TagSearchable.search_fields + (
         indexed.FilterField('uploaded_by_user'),
     )
 
     def __str__(self):
         return self.title
+
+    @property
+    def focal_point(self):
+        if self.focal_point_x is not None and \
+           self.focal_point_y is not None and \
+           self.focal_point_width is not None and \
+           self.focal_point_height is not None:
+            return FocalPoint(
+                self.focal_point_x,
+                self.focal_point_y,
+                width=self.focal_point_width,
+                height=self.focal_point_height,
+            )
+
+    @focal_point.setter
+    def focal_point(self, focal_point):
+        if focal_point is not None:
+            self.focal_point_x = focal_point.x
+            self.focal_point_y = focal_point.y
+            self.focal_point_width = focal_point.width
+            self.focal_point_height = focal_point.height
+        else:
+            self.focal_point_x = None
+            self.focal_point_y = None
+            self.focal_point_width = None
+            self.focal_point_height = None
+
+    def get_suggested_focal_point(self, backend_name='default'):
+        backend = get_image_backend(backend_name)
+        image_file = self.file.file
+
+        # Make sure image is open and seeked to the beginning
+        image_file.open('rb')
+        image_file.seek(0)
+
+        # Load the image
+        image = backend.open_image(self.file.file)
+        image_data = backend.image_data_as_rgb(image)
+
+        # Make sure we have image data
+        # If the image is animated, image_data_as_rgb will return None
+        if image_data is None:
+            return
+
+        # Use feature detection to find a focal point
+        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
+        focal_point = feature_detector.get_focal_point()
+
+        # Add 20% extra room around the edge of the focal point
+        if focal_point:
+            focal_point.width *= 1.20
+            focal_point.height *= 1.20
+
+        return focal_point
 
     def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
@@ -63,17 +125,50 @@ class AbstractImage(models.Model, TagSearchable):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         try:
-            rendition = self.renditions.get(filter=filter)
+            if self.focal_point:
+                rendition = self.renditions.get(
+                    filter=filter,
+                    focal_point_key=self.focal_point.get_key(),
+                )
+            else:
+                rendition = self.renditions.get(
+                    filter=filter,
+                    focal_point_key=None,
+                )
         except ObjectDoesNotExist:
             file_field = self.file
 
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image_file = filter.process_image(file_field.file, backend_name=backend_name)
+            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
 
-            rendition, created = self.renditions.get_or_create(
-                filter=filter, defaults={'file': generated_image_file})
+            # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
+            if self.focal_point is not None:
+                focal_point_key = "focus-" + self.focal_point.get_key()
+            else:
+                focal_point_key = "focus-none"
+
+            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            filename_without_extension = '.'.join(input_filename_parts[:-1])
+            filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
+            output_filename_parts = [filename_without_extension, focal_point_key, filter.spec] + input_filename_parts[-1:]
+            output_filename = '.'.join(output_filename_parts)
+
+            generated_image_file = File(generated_image, name=output_filename)
+
+            if self.focal_point:
+                rendition, created = self.renditions.get_or_create(
+                    filter=filter,
+                    focal_point_key=self.focal_point.get_key(),
+                    defaults={'file': generated_image_file}
+                )
+            else:
+                rendition, created = self.renditions.get_or_create(
+                    filter=filter,
+                    focal_point_key=None,
+                    defaults={'file': generated_image_file}
+                )
 
         return rendition
 
@@ -110,6 +205,19 @@ class AbstractImage(models.Model, TagSearchable):
 
 class Image(AbstractImage):
     pass
+
+
+# Do smartcropping calculations when user saves an image without a focal point
+@receiver(pre_save, sender=Image)
+def image_feature_detection(sender, instance, **kwargs):
+    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
+        if not opencv_available:
+            raise ImproperlyConfigured("pyOpenCV could not be found.")
+
+        # Make sure the image doesn't already have a focal point
+        if instance.focal_point is None:
+            # Set the focal point
+            instance.focal_point = instance.get_suggested_focal_point()
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
@@ -153,74 +261,72 @@ class Filter(models.Model):
         'original': 'no_operation',
     }
 
-    def __init__(self, *args, **kwargs):
-        super(Filter, self).__init__(*args, **kwargs)
-        self.method = None  # will be populated when needed, by parsing the spec string
+    class InvalidFilterSpecError(ValueError):
+        pass
 
     def _parse_spec_string(self):
-        # parse the spec string and save the results to
-        # self.method_name and self.method_arg. There are various possible
-        # formats to match against:
+        # parse the spec string and return the method name and method arg.
+        # There are various possible formats to match against:
         # 'original'
         # 'width-200'
         # 'max-320x200'
 
         if self.spec == 'original':
-            self.method_name = Filter.OPERATION_NAMES['original']
-            self.method_arg = None
-            return
+            return Filter.OPERATION_NAMES['original'], None
 
         match = re.match(r'(width|height)-(\d+)$', self.spec)
         if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
-            self.method_arg = int(match.group(2))
-            return
+            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
 
         match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
         if match:
-            self.method_name = Filter.OPERATION_NAMES[match.group(1)]
             width = int(match.group(2))
             height = int(match.group(3))
-            self.method_arg = (width, height)
-            return
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
 
         # Spec is not one of our recognised patterns
-        raise ValueError("Invalid image filter spec: %r" % self.spec)
+        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
 
-    def process_image(self, input_file, backend_name='default'):
+    @cached_property
+    def _method(self):
+        return self._parse_spec_string()
+
+    def is_valid(self):
+        try:
+            self._parse_spec_string()
+            return True
+        except Filter.InvalidFilterSpecError:
+            return False
+
+    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
         """
-        Given an input image file as a django.core.files.File object,
-        generate an output image with this filter applied, returning it
-        as another django.core.files.File object
+        Run this filter on the given image file then write the result into output_file and return it
+        If output_file is not given, a new BytesIO will be used instead
         """
+        # Get backend
         backend = get_image_backend(backend_name)
 
-        if not self.method:
-            self._parse_spec_string()
+        # Parse spec string
+        method_name, method_arg = self._method
 
-        # If file is closed, open it
+        # Open image
         input_file.open('rb')
         image = backend.open_image(input_file)
         file_format = image.format
 
-        method = getattr(backend, self.method_name)
+        # Process image
+        method = getattr(backend, method_name)
+        image = method(image, method_arg, focal_point=focal_point)
 
-        image = method(image, self.method_arg)
+        # Make sure we have an output file
+        if output_file is None:
+            output_file = BytesIO()
 
-        output = BytesIO()
-        backend.save_image(image, output, file_format)
+        # Write output
+        backend.save_image(image, output_file, file_format)
 
-        # and then close the input file
+        # Close the input file
         input_file.close()
-
-        # generate new filename derived from old one, inserting the filter spec string before the extension
-        input_filename_parts = os.path.basename(input_file.name).split('.')
-        filename_without_extension = '.'.join(input_filename_parts[:-1])
-        filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-        output_filename_parts = [filename_without_extension, self.spec] + input_filename_parts[-1:]
-        output_filename = '.'.join(output_filename_parts)
-
-        output_file = File(output, name=output_filename)
 
         return output_file
 
@@ -230,6 +336,7 @@ class AbstractRendition(models.Model):
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
+    focal_point_key = models.CharField(max_length=255, null=True, editable=False)
 
     @property
     def url(self):
@@ -257,7 +364,7 @@ class Rendition(AbstractRendition):
 
     class Meta:
         unique_together = (
-            ('image', 'filter'),
+            ('image', 'filter', 'focal_point_key'),
         )
 
 
@@ -266,3 +373,4 @@ class Rendition(AbstractRendition):
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+

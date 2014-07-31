@@ -7,13 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
-from wagtail.wagtailimages import urls
+from wagtail.wagtailimages import admin_urls
 
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^images/', include(urls)),
+        url(r'^images/', include(admin_urls)),
     ]
 
 
