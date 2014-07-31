@@ -27,18 +27,18 @@ This will give you the latest development version of Wagtail.
     pip install -e git://github.com/torchbox/wagtail.git#egg=wagtail
 
 
-The ``wagtail-project`` command
-===============================
+The ``wagtail`` command
+=======================
 
 .. versionadded:: 0.5
 
-Once you have Wagtail installed on your host machine, you can use the ``wagtail-project`` command.
+Once you have Wagtail installed on your host machine, you can use the ``wagtail`` command.
 
 Usage:
 
 .. code-block:: bash
 
-    wagtail-project <project name>
+    wagtail start <project name>
 
 
 This command will setup a skeleton Wagtail project with the following features installed:
