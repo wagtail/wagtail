@@ -96,7 +96,7 @@ If you created a Wagtail project prior to the release of Wagtail 0.3, it is like
 
 These entries (and the corresponding ``from wagtail.wagtail* import ...`` lines) need to be removed from ``urls.py``. (The entry for ``/admin/`` should be left in, however.)
 
-Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in future. In particular, this release changes the definition of wagtail.wagtailimages.urls in a backwards-incompatible way - as a result, leaving the entry in place will cause image choosing to fail in some cases.
+Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in future. Leaving these entries in place will now cause an ``ImproperlyConfigured`` exception to be thrown.
 
 
 New fields on Image and Rendition models
