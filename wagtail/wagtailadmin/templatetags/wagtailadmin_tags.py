@@ -126,9 +126,4 @@ def hook_output(hook_name):
 
 @register.assignment_tag
 def usage_count_enabled():
-    if hasattr(
-            settings, 'WAGTAIL_USAGE_COUNT_ENABLED'
-    ) and settings.WAGTAIL_USAGE_COUNT_ENABLED:
-        return True
-    else:
-        return False
+    return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
