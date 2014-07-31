@@ -1,4 +1,4 @@
-Getting Started
+Trying the demo
 ---------------
 
 On Ubuntu
@@ -17,7 +17,6 @@ to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh
 <https://github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh>`_.
 
-Once you've experimented with the demo app and are ready to build your pages via your own app you can `remove the demo app`_ if you choose.
 
 On Debian
 ~~~~~~~~~
@@ -35,7 +34,6 @@ to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh
 <https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`_.
 
-Once you've experimented with the demo app and are ready to build your pages via your own app you can `remove the demo app`_ if you choose.
 
 On OS X
 ~~~~~~~
@@ -52,6 +50,7 @@ Edit ``wagtaildemo/settings/base.py``, changing ENGINE to django.db.backends.sql
     ./manage.py syncdb
     ./manage.py migrate
     ./manage.py runserver
+
 
 Using Vagrant
 ~~~~~~~~~~~~~
@@ -80,6 +79,7 @@ Wagtail instance available as the basis for your new site:
    is located on the host machine, exported to the VM as a shared folder; code
    editing and Git operations will generally be done on the host.
 
+
 Using Docker
 ~~~~~~~~~~~~
 
@@ -92,11 +92,13 @@ interface at http://your-ip:8000/admin using admin / test.
 
 See https://index.docker.io/u/oyvindsk/wagtail-demo/ for more details.
 
+
 Other platforms
 ~~~~~~~~~~~~~~~
 
 If you're not using Ubuntu or Debian, or if you prefer to install Wagtail manually,
 use the following steps:
+
 
 Required dependencies
 =====================
@@ -107,12 +109,14 @@ Required dependencies
 -  `libxslt <http://xmlsoft.org/XSLT/>`_
 -  `zlib <http://www.zlib.net/>`_
 
+
 Optional dependencies
 =====================
 
 -  `PostgreSQL`_
 -  `Elasticsearch`_
 -  `Redis`_
+
 
 Installation
 ============
@@ -130,6 +134,7 @@ run the following commands::
     ./manage.py migrate
     ./manage.py runserver
 
+
 SQLite support
 ==============
 
@@ -144,26 +149,8 @@ with a regular Django project.
 .. _Elasticsearch: http://www.elasticsearch.org
 .. _Redis: http://redis.io/
 
-_`Remove the demo app`
-~~~~~~~~~~~~~~~~~~~~~~
 
-Once you've experimented with the demo app and are ready to build your pages via your own app you can remove the demo app if you choose.
+Creating your own site
+======================
 
-``PROJECT_ROOT`` should be where your project is located (e.g. /usr/local/django) and ``PROJECT`` is the name of your project (e.g. mywagtail)::
-
-    export PROJECT_ROOT=/usr/local/django
-    export PROJECT=mywagtail
-    cd $PROJECT_ROOT/$PROJECT
-    ./manage.py sqlclear demo | psql -Upostgres $PROJECT -f -
-    psql -Upostgres $PROJECT << EOF
-    BEGIN;
-    DELETE FROM wagtailcore_site WHERE root_page_id IN (SELECT id FROM wagtailcore_page WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo'));
-    DELETE FROM wagtailcore_page WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo');
-    DELETE FROM auth_permission WHERE content_type_id IN (SELECT id FROM django_content_type where app_label='demo');
-    DELETE FROM django_content_type WHERE app_label='demo';
-    DELETE FROM wagtailimages_rendition;
-    DELETE FROM wagtailimages_image;
-    COMMIT;
-    EOF
-    rm -r demo media/images/* media/original_images/*
-    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settings/base.py
+Once you've experimented with the demo app and are ready to build your pages via your own app take a look at the :ref:`getting_started` documentation.

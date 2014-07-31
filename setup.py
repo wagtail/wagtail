@@ -74,5 +74,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
+    entry_points="""
+            [console_scripts]
+            wagtail=wagtail.bin.wagtail:main
+    """,
     zip_safe=False,
 )
