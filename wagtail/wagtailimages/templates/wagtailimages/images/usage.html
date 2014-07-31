@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=document.title %}{{ title }} Usage{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans with title=image.title %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title="Usage" %}
+    {% trans "Usage of" as usage_str %}
+    {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=image.title %}
 
     <div class="nice-padding">
         <section>
