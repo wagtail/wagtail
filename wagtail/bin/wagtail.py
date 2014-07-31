@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import print_function
+
 import os
 import subprocess
 import errno
@@ -28,11 +30,11 @@ def create_project(parser, options, args):
 
     # Make sure directory does not already exist
     if os.path.exists(project_name):
-        print 'A directory called %(project_name)s already exists. \
-            Please choose another name for your wagtail project or remove the existing directory.' % {'project_name': project_name}
+        print('A directory called %(project_name)s already exists. \
+            Please choose another name for your wagtail project or remove the existing directory.' % {'project_name': project_name})
         sys.exit(errno.EEXIST)
 
-    print "Creating a wagtail project called %(project_name)s" % {'project_name': project_name}
+    print("Creating a wagtail project called %(project_name)s" % {'project_name': project_name})
 
     # Create the project from the wagtail template using startapp
 
@@ -49,7 +51,7 @@ def create_project(parser, options, args):
         project_name
     ])
 
-    print "Success! %(project_name)s is created" % {'project_name': project_name}
+    print("Success! %(project_name)s is created" % {'project_name': project_name})
 
 
 COMMANDS = {
