@@ -7,3 +7,4 @@
 /.vagrant/
 Vagrantfile.local
 /docs/_build/
+/db.sqlite3
