@@ -76,7 +76,7 @@ setup(
     install_requires=install_requires,
     entry_points="""
             [console_scripts]
-            wagtail-project=wagtail.bin.wagtail_project:create_project
+            wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
 )

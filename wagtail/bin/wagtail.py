@@ -7,15 +7,14 @@ import sys
 from optparse import OptionParser
 
 
-def create_project():
-    # Collect and analyse the name given for the wagtail project
-    parser = OptionParser(usage="Usage: %prog project_name")
-    (options, args) = parser.parse_args()
-
-    if len(args) != 1:
+def create_project(parser, options, args):
+    # Validate args
+    if len(args) < 2:
         parser.error("Please specify a name for your wagtail installation")
+    elif len(args) > 2:
+        parser.error("Too many arguments")
 
-    project_name = args[0]
+    project_name = args[1]
 
     # Make sure given name is not already in use by another python package/module.
     try:
@@ -53,5 +52,21 @@ def create_project():
     print "Success! %(project_name)s is created" % {'project_name': project_name}
 
 
+COMMANDS = {
+    'start': create_project,
+}
+
+def main():
+    # Parse options
+    parser = OptionParser(usage="Usage: %prog start project_name")
+    (options, args) = parser.parse_args()
+
+    # Find command
+    command = args[0]
+    if command in COMMANDS:
+        COMMANDS[command](parser, options, args)
+    else:
+        parser.error("Unrecognised command: " + command)
+
 if __name__ == "__main__":
-    create_project()
+    main()
