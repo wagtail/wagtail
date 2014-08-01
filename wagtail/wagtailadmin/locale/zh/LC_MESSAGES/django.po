@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
-"zh/)\n"
-"Language: zh\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: edit_handlers.py:627
@@ -32,11 +31,11 @@ msgstr "搜索词"
 
 #: forms.py:43
 msgid "Enter your username"
-msgstr "请输入用户名"
+msgstr ""
 
 #: forms.py:46
 msgid "Enter password"
-msgstr "请输入密码"
+msgstr ""
 
 #: forms.py:51
 msgid "Enter your email address to reset your password"
@@ -57,18 +56,16 @@ msgid "This email address is not recognised."
 msgstr "没有找到这个电子邮件地址。"
 
 #: forms.py:88
-#, fuzzy
 msgid "New title"
-msgstr "移动 %(title)s"
+msgstr ""
 
 #: forms.py:89
 msgid "New slug"
 msgstr ""
 
 #: forms.py:95
-#, fuzzy
 msgid "Copy subpages"
-msgstr "添加子页面"
+msgstr ""
 
 #: forms.py:97
 #, python-format
@@ -85,9 +82,8 @@ msgid "This page is live. Would you like to publish its copy as well?"
 msgstr ""
 
 #: forms.py:109
-#, fuzzy
 msgid "Publish copies"
-msgstr "发布"
+msgstr ""
 
 #: forms.py:111
 #, python-format
@@ -105,18 +101,16 @@ msgstr "这个唯一的地址已被占用"
 
 #: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
-#, fuzzy
 msgid "Public"
-msgstr "发布"
+msgstr ""
 
 #: forms.py:131
 msgid "Private, accessible with the following password"
 msgstr ""
 
 #: forms.py:139
-#, fuzzy
 msgid "This field is required."
-msgstr "没有找到这个电子邮件地址。"
+msgstr ""
 
 #: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
 msgid "Dashboard"
@@ -151,7 +145,7 @@ msgstr "登录Wagtail"
 
 #: templates/wagtailadmin/login.html:46
 msgid "Forgotten it?"
-msgstr "忘记密码？"
+msgstr "忘记了？"
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
@@ -167,9 +161,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"您的头像图片是由Gravatar提供的，并且关联了您的电子邮箱。一个Gravatar账号可以"
-"设置多个电子邮箱的头像图片。"
+msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号可以设置多个电子邮件地址的头像图片。"
 
 #: templates/wagtailadmin/account/account.html:25
 #: templates/wagtailadmin/account/change_password.html:4
@@ -179,7 +171,7 @@ msgstr "修改密码"
 
 #: templates/wagtailadmin/account/account.html:29
 msgid "Change the password you use to log in."
-msgstr "修改登录密码。"
+msgstr "修改您用于登录的密码。"
 
 #: templates/wagtailadmin/account/account.html:36
 msgid "Notification preferences"
@@ -529,9 +521,8 @@ msgid "This page has been made private by a parent page."
 msgstr ""
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
-#, fuzzy
 msgid "You can edit the privacy settings on:"
-msgstr "你可以在此编辑这个页面："
+msgstr ""
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
 msgid "<b>Note:</b> privacy changes apply to all children of this page too."
@@ -541,13 +532,9 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"            Previewing '%(title)s', submitted by %(submitted_by)s on "
-"%(submitted_on)s.\n"
+"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
 "        "
-msgstr ""
-"\n"
-"            预览 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 提交.\n"
-"        "
+msgstr "\n            预览 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 提交.\n        "
 
 #: templates/wagtailadmin/pages/_privacy_indicator.html:9
 msgid "Privacy"
@@ -593,8 +580,7 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
 msgstr[0] ""
 
@@ -664,9 +650,9 @@ msgid "Pages using"
 msgstr "页面在用"
 
 #: templates/wagtailadmin/pages/copy.html:3
-#, fuzzy, python-format
+#, python-format
 msgid "Copy %(title)s"
-msgstr "移动 %(title)s"
+msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:6
 #: templates/wagtailadmin/pages/list.html:202
@@ -674,9 +660,8 @@ msgid "Copy"
 msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:26
-#, fuzzy
 msgid "Copy this page"
-msgstr "编辑这个页面"
+msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -765,9 +750,9 @@ msgid "Explore"
 msgstr "浏览"
 
 #: templates/wagtailadmin/pages/list.html:245
-#, fuzzy, python-format
+#, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "浏览 '%(title)s' 的子页面"
+msgstr ""
 
 #: templates/wagtailadmin/pages/list.html:247
 #, python-format
@@ -788,15 +773,12 @@ msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "为什么不<a href=\"%(add_page_url)s\">添加一页</a>?"
 
 #: templates/wagtailadmin/pages/list.html:263
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            Page %(page_number)s of %(num_pages)s.\n"
 "        "
 msgstr ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
 
 #: templates/wagtailadmin/pages/list.html:269
 #: templates/wagtailadmin/pages/search_results.html:35
@@ -829,7 +811,7 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "为<span>%(title)s</span>选择一个新的根页面"
 
 #: templates/wagtailadmin/pages/search_results.html:6
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                    There is one matching page\n"
@@ -839,9 +821,6 @@ msgid_plural ""
 "                    There are %(counter)s matching pages\n"
 "                "
 msgstr[0] ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
 
 #: templates/wagtailadmin/pages/search_results.html:16
 msgid "Other searches"
@@ -866,10 +845,7 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
+msgstr "\n                第 %(page_number)s / %(num_pages)s页.\n            "
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
@@ -881,9 +857,8 @@ msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
 
 #: templates/wagtailadmin/pages/usage_results.html:24
-#, fuzzy
 msgid "No pages use"
-msgstr "页面在用"
+msgstr ""
 
 #: templates/wagtailadmin/shared/breadcrumb.html:6
 msgid "Home"
@@ -898,9 +873,8 @@ msgid "February"
 msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:8
-#, fuzzy
 msgid "March"
-msgstr "搜索"
+msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:9
 msgid "April"
@@ -963,9 +937,8 @@ msgid "Fri"
 msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:26
-#, fuzzy
 msgid "Sat"
-msgstr "状态"
+msgstr ""
 
 #: templates/wagtailadmin/shared/header.html:23
 #, python-format
@@ -987,9 +960,8 @@ msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 #: templates/wagtailadmin/userbar/base.html:4
-#, fuzzy
 msgid "User bar"
-msgstr "用户"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/base.html:14
 msgid "Go to Wagtail admin interface"
@@ -1008,9 +980,8 @@ msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"
 
 #: views/account.py:60
-#, fuzzy
 msgid "Your preferences have been updated successfully!"
-msgstr "您的密码已经更改成功。"
+msgstr ""
 
 #: views/pages.py:169 views/pages.py:286
 msgid "Go live date/time must be before expiry date/time"
@@ -1033,9 +1004,8 @@ msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
 #: views/pages.py:233
-#, fuzzy
 msgid "The page could not be created due to validation errors"
-msgstr "这页无法保存，因为页面发生验证错误"
+msgstr ""
 
 #: views/pages.py:356
 msgid "Page '{0}' updated."
@@ -1062,14 +1032,12 @@ msgid "Page '{0}' moved."
 msgstr "第 '{0}' 页已移动。"
 
 #: views/pages.py:709
-#, fuzzy
 msgid "Page '{0}' and {1} subpages copied."
-msgstr "第 '{0}' 页已更新"
+msgstr ""
 
 #: views/pages.py:711
-#, fuzzy
 msgid "Page '{0}' copied."
-msgstr "第 '{0}' 页已移动。"
+msgstr ""
 
 #: views/pages.py:785 views/pages.py:804 views/pages.py:824
 msgid "The page '{0}' is not currently awaiting moderation."
@@ -1078,53 +1046,3 @@ msgstr "第 '{0}' 页当前不需要等待审核。"
 #: views/pages.py:810
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
-
-#~ msgid "Please type a valid time"
-#~ msgstr "请输入一个有效的时间"
-
-#~ msgid "View draft"
-#~ msgstr "查看草稿"
-
-#~ msgid "View live"
-#~ msgstr "查看在线版"
-
-#~ msgid "Status:"
-#~ msgstr "状态："
-
-#~ msgid "Where do you want to create a %(page_type)s"
-#~ msgstr "你想在哪创建 %(page_type)s"
-
-#~ msgid "Where do you want to create this"
-#~ msgstr "你想在哪创建这个"
-
-#~ msgid "Create a new page"
-#~ msgstr "创建一个新页面"
-
-#~ msgid ""
-#~ "Your new page will be saved in the <em>top level</em> of your website. "
-#~ "You can move it after saving."
-#~ msgstr "你的新页面将会保存到网站的<em>顶级</em> 你 在保存后可以移动."
-
-#~ msgid "More"
-#~ msgstr "更多"
-
-#~ msgid "Redirects"
-#~ msgstr "转向"
-
-#~ msgid "Editors Picks"
-#~ msgstr "编辑手摘"
-
-#~ msgid "Snippets"
-#~ msgstr "片段"
-
-#~ msgid ""
-#~ "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
-#~ msgstr "对不起，你没有创建<em>'{0}'</em>类型页面的权限。"
-
-#~ msgid ""
-#~ "Pages of this type can only be created as children of <em>'{0}'</em>. "
-#~ "This new page will be saved there."
-#~ msgstr "这一类的页面只能创建为<em>'{0}'</em>的子页面。这一页将会保存在那。"
-
-#~ msgid "The page could not be created due to errors."
-#~ msgstr "这一页因有错误发生而无法创建。"

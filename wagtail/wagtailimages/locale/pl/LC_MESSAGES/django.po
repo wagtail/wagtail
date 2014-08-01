@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # utek <mail@utek.pl>, 2014
 # utek <mail@utek.pl>, 2014
@@ -10,16 +10,14 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-03-14 22:16+0000\n"
-"Last-Translator: utek <mail@utek.pl>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
-"pl/)\n"
-"Language: pl\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: forms.py:37
 msgid "Filter"
@@ -104,18 +102,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Jedno dopasowanie\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Znaleziono %(counter)s dopasowania\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Znaleziono %(counter)s dopasowań\n"
-"        "
+msgstr[0] "\n            Jedno dopasowanie\n        "
+msgstr[1] "\n            Znaleziono %(counter)s dopasowania\n        "
+msgstr[2] "\n            Znaleziono %(counter)s dopasowań\n        "
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -188,11 +177,9 @@ msgstr "Przepraszamy, żaden obraz nie pasuje do \"<em>%(query_string)s</em>\""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Nie przesłano żadnych obrazów. Czemu nie  <a href="
-"\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Nie przesłano żadnych obrazów. Czemu nie  <a href=\"%(wagtailimages_add_image_url)s\">dodać jednego teraz</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -213,9 +200,9 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailimages/images/usage.html:3
-#, fuzzy, python-format
+#, python-format
 msgid "Usage of %(title)s"
-msgstr "Edycja obrazu %(title)s"
+msgstr ""
 
 #: templates/wagtailimages/images/usage.html:5
 msgid "Usage of"
@@ -238,14 +225,12 @@ msgid "Edit this page"
 msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:3
-#, fuzzy
 msgid "Add multiple images"
-msgstr "Dodaj obraz"
+msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:13
-#, fuzzy
 msgid "Add images"
-msgstr "Dodaj obraz"
+msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:18
 msgid "Drag and drop images into this area to upload immediately."
@@ -271,27 +256,21 @@ msgid "Update"
 msgstr ""
 
 #: templates/wagtailimages/multiple/edit_form.html:11
-#, fuzzy
 msgid "Delete"
-msgstr "Usuń obraz"
+msgstr ""
 
 #: utils/validators.py:17 utils/validators.py:28
-#, fuzzy
 msgid ""
 "Not a valid image. Please use a gif, jpeg or png file with the correct file "
 "extension (*.gif, *.jpg or *.png)."
 msgstr ""
-"Niepoprawny format obrazu. Użyj proszę jednego z następujących formatów: "
-"gif, jpeg lub png."
 
 #: utils/validators.py:35
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Not a valid %s image. Please use a gif, jpeg or png file with the correct "
 "file extension (*.gif, *.jpg or *.png)."
 msgstr ""
-"Niepoprawny format obrazu. Użyj proszę jednego z następujących formatów: "
-"gif, jpeg lub png."
 
 #: views/images.py:37 views/images.py:47
 msgid "Search images"

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
-"es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:21 templates/wagtaildocs/documents/list.html:11
@@ -69,14 +68,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Hay una coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hay %(counter)s coincidencias\n"
-"        "
+msgstr[0] "\n            Hay una coincidencia\n        "
+msgstr[1] "\n            Hay %(counter)s coincidencias\n        "
 
 #: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
@@ -136,16 +129,14 @@ msgstr "Subidos"
 #: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr ""
-"No has subido documentos. ¿Por qué no <a href="
-"\"%(wagtaildocs_add_document_url)s\">subir uno ahora</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr "No has subido documentos. ¿Por qué no <a href=\"%(wagtaildocs_add_document_url)s\">subir uno ahora</a>?"
 
 #: templates/wagtaildocs/documents/usage.html:3
-#, fuzzy, python-format
+#, python-format
 msgid "Usage of %(title)s"
-msgstr "Eliminar %(title)s"
+msgstr ""
 
 #: templates/wagtaildocs/documents/usage.html:5
 msgid "Usage of"

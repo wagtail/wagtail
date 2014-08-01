@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Lloople <d.lloople@gmail.com>, 2014
+# David Llop <d.lloople@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-03-14 21:58+0000\n"
-"Last-Translator: Lloople <d.lloople@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
-"ca/)\n"
-"Language: ca\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit_handlers.py:627
@@ -51,27 +50,23 @@ msgstr "Si us plau escriu el teu correu"
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
-"Ho sentim, no pots reiniciar la teva contrasenya aquí ja que la teva conta "
-"d'usuari es administrada per un altre servidor"
+msgstr "Ho sentim, no pots reiniciar la teva contrasenya aquí ja que la teva conta d'usuari es administrada per un altre servidor"
 
 #: forms.py:76
 msgid "This email address is not recognised."
 msgstr "No es reconeix aquesta adreça de correu"
 
 #: forms.py:88
-#, fuzzy
 msgid "New title"
-msgstr "Mou %(title)s"
+msgstr ""
 
 #: forms.py:89
 msgid "New slug"
 msgstr ""
 
 #: forms.py:95
-#, fuzzy
 msgid "Copy subpages"
-msgstr "Afegeix subpàgina"
+msgstr ""
 
 #: forms.py:97
 #, python-format
@@ -89,9 +84,8 @@ msgid "This page is live. Would you like to publish its copy as well?"
 msgstr ""
 
 #: forms.py:109
-#, fuzzy
 msgid "Publish copies"
-msgstr "Publica"
+msgstr ""
 
 #: forms.py:111
 #, python-format
@@ -110,18 +104,16 @@ msgstr "Aquest llimac ja està en ús"
 
 #: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
-#, fuzzy
 msgid "Public"
-msgstr "Publica"
+msgstr ""
 
 #: forms.py:131
 msgid "Private, accessible with the following password"
 msgstr ""
 
 #: forms.py:139
-#, fuzzy
 msgid "This field is required."
-msgstr "No es reconeix aquesta adreça de correu"
+msgstr ""
 
 #: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
 msgid "Dashboard"
@@ -140,9 +132,7 @@ msgstr "Benvingut al Wagtail CMS del lloc %(site_name)s"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"Aquest es el teu tauler de control on es mostrarà informació útil sobre el "
-"contingut que has creat"
+msgstr "Aquest es el teu tauler de control on es mostrarà informació útil sobre el contingut que has creat"
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:59
 msgid "Sign in"
@@ -150,9 +140,7 @@ msgstr "Registra't"
 
 #: templates/wagtailadmin/login.html:18
 msgid "Your username and password didn't match. Please try again."
-msgstr ""
-"El teu nom d'usuari i la teva contrasenya no coincideixen. Si us plau torna-"
-"ho a intentar"
+msgstr "El teu nom d'usuari i la teva contrasenya no coincideixen. Si us plau torna-ho a intentar"
 
 #: templates/wagtailadmin/login.html:26
 msgid "Sign in to Wagtail"
@@ -176,10 +164,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"La teva imatge de perfil és subministrada per Gravatar i està conectada al "
-"teu correu. Amb una conta de Gravatar pots definir una imatge de perfil per "
-"cadascuna de la resta d'adreces de correu que fas servir."
+msgstr "La teva imatge de perfil és subministrada per Gravatar i està conectada al teu correu. Amb una conta de Gravatar pots definir una imatge de perfil per cadascuna de la resta d'adreces de correu que fas servir."
 
 #: templates/wagtailadmin/account/account.html:25
 #: templates/wagtailadmin/account/change_password.html:4
@@ -206,9 +191,7 @@ msgstr "Canvia la contrasenya"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
-"l'administrador de la web"
+msgstr "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb l'administrador de la web"
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
@@ -301,12 +284,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Hi ha un resultat"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s resultats"
+msgstr[0] "\nHi ha un resultat"
+msgstr[1] "\nHi han %(counter)s resultats"
 
 #: templates/wagtailadmin/chooser/browse.html:2
 #: templates/wagtailadmin/chooser/search.html:2
@@ -463,12 +442,8 @@ msgid_plural ""
 "\n"
 "                <span>%(total_pages)s</span> Pages\n"
 "            "
-msgstr[0] ""
-"\n"
-"<span>%(total_pages)s</span> Pàgina"
-msgstr[1] ""
-"\n"
-"<span>%(total_pages)s</span>Pàgines"
+msgstr[0] "\n<span>%(total_pages)s</span> Pàgina"
+msgstr[1] "\n<span>%(total_pages)s</span>Pàgines"
 
 #: templates/wagtailadmin/home/site_summary.html:16
 #, python-format
@@ -480,12 +455,8 @@ msgid_plural ""
 "\n"
 "                <span>%(total_images)s</span> Images\n"
 "            "
-msgstr[0] ""
-"\n"
-"<span>%(total_images)s</span> Imatge"
-msgstr[1] ""
-"\n"
-"<span>%(total_images)s</span> Imatges"
+msgstr[0] "\n<span>%(total_images)s</span> Imatge"
+msgstr[1] "\n<span>%(total_images)s</span> Imatges"
 
 #: templates/wagtailadmin/home/site_summary.html:25
 #, python-format
@@ -497,12 +468,8 @@ msgid_plural ""
 "\n"
 "                <span>%(total_docs)s</span> Documents\n"
 "            "
-msgstr[0] ""
-"\n"
-"<span>%(total_docs)s</span> Document"
-msgstr[1] ""
-"\n"
-"<span>%(total_docs)s</span> Documents"
+msgstr[0] "\n<span>%(total_docs)s</span> Document"
+msgstr[1] "\n<span>%(total_docs)s</span> Documents"
 
 #: templates/wagtailadmin/notifications/approved.html:1
 #, python-format
@@ -561,9 +528,8 @@ msgid "This page has been made private by a parent page."
 msgstr ""
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
-#, fuzzy
 msgid "You can edit the privacy settings on:"
-msgstr "Pots editar la pàgina aquí:"
+msgstr ""
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
 msgid "<b>Note:</b> privacy changes apply to all children of this page too."
@@ -573,12 +539,9 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"            Previewing '%(title)s', submitted by %(submitted_by)s on "
-"%(submitted_on)s.\n"
+"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
 "        "
-msgstr ""
-"\n"
-"Previsualitzant '%(title)s, enviada per %(submitted_by)s el %(submitted_on)s."
+msgstr "\nPrevisualitzant '%(title)s, enviada per %(submitted_by)s el %(submitted_on)s."
 
 #: templates/wagtailadmin/pages/_privacy_indicator.html:9
 msgid "Privacy"
@@ -624,23 +587,16 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] ""
-"\n"
-"Això també esborrarà una subpàgina més."
-msgstr[1] ""
-"\n"
-"Això també esborrarà %(descendant_count)s subpàgines més."
+msgstr[0] "\nAixò també esborrarà una subpàgina més."
+msgstr[1] "\nAixò també esborrarà %(descendant_count)s subpàgines més."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:22
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr ""
-"Alternativament pots despublicar la pàgina. Això treu la pàgina de la vista "
-"pública i podràs editar-la o tornar-la a publicar desprès."
+msgstr "Alternativament pots despublicar la pàgina. Això treu la pàgina de la vista pública i podràs editar-la o tornar-la a publicar desprès."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:26
 msgid "Delete it"
@@ -671,9 +627,7 @@ msgstr "Estàs segur que vols moure aquesta pàgina dins de '%(title)s'?"
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
-"Estàs segur que vols moure aquesta pàgina i els seus fills dins de "
-"'%(title)s'?"
+msgstr "Estàs segur que vols moure aquesta pàgina i els seus fills dins de '%(title)s'?"
 
 #: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
@@ -704,9 +658,9 @@ msgid "Pages using"
 msgstr "Pàgines en ús"
 
 #: templates/wagtailadmin/pages/copy.html:3
-#, fuzzy, python-format
+#, python-format
 msgid "Copy %(title)s"
-msgstr "Mou %(title)s"
+msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:6
 #: templates/wagtailadmin/pages/list.html:202
@@ -714,9 +668,8 @@ msgid "Copy"
 msgstr ""
 
 #: templates/wagtailadmin/pages/copy.html:26
-#, fuzzy
 msgid "Copy this page"
-msgstr "Edita aquesta pàgina"
+msgstr ""
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -805,9 +758,9 @@ msgid "Explore"
 msgstr "Explora"
 
 #: templates/wagtailadmin/pages/list.html:245
-#, fuzzy, python-format
+#, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "Explora les pàgines filles de '%(title)s'"
+msgstr ""
 
 #: templates/wagtailadmin/pages/list.html:247
 #, python-format
@@ -828,14 +781,12 @@ msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Per què no <a href=\"%(add_page_url)s\">afegeixes una</a>?"
 
 #: templates/wagtailadmin/pages/list.html:263
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            Page %(page_number)s of %(num_pages)s.\n"
 "        "
 msgstr ""
-"\n"
-"Pàgina %(page_number)s de %(num_pages)s."
 
 #: templates/wagtailadmin/pages/list.html:269
 #: templates/wagtailadmin/pages/search_results.html:35
@@ -868,7 +819,7 @@ msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Selecciona una nova pàgina pare per <span>%(title)s</span>"
 
 #: templates/wagtailadmin/pages/search_results.html:6
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                    There is one matching page\n"
@@ -878,11 +829,7 @@ msgid_plural ""
 "                    There are %(counter)s matching pages\n"
 "                "
 msgstr[0] ""
-"\n"
-"Hi ha un resultat"
 msgstr[1] ""
-"\n"
-"Hi han %(counter)s resultats"
 
 #: templates/wagtailadmin/pages/search_results.html:16
 msgid "Other searches"
@@ -907,9 +854,7 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"Pàgina %(page_number)s de %(num_pages)s."
+msgstr "\nPàgina %(page_number)s de %(num_pages)s."
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
@@ -921,9 +866,8 @@ msgid "Enter a search term above"
 msgstr "Introdueix un terme de cerca abaix"
 
 #: templates/wagtailadmin/pages/usage_results.html:24
-#, fuzzy
 msgid "No pages use"
-msgstr "Pàgines en ús"
+msgstr ""
 
 #: templates/wagtailadmin/shared/breadcrumb.html:6
 msgid "Home"
@@ -938,9 +882,8 @@ msgid "February"
 msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:8
-#, fuzzy
 msgid "March"
-msgstr "Cercar"
+msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:9
 msgid "April"
@@ -1003,9 +946,8 @@ msgid "Fri"
 msgstr ""
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:26
-#, fuzzy
 msgid "Sat"
-msgstr "Estat"
+msgstr ""
 
 #: templates/wagtailadmin/shared/header.html:23
 #, python-format
@@ -1028,9 +970,8 @@ msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pàgina %(page_num)s de %(total_pages)s."
 
 #: templates/wagtailadmin/userbar/base.html:4
-#, fuzzy
 msgid "User bar"
-msgstr "Usuaris"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/base.html:14
 msgid "Go to Wagtail admin interface"
@@ -1049,9 +990,8 @@ msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
 
 #: views/account.py:60
-#, fuzzy
 msgid "Your preferences have been updated successfully!"
-msgstr "S'ha canviat la teva contrasenya!"
+msgstr ""
 
 #: views/pages.py:169 views/pages.py:286
 msgid "Go live date/time must be before expiry date/time"
@@ -1074,9 +1014,8 @@ msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
 #: views/pages.py:233
-#, fuzzy
 msgid "The page could not be created due to validation errors"
-msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
+msgstr ""
 
 #: views/pages.py:356
 msgid "Page '{0}' updated."
@@ -1103,14 +1042,12 @@ msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
 
 #: views/pages.py:709
-#, fuzzy
 msgid "Page '{0}' and {1} subpages copied."
-msgstr "Pàgina '{0}' actualitzada."
+msgstr ""
 
 #: views/pages.py:711
-#, fuzzy
 msgid "Page '{0}' copied."
-msgstr "Pàgina '{0}' moguda."
+msgstr ""
 
 #: views/pages.py:785 views/pages.py:804 views/pages.py:824
 msgid "The page '{0}' is not currently awaiting moderation."
@@ -1119,58 +1056,3 @@ msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 #: views/pages.py:810
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
-
-#~ msgid "Please type a valid time"
-#~ msgstr "Si us plau introdueixi una hora vàlida "
-
-#~ msgid "View draft"
-#~ msgstr "Visualitza l'esborrany"
-
-#~ msgid "View live"
-#~ msgstr "Visualitza en viu"
-
-#~ msgid "Status:"
-#~ msgstr "Estat:"
-
-#~ msgid "Where do you want to create a %(page_type)s"
-#~ msgstr "On vols crear la teva pàgina %(page_type)s"
-
-#~ msgid "Where do you want to create this"
-#~ msgstr "On vols crear això"
-
-#~ msgid "Create a new page"
-#~ msgstr "Crea una nova pàgina"
-
-#~ msgid ""
-#~ "Your new page will be saved in the <em>top level</em> of your website. "
-#~ "You can move it after saving."
-#~ msgstr ""
-#~ "La teva pàgina nova serà desada al <em>nivell més alt</em> del teu web. "
-#~ "Pots moure-la desprès de desar-la."
-
-#~ msgid "More"
-#~ msgstr "Més"
-
-#~ msgid "Redirects"
-#~ msgstr "Redireccionaments"
-
-#~ msgid "Editors Picks"
-#~ msgstr "Selecció dels editors"
-
-#~ msgid "Snippets"
-#~ msgstr "Retalls"
-
-#~ msgid ""
-#~ "Sorry, you do not have access to create a page of type <em>'{0}'</em>."
-#~ msgstr ""
-#~ "Ho sentim, no tens permisos per crear una pàgina del tipus <em>'{0}'</em>"
-
-#~ msgid ""
-#~ "Pages of this type can only be created as children of <em>'{0}'</em>. "
-#~ "This new page will be saved there."
-#~ msgstr ""
-#~ "Pàgines d'aquest tipus només poden ser creades com a filles de <em>'{0}'</"
-#~ "em>. La nova pàgina es guardarà allà"
-
-#~ msgid "The page could not be created due to errors."
-#~ msgstr "La pàgina no es pot crear degut a errors."

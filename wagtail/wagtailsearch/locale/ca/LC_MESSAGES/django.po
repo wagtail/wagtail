@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Lloople <d.lloople@gmail.com>, 2014
+# David Llop <d.lloople@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-03-14 21:59+0000\n"
-"Last-Translator: Lloople <d.lloople@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
-"ca/)\n"
-"Language: ca\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:9
@@ -28,11 +27,7 @@ msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
-msgstr ""
-"Escriu el text a cercar. Una\n"
-"coincidència exacta és requerida per les teves seleccions dels editors per "
-"ser\n"
-"mostrades, les wildcars NO estan permeses."
+msgstr "Escriu el text a cercar. Una\ncoincidència exacta és requerida per les teves seleccions dels editors per ser\nmostrades, les wildcars NO estan permeses."
 
 #: forms.py:36
 msgid "Please specify at least one recommendation for this search term."
@@ -48,37 +43,18 @@ msgid "Add editor's pick"
 msgstr "afegeix selecció dels editors"
 
 #: templates/wagtailsearch/editorspicks/add.html:10
-#, fuzzy
 msgid ""
 "\n"
-"                <p>Editors picks are a means of recommending specific pages "
-"that might not organically come high up in search results. E.g recommending "
-"your primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
+"                <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
 "                "
 msgstr ""
-"\n"
-"<p>Les seleccions dels editors són una mena de recomanacions de pàgines "
-"específiques que no puguin aparèixer orgànicament als resultats de cerca. "
-"Per exemple, recomanant la teva pàgina principal de donacions en un termini "
-"de cerca comú com \"<em>donar</em>\".</p>"
 
 #: templates/wagtailsearch/editorspicks/add.html:13
-#, fuzzy
 msgid ""
 "\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
 "            "
 msgstr ""
-"\n"
-"<p>El camp \"Cerca paraula(es)/frases\" de sota ha de contenir la cerca "
-"completa i exacta per al que vols proveïr resultats recomanats, "
-"<em>inclöent</em> qualsevol error dels usuaris. Per ajugar, pots escollir "
-"des dels terminis de cerca que s'han fet populars a través dels usuaris del "
-"teu lloc.</p>"
 
 #: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
@@ -97,10 +73,9 @@ msgid "Delete"
 msgstr "Esborra"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
-msgstr ""
-"Estàs segur que vols esborrar totes les seleccions dels editors per aquest "
-"terme de cerca?"
+msgid ""
+"Are you sure you want to delete all editors picks for this search term?"
+msgstr "Estàs segur que vols esborrar totes les seleccions dels editors per aquest terme de cerca?"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
 msgid "Yes, delete"
@@ -154,27 +129,20 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Hi ha una coincidència"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s coincidències"
+msgstr[0] "\nHi ha una coincidència"
+msgstr[1] "\nHi han %(counter)s coincidències"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Ho sentim, cap selecció d'editor coincideix amb \"<em>%(query_string)s</em>\""
+msgstr "Ho sentim, cap selecció d'editor coincideix amb \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
 #, python-format
 msgid ""
-"No editor's picks have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Encara no s'ha creat cap selecció d'editor. Per què no <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">afegeixes una</a>?"
+"No editor's picks have been created. Why not <a "
+"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+msgstr "Encara no s'ha creat cap selecció d'editor. Per què no <a href=\"%(wagtailsearch_editorspicks_add_url)s\">afegeixes una</a>?"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
 msgid "Move up"

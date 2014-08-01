@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:39+0100\n"
-"PO-Revision-Date: 2014-03-23 10:21+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
-"es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:37
@@ -103,14 +102,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Hay una coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hay %(counter)s coincidencias\n"
-"        "
+msgstr[0] "\n            Hay una coincidencia\n        "
+msgstr[1] "\n            Hay %(counter)s coincidencias\n        "
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -178,18 +171,14 @@ msgstr "Editando"
 #: templates/wagtailimages/images/results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Lo sentimos, no hay coincidencias en las imágenes \"<em>%(query_string)s</em>"
-"\""
+msgstr "Lo sentimos, no hay coincidencias en las imágenes \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s"
-"\">añadir una ahora</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "No has subido imágenes. ¿Por qué no <a href=\"%(wagtailimages_add_image_url)s\">añadir una ahora</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -210,9 +199,9 @@ msgid ""
 msgstr ""
 
 #: templates/wagtailimages/images/usage.html:3
-#, fuzzy, python-format
+#, python-format
 msgid "Usage of %(title)s"
-msgstr "Editando imagen %(title)s"
+msgstr ""
 
 #: templates/wagtailimages/images/usage.html:5
 msgid "Usage of"
@@ -235,14 +224,12 @@ msgid "Edit this page"
 msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:3
-#, fuzzy
 msgid "Add multiple images"
-msgstr "Añadir una imagen"
+msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:13
-#, fuzzy
 msgid "Add images"
-msgstr "Añadir imagen"
+msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:18
 msgid "Drag and drop images into this area to upload immediately."
@@ -268,27 +255,21 @@ msgid "Update"
 msgstr ""
 
 #: templates/wagtailimages/multiple/edit_form.html:11
-#, fuzzy
 msgid "Delete"
-msgstr "Eliminar imagen"
+msgstr ""
 
 #: utils/validators.py:17 utils/validators.py:28
-#, fuzzy
 msgid ""
 "Not a valid image. Please use a gif, jpeg or png file with the correct file "
 "extension (*.gif, *.jpg or *.png)."
 msgstr ""
-"No es un formato válido de imagen. Por favor, usa en su lugar un archivo "
-"gif, jpeg o png."
 
 #: utils/validators.py:35
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Not a valid %s image. Please use a gif, jpeg or png file with the correct "
 "file extension (*.gif, *.jpg or *.png)."
 msgstr ""
-"No es un formato válido de imagen. Por favor, usa en su lugar un archivo "
-"gif, jpeg o png."
 
 #: views/images.py:37 views/images.py:47
 msgid "Search images"

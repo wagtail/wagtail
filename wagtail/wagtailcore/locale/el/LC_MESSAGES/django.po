@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # serafeim <serafeim@torchbox.com>, 2014
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-01 16:38+0100\n"
-"PO-Revision-Date: 2014-02-22 12:27+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
-"el/)\n"
-"Language: el\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:46
@@ -24,19 +23,13 @@ msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
-msgstr ""
-"Μπορείτε να χρησιμοποιήσετε κάτι διαφορετικό από το 80 αν θέλετε να "
-"εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα "
-"8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
-"προώθηση θύρας δουλεύει ακόμα)"
+msgstr "Μπορείτε να χρησιμοποιήσετε κάτι διαφορετικό από το 80 αν θέλετε να εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα 8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η προώθηση θύρας δουλεύει ακόμα)"
 
 #: models.py:48
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
-msgstr ""
-"Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
-"άλλα ονόματα που δεν έχουν δική τους εγγραφή"
+msgstr "Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα άλλα ονόματα που δεν έχουν δική τους εγγραφή"
 
 #: models.py:109
 #, python-format
@@ -51,11 +44,9 @@ msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφαν�
 
 #: models.py:278
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
-msgstr ""
-"Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
-"domain.com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog"
+"/[my-slug]/"
+msgstr "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://domain.com/blog/[my-slug]/"
 
 #: models.py:287
 msgid "Page title"
@@ -63,18 +54,14 @@ msgstr "Τίτλος σελίδας"
 
 #: models.py:287
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα "
-"εμφανιστεί στην κορυφή του παραθύρου."
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the"
+" browser window."
+msgstr "Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα εμφανιστεί στην κορυφή του παραθύρου."
 
 #: models.py:288
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
-"δημιουργούνται αυτόματα"
+msgstr "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που δημιουργούνται αυτόματα"
 
 #: models.py:291
 msgid "Go live date/time"
@@ -89,6 +76,5 @@ msgid "Expiry date/time"
 msgstr ""
 
 #: models.py:564
-#, fuzzy
 msgid "name '{0}' (used in subpage_types list) is not defined."
-msgstr "το όνομα '%s' (που χρησιμοποιείται στη λίστα) δεν έχει οριστεί."
+msgstr ""
