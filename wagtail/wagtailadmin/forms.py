@@ -82,18 +82,25 @@ class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop('page')
+        can_publish = kwargs.pop('can_publish')
         super(CopyForm, self).__init__(*args, **kwargs)
 
         self.fields['new_title'] = forms.CharField(initial=self.page.title)
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug)
 
-        pages_to_copy_count = self.page.get_descendants(inclusive=True).count()
-        if pages_to_copy_count > 1:
-            subpage_count = pages_to_copy_count - 1
+        pages_to_copy = self.page.get_descendants(inclusive=True)
+        subpage_count = pages_to_copy.count() - 1
+        if subpage_count > 0:
             self.fields['copy_subpages'] = forms.BooleanField(required=False, initial=True,
                 help_text=_("This will copy %(count)s subpages.") % {'count': subpage_count})
 
-    publish_copies = forms.BooleanField(required=False, initial=True)
+        if can_publish:
+            pages_to_publish_count = pages_to_copy.live().count()
+            if pages_to_publish_count > 0:
+                self.fields['publish_copies'] = forms.BooleanField(
+                    required=False, initial=True,
+                    help_text=_("%(count)s of the pages being copied are live. Would you like to publish their copies?") % {'count': pages_to_publish_count}
+                )
 
     def clean_new_slug(self):
         # Make sure the slug isn't already in use

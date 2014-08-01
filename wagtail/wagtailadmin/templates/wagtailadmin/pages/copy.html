@@ -18,11 +18,8 @@
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.copy_subpages %}
                 {% endif %}
 
-                {% if pages_to_publish.count and can_publish %}
+                {% if form.publish_copies %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.publish_copies %}
-                    <li class="help">
-                        {% blocktrans with live_page_count=pages_to_publish.count %}{{ live_page_count }} of the pages being copied are live. Would you like to publish their copies?{% endblocktrans %}
-                    </li>
                 {% endif %}
             </ul>
 

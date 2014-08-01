@@ -681,7 +681,7 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
-    form = CopyForm(request.POST or None, page=page)
+    form = CopyForm(request.POST or None, page=page, can_publish=can_publish)
 
     # Check if user is submitting
     if request.method == 'POST' and form.is_valid():
@@ -695,7 +695,7 @@ def copy(request, page_id):
         )
 
         # Check if we should keep copied subpages published
-        publish_copies = can_publish and form.cleaned_data['publish_copies']
+        publish_copies = can_publish and form.cleaned_data.get('publish_copies')
 
         # Unpublish copied pages if we need to
         if not publish_copies:
@@ -715,9 +715,6 @@ def copy(request, page_id):
 
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
-        'parent_page': parent_page,
-        'pages_to_publish': page.get_descendants(inclusive=True).live(),
-        'can_publish': can_publish,
         'form': form,
     })
 
