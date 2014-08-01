@@ -122,7 +122,3 @@ Several new fields have been added to the Image and Rendition models to support 
   ./manage.py schemamigration myapp --auto add_image_focal_point_fields
 
 (with 'myapp' replaced with your app name) will generate the necessary migration file.
-
-
-Deprecated features
-===================
