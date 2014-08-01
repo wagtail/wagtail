@@ -681,12 +681,7 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
-    form = CopyForm(request.POST or None, page=page, initial={
-        'new_title': page.title,
-        'new_slug': page.slug,
-        'copy_subpages': True,
-        'publish_copies': True,
-    })
+    form = CopyForm(request.POST or None, page=page)
 
     # Check if user is submitting
     if request.method == 'POST' and form.is_valid():

@@ -82,13 +82,13 @@ class CopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # CopyPage must be passed a 'page' kwarg indicating the page to be copied
         self.page = kwargs.pop('page')
+        super(CopyForm, self).__init__(*args, **kwargs)
 
-        return super(CopyForm, self).__init__(*args, **kwargs)
+        self.fields['new_title'] = forms.CharField(initial=self.page.title)
+        self.fields['new_slug'] = forms.CharField(initial=self.page.slug)
 
-    new_title = forms.CharField()
-    new_slug = forms.CharField()
-    copy_subpages = forms.BooleanField(required=False)
-    publish_copies = forms.BooleanField(required=False)
+    copy_subpages = forms.BooleanField(required=False, initial=True)
+    publish_copies = forms.BooleanField(required=False, initial=True)
 
     def clean_new_slug(self):
         # Make sure the slug isn't already in use
