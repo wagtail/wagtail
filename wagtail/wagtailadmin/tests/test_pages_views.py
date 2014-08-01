@@ -1127,6 +1127,21 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'new_slug', "This slug is already in use")
 
+    def test_page_copy_post_invalid_slug(self):
+        # Attempt to copy the page but set an invalid slug string
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello world!',
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Should not be redirected (as the save should fail)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens.")
+
     def test_page_copy_no_publish_permission(self):
         # Turn user into an editor who can add pages but not publish them
         self.user.is_superuser = False

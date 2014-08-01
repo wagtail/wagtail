@@ -85,7 +85,7 @@ class CopyForm(forms.Form):
         super(CopyForm, self).__init__(*args, **kwargs)
 
         self.fields['new_title'] = forms.CharField(initial=self.page.title)
-        self.fields['new_slug'] = forms.CharField(initial=self.page.slug)
+        self.fields['new_slug'] = forms.SlugField(initial=self.page.slug)
 
     copy_subpages = forms.BooleanField(required=False, initial=True)
     publish_copies = forms.BooleanField(required=False, initial=True)
