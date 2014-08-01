@@ -97,9 +97,16 @@ class CopyForm(forms.Form):
         if can_publish:
             pages_to_publish_count = pages_to_copy.live().count()
             if pages_to_publish_count > 0:
+                # In the specific case that there are no subpages, customise the field label and help text
+                if subpage_count == 0:
+                    label = 'Publish copied page'
+                    help_text = _("This page is live. Would you like to publish its copy as well?")
+                else:
+                    label = 'Publish copies'
+                    help_text = _("%(count)s of the pages being copied are live. Would you like to publish their copies?") % {'count': pages_to_publish_count}
+
                 self.fields['publish_copies'] = forms.BooleanField(
-                    required=False, initial=True,
-                    help_text=_("%(count)s of the pages being copied are live. Would you like to publish their copies?") % {'count': pages_to_publish_count}
+                    required=False, initial=True, label=label, help_text=help_text
                 )
 
     def clean_new_slug(self):
