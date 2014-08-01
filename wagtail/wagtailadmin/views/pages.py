@@ -687,7 +687,7 @@ def copy(request, page_id):
     if request.method == 'POST' and form.is_valid():
         # Copy the page
         new_page = page.copy(
-            recursive=form.cleaned_data['copy_subpages'],
+            recursive=form.cleaned_data.get('copy_subpages'),
             update_attrs={
                 'title': form.cleaned_data['new_title'],
                 'slug': form.cleaned_data['new_slug'],
@@ -705,7 +705,7 @@ def copy(request, page_id):
         new_page.get_descendants(inclusive=True).update(owner=request.user)
 
         # Give a success message back to the user
-        if form.cleaned_data['copy_subpages']:
+        if form.cleaned_data.get('copy_subpages'):
             messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, new_page.get_descendants().count()))
         else:
             messages.success(request, _("Page '{0}' copied.").format(page.title))
@@ -713,13 +713,10 @@ def copy(request, page_id):
         # Redirect to explore of parent page
         return redirect('wagtailadmin_explore', parent_page.id)
 
-    pages_to_copy = page.get_descendants(inclusive=True)
-
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
-        'pages_to_copy': pages_to_copy,
         'parent_page': parent_page,
-        'pages_to_publish': pages_to_copy.live(),
+        'pages_to_publish': page.get_descendants(inclusive=True).live(),
         'can_publish': can_publish,
         'form': form,
     })

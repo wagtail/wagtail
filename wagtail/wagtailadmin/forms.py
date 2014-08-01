@@ -87,7 +87,12 @@ class CopyForm(forms.Form):
         self.fields['new_title'] = forms.CharField(initial=self.page.title)
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug)
 
-    copy_subpages = forms.BooleanField(required=False, initial=True)
+        pages_to_copy_count = self.page.get_descendants(inclusive=True).count()
+        if pages_to_copy_count > 1:
+            subpage_count = pages_to_copy_count - 1
+            self.fields['copy_subpages'] = forms.BooleanField(required=False, initial=True,
+                help_text=_("This will copy %(count)s subpages.") % {'count': subpage_count})
+
     publish_copies = forms.BooleanField(required=False, initial=True)
 
     def clean_new_slug(self):
