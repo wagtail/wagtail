@@ -726,10 +726,13 @@ def copy(request, page_id):
         # Redirect to explore of parent page
         return redirect('wagtailadmin_explore', parent_page.id)
 
+    pages_to_copy = page.get_descendants(inclusive=True)
+
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
-        'pages_to_copy': page.get_descendants(inclusive=True),
+        'pages_to_copy': pages_to_copy,
         'parent_page': parent_page,
+        'pages_to_publish': pages_to_copy.live(),
         'can_publish': can_publish,
         'form': form,
     })
