@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:52+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-23 10:19+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: wagtail_hooks.py:21 templates/wagtailusers/index.html:4
+#: wagtail_hooks.py:22 templates/wagtailusers/index.html:4
 #: templates/wagtailusers/index.html:17
 msgid "Users"
 msgstr "Usuarios"

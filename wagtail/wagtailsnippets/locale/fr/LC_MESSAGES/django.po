@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:55+0000\n"
-"PO-Revision-Date: 2014-03-18 21:51+0000\n"
-"Last-Translator: nahuel\n"
-"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
-"fr/)\n"
-"Language: fr\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: wagtail_hooks.py:24 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr ""
 
@@ -80,6 +79,7 @@ msgid "Editing"
 msgstr "Rédaction"
 
 #: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
 msgid "Title"
 msgstr "Titre"
 
@@ -101,28 +101,51 @@ msgstr ""
 #: templates/wagtailsnippets/snippets/type_index.html:23
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href="
-"\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr "Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
 
-#: views/snippets.py:127
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: views/snippets.py:129
 msgid "{snippet_type} '{instance}' created."
 msgstr ""
 
-#: views/snippets.py:134
+#: views/snippets.py:136
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:168
+#: views/snippets.py:170
 msgid "{snippet_type} '{instance}' updated."
 msgstr ""
 
-#: views/snippets.py:175
+#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:204
+#: views/snippets.py:206
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' supprimé."
