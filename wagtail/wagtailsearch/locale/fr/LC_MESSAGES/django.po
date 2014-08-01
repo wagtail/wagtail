@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-18 23:17+0000\n"
 "Last-Translator: nahuel\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr ""
 
@@ -43,27 +43,27 @@ msgstr ""
 msgid "Add editor's pick"
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Enregistrer"

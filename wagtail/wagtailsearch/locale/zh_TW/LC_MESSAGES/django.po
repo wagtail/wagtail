@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "編者精選"
 
@@ -44,35 +44,37 @@ msgstr "編者精選"
 msgid "Add editor's pick"
 msgstr "新增編者精選"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
+#, fuzzy
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
 "\n"
 "        <p>編者精選是用於推薦部份在搜尋排名不高的頁面。 例如用關鍵字推薦使用"
 "者到捐獻頁面。</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
+#, fuzzy
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "        <p>下面的關鍵字必須是你希望推薦結果的完整關鍵字，<em>包括</em>任何可"
 "能拼錯的詞。 提示，你可以從熱門的關鍵字選擇。</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "儲存"

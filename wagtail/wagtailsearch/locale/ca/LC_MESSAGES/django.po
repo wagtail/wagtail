@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:59+0000\n"
 "Last-Translator: Lloople <d.lloople@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "Selecció dels editors"
 
@@ -47,14 +47,15 @@ msgstr "Selecció dels editors"
 msgid "Add editor's pick"
 msgstr "afegeix selecció dels editors"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
+#, fuzzy
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
 "\n"
 "<p>Les seleccions dels editors són una mena de recomanacions de pàgines "
@@ -62,14 +63,15 @@ msgstr ""
 "Per exemple, recomanant la teva pàgina principal de donacions en un termini "
 "de cerca comú com \"<em>donar</em>\".</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
+#, fuzzy
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "<p>El camp \"Cerca paraula(es)/frases\" de sota ha de contenir la cerca "
@@ -78,7 +80,7 @@ msgstr ""
 "des dels terminis de cerca que s'han fet populars a través dels usuaris del "
 "teu lloc.</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Desa"

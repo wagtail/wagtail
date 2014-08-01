@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-02-27 09:22+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:44
+#: models.py:46
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -33,7 +33,7 @@ msgstr ""
 "aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no afecta al "
 "manejo de solicitudes (así que la redirección de puertos sigue funcionando)."
 
-#: models.py:46
+#: models.py:48
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
@@ -41,18 +41,18 @@ msgstr ""
 "Si afirmativo, este sitio manejará solicitudes para todos los demás "
 "hostnames que no tengan un site por sí mismos"
 
-#: models.py:107
+#: models.py:109
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:275
+#: models.py:277
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "El título de la página como quieres que sea visto por el público"
 
-#: models.py:276
+#: models.py:278
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -60,11 +60,11 @@ msgstr ""
 "El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
 "blog/[my-slug]/"
 
-#: models.py:285
+#: models.py:287
 msgid "Page title"
 msgstr "Título de la página"
 
-#: models.py:285
+#: models.py:287
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -72,24 +72,24 @@ msgstr ""
 "Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
 "superior de la ventana del navegador."
 
-#: models.py:286
+#: models.py:288
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
-#: models.py:289
+#: models.py:291
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:289 models.py:290
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+#: models.py:291 models.py:292
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgstr ""
 
-#: models.py:290
+#: models.py:292
 msgid "Expiry date/time"
 msgstr ""
 
-#: models.py:559
+#: models.py:564
 #, fuzzy
 msgid "name '{0}' (used in subpage_types list) is not defined."
 msgstr "nombre '%s' (usado en la lista de subpage_types) no está definido."

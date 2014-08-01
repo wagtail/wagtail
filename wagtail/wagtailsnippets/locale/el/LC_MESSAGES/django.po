@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:55+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-02-22 17:16+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wagtail_hooks.py:24 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr "Snippets"
 
@@ -81,6 +81,7 @@ msgid "Editing"
 msgstr "Διόρθωση"
 
 #: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
 msgid "Title"
 msgstr "Τίτλος"
 
@@ -108,22 +109,47 @@ msgstr ""
 "Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a href="
 "\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
 
-#: views/snippets.py:127
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: views/snippets.py:129
 msgid "{snippet_type} '{instance}' created."
 msgstr "Δημιουργήθηκε το '{instance}' τύπου {snippet_type}."
 
-#: views/snippets.py:134
+#: views/snippets.py:136
 msgid "The snippet could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
 
-#: views/snippets.py:168
+#: views/snippets.py:170
 msgid "{snippet_type} '{instance}' updated."
 msgstr "Πραγματοποιήθηκε αλλαγή του '{instance}' τύπου {snippet_type}."
 
-#: views/snippets.py:175
+#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
 
-#: views/snippets.py:204
+#: views/snippets.py:206
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Το '{instance}' τύπου {snippet_type} διαγράφηκε."

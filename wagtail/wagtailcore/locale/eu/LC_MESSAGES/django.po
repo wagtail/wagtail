@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-02-24 22:36+0000\n"
 "Last-Translator: tomdyson <tom@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/wagtail/language/"
@@ -18,63 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:44
+#: models.py:46
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
 
-#: models.py:46
+#: models.py:48
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 
-#: models.py:107
+#: models.py:109
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:275
+#: models.py:277
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: models.py:276
+#: models.py:278
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: models.py:285
+#: models.py:287
 msgid "Page title"
 msgstr ""
 
-#: models.py:285
+#: models.py:287
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
 
-#: models.py:286
+#: models.py:288
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: models.py:289
+#: models.py:291
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:289 models.py:290
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+#: models.py:291 models.py:292
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgstr ""
 
-#: models.py:290
+#: models.py:292
 msgid "Expiry date/time"
 msgstr ""
 
-#: models.py:559
+#: models.py:564
 msgid "name '{0}' (used in subpage_types list) is not defined."
 msgstr ""

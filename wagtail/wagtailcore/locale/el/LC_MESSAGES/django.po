@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-02-22 12:27+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:44
+#: models.py:46
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -30,7 +30,7 @@ msgstr ""
 "8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
 "προώθηση θύρας δουλεύει ακόμα)"
 
-#: models.py:46
+#: models.py:48
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
@@ -38,18 +38,18 @@ msgstr ""
 "Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
 "άλλα ονόματα που δεν έχουν δική τους εγγραφή"
 
-#: models.py:107
+#: models.py:109
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:275
+#: models.py:277
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφανίζεται στο κοινό"
 
-#: models.py:276
+#: models.py:278
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -57,11 +57,11 @@ msgstr ""
 "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
 "domain.com/blog/[my-slug]/"
 
-#: models.py:285
+#: models.py:287
 msgid "Page title"
 msgstr "Τίτλος σελίδας"
 
-#: models.py:285
+#: models.py:287
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -69,26 +69,26 @@ msgstr ""
 "Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα "
 "εμφανιστεί στην κορυφή του παραθύρου."
 
-#: models.py:286
+#: models.py:288
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
 
-#: models.py:289
+#: models.py:291
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:289 models.py:290
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+#: models.py:291 models.py:292
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgstr ""
 
-#: models.py:290
+#: models.py:292
 msgid "Expiry date/time"
 msgstr ""
 
-#: models.py:559
+#: models.py:564
 #, fuzzy
 msgid "name '{0}' (used in subpage_types list) is not defined."
 msgstr "το όνομα '%s' (που χρησιμοποιείται στη λίστα) δεν έχει οριστεί."

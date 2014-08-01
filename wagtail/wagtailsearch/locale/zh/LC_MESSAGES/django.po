@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "编辑精选"
 
@@ -45,35 +45,37 @@ msgstr "编辑精选"
 msgid "Add editor's pick"
 msgstr "添加编辑精选"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
+#, fuzzy
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
 "\n"
 "        <p>编辑精选是用于推荐部分在搜索排名不高的页面. 比如用关键词推荐用户到"
 "捐助页面。</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
+#, fuzzy
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
 "\n"
 "        <p>下面空格中的搜索关键词必须是你希望提供推荐结果的完整关键词，<em>包"
 "括</em>任何可能错拼的词组. 提示，你可以从流行的搜索关键词中选择.</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "保存"

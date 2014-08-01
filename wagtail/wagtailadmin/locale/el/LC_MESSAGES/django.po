@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:41+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-03-14 21:14+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -28,27 +28,27 @@ msgstr ""
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
 
-#: forms.py:18
+#: forms.py:19
 msgid "Search term"
 msgstr "Όρος αναζήτησης"
 
-#: forms.py:42
+#: forms.py:43
 msgid "Enter your username"
 msgstr "Εισάγετε το όνομα σας"
 
-#: forms.py:45
+#: forms.py:46
 msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
 
-#: forms.py:50
+#: forms.py:51
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
 
-#: forms.py:59
+#: forms.py:60
 msgid "Please fill your email address."
 msgstr "Συμπληρώσατε τη διεύθυνση email σας."
 
-#: forms.py:72
+#: forms.py:73
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
@@ -56,21 +56,70 @@ msgstr ""
 "Λυπούμαστε, δε μπορείτε να αλλάξετε τον κωδικό σας διότι το λογαριασμό "
 "χρήστη σας τον διαχειρίζεται ένας διαφορετικός εξυπηρετητής."
 
-#: forms.py:75
+#: forms.py:76
 msgid "This email address is not recognised."
 msgstr "Δε βρέθηκε το email."
 
-#: forms.py:82 templates/wagtailadmin/pages/_privacy_indicator.html:13
+#: forms.py:88
+#, fuzzy
+msgid "New title"
+msgstr "Μετακίνηση της %(title)s"
+
+#: forms.py:89
+msgid "New slug"
+msgstr ""
+
+#: forms.py:95
+#, fuzzy
+msgid "Copy subpages"
+msgstr "Προσθήκη υποσελίδας"
+
+#: forms.py:97
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:106
+msgid "Publish copied page"
+msgstr ""
+
+#: forms.py:107
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+
+#: forms.py:109
+#, fuzzy
+msgid "Publish copies"
+msgstr "Έκδοση"
+
+#: forms.py:111
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:124 views/pages.py:155 views/pages.py:272
+msgid "This slug is already in use"
+msgstr "Το slug χρησιμοποιείται"
+
+#: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
 #, fuzzy
 msgid "Public"
 msgstr "Έκδοση"
 
-#: forms.py:83
+#: forms.py:131
 msgid "Private, accessible with the following password"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:139
 #, fuzzy
 msgid "This field is required."
 msgstr "Δε βρέθηκε το email."
@@ -79,7 +128,7 @@ msgstr "Δε βρέθηκε το email."
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
-#: templates/wagtailadmin/base.html:31
+#: templates/wagtailadmin/base.html:27
 msgid "Menu"
 msgstr "Μενού"
 
@@ -232,12 +281,12 @@ msgstr "Σύνδεση με email"
 #: templates/wagtailadmin/chooser/_search_form.html:7
 #: templates/wagtailadmin/pages/search.html:3
 #: templates/wagtailadmin/pages/search.html:16
-#: templatetags/wagtailadmin_tags.py:35
+#: templatetags/wagtailadmin_tags.py:36
 msgid "Search"
 msgstr "Αναζήτηση"
 
 #: templates/wagtailadmin/chooser/_search_results.html:3
-#: templatetags/wagtailadmin_tags.py:34
+#: templatetags/wagtailadmin_tags.py:35
 msgid "Explorer"
 msgstr "Εξερευνητής"
 
@@ -301,7 +350,7 @@ msgstr "Μετακίνηση κάτω"
 #: templates/wagtailadmin/pages/confirm_delete.html:7
 #: templates/wagtailadmin/pages/edit.html:45
 #: templates/wagtailadmin/pages/list.html:84
-#: templates/wagtailadmin/pages/list.html:202
+#: templates/wagtailadmin/pages/list.html:205
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -644,7 +693,7 @@ msgstr "Απόεκδοστε τη σελίδα %(title)s"
 #: templates/wagtailadmin/pages/confirm_unpublish.html:6
 #: templates/wagtailadmin/pages/edit.html:42
 #: templates/wagtailadmin/pages/list.html:87
-#: templates/wagtailadmin/pages/list.html:205
+#: templates/wagtailadmin/pages/list.html:208
 msgid "Unpublish"
 msgstr "Αποέκδοση"
 
@@ -659,6 +708,21 @@ msgstr "Ναι, να αποεκδοθεί"
 #: templates/wagtailadmin/pages/content_type_use.html:7
 msgid "Pages using"
 msgstr "Οι σελίδες που το χρησιμοποιούν"
+
+#: templates/wagtailadmin/pages/copy.html:3
+#, fuzzy, python-format
+msgid "Copy %(title)s"
+msgstr "Μετακίνηση της %(title)s"
+
+#: templates/wagtailadmin/pages/copy.html:6
+#: templates/wagtailadmin/pages/list.html:202
+msgid "Copy"
+msgstr ""
+
+#: templates/wagtailadmin/pages/copy.html:26
+#, fuzzy
+msgid "Copy this page"
+msgstr "Διόρθωση της σελίδας"
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -713,7 +777,7 @@ msgid "Exploring %(title)s"
 msgstr "Εξερεύνηση %(title)s"
 
 #: templates/wagtailadmin/pages/list.html:90
-#: templates/wagtailadmin/pages/list.html:208
+#: templates/wagtailadmin/pages/list.html:211
 msgid "Add child page"
 msgstr "Προσθήκη σελίδας-παιδί"
 
@@ -734,42 +798,42 @@ msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παι�
 msgid "Drag"
 msgstr "Τραβήξτε"
 
-#: templates/wagtailadmin/pages/list.html:234
-#: templates/wagtailadmin/pages/list.html:238
+#: templates/wagtailadmin/pages/list.html:237
+#: templates/wagtailadmin/pages/list.html:241
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:234
-#: templates/wagtailadmin/pages/list.html:238
-#: templates/wagtailadmin/pages/list.html:242
+#: templates/wagtailadmin/pages/list.html:237
+#: templates/wagtailadmin/pages/list.html:241
+#: templates/wagtailadmin/pages/list.html:245
 msgid "Explore"
 msgstr "Εξερεύνηση"
 
-#: templates/wagtailadmin/pages/list.html:242
-#, python-format
-msgid "Explorer child pages of '%(title)s'"
+#: templates/wagtailadmin/pages/list.html:245
+#, fuzzy, python-format
+msgid "Explore child pages of '%(title)s'"
 msgstr "Εξερεύνηση σελίδων - παιδιά της '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:244
+#: templates/wagtailadmin/pages/list.html:247
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Προσθήκη σελίδας - παιδί στην '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:244
+#: templates/wagtailadmin/pages/list.html:247
 msgid "Add subpage"
 msgstr "Προσθήκη υποσελίδας"
 
-#: templates/wagtailadmin/pages/list.html:253
+#: templates/wagtailadmin/pages/list.html:256
 msgid "No pages have been created."
 msgstr "Δεν έχουν δημιουργηθεί σελίδες."
 
-#: templates/wagtailadmin/pages/list.html:253
+#: templates/wagtailadmin/pages/list.html:256
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Θέλετε να <a href=\"%(add_page_url)s\">προσθέσετε μία</a>;"
 
-#: templates/wagtailadmin/pages/list.html:260
+#: templates/wagtailadmin/pages/list.html:263
 #, fuzzy, python-format
 msgid ""
 "\n"
@@ -779,7 +843,7 @@ msgstr ""
 "\n"
 "Σελίδα %(page_number)s of %(num_pages)s."
 
-#: templates/wagtailadmin/pages/list.html:266
+#: templates/wagtailadmin/pages/list.html:269
 #: templates/wagtailadmin/pages/search_results.html:35
 #: templates/wagtailadmin/pages/search_results.html:37
 #: templates/wagtailadmin/pages/usage_results.html:13
@@ -789,7 +853,7 @@ msgstr ""
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: templates/wagtailadmin/pages/list.html:271
+#: templates/wagtailadmin/pages/list.html:274
 #: templates/wagtailadmin/pages/search_results.html:44
 #: templates/wagtailadmin/pages/search_results.html:46
 #: templates/wagtailadmin/pages/usage_results.html:18
@@ -950,6 +1014,13 @@ msgstr ""
 msgid "Sat"
 msgstr "Κατάσταση"
 
+#: templates/wagtailadmin/shared/header.html:23
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
 #: templates/wagtailadmin/shared/main_nav.html:10
 msgid "Account settings"
 msgstr "Επιλογές λογαριασμού"
@@ -989,64 +1060,70 @@ msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 
-#: views/pages.py:146 views/pages.py:263
-msgid "This slug is already in use"
-msgstr "Το slug χρησιμοποιείται"
-
-#: views/pages.py:160 views/pages.py:277
+#: views/pages.py:169 views/pages.py:286
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: views/pages.py:170 views/pages.py:287
+#: views/pages.py:179 views/pages.py:296
 msgid "Expiry date/time must be in the future"
 msgstr ""
 
-#: views/pages.py:210 views/pages.py:334 views/pages.py:707
+#: views/pages.py:219 views/pages.py:351 views/pages.py:791
 msgid "Page '{0}' published."
 msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
 
-#: views/pages.py:212 views/pages.py:336
+#: views/pages.py:221 views/pages.py:353
 msgid "Page '{0}' submitted for moderation."
 msgstr "Η σελίδα '{0}' στάλθηκε προς έλεγχο."
 
-#: views/pages.py:215
+#: views/pages.py:224
 msgid "Page '{0}' created."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 
-#: views/pages.py:224
+#: views/pages.py:233
 #, fuzzy
 msgid "The page could not be created due to validation errors"
 msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
 
-#: views/pages.py:339
+#: views/pages.py:356
 msgid "Page '{0}' updated."
 msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
 
-#: views/pages.py:348
+#: views/pages.py:365
 msgid "The page could not be saved due to validation errors"
 msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
 
-#: views/pages.py:361
+#: views/pages.py:378
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα δεν είναι προς έλεγχο"
 
-#: views/pages.py:381
+#: views/pages.py:409
 msgid "Page '{0}' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '{0}'."
 
-#: views/pages.py:543
+#: views/pages.py:575
 msgid "Page '{0}' unpublished."
 msgstr "Έγινε αποδημοσίευση της '{0}'."
 
-#: views/pages.py:594
+#: views/pages.py:627
 msgid "Page '{0}' moved."
 msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
 
-#: views/pages.py:701 views/pages.py:720 views/pages.py:740
+#: views/pages.py:709
+#, fuzzy
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
+
+#: views/pages.py:711
+#, fuzzy
+msgid "Page '{0}' copied."
+msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
+
+#: views/pages.py:785 views/pages.py:804 views/pages.py:824
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
 
-#: views/pages.py:726
+#: views/pages.py:810
 msgid "Page '{0}' rejected for publication."
 msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκε."
 

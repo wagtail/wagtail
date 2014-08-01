@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:55+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-02-23 14:19+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
-#: wagtail_hooks.py:24 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr "Fragmente"
 
@@ -82,6 +82,7 @@ msgid "Editing"
 msgstr "Editare"
 
 #: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
 msgid "Title"
 msgstr "Titlu"
 
@@ -109,22 +110,47 @@ msgstr ""
 "Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
 "\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
 
-#: views/snippets.py:127
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: views/snippets.py:129
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' a fost creat."
 
-#: views/snippets.py:134
+#: views/snippets.py:136
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
 
-#: views/snippets.py:168
+#: views/snippets.py:170
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' a fost actualizat."
 
-#: views/snippets.py:175
+#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
 msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 
-#: views/snippets.py:204
+#: views/snippets.py:206
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' a fost șters."

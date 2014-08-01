@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:41+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-03-23 10:32+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
@@ -28,27 +28,27 @@ msgstr ""
 msgid "Common page configuration"
 msgstr "Configuración común de páxina"
 
-#: forms.py:18
+#: forms.py:19
 msgid "Search term"
 msgstr "Termo de busca"
 
-#: forms.py:42
+#: forms.py:43
 msgid "Enter your username"
 msgstr "Introduce o teu nome de usuario"
 
-#: forms.py:45
+#: forms.py:46
 msgid "Enter password"
 msgstr "Introduce contrasinal"
 
-#: forms.py:50
+#: forms.py:51
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
 
-#: forms.py:59
+#: forms.py:60
 msgid "Please fill your email address."
 msgstr "Por favor, enche a túa dirección de correo."
 
-#: forms.py:72
+#: forms.py:73
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
@@ -56,21 +56,70 @@ msgstr ""
 "Sentímolo, non podes restablecer o teu contrasinal aquí porque a túa conta é "
 "xestionada por outro servidor."
 
-#: forms.py:75
+#: forms.py:76
 msgid "This email address is not recognised."
 msgstr "Non se recoñece a dirección de correo."
 
-#: forms.py:82 templates/wagtailadmin/pages/_privacy_indicator.html:13
+#: forms.py:88
+#, fuzzy
+msgid "New title"
+msgstr "Mover %(title)s"
+
+#: forms.py:89
+msgid "New slug"
+msgstr ""
+
+#: forms.py:95
+#, fuzzy
+msgid "Copy subpages"
+msgstr "Engadir subpáxina"
+
+#: forms.py:97
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:106
+msgid "Publish copied page"
+msgstr ""
+
+#: forms.py:107
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+
+#: forms.py:109
+#, fuzzy
+msgid "Publish copies"
+msgstr "Publicar"
+
+#: forms.py:111
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:124 views/pages.py:155 views/pages.py:272
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
+
+#: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
 #, fuzzy
 msgid "Public"
 msgstr "Publicar"
 
-#: forms.py:83
+#: forms.py:131
 msgid "Private, accessible with the following password"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:139
 #, fuzzy
 msgid "This field is required."
 msgstr "Non se recoñece a dirección de correo."
@@ -79,7 +128,7 @@ msgstr "Non se recoñece a dirección de correo."
 msgid "Dashboard"
 msgstr "Panel de control"
 
-#: templates/wagtailadmin/base.html:31
+#: templates/wagtailadmin/base.html:27
 msgid "Menu"
 msgstr "Menú"
 
@@ -235,12 +284,12 @@ msgstr "Ligazón de correo electrónico"
 #: templates/wagtailadmin/chooser/_search_form.html:7
 #: templates/wagtailadmin/pages/search.html:3
 #: templates/wagtailadmin/pages/search.html:16
-#: templatetags/wagtailadmin_tags.py:35
+#: templatetags/wagtailadmin_tags.py:36
 msgid "Search"
 msgstr "Busca"
 
 #: templates/wagtailadmin/chooser/_search_results.html:3
-#: templatetags/wagtailadmin_tags.py:34
+#: templatetags/wagtailadmin_tags.py:35
 msgid "Explorer"
 msgstr "Explorador"
 
@@ -306,7 +355,7 @@ msgstr "Baixar"
 #: templates/wagtailadmin/pages/confirm_delete.html:7
 #: templates/wagtailadmin/pages/edit.html:45
 #: templates/wagtailadmin/pages/list.html:84
-#: templates/wagtailadmin/pages/list.html:202
+#: templates/wagtailadmin/pages/list.html:205
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -653,7 +702,7 @@ msgstr "Non publicar %(title)s"
 #: templates/wagtailadmin/pages/confirm_unpublish.html:6
 #: templates/wagtailadmin/pages/edit.html:42
 #: templates/wagtailadmin/pages/list.html:87
-#: templates/wagtailadmin/pages/list.html:205
+#: templates/wagtailadmin/pages/list.html:208
 msgid "Unpublish"
 msgstr "Non publicar"
 
@@ -668,6 +717,21 @@ msgstr "Sí, non publicar"
 #: templates/wagtailadmin/pages/content_type_use.html:7
 msgid "Pages using"
 msgstr "Páxinas usando"
+
+#: templates/wagtailadmin/pages/copy.html:3
+#, fuzzy, python-format
+msgid "Copy %(title)s"
+msgstr "Mover %(title)s"
+
+#: templates/wagtailadmin/pages/copy.html:6
+#: templates/wagtailadmin/pages/list.html:202
+msgid "Copy"
+msgstr ""
+
+#: templates/wagtailadmin/pages/copy.html:26
+#, fuzzy
+msgid "Copy this page"
+msgstr "Editar esta páxina"
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -722,7 +786,7 @@ msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
 
 #: templates/wagtailadmin/pages/list.html:90
-#: templates/wagtailadmin/pages/list.html:208
+#: templates/wagtailadmin/pages/list.html:211
 msgid "Add child page"
 msgstr "Engadir páxina filla"
 
@@ -743,42 +807,42 @@ msgstr "Habilitar organización de páxinas fillas"
 msgid "Drag"
 msgstr "Levar"
 
-#: templates/wagtailadmin/pages/list.html:234
-#: templates/wagtailadmin/pages/list.html:238
+#: templates/wagtailadmin/pages/list.html:237
+#: templates/wagtailadmin/pages/list.html:241
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "Explorar subpáxinas de '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:234
-#: templates/wagtailadmin/pages/list.html:238
-#: templates/wagtailadmin/pages/list.html:242
+#: templates/wagtailadmin/pages/list.html:237
+#: templates/wagtailadmin/pages/list.html:241
+#: templates/wagtailadmin/pages/list.html:245
 msgid "Explore"
 msgstr "Explorar"
 
-#: templates/wagtailadmin/pages/list.html:242
-#, python-format
-msgid "Explorer child pages of '%(title)s'"
+#: templates/wagtailadmin/pages/list.html:245
+#, fuzzy, python-format
+msgid "Explore child pages of '%(title)s'"
 msgstr "Explorar páxinas fillas de '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:244
+#: templates/wagtailadmin/pages/list.html:247
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Engadir páxina filla a '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:244
+#: templates/wagtailadmin/pages/list.html:247
 msgid "Add subpage"
 msgstr "Engadir subpáxina"
 
-#: templates/wagtailadmin/pages/list.html:253
+#: templates/wagtailadmin/pages/list.html:256
 msgid "No pages have been created."
 msgstr "Non foi creada ningunha páxina."
 
-#: templates/wagtailadmin/pages/list.html:253
+#: templates/wagtailadmin/pages/list.html:256
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "¿Por qué non <a href=\"%(add_page_url)s\">engadir unha</a>?"
 
-#: templates/wagtailadmin/pages/list.html:260
+#: templates/wagtailadmin/pages/list.html:263
 #, fuzzy, python-format
 msgid ""
 "\n"
@@ -789,7 +853,7 @@ msgstr ""
 "                Páxina %(page_number)s de %(num_pages)s.\n"
 "            "
 
-#: templates/wagtailadmin/pages/list.html:266
+#: templates/wagtailadmin/pages/list.html:269
 #: templates/wagtailadmin/pages/search_results.html:35
 #: templates/wagtailadmin/pages/search_results.html:37
 #: templates/wagtailadmin/pages/usage_results.html:13
@@ -799,7 +863,7 @@ msgstr ""
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/wagtailadmin/pages/list.html:271
+#: templates/wagtailadmin/pages/list.html:274
 #: templates/wagtailadmin/pages/search_results.html:44
 #: templates/wagtailadmin/pages/search_results.html:46
 #: templates/wagtailadmin/pages/usage_results.html:18
@@ -962,6 +1026,13 @@ msgstr ""
 msgid "Sat"
 msgstr "Estado"
 
+#: templates/wagtailadmin/shared/header.html:23
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
 #: templates/wagtailadmin/shared/main_nav.html:10
 msgid "Account settings"
 msgstr "Axustes de conta"
@@ -1001,64 +1072,70 @@ msgstr "¡O teu contrasinal foi cambiado correctamente!"
 msgid "Your preferences have been updated successfully!"
 msgstr "¡O teu contrasinal foi cambiado correctamente!"
 
-#: views/pages.py:146 views/pages.py:263
-msgid "This slug is already in use"
-msgstr "Este slug ya está en uso"
-
-#: views/pages.py:160 views/pages.py:277
+#: views/pages.py:169 views/pages.py:286
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: views/pages.py:170 views/pages.py:287
+#: views/pages.py:179 views/pages.py:296
 msgid "Expiry date/time must be in the future"
 msgstr ""
 
-#: views/pages.py:210 views/pages.py:334 views/pages.py:707
+#: views/pages.py:219 views/pages.py:351 views/pages.py:791
 msgid "Page '{0}' published."
 msgstr "Páxina '{0}' publicada."
 
-#: views/pages.py:212 views/pages.py:336
+#: views/pages.py:221 views/pages.py:353
 msgid "Page '{0}' submitted for moderation."
 msgstr "Páxina '{0}' enviada para ser moderada."
 
-#: views/pages.py:215
+#: views/pages.py:224
 msgid "Page '{0}' created."
 msgstr "Páxina '{0}' creada."
 
-#: views/pages.py:224
+#: views/pages.py:233
 #, fuzzy
 msgid "The page could not be created due to validation errors"
 msgstr "A páxina non puido ser gardada debido a erros de validación"
 
-#: views/pages.py:339
+#: views/pages.py:356
 msgid "Page '{0}' updated."
 msgstr "Páxina '{0}' actualizada."
 
-#: views/pages.py:348
+#: views/pages.py:365
 msgid "The page could not be saved due to validation errors"
 msgstr "A páxina non puido ser gardada debido a erros de validación"
 
-#: views/pages.py:361
+#: views/pages.py:378
 msgid "This page is currently awaiting moderation"
 msgstr "A páxina está á espera de ser moderada"
 
-#: views/pages.py:381
+#: views/pages.py:409
 msgid "Page '{0}' deleted."
 msgstr "Páxina '{0}' eliminada."
 
-#: views/pages.py:543
+#: views/pages.py:575
 msgid "Page '{0}' unpublished."
 msgstr "Páxina '{0}' non publicada."
 
-#: views/pages.py:594
+#: views/pages.py:627
 msgid "Page '{0}' moved."
 msgstr "Páxina '{0}' movida."
 
-#: views/pages.py:701 views/pages.py:720 views/pages.py:740
+#: views/pages.py:709
+#, fuzzy
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Páxina '{0}' actualizada."
+
+#: views/pages.py:711
+#, fuzzy
+msgid "Page '{0}' copied."
+msgstr "Páxina '{0}' movida."
+
+#: views/pages.py:785 views/pages.py:804 views/pages.py:824
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A páxina '{0}' non está esperando a ser moderada."
 
-#: views/pages.py:726
+#: views/pages.py:810
 msgid "Page '{0}' rejected for publication."
 msgstr "Rexeitada a publicación da página '{0}'."
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
 "PO-Revision-Date: 2014-03-23 10:32+0000\n"
 "Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
@@ -20,20 +20,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:20 templates/wagtaildocs/documents/list.html:11
+#: models.py:21 templates/wagtaildocs/documents/list.html:11
 #: templates/wagtaildocs/documents/list.html:14
+#: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr "Título"
 
-#: models.py:21 templates/wagtaildocs/documents/list.html:17
+#: models.py:22 templates/wagtaildocs/documents/list.html:17
 msgid "File"
 msgstr "Arquivo"
 
-#: models.py:25
+#: models.py:26
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: wagtail_hooks.py:23 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Documentos"
 
@@ -141,6 +142,31 @@ msgstr ""
 "Non subiches documentos. ¿Por qué non <a href="
 "\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
 
+#: templates/wagtaildocs/documents/usage.html:3
+#, fuzzy, python-format
+msgid "Usage of %(title)s"
+msgstr "Eliminar %(title)s"
+
+#: templates/wagtaildocs/documents/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
 #: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
 msgid "Clear choice"
 msgstr "Borrar selección"
@@ -149,22 +175,22 @@ msgstr "Borrar selección"
 msgid "Choose another document"
 msgstr "Elixir outro documento"
 
-#: views/documents.py:36 views/documents.py:45
+#: views/documents.py:37 views/documents.py:46
 msgid "Search documents"
 msgstr "Buscar documentos"
 
-#: views/documents.py:85
+#: views/documents.py:86
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' engadido."
 
-#: views/documents.py:88 views/documents.py:117
+#: views/documents.py:89 views/documents.py:118
 msgid "The document could not be saved due to errors."
 msgstr "O documento non puido ser gardado debido a erros."
 
-#: views/documents.py:114
+#: views/documents.py:115
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' actualizado"
 
-#: views/documents.py:136
+#: views/documents.py:137
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."

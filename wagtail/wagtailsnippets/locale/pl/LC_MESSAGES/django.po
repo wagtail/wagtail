@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:55+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-02-23 10:23+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: wagtail_hooks.py:24 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr "Snippety"
 
@@ -80,6 +80,7 @@ msgid "Editing"
 msgstr "Edycja"
 
 #: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
 msgid "Title"
 msgstr "Tytuł"
 
@@ -107,22 +108,47 @@ msgstr ""
 "Żaden%(snippet_type_name_plural)s nie został stworzony. Czemu nie <a href="
 "\"%(wagtailsnippets_create_url)s\">dodać jednego</a>?"
 
-#: views/snippets.py:127
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: views/snippets.py:129
 msgid "{snippet_type} '{instance}' created."
 msgstr "Stworzono {snippet_type} '{instance}'."
 
-#: views/snippets.py:134
+#: views/snippets.py:136
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
 
-#: views/snippets.py:168
+#: views/snippets.py:170
 msgid "{snippet_type} '{instance}' updated."
 msgstr "Uaktualniono {snippet_type} '{instance}'."
 
-#: views/snippets.py:175
+#: views/snippets.py:177
 msgid "The snippet could not be saved due to errors."
 msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 
-#: views/snippets.py:204
+#: views/snippets.py:206
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "Usunięto {snippet_type} '{instance}'."
