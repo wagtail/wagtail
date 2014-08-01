@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5 (xx.xx.20xx)
+0.5 (01.08.2014)
 ~~~~~~~~~~~~~~~~
  * Added multiple image uploader
  * Added support for face and feature detection on images using the OpenCV library
