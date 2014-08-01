@@ -681,20 +681,12 @@ def copy(request, page_id):
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
     # Create the form
-    form = CopyForm(request.POST or None, initial={
+    form = CopyForm(request.POST or None, page=page, initial={
         'new_title': page.title,
         'new_slug': page.slug,
         'copy_subpages': True,
         'publish_copies': True,
     })
-
-    # Stick an extra validator into the form to make sure that the slug is not already in use
-    def clean_slug(slug):
-        # Make sure the slug isn't already in use
-        if parent_page.get_children().filter(slug=slug).count() > 0:
-            raise ValidationError(_("This slug is already in use"))
-        return slug
-    form.fields['new_slug'].clean = clean_slug
 
     # Check if user is submitting
     if request.method == 'POST' and form.is_valid():

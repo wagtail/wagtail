@@ -79,10 +79,24 @@ class PasswordResetForm(PasswordResetForm):
 
 
 class CopyForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        # CopyPage must be passed a 'page' kwarg indicating the page to be copied
+        self.page = kwargs.pop('page')
+
+        return super(CopyForm, self).__init__(*args, **kwargs)
+
     new_title = forms.CharField()
     new_slug = forms.CharField()
     copy_subpages = forms.BooleanField(required=False)
     publish_copies = forms.BooleanField(required=False)
+
+    def clean_new_slug(self):
+        # Make sure the slug isn't already in use
+        slug = self.cleaned_data['new_slug']
+
+        if self.page.get_siblings(inclusive=True).filter(slug=slug).count():
+            raise forms.ValidationError(_("This slug is already in use"))
+        return slug
 
 
 class PageViewRestrictionForm(forms.Form):
