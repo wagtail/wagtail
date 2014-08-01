@@ -12,6 +12,7 @@ Changelog
  * Replaced lxml dependency with html5lib, to simplify installation
  * Added page_unpublished signal
  * Added mechanism to obtain external URLs to images, at any size
+ * Added Copy Page action to the explorer
 
  * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
 
