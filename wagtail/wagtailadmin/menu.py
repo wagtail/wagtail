@@ -8,8 +8,9 @@ try:
 except ImportError:
     from django.forms.util import flatatt
 
+from django.conf import settings
 from django.utils.text import slugify
-from django.utils.html import format_html
+from django.utils.html import format_html, format_html_join
 
 from wagtail.wagtailcore import hooks
 
@@ -26,6 +27,13 @@ class MenuItem(object):
             self.attr_string = flatatt(attrs)
         else:
             self.attr_string = ""
+
+    js_files = []
+    def render_js(self):
+        if self.js_files:
+            return format_html_join('\n', '<script src="{0}{1}"></script>',
+                    ((settings.STATIC_URL, filename) for filename in self.js_files)
+                )
 
     def is_shown(self, request):
         return True

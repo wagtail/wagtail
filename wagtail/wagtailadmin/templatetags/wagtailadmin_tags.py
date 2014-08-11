@@ -39,6 +39,11 @@ def main_nav(context):
         'request': request,
     }
 
+@register.simple_tag
+def main_nav_js():
+    js_snippets = [item.render_js() or '' for item in get_master_menu_item_list()]
+    return ''.join(js_snippets)
+
 
 @register.filter("ellipsistrim")
 def ellipsistrim(value, max_length):
