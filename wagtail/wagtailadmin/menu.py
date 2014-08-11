@@ -11,6 +11,8 @@ except ImportError:
 from django.utils.text import slugify
 from django.utils.html import format_html
 
+from wagtail.wagtailcore import hooks
+
 
 class MenuItem(object):
     def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
@@ -29,3 +31,12 @@ class MenuItem(object):
         return format_html(
             """<li class="menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
             self.name, self.url, self.classnames, self.attr_string, self.label)
+
+
+_menu_items = None
+def get_menu_items():
+    global _menu_items
+    if _menu_items is None:
+        _menu_items = [fn() for fn in hooks.get_hooks('register_admin_menu_item')]
+
+    return _menu_items
