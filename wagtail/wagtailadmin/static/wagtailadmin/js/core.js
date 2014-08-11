@@ -29,7 +29,7 @@ $(function(){
         $this.addClass('icon-spinner');
 
         if(!$explorer.children().length){
-            $explorer.load(window.explorer_menu_url, function() {
+            $explorer.load($this.data('explorer-menu-url'), function() {
                 $this.removeClass('icon-spinner');
 
                 $explorer.addClass('dl-menuwrapper').dlmenu({
@@ -38,10 +38,10 @@ $(function(){
                         classout : 'dl-animate-out-2'
                     }
                 });
-                $explorer.dlmenu('openMenu');          
+                $explorer.dlmenu('openMenu');
             });
         }else{
-            $explorer.dlmenu('openMenu');          
+            $explorer.dlmenu('openMenu');
         }
 
         return false;

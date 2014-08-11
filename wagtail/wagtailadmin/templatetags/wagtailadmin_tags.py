@@ -32,7 +32,10 @@ def explorer_subnav(nodes):
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     menu_items = [
-        MenuItem(_('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'), classnames='icon icon-folder-open-inverse dl-trigger', order=100),
+        MenuItem(_('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'),
+            classnames='icon icon-folder-open-inverse dl-trigger',
+            attrs={'data-explorer-menu-url': urlresolvers.reverse('wagtailadmin_explorer_nav')},
+            order=100),
         MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
     ]
 
