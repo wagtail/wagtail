@@ -6,7 +6,7 @@ from django import template
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore
-from wagtail.wagtailadmin.menu import get_menu_items
+from wagtail.wagtailadmin.menu import get_master_menu_item_list
 
 
 register = template.Library()
@@ -28,9 +28,8 @@ def explorer_subnav(nodes):
 
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
-    menu_items = get_menu_items()[:]  # need to clone with [:] because the return value of get_menu_items is global, and construct_main_menu hooks will mutate it
-
     request = context['request']
+    menu_items = [item for item in get_master_menu_item_list() if item.is_shown(request)]
 
     for fn in hooks.get_hooks('construct_main_menu'):
         fn(request, menu_items)

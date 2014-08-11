@@ -27,16 +27,24 @@ class MenuItem(object):
         else:
             self.attr_string = ""
 
+    def is_shown(self, request):
+        return True
+
     def render_html(self):
         return format_html(
             """<li class="menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
             self.name, self.url, self.classnames, self.attr_string, self.label)
 
 
-_menu_items = None
-def get_menu_items():
-    global _menu_items
-    if _menu_items is None:
-        _menu_items = [fn() for fn in hooks.get_hooks('register_admin_menu_item')]
+_master_menu_item_list = None
+def get_master_menu_item_list():
+    """
+    Return the list of menu items registered with the 'register_admin_menu_item' hook.
+    This is the "master list" because the final admin menu may vary per request
+    according to the value of is_shown() and the construct_main_menu hook.
+    """
+    global _master_menu_item_list
+    if _master_menu_item_list is None:
+        _master_menu_item_list = [fn() for fn in hooks.get_hooks('register_admin_menu_item')]
 
-    return _menu_items
+    return _master_menu_item_list
