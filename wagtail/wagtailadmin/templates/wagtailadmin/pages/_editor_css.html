@@ -1,12 +1,7 @@
-{% load compress %}
+{% load compress wagtailadmin_tags %}
 
 {% comment %}
     CSS declarations to be included on the 'create page' and 'edit page' views
-{% endcomment %}
-
-{% comment %}
-    TODO: have a mechanism for sub-apps to specify their own declarations -
-    ideally wagtailadmin shouldn't have to know anything at all about wagtailimages and friends
 {% endcomment %}
 
 {% compress css %}
@@ -16,4 +11,8 @@
     {# we'll want tag-it included, for the benefit of any modals that use it, like images. #}
     {# TODO: a method of injecting these sorts of things on demand when the modal is spawned #}
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.tagit.css">
+
+    {% hook_output 'insert_editor_css' %}
 {% endcompress %}
+
+{{ edit_handler.form.media.css }}

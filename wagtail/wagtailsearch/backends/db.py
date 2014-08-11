@@ -21,51 +21,38 @@ class DBSearch(BaseSearch):
         pass # Not needed
 
     def add_bulk(self, obj_list):
-        pass # Not needed
+        return [] # Not needed
 
     def delete(self, obj):
         pass # Not needed
 
-    def search(self, query_string, model, fields=None, filters={}, prefetch_related=[]):
-        # Get terms
-        terms = query_string.split()
-        if not terms:
-            return model.objects.none()
+    def _search(self, queryset, query_string, fields=None):
+        if query_string is not None:
+            # Get fields
+            if fields is None:
+                fields = [field.field_name for field in queryset.model.get_searchable_search_fields()]
 
-        # Get fields
-        if fields is None:
-            fields = model.indexed_get_indexed_fields().keys()
+            # Get terms
+            terms = query_string.split()
+            if not terms:
+                return queryset.model.objects.none()
 
-        # Start will all objects
-        query = model.objects.all()
+            # Filter by terms
+            for term in terms:
+                term_query = models.Q()
+                for field_name in fields:
+                    # Check if the field exists (this will filter out indexed callables)
+                    try:
+                        queryset.model._meta.get_field_by_name(field_name)
+                    except:
+                        continue
 
-        # Apply filters
-        if filters:
-            query = query.filter(**filters)
+                    # Filter on this field
+                    term_query |= models.Q(**{'%s__icontains' % field_name: term})
 
-        # Filter by terms
-        for term in terms:
-            term_query = None
-            for field_name in fields:
-                # Check if the field exists (this will filter out indexed callables)
-                try:
-                    model._meta.get_field_by_name(field_name)
-                except:
-                    continue
+                queryset = queryset.filter(term_query)
 
-                # Filter on this field
-                field_filter = {'%s__icontains' % field_name: term}
-                if term_query is None:
-                    term_query = models.Q(**field_filter)
-                else:
-                    term_query |= models.Q(**field_filter)
-            query = query.filter(term_query)
+            # Distinct
+            queryset = queryset.distinct()
 
-        # Distinct
-        query = query.distinct()
-
-        # Prefetch related
-        for prefetch in prefetch_related:
-            query = query.prefetch_related(prefetch)
-
-        return query
+        return queryset

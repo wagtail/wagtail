@@ -5,13 +5,18 @@ from taggit.managers import TaggableManager
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.dispatch import Signal
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy  as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
+from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.wagtailsearch import indexed
 
 
+@python_2_unicode_compatible
 class Document(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.FileField(upload_to='documents' , verbose_name=_('File'))
@@ -20,16 +25,11 @@ class Document(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    indexed_fields = {
-        'uploaded_by_user_id': {
-            'type': 'integer',
-            'store': 'yes',
-            'indexed': 'no',
-            'boost': 0,
-        },
-    }
+    search_fields = TagSearchable.search_fields + (
+        indexed.FilterField('uploaded_by_user'),
+    )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
@@ -37,8 +37,24 @@ class Document(models.Model, TagSearchable):
         return os.path.basename(self.file.name)
 
     @property
+    def file_extension(self):
+        parts = self.filename.split('.')
+        if len(parts) > 1:
+            return parts[-1]
+        else:
+            return ''
+
+    @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
+
+    def get_usage(self):
+        return get_object_usage(self)
+
+    @property
+    def usage_url(self):
+        return reverse('wagtaildocs_document_usage',
+                       args=(self.id,))
 
     def is_editable_by_user(self, user):
         if user.has_perm('wagtaildocs.change_document'):
@@ -56,3 +72,6 @@ class Document(models.Model, TagSearchable):
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+
+
+document_served = Signal(providing_args=['request'])

@@ -1,19 +1,25 @@
 (function(w,d){
-    var l, f, h, frame_height;
+    "use strict";
+
+    var l, f, t, frame_height;
+
+    function callback(e){
+        var h;
+        if(e.origin !== w.wagtail.userbar.origin){return;};
+
+        // Get the height from the passed data.
+        try{
+            h = Number(e.data.replace( /.*fh=(\d+)(?:&|$)/, '$1' ) );
+            if (!isNaN( h ) && h > 0 && h !== frame_height) {
+                f.style.opacity = 1;
+                f.style.height = h + "px";
+            }
+        } catch(e){}
+    }
 
     if(!w.wagtail) return;
 
     if(w.postMessage){
-        function callback(e){
-            f.style.opacity=1;
-
-            // Get the height from the passed data.
-            var h = Number(e.data.replace( /.*fh=(\d+)(?:&|$)/, '$1' ) );
-            if (!isNaN( h ) && h > 0 && h !== frame_height) {
-                f.style.height = h + "px";
-            }
-        }
-
         if (w.addEventListener) {
             w.addEventListener('message', callback, false);
         } else {
@@ -25,12 +31,12 @@
     l.rel = 'stylesheet';
     l.href = w.wagtail.static_root + 'scss/userbar_embed.css';
 
-    f = d.createElement('iframe'); 
+    f = d.createElement('iframe');
     f.id = 'wagtail-userbar'; 
     f.frameborder = '0'; 
     f.allowtransparency = 'true'; 
     f.scrolling = 'no';
-    f.src = w.wagtail.userbar_src;
+    f.src = w.wagtail.userbar.src;
 
     // if postMessage is supported, hide iframe till it is loaded
     if(w.postMessage){

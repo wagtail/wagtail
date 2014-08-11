@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from wagtail.wagtaildocs.views import serve
 
-urlpatterns = patterns(
-    'wagtail.wagtaildocs.views',
-    url(r'^(\d+)/(.*)$', 'serve.serve', name='wagtaildocs_serve'),
-)
+urlpatterns = [
+    url(r'^(\d+)/(.*)$', serve.serve, name='wagtaildocs_serve'),
+]

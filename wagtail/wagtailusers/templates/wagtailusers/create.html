@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load image_tags %}
+{% load wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Add user" %}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block content %}
 
     {% trans "Add user" as add_user_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 icon="user" %}
 
     <ul class="tab-nav merged">
         <li class="active"><a href="#account">{% trans "Account" %}</a></li>

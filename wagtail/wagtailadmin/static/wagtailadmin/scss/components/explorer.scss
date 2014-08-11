@@ -1,4 +1,4 @@
-/* 
+/*
 min z-index: 500;
 max z-index: unknown;
 */
@@ -19,7 +19,7 @@ $explorer-z-index:500;
     -webkit-perspective-origin: 50% 200%;
     -moz-perspective-origin: 50% 200%;
     perspective-origin: 50% 200%;
-    
+
     ul {
         background: $color-grey-1;
         padding: 0;
@@ -37,7 +37,7 @@ $explorer-z-index:500;
         &:first-child{
             border-top:0;
         }
-    }   
+    }
 
     a {
         text-decoration:none;
@@ -53,7 +53,8 @@ $explorer-z-index:500;
         &:before{
             opacity:0.5;
             left:1em;
-            
+            margin-right:0.5em;
+            font-size:1.5em;
         }
 
         &:hover{
@@ -79,9 +80,13 @@ $explorer-z-index:500;
         background-color:$color-grey-1;
         cursor:pointer;
         border-left:1px solid rgba(255,255,255,0.2);
-        
+
         &:before{
-            padding:0.55em 0;
+            padding: 0.55em 0;
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size:1.7em;
         }
 
         &:hover{
@@ -99,15 +104,15 @@ $explorer-z-index:500;
 
     li.dl-back a {
        /* .icon.arrow-left;*/
-       
+
     }
 
     li.dl-back:after {
-        
+
     }
 
     li > a:after {
-        
+
     }
 
     .dl-menu {
@@ -130,10 +135,10 @@ $explorer-z-index:500;
         display: none;
     }
 
-    /* 
+    /*
     When a submenu is openend, we will hide all li siblings.
     For that we give a class to the parent menu called "dl-subview".
-    We also hide the submenu link. 
+    We also hide the submenu link.
     The opened submenu will get the class "dl-subviewopen".
     All this is done for any sub-level being entered.
     */
@@ -916,7 +921,7 @@ $explorer-z-index:500;
     }
 }
 
-/* Transitions */ 
+/* Transitions */
 .children{
     @include transition(all 0.2s linear);
 }

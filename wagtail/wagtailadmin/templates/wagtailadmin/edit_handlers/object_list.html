@@ -1,6 +1,6 @@
 <ul class="objects">
     {% for child in self.children %}
-        <li class="object {{ child.object_classnames }}">
+        <li class="object {{ child.classes|join:" " }}">
             {% if child.heading %}
                 <h2>{{ child.heading }}</h2>
             {% endif %}

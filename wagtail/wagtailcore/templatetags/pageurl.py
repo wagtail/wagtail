@@ -1,12 +1,11 @@
-from django import template
+import warnings
 
-register = template.Library()
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
 
 
-@register.simple_tag(takes_context=True)
-def pageurl(context, page):
-    """
-    Outputs a page's URL as relative (/foo/bar/) if it's within the same site as the
-    current page, or absolute (http://example.com/foo/bar/) if not.
-    """
-    return page.relative_url(context['request'].site)
+warnings.warn(
+    "The pageurl tag library has been moved to wagtailcore_tags. "
+    "Use {% load wagtailcore_tags %} instead.", RemovedInWagtail06Warning)
+
+
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import register, pageurl

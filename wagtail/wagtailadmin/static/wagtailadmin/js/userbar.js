@@ -1,4 +1,4 @@
-/* No jQuery to speed up loading */
+"use strict";
 document.addEventListener('DOMContentLoaded', function(){
     var body = document.querySelectorAll('body')[0];
     var nav = document.querySelectorAll('nav')[0];

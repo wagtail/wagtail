@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_nav %}
+{% load wagtailadmin_tags %}
 {% load i18n %}
 {% block furniture %}
     <div class="nav-wrapper">
@@ -8,11 +8,7 @@
             {% main_nav %}
         </div>
 
-        <nav class="explorer">
-            <ul class="dl-menu">
-                {% explorer_nav %}
-            </ul>
-        </nav>
+        <nav id="explorer" class="explorer"></nav>
     </div>
 
     <div class="content-wrapper">

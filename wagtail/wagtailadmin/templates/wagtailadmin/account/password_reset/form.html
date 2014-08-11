@@ -1,7 +1,7 @@
-{% extends "wagtailadmin/skeleton.html" %}
+{% extends "wagtailadmin/admin_base.html" %}
 {% load compress %}
 {% load i18n %}
-{% block titletag %}{ trans "Reset password" %}{% endblock %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}

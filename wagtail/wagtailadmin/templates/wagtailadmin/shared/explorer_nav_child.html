@@ -1,0 +1,13 @@
+{% load wagtailadmin_tags %}
+
+{% for page, children in nodes %}
+	<li {% if children %}class="has-children"{% endif %}>
+	    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon icon-folder-open-inverse">{{ page.title }}</a>
+	    {% if children %}
+	        <div class="children icon icon-arrow-right"></div>
+	        <ul class="dl-submenu">
+	            {% explorer_subnav children %}
+	        </ul>
+	    {% endif %}
+	</li>
+{% endfor %}

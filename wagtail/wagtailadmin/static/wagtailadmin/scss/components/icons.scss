@@ -16,15 +16,14 @@
     font-variant: normal;
     text-transform: none !important;
     speak: none;
-    display: inline-block;
     text-decoration: none;
     width: 1.3em;
     line-height: 1em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    vertical-align: -20%;
-    font-size:20px;
     text-align:left;
+    vertical-align:middle;
+    margin-right:0.2em;
 }
 .icon:after,
 .hallotoolbar [class^="icon-"]:after,
@@ -36,9 +35,8 @@
 .hallotoolbar [class*=" icon-"]:before,
 .hallotoolbar [class*=" icon-"]:before,
 .hallotoolbar [class^="icon-"]:before{
-    font-size:1.1em;
     vertical-align:-10%;
-    font-size:1.05em;
+    margin-right:0;
 }
 
 
@@ -98,7 +96,6 @@
 .icon-unlocked:before {
     content: "p";
 }
-
 .icon-doc-full-inverse:before {
     content: "r";
 }
@@ -183,23 +180,23 @@
 .icon-horizontalrule{
     &:before{
         font-family: Open Sans,Arial,sans-serif !important; // FML
-        content:"-";
+        content:"\2014";
     }
 }
 .icon-password:before{
     content:"Q";
 }
 .icon-download:before{
-    content:"S";
-}
-.icon-home:before{
-    content:"W";
+    content:"S"; /* Credit: Icon made by Freepik from Flaticon.com */
 }
 .icon-order:before{
     content:"T";
 }
 .icon-grip:before{
     content:"U";
+}
+.icon-home:before{
+    content:"W";
 }
 .icon-order-down:before{
     content:"X";
@@ -212,25 +209,69 @@
 }
 .icon-spinner:after{
     width:1em;
-    animation: spin 1s infinite;
-    -webkit-animation: spin 1s infinite;
-    -moz-animation: spin 1s infinite;
+    animation: spin 0.5s infinite linear;
+    -webkit-animation: spin 0.5s infinite linear;
+    -moz-animation: spin 0.5s infinite linear;
     content:"1";
+}
+.icon-pick:before{
+    content:"2";
+}
+.icon-redirect:before{
+    content:"3";
+}
+/* Credit: Icon made by Zurb from Flaticon.com */
+.icon-view:before{
+    content:"4"; 
+    vertical-align:-4.5px;
+    font-size:1.3rem;
+}
+.icon-collapse-down:before{
+    content:"5";
+}
+.icon-collapse-up:before{
+    content:"6";
+}
+.icon-date:before{
+    content:"7";
+}
+.icon-time:before{
+    content:"8";
+}
+.icon-success:before{
+    content:"9";
+}
+.icon-help:before{
+    content:"?";
+}
+.icon-warning:before{
+    content:"!";
+}
+.icon-form:before{
+    content:"$";
+}
+.icon-site:before{
+    content:"@";
 }
 
 .icon.text-replace{
     font-size:0em;
     line-height:0;
     overflow:hidden;
-    
+
     &:before{
+        margin-right:0;
         font-size:1rem;
         display:inline-block;
         width:100%;
         line-height:1.2em;
         text-align:center;
-        vertical-align:0;
+        vertical-align:middle;
     }
+}
+
+.icon.icon-larger:before{
+    font-size:1.5em;
 }
 
 @keyframes spin {

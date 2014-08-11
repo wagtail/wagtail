@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load page_permissions %}
+{% load wagtailadmin_tags %}
 <table class="listing{% if full_width %} full-width{% endif %}{% if moving or choosing %} chooser{% endif %}">
     {% if orderable %}
         <col width="50px" />
@@ -23,58 +23,77 @@
                 {% endif %}
                 <th class="type">{% trans 'Type' %}</th>
                 <th class="status">{% trans 'Status' %}</th>
-                <th class="children"></th>
+                <th></th>
             </tr>
         {% endif %}
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
-            <tr class="index {% if not parent_page.live %} inactive{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-choose{% endif %}{% endif %}">
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% if moving %}
-                        {% if parent_page.can_choose %}
-                            <h2><a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id parent_page.id %}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
-                    {% elif choosing %}
-                        {% if parent_page.can_choose %}
-                            <h2><a class="choose-page" href="#{{ parent_page.id }}" data-id="{{ parent_page.id }}" data-title="{{ parent_page.title }}" data-url="{{ parent_page.url }}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
-                    {% else %}
-                        {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                            <h2><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a></h2>
-                        {% else %}
-                            <h2>{{ parent_page.title }}</h2>
-                        {% endif %}
-                        <ul class="actions">
-                            {% if parent_page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_add_subpage' parent_page.id %}" class="button button-small bicolor icon white icon-plus">{% trans 'Add child page' %}</a></li>
+                        <h2>
+                            {% if parent_page.can_choose %}
+                                <a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id parent_page.id %}">{{ parent_page.title }}</a>
+                            {% else %}
+                                {{ parent_page.title }}
                             {% endif %}
+
+                            {% test_page_is_public parent_page as is_public %}
+                            {% if not is_public %}
+                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
+                        </h2>
+                    {% elif choosing %}
+                        <h2>
+                            {% if parent_page.can_choose %}
+                                <a class="choose-page" href="#{{ parent_page.id }}" data-id="{{ parent_page.id }}" data-title="{{ parent_page.title }}" data-url="{{ parent_page.url }}">{{ parent_page.title }}</a>
+                            {% else %}
+                                {{ parent_page.title }}
+                            {% endif %}
+
+                            {% test_page_is_public parent_page as is_public %}
+                            {% if not is_public %}
+                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
+                        </h2>
+                    {% else %}
+                        <h2>
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{% trans 'Edit' %}</a></li>
+                                <a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a>
+                            {% else %}
+                                    {{ parent_page.title }}
+                            {% endif %}
+                        </h2>
+                        
+                        {% include "wagtailadmin/pages/_privacy_indicator.html" with page=parent_page %}
+
+                        <ul class="actions">
+                            {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
+                                <li><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}" class="button button-small">{% trans 'Edit' %}</a></li>
                             {% endif %}
                             {% if parent_page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_view_draft' parent_page.id %}" target="_blank">{% trans 'View draft' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_view_draft' parent_page.id %}" class="button button-small" target="_blank">{% trans 'Draft' %}</a></li>
                             {% endif %}
                             {% if parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
-                                <li><a href="{{ parent_page.url }}" target="_blank">{% trans 'View live' %}</a></li>
+                                <li><a href="{{ parent_page.url }}" class="button button-small" target="_blank">{% trans 'Live' %}</a></li>
                             {% endif %}
                             {% if parent_page_perms.can_move and 'move' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_move' parent_page.id %}">{% trans 'Move' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_move' parent_page.id %}" class="button button-small">{% trans 'Move' %}</a></li>
                             {% endif %}
                             {% if parent_page_perms.can_delete and 'delete' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_delete' parent_page.id %}">{% trans 'Delete' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_delete' parent_page.id %}" class="button button-small">{% trans 'Delete' %}</a></li>
                             {% endif %}
                             {% if parent_page_perms.can_unpublish and 'unpublish' not in hide_actions|default:'' %}
-                                <li><a href="{% url 'wagtailadmin_pages_unpublish' parent_page.id %}">{% trans 'Unpublish' %}</a></li>
+                                <li><a href="{% url 'wagtailadmin_pages_unpublish' parent_page.id %}" class="button button-small">{% trans 'Unpublish' %}</a></li>
+                            {% endif %}
+                            {% if parent_page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
+                                <li><a href="{% url 'wagtailadmin_pages_add_subpage' parent_page.id %}" class="button button-small bicolor icon white icon-plus">{% trans 'Add child page' %}</a></li>
                             {% endif %}
                         </ul>
                     {% endif %}
                 </td>
-                <td class="type">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
-                <td class="status">
+                <td class="type" valign="bottom">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
+                <td class="status" valign="bottom">
                     {% if not choosing and not moving and parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
                         <a href="{{ parent_page.url }}" target="_blank" class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</a>
                     {% else %}
@@ -83,7 +102,6 @@
                 </td>
                 <td></td>
             </tr>
-            <tr class="divider"><td colspan="100%">Child pages</td></tr>
         {% endif %}
     
         {% if not moving and not choosing %}
@@ -98,45 +116,36 @@
                     </th>
                 {% endif %}
                 <th class="title">
-                    {% trans 'Title' %}
                     {% if sortable %}
-                        {% if ordering == "title" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=-title" class="icon icon-arrow-down-after teal"></a>
-                        {% elif ordering == "-title" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=title" class="icon icon-arrow-up-after teal"></a>
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=title" class="icon icon-arrow-down-after"></a>
-                        {% endif %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "title" %}-{% endif %}title" class="icon icon-arrow-{% if ordering == "title" %}down-after{% elif ordering == "-title" %}up-after{% else %}down-after{% endif %} {% if ordering == "title" or ordering == "-title" %}teal{% endif %}">
+                            {% trans 'Title' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Title' %}
                     {% endif %}
                 </th>
                 {% if show_parent %}
                     <th class="parent">Parent</th>
                 {% endif %}
                 <th class="type">
-                    {% trans 'Type' %}
                     {% if sortable %}
-                        {% if ordering == "content_type" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=-content_type" class="icon icon-arrow-down-after teal"></a>
-                        {% elif ordering == "-content_type" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=content_type" class="icon icon-arrow-up-after teal"></a>
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=content_type" class="icon icon-arrow-down-after"></a>
-                        {% endif %}
-                    {% endif %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "content_type" %}-{% endif %}content_type" class="icon icon-arrow-{% if ordering == "-content_type" %}up-after{% else %}down-after{% endif %} {% if ordering == "content_type" or ordering == "-content_type" %}teal {% endif %}">
+                            {% trans 'Type' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Type' %}
+                    {% endif %}                   
                 </th>
                 <th class="status">
-                    {% trans 'Status' %}
                     {% if sortable %}
-                        {% if ordering == "live" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=-live" class="icon icon-arrow-down-after teal"></a>
-                        {% elif ordering == "-live" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=live" class="icon icon-arrow-up-after teal"></a>
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=live" class="icon icon-arrow-down-after"></a>
-                        {% endif %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "live" %}-{% endif %}live" class="icon icon-arrow-{% if ordering == "-live" %}up-after{% else %}down-after{% endif %} {% if ordering == "live" or ordering == "-live" %}teal {% endif %}">
+                            {% trans 'Status' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Status' %}
                     {% endif %}
                 </th>
-                <th class="children"></th>
+                <th></th>
             </tr>
         {% endif %}
     </thead>
@@ -144,11 +153,11 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} inactive{% endif %}{% if moving and page.can_choose %} can-choose{% elif choosing and page.can_choose %} can-choose{% else %} cant-choose{% endif %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
                     {% if orderable %}
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
-                    <td class="title">
+                    <td class="title" valign="top">
                         <h2>
                             {% if moving %}
                                 {% if page.can_choose %}
@@ -169,44 +178,52 @@
                                     {{ page.title }}
                                 {% endif %}
                             {% endif %}
+
+                            {% test_page_is_public page as is_public %}
+                            {% if not is_public %}
+                            <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            {% endif %}
                         </h2>
                         {% if not moving and not choosing %}
                             <ul class="actions">
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{% trans 'Edit' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" class="button button-small" title="{% trans 'Edit this page' %}">{% trans 'Edit' %}</a></li>
                                 {% endif %}
                                 {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" target="_blank">{% trans 'View draft' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" class="button button-small" target="_blank">{% trans 'Draft' %}</a></li>
                                 {% endif %}
                                 {% if page.live and 'view_live' not in hide_actions|default:'' %}
-                                    <li><a href="{{ page.url }}" target="_blank">{% trans 'View live' %}</a></li>
+                                    <li><a href="{{ page.url }}" class="button button-small" target="_blank">{% trans 'Live' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_move and 'move' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_move' page.id %}">{% trans 'Move' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_move' page.id %}" class="button button-small">{% trans 'Move' %}</a></li>
+                                {% endif %}
+                                {% if parent_page_perms.can_add_subpage and 'copy' not in hide_actions|default:'' %}
+                                    <li><a href="{% url 'wagtailadmin_pages_copy' page.id %}" class="button button-small">{% trans 'Copy' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_delete and 'delete' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}">{% trans 'Delete' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="button button-small">{% trans 'Delete' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_unpublish and 'unpublish' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}" class="button button-small">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_add_subpage' page.id %}">{% trans 'Add child page' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_add_subpage' page.id %}" class="button button-small">{% trans 'Add child page' %}</a></li>
                                 {% endif %}
                             </ul>
                         {% endif %}
                     </td>
                     {% if show_parent %}
                         {% with page.get_parent as parent %}
-                            <td class="parent">
+                            <td class="parent" valign="top">
                                 {% if parent %}
                                     <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.title }}</a>
                                 {% endif %}
                             </td>
                         {% endwith %}
                     {% endif %}
-                    <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
-                    <td class="status">
+                    <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td class="status" valign="top">
                         {% if not choosing and not moving and page.live and 'view_live' not in hide_actions|default:'' %}
                              <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
                         {% else %}
@@ -225,7 +242,7 @@
                                 {% endif %}
                             {% else %}
                                 {% if page.is_navigable %}
-                                    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.title %}Explorer child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
+                                    <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.title %}Explore child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
                                 {% elif page_perms.can_add_subpage %}
                                     <a href="{% url 'wagtailadmin_pages_add_subpage' page.id %}" class="icon text-replace icon-plus-inverse" title="{% blocktrans with title=page.title %}Add a child page to '{{ title }}'{% endblocktrans %}">{% trans 'Add subpage' %}</a>
                                 {% endif %}
@@ -240,3 +257,23 @@
         {% endif %}
     </tbody>
 </table>
+
+{% if parent_page and pages and pages.paginator %}
+    <div class="pagination">
+        <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
+            Page {{ page_number }} of {{ num_pages }}.
+        {% endblocktrans %}</p>
+        <ul>
+            <li class="prev">
+                {% if pages.has_previous %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.previous_page_number }}{% if ordering %}&amp;ordering={{ ordering }}{% endif %}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
+                {% endif %}
+            </li>
+            <li class="next">
+                {% if pages.has_next %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.next_page_number }}{% if ordering %}&amp;ordering={{ ordering }}{% endif %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+{% endif %}

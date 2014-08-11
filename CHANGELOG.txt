@@ -1,6 +1,109 @@
 Changelog
 =========
 
+0.5 (01.08.2014)
+~~~~~~~~~~~~~~~~
+ * Added multiple image uploader
+ * Added support for face and feature detection on images using the OpenCV library
+ * Added RoutablePage model to allow embedding Django-style URL routing within a page
+ * Added image/document/snippet usage stats
+ * Explorer nav now rendered separately and fetched with AJAX when needed
+ * Added decorator syntax for hooks
+ * Replaced lxml dependency with html5lib, to simplify installation
+ * Added page_unpublished signal
+ * Added mechanism to obtain external URLs to images, at any size
+ * Added Copy Page action to the explorer
+
+ * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
+
+0.4.1 (14.07.2014)
+~~~~~~~~~~~~~~~~~~
+ * ElasticSearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
+ * Documentation fixes
+
+0.4 (10.07.2014)
+~~~~~~~~~~~~~~~~
+ * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
+ * Python 3.2, 3.3 and 3.4 support
+ * Added scheduled publishing
+ * Added support for private (password-protected) pages
+ * Added frontend cache invalidator
+ * Added sitemap generator
+ * Added notification preferences
+ * Added a new way to configure searchable/filterable fields on models
+ * Added 'original' as a resizing rule supported by the 'image' tag
+ * Hallo.js updated to version 1.0.4
+ * Snippets are now ordered alphabetically
+ * Removed the "More" section from the admin menu
+ * Added pagination to page listings in admin
+ * Support for setting a subpage_types property on page models, to define which page types are allowed as subpages
+ * Added a new datetime picker widget
+ * Added styleguide (mainly for wagtail developers)
+ * Aesthetic improvements to preview experience
+ * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
+ * Login screen redirects to dashboard if user is already logged in
+ * Renamed some template tag libraries
+ * Any extra arguments given to serve are now passed through to get_context and get_template
+ * Added an 'attrs' property to image rendition objects to output src, width, height and alt attributes all in one go
+ * Added 'construct_whitelister_element_rules' hook for customising the HTML whitelist used when saving rich text fields
+ * Added 'in_menu' and 'not_in_menu' methods to PageQuerySet
+ * Added 'get_next_siblings' and 'get_prev_siblings' to Page
+ * Added init_new_page signal
+ * Added page_published signal
+ * Added copy method to Page to allow copying of pages
+ * Added ``search`` method to ``PageQuerySet``
+ * Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
+ * Major refactor of Elasticsearch backend
+ * Use ``match`` instead of ``query_string`` queries
+ * Fields are now indexed in Elasticsearch with their correct type
+ * Filter fields are no longer included in '_all' (in Elasticsearch)
+ * Fields with partial matching are now indexed together into '_partials'
+
+ * Fix: Animated GIFs are now coalesced before resizing
+ * Fix: Wand backend clones images before modifying them
+ * Fix: Admin breadcrumb now positioned correctly on mobile
+ * Fix: Page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+ * Fix: Embeds - Fixed crash when no HTML field is sent back from the embed provider
+ * Fix: Multiple sites with same hostname but different ports are now allowed
+ * Fix: No longer possible to create multiple sites with is_default_site = True
+
+0.3.1 (03.06.2014)
+~~~~~~~~~~~~~~~~~~
+ * Fix: When constructing dummy requests for pages with no routable URL, fall back on a hostname from ALLOWED_HOSTS and finally 'localhost', to avoid 'Invalid HTTP_HOST header' errors on preview when DEBUG=False.
+ * Fix: Ensure that url_path is populated when previewing a newly created page, to avoid unnecessarily taking the above fallback.
+ * Fix: Deleting an item from an InlinePanel, then generating a validation error on saving, no longer causes the deleted item to confusingly reappear with an error of its own.
+
+0.3 (28.05.2014)
+~~~~~~~~~~~~~~~~
+ * Added toolbar to allow logged-in users to add and edit pages from the site front-end
+ * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
+ * Added support for generating static sites using django-medusa
+ * Added custom Query set for Pages with some handy methods for querying pages
+ * Added 'wagtailforms' module for creating form pages on a site, and handling form submissions
+ * Editor's guide documentation
+ * Expanded developer documentation
+ * Editor interface now outputs form media CSS / JS, to support custom widgets with assets
+ * Migrations and user management now correctly handle custom AUTH_USER_MODEL settings
+ * Added 'slugurl' template tag to output the URL of a page with a given slug
+ * MultiFieldPanel definitions now accept a 'classname' attribute, including a special classname of 'collapsible' to allow showing / hiding them on click
+ * Added 'insert_editor_css' and 'insert_editor_js' hooks for passing in custom CSS / JS to the editor interface
+ * Made JPEG compression level configurable through the IMAGE_COMPRESSION_QUALITY setting, and increased default to 85
+ * Added document_served signal which gets fired when a document is downloaded
+ * Added translations for Portuguese Brazil and Traditional Chinese (Taiwan).
+ * Made compatible with Python 2.6
+ * 'richtext' template filter now wraps output in <div class="rich-text"></div>, to assist in styling
+ * Embeds now save author_name and provider_name if set by oEmbed provider
+ * Fix: non-ASCII characters in image filenames are now converted into ASCII equivalents rather than becoming all underscores
+ * Fix: paths to fonts and images within CSS are no longer hard-coded to /static/
+ * Fix: Localization files for the JQuery UI datepicker are stored locally and only imported when a localization is known to be available
+ * Fix: Page slugs are now validated on page edit
+ * Fix: Filter objects are cached to avoid a database hit every time an {% image %} tag is compiled
+ * Fix: Moving or changing a site root page no longer causes URLs for subpages to change to 'None'
+ * Fix: Eliminated raw SQL queries from wagtailcore / wagtailadmin, to ensure cross-database compatibility
+ * Fix: Snippets menu item is hidden for administrators if no snippet types are defined
+ * Fix: 'Upload' tab in image chooser now retains focus if submit action returns a form error.
+ * Fix: Search input now appears on image chooser after form validation error.
+
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
  * SQLite support added

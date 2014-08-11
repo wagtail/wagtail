@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -6,5 +8,6 @@
     <body>
         <h1>{{ self.title }}</h1>
         <h2>Event</h2>
+        <p><a href="{% slugurl 'events' %}">Back to events index</a></p>
     </body>
 </html>

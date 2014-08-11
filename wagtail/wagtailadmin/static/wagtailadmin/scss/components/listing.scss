@@ -5,6 +5,9 @@ ul.listing{
 
 .listing{
     margin-bottom:2em;
+    color:lighten($color-text-base, 20%);
+    font-size:0.95em;
+
     ul{
         @include unlist();
     }
@@ -17,9 +20,9 @@ ul.listing{
         margin:0;
         font-size:0.95em;
     }
-   
+
     td, th{
-        padding:1.5em 1em;
+        padding:1.2em 1em;
     }
 
     &.small td, th{
@@ -27,9 +30,10 @@ ul.listing{
     }
 
     thead{
-        color: $color-grey-2;
+        font-size:1.1em;
+        color: $color-text-base;
         border-bottom:1px solid $color-grey-4;
-        
+
         th{
             font-size:0.85em;
             text-align:left;
@@ -51,20 +55,6 @@ ul.listing{
                 right:0;
             }
         }
-
-        .dropdown{
-            padding:0;
-        }
-        .dropdown-toggle{
-            display:block;
-            padding:1.5em;
-        }
-        .dropdown:hover,
-        .dropdown.open{
-            @include box-shadow(0px 0px 3px 0 rgba(0,0,0,0.2));
-            background-color:white;
-            margin-left:-$grid-gutter-width * 2;
-        }
     }
 
     &.full-width td:first-child,
@@ -85,32 +75,56 @@ ul.listing{
 
     tbody{
         border-bottom:1px dashed $color-input-border;
-    }
-    tbody tr{
-        border-top:1px dashed $color-input-border;
-        &:first-child{
-            border-top:1px dashed $color-input-border;
-        }
         
+        
+        tr{
+            border-top:1px dashed $color-input-border;
+            
+            &:first-child{
+                border-top:1px dashed $color-input-border;
+            }
+        }
     }
+
     &.full-width tbody{
         border:0;
     }
     &.full-width tbody tr:hover{
         background-color:#FDFDFD;
     }
-    &.chooser tr.can-choose a{
-        @include transition(none);
-    }
-    &.chooser tr.can-choose:hover{
-        background-color:$color-teal;
-        color:white;
 
-        a,a:hover{
-            color:white;
+    &.chooser {
+        tbody .title a{
+            display:block;
+            @include transition(none);
         }
-        .status-tag{
-            border-color:white;
+        tbody tr:hover{
+            background-color:$color-teal;
+            color:white;
+
+            .title a, .title a:hover{
+                color:white;
+            }
+            .status-tag{
+                border-color:white;
+            }
+        }
+        tbody tr.disabled td{
+            opacity:0.25;
+        }
+        tbody tr.disabled td.children{
+            opacity:1;
+        }
+        tbody tr.disabled:hover{
+            background-color:inherit;
+            color:inherit;
+
+            .title{
+                cursor:not-allowed;
+            }
+            .status-tag{
+                border-color:inherit;
+            }
         }
     }
 
@@ -118,83 +132,9 @@ ul.listing{
         font-size:1em;
     }
 
-
-    .divider{
-        text-transform:uppercase;
-        font-size:0.8em;
-        background-color:$color-grey-3;
-        td{
-           
-           padding-top:0.5em;
-           padding-bottom:0.5em;
-        }
-    }
-
     &.full-width .divider td{
         padding-left:20px;
     }
-
-    .index {
-        background-color:$color-grey-4;
-
-        .title h2{
-            font-size:1.2em;
-            opacity:1;
-            a{
-                @include transition(opacity 0.2s ease);
-            }
-            a:hover{
-                opacity:0.7;
-            }
-        }
-        a{
-            color:auto;
-        }
-        .actions{
-            margin-top:1.8em;
-            
-            li{
-                border-color:$color-teal-darker;
-            }
-            a{
-                color:white;
-
-                &:hover{
-                    color:$color-teal-dark;
-                }
-            }
-
-            .button{
-                background-color:$color-teal-darker;
-
-                &:hover{
-                    color:white;
-                    background:$color-teal-dark;
-                }
-            }
-        }
-    }
-
-    .page-explorer & .index{
-        color:white;
-        background-color:$color-header-bg;
-
-        .title{
-            padding-top:1.3em;
-            padding-bottom:1.3em;
-
-            h2{
-                color:white;
-                font-size:1.8em;
-                font-weight:600;
-
-                a:hover{
-                    color:white;
-                }
-            }
-        }
-    }
-
 
     /* specific columns */
     .bulk{
@@ -211,19 +151,19 @@ ul.listing{
         }
         input{
             margin-top:3px;
-            
+
         }
-       
     }
+
     .title{
         h2{
             text-transform:none;
             margin:0;
-            font-size:1.1em;
-            font-weight:700;
-            color:$color-grey-2;
+            font-size:1.15em;
+            font-weight:600;
+            color:darken($color-grey-2, 10%);
             line-height:1.5em;
-        
+
             a{
                 color:inherit;
                 text-decoration:none;
@@ -236,31 +176,33 @@ ul.listing{
     }
 
     .actions{
+        @include clearfix();
         margin-top:0.8em;
         text-transform:uppercase;
-        font-size:0.85em;
+        margin-bottom:-0.5em;
 
         a{
             text-decoration:none;
-        }    
-
-        li{
-            display:inline-block;
-            padding:0 0.5em 0 0.8em;
-            border-left:1px solid $color-grey-3;
-            line-height:1em;
-            
-            &:first-child{
-                border:0;
-                padding-left:0;
-            }
-            &.no-border{
-                border:0;
-            }
         }
 
-        .button-small{
-            margin-right:1em;
+        li{
+            float:left;
+            padding:0 0.5em 0 0;
+            margin:0 0 0.5em 0;
+            line-height:1em;
+        }
+    }
+
+    .button{
+        color:$color-teal;
+        border-color:$color-grey-3;
+        background:white;
+        font-size:0.84em; /* 0.01em difference to regular small buttons */
+
+        &:hover{
+            border-color:$color-teal;
+            background-color:$color-teal;
+            color:white;
         }
     }
 
@@ -272,33 +214,41 @@ ul.listing{
     .children,
     .no-children{
         padding:0 !important;
-        border-left:1px dashed $color-input-border;
+       
         &:hover{
             background-color:$color-grey-5;
         }
-    }
-    .children a,
-    .no-children a{
-        color:$color-grey-3;
-        display:block;
-        padding:2em 0;       
+
+        a{
+            display:block;
+            padding:2em 0;
+        }
     }
 
     .children a{
+        color:$color-teal;
         display:block;
+        
         &:before{
             font-size:3rem;
         }
     }
+
     .no-children a{
+        color:$color-grey-3;
         display:block;
+        
         &:before{
             font-size:1.5rem;
         }
+        &:hover{
+            color:$color-teal;
+        }
     }
+
     &.small .children a:before{
         font-size:30px;
-    }    
+    }
 
     .ord{
         padding-left:10px !important;
@@ -327,17 +277,16 @@ ul.listing{
     .ui-sortable-helper{
         border:1px dashed $color-input-border;
         border-width:1px 0;
-        
 
         td{
             display:none;
-           
+
         }
         .ord,.title{
             display:table-cell;
         }
         .ord{
-           
+
         }
     }
     .dropzone{
@@ -352,21 +301,45 @@ ul.listing{
         }
     }
 
-
-    td.children:hover{
-        background-color:$color-teal;
-
-        a:before{
-            color:white;
-        }
-    }
-
     table .no-results-message{
         padding-left:20px;
     }
 
-    .inactive h2{
-        opacity:0.5;
+    .unpublished h2{
+        opacity:0.7;
+    }
+
+    .index {
+        background-color:$color-grey-4;
+
+        .title h2{
+            font-size:1.2em;
+            opacity:1;
+
+            a{
+                @include transition(opacity 0.2s ease);
+            }
+            a:hover{
+                opacity:0.7;
+            }
+        }
+        .actions{
+            margin-top:1em;
+        }
+        .button{
+            background-color:transparent;
+            color:white;
+            border-color:$color-teal-darker;
+
+            &:hover{
+                color:white;
+                background:$color-teal-darker;
+            }
+
+            &.bicolor{
+                background:$color-teal-darker;
+            }
+        }
     }
 }
 ul.listing{
@@ -375,6 +348,60 @@ ul.listing{
 }
 table.listing{
     width:100%;
+}
+
+
+ /* explorer specific tweaks */
+.page-explorer .listing {
+    position:relative;
+
+    .index{
+        color:white;
+        background-color:$color-header-bg;
+
+        td{
+            padding-top:1.5em;
+            padding-bottom:1.5em;
+        }
+
+        .privacy-indicator{
+            font-size:1em;
+            opacity:1;
+            position:absolute;
+            right:5%;
+            top:2em;
+        }
+
+        .title{
+            h2{
+                color:white;
+                font-size:1.8em;
+                font-weight:500;
+
+                a:hover{
+                    color:white;
+                }
+            }
+
+        }
+    }
+
+    .privacy-indicator{
+        font-size:0.9em;
+        opacity:0.7;
+    }
+
+    .table-headers{
+        .ord{
+            padding-right:0;
+        }
+        .title{
+            padding-left:0;
+        }
+    }
+    tbody .title{
+        padding-left:0;
+    }
 }
 
 .pagination{
@@ -396,7 +423,7 @@ table.listing{
     }
     .next{
         float:right;
-    } 
+    }
 }
 
 .listing.full-width + .pagination{
@@ -404,6 +431,35 @@ table.listing{
     border-top: 1px dashed #d9d9d9;
     padding:2em 50px 0 50px;
 }
+
+
+/* listing filters */
+
+.listing-filter{
+    @include clearfix();
+    background-color:$color-grey-5;
+    border-width:1px 0;
+    margin:3em 0;
+}
+.filter-title{
+    float:left;
+    text-transform:uppercase;
+    font-size:0.95em;
+    padding:1em;
+    margin:0 1em 0 0 ;
+    background-color:$color-grey-4;
+}
+.filter-options{
+    @include unlist();
+    @include clearfix();
+    overflow:hidden;
+
+    li{
+        padding:0.8em;
+        float:left;
+    }
+}
+
 
 @media screen and (min-width: $breakpoint-mobile){
     .listing{
@@ -422,12 +478,12 @@ table.listing{
                 text-align:center;
                 margin-top:-1px;
                 border:1px solid $color-grey-4;
-                border-width:1px 1px 1px 0px;               
+                border-width:1px 1px 1px 0px;
 
                 .image{
                     text-align:center;
                     height:180px;
-                   
+
                     &:before {
                         content: '';
                         display: inline-block;
@@ -437,7 +493,7 @@ table.listing{
                     }
 
                     img{
-                        
+
                         display:inline-block;
                         vertical-align: middle;
                     }
@@ -454,8 +510,8 @@ table.listing{
             a{
                 color:inherit;
             }
-            
-        } 
+
+        }
         .actions{
            visibility: hidden;
         }
@@ -467,15 +523,26 @@ table.listing{
         }
         .no-children {
             border-color:transparent;
+            
+            a{
+                opacity:0;
+            }
         }
-        .no-children a{
-            color:$color-teal;
-            opacity:0;
+        tr:hover .no-children a{
+            opacity:1;
         }
-        .no-children:hover{
-            border-color:$color-input-border;
-            a{opacity:1;}
+        tr:hover .children{
+            background-color:$color-teal;
+
+            a:before{
+                color:white;
+            }
         }
+
+        td.children:hover{
+            background-color:$color-teal-darker;
+        }
+
 
         table .no-results-message{
             padding-left:50px;

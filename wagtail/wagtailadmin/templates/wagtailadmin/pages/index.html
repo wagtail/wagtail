@@ -1,24 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
-{% load page_permissions %}
+{% load i18n wagtailadmin_tags compress %}
 {% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
-    <header class="merged no-border nice-padding">
+    <header class="merged no-border nice-padding no-v-padding">
         <h1 class="visuallyhidden">Explorer</h1>
 
-        {% if not parent_page.is_root %}
-            <ul class="breadcrumb">
-                {% for page in parent_page.get_ancestors %}
-                    {% if page.is_root %}
-                        <li><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
-                    {% else %}
-                        <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page %}
     </header>
    
     <form id="page-reorder-form">
@@ -27,10 +16,13 @@
         {% page_permissions parent_page as parent_page_perms %}
         {% include "wagtailadmin/pages/list.html" with sortable=1 allow_navigation=1 full_width=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %} 
     </form>
-
 {% endblock %}
 
 {% block extra_js %}
+    {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
+    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/privacy-indicator.js"></script>
+
     <script type="text/javascript">
         {% if ordering == 'ord' %}
             $(function() {

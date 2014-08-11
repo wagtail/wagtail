@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 from wagtail.wagtailcore.models import PageRevision, GroupPagePermission
+from wagtail.wagtailusers.models import UserProfile
 
 # The following will check to see if we can import task from celery - 
 # if not then we definitely haven't installed it
@@ -53,7 +54,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     if notification == 'submitted':
         # Get list of publishers
         recipients = users_with_page_permission(revision.page, 'publish')
-    elif notification == 'approved' or notification == 'rejected':
+    elif notification in ['rejected', 'approved']:
         # Get submitter
         recipients = [revision.user]
     else:
@@ -62,7 +63,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of email addresses
     email_addresses = [
         recipient.email for recipient in recipients
-        if recipient.email and recipient.id != excluded_user_id
+        if recipient.email and recipient.id != excluded_user_id and getattr(UserProfile.get_for_user(recipient), notification + '_notifications')
     ]
 
     # Return if there are no email addresses
@@ -84,4 +85,17 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         from_email = 'webmaster@localhost'
 
     # Send email
+    send_mail(email_subject, email_content, from_email, email_addresses)
+
+
+@task
+def send_email_task(email_subject, email_content, email_addresses, from_email=None):
+    if not from_email:
+        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+            from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
+        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
+            from_email = settings.DEFAULT_FROM_EMAIL
+        else:
+            from_email = 'webmaster@localhost'
+
     send_mail(email_subject, email_content, from_email, email_addresses)

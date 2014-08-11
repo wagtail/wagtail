@@ -1,21 +1,28 @@
+{% load i18n wagtailadmin_tags %}
 <header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1>{{ title }} <span>{{ subtitle }}</span></h1>
+                <h1 class="icon icon-{{ icon }}">{{ title }} <span>{{ subtitle }}</span></h1>
             </div>
             {% if search_url %}
-                <form class="col search-bar" action="{% url search_url %}" method="get">
+                <form class="col search-form" action="{% url search_url %}" method="get">
                     <ul class="fields">
                         {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
                         {% endfor %}
-                        <li class="submit icon icon-search"><input type="submit" value="Search" /></li>
+                        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
                     </ul>
                 </form>
             {% endif %}
         </div>
         <div class="right">
+            {% usage_count_enabled as uc_enabled %}
+            {% if uc_enabled and usage_object %}
+                <div class="usagecount">
+                    <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count  }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
+                </div>
+            {% endif %}
             {% if add_link %}
                 <div class="addbutton">
                     <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-22 19:55+0200\n"
-"PO-Revision-Date: 2014-02-26 13:41+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,45 +18,63 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\models.py:36
+#: models.py:46
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
-msgstr ""
+msgstr "Définissez cette valeur à autre chose que 80 si vous avez besoin qu'un port spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). Ceci n'affecte pas la prise en charge des requêtes (les redirections de port continuent de fonctionner)."
 
-#: .\models.py:38
+#: models.py:48
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 
-#: .\models.py:163
-msgid "The page title as you'd like it to be seen by the public"
+#: models.py:109
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
 msgstr ""
 
-#: .\models.py:164
+#: models.py:277
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
+
+#: models.py:278
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog"
 "/[my-slug]/"
-msgstr ""
+msgstr "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/blog/[my-slug]/"
 
-#: .\models.py:173
+#: models.py:287
 msgid "Page title"
-msgstr ""
+msgstr "Titre de la page"
 
-#: .\models.py:173
+#: models.py:287
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the"
 " browser window."
 msgstr ""
 
-#: .\models.py:174
+#: models.py:288
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
+msgstr "Si un lien vers cette page devra apparaître dans les menus générés automatiquement"
+
+#: models.py:291
+msgid "Go live date/time"
 msgstr ""
 
-#: .\models.py:408
-#, python-format
-msgid "name '%s' (used in subpage_types list) is not defined."
+#: models.py:291 models.py:292
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
+msgstr ""
+
+#: models.py:292
+msgid "Expiry date/time"
+msgstr ""
+
+#: models.py:564
+msgid "name '{0}' (used in subpage_types list) is not defined."
 msgstr ""

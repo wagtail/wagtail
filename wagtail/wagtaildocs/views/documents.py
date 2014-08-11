@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -12,6 +14,7 @@ from wagtail.wagtaildocs.forms import DocumentForm
 
 
 @permission_required('wagtaildocs.add_document')
+@vary_on_headers('X-Requested-With')
 def index(request):
     # Get documents
     documents = Document.objects.all()
@@ -118,7 +121,7 @@ def edit(request, document_id):
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
-        'form': form,
+        'form': form
     })
 
 
@@ -136,4 +139,25 @@ def delete(request, document_id):
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, document_id):
+    doc = get_object_or_404(Document, id=document_id)
+
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(doc.get_usage(), 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
+    return render(request, "wagtaildocs/documents/usage.html", {
+        'document': doc,
+        'used_by': used_by
     })

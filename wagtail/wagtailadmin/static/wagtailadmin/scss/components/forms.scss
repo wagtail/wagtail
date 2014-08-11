@@ -1,3 +1,9 @@
+/* 
+    These are the generic stylings for forms of any type. 
+    If you're styling something specific to the page editing interface,
+    it probably ought to go in layouts/page-editor.scss
+*/
+
 form {
     ul, li{
         list-style-type:none;
@@ -5,9 +11,6 @@ form {
     ul{
         margin:0;
         padding:0;
-    }
-    li{
-        @include row();
     }
 }
 
@@ -21,22 +24,13 @@ legend{
     @include visuallyhidden();
 }
 
-.fields li{
-    padding-top:0.5em;
-    padding-bottom:0.5em;
-}
-
-.field{
-    padding:0 0 0.6em 0;
-}
-
 label{
     font-weight:bold;
     color:$color-grey-1;
     font-size:1.1em;
     display:block;
     padding:0 0 0.8em 0;
-    line-height:1em;
+    line-height:1.3em;
 
     .checkbox &,
     .radio &{
@@ -47,10 +41,10 @@ label{
 input, textarea, select, .richtext, .tagit{
     @include border-radius(6px);
     @include border-box();
-    font-family:Open Sans,Arial,sans-serif;
     width:100%;
-    border:1px dashed $color-input-border;
-    padding:1.2em;
+    font-family:Open Sans,Arial,sans-serif;
+    border:1px solid $color-input-border;
+    padding:0.9em 1.2em;
     background-color:$color-fieldset-hover;
     -webkit-appearance: none;
     color:$color-text-input;
@@ -64,6 +58,7 @@ input, textarea, select, .richtext, .tagit{
         border: 0 !important;
         margin-top:-3px !important; 
         margin-bottom: -2px !important; 
+        line-height:1em !important;
     }
 
     &:hover{
@@ -74,12 +69,55 @@ input, textarea, select, .richtext, .tagit{
         outline:none;
         background-color:$color-input-focus;
     }
+    &:disabled, &[disabled], &:disabled:hover, &[disabled]:hover{
+        background-color:inherit;
+        cursor:not-allowed;
+        color:$color-grey-4;
+    }  
 }
 
-input[type=radio],input[type=checkbox]{
+/* select boxes */
+.choice_field .input,
+.typed_choice_field .input{
+    position:relative;
+
+    select{
+        outline:none;
+    }
+
+    /* Add select arrow back on browsers where native ui has been removed */
+    select ~ span:after{
+        @include border-radius(0 6px 6px 0);
+        z-index:0;
+        position:absolute;
+        right:0px;
+        top:1px;
+        bottom:0px;
+        width:1.5em;
+        font-family:wagtail;
+        content:"q";
+        border:1px solid $color-input-border;
+        border-width:0 0 0 1px;
+        text-align:center;
+        line-height:1.4em;
+        font-size:3em;
+        pointer-events:none;
+        color:$color-grey-3;
+        background-color:$color-fieldset-hover;
+        margin:0px 1px 1px 0;
+
+        .ie &{
+            display:none;
+        }
+    }
+
+    
+}
+
+/* radio and check boxes */
+input[type=radio], input[type=checkbox]{
     @include border-radius(0);
     cursor:pointer;
-    float:left;
     border:0;
 }
 
@@ -102,6 +140,7 @@ input[type=radio]:before{
     display:block;
     content:"K";
     width: 1em;
+    height:1em;
     line-height: 1.1em;
     padding: 4px;
     background-color: white;
@@ -134,47 +173,50 @@ input[type=checkbox]:before{
     height:20px;
     background-color:white;
     border:1px solid $color-grey-4;
-    color:$color-grey-4;
+    color:white;
 }
 input[type=checkbox]:checked:before{
     color:$color-teal;
 }
 
-/* Core button style */
+/* Core button style 
+Note that these styles include methods to render buttons the same x-browser, described here:
+http://cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights */
 input[type=submit], input[type=reset], input[type=button], .button, button{
+    font-family:Open Sans,Arial,sans-serif;
     @include border-radius(3px);
     width:auto;
-    padding:0.7em 1em;
+    height:2.4em;
+    line-height:2.4em;
+    padding:0 1em;
+    font-size:0.9em;
+    font-weight:normal;
+    vertical-align: middle;
+    display:inline-block;
     background-color: $color-button;
     border:1px solid $color-button;
     color:white;
     text-decoration:none;
     text-transform:uppercase;
-    font-size:0.9em;
     white-space: nowrap;
     position:relative;
-    -webkit-font-smoothing: auto;
-    vertical-align: middle;
-    line-height:1em;
-    display:inline-block;
     overflow:hidden;
-    position:relative;
-    font-weight:normal;
+    outline:none;
+    box-sizing:border-box;
+    -webkit-font-smoothing: auto;
     -moz-appearance: none;
-    -moz-box-sizing:content-box;
+    -moz-box-sizing:border-box;
 
     &.button-small{
-        font-size:0.95em;
+        padding:0 0.8em;
+        height:2em;
+        line-height:2em;
+        font-size:0.85em;
     }
 
     &.button-secondary{
-        border:1px solid $color-button;
         color:$color-button;
         background-color:white;
-    }
-
-    &.icon:before{
-        font-size:1.5em;
     }
 
     &.icon.text-replace:before{
@@ -228,7 +270,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             left:0;
             top:0;
             width:2em;
-            line-height:2em;
+            line-height:1.85em;
             height:100%;
             text-align:center;    
             background-color:rgba(0,0,0,0.2);
@@ -242,7 +284,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         &:before{
             width:2em;
             font-size:0.9rem;
-            line-height:2em;
+            line-height:1.65em;
         }
     }
 
@@ -255,17 +297,29 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     }
 }
 
+/* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+input[type=submit], input[type=reset], input[type=button], button{
+    padding:0 1em;
+    height: 2.4em; 
+    line-height:inherit;
+
+    &.button-small{
+        height:2em;
+        line-height:inherit;
+    }
+}
+
 .multiple{
-    @include transition(max-height 10s ease);
     padding:0;
-    max-height:10000px;
     max-width:1024px - 50px;
     overflow:hidden;
 
     > li{
+        @include row();
         position:relative;
+        overflow:hidden;
         background-color:white;
-        padding:1em 1.5em;
+        padding:1em 10em 1em 1.5em; /* 10em padding leaves room for controls */
         margin-bottom:1em;
         border:1px solid lighten($color-grey-4, 3%); /* really trying to avoid creating more greys, but this one is better than grey 4 or 5 */
         @include border-radius(2px);
@@ -287,6 +341,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     /* Object controls */
     .controls{
         position:absolute;
+        z-index:1;
         right:1em;
         top:1em;
         color:white;
@@ -294,7 +349,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include border-radius(2px);
         
         li{
-            background-color: $color-grey-2;
+            background-color: $color-teal;
             float:left;
             cursor:pointer;
             margin-right:1px;
@@ -310,9 +365,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
         .icon:before{
             line-height:2em;
+            width:2em;
         }
         .icon:hover{
-            background-color:$color-teal;
+            background-color:$color-teal-darker;
 
             &:before{
                 color:white;
@@ -343,17 +399,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 .help, .error-message{
     font-size:0.85em;
     font-weight:normal;
-    margin:0 0 0.5em 0;
+    margin:0.5em 0 0 0;
+}
+.error-message{
+    color:$color-red;
 }
 .help{
     color:$color-grey-2;
 }
-
-/* permanently show checkbox/radio help as they have no focus state */
-.boolean_field .help, .radio .help{
-    opacity:1;
-}
-
 
 fieldset:hover > .help,
 .field.focused + .help,
@@ -363,7 +416,7 @@ li.focused > .help{
     opacity:1;
 }
 
-.required label:after{
+.required .field > label:after{
     content:"*";
     color:$color-red;
     font-weight:bold;
@@ -373,18 +426,132 @@ li.focused > .help{
     font-size:13px;
 }
 
-.error-message{
-    margin:0;
-    color:$color-red;
-    clear:both;
-}
-
 .error input, .error textarea, .error select, .error .tagit{
     border-color:$color-red;
     background-color:$color-input-error-bg;
 }
 
-/* field sizing */
+/* Layouts for particular kinds of of fields */
+
+/* permanently show checkbox/radio help as they have no focus state */
+.boolean_field .help, .radio .help{
+    opacity:1;
+}
+
+/* 
+    This is expected to go on the parent of the input/select/textarea
+    so in most cases .input
+*/
+.iconfield, /* generic */
+.date_field,
+.time_field,
+.date_time_field,
+.url_field{
+    .input{
+        position:relative;
+
+        &:before, &:after{
+            font-family:wagtail;
+            position:absolute;
+            top:0.5em;
+            line-height:100%;
+            font-size:2em;
+            color:$color-grey-3;
+        }
+        &:before{
+            left:0.3em;
+        }
+        &:after{
+            right:0.5em;
+        }
+    }
+
+    input:not([type=radio]), input:not([type=checkbox]), input:not([type=submit]), input:not([type=button]){
+        padding-left:2.5em;
+    }
+
+    /* smaller fields required slight repositioning of icons */
+    &.field-small{
+        .input{
+            &:before, &:after{
+                font-size:1.3rem; /* REMs are necessary here because IE doesn't treat generated content correctly */
+                top:0.3em;
+            }
+            &:before{
+                left:0.5em;
+            }
+            &:after{
+                right:0.5em;
+            }
+        }
+    }
+
+    /* special case for search spinners */
+    &.icon-spinner:after{
+        color:$color-teal;
+        opacity:0.8;
+        text-align:center;
+        top:0.3em;
+    }
+}
+
+.date_field,
+.date_time_field{
+    .input:before{
+        @extend .icon-date:before;
+    }
+}
+
+.time_field{
+    .input:before{
+        @extend .icon-time:before;
+    }
+}
+
+.url_field{
+    .input:before{
+        @extend .icon-link:before;
+    }
+}
+
+
+/* This is specifically for model that are a generated set of checkboxes/radios */
+.model_multiple_choice_field .input li,
+.choice_field .input li{
+    label{
+        display:block;
+        width:auto;
+        float:none;
+    }
+}
+
+.fields > li,
+.field-col{
+    @include clearfix();
+    padding-top:0.5em;
+    padding-bottom:1.2em;
+}
+
+.field-row{
+    @include clearfix();
+
+    /* negative margin the bottom so it doesn't add too much space */
+    margin-bottom:-1.2em;
+}
+
+.input{
+    clear:both;
+}
+
+/* field sizing and alignment */
+
+.field-small{
+    input, textarea, select, .richtext, .tagit{
+        @include border-radius(3px);
+        padding:0.4em 1em;
+    }
+}
+
 .field{
     &.col1,
     &.col2,
@@ -446,7 +613,7 @@ ul.inline li:first-child, li.inline:first-child{
             display:block;
             float:left;
             color:$color-grey-3;
-            line-height:0.85em;
+            line-height:1em;
             font-size:2.5em;
             margin-right:0.3em;
         }
@@ -459,11 +626,6 @@ ul.inline li:first-child, li.inline:first-child{
     &.blank {
         .chosen { display: none; }
         .unchosen { display: block; }
-    }
-
-    input[type=button]{
-        font-size:0.85em;
-        padding:0.5em 0.5em;
     }
 }
 
@@ -488,7 +650,6 @@ ul.inline li:first-child, li.inline:first-child{
     .unchosen, .chosen{
         &:before{
             content:"b";
-            margin-left:-0.1em; /* this glyphs appear to have left padding, counteracted here */
         }
     }
 }
@@ -561,122 +722,114 @@ ul.tagit li.tagit-choice-editable{
     }
 }
 
-
-/* search bars (search integrated into header area) */
+/* search-bars */
 .search-bar{
-    margin-top:-2em;
-    padding-top:1em;
-    padding-bottom:1em;
-    margin-bottom:2em;
-
-    &.full-width{
-        @include nice-padding();
-        background-color:$color-header-bg;
-        border-bottom:1px solid $color-grey-4;
-    }
-
-    .fields{
-        position:relative;
-
-        .field label{
-            display:none;
-        }
-        .field input{
-            padding-left:3em;
-
-            &:focus{
-                background-color:white;
-            }
-        }
-        .field:before, .field:after{
-            font-family:wagtail;
-            position:absolute;
-            top:1em;
-            font-size:25px;
-            
-        }
-        .field:before{
-            left:0.5em;
-            content:"f";
-            color:$color-grey-3;
-        }
-        .field:after{
-            color:$color-teal;
-            opacity:0.8;
-            font-size:20px;
-            width:20px;
-            height:20px;
-            line-height:23px;
-            text-align:center;
-            top:0.3em;
-            right:0.5em;
-        }
-    }
-    .submit{
+    .required .field > label:after{
         display:none;
-        position:absolute;
-        right:0;
-        top:0;
-        input{
-            padding:1.55em 2em;
-        }
-    }
-    .taglist{
-        font-size:0.9em;
-        line-height:2.4em;
-        h3{
-            display:inline;
-        }
-        a{
-            white-space: nowrap
-        }
-    }
-
-    header &{
-        margin:0;
-        padding:0;
-        .fields{
-            li{
-                padding:0;
-            }
-            .field{
-                padding:0;
-            }
-            .field input{
-                padding:0.4em 1.4em 0.4em 2em;
-
-                 &:focus{
-                    background-color:white;
-                }
-            }
-            .field:before{
-                font-size:1.1rem;
-                top:0.45em;
-            }
-
-        }
     }
 }
 
-/* mozilla specific hack */
-@-moz-document url-prefix() { 
-    .search-bar .fields .field:after{
-        line-height:20px;
+/* file drop zones */
+.drop-zone{
+    @include border-radius(5px);
+    border:2px dashed $color-grey-4;
+    padding:$mobile-nice-padding;
+    background-color:$color-grey-5;
+    margin-bottom:1em;
+    text-align:center;
+
+    .drop-zone-help{
+        border:0;
+    }
+    &.hovered{
+        border-color:$color-teal;
+        background-color:$color-input-focus;
     }
 }
+
 
 /* Transitions */
 fieldset, input, textarea, select{
     @include transition(background-color 0.2s ease);
 }
 input[type=submit], input[type=reset], input[type=button], .button, button{
-    @include transition(background-color 0.2s ease, color 0.2s ease);
+    @include transition(background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease);
 }
 .help{
     @include transition(opacity 0.2s ease);
 }
 
 @media screen and (min-width: $breakpoint-mobile){
+    label{
+        @include column(2);
+        padding-top:1.2em;
+        padding-left:0;
+
+        .choice_field &,
+        .model_multiple_choice_field &,
+        .boolean_field &,
+        .choice_field &,
+        .model_choice_field &,
+        .image_field &,
+        .file_field &{
+            padding-top:0;
+        }
+    }
+
+    .label-above{
+        .field > label{
+            display:block;
+            padding:0 0 0.8em 0;
+            float:none;
+            width:auto;
+        }
+    }
+
+    input[type=submit], input[type=reset], input[type=button], .button, button{
+        font-size:0.95em;
+        padding:0 1.4em;
+        height: 3em; 
+        line-height:3em;
+
+        &.button-small{
+            height:2.3em;
+            line-height:2.2em;
+        }
+
+        &.bicolor{
+            padding-left:3.7em;
+
+            &:before{
+                width:2em;
+                line-height:2.2em;
+                font-size:1.1rem;
+            }
+        }
+
+        &.button-small.bicolor{
+            line-height:2.3em;
+
+            &:before{
+                line-height:1.85em;
+            }
+        }
+    }
+
+    /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
+    input[type=submit], input[type=reset], input[type=button], button{
+        line-height:inherit;
+
+        &.button-small, &.bicolor,
+        &.button-small.bicolor{
+           line-height:inherit; 
+        }
+
+        &.button-small{
+            height:2.3em;
+        }
+    }
+
+
     .help{
         opacity:1;
     }
@@ -684,17 +837,35 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         max-width:800px;
     }
 
-    input[type=submit], input[type=reset], input[type=button], .button, button{
-        font-size:0.95em;
-        padding:0.75em 1.4em;
+    .field{
+        @include row();
+    }
 
-        &.bicolor{
-            padding-left:3.5em;
+    .field-content{
+        @include column(10,0);
+    } 
 
-            &:before{
-                width:2.2em;
-                line-height:2.15em;
+    .field-col{
+        float:left;
+        padding-left:0 !important;
+
+        /* anything less than 4 columns or greater than 6 is impractical */
+        &.col4{
+            label{
+                @include column(2,0,4);
+            }
+            .field-content{
+                @include column(2, $padding, 4);
+            }
+        }
+        &.col6{
+            label{
+                @include column(2,0,6);
+            }
+            .field-content{
+                @include column(4, $padding, 6);
             }
         }
     }
+  
 }

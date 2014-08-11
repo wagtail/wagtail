@@ -4,6 +4,7 @@
 
 @import "components/explorer.scss";
 @import "components/icons.scss";
+@import "components/typography.scss";
 @import "components/tabs.scss";
 @import "components/dropdowns.scss";
 @import "components/modals.scss";
@@ -11,6 +12,9 @@
 @import "components/listing.scss";
 @import "components/messages.scss";
 @import "components/formatters.scss";
+@import "components/header.scss";
+@import "components/progressbar.scss";
+@import "components/datetimepicker.scss";
 
 @import "fonts.scss";
 
@@ -31,67 +35,6 @@ body{
     &.reordering{
         overflow:visible;
     }
-}
-
-h1,h2,h3,h4,h5,h6{
-    font-weight:normal;
-}
-
-h1{
-    line-height:1.3em;
-    font-size:1.5em;
-    text-transform:uppercase;
-    color:$color-grey-1;
-    font-weight:600;
-
-    span{
-        text-transform:none;
-        font-weight:300;
-    }
-
-    .homepage &{
-        text-transform:none;
-    }
-}
-h2{
-    text-transform:uppercase;
-    font-size:1.3em;
-    font-family:Open Sans;
-    font-weight:600;
-    color:$color-grey-2;
-
-    .page-explorer &{
-        text-transform:none;
-    }
-}
-a{
-    outline:none;
-    color:$color-link;
-    text-decoration:none;
-
-    &:hover{
-        color:$color-link-hover;
-    }
-}
-
-code{
-    @include box-shadow(inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2));
-    background-color:$color-fieldset-hover;
-    padding:2px 5px;
-}
-
-kbd{
-    @include border-radius(3px);
-    font-family:Open Sans, Arial, sans-serif;
-    border:1px solid $color-grey-2;
-    border-color:rgba(0,0,0,0.2);
-    padding:0.3em 0.5em;
-}
-
-img{
-    max-width:100%;
-    height:auto;
-    border: 3px solid $color-grey-4;
 }
 
 .browsermessage{
@@ -115,7 +58,7 @@ img{
 }
 
 .nav-wrapper{
-    @include box-shadow(inset -2px 0px 10px 0px rgba(0, 0, 0, 0.5));
+    @include box-shadow(inset -5px 0px 5px -3px rgba(0, 0, 0, 0.3));
     position:relative;
     background: $color-grey-1;
     margin-left: -100%;
@@ -134,7 +77,7 @@ img{
         margin:0;
         font-size:0.9em;
         -webkit-font-smoothing: auto;
-        
+
         span{
             text-transform:uppercase;
         }
@@ -148,10 +91,9 @@ img{
     }
 
     #nav-toggle{
-        left:0%;
+        left:$mobile-nice-padding;
         cursor:pointer;
         position:absolute;
-        width:40px;
 
         &:before{
             font-size:40px;
@@ -162,7 +104,6 @@ img{
     }
 
     .nav-main{
-       
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -186,6 +127,10 @@ img{
                 background-color:$color-grey-1;
             }
 
+            a:before{
+                font-size:1.2rem;
+            }
+
             .menu-snippets &.menu-snippets,
             .menu-users &.menu-users,
             .menu-snippets &.menu-snippets,
@@ -198,20 +143,6 @@ img{
                 a{
                     color:white;
                 }
-                
-                /*
-                &:after{
-                    content: " ";
-                    width: 0px;
-                    height: 0px;
-                    display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 0.9em;
-                    border: 0.7em solid #fff;
-                    border-color: transparent #fff transparent transparent;
-                }
-                */
             }
         }
 
@@ -223,29 +154,28 @@ img{
             color: #AAA;
             padding: 0.9em 1.2em;
             position:relative;
-            font-size:0.9em;
+            font-size:0.85em;
             font-weight:400;
             white-space:nowrap;
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
             &:before{
-                margin-right:0.3em;
+                vertical-align:-20%;
+                margin-right:0.5em;
             }
             &:hover{
                 color:white;
             }
-        }
 
-        .more > a{
-            &:before{
-                margin-right:0.4em;
+            /* only really used for spinners */
+            &:after{
+                font-size:1.5em;
+                margin:0;
+                position:absolute;
+                right:0.5em;
+                top:0.5em;
+                margin-top:0.15em;
             }
-            font-size:0.8em;
-            padding:0.2em 1.2em;
-            background-color:$color-grey-1-1;
-        }
-        .more{
-            border:0;
         }
 
         .avatar{
@@ -315,14 +245,10 @@ img{
                 }
                 input{
                     margin-top:0px;
-                    color:$color-grey-1; 
+                    color:$color-grey-1;
                 }
             }
         }
-    }
-
-    .js .nav-main .more ul{
-        display:none;       
     }
 
     .explorer{
@@ -395,75 +321,6 @@ body.explorer-open {
     }
 }
 
-header{
-
-    padding-top:1em;
-    padding-bottom:1em;
-    padding-left: 4em !important;
-    background-color: $color-header-bg;
-    margin-bottom:2em;
-    color:white;
-
-    h1, h2{
-        margin:0;
-        color:white;
-    }
-
-    h1{
-       padding:0.2em 0;
-    }
-
-    .col{
-        float:left;
-        margin-right:2em;
-    }
-    .left{
-        float:left;
-
-        .hasform &:first-child{
-            padding-bottom:0.5em;
-            float:none;
-        }
-    }
-        .search-bar input{
-           @include border-radius(3px);
-            width:auto;
-            border-width:0;
-        }
-    .right{
-        text-align:right;
-        float:right;
-    }
-
-    /* For case where content below header should merge with it */
-    &.merged{
-        margin-bottom:0;
-    }
-    &.tab-merged, &.no-border{
-        border:0;
-    }
-    &.merged.no-border{
-        padding-bottom:0;
-    }
-    /* 
-    &.hasform h1{
-        margin-top:0.2em;
-    }
-    */
-    .button{
-        background-color:$color-teal-darker;
-        &:hover{
-            background-color:$color-teal-dark;
-        }
-    }
-}
-
-.page-explorer header{
-    margin-bottom:0;
-    padding-bottom:1em;
-}
-
-
 footer{
     @include row();
     @include border-radius(3px 3px 0 0);
@@ -487,11 +344,6 @@ footer{
     .actions{
         width:250px;
         margin-right:$grid-gutter-width/2;
-
-        .button{
-            padding-top:1em;
-            padding-bottom:1em;
-        }
     }
 
     .meta{
@@ -501,11 +353,11 @@ footer{
         line-height:3.5em;
         font-size:0.85em;
 
-        p{  
+        p{
             margin:0;
             margin-right:$grid-gutter-width;
             white-space: nowrap;
-        }        
+        }
     }
 }
 
@@ -524,84 +376,109 @@ footer{
 
 .breadcrumb{
     @include unlist();
-    @include clearfix();
+}
 
-    padding-top:0.2em;
+.breadcrumb{
+    @include clearfix();
+    overflow:hidden;
+    padding-top:1.4em;
     font-size:0.85em;
-    margin-bottom:-4px; /* negates the 4px margin on the bottom of each LI, used to make it wrap nicely */
-   
+
     li {
         display: block;
         float: left;
-        background: $color-teal-darker;
-        padding: 0.4em 1em 0.4em 2em;
+        padding: 0.5em 1.3em;
         position: relative;
-        margin: 0 4px 4px 0; 
+
         text-decoration: none;
         color: #fff;
         line-height:1em;
         white-space: nowrap;
-        max-width:30em;
+
         line-height:1.5em;
 
-        a{
-            color:white;
+        a, span{
+            color:lighten($color-teal,40%);
             display:block;
-            max-width:25em;
+            max-width:12em;
             white-space: nowrap;
             text-overflow:ellipsis;
             overflow:hidden;
             line-height:1.6em;
-            
+            padding-right:1em;
+
+            &:after{
+                right:0;
+                z-index:5;
+                position:absolute;
+                font-family:wagtail;
+                content:"n";
+                padding-left:20px;
+                font-size:2em;
+                color:$color-teal-darker;
+                line-height:0.9em;
+            }
         }
 
-        &:after, &:before{
+        /*   &:after, &:before{
             content: "";
             border-top: 1.2em solid transparent;
             border-bottom: 1.2em solid transparent;
         }
-        &:after {            
+        &:after {
             border-left: 1em solid $color-teal-darker;
-            position: absolute; right: -0.9em; top: 0;
+            position: absolute; right: -1.2em; top: 0;
             z-index: 1;
+            border:1em solid red;
         }
-        &:before {  
+        &:before {
             border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
-        } 
+        } */
         &:hover {
             background: $color-teal-dark;
-        }         
+            a{
+                color:white;
+            }
+        }
         &:hover:after {
             border-left-color: $color-teal-dark;
         }
 
-        &:first-child {
-            padding:0.4em;
-            @include border-radius(3px 0px 0px 3px);
-
-            &:before{
-                display:none;
-                width:1em;
-            }
+        &.home {
             a {
-                width:2em;
+                padding-right:0;
+                text-align:center;
+                width:3em;
                 font-size:1em;
+
                 &:before{
                     line-height:1em;
                     font-size:1.15rem;
-                    line-height:0.95em;
+                    line-height: 0.85em;
+                    padding-top: 0.10em;
+                }
+                &:after{
+                    right:-0.3em;
                 }
             }
         }
-    } 
+    }
 
     header &  li{
-        &:before {  
-            border-left: 1em solid $color-header-bg;
+        &:before {
+            border-left: 1em solid white;
             position: absolute; left: 0; top: 0;
-        } 
-    }       
+        }
+    }
+
+    &.single{
+        li a{
+            white-space: nowrap;
+            text-overflow:inherit;
+            max-width:100%;
+        }
+    }
 }
 
 .row{
@@ -679,7 +556,7 @@ footer, .logo{
         padding-right:$desktop-nice-padding;
     }
 
-    body{
+    .wrapper{
         margin-left:$menu-width;
     }
 
@@ -698,17 +575,16 @@ footer, .logo{
         left:0;
         height:100%;
         width:$menu-width;
-        margin-left: -$menu-width;
-        
+        margin-left: 0;
 
-        .inner{ 
+        .inner{
             height:100%;
             position:fixed;
             width:$menu-width;
         }
     }
         .logo{
-            margin:2em auto;
+            margin:1em auto;
             text-align:center;
 
             span{
@@ -718,6 +594,7 @@ footer, .logo{
                 width:60px;
                 float:none;
                 margin:auto;
+                display:block;
             }
         }
 
@@ -725,7 +602,7 @@ footer, .logo{
         border-top:0;
         background-color:none;
         padding-top:0;
-    } 
+    }
 
     #nav-toggle{
         display:none;
@@ -733,7 +610,7 @@ footer, .logo{
 
     .nav-main{
         position:absolute;
-        top: 150px;
+        top: 125px;
         margin-bottom: 116px; /* WARNING: magic number - the height of the .footer */
 
         .footer{
@@ -749,7 +626,7 @@ footer, .logo{
             margin:auto;
             text-align:center;
             margin-bottom:1em;
-        
+
             a{
                 padding:0 0 1em 0;
             }
@@ -764,7 +641,7 @@ footer, .logo{
         position: absolute;
         top:0;
         left:99%;
-        margin-top:149px; /* same as .nav-main minus 1 pixel for border */
+        margin-top:124px; /* same as .nav-main minus 1 pixel for border */
     }
     .dl-menu {
         position: absolute;
@@ -775,7 +652,7 @@ footer, .logo{
         .content-wrapper{
             position:relative;
             transform: none;
-            -webkit-transform: none;       
+            -webkit-transform: none;
         }
         .nav-wrapper{
             margin-left: -$menu-width;
@@ -785,7 +662,7 @@ footer, .logo{
             width:$menu-width;
         }
     }
-  
+
     body.explorer-open {
         .nav-wrapper{
             width:$menu-width;
@@ -802,44 +679,24 @@ footer, .logo{
 
             position:relative;
         }
-    }    
-
-    header{
-        padding-top:1.5em;
-        padding-bottom:1.5em;
-
-        .left{
-            float:left;
-            margin-right:0;
-
-            &:first-child{
-                padding-bottom:0;
-                float:left;
-            }
-        }
-        .second{
-            clear:none;
-
-            .right, .left{
-                float:right;
-            }
-        }
-        .col3{
-            @include column(3);
-        }
-        .col3.addbutton{
-            width:auto;
-        }
-        .col6{
-            @include column(6);
-        }
-        .col9{
-            @include column(9);
-        }
     }
+
     footer{
         width:80%;
         margin-left:50px;
+    }
+
+    .breadcrumb{
+        padding-top:0;
+        background:$color-teal-darker;
+
+        li {
+            a, span{
+                &:after{
+                    color:$color-teal;
+                }
+            }
+        }
     }
 
     /* Z-indexes */
@@ -863,13 +720,8 @@ footer, .logo{
     .wrapper{
         max-width:$breakpoint-desktop-larger;
     }
-    .nav-wrapper{
-        @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-
-        .inner{
-            background:$color-grey-1;
-            @include box-shadow(inset -6px 0px 4px 0px rgba(0, 0, 0, 0.2));
-        }
+    .nav-wrapper .inner{
+         background:$color-grey-1;
     }
 
     footer{
@@ -885,7 +737,7 @@ footer,
 .logo{
     @include transition(all 0.2s ease);
 }
-.nav-wrapper{    
+.nav-wrapper{
     @include transition-transform(0.2s ease);
 }
 .nav-main a, a{

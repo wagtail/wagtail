@@ -1,11 +1,23 @@
+import warnings
+
 from django import template
-from wagtail.wagtailadmin.views import userbar
+from django.template.loader import render_to_string
+
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 from wagtail.wagtailcore.models import Page
+
 
 register = template.Library()
 
+
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, current_page=None, items=None):
+def wagtailuserbar(context, css_path=None):
+    if css_path is not None:
+        warnings.warn(
+            "Passing a CSS path to the wagtailuserbar tag is no longer required; use {% wagtailuserbar %} instead",
+            RemovedInWagtail06Warning
+        )
 
     # Find request object
     request = context['request']
@@ -14,12 +26,20 @@ def wagtailuserbar(context, current_page=None, items=None):
     if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''
 
-    # Find page object
-    if not current_page:
-        if 'self' in context and isinstance(context['self'], Page):
-            current_page = context['self']
-        else:
-            return ''
+    # Only render if the context contains a 'self' variable referencing a saved page
+    if 'self' in context and isinstance(context['self'], Page) and context['self'].id is not None:
+        pass
+    else:
+        return ''
 
-    # Render edit bird
-    return userbar.render_edit_frame(request, context) or ''
+    try:
+        revision_id = request.revision_id
+    except AttributeError:
+        revision_id = None
+
+    # Render the frame to contain the userbar items
+    return render_to_string('wagtailadmin/userbar/frame.html', {
+        'request': request,
+        'page': context,
+        'revision_id': revision_id
+    })

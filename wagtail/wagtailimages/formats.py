@@ -1,6 +1,11 @@
 from django.conf import settings
-from django.utils.importlib import import_module
 from django.utils.html import escape
+
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
 
 
 class Format(object):
@@ -90,6 +95,6 @@ def search_for_image_formats():
 
 
 # Define default image formats
-register_image_format(Format('fullwidth', 'Full width', 'full-width', 'width-800'))
-register_image_format(Format('left', 'Left-aligned', 'left', 'width-500'))
-register_image_format(Format('right', 'Right-aligned', 'right', 'width-500'))
+register_image_format(Format('fullwidth', 'Full width', 'richtext-image full-width', 'width-800'))
+register_image_format(Format('left', 'Left-aligned', 'richtext-image left', 'width-500'))
+register_image_format(Format('right', 'Right-aligned', 'richtext-image right', 'width-500'))

@@ -1,16 +1,30 @@
 import sys
-from importlib import import_module
-from django.conf import settings
 from datetime import datetime
+import json
+
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
+
+
+# Needs to be imported like this to allow @patch to work in tests
+from six.moves.urllib import request as urllib_request
+
+from six.moves.urllib.request import Request
+from six.moves.urllib.error import URLError
+from six.moves.urllib.parse import urlencode
+
+from django.conf import settings
 from django.utils import six
+
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
-import urllib2, urllib
-import json
+
 
 
 class EmbedNotFoundException(Exception): pass
-
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
 
@@ -46,7 +60,7 @@ def embedly(url, max_width=None, key=None):
         key = settings.EMBEDLY_KEY
 
     # Get embedly client
-    client = Embedly(key=settings.EMBEDLY_KEY)
+    client = Embedly(key=key)
 
     # Call embedly
     if max_width is not None:
@@ -71,7 +85,9 @@ def embedly(url, max_width=None, key=None):
 
     # Return embed as a dict
     return {
-        'title': oembed['title'],
+        'title': oembed['title'] if 'title' in oembed else '',
+        'author_name': oembed['author_name'] if 'author_name' in oembed else '',
+        'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
@@ -92,11 +108,11 @@ def oembed(url, max_width=None):
         params['maxwidth'] = max_width
 
     # Perform request
-    request = urllib2.Request(provider + '?' + urllib.urlencode(params))
+    request = Request(provider + '?' + urlencode(params))
     request.add_header('User-agent', 'Mozilla/5.0')
     try:
-        r = urllib2.urlopen(request)
-    except urllib2.URLError:
+        r = urllib_request.urlopen(request)
+    except URLError:
         raise EmbedNotFoundException
     oembed = json.loads(r.read())
 
@@ -108,7 +124,9 @@ def oembed(url, max_width=None):
 
     # Return embed as a dict
     return {
-        'title': oembed['title'],
+        'title': oembed['title'] if 'title' in oembed else '',
+        'author_name': oembed['author_name'] if 'author_name' in oembed else '',
+        'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
         'type': oembed['type'],
         'thumbnail_url': oembed.get('thumbnail_url'),
         'width': oembed.get('width'),
@@ -141,6 +159,21 @@ def get_embed(url, max_width=None, finder=None):
     if not finder:
         finder = get_default_finder()
     embed_dict = finder(url, max_width)
+
+    # Make sure width and height are valid integers before inserting into database
+    try:
+        embed_dict['width'] = int(embed_dict['width'])
+    except (TypeError, ValueError):
+        embed_dict['width'] = None
+
+    try:
+        embed_dict['height'] = int(embed_dict['height'])
+    except (TypeError, ValueError):
+        embed_dict['height'] = None
+
+    # Make sure html field is valid
+    if 'html' not in embed_dict or not embed_dict['html']:
+        embed_dict['html'] = ''
 
     # Create database record
     embed, created = Embed.objects.get_or_create(

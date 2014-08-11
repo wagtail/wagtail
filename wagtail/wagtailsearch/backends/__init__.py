@@ -2,11 +2,21 @@
 # Based on the Django cache framework
 # https://github.com/django/django/blob/5d263dee304fdaf95e18d2f0619d6925984a7f02/django/core/cache/__init__.py
 
-from importlib import import_module
-from django.utils import six
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
+
 import sys
+
+from django.utils import six
 from django.conf import settings
-from base import InvalidSearchBackendError
+from django.core.exceptions import ImproperlyConfigured
+
+
+class InvalidSearchBackendError(ImproperlyConfigured):
+    pass
 
 
 # Pinched from django 1.7 source code.

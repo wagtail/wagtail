@@ -1,10 +1,14 @@
-{% load compress %}
-{% load localize %}
+{% load wagtailadmin_tags compress %}
 
 {% comment %}
     Javascript declarations to be included on the 'create page' and 'edit page' views
 {% endcomment %}
 
+<script>
+    window.chooserUrls = {
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}'
+    };
+</script>
 
 {% compress js %}
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/rangy-core.js"></script>
@@ -12,45 +16,24 @@
     <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/expanding_formset.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
-    <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-wagtail-toolbar.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/hallo-plugins/hallo-hr.js"></script>
-    <script src="{{ STATIC_URL }}wagtailimages/js/hallo-plugins/hallo-wagtailimage.js"></script>
-    <script src="{{ STATIC_URL }}wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js"></script>
-    <script src="{{ STATIC_URL }}wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js"></script>
     <script src="{{ STATIC_URL }}wagtailadmin/js/page-editor.js"></script>
-
     <script src="{{ STATIC_URL }}wagtailadmin/js/page-chooser.js"></script>
-    {% comment %}
-        TODO: have a mechanism to specify image-chooser.js (and hallo-wagtailimage.js)
-        within the wagtailimages app -
-        ideally wagtailadmin shouldn't have to know anything at all about wagtailimages
-        TODO: a method of injecting these sorts of things on demand when the modal is spawned.
-    {% endcomment %}
-    <script src="{{ STATIC_URL }}wagtailimages/js/image-chooser.js"></script>
-    <script src="{{ STATIC_URL }}wagtaildocs/js/document-chooser.js"></script>
-    <script src="{{ STATIC_URL }}wagtailsnippets/js/snippet-chooser.js"></script>
     <script src="{{ STATIC_URL }}admin/js/urlify.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/privacy-indicator.js"></script>
+
+    {% hook_output 'insert_editor_js' %}
 {% endcompress %}
 
+{% include "wagtailadmin/shared/datetimepicker_translations.html" %}
+
 {% comment %}
-    We should put it outside of compress because it is a remote script. If we
-    wanted to put it inside compress we should download each translation file
-    and include it in wagtailadmin/js/vendor/
+    Additional js from widgets media. Allows for custom widgets in admin panel.
 {% endcomment %}
-{% get_localized_datepicker_js %}
+{{ edit_handler.form.media.js }}
+
 <script>
-    window.chooserUrls = {
-        'documentChooser': '{% url "wagtaildocs_chooser" %}',
-        'imageChooser': '{% url "wagtailimages_chooser" %}',
-        'embedsChooser': '{% url "wagtailembeds_chooser" %}',
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
-        'snippetChooser': '{% url "wagtailsnippets_choose_generic" %}'
-    };
-    
-    {% get_date_format_override as format_override %}
-    window.overrideDateInputFormat ='{{ format_override }}';
-    
     (function() {
         function fixPrefix(str) {return str;}
 

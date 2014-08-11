@@ -1,13 +1,21 @@
 {% extends "wagtailadmin/base.html" %}
-{% load page_permissions %}
+{% load wagtailadmin_tags %}
 {% load i18n %}
 
 {% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer page-editor create{% endblock %}
 
 {% block content %}
-    {% trans "New" as new_str %}
-    {% include "wagtailadmin/shared/header.html" with title=new_str merged=1 tabbed=1 subtitle=content_type.model_class.get_verbose_name %}
+
+    <header class="merged tab-merged nice-padding">
+        {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page include_self=1 %}
+
+        <div class="row row-flush">
+            <div class="left col9">
+                <h1 class="icon icon-doc-empty-inverse">{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
+            </div>
+        </div>
+    </header>
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages_create' content_type.app_label content_type.model parent_page.id %}" method="POST">
         {% csrf_token %}
@@ -17,17 +25,35 @@
         <footer>
             <ul>
                 <li class="actions">
-                    <div class="dropdown dropup match-width">
+                    <div class="dropdown dropup dropdown-button match-width">
                         <input type="submit" value="{% trans 'Save as draft' %}" class="button" />
                         <div class="dropdown-toggle icon icon-arrow-up"></div>
                         <ul role="menu">
-                            <li><input type="button" id="action-preview" data-action="{% url 'wagtailadmin_pages_preview_on_create' content_type.app_label content_type.model parent_page.id %}" data-placeholder="{% url 'wagtailadmin_pages_preview_placeholder' %}" data-windowname="wagtail_preview_{{ parent_page.id }}_child" value="{% trans 'Preview' %}" class="button" /></li>
                             {% if parent_page_perms.can_publish_subpage %}
                                 <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
                             {% endif %}
                             <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="actions preview">
+                    {% trans 'Preview' as preview_label %}
+                    {% if preview_modes|length > 1 %}
+                        <div class="dropdown dropup dropdown-button match-width">
+                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                            <div class="dropdown-toggle icon icon-arrow-up"></div>
+                            <ul role="menu">
+                                {% for mode_name, mode_display_name in preview_modes %}
+                                    <li>
+                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                    {% endif %}
                 </li>
             </ul>
         </footer>

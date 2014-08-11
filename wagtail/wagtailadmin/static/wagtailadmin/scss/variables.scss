@@ -9,7 +9,7 @@ $static-root: "../../wagtailadmin/images/";
 $css-root: "../../wagtailadmin/scss/";
 
 /* grid settings */
-$grid-columns: 12; 
+$grid-columns: 12;
 $grid-gutter-width: 3%;
 $grid-max-width: 1200px;
 $grid-content-indent:0.7;
@@ -27,9 +27,12 @@ $breakpoint-desktop-larger: 100em; /* 1600px */
 $color-teal: #43b1b0;
 $color-teal-darker: darken($color-teal, 10%);
 $color-teal-dark: #246060;
-$color-red: #f7474e;
+$color-blue: #71b2d4;
+$color-red: #cd3238;
 $color-orange:#e9b04d;
-$color-green: #00FF00;
+$color-green: #189370;
+$color-salmon: #f37e77;
+$color-salmon-light: #fcf2f2;
 
 /* darker to lighter */
 $color-grey-1: #333333;
@@ -42,7 +45,7 @@ $color-grey-5: #fafafa;
 $color-thead-bg: $color-grey-5;
 $color-header-bg: $color-teal; // #ff6a58;
 $color-fieldset-hover: $color-grey-5;
-$color-input-border: $color-grey-3;
+$color-input-border: $color-grey-4;
 $color-input-focus: #f4fcfc;
 $color-input-error-bg: #feedee;
 $color-button: $color-teal;

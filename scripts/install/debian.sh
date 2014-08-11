@@ -1,5 +1,8 @@
-# Production-configured Wagtail installation
-# (secure services/account for full production use).
+#!/usr/bin/env bash
+# Production-configured Wagtail installation.
+# BUT, SECURE SERVICES/ACCOUNT FOR FULL PRODUCTION USE!
+# For a non-dummy email backend configure Django's EMAIL_BACKEND
+# in settings/production.py post-installation.
 # Tested on Debian 7.0.
 # Tom Dyson and Neal Todd
 
@@ -10,7 +13,7 @@ PROJECT_ROOT=/usr/local/django
 
 echo "This script overwrites key files, and should only be run on a new box."
 read -p "Type 'yes' to confirm: " CONFIRM
-[ “$CONFIRM” == “yes” ] || exit
+[ "$CONFIRM" == "yes" ] || exit
 
 read -p "Enter a name for your project [$PROJECT]: " U_PROJECT
 if [ ! -z "$U_PROJECT" ]; then
@@ -33,7 +36,7 @@ SERVER_IP=`ifconfig eth0 |grep "inet addr" | cut -d: -f2 | cut -d" " -f1`
 
 aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
-aptitude -y install postgresql-server-dev-all python-dev libxml2-dev libxslt-dev libjpeg62-dev
+aptitude -y install postgresql-server-dev-all python-dev libjpeg62-dev
 
 perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
 service postgresql reload
@@ -42,6 +45,7 @@ aptitude -y install openjdk-7-jre-headless
 curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.0.deb
 dpkg -i elasticsearch-1.0.0.deb
 rm elasticsearch-1.0.0.deb
+perl -pi -e"s/# network.host: 192.168.0.1/network.host: 127.0.0.1/" /etc/elasticsearch/elasticsearch.yml
 update-rc.d elasticsearch defaults 95 10
 service elasticsearch start
 
@@ -59,7 +63,7 @@ pip install -r requirements/production.txt
 swapoff -v /tmpswap
 rm /tmpswap
 
-echo SECRET_KEY = \"`python -c 'import random; print "".join([random.SystemRandom().choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'`\" > $PROJECT/settings.local.py
+echo SECRET_KEY = \"`python -c 'import random; print "".join([random.SystemRandom().choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'`\" > $PROJECT/settings/local.py
 echo ALLOWED_HOSTS = [\'$SERVER_IP\',] >> $PROJECT/settings/local.py
 createdb -Upostgres $PROJECT
 ./manage.py syncdb --settings=$PROJECT.settings.production
@@ -107,7 +111,7 @@ EOF
 mkdir -p /etc/uwsgi/vassals/
 ln -s $PROJECT_ROOT/$PROJECT/uwsgi_conf.ini /etc/uwsgi/vassals/
 
-curl -o /etc/init.d/uwsgi https://raw.github.com/torchbox/wagtail/master/scripts/install/uwsgi-init.d
+curl -o /etc/init.d/uwsgi https://raw.githubusercontent.com/torchbox/wagtail/master/scripts/install/uwsgi-init.d
 mkdir /var/log/uwsgi
 chmod 755 /etc/init.d/uwsgi
 update-rc.d uwsgi defaults

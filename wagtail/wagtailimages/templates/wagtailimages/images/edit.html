@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load image_tags %}
+{% load wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
@@ -13,10 +13,10 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title %}
-    
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" usage_object=image %}
+
     <div class="row row-flush nice-padding">
-       
+
         <div class="col7">
             <form action="{% url 'wagtailimages_edit_image' image.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -33,10 +33,13 @@
                     <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages_delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
-            
         </div>
         <div class="col5">
             {% image image max-800x600 %}
+
+            {% if url_generator_enabled %}
+                <a href="{% url 'wagtailimages_url_generator' image.id %}" class="button bicolor icon icon-link">URL Generator</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

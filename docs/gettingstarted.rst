@@ -4,7 +4,7 @@ Getting Started
 On Ubuntu
 ~~~~~~~~~
 
-If you have a fresh instance of Ubuntu 13.04 or 13.10, you can install Wagtail,
+If you have a fresh instance of Ubuntu 13.04 or later, you can install Wagtail,
 along with a demonstration site containing a set of standard templates and page
 types, in one step. As the root user::
 
@@ -40,7 +40,7 @@ Once you've experimented with the demo app and are ready to build your pages via
 On OS X
 ~~~~~~~
 
-Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`_ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
+Install `pip <http://pip.readthedocs.org/en/latest/installing.html>`__ and `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ if you don't have them already. Then, in your terminal::
 
     mkvirtualenv wagtaildemo
     git clone https://github.com/torchbox/wagtaildemo.git
@@ -65,7 +65,7 @@ Wagtail instance available as the basis for your new site:
 -  Install `Vagrant <http://www.vagrantup.com/>`_ 1.1+
 -  Clone the demonstration site, create the Vagrant box and initialise Wagtail::
 
-	git clone git@github.com:torchbox/wagtaildemo.git
+	git clone https://github.com/torchbox/wagtaildemo.git
 	cd wagtaildemo
 	vagrant up
 	vagrant ssh
@@ -75,10 +75,10 @@ Wagtail instance available as the basis for your new site:
 	./manage.py runserver 0.0.0.0:8000
 
 -  This will make the app accessible on the host machine as
-`localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin
-interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
-is located on the host machine, exported to the VM as a shared folder; code
-editing and Git operations will generally be done on the host.
+   `localhost:8111 <http://localhost:8111>`_ - you can access the Wagtail admin
+   interface at `localhost:8111/admin <http://localhost:8111/admin>`_. The codebase
+   is located on the host machine, exported to the VM as a shared folder; code
+   editing and Git operations will generally be done on the host.
 
 Using Docker
 ~~~~~~~~~~~~
@@ -101,13 +101,18 @@ use the following steps:
 Required dependencies
 =====================
 
--  `pip <https://github.com/pypa/pip>`_
+-  `pip <https://github.com/pypa/pip>`__
+-  `libjpeg <http://ijg.org/>`_
+-  `libxml2 <http://xmlsoft.org/>`_
+-  `libxslt <http://xmlsoft.org/XSLT/>`_
+-  `zlib <http://www.zlib.net/>`_
 
 Optional dependencies
 =====================
 
 -  `PostgreSQL`_
 -  `Elasticsearch`_
+-  `Redis`_
 
 Installation
 ============
@@ -137,6 +142,7 @@ with a regular Django project.
 .. _the Wagtail codebase: https://github.com/torchbox/wagtail
 .. _PostgreSQL: http://www.postgresql.org
 .. _Elasticsearch: http://www.elasticsearch.org
+.. _Redis: http://redis.io/
 
 _`Remove the demo app`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -160,4 +166,4 @@ Once you've experimented with the demo app and are ready to build your pages via
     COMMIT;
     EOF
     rm -r demo media/images/* media/original_images/*
-    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settingsbase.py
+    perl -pi -e"s/('demo',|WAGTAILSEARCH_RESULTS_TEMPLATE)/#\1/" $PROJECT/settings/base.py

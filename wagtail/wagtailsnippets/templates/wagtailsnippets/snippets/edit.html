@@ -4,12 +4,12 @@
 {% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" usage_object=instance %}
 
     <form action="{% url 'wagtailsnippets_edit' content_type.app_label content_type.model instance.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
-    
+
         <footer>
             <ul>
                 <li class="actions">

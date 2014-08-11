@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+{% load static compress i18n %}
+<html>
+    <head>
+        <title>{% trans "Preview" %}</title>
+        {% compress css %}
+            <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/preview.scss" type="text/x-scss" />
+        {% endcompress %}
+    </head>
+    <body class="ready">
+        <div id="loading-spinner-wrapper">
+            <div id="loading-spinner"></div>
+        </div>
+        <iframe id="preview-frame" src="{% url 'wagtailadmin_pages_preview_loading' %}"></iframe>
+    </body>
+</html>

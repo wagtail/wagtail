@@ -4,7 +4,7 @@
 {% block titletag %}{% blocktrans with title=redirect.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title icon="redirect" %}
 
     <form action="{% url 'wagtailredirects_edit_redirect' redirect.id %}" method="POST" class="nice-padding">
         {% csrf_token %}

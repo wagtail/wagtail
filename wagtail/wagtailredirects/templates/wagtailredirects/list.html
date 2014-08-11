@@ -6,13 +6,12 @@
     <thead>
         <tr>
             <th class="title">
-                From
                 {% if not is_searching %}
-                    {% if ordering == "old_path" %}
-                        <a href="{% url 'wagtailredirects_index' %}" class="icon icon-arrow-down-after teal"></a>
-                    {% else %}
-                        <a href="{% url 'wagtailredirects_index' %}?ordering=old_path" class="icon icon-arrow-down-after"></a>
-                    {% endif %}
+                    <a href="{% url 'wagtailredirects_index' %}{% if not ordering == "old_path" %}?ordering=old_path{% endif %}" class="icon icon-arrow-down-after {% if ordering == "old_path" %}teal{% endif %}">
+                        {% trans "From" %}
+                    </a>
+                {% else %}
+                    {% trans "From" %}
                 {% endif %}
             </th>
             <th>{% trans "To" %}</th>

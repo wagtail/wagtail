@@ -1,12 +1,12 @@
 <ul class="tab-nav merged">
     {% for child in self.children %}
-        <li class="{% if forloop.first %}active{% endif %}"><a href="#{{ child.heading|slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a></li>
+        <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}"><a href="#{{ child.heading|slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a></li>
     {% endfor %}
 </ul>
 
 <div class="tab-content">
     {% for child in self.children %}
-        <section id="{{ child.heading|slugify }}" class="{% if forloop.first %}active{% endif %}">
+        <section id="{{ child.heading|slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}">
             {{ child.render_as_object }}
         </section>
     {% endfor %}

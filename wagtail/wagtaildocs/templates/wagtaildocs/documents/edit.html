@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load image_tags %}
+{% load wagtailimages_tags %}
 {% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_css %}
@@ -13,7 +13,7 @@
 
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse" usage_object=document %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtaildocs_edit_document' document.id %}" method="POST" enctype="multipart/form-data">
@@ -30,6 +30,6 @@
             </ul>
         </form>
 
-        
+
     </div>
 {% endblock %}

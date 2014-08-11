@@ -3,17 +3,19 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext  as _
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 
-import models
+from wagtail.wagtailredirects import models
 
 
 REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
 
 
 @permission_required('wagtailredirects.change_redirect')
+@vary_on_headers('X-Requested-With')
 def index(request):
     page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")
@@ -107,7 +109,7 @@ def add(request):
             theredirect.site = request.site
             theredirect.save()
 
-            messages.success(request, _("Redirect '{0} added.").format(theredirect.title))
+            messages.success(request, _("Redirect '{0}' added.").format(theredirect.title))
             return redirect('wagtailredirects_index')
         else:
             messages.error(request, _("The redirect could not be created due to errors."))

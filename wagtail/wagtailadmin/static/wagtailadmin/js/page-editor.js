@@ -1,3 +1,18 @@
+"use strict";
+
+var halloPlugins = {
+    'halloformat': {},
+    'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
+    'hallolists': {},
+    'hallohr': {},
+    'halloreundo': {},
+    'hallowagtaillink': {}
+};
+
+function registerHalloPlugin(name, opts) {
+    halloPlugins[name] = (opts || {});
+}
+
 function makeRichTextEditable(id) {
     var input = $('#' + id);
     var richText = $('<div class="richtext"></div>').html(input.val());
@@ -18,18 +33,8 @@ function makeRichTextEditable(id) {
 
     richText.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarcssClass: 'testy',
-        plugins: {
-            'halloformat': {},
-            'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-            'hallolists': {}, 
-            'hallohr': {},
-            'halloreundo': {},
-            'hallowagtailimage': {},
-            'hallowagtailembeds': {},
-            'hallowagtaillink': {},
-            'hallowagtaildoclink': {},
-        }
+        toolbarCssClass: (input.closest('.object').hasClass('full')) ? 'full' : '',
+        plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
         if (!removeStylingPending) {
@@ -51,57 +56,60 @@ function insertRichTextDeleteControl(elem) {
     });
 }
 
-function initDateChoosers(context) {
-    $('input.friendly_date', context).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-    
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('input.localized_date', context).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
+function initDateChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            scrollInput:false,
+            format: 'Y-m-d',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
         });
     } else {
-        $('input.localized_date', context).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
+        $('#' + id).datetimepicker({
+            timepicker: false,
+            scrollInput:false,
+            format: 'Y-m-d',
         });
     }
-    
-}
-function initFriendlyDateChooser(id) {
-    $('#' + id).datepicker({
-        dateFormat: 'd M yy', constrainInput: false, /* showOn: 'button', */ firstDay: 1
-    });
-}
-function initLocalizedDateChooser(id) {
-    if(window.overrideDateInputFormat && window.overrideDateInputFormat !='') {
-        $('#' + id).datepicker({
-            dateFormat: window.overrideDateInputFormat, constrainInput: false, /* showOn: 'button', */ firstDay: 1
-        });
-    } else {
-        $('#' + id).datepicker({
-            constrainInput: false, /* showOn: 'button', */ firstDay: 1
-        });
-    }
-    
 }
 
-function initTimeChoosers(context) {
-    $('input.friendly_time', context).timepicker({
-        timeFormat: 'g.ia'
-    });
-    $('input.localized_time', context).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
+function initTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            scrollInput:false,
+            format: 'H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang'
+        });
+    } else {
+        $('#' + id).datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+        });
+    }
 }
-function initFriendlyTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'g.ia'
-    });
-}
-function initLocalizedTimeChooser(id) {
-    $('#' + id).timepicker({
-        timeFormat: 'H:i', maxTime: '23:59'
-    });
+
+function initDateTimeChooser(id) {
+    if (window.dateTimePickerTranslations) {
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i:s',
+            scrollInput:false,
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            language: 'lang'
+        });
+    } else {
+        $('#' + id).datetimepicker({
+            format: 'Y-m-d H:i:s',
+        });
+    }
 }
 
 function initTagField(id, autocompleteUrl) {
@@ -134,7 +142,7 @@ function InlinePanel(opts) {
             $('#' + childId).slideUp(function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();
-            });            
+            });
         });
         if (opts.canOrder) {
             $('#' + prefix + '-move-up').click(function() {
@@ -179,13 +187,24 @@ function InlinePanel(opts) {
                 self.updateMoveButtonDisabledStates();
             });
         }
+
+        /* Hide container on page load if it is marked as deleted. Remove the error
+         message so that it doesn't count towards the number of errors on the tab at the
+         top of the page. */
+        if ( $('#' + deleteInputId).val() === "1" ) {
+            $('#' + childId).hide(0, function() {
+                self.updateMoveButtonDisabledStates();
+                self.setHasContent();
+            });
+            $('#' + childId).find(".error-message").remove();
+        }
     };
 
     self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
 
     self.updateMoveButtonDisabledStates = function() {
         if (opts.canOrder) {
-            forms = self.formsUl.children('li:visible');
+            var forms = self.formsUl.children('li:visible');
             forms.each(function(i) {
                 $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
                 $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
@@ -228,10 +247,13 @@ function InlinePanel(opts) {
             }
             self.initChildControls(fixPrefix(opts.emptyChildFormPrefix));
             if (opts.canOrder) {
-                $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount);
+                /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
+                Therefore formcount and order are currently equal and order must be incremented
+                to ensure it's *greater* than previous item */
+                $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount + 1);
             }
             self.updateMoveButtonDisabledStates();
-            
+
             opts.onAdd(fixPrefix);
         }
     });
@@ -239,8 +261,8 @@ function InlinePanel(opts) {
     return self;
 }
 
-function cleanForSlug(val){
-    if(URLify != undefined) { // Check to be sure that URLify function exists
+function cleanForSlug(val, useURLify){
+    if(URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
         return URLify(val, val.length);
     } else { // If not just do the "replace"
         return val.replace(/\s/g,"-").replace(/[^A-Za-z0-9\-]/g,"").toLowerCase();
@@ -261,8 +283,9 @@ function initSlugAutoPopulate(){
 }
 
 function initSlugCleaning(){
-    $('#id_slug').on('keyup blur', function(){
-        $(this).val(cleanForSlug($(this).val()));
+    $('#id_slug').blur(function(){
+        // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
+        $(this).val(cleanForSlug($(this).val(), false));
     });
 }
 
@@ -283,50 +306,100 @@ function initErrorDetection(){
     // now identify them on each tab
     for(var index in errorSections) {
         $('.tab-nav a[href=#'+ index +']').addClass('errors').attr('data-count', errorSections[index]);
-    }    
+    }
+}
+
+function initCollapsibleBlocks(){
+    $(".object.multi-field.collapsible").each(function(){
+        var $li = $(this);
+        var $fieldset = $li.find("fieldset");
+        if($li.hasClass("collapsed")){
+            $fieldset.hide();
+        }
+        $li.find("h2").click(function(){
+            if(!$li.hasClass("collapsed")){
+                $li.addClass("collapsed");
+                $fieldset.hide("slow");
+            }else{
+                $li.removeClass("collapsed");
+                $fieldset.show("show");
+            }
+        });
+    });
 }
 
 $(function() {
-    initDateChoosers();
-    initTimeChoosers();
     initSlugAutoPopulate();
     initSlugCleaning();
     initErrorDetection();
+    initCollapsibleBlocks();
 
     $('.richtext [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);
     });
 
     /* Set up behaviour of preview button */
-    $('#action-preview').click(function() {
-        var previewWindow = window.open($(this).data('placeholder'), $(this).data('windowname'));
+    $('.action-preview').click(function(e) {
+        e.preventDefault();
+        var $this = $(this);
 
-        $.ajax({
-            type: "POST",
-            url: $(this).data('action'),
-            data: $('#page-edit-form').serialize(),
-            success: function(data, textStatus, request) {
-                if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                    previewWindow.document.open();
-                    previewWindow.document.write(data);
-                    previewWindow.document.close();
-                } else {
-                    previewWindow.close();
-                    document.open();
-                    document.write(data);
-                    document.close();
-                }
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                /* If an error occurs, display it in the preview window so that
-                we aren't just showing the spinner forever. We preserve the original
-                error output rather than giving a 'friendly' error message so that
-                developers can debug template errors. (On a production site, we'd
-                typically be serving a friendly custom 500 page anyhow.) */
-                previewWindow.document.open();
-                previewWindow.document.write(xhr.responseText);
-                previewWindow.document.close();
+        var previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
+        
+        if(/MSIE/.test(navigator.userAgent)){
+            submitPreview.call($this, false);
+        } else {
+            previewWindow.onload = function(){
+                submitPreview.call($this, true);
             }
-        });
+        }
+
+        function submitPreview(enhanced){
+            $.ajax({
+                type: "POST",
+                url: $this.data('action'),
+                data: $('#page-edit-form').serialize(),
+                success: function(data, textStatus, request) {
+                    if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
+                        var pdoc = previewWindow.document;
+                        
+                        if(enhanced){
+                            var frame = pdoc.getElementById('preview-frame');
+
+                            frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
+                            frame.document.open();
+                            frame.document.write(data);                 
+                            frame.document.close();
+
+                            var hideTimeout = setTimeout(function(){
+                                pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
+                                clearTimeout(hideTimeout);
+                            }) // just enough to give effect without adding discernible slowness                       
+                        } else {
+                            pdoc.open();
+                            pdoc.write(data);                 
+                            pdoc.close()
+                        }
+                    } else {
+                        previewWindow.close();
+                        document.open();
+                        document.write(data);
+                        document.close();
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    /* If an error occurs, display it in the preview window so that
+                    we aren't just showing the spinner forever. We preserve the original
+                    error output rather than giving a 'friendly' error message so that
+                    developers can debug template errors. (On a production site, we'd
+                    typically be serving a friendly custom 500 page anyhow.) */
+
+                    previewWindow.document.open();
+                    previewWindow.document.write(xhr.responseText);
+                    previewWindow.document.close();
+                }
+            });
+
+        }
+        
     });
 });

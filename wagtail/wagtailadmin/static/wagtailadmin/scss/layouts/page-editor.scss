@@ -6,10 +6,26 @@
     margin-bottom:10em;
 }
 
-.objects{
-    background:url("#{$static-root}bg-dark-diag.svg");
+.page-editor .breadcrumb{
+    margin-top:-1.2em;
+    margin-bottom:2em;
 }
-.object{  
+.page-editor .modal .breadcrumb{
+    margin:0;
+    background-color:transparent;
+
+    a{
+        color:$color-grey-2;
+    }
+    li:hover{
+        background-color:$color-grey-4;
+    }
+    .home{
+        padding-left:0;
+    }
+}
+
+.object{
     position:relative;
     overflow:hidden;
     @include nice-padding();
@@ -20,7 +36,7 @@
 
     &.focused{
         border-color: darken($color-input-focus, 40%);
-    }        
+    }
 
     fieldset{
         padding-top:4em;
@@ -61,9 +77,9 @@
 
     > h2, &.single-field label{
         -webkit-font-smoothing: auto;
-        background:$color-grey-3;
+        background:$color-salmon-light;
         text-transform:uppercase;
-        padding:0.9em 0 0.9em 4em;
+        padding:0.9em 0 0.9em 4.1em;
         font-size:0.95em;
         margin:0 0 0.2em 0;
         line-height:1.5em;
@@ -73,10 +89,10 @@
         left:0;
         right:0;
         z-index:1;
-        text-shadow:1px 1px 1px rgba(255,255,255,0.5);
-        @include box-shadow(0 0 7px 0 rgba(0,0,0,0.4));
+        overflow:hidden;
 
         &:before{
+            text-shadow:none;
             font-family:wagtail;
             text-transform:none;
             content:"q";
@@ -86,13 +102,14 @@
             z-index:2;
             font-size:2em;
             top:0px;
-            line-height:1.6em;
+            line-height:1.8em;
             left:0px;
             width:1.7em;
-            opacity:0.15;
+            color:white;
             padding:0;
             margin:0;
             cursor:pointer;
+            background-color:$color-salmon;
         }
     }
 
@@ -121,11 +138,10 @@
         .object-help{
             display:block;
         }
-        
+
         fieldset{
             display:block;
             float:none;
-            
 
             .help{
                 display:none;
@@ -138,11 +154,11 @@
         input, textarea, .richtext{
             @include nice-padding();
             @include border-radius(0px);
-            font-family:Bitter, Georgia, serif;           
+            font-family:Bitter, Georgia, serif;
             padding-top:2em;
             padding-bottom:2em;
             font-size:1.2em;
-            line-height:1.6em;   
+            line-height:1.6em;
         }
 
         .richtext{
@@ -168,6 +184,17 @@
         }
     }
 
+    /* special panel for the publishing fields, requires a bit more pizzazz */
+    &.publishing{
+        h2:before{
+            content:"7";
+            font-size:2.4em;
+            line-height:1.4em;
+            width:1.4em;
+        }
+       
+    }
+
     &.title input,
     &.title textarea{
         font-size:2em;
@@ -178,7 +205,7 @@
         padding-top:1.5em;
         padding-bottom:1.5em;
     }
-    
+
     .multiple{
         padding:4.5em 0 0 0;
 
@@ -217,20 +244,20 @@
             top:0px;
             left:0px;
             width:3.3em;
-            background-color:$color-teal;
             padding:0;
             margin:0 0 0 -20px;
             cursor:pointer;
 
-            a{
-                font-size: 0em;
-                line-height: 0;
+            .button{
+                @include border-radius(0);
                 overflow: visible;
-                display:block;
-            
+                display:inline-block;
+                padding:0;
+                width:3.45em;
+                background-color:$color-salmon;
+
                 &:before{
                     position:relative;
-                    color:white;
                     padding:0;
                     line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;
@@ -242,25 +269,91 @@
 
         .multiple{
             padding:0;
-            max-height:0px;
         }
     }
-}   
 
+    &.collapsible {
+        /* li.collapsed gets its height from the fieldset only, which is now hidden
+        and h2 has position:absolute which doesn't add to it either, so it would be 0 without this */
+        min-height: 41px;
 
-/* styles applied to an element as it is being reordered */
-.preview{
-    padding-top:1em;
-    padding-bottom:0.5em;
+        h2{
+            cursor: pointer;
+        }
+        h2:before{
+            content: '6';
+            text-shadow:none;
+            line-height: 40px;
+            padding-right: 1px;
+            opacity: 1;
+            color: #666;
+            background-color: transparent;
+            @include transition(background-color 0.2s ease, color 0.2s ease);
+        }
+        h2:hover:before{
+        }
+
+        &.collapsed{
+            background: #fff;
+            h2{
+                 @include box-shadow(none);
+            }
+            h2:before{
+                content: '5';
+                color: #fff;
+                background-color:$color-teal;
+            }
+            h2:hover:before{
+                background-color:$color-teal-darker;
+            }
+        }
+    }
+}
+
+footer .preview{
+    button, .button{
+        background-color:lighten($color-grey-2,10%);
+        border-color:lighten($color-grey-2,10%);
+
+        &:hover{
+            background-color:$color-grey-2;
+            border-color:$color-grey-2;
+        }
+    }
+    .dropdown{
+        input[type=button], input[type=submit], button, .button{
+            background-color:lighten($color-grey-2,10%);
+            border-color:lighten($color-grey-2,10%);
+
+            &:hover{
+                background-color:$color-grey-2;
+                border-color:$color-grey-2;
+            }
+        }
+        ul, .dropdown-toggle{
+            background-color:lighten($color-grey-2,10%);
+        }
+        .dropdown-toggle:hover,
+        &.open > .button + .dropdown-toggle{
+            background-color:$color-grey-2;
+        }
+    }
 }
 
 @media screen and (min-width: $breakpoint-mobile){
+    .page-editor .breadcrumb{
+        margin-top:-1.8em;
+    }
     .object{
         fieldset{
             max-width:1024px;
             @include column(10);
             padding-left:0;
             padding-right:0;
+
+            fieldset{
+                width:100%;
+            }
         }
 
         .object-help{
@@ -289,6 +382,12 @@
             .field{
                 padding:0;
             }
+            .field-content{
+                display: block;
+                float: none;
+                width: auto;
+                padding: inherit; 
+            }
         }
         .multiple{
             @include column(10);
@@ -298,6 +397,13 @@
 
         &.empty .add{
             margin:0 0 0 -50px;
+        }
+
+        &.single-field label{
+            display: block;
+            float: none;
+            width: auto;
+            padding:auto;
         }
     }
 }

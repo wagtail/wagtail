@@ -1,132 +1,141 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-14 23:02+0200\n"
-"PO-Revision-Date: 2014-03-14 21:12+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"PO-Revision-Date: 2014-03-18 13:21+0000\n"
+"Last-Translator: zerolab\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
+"language/ro/)\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
-#: .\models.py:10
+#: models.py:10
 msgid "Redirect from"
 msgstr "Redirecționare de la"
 
-#: .\models.py:12
+#: models.py:12
 msgid "Permanent"
 msgstr "Permanent"
 
-#: .\models.py:12
+#: models.py:12
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
-msgstr "Recomandat. Redirecționările permanente asigură că motoarele de căutare omit pagina veche ('Redirecționare de la'), indexând pagina nouă în schimb."
+msgstr ""
+"Recomandat. Redirecționările permanente asigură că motoarele de căutare omit "
+"pagina veche ('Redirecționare de la'), indexând pagina nouă în schimb."
 
-#: .\models.py:13
+#: models.py:13
 msgid "Redirect to a page"
 msgstr "Redirecționează la o pagină"
 
-#: .\models.py:14
+#: models.py:14
 msgid "Redirect to any URL"
 msgstr "Redirecționare la orice URL"
 
-#: .\views.py:56
+#: views.py:58
 msgid "Search redirects"
-msgstr ""
+msgstr "Caută redirecționări"
 
-#: .\views.py:69
+#: views.py:71
 msgid "Redirect '{0}' updated."
 msgstr "Redirecționarea '{0}' a fost actualizată."
 
-#: .\views.py:72
+#: views.py:74
 msgid "The redirect could not be saved due to errors."
 msgstr "Redirecționarea nu a fost salvată din cauza erorilor."
 
-#: .\views.py:90
+#: views.py:92
 msgid "Redirect '{0}' deleted."
 msgstr "Redirecționarea '{0}' a fost ștearsă."
 
-#: .\views.py:110
-msgid "Redirect '{0} added."
+#: views.py:112
+#, fuzzy
+msgid "Redirect '{0}' added."
 msgstr "Redirecționarea '{0}' a fost adăugată."
 
-#: .\views.py:113
+#: views.py:115
 msgid "The redirect could not be created due to errors."
 msgstr "Redirecționarea nu a fost creată din cauza erorilor."
 
-#: .\templates\wagtailredirects\add.html:3
-#: .\templates\wagtailredirects\add.html:6
-#: .\templates\wagtailredirects\index.html:18
+#: wagtail_hooks.py:23 templates/wagtailredirects/index.html:3
+#: templates/wagtailredirects/index.html:17
+msgid "Redirects"
+msgstr "Redirecționări"
+
+#: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
+#: templates/wagtailredirects/index.html:18
 msgid "Add redirect"
 msgstr "Adaugă redirecționare"
 
-#: .\templates\wagtailredirects\add.html:14
-#: .\templates\wagtailredirects\edit.html:14
+#: templates/wagtailredirects/add.html:14
+#: templates/wagtailredirects/edit.html:14
 msgid "Save"
 msgstr "Salvează"
 
-#: .\templates\wagtailredirects\confirm_delete.html:4
+#: templates/wagtailredirects/confirm_delete.html:4
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Șterge redirecționarea %(title)s"
 
-#: .\templates\wagtailredirects\confirm_delete.html:6
+#: templates/wagtailredirects/confirm_delete.html:6
 msgid "Delete"
 msgstr "Șterge"
 
-#: .\templates\wagtailredirects\confirm_delete.html:10
+#: templates/wagtailredirects/confirm_delete.html:10
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Sigur doriți să ștergeți această redirecționare?"
 
-#: .\templates\wagtailredirects\confirm_delete.html:13
+#: templates/wagtailredirects/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
-#: .\templates\wagtailredirects\edit.html:4
+#: templates/wagtailredirects/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editare %(title)s"
 
-#: .\templates\wagtailredirects\edit.html:6
+#: templates/wagtailredirects/edit.html:6
 msgid "Editing"
 msgstr "Editare"
 
-#: .\templates\wagtailredirects\edit.html:15
+#: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
 msgstr "Șterge redirecțioanare"
 
-#: .\templates\wagtailredirects\index.html:3
-#: .\templates\wagtailredirects\index.html:17
-msgid "Redirects"
-msgstr "Redirecționări"
+#: templates/wagtailredirects/list.html:11
+#: templates/wagtailredirects/list.html:14
+msgid "From"
+msgstr ""
 
-#: .\templates\wagtailredirects\list.html:18
+#: templates/wagtailredirects/list.html:17
 msgid "To"
 msgstr "Către"
 
-#: .\templates\wagtailredirects\list.html:19
+#: templates/wagtailredirects/list.html:18
 msgid "Type"
 msgstr "Tip"
 
-#: .\templates\wagtailredirects\list.html:26
+#: templates/wagtailredirects/list.html:25
 msgid "Edit this redirect"
 msgstr "Editează redirecționare"
 
-#: .\templates\wagtailredirects\list.html:35
+#: templates/wagtailredirects/list.html:34
 msgid "primary"
 msgstr "principal"
 
-#: .\templates\wagtailredirects\results.html:5
+#: templates/wagtailredirects/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -136,18 +145,28 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nExistă o potrivire"
-msgstr[1] "\nSunt %(counter)s potriviri"
-msgstr[2] "\nSunt %(counter)s potriviri"
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"Sunt %(counter)s potriviri"
 
-#: .\templates\wagtailredirects\results.html:18
+#: templates/wagtailredirects/results.html:18
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o "
+"redirecționare"
 
-#: .\templates\wagtailredirects\results.html:21
+#: templates/wagtailredirects/results.html:21
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
-msgstr "Nu a fost creată nici o redirecție. De ce să nu <a href=\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nu a fost creată nici o redirecție. De ce să nu <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"

@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load image_tags %}
+{% load wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Delete image" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 
 {% block content %}
     {% trans "Delete image" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str icon="image" %}
 
     <div class="row row-flush nice-padding">
         <div class="col6">

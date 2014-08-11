@@ -20,7 +20,7 @@
             </div>
         {% endif %}
 
-        <form action="{% url 'django.contrib.auth.views.login' %}" method="post" autocomplete="off">
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
             <h1>{% trans "Sign in to Wagtail" %}</h1>
@@ -28,15 +28,19 @@
           
             <ul class="fields">
                 <li class="full">
-                    <div class="field icon icon-user">
+                    <div class="field iconfield">
                         {{ form.username.label_tag }}
-                        {{ form.username }}
+                        <div class="input icon-user">
+                            {{ form.username }}
+                        </div>
                     </div>
                 </li>
                 <li class="full">
-                    <div class="field icon icon-password">
+                    <div class="field iconfield">
                         {{ form.password.label_tag }}
-                        {{ form.password }}
+                        <div class="input icon-password">
+                            {{ form.password }}
+                        </div>
                     </div>
                     {% if show_password_reset %}
                         <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>

@@ -1,27 +1,12 @@
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.contrib import messages
-from django.contrib.auth.forms import SetPasswordForm
+from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
-from django.utils.translation import ugettext as _ 
 
 from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
-from wagtail.wagtailadmin import hooks
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
 
-def render_edit_frame(request, context):
-    try:
-        revision_id = request.revision_id
-    except:
-        revision_id = None
 
-    # Render the frame to contain the userbar items
-    return render_to_string('wagtailadmin/userbar/frame.html', {
-        'page': context,
-        'revision_id': revision_id
-    })
-
+@permission_required('wagtailadmin.access_admin', raise_exception=True)
 def for_frontend(request, page_id):
     items = [
         EditPageItem(Page.objects.get(id=page_id)),
@@ -42,6 +27,8 @@ def for_frontend(request, page_id):
         'items': rendered_items,
     })
 
+
+@permission_required('wagtailadmin.access_admin', raise_exception=True)
 def for_moderation(request, revision_id):
     items = [
         EditPageItem(PageRevision.objects.get(id=revision_id).page),

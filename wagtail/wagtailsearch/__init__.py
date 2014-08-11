@@ -1,3 +1,3 @@
-from indexed import Indexed
-from signal_handlers import register_signal_handlers
-from backends import get_search_backend
+from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+from wagtail.wagtailsearch.backends import get_search_backend

@@ -1,0 +1,27 @@
+{% load i18n %}
+<div class="overflow">
+<table class="listing">
+    <col />
+    <col />
+    <col />
+    <thead>
+        <tr>
+            <th>{% trans "Submission Date" %}</th>
+            {% for heading in data_headings %}
+                <th>{{ heading }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data_rows %}
+            <tr>
+                {% for cell in row %}
+                    <td>
+                        {{ cell }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>

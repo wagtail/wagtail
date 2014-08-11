@@ -4,7 +4,7 @@
 {% block bodyclass %}menu-redirects{% endblock %}
 {% block content %}
     {% trans "Add redirect" as add_red_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_red_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_red_str icon="redirect" %}
 
     <form action="{% url 'wagtailredirects_add_redirect' %}" method="POST" class="nice-padding">
         {% csrf_token %}
