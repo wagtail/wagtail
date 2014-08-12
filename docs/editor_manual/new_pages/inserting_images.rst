@@ -65,7 +65,7 @@ In addition, the Wagtail Demo site allows you to chose an aligmnent for you imag
 #. You can select how the image is displayed by selecting one of the format options.
 #. In the Wagtail Demo site, images inserted into the body text do not have embeded captions (these should be added as regular body text). However you must still provide specific alt text for your image.
 
-The aligmnents available are described below:
+The alignments available are described below:
 
 * **Full width:** Image will be inserted using the full width of the text area.
 * **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text the text will wrap around the image. If two half-width images are inserted together they will display next to each other.
