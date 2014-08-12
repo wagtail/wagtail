@@ -489,7 +489,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return root_url + reverse('wagtail', args=(self.url_path[len(root_path):],))
+                return root_url + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @property
     def url(self):
@@ -504,7 +504,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         root_paths = Site.get_site_root_paths()
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail', args=(self.url_path[len(root_path):],))
+                return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     def relative_url(self, current_site):
         """
@@ -514,7 +514,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if current_site.id == id else root_url) + reverse('wagtail', args=(self.url_path[len(root_path):],))
+                return ('' if current_site.id == id else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
