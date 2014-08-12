@@ -30,12 +30,22 @@ class MenuItem(object):
 
     js_files = []
     def render_js(self):
+        """
+        Return a string of any Javascript declarations required by this menu item.
+        These will be included on all admin pages, regardless of whether the menu item
+        is actually shown or not - this allows us to cache/compress the JS globally.
+        By default this returns a script tag for every file listed in self.js_files.
+        """
         if self.js_files:
             return format_html_join('\n', '<script src="{0}{1}"></script>',
                     ((settings.STATIC_URL, filename) for filename in self.js_files)
                 )
 
     def is_shown(self, request):
+        """
+        Whether this menu item should be shown for the given request; permission
+        checks etc should go here. By default, menu items are shown all the time
+        """
         return True
 
     def render_html(self):
