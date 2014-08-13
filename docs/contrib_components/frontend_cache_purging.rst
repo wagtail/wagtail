@@ -42,8 +42,8 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
  - `Squid <http://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
 
 
-Advanced useage
-~~~~~~~~~~~~~~~
+Advanced usage
+~~~~~~~~~~~~~~
 
 Purging more than one URL per page
 ----------------------------------

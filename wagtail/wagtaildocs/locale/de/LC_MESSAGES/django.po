@@ -1,39 +1,40 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# jspielmann <j@spielmannsolutions.com>, 2014
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
-"PO-Revision-Date: 2014-03-24 18:54+0000\n"
-"Last-Translator: pcraston <patrick@craston.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
-"de/)\n"
-"Language: de\n"
+"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:20 templates/wagtaildocs/documents/list.html:11
+#: models.py:21 templates/wagtaildocs/documents/list.html:11
 #: templates/wagtaildocs/documents/list.html:14
+#: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:21 templates/wagtaildocs/documents/list.html:17
+#: models.py:22 templates/wagtaildocs/documents/list.html:17
 msgid "File"
 msgstr "Datei"
 
-#: models.py:25
+#: models.py:26
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: wagtail_hooks.py:23 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Dokumente"
 
@@ -68,14 +69,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Es gibt ein Ergebnis\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
+msgstr[0] "\n            Es gibt ein Ergebnis\n        "
+msgstr[1] "\n            Es gibt %(counter)s Ergebnisse\n        "
 
 #: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
@@ -85,8 +80,7 @@ msgstr "Neueste Dokumente"
 #: templates/wagtaildocs/documents/results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Es gibt leider keine Dokumente zum Suchbegriff \"<em>%(query_string)s</em>\""
+msgstr "Es gibt leider keine Dokumente zum Suchbegriff \"<em>%(query_string)s</em>\""
 
 #: templates/wagtaildocs/documents/_file_field.html:5
 msgid "Change document:"
@@ -136,11 +130,34 @@ msgstr "Hochgeladen"
 #: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr "Sie haben noch keine Dokumente hochgeladen. <a href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+
+#: templates/wagtaildocs/documents/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
 msgstr ""
-"Sie haben noch keine Dokumente hochgeladen.<a href="
-"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+
+#: templates/wagtaildocs/documents/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtaildocs/documents/usage.html:26
+msgid "Edit this page"
+msgstr ""
 
 #: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
 msgid "Clear choice"
@@ -150,22 +167,22 @@ msgstr "Auswahl zurücksetzen"
 msgid "Choose another document"
 msgstr "Anderes Dokument wählen"
 
-#: views/documents.py:36 views/documents.py:45
+#: views/documents.py:37 views/documents.py:46
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
-#: views/documents.py:85
+#: views/documents.py:86
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' wurde hinzugefügt."
 
-#: views/documents.py:88 views/documents.py:117
+#: views/documents.py:89 views/documents.py:118
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
-#: views/documents.py:114
+#: views/documents.py:115
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' wurde hochgeladen"
 
-#: views/documents.py:136
+#: views/documents.py:137
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' wurde gelöscht."

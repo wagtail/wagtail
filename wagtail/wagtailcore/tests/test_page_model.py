@@ -1,6 +1,7 @@
 import warnings
 
 from django.test import TestCase, Client
+from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
 
 from wagtail.utils.deprecation import RemovedInWagtail06Warning
@@ -100,6 +101,16 @@ class TestSiteRouting(TestCase):
 class TestRouting(TestCase):
     fixtures = ['test.json']
 
+    # need to clear urlresolver caches before/after tests, because we override ROOT_URLCONF
+    # in some tests here
+    def setUp(self):
+        from django.core.urlresolvers import clear_url_caches
+        clear_url_caches()
+
+    def tearDown(self):
+        from django.core.urlresolvers import clear_url_caches
+        clear_url_caches()
+
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
@@ -133,6 +144,21 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
+
+    @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
+    def test_urls_with_non_root_urlconf(self):
+        default_site = Site.objects.get(is_default_site=True)
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Basic installation only has one site configured, so page.url will return local URLs
+        self.assertEqual(homepage.full_url, 'http://localhost/site/')
+        self.assertEqual(homepage.url, '/site/')
+        self.assertEqual(homepage.relative_url(default_site), '/site/')
+
+        self.assertEqual(christmas_page.full_url, 'http://localhost/site/events/christmas/')
+        self.assertEqual(christmas_page.url, '/site/events/christmas/')
+        self.assertEqual(christmas_page.relative_url(default_site), '/site/events/christmas/')
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
@@ -179,8 +205,30 @@ class TestServeView(TestCase):
         from django.core.cache import cache
         cache.delete('wagtail_site_root_paths')
 
+        # also need to clear urlresolver caches before/after tests, because we override
+        # ROOT_URLCONF in some tests here
+        from django.core.urlresolvers import clear_url_caches
+        clear_url_caches()
+
+    def tearDown(self):
+        from django.core.urlresolvers import clear_url_caches
+        clear_url_caches()
+
+
     def test_serve(self):
         response = self.client.get('/events/christmas/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(response.context['self'], christmas_page)
+
+        self.assertContains(response, '<h1>Christmas</h1>')
+        self.assertContains(response, '<h2>Event</h2>')
+
+    @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
+    def test_serve_with_non_root_urls(self):
+        response = self.client.get('/site/events/christmas/')
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
