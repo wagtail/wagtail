@@ -95,7 +95,7 @@ class SubmenuMenuItem(MenuItem):
 
     @property
     def media(self):
-        return self.menu.media
+        return Media(js=['wagtailadmin/js/submenu.js']) + self.menu.media
 
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
@@ -103,9 +103,9 @@ class SubmenuMenuItem(MenuItem):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0}">
+            """<li class="menu-{0} submenu-trigger">
                 <a href="#" class="{1}"{2}>{3}</a>
-                <ul class="submenu">{4}</ul>
+                <ul class="nav-submenu">{4}</ul>
             </li>""",
             self.name, self.classnames, self.attr_string, self.label, self.menu.render_html(request)
         )

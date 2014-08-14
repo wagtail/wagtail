@@ -257,6 +257,16 @@ body{
         font-size:0.9em;
     }
 
+    .nav-submenu {
+        display: none; /* prevent submenu showing before JS load */
+        position: absolute;
+        left: 99%;
+        z-index: 500;
+        width: 200px;
+        background-color: $color-grey-1;
+    }
+
+
 .content-wrapper{
     width:100%;
     height:100%; /* this has no effect on desktop, but on mobile it helps aesthetics of menu popout action */
@@ -681,6 +691,11 @@ footer, .logo{
         }
     }
 
+    .submenu-items {
+        position: absolute;
+        left: 99%;
+    }
+
     footer{
         width:80%;
         margin-left:50px;
@@ -709,6 +724,9 @@ footer, .logo{
         }
     }
     .explorer {
+        z-index:$explorer-z-index;
+    }
+    .nav-submenu {
         z-index:$explorer-z-index;
     }
     .nav-wrapper{
