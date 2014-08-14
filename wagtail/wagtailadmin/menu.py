@@ -36,7 +36,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         """
         return True
 
-    def render_html(self):
+    def render_html(self, request):
         return format_html(
             """<li class="menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
             self.name, self.url, self.classnames, self.attr_string, self.label)
@@ -76,7 +76,13 @@ class Menu(object):
             for fn in hooks.get_hooks(self.construct_hook_name):
                 fn(request, menu_items)
 
-        rendered_menu_items = [item.render_html() for item in sorted(menu_items, key=lambda i: i.order)]
+        rendered_menu_items = []
+        for item in sorted(menu_items, key=lambda i: i.order):
+            try:
+                rendered_menu_items.append(item.render_html(request))
+            except TypeError:
+                # fallback for older render_html methods that don't accept a request arg
+                rendered_menu_items.append(item.render_html())
 
         return mark_safe(''.join(rendered_menu_items))
 
