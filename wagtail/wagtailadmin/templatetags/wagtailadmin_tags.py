@@ -2,12 +2,11 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django import template
-from django.forms import Media
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore
-from wagtail.wagtailadmin.menu import get_master_menu_item_list
+from wagtail.wagtailadmin.menu import admin_menu
 
 
 register = template.Library()
@@ -30,7 +29,7 @@ def explorer_subnav(nodes):
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     request = context['request']
-    menu_items = [item for item in get_master_menu_item_list() if item.is_shown(request)]
+    menu_items = admin_menu.menu_items_for_request(request)
 
     for fn in hooks.get_hooks('construct_main_menu'):
         fn(request, menu_items)
@@ -42,11 +41,7 @@ def main_nav(context):
 
 @register.simple_tag
 def main_nav_js():
-    media = Media()
-    for item in get_master_menu_item_list():
-        media += item.media
-
-    return media['js']
+    return admin_menu.media['js']
 
 
 @register.filter("ellipsistrim")

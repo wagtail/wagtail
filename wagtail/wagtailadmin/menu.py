@@ -8,10 +8,9 @@ try:
 except ImportError:
     from django.forms.util import flatatt
 
-from django.conf import settings
-from django.forms import MediaDefiningClass
+from django.forms import MediaDefiningClass, Media
 from django.utils.text import slugify
-from django.utils.html import format_html, format_html_join
+from django.utils.html import format_html
 
 from wagtail.wagtailcore import hooks
 
@@ -42,15 +41,31 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
             self.name, self.url, self.classnames, self.attr_string, self.label)
 
 
-_master_menu_item_list = None
-def get_master_menu_item_list():
-    """
-    Return the list of menu items registered with the 'register_admin_menu_item' hook.
-    This is the "master list" because the final admin menu may vary per request
-    according to the value of is_shown() and the construct_main_menu hook.
-    """
-    global _master_menu_item_list
-    if _master_menu_item_list is None:
-        _master_menu_item_list = [fn() for fn in hooks.get_hooks('register_admin_menu_item')]
+class Menu(object):
+    def __init__(self, hook_name):
+        self.hook_name = hook_name
+        # _registered_menu_items will be populated on first access to the
+        # registered_menu_items property. We can't populate it in __init__ because
+        # we can't rely on all hooks modules to have been imported at the point that
+        # we create the admin_menu and settings_menu instances
+        self._registered_menu_items = None
 
-    return _master_menu_item_list
+    @property
+    def registered_menu_items(self):
+        if self._registered_menu_items is None:
+            self._registered_menu_items = [fn() for fn in hooks.get_hooks(self.hook_name)]
+        return self._registered_menu_items
+
+    def menu_items_for_request(self, request):
+        return [item for item in self.registered_menu_items if item.is_shown(request)]
+
+    @property
+    def media(self):
+        media = Media()
+        for item in self.registered_menu_items:
+            media += item.media
+        return media
+
+
+admin_menu = Menu(hook_name='register_admin_menu_item')
+settings_menu = Menu(hook_name='register_settings_menu_item')
