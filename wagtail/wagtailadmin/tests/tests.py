@@ -16,6 +16,12 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
 
+    def test_admin_menu(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        # check that media attached to menu items is correctly pulled in
+        self.assertContains(response, '<script type="text/javascript" src="/static/wagtailadmin/js/explorer-menu.js"></script>')
+
 
 class TestEditorHooks(TestCase, WagtailTestUtils):
     def setUp(self):
