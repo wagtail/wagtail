@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django import template
+from django.forms import Media
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
@@ -41,8 +42,11 @@ def main_nav(context):
 
 @register.simple_tag
 def main_nav_js():
-    js_snippets = [item.render_js() or '' for item in get_master_menu_item_list()]
-    return ''.join(js_snippets)
+    media = Media()
+    for item in get_master_menu_item_list():
+        media += item.media
+
+    return media['js']
 
 
 @register.filter("ellipsistrim")

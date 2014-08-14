@@ -6,9 +6,8 @@ from wagtail.wagtailadmin.menu import MenuItem
 
 
 class ExplorerMenuItem(MenuItem):
-    js_files = [
-        'wagtailadmin/js/explorer-menu.js',
-    ]
+    class Media:
+        js = ['wagtailadmin/js/explorer-menu.js']
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
