@@ -11,6 +11,7 @@ except ImportError:
 from django.forms import MediaDefiningClass, Media
 from django.utils.text import slugify
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore import hooks
 
@@ -42,8 +43,9 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
 
 
 class Menu(object):
-    def __init__(self, hook_name):
-        self.hook_name = hook_name
+    def __init__(self, register_hook_name, construct_hook_name=None):
+        self.register_hook_name = register_hook_name
+        self.construct_hook_name = construct_hook_name
         # _registered_menu_items will be populated on first access to the
         # registered_menu_items property. We can't populate it in __init__ because
         # we can't rely on all hooks modules to have been imported at the point that
@@ -53,7 +55,7 @@ class Menu(object):
     @property
     def registered_menu_items(self):
         if self._registered_menu_items is None:
-            self._registered_menu_items = [fn() for fn in hooks.get_hooks(self.hook_name)]
+            self._registered_menu_items = [fn() for fn in hooks.get_hooks(self.register_hook_name)]
         return self._registered_menu_items
 
     def menu_items_for_request(self, request):
@@ -66,6 +68,18 @@ class Menu(object):
             media += item.media
         return media
 
+    def render_html(self, request):
+        menu_items = self.menu_items_for_request(request)
 
-admin_menu = Menu(hook_name='register_admin_menu_item')
-settings_menu = Menu(hook_name='register_settings_menu_item')
+        # provide a hook for modifying the menu, if construct_hook_name has been set
+        if self.construct_hook_name:
+            for fn in hooks.get_hooks(self.construct_hook_name):
+                fn(request, menu_items)
+
+        rendered_menu_items = [item.render_html() for item in sorted(menu_items, key=lambda i: i.order)]
+
+        return mark_safe(''.join(rendered_menu_items))
+
+
+admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
+settings_menu = Menu(register_hook_name='register_settings_menu_item')

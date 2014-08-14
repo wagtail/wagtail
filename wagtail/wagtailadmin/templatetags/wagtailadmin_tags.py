@@ -29,13 +29,9 @@ def explorer_subnav(nodes):
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     request = context['request']
-    menu_items = admin_menu.menu_items_for_request(request)
-
-    for fn in hooks.get_hooks('construct_main_menu'):
-        fn(request, menu_items)
 
     return {
-        'menu_items': sorted(menu_items, key=lambda i: i.order),
+        'menu_html': admin_menu.render_html(request),
         'request': request,
     }
 
