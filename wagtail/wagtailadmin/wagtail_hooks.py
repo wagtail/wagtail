@@ -2,7 +2,7 @@ from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, settings_menu
 
 
 class ExplorerMenuItem(MenuItem):
@@ -22,3 +22,9 @@ def register_search_menu_item():
     return MenuItem(
         _('Search'), urlresolvers.reverse('wagtailadmin_pages_search'),
         classnames='icon icon-search', order=200)
+
+
+@hooks.register('register_admin_menu_item')
+def register_settings_menu():
+    return SubmenuMenuItem(
+        _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)

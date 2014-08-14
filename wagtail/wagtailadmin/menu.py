@@ -87,5 +87,29 @@ class Menu(object):
         return mark_safe(''.join(rendered_menu_items))
 
 
+class SubmenuMenuItem(MenuItem):
+    """A MenuItem which wraps an inner Menu object"""
+    def __init__(self, label, menu, **kwargs):
+        self.menu = menu
+        super(SubmenuMenuItem, self).__init__(label, '#', **kwargs)
+
+    @property
+    def media(self):
+        return self.menu.media
+
+    def is_shown(self, request):
+        # show the submenu if one or more of its children is shown
+        return bool(self.menu.menu_items_for_request(request))
+
+    def render_html(self, request):
+        return format_html(
+            """<li class="menu-{0}">
+                <a href="#" class="{1}"{2}>{3}</a>
+                <ul class="submenu">{4}</ul>
+            </li>""",
+            self.name, self.classnames, self.attr_string, self.label, self.menu.render_html(request)
+        )
+
+
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
 settings_menu = Menu(register_hook_name='register_settings_menu_item')
