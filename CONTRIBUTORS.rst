@@ -30,6 +30,7 @@ Contributors
 * Jeffrey Hearn
 * Robert Clark
 * Tim Heap
+* Nathan Brizendine
 
 Translators
 ===========

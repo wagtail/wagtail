@@ -1,0 +1,22 @@
+==========================================
+Wagtail 0.6 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+
+Bug fixes
+~~~~~~~~~
+
+ * Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+
+Upgrade considerations
+======================

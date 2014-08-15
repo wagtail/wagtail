@@ -1,6 +1,6 @@
-==========================================
-Wagtail 0.5 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 0.5 release notes
+=========================
 
 .. contents::
     :local:
@@ -46,6 +46,12 @@ Usage stats for images, documents and snippets
 It's now easier to find where a particular image, document or snippet is being used on your site.
 
 Set the ``WAGTAIL_USAGE_COUNT_ENABLED`` setting to ``True`` and an icon will appear on the edit page showing you which pages they have been used on.
+
+
+Copy Page action
+~~~~~~~~~~~~~~~~
+
+The explorer interface now offers the ability to copy pages, with or without subpages.
 
 
 Minor features
@@ -118,5 +124,9 @@ Several new fields have been added to the Image and Rendition models to support 
 (with 'myapp' replaced with your app name) will generate the necessary migration file.
 
 
-Deprecated features
-===================
+South upgraded to 1.0
+~~~~~~~~~~~~~~~~~~~~~
+
+In preparation for Django 1.7 support in a future release, Wagtail now depends on South 1.0, and its migration files have been moved from ``migrations`` to ``south_migrations``. Older versions of South will fail to find the migrations in the new location.
+
+If your project's requirements file (most commonly requirements.txt or requirements/base.txt) references a specific older version of South, this must be updated to South 1.0.

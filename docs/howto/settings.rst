@@ -141,7 +141,7 @@ Wagtail Apps
   Search framework for Page content. See :ref:`search`.
 
 ``wagtailredirects``
-  Admin interface for creating arbitrary redirects on your site. See :ref:`redirects`.
+  Admin interface for creating arbitrary redirects on your site.
 
 ``wagtailforms``
   Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.

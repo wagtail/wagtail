@@ -198,6 +198,9 @@
                                 {% if page_perms.can_move and 'move' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_move' page.id %}" class="button button-small">{% trans 'Move' %}</a></li>
                                 {% endif %}
+                                {% if parent_page_perms.can_add_subpage and 'copy' not in hide_actions|default:'' %}
+                                    <li><a href="{% url 'wagtailadmin_pages_copy' page.id %}" class="button button-small">{% trans 'Copy' %}</a></li>
+                                {% endif %}
                                 {% if page_perms.can_delete and 'delete' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="button button-small">{% trans 'Delete' %}</a></li>
                                 {% endif %}
