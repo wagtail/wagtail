@@ -21,11 +21,7 @@ def serve(request, path):
     path_components = [component for component in path.split('/') if component]
     route_result = request.site.root_page.specific.route(request, path_components)
     if isinstance(route_result, HttpResponse):
-        warnings.warn(
-            "Page.route should return an instance of wagtailcore.url_routing.RouteResult, not an HttpResponse",
-            RemovedInWagtail06Warning
-        )
-        return route_result
+        raise RuntimeError("Page.route should return an instance of wagtailcore.url_routing.RouteResult, not an HttpResponse")
 
     (page, args, kwargs) = route_result
     for fn in hooks.get_hooks('before_serve_page'):

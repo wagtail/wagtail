@@ -286,19 +286,10 @@ class TestServeView(TestCase):
     def test_old_style_routing(self):
         """
         Test that route() methods that return an HttpResponse are correctly handled
+
+        Old style routing was deprecated in Wagtail 0.4 and removed in 0.6
         """
-        with warnings.catch_warnings(record=True) as w:
-            response = self.client.get('/old-style-route/')
-
-            # Check that a RemovedInWagtail06Warning has been triggered
-            self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail06Warning))
-            self.assertTrue("Page.route should return an instance of wagtailcore.url_routing.RouteResult" in str(w[-1].message))
-
-        expected_page = PageWithOldStyleRouteMethod.objects.get(url_path='/home/old-style-route/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['self'], expected_page)
-        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
+        self.assertRaises(RuntimeError, self.client.get, '/old-style-route/')
 
     def test_before_serve_hook(self):
         response = self.client.get('/events/', HTTP_USER_AGENT='GoogleBot')
