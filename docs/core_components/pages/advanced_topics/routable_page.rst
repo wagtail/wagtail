@@ -65,10 +65,17 @@ The ``RoutablePage`` class
 
             from django.conf.urls import url
 
-            subpage_urls = (
-                url(r'^$', 'serve', name='main'),
-                url(r'^archive/$', 'archive', name='archive'),
-            )
+            class MyPage(RoutablePage):
+                subpage_urls = (
+                    url(r'^$', 'serve', name='main'),
+                    url(r'^archive/$', 'archive', name='archive'),
+                )
+
+                def serve(self, request):
+                    ...
+
+                def archive(self, request):
+                    ...
 
     .. automethod:: resolve_subpage
 
@@ -86,6 +93,7 @@ The ``RoutablePage`` class
         .. code-block:: python
 
             url = page.url + page.reverse_subpage('events_for_year', args=('2014', ))
+
 
  .. _routablepageurl_template_tag:
 
