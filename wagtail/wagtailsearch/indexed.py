@@ -38,79 +38,18 @@ class Indexed(object):
             return (cls._meta.app_label + '_' + cls.__name__).lower()
 
     @classmethod
-    def indexed_get_indexed_fields(cls):
-        # Get indexed fields for this class as dictionary
-        indexed_fields = cls.indexed_fields
-        if isinstance(indexed_fields, dict):
-            # Make sure we have a copy to prevent us accidentally changing the configuration
-            indexed_fields = indexed_fields.copy()
-        else:
-            # Convert to dict
-            if isinstance(indexed_fields, tuple):
-                indexed_fields = list(indexed_fields)
-            if isinstance(indexed_fields, string_types):
-                indexed_fields = [indexed_fields]
-            if isinstance(indexed_fields, list):
-                indexed_fields = dict((field, dict(type='string')) for field in indexed_fields)
-            if not isinstance(indexed_fields, dict):
-                raise ValueError()
-
-        # Get indexed fields for parent class
-        parent = cls.indexed_get_parent(require_model=False)
-        if parent:
-            # Add parent fields into this list
-            parent_indexed_fields = parent.indexed_get_indexed_fields().copy()
-            parent_indexed_fields.update(indexed_fields)
-            indexed_fields = parent_indexed_fields
-        return indexed_fields
-
-    @classmethod
     def get_search_fields(cls):
-        search_fields = []
+        # Raise an error if the 'indexed_fields' attribute is being used on a class without 'search_fields'
+        # Note: We still allow people to define 'indexed_fields' as long as they also define 'search_fields'
+        # on the same class. This allows people to still write code that is compatible with older versions
+        # of Wagtail and we still catch issues where code using the old 'indexed_fields' setting hasn't been
+        # updated.
+        if 'indexed_fields' in cls.__dict__ and not 'search_fields' in cls.__dict__:
+            raise RuntimeError("The indexed_fields attribute has been replaced with search_fields. " \
+                               "Please update %s.%s to use the search_fields setting." % (cls._meta.app_label, cls.__name__))
 
-        if hasattr(cls, 'search_fields'):
-            search_fields.extend(cls.search_fields)
-
-        # Backwards compatibility with old indexed_fields setting
-
-        # Get indexed fields
-        indexed_fields = cls.indexed_get_indexed_fields()
-
-        # Display deprecation warning if indexed_fields has been used
-        if indexed_fields:
-            warnings.warn("'indexed_fields' setting is now deprecated."
-                          "Use 'search_fields' instead.", RemovedInWagtail06Warning)
-
-        # Convert them into search fields
-        for field_name, _config in indexed_fields.items():
-            # Copy the config to prevent is trashing anything accidentally
-            config = _config.copy()
-
-            # Check if this is a filter field
-            if config.get('index', None) == 'not_analyzed':
-                config.pop('index')
-                search_fields.append(FilterField(field_name, es_extra=config))
-                continue
-
-            # Must be a search field, check for boosting and partial matching
-            boost = config.pop('boost', None)
-
-            partial_match = False
-            if config.get('analyzer', None) == 'edgengram_analyzer':
-                partial_match = True
-                config.pop('analyzer')
-
-            # Add the field
-            search_fields.append(SearchField(field_name, boost=boost, partial_match=partial_match, es_extra=config))
-
-        # Remove any duplicate entries into search fields
-        # We need to take into account that fields can be indexed as both a SearchField and as a FilterField
-        search_fields_dict = {}
-        for field in search_fields:
-            search_fields_dict[(field.field_name, type(field))] = field
-        search_fields = search_fields_dict.values()
-
-        return search_fields
+        # Return value of 'search_fields' attribute
+        return getattr(cls, 'search_fields', tuple())
 
     @classmethod
     def get_searchable_search_fields(cls):

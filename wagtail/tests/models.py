@@ -420,6 +420,8 @@ class SearchTestOldConfig(models.Model, indexed.Indexed):
     """
     This tests that the Indexed class can correctly handle models that
     use the old "indexed_fields" configuration format.
+
+    This format was deprecated in 0.4 and removed in 0.6
     """
     indexed_fields = {
         # A search field with predictive search and boosting
@@ -437,12 +439,26 @@ class SearchTestOldConfig(models.Model, indexed.Indexed):
     }
 
 
-class SearchTestOldConfigList(models.Model, indexed.Indexed):
+class SearchTestOldConfigAndNewConfig(models.Model, indexed.Indexed):
     """
     This tests that the Indexed class can correctly handle models that
-    use the old "indexed_fields" configuration format using a list.
+    use both the old "indexed_fields" and the new "search_fields" configuration
+    format.
+
+    Usually, when wagtailsearch detects that "indexed_fields" is being used, it
+    will raise a RuntimeError.
+
+    This behaviour may get in the way of people developing apps that support
+    older versions of Wagtail. So Wagtail allows "indexed_fields" to be defined
+    on a classes as long as they also define "search_fields" as well. Wagtail 0.4+
+    will simply ignore the "indexed_fields" attribute in this case.
     """
     indexed_fields = ['title', 'content']
+
+    search_fields = (
+        indexed.SearchField('title'),
+        indexed.SearchField('content'),
+    )
 
 
 def routable_page_external_view(request, arg):
