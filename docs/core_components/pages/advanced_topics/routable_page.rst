@@ -86,3 +86,19 @@ The ``RoutablePage`` class
         .. code-block:: python
 
             url = page.url + page.reverse_subpage('events_for_year', args=('2014', ))
+
+The ``routablepageurl`` template tag
+====================================
+
+.. currentmodule:: wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags
+.. autofunction:: routablepageurl
+
+    Example:
+
+    .. code-block:: html+django
+
+        {% load wagtailroutablepage_tags %}
+
+        {% routablepageurl self "feed" %}
+        {% routablepageurl self "archive" 2014 08 14 %}
+        {% routablepageurl self "food" foo="bar" baz="quux" %}
