@@ -228,8 +228,11 @@ class EventPage(Page):
         related_name='+'
     )
 
-    indexed_fields = ('get_audience_display', 'location', 'body')
-    search_name = "Event"
+    search_fields = (
+        indexed.SearchField('get_audience_display'),
+        indexed.SearchField('location'),
+        indexed.SearchField('body'),
+    )
 
     password_required_template = 'tests/event_page_password_required.html'
 
