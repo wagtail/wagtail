@@ -26,8 +26,6 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -147,31 +145,6 @@ def get_page_types():
             ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
         ]
     return _PAGE_CONTENT_TYPES
-
-
-def get_leaf_page_content_type_ids():
-    warnings.warn("""
-        get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if not getattr(content_type.model_class(), 'subpage_types', None)
-    ]
-
-def get_navigable_page_content_type_ids():
-    warnings.warn("""
-        get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if getattr(content_type.model_class(), 'subpage_types', None)
-    ]
 
 
 class PageManager(models.Manager):
@@ -476,14 +449,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_other_siblings(self):
-        warnings.warn(
-            "The 'Page.get_other_siblings()' method has been replaced. "
-            "Use 'Page.get_siblings(inclusive=False)' instead.", RemovedInWagtail06Warning)
-
-        # get sibling pages excluding self
-        return self.get_siblings().exclude(id=self.id)
-
     @property
     def full_url(self):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
@@ -728,14 +693,18 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        modes = self.get_page_modes()
+        modes = self.get_page_modes(i_know_what_im_doing=True)
         if modes is not Page.DEFAULT_PREVIEW_MODES:
             # User has overriden get_page_modes instead of using preview_modes
-            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", RemovedInWagtail06Warning)
+            raise RuntimeError("get_page_modes has been removed. Define a preview_modes property instead.")
 
         return modes
 
-    def get_page_modes(self):
+    def get_page_modes(self, i_know_what_im_doing=False):
+        # Raise error if this was called directly
+        if not i_know_what_im_doing:
+            raise RuntimeError("get_page_modes has been removed. Use the preview_modes property instead.")
+
         # Deprecated accessor for the preview_modes property
         return Page.DEFAULT_PREVIEW_MODES
 
