@@ -3,8 +3,6 @@ import warnings
 from django import template
 from django.template.loader import render_to_string
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailcore.models import Page
 
 

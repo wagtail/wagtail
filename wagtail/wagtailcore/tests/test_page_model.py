@@ -4,8 +4,6 @@ from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod
 

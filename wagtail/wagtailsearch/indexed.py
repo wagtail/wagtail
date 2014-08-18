@@ -4,8 +4,6 @@ from six import string_types
 
 from django.db import models
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 
 class Indexed(object):
     @classmethod
