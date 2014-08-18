@@ -264,11 +264,7 @@ class PageBase(models.base.ModelBase):
 
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
 
-        if not dct.get('is_abstract'):
-            # subclasses are only abstract if the subclass itself defines itself so
-            cls.is_abstract = False
-
-        if not cls.is_abstract:
+        if not cls._meta.abstract:
             # register this type in the list of page content types
             PAGE_MODEL_CLASSES.append(cls)
 
