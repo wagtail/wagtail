@@ -12,13 +12,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, css_path=None):
-    if css_path is not None:
-        warnings.warn(
-            "Passing a CSS path to the wagtailuserbar tag is no longer required; use {% wagtailuserbar %} instead",
-            RemovedInWagtail06Warning
-        )
-
+def wagtailuserbar(context):
     # Find request object
     request = context['request']
     
