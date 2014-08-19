@@ -294,7 +294,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=100),
+        indexed.SearchField('title', partial_match=True, boost=2),
         indexed.FilterField('id'),
         indexed.FilterField('live'),
         indexed.FilterField('owner'),
