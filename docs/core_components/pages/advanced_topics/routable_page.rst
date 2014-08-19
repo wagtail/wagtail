@@ -40,7 +40,7 @@ Here's an example of an ``EventPage`` with three views:
 
         def past_events(self, request):
             """
-            View function for the current events page
+            View function for the past events page
             """
             ...
 
