@@ -17,11 +17,8 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    route_result = request.site.root_page.specific.route(request, path_components)
-    if isinstance(route_result, HttpResponse):
-        raise RuntimeError("Page.route should return an instance of wagtailcore.url_routing.RouteResult, not an HttpResponse")
+    page, args, kwargs = request.site.root_page.specific.route(request, path_components)
 
-    (page, args, kwargs) = route_result
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):

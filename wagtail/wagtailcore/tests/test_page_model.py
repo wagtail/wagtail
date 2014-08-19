@@ -280,15 +280,6 @@ class TestServeView(TestCase):
         self.assertNotContains(response, '<h1>Events</h1>')
         self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
-
-    def test_old_style_routing(self):
-        """
-        Test that route() methods that return an HttpResponse are correctly handled
-
-        Old style routing was deprecated in Wagtail 0.4 and removed in 0.6
-        """
-        self.assertRaises(RuntimeError, self.client.get, '/old-style-route/')
-
     def test_before_serve_hook(self):
         response = self.client.get('/events/', HTTP_USER_AGENT='GoogleBot')
         self.assertContains(response, 'bad googlebot no cookie')

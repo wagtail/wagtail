@@ -37,16 +37,6 @@ class Indexed(object):
 
     @classmethod
     def get_search_fields(cls):
-        # Raise an error if the 'indexed_fields' attribute is being used on a class without 'search_fields'
-        # Note: We still allow people to define 'indexed_fields' as long as they also define 'search_fields'
-        # on the same class. This allows people to still write code that is compatible with older versions
-        # of Wagtail and we still catch issues where code using the old 'indexed_fields' setting hasn't been
-        # updated.
-        if 'indexed_fields' in cls.__dict__ and not 'search_fields' in cls.__dict__:
-            raise RuntimeError("The indexed_fields attribute has been replaced with search_fields. " \
-                               "Please update %s.%s to use the search_fields setting." % (cls._meta.app_label, cls.__name__))
-
-        # Return value of 'search_fields' attribute
         return getattr(cls, 'search_fields', tuple())
 
     @classmethod

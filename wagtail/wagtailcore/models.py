@@ -693,19 +693,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        modes = self.get_page_modes(i_know_what_im_doing=True)
-        if modes is not Page.DEFAULT_PREVIEW_MODES:
-            # User has overriden get_page_modes instead of using preview_modes
-            raise RuntimeError("get_page_modes has been removed. Define a preview_modes property instead.")
-
-        return modes
-
-    def get_page_modes(self, i_know_what_im_doing=False):
-        # Raise error if this was called directly
-        if not i_know_what_im_doing:
-            raise RuntimeError("get_page_modes has been removed. Use the preview_modes property instead.")
-
-        # Deprecated accessor for the preview_modes property
         return Page.DEFAULT_PREVIEW_MODES
 
     @property
@@ -738,12 +725,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         the wagtail user bar to be displayed. This request will always be a GET.
         """
         return self.serve(request)
-
-    def show_as_mode(self, mode_name):
-        # Deprecated API for rendering previews. If this returns something other than None,
-        # we know that a subclass of Page has overridden this, and we should try to work with
-        # that response if possible.
-        return None
 
     def get_cached_paths(self):
         """
