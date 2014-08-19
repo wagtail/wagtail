@@ -1,11 +1,20 @@
 from django.core.management.base import BaseCommand
 from django.db import models
+from django.conf import settings
 
 from wagtail.wagtailsearch import Indexed, get_search_backend
 
 
+def get_search_backends():
+    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+        for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
+            yield backend, get_search_backend(backend)
+    else:
+        yield 'default', get_search_backend('default')
+
+
 class Command(BaseCommand):
-    def handle(self, **options):
+    def get_object_list(self):
         # Print info
         self.stdout.write("Getting object list")
 
@@ -40,26 +49,41 @@ class Command(BaseCommand):
                     # Space free, take it
                     object_set[key] = obj
 
-        # Search backend
-        if 'backend' in options:
-            s = options['backend']
-        else:
-            s = get_search_backend()
+        return indexed_models, object_set.values()
+
+    def update_backend(self, backend, models, object_list, backend_name=''):
+        # Print info
+        self.stdout.write("Updating backend: " + backend_name)
+
+        # Get backend
+        if backend is None:
+            backend = get_search_backend(backend_name)
 
         # Reset the index
-        self.stdout.write("Reseting index")
-        s.reset_index()
+        self.stdout.write(backend_name + ": Reseting index")
+        backend.reset_index()
 
         # Add types
-        self.stdout.write("Adding types")
-        for model in indexed_models:
-            s.add_type(model)
+        self.stdout.write(backend_name + ": Adding types")
+        for model in models:
+            backend.add_type(model)
 
         # Add objects to index
-        self.stdout.write("Adding objects")
-        for result in s.add_bulk(object_set.values()):
+        self.stdout.write(backend_name + ": Adding objects")
+        for result in backend.add_bulk(object_list):
             self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
-        self.stdout.write("Refreshing index")
-        s.refresh_index()
+        self.stdout.write(backend_name + ": Refreshing index")
+        backend.refresh_index()
+
+    def handle(self, **options):
+        # Get object list
+        models, object_list = self.get_object_list()
+
+        # Update backends
+        if 'backend' in options:
+            self.update_backend(options['backend'], models, object_list)
+        else:
+            for backend_name, backend in get_search_backends():
+                self.update_backend(backend, models, object_list, backend_name=backend_name)
