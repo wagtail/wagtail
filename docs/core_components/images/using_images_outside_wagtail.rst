@@ -71,7 +71,7 @@ Using the URLs on your website or blog
 
 Once you have generated a URL, you can put it straight into the ``src`` attribute of an ``<img>`` tag:
 
-..code-block:: html
+ .. code-block:: html
 
     <img src="(image url here)">
 
