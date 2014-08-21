@@ -58,15 +58,15 @@ class Site(models.Model):
     @staticmethod
     def find_for_request(request):
         """
-            Find the site object responsible for responding to this HTTP
-            request object. Try:
-             - unique hostname first
-             - then hostname and port
-             - if there is no matching hostname at all, or no matching
-               hostname:port combination, fall back to the unique default site,
-               or raise an exception
-            NB this means that high-numbered ports on an extant hostname may
-            still be routed to a different hostname which is set as the default
+        Find the site object responsible for responding to this HTTP
+        request object. Try:
+         - unique hostname first
+         - then hostname and port
+         - if there is no matching hostname at all, or no matching
+           hostname:port combination, fall back to the unique default site,
+           or raise an exception
+        NB this means that high-numbered ports on an extant hostname may
+        still be routed to a different hostname which is set as the default
         """
         try:
             hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
@@ -505,8 +505,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_subpage_types(cls):
         """
-            Returns the list of subpage types, with strings converted to class objects
-            where required
+        Returns the list of subpage types, with strings converted to class objects
+        where required
         """
         if cls._clean_subpage_types is None:
             subpage_types = getattr(cls, 'subpage_types', None)
@@ -528,8 +528,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_parent_page_types(cls):
         """
-            Returns the list of parent page types, with strings converted to
-            class objects where required
+        Returns the list of parent page types, with strings converted to class
+        objects where required
         """
         if cls._clean_parent_page_types is None:
             parent_page_types = getattr(cls, 'parent_page_types', None)
@@ -551,7 +551,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_parent_page_types(cls):
         """
-            Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can be a subpage of
         """
         cls_ct = ContentType.objects.get_for_model(cls)
         return [ct for ct in cls.clean_parent_page_types()
@@ -560,7 +560,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_subpage_types(cls):
         """
-            Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can be a subpage of
         """
         # Special case the 'Page' class, such as the Root page or Home page -
         # otherwise you can not add initial pages when setting up a site
@@ -574,14 +574,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_parent_pages(cls):
         """
-            Returns the list of pages that this page type can be a subpage of
+        Returns the list of pages that this page type can be a subpage of
         """
         return Page.objects.filter(content_type__in=cls.allowed_parent_page_types())
 
     @classmethod
     def allowed_subpages(cls):
         """
-            Returns the list of pages that this page type can be a parent page of
+        Returns the list of pages that this page type can be a parent page of
         """
         return Page.objects.filter(content_type__in=cls.allowed_subpage_types())
 

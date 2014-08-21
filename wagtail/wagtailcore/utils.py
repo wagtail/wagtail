@@ -11,8 +11,8 @@ def camelcase_to_underscore(str):
 
 def resolve_model_string(model_string, default_app):
     """
-        Resolve an 'app_label.model_name' string in to an actual model class.
-        If a model class is passed in, just return that.
+    Resolve an 'app_label.model_name' string in to an actual model class.
+    If a model class is passed in, just return that.
     """
     if isinstance(model_string, string_types):
         try:
