@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailusers.models import UserProfile
@@ -59,7 +59,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was created
-        users = User.objects.filter(username='testuser')
+        users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
 
@@ -67,7 +67,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
-        self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
+        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
 
         # Login
         self.login()
@@ -100,7 +100,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_index'))
 
         # Check that the user was edited
-        user = User.objects.get(id=self.test_user.id)
+        user = get_user_model().objects.get(id=self.test_user.id)
         self.assertEqual(user.first_name, 'Edited')
 
     def test_edit_validation_error(self):
@@ -121,7 +121,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
-        self.test_user = User.objects.create_user(username='testuser', email='testuser@email.com', password='password')
+        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
 
     def test_user_created_without_profile(self):
         self.assertEqual(UserProfile.objects.filter(user=self.test_user).count(), 0)

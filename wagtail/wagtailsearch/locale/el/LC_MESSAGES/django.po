@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
@@ -9,15 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
-"PO-Revision-Date: 2014-03-14 21:15+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
-"el/)\n"
-"Language: el\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:9
@@ -29,17 +28,13 @@ msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
-msgstr ""
-"Συμπληρώσατε το πλήρες κείμενο προς αναζήτησης.\n"
-"Για να εμφανιστεί η επιλογή των συντακτών σας\n"
-"απαιτείται ακριβές ταίριασμα, δεν επιτρέπονται\n"
-"αστεράκια."
+msgstr "Συμπληρώσατε το πλήρες κείμενο προς αναζήτησης.\nΓια να εμφανιστεί η επιλογή των συντακτών σας\nαπαιτείται ακριβές ταίριασμα, δεν επιτρέπονται\nαστεράκια."
 
 #: forms.py:36
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "Επιλογές συντακτών"
 
@@ -48,39 +43,21 @@ msgstr "Επιλογές συντακτών"
 msgid "Add editor's pick"
 msgstr "Προσθήκη επιλογής συντακτών"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
-"        "
+"                <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
+"                "
 msgstr ""
-"\n"
-"<p>Οι επιλογές συντακτών είναι ένας τρόπος πρότασης συγκεκριμένων σελίδων οι "
-"οποίες κανονικά δε θα βρίσκονται ψηλά στα αποτελέσματα της αναζήτησης. Για "
-"παράδειγμα, μπορείτε να προτείνετε τη σελίδα δωρεων σας σε μια αναζήτηση "
-"ενός λιγότερο συνηθισμένου όρου όπως  \"<em>δίνω</em>\".</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"        "
+"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
+"            "
 msgstr ""
-"\n"
-"\n"
-"<p>Το πεδίο \"όροι/φράσεις αναζήτησης\" παρακάτω πρέπει να περιέχει το "
-"πλήρες και ακριβές κείμενο για το οποίο θέλετε να παρέχετε προτεινόμενα "
-"αποτελέσματα, <em>συμπεριλαμβανομένων</em> τυχόν ορθογραφικών λαθών. Προς "
-"βοήθεια, μπορείτε να επιλέξετε όρους αναζήτησης που ήταν δημοφιλείς στους "
-"χρήστες.</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -97,10 +74,9 @@ msgid "Delete"
 msgstr "Διαγραφή"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
-msgstr ""
-"Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
-"εν λόγω όρο αναζήτησης;"
+msgid ""
+"Are you sure you want to delete all editors picks for this search term?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον εν λόγω όρο αναζήτησης;"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
 msgid "Yes, delete"
@@ -154,28 +130,20 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Βρέθηκε ένα αποτέλεσμα"
-msgstr[1] ""
-"\n"
-"Βρέθηκαν %(counter)s αποτελέσματα"
+msgstr[0] "\nΒρέθηκε ένα αποτέλεσμα"
+msgstr[1] "\nΒρέθηκαν %(counter)s αποτελέσματα"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
 #, python-format
 msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Λυπούμαστε, δε ταιριάζουν επιλογές συντακτών με το \"<em>%(query_string)s</"
-"em>\""
+msgstr "Λυπούμαστε, δε ταιριάζουν επιλογές συντακτών με το \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
 #, python-format
 msgid ""
-"No editor's picks have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Δεν υπάρχουν επιλογές συντακτών. Θέλετε να <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">προσθέσετε μία</a>;"
+"No editor's picks have been created. Why not <a "
+"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+msgstr "Δεν υπάρχουν επιλογές συντακτών. Θέλετε να <a href=\"%(wagtailsearch_editorspicks_add_url)s\">προσθέσετε μία</a>;"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
 msgid "Move up"

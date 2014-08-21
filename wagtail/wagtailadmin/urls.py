@@ -38,6 +38,8 @@ urlpatterns += [
 
     url(r'^failwhale/$', home.error_test, name='wagtailadmin_error_test'),
 
+    url(r'^explorer-nav/$', pages.explorer_nav, name='wagtailadmin_explorer_nav'),
+
     url(r'^pages/$', pages.index, name='wagtailadmin_explore_root'),
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
@@ -62,6 +64,8 @@ urlpatterns += [
     url(r'^pages/(\d+)/move/(\d+)/$', pages.move_choose_destination, name='wagtailadmin_pages_move_choose_destination'),
     url(r'^pages/(\d+)/move/(\d+)/confirm/$', pages.move_confirm, name='wagtailadmin_pages_move_confirm'),
     url(r'^pages/(\d+)/set_position/$', pages.set_page_position, name='wagtailadmin_pages_set_page_position'),
+
+    url(r'^pages/(\d+)/copy/$', pages.copy, name='wagtailadmin_pages_copy'),
 
     url(r'^pages/moderation/(\d+)/approve/$', pages.approve_moderation, name='wagtailadmin_pages_approve_moderation'),
     url(r'^pages/moderation/(\d+)/reject/$', pages.reject_moderation, name='wagtailadmin_pages_reject_moderation'),

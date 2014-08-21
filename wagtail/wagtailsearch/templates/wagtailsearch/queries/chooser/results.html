@@ -11,7 +11,7 @@
     <tbody>
         {% if queries %}
             {% for query in queries %}
-                <tr class="can-choose">
+                <tr>
                     <td class="title">
                         <h2><a class="choose-query" href="#{{ query.id }}" data-id="{{ query.id }}" data-querystring="{{ query.query_string }}">{{ query.query_string }}</a></h2>
                     </td>

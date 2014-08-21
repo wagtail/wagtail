@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from wagtail.wagtailimages.utils import crop
+
 
 class BaseImageBackend(object):
     def __init__(self, params):
@@ -27,10 +29,34 @@ class BaseImageBackend(object):
         """
         raise NotImplementedError('subclasses of BaseImageBackend must provide an resize() method')
 
-    def crop_to_centre(self, image, size):
-        raise NotImplementedError('subclasses of BaseImageBackend must provide a crop_to_centre() method')
+    def image_data_as_rgb(self, image):
+        raise NotImplementedError('subclasses of BaseImageBackend must provide an image_data_as_rgb() method')
 
-    def resize_to_max(self, image, size):
+    def crop(self, image, crop_box):
+        raise NotImplementedError('subclasses of BaseImageBackend must provide a crop() method')
+
+    def crop_to_centre(self, image, size):
+        crop_box = crop.crop_to_centre(image.size, size)
+        if crop_box.size != image.size:
+            return self.crop(image, crop_box)
+        else:
+            return image
+
+    def crop_to_point(self, image, size, focal_point):
+        crop_box = crop.crop_to_point(image.size, size, focal_point)
+
+        # Don't crop if we don't need to
+        if crop_box.size != image.size:
+            image = self.crop(image, crop_box)
+
+        # If the focal points are too large, the cropping system may not
+        # crop it fully, resize the image if this has happened:
+        if crop_box.size != size:
+            image = self.resize_to_fill(image, size)
+
+        return image
+
+    def resize_to_max(self, image, size, focal_point=None):
         """
         Resize image down to fit within the given dimensions, preserving aspect ratio.
         Will leave image unchanged if it's already within those dimensions.
@@ -54,7 +80,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_min(self, image, size):
+    def resize_to_min(self, image, size, focal_point=None):
         """
         Resize image down to cover the given dimensions, preserving aspect ratio.
         Will leave image unchanged if width or height is already within those limits.
@@ -78,7 +104,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_width(self, image, target_width):
+    def resize_to_width(self, image, target_width, focal_point=None):
         """
         Resize image down to the given width, preserving aspect ratio.
         Will leave image unchanged if it's already within that width.
@@ -94,7 +120,7 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_height(self, image, target_height):
+    def resize_to_height(self, image, target_height, focal_point=None):
         """
         Resize image down to the given height, preserving aspect ratio.
         Will leave image unchanged if it's already within that height.
@@ -110,16 +136,18 @@ class BaseImageBackend(object):
 
         return self.resize(image, final_size)
 
-    def resize_to_fill(self, image, size):
+    def resize_to_fill(self, image, size, focal_point=None):
         """
         Resize down and crop image to fill the given dimensions. Most suitable for thumbnails.
         (The final image will match the requested size, unless one or the other dimension is
         already smaller than the target size)
         """
-        resized_image = self.resize_to_min(image, size)
-        return self.crop_to_centre(resized_image, size)
+        if focal_point is not None:
+            return self.crop_to_point(image, size, focal_point)
+        else:
+            resized_image = self.resize_to_min(image, size)
+            return self.crop_to_centre(resized_image, size)
 
-
-    def no_operation(self, image, param):
+    def no_operation(self, image, param, focal_point=None):
         """Return the image unchanged"""
         return image

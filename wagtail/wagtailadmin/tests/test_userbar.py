@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
@@ -10,7 +11,7 @@ from wagtail.wagtailcore.models import Page
 
 class TestUserbarTag(TestCase):
     def setUp(self):
-        self.user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
         self.homepage = Page.objects.get(id=2)
 
     def dummy_request(self, user=None):

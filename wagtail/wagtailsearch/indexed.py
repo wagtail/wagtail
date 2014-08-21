@@ -4,6 +4,8 @@ from six import string_types
 
 from django.db import models
 
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 
 class Indexed(object):
     @classmethod
@@ -77,7 +79,7 @@ class Indexed(object):
         # Display deprecation warning if indexed_fields has been used
         if indexed_fields:
             warnings.warn("'indexed_fields' setting is now deprecated."
-                          "Use 'search_fields' instead.", DeprecationWarning)
+                          "Use 'search_fields' instead.", RemovedInWagtail06Warning)
 
         # Convert them into search fields
         for field_name, _config in indexed_fields.items():

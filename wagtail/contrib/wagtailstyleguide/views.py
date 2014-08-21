@@ -32,7 +32,20 @@ def index(request):
     messages.warning(request, _("Warning message"))
     messages.error(request, _("Error message"))
 
+    fake_pagination = {
+        'number': 1,
+        'previous_page_number': 1,
+        'next_page_number': 2,
+        'has_previous': True,
+        'has_next': True,
+        'paginator': {
+            'num_pages': 10,
+        },
+    }
+   
+
     return render(request, 'wagtailstyleguide/base.html', {
         'search_form': form,
         'example_form': example_form,
+        'fake_pagination': fake_pagination,
     })
