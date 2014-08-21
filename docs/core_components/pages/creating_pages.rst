@@ -33,6 +33,8 @@ This example represents a typical blog post:
             related_name='+'
         )
 
+
+
     BlogPage.content_panels = [
         FieldPanel('title', classname="full title"),
         FieldPanel('date'),
@@ -133,7 +135,12 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. attribute:: subpage_types
 
-        A whitelist of page models which can be created as children of this page type e.g a ``BlogIndex`` page might allow ``BlogPage``, but not ``JobPage``.
+        A whitelist of page models which can be created as children of this page type e.g a ``BlogIndex`` page might allow ``BlogPage``, but not ``JobPage`` e.g
+
+        .. code-block:: python
+
+            class BlogIndex(Page):
+                subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
 
     .. attribute:: password_required_template
 
