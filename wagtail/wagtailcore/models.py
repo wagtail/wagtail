@@ -32,7 +32,7 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
@@ -274,7 +274,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -294,13 +294,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=100),
-        indexed.FilterField('id'),
-        indexed.FilterField('live'),
-        indexed.FilterField('owner'),
-        indexed.FilterField('content_type'),
-        indexed.FilterField('path'),
-        indexed.FilterField('depth'),
+        index.SearchField('title', partial_match=True, boost=100),
+        index.FilterField('id'),
+        index.FilterField('live'),
+        index.FilterField('owner'),
+        index.FilterField('content_type'),
+        index.FilterField('path'),
+        index.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):

@@ -22,7 +22,7 @@ from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.utils.validators import validate_image_format
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
@@ -68,7 +68,7 @@ class AbstractImage(models.Model, TagSearchable):
                        args=(self.id,))
 
     search_fields = TagSearchable.search_fields + (
-        indexed.FilterField('uploaded_by_user'),
+        index.FilterField('uploaded_by_user'),
     )
 
     def __str__(self):

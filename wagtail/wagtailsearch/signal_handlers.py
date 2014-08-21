@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.db import models
 from django.conf import settings
 
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.index import Indexed
 from wagtail.wagtailsearch.backends import get_search_backend
 
 

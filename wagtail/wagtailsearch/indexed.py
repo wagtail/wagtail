@@ -7,4 +7,5 @@ warnings.warn(
             "The wagtail.wagtailsearch.indexed module has been renamed. "
                 "Use wagtail.wagtailsearch.index instead.", RemovedInWagtail08Warning)
 
+
 from .index import *

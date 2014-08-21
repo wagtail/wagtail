@@ -4,3 +4,7 @@ class RemovedInWagtail06Warning(DeprecationWarning):
 
 class RemovedInWagtail07Warning(PendingDeprecationWarning):
     pass
+
+
+class RemovedInWagtail08Warning(PendingDeprecationWarning):
+    pass

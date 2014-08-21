@@ -13,7 +13,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 
 
 @python_2_unicode_compatible
@@ -26,7 +26,7 @@ class Document(models.Model, TagSearchable):
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
     search_fields = TagSearchable.search_fields + (
-        indexed.FilterField('uploaded_by_user'),
+        index.FilterField('uploaded_by_user'),
     )
 
     def __str__(self):
