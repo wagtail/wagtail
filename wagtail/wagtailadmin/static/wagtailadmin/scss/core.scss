@@ -354,11 +354,6 @@ footer, .logo{
         padding-top:0;
     }
 
-    footer{
-        width:80%;
-        margin-left:50px;
-    }
-
     .breadcrumb{
         padding-top:0;
         background:$color-teal-darker;
@@ -371,6 +366,12 @@ footer, .logo{
             }
         }
     }
+
+    footer{
+        width:80%;
+        margin-left:50px;
+    }
+
 
     /* Z-indexes */
     .nav-main{
