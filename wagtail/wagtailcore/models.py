@@ -1,3 +1,4 @@
+import logging
 import warnings
 
 import six
@@ -35,6 +36,9 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
+
+
+logger = logging.getLogger('wagtail.core')
 
 
 class SiteManager(models.Manager):
@@ -316,8 +320,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @transaction.atomic  # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, *args, **kwargs):
         update_descendant_url_paths = False
+        is_new = self.id is None
 
-        if self.id is None:
+        if is_new:
             # we are creating a record. If we're doing things properly, this should happen
             # through a treebeard method like add_child, in which case the 'path' field
             # has been set and so we can safely call get_parent
@@ -340,6 +345,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
         if Site.objects.filter(root_page=self).exists():
             cache.delete('wagtail_site_root_paths')
+
+        # Log
+        if is_new:
+            cls = type(self)
+            logger.info("Page created: \"%s\" id=%d content_type=%s.%s path=%s", self.title, self.id, cls._meta.app_label, cls.__name__, self.url_path)
 
         return result
 
@@ -412,6 +422,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
+        # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),
             user=user,
@@ -421,6 +432,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         self.latest_revision_created_at = revision.created_at
         self.save(update_fields=['latest_revision_created_at'])
+
+        # Log
+        logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
+
+        if submitted_for_moderation:
+            logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
 
         return revision
 
@@ -447,6 +464,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 self.save()
 
             page_unpublished.send(sender=self.specific_class, instance=self.specific)
+
+            logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
             self.revisions.update(approved_go_live_at=None)
 
@@ -650,6 +669,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
+        # Log
+        logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, self.url_path)
+
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True):
         # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
@@ -688,6 +710,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 revision.approved_go_live_at = None
                 revision.page = page_copy
                 revision.save()
+
+        # Log
+        logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
 
         # Copy child pages
         if recursive:
@@ -994,6 +1019,10 @@ class PageRevision(models.Model):
 
         if page.live:
             page_published.send(sender=page.specific_class, instance=page.specific)
+
+            logger.info("Page published: \"%s\" id=%d revision_id=%d", page.title, page.id, self.id)
+        elif page.go_live_at:
+            logger.info("Page scheduled for publish: \"%s\" id=%d revision_id=%d go_live_at=%s", page.title, page.id, self.id, page.go_live_at.isoformat())
 
     def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
