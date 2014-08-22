@@ -118,6 +118,3 @@ class Command(BaseCommand):
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the page live
                 rp.publish()
-
-                # Fire page_published signal
-                page_published.send(sender=rp.page.specific_class, instance=rp.page.specific)
