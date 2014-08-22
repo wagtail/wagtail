@@ -20,7 +20,7 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -517,8 +517,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 try:
                     models = [resolve_model_string(model_string, cls._meta.app_label)
                               for model_string in subpage_types]
-                except (NameError,) as err:
-                    raise NameError(err.args[0] + ' (used in subpage_types')
+                except NameError as err:
+                    raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
                 res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_subpage_types = res
@@ -541,7 +542,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     models = [resolve_model_string(model_string, cls._meta.app_label)
                               for model_string in parent_page_types]
                 except NameError as err:
-                    raise NameError(err.args[0] + ' (used in parent_page_types)')
+                    raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
                 res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_parent_page_types = res

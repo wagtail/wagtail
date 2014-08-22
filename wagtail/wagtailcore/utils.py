@@ -1,6 +1,5 @@
 import re
 from django.db.models import Model, get_model
-from django.utils.translation import ugettext_lazy as _
 from six import string_types
 
 
@@ -9,7 +8,7 @@ def camelcase_to_underscore(str):
     return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
 
 
-def resolve_model_string(model_string, default_app):
+def resolve_model_string(model_string, default_app=None):
     """
     Resolve an 'app_label.model_name' string in to an actual model class.
     If a model class is passed in, just return that.
@@ -18,17 +17,22 @@ def resolve_model_string(model_string, default_app):
         try:
             app_label, model_name = model_string.split(".")
         except ValueError:
-            # If we can't split, assume a model in current app
-            app_label = default_app
-            model_name = model_string
+            if default_app is not None:
+                # If we can't split, assume a model in current app
+                app_label = default_app
+                model_name = model_string
+            else:
+                raise ValueError("Can not resolve {0!r} in to a model. Model names "
+                                 "should be in the form app_label.model_name".format(
+                                     model_string), model_string)
 
         model = get_model(app_label, model_name)
         if not model:
-            raise NameError(_("name '{0}' is not defined.").format(model_string))
+            raise NameError("Can not resolve {0!r} in to a model".format(model_string), model_string)
         return model
 
-    elif issubclass(model_string, Model):
+    elif model_string is not None and issubclass(model_string, Model):
         return model
 
     else:
-        raise ValueError(_("Can not resolve '{0!r}' in to a model").format(model_string))
+        raise NameError("Can not resolve {0!r} in to a model".format(model_string), model_string)
