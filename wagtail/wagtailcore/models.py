@@ -601,7 +601,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True):
         # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
@@ -630,6 +630,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
                     child_object.save()
+
+        # Copy revisions
+        if copy_revisions:
+            for revision in self.revisions.all():
+                revision.pk = None
+                revision.page = page_copy
+                revision.save()
 
         # Copy child pages
         if recursive:
