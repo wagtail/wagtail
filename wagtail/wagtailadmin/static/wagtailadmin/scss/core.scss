@@ -15,6 +15,7 @@
 @import "components/header.scss";
 @import "components/progressbar.scss";
 @import "components/datetimepicker.scss";
+@import "components/main-nav.scss";
 
 @import "fonts.scss";
 
@@ -59,209 +60,31 @@ body{
 }
 
 .nav-wrapper{
-    position:relative;
-    background: $color-grey-1;
-    margin-left: -$menu-width;
-    width: $menu-width;
-    float: left;
-    height:100%;
-    min-height:800px;
+    /* See components/main-nav.scss */
 }
-    .logo{
-        display:block;
-        margin:2em auto;
-        text-align:left;
-        text-decoration:none;
-        color:white;
-        padding: 0.9em 1.2em;
-        margin:0;
-        font-size:0.9em;
-        -webkit-font-smoothing: auto;
 
-        span{
-            text-transform:uppercase;
-        }
+.logo{
+    display:block;
+    margin:2em auto;
+    text-align:left;
+    text-decoration:none;
+    color:white;
+    padding: 0.9em 1.2em;
+    margin:0;
+    font-size:0.9em;
+    -webkit-font-smoothing: auto;
 
-        img{
-            width:20px;
-            float:left;
-            border:0;
-            margin-right:1em;
-        }
+    span{
+        text-transform:uppercase;
     }
 
-    #nav-toggle{
-        left:$mobile-nice-padding;
-        cursor:pointer;
-        position:absolute;
-
-        &:before{
-            font-size:40px;
-            color:white;
-            line-height:40px;
-            content:"\2261";
-        }
+    img{
+        width:20px;
+        float:left;
+        border:0;
+        margin-right:1em;
     }
-
-    .nav-main{
-        $selected-highlight:darken($color-grey-1, 10%);
-        $submenu-color:darken($color-grey-1, 5%);
-
-        top: 43px;
-        bottom: 0px;
-        overflow: auto;
-        width:100%;
-
-        ul, li{
-            margin:0;
-            padding:0;
-            list-style-type:none;
-        }
-
-        ul{
-            border-top:1px solid rgba(100,100,100,0.2);
-        }
-
-        li{
-            border-bottom:1px solid rgba(100,100,100,0.2);
-            position:relative;
-
-            &.selected{
-                background:$selected-highlight;
-            }
-
-            &.active{
-                background:$submenu-color;
-            }
-
-            .menu-snippets &.menu-snippets,
-            .menu-users &.menu-users,
-            .menu-snippets &.menu-snippets,
-            .menu-documents &.menu-documents,
-            .menu-images &.menu-images,
-            .menu-search &.menu-search,
-            .menu-explorer &.menu-explorer{
-                background:$selected-highlight;
-
-                a{
-                    color:white;
-                }
-            }
-        }
-
-        a {
-            -webkit-font-smoothing: auto;
-            text-decoration:none;
-            display: block;
-            color: #AAA;
-            padding: 0.8em 1.7em;
-            position:relative;
-            font-size:0.9em;
-            white-space:nowrap;
-            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
-
-            &:before{
-                font-size:1rem;
-                vertical-align:-20%;
-                margin-right:0.5em;
-            }
-            &:hover{
-                background-color:rgba(100,100,100,0.15);
-                color:white;
-            }
-
-            /* only really used for spinners */
-            &:after{
-                font-size:1.5em;
-                margin:0;
-                position:absolute;
-                right:0.5em;
-                top:0.5em;
-                margin-top:0.15em;
-            }
-        }
-        li.active > a:hover{
-            background-color:transparent;
-        }
-        li.active .submenu{
-            @include transition(width 0.2s ease);
-        }
-
-        .submenu{ 
-            background:$submenu-color;
-            position:fixed;
-            height:100%;
-            width:0;
-            padding:0;
-            top:0;
-            left:$menu-width;
-            overflow:auto;
-            max-height:100%;
-            border-right:1px solid rgba(0,0,0,0.1);
-            @include box-shadow(5px 0 5px rgba(0,0,0,0.1));
-
-            h2,ul{
-                float:right;
-                width:$menu-width;
-            }
-
-            h2{
-                padding:0.2em 0;
-                font-size:1.2em;
-                font-weight:500;
-                text-transform:none;
-                text-align:center;
-                color:white;
-
-                &:before{
-                    font-size:4em;
-                    display:block;
-                    text-align:center;
-                    margin:0 0 0.2em 0;
-                    width:100%;
-                    opacity:0.15;
-                }
-            }
-
-            a{
-                text-transform:none;
-                
-                white-space:normal;
-                padding: 0.9em 0 0.9em 3.5em;
-
-                &:before{
-                    margin-left:-1.5em;
-                }
-
-                &:hover{
-                    background-color:rgba(100,100,100,0.2);
-                }
-            }
-
-            li{
-                border:0;
-            }
-        }
-
-        li.active .submenu{
-            width:$menu-width;
-            padding:0 0 1.5em 0;
-        }
-        li .submenu{
-            width:0;
-            padding:0;
-        }
-
-        .avatar{
-            display:none;
-        }
-    }
-
-    .explorer{
-        position:absolute;
-        margin-top:70px;
-        font-size:0.9em;
-    }
+}
 
 .content-wrapper{
     width:100%;
@@ -281,51 +104,6 @@ body{
 
 footer{
     @include transition(all 0.2s ease);
-}
-
-/* Navigation open condition */
-body.nav-open{
-    .wrapper{
-        transform: translate3d($menu-width,0,0);
-        -webkit-transform: translate3d($menu-width,0,0);
-    }
-    .content-wrapper{
-        position:fixed;
-    }
-    footer{
-        bottom:1px;
-    }
-}
-
-/* Explorer open condition, widens navigation area */
-body.explorer-open {
-    .wrapper{
-        transform: translate3d($menu-width*2,0,0);
-        -webkit-transform: translate3d($menu-width*2,0,0);
-    }
-    .nav-wrapper{
-        margin-left: -$menu-width*2;
-        width: $menu-width*2;
-    }
-
-    .nav-main{
-        display:none;
-    }
-
-    .explorer{
-        display:block;
-        border-top:1px solid rgba(200,200,200,0.1);
-
-        &:before{
-            position:absolute;
-            top:-3em;
-            content:"Close explorer";
-            padding:0.9em;
-        }
-    }
-}
-
-footer{
     @include row();
     @include border-radius(3px 3px 0 0);
     @include box-shadow(0px 0px 2px rgba(255,255,255,0.5));
@@ -424,21 +202,6 @@ footer{
             }
         }
 
-        /*   &:after, &:before{
-            content: "";
-            border-top: 1.2em solid transparent;
-            border-bottom: 1.2em solid transparent;
-        }
-        &:after {
-            border-left: 1em solid $color-teal-darker;
-            position: absolute; right: -1.2em; top: 0;
-            z-index: 1;
-            border:1em solid red;
-        }
-        &:before {
-            border-left: 1em solid white;
-            position: absolute; left: 0; top: 0;
-        } */
         &:hover {
             background: $color-teal-dark;
             a{
@@ -563,119 +326,32 @@ footer, .logo{
         padding-right:$desktop-nice-padding;
     }
 
-    .wrapper,
-    body.nav-open .wrapper{
-        -webkit-transform:none;
-        transform:none;
-        padding-left:$menu-width;
-    }
-
     .browsermessage{
         margin:0 0 0 -150px;
     }
     .content-wrapper{
         border-bottom-right-radius: 5px;
-    }
+    }    
 
-    .nav-wrapper{
-        /* heigt and position necessary to force it to 100% height of screen (with some JS help) */
-        position:absolute;
-        left:0;
-        height:100%;
-        margin-left: 0;
+    .logo{
+        margin:1em auto;
+        text-align:center;
 
-        .inner{
-            height:100%;
-            position:fixed;
-            width:$menu-width;
+        span{
+            display:none;
+        }
+        img{
+            width:60px;
+            float:none;
+            margin:auto;
+            display:block;
         }
     }
-        .logo{
-            margin:1em auto;
-            text-align:center;
-
-            span{
-                display:none;
-            }
-            img{
-                width:60px;
-                float:none;
-                margin:auto;
-                display:block;
-            }
-        }
 
     .content{
         border-top:0;
         background-color:none;
         padding-top:0;
-    }
-
-    #nav-toggle{
-        display:none;
-    }
-
-    .nav-main{
-        position:absolute;
-        top: 125px;
-        margin-bottom: 116px; /* WARNING - magic number - the height of the .footer */
-
-        .footer{
-            padding-top:1em;
-            background-color:$color-grey-1;
-            position:fixed;
-            width:$menu-width - 7;
-            bottom:0;
-            text-align:center;
-        }
-        .avatar{
-            display:block;
-            margin:auto;
-            text-align:center;
-            margin-bottom:1em;
-
-            a{
-                padding:0 0 1em 0;
-            }
-            &:hover{
-                @include box-shadow(0px 0px 6px 0px rgba(0,0,0,1));
-            }
-        }
-    }
-
-    .explorer {
-        width: 400px;
-        position: absolute;
-        top:0;
-        left:99%;
-        margin-top:124px; /* same as .nav-main minus 1 pixel for border */
-    }
-    .dl-menu {
-        position: absolute;
-    }
-
-    /* UN-set the transformations used on mobile */
-    body.nav-open{
-        .content-wrapper{
-            position:relative;
-        }
-    }
-
-    body.explorer-open {
-        .wrapper{
-            -webkit-transform:none;
-            transform:none;
-        }
-        .nav-wrapper{
-            margin-left: 0;
-            width: $menu-width;
-        }
-        .explorer:before{
-            display:none;
-        }
-        .nav-main{
-            display:block;
-        }
     }
 
     footer{
