@@ -31,7 +31,7 @@ from wagtail.utils.deprecation import RemovedInWagtail06Warning
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
-from wagtail.wagtailcore.signals import page_published
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import indexed
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -449,6 +449,19 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
             return latest_revision.as_page_object()
         else:
             return self.specific
+
+    def unpublish(self, set_expired=False):
+        if self.live:
+            self.live = False
+
+            if set_expired:
+                self.expired = True
+
+            self.save()
+
+            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+
+            self.revisions.update(approved_go_live_at=None)
 
     def get_context(self, request, *args, **kwargs):
         return {
