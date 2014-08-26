@@ -39,6 +39,7 @@ def index(request):
     if not is_searching:
         users = User.objects
 
+    users = users.filter(pk__gte=0)
     users = users.order_by('last_name', 'first_name')
 
     if 'ordering' in request.GET:
