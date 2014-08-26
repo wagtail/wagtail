@@ -1,5 +1,5 @@
 {% load i18n %}
-{% if is_restricted %}
+{% if page_types_restricted %}
 	{% trans "Choose" as choose_str %}
 	{% trans page_type.get_verbose_name as subtitle %}
 {% else %}

@@ -26,7 +26,7 @@ def browse(request, parent_page_id=None):
     content_type_app_name, content_type_model_name = page_type.split('.')
 
     is_searching = False
-    is_restricted = page_type != 'wagtailcore.page'
+    page_types_restricted = page_type != 'wagtailcore.page'
 
     try:
         content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
@@ -72,7 +72,7 @@ def browse(request, parent_page_id=None):
             'is_searching': is_searching,
             'page_type_string': page_type,
             'page_type': desired_class,
-            'is_restricted': is_restricted
+            'page_types_restricted': page_types_restricted
         })
 
     return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
@@ -85,7 +85,7 @@ def browse(request, parent_page_id=None):
         'is_searching': False,
         'page_type_string': page_type,
         'page_type': desired_class,
-        'is_restricted': is_restricted
+        'page_types_restricted': page_types_restricted
     })
 
 
