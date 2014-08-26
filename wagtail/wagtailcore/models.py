@@ -840,6 +840,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+    class Meta:
+        permissions = (
+            ('edit_locked', "Can edit locked pages"),
+        )
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -1082,6 +1087,12 @@ class PagePermissionTester(object):
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
         return self.user.is_superuser or ('edit' in self.permissions) or ('add' in self.permissions and self.page.owner_id == self.user.id)
+
+    def can_edit_locked(self):
+        if not self.can_edit():
+            return False
+
+        return self.user.is_superuser or ('edit_locked' in self.permissions)
 
     def can_delete(self):
         if not self.user.is_active:

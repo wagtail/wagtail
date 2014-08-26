@@ -263,6 +263,11 @@ def edit(request, page_id):
     errors_debug = None
 
     if request.POST:
+        # Don't allow editing when page is locked
+        if page.locked and not page_perms.can_edit_locked():
+            raise PermissionDenied
+
+        # Make form
         form = form_class(request.POST, request.FILES, instance=page)
 
         # Stick an extra validator into the form to make sure that the slug is not already in use
