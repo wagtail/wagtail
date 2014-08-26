@@ -10,6 +10,8 @@ For Python developers
 Basic usage
 ===========
 
+By default using the database backend, Wagtail's search will only index the ``title`` field of pages. 
+
 All searches are performed on Django QuerySets. Wagtail provides a ``search`` method on the queryset for all page models:
 
 .. code-block:: python
@@ -38,17 +40,13 @@ Indexing extra fields
 
 .. warning::
 
-    Searching on extra fields by overriding ``search_fields`` is only supported with ElasticSearch. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
+    Indexing extra fields is only supported with ElasticSearch as your backend. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
 
 
-Fields need to be explicitly added to the search configuration in order for you to be able to search/filter on them.
-
-You can add new fields to the search index by overriding the ``search_fields`` property and appending a list of extra ``SearchField``/``FilterField`` objects to it.
-
-The default value of ``search_fields`` (as set in ``Page``) indexes the ``title`` field as a ``SearchField`` and some other generally useful fields as ``FilterField`` rules.
+Fields must be explicitly added to the ``search_fields`` property of your ``Page``-derived model, in order for you to be able to search/filter on them. This is done by overriding ``search_fields`` to append a list of extra ``SearchField``/``FilterField`` objects to it.
 
 
-Quick example
+Example
 -------------
 
 This creates an ``EventPage`` model with two fields ``description`` and ``date``. ``description`` is indexed as a ``SearchField`` and ``date`` is indexed as a ``FilterField``
@@ -56,15 +54,15 @@ This creates an ``EventPage`` model with two fields ``description`` and ``date``
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.wagtailsearch import indexed
 
     class EventPage(Page):
         description = models.TextField()
         date = models.DateField()
 
         search_fields = Page.search_fields + ( # Inherit search_fields from Page
-            index.SearchField('description'),
-            index.FilterField('date'),
+            indexed.SearchField('description'),
+            indexed.FilterField('date'),
         )
 
 
@@ -72,7 +70,7 @@ This creates an ``EventPage`` model with two fields ``description`` and ``date``
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Christmas")
 
 
-``index.SearchField``
+``indexed.SearchField``
 -----------------------
 
 These are added to the search index and are used for performing full-text searches on your models. These would usually be text fields.
@@ -86,7 +84,7 @@ Options
  - **es_extra** (dict) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
 
-``index.FilterField``
+``indexed.FilterField``
 -----------------------
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
@@ -107,7 +105,7 @@ One use for this is indexing ``get_*_display`` methods Django creates automatica
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.wagtailsearch import indexed
 
     class EventPage(Page):
         IS_PRIVATE_CHOICES = (
@@ -119,10 +117,10 @@ One use for this is indexing ``get_*_display`` methods Django creates automatica
 
         search_fields = Page.search_fields + (
             # Index the human-readable string for searching
-            index.SearchField('get_is_private_display'),
+            indexed.SearchField('get_is_private_display'),
 
             # Index the boolean value for filtering
-            index.FilterField('is_private'),
+            indexed.FilterField('is_private'),
         )
 
 
@@ -135,7 +133,7 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
 
 .. code-block:: python
 
-    from wagtail.wagtailsearch import index
+    from wagtail.wagtailsearch import indexed
 
     class Book(models.Model, index.Indexed):
         title = models.CharField(max_length=255)
@@ -144,12 +142,12 @@ To do this, inherit from ``index.Indexed`` and add some ``search_fields`` to the
         published_date = models.DateTimeField()
 
         search_fields = (
-            index.SearchField('title', partial_match=True, boost=10),
-            index.SearchField('get_genre_display'),
+            indexed.SearchField('title', partial_match=True, boost=10),
+            indexed.SearchField('get_genre_display'),
 
-            index.FilterField('genre'),
-            index.FilterField('author'),
-            index.FilterField('published_date'),
+            indexed.FilterField('genre'),
+            indexed.FilterField('author'),
+            indexed.FilterField('published_date'),
         )
 
     # As this model doesn't have a search method in its QuerySet, we have to call search directly on the backend
