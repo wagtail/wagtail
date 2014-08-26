@@ -36,9 +36,9 @@ Indexing extra fields
     The ``indexed_fields`` configuration format was replaced with ``search_fields``
 
 
-.. note::
+.. warning::
 
-    Searching on extra fields with the database backend is not currently supported.
+    Searching on extra fields by overriding ``search_fields`` is only supported with ElasticSearch. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
 
 
 Fields need to be explicitly added to the search configuration in order for you to be able to search/filter on them.
