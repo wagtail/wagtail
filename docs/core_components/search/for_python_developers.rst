@@ -10,7 +10,7 @@ For Python developers
 Basic usage
 ===========
 
-By default using the database backend, Wagtail's search will only index the ``title`` field of pages. 
+By default using the :ref:`wagtailsearch_backends_database`, Wagtail's search will only index the ``title`` field of pages. 
 
 All searches are performed on Django QuerySets. Wagtail provides a ``search`` method on the queryset for all page models:
 
