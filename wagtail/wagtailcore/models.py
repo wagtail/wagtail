@@ -9,6 +9,8 @@ from modelcluster.models import ClusterableModel
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -892,6 +894,13 @@ def get_navigation_menu_items():
     except IndexError:
         # what, we don't even have a root node? Fine, just return an empty list...
         return []
+
+
+@receiver(pre_delete, sender=Page)
+def unpublish_page_before_delete(sender, instance, **kwargs):
+    # Make sure pages are unpublished before deleting
+    if instance.live:
+        instance.unpublish()
 
 
 class Orderable(models.Model):

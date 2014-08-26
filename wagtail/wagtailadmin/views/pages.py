@@ -362,10 +362,6 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
-        if page.live:
-            # Unpublish the page
-            page.unpublish()
-
         parent_id = page.get_parent().id
         page.delete()
 
