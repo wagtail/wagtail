@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 
-from .base import BaseImageBackend
 from wand.image import Image
 from wand.api import library
+
+from wagtail.wagtailimages.backends.base import BaseImageBackend
 
 
 class WandBackend(BaseImageBackend):
@@ -24,22 +25,17 @@ class WandBackend(BaseImageBackend):
         new_image.resize(size[0], size[1])
         return new_image
 
-    def crop_to_centre(self, image, size):
-        (original_width, original_height) = image.size
-        (target_width, target_height) = size
-
-        # final dimensions should not exceed original dimensions
-        final_width = min(original_width, target_width)
-        final_height = min(original_height, target_height)
-
-        if final_width == original_width and final_height == original_height:
-            return image
-
-        left = (original_width - final_width) / 2
-        top = (original_height - final_height) / 2
-
+    def crop(self, image, crop_box):
         new_image = image.clone()
         new_image.crop(
-            left=left, top=top, right=left + final_width, bottom=top + final_height
+            left=crop_box[0], top=crop_box[1], right=crop_box[2], bottom=crop_box[3]
         )
         return new_image
+
+    def image_data_as_rgb(self, image):
+        # Only return image data if this image is not animated
+        if image.animation:
+            return
+
+        return 'RGB', image.make_blob('RGB')
+

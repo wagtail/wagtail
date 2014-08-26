@@ -4,19 +4,19 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
-class TagSearchable(indexed.Indexed):
+class TagSearchable(index.Indexed):
     """
     Mixin to provide a 'search' method, searching on the 'title' field and tags,
     for models that provide those things.
     """
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=10),
-        indexed.SearchField('get_tags', partial_match=True, boost=10)
+        index.SearchField('title', partial_match=True, boost=10),
+        index.SearchField('get_tags', partial_match=True, boost=10)
     )
 
     @property

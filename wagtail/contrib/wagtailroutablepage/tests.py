@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import RoutablePageTest, routable_page_external_view
+from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
 
 
 class TestRoutablePage(TestCase):
@@ -80,3 +81,35 @@ class TestRoutablePage(TestCase):
         response = self.client.get(self.routable_page.url + 'external/joe-bloggs/')
 
         self.assertContains(response, "EXTERNAL VIEW: joe-bloggs")
+
+
+class TestRoutablePageTemplateTag(TestRoutablePage):
+    def setUp(self):
+        super(TestRoutablePageTemplateTag, self).setUp()
+        self.rf = RequestFactory()
+        self.request = self.rf.get(self.routable_page.url)
+        self.request.site = Site.find_for_request(self.request)
+        self.context = {'request': self.request}
+
+    def test_templatetag_reverse_main_view(self):
+        url = routablepageurl(self.context, self.routable_page,
+                              'main')
+        self.assertEqual(url, self.routable_page.url)
+
+    def test_templatetag_reverse_archive_by_year_view(self):
+        url = routablepageurl(self.context, self.routable_page,
+                              'archive_by_year', '2014')
+
+        self.assertEqual(url, self.routable_page.url + 'archive/year/2014/')
+
+    def test_templatetag_reverse_archive_by_author_view(self):
+        url = routablepageurl(self.context, self.routable_page,
+                              'archive_by_author', author_slug='joe-bloggs')
+
+        self.assertEqual(url, self.routable_page.url + 'archive/author/joe-bloggs/')
+
+    def test_templatetag_reverse_external_view(self):
+        url = routablepageurl(self.context, self.routable_page,
+                              'external_view', 'joe-bloggs')
+
+        self.assertEqual(url, self.routable_page.url + 'external/joe-bloggs/')

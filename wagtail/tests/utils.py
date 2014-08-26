@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 import warnings
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils import six
 
 # We need to make sure that we're using the same unittest library that Django uses internally
@@ -19,7 +19,7 @@ except ImportError:
 class WagtailTestUtils(object):
     def login(self):
         # Create a user
-        user = User.objects.create_superuser(username='test', email='test@email.com', password='password')
+        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Login
         self.client.login(username='test', password='password')

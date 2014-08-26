@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf.urls import url
 from django.http import HttpResponse
@@ -16,7 +17,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 
 
@@ -32,6 +33,50 @@ COMMON_PANELS = (
     FieldPanel('show_in_menus'),
     FieldPanel('search_description'),
 )
+
+
+class CustomUserManager(BaseUserManager):
+    def _create_user(self, username, email, password,
+                     is_staff, is_superuser, **extra_fields):
+        """
+        Creates and saves a User with the given username, email and password.
+        """
+        if not username:
+            raise ValueError('The given username must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email,
+                          is_staff=is_staff, is_active=True,
+                          is_superuser=is_superuser, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        return self._create_user(username, email, password, False, False,
+                                 **extra_fields)
+
+    def create_superuser(self, username, email, password, **extra_fields):
+        return self._create_user(username, email, password, True, True,
+                                 **extra_fields)
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(max_length=255, blank=True)
+    is_staff = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+
+    USERNAME_FIELD = 'username'
+
+    objects = CustomUserManager()
+
+    def get_full_name(self):
+        return self.first_name + ' ' + self.last_name
+
+    def get_short_name(self):
+        return self.first_name
 
 
 # Link fields
@@ -280,9 +325,11 @@ FormPage.content_panels = [
 ]
 
 
-# Snippets
 
 # Snippets
+class AdvertPlacement(models.Model):
+    page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
+    advert = models.ForeignKey('tests.Advert', related_name='+')
 
 @python_2_unicode_compatible
 class Advert(models.Model):
@@ -340,19 +387,19 @@ class BusinessChild(Page):
     subpage_types = []
 
 
-class SearchTest(models.Model, indexed.Indexed):
+class SearchTest(models.Model, index.Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)
     published_date = models.DateField(null=True)
 
     search_fields = [
-        indexed.SearchField('title', partial_match=True),
-        indexed.SearchField('content'),
-        indexed.SearchField('callable_indexed_field'),
-        indexed.FilterField('title'),
-        indexed.FilterField('live'),
-        indexed.FilterField('published_date'),
+        index.SearchField('title', partial_match=True),
+        index.SearchField('content'),
+        index.SearchField('callable_indexed_field'),
+        index.FilterField('title'),
+        index.FilterField('live'),
+        index.FilterField('published_date'),
     ]
 
     def callable_indexed_field(self):
@@ -364,12 +411,12 @@ class SearchTestChild(SearchTest):
     extra_content = models.TextField()
 
     search_fields = SearchTest.search_fields + [
-        indexed.SearchField('subtitle', partial_match=True),
-        indexed.SearchField('extra_content'),
+        index.SearchField('subtitle', partial_match=True),
+        index.SearchField('extra_content'),
     ]
 
 
-class SearchTestOldConfig(models.Model, indexed.Indexed):
+class SearchTestOldConfig(models.Model, index.Indexed):
     """
     This tests that the Indexed class can correctly handle models that
     use the old "indexed_fields" configuration format.
@@ -390,7 +437,7 @@ class SearchTestOldConfig(models.Model, indexed.Indexed):
     }
 
 
-class SearchTestOldConfigList(models.Model, indexed.Indexed):
+class SearchTestOldConfigList(models.Model, index.Indexed):
     """
     This tests that the Indexed class can correctly handle models that
     use the old "indexed_fields" configuration format using a list.

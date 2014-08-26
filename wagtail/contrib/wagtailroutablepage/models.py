@@ -8,9 +8,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
 
 
-class RoutablePage(Page):
+class RoutablePageMixin(object):
     """
-    This class extends Page by adding methods to allow urlconfs to be embedded inside pages
+    This class can be mixed in to a Page subclass to allow urlconfs to be
+    embedded inside pages.
     """
     #: Set this to a tuple of ``django.conf.urls.url`` objects.
     subpage_urls = None
@@ -59,7 +60,7 @@ class RoutablePage(Page):
             except Http404:
                 pass
 
-        return super(RoutablePage, self).route(request, path_components)
+        return super(RoutablePageMixin, self).route(request, path_components)
 
     def serve(self, request, view, args, kwargs):
         return view(request, *args, **kwargs)
@@ -67,6 +68,13 @@ class RoutablePage(Page):
     def serve_preview(self, request, mode_name):
         view, args, kwargs = self.resolve_subpage('/')
         return view(*args, **kwargs)
+
+
+class RoutablePage(RoutablePageMixin, Page):
+    """
+    This class extends Page by adding methods to allow urlconfs
+    to be embedded inside pages
+    """
 
     is_abstract = True
 
