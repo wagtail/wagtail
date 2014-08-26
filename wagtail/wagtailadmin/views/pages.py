@@ -301,6 +301,14 @@ def edit(request, page_id):
                 form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
                 del cleaned_data['expire_at']
 
+            # Don't allow changing of locked status from users without permission to do so
+            if cleaned_data.get('locked') != page.locked and not request.user.is_superuser:
+                if page.locked:
+                    form._errors['locked'] = form.error_class([_("You do not have permission to unlock this page.")])
+                else:
+                    form._errors['locked'] = form.error_class([_("You do not have permission to lock this page.")])
+                del cleaned_data['locked']
+
             return cleaned_data
         form.clean = clean
 
