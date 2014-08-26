@@ -10,7 +10,7 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import Q
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
@@ -922,6 +922,11 @@ def unpublish_page_before_delete(sender, instance, **kwargs):
     if instance.live:
         # Don't bother to save, this page is just about to be deleted!
         instance.unpublish(commit=False)
+
+
+@receiver(post_delete, sender=Page)
+def log_page_deletion(sender, instance, **kwargs):
+    logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
 class Orderable(models.Model):
