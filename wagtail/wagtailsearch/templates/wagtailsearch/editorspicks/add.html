@@ -6,12 +6,14 @@
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="pick" %}
 
     <div class="nice-padding">
-        {% blocktrans %}
-        <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like "<em>giving</em>".</p>
-        {% endblocktrans %}
-        {% blocktrans %}
-        <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
-        {% endblocktrans %}
+        <div class="help-block help-info">
+            {% blocktrans %}
+                <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like "<em>giving</em>".</p>
+                {% endblocktrans %}
+                {% blocktrans %}
+                <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
+            {% endblocktrans %}
+        </div>
         <form action="{% url 'wagtailsearch_editorspicks_add' %}" method="POST">
             {% csrf_token %}
 

@@ -1,6 +1,27 @@
 Changelog
 =========
 
+0.6 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~
+ * Added {% routablepageurl %} template tag (@timheap)
+ * Added RoutablePageMixin (@timheap)
+ * Fix: Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'
+
+0.5 (01.08.2014)
+~~~~~~~~~~~~~~~~
+ * Added multiple image uploader
+ * Added support for face and feature detection on images using the OpenCV library
+ * Added RoutablePage model to allow embedding Django-style URL routing within a page
+ * Added image/document/snippet usage stats
+ * Explorer nav now rendered separately and fetched with AJAX when needed
+ * Added decorator syntax for hooks
+ * Replaced lxml dependency with html5lib, to simplify installation
+ * Added page_unpublished signal
+ * Added mechanism to obtain external URLs to images, at any size
+ * Added Copy Page action to the explorer
+
+ * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
+
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~
  * ElasticSearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS

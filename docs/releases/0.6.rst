@@ -1,0 +1,24 @@
+==========================================
+Wagtail 0.6 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+ * A new template tag has been added for reversing URLs inside routable pages. See :ref:`routablepageurl_template_tag`.
+ * RoutablePage can now be used as a mixin. See :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin`.
+
+Bug fixes
+~~~~~~~~~
+
+ * Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+
+Upgrade considerations
+======================

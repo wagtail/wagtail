@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:47+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:16+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -69,7 +69,7 @@ msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 msgid "The redirect could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της ανακατεύθυνσης."
 
-#: wagtail_hooks.py:22 templates/wagtailredirects/index.html:3
+#: wagtail_hooks.py:23 templates/wagtailredirects/index.html:3
 #: templates/wagtailredirects/index.html:17
 msgid "Redirects"
 msgstr "Ανακατευθύνει"

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django import template
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
@@ -21,7 +22,7 @@ def explorer_nav():
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
+@register.inclusion_tag('wagtailadmin/shared/explorer_nav_child.html')
 def explorer_subnav(nodes):
     return {
         'nodes': nodes
@@ -31,7 +32,7 @@ def explorer_subnav(nodes):
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     menu_items = [
-        MenuItem(_('Explorer'), '#', classnames='icon icon-folder-open-inverse dl-trigger', order=100),
+        MenuItem(_('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'), classnames='icon icon-folder-open-inverse dl-trigger', order=100),
         MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
     ]
 
@@ -121,3 +122,8 @@ def hook_output(hook_name):
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
     return ''.join(snippets)
+
+
+@register.assignment_tag
+def usage_count_enabled():
+    return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)

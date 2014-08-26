@@ -12,7 +12,7 @@ $(function(){
     $('body').addClass('ready');
 
     // Enable toggle to open/close nav
-    $('#nav-toggle').click(function(){
+    $(document).on('click', '#nav-toggle', function(){
         $('body').toggleClass('nav-open');
         if(!$('body').hasClass('nav-open')){
             $('body').addClass('nav-closed');
@@ -21,12 +21,30 @@ $(function(){
         }
     });
 
-    // Enable swishy section navigation menu
-    $('.explorer').addClass('dl-menuwrapper').dlmenu({
-        animationClasses : {
-            classin : 'dl-animate-in-2',
-            classout : 'dl-animate-out-2'
+    // Dynamically load menu on request.
+    $(document).on('click', '.dl-trigger', function(){
+        var $this = $(this);
+        var $explorer = $('#explorer');
+
+        $this.addClass('icon-spinner');
+
+        if(!$explorer.children().length){
+            $explorer.load(window.explorer_menu_url, function() {
+                $this.removeClass('icon-spinner');
+
+                $explorer.addClass('dl-menuwrapper').dlmenu({
+                    animationClasses : {
+                        classin : 'dl-animate-in-2',
+                        classout : 'dl-animate-out-2'
+                    }
+                });
+                $explorer.dlmenu('openMenu');          
+            });
+        }else{
+            $explorer.dlmenu('openMenu');          
         }
+
+        return false;
     });
 
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
@@ -35,9 +53,6 @@ $(function(){
         $('.nav-main').each(function(){
             var thisHeight = $(this).height();
             var footerHeight = $('.footer', $(this)).height();
-
-            // $(this).css({'height':thisHeight - footerHeight, 'overflow-y':'scroll'});
-            // $('> ul', $(this)).height(thisHeight)
         });
     };
     fitNav();
@@ -86,20 +101,11 @@ $(function(){
         }
     });
 
-    /* Bulk-selection */
-    $(document).on('click', 'thead .bulk', function(){
-        $(this).closest('table').find('tbody .bulk input').each(function(){
-            $(this).prop('checked', !$(this).prop('checked'));
-        });
-    });
-
-    $('#menu-search input').bind('focus', function(){
-        $('#menu-search').addClass('focussed');
-    }).bind('blur', function(){
-        $('#menu-search').removeClass('focussed');
-    });
-    $('#menu-search').bind('focus click', function(){
-        $(this).addClass('focussed');
+    /* Dropzones */
+    $('.drop-zone').on('dragover', function(){
+        $(this).addClass('hovered');
+    }).on('dragleave dragend drop', function(){
+        $(this).removeClass('hovered');
     });
 
     /* Header search behaviour */

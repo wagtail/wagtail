@@ -13,6 +13,7 @@ from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
+from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -24,6 +25,8 @@ from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
+
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
@@ -151,7 +154,7 @@ def get_leaf_page_content_type_ids():
         get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
         setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
         this incorrect assumption.
-    """, DeprecationWarning)
+    """, RemovedInWagtail06Warning)
     return [
         content_type.id
         for content_type in get_page_types()
@@ -163,7 +166,7 @@ def get_navigable_page_content_type_ids():
         get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
         setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
         this incorrect assumption.
-    """, DeprecationWarning)
+    """, RemovedInWagtail06Warning)
     return [
         content_type.id
         for content_type in get_page_types()
@@ -286,8 +289,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
-    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
@@ -381,10 +384,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         cursor.execute(update_statement,
             [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
+    #: Return this page in its most specific subclassed form.
     @cached_property
     def specific(self):
         """
-            Return this page in its most specific subclassed form.
+        Return this page in its most specific subclassed form.
         """
         # the ContentType.objects manager keeps a cache, so this should potentially
         # avoid a database lookup over doing self.content_type. I think.
@@ -395,11 +399,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    #: Return the class that this page would be if instantiated in its
+    #: most specific form
     @cached_property
     def specific_class(self):
         """
-            return the class that this page would be if instantiated in its
-            most specific form
+        Return the class that this page would be if instantiated in its
+        most specific form
         """
         content_type = ContentType.objects.get_for_id(self.content_type_id)
         return content_type.model_class()
@@ -473,7 +479,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     def get_other_siblings(self):
         warnings.warn(
             "The 'Page.get_other_siblings()' method has been replaced. "
-            "Use 'Page.get_siblings(inclusive=False)' instead.", DeprecationWarning)
+            "Use 'Page.get_siblings(inclusive=False)' instead.", RemovedInWagtail06Warning)
 
         # get sibling pages excluding self
         return self.get_siblings().exclude(id=self.id)
@@ -483,7 +489,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return root_url + self.url_path[len(root_path) - 1:]
+                return root_url + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @property
     def url(self):
@@ -498,7 +504,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         root_paths = Site.get_site_root_paths()
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if len(root_paths) == 1 else root_url) + self.url_path[len(root_path) - 1:]
+                return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     def relative_url(self, current_site):
         """
@@ -508,7 +514,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
+                return ('' if current_site.id == id else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
@@ -725,7 +731,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         modes = self.get_page_modes()
         if modes is not Page.DEFAULT_PREVIEW_MODES:
             # User has overriden get_page_modes instead of using preview_modes
-            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", DeprecationWarning)
+            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", RemovedInWagtail06Warning)
 
         return modes
 

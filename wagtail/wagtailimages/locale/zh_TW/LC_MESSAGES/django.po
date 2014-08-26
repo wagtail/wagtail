@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:53+0000\n"
+"POT-Creation-Date: 2014-08-01 16:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -17,33 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:29
+#: forms.py:37
+msgid "Filter"
+msgstr ""
+
+#: forms.py:39
+msgid "Original size"
+msgstr ""
+
+#: forms.py:40
+msgid "Resize to width"
+msgstr ""
+
+#: forms.py:41
+msgid "Resize to height"
+msgstr ""
+
+#: forms.py:42
+msgid "Resize to min"
+msgstr ""
+
+#: forms.py:43
+msgid "Resize to max"
+msgstr ""
+
+#: forms.py:44
+msgid "Resize to fill"
+msgstr ""
+
+#: forms.py:47
+msgid "Width"
+msgstr ""
+
+#: forms.py:48
+msgid "Height"
+msgstr ""
+
+#: models.py:34 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "標題"
 
-#: models.py:44
+#: models.py:49
 msgid "File"
 msgstr "文件"
 
-#: models.py:50
+#: models.py:55
 msgid "Tags"
 msgstr "標籤"
 
-#: utils.py:17
-#, fuzzy
-msgid ""
-"Not a valid image. Please use a gif, jpeg or png file with the correct file "
-"extension."
-msgstr "不是有效的圖片格式。請用 gif、jpeg 或者 png 格式的圖片"
-
-#: utils.py:28
-#, fuzzy, python-format
-msgid ""
-"Not a valid %s image. Please use a gif, jpeg or png file with the correct "
-"file extension."
-msgstr "不是有效的圖片格式。請用 gif、jpeg 或者 png 格式的圖片"
-
-#: wagtail_hooks.py:23 templates/wagtailimages/images/index.html:5
+#: wagtail_hooks.py:64 templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18
 msgid "Images"
 msgstr "圖片"
@@ -139,6 +161,7 @@ msgid "Yes, delete"
 msgstr "是的，刪除"
 
 #: templates/wagtailimages/images/edit.html:4
+#: templates/wagtailimages/images/url_generator.html:4
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "編輯圖片 %(title)s"
@@ -161,26 +184,121 @@ msgstr ""
 "沒有任何上傳的圖片。為什麼不 <a href=\"%(wagtailimages_add_image_url)s\">新增"
 "一個呢</a>?"
 
-#: views/images.py:31 views/images.py:42
+#: templates/wagtailimages/images/url_generator.html:9
+msgid "Generating URL"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:25
+msgid "URL"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:28
+msgid "Preview"
+msgstr ""
+
+#: templates/wagtailimages/images/url_generator.html:34
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+
+#: templates/wagtailimages/images/usage.html:3
+#, fuzzy, python-format
+msgid "Usage of %(title)s"
+msgstr "編輯圖片 %(title)s"
+
+#: templates/wagtailimages/images/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailimages/images/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailimages/images/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailimages/images/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailimages/images/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:3
+#, fuzzy
+msgid "Add multiple images"
+msgstr "新增一個圖片"
+
+#: templates/wagtailimages/multiple/add.html:13
+#, fuzzy
+msgid "Add images"
+msgstr "新增圖片"
+
+#: templates/wagtailimages/multiple/add.html:18
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:22
+msgid "Or choose from your computer"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:47
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:48
+msgid "Sorry, upload failed."
+msgstr ""
+
+#: templates/wagtailimages/multiple/edit_form.html:10
+msgid "Update"
+msgstr ""
+
+#: templates/wagtailimages/multiple/edit_form.html:11
+#, fuzzy
+msgid "Delete"
+msgstr "刪除圖片"
+
+#: utils/validators.py:17 utils/validators.py:28
+#, fuzzy
+msgid ""
+"Not a valid image. Please use a gif, jpeg or png file with the correct file "
+"extension (*.gif, *.jpg or *.png)."
+msgstr "不是有效的圖片格式。請用 gif、jpeg 或者 png 格式的圖片"
+
+#: utils/validators.py:35
+#, fuzzy, python-format
+msgid ""
+"Not a valid %s image. Please use a gif, jpeg or png file with the correct "
+"file extension (*.gif, *.jpg or *.png)."
+msgstr "不是有效的圖片格式。請用 gif、jpeg 或者 png 格式的圖片"
+
+#: views/images.py:37 views/images.py:47
 msgid "Search images"
 msgstr "搜尋圖片"
 
-#: views/images.py:94
+#: views/images.py:99
 msgid "Image '{0}' updated."
 msgstr "圖片 '{0}' 已更新"
 
-#: views/images.py:97
+#: views/images.py:102
 msgid "The image could not be saved due to errors."
 msgstr "圖片因有錯誤而無法儲存。"
 
-#: views/images.py:116
+#: views/images.py:188
 msgid "Image '{0}' deleted."
 msgstr "圖片 '{0}' 已刪除."
 
-#: views/images.py:134
+#: views/images.py:206
 msgid "Image '{0}' added."
 msgstr "圖片 '{0}' 已加入."
 
-#: views/images.py:137
+#: views/images.py:209
 msgid "The image could not be created due to errors."
 msgstr "圖片因有錯而不能被建立。"

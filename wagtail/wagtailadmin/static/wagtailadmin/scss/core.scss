@@ -4,6 +4,7 @@
 
 @import "components/explorer.scss";
 @import "components/icons.scss";
+@import "components/typography.scss";
 @import "components/tabs.scss";
 @import "components/dropdowns.scss";
 @import "components/modals.scss";
@@ -12,6 +13,7 @@
 @import "components/messages.scss";
 @import "components/formatters.scss";
 @import "components/header.scss";
+@import "components/progressbar.scss";
 @import "components/datetimepicker.scss";
 
 @import "fonts.scss";
@@ -33,67 +35,6 @@ body{
     &.reordering{
         overflow:visible;
     }
-}
-
-h1,h2,h3,h4,h5,h6{
-    font-weight:normal;
-}
-
-h1{
-    line-height:1.3em;
-    font-size:1.5em;
-    text-transform:uppercase;
-    color:$color-grey-1;
-    font-weight:600;
-
-    span{
-        text-transform:none;
-        font-weight:300;
-    }
-
-    .homepage &{
-        text-transform:none;
-    }
-}
-h2{
-    text-transform:uppercase;
-    font-size:1.3em;
-    font-family:Open Sans;
-    font-weight:600;
-    color:$color-grey-2;
-
-    .page-explorer &{
-        text-transform:none;
-    }
-}
-a{
-    outline:none;
-    color:$color-link;
-    text-decoration:none;
-
-    &:hover{
-        color:$color-link-hover;
-    }
-}
-
-code{
-    @include box-shadow(inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2));
-    background-color:$color-fieldset-hover;
-    padding:2px 5px;
-}
-
-kbd{
-    @include border-radius(3px);
-    font-family:Open Sans, Arial, sans-serif;
-    border:1px solid $color-grey-2;
-    border-color:rgba(0,0,0,0.2);
-    padding:0.3em 0.5em;
-}
-
-img{
-    max-width:100%;
-    height:auto;
-    border: 3px solid $color-grey-4;
 }
 
 .browsermessage{
@@ -163,7 +104,6 @@ img{
     }
 
     .nav-main{
-
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -225,6 +165,16 @@ img{
             }
             &:hover{
                 color:white;
+            }
+
+            /* only really used for spinners */
+            &:after{
+                font-size:1.5em;
+                margin:0;
+                position:absolute;
+                right:0.5em;
+                top:0.5em;
+                margin-top:0.15em;
             }
         }
 

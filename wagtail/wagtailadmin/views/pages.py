@@ -12,13 +12,22 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.utils.deprecation import RemovedInWagtail06Warning
+
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
-from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.forms import SearchForm, CopyForm
 from wagtail.wagtailadmin import tasks, signals
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision
-from wagtail.wagtailcore.signals import page_published
+from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+from wagtail.wagtailcore.signals import page_published, page_unpublished
+
+
+@permission_required('wagtailadmin.access_admin')
+def explorer_nav(request):
+    return render(request, 'wagtailadmin/shared/explorer_nav.html', {
+        'nodes': get_navigation_menu_items(),
+    })
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -306,7 +315,13 @@ def edit(request, page_id):
                     approved_go_live_at = go_live_at
                 else:
                     page.live = True
-                form.save()
+
+                # We need save the page this way to workaround a bug
+                # in django-modelcluster causing m2m fields to not
+                # be committed to the database. See github issue #192
+                form.save(commit=False)
+                page.save()
+
                 # Clear approved_go_live_at for older revisions
                 page.revisions.update(
                     submitted_for_moderation=False,
@@ -321,7 +336,9 @@ def edit(request, page_id):
                     Page.objects.filter(id=page.id).update(has_unpublished_changes=True)
                 else:
                     page.has_unpublished_changes = True
-                    form.save()
+                    form.save(commit=False)
+                    page.save()
+
 
             page.save_revision(
                 user=request.user,
@@ -376,8 +393,19 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
+        if page.live:
+            # fetch params to pass to the page_unpublished_signal, before the
+            # deletion happens
+            specific_class = page.specific_class
+            specific_page = page.specific
+
         parent_id = page.get_parent().id
         page.delete()
+
+        # If the page is live, send the unpublished signal
+        if page.live:
+            page_unpublished.send(sender=specific_class, instance=specific_page)
+
         messages.success(request, _("Page '{0}' deleted.").format(page.title))
 
         for fn in hooks.get_hooks('after_delete_page'):
@@ -411,7 +439,7 @@ def get_preview_response(page, preview_mode):
     if response:
         warnings.warn(
             "Defining 'show_as_mode' on a page model is deprecated. Use 'serve_preview' instead",
-            DeprecationWarning
+            RemovedInWagtail06Warning
         )
         return response
     else:
@@ -538,9 +566,14 @@ def unpublish(request, page_id):
         parent_id = page.get_parent().id
         page.live = False
         page.save()
+
         # Since page is unpublished clear the approved_go_live_at of all revisions
         page.revisions.update(approved_go_live_at=None)
+
+        page_unpublished.send(sender=page.specific_class, instance=page.specific)
+
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
+
         return redirect('wagtailadmin_explore', parent_id)
 
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
@@ -633,6 +666,57 @@ def set_page_position(request, page_to_move_id):
             page_to_move.move(parent_page, pos='last-child')
 
     return HttpResponse('')
+
+
+@permission_required('wagtailadmin.access_admin')
+def copy(request, page_id):
+    page = Page.objects.get(id=page_id)
+    parent_page = page.get_parent()
+
+    # Make sure this user has permission to add subpages on the parent
+    if not parent_page.permissions_for_user(request.user).can_add_subpage():
+        raise PermissionDenied
+
+    # Check if the user has permission to publish subpages on the parent
+    can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
+
+    # Create the form
+    form = CopyForm(request.POST or None, page=page, can_publish=can_publish)
+
+    # Check if user is submitting
+    if request.method == 'POST' and form.is_valid():
+        # Copy the page
+        new_page = page.copy(
+            recursive=form.cleaned_data.get('copy_subpages'),
+            update_attrs={
+                'title': form.cleaned_data['new_title'],
+                'slug': form.cleaned_data['new_slug'],
+            }
+        )
+
+        # Check if we should keep copied subpages published
+        publish_copies = can_publish and form.cleaned_data.get('publish_copies')
+
+        # Unpublish copied pages if we need to
+        if not publish_copies:
+            new_page.get_descendants(inclusive=True).update(live=False)
+
+        # Assign user of this request as the owner of all the new pages
+        new_page.get_descendants(inclusive=True).update(owner=request.user)
+
+        # Give a success message back to the user
+        if form.cleaned_data.get('copy_subpages'):
+            messages.success(request, _("Page '{0}' and {1} subpages copied.").format(page.title, new_page.get_descendants().count()))
+        else:
+            messages.success(request, _("Page '{0}' copied.").format(page.title))
+
+        # Redirect to explore of parent page
+        return redirect('wagtailadmin_explore', parent_page.id)
+
+    return render(request, 'wagtailadmin/pages/copy.html', {
+        'page': page,
+        'form': form,
+    })
 
 
 PAGE_EDIT_HANDLERS = {}
