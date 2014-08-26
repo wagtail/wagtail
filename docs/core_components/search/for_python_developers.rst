@@ -37,6 +37,10 @@ Indexing extra fields
 
     The ``indexed_fields`` configuration format was replaced with ``search_fields``
 
+.. versionchanged:: 0.6
+
+   The ``wagtail.wagtailsearch.indexed`` module was renamed to ``wagtail.wagtailsearch.index``
+
 
 .. warning::
 
