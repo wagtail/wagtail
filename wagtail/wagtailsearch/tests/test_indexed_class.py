@@ -2,7 +2,7 @@ import warnings
 
 from django.test import TestCase
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.tests import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -30,12 +30,12 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase, WagtailTestUtils):
 
         # Check that the fields were found
         self.assertEqual(len(search_fields_dict), 2)
-        self.assertIn(('title', indexed.SearchField), search_fields_dict.keys())
-        self.assertIn(('live', indexed.FilterField), search_fields_dict.keys())
+        self.assertIn(('title', index.SearchField), search_fields_dict.keys())
+        self.assertIn(('live', index.FilterField), search_fields_dict.keys())
 
         # Check that the title field has the correct settings
-        self.assertTrue(search_fields_dict[('title', indexed.SearchField)].partial_match)
-        self.assertEqual(search_fields_dict[('title', indexed.SearchField)].boost, 100)
+        self.assertTrue(search_fields_dict[('title', index.SearchField)].partial_match)
+        self.assertEqual(search_fields_dict[('title', index.SearchField)].boost, 100)
 
     def test_indexed_fields_backwards_compatibility_list(self):
         # Get search fields
@@ -49,5 +49,5 @@ class TestIndexedFieldsBackwardsCompatibility(TestCase, WagtailTestUtils):
 
         # Check that the fields were found
         self.assertEqual(len(search_fields_dict), 2)
-        self.assertIn(('title', indexed.SearchField), search_fields_dict.keys())
-        self.assertIn(('content', indexed.SearchField), search_fields_dict.keys())
+        self.assertIn(('title', index.SearchField), search_fields_dict.keys())
+        self.assertIn(('content', index.SearchField), search_fields_dict.keys())
