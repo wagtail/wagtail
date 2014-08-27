@@ -883,6 +883,7 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.locked = self.page.locked
 
         return obj
 
@@ -1077,6 +1078,9 @@ class PagePermissionTester(object):
 
     def can_set_view_restrictions(self):
         return self.can_publish()
+
+    def can_lock(self):
+        return self.user.is_superuser
 
     def can_publish_subpage(self):
         """

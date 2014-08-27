@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.views.decorators.http import require_GET
+from django.utils.http import is_safe_url
+from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
@@ -806,3 +807,49 @@ def preview_for_moderation(request, revision_id):
     # pass in the real user request rather than page.dummy_request(), so that request.user
     # and request.revision_id will be picked up by the wagtail user bar
     return page.serve_preview(request, page.default_preview_mode)
+
+
+@permission_required('wagtailadmin.access_admin')
+@require_POST
+def lock(request, page_id):
+    # Get the page
+    page = Page.objects.get(id=page_id)
+
+    # Check permissions
+    if not page.permissions_for_user(request.user).can_lock():
+        raise PermissionDenied
+
+    # Lock the page
+    if not page.locked:
+        page.locked = True
+        page.save()
+
+    # Redirect
+    redirect_to = request.POST.get('next', None)
+    if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
+        return redirect(redirect_to)
+    else:
+        return redirect('wagtail_explore', args=(page.get_parent().id, ))
+
+
+@permission_required('wagtailadmin.access_admin')
+@require_POST
+def unlock(request, page_id):
+    # Get the page
+    page = Page.objects.get(id=page_id)
+
+    # Check permissions
+    if not page.permissions_for_user(request.user).can_lock():
+        raise PermissionDenied
+
+    # Unlock the page
+    if page.locked:
+        page.locked = False
+        page.save()
+
+    # Redirect
+    redirect_to = request.POST.get('next', None)
+    if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
+        return redirect(redirect_to)
+    else:
+        return redirect('wagtail_explore', args=(page.get_parent().id, ))

@@ -1,0 +1,29 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
+{% endif %}
+
+<div class="lock-indicator {% if page.locked %}locked{% else %}unlocked{% endif %}">
+    {% if page.locked %}
+        {% trans "Locked" %}
+
+        {% if page_perms.can_lock %}
+            <form action="{% url 'wagtailadmin_pages_unlock' page.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
+                <input type="submit" value="{% trans "Unlock" %}">
+            </form>
+        {% endif %}
+    {% else %}
+        {% trans "Unlocked" %}
+
+        {% if page_perms.can_lock %}
+            <form action="{% url 'wagtailadmin_pages_lock' page.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
+                <input type="submit" value="{% trans "Lock" %}">
+            </form>
+        {% endif %}
+    {% endif %}
+</div>
