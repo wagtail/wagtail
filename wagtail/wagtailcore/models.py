@@ -266,6 +266,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    locked = models.BooleanField(default=False, editable=False)
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=100),
         index.FilterField('id'),
@@ -274,6 +276,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('content_type'),
         index.FilterField('path'),
         index.FilterField('depth'),
+        index.FilterField('locked'),
     )
 
     def __init__(self, *args, **kwargs):
