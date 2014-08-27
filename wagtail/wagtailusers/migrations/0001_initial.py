@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('submitted_notifications', models.BooleanField(default=True, help_text='Receive notification when a page is submitted for moderation')),
                 ('approved_notifications', models.BooleanField(default=True, help_text='Receive notification when your page edit is approved')),
                 ('rejected_notifications', models.BooleanField(default=True, help_text='Receive notification when your page edit is rejected')),
