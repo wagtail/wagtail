@@ -10,7 +10,7 @@ import wagtail.wagtailadmin.taggable
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0002_auto_20140827_0349'),
+        ('taggit', '__latest__'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
