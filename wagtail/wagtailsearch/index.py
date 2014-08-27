@@ -37,7 +37,7 @@ class Indexed(object):
 
     @classmethod
     def get_search_fields(cls):
-        return getattr(cls, 'search_fields', tuple())
+        return cls.search_fields
 
     @classmethod
     def get_searchable_search_fields(cls):
@@ -51,7 +51,7 @@ class Indexed(object):
     def get_indexed_objects(cls):
         return cls.objects.all()
 
-    indexed_fields = ()
+    search_fields = ()
 
 
 class BaseField(object):
