@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'wagtail.wagtailimages',
     'wagtail.wagtailembeds',
     'wagtail.wagtailsearch',
-    'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
     'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.wagtailsitemaps',
@@ -80,6 +79,15 @@ INSTALLED_APPS = [
 if django.VERSION[:2] == (1, 6):
     INSTALLED_APPS.append('south')
 
+
+# If we are using Django 1.7 install wagtailredirects with its appconfig
+# Theres nothing special about wagtailredirects, we just need to have one
+# app which uses AppConfigs to test that hooks load properly
+
+if django.VERSION[:2] == (1, 6):
+    INSTALLED_APPS.append('wagtail.wagtailredirects')
+else:
+    INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')
 
 # As we don't have south migrations for tests, South thinks
 # the Django 1.7 migrations are South migrations.
