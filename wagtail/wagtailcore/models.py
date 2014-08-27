@@ -985,10 +985,12 @@ class PageRevision(models.Model):
 
     def approve_moderation(self):
         if self.submitted_for_moderation:
+            logger.info("Page moderation approved: \"%s\" id=%d revision_id=%d", self.page.title, self.page.id, self.id)
             self.publish()
 
     def reject_moderation(self):
         if self.submitted_for_moderation:
+            logger.info("Page moderation rejected: \"%s\" id=%d revision_id=%d", self.page.title, self.page.id, self.id)
             self.submitted_for_moderation = False
             self.save(update_fields=['submitted_for_moderation'])
 
