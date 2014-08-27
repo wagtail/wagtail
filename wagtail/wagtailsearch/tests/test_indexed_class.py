@@ -2,7 +2,7 @@ import warnings
 
 from django.test import TestCase
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.tests import models
 from wagtail.tests.utils import WagtailTestUtils
 

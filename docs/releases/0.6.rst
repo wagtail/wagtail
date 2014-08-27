@@ -13,11 +13,20 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
  * A new template tag has been added for reversing URLs inside routable pages. See :ref:`routablepageurl_template_tag`.
+ * RoutablePage can now be used as a mixin. See :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin`.
 
 Bug fixes
 ~~~~~~~~~
 
  * Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+ * Search results in the page chooser now respect the page_type parameter on PageChooserPanel.
 
 Upgrade considerations
 ======================
+
+
+Deprecated features
+===================
+
+ * The ``wagtail.wagtailsearch.indexed`` module has been renamed to ``wagtail.wagtailsearch.index``
+ 

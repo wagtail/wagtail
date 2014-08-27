@@ -1,3 +1,4 @@
+.. _editing-api:
 
 Defining models with the Editing API
 ====================================

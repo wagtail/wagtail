@@ -1,3 +1,5 @@
+.. _pages-theory:
+
 ======
 Theory
 ======

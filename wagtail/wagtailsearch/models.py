@@ -4,7 +4,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailsearch import indexed
 from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
 
 
