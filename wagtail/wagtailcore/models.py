@@ -452,14 +452,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         else:
             return self.specific
 
-    def unpublish(self, set_expired=False):
+    def unpublish(self, set_expired=False, commit=True):
         if self.live:
             self.live = False
 
             if set_expired:
                 self.expired = True
 
-            self.save()
+            if commit:
+                self.save()
 
             page_unpublished.send(sender=self.specific_class, instance=self.specific)
 
@@ -900,7 +901,8 @@ def get_navigation_menu_items():
 def unpublish_page_before_delete(sender, instance, **kwargs):
     # Make sure pages are unpublished before deleting
     if instance.live:
-        instance.unpublish()
+        # Don't bother to save, this page is just about to be deleted!
+        instance.unpublish(commit=False)
 
 
 class Orderable(models.Model):
