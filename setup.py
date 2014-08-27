@@ -28,7 +28,7 @@ install_requires = [
     "django-compressor>=1.4",
     "django-libsass>=0.2",
     "django-modelcluster>=0.3",
-    "django-taggit==0.12.0",
+    "django-taggit==0.12.1",
     "django-treebeard==2.0",
     "Pillow>=2.3.0",
     "beautifulsoup4>=4.3.2",
