@@ -161,10 +161,9 @@ class AbstractImage(models.Model, TagSearchable):
 
             input_filename_parts = os.path.basename(file_field.file.name).split('.')
             filename_without_extension = '.'.join(input_filename_parts[:-1])
-            filename_without_extension = filename_without_extension[:60]  # trim filename base so that we're well under 100 chars
-            output_filename_parts = [filename_without_extension, focal_point_key, filter.spec] + input_filename_parts[-1:]
-            output_filename = '.'.join(output_filename_parts)
-
+            extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
+            filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
+            output_filename = filename_without_extension + '.' + extension
             generated_image_file = File(generated_image, name=output_filename)
 
             if self.focal_point:
