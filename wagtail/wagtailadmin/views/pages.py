@@ -738,7 +738,7 @@ def approve_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.POST:
-        revision.publish()
+        revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'approved', request.user.id)
 
@@ -756,8 +756,7 @@ def reject_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.POST:
-        revision.submitted_for_moderation = False
-        revision.save(update_fields=['submitted_for_moderation'])
+        revision.reject_moderation()
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'rejected', request.user.id)
 

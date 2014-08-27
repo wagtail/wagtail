@@ -956,6 +956,15 @@ class PageRevision(models.Model):
 
         return obj
 
+    def approve_moderation(self):
+        if self.submitted_for_moderation:
+            self.publish()
+
+    def reject_moderation(self):
+        if self.submitted_for_moderation:
+            self.submitted_for_moderation = False
+            self.save(update_fields=['submitted_for_moderation'])
+
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
