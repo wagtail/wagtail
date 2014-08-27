@@ -13,6 +13,7 @@ from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
+from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -31,7 +32,7 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
@@ -273,7 +274,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -293,13 +294,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=100),
-        indexed.FilterField('id'),
-        indexed.FilterField('live'),
-        indexed.FilterField('owner'),
-        indexed.FilterField('content_type'),
-        indexed.FilterField('path'),
-        indexed.FilterField('depth'),
+        index.SearchField('title', partial_match=True, boost=100),
+        index.FilterField('id'),
+        index.FilterField('live'),
+        index.FilterField('owner'),
+        index.FilterField('content_type'),
+        index.FilterField('path'),
+        index.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -488,7 +489,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return root_url + self.url_path[len(root_path) - 1:]
+                return root_url + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @property
     def url(self):
@@ -503,7 +504,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         root_paths = Site.get_site_root_paths()
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if len(root_paths) == 1 else root_url) + self.url_path[len(root_path) - 1:]
+                return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     def relative_url(self, current_site):
         """
@@ -513,7 +514,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         for (id, root_path, root_url) in Site.get_site_root_paths():
             if self.url_path.startswith(root_path):
-                return ('' if current_site.id == id else root_url) + self.url_path[len(root_path) - 1:]
+                return ('' if current_site.id == id else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):

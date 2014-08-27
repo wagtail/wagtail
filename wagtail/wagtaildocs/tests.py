@@ -5,8 +5,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
+from django.test.utils import override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailcore.models import Page
+
+from wagtail.tests.models import EventPage, EventPageRelatedLink
+from wagtail.wagtaildocs.models import Document
 
 from wagtail.wagtaildocs import models
 
@@ -316,3 +321,99 @@ class TestDocumentFilenameProperties(TestCase):
     def tearDown(self):
         self.document.delete()
         self.extensionless_document.delete()
+
+
+class TestUsageCount(TestCase, WagtailTestUtils):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.login()
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_document_usage_count(self):
+        doc = Document.objects.get(id=1)
+        self.assertEqual(doc.get_usage().count(), 0)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_document_usage_count(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        self.assertEqual(doc.get_usage().count(), 1)
+
+    def test_usage_count_does_not_appear(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        response = self.client.get(reverse('wagtaildocs_edit_document',
+                                           args=(1,)))
+        self.assertNotContains(response, 'Used 1 time')
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_count_appears(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        response = self.client.get(reverse('wagtaildocs_edit_document',
+                                           args=(1,)))
+        self.assertContains(response, 'Used 1 time')
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_count_zero_appears(self):
+        response = self.client.get(reverse('wagtaildocs_edit_document',
+                                           args=(1,)))
+        self.assertContains(response, 'Used 0 times')
+
+
+class TestGetUsage(TestCase, WagtailTestUtils):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_document_get_usage_not_enabled(self):
+        doc = Document.objects.get(id=1)
+        self.assertEqual(list(doc.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_document_get_usage(self):
+        doc = Document.objects.get(id=1)
+        self.assertEqual(list(doc.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_document_get_usage(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        self.assertTrue(issubclass(Page, type(doc.get_usage()[0])))
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_page(self):
+        doc = Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+        response = self.client.get(reverse('wagtaildocs_document_usage',
+                                           args=(1,)))
+        self.assertContains(response, 'Christmas')
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_usage_page_no_usage(self):
+        response = self.client.get(reverse('wagtaildocs_document_usage',
+                                           args=(1,)))
+        # There's no usage so there should be no table rows
+        self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')

@@ -1,9 +1,10 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.core import mail
+
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.tasks import send_email_task
-from django.core.urlresolvers import reverse
-from django.core import mail
 
 
 class TestHome(TestCase, WagtailTestUtils):

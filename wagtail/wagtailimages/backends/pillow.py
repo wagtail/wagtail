@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
-from .base import BaseImageBackend
 import PIL.Image
+
+from wagtail.wagtailimages.backends.base import BaseImageBackend
 
 
 class PillowBackend(BaseImageBackend):
@@ -20,19 +21,15 @@ class PillowBackend(BaseImageBackend):
             image = image.convert('RGB')
         return image.resize(size, PIL.Image.ANTIALIAS)
 
-    def crop_to_centre(self, image, size):
-        (original_width, original_height) = image.size
-        (target_width, target_height) = size
+    def crop(self, image, crop_box):
+        return image.crop(crop_box)
 
-        # final dimensions should not exceed original dimensions
-        final_width = min(original_width, target_width)
-        final_height = min(original_height, target_height)
+    def image_data_as_rgb(self, image):
+        # https://github.com/thumbor/thumbor/blob/f52360dc96eedd9fc914fcf19eaf2358f7e2480c/thumbor/engines/pil.py#L206-L215
+        if image.mode not in ['RGB', 'RGBA']:
+            if 'A' in image.mode:
+                image = image.convert('RGBA')
+            else:
+                image = image.convert('RGB')
 
-        if final_width == original_width and final_height == original_height:
-            return image
-
-        left = (original_width - final_width) / 2
-        top = (original_height - final_height) / 2
-        return image.crop(
-            (left, top, left + final_width, top + final_height)
-        )
+        return image.mode, image.tostring()
