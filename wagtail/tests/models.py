@@ -229,9 +229,9 @@ class EventPage(Page):
     )
 
     search_fields = (
-        indexed.SearchField('get_audience_display'),
-        indexed.SearchField('location'),
-        indexed.SearchField('body'),
+        index.SearchField('get_audience_display'),
+        index.SearchField('location'),
+        index.SearchField('body'),
     )
 
     password_required_template = 'tests/event_page_password_required.html'
