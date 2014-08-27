@@ -29,9 +29,9 @@ from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, openc
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
-def get_upload_to(self, filename):
+def get_upload_to(instance, filename):
     folder_name = 'original_images'
-    filename = self.file.field.storage.get_valid_name(filename)
+    filename = instance.file.field.storage.get_valid_name(filename)
 
     # do a unidecode in the filename and then
     # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
