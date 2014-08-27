@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailcore', '0002_initial_data'),
         ('wagtaildocs', '0002_initial_data'),
-        ('taggit', '0002_auto_20140827_0349'),
+        ('taggit', '0001_initial'),
         ('wagtailimages', '0002_initial_data'),
         ('tests', '0001_initial'),
     ]
