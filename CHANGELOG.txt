@@ -3,6 +3,7 @@ Changelog
 
 0.6 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~
+ * Added Django 1.7 support
  * Added {% routablepageurl %} template tag (@timheap)
  * Added RoutablePageMixin (@timheap)
  * Renamed wagtailsearch.indexed to wagtailsearch.index
