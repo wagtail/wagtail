@@ -19,6 +19,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+ * Search results in the page chooser now respect the page_type parameter on PageChooserPanel.
 
 Upgrade considerations
 ======================
