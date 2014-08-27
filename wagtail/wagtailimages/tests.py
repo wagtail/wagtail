@@ -32,7 +32,7 @@ from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailcore.models import Page
 
 
-def get_test_image_file():
+def get_test_image_file(filename='test.png'):
     from six import BytesIO
     from PIL import Image
     from django.core.files.images import ImageFile
@@ -40,7 +40,7 @@ def get_test_image_file():
     f = BytesIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
-    return ImageFile(f, name='test.png')
+    return ImageFile(f, name=filename)
 
 
 Image = get_image_model()
@@ -1015,4 +1015,25 @@ class TestCropToPoint(TestCase):
             crop_to_point((300, 300), (150, 150), FocalPoint(x=200, y=100, width=150, height=150)),
             CropBox(125, 25, 275, 175),
         )
+
+
+class TestIssue573(TestCase):
+    """
+    This tests for a bug which causes filename limit on Renditions to be reached
+    when the Image has a long original filename and a big focal point key
+    """
+    def test_issue_573(self):
+        # Create an image with a big filename and focal point
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file('thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png'),
+            focal_point_x=1000,
+            focal_point_y=1000,
+            focal_point_width=1000,
+            focal_point_height=1000,
+        )
+
+        # Try creating a rendition from that image
+        # This would crash if the bug is present
+        image.get_rendition('fill-800x600')
 
