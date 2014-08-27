@@ -491,7 +491,11 @@ class BasePageChooserPanel(BaseChooserPanel):
                     except ValueError:
                         raise ImproperlyConfigured("The page_type passed to PageChooserPanel must be of the form 'app_label.model_name'")
 
-                    page_type = get_model(app_label, model_name)
+                    try:
+                        page_type = get_model(app_label, model_name)
+                    except LookupError:
+                        page_type = None
+
                     if page_type is None:
                         raise ImproperlyConfigured("PageChooserPanel refers to model '%s' that has not been installed" % cls.page_type)
                 else:
