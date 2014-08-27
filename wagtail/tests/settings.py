@@ -76,7 +76,7 @@ INSTALLED_APPS = [
 ]
 
 # If we are using Django 1.6, add South to INSTALLED_APPS
-if django.VERSION[:2] == (1, 6):
+if django.VERSION < (1, 7):
     INSTALLED_APPS.append('south')
 
 
@@ -84,7 +84,7 @@ if django.VERSION[:2] == (1, 6):
 # Theres nothing special about wagtailredirects, we just need to have one
 # app which uses AppConfigs to test that hooks load properly
 
-if django.VERSION[:2] == (1, 6):
+if django.VERSION < (1, 7):
     INSTALLED_APPS.append('wagtail.wagtailredirects')
 else:
     INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')

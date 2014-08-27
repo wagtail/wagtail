@@ -14,7 +14,7 @@ def get_app_modules():
     Generator function that yields a module object for each installed app
     yields tuples of (app_name, module)
     """
-    if django.VERSION[:2] == (1, 6):
+    if django.VERSION < (1, 7):
         # Django 1.6
         for app in settings.INSTALLED_APPS:
             yield app, import_module(app)
