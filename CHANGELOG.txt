@@ -7,6 +7,7 @@ Changelog
  * Added RoutablePageMixin (@timheap)
  * Renamed wagtailsearch.indexed to wagtailsearch.index
  * Fix: Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'
+ * Fix: Search results in the page chooser now respect the page_type parameter on PageChooserPanel
 
 0.5 (01.08.2014)
 ~~~~~~~~~~~~~~~~
