@@ -646,5 +646,9 @@ Page.promote_panels = [
 ]
 
 Page.settings_panels = [
-    PublishingPanel()
+    PublishingPanel(),
+
+    MultiFieldPanel([
+        FieldPanel('locked'),
+    ], ugettext_lazy('Locking'))
 ]
