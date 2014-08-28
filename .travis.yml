@@ -1,29 +1,38 @@
 language: python
-# Test matrix
-python:
-    - 2.7
-    - 3.2
-    - 3.4
 env:
-    - DJANGO_VERSION=Django==1.6.5
-    #- DJANGO_VERSION=Django==1.7.0
+#  - TOXENV=py26-dj16-postgres
+  - TOXENV=py26-dj16-sqlite
+  - TOXENV=py27-dj16-postgres
+#  - TOXENV=py27-dj16-sqlite
+  - TOXENV=py32-dj16-postgres
+#  - TOXENV=py33-dj16-postgres
+  - TOXENV=py34-dj16-postgres
+  - TOXENV=py27-dj17-postgres
+#  - TOXENV=py27-dj17-sqlite
+#  - TOXENV=py32-dj17-postgres
+#  - TOXENV=py33-dj17-postgres
+  - TOXENV=py34-dj17-postgres
+
 # Services
 services:
   - redis-server
   - elasticsearch
+
 # Package installation
 install:
-  - python setup.py install
-  - pip install psycopg2 elasticsearch wand embedly mock python-dateutil
-  - pip install coveralls
+  - pip install tox coveralls
+
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
+
 # Run the tests
 script:
-  coverage run runtests.py
+  tox
+
 after_success:
   coveralls
+
 # Who to notify about build results
 notifications:
   email:

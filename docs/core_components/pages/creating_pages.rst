@@ -2,40 +2,15 @@
 Creating page models
 ====================
 
+Wagtail provides a ``Page`` class to represent types of page (a.k.a Content types). Developers should subclass ``Page`` for their own page models. 
 
-The Page Class
-~~~~~~~~~~~~~~
-
-``Page`` uses Django's model interface, so you can include any field type and field options that Django allows. Wagtail provides some fields and editing handlers that simplify data entry in the Wagtail admin interface, so you may want to keep those in mind when deciding what properties to add to your models in addition to those already provided by ``Page``.
+``Page`` uses Django's model interface, so you can include any field type and field options that Django allows. Wagtail provides some field types of its own which simplify data entry in the Wagtail admin interface. Wagtail also wraps Django's field types and widgets with its own concept of "Edit Handlers" and "Panels". These further improve the data entry experience.
 
 
-Built-in Properties of the Page Class
--------------------------------------
+An example Wagtail Page Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides some properties in the ``Page`` class which are common to most webpages. Since you'll be subclassing ``Page``, you don't have to worry about implementing them.
-
-Public Properties
-`````````````````
-
-    ``title`` (string, required)
-        Human-readable title for the content
-
-    ``slug`` (string, required)
-        Machine-readable URL component for this piece of content. The name of the page as it will appear in URLs e.g ``http://domain.com/blog/[my-slug]/``
-
-    ``seo_title`` (string)
-        Alternate SEO-crafted title which overrides the normal title for use in the ``<head>`` of a page
-
-    ``search_description`` (string)
-        A SEO-crafted description of the content, used in both internal search indexing and for the meta description read by search engines
-
-The ``Page`` class actually has alot more to it, but these are probably the only built-in properties you'll need to worry about when creating templates for your models.
-
-
-Anatomy of a Wagtail Model
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-So what does a Wagtail model definition look like? Here's a model representing a typical blog post:
+This example represents a typical blog post:
 
 .. code-block:: python
 
@@ -58,6 +33,8 @@ So what does a Wagtail model definition look like? Here's a model representing a
             related_name='+'
         )
 
+
+
     BlogPage.content_panels = [
         FieldPanel('title', classname="full title"),
         FieldPanel('date'),
@@ -72,17 +49,48 @@ So what does a Wagtail model definition look like? Here's a model representing a
         ImageChooserPanel('feed_image'),
     ]
 
-To keep track of your ``Page``-derived models, it might be helpful to include "Page" as the last part of your class name. ``BlogPage`` defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
+.. tip::
+    To keep track of ``Page`` models and avoid class name clashes, it can be helpful to suffix model class names with "Page" e.g BlogPage, ListingIndexPage. 
 
-Next, the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the Wagtail admin page edit interface. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The ``ImageChooserPanel``, for instance, lets one browse the image library, upload new images, and input image metadata. The ``RichTextField`` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
+In the example above the ``BlogPage`` class defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
+
+Below that the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the page editing interface in the Wagtail admin. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The ``ImageChooserPanel``, for instance, lets one browse the image library, upload new images and input image metadata. The ``RichTextField`` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
 
 Your models may be even more complex, with methods overriding the built-in functionality of the ``Page`` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
 
-Now that we have a basic idea of how our content is defined, lets look at relationships between pieces of content.
+
+``Page`` Class Reference
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Default fields
+--------------
+
+Wagtail provides some fields for the ``Page`` class by default, which will be common to all your pages. You don't need to add these fields to your own page models however you do need to allocate them to ``content_panels``, ``promote_panels`` or ``settings_panels``. See above example and for further information on the panels see :ref:`editing-api`.
+
+    ``title`` (string, required)
+        Human-readable title of the page - what you'd probably use as your ``<h1>`` tag.
+
+    ``slug`` (string, required)
+        Machine-readable URL component for this page. The name of the page as it will appear in URLs e.g ``http://domain.com/blog/[my-slug]/``
+
+    ``seo_title`` (string)
+        Alternate SEO-crafted title, mainly for use in the page ``<title>`` tag.
+
+    ``search_description`` (string)
+        SEO-crafted description of the content, used for internal search indexing, suitable for your page's ``<meta name="description">`` tag.
+
+    ``show_in_menus`` (boolean)
+        Toggles whether the page should be considered for inclusion in any site-wide menus you create.
+
+    ``go_live_at`` (datetime)
+        A datetime on which the page should be automatically made published (made publicly accessible)
+
+    ``expire_at`` (datetime)
+        A datetime on which the page should be unpublished, rendering it inaccessible to the public.
 
 
-Page Properties and Methods Reference
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Page Attributes, Properties and Methods Reference
+-------------------------------------------------
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
@@ -121,14 +129,21 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: search
 
+    .. attribute:: search_fields
+        
+        A list of fields to be indexed by the search engine. See Search docs :ref:`wagtailsearch_for_python_developers`
 
-.. _wagtail_site_admin:
+    .. attribute:: subpage_types
 
-Site
-~~~~
+        A whitelist of page models which can be created as children of this page type e.g a ``BlogIndex`` page might allow ``BlogPage``, but not ``JobPage`` e.g
 
-Django's built-in admin interface provides the way to map a "site" (hostname or domain) to any node in the wagtail tree, using that node as the site's root.
+        .. code-block:: python
 
-Access this by going to ``/django-admin/`` and then "Home › Wagtailcore › Sites." To try out a development site, add a single site with the hostname ``localhost`` at port ``8000`` and map it to one of the pieces of content you have created.
+            class BlogIndex(Page):
+                subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
 
-Wagtail's developers plan to move the site settings into the Wagtail admin interface.
+    .. attribute:: password_required_template
+
+        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
+
+

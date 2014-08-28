@@ -8,4 +8,5 @@ How to
     settings
     deploying
     performance
+    multilingual_sites
     contributing
