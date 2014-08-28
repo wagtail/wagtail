@@ -1,3 +1,5 @@
+from optparse import make_option
+
 from django.core.management.base import BaseCommand
 from django.db import models
 from django.conf import settings
@@ -77,6 +79,15 @@ class Command(BaseCommand):
         self.stdout.write(backend_name + ": Refreshing index")
         backend.refresh_index()
 
+    option_list = BaseCommand.option_list + (
+        make_option('--backend',
+            action='store',
+            dest='backend_name',
+            default=False,
+            help="Specify a backend to update",
+        ),
+    )
+
     def handle(self, **options):
         # Get object list
         models, object_list = self.get_object_list()
@@ -84,6 +95,9 @@ class Command(BaseCommand):
         # Update backends
         if 'backend' in options:
             self.update_backend(options['backend'], models, object_list)
+        elif 'backend_name' in options:
+            backend = dict(get_search_backends())[options['backend_name']]
+            self.update_backend(backend, models, object_list, backend_name=options['backend_name'])
         else:
             for backend_name, backend in get_search_backends():
                 self.update_backend(backend, models, object_list, backend_name=backend_name)
