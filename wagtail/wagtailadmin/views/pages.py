@@ -813,7 +813,7 @@ def preview_for_moderation(request, revision_id):
 @require_POST
 def lock(request, page_id):
     # Get the page
-    page = Page.objects.get(id=page_id)
+    page = get_object_or_404(Page, id=page_id)
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
@@ -829,14 +829,14 @@ def lock(request, page_id):
     if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
         return redirect(redirect_to)
     else:
-        return redirect('wagtail_explore', args=(page.get_parent().id, ))
+        return redirect('wagtailadmin_explore', page.get_parent().id)
 
 
 @permission_required('wagtailadmin.access_admin')
 @require_POST
 def unlock(request, page_id):
     # Get the page
-    page = Page.objects.get(id=page_id)
+    page = get_object_or_404(Page, id=page_id)
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
@@ -852,4 +852,4 @@ def unlock(request, page_id):
     if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
         return redirect(redirect_to)
     else:
-        return redirect('wagtail_explore', args=(page.get_parent().id, ))
+        return redirect('wagtailadmin_explore', page.get_parent().id)
