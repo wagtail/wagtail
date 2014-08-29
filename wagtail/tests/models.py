@@ -17,7 +17,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 
 
@@ -228,8 +228,11 @@ class EventPage(Page):
         related_name='+'
     )
 
-    indexed_fields = ('get_audience_display', 'location', 'body')
-    search_name = "Event"
+    search_fields = (
+        index.SearchField('get_audience_display'),
+        index.SearchField('location'),
+        index.SearchField('body'),
+    )
 
     password_required_template = 'tests/event_page_password_required.html'
 
@@ -387,19 +390,19 @@ class BusinessChild(Page):
     subpage_types = []
 
 
-class SearchTest(models.Model, indexed.Indexed):
+class SearchTest(models.Model, index.Indexed):
     title = models.CharField(max_length=255)
     content = models.TextField()
     live = models.BooleanField(default=False)
     published_date = models.DateField(null=True)
 
     search_fields = [
-        indexed.SearchField('title', partial_match=True),
-        indexed.SearchField('content'),
-        indexed.SearchField('callable_indexed_field'),
-        indexed.FilterField('title'),
-        indexed.FilterField('live'),
-        indexed.FilterField('published_date'),
+        index.SearchField('title', partial_match=True),
+        index.SearchField('content'),
+        index.SearchField('callable_indexed_field'),
+        index.FilterField('title'),
+        index.FilterField('live'),
+        index.FilterField('published_date'),
     ]
 
     def callable_indexed_field(self):
@@ -411,38 +414,9 @@ class SearchTestChild(SearchTest):
     extra_content = models.TextField()
 
     search_fields = SearchTest.search_fields + [
-        indexed.SearchField('subtitle', partial_match=True),
-        indexed.SearchField('extra_content'),
+        index.SearchField('subtitle', partial_match=True),
+        index.SearchField('extra_content'),
     ]
-
-
-class SearchTestOldConfig(models.Model, indexed.Indexed):
-    """
-    This tests that the Indexed class can correctly handle models that
-    use the old "indexed_fields" configuration format.
-    """
-    indexed_fields = {
-        # A search field with predictive search and boosting
-        'title': {
-            'type': 'string',
-            'analyzer': 'edgengram_analyzer',
-            'boost': 100,
-        },
-
-        # A filter field
-        'live': {
-            'type': 'boolean',
-            'index': 'not_analyzed',
-        },
-    }
-
-
-class SearchTestOldConfigList(models.Model, indexed.Indexed):
-    """
-    This tests that the Indexed class can correctly handle models that
-    use the old "indexed_fields" configuration format using a list.
-    """
-    indexed_fields = ['title', 'content']
 
 
 def routable_page_external_view(request, arg):
