@@ -269,6 +269,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    first_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, editable=False, related_name='+')
+    last_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, editable=False, related_name='+')
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=100),
         index.FilterField('id'),
@@ -905,6 +908,8 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.first_publish = self.page.first_publish
+        obj.last_publish = self.page.last_publish
 
         return obj
 
@@ -932,6 +937,20 @@ class PageRevision(models.Model):
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False # When a page is published it can't be expired
+
+        # Create publish log
+        publish_log = PagePublishLog(
+            page=page,
+            revision=self,
+            published_at=timezone.now()
+        )
+        publish_log.save()
+
+        # Update first/last publish log fields
+        if page.first_publish is None:
+            page.first_publish = publish_log
+        page.last_publish = publish_log
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
@@ -941,6 +960,12 @@ class PageRevision(models.Model):
 
     def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
+
+class PagePublishLog(models.Model):
+     page = models.ForeignKey(Page, related_name='publish_log')
+     revision = models.ForeignKey(PageRevision, related_name='publish_log')
+     published_at = models.DateTimeField()
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
