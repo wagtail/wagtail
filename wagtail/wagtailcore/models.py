@@ -753,12 +753,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return ['/']
 
     def get_sitemap_urls(self):
-        latest_revision = self.get_latest_revision()
+        lastmod = None
+        if self.last_publish:
+            lastmod = self.last_publish.published_at
+        else:
+            # Fallback to looking for the latest revision
+            latest_revision = self.get_latest_revision()
+
+            if latest_revision:
+                lastmod = latest_revision.created_at
 
         return [
             {
                 'location': self.full_url,
-                'lastmod': latest_revision.created_at if latest_revision else None
+                'lastmod': lastmod,
             }
         ]
 
