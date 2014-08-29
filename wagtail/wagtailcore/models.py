@@ -269,8 +269,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
-    first_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, editable=False, related_name='+')
-    last_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, editable=False, related_name='+')
+    first_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
+    last_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
 
     search_fields = (
         index.SearchField('title', partial_match=True, boost=100),

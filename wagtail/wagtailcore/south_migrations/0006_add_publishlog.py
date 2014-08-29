@@ -21,12 +21,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'Page.first_publish'
         db.add_column('wagtailcore_page', 'first_publish',
-                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', null=True, to=orm['wagtailcore.PagePublishLog']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', null=True, on_delete=models.SET_NULL, to=orm['wagtailcore.PagePublishLog']),
                       keep_default=False)
 
         # Adding field 'Page.last_publish'
         db.add_column('wagtailcore_page', 'last_publish',
-                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', null=True, to=orm['wagtailcore.PagePublishLog']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='+', null=True, on_delete=models.SET_NULL, to=orm['wagtailcore.PagePublishLog']),
                       keep_default=False)
 
 
@@ -91,11 +91,11 @@ class Migration(SchemaMigration):
             'depth': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'expire_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'expired': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'first_publish': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'null': 'True', 'to': "orm['wagtailcore.PagePublishLog']"}),
+            'first_publish': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': "orm['wagtailcore.PagePublishLog']"}),
             'go_live_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'has_unpublished_changes': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_publish': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'null': 'True', 'to': "orm['wagtailcore.PagePublishLog']"}),
+            'last_publish': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': "orm['wagtailcore.PagePublishLog']"}),
             'live': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'numchild': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_pages'", 'null': 'True', 'to': "orm['auth.User']"}),
