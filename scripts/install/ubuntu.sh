@@ -36,7 +36,7 @@ aptitude update
 aptitude -y install git python-pip nginx postgresql redis-server
 aptitude -y install postgresql-server-dev-all python-dev libjpeg62-dev
 
-perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.1/main/pg_hba.conf
+perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.3/main/pg_hba.conf
 service postgresql reload
 
 aptitude -y install openjdk-7-jre-headless
