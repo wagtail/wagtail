@@ -172,7 +172,7 @@ Helpful model descriptions
 
 As your site becomes more complex users may require some prompting in deciding which content type to use when creating a new page. Developers can add a description to their Models by extending Django's internal model ``Meta`` class.
 
-Insert the following once at the top of your models.py:
+Insert the following once at the top of your ``models.py``:
 
 .. code-block:: python
 
