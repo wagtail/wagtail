@@ -178,7 +178,9 @@ Insert the following once at the top of your models.py:
     import django.db.models.options as options
     options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
      
-Then for each model as necessary, add a description attribute to the model ``Meta``:
+
+Then for each model as necessary, add a description attribute to the model ``Meta`` class
+
 
 .. code-block:: python
     class HomePage(Page):
