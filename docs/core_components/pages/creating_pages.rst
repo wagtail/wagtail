@@ -183,9 +183,10 @@ Then for each model as necessary, add a description attribute to the model ``Met
 
 
 .. code-block:: python
+
     class HomePage(Page):
         ...
-
+        
         class Meta:
             description = "The top level homepage for your site"
             verbose_name = "Homepage"
