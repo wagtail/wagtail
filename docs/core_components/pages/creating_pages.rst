@@ -167,6 +167,23 @@ When users are given a choice of pages to create, the list of page types is gene
 
 The above example also ensures the name of the 
 
-Describing your models
-----------------------
+Helpful model descriptions
+--------------------------
 
+As your site becomes more complex users may require some prompting in deciding which content type to use when creating a new page. Developers can add a description to their Models by extending Django's in-built model meta class.
+
+Insert the following once at the top of your models.py:
+
+.. code-block:: python
+    import django.db.models.options as options
+    options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
+     
+Then for each model as necessary, add a description attribute to the model ``Meta``:
+
+.. code-block:: python
+    class HomePage(Page):
+        ...
+
+    class Meta:
+        description = "The top level homepage for your site"
+        verbose_name = "Homepage"
