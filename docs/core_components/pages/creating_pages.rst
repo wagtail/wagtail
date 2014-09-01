@@ -175,6 +175,7 @@ As your site becomes more complex users may require some prompting in deciding w
 Insert the following once at the top of your models.py:
 
 .. code-block:: python
+
     import django.db.models.options as options
     options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
      
