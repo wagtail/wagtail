@@ -510,12 +510,12 @@ class ElasticSearch(BaseSearch):
                         'ngram_analyzer': {
                             'type': 'custom',
                             'tokenizer': 'lowercase',
-                            'filter': ['ngram']
+                            'filter': ['asciifolding', 'ngram']
                         },
                         'edgengram_analyzer': {
                             'type': 'custom',
                             'tokenizer': 'lowercase',
-                            'filter': ['edgengram']
+                            'filter': ['asciifolding', 'edgengram']
                         }
                     },
                     'tokenizer': {

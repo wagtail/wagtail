@@ -65,6 +65,28 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
 
+    def test_ascii_folding(self):
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Ĥéỻø"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Search and check
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, obj.id)
+
 
 class TestElasticSearchQuery(TestCase):
     def assertDictEqual(self, a, b):
