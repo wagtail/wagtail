@@ -153,7 +153,7 @@ Tips
 Friendly model names
 --------------------
 
-Make your model names more friendly to users of Wagtail using Django's ``Meta`` class with a ``verbose_name`` e.g
+Make your model names more friendly to users of Wagtail using Django's internal ``Meta`` class with a ``verbose_name`` e.g
 
 .. code-block:: python
     
@@ -170,7 +170,7 @@ The above example also ensures the name of the
 Helpful model descriptions
 --------------------------
 
-As your site becomes more complex users may require some prompting in deciding which content type to use when creating a new page. Developers can add a description to their Models by extending Django's in-built model meta class.
+As your site becomes more complex users may require some prompting in deciding which content type to use when creating a new page. Developers can add a description to their Models by extending Django's internal model ``Meta`` class.
 
 Insert the following once at the top of your models.py:
 
@@ -179,7 +179,7 @@ Insert the following once at the top of your models.py:
     options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
      
 
-Then for each model as necessary, add a description attribute to the model ``Meta`` class
+Then for each model as necessary, add a description option to the model ``Meta`` class
 
 
 .. code-block:: python
@@ -190,3 +190,6 @@ Then for each model as necessary, add a description attribute to the model ``Met
         class Meta:
             description = "The top level homepage for your site"
             verbose_name = "Homepage"
+
+
+(This method can be used to extend the Model Meta class in various ways however Wagtail only supports the addition of a ``description`` option).
