@@ -36,8 +36,9 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
+                        <input type="submit" value="{% if page.locked %}{% trans 'Page locked' %}{% else %}{% trans 'Save draft' %}{% endif %}" class="button" {% if page.locked %}disabled {% endif %} />
+                        
                         {% if not page.locked %}
-                            <input type="submit" value="{% trans 'Save draft' %}" class="button" />
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
                                 {% if page_perms.can_unpublish %}
@@ -51,8 +52,6 @@
                                 {% endif %}
                                 <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
                             </ul>
-                        {% else %}
-                            {% trans "Locked" %}
                         {% endif %}
                     </div>
                 </li>
