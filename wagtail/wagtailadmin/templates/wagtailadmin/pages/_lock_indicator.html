@@ -14,6 +14,8 @@
                 <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
                 <input type="submit" class="unbutton" value="{% trans "Locked" %}">
             </form>
+        {% else %}
+            <span class="status-tag primary">Locked</span>
         {% endif %}
     {% else %}
         {% trans "Edit lock" %}
@@ -24,6 +26,8 @@
                 <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
                 <input type="submit" class="unbutton" value="{% trans "Unlocked" %}">
             </form>
+        {% else %}
+            <span class="status-tag secondary">Unlocked</span>
         {% endif %}
     {% endif %}
 </div>
