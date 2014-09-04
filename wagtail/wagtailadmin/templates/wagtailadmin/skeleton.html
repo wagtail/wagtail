@@ -22,10 +22,10 @@
         <p class="browsermessage">You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a>.</p>
     <![endif]-->
 
+    {% block js %}{% endblock %}
+
     <div class="wrapper">
        {% block furniture %}{% endblock %}
     </div>
-
-    {% block js %}{% endblock %}
 </body>
 </html>
