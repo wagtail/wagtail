@@ -27,7 +27,7 @@ install_requires = [
     "South==1.0.0",
     "django-compressor>=1.4",
     "django-libsass>=0.2",
-    "django-modelcluster>=0.3",
+    "django-modelcluster>=0.4",
     "django-taggit==0.12.1",
     "django-treebeard==2.0",
     "Pillow>=2.3.0",
