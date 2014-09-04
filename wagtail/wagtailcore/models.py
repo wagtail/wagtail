@@ -517,7 +517,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 try:
                     models = [resolve_model_string(model_string, cls._meta.app_label)
                               for model_string in subpage_types]
-                except NameError as err:
+                except LookupError as err:
                     raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
                 res = list(map(ContentType.objects.get_for_model, models))
@@ -541,7 +541,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 try:
                     models = [resolve_model_string(model_string, cls._meta.app_label)
                               for model_string in parent_page_types]
-                except NameError as err:
+                except LookupError as err:
                     raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
                         cls.__name__, err.args[1]))
                 res = list(map(ContentType.objects.get_for_model, models))

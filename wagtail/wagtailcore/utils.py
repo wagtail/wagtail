@@ -28,11 +28,11 @@ def resolve_model_string(model_string, default_app=None):
 
         model = get_model(app_label, model_name)
         if not model:
-            raise NameError("Can not resolve {0!r} in to a model".format(model_string), model_string)
+            raise LookupError("Can not resolve {0!r} in to a model".format(model_string), model_string)
         return model
 
     elif model_string is not None and issubclass(model_string, Model):
         return model
 
     else:
-        raise NameError("Can not resolve {0!r} in to a model".format(model_string), model_string)
+        raise LookupError("Can not resolve {0!r} in to a model".format(model_string), model_string)

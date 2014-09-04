@@ -485,7 +485,7 @@ class BasePageChooserPanel(BaseChooserPanel):
             if cls.page_type:
                 try:
                     model = resolve_model_string(cls.page_type)
-                except NameError:
+                except LookupError:
                     raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
                         cls.__name__, cls.page_type))
                 except ValueError:
