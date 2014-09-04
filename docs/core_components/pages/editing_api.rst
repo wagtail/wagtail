@@ -1,6 +1,6 @@
 .. _editing-api:
 
-Defining models with the Editing API
+Displaying fields with the Editing API
 ====================================
 
 .. note::
