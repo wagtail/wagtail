@@ -4,7 +4,7 @@
 Embedding URL configuration in Pages
 ====================================
 
-.. versionadded:: 0.5
+.. versionadded:: 0.6
 
 The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond on multiple sub-URLs with different views. For example, a blog section on a site might provide several different types of index page at URLs like ``/blog/2013/06/``, ``/blog/authors/bob/``, ``/blog/tagged/python/``, all served by the same ``BlogIndex`` page.
 
@@ -102,8 +102,6 @@ The ``RoutablePageMixin`` class
 
 The ``routablepageurl`` template tag
 ====================================
-
-.. versionadded:: 0.6
 
 .. currentmodule:: wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags
 .. autofunction:: routablepageurl
