@@ -377,6 +377,12 @@ class ZuluSnippet(models.Model):
 class StandardIndex(Page):
     pass
 
+StandardIndex.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel(StandardIndex, 'advert_placements', label="Adverts"),
+]
+
+
 class StandardChild(Page):
     pass
 
