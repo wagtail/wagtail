@@ -68,16 +68,18 @@ The ``RoutablePageMixin`` class
 
             from wagtail.wagtailcore.models import Page
 
+
             class MyPage(RoutablePageMixin, Page):
                 subpage_urls = (
-                    url(r'^$', 'serve', name='main'),
+                    url(r'^$', 'main', name='main'),
                     url(r'^archive/$', 'archive', name='archive'),
+                    url(r'^archive/(?P<year>[0-9]{4})/$', 'archive', name='archive'),
                 )
 
-                def serve(self, request):
+                def main(self, request):
                     ...
 
-                def archive(self, request):
+                def archive(self, request, year=None):
                     ...
 
     .. automethod:: resolve_subpage
@@ -86,7 +88,7 @@ The ``RoutablePageMixin`` class
 
         .. code-block:: python
 
-            view, args, kwargs = page.resolve_subpage('/past/')
+            view, args, kwargs = page.resolve_subpage('/archive/')
             response = view(request, *args, **kwargs)
 
     .. automethod:: reverse_subpage
@@ -95,7 +97,7 @@ The ``RoutablePageMixin`` class
 
         .. code-block:: python
 
-            url = page.url + page.reverse_subpage('events_for_year', args=('2014', ))
+            url = page.url + page.reverse_subpage('archive', kwargs={'year': '2014'})
 
 
  .. _routablepageurl_template_tag:
