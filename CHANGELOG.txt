@@ -10,6 +10,7 @@ Changelog
  * Fix: Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'
  * Fix: Search results in the page chooser now respect the page_type parameter on PageChooserPanel
  * Fix: Rendition filenames are now prevented from going over 60 chars, even with a large focal_point_key
+ * Fix: Child relations that are defined on a model's superclass (such as the base Page model) are now picked up correctly by the page editing form, page copy operations and the replace_text management command
 
 0.5 (01.08.2014)
 ~~~~~~~~~~~~~~~~
