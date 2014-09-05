@@ -1,0 +1,11 @@
+{% load wagtailimages_tags i18n %}
+
+{% trans "Choose focal point" as title_str %}
+{% include "wagtailadmin/shared/header.html" with title=title_str %}
+
+<div class="nice-padding">
+    <div class="focal-point-chooser-image">
+        {% image image max-800x600 %}
+    </div>
+    <a class="choose-focal-point">Done</a>
+</div>

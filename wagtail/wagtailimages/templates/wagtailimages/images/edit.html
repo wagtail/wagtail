@@ -5,10 +5,18 @@
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
+
+    <!-- Focal point chooser -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/vendor/jquery.Jcrop.min.css" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
     {% include "wagtailadmin/shared/tag_field_js.html" %}
+
+    <!-- Focal point chooser -->
+    <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.Jcrop.min.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
+    <script src="{{ STATIC_URL }}wagtailimages/js/focal-point-chooser.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -25,6 +33,12 @@
 
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
+                        {% elif field.name == 'focal_point_x' %}
+                            {% include "wagtailimages/images/_focal_point_chooser.html" %}
+                        {% elif field.name == 'focal_point_y' or field.name == 'focal_point_width' or field.name == 'focal_point_height' %}
+                            {# These fields are included in the focal point chooser above #}
+                        {% elif field.is_hidden %}
+                            {{ field }}
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}

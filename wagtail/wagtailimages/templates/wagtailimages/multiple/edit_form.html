@@ -4,7 +4,15 @@
     <ul class="fields">
         {% csrf_token %}
         {% for field in form %}
-            {% include "wagtailadmin/shared/field_as_li.html" %}
+            {% if field.name == 'focal_point_x' %}
+                {% include "wagtailimages/images/_focal_point_chooser.html" %}
+            {% elif field.name == 'focal_point_y' or field.name == 'focal_point_width' or field.name == 'focal_point_height' %}
+                {# These fields are included in the focal point chooser above #}
+            {% elif field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% include "wagtailadmin/shared/field_as_li.html" %}
+            {% endif %}
         {% endfor %}
         <li>
             <input type="submit" value="{% trans 'Update' %}" />

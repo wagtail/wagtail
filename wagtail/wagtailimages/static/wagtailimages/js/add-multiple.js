@@ -97,6 +97,10 @@ $(function(){
                 
                 // run tagit enhancement
                 $('.tag_field input', itemElement).tagit(window.tagit_opts);
+
+                $('.focal-point-chooser', itemElement).each(function() {
+                    createFocalPointCooser($(this));
+                });
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);

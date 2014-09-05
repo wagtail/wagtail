@@ -54,10 +54,10 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    focal_point_x = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_y = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_width = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_height = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     def get_usage(self):
         return get_object_usage(self)
