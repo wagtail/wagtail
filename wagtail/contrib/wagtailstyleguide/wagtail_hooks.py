@@ -15,8 +15,6 @@ def register_admin_urls():
     ]
 
 
-@hooks.register('construct_main_menu')
-def construct_main_menu(request, menu_items):
-    menu_items.append(
-        MenuItem(_('Styleguide'), urlresolvers.reverse('wagtailstyleguide'), classnames='icon icon-image', order=1000)
-    )
+@hooks.register('register_admin_menu_item')
+def register_styleguide_menu_item():
+    return MenuItem(_('Styleguide'), urlresolvers.reverse('wagtailstyleguide'), classnames='icon icon-image', order=1000)

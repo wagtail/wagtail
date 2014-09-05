@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.db import models
 
+from modelcluster.models import get_all_child_relations
+
 from wagtail.wagtailcore.models import PageRevision, get_page_types
 
 
@@ -27,10 +29,7 @@ class Command(BaseCommand):
             self.stdout.write("scanning %s" % content_type.name)
             page_class = content_type.model_class()
 
-            try:
-                child_relation_names = [rel.get_accessor_name() for rel in page_class._meta.child_relations]
-            except AttributeError:
-                child_relation_names = []
+            child_relation_names = [rel.get_accessor_name() for rel in get_all_child_relations(page_class)]
 
             for page in page_class.objects.all():
                 replace_in_model(page, from_text, to_text)

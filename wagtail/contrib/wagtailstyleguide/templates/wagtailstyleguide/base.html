@@ -30,6 +30,7 @@
                 <li><a href="#editor">Page editor</a></li>
                 <li><a href="#tabs">Tabs</a></li>
                 <li><a href="#breadcrumbs">Breadcrumbs</a></li>
+                <li><a href="#progress">Progress indicators</a></li>
                 <li><a href="#misc">Misc formatters</a></li>
                 <li><a href="#icons">Icons</a></li>
             </ul>
@@ -406,6 +407,20 @@
 
         </section>
 
+        <section id="progress">
+            <h2>Progress indicators</h2>
+            
+            <div id="progress-example" class="progress active">
+                <div class="bar">60%</div>
+            </div>
+
+            <p>&nbsp;</p>
+
+             <div id="progress-example2" class="progress active">
+                <div class="bar" style="width: 50%;">50%</div>
+            </div>
+        </section>
+
         <section id="misc">
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
@@ -506,7 +521,16 @@
 {% block extra_js %}
 <script>
     $(function(){
-        
+        (function runprogress(){
+            var to = setTimeout(function(){
+                runprogress();
+                clearTimeout(to);
+                var to2 = setTimeout(function(){
+                    $('#progress-example .bar').css('width', '20%'); 
+                }, 2000);                
+            }, 3000);
+            $('#progress-example .bar').css('width', '80%');
+        })();
     })
 </script>
 {% endblock %}

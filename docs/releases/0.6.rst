@@ -10,13 +10,40 @@ Wagtail 0.6 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Django 1.7 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail can now be used with Django 1.7.
+
+
 Minor features
 ~~~~~~~~~~~~~~
+ * A new template tag has been added for reversing URLs inside routable pages. See :ref:`routablepageurl_template_tag`.
+ * RoutablePage can now be used as a mixin. See :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin`.
+ * MenuItems can now have bundled JavaScript
+ * Added a new hook for registering admin menu items. See :ref:`register_admin_menu_item`
+
 
 Bug fixes
 ~~~~~~~~~
 
  * Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/'.
+ * Search results in the page chooser now respect the page_type parameter on PageChooserPanel.
+ * Rendition filenames are now prevented from going over 60 chars, even with a large focal_point_key.
+ * Child relations that are defined on a model's superclass (such as the base Page model) are now picked up correctly by the page editing form, page copy operations and the replace_text management command.
+
 
 Upgrade considerations
 ======================
+
+All features deprecated in 0.4 have been removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+See: :ref:`04_deprecated_features`
+
+
+Deprecated features
+===================
+
+ * The ``wagtail.wagtailsearch.indexed`` module has been renamed to ``wagtail.wagtailsearch.index``
+ 

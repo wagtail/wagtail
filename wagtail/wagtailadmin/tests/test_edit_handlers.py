@@ -43,9 +43,6 @@ class TestGetFormForModel(TestCase):
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
-    class FakePage(Page):
-        pass
-
     def test_can_extract_panels(self):
         mock = MagicMock()
         mock.panels = 'foo'
@@ -58,7 +55,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
             self.assertNotEqual(panel.field_name, 'hostname')
 
     def test_extracted_objects_are_panels(self):
-        panels = extract_panel_definitions_from_model_class(self.FakePage)
+        panels = extract_panel_definitions_from_model_class(Page)
         for panel in panels:
             self.assertTrue(issubclass(panel, BaseFieldPanel))
 
@@ -346,11 +343,27 @@ class TestInlinePanel(TestCase):
             fake_page = self.FakePage()
             self.barbecue = fake_page
 
+    class FakePanel(object):
+        name = 'mock panel'
+
+        class FakeChild(object):
+            def render_js(self):
+                return "rendered js"
+
+            def rendered_fields(self):
+                return ["rendered fields"]
+
+        def init(*args, **kwargs):
+            pass
+
+        def __call__(self, *args, **kwargs):
+            fake_child = self.FakeChild()
+            return fake_child
+
     def setUp(self):
         self.fake_field = self.FakeField()
         self.fake_instance = self.FakeInstance()
-        self.mock_panel = MagicMock()
-        self.mock_panel.name = 'mock panel'
+        self.mock_panel = self.FakePanel()
         self.mock_model = MagicMock()
         self.mock_model.formset.related.model.panels = [self.mock_panel]
 

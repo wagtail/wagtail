@@ -37,7 +37,7 @@ RoutablePage
 
 A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
 
-:ref:`routable_page`
+:ref:`routable_page_mixin`
 
 
 Usage stats for images, documents and snippets

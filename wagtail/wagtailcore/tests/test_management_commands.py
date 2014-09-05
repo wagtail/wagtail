@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.tests.models import SimplePage
+from wagtail.tests.models import SimplePage, EventPage
 
 
 class TestFixTreeCommand(TestCase):
@@ -82,13 +82,21 @@ class TestReplaceTextCommand(TestCase):
 
     def test_replace_text(self):
         # Check that the christmas page is definitely about christmas
-        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Christmas")
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(christmas_page.title, "Christmas")
+        self.assertEqual(christmas_page.speakers.first().last_name, "Christmas")
+        self.assertEqual(christmas_page.advert_placements.first().colour, "greener than a Christmas tree")
 
         # Make it about easter
         self.run_command("Christmas", "Easter")
 
-        # Check that its now about easter
-        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Easter")
+        # Check that it's now about easter
+        easter_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(easter_page.title, "Easter")
+
+        # Check that we also update the child objects (including advert_placements, which is defined on the superclass)
+        self.assertEqual(easter_page.speakers.first().last_name, "Easter")
+        self.assertEqual(easter_page.advert_placements.first().colour, "greener than a Easter tree")
 
 
 class TestPublishScheduledPagesCommand(TestCase):

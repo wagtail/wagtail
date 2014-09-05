@@ -5,7 +5,7 @@ from six import string_types
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
-from modelcluster.models import ClusterableModel
+from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
@@ -26,13 +26,11 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
@@ -149,31 +147,6 @@ def get_page_types():
     return _PAGE_CONTENT_TYPES
 
 
-def get_leaf_page_content_type_ids():
-    warnings.warn("""
-        get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if not getattr(content_type.model_class(), 'subpage_types', None)
-    ]
-
-def get_navigable_page_content_type_ids():
-    warnings.warn("""
-        get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if getattr(content_type.model_class(), 'subpage_types', None)
-    ]
-
-
 class PageManager(models.Manager):
     def get_queryset(self):
         return PageQuerySet(self.model).order_by('path')
@@ -274,7 +247,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -294,13 +267,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=100),
-        indexed.FilterField('id'),
-        indexed.FilterField('live'),
-        indexed.FilterField('owner'),
-        indexed.FilterField('content_type'),
-        indexed.FilterField('path'),
-        indexed.FilterField('depth'),
+        index.SearchField('title', partial_match=True, boost=100),
+        index.FilterField('id'),
+        index.FilterField('live'),
+        index.FilterField('owner'),
+        index.FilterField('content_type'),
+        index.FilterField('path'),
+        index.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -476,14 +449,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_other_siblings(self):
-        warnings.warn(
-            "The 'Page.get_other_siblings()' method has been replaced. "
-            "Use 'Page.get_siblings(inclusive=False)' instead.", RemovedInWagtail06Warning)
-
-        # get sibling pages excluding self
-        return self.get_siblings().exclude(id=self.id)
-
     @property
     def full_url(self):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
@@ -653,7 +618,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
         # Copy child objects
         specific_self = self.specific
-        for child_relation in getattr(specific_self._meta, 'child_relations', []):
+        for child_relation in get_all_child_relations(specific_self):
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
 
@@ -728,15 +693,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        modes = self.get_page_modes()
-        if modes is not Page.DEFAULT_PREVIEW_MODES:
-            # User has overriden get_page_modes instead of using preview_modes
-            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", RemovedInWagtail06Warning)
-
-        return modes
-
-    def get_page_modes(self):
-        # Deprecated accessor for the preview_modes property
         return Page.DEFAULT_PREVIEW_MODES
 
     @property
@@ -769,12 +725,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         the wagtail user bar to be displayed. This request will always be a GET.
         """
         return self.serve(request)
-
-    def show_as_mode(self, mode_name):
-        # Deprecated API for rendering previews. If this returns something other than None,
-        # we know that a subclass of Page has overridden this, and we should try to work with
-        # that response if possible.
-        return None
 
     def get_cached_paths(self):
         """

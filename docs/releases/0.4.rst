@@ -158,6 +158,8 @@ The scheduled publishing mechanism adds an ``expired`` field to wagtailcore.Page
   'expired': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
 
 
+.. _04_deprecated_features:
+
 Deprecated features
 ===================
 

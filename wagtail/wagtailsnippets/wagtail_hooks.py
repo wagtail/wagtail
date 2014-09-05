@@ -18,12 +18,13 @@ def register_admin_urls():
     ]
 
 
-@hooks.register('construct_main_menu')
-def construct_main_menu(request, menu_items):
-    if user_can_edit_snippets(request.user):
-        menu_items.append(
-            MenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
-        )
+class SnippetsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return user_can_edit_snippets(request.user)
+
+@hooks.register('register_admin_menu_item')
+def register_snippets_menu_item():
+    return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
 
 
 @hooks.register('insert_editor_js')

@@ -195,7 +195,7 @@ class TestUsageCount(TestCase):
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(id=1)
-        self.assertEqual(advert.get_usage().count(), 1)
+        self.assertEqual(advert.get_usage().count(), 2)
 
 
 class TestUsedBy(TestCase):
