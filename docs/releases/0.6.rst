@@ -33,6 +33,11 @@ Bug fixes
 Upgrade considerations
 ======================
 
+All features deprecated in 0.4 have been removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+See: :ref:`04_deprecated_features`
+
 
 Deprecated features
 ===================
