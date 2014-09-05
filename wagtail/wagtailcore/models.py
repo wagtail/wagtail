@@ -5,7 +5,7 @@ from six import string_types
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
-from modelcluster.models import ClusterableModel
+from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
@@ -618,7 +618,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         # Copy child objects
         specific_self = self.specific
-        for child_relation in getattr(specific_self._meta, 'child_relations', []):
+        for child_relation in get_all_child_relations(specific_self):
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
 

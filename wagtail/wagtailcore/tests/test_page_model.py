@@ -400,6 +400,11 @@ class TestCopyPage(TestCase):
         # Check that the speakers weren't removed from old page
         self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
 
+        # Check that advert placements were also copied (there's a gotcha here, since the advert_placements
+        # relation is defined on Page, not EventPage)
+        self.assertEqual(new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied")
+        self.assertEqual(christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass were removed from the original page")
+
     def test_copy_page_copies_child_objects_with_nonspecific_class(self):
         # Get chrismas page as Page instead of EventPage
         christmas_event = Page.objects.get(url_path='/home/events/christmas/')
