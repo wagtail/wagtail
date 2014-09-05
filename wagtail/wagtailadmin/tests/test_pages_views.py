@@ -1738,6 +1738,7 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
             'advert_placements-INITIAL_FORMS': '0',
             'advert_placements-MAX_NUM_FORMS': '1000',
             'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': 'yellow',
             'advert_placements-0-id': '',
         }
         response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'standardindex', self.root_page.id)), post_data)
@@ -1769,8 +1770,10 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
             'advert_placements-INITIAL_FORMS': '1',
             'advert_placements-MAX_NUM_FORMS': '1000',
             'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': 'yellow',
             'advert_placements-0-id': self.index_page.advert_placements.first().id,
             'advert_placements-1-advert': '1',
+            'advert_placements-1-colour': 'purple',
             'advert_placements-1-id': '',
             'action-publish': "Publish",
         }
