@@ -566,6 +566,15 @@
     "pk": 1,
     "model": "tests.AdvertPlacement",
     "fields": {
+        "page": 2,
+        "advert": 1,
+        "colour": "yellow"
+        }
+},
+{
+    "pk": 2,
+    "model": "tests.AdvertPlacement",
+    "fields": {
         "page": 4,
         "advert": 1,
         "colour": "greener than a Christmas tree"
