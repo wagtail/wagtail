@@ -90,8 +90,8 @@
     "model": "tests.eventpagespeaker",
     "fields": {
         "page": 4,
-        "first_name": "Santa",
-        "last_name": "Claus",
+        "first_name": "Father",
+        "last_name": "Christmas",
         "sort_order": 0
     }
 },
@@ -567,7 +567,8 @@
     "model": "tests.AdvertPlacement",
     "fields": {
         "page": 4,
-        "advert": 1
+        "advert": 1,
+        "colour": "greener than a Christmas tree"
         }
 },
 {

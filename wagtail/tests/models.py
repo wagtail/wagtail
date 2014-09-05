@@ -333,6 +333,7 @@ FormPage.content_panels = [
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
     advert = models.ForeignKey('tests.Advert', related_name='+')
+    colour = models.CharField(max_length=255)
 
 @python_2_unicode_compatible
 class Advert(models.Model):
