@@ -5,6 +5,7 @@ from six import BytesIO
 
 from taggit.managers import TaggableManager
 
+import django
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.db import models
@@ -213,7 +214,9 @@ class AbstractImage(models.Model, TagSearchable):
 
 
 class Image(AbstractImage):
-    pass
+    if not django.VERSION < (1, 7):
+        class Meta(AbstractImage.Meta):
+            swappable = 'WAGTAILIMAGES_IMAGE_MODEL'
 
 
 # Do smartcropping calculations when user saves an image without a focal point
@@ -369,7 +372,7 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey('Image', related_name='renditions')
+    image = models.ForeignKey(getattr(settings, "WAGTAILIMAGES_IMAGE_MODEL", Image), related_name='renditions')
 
     class Meta:
         unique_together = (
