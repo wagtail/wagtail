@@ -8,12 +8,14 @@ import taggit.managers
 from django.conf import settings
 import wagtail.wagtailadmin.taggable
 
+WAGTAILIMAGES_IMAGE_MODEL = getattr(settings, "WAGTAILIMAGES_IMAGE_MODEL", 'wagtailimages.Image')
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('taggit', '__latest__'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(WAGTAILIMAGES_IMAGE_MODEL),
     ]
 
     operations = [
@@ -57,7 +59,7 @@ class Migration(migrations.Migration):
                 ('height', models.IntegerField(editable=False)),
                 ('focal_point_key', models.CharField(editable=False, max_length=255, null=True)),
                 ('filter', models.ForeignKey(related_name='+', to='wagtailimages.Filter')),
-                ('image', models.ForeignKey(related_name='renditions', to='wagtailimages.Image')),
+                ('image', models.ForeignKey(related_name='renditions', to=WAGTAILIMAGES_IMAGE_MODEL)),
             ],
             options={
             },
