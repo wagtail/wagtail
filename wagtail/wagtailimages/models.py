@@ -372,6 +372,10 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
+    if not django.VERSION < (1, 7):
+        class Meta(AbstractImage.Meta):
+            swappable = 'WAGTAILIMAGES_RENDITION_MODEL'
+    
     image = models.ForeignKey(getattr(settings, "WAGTAILIMAGES_IMAGE_MODEL", Image), related_name='renditions')
 
     class Meta:
