@@ -31,6 +31,7 @@ Contributors
 * Robert Clark
 * Tim Heap
 * Nathan Brizendine
+* thenewguy
 
 Translators
 ===========
