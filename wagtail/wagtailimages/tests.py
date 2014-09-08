@@ -1037,3 +1037,53 @@ class TestIssue573(TestCase):
         # This would crash if the bug is present
         image.get_rendition('fill-800x600')
 
+
+class TestFocalPointChooserView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        This tests that the view responds correctly for a user with edit permissions on this image
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_focal_point_chooser', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/focal_point_chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/focal_point_chooser/chooser.js')
+
+    def test_get_bad_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attempts to access it
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get
+        response = self.client.get(reverse('wagtailimages_focal_point_chooser', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_bad_image(self):
+        """
+        This tests that the view gives a 404 if the image doesn't exist
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_focal_point_chooser', args=(9999, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
