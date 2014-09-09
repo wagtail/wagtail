@@ -157,8 +157,6 @@ class BaseImageBackend(object):
         else:
             crop_closeness = 0
 
-        print crop_closeness
-
         if focal_point is not None and crop_closeness > 0:
             # Get focal point as a rect
             left = focal_point.x - focal_point.width / 2
