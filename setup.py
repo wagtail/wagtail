@@ -2,6 +2,8 @@
 
 import sys
 
+from wagtail.wagtailcore import __version__
+
 
 try:
     from setuptools import setup, find_packages
@@ -47,7 +49,7 @@ if not PY3:
 
 setup(
     name='wagtail',
-    version='0.5',
+    version=__version__,
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
