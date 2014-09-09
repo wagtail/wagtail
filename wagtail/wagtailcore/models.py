@@ -13,7 +13,7 @@ from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.handlers.base import BaseHandler
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -468,8 +468,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         root_paths = Site.get_site_root_paths()
         for (id, root_path, root_url) in Site.get_site_root_paths():
-            if self.url_path.startswith(root_path):
-                return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+            try:
+                if self.url_path.startswith(root_path):
+                    return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+            except NoReverseMatch:
+                pass
+        return None
 
     def relative_url(self, current_site):
         """
