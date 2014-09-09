@@ -279,6 +279,7 @@ class Filter(models.Model):
         # 'original'
         # 'width-200'
         # 'max-320x200'
+        # 'fill-200x200-c50'
 
         if self.spec == 'original':
             return Filter.OPERATION_NAMES['original'], None
