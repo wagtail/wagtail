@@ -287,7 +287,7 @@ class Filter(models.Model):
         if match:
             return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
 
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
+        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
         if match:
             width = int(match.group(2))
             height = int(match.group(3))
@@ -298,7 +298,7 @@ class Filter(models.Model):
         if match:
             width = int(match.group(2))
             height = int(match.group(3))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height, None)
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
 
         # Spec is not one of our recognised patterns
         raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
