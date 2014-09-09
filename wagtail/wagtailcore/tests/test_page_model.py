@@ -123,6 +123,14 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.url, '/events/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), '/events/christmas/')
 
+    def test_page_with_no_url(self):
+        root = Page.objects.get(url_path='/')
+        default_site = Site.objects.get(is_default_site=True)
+
+        self.assertEqual(root.full_url, None)
+        self.assertEqual(root.url, None)
+        self.assertEqual(root.relative_url(default_site), None)
+
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
