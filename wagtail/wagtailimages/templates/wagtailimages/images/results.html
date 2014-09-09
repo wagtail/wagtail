@@ -17,7 +17,7 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
-                    <div class="image">{% image image fill-165x165-c50 %}</div>
+                    <div class="image">{% image image max-165x165 %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
