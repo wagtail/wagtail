@@ -1,6 +1,9 @@
+from __future__ import division
+
 from django.conf import settings
 
 from wagtail.wagtailimages.utils import crop
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 class BaseImageBackend(object):
@@ -68,9 +71,9 @@ class BaseImageBackend(object):
             return image
 
         # scale factor if we were to downsize the image to fit the target width
-        horz_scale = float(target_width) / original_width
+        horz_scale = target_width / original_width
         # scale factor if we were to downsize the image to fit the target height
-        vert_scale = float(target_height) / original_height
+        vert_scale = target_height / original_height
 
         # choose whichever of these gives a smaller image
         if horz_scale < vert_scale:
@@ -92,9 +95,9 @@ class BaseImageBackend(object):
             return image
 
         # scale factor if we were to downsize the image to fit the target width
-        horz_scale = float(target_width) / original_width
+        horz_scale = target_width / original_width
         # scale factor if we were to downsize the image to fit the target height
-        vert_scale = float(target_height) / original_height
+        vert_scale = target_height / original_height
 
         # choose whichever of these gives a larger image
         if horz_scale > vert_scale:
@@ -114,7 +117,7 @@ class BaseImageBackend(object):
         if original_width <= target_width:
             return image
 
-        scale = float(target_width) / original_width
+        scale = target_width / original_width
 
         final_size = (target_width, int(original_height * scale))
 
@@ -130,20 +133,57 @@ class BaseImageBackend(object):
         if original_height <= target_height:
             return image
 
-        scale = float(target_height) / original_height
+        scale = target_height / original_height
 
         final_size = (int(original_width * scale), target_height)
 
         return self.resize(image, final_size)
 
-    def resize_to_fill(self, image, size, focal_point=None):
+    def resize_to_fill(self, image, arg, focal_point=None):
         """
         Resize down and crop image to fill the given dimensions. Most suitable for thumbnails.
         (The final image will match the requested size, unless one or the other dimension is
         already smaller than the target size)
         """
-        if focal_point is not None:
-            return self.crop_to_point(image, size, focal_point)
+        size = arg[:2]
+
+        # Get crop closeness if it's set
+        if len(arg) > 2 and arg[2] is not None:
+            crop_closeness = arg[2] / 100
+
+            # Clamp it
+            if crop_closeness > 1:
+                crop_closeness = 1
+        else:
+            crop_closeness = 0
+
+        print crop_closeness
+
+        if focal_point is not None and crop_closeness > 0:
+            # Get focal point as a rect
+            left = focal_point.x - focal_point.width / 2
+            top = focal_point.y - focal_point.height / 2
+            right = focal_point.x + focal_point.width / 2
+            bottom = focal_point.y + focal_point.height / 2
+
+            # Interpolate focal point rect with the images original size by crop closeness
+            # When crop_closeness = 0: new FP = image size
+            # When crop_closeness = 1: new FP = original FP size
+            (original_width, original_height) = image.size
+            left = left * crop_closeness
+            top = top * crop_closeness
+            right = (right - original_width) * crop_closeness + original_width
+            bottom = (bottom - original_height) * crop_closeness + original_height
+
+            # Create new focal point
+            new_x = (left + right) / 2
+            new_y = (top + bottom) / 2
+            new_width = right - left
+            new_height = bottom - top
+            new_focal_point = FocalPoint(new_x, new_y, width=new_width, height=new_height)
+
+            # Crop
+            return self.crop_to_point(image, size, new_focal_point)
         else:
             resized_image = self.resize_to_min(image, size)
             return self.crop_to_centre(resized_image, size)
