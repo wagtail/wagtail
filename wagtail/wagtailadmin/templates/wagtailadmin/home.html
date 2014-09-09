@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load gravatar compress %}
+{% load gravatar compress wagtailcore_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Dashboard" %}{% endblock %}
 {% block bodyclass %}homepage{% endblock %}
@@ -21,6 +21,9 @@
             <div class="col10">
                 <h1>{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}</h1> 
                 <h2>{{ user.get_full_name|default:user.username }}</h2>
+            </div>
+            <div class="col1">
+                Wagtail Version: {% wagtail_version %}
             </div>
         </div>
     </header>
