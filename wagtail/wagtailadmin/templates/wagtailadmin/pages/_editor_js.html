@@ -32,11 +32,3 @@
     Additional js from widgets media. Allows for custom widgets in admin panel.
 {% endcomment %}
 {{ edit_handler.form.media.js }}
-
-<script>
-    (function() {
-        function fixPrefix(str) {return str;}
-
-        {{ edit_handler.render_js }}
-    })();
-</script>

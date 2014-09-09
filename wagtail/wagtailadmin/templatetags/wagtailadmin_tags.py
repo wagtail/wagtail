@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import re
+
 from django.conf import settings
 from django import template
 
@@ -120,3 +122,25 @@ def hook_output(hook_name):
 @register.assignment_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
+
+
+class EscapeScriptNode(template.Node):
+    TAG_NAME = 'escapescript'
+    SCRIPT_RE = re.compile(r'<(-*)/script>')
+
+    def __init__(self, nodelist):
+        super(EscapeScriptNode, self).__init__()
+        self.nodelist = nodelist
+
+    def render(self, context):
+        out = self.nodelist.render(context)
+        escaped_out = self.SCRIPT_RE.sub(r'<-\1/script>', out)
+        return escaped_out
+
+    @classmethod
+    def handle(cls, parser, token):
+        nodelist = parser.parse(('end' + EscapeScriptNode.TAG_NAME,))
+        parser.delete_first_token()
+        return cls(nodelist)
+
+register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)

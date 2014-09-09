@@ -17,6 +17,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 
@@ -463,3 +464,15 @@ class TaggedPageTag(TaggedItemBase):
 
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
+
+
+class PageChooserModel(models.Model):
+    page = models.ForeignKey('wagtailcore.Page', help_text='help text')
+
+
+class SnippetChooserModel(models.Model):
+    advert = models.ForeignKey(Advert, help_text='help text')
+
+    panels = [
+        SnippetChooserPanel('advert', Advert),
+    ]

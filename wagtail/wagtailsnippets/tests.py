@@ -4,13 +4,12 @@ from django.db import models
 
 from wagtail.tests.utils import WagtailTestUtils
 from django.test.utils import override_settings
-from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
+from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
     get_snippet_edit_handler
 )
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailcore.models import Page
 
 
@@ -155,26 +154,30 @@ class TestSnippetChooserPanel(TestCase):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
     def setUp(self):
-        content_type = Advert
-        test_snippet = Advert.objects.get(id=1)
+        model = SnippetChooserModel
+        self.advert_text = 'Test advert text'
+        test_snippet = model.objects.create(
+            advert=Advert.objects.create(text=self.advert_text))
 
-        edit_handler_class = get_snippet_edit_handler(Advert)
-        form_class = edit_handler_class.get_form_class(Advert)
+        edit_handler_class = get_snippet_edit_handler(model)
+        form_class = edit_handler_class.get_form_class(model)
         form = form_class(instance=test_snippet)
+        edit_handler = edit_handler_class(instance=test_snippet, form=form)
 
-        self.snippet_chooser_panel_class = SnippetChooserPanel('text', content_type)
-        self.snippet_chooser_panel = self.snippet_chooser_panel_class(instance=test_snippet,
-                                                                      form=form)
+        self.snippet_chooser_panel = [
+            panel for panel in edit_handler.children
+            if getattr(panel, 'field_name', None) == 'advert'][0]
 
     def test_create_snippet_chooser_panel_class(self):
-        self.assertEqual(self.snippet_chooser_panel_class.__name__, '_SnippetChooserPanel')
+        self.assertEqual(type(self.snippet_chooser_panel).__name__,
+                         '_SnippetChooserPanel')
 
     def test_render_as_field(self):
-        self.assertTrue('test_advert' in self.snippet_chooser_panel.render_as_field())
+        self.assertTrue(self.advert_text in self.snippet_chooser_panel.render_as_field())
 
     def test_render_js(self):
-        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'tests/advert');"
-                        in self.snippet_chooser_panel.render_js())
+        self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
+                      self.snippet_chooser_panel.render_as_field())
 
 
 class TestSnippetRegistering(TestCase):
