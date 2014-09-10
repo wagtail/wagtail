@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
 from wagtail.tests.models import SimplePage
 
 
@@ -18,6 +19,19 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             '<a href="/events/">Back to events index</a>')
+
+
+class TestRichtextTag(TestCase):
+
+    def test_typeerror(self):
+        """`richtext` fails when it's called with `value` being not a string
+        or buffer.
+        """
+        value = None
+
+        result = richtext(value)
+
+        self.assertEqual(result, '')
 
 
 class TestIssue7(TestCase):
