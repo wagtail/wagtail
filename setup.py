@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys
+import sys, os
 
 
 try:
@@ -9,15 +9,18 @@ except ImportError:
     from distutils.core import setup
 
 
-# Hack to prevent stupid TypeError: 'NoneType' object is not callable error on
-# exit of python setup.py test # in multiprocessing/util.py _exit_function when
-# running python setup.py test (see
-# http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
+# Hack to prevent "TypeError: 'NoneType' object is not callable" error
+# in multiprocessing/util.py _exit_function when setup.py exits
+# (see http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
 try:
     import multiprocessing
 except ImportError:
     pass
 
+
+# Disable parallel builds, because Pillow 2.5.3 does some crazy monkeypatching of
+# the build process on multicore systems, which breaks installation of libsass
+os.environ['MAX_CONCURRENCY'] = '1'
 
 PY3 = sys.version_info[0] == 3
 
