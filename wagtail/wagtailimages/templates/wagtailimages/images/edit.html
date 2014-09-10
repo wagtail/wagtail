@@ -15,7 +15,6 @@
 
     <!-- Focal point chooser -->
     <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.Jcrop.min.js"></script>
-    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
     <script src="{{ STATIC_URL }}wagtailimages/js/focal-point-chooser.js"></script>
 {% endblock %}
 
@@ -33,10 +32,6 @@
 
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
-                        {% elif field.name == 'focal_point_x' %}
-                            {% include "wagtailimages/images/_focal_point_chooser.html" %}
-                        {% elif field.name == 'focal_point_y' or field.name == 'focal_point_width' or field.name == 'focal_point_height' %}
-                            {# These fields are included in the focal point chooser above #}
                         {% elif field.is_hidden %}
                             {{ field }}
                         {% else %}
@@ -49,7 +44,7 @@
             </form>
         </div>
         <div class="col5">
-            {% image image max-800x600 %}
+            {% image image max-800x600 class="focal-point-chooser" %}
 
             {% if url_generator_enabled %}
                 <a href="{% url 'wagtailimages_url_generator' image.id %}" class="button bicolor icon icon-link">URL Generator</a>

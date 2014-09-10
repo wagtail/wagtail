@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from wagtail.wagtailimages.views import images, chooser, multiple, focal_point_chooser
+from wagtail.wagtailimages.views import images, chooser, multiple
 
 
 urlpatterns = [
@@ -20,6 +20,4 @@ urlpatterns = [
     url(r'^chooser/(\d+)/$', chooser.image_chosen, name='wagtailimages_image_chosen'),
     url(r'^chooser/upload/$', chooser.chooser_upload, name='wagtailimages_chooser_upload'),
     url(r'^chooser/(\d+)/select_format/$', chooser.chooser_select_format, name='wagtailimages_chooser_select_format'),
-
-    url(r'focal_point_chooser/(\d+)/$', focal_point_chooser.chooser, name='wagtailimages_focal_point_chooser')
 ]

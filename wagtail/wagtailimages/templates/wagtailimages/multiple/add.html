@@ -7,9 +7,6 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/add-multiple.scss" type="text/x-scss" />
     {% endcompress %}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
-
-    <!-- Focal point chooser -->
-    <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/vendor/jquery.Jcrop.min.css" type="text/css">
 {% endblock %}
 
 {% block content %}
@@ -66,11 +63,6 @@
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-image.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
 
-        <!-- Focal point chooser -->
-        <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.Jcrop.min.js"></script>
-        <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
-        <script src="{{ STATIC_URL }}wagtailimages/js/focal-point-chooser.js"></script>
-        
         <!-- Main script -->
         <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
     {% endcompress %}
