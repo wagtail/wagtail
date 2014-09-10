@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags compress %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
@@ -8,6 +8,9 @@
 
     <!-- Focal point chooser -->
     <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/vendor/jquery.Jcrop.min.css" type="text/css">
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailimages/scss/focal-point-chooser.scss" type="text/x-scss">
+    {% endcompress %}
 {% endblock %}
 
 {% block extra_js %}
@@ -44,7 +47,15 @@
             </form>
         </div>
         <div class="col5">
-            {% image image max-800x600 class="focal-point-chooser" %}
+            <div class="focal-point-chooser"
+                data-focal-point-x="{{ image.focal_point_x }}"
+                data-focal-point-y="{{ image.focal_point_y }}"
+                data-focal-point-width="{{ image.focal_point_width }}"
+                data-focal-point-height="{{ image.focal_point_height }}">
+
+                {% image image max-800x600 data-original-width=image.width data-original-height=image.height %}
+                <div class="current-focal-point-indicator{% if not image.focal_point %} hidden{% endif %}"></div>
+            </div>
 
             {% if url_generator_enabled %}
                 <a href="{% url 'wagtailimages_url_generator' image.id %}" class="button bicolor icon icon-link">URL Generator</a>

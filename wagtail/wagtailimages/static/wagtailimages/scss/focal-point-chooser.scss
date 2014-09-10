@@ -1,0 +1,13 @@
+div.focal-point-chooser {
+    position: relative;
+}
+
+div.current-focal-point-indicator {
+    position: absolute;
+    border: 1px solid #FFF;
+    opacity: 0.5;
+
+    .hidden {
+        display: none;
+    }
+}
