@@ -1,7 +1,7 @@
 *.pyc
 .DS_Store
 /.venv/
-/*/*/settings/local.py
+/*/settings/local.py
 /static/
 /media/
 /.vagrant/

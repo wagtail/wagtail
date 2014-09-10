@@ -8,21 +8,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-from os.path import abspath, basename, dirname, join, normpath
-from sys import path
+from os.path import abspath, dirname, join
 
 # Absolute filesystem path to the Django project directory:
-DJANGO_ROOT = dirname(dirname(dirname(abspath(__file__))))
-
-# Absolute filesystem path to the top-level project folder:
-PROJECT_ROOT = dirname(DJANGO_ROOT)
-
-# Site name:
-SITE_NAME = basename(DJANGO_ROOT)
-
-# Add our project to our pythonpath, this way we don't need to type our project
-# name in our dotted import paths:
-path.append(DJANGO_ROOT)
+PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -80,8 +69,8 @@ MIDDLEWARE_CLASSES = (
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
-ROOT_URLCONF = SITE_NAME + '.urls'
-WSGI_APPLICATION = SITE_NAME + '.wsgi.application'
+ROOT_URLCONF = '{{ project_name }}.urls'
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 
 # Database
@@ -131,10 +120,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-STATICFILES_DIRS = (
-    join(DJANGO_ROOT, 'static'),
-)
-
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
@@ -153,10 +138,6 @@ from django.conf import global_settings
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
-)
-
-TEMPLATE_DIRS = (
-    normpath(join(DJANGO_ROOT, 'templates')),
 )
 
 
