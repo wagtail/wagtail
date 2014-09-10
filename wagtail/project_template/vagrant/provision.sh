@@ -9,10 +9,6 @@ PYTHON=$VIRTUALENV_DIR/bin/python
 PIP=$VIRTUALENV_DIR/bin/pip
 
 
-# Create database
-createdb -Upostgres $PROJECT_NAME
-
-
 # Virtualenv setup for project
 su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR && \
     echo $PROJECT_DIR > $VIRTUALENV_DIR/.project && \
