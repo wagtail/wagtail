@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.rich_text import expand_db_html
+from wagtail.wagtailcore import __version__
 
 register = template.Library()
 
@@ -25,6 +26,11 @@ def slugurl(context, slug):
         return page.relative_url(context['request'].site)
     else:
         return None
+
+
+@register.simple_tag
+def wagtail_version():
+    return __version__
 
 
 @register.filter
