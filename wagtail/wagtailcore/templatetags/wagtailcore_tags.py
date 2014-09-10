@@ -35,4 +35,6 @@ def wagtail_version():
 
 @register.filter
 def richtext(value):
-    return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+    if value:
+        return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+    return ''

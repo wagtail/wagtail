@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.cache import cache
 
 from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
 from wagtail.tests.models import SimplePage
 
 
@@ -142,3 +143,16 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check url
         self.assertEqual(homepage.url, '/')
+
+
+class TestRichtextTag(TestCase):
+
+    def test_typeerror(self):
+        """`richtext` fails when it's called with `value` being not a string
+        or buffer.
+        """
+        value = None
+
+        result = richtext(value)
+
+        self.assertEqual(result, '')
