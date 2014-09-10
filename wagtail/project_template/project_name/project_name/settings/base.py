@@ -147,14 +147,6 @@ COMPRESS_PRECOMPILERS = (
 )
 
 
-# Taggit 0.12 has moved its south migrations to separate folder
-# http://django-taggit.readthedocs.org/en/latest/
-
-SOUTH_MIGRATION_MODULES = {
-    'taggit': 'taggit.south_migrations',
-}
-
-
 # Template configuration
 
 from django.conf import global_settings
