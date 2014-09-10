@@ -8,6 +8,7 @@ Changelog
  * Added RoutablePageMixin (Tim Heap)
  * MenuItems can now have bundled JavaScript
  * Added a new hook for registering admin menu items
+ * Added version indicator to the admin interface
  * Renamed wagtailsearch.indexed to wagtailsearch.index
  * Fix: Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/' (Nathan Brizendine)
  * Fix: Search results in the page chooser now respect the page_type parameter on PageChooserPanel

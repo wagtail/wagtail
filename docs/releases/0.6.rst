@@ -22,6 +22,7 @@ Minor features
  * RoutablePage can now be used as a mixin. See :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin`.
  * MenuItems can now have bundled JavaScript
  * Added a new hook for registering admin menu items. See :ref:`register_admin_menu_item`
+ * Added a version indicator into the admin interface (hover over the wagtail to see it)
 
 
 Bug fixes
