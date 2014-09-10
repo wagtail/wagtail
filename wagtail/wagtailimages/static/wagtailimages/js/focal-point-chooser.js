@@ -36,8 +36,13 @@ $(function() {
         },
     });
 
-    $indicator.css('left', ((focalPointXOriginal - focalPointWidthOriginal / 2) * 100 / originalWidth) + '%');
-    $indicator.css('top', ((focalPointYOriginal - focalPointHeightOriginal / 2) * 100 / originalHeight) + '%');
-    $indicator.css('width', (focalPointWidthOriginal * 100 / originalWidth) + '%');
-    $indicator.css('height', (focalPointHeightOriginal * 100 / originalHeight) + '%');
+    var left = focalPointXOriginal - focalPointWidthOriginal / 2
+    var top = focalPointYOriginal - focalPointHeightOriginal / 2
+    var width = focalPointWidthOriginal;
+    var height = focalPointHeightOriginal;
+
+    $indicator.css('left', (left * 100 / originalWidth) + '%');
+    $indicator.css('top', (top * 100 / originalHeight) + '%');
+    $indicator.css('width', (width * 100 / originalWidth) + '%');
+    $indicator.css('height', (height * 100 / originalHeight) + '%');
 });
