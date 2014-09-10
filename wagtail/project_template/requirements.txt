@@ -3,11 +3,13 @@ Django>=1.6.2,<1.7
 South==1.0.0
 wagtail==0.5
 
-# Recommended components (require additional setup)
+# Recommended components (require additional setup):
 # psycopg2==2.5.2
 # elasticsearch==1.1.1
+
+# Recommended components to improve performance in production:
 # django-redis-cache==0.13.0
-django-celery==3.1.10
+# django-celery==3.1.10
 
 # Developer tools
 Fabric==1.9.0

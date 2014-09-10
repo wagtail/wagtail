@@ -160,32 +160,6 @@ TEMPLATE_DIRS = (
 )
 
 
-# Celery settings
-# http://celery.readthedocs.org/en/latest/configuration.html
-
-import djcelery
-
-djcelery.setup_loader()
-
-CELERY_SEND_TASK_ERROR_EMAILS = True
-BROKER_URL = 'redis://'
-
-
-# Use Redis as the cache backend for extra performance:
-# http://wagtail.readthedocs.org/en/latest/howto/performance.html#cache
-#
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'redis_cache.cache.RedisCache',
-#         'LOCATION': '127.0.0.1:6379',
-#         'KEY_PREFIX': '{{ project_name }}',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
-#         }
-#     }
-# }
-
-
 # Wagtail settings
 
 LOGIN_URL = 'wagtailadmin_login'
