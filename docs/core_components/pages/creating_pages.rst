@@ -104,6 +104,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. autoattribute:: url
 
     .. autoattribute:: full_url
+    
+    .. automethod:: get_verbose_name
 
     .. automethod:: relative_url
 
