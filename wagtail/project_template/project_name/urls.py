@@ -13,6 +13,12 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 admin.autodiscover()
 
+
+# Register search signal handlers
+from wagtail.wagtailsearch.signal_handlers import register_signal_handlers as wagtailsearch_register_signal_handlers
+wagtailsearch_register_signal_handlers()
+
+
 urlpatterns = patterns('',
     url(r'^django-admin/', include(admin.site.urls)),
 
