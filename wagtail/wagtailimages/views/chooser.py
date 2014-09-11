@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
@@ -121,6 +122,11 @@ def chooser_upload(request):
 
         if form.is_valid():
             form.save()
+
+            # Reindex the image to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(image)
+
             if request.GET.get('select_format'):
                 form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
                 return render_modal_workflow(
