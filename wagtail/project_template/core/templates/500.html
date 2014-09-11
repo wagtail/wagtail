@@ -1,9 +1,18 @@
-{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Internal server error</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <h1>Internal server error</h1>
 
-{% templatetag openblock %} block body_class {% templatetag closeblock %}template-500{% templatetag openblock %} endblock {% templatetag closeblock %}
-
-{% templatetag openblock %} block content {% templatetag closeblock %}
-    <h1>Internal server error</h1>
-
-    <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-{% templatetag openblock %} endblock {% templatetag closeblock %}
+        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
+    </body>
+</html>
