@@ -1,28 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2014-09-11 16:37+0100\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/language/mn/)\n"
+"Language-Team: Mongolian (http://www.transifex.com/projects/p/wagtail/"
+"language/mn/)\n"
+"Language: mn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: edit_handlers.py:627
+#: edit_handlers.py:631
 msgid "Scheduled publishing"
 msgstr ""
 
-#: edit_handlers.py:641
+#: edit_handlers.py:645
 msgid "Common page configuration"
 msgstr ""
 
@@ -98,7 +99,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: forms.py:124 views/pages.py:155 views/pages.py:272
+#: forms.py:124 views/pages.py:153 views/pages.py:270
 msgid "This slug is already in use"
 msgstr ""
 
@@ -113,6 +114,16 @@ msgstr ""
 
 #: forms.py:139
 msgid "This field is required."
+msgstr ""
+
+#: wagtail_hooks.py:15 templates/wagtailadmin/chooser/_search_results.html:12
+msgid "Explorer"
+msgstr ""
+
+#: wagtail_hooks.py:23 templates/wagtailadmin/chooser/_search_form.html:7
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:16
+msgid "Search"
 msgstr ""
 
 #: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
@@ -262,19 +273,16 @@ msgstr ""
 msgid "Email link"
 msgstr ""
 
-#: templates/wagtailadmin/chooser/_search_form.html:7
-#: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:16
-#: templatetags/wagtailadmin_tags.py:36
-msgid "Search"
+#: templates/wagtailadmin/chooser/_search_results.html:5
+#, python-format
+msgid ""
+"\n"
+"            Only pages of type \"%(type)s\" may be chosen for this field. "
+"Search results will exclude pages of other types.\n"
+"        "
 msgstr ""
 
-#: templates/wagtailadmin/chooser/_search_results.html:3
-#: templatetags/wagtailadmin_tags.py:35
-msgid "Explorer"
-msgstr ""
-
-#: templates/wagtailadmin/chooser/_search_results.html:8
+#: templates/wagtailadmin/chooser/_search_results.html:16
 #, python-format
 msgid ""
 "\n"
@@ -287,7 +295,11 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailadmin/chooser/browse.html:2
+#: templates/wagtailadmin/chooser/browse.html:3
+msgid "Choose"
+msgstr ""
+
+#: templates/wagtailadmin/chooser/browse.html:6
 #: templates/wagtailadmin/chooser/search.html:2
 #: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:13
 msgid "Choose a page"
@@ -532,14 +544,15 @@ msgid "You can edit the privacy settings on:"
 msgstr ""
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
-msgid "<b>Note:</b> privacy changes apply to all children of this page too."
+msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 
 #: templates/wagtailadmin/pages/_moderator_userbar.html:4
 #, python-format
 msgid ""
 "\n"
-"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
+"            Previewing '%(title)s', submitted by %(submitted_by)s on "
+"%(submitted_on)s.\n"
 "        "
 msgstr ""
 
@@ -587,7 +600,8 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more subpages.\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
 "                "
 msgstr[0] ""
 msgstr[1] ""
@@ -993,66 +1007,66 @@ msgstr ""
 msgid "Your preferences have been updated successfully!"
 msgstr ""
 
-#: views/pages.py:169 views/pages.py:286
+#: views/pages.py:167 views/pages.py:284
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: views/pages.py:179 views/pages.py:296
+#: views/pages.py:177 views/pages.py:294
 msgid "Expiry date/time must be in the future"
 msgstr ""
 
-#: views/pages.py:219 views/pages.py:351 views/pages.py:791
+#: views/pages.py:217 views/pages.py:349 views/pages.py:766
 msgid "Page '{0}' published."
 msgstr ""
 
-#: views/pages.py:221 views/pages.py:353
+#: views/pages.py:219 views/pages.py:351
 msgid "Page '{0}' submitted for moderation."
 msgstr ""
 
-#: views/pages.py:224
+#: views/pages.py:222
 msgid "Page '{0}' created."
 msgstr ""
 
-#: views/pages.py:233
+#: views/pages.py:231
 msgid "The page could not be created due to validation errors"
 msgstr ""
 
-#: views/pages.py:356
+#: views/pages.py:354
 msgid "Page '{0}' updated."
 msgstr ""
 
-#: views/pages.py:365
+#: views/pages.py:363
 msgid "The page could not be saved due to validation errors"
 msgstr ""
 
-#: views/pages.py:378
+#: views/pages.py:376
 msgid "This page is currently awaiting moderation"
 msgstr ""
 
-#: views/pages.py:409
+#: views/pages.py:407
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:575
+#: views/pages.py:550
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:627
+#: views/pages.py:602
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:709
+#: views/pages.py:684
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:711
+#: views/pages.py:686
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:785 views/pages.py:804 views/pages.py:824
+#: views/pages.py:760 views/pages.py:779 views/pages.py:799
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:810
+#: views/pages.py:785
 msgid "Page '{0}' rejected for publication."
 msgstr ""
