@@ -1,8 +1,6 @@
-.. _getting_started:
-
-===============
-Getting started
-===============
+============
+Installation
+============
 
 Before you start
 ================
