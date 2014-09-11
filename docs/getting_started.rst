@@ -111,7 +111,7 @@ To enable ElasticSearch for your project, uncomment the ``elasticsearch`` line f
 
 Image feature detection
 -----------------------
-Wagtail can use the OpenCV computer vision library to detect faces and other features in images, and use this information to select the most appropriate centre point when cropping the image. See :ref:`image_feature_detection` for details on setting this up.
+Wagtail can use the OpenCV computer vision library to detect faces and other features in images, and use this information to select the most appropriate centre point when cropping the image. OpenCV is pre-installed as part of the Vagrant virtual machine image, and Vagrant users can enable this by setting ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` to True in ``myprojectname/settings/base.py``. For installation outside of Vagrant, see :ref:`image_feature_detection`.
 
 
 Alternative installation methods
