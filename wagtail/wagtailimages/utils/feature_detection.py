@@ -1,16 +1,23 @@
 import os
+from django.conf import settings
 
-try:
-    import cv
-
-    opencv_available = True
-except ImportError:
+# only try to import OpenCV if WAGTAILIMAGES_FEATURE_DETECTION_ENABLED is True -
+# avoids spurious "libdc1394 error: Failed to initialize libdc1394" errors on sites that
+# don't even use OpenCV
+if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
     try:
-        import cv2.cv as cv
+        import cv
 
         opencv_available = True
     except ImportError:
-        opencv_available = False
+        try:
+            import cv2.cv as cv
+
+            opencv_available = True
+        except ImportError:
+            opencv_available = False
+else:
+    opencv_available = False
 
 
 from wagtail.wagtailimages.utils.focal_point import FocalPoint, combine_focal_points

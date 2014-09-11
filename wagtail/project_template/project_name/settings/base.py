@@ -158,3 +158,7 @@ WAGTAIL_SITE_NAME = "{{ project_name }}"
 #         'INDEX': '{{ project_name }}',
 #     },
 # }
+
+
+# Whether to use face/feature detection to improve image cropping - requires OpenCV
+WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
