@@ -10,6 +10,13 @@ Wagtail 0.6 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Project template and start project command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now has a basic project template built in to make starting new projects much easier.
+
+To use it, install ``wagtail`` onto your machine and run ``wagtail start project_name``.
+
 Django 1.7 support
 ~~~~~~~~~~~~~~~~~~
 
