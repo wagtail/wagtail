@@ -30,6 +30,7 @@ Minor features
  * MenuItems can now have bundled JavaScript
  * Added the ``register_admin_menu_item`` hook for registering menu items at startup. See :ref:`admin_hooks`
  * Added a version indicator into the admin interface (hover over the wagtail to see it)
+ * Added Russian translation
 
 
 Bug fixes

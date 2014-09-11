@@ -48,5 +48,6 @@ Translators
 * Polish: Łukasz Bołdys
 * Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
+* Russian: ice9, HNKNTA
 * Spanish: Unai Zalakain, fooflare
 * Traditional Chinese (Taiwan): wdv4758h
