@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-08-03 01:53+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: \n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: pt_PT\n"
 
 #: models.py:21 templates/wagtaildocs/documents/list.html:11
 #: templates/wagtaildocs/documents/list.html:14
@@ -34,7 +34,7 @@ msgstr "Ficheiro"
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:26 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Documentos"
 
@@ -175,22 +175,22 @@ msgstr "Limpar escolha"
 msgid "Choose another document"
 msgstr "Escolher outro documento"
 
-#: views/documents.py:37 views/documents.py:46
+#: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Procurar documentos"
 
-#: views/documents.py:86
+#: views/documents.py:92
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
 
-#: views/documents.py:89 views/documents.py:118
+#: views/documents.py:95 views/documents.py:129
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser guardado devido a erros."
 
-#: views/documents.py:115
+#: views/documents.py:126
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' atualizado"
 
-#: views/documents.py:137
+#: views/documents.py:148
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."

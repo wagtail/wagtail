@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-02-28 16:07+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: wagtail_hooks.py:25 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:27 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr "片段"
 
