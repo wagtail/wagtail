@@ -6,3 +6,4 @@ Getting started
     :maxdepth: 2
 
     installation
+    creating_your_project
