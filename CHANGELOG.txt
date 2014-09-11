@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6 (xx.xx.20xx)
+0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
  * Added 'wagtail start' command and project template
  * Added Django 1.7 support
