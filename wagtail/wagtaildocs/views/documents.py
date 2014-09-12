@@ -8,6 +8,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
@@ -83,6 +84,11 @@ def add(request):
         form = DocumentForm(request.POST, request.FILES, instance=doc)
         if form.is_valid():
             form.save()
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
             messages.success(request, _("Document '{0}' added.").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
@@ -112,6 +118,11 @@ def edit(request, document_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
             doc = form.save()
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
             messages.success(request, _("Document '{0}' updated").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
