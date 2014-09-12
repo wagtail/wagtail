@@ -1,0 +1,22 @@
+@import "../../wagtailadmin/static/wagtailadmin/scss/variables.scss";
+@import "../../wagtailadmin/static/wagtailadmin/scss/mixins.scss";
+
+.focal-point-chooser {
+    position: relative;
+
+    .current-focal-point-indicator {
+        @include transition(opacity 0.2s ease);
+        @include box-shadow(1px 1px 10px 0px rgba(0,0,0,1));
+        position: absolute;
+        border: 1px solid $color-teal;
+        opacity: 0.5;
+
+        .hidden {
+            display: none;
+        }
+    }
+
+    &:hover .current-focal-point-indicator{
+        opacity:0;
+    }
+}
