@@ -1,19 +1,27 @@
 Changelog
 =========
 
-0.6 (xx.xx.20xx)
+0.7 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
+ * Added interface for choosing focal point on images
+
+0.6 (11.09.2014)
+~~~~~~~~~~~~~~~~
+ * Added 'wagtail start' command and project template
  * Added Django 1.7 support
  * Added {% routablepageurl %} template tag (Tim Heap)
  * Added RoutablePageMixin (Tim Heap)
  * MenuItems can now have bundled JavaScript
- * Added a new hook for registering admin menu items
+ * Added the register_admin_menu_item hook for registering menu items at startup
+ * Added version indicator to the admin interface
  * Renamed wagtailsearch.indexed to wagtailsearch.index
+ * Added Russian translation
  * Fix: Page URL generation now returns correct URLs for sites that have the main 'serve' view rooted somewhere other than '/' (Nathan Brizendine)
  * Fix: Search results in the page chooser now respect the page_type parameter on PageChooserPanel
  * Fix: Rendition filenames are now prevented from going over 60 chars, even with a large focal_point_key
  * Fix: Child relations that are defined on a model's superclass (such as the base Page model) are now picked up correctly by the page editing form, page copy operations and the replace_text management command
  * Fix: (For Django 1.7 support) Do not import South when using Django 1.7 (thenewguy)
+ * Fix: Tags on images and documents are now committed to the search index immediately on saving
 
 0.5 (01.08.2014)
 ~~~~~~~~~~~~~~~~

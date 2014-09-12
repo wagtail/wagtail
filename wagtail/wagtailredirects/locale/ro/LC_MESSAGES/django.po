@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-03-18 13:21+0000\n"
 "Last-Translator: zerolab\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
@@ -69,7 +69,7 @@ msgstr "Redirecționarea '{0}' a fost adăugată."
 msgid "The redirect could not be created due to errors."
 msgstr "Redirecționarea nu a fost creată din cauza erorilor."
 
-#: wagtail_hooks.py:23 templates/wagtailredirects/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
 #: templates/wagtailredirects/index.html:17
 msgid "Redirects"
 msgstr "Redirecționări"

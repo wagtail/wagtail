@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: models.py:34 templates/wagtailimages/images/usage.html:16
+#: models.py:48 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: wagtail_hooks.py:64 templates/wagtailimages/images/index.html:5
+#: wagtail_hooks.py:69 templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18
 msgid "Images"
 msgstr ""
@@ -269,26 +269,26 @@ msgid ""
 "file extension (*.gif, *.jpg or *.png)."
 msgstr ""
 
-#: views/images.py:37 views/images.py:47
+#: views/images.py:38 views/images.py:48
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:99
+#: views/images.py:105
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:102
+#: views/images.py:108
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:188
+#: views/images.py:194
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:206
+#: views/images.py:217
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:209
+#: views/images.py:220
 msgid "The image could not be created due to errors."
 msgstr ""

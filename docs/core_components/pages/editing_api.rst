@@ -1,7 +1,7 @@
 .. _editing-api:
 
 Displaying fields with the Editing API
-====================================
+======================================
 
 .. note::
     This documentation is currently being written.
@@ -387,6 +387,8 @@ For information on developing custom hallo.js plugins, see the project's page: h
 
 Edit Handler API
 ~~~~~~~~~~~~~~~~
+
+.. _admin_hooks:
 
 Admin Hooks
 -----------
