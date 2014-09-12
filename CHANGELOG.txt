@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.7 (xx.xx.2014)
+~~~~~~~~~~~~~~~~
+ * Added interface for choosing focal point on images
+
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
  * Added 'wagtail start' command and project template

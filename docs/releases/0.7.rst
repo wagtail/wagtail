@@ -1,0 +1,30 @@
+==========================================
+Wagtail 0.7 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+New interface for choosing images focal point
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+
+Upgrade considerations
+======================
+
+
+Deprecated features
+===================
