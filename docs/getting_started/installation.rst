@@ -35,6 +35,11 @@ Once you’ve experimented with the demo site and are ready to build your own si
 A basic Wagtail installation
 ============================
 
+.. note::
+   If you build a new project using ``wagtail start``, as documented in this section, your project will not include any
+   page definitions or templates. If you'd like to get started quickly with adding some basic content, it is probably
+   best to start from the wagtail demo site as documented above.
+
 You will need Python's `pip <http://pip.readthedocs.org/en/latest/installing.html>`__ package manager. We also recommend `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ so that you can manage multiple independent Python environments for different projects - although this is not strictly necessary if you intend to do all your development under Vagrant.
 
 Wagtail is based on the Django web framework and various other Python libraries. Most of these are pure Python and will install automatically using ``pip``, but there are a few native-code components that require further attention:
