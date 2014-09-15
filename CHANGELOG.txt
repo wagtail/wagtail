@@ -4,6 +4,7 @@ Changelog
 0.7 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
  * Added interface for choosing focal point on images
+ * Removed 'content_type' template filter from the project template, as the same thing can be accomplished with self.get_verbose_name|slugify
 
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
