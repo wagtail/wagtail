@@ -2,7 +2,7 @@ from __future__ import division
 
 from django.conf import settings
 
-from wagtail.wagtailimages.utils import crop
+from wagtail.wagtailimages.utils.rect import Rect
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
@@ -37,27 +37,6 @@ class BaseImageBackend(object):
 
     def crop(self, image, crop_box):
         raise NotImplementedError('subclasses of BaseImageBackend must provide a crop() method')
-
-    def crop_to_centre(self, image, size):
-        crop_box = crop.crop_to_centre(image.size, size)
-        if crop_box.size != image.size:
-            return self.crop(image, crop_box)
-        else:
-            return image
-
-    def crop_to_point(self, image, size, focal_point):
-        crop_box = crop.crop_to_point(image.size, size, focal_point)
-
-        # Don't crop if we don't need to
-        if crop_box.size != image.size:
-            image = self.crop(image, crop_box)
-
-        # If the focal points are too large, the cropping system may not
-        # crop it fully, resize the image if this has happened:
-        if crop_box.size != size:
-            image = self.resize_to_fill(image, size)
-
-        return image
 
     def resize_to_max(self, image, size, focal_point=None):
         """
@@ -224,7 +203,7 @@ class BaseImageBackend(object):
         bottom = crop_y + crop_height / 2
 
         # Crop!
-        return self.resize_to_min(self.crop(image, crop.CropBox(left, top, right, bottom)), size)
+        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
 
 
     def no_operation(self, image, param, focal_point=None):
