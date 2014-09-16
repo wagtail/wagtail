@@ -202,6 +202,46 @@ class BaseImageBackend(object):
         right = crop_x + crop_width / 2
         bottom = crop_y + crop_height / 2
 
+        # Make sure the entire focal point is in the crop box
+        if focal_point is not None:
+            focal_point_left = focal_point.x - focal_point.width / 2
+            focal_point_top = focal_point.y - focal_point.height / 2
+            focal_point_right = focal_point.x + focal_point.width / 2
+            focal_point_bottom = focal_point.y + focal_point.height / 2
+
+            if left > focal_point_left:
+                right -= left - focal_point_left
+                left = focal_point_left
+
+            if top > focal_point_top:
+                bottom -= top - focal_point_top
+                top = focal_point_top
+
+            if right < focal_point_right:
+                left += focal_point_right - right;
+                right = focal_point_right
+
+            if bottom < focal_point_bottom:
+                top += focal_point_bottom - bottom;
+                bottom = focal_point_bottom
+
+        # Don't allow the crop box to go over the image boundary
+        if left < 0:
+            right -= left
+            left = 0
+
+        if top < 0:
+            bottom -= top
+            top = 0
+
+        if right > im_width:
+            left -= right - im_width
+            right = im_width
+
+        if bottom > im_height:
+            top -= bottom - im_height
+            bottom = im_height
+
         # Crop!
         return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
 
