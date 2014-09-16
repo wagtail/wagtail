@@ -220,11 +220,16 @@
 .icon-redirect:before{
     content:"3";
 }
-/* Credit: Icon made by Zurb from Flaticon.com */
+.icon-view:before,
+.icon-no-view:before{
+    vertical-align:-3.5px;
+    font-size:1.3rem; 
+}
 .icon-view:before{
     content:"4"; 
-    vertical-align:-4.5px;
-    font-size:1.3rem;
+}
+.icon-no-view:before{
+    content:"^"; 
 }
 .icon-collapse-down:before{
     content:"5";

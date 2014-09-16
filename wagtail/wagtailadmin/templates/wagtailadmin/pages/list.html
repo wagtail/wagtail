@@ -40,7 +40,7 @@
 
                             {% test_page_is_public parent_page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                                <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
                             {% endif %}
                         </h2>
                     {% elif choosing %}
@@ -53,7 +53,7 @@
 
                             {% test_page_is_public parent_page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                                <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
                             {% endif %}
                         </h2>
                     {% else %}
@@ -181,7 +181,7 @@
 
                             {% test_page_is_public page as is_public %}
                             {% if not is_public %}
-                            <span class="privacy-indicator icon icon-locked" title="This page is protected from public view"></span>
+                            <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
                             {% endif %}
                         </h2>
                         {% if not moving and not choosing %}
