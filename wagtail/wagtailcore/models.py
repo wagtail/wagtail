@@ -8,7 +8,7 @@ from six.moves.urllib.parse import urlparse
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
-from django.db.models import get_model, Q
+from django.db.models import Q
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -20,13 +20,13 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.wagtailcore.utils import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 
@@ -58,15 +58,15 @@ class Site(models.Model):
     @staticmethod
     def find_for_request(request):
         """
-            Find the site object responsible for responding to this HTTP
-            request object. Try:
-             - unique hostname first
-             - then hostname and port
-             - if there is no matching hostname at all, or no matching
-               hostname:port combination, fall back to the unique default site,
-               or raise an exception
-            NB this means that high-numbered ports on an extant hostname may
-            still be routed to a different hostname which is set as the default
+        Find the site object responsible for responding to this HTTP
+        request object. Try:
+         - unique hostname first
+         - then hostname and port
+         - if there is no matching hostname at all, or no matching
+           hostname:port combination, fall back to the unique default site,
+           or raise an exception
+        NB this means that high-numbered ports on an extant hostname may
+        still be routed to a different hostname which is set as the default
         """
         try:
             hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
@@ -236,6 +236,7 @@ class PageBase(models.base.ModelBase):
             cls.ajax_template = None
 
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
+        cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
         if not dct.get('is_abstract'):
             # subclasses are only abstract if the subclass itself defines itself so
@@ -504,8 +505,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def clean_subpage_types(cls):
         """
-            Returns the list of subpage types, with strings converted to class objects
-            where required
+        Returns the list of subpage types, with strings converted to class objects
+        where required
         """
         if cls._clean_subpage_types is None:
             subpage_types = getattr(cls, 'subpage_types', None)
@@ -513,43 +514,78 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # if subpage_types is not specified on the Page class, allow all page types as subpages
                 res = get_page_types()
             else:
-                res = []
-                for page_type in cls.subpage_types:
-                    if isinstance(page_type, string_types):
-                        try:
-                            app_label, model_name = page_type.split(".")
-                        except ValueError:
-                            # If we can't split, assume a model in current app
-                            app_label = cls._meta.app_label
-                            model_name = page_type
-
-                        model = get_model(app_label, model_name)
-                        if model:
-                            res.append(ContentType.objects.get_for_model(model))
-                        else:
-                            raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
-
-                    else:
-                        # assume it's already a model class
-                        res.append(ContentType.objects.get_for_model(page_type))
+                try:
+                    models = [resolve_model_string(model_string, cls._meta.app_label)
+                              for model_string in subpage_types]
+                except LookupError as err:
+                    raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
+                res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_subpage_types = res
 
         return cls._clean_subpage_types
 
     @classmethod
+    def clean_parent_page_types(cls):
+        """
+        Returns the list of parent page types, with strings converted to class
+        objects where required
+        """
+        if cls._clean_parent_page_types is None:
+            parent_page_types = getattr(cls, 'parent_page_types', None)
+            if parent_page_types is None:
+                # if parent_page_types is not specified on the Page class, allow all page types as subpages
+                res = get_page_types()
+            else:
+                try:
+                    models = [resolve_model_string(model_string, cls._meta.app_label)
+                              for model_string in parent_page_types]
+                except LookupError as err:
+                    raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
+                res = list(map(ContentType.objects.get_for_model, models))
+
+            cls._clean_parent_page_types = res
+
+        return cls._clean_parent_page_types
+
+    @classmethod
     def allowed_parent_page_types(cls):
         """
-            Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can be a subpage of
         """
-        return [ct for ct in get_page_types() if cls in ct.model_class().clean_subpage_types()]
+        cls_ct = ContentType.objects.get_for_model(cls)
+        return [ct for ct in cls.clean_parent_page_types()
+                if cls_ct in ct.model_class().clean_subpage_types()]
+
+    @classmethod
+    def allowed_subpage_types(cls):
+        """
+        Returns the list of page types that this page type can be a subpage of
+        """
+        # Special case the 'Page' class, such as the Root page or Home page -
+        # otherwise you can not add initial pages when setting up a site
+        if cls == Page:
+            return get_page_types()
+
+        cls_ct = ContentType.objects.get_for_model(cls)
+        return [ct for ct in cls.clean_subpage_types()
+                if cls_ct in ct.model_class().clean_parent_page_types()]
 
     @classmethod
     def allowed_parent_pages(cls):
         """
-            Returns the list of pages that this page type can be a subpage of
+        Returns the list of pages that this page type can be a subpage of
         """
         return Page.objects.filter(content_type__in=cls.allowed_parent_page_types())
+
+    @classmethod
+    def allowed_subpages(cls):
+        """
+        Returns the list of pages that this page type can be a parent page of
+        """
+        return Page.objects.filter(content_type__in=cls.allowed_subpage_types())
 
     @classmethod
     def get_verbose_name(cls):
@@ -1032,7 +1068,7 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1096,7 +1132,7 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)

@@ -19,8 +19,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 
 
 FORM_FIELD_OVERRIDES = {}
@@ -483,25 +483,16 @@ class BasePageChooserPanel(BaseChooserPanel):
     def target_content_type(cls):
         if cls._target_content_type is None:
             if cls.page_type:
-                if isinstance(cls.page_type, string_types):
-                    # translate the passed model name into an actual model class
-                    from django.db.models import get_model
-                    try:
-                        app_label, model_name = cls.page_type.split('.')
-                    except ValueError:
-                        raise ImproperlyConfigured("The page_type passed to PageChooserPanel must be of the form 'app_label.model_name'")
+                try:
+                    model = resolve_model_string(cls.page_type)
+                except LookupError:
+                    raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
+                        cls.__name__, cls.page_type))
+                except ValueError:
+                    raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
+                        cls.__name__, cls.page_type))
 
-                    try:
-                        page_type = get_model(app_label, model_name)
-                    except LookupError:
-                        page_type = None
-
-                    if page_type is None:
-                        raise ImproperlyConfigured("PageChooserPanel refers to model '%s' that has not been installed" % cls.page_type)
-                else:
-                    page_type = cls.page_type
-
-                cls._target_content_type = ContentType.objects.get_for_model(page_type)
+                cls._target_content_type = ContentType.objects.get_for_model(model)
             else:
                 # TODO: infer the content type by introspection on the foreign key
                 cls._target_content_type = ContentType.objects.get_by_natural_key('wagtailcore', 'page')

@@ -52,7 +52,7 @@ A Parent node could provide its own function returning its descendant objects.
 
             return events
 
-This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live()``) and are children of this node (``descendant_of(self)``). By setting a ``subpage_types`` class property in your model, you can specify which models are allowed to be set as children, but Wagtail will allow any ``Page``-derived model by default. Regardless, it's smart for a parent model to provide an index filtered to make sense.
+This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live()``) and are children of this node (``descendant_of(self)``). By setting a ``subpage_types`` class property in your model, you can specify which models are allowed to be set as children, and by settings a ``parent_page_types`` class property, you can specify which models are allowed to parent certain children. Wagtail will allow any ``Page``-derived model by default. Regardless, it's smart for a parent model to provide an index filtered to make sense.
 
 
 Leaves
@@ -71,7 +71,7 @@ The model for the leaf could provide a function that traverses the tree in the o
             # Find closest ancestor which is an event index
             return self.get_ancestors().type(EventIndexPage).last()
 
-If defined, ``subpage_types`` will also limit the parent models allowed to contain a leaf. If not, Wagtail will allow any combination of parents and leafs to be associated in the Wagtail tree. Like with index pages, it's a good idea to make sure that the index is actually of the expected model to contain the leaf.
+If defined, ``subpage_types`` and ``parent_page_types`` will also limit the parent models allowed to contain a leaf. If not, Wagtail will allow any combination of parents and leafs to be associated in the Wagtail tree. Like with index pages, it's a good idea to make sure that the index is actually of the expected model to contain the leaf.
 
 
 Other Relationships
