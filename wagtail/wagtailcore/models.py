@@ -635,6 +635,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         if copy_revisions:
             for revision in self.revisions.all():
                 revision.pk = None
+                revision.submitted_for_moderation = False
+                revision.approved_go_live_at = None
                 revision.page = page_copy
                 revision.save()
 

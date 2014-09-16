@@ -1,4 +1,7 @@
 import warnings
+import datetime
+
+import pytz
 
 from django.test import TestCase, Client
 from django.test.utils import override_settings
@@ -425,6 +428,32 @@ class TestCopyPage(TestCase):
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(christmas_event.revisions.count(), 1, "Revisions were removed from the original page")
+
+    def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision(submitted_for_moderation=True)
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the old revision is still submitted for moderation
+        self.assertTrue(christmas_event.revisions.first().submitted_for_moderation)
+
+        # Check that the new revision is not submitted for moderation
+        self.assertFalse(new_christmas_event.revisions.first().submitted_for_moderation)
+
+    def test_copy_page_copies_revisions_and_doesnt_schedule(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the old revision is still scheduled
+        self.assertEqual(christmas_event.revisions.first().approved_go_live_at, datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+
+        # Check that the new revision is not scheduled
+        self.assertEqual(new_christmas_event.revisions.first().approved_go_live_at, None)
 
     def test_copy_page_copies_child_objects_with_nonspecific_class(self):
         # Get chrismas page as Page instead of EventPage
