@@ -52,7 +52,7 @@ A Parent node could provide its own function returning its descendant objects.
 
             return events
 
-This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live()``) and are children of this node (``descendant_of(self)``). By setting a ``subpage_types`` class property in your model, you can specify which models are allowed to be set as children, and by settings a ``parent_page_types`` class property, you can specify which models are allowed to parent certain children. Wagtail will allow any ``Page``-derived model by default. Regardless, it's smart for a parent model to provide an index filtered to make sense.
+This example makes sure to limit the returned objects to pieces of content which make sense, specifically ones which have been published through Wagtail's admin interface (``live()``) and are children of this node (``descendant_of(self)``). By setting a ``subpage_types`` class property in your model, you can specify which models are allowed to be set as children, and by setting a ``parent_page_types`` class property, you can specify which models are allowed to be parents of this page model. Wagtail will allow any ``Page``-derived model by default. Regardless, it's smart for a parent model to provide an index filtered to make sense.
 
 
 Leaves
