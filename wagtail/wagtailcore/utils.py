@@ -31,8 +31,8 @@ def resolve_model_string(model_string, default_app=None):
             raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
         return model
 
-    elif model_string is not None and issubclass(model_string, Model):
-        return model
+    elif isinstance(model_string, type) and issubclass(model_string, Model):
+        return model_string
 
     else:
         raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)

@@ -404,7 +404,7 @@ class BusinessSubIndex(Page):
 class BusinessChild(Page):
     """ Can only be placed under Business indexes, no children allowed """
     subpage_types = []
-    parent_page_types = ['tests.BusinessIndex', 'tests.BusinessSubIndex']
+    parent_page_types = ['tests.BusinessIndex', BusinessSubIndex]
 
 
 class SearchTest(models.Model, index.Indexed):
