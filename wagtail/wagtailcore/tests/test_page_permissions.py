@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import EventPage
+from wagtail.tests.testapp.models import EventPage, BusinessSubIndex
 
 
 class TestPagePermission(TestCase):
@@ -14,11 +14,13 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
         someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(event_editor)
         christmas_page_perms = christmas_page.permissions_for_user(event_editor)
         unpub_perms = unpublished_event_page.permissions_for_user(event_editor)
         someone_elses_event_perms = someone_elses_event_page.permissions_for_user(event_editor)
+        board_meetings_perms = board_meetings_page.permissions_for_user(event_editor)
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
@@ -60,6 +62,10 @@ class TestPagePermission(TestCase):
         self.assertTrue(unpub_perms.can_move_to(christmas_page))
         self.assertFalse(unpub_perms.can_move_to(homepage))  # no permission to create pages at destination
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))  # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+
+        self.assertTrue(board_meetings_perms.can_move())
+        self.assertFalse(board_meetings_perms.can_move_to(christmas_page))  # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
 
 
     def test_publisher_page_permissions(self):
@@ -67,10 +73,12 @@ class TestPagePermission(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(event_moderator)
         christmas_page_perms = christmas_page.permissions_for_user(event_moderator)
         unpub_perms = unpublished_event_page.permissions_for_user(event_moderator)
+        board_meetings_perms = board_meetings_page.permissions_for_user(event_moderator)
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
@@ -108,6 +116,10 @@ class TestPagePermission(TestCase):
         self.assertTrue(unpub_perms.can_move_to(christmas_page))
         self.assertFalse(unpub_perms.can_move_to(homepage))  # no permission to create pages at destination
         self.assertFalse(unpub_perms.can_move_to(unpublished_event_page))  # cannot make page a child of itself
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))  # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+
+        self.assertTrue(board_meetings_perms.can_move())
+        self.assertFalse(board_meetings_perms.can_move_to(christmas_page))  # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
 
     def test_inactive_user_has_no_permissions(self):
         user = get_user_model().objects.get(username='inactiveuser')
@@ -132,10 +144,12 @@ class TestPagePermission(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         root = Page.objects.get(url_path='/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
 
         homepage_perms = homepage.permissions_for_user(user)
         root_perms = root.permissions_for_user(user)
         unpub_perms = unpublished_event_page.permissions_for_user(user)
+        board_meetings_perms = board_meetings_page.permissions_for_user(user)
 
         self.assertTrue(homepage_perms.can_add_subpage())
         self.assertTrue(root_perms.can_add_subpage())
@@ -164,6 +178,10 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(homepage_perms.can_move_to(root))
         self.assertFalse(homepage_perms.can_move_to(unpublished_event_page))
+
+        self.assertFalse(unpub_perms.can_move_to(board_meetings_page))  # cannot move because the subpage_types rule of BusinessSubIndex forbids EventPage as a subpage
+        self.assertTrue(board_meetings_perms.can_move())
+        self.assertFalse(board_meetings_perms.can_move_to(unpublished_event_page))  # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
 
     def test_editable_pages_for_user_with_add_permission(self):
         event_editor = get_user_model().objects.get(username='eventeditor')
