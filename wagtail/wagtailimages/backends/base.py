@@ -176,9 +176,10 @@ class BaseImageBackend(object):
                 # Apply max crop closeness
                 crop_closeness = min(crop_closeness, max_crop_closeness)
 
-                # Get crop width and height
-                crop_width = crop_max_width + (crop_min_width - crop_max_width) * crop_closeness
-                crop_height = crop_max_height + (crop_min_height - crop_max_height) * crop_closeness
+                if 1 >= crop_closeness >= 0:
+                    # Get crop width and height
+                    crop_width = crop_max_width + (crop_min_width - crop_max_width) * crop_closeness
+                    crop_height = crop_max_height + (crop_min_height - crop_max_height) * crop_closeness
 
         # Find focal point UV
         if focal_point is not None:
@@ -243,7 +244,7 @@ class BaseImageBackend(object):
             bottom = im_height
 
         # Crop!
-        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
+        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), (100, 100))
 
 
     def no_operation(self, image, param, focal_point=None):
