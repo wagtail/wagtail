@@ -244,7 +244,7 @@ class BaseImageBackend(object):
             bottom = im_height
 
         # Crop!
-        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), (100, 100))
+        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
 
 
     def no_operation(self, image, param, focal_point=None):
