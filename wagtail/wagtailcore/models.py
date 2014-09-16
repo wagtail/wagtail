@@ -562,7 +562,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_subpage_types(cls):
         """
-        Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can have as subpages
         """
         # Special case the 'Page' class, such as the Root page or Home page -
         # otherwise you can not add initial pages when setting up a site
@@ -1143,7 +1143,12 @@ class PagePermissionTester(object):
         if self.page == destination or destination.is_descendant_of(self.page):
             return False
 
-        # and shortcut the trivial 'everything' / 'nothing' permissions
+        # reject moves that are forbidden by subpage_types / parent_page_types rules
+        # (these rules apply to superusers too)
+        if ContentType.objects.get_for_model(self.page.specific_class) not in destination.allowed_subpage_types():
+            return False
+
+        # shortcut the trivial 'everything' / 'nothing' permissions
         if not self.user.is_active:
             return False
         if self.user.is_superuser:
