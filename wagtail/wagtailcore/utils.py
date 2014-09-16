@@ -10,7 +10,7 @@ def camelcase_to_underscore(str):
 
 def resolve_model_string(model_string, default_app=None):
     """
-    Resolve an 'app_label.model_name' string in to an actual model class.
+    Resolve an 'app_label.model_name' string into an actual model class.
     If a model class is passed in, just return that.
     """
     if isinstance(model_string, string_types):
@@ -22,17 +22,17 @@ def resolve_model_string(model_string, default_app=None):
                 app_label = default_app
                 model_name = model_string
             else:
-                raise ValueError("Can not resolve {0!r} in to a model. Model names "
+                raise ValueError("Can not resolve {0!r} into a model. Model names "
                                  "should be in the form app_label.model_name".format(
                                      model_string), model_string)
 
         model = get_model(app_label, model_name)
         if not model:
-            raise LookupError("Can not resolve {0!r} in to a model".format(model_string), model_string)
+            raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
         return model
 
     elif model_string is not None and issubclass(model_string, Model):
         return model
 
     else:
-        raise LookupError("Can not resolve {0!r} in to a model".format(model_string), model_string)
+        raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
