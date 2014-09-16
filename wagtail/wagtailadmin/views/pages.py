@@ -68,7 +68,7 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.allowed_subpage_types(), key=lambda pagetype: pagetype.name.lower())
 
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
@@ -136,7 +136,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.clean_subpage_types():
+    if content_type not in parent_page.allowed_subpage_types():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
