@@ -9,6 +9,8 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import get_model, Q
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -29,6 +31,7 @@ from treebeard.mp_tree import MP_Node
 from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -266,6 +269,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    first_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
+    last_publish = models.ForeignKey('wagtailcore.PagePublishLog', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=100),
         index.FilterField('id'),
@@ -421,6 +427,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return latest_revision.as_page_object()
         else:
             return self.specific
+
+    def unpublish(self, set_expired=False, commit=True):
+        if self.live:
+            self.live = False
+
+            if set_expired:
+                self.expired = True
+
+            if commit:
+                self.save()
+
+            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+
+            self.revisions.update(approved_go_live_at=None)
 
     def get_context(self, request, *args, **kwargs):
         return {
@@ -745,12 +765,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return ['/']
 
     def get_sitemap_urls(self):
-        latest_revision = self.get_latest_revision()
+        lastmod = None
+        if self.last_publish:
+            lastmod = self.last_publish.published_at
+        else:
+            # Fallback to looking for the latest revision
+            latest_revision = self.get_latest_revision()
+
+            if latest_revision:
+                lastmod = latest_revision.created_at
 
         return [
             {
                 'location': self.full_url,
-                'lastmod': latest_revision.created_at if latest_revision else None
+                'lastmod': lastmod,
             }
         ]
 
@@ -842,6 +870,14 @@ def get_navigation_menu_items():
         return []
 
 
+@receiver(pre_delete, sender=Page)
+def unpublish_page_before_delete(sender, instance, **kwargs):
+    # Make sure pages are unpublished before deleting
+    if instance.live:
+        # Don't bother to save, this page is just about to be deleted!
+        instance.unpublish(commit=False)
+
+
 class Orderable(models.Model):
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     sort_order_field = 'sort_order'
@@ -892,8 +928,19 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.first_publish = self.page.first_publish
+        obj.last_publish = self.page.last_publish
 
         return obj
+
+    def approve_moderation(self):
+        if self.submitted_for_moderation:
+            self.publish()
+
+    def reject_moderation(self):
+        if self.submitted_for_moderation:
+            self.submitted_for_moderation = False
+            self.save(update_fields=['submitted_for_moderation'])
 
     def publish(self):
         page = self.as_page_object()
@@ -910,12 +957,35 @@ class PageRevision(models.Model):
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False # When a page is published it can't be expired
+
+        # Create publish log
+        publish_log = PagePublishLog(
+            page=page,
+            revision=self,
+            published_at=timezone.now()
+        )
+        publish_log.save()
+
+        # Update first/last publish log fields
+        if page.first_publish is None:
+            page.first_publish = publish_log
+        page.last_publish = publish_log
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+        if page.live:
+            page_published.send(sender=page.specific_class, instance=page.specific)
+
     def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+
+
+class PagePublishLog(models.Model):
+     page = models.ForeignKey(Page, related_name='publish_log')
+     revision = models.ForeignKey(PageRevision, related_name='publish_log')
+     published_at = models.DateTimeField()
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
