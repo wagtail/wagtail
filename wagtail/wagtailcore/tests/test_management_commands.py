@@ -80,7 +80,9 @@ class TestFixTreeCommand(TestCase):
         # Check that the issues were detected
         output_string = output.read()
         self.assertIn("Incorrect numchild value found for pages: [2]", output_string)
-        self.assertIn("Orphaned pages found: [4, 5, 6, 9, 13]", output_string)
+        # Note that page ID 15 was also deleted, but is not picked up here, as
+        # it is a child of 14.
+        self.assertIn("Orphaned pages found: [4, 5, 6, 9, 13, 15]", output_string)
 
         # Check that christmas_page is still in the tree
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
@@ -102,7 +104,7 @@ class TestFixTreeCommand(TestCase):
         # Check that the issues were detected
         output_string = output.read()
         self.assertIn("Incorrect numchild value found for pages: [2]", output_string)
-        self.assertIn("5 orphaned pages deleted.", output_string)
+        self.assertIn("7 orphaned pages deleted.", output_string)
 
         # Check that christmas_page has been deleted
         self.assertFalse(Page.objects.filter(id=christmas_page.id).exists())
