@@ -18,6 +18,7 @@ Minor features
 ~~~~~~~~~~~~~~
 
  * The ``content_type`` template filter has been removed from the project template, as the same thing can be accomplished with ``self.get_verbose_name|slugify``.
+ * Page copy operations now also copy the page revision history
 
 
 Bug fixes
