@@ -40,7 +40,7 @@
 
                             {% test_page_is_public parent_page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
+                                <span class="privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
                             {% endif %}
                         </h2>
                     {% elif choosing %}
@@ -61,7 +61,11 @@
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                 <a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a>
                             {% else %}
-                                    {{ parent_page.title }}
+                                {{ parent_page.title }}
+                            {% endif %}
+
+                            {% if parent_page.locked %}
+                                <span class="locked-indicator icon icon-locked" title="{% trans "This page is locked to further editing" %}"></span>
                             {% endif %}
                         </h2>
                         
@@ -181,7 +185,11 @@
 
                             {% test_page_is_public page as is_public %}
                             {% if not is_public %}
-                            <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
+                                <span class="privacy-indicator icon icon-no-view" title="{% trans 'This page is protected from public view' %}"></span>
+                            {% endif %}
+
+                            {% if page.locked %}
+                                <span class="locked-indicator icon icon-locked" title="{% trans 'This page is locked to further editing' %}"></span>
                             {% endif %}
                         </h2>
                         {% if not moving and not choosing %}
