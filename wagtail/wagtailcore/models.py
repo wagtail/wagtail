@@ -574,20 +574,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 if cls_ct in ct.model_class().clean_parent_page_types()]
 
     @classmethod
-    def allowed_parent_pages(cls):
-        """
-        Returns the list of pages that this page type can be a subpage of
-        """
-        return Page.objects.filter(content_type__in=cls.allowed_parent_page_types())
-
-    @classmethod
-    def allowed_subpages(cls):
-        """
-        Returns the list of pages that this page type can be a parent page of
-        """
-        return Page.objects.filter(content_type__in=cls.allowed_subpage_types())
-
-    @classmethod
     def get_verbose_name(cls):
         """
             Returns the human-readable "verbose name" of this page model e.g "Blog page".
