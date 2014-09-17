@@ -412,6 +412,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             approved_go_live_at=approved_go_live_at,
         )
 
+    def get_revision(self, revision_id):
+        return self.revisions.get(id=revision_id)
+
+    def get_revision_as_page(self, revision_id):
+        return self.revisions.get(id=revision_id).as_page_object()
+
     def get_latest_revision(self):
         return self.revisions.order_by('-created_at').first()
 

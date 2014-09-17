@@ -246,9 +246,13 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
 
 @permission_required('wagtailadmin.access_admin')
-def edit(request, page_id):
+def edit(request, page_id, revision_id=None):
     latest_revision = get_object_or_404(Page, id=page_id).get_latest_revision()
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+
+    if revision_id:
+        page = get_object_or_404(Page, id=page_id).get_revision_as_page(revision_id)
+    else:
+        page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     parent = page.get_parent()
 
     page_perms = page.permissions_for_user(request.user)
@@ -605,6 +609,22 @@ def move_confirm(request, page_to_move_id, destination_id):
     return render(request, 'wagtailadmin/pages/confirm_move.html', {
         'page_to_move': page_to_move,
         'destination': destination,
+    })
+
+@permission_required('wagtailadmin.access_admin')
+def select_revision(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+    page_perms = page.permissions_for_user(request.user)
+    if not page_perms.can_move():
+        raise PermissionDenied
+
+    child_pages = [] 
+    revisions = PageRevision.objects.filter(page_id=page_id)
+
+    return render(request, 'wagtailadmin/pages/select_revision.html', {
+        'page': page,
+        'child_pages': child_pages,
+        'revisions': revisions
     })
 
 
