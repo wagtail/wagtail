@@ -1,8 +1,108 @@
+from six import text_type
+
+from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ImproperlyConfigured
 
+# Django 1.7 lookups
+try:
+    from django.db.models.lookups import Lookup
+except ImportError:
+    Lookup = None
+
+from django.db.models.sql.where import SubqueryConstraint, WhereNode
+
 from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsearch.utils import normalise_query_string
+
+
+class FilterError(Exception):
+    pass
+
+
+class FieldError(Exception):
+    pass
+
+
+class BaseSearchQuery(object):
+    def __init__(self, queryset, query_string, fields=None):
+        self.queryset = queryset
+        self.query_string = query_string
+        self.fields = fields
+
+    def _get_searchable_field(self, field_attname):
+        # Get field
+        field = dict(
+            (field.get_attname(self.queryset.model), field)
+            for field in self.queryset.model.get_searchable_search_fields()
+        ).get(field_attname, None)
+
+        return field
+
+    def _get_filterable_field(self, field_attname):
+        # Get field
+        field = dict(
+            (field.get_attname(self.queryset.model), field)
+            for field in self.queryset.model.get_filterable_search_fields()
+        ).get(field_attname, None)
+
+        return field
+
+    def _process_lookup(self, field, lookup, value):
+        return NotImplemented
+
+    def _connect_filters(self, filters, connector, negated):
+        return NotImplemented
+
+    def _process_filter(self, field_attname, lookup, value):
+        # Get the field
+        field = self._get_filterable_field(field_attname)
+
+        if field is None:
+            raise FieldError('Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+
+        # Process the lookup
+        result = self._process_lookup(field, lookup, value)
+
+        if result is None:
+            raise FilterError('Could not apply filter on search results: "' + field_attname + '__' + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognosed.')
+
+        return result
+
+    def _get_filters_from_where_node(self, where_node):
+        # Check if this is a leaf node
+        if isinstance(where_node, tuple): # Django 1.6 and below
+            field_attname = where_node[0].col
+            lookup = where_node[1]
+            value = where_node[3]
+
+            # Process the filter
+            return self._process_filter(field_attname, lookup, value)
+
+        elif Lookup is not None and isinstance(where_node, Lookup): # Django 1.7 and above
+            field_attname = where_node.lhs.target.attname
+            lookup = where_node.lookup_name
+            value = where_node.rhs
+
+            # Process the filter
+            return self._process_filter(field_attname, lookup, value)
+
+        elif isinstance(where_node, SubqueryConstraint):
+            raise FilterError('Could not apply filter on search results: Subqueries are not allowed.')
+
+        elif isinstance(where_node, WhereNode):
+            # Get child filters
+            connector = where_node.connector
+            child_filters = [self._get_filters_from_where_node(child) for child in where_node.children]
+            child_filters = [child_filter for child_filter in child_filters if child_filter]
+
+            return self._connect_filters(child_filters, connector, where_node.negated)
+
+        else:
+            raise FilterError('Could not apply filter on search results: Unknown where node: ' + str(type(where_node)))
+
+    def _get_filters_from_queryset(self):
+        return self._get_filters_from_where_node(self.queryset.query.where)
 
 
 class BaseSearchResults(object):
