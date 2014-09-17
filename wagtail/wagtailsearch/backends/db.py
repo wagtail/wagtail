@@ -1,17 +1,32 @@
 from django.db import models
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 
 
-class DBSearchQuery(object):
-    def __init__(self, queryset, query_string, fields=None):
-        self.queryset = queryset
-        self.query_string = query_string
-        self.fields = fields
+class DBSearchQuery(BaseSearchQuery):
+    def _process_lookup(self, field, lookup, value):
+        return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
 
-    def get_queryset(self):
-        queryset = self.queryset
-        model = queryset.model
+    def _connect_filters(self, filters, connector, negated):
+        if connector == 'AND':
+            q = models.Q(*filters)
+        elif connector == 'OR':
+            q = models.Q(filters[0])
+            for fil in filters[1:]:
+                q |= fil
+        else:
+            return
+
+        if negated:
+            q = ~q
+
+        return q
+
+    def get_q(self):
+        # Get filters as a q object
+        q = self._get_filters_from_queryset()
+
+        model = self.queryset.model
 
         if self.query_string is not None:
             # Get fields
@@ -35,17 +50,17 @@ class DBSearchQuery(object):
                     # Filter on this field
                     term_query |= models.Q(**{'%s__icontains' % field_name: term})
 
-                queryset = queryset.filter(term_query)
+                q &= term_query
 
-            # Distinct
-            queryset = queryset.distinct()
-
-        return queryset
+        return q
 
 
 class DBSearchResults(BaseSearchResults):
     def get_queryset(self):
-        return self.query.get_queryset()[self.start:self.stop]
+        model = self.query.queryset.model
+        q = self.query.get_q()
+
+        return model.objects.filter(q).distinct()[self.start:self.stop]
 
     def _do_search(self):
         return self.get_queryset()
