@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:23 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "編者精選"
 

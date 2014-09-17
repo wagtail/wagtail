@@ -1,3 +1,5 @@
+.. _editor_manual:
+
 Using Wagtail: an Editor's guide
 ================================
 

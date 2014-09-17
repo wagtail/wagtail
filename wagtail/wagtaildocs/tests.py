@@ -417,3 +417,107 @@ class TestGetUsage(TestCase, WagtailTestUtils):
                                            args=(1,)))
         # There's no usage so there should be no table rows
         self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')
+
+
+class TestIssue613(TestCase, WagtailTestUtils):
+    def get_elasticsearch_backend(self):
+        from django.conf import settings
+        from wagtail.wagtailsearch.backends import get_search_backend
+
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+
+        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
+        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
+            if backend_conf['BACKEND'] == backend_path:
+                return get_search_backend(backend_name)
+        else:
+            # no conf entry found - skip tests for this backend
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+
+    def setUp(self):
+        self.search_backend = self.get_elasticsearch_backend()
+        self.login()
+
+        from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+        register_signal_handlers()
+
+    def add_document(self, **params):
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document should be created
+        doc = models.Document.objects.filter(title=post_data['title'])
+        self.assertTrue(doc.exists())
+        return doc.first()
+
+    def edit_document(self, **params):
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Create a document without tags to edit
+        document = models.Document.objects.create(title="Test document", file=fake_file)
+
+        # Build another fake file
+        another_fake_file = ContentFile(b("A boring example document"))
+        another_fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document changed!",
+            'file': another_fake_file,
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtaildocs_edit_document', args=(document.id,)), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document should be changed
+        doc = models.Document.objects.filter(title=post_data['title'])
+        self.assertTrue(doc.exists())
+        return doc.first()
+
+    def test_issue_613_on_add(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Document)
+
+        # Add a document with some tags
+        document = self.add_document(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Document)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, document.id)
+
+    def test_issue_613_on_edit(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Document)
+
+        # Add a document with some tags
+        document = self.edit_document(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Document)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, document.id)

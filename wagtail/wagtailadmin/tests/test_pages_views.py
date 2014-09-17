@@ -8,7 +8,11 @@ from django.core import mail
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from wagtail.tests.models import SimplePage, EventPage, EventPageCarouselItem, StandardIndex, BusinessIndex, BusinessChild, BusinessSubIndex, TaggedPage
+from wagtail.tests.models import (
+    SimplePage, EventPage, EventPageCarouselItem,
+    StandardIndex, StandardChild,
+    BusinessIndex, BusinessChild, BusinessSubIndex,
+    TaggedPage, Advert, AdvertPlacement)
 from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
@@ -1483,11 +1487,14 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, add_subpage_url)
 
-        # add_subpage should give us the full set of page types to choose
+        # add_subpage should give us choices of StandardChild, and BusinessIndex.
+        # BusinessSubIndex and BusinessChild are not allowed
         response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Standard Child')
-        self.assertContains(response, 'Business Child')
+        self.assertContains(response, StandardChild.get_verbose_name())
+        self.assertContains(response, BusinessIndex.get_verbose_name())
+        self.assertNotContains(response, BusinessSubIndex.get_verbose_name())
+        self.assertNotContains(response, BusinessChild.get_verbose_name())
 
     def test_business_subpage(self):
         add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_index.id, ))
@@ -1500,8 +1507,10 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         # add_subpage should give us a cut-down set of page types to choose
         response = self.client.get(add_subpage_url)
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'Standard Child')
-        self.assertContains(response, 'Business Child')
+        self.assertNotContains(response, StandardIndex.get_verbose_name())
+        self.assertNotContains(response, StandardChild.get_verbose_name())
+        self.assertContains(response, BusinessSubIndex.get_verbose_name())
+        self.assertContains(response, BusinessChild.get_verbose_name())
 
     def test_business_child_subpage(self):
         add_subpage_url = reverse('wagtailadmin_pages_add_subpage', args=(self.business_child.id, ))
@@ -1516,12 +1525,16 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
     def test_cannot_add_invalid_subpage_type(self):
-        # cannot add SimplePage as a child of BusinessIndex, as SimplePage is not present in subpage_types
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_index.id)))
+        # cannot add StandardChild as a child of BusinessIndex, as StandardChild is not present in subpage_types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'standardchild', self.business_index.id)))
         self.assertEqual(response.status_code, 403)
 
         # likewise for BusinessChild which has an empty subpage_types list
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.business_child.id)))
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'standardchild', self.business_child.id)))
+        self.assertEqual(response.status_code, 403)
+
+        # cannot add BusinessChild to StandardIndex, as BusinessChild restricts is parent page types
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'businesschild', self.standard_index.id)))
         self.assertEqual(response.status_code, 403)
 
         # but we can add a BusinessChild to BusinessIndex
@@ -1699,3 +1712,91 @@ class TestIssue197(TestCase, WagtailTestUtils):
         page = TaggedPage.objects.get(id=self.tagged_page.id)
         self.assertIn('hello', page.tags.slugs())
         self.assertIn('world', page.tags.slugs())
+
+
+class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
+    # In our test models we define AdvertPlacement as a child relation on the Page model.
+    # Here we check that this behaves correctly when exposed on the edit form of a Page
+    # subclass (StandardIndex here).
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+        self.test_advert = Advert.objects.get(id=1)
+
+        # Add child page
+        self.index_page = StandardIndex(
+            title="My lovely index",
+            slug="my-lovely-index",
+            advert_placements=[AdvertPlacement(advert=self.test_advert)]
+        )
+        self.root_page.add_child(instance=self.index_page)
+
+        # Login
+        self.login()
+
+    def test_get_create_form(self):
+        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'standardindex', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        # Response should include an advert_placements formset labelled Adverts
+        self.assertContains(response, "Adverts")
+        self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
+
+    def test_post_create_form(self):
+        post_data = {
+            'title': "New index!",
+            'slug': 'new-index',
+            'advert_placements-TOTAL_FORMS': '1',
+            'advert_placements-INITIAL_FORMS': '0',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': 'yellow',
+            'advert_placements-0-id': '',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'standardindex', self.root_page.id)), post_data)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Find the page and check it
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='new-index').specific
+        self.assertEqual(page.advert_placements.count(), 1)
+        self.assertEqual(page.advert_placements.first().advert.text, 'test_advert')
+
+    def test_get_edit_form(self):
+        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.index_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        # Response should include an advert_placements formset labelled Adverts
+        self.assertContains(response, "Adverts")
+        self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
+        # the formset should be populated with an existing form
+        self.assertContains(response, "id_advert_placements-0-advert")
+        self.assertContains(response, '<option value="1" selected="selected">test_advert</option>')
+
+    def test_post_edit_form(self):
+        post_data = {
+            'title': "My lovely index",
+            'slug': 'my-lovely-index',
+            'advert_placements-TOTAL_FORMS': '2',
+            'advert_placements-INITIAL_FORMS': '1',
+            'advert_placements-MAX_NUM_FORMS': '1000',
+            'advert_placements-0-advert': '1',
+            'advert_placements-0-colour': 'yellow',
+            'advert_placements-0-id': self.index_page.advert_placements.first().id,
+            'advert_placements-1-advert': '1',
+            'advert_placements-1-colour': 'purple',
+            'advert_placements-1-id': '',
+            'action-publish': "Publish",
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.index_page.id, )), post_data)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Find the page and check it
+        page = Page.objects.get(id=self.index_page.id).specific
+        self.assertEqual(page.advert_placements.count(), 2)
+        self.assertEqual(page.advert_placements.all()[0].advert.text, 'test_advert')
+        self.assertEqual(page.advert_placements.all()[1].advert.text, 'test_advert')

@@ -32,7 +32,7 @@ from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailcore.models import Page
 
 
-def get_test_image_file():
+def get_test_image_file(filename='test.png'):
     from six import BytesIO
     from PIL import Image
     from django.core.files.images import ImageFile
@@ -40,7 +40,7 @@ def get_test_image_file():
     f = BytesIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
-    return ImageFile(f, name='test.png')
+    return ImageFile(f, name=filename)
 
 
 Image = get_image_model()
@@ -1016,3 +1016,122 @@ class TestCropToPoint(TestCase):
             CropBox(125, 25, 275, 175),
         )
 
+
+class TestIssue573(TestCase):
+    """
+    This tests for a bug which causes filename limit on Renditions to be reached
+    when the Image has a long original filename and a big focal point key
+    """
+    def test_issue_573(self):
+        # Create an image with a big filename and focal point
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file('thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png'),
+            focal_point_x=1000,
+            focal_point_y=1000,
+            focal_point_width=1000,
+            focal_point_height=1000,
+        )
+
+        # Try creating a rendition from that image
+        # This would crash if the bug is present
+        image.get_rendition('fill-800x600')
+
+
+class TestIssue613(TestCase, WagtailTestUtils):
+    def get_elasticsearch_backend(self):
+        from django.conf import settings
+        from wagtail.wagtailsearch.backends import get_search_backend
+
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+
+        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
+        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
+            if backend_conf['BACKEND'] == backend_path:
+                return get_search_backend(backend_name)
+        else:
+            # no conf entry found - skip tests for this backend
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+
+    def setUp(self):
+        self.search_backend = self.get_elasticsearch_backend()
+        self.login()
+
+        from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+        register_signal_handlers()
+
+    def add_image(self, **params):
+        post_data = {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_add_image'), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+        return image
+
+    def edit_image(self, **params):
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Edit it
+        post_data = {
+            'title': "Edited",
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was edited
+        image = Image.objects.get(id=self.image.id)
+        self.assertEqual(image.title, "Edited")
+        return image
+
+    def test_issue_613_on_add(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.add_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)
+
+    def test_issue_613_on_edit(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.edit_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)

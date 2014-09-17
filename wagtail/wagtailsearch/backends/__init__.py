@@ -80,3 +80,11 @@ def get_search_backend(backend='default', **kwargs):
 
     # Create backend
     return backend_cls(params)
+
+
+def get_search_backends():
+    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+        for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
+            yield get_search_backend(backend)
+    else:
+        yield get_search_backend('default')

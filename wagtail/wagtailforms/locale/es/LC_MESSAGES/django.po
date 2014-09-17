@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:22
+msgid "Single line text"
+msgstr ""
+
+#: models.py:23
+msgid "Multi-line text"
+msgstr ""
+
+#: models.py:24
+msgid "Email"
+msgstr ""
+
+#: models.py:25
+msgid "Number"
+msgstr ""
+
+#: models.py:26
+msgid "URL"
+msgstr ""
+
+#: models.py:27
+msgid "Checkbox"
+msgstr ""
+
+#: models.py:28
+msgid "Checkboxes"
+msgstr ""
+
+#: models.py:29
+msgid "Drop down"
+msgstr ""
+
+#: models.py:30
+msgid "Radio buttons"
+msgstr ""
+
+#: models.py:31
+msgid "Date"
+msgstr ""
+
+#: models.py:32
+msgid "Date/time"
+msgstr ""
+
+#: models.py:60
+msgid "The label of the form field"
+msgstr ""
+
+#: models.py:67
+msgid ""
+"Comma seperated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+
+#: models.py:72
+msgid "Default value. Comma seperated values supported for checkboxes."
+msgstr ""
+
+#: models.py:191
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+
+#: wagtail_hooks.py:25 templates/wagtailforms/index.html:3
+#: templates/wagtailforms/index.html:6
+msgid "Forms"
+msgstr ""
+
+#: templates/wagtailforms/index.html:7
+msgid "Pages"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:3
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:36
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:45
+msgid "Filter"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:51
+msgid "Download CSV"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:63
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr ""
+
+#: templates/wagtailforms/list_forms.html:7
+msgid "Title"
+msgstr ""
+
+#: templates/wagtailforms/list_forms.html:8
+msgid "Origin"
+msgstr ""
+
+#: templates/wagtailforms/list_submissions.html:9
+msgid "Submission Date"
+msgstr ""
+
+#: templates/wagtailforms/results_forms.html:7
+msgid "No form pages have been created."
+msgstr ""

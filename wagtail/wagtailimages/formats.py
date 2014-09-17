@@ -1,11 +1,6 @@
-from django.conf import settings
 from django.utils.html import escape
 
-try:
-    from importlib import import_module
-except ImportError:
-    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
-    from django.utils.importlib import import_module
+from wagtail.utils.apps import get_app_submodules
 
 
 class Format(object):
@@ -85,12 +80,7 @@ _searched_for_image_formats = False
 def search_for_image_formats():
     global _searched_for_image_formats
     if not _searched_for_image_formats:
-        for app_module in settings.INSTALLED_APPS:
-            try:
-                import_module('%s.image_formats' % app_module)
-            except ImportError:
-                continue
-
+        list(get_app_submodules('image_formats'))
         _searched_for_image_formats = True
 
 

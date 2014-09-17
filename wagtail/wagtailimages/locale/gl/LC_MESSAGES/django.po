@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/language/gl/)\n"
+"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
+"language/gl/)\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:37
@@ -55,7 +56,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: models.py:34 templates/wagtailimages/images/usage.html:16
+#: models.py:48 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Título"
 
@@ -67,7 +68,7 @@ msgstr "Arquivo"
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: wagtail_hooks.py:64 templates/wagtailimages/images/index.html:5
+#: wagtail_hooks.py:69 templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18
 msgid "Images"
 msgstr "Imaxes"
@@ -102,8 +103,14 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\n            Hai unha coincidencia\n        "
-msgstr[1] "\n            Hai %(counter)s coincidencias\n        "
+msgstr[0] ""
+"\n"
+"            Hai unha coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hai %(counter)s coincidencias\n"
+"        "
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -176,9 +183,11 @@ msgstr "Sentímolo, ningunha imaxe contén \"<em>%(query_string)s</em>\""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "No subiches imaxes. ¿Por qué non <a href=\"%(wagtailimages_add_image_url)s\">engadir unha agora</a>?"
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"No subiches imaxes. ¿Por qué non <a href=\"%(wagtailimages_add_image_url)s"
+"\">engadir unha agora</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -271,26 +280,26 @@ msgid ""
 "file extension (*.gif, *.jpg or *.png)."
 msgstr ""
 
-#: views/images.py:37 views/images.py:47
+#: views/images.py:38 views/images.py:48
 msgid "Search images"
 msgstr "Buscar imaxes"
 
-#: views/images.py:99
+#: views/images.py:105
 msgid "Image '{0}' updated."
 msgstr "Imaxe '{0}' actualizada."
 
-#: views/images.py:102
+#: views/images.py:108
 msgid "The image could not be saved due to errors."
 msgstr "A imaxe non puido ser gardada debido a erros"
 
-#: views/images.py:188
+#: views/images.py:194
 msgid "Image '{0}' deleted."
 msgstr "Imaxe '{0}' eliminada."
 
-#: views/images.py:206
+#: views/images.py:217
 msgid "Image '{0}' added."
 msgstr "Imaxe '{0}' engadida."
 
-#: views/images.py:209
+#: views/images.py:220
 msgid "The image could not be created due to errors."
 msgstr "A imaxe non puido ser creada debido a erros."
