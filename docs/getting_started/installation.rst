@@ -63,9 +63,10 @@ You will now be able to run the following command to set up an initial file stru
 **Without Vagrant:** Run the following steps to complete setup of your project (the ``migrate`` step will prompt you to set up a superuser account)::
 
     cd myprojectname
-    ./manage.py syncdb
-    ./manage.py migrate
-    ./manage.py runserver
+    pip install -r requirements.txt
+    python manage.py syncdb
+    python manage.py migrate
+    python manage.py runserver
 
 Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/ .
 
