@@ -112,7 +112,7 @@ class BaseImageBackend(object):
         if original_height <= target_height:
             return image
 
-        scale = target_height / original_hight
+        scale = target_height / original_height
 
         final_size = (int(original_width * scale), target_height)
 
@@ -219,11 +219,11 @@ class BaseImageBackend(object):
                 top = focal_point_top
 
             if right < focal_point_right:
-                left += focal_point_right - right;
+                left += focal_point_right - right
                 right = focal_point_right
 
             if bottom < focal_point_bottom:
-                top += focal_point_bottom - bottom;
+                top += focal_point_bottom - bottom
                 bottom = focal_point_bottom
 
         # Don't allow the crop box to go over the image boundary
@@ -245,7 +245,6 @@ class BaseImageBackend(object):
 
         # Crop!
         return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
-
 
     def no_operation(self, image, param, focal_point=None):
         """Return the image unchanged"""
