@@ -103,9 +103,12 @@ class SubmenuMenuItem(MenuItem):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0} submenu-trigger">
-                <a href="#" class="{1}"{2}>{3}</a>
-                <ul class="nav-submenu">{4}</ul>
+            """<li class="menu-{0}">
+                <a href="#" class="submenu-trigger {1}"{2}>{3}</a>
+                <div class="nav-submenu">
+                    <h2 class="{1}">{3}</h2>
+                    <ul>{4}</ul>
+                </div>
             </li>""",
             self.name, self.classnames, self.attr_string, self.label, self.menu.render_html(request)
         )

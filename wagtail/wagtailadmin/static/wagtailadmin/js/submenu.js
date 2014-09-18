@@ -1,12 +1,18 @@
 $(function(){
-    $('.nav-main li.submenu-trigger').each(function() {
-        var submenuUl = $(this).find('> ul.nav-submenu');
-        /* move submenuUl out of .nav-main */
-        $('.nav-wrapper').append(submenuUl);
+    $('.nav-main .submenu-trigger').on('click', function(){
+        if($(this).closest('li').find('.nav-submenu').length){
+            $(this).closest('li').toggleClass('submenu-active');
+            $('.nav-wrapper').toggleClass('submenu-active')
+            return false
+        }
+    });
 
-        $(this).find('> a').click(function() {
-            submenuUl.toggle();
-            return false;
-        });
+    $(document).on('keydown click', function(e){
+        if($('.nav-wrapper.submenu-active').length){
+            if(e.keyCode == 27 || !e.keyCode){
+                $('.nav-main .submenu-active').removeClass('submenu-active');
+                $('.nav-wrapper').toggleClass('submenu-active')
+            }
+        }
     });
 });

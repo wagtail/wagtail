@@ -68,15 +68,10 @@ body{
     margin:2em auto;
     text-align:left;
     text-decoration:none;
-    color:white;
+    color: #AAA;
     padding: 0.9em 1.2em;
     margin:0;
-    font-size:0.9em;
     -webkit-font-smoothing: auto;
-
-    span{
-        text-transform:uppercase;
-    }
 
     img{
         width:20px;
@@ -85,16 +80,6 @@ body{
         margin-right:1em;
     }
 }
-
-    .nav-submenu {
-        display: none; /* prevent submenu showing before JS load */
-        position: absolute;
-        left: 99%;
-        z-index: 500;
-        width: 200px;
-        background-color: $color-grey-1;
-    }
-
 
 .content-wrapper{
     width:100%;
@@ -278,7 +263,7 @@ footer{
 .content-wrapper{
     z-index:3;
 }
-.submenu{
+.nav-submenu{
     z-index:6;
 }
 footer, .logo{
@@ -356,12 +341,7 @@ footer, .logo{
             margin:auto;
             display:block;
         }
-    }
-    /* NOT SURE ABOUT THIS */
-    .submenu-items {
-        position: absolute;
-        left: 99%;
-    }
+    }   
 
     footer{
         width:80%;

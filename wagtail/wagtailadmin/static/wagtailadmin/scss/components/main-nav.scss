@@ -40,16 +40,9 @@
         }
 
         li{
+            @include transition(border-color 0.2s ease);
             border-bottom:1px solid rgba(100,100,100,0.2);
             position:relative;
-
-            &.selected{
-                background:$selected-highlight;
-            }
-
-            &.active{
-                background:$submenu-color;
-            }
 
             .menu-snippets &.menu-snippets,
             .menu-users &.menu-users,
@@ -57,10 +50,13 @@
             .menu-documents &.menu-documents,
             .menu-images &.menu-images,
             .menu-search &.menu-search,
-            .menu-explorer &.menu-explorer{
+            .menu-explorer &.menu-explorer,
+            .menu-forms &.menu-forms{
                 background:$selected-highlight;
+                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
                 a{
+                    border-left-color:$color-teal;
                     color:white;
                 }
             }
@@ -73,18 +69,20 @@
             color: #AAA;
             padding: 0.8em 1.7em;
             position:relative;
-            font-size:0.9em;
+            font-size:0.95em;
             white-space:nowrap;
-            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            border-left:3px solid transparent;
 
             &:before{
                 font-size:1rem;
                 vertical-align:-20%;
                 margin-right:0.5em;
             }
+
             &:hover{
                 background-color:rgba(100,100,100,0.15);
                 color:white;
+                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
             }
 
             /* only really used for spinners */
@@ -96,15 +94,9 @@
                 top:0.5em;
                 margin-top:0.15em;
             }
-        }
-        li.active > a:hover{
-            background-color:transparent;
-        }
-        li.active .submenu{
-            @include transition(width 0.2s ease);
-        }
+        }       
 
-        .submenu{ 
+        .nav-submenu{ 
             background:$submenu-color;
             position:fixed;
             height:100%;
@@ -160,17 +152,29 @@
             }
         }
 
-        li.active .submenu{
-            width:$menu-width;
-            padding:0 0 1.5em 0;
-        }
-        li .submenu{
-            width:0;
-            padding:0;
+        li.submenu-active{
+            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            background:$submenu-color;
+            > a{
+                border-left-color:$color-teal;
+                
+                &:hover{
+                    background-color:transparent;  
+                }
+            }
+            .nav-submenu{
+                @include transition(width 0.2s ease);
+                width:$menu-width;
+                padding:0 0 1.5em 0;
+            }
         }
 
         .avatar{
             display:none;
+
+            a:hover{
+                background-color:transparent;
+            }
         }
     }
 
