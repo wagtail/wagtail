@@ -2,7 +2,7 @@ from __future__ import division  # Use true division
 
 from django.template.loader import render_to_string
 
-from wagtail.wagtailembeds import get_embed
+from wagtail.wagtailembeds.embeds import get_embed
 
 
 def embed_to_frontend_html(url):
