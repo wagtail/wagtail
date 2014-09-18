@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-11 16:37+0100\n"
-"PO-Revision-Date: 2014-08-03 01:50+0100\n"
+"PO-Revision-Date: 2014-09-17 17:21+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -293,6 +293,10 @@ msgid ""
 "Search results will exclude pages of other types.\n"
 "        "
 msgstr ""
+"\n"
+"            Neste campo apenas pode escolher páginas do tipo \"%(type)s\". "
+"Nos resultados da pesquisa serão excluídas as páginas de outros tipos.\n"
+"        "
 
 #: templates/wagtailadmin/chooser/_search_results.html:16
 #, python-format
@@ -314,9 +318,8 @@ msgstr[1] ""
 "        "
 
 #: templates/wagtailadmin/chooser/browse.html:3
-#, fuzzy
 msgid "Choose"
-msgstr "Escolher uma página"
+msgstr "Escolhe"
 
 #: templates/wagtailadmin/chooser/browse.html:6
 #: templates/wagtailadmin/chooser/search.html:2
@@ -581,11 +584,10 @@ msgid "You can edit the privacy settings on:"
 msgstr "Você pode editar as configurações de privacidade em:"
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
-#, fuzzy
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
-"<b>Nota:</b> as alterações de privacidade também serão aplicadas a todas as "
-"páginas filhas desta página."
+"As alterações de privacidade também serão aplicadas a todas as páginas "
+"filhas desta página."
 
 #: templates/wagtailadmin/pages/_moderator_userbar.html:4
 #, python-format

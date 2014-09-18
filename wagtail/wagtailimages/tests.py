@@ -1051,7 +1051,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
                 return get_search_backend(backend_name)
         else:
             # no conf entry found - skip tests for this backend
-            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
 
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()

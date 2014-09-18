@@ -46,6 +46,7 @@ Translators
 * Greek: Serafeim Papastefanos
 * Mongolian: Delgermurun Purevkhuu
 * Polish: Łukasz Bołdys
+* Portuguese: Jose Lourenco
 * Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
 * Russian: ice9, HNKNTA
