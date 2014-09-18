@@ -3,9 +3,13 @@ modal.ajaxifyForm($('form.search-form', modal.body));
 var searchUrl = $('form.search-form', modal.body).attr('action');
 
 function search() {
+    var params = modal.opts.urlParams || {};
+    params.q = $('#id_q', modal.body).val();
+    params.results_only = true;
+
     $.ajax({
         url: searchUrl,
-        data: {q: $('#id_q', modal.body).val(), 'results_only': true},
+        data: params,
         success: function(data, status) {
             $('.page-results', modal.body).html(data);
             ajaxifySearchResults();
