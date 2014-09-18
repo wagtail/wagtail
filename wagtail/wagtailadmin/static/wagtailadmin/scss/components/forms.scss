@@ -24,12 +24,14 @@ legend{
     @include visuallyhidden();
 }
 
-label{
+label, .label{
+    text-transform:none;
     font-weight:bold;
     color:$color-grey-1;
     font-size:1.1em;
     display:block;
     padding:0 0 0.8em 0;
+    margin:0;
     line-height:1.3em;
 
     .checkbox &,

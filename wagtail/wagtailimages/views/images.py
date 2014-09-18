@@ -12,6 +12,7 @@ from django.http import HttpResponse
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
@@ -96,6 +97,11 @@ def edit(request, image_id):
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
             form.save()
+
+            # Reindex the image to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(image)
+
             messages.success(request, _("Image '{0}' updated.").format(image.title))
             return redirect('wagtailimages_index')
         else:
@@ -203,6 +209,11 @@ def add(request):
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
             form.save()
+
+            # Reindex the image to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(image)
+
             messages.success(request, _("Image '{0}' added.").format(image.title))
             return redirect('wagtailimages_index')
         else:

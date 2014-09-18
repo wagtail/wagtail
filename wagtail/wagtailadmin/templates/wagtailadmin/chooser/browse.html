@@ -1,13 +1,17 @@
 {% load i18n %}
-{% trans "Choose a page" as choose_str %}
-{% include "wagtailadmin/shared/header.html" with title=choose_str search_url="wagtailadmin_choose_page" icon="doc-empty-inverse" %}
+{% if page_types_restricted %}
+	{% trans "Choose" as choose_str %}
+	{% trans page_type.get_verbose_name as subtitle %}
+{% else %}
+	{% trans "Choose a page" as choose_str %}
+{% endif %}
+
+{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=subtitle search_url="wagtailadmin_choose_page" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
 
     <div class="page-results">
-        {# content in here will be replaced by live search results #}
-
         {% include 'wagtailadmin/chooser/_search_results.html' %}
     </div>
 </div>

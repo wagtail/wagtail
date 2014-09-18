@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Llop <d.lloople@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
+"ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:21 templates/wagtaildocs/documents/list.html:11
@@ -32,7 +33,7 @@ msgstr "Arxiu"
 msgid "Tags"
 msgstr "Tags"
 
-#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:26 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Documents"
 
@@ -67,8 +68,12 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nHi ha un resultat"
-msgstr[1] "\nHi han %(counter)s resultats"
+msgstr[0] ""
+"\n"
+"Hi ha un resultat"
+msgstr[1] ""
+"\n"
+"Hi han %(counter)s resultats"
 
 #: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
@@ -128,9 +133,11 @@ msgstr "Pujat"
 #: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "No has pujat cap document. Per què no <a href=%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"No has pujat cap document. Per què no <a href="
+"%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
 
 #: templates/wagtaildocs/documents/usage.html:3
 #, python-format
@@ -165,22 +172,22 @@ msgstr "Opció clara"
 msgid "Choose another document"
 msgstr "Escull un altre document"
 
-#: views/documents.py:37 views/documents.py:46
+#: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Cercar documents"
 
-#: views/documents.py:86
+#: views/documents.py:92
 msgid "Document '{0}' added."
 msgstr "Document '{0}' afegit."
 
-#: views/documents.py:89 views/documents.py:118
+#: views/documents.py:95 views/documents.py:129
 msgid "The document could not be saved due to errors."
 msgstr "El document no s'ha pogut desar."
 
-#: views/documents.py:115
+#: views/documents.py:126
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' actualitzat"
 
-#: views/documents.py:137
+#: views/documents.py:148
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."

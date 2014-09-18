@@ -1,7 +1,6 @@
 from django.db import models
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.indexed import Indexed
 
 
 class DBSearch(BaseSearch):

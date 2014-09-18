@@ -37,7 +37,7 @@ RoutablePage
 
 A ``RoutablePage`` model has been added to allow embedding Django-style URL routing within a page.
 
-:ref:`routable_page`
+:ref:`routable_page_mixin`
 
 
 Usage stats for images, documents and snippets
@@ -122,3 +122,11 @@ Several new fields have been added to the Image and Rendition models to support 
   ./manage.py schemamigration myapp --auto add_image_focal_point_fields
 
 (with 'myapp' replaced with your app name) will generate the necessary migration file.
+
+
+South upgraded to 1.0
+~~~~~~~~~~~~~~~~~~~~~
+
+In preparation for Django 1.7 support in a future release, Wagtail now depends on South 1.0, and its migration files have been moved from ``migrations`` to ``south_migrations``. Older versions of South will fail to find the migrations in the new location.
+
+If your project's requirements file (most commonly requirements.txt or requirements/base.txt) references a specific older version of South, this must be updated to South 1.0.

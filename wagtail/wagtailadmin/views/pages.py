@@ -12,8 +12,6 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
 from wagtail.wagtailadmin import tasks, signals
@@ -70,7 +68,7 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.allowed_subpage_types(), key=lambda pagetype: pagetype.name.lower())
 
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
@@ -138,7 +136,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.clean_subpage_types():
+    if content_type not in parent_page.allowed_subpage_types():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
@@ -427,27 +425,6 @@ def view_draft(request, page_id):
     return page.serve_preview(page.dummy_request(), page.default_preview_mode)
 
 
-def get_preview_response(page, preview_mode):
-    """
-    Helper function for preview_on_edit and preview_on_create -
-    return a page's preview response via either serve_preview or the deprecated
-    show_as_mode method
-    """
-    # Check the deprecated Page.show_as_mode method, as subclasses of Page
-    # might be overriding that to return a response
-    response = page.show_as_mode(preview_mode)
-    if response:
-        warnings.warn(
-            "Defining 'show_as_mode' on a page model is deprecated. Use 'serve_preview' instead",
-            RemovedInWagtail06Warning
-        )
-        return response
-    else:
-        # show_as_mode did not return a response, so go ahead and use the 'proper'
-        # serve_preview method
-        return page.serve_preview(page.dummy_request(), preview_mode)
-
-
 @permission_required('wagtailadmin.access_admin')
 def preview_on_edit(request, page_id):
     # Receive the form submission that would typically be posted to the 'edit' view. If submission is valid,
@@ -462,8 +439,7 @@ def preview_on_edit(request, page_id):
         form.save(commit=False)
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = get_preview_response(page, preview_mode)
-
+        response = page.serve_preview(page.dummy_request(), preview_mode)
         response['X-Wagtail-Preview'] = 'ok'
         return response
 
@@ -507,8 +483,7 @@ def preview_on_create(request, content_type_app_name, content_type_model_name, p
         page.path = Page._get_children_path_interval(parent_page.path)[1]
 
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        response = get_preview_response(page, preview_mode)
-
+        response = page.serve_preview(page.dummy_request(), preview_mode)
         response['X-Wagtail-Preview'] = 'ok'
         return response
 

@@ -1,0 +1,34 @@
+==========================================
+Wagtail 0.7 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+New interface for choosing images focal point
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * The ``content_type`` template filter has been removed from the project template, as the same thing can be accomplished with ``self.get_verbose_name|slugify``.
+ * Page copy operations now also copy the page revision history.
+ * Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
+ * ``register_snippet`` can now be invoked as a decorator.
+
+Bug fixes
+~~~~~~~~~
+
+
+Upgrade considerations
+======================
+
+
+Deprecated features
+===================
