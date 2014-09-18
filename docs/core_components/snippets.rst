@@ -4,7 +4,7 @@
 Snippets
 ========
 
-Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are models which do not inherit the ``Page`` class and are thus not organized into the Wagtail tree, but can still be made editable by assigning panels and identifying the model as a snippet with ``register_snippet()``.
+Snippets are pieces of content which do not necessitate a full webpage to render. They could be used for making secondary content, such as headers, footers, and sidebars, editable in the Wagtail admin. Snippets are models which do not inherit the ``Page`` class and are thus not organized into the Wagtail tree, but can still be made editable by assigning panels and identifying the model as a snippet with the ``register_snippet`` class decorator.
 
 Snippets are not search-able or order-able in the Wagtail admin, so decide carefully if the content type you would want to build into a snippet might be more suited to a page.
 
@@ -19,9 +19,10 @@ Here's an example snippet from the Wagtail demo website:
 
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
   from wagtail.wagtailsnippets.models import register_snippet
-  
+
   ...
 
+  @register_snippet
   class Advert(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -34,11 +35,9 @@ Here's an example snippet from the Wagtail demo website:
     def __unicode__(self):
       return self.text
 
-  register_snippet(Advert)
-
 The ``Advert`` model uses the basic Django model class and defines two properties: text and url. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the panels property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
 
-``register_snippet(Advert)`` tells Wagtail to treat the model as a snippet. The ``panels`` list defines the fields to show on the snippet editing page. It's also important to provide a string representation of the class through ``def __unicode__(self):`` so that the snippet objects make sense when listed in the Wagtail admin.
+``@register_snippet`` tells Wagtail to treat the model as a snippet. The ``panels`` list defines the fields to show on the snippet editing page. It's also important to provide a string representation of the class through ``def __unicode__(self):`` so that the snippet objects make sense when listed in the Wagtail admin.
 
 Including Snippets in Template Tags
 -----------------------------------
