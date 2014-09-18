@@ -44,6 +44,7 @@
             border-bottom:1px solid rgba(100,100,100,0.2);
             position:relative;
 
+            /* TODO: find better way to procedurally detect the appropriate menu to highlight */
             .menu-snippets &.menu-snippets,
             .menu-users &.menu-users,
             .menu-snippets &.menu-snippets,
@@ -56,7 +57,7 @@
                 text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
 
                 a{
-                    border-left-color:$color-teal;
+                    border-left-color:$color-salmon;
                     color:white;
                 }
             }
@@ -155,8 +156,9 @@
         li.submenu-active{
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
             background:$submenu-color;
+
             > a{
-                border-left-color:$color-teal;
+                border-left-color:$color-salmon;
                 
                 &:hover{
                     background-color:transparent;  
