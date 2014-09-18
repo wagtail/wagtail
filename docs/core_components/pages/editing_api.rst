@@ -1,6 +1,7 @@
+.. _editing-api:
 
-Defining models with the Editing API
-====================================
+Displaying fields with the Editing API
+======================================
 
 .. note::
     This documentation is currently being written.
@@ -387,6 +388,8 @@ For information on developing custom hallo.js plugins, see the project's page: h
 Edit Handler API
 ~~~~~~~~~~~~~~~~
 
+.. _admin_hooks:
+
 Admin Hooks
 -----------
 
@@ -528,10 +531,19 @@ The available hooks are:
         url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank' ),
       ]
 
-.. _construct_main_menu:
+.. _register_admin_menu_item:
 
-``construct_main_menu``
-  Add, remove, or alter ``MenuItem`` objects from the Wagtail admin menu. The callable passed to this hook must take a ``request`` object and a list of ``menu_items``; it must return a list of menu items. New items can be constructed from the ``MenuItem`` class by passing in: a ``label`` which will be the text in the menu item, the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up), CSS class ``name`` applied to the wrapping ``<li>`` of the menu item as ``"menu-{name}"``, CSS ``classnames`` which are used to give the link an icon, and an ``order`` integer which determine's the item's place in the menu.
+``register_admin_menu_item``
+  .. versionadded:: 0.6
+
+  Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
+
+  :name: an internal name used to identify the menu item; defaults to the slugified form of the label. Also applied as a CSS class to the wrapping ``<li>``, as ``"menu-{name}"``.
+  :classnames: additional classnames applied to the link, used to give it an icon
+  :attrs: additional HTML attributes to apply to the link
+  :order: an integer which determines the item's position in the menu
+
+  ``MenuItem`` can be subclassed to customise the HTML output, specify Javascript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -540,11 +552,23 @@ The available hooks are:
     from wagtail.wagtailcore import hooks
     from wagtail.wagtailadmin.menu import MenuItem
 
+    @hooks.register('register_admin_menu_item')
+    def register_frank_menu_item():
+      return MenuItem('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+
+.. _construct_main_menu:
+
+``construct_main_menu``
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated Javascript includes, and their ``is_shown`` check will not be applied.
+
+  .. code-block:: python
+
+    from wagtail.wagtailcore import hooks
+
     @hooks.register('construct_main_menu')
-    def construct_main_menu(request, menu_items):
-      menu_items.append(
-        MenuItem( 'Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
-      )
+    def hide_explorer_menu_item_from_frank(request, menu_items):
+      if request.user.username == 'frank':
+        menu_items[:] = [item for item in menu_items if item.name != 'explorer']
 
 
 .. _insert_editor_js:

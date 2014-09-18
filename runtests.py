@@ -2,6 +2,7 @@
 import sys
 import os
 import shutil
+import warnings
 
 from django.core.management import execute_from_command_line
 
@@ -12,6 +13,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
 def runtests():
+    # Don't ignore DeprecationWarnings
+    warnings.simplefilter('default', DeprecationWarning)
+
     argv = sys.argv[:1] + ['test'] + sys.argv[1:]
     try:
         execute_from_command_line(argv)

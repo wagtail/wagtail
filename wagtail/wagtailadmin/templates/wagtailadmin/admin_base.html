@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/skeleton.html" %}
-{% load compress %}
+{% load compress wagtailadmin_tags %}
 
 {% block css %}
     {% compress css %}
@@ -22,9 +22,7 @@
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/bootstrap-tab.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/jquery.dlmenu.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/core.js"></script>
-        <script>
-            window.explorer_menu_url = "{% url 'wagtailadmin_explorer_nav' %}";
-        </script>
+        {% main_nav_js %}
     {% endcompress %}
     
     {% block extra_js %}{% endblock %}

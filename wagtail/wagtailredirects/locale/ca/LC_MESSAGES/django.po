@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:39+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-03-14 21:59+0000\n"
 "Last-Translator: Lloople <d.lloople@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
@@ -69,7 +69,7 @@ msgstr "Redireccionament '{0}' afegit."
 msgid "The redirect could not be created due to errors."
 msgstr "No s'ha pogut crear el redireccionament."
 
-#: wagtail_hooks.py:23 templates/wagtailredirects/index.html:3
+#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
 #: templates/wagtailredirects/index.html:17
 msgid "Redirects"
 msgstr "Redireccions"

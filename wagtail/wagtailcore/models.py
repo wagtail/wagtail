@@ -5,10 +5,10 @@ from six import string_types
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
-from modelcluster.models import ClusterableModel
+from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
-from django.db.models import get_model, Q
+from django.db.models import Q
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -20,19 +20,17 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
 from treebeard.mp_tree import MP_Node
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
-from wagtail.wagtailcore.utils import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
 
-from wagtail.wagtailsearch import indexed
+from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
@@ -60,15 +58,15 @@ class Site(models.Model):
     @staticmethod
     def find_for_request(request):
         """
-            Find the site object responsible for responding to this HTTP
-            request object. Try:
-             - unique hostname first
-             - then hostname and port
-             - if there is no matching hostname at all, or no matching
-               hostname:port combination, fall back to the unique default site,
-               or raise an exception
-            NB this means that high-numbered ports on an extant hostname may
-            still be routed to a different hostname which is set as the default
+        Find the site object responsible for responding to this HTTP
+        request object. Try:
+         - unique hostname first
+         - then hostname and port
+         - if there is no matching hostname at all, or no matching
+           hostname:port combination, fall back to the unique default site,
+           or raise an exception
+        NB this means that high-numbered ports on an extant hostname may
+        still be routed to a different hostname which is set as the default
         """
         try:
             hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
@@ -147,31 +145,6 @@ def get_page_types():
             ContentType.objects.get_for_model(cls) for cls in PAGE_MODEL_CLASSES
         ]
     return _PAGE_CONTENT_TYPES
-
-
-def get_leaf_page_content_type_ids():
-    warnings.warn("""
-        get_leaf_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_leaf_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if not getattr(content_type.model_class(), 'subpage_types', None)
-    ]
-
-def get_navigable_page_content_type_ids():
-    warnings.warn("""
-        get_navigable_page_content_type_ids is deprecated, as it treats pages without an explicit subpage_types
-        setting as 'leaf' pages. Code that calls get_navigable_page_content_type_ids must be rewritten to avoid
-        this incorrect assumption.
-    """, RemovedInWagtail06Warning)
-    return [
-        content_type.id
-        for content_type in get_page_types()
-        if getattr(content_type.model_class(), 'subpage_types', None)
-    ]
 
 
 class PageManager(models.Manager):
@@ -263,6 +236,7 @@ class PageBase(models.base.ModelBase):
             cls.ajax_template = None
 
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
+        cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
         if not dct.get('is_abstract'):
             # subclasses are only abstract if the subclass itself defines itself so
@@ -274,7 +248,7 @@ class PageBase(models.base.ModelBase):
 
 
 @python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Indexed)):
+class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
@@ -294,13 +268,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     expired = models.BooleanField(default=False, editable=False)
 
     search_fields = (
-        indexed.SearchField('title', partial_match=True, boost=100),
-        indexed.FilterField('id'),
-        indexed.FilterField('live'),
-        indexed.FilterField('owner'),
-        indexed.FilterField('content_type'),
-        indexed.FilterField('path'),
-        indexed.FilterField('depth'),
+        index.SearchField('title', partial_match=True, boost=100),
+        index.FilterField('id'),
+        index.FilterField('live'),
+        index.FilterField('owner'),
+        index.FilterField('content_type'),
+        index.FilterField('path'),
+        index.FilterField('depth'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -476,14 +450,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def get_other_siblings(self):
-        warnings.warn(
-            "The 'Page.get_other_siblings()' method has been replaced. "
-            "Use 'Page.get_siblings(inclusive=False)' instead.", RemovedInWagtail06Warning)
-
-        # get sibling pages excluding self
-        return self.get_siblings().exclude(id=self.id)
-
     @property
     def full_url(self):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
@@ -539,8 +505,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
     @classmethod
     def clean_subpage_types(cls):
         """
-            Returns the list of subpage types, with strings converted to class objects
-            where required
+        Returns the list of subpage types, with strings converted to class objects
+        where required
         """
         if cls._clean_subpage_types is None:
             subpage_types = getattr(cls, 'subpage_types', None)
@@ -548,46 +514,70 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
                 # if subpage_types is not specified on the Page class, allow all page types as subpages
                 res = get_page_types()
             else:
-                res = []
-                for page_type in cls.subpage_types:
-                    if isinstance(page_type, string_types):
-                        try:
-                            app_label, model_name = page_type.split(".")
-                        except ValueError:
-                            # If we can't split, assume a model in current app
-                            app_label = cls._meta.app_label
-                            model_name = page_type
-
-                        model = get_model(app_label, model_name)
-                        if model:
-                            res.append(ContentType.objects.get_for_model(model))
-                        else:
-                            raise NameError(_("name '{0}' (used in subpage_types list) is not defined.").format(page_type))
-
-                    else:
-                        # assume it's already a model class
-                        res.append(ContentType.objects.get_for_model(page_type))
+                try:
+                    models = [resolve_model_string(model_string, cls._meta.app_label)
+                              for model_string in subpage_types]
+                except LookupError as err:
+                    raise ImproperlyConfigured("{0}.subpage_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
+                res = list(map(ContentType.objects.get_for_model, models))
 
             cls._clean_subpage_types = res
 
         return cls._clean_subpage_types
 
     @classmethod
-    def allowed_parent_page_types(cls):
+    def clean_parent_page_types(cls):
         """
-            Returns the list of page types that this page type can be a subpage of
+        Returns the list of parent page types, with strings converted to class
+        objects where required
         """
-        return [ct for ct in get_page_types() if cls in ct.model_class().clean_subpage_types()]
+        if cls._clean_parent_page_types is None:
+            parent_page_types = getattr(cls, 'parent_page_types', None)
+            if parent_page_types is None:
+                # if parent_page_types is not specified on the Page class, allow all page types as subpages
+                res = get_page_types()
+            else:
+                try:
+                    models = [resolve_model_string(model_string, cls._meta.app_label)
+                              for model_string in parent_page_types]
+                except LookupError as err:
+                    raise ImproperlyConfigured("{0}.parent_page_types must be a list of 'app_label.model_name' strings, given {1!r}".format(
+                        cls.__name__, err.args[1]))
+                res = list(map(ContentType.objects.get_for_model, models))
+
+            cls._clean_parent_page_types = res
+
+        return cls._clean_parent_page_types
 
     @classmethod
-    def allowed_parent_pages(cls):
+    def allowed_parent_page_types(cls):
         """
-            Returns the list of pages that this page type can be a subpage of
+        Returns the list of page types that this page type can be a subpage of
         """
-        return Page.objects.filter(content_type__in=cls.allowed_parent_page_types())
+        cls_ct = ContentType.objects.get_for_model(cls)
+        return [ct for ct in cls.clean_parent_page_types()
+                if cls_ct in ct.model_class().clean_subpage_types()]
+
+    @classmethod
+    def allowed_subpage_types(cls):
+        """
+        Returns the list of page types that this page type can be a subpage of
+        """
+        # Special case the 'Page' class, such as the Root page or Home page -
+        # otherwise you can not add initial pages when setting up a site
+        if cls == Page:
+            return get_page_types()
+
+        cls_ct = ContentType.objects.get_for_model(cls)
+        return [ct for ct in cls.clean_subpage_types()
+                if cls_ct in ct.model_class().clean_parent_page_types()]
 
     @classmethod
     def get_verbose_name(cls):
+        """
+            Returns the human-readable "verbose name" of this page model e.g "Blog page".
+        """
         # This is similar to doing cls._meta.verbose_name.title()
         # except this doesn't convert any characters to lowercase
         return ' '.join([word[0].upper() + word[1:] for word in cls._meta.verbose_name.split()])
@@ -633,7 +623,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         new_self.save()
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True):
         # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
@@ -653,7 +643,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
 
         # Copy child objects
         specific_self = self.specific
-        for child_relation in getattr(specific_self._meta, 'child_relations', []):
+        for child_relation in get_all_child_relations(specific_self):
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
 
@@ -662,6 +652,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
                     child_object.save()
+
+        # Copy revisions
+        if copy_revisions:
+            for revision in self.revisions.all():
+                revision.pk = None
+                revision.submitted_for_moderation = False
+                revision.approved_go_live_at = None
+                revision.page = page_copy
+                revision.save()
 
         # Copy child pages
         if recursive:
@@ -728,15 +727,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thankyou' page
         """
-        modes = self.get_page_modes()
-        if modes is not Page.DEFAULT_PREVIEW_MODES:
-            # User has overriden get_page_modes instead of using preview_modes
-            warnings.warn("Overriding get_page_modes is deprecated. Define a preview_modes property instead", RemovedInWagtail06Warning)
-
-        return modes
-
-    def get_page_modes(self):
-        # Deprecated accessor for the preview_modes property
         return Page.DEFAULT_PREVIEW_MODES
 
     @property
@@ -769,12 +759,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, indexed.Index
         the wagtail user bar to be displayed. This request will always be a GET.
         """
         return self.serve(request)
-
-    def show_as_mode(self, mode_name):
-        # Deprecated API for rendering previews. If this returns something other than None,
-        # we know that a subclass of Page has overridden this, and we should try to work with
-        # that response if possible.
-        return None
 
     def get_cached_paths(self):
         """
@@ -1070,7 +1054,7 @@ class PagePermissionTester(object):
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
         return self.user.is_superuser or ('add' in self.permissions)
 
@@ -1134,7 +1118,7 @@ class PagePermissionTester(object):
         """
         if not self.user.is_active:
             return False
-        if not self.page.specific_class.clean_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
+        if not self.page.specific_class.allowed_subpage_types():  # this page model has an empty subpage_types list, so no subpages are allowed
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)

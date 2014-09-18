@@ -31,6 +31,7 @@ Contributors
 * Robert Clark
 * Tim Heap
 * Nathan Brizendine
+* thenewguy
 
 Translators
 ===========
@@ -45,7 +46,9 @@ Translators
 * Greek: Serafeim Papastefanos
 * Mongolian: Delgermurun Purevkhuu
 * Polish: Łukasz Bołdys
+* Portuguese: Jose Lourenco
 * Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
+* Russian: ice9, HNKNTA
 * Spanish: Unai Zalakain, fooflare
 * Traditional Chinese (Taiwan): wdv4758h
