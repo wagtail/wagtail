@@ -112,13 +112,16 @@ For example:
     <!-- or a square thumbnail: -->
     {% image self.photo fill-80x80 %}
 
-In the above syntax ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``self.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page; various resizing methods are supported, to cater for different usage cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
+In the above syntax example ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``self.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page; various resizing methods are supported, to cater for different usage cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
 
 Note that a space separates ``[image]`` and ``[resize-rule]``, but the resize rule must not contain spaces.
 
+
 The available resizing methods are:
 
+
 .. glossary::
+
     ``max`` 
         (takes two dimensions)
 
@@ -182,6 +185,7 @@ The available resizing methods are:
         Leaves the image at its original size - no resizing is performed.
 
 
+
 .. Note::
     Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
 
@@ -217,6 +221,15 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
     <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}" 
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
         
+
+This syntax exposes the underlying image "Rendition" (``tmp_photo``) to the developer. A "Rendition" contains just the information specific to the way you've requested to format the image i.e dimensions and source URL.
+
+If your site defines a custom image model using ``AbstractImage``, then any additional fields you add to an image e.g a copyright holder, are **not** part of the image *rendition*, they're part of the image *model*. 
+
+Therefore in the above example, if you'd added the field ``foo`` to your AbstractImage you'd access it using ``{{ self.photo.foo }}`` not ``{{ tmp_photo.foo }}``. 
+
+(Due to the links in the database between renditions and their parent image, you could also access it as ``{{ tmp_photo.image.foo }}`` but this is clearly confusing.)
+
 
 .. Note::      
     The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.

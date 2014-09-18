@@ -10,6 +10,8 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
+from wagtail.wagtailsearch.backends import get_search_backends
+
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
 from wagtail.wagtailimages.utils.validators import validate_image_format
@@ -79,6 +81,11 @@ def edit(request, image_id, callback=None):
 
     if form.is_valid():
         form.save()
+
+        # Reindex the image to make sure all tags are indexed
+        for backend in get_search_backends():
+            backend.add(image)
+
         return json_response({
             'success': True,
             'image_id': int(image_id),

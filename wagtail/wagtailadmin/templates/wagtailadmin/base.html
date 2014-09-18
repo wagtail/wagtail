@@ -1,10 +1,10 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags wagtailcore_tags %}
 {% load i18n %}
 {% block furniture %}
     <div class="nav-wrapper">
         <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>{% trans "Dashboard" %}</span></a>
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>{% trans "Dashboard" %}</span></a>
             {% main_nav %}
         </div>
 

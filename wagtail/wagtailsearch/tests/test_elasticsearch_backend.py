@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from wagtail.tests.utils import unittest
 import datetime
 import json
@@ -61,6 +64,28 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         # Search and check
         results = self.backend.search("HelloW", models.SearchTest.objects.all())
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, obj.id)
+
+    def test_ascii_folding(self):
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Ĥéỻø"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Search and check
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)

@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.index import Indexed
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
