@@ -7,6 +7,7 @@ Changelog
  * Removed 'content_type' template filter from the project template, as the same thing can be accomplished with self.get_verbose_name|slugify
  * Page copy operations now also copy the page revision history
  * Page models now support a 'parent_page_types' property in addition to 'subpage types', to restrict the types of page they can be created under
+ * 'register_snippet' can now be invoked as a decorator
 
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
