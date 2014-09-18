@@ -267,6 +267,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    first_revision = models.ForeignKey('wagtailcore.PageRevision', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
+    last_revision = models.ForeignKey('wagtailcore.PageRevision', null=True, on_delete=models.SET_NULL, editable=False, related_name='+')
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=100),
         index.FilterField('id'),
@@ -405,12 +408,22 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
-        return self.revisions.create(
+        revision = self.revisions.create(
             content_json=self.to_json(),
             user=user,
             submitted_for_moderation=submitted_for_moderation,
             approved_go_live_at=approved_go_live_at,
         )
+
+        # Update revisions
+        if not self.first_revision:
+            self.first_revision = revision
+
+        self.last_revision = revision
+
+        self.save(update_fields=['first_revision', 'last_revision'])
+
+        return revision
 
     def get_latest_revision(self):
         return self.revisions.order_by('-created_at').first()
@@ -914,6 +927,8 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.first_revision = self.page.first_revision
+        obj.last_revision = self.page.last_revision
 
         return obj
 
