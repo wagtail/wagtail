@@ -21,6 +21,15 @@ $(function(){
         }
     });
 
+    // enable display of submenus
+    $('.nav-main a').on('click', function(){
+        if($(this).closest('li').find('.submenu').length){
+            $(this).closest('li').toggleClass('active');
+            $('.nav-wrapper').toggleClass('submenu-active')
+            return false
+        }
+    });
+
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
     var fitNav = function(){
         $('.nav-wrapper').css('min-height',$(window).height());

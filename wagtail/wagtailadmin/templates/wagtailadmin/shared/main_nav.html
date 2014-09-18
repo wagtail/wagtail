@@ -4,6 +4,24 @@
     <ul>
         {{ menu_html }}
 
+        <li>
+        	<a href="#" class="icon icon-cogs">Top level item</a>
+
+        	<div class="submenu">
+        		<h2 class="icon icon-cogs">Top level item</h2>
+	        	<ul>
+	        		<li><a href="#" class="icon icon-image">Item 1</a></li>
+	        		<li><a href="#" class="icon icon-redirect">Item 2</a></li>
+	        		<li><a href="#" class="icon icon-user">Longer item</a></li>
+	        		<li><a href="#" class="icon icon-group">Even longer item</a></li>
+	        		<li><a href="#" class="icon icon-cog">Unrealistically long name on several lines</a></li>
+	        		<li><a href="#" class="icon icon-site">More things</a></li>
+	        		<li><a href="#" class="icon icon-snippet">Further things</a></li>
+	        		<li><a href="#" class="icon icon-form">Fandabidozy</a></li>
+	        	</ul>
+	        </div>
+        </li>
+
         <li class="footer">
             <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Account settings' %}">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>
             <a href="{% url 'wagtailadmin_logout' %}">{% trans "Log out" %}</a>
