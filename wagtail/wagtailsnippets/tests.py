@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from wagtail.tests.utils import WagtailTestUtils
 from django.test.utils import override_settings
@@ -174,6 +175,24 @@ class TestSnippetChooserPanel(TestCase):
     def test_render_js(self):
         self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'tests/advert');"
                         in self.snippet_chooser_panel.render_js())
+
+
+class TestSnippetRegistering(TestCase):
+    def test_register_function(self):
+        class RegisterFunction(models.Model):
+            pass
+        register_snippet(RegisterFunction)
+
+        self.assertIn(RegisterFunction, SNIPPET_MODELS)
+
+    def test_register_function(self):
+        @register_snippet
+        class RegisterDecorator(models.Model):
+            pass
+
+        # Misbehaving decorators often return None
+        self.assertIsNotNone(RegisterDecorator)
+        self.assertIn(RegisterDecorator, SNIPPET_MODELS)
 
 
 class TestSnippetOrdering(TestCase):

@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.test.utils import override_settings
 
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.utils import unittest, WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 
 from wagtail.tests.models import EventPage, EventPageRelatedLink
@@ -432,7 +432,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
                 return get_search_backend(backend_name)
         else:
             # no conf entry found - skip tests for this backend
-            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
 
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
