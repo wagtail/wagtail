@@ -5,6 +5,15 @@
     <div class="nav-wrapper">
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>{% trans "Dashboard" %}</span></a>
+            
+            <form class="menu-search" action="{% url 'wagtailadmin_pages_search' %}" method="get">
+                <div>
+                    <label for="menu-search-q">{% trans "Search" %}</label>
+                    <input type="text" id="menu-search-q" name="q" placeholder="{% trans 'Search' %}" />
+                    <button type="submit">{% trans "Search" %}</button>
+                </div>
+            </form>
+
             {% main_nav %}
         </div>
 

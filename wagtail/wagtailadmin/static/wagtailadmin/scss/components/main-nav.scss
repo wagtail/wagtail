@@ -140,6 +140,50 @@ $submenu-color:darken($color-grey-1, 5%);
         font-size:0.95em;
     }
 
+    .menu-search{
+        position:relative;
+        padding:0;
+
+        label{
+            @include visuallyhidden();
+        }
+        input, button{
+            font-size:1em;
+            border:0;
+            @include border-radius(0);
+        }
+        input{
+            background-color:darken($color-grey-2, 15%);
+            color:#AAA;
+            padding: 0.9em 2.5em 0.9em 2em;
+
+            &:active, &:focus{
+                background-color:darken($color-grey-2, 5%);
+                color:white;
+            }
+        }
+        button{
+            background-color:transparent;
+            position:absolute;
+            top:0; right:0; bottom:0;
+            margin:auto;
+            padding:0;
+            width:3em; height:100%;
+            overflow:hidden;
+            
+            &:before{
+                font-family:wagtail;
+                font-weight:200;
+                text-transform:none;
+                content:"f";
+                display:block;
+                height:100%;
+                line-height:3.3em;
+                padding:0 1em;
+            }
+        }
+       
+    }
 
 /* Navigation open condition */
 body.nav-open{
@@ -211,7 +255,7 @@ body.explorer-open {
 
     .nav-main{
         position:absolute;
-        top: 125px;
+        top: 164px; /* WARNING - magic number - the height of the logo plus search box */
         margin-bottom: 116px; /* WARNING - magic number - the height of the .footer */
 
         .footer{
