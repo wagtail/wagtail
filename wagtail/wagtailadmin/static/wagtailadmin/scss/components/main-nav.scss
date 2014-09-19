@@ -1,3 +1,6 @@
+$selected-highlight:darken($color-grey-1, 10%);
+$submenu-color:darken($color-grey-1, 5%);
+
 .nav-wrapper{
     position:relative;
     background: $color-grey-1;
@@ -21,9 +24,6 @@
     }
 
     .nav-main{
-        $selected-highlight:darken($color-grey-1, 10%);
-        $submenu-color:darken($color-grey-1, 5%);
-
         top: 43px;
         bottom: 0px;
         overflow: auto;
@@ -64,6 +64,7 @@
         }
 
         a {
+            @include transition(border-color 0.2s ease);
             -webkit-font-smoothing: auto;
             text-decoration:none;
             display: block;
@@ -71,6 +72,7 @@
             padding: 0.8em 1.7em;
             position:relative;
             font-size:0.95em;
+            font-weight:300;
             white-space:nowrap;
             border-left:3px solid transparent;
 
@@ -86,7 +88,7 @@
                 text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
             }
 
-            /* only really used for spinners */
+            /* only really used for spinners and settings menu */
             &:after{
                 font-size:1.5em;
                 margin:0;
@@ -95,81 +97,8 @@
                 top:0.5em;
                 margin-top:0.15em;
             }
+            
         }       
-
-        .nav-submenu{ 
-            background:$submenu-color;
-            position:fixed;
-            height:100%;
-            width:0;
-            padding:0;
-            top:0;
-            left:$menu-width;
-            overflow:auto;
-            max-height:100%;
-            border-right:1px solid rgba(0,0,0,0.1);
-            @include box-shadow(5px 0 5px rgba(0,0,0,0.1));
-
-            h2,ul{
-                float:right;
-                width:$menu-width;
-            }
-
-            h2{
-                padding:0.2em 0;
-                font-size:1.2em;
-                font-weight:500;
-                text-transform:none;
-                text-align:center;
-                color:white;
-
-                &:before{
-                    font-size:4em;
-                    display:block;
-                    text-align:center;
-                    margin:0 0 0.2em 0;
-                    width:100%;
-                    opacity:0.15;
-                }
-            }
-
-            a{
-                text-transform:none;
-                
-                white-space:normal;
-                padding: 0.9em 0 0.9em 3.5em;
-
-                &:before{
-                    margin-left:-1.5em;
-                }
-
-                &:hover{
-                    background-color:rgba(100,100,100,0.2);
-                }
-            }
-
-            li{
-                border:0;
-            }
-        }
-
-        li.submenu-active{
-            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
-            background:$submenu-color;
-
-            > a{
-                border-left-color:$color-salmon;
-                
-                &:hover{
-                    background-color:transparent;  
-                }
-            }
-            .nav-submenu{
-                @include transition(width 0.2s ease);
-                width:$menu-width;
-                padding:0 0 1.5em 0;
-            }
-        }
 
         .avatar{
             display:none;
@@ -180,10 +109,35 @@
         }
     }
 
+    .nav-submenu{ 
+        background:$submenu-color;
+        
+        h2{
+            display:none;
+        }
+
+        a{
+            white-space:normal;
+            padding: 0.9em 0 0.9em 4.5em;
+
+            &:before{
+                margin-left:-1.5em;
+            }
+
+            &:hover{
+                background-color:rgba(100,100,100,0.2);
+            }
+        }
+
+        li{
+            border:0;
+        }
+    }
+
     .explorer{
         position:absolute;
         margin-top:70px;
-        font-size:0.9em;
+        font-size:0.95em;
     }
 
 
@@ -255,7 +209,7 @@ body.explorer-open {
         display:none;
     }
 
-     .nav-main{
+    .nav-main{
         position:absolute;
         top: 125px;
         margin-bottom: 116px; /* WARNING - magic number - the height of the .footer */
@@ -279,6 +233,68 @@ body.explorer-open {
             }
             &:hover{
                 @include box-shadow(0px 0px 6px 0px rgba(0,0,0,1));
+            }
+        }
+        a.submenu-trigger:after{
+            content:"n";
+        }
+    }
+
+    .nav-submenu{ 
+        position:fixed;
+        height:100%;
+        width:0;
+        padding:0;
+        top:0;
+        left:$menu-width;
+        overflow:auto;
+        max-height:100%;
+        border-right:1px solid rgba(0,0,0,0.1);
+        @include box-shadow(5px 0 5px rgba(0,0,0,0.1));
+
+        h2,ul{
+            float:right;
+            width:$menu-width;
+        }
+
+        h2{
+            display:block;
+            padding:0.2em 0;
+            font-size:1.2em;
+            font-weight:500;
+            text-transform:none;
+            text-align:center;
+            color: #AAA;
+
+            &:before{
+                font-size:4em;
+                display:block;
+                text-align:center;
+                margin:0 0 0.2em 0;
+                width:100%;
+                opacity:0.15;
+            }
+        }
+    }
+
+    li.submenu-active{
+        background:$submenu-color;
+
+        > a{
+            border-left-color:$color-salmon;
+            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            
+            &:hover{
+                background-color:transparent;  
+            }
+        }
+        .nav-submenu{
+            @include transition(width 0.2s ease);
+            width:$menu-width;
+            padding:0 0 1.5em 0;
+
+            a{
+                padding-left:3.5em;
             }
         }
     }
