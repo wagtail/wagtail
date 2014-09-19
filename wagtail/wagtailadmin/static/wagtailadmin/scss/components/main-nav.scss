@@ -294,8 +294,7 @@ body.explorer-open {
         overflow:auto;
         max-height:100%;
         border-right:1px solid rgba(0,0,0,0.1);
-        @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
-
+        
         h2,ul{
             float:right;
             width:$menu-width;
@@ -333,6 +332,7 @@ body.explorer-open {
             }
         }
         .nav-submenu{
+            @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
             @include transition(width 0.2s ease);
             width:$menu-width;
             padding:0 0 1.5em 0;
