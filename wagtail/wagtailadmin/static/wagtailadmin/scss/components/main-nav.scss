@@ -250,7 +250,7 @@ body.explorer-open {
         overflow:auto;
         max-height:100%;
         border-right:1px solid rgba(0,0,0,0.1);
-        @include box-shadow(5px 0 5px rgba(0,0,0,0.1));
+        @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
 
         h2,ul{
             float:right;
