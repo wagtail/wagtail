@@ -64,7 +64,6 @@ You will now be able to run the following command to set up an initial file stru
 
     cd myprojectname
     pip install -r requirements.txt
-    python manage.py syncdb
     python manage.py migrate
     python manage.py runserver
 
