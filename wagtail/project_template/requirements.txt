@@ -1,6 +1,5 @@
 # Minimal requirements
-Django>=1.6.2,<1.7
-South==1.0.0
+Django>=1.7,<1.8
 wagtail==0.6
 
 # Recommended components (require additional setup):
