@@ -21,6 +21,7 @@ Minor features
  * Page copy operations now also copy the page revision history.
  * Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
  * ``register_snippet`` can now be invoked as a decorator.
+ * The project template (used when running ``wagtail start``) has been updated to Django 1.7.
 
 Bug fixes
 ~~~~~~~~~
