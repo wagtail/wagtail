@@ -123,11 +123,8 @@ function InlinePanel(opts) {
 
     self.setHasContent = function(){
         if($('> li', self.formsUl).not(".deleted").length){
-            console.log(self.formsUl)
-            console.log('here');
             self.formsUl.parent().removeClass('empty');
         }else{
-            console.log('there');
             self.formsUl.parent().addClass('empty');
         }
     };
