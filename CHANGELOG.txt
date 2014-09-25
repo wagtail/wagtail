@@ -9,6 +9,7 @@ Changelog
  * Page models now support a 'parent_page_types' property in addition to 'subpage types', to restrict the types of page they can be created under
  * 'register_snippet' can now be invoked as a decorator
  * Project template updated to Django 1.7
+ * Fix: 'wagtail start' command now works on Windows
 
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
