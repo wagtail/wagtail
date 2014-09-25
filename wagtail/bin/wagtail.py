@@ -2,11 +2,11 @@
 from __future__ import print_function, absolute_import
 
 import os
-import subprocess
 import errno
 import sys
 
 from optparse import OptionParser
+from django.core.management import ManagementUtility
 
 
 def create_project(parser, options, args):
@@ -44,15 +44,15 @@ def create_project(parser, options, args):
     template_path = os.path.join(wagtail_path, 'project_template')
 
     # Call django-admin startproject
-    result = subprocess.call([
+    utility = ManagementUtility([
         'django-admin.py', 'startproject',
         '--template=' + template_path,
         '--name=Vagrantfile', '--ext=html,rst',
         project_name
     ])
+    utility.execute()
 
-    if result == 0:
-        print("Success! %(project_name)s is created" % {'project_name': project_name})
+    print("Success! %(project_name)s is created" % {'project_name': project_name})
 
 
 COMMANDS = {
