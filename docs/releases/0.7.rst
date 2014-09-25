@@ -26,6 +26,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * 'wagtail start' command now works on Windows
+
 
 Upgrade considerations
 ======================
