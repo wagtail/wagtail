@@ -122,7 +122,7 @@ function InlinePanel(opts) {
     var self = {};
 
     self.setHasContent = function(){
-        if($('li:visible', self.formsUl).length){
+        if($('> li', self.formsUl).not(".deleted").length){
             self.formsUl.parent().removeClass('empty');
         }else{
             self.formsUl.parent().addClass('empty');
@@ -139,7 +139,7 @@ function InlinePanel(opts) {
         $('#' + deleteInputId + '-button').click(function() {
             /* set 'deleted' form field to true */
             $('#' + deleteInputId).val('1');
-            $('#' + childId).slideUp(function() {
+            $('#' + childId).addClass('deleted').slideUp(function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();
             });
@@ -191,8 +191,8 @@ function InlinePanel(opts) {
         /* Hide container on page load if it is marked as deleted. Remove the error
          message so that it doesn't count towards the number of errors on the tab at the
          top of the page. */
-        if ( $('#' + deleteInputId).val() === "1" ) {
-            $('#' + childId).hide(0, function() {
+        if ($('#' + deleteInputId).val() === "1" ) {
+            $('#' + childId).addClass('deleted').hide(0, function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();
             });
