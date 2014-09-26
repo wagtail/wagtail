@@ -783,9 +783,6 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
         self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
 
-        self.assertIn('Expires', response)
-        self.assertTrue(dateutil.parser.parse(response['Expires']) > timezone.now() + datetime.timedelta(days=30))
-
     def test_get_invalid_signature(self):
         """
         Test that an invalid signature returns a 403 response
