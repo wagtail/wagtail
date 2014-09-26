@@ -1,11 +1,10 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
+from django.views.decorators.cache import cache_control
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.utils.crypto import verify_signature
-
-from django.views.decorators.cache import cache_control
 
 
 @cache_control(max_age=60*60*24*60) # Cache for 60 days
