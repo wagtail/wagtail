@@ -1,42 +1,63 @@
-<h3>Object permissions</h3>
+{% load i18n %}
+
+<h2>{% trans "Object permissions" %}</h2>
 <table class="listing">
-    <tr>
-        <th>Object</th>
-        <th>Add</th>
-        <th>Change</th>
-        <th>Delete</th>
-    </tr>
-    {% for content_perms_dict in object_perms %}
-    <tr>
-        <td>{{ content_perms_dict.object|capfirst }}</td>
-        <td>
-            {% with content_perms_dict.add as perm_tuple %}
-            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-            {% endwith %}
-        </td>
-        <td>
-            {% with content_perms_dict.change as perm_tuple %}
-            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-            {% endwith %}
-        </td>
-        <td>
-            {% with content_perms_dict.delete as perm_tuple %}
-            <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-            {% endwith %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-<h3>Other permissions</h3>
-<table class="listing">
-    {% for perm_tuple in other_perms %}
-    <tr>
-        <td>{{ perm_tuple.0.name }}</td>
-        <td>
-            <label for="id_permissions_{{ perm_tuple.0.id }}">
+    <col />
+    <col width="15%" />
+    <col width="15%" />
+    <col width="15%" />
+    <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Add" %}</th>
+            <th>{% trans "Change" %}</th>
+            <th>{% trans "Delete" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for content_perms_dict in object_perms %}
+        <tr>
+            <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
+            <td>
+                {% with content_perms_dict.add as perm_tuple %}
                 <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
-            </label>
-        </td>
-    </tr>
-    {% endfor %}
+                {% endwith %}
+            </td>
+            <td>
+                {% with content_perms_dict.change as perm_tuple %}
+                <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                {% endwith %}
+            </td>
+            <td>
+                {% with content_perms_dict.delete as perm_tuple %}
+                <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                {% endwith %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>{% trans "Other permissions" %}</h2>
+<table class="listing">
+    <col />
+    <col width="45%" />
+    <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for perm_tuple in other_perms %}
+            <tr>
+                <td>{{ perm_tuple.0.name }}</td>
+                <td>
+                    <label for="id_permissions_{{ perm_tuple.0.id }}">
+                        <input id="id_permissions_{{ perm_tuple.0.id }}" name="permissions" type="checkbox" {{ perm_tuple.1 }} value="{{ perm_tuple.0.id }}">
+                    </label>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
