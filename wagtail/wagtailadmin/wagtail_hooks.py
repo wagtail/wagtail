@@ -1,4 +1,5 @@
 from django.core import urlresolvers
+from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
@@ -22,3 +23,8 @@ def register_search_menu_item():
     return MenuItem(
         _('Search'), urlresolvers.reverse('wagtailadmin_pages_search'),
         classnames='icon icon-search', order=200)
+
+
+@hooks.register('register_permissions')
+def register_permissions():
+    return Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin')

@@ -1,17 +1,18 @@
 {% load i18n %}
+{% comment %}
+    TODO - DRY this form with /wagtailsearch/templates/wagtailsearch/editorspicks/includes/editorspicks_form.html
+{% endcomment %}
 <li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
     <ul class="controls">
-        <li class="icon text-replace icon-order-up inline-child-move-up" id="{{ form.prefix }}-move-up">{% trans "Move up" %}</li>
-        <li class="icon text-replace icon-order-down inline-child-move-down" id="{{ form.prefix }}-move-down">{% trans "Move down" %}</li>
         <li class="icon text-replace icon-bin" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</li>
     </ul>
 
     <fieldset>
-        <legend>{% trans "Editors pick" %}</legend>
+        <legend>{% trans "Page permissions" %}</legend>
         <ul class="fields">
             <li class="model_choice_field">
-                {% trans "Choose another page" as choose_another_text_str %}
-                {% trans "Choose a page" as choose_one_text_str %}
+                {% trans "Choose a different root page" as choose_another_text_str %}
+                {% trans "Choose a root page" as choose_one_text_str %}
                 {% if form.instance.page %}
                     {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
                 {% else %}
@@ -19,12 +20,19 @@
                 {% endif %}
             </li>
             <li class="char_field">
-                {% include "wagtailadmin/shared/field.html" with field=form.description only %}
+                {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.permission_type only %}
             </li>
         </ul>
 
         {{ form.id }}
         {{ form.ORDER }}
         {{ form.DELETE }}
+        {% if form.non_field_errors %}
+            <p class="error-message">
+                {% for error in form.non_field_errors %}
+                    <span>{{ error|escape }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
     </fieldset>
 </li>
