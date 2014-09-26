@@ -1,0 +1,381 @@
+$selected-highlight:darken($color-grey-1, 10%);
+$submenu-color:darken($color-grey-1, 5%);
+
+.nav-wrapper{
+    position:relative;
+    background: $color-grey-1;
+    margin-left: -$menu-width;
+    width: $menu-width;
+    float: left;
+    height:100%;
+    min-height:800px;
+}
+    #nav-toggle{
+        left:$mobile-nice-padding;
+        cursor:pointer;
+        position:absolute;
+
+        &:before{
+            font-size:40px;
+            color:white;
+            line-height:40px;
+            content:"\2261";
+        }
+    }
+
+    .nav-main{
+        top: 43px;
+        bottom: 0px;
+        overflow: auto;
+        width:100%;
+
+        ul, li{
+            margin:0;
+            padding:0;
+            list-style-type:none;
+        }
+
+        ul{
+            border-top:1px solid rgba(100,100,100,0.2);
+        }
+
+        li{
+            @include transition(border-color 0.2s ease);
+            border-bottom:1px solid rgba(100,100,100,0.2);
+            position:relative;
+
+            /* TODO: find better way to procedurally detect the appropriate menu to highlight */
+            .menu-snippets &.menu-snippets,
+            .menu-users &.menu-users,
+            .menu-groups &.menu-groups,
+            .menu-snippets &.menu-snippets,
+            .menu-documents &.menu-documents,
+            .menu-images &.menu-images,
+            .menu-search &.menu-search,
+            .menu-explorer &.menu-explorer,
+            .menu-forms &.menu-forms{
+                background:$selected-highlight;
+                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+
+                a{
+                    border-left-color:$color-salmon;
+                    color:white;
+                }
+            }
+        }
+
+        a {
+            @include transition(border-color 0.2s ease);
+            -webkit-font-smoothing: auto;
+            text-decoration:none;
+            display: block;
+            color: #AAA;
+            padding: 0.8em 1.7em;
+            position:relative;
+            font-size:0.95em;
+            font-weight:300;
+            white-space:nowrap;
+            border-left:3px solid transparent;
+
+            &:before{
+                font-size:1rem;
+                vertical-align:-20%;
+                margin-right:0.5em;
+            }
+
+            &:hover{
+                background-color:rgba(100,100,100,0.15);
+                color:white;
+                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            }
+
+            /* only really used for spinners and settings menu */
+            &:after{
+                font-size:1.5em;
+                margin:0;
+                position:absolute;
+                right:0.5em;
+                top:0.5em;
+                margin-top:0.15em;
+            }
+            
+        }       
+
+        .avatar{
+            display:none;
+
+            a:hover{
+                background-color:transparent;
+            }
+        }
+    }
+
+    .nav-submenu{ 
+        background:$submenu-color;
+        
+        h2{
+            display:none;
+        }
+
+        a{
+            white-space:normal;
+            padding: 0.9em 0 0.9em 4.5em;
+
+            &:before{
+                margin-left:-1.5em;
+            }
+
+            &:hover{
+                background-color:rgba(100,100,100,0.2);
+            }
+        }
+
+        li{
+            border:0;
+        }
+    }
+
+    .explorer{
+        position:absolute;
+        margin-top:70px;
+        font-size:0.95em;
+    }
+
+    .nav-search{
+        position:relative;
+        padding:0;
+
+        label{
+            @include visuallyhidden();
+        }
+        input, button{
+            font-size:1em;
+            border:0;
+            @include border-radius(0);
+        }
+        input{
+            background-color:darken($color-grey-2, 15%);
+            color:#AAA;
+            padding: 0.9em 2.5em 0.9em 2em;
+
+            &:active, &:focus{
+                background-color:darken($color-grey-2, 5%);
+                color:white;
+            }
+        }
+        button{
+            background-color:transparent;
+            position:absolute;
+            top:0; right:0; bottom:0;
+            margin:auto;
+            padding:0;
+            width:3em; height:100%;
+            overflow:hidden;
+            
+            &:before{
+                font-family:wagtail;
+                font-weight:200;
+                text-transform:none;
+                content:"f";
+                display:block;
+                height:100%;
+                line-height:3.3em;
+                padding:0 1em;
+            }
+        }
+       
+    }
+
+/* Navigation open condition */
+body.nav-open{
+    .wrapper{
+        transform: translate3d($menu-width,0,0);
+        -webkit-transform: translate3d($menu-width,0,0);
+    }
+    .content-wrapper{
+        position:fixed;
+    }
+    footer{
+        bottom:1px;
+    }
+}
+
+/* Explorer open condition, widens navigation area */
+body.explorer-open {
+    .wrapper{
+        transform: translate3d($menu-width*2,0,0);
+        -webkit-transform: translate3d($menu-width*2,0,0);
+    }
+    .nav-wrapper{
+        margin-left: -$menu-width*2;
+        width: $menu-width*2;
+    }
+
+    .nav-main{
+        display:none;
+    }
+
+    .explorer{
+        display:block;
+        border-top:1px solid rgba(200,200,200,0.1);
+
+        &:before{
+            position:absolute;
+            top:-3em;
+            content:"Close explorer";
+            padding:0.9em;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile){
+    .wrapper,
+    body.nav-open .wrapper{
+        -webkit-transform:none;
+        transform:none;
+        padding-left:$menu-width;
+    }
+
+    .nav-wrapper{
+        /* heigt and position necessary to force it to 100% height of screen (with some JS help) */
+        position:absolute;
+        left:0;
+        height:100%;
+        margin-left: 0;
+
+        .inner{
+            height:100%;
+            position:fixed;
+            width:$menu-width;
+        }
+    }
+
+    #nav-toggle{
+        display:none;
+    }
+
+    .nav-main{
+        position:absolute;
+        top: 164px; /* WARNING - magic number - the height of the logo plus search box */
+        margin-bottom: 116px; /* WARNING - magic number - the height of the .footer */
+
+        .footer{
+            padding-top:1em;
+            background-color:$color-grey-1;
+            position:fixed;
+            width:$menu-width - 7;
+            bottom:0;
+            text-align:center;
+        }
+        .avatar{
+            display:block;
+            margin:auto;
+            text-align:center;
+            margin-bottom:1em;
+
+            a{
+                padding:0 0 1em 0;
+            }
+            &:hover{
+                @include box-shadow(0px 0px 6px 0px rgba(0,0,0,1));
+            }
+        }
+        a.submenu-trigger:after{
+            content:"n";
+        }
+    }
+
+    .nav-submenu{ 
+        position:fixed;
+        height:100%;
+        width:0;
+        padding:0;
+        top:0;
+        left:$menu-width;
+        overflow:auto;
+        max-height:100%;
+        border-right:1px solid rgba(0,0,0,0.1);
+        
+        h2,ul{
+            float:right;
+            width:$menu-width;
+        }
+
+        h2{
+            display:block;
+            padding:0.2em 0;
+            font-size:1.2em;
+            font-weight:500;
+            text-transform:none;
+            text-align:center;
+            color: #AAA;
+
+            &:before{
+                font-size:4em;
+                display:block;
+                text-align:center;
+                margin:0 0 0.2em 0;
+                width:100%;
+                opacity:0.15;
+            }
+        }
+    }
+
+    li.submenu-active{
+        background:$submenu-color;
+
+        > a{
+            border-left-color:$color-salmon;
+            text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            
+            &:hover{
+                background-color:transparent;  
+            }
+        }
+        .nav-submenu{
+            @include box-shadow(2px 0 2px rgba(0,0,0,0.35));
+            @include transition(width 0.2s ease);
+            width:$menu-width;
+            padding:0 0 1.5em 0;
+
+            a{
+                padding-left:3.5em;
+            }
+        }
+    }
+
+    .explorer {
+        width: 400px;
+        position: absolute;
+        top:0;
+        left:99%;
+        margin-top:124px; /* same as .nav-main minus 1 pixel for border */
+    }
+
+    .dl-menu {
+        position: absolute;
+    }
+
+    body.nav-open{
+        .content-wrapper{
+            position:relative;
+        }
+    }
+
+    body.explorer-open {
+        .wrapper{
+            -webkit-transform:none;
+            transform:none;
+        }
+        .nav-wrapper{
+            margin-left: 0;
+            width: $menu-width;
+        }
+        .explorer:before{
+            display:none;
+        }
+        .nav-main{
+            display:block;
+        }
+    }
+}

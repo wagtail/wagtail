@@ -20,6 +20,6 @@ class RedirectsMenuItem(MenuItem):
         # TEMPORARY: Only show if the user is a superuser
         return request.user.is_superuser
 
-@hooks.register('register_admin_menu_item')
+@hooks.register('register_settings_menu_item')
 def register_redirects_menu_item():
     return RedirectsMenuItem(_('Redirects'), urlresolvers.reverse('wagtailredirects_index'), classnames='icon icon-redirect', order=800)
