@@ -26,8 +26,8 @@ class AuthMenuItem(MenuItem):
 def register_users_menu_item():
     return AuthMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users_index'), classnames='icon icon-user', order=600)
 
-@hooks.register('register_admin_menu_item')
-def register_users_menu_item():
+@hooks.register('register_settings_menu_item')
+def register_groups_menu_item():
     return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups_index'), classnames='icon icon-group', order=601)
 
 
