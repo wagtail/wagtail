@@ -26,7 +26,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
- * 'wagtail start' command now works on Windows
+ * The 'wagtail start' command now works on Windows and other environments where the ``django-admin.py`` executable is not readily accessible.
+ * The external image URL generator no longer stores generated images in Django's cache; this was an unintentional side-effect of setting cache control headers.
 
 
 Upgrade considerations
