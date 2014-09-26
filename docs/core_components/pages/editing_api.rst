@@ -559,7 +559,7 @@ The available hooks are:
 .. _register_settings_menu_item:
 
 ``register_settings_menu_item``
-  .. versionadded:: 0.6
+  .. versionadded:: 0.7
 
   As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
 
