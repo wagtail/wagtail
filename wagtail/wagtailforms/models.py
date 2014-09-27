@@ -46,7 +46,15 @@ class FormSubmission(models.Model):
     submit_time = models.DateTimeField(auto_now_add=True)
 
     def get_data(self):
-        return json.loads(self.form_data)
+        # Convert sequences to strings.
+        # This check is required because form values used to be stored
+        # as strings and our now stored as lists, so form data may
+        # contain a mix of lists and strings.
+        data = json.loads(self.form_data)
+        for k, v in data.iteritems():
+            if hasattr(v, '__iter__'):
+                data[k] = ", ".join(data[k])
+        return data
 
     def __str__(self):
         return self.form_data
@@ -133,7 +141,7 @@ class AbstractForm(Page):
     def process_form_submission(self, form):
         # remove csrf_token from form.data
         form_data = dict(
-            i for i in form.data.items()
+            i for i in form.data.iterlists()
             if i[0] != 'csrfmiddlewaretoken'
         )
 
