@@ -170,7 +170,7 @@ Reference
 
     .. automethod:: search
 
-        See: :ref:`wagtailsearch_for_python_developers`
+        See: :ref:`wagtailsearch_searching_pages`
 
         Example:
 
