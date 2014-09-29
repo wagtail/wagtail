@@ -55,7 +55,7 @@ See: :ref:`04_deprecated_features`
 Search signal handlers have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have an import like ``from wagtail.wagtailsearch import register_signal_handlers``, this must now be changed to ``from wagtail.wagtailsearch.signal_handlers import register_signal_handlers``
+If you have an import in your ``urls.py`` file like ``from wagtail.wagtailsearch import register_signal_handlers``, this must now be changed to ``from wagtail.wagtailsearch.signal_handlers import register_signal_handlers``
 
 
 Deprecated features
