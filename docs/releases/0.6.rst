@@ -52,6 +52,12 @@ All features deprecated in 0.4 have been removed
 See: :ref:`04_deprecated_features`
 
 
+Search signal handlers have been moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have an import like ``from wagtail.wagtailsearch import register_signal_handlers``, this must now be changed to ``from wagtail.wagtailsearch.signal_handlers import register_signal_handlers``
+
+
 Deprecated features
 ===================
 
