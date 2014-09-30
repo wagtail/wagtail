@@ -8,16 +8,17 @@ from wagtail.wagtailadmin.menu import MenuItem
 from wagtail.wagtailsites import urls
 
 
+@hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
         url(r'^sites/', include(urls)),
     ]
-hooks.register('register_admin_urls', register_admin_urls)
 
 
-def construct_main_menu(request, menu_items):
-    if request.user.is_superuser:
-        menu_items.append(
-            MenuItem(_('Sites'), urlresolvers.reverse('wagtailsites_index'), classnames='icon icon-site', order=602)
-        )
-hooks.register('construct_main_menu', construct_main_menu)
+class SitesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return request.user.is_superuser
+
+@hooks.register('register_settings_menu_item')
+def register_sites_menu_item():
+    return MenuItem(_('Sites'), urlresolvers.reverse('wagtailsites_index'), classnames='icon icon-site', order=602)
