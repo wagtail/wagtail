@@ -499,6 +499,15 @@ class BasePageChooserPanel(BaseChooserPanel):
 
         return cls._target_content_type
 
+    def render_as_field(self, show_help_text=True):
+        return mark_safe(render_to_string(self.field_template, {
+            'field': self.bound_field,
+            'field_type': self.field_type(),
+            'show_help_text': show_help_text,
+            'choose_another_text_str': ugettext_lazy("Choose another page"),
+            'choose_one_text_str': ugettext_lazy("Choose a page"),
+        }))
+
     def render_js(self):
         page = self.get_chosen_item()
         parent = page.get_parent() if page else None
