@@ -1,82 +1,83 @@
 import logging
 
-from six.moves.urllib.parse import urlparse
+try:
+    from importlib import import_module
+except ImportError:
+    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
+    from django.utils.importlib import import_module
 
-import requests
-from requests.adapters import HTTPAdapter
+import sys
 
+from django.utils import six
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 
 logger = logging.getLogger('wagtail.frontendcache')
 
 
-class CustomHTTPAdapter(HTTPAdapter):
+class InvalidFrontendCacheBackendError(ImproperlyConfigured):
+    pass
+
+
+# Pinched from django 1.7 source code.
+# TODO: Replace this with "from django.utils.module_loading import import_string"
+# when django 1.7 is released
+def import_string(dotted_path):
     """
-    Requests will always send requests to whatever server is in the netloc
-    part of the URL. This is a problem with purging the cache as this netloc
-    may point to a different server (such as an nginx instance running in
-    front of the cache).
-
-    This class allows us to send a purge request directly to the cache server
-    with the host header still set correctly. It does this by changing the "url"
-    parameter of get_connection to always point to the cache server. Requests
-    will then use this connection to purge the page.
+    Import a dotted module path and return the attribute/class designated by the
+    last name in the path. Raise ImportError if the import failed.
     """
-    def __init__(self, cache_url):
-        self.cache_url = cache_url
-        super(CustomHTTPAdapter, self).__init__()
+    try:
+        module_path, class_name = dotted_path.rsplit('.', 1)
+    except ValueError:
+        msg = "%s doesn't look like a module path" % dotted_path
+        six.reraise(ImportError, ImportError(msg), sys.exc_info()[2])
 
-    def get_connection(self, url, proxies=None):
-        return super(CustomHTTPAdapter, self).get_connection(self.cache_url, proxies)
+    module = import_module(module_path)
+
+    try:
+        return getattr(module, class_name)
+    except AttributeError:
+        msg = 'Module "%s" does not define a "%s" attribute/class' % (
+            dotted_path, class_name)
+        six.reraise(ImportError, ImportError(msg), sys.exc_info()[2])
 
 
-def purge_url_from_cache(url):
-    logger.info("Purging url from cache: %s", url)
+def get_backends(backend_settings=None, backends=None):
+    if backend_settings is None:
+        backend_settings = getattr(settings, 'WAGTAILFRONTENDCACHE', None)
 
-    # Purge from regular cache (Varnish/Squid/etc)
-    cache_server_url = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', None)
-    if cache_server_url is not None:
-        # Get session
-        session = requests.Session()
-        session.mount('http://', CustomHTTPAdapter(cache_server_url))
+    if backend_settings is None:
+        return []
 
-        # Send purge request to cache
-        session.request('PURGE', url)
 
-    # Purge from CloudFlare
-    cloudflare_email = getattr(settings, 'WAGTAILFRONTENDCACHE_CLOUDFLARE_EMAIL', None)
-    if cloudflare_email is not None:
-        # Get token
-        cloudflare_token = getattr(settings, 'WAGTAILFRONTENDCACHE_CLOUDFLARE_TOKEN', '')
+    backend_objects = []
 
-        # Post
+    for backend_name, _backend_config in backend_settings.items():
+        if backends is not None and backend_name not in backends:
+            continue
+
+        backend_config = _backend_config.copy()
+        backend = backend_config.pop('BACKEND')
+
+        # Try to import the backend
         try:
-            response = requests.post('https://www.cloudflare.com/api_json.html', {
-                'email': cloudflare_email,
-                'tkn': cloudflare_token,
-                'a': 'zone_file_purge',
-                'z': urlparse(url).netloc,
-                'url': url
-            })
-        except requests.ConnectionError:
-            logger.error("Couldn't purge '%s' from Cloudflare: Connection error", url)
-            return
+            backend_cls = import_string(backend)
+        except ImportError as e:
+            raise InvalidFrontendCacheBackendError("Could not find backend '%s': %s" % (
+                backend, e))
 
-        # Check for error
-        if response.status_code != 200:
-            logger.error("Couldn't purge '%s' from Cloudflare: Didn't recieve a 200 response (instead, we got '%d %s')", url, response.status_code, response.reason)
-            return
-
-        response_json = response.json()
-        if response_json['result'] == 'error':
-            logger.error("Couldn't purge '%s' from Cloudflare: Cloudflare error '%s'", url, response_json['msg'])
-            return
+        backend_objects.append(backend_cls(backend_config))
 
 
-def purge_page_from_cache(page):
-    logger.info("Purging page from cache: %d (title: '%s')", page.id, page.title)
+    return backend_objects
 
-    # Purge cached paths from cache
-    for path in page.specific.get_cached_paths():
-        purge_url_from_cache(page.full_url + path[1:])
+
+def purge_page_from_cache(page, backend_settings=None, backends=None):
+    logger.info("Purging page from cache: \"%s\" id=%d", page.title, page.id)
+
+    for backend in get_backends(backend_settings=backend_settings, backends=backends):
+        # Purge cached paths from cache
+        for path in page.specific.get_cached_paths():
+            backend.purge(page.full_url + path[1:])
