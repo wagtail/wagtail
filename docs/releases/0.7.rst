@@ -30,7 +30,7 @@ Minor features
  * Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
  * ``register_snippet`` can now be invoked as a decorator.
  * The project template (used when running ``wagtail start``) has been updated to Django 1.7.
- * The 'boost' applied to the title field on searches has been reduced from 100 to 2. See :ref:`wagtailsearch_for_python_developers`.
+ * The 'boost' applied to the title field on searches has been reduced from 100 to 2.
 
 Bug fixes
 ~~~~~~~~~
@@ -50,6 +50,12 @@ The Sites administration interface is contained within a new app, ``wagtailsites
     'wagtail.wagtailsites',
 
 to the ``INSTALLED_APPS`` list in your project's settings file.
+
+
+Title boost on search reduced to 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's search interface applies a 'boost' value to give extra weighting to matches on the title field. The original boost value of 100 was found to be excessive, and in Wagtail 0.7 this has been reduced to 2. If you have used comparable boost values on other fields, to give them similar weighting to title, you may now wish to reduce these accordingly. See :ref:`wagtailsearch_for_python_developers`.
 
 
 Deprecated features
