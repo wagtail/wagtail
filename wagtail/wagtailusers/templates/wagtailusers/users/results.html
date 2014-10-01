@@ -10,9 +10,9 @@
         </h2>
     {% endif %}
 
-    {% include "wagtailusers/list.html" %}
+    {% include "wagtailusers/users/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_users_index" %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>

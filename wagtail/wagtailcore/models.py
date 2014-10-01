@@ -69,14 +69,14 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
+            hostname = request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
             try:
                 # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
+                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
             except Site.MultipleObjectsReturned:
                 # as there were more than one, try matching by port too
-                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
-                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
+                port = request.META['SERVER_PORT']  # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port))  # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -106,9 +106,9 @@ class Site(models.Model):
                 raise ValidationError(
                     {'is_default_site': [
                         _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
-                        % { 'hostname': default.hostname }
-                        ]}
-                    )
+                        % {'hostname': default.hostname}
+                    ]}
+                )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
@@ -355,8 +355,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement,
-            [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
+        cursor.execute(update_statement, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     #: Return this page in its most specific subclassed form.
     @cached_property
@@ -826,7 +825,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
-    pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
+    pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -941,9 +940,9 @@ class PageRevision(models.Model):
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
-    ('add', 'Add'),
-    ('edit', 'Edit'),
-    ('publish', 'Publish'),
+    ('add', 'Add/edit pages you own'),
+    ('edit', 'Add/edit any page'),
+    ('publish', 'Publish any page'),
 ]
 
 
@@ -951,6 +950,9 @@ class GroupPagePermission(models.Model):
     group = models.ForeignKey(Group, related_name='page_permissions')
     page = models.ForeignKey('Page', related_name='group_permissions')
     permission_type = models.CharField(max_length=20, choices=PAGE_PERMISSION_TYPE_CHOICES)
+
+    class Meta:
+        unique_together = ('group', 'page', 'permission_type')
 
 
 class UserPagePermissionsProxy(object):
@@ -1043,7 +1045,7 @@ class PagePermissionTester(object):
         self.user = user_perms.user
         self.user_perms = user_perms
         self.page = page
-        self.page_is_root = page.depth == 1 # Equivalent to page.is_root()
+        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = set(

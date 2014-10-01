@@ -18,7 +18,7 @@ ul.listing{
 
     h3{
         margin:0;
-        font-size:0.95em;
+        font-size:1em;
     }
 
     td, th{
@@ -156,12 +156,14 @@ ul.listing{
     }
 
     .title{
+        color:darken($color-grey-2, 10%);
+
         h2{
             text-transform:none;
             margin:0;
             font-size:1.15em;
             font-weight:600;
-            color:darken($color-grey-2, 10%);
+            color:inherit;
             line-height:1.5em;
 
             a{
