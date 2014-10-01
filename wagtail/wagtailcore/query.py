@@ -162,7 +162,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def type(self, model):
         """
-        This filters the queryset to only contain pages that are an instance of the specified model.
+        This filters the queryset to only contain pages that are an instance of the specified model (including subclasses).
         """
         return self.filter(self.type_q(model))
 
