@@ -103,6 +103,13 @@ class BackendTests(WagtailTestUtils):
         # Should return two results
         self.assertEqual(len(results), 2)
 
+    def test_filters_with_in_lookup(self):
+        live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
+        results = self.backend.search("Hello", models.SearchTest, filters=dict(title__in=live_page_titles))
+
+        # Should return two results
+        self.assertEqual(len(results), 2)
+
     def test_single_result(self):
         # Get a single result
         result = self.backend.search("Hello", models.SearchTest)[0]
