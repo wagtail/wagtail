@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import json
 
 from six.moves.urllib.parse import urlparse
+from six import text_type
 
 from django.db import models
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
@@ -210,7 +211,7 @@ class ElasticSearchQuery(object):
                 }
             }
 
-        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_attname + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognised.')
+        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_attname + '__' + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.')
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
