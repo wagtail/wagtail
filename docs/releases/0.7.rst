@@ -30,6 +30,7 @@ Minor features
  * Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
  * ``register_snippet`` can now be invoked as a decorator.
  * The project template (used when running ``wagtail start``) has been updated to Django 1.7.
+ * The 'boost' applied to the title field on searches has been reduced from 100 to 2. See :ref:`wagtailsearch_for_python_developers`.
 
 Bug fixes
 ~~~~~~~~~
