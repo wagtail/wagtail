@@ -140,7 +140,7 @@ class ElasticSearchQuery(object):
 
         # Give error if the field doesn't exist
         if field is None:
-            raise FieldError('Cannot filter ElasticSearch results with field "' + field_name + '". Please add FilterField(\'' + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+            raise FieldError('Cannot filter ElasticSearch results with field "' + field_attname + '". Please add FilterField(\'' + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
 
         # Get the name of the field in the index
         field_index_name = field.get_index_name(self.queryset.model)

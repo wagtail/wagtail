@@ -24,6 +24,13 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         # Didn't crash, yay!
 
+    def test_filter_on_non_filterindex_field(self):
+        # id is not listed in the search_fields for SearchTest; this should raise a FieldError
+        from wagtail.wagtailsearch.backends.elasticsearch import FieldError
+
+        with self.assertRaises(FieldError):
+            results = list(self.backend.search("Hello", models.SearchTest, filters=dict(id=42)))
+
     def test_partial_search(self):
         # Reset the index
         self.backend.reset_index()
