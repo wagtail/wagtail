@@ -12,6 +12,7 @@ Changelog
  * Page models now support a 'parent_page_types' property in addition to 'subpage types', to restrict the types of page they can be created under
  * 'register_snippet' can now be invoked as a decorator
  * Project template updated to Django 1.7
+ * 'boost' applied to the title field on searches reduced from 100 to 2
  * Fix: 'wagtail start' command now works on Windows
  * Fix: The external image URL generator no longer stores generated images in Django's cache
 
