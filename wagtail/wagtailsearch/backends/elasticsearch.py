@@ -210,7 +210,7 @@ class ElasticSearchQuery(object):
                 }
             }
 
-        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_name + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
+        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_attname + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognised.')
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node

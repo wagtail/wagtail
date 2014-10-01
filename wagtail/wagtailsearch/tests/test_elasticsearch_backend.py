@@ -31,6 +31,12 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         with self.assertRaises(FieldError):
             results = list(self.backend.search("Hello", models.SearchTest, filters=dict(id=42)))
 
+    def test_filter_with_unsupported_lookup_type(self):
+        from wagtail.wagtailsearch.backends.elasticsearch import FilterError
+
+        with self.assertRaises(FilterError):
+            results = list(self.backend.search("Hello", models.SearchTest, filters=dict(title__iregex='h(ea)llo')))
+
     def test_partial_search(self):
         # Reset the index
         self.backend.reset_index()
