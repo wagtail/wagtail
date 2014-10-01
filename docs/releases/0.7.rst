@@ -31,6 +31,7 @@ Minor features
  * ``register_snippet`` can now be invoked as a decorator.
  * The project template (used when running ``wagtail start``) has been updated to Django 1.7.
  * The 'boost' applied to the title field on searches has been reduced from 100 to 2.
+ * The ``type`` method of ``PageQuerySet`` (used to filter the queryset to a specific page type) now includes subclasses of the given page type.
 
 Bug fixes
 ~~~~~~~~~
