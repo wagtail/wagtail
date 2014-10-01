@@ -648,6 +648,13 @@ The available hooks are:
             'a': attribute_rule({'href': check_url, 'target': True}),
         }
 
+.. _register_permissions:
+
+``register_permissions``
+  .. versionadded:: 0.7
+
+  Return a queryset of Permission objects to be shown in the Groups administration area.
+
 
 Image Formats in the Rich Text Editor
 -------------------------------------
