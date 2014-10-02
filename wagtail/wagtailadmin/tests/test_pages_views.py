@@ -564,6 +564,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(PageRevision.objects.filter(page=child_page_new).exclude(approved_go_live_at__isnull=True).exists())
 
+        # The page SHOULD have the "has_unpublished_changes" flag set, because the changes are not visible as a live page yet
+        self.assertTrue(child_page_new.has_unpublished_changes, "A page scheduled for future publishing should have has_unpublished_changes=True")
+
     def test_edit_post_publish_now_an_already_scheduled(self):
         # First let's publish a page with a go_live_at in the future
         go_live_at = timezone.now() + timedelta(days=1)
