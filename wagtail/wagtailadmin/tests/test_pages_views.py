@@ -511,6 +511,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             signal_page[0] = instance
         page_published.connect(page_published_handler)
 
+        # Set has_unpublished_changes=True on the existing record to confirm that the publish action
+        # is resetting it (and not just leaving it alone)
+        self.child_page.has_unpublished_changes = True
+        self.child_page.save()
+
         # Tests publish from edit page
         post_data = {
             'title': "I've been edited!",
