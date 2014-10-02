@@ -1308,6 +1308,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
             title="Hello world!",
             slug='hello-world',
             live=False,
+            has_unpublished_changes=True,
         )
         root_page.add_child(instance=self.page)
 
@@ -1334,8 +1335,11 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
+        page = Page.objects.get(id=self.page.id)
         # Page must be live
-        self.assertTrue(Page.objects.get(id=self.page.id).live)
+        self.assertTrue(page.live, "Approving moderation failed to set live=True")
+        # Page should now have no unpublished changes
+        self.assertFalse(page.has_unpublished_changes, "Approving moderation failed to set has_unpublished_changes=False")
 
         # Check that the page_published signal was fired
         self.assertTrue(signal_fired[0])
