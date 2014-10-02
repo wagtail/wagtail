@@ -9,6 +9,8 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import Q
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -29,6 +31,7 @@ from treebeard.mp_tree import MP_Node
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -421,6 +424,20 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return latest_revision.as_page_object()
         else:
             return self.specific
+
+    def unpublish(self, set_expired=False, commit=True):
+        if self.live:
+            self.live = False
+
+            if set_expired:
+                self.expired = True
+
+            if commit:
+                self.save()
+
+            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+
+            self.revisions.update(approved_go_live_at=None)
 
     def get_context(self, request, *args, **kwargs):
         return {
@@ -863,6 +880,14 @@ def get_navigation_menu_items():
         return []
 
 
+@receiver(pre_delete, sender=Page)
+def unpublish_page_before_delete(sender, instance, **kwargs):
+    # Make sure pages are unpublished before deleting
+    if instance.live:
+        # Don't bother to save, this page is just about to be deleted!
+        instance.unpublish(commit=False)
+
+
 class Orderable(models.Model):
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     sort_order_field = 'sort_order'
@@ -916,6 +941,15 @@ class PageRevision(models.Model):
 
         return obj
 
+    def approve_moderation(self):
+        if self.submitted_for_moderation:
+            self.publish()
+
+    def reject_moderation(self):
+        if self.submitted_for_moderation:
+            self.submitted_for_moderation = False
+            self.save(update_fields=['submitted_for_moderation'])
+
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
@@ -934,6 +968,9 @@ class PageRevision(models.Model):
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
+
+        if page.live:
+            page_published.send(sender=page.specific_class, instance=page.specific)
 
     def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
