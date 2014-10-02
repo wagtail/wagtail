@@ -976,6 +976,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             title="Hello world!",
             slug='hello-world',
             live=True,
+            has_unpublished_changes=False,
         ))
 
         # Create a couple of child pages
@@ -983,12 +984,14 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             title="Child page",
             slug='child-page',
             live=True,
+            has_unpublished_changes=True,
         ))
 
         self.test_unpublished_child_page = self.test_page.add_child(instance=SimplePage(
             title="Unpublished Child page",
             slug='unpublished-child-page',
             live=False,
+            has_unpublished_changes=True,
         ))
 
         # Login
@@ -1041,6 +1044,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
+        self.assertTrue(page_copy.has_unpublished_changes)
 
         # Check that the owner of the page is set correctly
         self.assertEqual(page_copy.owner, self.user)
@@ -1068,6 +1072,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
+        self.assertTrue(page_copy.has_unpublished_changes)
 
         # Check that the owner of the page is set correctly
         self.assertEqual(page_copy.owner, self.user)
@@ -1080,10 +1085,12 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         child_copy = page_copy.get_children().filter(slug='child-page').first()
         self.assertNotEqual(child_copy, None)
         self.assertFalse(child_copy.live)
+        self.assertTrue(child_copy.has_unpublished_changes)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
         self.assertNotEqual(unpublished_child_copy, None)
         self.assertFalse(unpublished_child_copy.live)
+        self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
     def test_page_copy_post_copy_subpages_publish_copies(self):
         post_data = {
@@ -1105,6 +1112,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # Check that the copy is live
         self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
 
         # Check that the owner of the page is set correctly
         self.assertEqual(page_copy.owner, self.user)
@@ -1117,10 +1125,12 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         child_copy = page_copy.get_children().filter(slug='child-page').first()
         self.assertNotEqual(child_copy, None)
         self.assertTrue(child_copy.live)
+        self.assertTrue(child_copy.has_unpublished_changes)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
         self.assertNotEqual(unpublished_child_copy, None)
         self.assertFalse(unpublished_child_copy.live)
+        self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
     def test_page_copy_post_existing_slug(self):
         # This tests the existing slug checking on page copy
