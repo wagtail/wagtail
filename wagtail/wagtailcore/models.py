@@ -950,11 +950,20 @@ class PageRevision(models.Model):
             self.submitted_for_moderation = False
             self.save(update_fields=['submitted_for_moderation'])
 
+    def is_latest_revision(self):
+        if self.id is None:
+            # special case: a revision without an ID is presumed to be newly-created and is thus
+            # newer than any revision that might exist in the database
+            return True
+        latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at').first()
+        return (latest_revision == self)
+
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
             # if we have a go_live in the future don't make the page live
             page.live = False
+            page.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             self.approved_go_live_at = page.go_live_at
             self.save()
@@ -962,6 +971,8 @@ class PageRevision(models.Model):
             page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
         else:
             page.live = True
+            # at this point, the page has unpublished changes iff there are newer revisions than this one
+            page.has_unpublished_changes = not self.is_latest_revision()
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False # When a page is published it can't be expired
