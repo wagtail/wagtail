@@ -428,6 +428,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     def unpublish(self, set_expired=False, commit=True):
         if self.live:
             self.live = False
+            self.has_unpublished_changes = True
 
             if set_expired:
                 self.expired = True
