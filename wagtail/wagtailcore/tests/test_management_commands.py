@@ -118,6 +118,7 @@ class TestPublishScheduledPagesCommand(TestCase):
             title="Hello world!",
             slug="hello-world",
             live=False,
+            has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
         )
         self.root_page.add_child(instance=page)
@@ -132,6 +133,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
+        self.assertFalse(p.has_unpublished_changes)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
         # Check that the page_published signal was fired
@@ -174,6 +176,7 @@ class TestPublishScheduledPagesCommand(TestCase):
             title="Hello world!",
             slug="hello-world",
             live=True,
+            has_unpublished_changes=False,
             expire_at=timezone.now() - timedelta(days=1),
         )
         self.root_page.add_child(instance=page)
@@ -185,6 +188,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
+        self.assertTrue(p.has_unpublished_changes)
         self.assertTrue(p.expired)
 
         # Check that the page_published signal was fired
