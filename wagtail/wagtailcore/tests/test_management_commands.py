@@ -141,6 +141,28 @@ class TestPublishScheduledPagesCommand(TestCase):
         self.assertEqual(signal_page[0], page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
 
+    def test_go_live_when_newer_revision_exists(self):
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            has_unpublished_changes=True,
+            go_live_at=timezone.now() - timedelta(days=1),
+        )
+        self.root_page.add_child(instance=page)
+
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
+        page.title = "Goodbye world!"
+        page.save_revision(submitted_for_moderation=False)
+
+        management.call_command('publish_scheduled_pages')
+
+        p = Page.objects.get(slug='hello-world')
+        self.assertTrue(p.live)
+        self.assertTrue(p.has_unpublished_changes)
+        self.assertEqual(p.title, "Hello world!")
+
     def test_future_go_live_page_will_not_be_published(self):
         page = SimplePage(
             title="Hello world!",
