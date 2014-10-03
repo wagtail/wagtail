@@ -1364,6 +1364,25 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.assertEqual(signal_page[0], self.page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
 
+    def test_approve_moderation_when_later_revision_exists(self):
+        self.page.title = "Goodbye world!"
+        self.page.save_revision(user=self.submitter, submitted_for_moderation=False)
+
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
+            'foo': "Must post something or the view won't see this as a POST request",
+        })
+
+        # Check that the user was redirected to the dashboard
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+        page = Page.objects.get(id=self.page.id)
+        # Page must be live
+        self.assertTrue(page.live, "Approving moderation failed to set live=True")
+        # Page content should be the submitted version, not the published one
+        self.assertEqual(page.title, "Hello world!")
+        # Page should still have unpublished changes
+        self.assertTrue(page.has_unpublished_changes, "has_unpublished_changes incorrectly cleared on approve_moderation when a later revision exists")
+
     def test_approve_moderation_view_bad_revision_id(self):
         """
         This tests that the approve moderation view handles invalid revision ids correctly
