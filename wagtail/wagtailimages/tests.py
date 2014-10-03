@@ -14,9 +14,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.models import get_image_model, Rendition
 from wagtail.wagtailimages.formats import (
     Format,
     get_image_format,
@@ -1132,3 +1133,28 @@ class TestIssue613(TestCase, WagtailTestUtils):
         # Check
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, image.id)
+
+
+class TestIssue312(TestCase):
+    def test_duplicate_renditions(self):
+        # Create an image
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Get two renditions and check that they're the same
+        rend1 = image.get_rendition('fill-100x100')
+        rend2 = image.get_rendition('fill-100x100')
+        self.assertEqual(rend1, rend2)
+
+        # Now manually duplicate the renditon and check that the database blocks it
+        self.assertRaises(
+            IntegrityError,
+            Rendition.objects.create, 
+            image=rend1.image,
+            filter=rend1.filter,
+            width=rend1.width,
+            height=rend1.height,
+            focal_point_key=rend1.focal_point_key,
+        )
