@@ -40,6 +40,8 @@ Bug fixes
  * The external image URL generator no longer stores generated images in Django's cache; this was an unintentional side-effect of setting cache control headers.
  * The Elasticsearch backend can now search querysets that have been filtered with an 'in' clause of a non-list type (such as a ``ValuesListQuerySet``).
  * Logic around the ``has_unpublished_changes`` flag has been fixed, to prevent issues with the 'View draft' button failing to show in some cases.
+ * It is now easier to move pages to the beginning and end of their section
+ * Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
 
 Upgrade considerations
@@ -58,7 +60,7 @@ to the ``INSTALLED_APPS`` list in your project's settings file.
 Title boost on search reduced to 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail's search interface applies a 'boost' value to give extra weighting to matches on the title field. The original boost value of 100 was found to be excessive, and in Wagtail 0.7 this has been reduced to 2. If you have used comparable boost values on other fields, to give them similar weighting to title, you may now wish to reduce these accordingly. See :ref:`wagtailsearch_for_python_developers`.
+Wagtail's search interface applies a 'boost' value to give extra weighting to matches on the title field. The original boost value of 100 was found to be excessive, and in Wagtail 0.7 this has been reduced to 2. If you have used comparable boost values on other fields, to give them similar weighting to title, you may now wish to reduce these accordingly. See :ref:`wagtailsearch_indexing`.
 
 
 Deprecated features
