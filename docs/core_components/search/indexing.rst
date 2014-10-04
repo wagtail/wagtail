@@ -8,7 +8,7 @@ Indexing
 
 To make a model searchable, you'll firstly need to add it into the search index. All pages, images and documents are indexed for you and you can start searching them right away.
 
-If you have created some extra fields in a subclass of Page or Image, you may want to add these new fields to the search index too so a users search query will match on their content. See :ref:`wagtailsearch_indexing_fields` for info on how to do this.
+If you have created some extra fields in a subclass of Page or Image, you may want to add these new fields to the search index too so that a user's search query will match on their content. See :ref:`wagtailsearch_indexing_fields` for info on how to do this.
 
 If you have a custom model that you would like to make searchable, see :ref:`wagtailsearch_indexing_models`.
 
@@ -19,13 +19,13 @@ If you have a custom model that you would like to make searchable, see :ref:`wag
 Updating the index
 ==================
 
-If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. Theres two ways to do this: using the search signal handlers or calling the ``update_index`` command periodically. For best speed and reliability, it's best to use both if possible.
+If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the ``update_index`` command periodically. For best speed and reliability, it's best to use both if possible.
 
 
 Signal handlers
 ---------------
 
-Wagtailsearch provides some signal handlers which bind to the save/delete signals of all indexed models. This would add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS`` automatically.
+Wagtailsearch provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
 
 To register the signal handlers, add the following code somewhere it would be executed at startup. We reccommend adding this to your projects ``urls.py``:
 
@@ -39,7 +39,7 @@ To register the signal handlers, add the following code somewhere it would be ex
 
 .. note::
 
-    If your project was made with the ``wagtail start`` command, this should already be set up for you.
+    If your project was made with the ``wagtail start`` command, this will already be set up for you.
 
 
 The ``update_index`` command

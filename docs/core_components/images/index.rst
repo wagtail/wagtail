@@ -111,7 +111,7 @@ The available resizing methods are:
 More control over the ``img`` tag
 ---------------------------------
 
-Wagtail provides two shorcuts to give greater control over the ``img`` element:
+Wagtail provides two shortcuts to give greater control over the ``img`` element:
 
 **1. Adding attributes to the  {% image %} tag**
 
