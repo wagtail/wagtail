@@ -40,6 +40,7 @@ Bug fixes
  * The external image URL generator no longer stores generated images in Django's cache; this was an unintentional side-effect of setting cache control headers.
  * The Elasticsearch backend can now search querysets that have been filtered with an 'in' clause of a non-list type (such as a ``ValuesListQuerySet``).
  * It is now easier to move pages to the beginning and end of their section
+ * Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
 
 Upgrade considerations
