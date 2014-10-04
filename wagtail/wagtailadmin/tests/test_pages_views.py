@@ -1294,9 +1294,7 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         page_unpublished.connect(page_unpublished_handler)
 
         # Post to the unpublish page
-        response = self.client.post(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )))
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -1346,9 +1344,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         page_published.connect(page_published_handler)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )))
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
@@ -1368,9 +1364,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.page.title = "Goodbye world!"
         self.page.save_revision(user=self.submitter, submitted_for_moderation=False)
 
-        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )))
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
@@ -1388,9 +1382,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This tests that the approve moderation view handles invalid revision ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(12345, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(12345, )))
 
         # Check that the user recieved a 404 response
         self.assertEqual(response.status_code, 404)
@@ -1407,9 +1399,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.user.save()
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )))
 
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
@@ -1419,9 +1409,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This posts to the reject moderation view and checks that the page was rejected
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )))
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
@@ -1437,9 +1425,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This tests that the reject moderation view handles invalid revision ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(12345, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(12345, )))
 
         # Check that the user recieved a 404 response
         self.assertEqual(response.status_code, 404)
@@ -1456,9 +1442,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.user.save()
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        response = self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )))
 
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
@@ -1635,14 +1619,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.revision = self.child_page.get_latest_revision()
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        return self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )))
 
     def reject(self):
-        return self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )), {
-            'foo': "Must post something or the view won't see this as a POST request",
-        })
+        return self.client.post(reverse('wagtailadmin_pages_reject_moderation', args=(self.revision.id, )))
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on

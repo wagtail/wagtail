@@ -496,7 +496,7 @@ def unpublish(request, page_id):
     if not page.permissions_for_user(request.user).can_unpublish():
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
@@ -717,7 +717,7 @@ def approve_moderation(request, revision_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.title))
         return redirect('wagtailadmin_home')
 
-    if request.POST:
+    if request.method == 'POST':
         revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'approved', request.user.id)
@@ -735,7 +735,7 @@ def reject_moderation(request, revision_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format( revision.page.title))
         return redirect('wagtailadmin_home')
 
-    if request.POST:
+    if request.method == 'POST':
         revision.reject_moderation()
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'rejected', request.user.id)
