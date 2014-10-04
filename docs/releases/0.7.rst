@@ -57,7 +57,7 @@ to the ``INSTALLED_APPS`` list in your project's settings file.
 Title boost on search reduced to 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail's search interface applies a 'boost' value to give extra weighting to matches on the title field. The original boost value of 100 was found to be excessive, and in Wagtail 0.7 this has been reduced to 2. If you have used comparable boost values on other fields, to give them similar weighting to title, you may now wish to reduce these accordingly. See :ref:`wagtailsearch_for_python_developers`.
+Wagtail's search interface applies a 'boost' value to give extra weighting to matches on the title field. The original boost value of 100 was found to be excessive, and in Wagtail 0.7 this has been reduced to 2. If you have used comparable boost values on other fields, to give them similar weighting to title, you may now wish to reduce these accordingly. See :ref:`wagtailsearch_indexing`.
 
 
 Deprecated features
