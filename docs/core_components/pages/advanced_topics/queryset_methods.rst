@@ -187,3 +187,12 @@ Reference
 
             # Find all pages that are of type AbstractEmailForm, or a descendant of it
             form_pages = Page.objects.type(AbstractEmailForm)
+
+    .. automethod:: unpublish
+
+        Example:
+
+        .. code-block:: python
+
+            # Unpublish current_page and all of its children
+            Page.objects.descendant_of(current_page, inclusive=True).unpublish()

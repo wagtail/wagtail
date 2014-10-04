@@ -17,6 +17,7 @@ Changelog
  * Fix: 'wagtail start' command now works on Windows
  * Fix: The external image URL generator no longer stores generated images in Django's cache
  * Fix: Elasticsearch backend can now search querysets that have been filtered with an 'in' clause of a non-list type (such as a ValuesListQuerySet)
+ * Fix: Logic around the has_unpublished_changes flag has been fixed, to prevent issues with the 'View draft' button failing to show in some cases
  * Fix: It is now easier to move pages to the beginning and end of their section
  * Fix: Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
