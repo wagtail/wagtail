@@ -4,6 +4,21 @@ Changelog
 0.7 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
  * Added interface for choosing focal point on images
+ * Redesigned and reorganised navigation menu to include a 'Settings' submenu
+ * Added Groups administration area
+ * Added Sites administration area
+ * Removed 'content_type' template filter from the project template, as the same thing can be accomplished with self.get_verbose_name|slugify
+ * Page copy operations now also copy the page revision history
+ * Page models now support a 'parent_page_types' property in addition to 'subpage types', to restrict the types of page they can be created under
+ * 'register_snippet' can now be invoked as a decorator
+ * Project template updated to Django 1.7
+ * 'boost' applied to the title field on searches reduced from 100 to 2
+ * The 'type' method of PageQuerySet (used to filter the queryset to a specific page type) now includes subclasses of the given page type.
+ * Fix: 'wagtail start' command now works on Windows
+ * Fix: The external image URL generator no longer stores generated images in Django's cache
+ * Fix: Elasticsearch backend can now search querysets that have been filtered with an 'in' clause of a non-list type (such as a ValuesListQuerySet)
+ * Fix: It is now easier to move pages to the beginning and end of their section
+ * Fix: Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~

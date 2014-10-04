@@ -32,6 +32,13 @@ Find out more at `wagtail.io <http://wagtail.io/>`_.
 
 Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
+Who's using it?
+~~~~~~~~~~~~~~~
+We've a list of public Wagtail sites here: https://github.com/torchbox/wagtail/wiki/Public-Wagtail-sites
+
+Got one of your own? Feel free to add it!
+
+
 Getting started
 ~~~~~~~~~~~~~~~
 * To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions.

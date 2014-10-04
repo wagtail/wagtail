@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import json
 
 from six.moves.urllib.parse import urlparse
+from six import text_type
 
 from django.db import models
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
@@ -140,7 +141,7 @@ class ElasticSearchQuery(object):
 
         # Give error if the field doesn't exist
         if field is None:
-            raise FieldError('Cannot filter ElasticSearch results with field "' + field_name + '". Please add FilterField(\'' + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
+            raise FieldError('Cannot filter ElasticSearch results with field "' + field_attname + '". Please add FilterField(\'' + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.')
 
         # Get the name of the field in the index
         field_index_name = field.get_index_name(self.queryset.model)
@@ -206,11 +207,11 @@ class ElasticSearchQuery(object):
         if lookup == 'in':
             return {
                 'terms': {
-                    field_index_name: value,
+                    field_index_name: list(value),
                 }
             }
 
-        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_name + '__' + lookup + ' = ' + unicode(value) + '". Lookup "' + lookup + '"" not recognosed.')
+        raise FilterError('Could not apply filter on ElasticSearch results: "' + field_attname + '__' + lookup + ' = ' + text_type(value) + '". Lookup "' + lookup + '"" not recognised.')
 
     def _get_filters_from_where(self, where_node):
         # Check if this is a leaf node
@@ -510,12 +511,12 @@ class ElasticSearch(BaseSearch):
                         'ngram_analyzer': {
                             'type': 'custom',
                             'tokenizer': 'lowercase',
-                            'filter': ['ngram']
+                            'filter': ['asciifolding', 'ngram']
                         },
                         'edgengram_analyzer': {
                             'type': 'custom',
                             'tokenizer': 'lowercase',
-                            'filter': ['edgengram']
+                            'filter': ['asciifolding', 'edgengram']
                         }
                     },
                     'tokenizer': {

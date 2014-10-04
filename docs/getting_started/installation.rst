@@ -10,8 +10,10 @@ A basic Wagtail setup can be installed on your machine with only a few prerequis
 Whether you just want to try out the demo site, or you're ready to dive in and create a Wagtail site with all bells and whistles enabled, we strongly recommend the Vagrant approach. Nevertheless, if you're the sort of person who balks at the idea of downloading a whole operating system just to run a web app, we've got you covered too. Start from `A basic Wagtail installation`_ below.
 
 
-The no-installation route
-=========================
+The demo site (a.k.a. the no-installation route)
+================================================
+
+We provide a demo site containing a set of standard templates and page types - if you're new to Wagtail, this is the best way to try it out and familiarise yourself with how Wagtail works from the point of view of an editor.
 
 If you're happy to use Vagrant, and you just want to set up the Wagtail demo site, or any other pre-existing Wagtail site that ships with Vagrant support, you don't need to install Wagtail at all. Install `Vagrant <http://www.vagrantup.com/>`__ and `VirtualBox <https://www.virtualbox.org/>`__, and run::
 
@@ -27,13 +29,15 @@ Then, within the SSH session::
     ./manage.py runserver 0.0.0.0:8000
 
 
-This will make the demo site available on your host machine at the URL http://localhost:8111/ - you can access the Wagtail admin interface at http://localhost:8111/admin/ .
+This will make the demo site available on your host machine at the URL http://localhost:8111/ - you can access the Wagtail admin interface at http://localhost:8111/admin/ . Further instructions can be found at :ref:`editor_manual`.
 
 Once you’ve experimented with the demo site and are ready to build your own site, it's time to install Wagtail on your host machine. Even if you intend to do all further Wagtail work within Vagrant, installing the Wagtail package on your host machine will provide the ``wagtail start`` command that sets up the initial file structure for your project.
 
 
 A basic Wagtail installation
 ============================
+
+This provides everything you need to create a new Wagtail project from scratch, containing no page definitions or templates other than a basic homepage as a starting point for building your site. (For a gentler introduction to Wagtail, you may wish to try out the demo site first!)
 
 You will need Python's `pip <http://pip.readthedocs.org/en/latest/installing.html>`__ package manager. We also recommend `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ so that you can manage multiple independent Python environments for different projects - although this is not strictly necessary if you intend to do all your development under Vagrant.
 
@@ -59,9 +63,9 @@ You will now be able to run the following command to set up an initial file stru
 **Without Vagrant:** Run the following steps to complete setup of your project (the ``migrate`` step will prompt you to set up a superuser account)::
 
     cd myprojectname
-    ./manage.py syncdb
-    ./manage.py migrate
-    ./manage.py runserver
+    pip install -r requirements.txt
+    python manage.py migrate
+    python manage.py runserver
 
 Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/ .
 

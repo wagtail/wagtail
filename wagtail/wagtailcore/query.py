@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, get_models
 from django.contrib.contenttypes.models import ContentType
 from treebeard.mp_tree import MP_NodeQuerySet
 
@@ -152,13 +152,17 @@ class PageQuerySet(MP_NodeQuerySet):
         """
         return self.exclude(self.sibling_of_q(other, inclusive))
 
-    def type_q(self, model):
-        content_type = ContentType.objects.get_for_model(model)
-        return Q(content_type=content_type)
+    def type_q(self, klass):
+        content_types = ContentType.objects.get_for_models(*[
+            model for model in get_models()
+            if issubclass(model, klass)
+        ]).values()
+
+        return Q(content_type__in=content_types)
 
     def type(self, model):
         """
-        This filters the queryset to only contain pages that are an instance of the specified model.
+        This filters the queryset to only contain pages that are an instance of the specified model (including subclasses).
         """
         return self.filter(self.type_q(model))
 

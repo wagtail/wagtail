@@ -3,7 +3,7 @@ import warnings
 from django import template
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailembeds import get_embed
+from wagtail.wagtailembeds.embeds import get_embed
 
 
 register = template.Library()

@@ -1,14 +1,14 @@
-Original Authors
+Authors
 ================
 
 * Matthew Westcott matthew.westcott@torchbox.com twitter: @gasmanic
 * David Cranwell david.cranwell@torchbox.com twitter: @davecranwell
 * Karl Hobley karl.hobley@torchbox.com
-* Helen Chapman helen.chapman@torchbox.com
 
 Contributors
 ============
 
+* Helen Chapman helen.chapman@torchbox.com
 * Balazs Endresz balazs.endresz@torchbox.com
 * Neal Todd neal.todd@torchbox.com
 * Paul Hallett (twilio) hello@phalt.co
@@ -46,6 +46,7 @@ Translators
 * Greek: Serafeim Papastefanos
 * Mongolian: Delgermurun Purevkhuu
 * Polish: Łukasz Bołdys
+* Portuguese: Jose Lourenco
 * Portuguese Brazil: Gilson Filho
 * Romanian: Dan Braghis
 * Russian: ice9, HNKNTA

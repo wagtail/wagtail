@@ -556,6 +556,13 @@ The available hooks are:
     def register_frank_menu_item():
       return MenuItem('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
 
+.. _register_settings_menu_item:
+
+``register_settings_menu_item``
+  .. versionadded:: 0.7
+
+  As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
+
 .. _construct_main_menu:
 
 ``construct_main_menu``
@@ -640,6 +647,13 @@ The available hooks are:
             'blockquote': allow_without_attributes,
             'a': attribute_rule({'href': check_url, 'target': True}),
         }
+
+.. _register_permissions:
+
+``register_permissions``
+  .. versionadded:: 0.7
+
+  Return a queryset of Permission objects to be shown in the Groups administration area.
 
 
 Image Formats in the Rich Text Editor

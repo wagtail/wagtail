@@ -3,6 +3,8 @@ from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -44,3 +46,10 @@ def editor_js():
         """,
         urlresolvers.reverse('wagtaildocs_chooser')
     )
+
+
+@hooks.register('register_permissions')
+def register_permissions():
+    document_content_type = ContentType.objects.get(app_label='wagtaildocs', model='document')
+    document_permissions = Permission.objects.filter(content_type = document_content_type)
+    return document_permissions

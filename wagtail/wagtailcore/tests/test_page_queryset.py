@@ -260,6 +260,19 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_type_includes_subclasses(self):
+        from wagtail.wagtailforms.models import AbstractEmailForm
+        pages = Page.objects.type(AbstractEmailForm)
+
+        # Check that all objects are instances of AbstractEmailForm
+        for page in pages:
+            self.assertIsInstance(page.specific, AbstractEmailForm)
+
+        # Check that the contact form page is in the results
+        contact_us = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(pages.filter(id=contact_us.id).exists())
+
+
     def test_not_type(self):
         pages = Page.objects.not_type(EventPage)
 

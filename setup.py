@@ -33,7 +33,7 @@ install_requires = [
     "django-compressor>=1.4",
     "django-libsass>=0.2",
     "django-modelcluster>=0.4",
-    "django-taggit==0.12.1",
+    "django-taggit==0.12.2",
     "django-treebeard==2.0",
     "Pillow>=2.3.0",
     "beautifulsoup4>=4.3.2",
@@ -62,7 +62,7 @@ setup(
     license='BSD',
     long_description=open('README.rst').read(),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

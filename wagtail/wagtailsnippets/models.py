@@ -25,6 +25,7 @@ def register_snippet(model):
         model.usage_url = get_snippet_usage_url
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
+    return model
 
 
 def get_snippet_usage_url(self):

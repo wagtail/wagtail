@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from wagtail.tests.utils import unittest
 import datetime
 import json
@@ -20,6 +23,19 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         list(results)
 
         # Didn't crash, yay!
+
+    def test_filter_on_non_filterindex_field(self):
+        # id is not listed in the search_fields for SearchTest; this should raise a FieldError
+        from wagtail.wagtailsearch.backends.elasticsearch import FieldError
+
+        with self.assertRaises(FieldError):
+            results = list(self.backend.search("Hello", models.SearchTest, filters=dict(id=42)))
+
+    def test_filter_with_unsupported_lookup_type(self):
+        from wagtail.wagtailsearch.backends.elasticsearch import FilterError
+
+        with self.assertRaises(FilterError):
+            results = list(self.backend.search("Hello", models.SearchTest, filters=dict(title__iregex='h(ea)llo')))
 
     def test_partial_search(self):
         # Reset the index
@@ -61,6 +77,28 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         # Search and check
         results = self.backend.search("HelloW", models.SearchTest.objects.all())
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, obj.id)
+
+    def test_ascii_folding(self):
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Ĥéỻø"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Search and check
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
