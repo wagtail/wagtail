@@ -631,7 +631,7 @@ def copy(request, page_id):
 
         # Unpublish copied pages if we need to
         if not publish_copies:
-            new_page.get_descendants(inclusive=True).update(live=False, has_unpublished_changes=True)
+            new_page.get_descendants(inclusive=True).unpublish()
 
         # Assign user of this request as the owner of all the new pages
         new_page.get_descendants(inclusive=True).update(owner=request.user)

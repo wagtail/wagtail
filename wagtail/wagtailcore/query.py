@@ -198,3 +198,9 @@ class PageQuerySet(MP_NodeQuerySet):
         """
         search_backend = get_search_backend(backend)
         return search_backend.search(query_string, self, fields=None)
+
+    def unpublish(self):
+        """
+        This unpublishes all pages in the queryset
+        """
+        self.update(live=False, has_unpublished_changes=True)
