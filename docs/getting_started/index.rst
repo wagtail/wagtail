@@ -2,7 +2,7 @@
 Getting started
 ===============
 
-i
+
 .. toctree::
     :maxdepth: 2
 
