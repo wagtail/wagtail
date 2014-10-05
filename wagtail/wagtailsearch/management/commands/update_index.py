@@ -93,9 +93,7 @@ class Command(BaseCommand):
         models, object_list = self.get_object_list()
 
         # Update backends
-        if 'backend' in options:
-            self.update_backend(options['backend'], models, object_list)
-        elif 'backend_name' in options:
+        if 'backend_name' in options:
             backend = dict(get_search_backends())[options['backend_name']]
             self.update_backend(backend, models, object_list, backend_name=options['backend_name'])
         else:

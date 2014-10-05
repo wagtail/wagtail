@@ -20,6 +20,7 @@ class BackendTests(WagtailTestUtils):
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
             if backend_conf['BACKEND'] == self.backend_path:
                 self.backend = get_search_backend(backend_name)
+                self.backend_name = backend_name
                 break
         else:
             # no conf entry found - skip tests for this backend
@@ -146,7 +147,7 @@ class BackendTests(WagtailTestUtils):
 
         # Run update_index command
         with self.ignore_deprecation_warnings():  # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
-            management.call_command('update_index', backend=self.backend, interactive=False, stdout=StringIO())
+            management.call_command('update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO())
 
         # Check that there are still 3 results
         results = self.backend.search("Hello", models.SearchTest)
