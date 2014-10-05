@@ -1,10 +1,10 @@
-====================
-Building your models
-====================
+==============
+Creating pages
+==============
 
-If you're not already familiar with Django models, we recommend that you read the Django models documentation first. LINK TO DJANGO DOCS
+This tutorial assumes that you are already familar with Django models. If not, have a quick look through Django's model documentation here. LINK TO DJANGO DOCS
 
-Wagtail page types are Django models that inherit from the ``wagtail.wagtailcore.models.Page`` model. Each page type also has a template which is rendered when the user visits a page of that type.
+All page types in Wagtail are Django models that inherit from the ``wagtail.wagtailcore.models.Page`` class. Each page type also has a template which is used when the user browses to a page of that type.
 
 In this tutorial, we will use the project that we created in :doc:`creating_your_project` to create a simple website with a blog.
 
@@ -15,7 +15,7 @@ In this tutorial, we will use the project that we created in :doc:`creating_your
 Adding a body text field to HomePage
 ====================================
 
-The project template comes with a ``HomePage`` model in the "core" app, but it doesn't contain any content fields. Lets create ``RichText`` field to add a body text to the HomePage:
+The project template includes a ``HomePage`` model in the "core" app. To begin with, this model doesnt have any content fields so lets create a ``RichText`` field to add some body text to the HomePage:
 
 .. code-block:: python
 
@@ -28,23 +28,21 @@ The project template comes with a ``HomePage`` model in the "core" app, but it d
     class HomePage(Page):
         body = RichTextField()
 
-    # Add a FieldPanel for the new panel to display in the admin
+    # Add a FieldPanel for the new field so it displays in the admin interface
     HomePage.content_panels = Page.content_panels + [
         FieldPanel('body'),
     ]
 
 
-.. topic:: Using South migrations
-
-    When you change your models, run ``dj schemamigration --auto core`` to create a migration file. These migrations are stored in the migrations folder for each app. To apply migrations, run ``dj migrate``.
-
-    See: LINK TO SOUTH DOCS for more information about South
+After changing models in your app, don't forget to migrate your database before testing. See LINK TO MIGARTION DOCS for more info.
 
 
 Adding the field to the template
 --------------------------------
 
-The homepage template is located at ``core/templates/core/home_page.html``. We will go into the templatetags Wagtail provides further in the next tutorial. But for now, add the following code into the template:
+The homepage template is located at ``core/templates/core/home_page.html`` (template filenames are automatically inferred from the name of the model).
+
+Wagtail provides a template filter called ``richtext`` which can be found in the ``wagtailcore_tags`` library. This should always be used when displaying content of richtext fields.
 
  .. code-block:: django
 
@@ -55,13 +53,13 @@ The homepage template is located at ``core/templates/core/home_page.html``. We w
     {{ self.body|richtext }}
 
 
-To test, edit the homepage in the admin, add some content into the "body" field and click "Publish". Then open up the homepage in your browser and you should see the content you've added.
+To test, edit the homepage in the admin, add some content into the "body" field then click "Publish". Then open up the homepage in your browser and you should see the content you've added.
 
 
 Adding a blog
 =============
 
-Lets add a blog to this project. We need to create two new page types, ``BlogIndexPage`` and ``BlogEntryPage``:
+Let's add a blog to this project. We need to create two new page types, ``BlogIndexPage`` and ``BlogEntryPage``:
 
 .. code-block:: python
 
@@ -83,12 +81,15 @@ Lets add a blog to this project. We need to create two new page types, ``BlogInd
         posted_at = models.DateTimeField(auto_now_add=True, editable=False)
         body = RichTextField()
 
+        # Only allow creating blog entries under blog indexes
+        parent_page_types = [BlogIndexPage]
+
     BlogEntryPage.content_panels = Page.content_panels + [
         FieldPanel('body'),
     ]
 
 
-After performing the migrations, go into the admin and click "Add subpage" on the HomePage. The BlogIndexPage you have created should be listed as an option. Create a BlogIndexPage, set the title to "Blog" and publish it.
+After creating and running the migrations, go into the admin and click "Add subpage" on the HomePage. The BlogIndexPage you have created should be listed as an option. Create a BlogIndexPage, set the title to "Blog" and publish it.
 
 
 Creating the templates
