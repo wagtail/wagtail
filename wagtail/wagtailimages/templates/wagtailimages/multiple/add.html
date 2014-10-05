@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load image_tags i18n compress static %}
+{% load wagtailimages_tags i18n compress static %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
@@ -62,7 +62,7 @@
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-process.js"></script>
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-image.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
-        
+
         <!-- Main script -->
         <script src="{{ STATIC_URL }}wagtailimages/js/add-multiple.js"></script>
     {% endcompress %}

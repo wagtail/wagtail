@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from wagtail.utils.deprecation import RemovedInWagtail06Warning
-
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
@@ -19,15 +17,8 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    route_result = request.site.root_page.specific.route(request, path_components)
-    if isinstance(route_result, HttpResponse):
-        warnings.warn(
-            "Page.route should return an instance of wagtailcore.url_routing.RouteResult, not an HttpResponse",
-            RemovedInWagtail06Warning
-        )
-        return route_result
+    page, args, kwargs = request.site.root_page.specific.route(request, path_components)
 
-    (page, args, kwargs) = route_result
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):

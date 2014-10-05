@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.tests.models import SimplePage
+from wagtail.tests.models import SimplePage, EventPage
 
 
 class TestFixTreeCommand(TestCase):
@@ -82,13 +82,21 @@ class TestReplaceTextCommand(TestCase):
 
     def test_replace_text(self):
         # Check that the christmas page is definitely about christmas
-        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Christmas")
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(christmas_page.title, "Christmas")
+        self.assertEqual(christmas_page.speakers.first().last_name, "Christmas")
+        self.assertEqual(christmas_page.advert_placements.first().colour, "greener than a Christmas tree")
 
         # Make it about easter
         self.run_command("Christmas", "Easter")
 
-        # Check that its now about easter
-        self.assertEqual(Page.objects.get(url_path='/home/events/christmas/').title, "Easter")
+        # Check that it's now about easter
+        easter_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(easter_page.title, "Easter")
+
+        # Check that we also update the child objects (including advert_placements, which is defined on the superclass)
+        self.assertEqual(easter_page.speakers.first().last_name, "Easter")
+        self.assertEqual(easter_page.advert_placements.first().colour, "greener than a Easter tree")
 
 
 class TestPublishScheduledPagesCommand(TestCase):
@@ -110,6 +118,7 @@ class TestPublishScheduledPagesCommand(TestCase):
             title="Hello world!",
             slug="hello-world",
             live=False,
+            has_unpublished_changes=True,
             go_live_at=timezone.now() - timedelta(days=1),
         )
         self.root_page.add_child(instance=page)
@@ -124,12 +133,35 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
+        self.assertFalse(p.has_unpublished_changes)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 
         # Check that the page_published signal was fired
         self.assertTrue(signal_fired[0])
         self.assertEqual(signal_page[0], page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
+
+    def test_go_live_when_newer_revision_exists(self):
+        page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            live=False,
+            has_unpublished_changes=True,
+            go_live_at=timezone.now() - timedelta(days=1),
+        )
+        self.root_page.add_child(instance=page)
+
+        page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
+
+        page.title = "Goodbye world!"
+        page.save_revision(submitted_for_moderation=False)
+
+        management.call_command('publish_scheduled_pages')
+
+        p = Page.objects.get(slug='hello-world')
+        self.assertTrue(p.live)
+        self.assertTrue(p.has_unpublished_changes)
+        self.assertEqual(p.title, "Hello world!")
 
     def test_future_go_live_page_will_not_be_published(self):
         page = SimplePage(
@@ -166,6 +198,7 @@ class TestPublishScheduledPagesCommand(TestCase):
             title="Hello world!",
             slug="hello-world",
             live=True,
+            has_unpublished_changes=False,
             expire_at=timezone.now() - timedelta(days=1),
         )
         self.root_page.add_child(instance=page)
@@ -177,6 +210,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
+        self.assertTrue(p.has_unpublished_changes)
         self.assertTrue(p.expired)
 
         # Check that the page_published signal was fired

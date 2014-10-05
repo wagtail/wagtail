@@ -1,17 +1,23 @@
 import json
+import datetime
 
 from mock import MagicMock
-from django.utils import six
+import dateutil.parser
 
+from django.utils import six
+from django.utils.http import urlquote
+from django.utils import timezone
 from django.test import TestCase
+from django.test.utils import override_settings
 from django import template
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.models import get_image_model, Rendition
 from wagtail.wagtailimages.formats import (
     Format,
     get_image_format,
@@ -20,9 +26,14 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.utils.crop import crop_to_point, CropBox
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
+from wagtail.wagtailimages.utils.crypto import generate_signature, verify_signature
+from wagtail.tests.models import EventPage, EventPageCarouselItem
+from wagtail.wagtailcore.models import Page
 
 
-def get_test_image_file():
+def get_test_image_file(filename='test.png'):
     from six import BytesIO
     from PIL import Image
     from django.core.files.images import ImageFile
@@ -30,7 +41,7 @@ def get_test_image_file():
     f = BytesIO()
     image = Image.new('RGB', (640, 480), 'white')
     image.save(f, 'PNG')
-    return ImageFile(f, name='test.png')
+    return ImageFile(f, name=filename)
 
 
 Image = get_image_model()
@@ -477,6 +488,55 @@ class TestFormat(TestCase):
         self.assertEqual(result, self.format)
 
 
+class TestUsageCount(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_image_usage_count(self):
+        self.assertEqual(self.image.get_usage().count(), 0)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_image_document_usage_count(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertEqual(self.image.get_usage().count(), 1)
+
+
+class TestGetUsage(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_image_get_usage_not_enabled(self):
+        self.assertEqual(list(self.image.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_unused_image_get_usage(self):
+        self.assertEqual(list(self.image.get_usage()), [])
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_used_image_document_get_usage(self):
+        page = EventPage.objects.get(id=4)
+        event_page_carousel_item = EventPageCarouselItem()
+        event_page_carousel_item.page = page
+        event_page_carousel_item.image = self.image
+        event_page_carousel_item.save()
+        self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
+
+
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
@@ -681,3 +741,420 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+
+class TestSignatureGeneration(TestCase):
+    def test_signature_generation(self):
+        self.assertEqual(generate_signature(100, 'fill-800x600'), b'xnZOzQyUg6pkfciqcfRJRosOrGg=')
+
+    def test_signature_verification(self):
+        self.assertTrue(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
+
+    def test_signature_changes_on_image_id(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
+
+    def test_signature_changes_on_filter_spec(self):
+        self.assertFalse(verify_signature(b'xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
+
+
+class TestFrontendServeView(TestCase):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_get(self):
+        """
+        Test a valid GET request to the view
+        """
+        # Generate signature
+        signature = generate_signature(self.image.id, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/jpeg')
+
+        # Make sure the cache headers are set to expire after at least one month
+        self.assertIn('Cache-Control', response)
+        self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
+        self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
+
+    def test_get_invalid_signature(self):
+        """
+        Test that an invalid signature returns a 403 response
+        """
+        # Generate a signature for the incorrect image id
+        signature = generate_signature(self.image.id + 1, 'fill-800x600')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_invalid_filter_spec(self):
+        """
+        Test that an invalid filter spec returns a 400 response
+
+        This is very unlikely to happen in reality. A user would have
+        to create signature for the invalid filter spec which can't be
+        done with Wagtails built in URL generator. We should test it
+        anyway though.
+        """
+        # Generate a signature with the invalid filterspec
+        signature = generate_signature(self.image.id, 'bad-filter-spec')
+
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'bad-filter-spec')))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+
+
+class TestURLGeneratorView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        This tests that the view responds correctly for a user with edit permissions on this image
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_url_generator', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/url_generator.html')
+
+    def test_get_bad_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get
+        response = self.client.get(reverse('wagtailimages_url_generator', args=(self.image.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+
+
+class TestGenerateURLView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        This tests that the view responds correctly for a user with edit permissions on this image
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        content_json = json.loads(response.content.decode())
+
+        self.assertEqual(set(content_json.keys()), set(['url', 'local_url']))
+
+        expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
+            'image_id': self.image.id,
+        }
+        self.assertEqual(content_json['url'], expected_url)
+
+        expected_local_url = '/images/%(signature)s/%(image_id)d/fill-800x600/' % {
+            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
+            'image_id': self.image.id,
+        }
+        self.assertEqual(content_json['local_url'], expected_local_url)
+
+    def test_get_bad_permissions(self):
+        """
+        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'You do not have permission to generate a URL for this image.',
+        }))
+
+    def test_get_bad_image(self):
+        """
+        This tests that the view gives a 404 response if a user attempts to use it with an image which doesn't exist
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id + 1, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'Cannot find image.',
+        }))
+
+    def test_get_bad_filter_spec(self):
+        """
+        This tests that the view gives a 400 response if the user attempts to use it with an invalid filter spec
+        """
+        # Get
+        response = self.client.get(reverse('wagtailimages_generate_url', args=(self.image.id, 'bad-filter-spec')))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        self.assertJSONEqual(response.content.decode(), json.dumps({
+            'error': 'Invalid filter spec.',
+        }))
+
+
+class TestCropToPoint(TestCase):
+    def test_basic(self):
+        "Test basic cropping in the centre of the image"
+        self.assertEqual(
+            crop_to_point((640, 480), (100, 100), FocalPoint(x=320, y=240)),
+            CropBox(270, 190, 370, 290),
+        )
+        
+    def test_basic_no_focal_point(self):
+        "If focal point is None, it should make one in the centre of the image"
+        self.assertEqual(
+            crop_to_point((640, 480), (100, 100), None),
+            CropBox(270, 190, 370, 290),
+        )
+
+    def test_doesnt_exit_top_left(self):
+        "Test that the cropbox doesn't exit the image at the top left"
+        self.assertEqual(
+            crop_to_point((640, 480), (100, 100), FocalPoint(x=0, y=0)),
+            CropBox(0, 0, 100, 100),
+        )
+
+    def test_doesnt_exit_bottom_right(self):
+        "Test that the cropbox doesn't exit the image at the bottom right"
+        self.assertEqual(
+            crop_to_point((640, 480), (100, 100), FocalPoint(x=640, y=480)),
+            CropBox(540, 380, 640, 480),
+        )
+
+    def test_doesnt_get_smaller_than_focal_point(self):
+        "Test that the cropbox doesn't get any smaller than the focal point"
+        self.assertEqual(
+            crop_to_point((640, 480), (10, 10), FocalPoint(x=320, y=240, width=100, height=100)),
+            CropBox(270, 190, 370, 290),
+        )
+
+    def test_keeps_composition(self):
+        "Test that the cropbox tries to keep the composition of the original image as much as it can"
+        self.assertEqual(
+            crop_to_point((300, 300), (150, 150), FocalPoint(x=100, y=200)),
+            CropBox(50, 100, 200, 250), # Focal point is 1/3 across and 2/3 down in the crop box
+        )
+
+    def test_keeps_focal_point_in_view_bottom_left(self):
+        """
+        Even though it tries to keep the composition of the image,
+        it shouldn't let that get in the way of keeping the entire subject in view
+        """
+        self.assertEqual(
+            crop_to_point((300, 300), (150, 150), FocalPoint(x=100, y=200, width=150, height=150)),
+            CropBox(25, 125, 175, 275),
+        )
+
+    def test_keeps_focal_point_in_view_top_right(self):
+        """
+        Even though it tries to keep the composition of the image,
+        it shouldn't let that get in the way of keeping the entire subject in view
+        """
+        self.assertEqual(
+            crop_to_point((300, 300), (150, 150), FocalPoint(x=200, y=100, width=150, height=150)),
+            CropBox(125, 25, 275, 175),
+        )
+
+
+class TestIssue573(TestCase):
+    """
+    This tests for a bug which causes filename limit on Renditions to be reached
+    when the Image has a long original filename and a big focal point key
+    """
+    def test_issue_573(self):
+        # Create an image with a big filename and focal point
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file('thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocious.png'),
+            focal_point_x=1000,
+            focal_point_y=1000,
+            focal_point_width=1000,
+            focal_point_height=1000,
+        )
+
+        # Try creating a rendition from that image
+        # This would crash if the bug is present
+        image.get_rendition('fill-800x600')
+
+
+class TestIssue613(TestCase, WagtailTestUtils):
+    def get_elasticsearch_backend(self):
+        from django.conf import settings
+        from wagtail.wagtailsearch.backends import get_search_backend
+
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+
+        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
+        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
+            if backend_conf['BACKEND'] == backend_path:
+                return get_search_backend(backend_name)
+        else:
+            # no conf entry found - skip tests for this backend
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
+
+    def setUp(self):
+        self.search_backend = self.get_elasticsearch_backend()
+        self.login()
+
+        from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+        register_signal_handlers()
+
+    def add_image(self, **params):
+        post_data = {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_add_image'), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+        return image
+
+    def edit_image(self, **params):
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Edit it
+        post_data = {
+            'title': "Edited",
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was edited
+        image = Image.objects.get(id=self.image.id)
+        self.assertEqual(image.title, "Edited")
+        return image
+
+    def test_issue_613_on_add(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.add_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)
+
+    def test_issue_613_on_edit(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.edit_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)
+
+
+class TestIssue312(TestCase):
+    def test_duplicate_renditions(self):
+        # Create an image
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Get two renditions and check that they're the same
+        rend1 = image.get_rendition('fill-100x100')
+        rend2 = image.get_rendition('fill-100x100')
+        self.assertEqual(rend1, rend2)
+
+        # Now manually duplicate the renditon and check that the database blocks it
+        self.assertRaises(
+            IntegrityError,
+            Rendition.objects.create, 
+            image=rend1.image,
+            filter=rend1.filter,
+            width=rend1.width,
+            height=rend1.height,
+            focal_point_key=rend1.focal_point_key,
+        )

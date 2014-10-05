@@ -170,7 +170,7 @@ Reference
 
     .. automethod:: search
 
-        See: :ref:`wagtailsearch_for_python_developers`
+        See: :ref:`wagtailsearch_searching_pages`
 
         Example:
 
@@ -178,3 +178,21 @@ Reference
 
             # Search future events
             results = EventPage.objects.live().filter(date__gt=timezone.now()).search("Hello")
+
+    .. automethod:: type
+
+        Example:
+
+        .. code-block:: python
+
+            # Find all pages that are of type AbstractEmailForm, or a descendant of it
+            form_pages = Page.objects.type(AbstractEmailForm)
+
+    .. automethod:: unpublish
+
+        Example:
+
+        .. code-block:: python
+
+            # Unpublish current_page and all of its children
+            Page.objects.descendant_of(current_page, inclusive=True).unpublish()

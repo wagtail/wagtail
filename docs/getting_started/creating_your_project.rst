@@ -11,7 +11,7 @@ The ``wagtail start`` command
 
 The easiest way to start a new project with wagtail is to use the ``wagtail start`` command. This command is installed into your environment when you install Wagtail (see: :doc:`installation`).
 
-The command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look into in the next section.
+The command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look at in the next section.
 
 To create a project, cd into a directory where you would like to create your project and run the following command:
 
@@ -26,29 +26,21 @@ The project
 Lets look at what ``wagtail start`` created::
 
     mysite/
-        docs/
-            Makefile
-            conf.py
-            index.rst
-            deploy.rst
-            install.rst
-        mysite/
-            core/
-            mysite/
-                settings/
-                    base.py
-                    dev.py
-                    production.py
+        core/
             static/
             templates/
                 base.html
                 404.html
                 500.html
-            manage.py
+        mysite/
+            settings/
+                base.py
+                dev.py
+                production.py
+        manage.py
         vagrant/
             provision.sh
         Vagrantfile
-        fabfile.py
         readme.rst
         requirements.txt
         
@@ -64,7 +56,7 @@ This app is here to help get you started quicker by providing a ``HomePage`` mod
 Default templates and static files
 ----------------------------------
 
-Location: ``/mysite/templates/`` and ``/mysite/static/``
+Location: ``/mysite/core/templates/`` and ``/mysite/core/static/``
 
 The templates directory contains ``base.html``, ``404.html`` and ``500.html``. These files are very commonly needed on Wagtail sites to they have been added into the template.
 
@@ -76,23 +68,11 @@ Vagrant configuration
 
 Location: ``/Vagrantfile`` and ``/vagrant/``
 
-If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL, Elasticsearch and Redis inside a virtual machine.
+If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL and Elasticsearch inside a virtual machine.
 
 See below section `With Vagrant`_ for info on how to use Vagrant in development
 
 If you do not want to use Vagrant, you can just delete these files.
-
-
-The "docs" directory
-----------------------
-
-Location: ``/docs``
-
-The docs directory contains Sphinx configuration, a Makefile and some starter documentation.
-
-Docs are written in ReStructuredText and built by Sphinx.
-
-To build the docs, make sure you have Sphinx installed, then cd to the docs directory and run ``make haml``.
 
 
 Django settings
@@ -132,7 +112,7 @@ Getting it running
 With Vagrant
 ------------
 
-This is the easiest way to get the project running. Vagrant runs your project locally in a virtual machine so you can use PostgreSQL/Elasticsearch/Redis in development without having to install them on your host machine. If you haven't yet installed Vagrant, see: `Installing Vagrant <https://docs.vagrantup.com/v2/installation/>`_.
+This is the easiest way to get the project running. Vagrant runs your project locally in a virtual machine so you can use PostgreSQL and Elasticsearch in development without having to install them on your host machine. If you haven't yet installed Vagrant, see: `Installing Vagrant <https://docs.vagrantup.com/v2/installation/>`_.
 
 
 To setup the Vagrant box, run the following commands
@@ -166,14 +146,3 @@ You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
         ``djrun``
         
             This is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
-
-    The rest of this tutorial will assume that you are using these aliases. If you are not using Vagrant, you should replace ``dj`` with ``python manage.py``.
-
-
-With a virtual environment
---------------------------
-
-TODO
-
-Don't forget to mention ``pyvenv`` and ``virtualenv``
-

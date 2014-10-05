@@ -1,6 +1,6 @@
-class RemovedInWagtail06Warning(DeprecationWarning):
+class RemovedInWagtail07Warning(DeprecationWarning):
     pass
 
 
-class RemovedInWagtail07Warning(PendingDeprecationWarning):
+class RemovedInWagtail08Warning(PendingDeprecationWarning):
     pass

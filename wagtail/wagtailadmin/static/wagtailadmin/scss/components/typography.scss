@@ -29,7 +29,12 @@ h2{
         text-transform:none;
     }
 }
+p{
+    margin-top:0;
+}
+
 a{
+    @include transition(color 0.2s ease, background-color 0.2s ease);
     outline:none;
     color:$color-link;
     text-decoration:none;
@@ -58,6 +63,7 @@ kbd{
 .help-block{
     padding:1em;
     margin:1em 0;
+    clear:both;
 
     p{
         margin-top:0;

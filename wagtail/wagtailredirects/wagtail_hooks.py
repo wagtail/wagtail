@@ -15,10 +15,11 @@ def register_admin_urls():
     ]
 
 
-@hooks.register('construct_main_menu')
-def construct_main_menu(request, menu_items):
-    # TEMPORARY: Only show if the user is a superuser
-    if request.user.is_superuser:
-        menu_items.append(
-            MenuItem(_('Redirects'), urlresolvers.reverse('wagtailredirects_index'), classnames='icon icon-redirect', order=800)
-        )
+class RedirectsMenuItem(MenuItem):
+    def is_shown(self, request):
+        # TEMPORARY: Only show if the user is a superuser
+        return request.user.is_superuser
+
+@hooks.register('register_settings_menu_item')
+def register_redirects_menu_item():
+    return RedirectsMenuItem(_('Redirects'), urlresolvers.reverse('wagtailredirects_index'), classnames='icon icon-redirect', order=800)

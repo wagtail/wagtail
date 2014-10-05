@@ -158,6 +158,8 @@ The scheduled publishing mechanism adds an ``expired`` field to wagtailcore.Page
   'expired': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
 
 
+.. _04_deprecated_features:
+
 Deprecated features
 ===================
 
@@ -178,7 +180,7 @@ The old names will continue to work, but output a ``DeprecationWarning`` - you a
 New search field configuration format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_for_python_developers` for how to define a ``search_fields`` property on your models.
+``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_indexing` for how to define a ``search_fields`` property on your models.
 
 
 ``Page.route`` method should now return a ``RouteResult``

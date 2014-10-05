@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# zerolab, 2014
-# zerolab, 2014
+# Dan Braghis, 2014
+# Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
-"PO-Revision-Date: 2014-03-18 13:21+0000\n"
-"Last-Translator: zerolab\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
 "language/ro/)\n"
 "Language: ro\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "Selecții editoriale"
 
@@ -48,37 +48,27 @@ msgstr "Selecții editoriale"
 msgid "Add editor's pick"
 msgstr "Adaugă selecție editorială"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
-"\n"
-"<p>Selecțiile editoriale sunt mijloace de recomandare de pagini ce pot să nu "
-"apară la începutul rezultatelor de căutare în mod natural. De exemplu, "
-"recomandarea paginii de donații utilizatorilor care au căutat termeni mai "
-"puțin specifici ca \"<em>dare</em>\".</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
-"\n"
-"<p>Câmpul \"Termeni/frază de căutare\" de mai jos trebuie să conțină șirul "
-"exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</"
-"em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de "
-"căutare populari printre utilizatorii sitului dvs.</p>"
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Salvează"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:54+0000\n"
-"PO-Revision-Date: 2014-03-23 10:17+0000\n"
-"Last-Translator: fooflare <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
 "es/)\n"
 "Language: es\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:22 templates/wagtailsearch/editorspicks/list.html:9
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
 msgstr "Selecciones del editor"
 
@@ -48,41 +48,27 @@ msgstr "Selecciones del editor"
 msgid "Add editor's pick"
 msgstr "Añadir selección del editor"
 
-#: templates/wagtailsearch/editorspicks/add.html:9
+#: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"        <p>Editors picks are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with a less common term like "
+"                <p>Editors picks are a means of recommending specific pages "
+"that might not organically come high up in search results. E.g recommending "
+"your primary donation page to a user searching with a less common term like "
 "\"<em>giving</em>\".</p>\n"
-"        "
+"                "
 msgstr ""
-"\n"
-"         <p>Las Selecciones del editor son una manera de recomendar las "
-"páginas específicas que podrían no aparecer por sí solas en lo alto de los "
-"resultados de búsqueda. P. ej., la recomendación de tu página principal de "
-"donaciones a un usuario que busque con un término menos común como "
-"\"<em>dando</em>\".</p>\n"
-"        "
 
-#: templates/wagtailsearch/editorspicks/add.html:12
+#: templates/wagtailsearch/editorspicks/add.html:13
 msgid ""
 "\n"
-"        <p>The \"Search term(s)/phrase\" field below must contain the full "
-"and exact search for which you wish to provide recommended results, "
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
 "<em>including</em> any misspellings/user error. To help, you can choose from "
 "search terms that have been popular with users of your site.</p>\n"
-"        "
+"            "
 msgstr ""
-"\n"
-"        <p>El campo de \"término(s)/frase de Búsqueda\" debe contener la "
-"búsqueda completa y exacta por la que deseas que se proporcionen los "
-"resultados recomendados, <em>incluyendo</em> cualquier error de de "
-"ortografía/usuario. Para ayudar, puedes elegir entre los términos de "
-"búsqueda que han sido populares entre los usuarios de tu sitio.</p>\n"
-"        "
 
-#: templates/wagtailsearch/editorspicks/add.html:25
+#: templates/wagtailsearch/editorspicks/add.html:27
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Guardar"

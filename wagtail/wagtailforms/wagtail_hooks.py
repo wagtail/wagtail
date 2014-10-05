@@ -15,13 +15,15 @@ def register_admin_urls():
         url(r'^forms/', include(urls)),
     ]
 
-@hooks.register('construct_main_menu')
-def construct_main_menu(request, menu_items):
-    # show this only if the user has permission to retrieve submissions for at least one form
-    if get_forms_for_user(request.user).exists():
-        menu_items.append(
-            MenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-form', order=700)
-        )
+class FormsMenuItem(MenuItem):
+    def is_shown(self, request):
+        # show this only if the user has permission to retrieve submissions for at least one form
+        return get_forms_for_user(request.user).exists()
+
+@hooks.register('register_admin_menu_item')
+def register_forms_menu_item():
+    return FormsMenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-form', order=700)
+
 
 @hooks.register('insert_editor_js')
 def editor_js():

@@ -2,6 +2,7 @@
 Getting started
 ===============
 
+i
 .. toctree::
     :maxdepth: 2
 
@@ -10,4 +11,3 @@ Getting started
     pages
     templates
     media
-

@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
@@ -82,6 +84,11 @@ def add(request):
         form = DocumentForm(request.POST, request.FILES, instance=doc)
         if form.is_valid():
             form.save()
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
             messages.success(request, _("Document '{0}' added.").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
@@ -111,6 +118,11 @@ def edit(request, document_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
             doc = form.save()
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
             messages.success(request, _("Document '{0}' updated").format(doc.title))
             return redirect('wagtaildocs_index')
         else:
@@ -120,7 +132,7 @@ def edit(request, document_id):
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
-        'form': form,
+        'form': form
     })
 
 
@@ -138,4 +150,25 @@ def delete(request, document_id):
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def usage(request, document_id):
+    doc = get_object_or_404(Document, id=document_id)
+
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(doc.get_usage(), 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
+    return render(request, "wagtaildocs/documents/usage.html", {
+        'document': doc,
+        'used_by': used_by
     })
