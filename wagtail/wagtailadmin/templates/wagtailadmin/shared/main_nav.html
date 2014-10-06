@@ -2,9 +2,7 @@
 {% load i18n %}
 <nav class="nav-main">
     <ul>
-        {% for menu_item in menu_items %}
-            {{ menu_item.render_html }}
-        {% endfor %}
+        {{ menu_html }}
 
         <li class="footer">
             <div class="avatar icon icon-user"><a href="{% url 'wagtailadmin_account' %}" title="{% trans 'Account settings' %}">{% if request.user.email %}<img src="{% gravatar_url request.user.email %}" />{% endif %}</a></div>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2014-09-11 16:38+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgstr "文件"
 msgid "Tags"
 msgstr "標籤"
 
-#: wagtail_hooks.py:24 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:26 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "文件"
 
@@ -170,22 +170,22 @@ msgstr "清除選擇"
 msgid "Choose another document"
 msgstr "選擇另外一份文件"
 
-#: views/documents.py:37 views/documents.py:46
+#: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "搜尋文件"
 
-#: views/documents.py:86
+#: views/documents.py:92
 msgid "Document '{0}' added."
 msgstr "文件 '{0}' 已加入"
 
-#: views/documents.py:89 views/documents.py:118
+#: views/documents.py:95 views/documents.py:129
 msgid "The document could not be saved due to errors."
 msgstr "這文件因有錯誤而無法建立。"
 
-#: views/documents.py:115
+#: views/documents.py:126
 msgid "Document '{0}' updated"
 msgstr "文件 '{0}' 已更新"
 
-#: views/documents.py:137
+#: views/documents.py:148
 msgid "Document '{0}' deleted."
 msgstr "文件 '{0}' 已刪除"

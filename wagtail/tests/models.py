@@ -333,6 +333,7 @@ FormPage.content_panels = [
 class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
     advert = models.ForeignKey('tests.Advert', related_name='+')
+    colour = models.CharField(max_length=255)
 
 @python_2_unicode_compatible
 class Advert(models.Model):
@@ -375,19 +376,35 @@ class ZuluSnippet(models.Model):
 
 
 class StandardIndex(Page):
-    pass
+    """ Index for the site, not allowed to be placed anywhere """
+    parent_page_types = []
+
+
+StandardIndex.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel(StandardIndex, 'advert_placements', label="Adverts"),
+]
+
 
 class StandardChild(Page):
     pass
 
+
 class BusinessIndex(Page):
+    """ Can be placed anywhere, can only have Business children """
     subpage_types = ['tests.BusinessChild', 'tests.BusinessSubIndex']
 
+
 class BusinessSubIndex(Page):
+    """ Can be placed under BusinessIndex, and have BusinessChild children """
     subpage_types = ['tests.BusinessChild']
+    parent_page_types = ['tests.BusinessIndex']
+
 
 class BusinessChild(Page):
+    """ Can only be placed under Business indexes, no children allowed """
     subpage_types = []
+    parent_page_types = ['tests.BusinessIndex', BusinessSubIndex]
 
 
 class SearchTest(models.Model, index.Indexed):

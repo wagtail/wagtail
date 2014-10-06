@@ -15,13 +15,14 @@ from django.test import TestCase
 
 from wagtail.tests.utils import WagtailTestUtils, unittest
 
-from wagtail.wagtailembeds import get_embed
 from wagtail.wagtailembeds.embeds import (
     EmbedNotFoundException,
     EmbedlyException,
     AccessDeniedEmbedlyException,
+    get_embed,
+    embedly as wagtail_embedly,
+    oembed as wagtail_oembed,
 )
-from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
 
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-01 16:38+0100\n"
+"POT-Creation-Date: 2014-09-11 16:37+0100\n"
 "PO-Revision-Date: 2014-05-01 12:09+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: edit_handlers.py:627
+#: edit_handlers.py:631
 msgid "Scheduled publishing"
 msgstr ""
 
-#: edit_handlers.py:641
+#: edit_handlers.py:645
 msgid "Common page configuration"
 msgstr "一般頁面設定"
 
@@ -98,7 +98,7 @@ msgid_plural ""
 "their copies?"
 msgstr[0] ""
 
-#: forms.py:124 views/pages.py:155 views/pages.py:272
+#: forms.py:124 views/pages.py:153 views/pages.py:270
 msgid "This slug is already in use"
 msgstr "這個地址已被使用"
 
@@ -116,6 +116,16 @@ msgstr ""
 #, fuzzy
 msgid "This field is required."
 msgstr "找不到這個電子信箱。"
+
+#: wagtail_hooks.py:15 templates/wagtailadmin/chooser/_search_results.html:12
+msgid "Explorer"
+msgstr "瀏覽"
+
+#: wagtail_hooks.py:23 templates/wagtailadmin/chooser/_search_form.html:7
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:16
+msgid "Search"
+msgstr "搜尋"
 
 #: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
 msgid "Dashboard"
@@ -266,19 +276,16 @@ msgstr "外部連結"
 msgid "Email link"
 msgstr "電子信箱連結"
 
-#: templates/wagtailadmin/chooser/_search_form.html:7
-#: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:16
-#: templatetags/wagtailadmin_tags.py:36
-msgid "Search"
-msgstr "搜尋"
+#: templates/wagtailadmin/chooser/_search_results.html:5
+#, python-format
+msgid ""
+"\n"
+"            Only pages of type \"%(type)s\" may be chosen for this field. "
+"Search results will exclude pages of other types.\n"
+"        "
+msgstr ""
 
-#: templates/wagtailadmin/chooser/_search_results.html:3
-#: templatetags/wagtailadmin_tags.py:35
-msgid "Explorer"
-msgstr "瀏覽"
-
-#: templates/wagtailadmin/chooser/_search_results.html:8
+#: templates/wagtailadmin/chooser/_search_results.html:16
 #, python-format
 msgid ""
 "\n"
@@ -295,7 +302,12 @@ msgstr[1] ""
 "\n"
 "            有 $(counter)s 個符合"
 
-#: templates/wagtailadmin/chooser/browse.html:2
+#: templates/wagtailadmin/chooser/browse.html:3
+#, fuzzy
+msgid "Choose"
+msgstr "選擇一個頁面"
+
+#: templates/wagtailadmin/chooser/browse.html:6
 #: templates/wagtailadmin/chooser/search.html:2
 #: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:13
 msgid "Choose a page"
@@ -559,7 +571,7 @@ msgid "You can edit the privacy settings on:"
 msgstr "你可以在此編輯這個頁面："
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
-msgid "<b>Note:</b> privacy changes apply to all children of this page too."
+msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 
 #: templates/wagtailadmin/pages/_moderator_userbar.html:4
@@ -1046,70 +1058,70 @@ msgstr "您的密碼已經更改成功。"
 msgid "Your preferences have been updated successfully!"
 msgstr "您的密碼已經更改成功。"
 
-#: views/pages.py:169 views/pages.py:286
+#: views/pages.py:167 views/pages.py:284
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: views/pages.py:179 views/pages.py:296
+#: views/pages.py:177 views/pages.py:294
 msgid "Expiry date/time must be in the future"
 msgstr ""
 
-#: views/pages.py:219 views/pages.py:351 views/pages.py:791
+#: views/pages.py:217 views/pages.py:349 views/pages.py:766
 msgid "Page '{0}' published."
 msgstr "第 '{0}' 頁已發佈。"
 
-#: views/pages.py:221 views/pages.py:353
+#: views/pages.py:219 views/pages.py:351
 msgid "Page '{0}' submitted for moderation."
 msgstr "第 '{0}' 頁已送審。"
 
-#: views/pages.py:224
+#: views/pages.py:222
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 頁已建立。"
 
-#: views/pages.py:233
+#: views/pages.py:231
 #, fuzzy
 msgid "The page could not be created due to validation errors"
 msgstr "這頁面因有驗證錯誤而無法儲存。"
 
-#: views/pages.py:356
+#: views/pages.py:354
 msgid "Page '{0}' updated."
 msgstr "第 '{0}' 頁已更新"
 
-#: views/pages.py:365
+#: views/pages.py:363
 msgid "The page could not be saved due to validation errors"
 msgstr "這頁面因有驗證錯誤而無法儲存。"
 
-#: views/pages.py:378
+#: views/pages.py:376
 msgid "This page is currently awaiting moderation"
 msgstr "這頁正等待審核"
 
-#: views/pages.py:409
+#: views/pages.py:407
 msgid "Page '{0}' deleted."
 msgstr "第 '{0}' 頁已刪除"
 
-#: views/pages.py:575
+#: views/pages.py:550
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 頁已取消發佈"
 
-#: views/pages.py:627
+#: views/pages.py:602
 msgid "Page '{0}' moved."
 msgstr "第 '{0}' 頁已移動。"
 
-#: views/pages.py:709
+#: views/pages.py:684
 #, fuzzy
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "第 '{0}' 頁已更新"
 
-#: views/pages.py:711
+#: views/pages.py:686
 #, fuzzy
 msgid "Page '{0}' copied."
 msgstr "第 '{0}' 頁已移動。"
 
-#: views/pages.py:785 views/pages.py:804 views/pages.py:824
+#: views/pages.py:760 views/pages.py:779 views/pages.py:799
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 頁目前不需要等待審核。"
 
-#: views/pages.py:810
+#: views/pages.py:785
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 頁已被拒絕發佈。"
 

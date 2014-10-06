@@ -19,7 +19,6 @@ from wagtail.wagtailadmin import tasks, signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
-from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -69,7 +68,7 @@ def add_subpage(request, parent_page_id):
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
         raise PermissionDenied
 
-    page_types = sorted(parent_page.clean_subpage_types(), key=lambda pagetype: pagetype.name.lower())
+    page_types = sorted(parent_page.allowed_subpage_types(), key=lambda pagetype: pagetype.name.lower())
 
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
@@ -137,7 +136,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         raise Http404
 
     # page must be in the list of allowed subpage types for this parent ID
-    if content_type not in parent_page.clean_subpage_types():
+    if content_type not in parent_page.allowed_subpage_types():
         raise PermissionDenied
 
     page = page_class(owner=request.user)
@@ -182,39 +181,31 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
         form.clean = clean
 
         if form.is_valid():
-            page = form.save(commit=False)  # don't save yet, as we need treebeard to assign tree params
+            page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
             is_submitting = bool(request.POST.get('action-submit'))
-            go_live_at = form.cleaned_data.get('go_live_at')
-            future_go_live = go_live_at and go_live_at > timezone.now()
-            approved_go_live_at = None
 
-            if is_publishing:
-                page.has_unpublished_changes = False
-                page.expired = False
-                if future_go_live:
-                    page.live = False
-                    # Set approved_go_live_at only if is publishing
-                    # and the future_go_live is actually in future
-                    approved_go_live_at = go_live_at
-                else:
-                    page.live = True
-            else:
+            # Set live to False and has_unpublished_changes to True if we are not publishing
+            if not is_publishing:
                 page.live = False
                 page.has_unpublished_changes = True
 
-            parent_page.add_child(instance=page)  # assign tree parameters - will cause page to be saved
+            # Save page
+            parent_page.add_child(instance=page)
 
-            # Pass approved_go_live_at to save_revision
-            page.save_revision(
+            # Save revision
+            revision = page.save_revision(
                 user=request.user,
                 submitted_for_moderation=is_submitting,
-                approved_go_live_at=approved_go_live_at
             )
 
+            # Publish
             if is_publishing:
-                page_published.send(sender=page_class, instance=page)
+                revision.publish()
+
+            # Notifications
+            if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
@@ -299,54 +290,32 @@ def edit(request, page_id):
         form.clean = clean
 
         if form.is_valid():
+            page = form.save(commit=False)
+
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit'))
-            go_live_at = form.cleaned_data.get('go_live_at')
-            future_go_live = go_live_at and go_live_at > timezone.now()
-            approved_go_live_at = None
 
+            # Save revision
+            revision = page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+            )
+
+            # Publish
             if is_publishing:
-                page.has_unpublished_changes = False
-                page.expired = False
-                if future_go_live:
-                    page.live = False
-                    # Set approved_go_live_at only if publishing
-                    approved_go_live_at = go_live_at
-                else:
-                    page.live = True
-
-                # We need save the page this way to workaround a bug
-                # in django-modelcluster causing m2m fields to not
-                # be committed to the database. See github issue #192
-                form.save(commit=False)
-                page.save()
-
-                # Clear approved_go_live_at for older revisions
-                page.revisions.update(
-                    submitted_for_moderation=False,
-                    approved_go_live_at=None,
-                )
+                revision.publish()
             else:
-                # not publishing the page
+                # Set has_unpublished_changes flag
                 if page.live:
                     # To avoid overwriting the live version, we only save the page
                     # to the revisions table
-                    form.save(commit=False)
                     Page.objects.filter(id=page.id).update(has_unpublished_changes=True)
                 else:
                     page.has_unpublished_changes = True
-                    form.save(commit=False)
                     page.save()
 
-
-            page.save_revision(
-                user=request.user,
-                submitted_for_moderation=is_submitting,
-                approved_go_live_at=approved_go_live_at
-            )
-
+            # Notifications
             if is_publishing:
-                page_published.send(sender=page.__class__, instance=page)
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
@@ -392,18 +361,8 @@ def delete(request, page_id):
         raise PermissionDenied
 
     if request.POST:
-        if page.live:
-            # fetch params to pass to the page_unpublished_signal, before the
-            # deletion happens
-            specific_class = page.specific_class
-            specific_page = page.specific
-
         parent_id = page.get_parent().id
         page.delete()
-
-        # If the page is live, send the unpublished signal
-        if page.live:
-            page_unpublished.send(sender=specific_class, instance=specific_page)
 
         messages.success(request, _("Page '{0}' deleted.").format(page.title))
 
@@ -538,19 +497,12 @@ def unpublish(request, page_id):
     if not page.permissions_for_user(request.user).can_unpublish():
         raise PermissionDenied
 
-    if request.POST:
-        parent_id = page.get_parent().id
-        page.live = False
-        page.save()
-
-        # Since page is unpublished clear the approved_go_live_at of all revisions
-        page.revisions.update(approved_go_live_at=None)
-
-        page_unpublished.send(sender=page.specific_class, instance=page.specific)
+    if request.method == 'POST':
+        page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title))
 
-        return redirect('wagtailadmin_explore', parent_id)
+        return redirect('wagtailadmin_explore', page.get_parent().id)
 
     return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
@@ -635,8 +587,13 @@ def set_page_position(request, page_to_move_id):
         # so don't bother to catch InvalidMoveToDescendant
 
         if position_page:
-            # Move page into this position
-            page_to_move.move(position_page, pos='left')
+            # If the page has been moved to the right, insert it to the
+            # right. If left, then left.
+            old_position = list(parent_page.get_children()).index(page_to_move)
+            if int(position) < old_position:
+                page_to_move.move(position_page, pos='left')
+            elif int(position) > old_position:
+                page_to_move.move(position_page, pos='right')
         else:
             # Move page to end
             page_to_move.move(parent_page, pos='last-child')
@@ -675,7 +632,7 @@ def copy(request, page_id):
 
         # Unpublish copied pages if we need to
         if not publish_copies:
-            new_page.get_descendants(inclusive=True).update(live=False)
+            new_page.get_descendants(inclusive=True).unpublish()
 
         # Assign user of this request as the owner of all the new pages
         new_page.get_descendants(inclusive=True).update(owner=request.user)
@@ -761,9 +718,8 @@ def approve_moderation(request, revision_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.title))
         return redirect('wagtailadmin_home')
 
-    if request.POST:
-        revision.publish()
-        page_published.send(sender=revision.page.__class__, instance=revision.page.specific)
+    if request.method == 'POST':
+        revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'approved', request.user.id)
 
@@ -780,9 +736,8 @@ def reject_moderation(request, revision_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format( revision.page.title))
         return redirect('wagtailadmin_home')
 
-    if request.POST:
-        revision.submitted_for_moderation = False
-        revision.save(update_fields=['submitted_for_moderation'])
+    if request.method == 'POST':
+        revision.reject_moderation()
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title))
         tasks.send_notification.delay(revision.id, 'rejected', request.user.id)
 

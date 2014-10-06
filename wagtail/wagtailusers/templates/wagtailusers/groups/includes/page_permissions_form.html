@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<td>
+    {% trans "Edit page" as choose_another_text_str %}
+    {% trans "Choose page" as choose_one_text_str %}
+    
+    {% if form.instance.page %}
+        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+    {% else %}
+        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page is_chosen=False choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
+    {% endif %}
+</td>
+<td>
+    {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.permission_type only %}
+
+    {{ form.id }}
+    {{ form.ORDER }}
+    {{ form.DELETE }}
+</td>
+
+<td>
+    <button class="button-secondary button-small no" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
+</td>
+

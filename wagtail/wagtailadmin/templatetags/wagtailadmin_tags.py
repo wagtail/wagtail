@@ -2,14 +2,11 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django import template
-from django.core import urlresolvers
-from django.utils.translation import ugettext_lazy as _
-
-from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore
+from wagtail.wagtailadmin.menu import admin_menu
 
 
 register = template.Library()
@@ -31,20 +28,16 @@ def explorer_subnav(nodes):
 
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
-    menu_items = [
-        MenuItem(_('Explorer'), urlresolvers.reverse('wagtailadmin_explore_root'), classnames='icon icon-folder-open-inverse dl-trigger', order=100),
-        MenuItem(_('Search'), urlresolvers.reverse('wagtailadmin_pages_search'), classnames='icon icon-search', order=200),
-    ]
-
     request = context['request']
 
-    for fn in hooks.get_hooks('construct_main_menu'):
-        fn(request, menu_items)
-
     return {
-        'menu_items': sorted(menu_items, key=lambda i: i.order),
+        'menu_html': admin_menu.render_html(request),
         'request': request,
     }
+
+@register.simple_tag
+def main_nav_js():
+    return admin_menu.media['js']
 
 
 @register.filter("ellipsistrim")

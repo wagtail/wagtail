@@ -14,9 +14,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.models import get_image_model, Rendition
 from wagtail.wagtailimages.formats import (
     Format,
     get_image_format,
@@ -783,9 +784,6 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
         self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
 
-        self.assertIn('Expires', response)
-        self.assertTrue(dateutil.parser.parse(response['Expires']) > timezone.now() + datetime.timedelta(days=30))
-
     def test_get_invalid_signature(self):
         """
         Test that an invalid signature returns a 403 response
@@ -1037,3 +1035,126 @@ class TestIssue573(TestCase):
         # This would crash if the bug is present
         image.get_rendition('fill-800x600')
 
+
+class TestIssue613(TestCase, WagtailTestUtils):
+    def get_elasticsearch_backend(self):
+        from django.conf import settings
+        from wagtail.wagtailsearch.backends import get_search_backend
+
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+
+        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
+        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
+            if backend_conf['BACKEND'] == backend_path:
+                return get_search_backend(backend_name)
+        else:
+            # no conf entry found - skip tests for this backend
+            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
+
+    def setUp(self):
+        self.search_backend = self.get_elasticsearch_backend()
+        self.login()
+
+        from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+        register_signal_handlers()
+
+    def add_image(self, **params):
+        post_data = {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_add_image'), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+        return image
+
+    def edit_image(self, **params):
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Edit it
+        post_data = {
+            'title': "Edited",
+        }
+        post_data.update(params)
+        response = self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image was edited
+        image = Image.objects.get(id=self.image.id)
+        self.assertEqual(image.title, "Edited")
+        return image
+
+    def test_issue_613_on_add(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.add_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)
+
+    def test_issue_613_on_edit(self):
+        # Reset the search index
+        self.search_backend.reset_index()
+        self.search_backend.add_type(Image)
+
+        # Add an image with some tags
+        image = self.edit_image(tags="hello")
+        self.search_backend.refresh_index()
+
+        # Search for it by tag
+        results = self.search_backend.search("hello", Image)
+
+        # Check
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].id, image.id)
+
+
+class TestIssue312(TestCase):
+    def test_duplicate_renditions(self):
+        # Create an image
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Get two renditions and check that they're the same
+        rend1 = image.get_rendition('fill-100x100')
+        rend2 = image.get_rendition('fill-100x100')
+        self.assertEqual(rend1, rend2)
+
+        # Now manually duplicate the renditon and check that the database blocks it
+        self.assertRaises(
+            IntegrityError,
+            Rendition.objects.create, 
+            image=rend1.image,
+            filter=rend1.filter,
+            width=rend1.width,
+            height=rend1.height,
+            focal_point_key=rend1.focal_point_key,
+        )

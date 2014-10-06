@@ -54,10 +54,10 @@ class AbstractImage(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
-    focal_point_x = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_y = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_width = models.PositiveIntegerField(null=True, editable=False)
-    focal_point_height = models.PositiveIntegerField(null=True, editable=False)
+    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
     def get_usage(self):
         return get_object_usage(self)
@@ -143,7 +143,7 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 rendition = self.renditions.get(
                     filter=filter,
-                    focal_point_key=None,
+                    focal_point_key='',
                 )
         except ObjectDoesNotExist:
             file_field = self.file
@@ -175,7 +175,6 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 rendition, created = self.renditions.get_or_create(
                     filter=filter,
-                    focal_point_key=None,
                     defaults={'file': generated_image_file}
                 )
 
@@ -345,7 +344,7 @@ class AbstractRendition(models.Model):
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
-    focal_point_key = models.CharField(max_length=255, null=True, editable=False)
+    focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
 
     @property
     def url(self):

@@ -2,9 +2,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
+from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
 
 
 User = get_user_model()
@@ -37,7 +39,7 @@ class UserCreationForm(BaseUserCreationForm):
         username = self.cleaned_data["username"]
         try:
             # When called from BaseUserCreationForm, the method fails if using a AUTH_MODEL_MODEL,
-            # This is because the following line tries to perform a lookup on 
+            # This is because the following line tries to perform a lookup on
             # the default "auth_user" table.
             User._default_manager.get(username=username)
         except User.DoesNotExist:
@@ -134,6 +136,80 @@ class UserEditForm(forms.ModelForm):
             user.save()
             self.save_m2m()
         return user
+
+
+class GroupForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GroupForm, self).__init__(*args, **kwargs)
+        self.registered_permissions = Permission.objects.none()
+        for fn in hooks.get_hooks('register_permissions'):
+            self.registered_permissions = self.registered_permissions | fn()
+        self.fields['permissions'].queryset = self.registered_permissions
+
+    required_css_class = "required"
+
+    error_messages = {
+        'duplicate_name': _("A group with that name already exists."),
+    }
+
+    is_superuser = forms.BooleanField(
+        label=_("Administrator"),
+        required=False,
+        help_text=_("Administrators have the ability to manage user accounts.")
+    )
+
+    class Meta:
+        model = Group
+        fields = ("name", "permissions", )
+
+    def clean_name(self):
+        # Since Group.name is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        name = self.cleaned_data["name"]
+        try:
+            Group._default_manager.exclude(id=self.instance.id).get(name=name)
+        except Group.DoesNotExist:
+            return name
+        raise forms.ValidationError(self.error_messages['duplicate_name'])
+
+    def save(self):
+        # We go back to the object to read (in order to reapply) the
+        # permissions which were set on this group, but which are not
+        # accessible in the wagtail admin interface, as otherwise these would
+        # be clobbered by this form.
+        try:
+            untouchable_permissions = self.instance.permissions.exclude(pk__in=self.registered_permissions)
+            bool(untouchable_permissions)  # force this to be evaluated, as it's about to change
+        except ValueError:
+            # this form is not bound; we're probably creating a new group
+            untouchable_permissions = []
+        group = super(GroupForm, self).save()
+        group.permissions.add(*untouchable_permissions)
+        return group
+
+
+class GroupPagePermissionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GroupPagePermissionForm, self).__init__(*args, **kwargs)
+        self.fields['page'].widget = forms.HiddenInput()
+
+    class Meta:
+        model = GroupPagePermission
+        fields = ('page', 'permission_type')
+
+
+class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super(BaseGroupPagePermissionFormSet, self).__init__(*args, **kwargs)
+        self.form = GroupPagePermissionForm
+        for form in self.forms:
+            form.fields['DELETE'].widget = forms.HiddenInput()
+
+    @property
+    def empty_form(self):
+        empty_form = super(BaseGroupPagePermissionFormSet, self).empty_form
+        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        return empty_form
 
 
 class NotificationPreferencesForm(forms.ModelForm):

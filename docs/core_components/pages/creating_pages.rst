@@ -104,6 +104,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. autoattribute:: url
 
     .. autoattribute:: full_url
+    
+    .. automethod:: get_verbose_name
 
     .. automethod:: relative_url
 
@@ -131,7 +133,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. attribute:: search_fields
         
-        A list of fields to be indexed by the search engine. See Search docs :ref:`wagtailsearch_for_python_developers`
+        A list of fields to be indexed by the search engine. See Search docs :ref:`wagtailsearch_indexing_fields`
 
     .. attribute:: subpage_types
 

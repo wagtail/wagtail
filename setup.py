@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import sys
+import sys, os
+
+from wagtail.wagtailcore import __version__
 
 
 try:
@@ -9,15 +11,18 @@ except ImportError:
     from distutils.core import setup
 
 
-# Hack to prevent stupid TypeError: 'NoneType' object is not callable error on
-# exit of python setup.py test # in multiprocessing/util.py _exit_function when
-# running python setup.py test (see
-# http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
+# Hack to prevent "TypeError: 'NoneType' object is not callable" error
+# in multiprocessing/util.py _exit_function when setup.py exits
+# (see http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
 try:
     import multiprocessing
 except ImportError:
     pass
 
+
+# Disable parallel builds, because Pillow 2.5.3 does some crazy monkeypatching of
+# the build process on multicore systems, which breaks installation of libsass
+os.environ['MAX_CONCURRENCY'] = '1'
 
 PY3 = sys.version_info[0] == 3
 
@@ -27,8 +32,8 @@ install_requires = [
     "South==1.0.0",
     "django-compressor>=1.4",
     "django-libsass>=0.2",
-    "django-modelcluster>=0.3",
-    "django-taggit==0.12.1",
+    "django-modelcluster>=0.4",
+    "django-taggit==0.12.2",
     "django-treebeard==2.0",
     "Pillow>=2.3.0",
     "beautifulsoup4>=4.3.2",
@@ -47,7 +52,7 @@ if not PY3:
 
 setup(
     name='wagtail',
-    version='0.5',
+    version=__version__,
     description='A Django content management system focused on flexibility and user experience',
     author='Matthew Westcott',
     author_email='matthew.westcott@torchbox.com',
@@ -57,7 +62,7 @@ setup(
     license='BSD',
     long_description=open('README.rst').read(),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -74,5 +79,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
+    entry_points="""
+            [console_scripts]
+            wagtail=wagtail.bin.wagtail:main
+    """,
     zip_safe=False,
 )

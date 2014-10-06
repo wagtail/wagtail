@@ -4,6 +4,8 @@ from django.core import urlresolvers
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
@@ -59,10 +61,14 @@ def construct_main_menu(request, menu_items):
     if not OLD_STYLE_URLCONF_CHECK_PASSED:
         check_old_style_urlconf()
 
-    if request.user.has_perm('wagtailimages.add_image'):
-        menu_items.append(
-            MenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
-        )
+
+class ImagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return request.user.has_perm('wagtailimages.add_image')
+
+@hooks.register('register_admin_menu_item')
+def register_images_menu_item():
+    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
 
 
 @hooks.register('insert_editor_js')
@@ -83,3 +89,10 @@ def editor_js():
         """,
         urlresolvers.reverse('wagtailimages_chooser')
     )
+
+
+@hooks.register('register_permissions')
+def register_permissions():
+    image_content_type = ContentType.objects.get(app_label='wagtailimages', model='image')
+    image_permissions = Permission.objects.filter(content_type = image_content_type)
+    return image_permissions
