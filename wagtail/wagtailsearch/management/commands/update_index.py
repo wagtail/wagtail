@@ -8,14 +8,6 @@ from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
-def get_search_backends():
-    if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
-        for backend in settings.WAGTAILSEARCH_BACKENDS.keys():
-            yield backend, get_search_backend(backend)
-    else:
-        yield 'default', get_search_backend('default')
-
-
 class Command(BaseCommand):
     def get_object_list(self):
         # Print info
@@ -54,13 +46,12 @@ class Command(BaseCommand):
 
         return indexed_models, object_set.values()
 
-    def update_backend(self, backend, models, object_list, backend_name=''):
+    def update_backend(self, backend_name, models, object_list):
         # Print info
         self.stdout.write("Updating backend: " + backend_name)
 
         # Get backend
-        if backend is None:
-            backend = get_search_backend(backend_name)
+        backend = get_search_backend(backend_name)
 
         # Reset the index
         self.stdout.write(backend_name + ": Reseting index")
@@ -84,7 +75,7 @@ class Command(BaseCommand):
         make_option('--backend',
             action='store',
             dest='backend_name',
-            default=False,
+            default=None,
             help="Specify a backend to update",
         ),
     )
@@ -93,10 +84,17 @@ class Command(BaseCommand):
         # Get object list
         models, object_list = self.get_object_list()
 
-        # Update backends
-        if 'backend_name' in options:
-            backend = dict(get_search_backends())[options['backend_name']]
-            self.update_backend(backend, models, object_list, backend_name=options['backend_name'])
+        # Get list of backends to index
+        if options['backend_name']:
+            # index only the passed backend
+            backend_names = [options['backend_name']]
+        elif hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+            # index all backends listed in settings
+            backend_names = settings.WAGTAILSEARCH_BACKENDS.keys()
         else:
-            for backend_name, backend in get_search_backends():
-                self.update_backend(backend, models, object_list, backend_name=backend_name)
+            # index the 'default' backend only
+            backend_names = ['default']
+
+        # Update backends
+        for backend_name in backend_names:
+            self.update_backend(backend_name, models, object_list)
