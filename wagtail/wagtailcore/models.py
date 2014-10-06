@@ -996,6 +996,7 @@ PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add/edit pages you own'),
     ('edit', 'Add/edit any page'),
     ('publish', 'Publish any page'),
+    ('lock', 'Lock/unlock any page'),
 ]
 
 
@@ -1165,7 +1166,7 @@ class PagePermissionTester(object):
         return self.can_publish()
 
     def can_lock(self):
-        return self.user.is_superuser
+        return self.user.is_superuser or ('lock' in self.permissions)
 
     def can_publish_subpage(self):
         """
