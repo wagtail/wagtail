@@ -11,6 +11,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
+from wagtail.wagtailimages.utils.validators import get_max_image_filesize
 
 
 def get_image_json(image):
@@ -146,7 +147,7 @@ def chooser_upload(request):
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form, 'searchform': searchform}
+        {'images': images, 'uploadform': form, 'searchform': searchform, 'max_filesize': get_max_image_filesize()}
     )
 
 
