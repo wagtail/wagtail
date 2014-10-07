@@ -15,6 +15,7 @@ $(function(){
         sequentialUploads: true,
         dropZone: $('.drop-zone'),
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: window.max_file_size,
         previewMinWidth:150,
         previewMaxWidth:150,
         previewMinHeight:150,
