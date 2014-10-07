@@ -64,7 +64,7 @@ You will now be able to run the following command to set up an initial file stru
 
     cd myprojectname
     pip install -r requirements.txt
-    python manage.py migrate
+    python manage.py syncdb --migrate
     python manage.py runserver
 
 Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/ .
