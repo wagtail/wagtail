@@ -289,7 +289,7 @@ def edit(request, page_id):
             return cleaned_data
         form.clean = clean
 
-        if form.is_valid():
+        if form.is_valid() and not page.locked:
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
@@ -330,7 +330,10 @@ def edit(request, page_id):
 
             return redirect('wagtailadmin_explore', page.get_parent().id)
         else:
-            messages.error(request, _("The page could not be saved due to validation errors"))
+            if page.locked:
+                messages.error(request, _("The page could not be saved as it is locked"))
+            else:
+                messages.error(request, _("The page could not be saved due to validation errors"))
 
             edit_handler = edit_handler_class(instance=page, form=form)
             errors_debug = (

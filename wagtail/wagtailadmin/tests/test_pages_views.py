@@ -443,6 +443,28 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
         self.assertTrue(child_page_new.has_unpublished_changes)
 
+    def test_page_edit_post_when_locked(self):
+        # Tests that trying to edit a locked page results in an error
+
+        # Lock the page
+        self.child_page.locked = True
+        self.child_page.save()
+
+        # Post
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
+    
+        # Shouldn't be redirected
+        self.assertContains(response, "The page could not be saved as it is locked")
+
+        # The page shouldn't have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.child_page.id)
+        self.assertFalse(child_page_new.has_unpublished_changes)
+
     def test_edit_post_scheduled(self):
         # put go_live_at and expire_at several days away from the current date, to avoid
         # false matches in content_json__contains tests
