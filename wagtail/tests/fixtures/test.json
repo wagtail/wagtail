@@ -435,7 +435,15 @@
         "permission_type": "edit"
     }
 },
-
+{
+    "pk": 6,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event moderators"],
+        "page": 3,
+        "permission_type": "lock"
+    }
+},
 {
     "pk": 1,
     "model": "tests.customuser",

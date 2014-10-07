@@ -73,6 +73,9 @@ urlpatterns += [
 
     url(r'^pages/(\d+)/privacy/$', page_privacy.set_privacy, name='wagtailadmin_pages_set_privacy'),
 
+    url(r'^pages/(\d+)/lock/$', pages.lock, name='wagtailadmin_pages_lock'),
+    url(r'^pages/(\d+)/unlock/$', pages.unlock, name='wagtailadmin_pages_unlock'),
+
     url(r'^choose-page/$', chooser.browse, name='wagtailadmin_choose_page'),
     url(r'^choose-page/(\d+)/$', chooser.browse, name='wagtailadmin_choose_page_child'),
     url(r'^choose-external-link/$', chooser.external_link, name='wagtailadmin_choose_page_external_link'),

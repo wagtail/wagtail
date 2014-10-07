@@ -23,6 +23,7 @@
                 {% endif %}
 
                 {% include "wagtailadmin/pages/_privacy_indicator.html" with page=page page_perms=page_perms only %}
+                {% include "wagtailadmin/pages/_lock_indicator.html" %}
             </div>
         </div>
     </header>
@@ -35,20 +36,23 @@
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
-                        <input type="submit" value="{% trans 'Save draft' %}" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
-                        <ul role="menu">
-                            {% if page_perms.can_unpublish %}
-                                <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
-                            {% endif %}
-                            {% if page_perms.can_delete %}
-                                <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
-                            {% endif %}
-                            {% if page_perms.can_publish %}
-                                <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
-                            {% endif %}
-                            <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
-                        </ul>
+                        <input type="submit" value="{% if page.locked %}{% trans 'Page locked' %}{% else %}{% trans 'Save draft' %}{% endif %}" class="button" {% if page.locked %}disabled {% endif %} />
+                        
+                        {% if not page.locked %}
+                            <div class="dropdown-toggle icon icon-arrow-up"></div>
+                            <ul role="menu">
+                                {% if page_perms.can_unpublish %}
+                                    <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
+                                {% endif %}
+                                {% if page_perms.can_delete %}
+                                    <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
+                                {% endif %}
+                                {% if page_perms.can_publish %}
+                                    <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
+                                {% endif %}
+                                <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
+                            </ul>
+                        {% endif %}
                     </div>
                 </li>
 

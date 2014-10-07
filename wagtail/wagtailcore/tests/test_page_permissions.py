@@ -299,3 +299,35 @@ class TestPagePermission(TestCase):
         self.assertFalse(publishable_pages.filter(id=someone_elses_event_page.id).exists())
 
         self.assertFalse(can_publish_pages)
+
+    def test_lock_page_for_superuser(self):
+        user = get_user_model().objects.get(username='superuser')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+
+    def test_lock_page_for_moderator(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+
+    def test_lock_page_for_editor(self):
+        user = get_user_model().objects.get(username='eventeditor')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertFalse(perms.can_lock())
+
+    def test_lock_page_for_non_editing_user(self):
+        user = get_user_model().objects.get(username='admin_only_user')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertFalse(perms.can_lock())

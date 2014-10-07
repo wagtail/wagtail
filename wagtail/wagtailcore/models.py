@@ -270,6 +270,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    locked = models.BooleanField(default=False, editable=False)
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
@@ -278,6 +280,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('content_type'),
         index.FilterField('path'),
         index.FilterField('depth'),
+        index.FilterField('locked'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -939,6 +942,7 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.locked = self.page.locked
 
         return obj
 
@@ -992,6 +996,7 @@ PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', 'Add/edit pages you own'),
     ('edit', 'Add/edit any page'),
     ('publish', 'Publish any page'),
+    ('lock', 'Lock/unlock any page'),
 ]
 
 
@@ -1159,6 +1164,9 @@ class PagePermissionTester(object):
 
     def can_set_view_restrictions(self):
         return self.can_publish()
+
+    def can_lock(self):
+        return self.user.is_superuser or ('lock' in self.permissions)
 
     def can_publish_subpage(self):
         """

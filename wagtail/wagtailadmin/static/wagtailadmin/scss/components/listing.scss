@@ -373,6 +373,9 @@ table.listing{
             right:5%;
             top:2em;
         }
+        .locked-indicator{
+            font-size:0.8em;
+        }
 
         .title{
             h2{
@@ -388,8 +391,10 @@ table.listing{
         }
     }
 
-    .privacy-indicator{
-        font-size:0.9em;
+    .privacy-indicator,
+    .locked-indicator{
+        margin-right:0;
+        font-size:1em;
         opacity:0.7;
     }
 
