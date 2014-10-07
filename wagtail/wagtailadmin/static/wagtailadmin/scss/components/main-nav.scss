@@ -35,13 +35,8 @@ $submenu-color:darken($color-grey-1, 5%);
             list-style-type:none;
         }
 
-        ul{
-            border-top:1px solid rgba(100,100,100,0.2);
-        }
-
         li{
             @include transition(border-color 0.2s ease);
-            border-bottom:1px solid rgba(100,100,100,0.2);
             position:relative;
 
             /* TODO: find better way to procedurally detect the appropriate menu to highlight */
@@ -147,6 +142,7 @@ $submenu-color:darken($color-grey-1, 5%);
     .nav-search{
         position:relative;
         padding:0;
+        margin:0 1em;
 
         label{
             @include visuallyhidden();
@@ -157,10 +153,15 @@ $submenu-color:darken($color-grey-1, 5%);
             @include border-radius(0);
         }
         input{
+            cursor:pointer;
+            border:1px solid darken($color-grey-2, 10%);
             background-color:darken($color-grey-2, 15%);
             color:#AAA;
-            padding: 0.9em 2.5em 0.9em 2em;
+            padding: 0.8em 2.5em 0.8em 1em;
 
+            &:hover{
+                background-color:darken($color-grey-2, 10%);
+            }
             &:active, &:focus{
                 background-color:darken($color-grey-2, 5%);
                 color:white;
@@ -259,7 +260,7 @@ body.explorer-open {
 
     .nav-main{
         position:absolute;
-        top: 164px; /* WARNING - magic number - the height of the logo plus search box */
+        top: 175px; /* WARNING - magic number - the height of the logo plus search box */
         margin-bottom: 116px; /* WARNING - magic number - the height of the .footer */
 
         .footer{
@@ -351,7 +352,7 @@ body.explorer-open {
         position: absolute;
         top:0;
         left:99%;
-        margin-top:164px; /* same as .nav-main minus 1 pixel for border */
+        margin-top:175px; /* same as .nav-main minus 1 pixel for border */
     }
 
     .dl-menu {
