@@ -16,7 +16,7 @@ def validate_image_format(f):
         extension = 'jpeg'
 
     if extension not in ['gif', 'jpeg', 'png']:
-        raise ValidationError(_("Not a valid image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png)."))
+        raise ValidationError(_("Not a supported image type. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png)."))
 
     if not f.closed:
         # Open image file
