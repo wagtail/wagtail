@@ -15,11 +15,17 @@ class Migration(DataMigration):
             set_autocommit(True)    
 
         root_pages = orm['wagtailcore.page'].objects.filter(depth=1)
-        moderators_group = orm['auth.group'].objects.get(name='Moderators')
 
-        for page in root_pages:
-            orm['wagtailcore.grouppagepermission'].objects.create(
-                group=moderators_group, page=page, permission_type='lock')
+
+        try:
+            moderators_group = orm['auth.group'].objects.get(name='Moderators')
+
+            for page in root_pages:
+                orm['wagtailcore.grouppagepermission'].objects.create(
+                    group=moderators_group, page=page, permission_type='lock')
+
+        except orm['auth.group'].DoesNotExist:
+            pass
 
     def backwards(self, orm):
         pass

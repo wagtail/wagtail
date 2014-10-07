@@ -10,11 +10,16 @@ def add_page_lock_permission_to_moderators(apps, schema_editor):
     GroupPagePermission = apps.get_model('wagtailcore.GroupPagePermission')
 
     root_pages = Page.objects.filter(depth=1)
-    moderators_group = Group.objects.get(name='Moderators')
 
-    for page in root_pages:
-        GroupPagePermission.objects.create(
-            group=moderators_group, page=page, permission_type='lock')
+    try:
+        moderators_group = Group.objects.get(name='Moderators')
+
+        for page in root_pages:
+            GroupPagePermission.objects.create(
+                group=moderators_group, page=page, permission_type='lock')
+
+    except Group.DoesNotExist:
+        pass
 
 
 class Migration(migrations.Migration):
