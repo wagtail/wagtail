@@ -79,7 +79,7 @@ The available resizing methods are:
         Resize the height of the image to the dimension specified.. 
 
     ``fill`` 
-        (takes two dimensions)
+        (takes two dimensions and an optional ``-c`` parameter)
 
         .. code-block:: django
 
@@ -87,9 +87,25 @@ The available resizing methods are:
 
         Resize and **crop** to fill the **exact** dimensions. 
 
-        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200. 
+        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
-        **The crop always aligns on the centre of the image.**
+        This filter will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
+
+        **Cropping closer to the focal point**
+
+        By default, Wagtail will only crop to change the aspect ratio of the image.
+
+        In some cases (thumbnails, for example) it may be nice to crop closer to the focal point so the subject of the image is easier to see.
+
+        You can do this by appending ``-c<percentage>`` at the end of the method. For example, if you would like the image to be cropped as closely as possible to its focal point, add ``-c100`` to the end of the method.
+
+        .. code-block:: django
+
+            {% image self.photo fill-200x200-c100 %}
+
+        This will crop the image as much as it an but will never crop into the focal point.
+
+        If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50`` (any whole number from 0 to 100 is accepted).
 
     ``original`` 
         (takes no dimensions)

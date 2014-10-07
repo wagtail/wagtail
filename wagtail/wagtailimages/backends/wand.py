@@ -25,10 +25,10 @@ class WandBackend(BaseImageBackend):
         new_image.resize(size[0], size[1])
         return new_image
 
-    def crop(self, image, crop_box):
+    def crop(self, image, rect):
         new_image = image.clone()
         new_image.crop(
-            left=crop_box[0], top=crop_box[1], right=crop_box[2], bottom=crop_box[3]
+            left=rect[0], top=rect[1], right=rect[2], bottom=rect[3]
         )
         return new_image
 

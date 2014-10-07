@@ -1,6 +1,9 @@
+from __future__ import division
+
 from django.conf import settings
 
-from wagtail.wagtailimages.utils import crop
+from wagtail.wagtailimages.utils.rect import Rect
+from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 class BaseImageBackend(object):
@@ -35,27 +38,6 @@ class BaseImageBackend(object):
     def crop(self, image, crop_box):
         raise NotImplementedError('subclasses of BaseImageBackend must provide a crop() method')
 
-    def crop_to_centre(self, image, size):
-        crop_box = crop.crop_to_centre(image.size, size)
-        if crop_box.size != image.size:
-            return self.crop(image, crop_box)
-        else:
-            return image
-
-    def crop_to_point(self, image, size, focal_point):
-        crop_box = crop.crop_to_point(image.size, size, focal_point)
-
-        # Don't crop if we don't need to
-        if crop_box.size != image.size:
-            image = self.crop(image, crop_box)
-
-        # If the focal points are too large, the cropping system may not
-        # crop it fully, resize the image if this has happened:
-        if crop_box.size != size:
-            image = self.resize_to_fill(image, size)
-
-        return image
-
     def resize_to_max(self, image, size, focal_point=None):
         """
         Resize image down to fit within the given dimensions, preserving aspect ratio.
@@ -68,9 +50,9 @@ class BaseImageBackend(object):
             return image
 
         # scale factor if we were to downsize the image to fit the target width
-        horz_scale = float(target_width) / original_width
+        horz_scale = target_width / original_width
         # scale factor if we were to downsize the image to fit the target height
-        vert_scale = float(target_height) / original_height
+        vert_scale = target_height / original_height
 
         # choose whichever of these gives a smaller image
         if horz_scale < vert_scale:
@@ -92,9 +74,9 @@ class BaseImageBackend(object):
             return image
 
         # scale factor if we were to downsize the image to fit the target width
-        horz_scale = float(target_width) / original_width
+        horz_scale = target_width / original_width
         # scale factor if we were to downsize the image to fit the target height
-        vert_scale = float(target_height) / original_height
+        vert_scale = target_height / original_height
 
         # choose whichever of these gives a larger image
         if horz_scale > vert_scale:
@@ -114,7 +96,7 @@ class BaseImageBackend(object):
         if original_width <= target_width:
             return image
 
-        scale = float(target_width) / original_width
+        scale = target_width / original_width
 
         final_size = (target_width, int(original_height * scale))
 
@@ -130,23 +112,139 @@ class BaseImageBackend(object):
         if original_height <= target_height:
             return image
 
-        scale = float(target_height) / original_height
+        scale = target_height / original_height
 
         final_size = (int(original_width * scale), target_height)
 
         return self.resize(image, final_size)
 
-    def resize_to_fill(self, image, size, focal_point=None):
+    def resize_to_fill(self, image, arg, focal_point=None):
         """
         Resize down and crop image to fill the given dimensions. Most suitable for thumbnails.
         (The final image will match the requested size, unless one or the other dimension is
         already smaller than the target size)
         """
-        if focal_point is not None:
-            return self.crop_to_point(image, size, focal_point)
+        size = arg[:2]
+
+        # Get crop closeness if it's set
+        if len(arg) > 2 and arg[2] is not None:
+            crop_closeness = arg[2] / 100
+
+            # Clamp it
+            if crop_closeness > 1:
+                crop_closeness = 1
         else:
-            resized_image = self.resize_to_min(image, size)
-            return self.crop_to_centre(resized_image, size)
+            crop_closeness = 0
+
+        # Get image width and height
+        (im_width, im_height) = image.size
+
+        # Get filter width and height
+        fl_width = size[0]
+        fl_height = size[1]
+
+        # Get crop aspect ratio
+        crop_aspect_ratio = fl_width / fl_height
+
+        # Get crop max
+        crop_max_scale = min(im_width, im_height * crop_aspect_ratio)
+        crop_max_width = crop_max_scale
+        crop_max_height = crop_max_scale / crop_aspect_ratio
+
+        # Initialise crop width and height to max
+        crop_width = crop_max_width
+        crop_height = crop_max_height
+
+        # Use crop closeness to zoom in
+        if focal_point is not None:
+            fp_width = focal_point.width
+            fp_height = focal_point.height
+
+            # Get crop min
+            crop_min_scale = max(fp_width, fp_height * crop_aspect_ratio)
+            crop_min_width = crop_min_scale
+            crop_min_height = crop_min_scale / crop_aspect_ratio
+
+            # Sometimes, the focal point may be bigger than the image...
+            if not crop_min_scale > crop_max_scale:
+                # Calculate max crop closeness to prevent upscaling
+                max_crop_closeness = max(
+                    1 - (fl_width - crop_min_width) / (crop_max_width - crop_min_width),
+                    1 - (fl_height - crop_min_height) / (crop_max_height - crop_min_height)
+                )
+
+                # Apply max crop closeness
+                crop_closeness = min(crop_closeness, max_crop_closeness)
+
+                if 1 >= crop_closeness >= 0:
+                    # Get crop width and height
+                    crop_width = crop_max_width + (crop_min_width - crop_max_width) * crop_closeness
+                    crop_height = crop_max_height + (crop_min_height - crop_max_height) * crop_closeness
+
+        # Find focal point UV
+        if focal_point is not None:
+            fp_x = focal_point.x
+            fp_y = focal_point.y
+        else:
+            # Fall back to positioning in the centre
+            fp_x = im_width / 2
+            fp_y = im_height / 2
+
+        fp_u = fp_x / im_width
+        fp_v = fp_y / im_height
+
+        # Position crop box based on focal point UV
+        crop_x = fp_x - (fp_u - 0.5) * crop_width
+        crop_y = fp_y - (fp_v - 0.5) * crop_height
+
+        # Convert crop box into rect
+        left = crop_x - crop_width / 2
+        top = crop_y - crop_height / 2
+        right = crop_x + crop_width / 2
+        bottom = crop_y + crop_height / 2
+
+        # Make sure the entire focal point is in the crop box
+        if focal_point is not None:
+            focal_point_left = focal_point.x - focal_point.width / 2
+            focal_point_top = focal_point.y - focal_point.height / 2
+            focal_point_right = focal_point.x + focal_point.width / 2
+            focal_point_bottom = focal_point.y + focal_point.height / 2
+
+            if left > focal_point_left:
+                right -= left - focal_point_left
+                left = focal_point_left
+
+            if top > focal_point_top:
+                bottom -= top - focal_point_top
+                top = focal_point_top
+
+            if right < focal_point_right:
+                left += focal_point_right - right
+                right = focal_point_right
+
+            if bottom < focal_point_bottom:
+                top += focal_point_bottom - bottom
+                bottom = focal_point_bottom
+
+        # Don't allow the crop box to go over the image boundary
+        if left < 0:
+            right -= left
+            left = 0
+
+        if top < 0:
+            bottom -= top
+            top = 0
+
+        if right > im_width:
+            left -= right - im_width
+            right = im_width
+
+        if bottom > im_height:
+            top -= bottom - im_height
+            bottom = im_height
+
+        # Crop!
+        return self.resize_to_min(self.crop(image, Rect(left, top, right, bottom)), size)
 
     def no_operation(self, image, param, focal_point=None):
         """Return the image unchanged"""
