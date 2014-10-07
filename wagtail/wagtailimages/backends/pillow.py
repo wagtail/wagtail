@@ -21,8 +21,8 @@ class PillowBackend(BaseImageBackend):
             image = image.convert('RGB')
         return image.resize(size, PIL.Image.ANTIALIAS)
 
-    def crop(self, image, crop_box):
-        return image.crop(crop_box)
+    def crop(self, image, rect):
+        return image.crop(rect)
 
     def image_data_as_rgb(self, image):
         # https://github.com/thumbor/thumbor/blob/f52360dc96eedd9fc914fcf19eaf2358f7e2480c/thumbor/engines/pil.py#L206-L215

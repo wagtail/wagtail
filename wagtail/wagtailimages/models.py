@@ -278,6 +278,7 @@ class Filter(models.Model):
         # 'original'
         # 'width-200'
         # 'max-320x200'
+        # 'fill-200x200-c50'
 
         if self.spec == 'original':
             return Filter.OPERATION_NAMES['original'], None
@@ -285,6 +286,13 @@ class Filter(models.Model):
         match = re.match(r'(width|height)-(\d+)$', self.spec)
         if match:
             return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
+
+        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
+        if match:
+            width = int(match.group(2))
+            height = int(match.group(3))
+            crop_closeness = int(match.group(4))
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height, crop_closeness)
 
         match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
         if match:
