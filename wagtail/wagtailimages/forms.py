@@ -9,6 +9,8 @@ from wagtail.wagtailimages.formats import get_image_formats
 def get_image_form():
     return modelform_factory(
         get_image_model(),
+        exclude=(),
+
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
         # a bit pointless here
