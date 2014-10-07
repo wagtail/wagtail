@@ -14,7 +14,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
-from wagtail.wagtailimages.utils.validators import validate_image_format
+from wagtail.wagtailimages.utils.validators import validate_image_format, validate_image_filesize
 
 
 def json_response(document):
@@ -37,6 +37,7 @@ def add(request):
         # Check that the uploaded file is valid
         try:
             validate_image_format(request.FILES['files[]'])
+            validate_image_filesize(request.FILES['files[]'])
         except ValidationError as e:
             return json_response({
                 'success': False,
