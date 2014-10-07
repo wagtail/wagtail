@@ -89,7 +89,7 @@ The available resizing methods are:
 
         This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
-        This filter will crop to the images focal point if it has been set. If not, it will crop to the centre of the image.
+        This filter will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
 
         **Cropping closer to the focal point**
 
