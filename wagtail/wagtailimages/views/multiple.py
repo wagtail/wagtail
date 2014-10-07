@@ -14,7 +14,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form_for_multi
-from wagtail.wagtailimages.utils.validators import validate_image_format, validate_image_filesize
+from wagtail.wagtailimages.utils.validators import validate_image_format, validate_image_filesize, get_max_image_filesize
 
 
 def json_response(document):
@@ -61,7 +61,9 @@ def add(request):
         })
 
 
-    return render(request, 'wagtailimages/multiple/add.html', {})
+    return render(request, 'wagtailimages/multiple/add.html', {
+        'max_filesize': get_max_image_filesize(),
+    })
 
 
 @require_POST

@@ -17,6 +17,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils.crypto import generate_signature
+from wagtail.wagtailimages.utils.validators import get_max_image_filesize
 
 
 @permission_required('wagtailimages.add_image')
@@ -223,6 +224,7 @@ def add(request):
 
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
+        'max_filesize': get_max_image_filesize(),
     })
 
 
