@@ -9,24 +9,39 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
-from wagtail.wagtailimages.forms import get_image_form_for_multi
-from wagtail.wagtailimages.utils.validators import validate_image_format, validate_image_filesize, get_max_image_filesize
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.fields import get_max_image_filesize
 
 
 def json_response(document):
     return HttpResponse(json.dumps(document), content_type='application/json')
 
 
+def get_image_edit_form():
+    Image = get_image_model()
+    ImageForm = get_image_form()
+
+    # Make a new form with the file field excluded
+    class ImageEditForm(ImageForm):
+        class Meta(ImageForm.Meta):
+            model = Image
+            exclude = ('file', )
+
+    return ImageEditForm
+
+
 @permission_required('wagtailimages.add_image')
 @vary_on_headers('X-Requested-With')
 def add(request):
     Image = get_image_model()
-    ImageForm = get_image_form_for_multi()
+    ImageForm = get_image_form()
 
+    # Create a new image form class which doesn't contain the file field
     if request.method == 'POST':
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -34,32 +49,36 @@ def add(request):
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
 
-        # Check that the uploaded file is valid
-        try:
-            validate_image_format(request.FILES['files[]'])
-            validate_image_filesize(request.FILES['files[]'])
-        except ValidationError as e:
+        # Build a form for validation
+        form = ImageForm({
+            'title': request.FILES['files[]'].name,
+        }, {
+            'file': request.FILES['files[]'], 
+        })
+        
+        if form.is_valid():
+            # Save it
+            image = form.save(commit=False)
+            image.uploaded_by_user = request.user
+            image.save()
+
+            # Success! Send back an edit form for this image to the user
+            return json_response({
+                'success': True,
+                'image_id': int(image.id),
+                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                    'image': image,
+                    'form': get_image_edit_form()(instance=image, prefix='image-%d' % image.id),
+                }, context_instance=RequestContext(request)),
+            })
+        else:
+            # Validation error
             return json_response({
                 'success': False,
-                'error_message': '\n'.join(e.messages),
+
+                # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
+                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
-
-        # Save it
-        image = Image(uploaded_by_user=request.user, title=request.FILES['files[]'].name, file=request.FILES['files[]'])
-        image.save()
-
-        # Success! Send back an edit form for this image to the user
-        form = ImageForm(instance=image, prefix='image-%d' % image.id)
-
-        return json_response({
-            'success': True,
-            'image_id': int(image.id),
-            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                'image': image,
-                'form': form,
-            }, context_instance=RequestContext(request)),
-        })
-
 
     return render(request, 'wagtailimages/multiple/add.html', {
         'max_filesize': get_max_image_filesize(),
@@ -70,7 +89,7 @@ def add(request):
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id, callback=None):
     Image = get_image_model()
-    ImageForm = get_image_form_for_multi()
+    ImageForm = get_image_edit_form()
 
     image = get_object_or_404(Image, id=image_id)
 

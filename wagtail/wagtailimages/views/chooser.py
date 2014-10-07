@@ -11,7 +11,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
-from wagtail.wagtailimages.utils.validators import get_max_image_filesize
+from wagtail.wagtailimages.fields import get_max_image_filesize
 
 
 def get_image_json(image):

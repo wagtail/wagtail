@@ -23,7 +23,6 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.validators import validate_image_format, validate_image_filesize
 from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailadmin.utils import get_object_usage
@@ -46,7 +45,7 @@ def get_upload_to(instance, filename):
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title') )
-    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height', validators=[validate_image_format, validate_image_filesize])
+    file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)

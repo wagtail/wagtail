@@ -296,7 +296,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
-        self.assertEqual(response_json['error_message'], 'Not a valid image. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png).')
+        self.assertEqual(response_json['error_message'], 'Not a supported image type. Please use a gif, jpeg or png file with the correct file extension (*.gif, *.jpg or *.png).')
 
     def test_edit_get(self):
         """

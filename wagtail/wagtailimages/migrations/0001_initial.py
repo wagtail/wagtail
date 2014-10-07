@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import wagtail.wagtailimages.utils.validators
 import wagtail.wagtailimages.models
 import taggit.managers
 from django.conf import settings
@@ -32,7 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('title', models.CharField(verbose_name='Title', max_length=255)),
-                ('file', models.ImageField(width_field='width', upload_to=wagtail.wagtailimages.models.get_upload_to, verbose_name='File', height_field='height', validators=[wagtail.wagtailimages.utils.validators.validate_image_format])),
+                ('file', models.ImageField(width_field='width', upload_to=wagtail.wagtailimages.models.get_upload_to, verbose_name='File', height_field='height')),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
