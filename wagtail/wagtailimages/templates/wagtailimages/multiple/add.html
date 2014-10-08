@@ -16,6 +16,7 @@
     <div class="nice-padding">
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
+            <p>{{ help_text }}
             
             <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
@@ -72,11 +73,11 @@
     <script>
         window.fileupload_opts = {
             simple_upload_url: "{% url 'wagtailimages_add_image' %}",
-            accepted_file_types: /(\.|\/)(gif|jpe?g|png)$/i, //must be regex
+            accepted_file_types: /(\.|\/)({% for extn in allowed_extensions %}{{ extn }}{% if not forloop.last %}|{% endif %}{% endfor %})$/i, //must be regex
             max_file_size: {{ max_filesize }}, //numeric format
-            messages: {
-                max_file_size: "max filesize message",
-                accepted_file_types: "filetypes message"
+            errormessages: {
+                max_file_size: "{{ error_max_file_size }}",
+                accepted_file_types: "{{ error_accepted_file_types }}"
             }
         }
         window.tagit_opts = {
