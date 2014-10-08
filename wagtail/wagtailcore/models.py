@@ -272,6 +272,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     locked = models.BooleanField(default=False, editable=False)
 
+    latest_revision_created_at = models.DateTimeField(null=True, editable=False)
+
     search_fields = (
         index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
@@ -410,12 +412,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 raise Http404
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
-        return self.revisions.create(
+        revision = self.revisions.create(
             content_json=self.to_json(),
             user=user,
             submitted_for_moderation=submitted_for_moderation,
             approved_go_live_at=approved_go_live_at,
         )
+
+        self.latest_revision_created_at = revision.created_at
+        self.save(update_fields=['latest_revision_created_at'])
+
+        return revision
 
     def get_latest_revision(self):
         return self.revisions.order_by('-created_at').first()
