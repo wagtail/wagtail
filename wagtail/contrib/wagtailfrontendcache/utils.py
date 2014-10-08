@@ -63,10 +63,9 @@ def get_backends(backend_settings=None, backends=None):
 
     # No settings found, return empty list
     if backend_settings is None:
-        return []
+        return {}
 
-
-    backend_objects = []
+    backend_objects = {}
 
     for backend_name, _backend_config in backend_settings.items():
         if backends is not None and backend_name not in backends:
@@ -82,16 +81,20 @@ def get_backends(backend_settings=None, backends=None):
             raise InvalidFrontendCacheBackendError("Could not find backend '%s': %s" % (
                 backend, e))
 
-        backend_objects.append(backend_cls(backend_config))
-
+        backend_objects[backend_name] = backend_cls(backend_config)
 
     return backend_objects
 
 
-def purge_page_from_cache(page, backend_settings=None, backends=None):
-    logger.info("Purging page from cache: \"%s\" id=%d", page.title, page.id)
+def purge_url_from_cache(url, backend_settings=None, backends=None): 
+    for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
+        logger.info("[%s] Purging URL: %s", backend_name, url)
+        backend.purge(url)
 
-    for backend in get_backends(backend_settings=backend_settings, backends=backends):
+
+def purge_page_from_cache(page, backend_settings=None, backends=None):
+    for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
         # Purge cached paths from cache
         for path in page.specific.get_cached_paths():
+            logger.info("[%s] Purging URL: %s", backend_name, page.full_url + path[1:])
             backend.purge(page.full_url + path[1:])
