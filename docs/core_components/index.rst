@@ -3,6 +3,7 @@ Core components
 
 .. toctree::
     :maxdepth: 2
+    :titlesonly:
 
     sites
     pages/index
