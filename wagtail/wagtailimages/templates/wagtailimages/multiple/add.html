@@ -70,11 +70,15 @@
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
-        window.accepted_file_types = /(\.|\/)(gif|jpe?g|png)$/i; //must be regex
-        window.message_max_filesize = "max filesize message";
-        window.message_accepted_file_types = "filetypes message";
-        window.max_file_size = {{ max_filesize }}; //numeric format
-        window.simple_upload_url = "{% url 'wagtailimages_add_image' %}";
+        window.fileupload_opts = {
+            simple_upload_url: "{% url 'wagtailimages_add_image' %}",
+            accepted_file_types: /(\.|\/)(gif|jpe?g|png)$/i, //must be regex
+            max_file_size: {{ max_filesize }}, //numeric format
+            messages: {
+                max_file_size: "max filesize message",
+                accepted_file_types: "filetypes message"
+            }
+        }
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
         };

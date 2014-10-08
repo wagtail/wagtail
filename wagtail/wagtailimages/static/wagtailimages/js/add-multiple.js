@@ -1,7 +1,7 @@
 $(function(){
     // Redirect users that don't support filereader
     if(!$('html').hasClass('filereader')){
-        document.location.href = window.simple_upload_url;
+        document.location.href = window.fileupload_opts.simple_upload_url;
         return false;
     }
 
@@ -14,15 +14,15 @@ $(function(){
         dataType: 'html',
         sequentialUploads: true,
         dropZone: $('.drop-zone'),
-        acceptFileTypes: window.accepted_file_types,
-        maxFileSize: window.max_file_size,
+        acceptFileTypes: window.fileupload_opts.accepted_file_types,
+        maxFileSize: window.fileupload_opts.max_file_size,
         previewMinWidth:150,
         previewMaxWidth:150,
         previewMinHeight:150,
         previewMaxHeight:150,
         messages: {
-            acceptFileTypes: window.message_accepted_file_types,
-            maxFileSize: window.messages_max_filesize
+            acceptFileTypes: window.fileupload_opts.messages.accepted_file_types,
+            maxFileSize: window.fileupload_opts.messages.max_file_size
         },
         add: function (e, data) {
             var $this = $(this);
