@@ -13,17 +13,17 @@ from taggit.forms import TagWidget
 
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
     def render_js_init(self, id_, name, value):
-        return 'initDateChooser({});'.format(json.dumps(id_))
+        return 'initDateChooser({0});'.format(json.dumps(id_))
 
 
 class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
     def render_js_init(self, id_, name, value):
-        return 'initTimeChooser({});'.format(json.dumps(id_))
+        return 'initTimeChooser({0});'.format(json.dumps(id_))
 
 
 class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
     def render_js_init(self, id_, name, value):
-        return 'initDateTimeChooser({});'.format(json.dumps(id_))
+        return 'initDateTimeChooser({0});'.format(json.dumps(id_))
 
 
 class AdminTagWidget(WidgetWithScript, TagWidget):
