@@ -121,7 +121,7 @@
     color:lighten($color-grey-2,30%);
     -webkit-font-smoothing: auto;
     font-size:0.80em;
-    margin:0 0.5em;
+    margin:0 0.5em 0.5em 0.5em;
     background:white url("#{$static-root}bg-dark-diag.svg");
 
     &.primary{
@@ -130,10 +130,16 @@
         background:white
     }
 }
+form.status-tag:hover,
 a.status-tag:hover,
 a.status-tag.primary:hover{
     border-color:$color-teal;
     color:$color-teal;
+}
+form.status-tag:hover{
+    border-color:$color-teal-dark;
+    background-color:$color-teal-darker;
+    color:white;
 }
 
 .privacy-indicator {

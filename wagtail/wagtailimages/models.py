@@ -143,7 +143,7 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 rendition = self.renditions.get(
                     filter=filter,
-                    focal_point_key=None,
+                    focal_point_key='',
                 )
         except ObjectDoesNotExist:
             file_field = self.file
@@ -175,7 +175,6 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 rendition, created = self.renditions.get_or_create(
                     filter=filter,
-                    focal_point_key=None,
                     defaults={'file': generated_image_file}
                 )
 
@@ -279,6 +278,7 @@ class Filter(models.Model):
         # 'original'
         # 'width-200'
         # 'max-320x200'
+        # 'fill-200x200-c50'
 
         if self.spec == 'original':
             return Filter.OPERATION_NAMES['original'], None
@@ -286,6 +286,13 @@ class Filter(models.Model):
         match = re.match(r'(width|height)-(\d+)$', self.spec)
         if match:
             return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
+
+        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
+        if match:
+            width = int(match.group(2))
+            height = int(match.group(3))
+            crop_closeness = int(match.group(4))
+            return Filter.OPERATION_NAMES[match.group(1)], (width, height, crop_closeness)
 
         match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
         if match:
@@ -345,7 +352,7 @@ class AbstractRendition(models.Model):
     file = models.ImageField(upload_to='images', width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
-    focal_point_key = models.CharField(max_length=255, null=True, editable=False)
+    focal_point_key = models.CharField(max_length=255, blank=True, default='', editable=False)
 
     @property
     def url(self):

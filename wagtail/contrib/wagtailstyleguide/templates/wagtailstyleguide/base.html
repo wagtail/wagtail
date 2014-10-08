@@ -33,6 +33,7 @@
                 <li><a href="#progress">Progress indicators</a></li>
                 <li><a href="#misc">Misc formatters</a></li>
                 <li><a href="#icons">Icons</a></li>
+                <li><a href="#ie9">IE9 debugging</a></li>
             </ul>
         </nav>
 
@@ -502,6 +503,7 @@
                 <li class="icon icon-pick">pick</li>
                 <li class="icon icon-redirect">redirect</li>
                 <li class="icon icon-view">view</li>
+                <li class="icon icon-no-view">no-view</li>
                 <li class="icon icon-collapse-up">collapse-up</li>
                 <li class="icon icon-collapse-down">collapse-down</li>
                 <li class="icon icon-help">help</li>
@@ -514,6 +516,15 @@
             </ul>
 
         </section>
+
+        <section id="ie9">
+            <h2>IE9 debugging</h2>
+
+            <p>Internet Explorer 9 has two critical limitations in its CSS support: a maximum of 31 stylesheets per page and a maximum of 4096 selectors per stylesheet. The latter is particularly problematic when CSS is concatenated.</p>
+
+            <div id="ie9-debug"></div>
+
+        </section>
     </div>
    
 {% endblock %}
@@ -521,6 +532,30 @@
 {% block extra_js %}
 <script>
     $(function(){
+        // Debugging for stylesheet problems
+        var styleSheets = document.styleSheets, totalStyleSheets = styleSheets.length;
+        for (var j = 0; j < totalStyleSheets; j++) {
+            var styleSheet = styleSheets[j], rules = styleSheet.cssRules, totalSelectorsInStylesheet = 0, style = "";
+
+            var totalRulesInStylesheet = rules ? rules.length : 0;
+
+            for (var i = 0; i < totalRulesInStylesheet; i++) {
+                if (rules[i].selectorText) {
+                    try {
+                        totalSelectorsInStylesheet += rules[i].selectorText.split(',').length;
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+
+            if(totalSelectorsInStylesheet > 4095){
+                style = 'color:red';
+            }
+            $('#ie9-debug').append("<h3>" + styleSheet.href + "</h3>" + "<p>Total rules: <strong>" + totalRulesInStylesheet + "</strong>. " + "Total selectors: <strong style='" + style + "'>" + totalSelectorsInStylesheet + "</strong></p>");
+        }
+
         (function runprogress(){
             var to = setTimeout(function(){
                 runprogress();

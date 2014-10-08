@@ -14,9 +14,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.utils import IntegrityError
 
 from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailimages.models import get_image_model, Rendition
 from wagtail.wagtailimages.formats import (
     Format,
     get_image_format,
@@ -25,8 +26,6 @@ from wagtail.wagtailimages.formats import (
 
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
-from wagtail.wagtailimages.utils.crop import crop_to_point, CropBox
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.crypto import generate_signature, verify_signature
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailcore.models import Page
@@ -950,70 +949,6 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         }))
 
 
-class TestCropToPoint(TestCase):
-    def test_basic(self):
-        "Test basic cropping in the centre of the image"
-        self.assertEqual(
-            crop_to_point((640, 480), (100, 100), FocalPoint(x=320, y=240)),
-            CropBox(270, 190, 370, 290),
-        )
-        
-    def test_basic_no_focal_point(self):
-        "If focal point is None, it should make one in the centre of the image"
-        self.assertEqual(
-            crop_to_point((640, 480), (100, 100), None),
-            CropBox(270, 190, 370, 290),
-        )
-
-    def test_doesnt_exit_top_left(self):
-        "Test that the cropbox doesn't exit the image at the top left"
-        self.assertEqual(
-            crop_to_point((640, 480), (100, 100), FocalPoint(x=0, y=0)),
-            CropBox(0, 0, 100, 100),
-        )
-
-    def test_doesnt_exit_bottom_right(self):
-        "Test that the cropbox doesn't exit the image at the bottom right"
-        self.assertEqual(
-            crop_to_point((640, 480), (100, 100), FocalPoint(x=640, y=480)),
-            CropBox(540, 380, 640, 480),
-        )
-
-    def test_doesnt_get_smaller_than_focal_point(self):
-        "Test that the cropbox doesn't get any smaller than the focal point"
-        self.assertEqual(
-            crop_to_point((640, 480), (10, 10), FocalPoint(x=320, y=240, width=100, height=100)),
-            CropBox(270, 190, 370, 290),
-        )
-
-    def test_keeps_composition(self):
-        "Test that the cropbox tries to keep the composition of the original image as much as it can"
-        self.assertEqual(
-            crop_to_point((300, 300), (150, 150), FocalPoint(x=100, y=200)),
-            CropBox(50, 100, 200, 250), # Focal point is 1/3 across and 2/3 down in the crop box
-        )
-
-    def test_keeps_focal_point_in_view_bottom_left(self):
-        """
-        Even though it tries to keep the composition of the image,
-        it shouldn't let that get in the way of keeping the entire subject in view
-        """
-        self.assertEqual(
-            crop_to_point((300, 300), (150, 150), FocalPoint(x=100, y=200, width=150, height=150)),
-            CropBox(25, 125, 175, 275),
-        )
-
-    def test_keeps_focal_point_in_view_top_right(self):
-        """
-        Even though it tries to keep the composition of the image,
-        it shouldn't let that get in the way of keeping the entire subject in view
-        """
-        self.assertEqual(
-            crop_to_point((300, 300), (150, 150), FocalPoint(x=200, y=100, width=150, height=150)),
-            CropBox(125, 25, 275, 175),
-        )
-
-
 class TestIssue573(TestCase):
     """
     This tests for a bug which causes filename limit on Renditions to be reached
@@ -1132,3 +1067,28 @@ class TestIssue613(TestCase, WagtailTestUtils):
         # Check
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, image.id)
+
+
+class TestIssue312(TestCase):
+    def test_duplicate_renditions(self):
+        # Create an image
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Get two renditions and check that they're the same
+        rend1 = image.get_rendition('fill-100x100')
+        rend2 = image.get_rendition('fill-100x100')
+        self.assertEqual(rend1, rend2)
+
+        # Now manually duplicate the renditon and check that the database blocks it
+        self.assertRaises(
+            IntegrityError,
+            Rendition.objects.create, 
+            image=rend1.image,
+            filter=rend1.filter,
+            width=rend1.width,
+            height=rend1.height,
+            focal_point_key=rend1.focal_point_key,
+        )

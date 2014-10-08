@@ -1,34 +1,63 @@
 
-.. _wagtailsearch_for_python_developers:
+.. _wagtailsearch_indexing:
 
 
-=====================
-For Python developers
-=====================
+========
+Indexing
+========
+
+To make a model searchable, you'll firstly need to add it into the search index. All pages, images and documents are indexed for you and you can start searching them right away.
+
+If you have created some extra fields in a subclass of Page or Image, you may want to add these new fields to the search index too so that a user's search query will match on their content. See :ref:`wagtailsearch_indexing_fields` for info on how to do this.
+
+If you have a custom model that you would like to make searchable, see :ref:`wagtailsearch_indexing_models`.
 
 
-Basic usage
-===========
-
-By default using the :ref:`wagtailsearch_backends_database`, Wagtail's search will only index the ``title`` field of pages. 
-
-All searches are performed on Django QuerySets. Wagtail provides a ``search`` method on the queryset for all page models:
-
-.. code-block:: python
-
-    # Search future EventPages
-    >>> from wagtail.wagtailcore.models import EventPage
-    >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
+.. _wagtailsearch_indexing_update:
 
 
-All methods of ``PageQuerySet`` are supported by wagtailsearch:
+Updating the index
+==================
 
-.. code-block:: python
+If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the ``update_index`` command periodically. For best speed and reliability, it's best to use both if possible.
 
-    # Search all live EventPages that are under the events index
-    >>> EventPage.objects.live().descendant_of(events_index).search("Event")
-    [<EventPage: Event 1>, <EventPage: Event 2>]
 
+Signal handlers
+---------------
+
+Wagtailsearch provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
+
+To register the signal handlers, add the following code somewhere it would be executed at startup. We reccommend adding this to your projects ``urls.py``:
+
+.. code-block: python
+
+    # urls.py
+    from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
+
+    register_signal_handlers()
+
+
+.. note::
+
+    If your project was made with the ``wagtail start`` command, this will already be set up for you.
+
+
+The ``update_index`` command
+----------------------------
+
+Wagtail also provides a command for rebuilding the index from scratch.
+
+:code:`./manage.py update_index`
+
+It is recommended to run this command once a week and at the following times:
+
+ - whenever any pages have been created through a script (after an import, for example)
+ - whenever any changes have been made to models or search configuration
+
+The search may not return any results while this command is running, so avoid running it at peak times.
+
+
+.. _wagtailsearch_indexing_fields:
 
 Indexing extra fields
 =====================
@@ -51,7 +80,7 @@ Fields must be explicitly added to the ``search_fields`` property of your ``Page
 
 
 Example
--------------
+-------
 
 This creates an ``EventPage`` model with two fields ``description`` and ``date``. ``description`` is indexed as a ``SearchField`` and ``date`` is indexed as a ``FilterField``
 
@@ -75,7 +104,7 @@ This creates an ``EventPage`` model with two fields ``description`` and ``date``
 
 
 ``index.SearchField``
------------------------
+---------------------
 
 These are added to the search index and are used for performing full-text searches on your models. These would usually be text fields.
 
@@ -84,12 +113,12 @@ Options
 ```````
 
  - **partial_match** (boolean) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default so a page titled "Hello World!" will be found if the user only types "Hel" into the search box.
- - **boost** (number) - This allows you to set fields as being more important than others. Setting this to a high number on a field will make pages with matches in that field to be ranked higher. By default, this is set to 100 on the title field and 1 on all other fields.
+ - **boost** (number) - This allows you to set fields as being more important than others. Setting this to a high number on a field will make pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
  - **es_extra** (dict) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
 
 ``index.FilterField``
------------------------
+---------------------
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
 
@@ -127,6 +156,8 @@ One use for this is indexing ``get_*_display`` methods Django creates automatica
             index.FilterField('is_private'),
         )
 
+
+.. _wagtailsearch_indexing_models:
 
 Indexing non-page models
 ========================

@@ -9,6 +9,8 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import Q
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
 from django.core.handlers.wsgi import WSGIRequest
@@ -29,6 +31,7 @@ from treebeard.mp_tree import MP_Node
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.wagtailcore.query import PageQuerySet
 from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -69,14 +72,14 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0] # KeyError here goes to the final except clause
+            hostname = request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
             try:
                 # find a Site matching this specific hostname
-                return Site.objects.get(hostname=hostname) # Site.DoesNotExist here goes to the final except clause
+                return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
             except Site.MultipleObjectsReturned:
                 # as there were more than one, try matching by port too
-                port = request.META['SERVER_PORT'] # KeyError here goes to the final except clause
-                return Site.objects.get(hostname=hostname, port=int(port)) # Site.DoesNotExist here goes to the final except clause
+                port = request.META['SERVER_PORT']  # KeyError here goes to the final except clause
+                return Site.objects.get(hostname=hostname, port=int(port))  # Site.DoesNotExist here goes to the final except clause
         except (Site.DoesNotExist, KeyError):
             # If no matching site exists, or request does not specify an HTTP_HOST (which
             # will often be the case for the Django test client), look for a catch-all Site.
@@ -106,9 +109,9 @@ class Site(models.Model):
                 raise ValidationError(
                     {'is_default_site': [
                         _("%(hostname)s is already configured as the default site. You must unset that before you can save this site as default.")
-                        % { 'hostname': default.hostname }
-                        ]}
-                    )
+                        % {'hostname': default.hostname}
+                    ]}
+                )
 
     # clear the wagtail_site_root_paths cache whenever Site records are updated
     def save(self, *args, **kwargs):
@@ -267,14 +270,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
+    locked = models.BooleanField(default=False, editable=False)
+
     search_fields = (
-        index.SearchField('title', partial_match=True, boost=100),
+        index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('id'),
         index.FilterField('live'),
         index.FilterField('owner'),
         index.FilterField('content_type'),
         index.FilterField('path'),
         index.FilterField('depth'),
+        index.FilterField('locked'),
     )
 
     def __init__(self, *args, **kwargs):
@@ -355,8 +361,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 SET url_path = %s || substring(url_path from %s)
                 WHERE path LIKE %s AND id <> %s
             """
-        cursor.execute(update_statement,
-            [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
+        cursor.execute(update_statement, [new_url_path, len(old_url_path) + 1, self.path + '%', self.id])
 
     #: Return this page in its most specific subclassed form.
     @cached_property
@@ -422,6 +427,21 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             return latest_revision.as_page_object()
         else:
             return self.specific
+
+    def unpublish(self, set_expired=False, commit=True):
+        if self.live:
+            self.live = False
+            self.has_unpublished_changes = True
+
+            if set_expired:
+                self.expired = True
+
+            if commit:
+                self.save()
+
+            page_unpublished.send(sender=self.specific_class, instance=self.specific)
+
+            self.revisions.update(approved_go_live_at=None)
 
     def get_context(self, request, *args, **kwargs):
         return {
@@ -826,7 +846,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
     # or are at the top-level (this rule required so that an empty site out-of-the-box has a working menu)
-    pages = Page.objects.filter(Q(depth=2)|Q(numchild__gt=0)).order_by('path')
+    pages = Page.objects.filter(Q(depth=2) | Q(numchild__gt=0)).order_by('path')
 
     # Turn this into a tree structure:
     #     tree_node = (page, children)
@@ -862,6 +882,14 @@ def get_navigation_menu_items():
     except IndexError:
         # what, we don't even have a root node? Fine, just return an empty list...
         return []
+
+
+@receiver(pre_delete, sender=Page)
+def unpublish_page_before_delete(sender, instance, **kwargs):
+    # Make sure pages are unpublished before deleting
+    if instance.live:
+        # Don't bother to save, this page is just about to be deleted!
+        instance.unpublish(commit=False)
 
 
 class Orderable(models.Model):
@@ -914,14 +942,33 @@ class PageRevision(models.Model):
         obj.live = self.page.live
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
+        obj.locked = self.page.locked
 
         return obj
+
+    def approve_moderation(self):
+        if self.submitted_for_moderation:
+            self.publish()
+
+    def reject_moderation(self):
+        if self.submitted_for_moderation:
+            self.submitted_for_moderation = False
+            self.save(update_fields=['submitted_for_moderation'])
+
+    def is_latest_revision(self):
+        if self.id is None:
+            # special case: a revision without an ID is presumed to be newly-created and is thus
+            # newer than any revision that might exist in the database
+            return True
+        latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at').first()
+        return (latest_revision == self)
 
     def publish(self):
         page = self.as_page_object()
         if page.go_live_at and page.go_live_at > timezone.now():
             # if we have a go_live in the future don't make the page live
             page.live = False
+            page.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             self.approved_go_live_at = page.go_live_at
             self.save()
@@ -929,6 +976,8 @@ class PageRevision(models.Model):
             page.revisions.exclude(id=self.id).update(approved_go_live_at=None)
         else:
             page.live = True
+            # at this point, the page has unpublished changes iff there are newer revisions than this one
+            page.has_unpublished_changes = not self.is_latest_revision()
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False # When a page is published it can't be expired
@@ -936,14 +985,18 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+        if page.live:
+            page_published.send(sender=page.specific_class, instance=page.specific)
+
     def __str__(self):
         return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
-    ('add', 'Add'),
-    ('edit', 'Edit'),
-    ('publish', 'Publish'),
+    ('add', 'Add/edit pages you own'),
+    ('edit', 'Add/edit any page'),
+    ('publish', 'Publish any page'),
+    ('lock', 'Lock/unlock any page'),
 ]
 
 
@@ -951,6 +1004,9 @@ class GroupPagePermission(models.Model):
     group = models.ForeignKey(Group, related_name='page_permissions')
     page = models.ForeignKey('Page', related_name='group_permissions')
     permission_type = models.CharField(max_length=20, choices=PAGE_PERMISSION_TYPE_CHOICES)
+
+    class Meta:
+        unique_together = ('group', 'page', 'permission_type')
 
 
 class UserPagePermissionsProxy(object):
@@ -1043,7 +1099,7 @@ class PagePermissionTester(object):
         self.user = user_perms.user
         self.user_perms = user_perms
         self.page = page
-        self.page_is_root = page.depth == 1 # Equivalent to page.is_root()
+        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = set(
@@ -1108,6 +1164,9 @@ class PagePermissionTester(object):
 
     def can_set_view_restrictions(self):
         return self.can_publish()
+
+    def can_lock(self):
+        return self.user.is_superuser or ('lock' in self.permissions)
 
     def can_publish_subpage(self):
         """

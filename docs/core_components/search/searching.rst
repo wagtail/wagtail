@@ -1,4 +1,67 @@
 
+.. _wagtailsearch_searching:
+
+
+=========
+Searching
+=========
+
+
+.. _wagtailsearch_searching_pages:
+
+Searching Pages
+===============
+
+Wagtail provides a ``search`` method on the QuerySet for all page models:
+
+.. code-block:: python
+
+    # Search future EventPages
+    >>> from wagtail.wagtailcore.models import EventPage
+    >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
+
+
+All methods of ``PageQuerySet`` are supported by wagtailsearch:
+
+.. code-block:: python
+
+    # Search all live EventPages that are under the events index
+    >>> EventPage.objects.live().descendant_of(events_index).search("Event")
+    [<EventPage: Event 1>, <EventPage: Event 2>]
+
+
+Searching Images, Documents and custom models
+=============================================
+
+You can search these by using the ``search`` method on the search backend:
+
+.. code-block:: python
+
+    >>> from wagtail.wagtailimages.models import Image
+    >>> from wagtail.wagtailsearch.backends import get_search_backend
+
+    # Search images
+    >>> s = get_search_backend()
+    >>> s.search("Hello", Image)
+    [<Image: Hello>, <Image: Hello world!>]
+
+
+You can also pass a QuerySet into the ``search`` method which allows you to add filters to your search results:
+
+.. code-block:: python
+
+    >>> from wagtail.wagtailimages.models import Image
+    >>> from wagtail.wagtailsearch.backends import get_search_backend
+
+    # Search images
+    >>> s = get_search_backend()
+    >>> s.search("Hello", Image.objects.filter(uploaded_by_user=user))
+    [<Image: Hello>]
+
+
+This should work the same way for Documents and custom models as well.
+
+
 .. _wagtailsearch_frontend_views:
 
 
@@ -167,3 +230,46 @@ Custom Search Views
 -------------------
 
 This functionality is still under active development to provide a streamlined interface, but take a look at ``wagtail/wagtail/wagtailsearch/views/frontend.py`` if you are interested in coding custom search views.
+
+
+
+.. _editors-picks:
+
+
+Editor's picks
+==============
+
+Editor's picks are a way of explicitly linking relevant content to search terms, so results pages can contain curated content in addition to results from the search algorithm. In a template using the search results view, editor's picks can be accessed through the variable ``query.editors_picks``. To include editor's picks in your search results template, use the following properties.
+
+``query.editors_picks.all``
+  This gathers all of the editor's picks objects relating to the current query, in order according to their sort order in the Wagtail admin. You can then iterate through them using a ``{% for ... %}`` loop. Each editor's pick object provides these properties:
+
+  ``editors_pick.page``
+    The page object associated with the pick. Use ``{% pageurl editors_pick.page %}`` to generate a URL or provide other properties of the page object.
+
+  ``editors_pick.description``
+    The description entered when choosing the pick, perhaps explaining why the page is relevant to the search terms.
+
+Putting this all together, a block of your search results template displaying editor's picks might look like this:
+
+.. code-block:: django
+
+  {% with query.editors_picks.all as editors_picks %}
+    {% if editors_picks %}
+      <div class="well">
+      <h3>Editors picks</h3>
+    <ul>
+      {% for editors_pick in editors_picks %}
+        <li>
+          <h4>
+        <a href="{% pageurl editors_pick.page %}">
+          {{ editors_pick.page.title }}
+        </a>
+          </h4>
+          <p>{{ editors_pick.description|safe }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+      </div>
+    {% endif %}
+  {% endwith %}

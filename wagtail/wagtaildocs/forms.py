@@ -8,6 +8,7 @@ class DocumentForm(forms.ModelForm):
 
     class Meta:
         model = Document
+        fields = ('title', 'file', 'tags')
         widgets = {
             'file': forms.FileInput()
         }

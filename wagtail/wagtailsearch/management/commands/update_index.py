@@ -1,12 +1,15 @@
+from optparse import make_option
+
 from django.core.management.base import BaseCommand
 from django.db import models
+from django.conf import settings
 
 from wagtail.wagtailsearch.indexed import Indexed
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class Command(BaseCommand):
-    def handle(self, **options):
+    def get_object_list(self):
         # Print info
         self.stdout.write("Getting object list")
 
@@ -41,26 +44,57 @@ class Command(BaseCommand):
                     # Space free, take it
                     object_set[key] = obj
 
-        # Search backend
-        if 'backend' in options:
-            s = options['backend']
-        else:
-            s = get_search_backend()
+        return indexed_models, object_set.values()
+
+    def update_backend(self, backend_name, models, object_list):
+        # Print info
+        self.stdout.write("Updating backend: " + backend_name)
+
+        # Get backend
+        backend = get_search_backend(backend_name)
 
         # Reset the index
-        self.stdout.write("Reseting index")
-        s.reset_index()
+        self.stdout.write(backend_name + ": Reseting index")
+        backend.reset_index()
 
         # Add types
-        self.stdout.write("Adding types")
-        for model in indexed_models:
-            s.add_type(model)
+        self.stdout.write(backend_name + ": Adding types")
+        for model in models:
+            backend.add_type(model)
 
         # Add objects to index
-        self.stdout.write("Adding objects")
-        for result in s.add_bulk(object_set.values()):
+        self.stdout.write(backend_name + ": Adding objects")
+        for result in backend.add_bulk(object_list):
             self.stdout.write(result[0] + ' ' + str(result[1]))
 
         # Refresh index
-        self.stdout.write("Refreshing index")
-        s.refresh_index()
+        self.stdout.write(backend_name + ": Refreshing index")
+        backend.refresh_index()
+
+    option_list = BaseCommand.option_list + (
+        make_option('--backend',
+            action='store',
+            dest='backend_name',
+            default=None,
+            help="Specify a backend to update",
+        ),
+    )
+
+    def handle(self, **options):
+        # Get object list
+        models, object_list = self.get_object_list()
+
+        # Get list of backends to index
+        if options['backend_name']:
+            # index only the passed backend
+            backend_names = [options['backend_name']]
+        elif hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+            # index all backends listed in settings
+            backend_names = settings.WAGTAILSEARCH_BACKENDS.keys()
+        else:
+            # index the 'default' backend only
+            backend_names = ['default']
+
+        # Update backends
+        for backend_name in backend_names:
+            self.update_backend(backend_name, models, object_list)

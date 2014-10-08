@@ -47,7 +47,7 @@ Options:
 update_index
 ------------
 
-:code:`./manage.py update_index`
+:code:`./manage.py update_index [--backend <backend name>]`
 
 This command rebuilds the search index from scratch. It is only required when using Elasticsearch.
 
@@ -57,6 +57,24 @@ It is recommended to run this command once a week and at the following times:
  - whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
+
+
+Specifying which backend to update
+``````````````````````````````````
+
+.. versionadded:: 0.7
+
+
+By default, ``update_index`` will rebuild all the search indexes listed in ``WAGTAILSEARCH_BACKENDS``.
+
+If you have multiple backends and would only like to update one of them, you can use the ``--backend`` option.
+
+For example, to update just the default backend:
+
+.. code-block:: none
+
+    python manage.py update_index --backend default
+
 
 
 .. _search_garbage_collect:
