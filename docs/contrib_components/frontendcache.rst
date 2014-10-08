@@ -16,7 +16,7 @@ This document describes how to configure Wagtail to purge old versions of pages 
 
 
 Setting it up
-~~~~~~~~~~~~~
+-------------
 
 Firstly, add ``"wagtail.contrib.wagtailfrontendcache"`` to your INSTALLED_APPS:
 
@@ -40,7 +40,7 @@ The ``wagtailfrontendcache`` module provides a set of signal handlers which will
 
 
 Varnish/Squid
-`````````````
+^^^^^^^^^^^^^
 
 Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
 
@@ -63,7 +63,7 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
 
 
 Cloudflare
-``````````
+^^^^^^^^^^
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here:
 
@@ -83,10 +83,10 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
 
 
 Advanced usage
-~~~~~~~~~~~~~~
+--------------
 
 Invalidating more than one URL per page
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default, Wagtail will only purge one URL per page. If your page has more than one URL to be purged, you will need to override the ``get_cached_paths`` method on your page type.
 
@@ -107,7 +107,7 @@ By default, Wagtail will only purge one URL per page. If your page has more than
 
 
 Invalidating index pages
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Another problem is pages that list other pages (such as a blog index) will not be purged when a blog entry gets added, changed or deleted. You may want to purge the blog index page so the updates are added into the listing quickly.
 
@@ -147,7 +147,7 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
 
 
 Invalidating individual URLs
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``wagtail.contrib.wagtailfrontendcache.utils`` provides another utils function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
 
