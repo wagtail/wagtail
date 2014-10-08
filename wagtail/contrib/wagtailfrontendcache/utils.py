@@ -45,9 +45,23 @@ def import_string(dotted_path):
 
 
 def get_backends(backend_settings=None, backends=None):
+    # Get backend settings from WAGTAILFRONTENDCACHE setting
     if backend_settings is None:
         backend_settings = getattr(settings, 'WAGTAILFRONTENDCACHE', None)
 
+    # Fallback to using WAGTAILFRONTENDCACHE_LOCATION setting (backwards compatibility)
+    if backend_settings is None:
+        cache_location = getattr(settings, 'WAGTAILFRONTENDCACHE_LOCATION', None)
+
+        if cache_location is not None:
+            backend_settings = {
+                'default': {
+                    'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+                    'LOCATION': cache_location,
+                },
+            }
+
+    # No settings found, return empty list
     if backend_settings is None:
         return []
 
