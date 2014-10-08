@@ -16,6 +16,11 @@ INVALID_IMAGE_ERROR = _(
     "with the correct file extension (*.gif, *.jpg or *.png)."
 )
 
+INVALID_IMAGE_KNOWN_FORMAT_ERROR = _(
+    "Not a valid %s image. Please use a gif, jpeg or png file "
+    "with the correct file extension (*.gif, *.jpg or *.png)."
+)
+
 MAX_UPLOAD_SIZE = getattr(settings, 'WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024)
 
 if MAX_UPLOAD_SIZE is not None:
@@ -40,6 +45,7 @@ else:
 class WagtailImageField(ImageField):
     default_error_messages = {
         'invalid_image': INVALID_IMAGE_ERROR,
+        'invalid_image_known_format': INVALID_IMAGE_KNOWN_FORMAT_ERROR,
         'file_too_large': FILE_TOO_LARGE_ERROR,
     }
 
@@ -81,7 +87,9 @@ class WagtailImageField(ImageField):
         # Check that the internal format matches the extension
         # It is possible to upload PSD files if their extension is set to jpg, png or gif. This should catch them out
         if image.format.upper() != image_format.upper():
-            raise ValidationError(self.error_messages['invalid_image'], code='invalid_image')
+            raise ValidationError(self.error_messages['invalid_image_known_format'] % (
+                image_format.upper()
+            ), code='invalid_image_known_format')
 
     def check_image_file_size(self, f):
         # Upload size checking can be disabled by setting max upload size to None
