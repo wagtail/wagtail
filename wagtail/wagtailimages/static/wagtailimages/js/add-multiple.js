@@ -14,34 +14,24 @@ $(function(){
         dataType: 'html',
         sequentialUploads: true,
         dropZone: $('.drop-zone'),
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        acceptFileTypes: window.accepted_file_types,
         maxFileSize: window.max_file_size,
         previewMinWidth:150,
         previewMaxWidth:150,
         previewMinHeight:150,
-        previewMaxHeight:150,   
-
+        previewMaxHeight:150,
+        messages: {
+            acceptFileTypes: window.message_accepted_file_types,
+            maxFileSize: window.messages_max_filesize
+        },
         add: function (e, data) {
             var $this = $(this);
             var that = $this.data('blueimp-fileupload') || $this.data('fileupload')
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
             var options = that.options;
 
-            console.log(data);
-
             $('#upload-list').append(li);
             data.context = li;
-
-            // check if initial File API validation failed.
-            if (data.files.error) {
-                console.log('here');
-                data.context.each(function (index) {
-                    var error = data.files[index].error;
-                    if (error) {
-                        $(this).find('.error_messages').text(error);
-                    }
-                });
-            }
 
             data.process(function () {
                 return $this.fileupload('process', data);
@@ -71,7 +61,11 @@ $(function(){
                     });
                 }
             });
+        },
 
+        processfail: function(e, data){
+            var itemElement = $(data.context);
+            itemElement.removeClass('upload-uploading').addClass('upload-failure');
         },
         
         progress: function (e, data) {
@@ -134,8 +128,6 @@ $(function(){
         var form = $(this);
         var itemElement = form.closest('#upload-list > li');
 
-        console.log(form);
-        
         e.preventDefault();
 
         $.post(this.action, form.serialize(), function(data) {
