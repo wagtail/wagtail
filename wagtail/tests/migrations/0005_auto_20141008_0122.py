@@ -7,8 +7,8 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0006_auto_20141008_1706'),
-        ('tests', '0003_auto_20140905_0634'),
+        ('wagtailcore', '0006_auto_20141008_0420'),
+        ('tests', '0004_auto_20141008_0420'),
     ]
 
     operations = [
