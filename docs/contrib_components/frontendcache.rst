@@ -1,9 +1,14 @@
 .. _frontend_cache_purging:
 
-Frontend cache purging
-======================
+Frontend cache invalidation
+===========================
 
 .. versionadded:: 0.4
+
+.. versionchanged:: 0.7
+
+   * Multiple backend support added
+   * Cloudflare support added
 
 Many websites use a frontend cache such as Varnish, Squid or Cloudflare to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
@@ -34,7 +39,22 @@ The ``wagtailfrontendcache`` module provides a set of signal handlers which will
     register_signal_handlers()
 
 
-You then need to set the ``WAGTAILFRONTENDCACHE_LOCATION`` setting to the URL of your Varnish/Squid cache server. This must be a direct connection to the server and cannot go through another proxy. By default, this is set to ``http://127.0.0.1:8000`` which is very likely incorrect.
+Varnish/Squid
+`````````````
+
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend``. This backend requires an extra parameter ``LOCATION`` which points to where the cache is running (this must be a direct connection to the server and cannot go through another proxy).
+
+.. code-block:: python
+
+    # settings.py
+
+    WAGTAILFRONTENDCACHE = {
+        'varnish': {
+            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'LOCATION': 'http://localhost:8000',
+        },
+    }
+
 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
@@ -42,11 +62,31 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
  - `Squid <http://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
 
 
+Cloudflare
+``````````
+
+Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here:
+
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires two extra parameters, ``EMAIL`` (your Cloudflare account email) and ``TOKEN`` (your API token from Cloudflare).
+
+.. code-block:: python
+
+    # settings.py
+
+    WAGTAILFRONTENDCACHE = {
+        'cloudflare': {
+            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'EMAIL': 'your-cloudflare-email-address@example.com',
+            'TOKEN': 'your cloudflare api token',
+        },
+    }
+
+
 Advanced usage
 ~~~~~~~~~~~~~~
 
-Purging more than one URL per page
-----------------------------------
+Invalidating more than one URL per page
+---------------------------------------
 
 By default, Wagtail will only purge one URL per page. If your page has more than one URL to be purged, you will need to override the ``get_cached_paths`` method on your page type.
 
@@ -66,8 +106,8 @@ By default, Wagtail will only purge one URL per page. If your page has more than
                 yield '/?page=' + str(page_number)
 
 
-Purging index pages
--------------------
+Invalidating index pages
+------------------------
 
 Another problem is pages that list other pages (such as a blog index) will not be purged when a blog entry gets added, changed or deleted. You may want to purge the blog index page so the updates are added into the listing quickly.
 
@@ -106,8 +146,8 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
         blog_page_changed(instance)
 
 
-Purging individual URLs
------------------------
+Invalidating individual URLs
+----------------------------
 
 ``wagtail.contrib.wagtailfrontendcache.utils`` provides another utils function called ``purge_url_from_cache``. As the name suggests, this purges an individual URL from the cache.
 

@@ -7,5 +7,5 @@ Contrib components
 
     static_site_generation
     sitemap_generation
-    frontend_cache_purging
+    frontendcache
 
