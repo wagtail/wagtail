@@ -27,8 +27,21 @@ $(function(){
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
             var options = that.options;
 
+            console.log(data);
+
             $('#upload-list').append(li);
             data.context = li;
+
+            // check if initial File API validation failed.
+            if (data.files.error) {
+                console.log('here');
+                data.context.each(function (index) {
+                    var error = data.files[index].error;
+                    if (error) {
+                        $(this).find('.error_messages').text(error);
+                    }
+                });
+            }
 
             data.process(function () {
                 return $this.fileupload('process', data);
@@ -46,14 +59,14 @@ $(function(){
                 if ((that._trigger('added', e, data) !== false) &&
                         (options.autoUpload || data.autoUpload) &&
                         data.autoUpload !== false) {
-                    data.submit();
+                    data.submit()
                 }
             }).fail(function () {
                 if (data.files.error) {
                     data.context.each(function (index) {
                         var error = data.files[index].error;
                         if (error) {
-                            $(this).find('.error').text(error);
+                            $(this).find('.error_messages').text(error);
                         }
                     });
                 }
