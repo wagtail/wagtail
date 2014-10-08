@@ -65,7 +65,7 @@ Finally, make sure you have configured your frontend cache to accept PURGE reque
 Cloudflare
 ^^^^^^^^^^
 
-Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here:
+Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
 Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend``. This backend requires two extra parameters, ``EMAIL`` (your Cloudflare account email) and ``TOKEN`` (your API token from Cloudflare).
 
