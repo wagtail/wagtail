@@ -6,6 +6,9 @@ import requests
 from requests.adapters import HTTPAdapter
 
 
+logger = logging.getLogger('wagtail.frontendcache')
+
+
 class BaseBackend(object):
     def purge(self, url):
         raise NotImplementedError
@@ -40,10 +43,6 @@ class HTTPBackend(BaseBackend):
         self.session.mount('http://', self.CustomHTTPAdapter(self.cache_location))
 
     def purge(self, url):
-        logger = logging.getLogger('wagtail.frontendcache.backends.http')
-
-        logger.info("Purging URL from HTTP cache: '%s'", url)
-
         try:
             response = self.session.request('PURGE', url)
         except requests.ConnectionError:
@@ -62,10 +61,6 @@ class CloudflareBackend(BaseBackend):
         self.cloudflare_token = params.pop('TOKEN')
 
     def purge(self, url):
-        logger = logging.getLogger('wagtail.frontendcache.backends.cloudflare')
-
-        logger.info("Purging URL from Cloudflare: '%s'", url)
-
         try:
             response = requests.post('https://www.cloudflare.com/api_json.html', {
                 'email': self.cloudflare_email,
