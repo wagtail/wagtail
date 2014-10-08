@@ -9,44 +9,43 @@ from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 
 
-ALLOWED_EXTENSIONS = ['git', 'jpg', 'jpeg', 'png']
+ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png']
+ALLOWED_EXTENSIONS_TEXT = _("Supported formats: GIF, JPEG, PNG")
 
 INVALID_IMAGE_ERROR = _(
-    "Not a supported image type. Please use a gif, jpeg or png file "
-    "with the correct file extension (*.gif, *.jpg or *.png)."
-)
+    "Not a supported image format. %s"
+) % ALLOWED_EXTENSIONS_TEXT
 
 INVALID_IMAGE_KNOWN_FORMAT_ERROR = _(
-    "Not a valid %s image. Please use a gif, jpeg or png file "
-    "with the correct file extension (*.gif, *.jpg or *.png)."
+    "Not a valid %s image."
 )
 
 MAX_UPLOAD_SIZE = getattr(settings, 'WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024)
 
 if MAX_UPLOAD_SIZE is not None:
-    MAX_UPLOAD_SIZE_TEXT = filesizeformat(MAX_UPLOAD_SIZE)
+    MAX_UPLOAD_SIZE_TEXT = _("Maximum filesize: %s") % filesizeformat(MAX_UPLOAD_SIZE)
 
-    FILE_TOO_LARGE_ERROR = _(
-        "This file is too big (%%s). Image files must not exceed %s."
+    FILE_TOO_LARGE_ERROR = _("This file is too big. %s.") % (MAX_UPLOAD_SIZE_TEXT, )
+
+    FILE_TOO_LARGE_ERROR_SIZE_KNOWN = _(
+        "This file is too big (%%s). %s."
     ) % (MAX_UPLOAD_SIZE_TEXT, )
 
     IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: gif, jpeg, png. Max size: %s"
-    ) % (MAX_UPLOAD_SIZE_TEXT, )
+        "%s. %s"
+    ) % (ALLOWED_EXTENSIONS_TEXT, MAX_UPLOAD_SIZE_TEXT, )
 else:
     MAX_UPLOAD_SIZE_TEXT = ""
     FILE_TOO_LARGE_ERROR = ""
 
-    IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: gif, jpeg, png."
-    )
+    IMAGE_FIELD_HELP_TEXT = ALLOWED_EXTENSIONS_TEXT
 
 
 class WagtailImageField(ImageField):
     default_error_messages = {
         'invalid_image': INVALID_IMAGE_ERROR,
         'invalid_image_known_format': INVALID_IMAGE_KNOWN_FORMAT_ERROR,
-        'file_too_large': FILE_TOO_LARGE_ERROR,
+        'file_too_large': FILE_TOO_LARGE_ERROR_SIZE_KNOWN,
     }
 
     def __init__(self, *args, **kwargs):
@@ -73,7 +72,8 @@ class WagtailImageField(ImageField):
                 image = Image.open(f)
             except IOError:
                 # Uploaded file is not even an image file (or corrupted)
-                raise ValidationError(self.error_messages['invalid_image'], code='invalid_image')
+                raise ValidationError(self.error_messages['invalid_image_known_format'],
+                    code='invalid_image_known_format')
 
             f.seek(file_position)
         else:

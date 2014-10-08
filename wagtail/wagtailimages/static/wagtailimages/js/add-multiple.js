@@ -21,8 +21,8 @@ $(function(){
         previewMinHeight:150,
         previewMaxHeight:150,
         messages: {
-            acceptFileTypes: window.fileupload_opts.messages.accepted_file_types,
-            maxFileSize: window.fileupload_opts.messages.max_file_size
+            acceptFileTypes: window.fileupload_opts.errormessages.accepted_file_types,
+            maxFileSize: window.fileupload_opts.errormessages.max_file_size
         },
         add: function (e, data) {
             var $this = $(this);
