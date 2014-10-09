@@ -1,6 +1,6 @@
-==========================================
-Wagtail 0.7 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 0.7 release notes
+=========================
 
 .. contents::
     :local:
@@ -100,7 +100,3 @@ The ``focal_point_key`` field on wagtailimages.Rendition has been changed to ``n
 
  - https://github.com/torchbox/wagtail/blob/master/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
  - https://github.com/torchbox/wagtail/blob/master/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)
-
-
-Deprecated features
-===================
