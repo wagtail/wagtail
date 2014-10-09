@@ -15,7 +15,14 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
-from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE, IMAGE_FIELD_HELP_TEXT, INVALID_IMAGE_ERROR, ALLOWED_EXTENSIONS, ALLOWED_EXTENSIONS_TEXT, FILE_TOO_LARGE_ERROR
+from wagtail.wagtailimages.fields import (
+    MAX_UPLOAD_SIZE,
+    IMAGE_FIELD_HELP_TEXT,
+    INVALID_IMAGE_ERROR,
+    ALLOWED_EXTENSIONS,
+    SUPPORTED_FORMATS_TEXT,
+    FILE_TOO_LARGE_ERROR,
+)
 
 
 def json_response(document):
@@ -83,7 +90,7 @@ def add(request):
     return render(request, 'wagtailimages/multiple/add.html', {
         'max_filesize': MAX_UPLOAD_SIZE,
         'help_text': IMAGE_FIELD_HELP_TEXT,
-        'allowed_extensions': ALLOWED_EXTENSIONS,
+        'allowed_extensions': SUPPORTED_FORMATS_TEXT,
         'error_max_file_size': FILE_TOO_LARGE_ERROR,
         'error_accepted_file_types': INVALID_IMAGE_ERROR,
     })
