@@ -104,7 +104,7 @@ The available resizing methods are:
 
             {% image self.photo fill-200x200-c100 %}
 
-        This will crop the image as much as it an but will never crop into the focal point.
+        This will crop the image as much as it can, but will never crop into the focal point.
 
         If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50`` (any whole number from 0 to 100 is accepted).
 
