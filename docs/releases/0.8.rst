@@ -1,0 +1,33 @@
+=========================
+Wagtail 0.8 release notes
+=========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are automatically registered.
+
+
+Bug fixes
+~~~~~~~~~
+
+ * 
+
+
+Upgrade considerations
+======================
+
+Automatic registration of signal handlers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Signal handlers for the ``wagtailsearch`` core app and ``wagtailfrontendcache`` contrib app are automatically registered. Calls to ``register_signal_handlers`` from your ``urls.py`` can be removed.
