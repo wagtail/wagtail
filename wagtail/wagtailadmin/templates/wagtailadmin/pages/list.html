@@ -98,7 +98,7 @@
                         </ul>
                     {% endif %}
                 </td>
-                <td class="updated" valign="bottom"><div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }}</div></td>
+                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
                 <td class="type" valign="bottom">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
                 <td class="status" valign="bottom">
                     {% if not choosing and not moving and parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
@@ -242,7 +242,7 @@
                             </td>
                         {% endwith %}
                     {% endif %}
-                    <td class="updated" valign="top"><div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{{ page.latest_revision_created_at|timesince }}</div></td>
+                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{{ page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
                     <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
                     <td class="status" valign="top">
                         {% if not choosing and not moving and page.live and 'view_live' not in hide_actions|default:'' %}
