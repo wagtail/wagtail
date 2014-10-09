@@ -69,7 +69,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'invalid_order'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
-        self.assertEqual(response.context['ordering'], 'title')
+        self.assertEqual(response.context['ordering'], '-latest_revision_created_at')
 
     def test_reordering(self):
         response = self.client.get(reverse('wagtailadmin_explore_root'), {'ordering': 'ord'})
