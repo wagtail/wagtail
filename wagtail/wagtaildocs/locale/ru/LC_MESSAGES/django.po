@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Eugene MechanisM <contact@mechanism.name>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-11 16:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2014-10-05 03:50+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,27 +137,27 @@ msgstr "Вы еще не загрузили ни одного документа
 #: templates/wagtaildocs/documents/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
-msgstr ""
+msgstr "Использование %(title)s"
 
 #: templates/wagtaildocs/documents/usage.html:5
 msgid "Usage of"
-msgstr ""
+msgstr "Использование"
 
 #: templates/wagtaildocs/documents/usage.html:17
 msgid "Parent"
-msgstr ""
+msgstr "Родительский элемент"
 
 #: templates/wagtaildocs/documents/usage.html:18
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: templates/wagtaildocs/documents/usage.html:19
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: templates/wagtaildocs/documents/usage.html:26
 msgid "Edit this page"
-msgstr ""
+msgstr "Редактировать эту страницу"
 
 #: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
 msgid "Clear choice"

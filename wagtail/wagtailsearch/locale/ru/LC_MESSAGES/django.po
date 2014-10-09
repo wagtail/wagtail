@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Eugene MechanisM <contact@mechanism.name>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
+# Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-11 16:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2014-10-07 20:16+0000\n"
+"Last-Translator: Sergey Komarov <sjkomarov@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +22,7 @@ msgstr ""
 
 #: forms.py:9
 msgid "Search term(s)/phrase"
-msgstr ""
+msgstr "Критерий поиска/фраза"
 
 #: forms.py:10
 msgid ""
@@ -31,16 +33,16 @@ msgstr ""
 
 #: forms.py:36
 msgid "Please specify at least one recommendation for this search term."
-msgstr ""
+msgstr "Пожалуйста, сформулируйте по крайней мере, одну рекомендацию по этому поисковому запросу."
 
 #: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
 msgid "Editors picks"
-msgstr ""
+msgstr "Подборки"
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
 msgid "Add editor's pick"
-msgstr ""
+msgstr "Добавить подборку"
 
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
@@ -64,7 +66,7 @@ msgstr "Сохранить"
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:3
 #, python-format
 msgid "Delete %(query)s"
-msgstr ""
+msgstr "Удалить %(query)s"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:5
 #: templates/wagtailsearch/editorspicks/edit.html:20
@@ -92,7 +94,7 @@ msgstr "Редактирование"
 
 #: templates/wagtailsearch/editorspicks/index.html:3
 msgid "Search Terms"
-msgstr ""
+msgstr "Критерии поиска"
 
 #: templates/wagtailsearch/editorspicks/index.html:17
 msgid "Editor's search picks"
@@ -104,7 +106,7 @@ msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
-msgstr ""
+msgstr "Критерии поиска"
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -117,7 +119,7 @@ msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:23
 msgid "None"
-msgstr ""
+msgstr "Ничего"
 
 #: templates/wagtailsearch/editorspicks/results.html:5
 #, python-format
@@ -147,11 +149,11 @@ msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
 msgid "Move up"
-msgstr ""
+msgstr "Вверх"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
 msgid "Move down"
-msgstr ""
+msgstr "Вниз"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
 msgid "Editors pick"
@@ -159,11 +161,11 @@ msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
 msgid "Add recommended page"
-msgstr ""
+msgstr "Добавить рекомендованную страницу"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
-msgstr ""
+msgstr "Популярные критерии поиска"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:11
 msgid "Search"
@@ -171,7 +173,7 @@ msgstr "Поиск"
 
 #: templates/wagtailsearch/queries/chooser/results.html:7
 msgid "Terms"
-msgstr ""
+msgstr "Критерии"
 
 #: templates/wagtailsearch/queries/chooser/results.html:22
 msgid "No results found"
@@ -187,7 +189,7 @@ msgstr ""
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
-msgstr ""
+msgstr "Рекомендации не были созданы из-за ошибок"
 
 #: views/editorspicks.py:117
 msgid "Editor's picks for '{0}' updated."
@@ -195,7 +197,7 @@ msgstr ""
 
 #: views/editorspicks.py:123
 msgid "Recommendations have not been saved due to errors"
-msgstr ""
+msgstr "Рекомендации не были сохранены из-за ошибок"
 
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."

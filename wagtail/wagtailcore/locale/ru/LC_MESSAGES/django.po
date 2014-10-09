@@ -4,13 +4,14 @@
 # 
 # Translators:
 # ajk, 2014
+# Eugene MechanisM <contact@mechanism.name>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-11 16:37+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2014-10-05 03:49+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,24 +24,24 @@ msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
-msgstr ""
+msgstr "Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер порта в URL-адресе (например, разработка на порту 8000). Не влияет на обработку запроса (так форвардинг портов до сих пор работает)."
 
 #: models.py:47
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
-msgstr ""
+msgstr "Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен хостов, не закрепленных за другими сайтами"
 
 #: models.py:108
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
-msgstr ""
+msgstr "%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала у него отключить флажок, прежде, чем вы можете сохранить этот сайт по умолчанию."
 
 #: models.py:251
 msgid "The page title as you'd like it to be seen by the public"
-msgstr ""
+msgstr "Заголовок страницы видимый всем"
 
 #: models.py:252
 msgid ""
@@ -56,7 +57,7 @@ msgstr "Заголовок страницы"
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the"
 " browser window."
-msgstr ""
+msgstr "Не обязательно. 'Дружелюбный для Поисковых Сервисов' заголовок. Он появится вверху окна браузера."
 
 #: models.py:262
 msgid ""
@@ -65,16 +66,16 @@ msgstr "Должна ли ссылка на эту страницу отобра
 
 #: models.py:265
 msgid "Go live date/time"
-msgstr ""
+msgstr "Дата/время публикации"
 
 #: models.py:265 models.py:266
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
-msgstr ""
+msgstr "Пожалуйста, добавьте дату-время в формате YYYY-MM-DD hh:mm:ss."
 
 #: models.py:266
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Дата/время окончания действия"
 
 #: models.py:530
 msgid "name '{0}' (used in subpage_types list) is not defined."
-msgstr ""
+msgstr "имя '{0}' (использованное в списке subpage_types) не определено."

@@ -5,13 +5,14 @@
 # Translators:
 # ajk, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
+# Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-11 16:38+0100\n"
-"PO-Revision-Date: 2014-07-14 14:56+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2014-09-29 07:20+0000\n"
+"Last-Translator: Sergey Komarov <sjkomarov@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,15 +82,15 @@ msgstr "Администраторы не могут управлять акка
 
 #: models.py:13
 msgid "Receive notification when a page is submitted for moderation"
-msgstr ""
+msgstr "Принимать уведомление, когда страница отправлена на модерацию."
 
 #: models.py:18
 msgid "Receive notification when your page edit is approved"
-msgstr ""
+msgstr "Принимать уведомление, когда ваша редакция страницы одобрена."
 
 #: models.py:23
 msgid "Receive notification when your page edit is rejected"
-msgstr ""
+msgstr "Принимать уведомление, когда ваша редакция страницы отклонена."
 
 #: wagtail_hooks.py:24 templates/wagtailusers/index.html:4
 #: templates/wagtailusers/index.html:17
