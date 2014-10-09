@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
+from django.db.models import Count
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
@@ -38,13 +39,16 @@ def index(request, parent_page_id=None):
     pages = parent_page.get_children().prefetch_related('content_type')
 
     # Get page ordering
-    ordering = request.GET.get('ordering', 'title')
-    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'ord']:
-        ordering = 'title'
+    ordering = request.GET.get('ordering', '-latest_revision_created_at')
+    if ordering not in ['title', '-title', 'content_type', '-content_type', 'live', '-live', 'latest_revision_created_at', '-latest_revision_created_at', 'ord']:
+        ordering = '-latest_revision_created_at'
 
     # Pagination
     if ordering != 'ord':
-        pages = pages.order_by(ordering)
+        ordering_no_minus = ordering
+        if ordering_no_minus.startswith('-'):
+            ordering_no_minus = ordering[1:]
+        pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
 
         p = request.GET.get('p', 1)
         paginator = Paginator(pages, 50)

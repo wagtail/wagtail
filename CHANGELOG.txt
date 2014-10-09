@@ -18,6 +18,7 @@ Changelog
  * The 'update_index' management command now updates all backends listed in WAGTAILSEARCH_BACKENDS, or a specific one passed on the command line, rather than just the default backend
  * The 'fill' image resize method now supports an additional parameter defining the closeness of the crop
  * Added support for invalidating Cloudflare caches
+ * Pages in the explorer can now be ordered by last updated time
  * Fix: 'wagtail start' command now works on Windows
  * Fix: The external image URL generator no longer stores generated images in Django's cache
  * Fix: Elasticsearch backend can now search querysets that have been filtered with an 'in' clause of a non-list type (such as a ValuesListQuerySet)
