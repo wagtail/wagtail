@@ -48,6 +48,7 @@ urlpatterns += [
     url(r'^pages/usage/(\w+)/(\w+)/$', pages.content_type_use, name='wagtailadmin_pages_type_use'),
 
     url(r'^pages/(\d+)/edit/$', pages.edit, name='wagtailadmin_pages_edit'),
+    url(r'^pages/(\d+)/edit/(\d+)/$', pages.edit, name='wagtailadmin_pages_edit'),
     url(r'^pages/(\d+)/edit/preview/$', pages.preview_on_edit, name='wagtailadmin_pages_preview_on_edit'),
 
     url(r'^pages/preview/$', pages.preview, name='wagtailadmin_pages_preview'),
@@ -61,6 +62,7 @@ urlpatterns += [
     url(r'^pages/search/$', pages.search, name='wagtailadmin_pages_search'),
 
     url(r'^pages/(\d+)/move/$', pages.move_choose_destination, name='wagtailadmin_pages_move'),
+    url(r'^pages/(\d+)/revisions/$', pages.select_revision, name='wagtailadmin_pages_revisions'),
     url(r'^pages/(\d+)/move/(\d+)/$', pages.move_choose_destination, name='wagtailadmin_pages_move_choose_destination'),
     url(r'^pages/(\d+)/move/(\d+)/confirm/$', pages.move_confirm, name='wagtailadmin_pages_move_confirm'),
     url(r'^pages/(\d+)/set_position/$', pages.set_page_position, name='wagtailadmin_pages_set_page_position'),

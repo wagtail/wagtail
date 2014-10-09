@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+<table class="listing{% if full_width %} full-width{% endif %} chooser">
+    <col width="5%" />
+    <col width="50px" />
+    <col width="20%" />
+    <col width="20%" />
+    <thead>
+        <tr class="table-headers">
+            <th class="revision_id">
+                {% trans 'Revision' %}
+            </th>
+            <th class="title">
+                {% trans 'Title' %}
+            </th>
+            <th class="type">
+                {% trans 'Created' %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if revisions %}
+            {% for revision in revisions %}
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
+                    <td class="revision_id" valign="top">{{ revision.id }}</td>
+                    <td class="title" valign="top">
+                        <h2>
+                            <a href="{% url 'wagtailadmin_pages_edit' revision.page.id revision.id  %}">{{ revision.page.title }}</a>
+                        </h2>
+                    </td>
+                    <td class="type" valign="top">{{ revision.created_at }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% url 'wagtailadmin_pages_add_subpage' parent_page.id as add_page_url%}
+            <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans %}Why not <a href="{{ add_page_url }}">add one</a>?{% endblocktrans %}{% endif %}</td></tr>
+        {% endif %}
+    </tbody>
+</table>

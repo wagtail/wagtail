@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=page.title %}Select a revision to use for {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}menu-explorer{% endblock %}
+{% block content %}
+    <header class="nice-padding">
+        <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page.title %}Select a revision to use for <span>{{ title }}</span>{% endblocktrans %}</h1>
+    </header>
+
+    <div class="nice-padding">
+        {% include "wagtailadmin/pages/page_revisions.html" with allow_navigation=1 pages=child_pages revisions=revisions %}
+    </div>
+{% endblock %}
