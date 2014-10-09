@@ -67,12 +67,12 @@ msgstr ""
 
 #: models.py:67
 msgid ""
-"Comma seperated list of choices. Only applicable in checkboxes, radio and "
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
 #: models.py:72
-msgid "Default value. Comma seperated values supported for checkboxes."
+msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
 #: models.py:191
