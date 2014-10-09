@@ -10,6 +10,12 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # remove duplicate renditions
+        db.execute("""
+            DELETE FROM wagtailimages_rendition WHERE image_id || '-' || filter_id IN (
+                SELECT image_id || '-' || filter_id FROM wagtailimages_rendition WHERE focal_point_key IS NULL GROUP BY image_id, filter_id HAVING COUNT(*) > 1
+            ) AND focal_point_key IS NULL
+        """)
 
         # Changing field 'Rendition.focal_point_key'
         db.alter_column('wagtailimages_rendition', 'focal_point_key', self.gf('django.db.models.fields.CharField')(max_length=255, default=''))
