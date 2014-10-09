@@ -90,7 +90,7 @@ def add(request):
     return render(request, 'wagtailimages/multiple/add.html', {
         'max_filesize': MAX_UPLOAD_SIZE,
         'help_text': IMAGE_FIELD_HELP_TEXT,
-        'allowed_extensions': SUPPORTED_FORMATS_TEXT,
+        'allowed_extensions': ALLOWED_EXTENSIONS,
         'error_max_file_size': FILE_TOO_LARGE_ERROR,
         'error_accepted_file_types': INVALID_IMAGE_ERROR,
     })
