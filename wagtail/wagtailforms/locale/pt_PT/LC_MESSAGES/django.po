@@ -69,14 +69,14 @@ msgstr "O nome do campo do formulário"
 
 #: models.py:67
 msgid ""
-"Comma seperated list of choices. Only applicable in checkboxes, radio and "
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 "Lista de opções separadas por vírgula. Só utilizável nas caixas de seleção, "
 "botões e listas pendentes."
 
 #: models.py:72
-msgid "Default value. Comma seperated values supported for checkboxes."
+msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Valor pré-definido. Valores separados por vírgula admitidos nas caixas de "
 "seleção."

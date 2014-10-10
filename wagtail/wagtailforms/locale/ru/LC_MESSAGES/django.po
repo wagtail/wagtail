@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Eugene MechanisM <contact@mechanism.name>, 2014
 msgid ""
@@ -68,12 +68,12 @@ msgstr "Метка поля формы"
 
 #: models.py:67
 msgid ""
-"Comma seperated list of choices. Only applicable in checkboxes, radio and "
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr "Разделенный запятыми список вариантов. Применяется только для флажков, радиокнопок и в выпадающем списке."
 
 #: models.py:72
-msgid "Default value. Comma seperated values supported for checkboxes."
+msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Значение по умолчанию. Разделенные запятыми значения для флажков."
 
 #: models.py:191

@@ -64,12 +64,12 @@ class AbstractFormField(Orderable):
     choices = models.CharField(
         max_length=512,
         blank=True,
-        help_text=_('Comma seperated list of choices. Only applicable in checkboxes, radio and dropdown.')
+        help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
     default_value = models.CharField(
         max_length=255,
         blank=True,
-        help_text=_('Default value. Comma seperated values supported for checkboxes.')
+        help_text=_('Default value. Comma separated values supported for checkboxes.')
     )
     help_text = models.CharField(max_length=255, blank=True)
 
