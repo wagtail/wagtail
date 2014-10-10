@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags %}
 {% load i18n %}
-{% block titletag %}{% trans "Editing" %} {{ user.username}}{% endblock %}
+{% block titletag %}{% trans "Editing" %} {{ user.get_username}}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block content %}
     
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.username merged=1 tabbed=1 icon="user" %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 tabbed=1 icon="user" %}
 
     <ul class="tab-nav merged">
         <li class="active"><a href="#account">{% trans "Account" %}</a></li>
