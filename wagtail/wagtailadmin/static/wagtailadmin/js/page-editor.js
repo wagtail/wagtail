@@ -59,6 +59,7 @@ function insertRichTextDeleteControl(elem) {
 function initDateChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
+            closeOnDateSelect: true,
             timepicker: false,
             scrollInput:false,
             format: 'Y-m-d',
@@ -79,6 +80,7 @@ function initDateChooser(id) {
 function initTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
+            closeOnDateSelect: true,
             datepicker: false,
             scrollInput:false,
             format: 'H:i',
@@ -98,6 +100,7 @@ function initTimeChooser(id) {
 function initDateTimeChooser(id) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker({
+            closeOnDateSelect: true,
             format: 'Y-m-d H:i:s',
             scrollInput:false,
             i18n: {
