@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.8 (xx.xx.2014)
+~~~~~~~~~~~~~~~~
+
+
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
  * Added interface for choosing focal point on images
