@@ -126,7 +126,7 @@ If you have a fresh instance of Ubuntu 13.04 or later, you can install Wagtail,
 along with a demonstration site containing a set of standard templates and page
 types, in one step. As the root user::
 
-  curl -O https://wagtail.io/ubuntu.sh; bash ubuntu.sh
+  curl -O https://raw.githubusercontent.com/torchbox/wagtail/master/scripts/install/ubuntu.sh; bash ubuntu.sh
 
 This script installs all the dependencies for a production-ready Wagtail site,
 including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
@@ -143,7 +143,7 @@ If you have a fresh instance of Debian 7, you can install Wagtail, along with a
 demonstration site containing a set of standard templates and page types, in one
 step. As the root user::
 
-  curl -O https://wagtail.io/debian.sh; bash debian.sh
+  curl -O https://raw.githubusercontent.com/torchbox/wagtail/master/scripts/install/debian.sh; bash debian.sh
 
 This script installs all the dependencies for a production-ready Wagtail site,
 including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
