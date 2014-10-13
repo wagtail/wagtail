@@ -38,7 +38,9 @@
                             </td>
                             <td class="port">{{ site.port }}</td>
                             <td class="root-page">{{ site.root_page }}</td>
-                            <td class="is-default-site"><div class="status-tag {% if site.is_default_site %}primary{% endif %}">{% if site.is_default_site %}{% trans "Default" %}{% endif %}</div></td>
+                            <td class="is-default-site">
+                                {% if site.is_default_site %}<div class="status-tag primary">{% trans "Default" %}</div>{% endif %}
+                            </td>
                         </li>
                     {% endfor %}
                 </tbody>
