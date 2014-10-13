@@ -222,7 +222,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 if hasattr(result, 'status_code'):
                     return result
 
-            return redirect('wagtailadmin_explore', page.get_parent().id)
+            return redirect('wagtailadmin_pages_edit', page.id)
         else:
             messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
