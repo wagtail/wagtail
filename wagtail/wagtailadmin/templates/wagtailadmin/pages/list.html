@@ -42,7 +42,7 @@
 
                             {% test_page_is_public parent_page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
+                                <span class="indicator privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
                             {% endif %}
                         </h2>
                     {% elif choosing %}
@@ -55,7 +55,7 @@
 
                             {% test_page_is_public parent_page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
+                                <span class="indicator privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
                             {% endif %}
                         </h2>
                     {% else %}
@@ -67,7 +67,7 @@
                             {% endif %}
 
                             {% if parent_page.locked %}
-                                <span class="locked-indicator icon icon-locked" title="{% trans "This page is locked to further editing" %}"></span>
+                                <span class="indicator locked-indicator icon icon-locked" title="{% trans "This page is locked to further editing" %}"></span>
                             {% endif %}
                         </h2>
                         
@@ -197,11 +197,11 @@
 
                             {% test_page_is_public page as is_public %}
                             {% if not is_public %}
-                                <span class="privacy-indicator icon icon-no-view" title="{% trans 'This page is protected from public view' %}"></span>
+                                <span class="indicator privacy-indicator icon icon-no-view" title="{% trans 'This page is protected from public view' %}"></span>
                             {% endif %}
 
                             {% if page.locked %}
-                                <span class="locked-indicator icon icon-locked" title="{% trans 'This page is locked to further editing' %}"></span>
+                                <span class="indicator locked-indicator icon icon-locked" title="{% trans 'This page is locked to further editing' %}"></span>
                             {% endif %}
                         </h2>
                         {% if not moving and not choosing %}
