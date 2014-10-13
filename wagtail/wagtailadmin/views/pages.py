@@ -332,7 +332,7 @@ def edit(request, page_id):
                 if hasattr(result, 'status_code'):
                     return result
 
-            return redirect('wagtailadmin_explore', page.get_parent().id)
+            return redirect('wagtailadmin_pages_edit', page.id)
         else:
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
@@ -786,6 +786,8 @@ def lock(request, page_id):
         page.locked = True
         page.save()
 
+        messages.success(request, _("Page '{0}' is now locked.").format(page.title))
+
     # Redirect
     redirect_to = request.POST.get('next', None)
     if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
@@ -808,6 +810,8 @@ def unlock(request, page_id):
     if page.locked:
         page.locked = False
         page.save()
+
+        messages.success(request, _("Page '{0}' is now unlocked.").format(page.title))
 
     # Redirect
     redirect_to = request.POST.get('next', None)
