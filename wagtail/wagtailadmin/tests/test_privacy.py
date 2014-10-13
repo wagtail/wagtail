@@ -204,7 +204,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Must have one privacy icon (next to the private page)
-        self.assertContains(response, "<span class=\"privacy-indicator icon icon-no-view\"", count=1)
+        self.assertContains(response, "<span class=\"indicator privacy-indicator icon icon-no-view\"", count=1)
 
     def test_explorer_list_private(self):
         """
@@ -216,7 +216,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Must have one privacy icon (next to the private child page)
-        self.assertContains(response, "<span class=\"privacy-indicator icon icon-no-view\"", count=1)
+        self.assertContains(response, "<span class=\"indicator privacy-indicator icon icon-no-view\"", count=1)
 
     def test_edit_public(self):
         """
