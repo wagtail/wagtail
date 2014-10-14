@@ -15,7 +15,7 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
- * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are automatically registered.
+ * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
 
 
 Bug fixes
