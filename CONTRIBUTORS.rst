@@ -32,6 +32,7 @@ Contributors
 * Tim Heap
 * Nathan Brizendine
 * thenewguy
+* John-Scott Atlakson
 
 Translators
 ===========
