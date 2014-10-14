@@ -4,6 +4,8 @@ Changelog
 0.8 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
 
+ * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above. (Tim Heap)
+
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
