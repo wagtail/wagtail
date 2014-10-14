@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above. (Tim Heap)
+ * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
 
 
 0.7 (09.10.2014)
