@@ -20,7 +20,7 @@
             {% endif %}
             <div class="col9">
                 <h1>{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}</h1> 
-                <h2>{{ user.get_full_name|default:user.username }}</h2>
+                <h2>{{ user.get_full_name|default:user.get_username }}</h2>
             </div>
         </div>
     </header>

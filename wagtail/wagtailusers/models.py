@@ -28,4 +28,4 @@ class UserProfile(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     def __str__(self):
-        return self.user.username
+        return self.user.get_username()
