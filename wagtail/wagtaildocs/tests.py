@@ -438,9 +438,6 @@ class TestIssue613(TestCase, WagtailTestUtils):
         self.search_backend = self.get_elasticsearch_backend()
         self.login()
 
-        from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
-        register_signal_handlers()
-
     def add_document(self, **params):
         # Build a fake file
         fake_file = ContentFile(b("A boring example document"))

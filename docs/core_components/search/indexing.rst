@@ -25,21 +25,19 @@ If the search index is kept separate from the database (when using Elasticsearch
 Signal handlers
 ---------------
 
+.. versionchanged:: 0.8
+
+    Signal handlers are now automatically registered in Django 1.7 and upwards
+
 Wagtailsearch provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
 
-To register the signal handlers, add the following code somewhere it would be executed at startup. We reccommend adding this to your projects ``urls.py``:
+If you are using Django version 1.7 or newer, these signal handlers are automatically registered when the ``wagtail.wagtailsearch`` app is loaded. Otherwise, they must be registered as your application starts up. This can be done by placing the following code in your ``urls.py``:
 
-.. code-block: python
+.. code-block:: python
 
     # urls.py
     from wagtail.wagtailsearch.signal_handlers import register_signal_handlers
-
     register_signal_handlers()
-
-
-.. note::
-
-    If your project was made with the ``wagtail start`` command, this will already be set up for you.
 
 
 The ``update_index`` command

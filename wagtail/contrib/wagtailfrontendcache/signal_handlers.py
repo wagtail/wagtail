@@ -1,6 +1,5 @@
 from django.db import models
 
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
@@ -16,6 +15,7 @@ def page_unpublished_signal_handler(instance, **kwargs):
 
 def register_signal_handlers():
     # Get list of models that are page types
+    Page = models.get_model('wagtailcore', 'Page')
     indexed_models = [model for model in models.get_models() if issubclass(model, Page)]
 
     # Loop through list and register signal handlers for each one
