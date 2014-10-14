@@ -21,7 +21,7 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
- * 
+ * Replaced references of .username with .get_username() on users for better custom user model support
 
 
 Upgrade considerations
