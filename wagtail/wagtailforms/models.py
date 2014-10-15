@@ -1,7 +1,7 @@
 import json
 import re
 
-from six import text_type
+from six import text_type, iteritems
 
 from unidecode import unidecode
 
@@ -51,7 +51,7 @@ class FormSubmission(models.Model):
         # as strings and our now stored as lists, so form data may
         # contain a mix of lists and strings.
         data = json.loads(self.form_data)
-        for k, v in data.iteritems():
+        for k, v in iteritems(data):
             if hasattr(v, '__iter__'):
                 data[k] = ", ".join(data[k])
         return data
