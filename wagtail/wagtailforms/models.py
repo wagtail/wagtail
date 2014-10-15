@@ -141,7 +141,7 @@ class AbstractForm(Page):
     def process_form_submission(self, form):
         # remove csrf_token from form.data
         form_data = dict(
-            i for i in form.data.iterlists()
+            i for i in form.data.lists()
             if i[0] != 'csrfmiddlewaretoken'
         )
 
