@@ -49,7 +49,7 @@ class TestFormSubmission(TestCase):
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "The subject")
-        self.assertTrue("Your message: hello world" in mail.outbox[0].body)
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, ['to@email.com'])
         self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
 
@@ -115,8 +115,8 @@ class TestFormBuilder(TestCase):
         """
         form_class = self.fb.get_form_class()
 
-        self.assertTrue('your-email' in form_class.base_fields.keys())
-        self.assertTrue('your-message' in form_class.base_fields.keys())
+        self.assertIn('your-email', form_class.base_fields.keys())
+        self.assertIn('your-message', form_class.base_fields.keys())
 
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
@@ -203,7 +203,7 @@ class TestFormsIndex(TestCase):
         response = self.client.get(reverse('wagtailforms_index'))
 
         # Check that the user can see the form page
-        self.assertTrue(self.form_page in response.context['form_pages'])
+        self.assertIn(self.form_page, response.context['form_pages'])
 
 
 class TestFormsSubmissions(TestCase):
@@ -284,4 +284,4 @@ class TestFormsSubmissions(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         data_line = response.content.decode().split("\n")[1]
-        self.assertTrue('new@example.com' in data_line)
+        self.assertIn('new@example.com', data_line)
