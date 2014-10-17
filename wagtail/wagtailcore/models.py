@@ -26,6 +26,11 @@ from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
+try:
+    from django.core import checks
+except ImportError:
+    pass
+
 from treebeard.mp_tree import MP_Node
 
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
@@ -260,7 +265,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     live = models.BooleanField(default=True, editable=False)
     has_unpublished_changes = models.BooleanField(default=False, editable=False)
     url_path = models.CharField(max_length=255, blank=True, editable=False)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, related_name='owned_pages')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
 
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
@@ -342,6 +347,28 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             cache.delete('wagtail_site_root_paths')
 
         return result
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Page, cls).check(**kwargs)
+
+        # Check that foreign keys from pages are not configured to cascade
+        # This is the default Django behaviour which must be explicitly overridden
+        # to prevent pages disappearing unexpectedly and the tree being corrupted
+
+        for field in cls._meta.fields:
+            if isinstance(field, models.ForeignKey) and field.name not in ['page_ptr', 'content_type']:
+                if field.rel.on_delete == models.CASCADE:
+                    errors.append(
+                        checks.Error(
+                            "Field hasn't specified on_delete action",
+                            hint="Set on_delete=models.SET_NULL and make sure the field is nullable.",
+                            obj=field,
+                            id='wagtailcore.E001',
+                        )
+                    )
+
+        return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
         cursor = connection.cursor()
