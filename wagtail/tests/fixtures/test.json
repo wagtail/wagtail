@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -329,6 +329,90 @@
         "cost": "free"
     }
 },
+
+{
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret Info Form",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "hideableformpage"],
+        "path": "000100010006",
+        "url_path": "/home/secret-info-form/",
+        "slug": "secret-info-form"
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.hideableformpage",
+    "fields": {
+    }
+},
+
+{
+    "pk": 1,
+    "model": "tests.hideableformfield",
+    "fields": {
+        "sort_order": 1,
+        "label": "Your email",
+        "field_type": "email",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 13
+    }
+},
+{
+    "pk": 2,
+    "model": "tests.hideableformfield",
+    "fields": {
+        "sort_order": 2,
+        "label": "Your message",
+        "field_type": "multiline",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "page": 13
+    }
+},
+
+
+{
+    "pk": 3,
+    "model": "tests.hideableformfield",
+    "fields": {
+        "sort_order": 3,
+        "label": "First bunch of secret data",
+        "field_type": "singleline",
+        "required": true,
+        "choices": "",
+        "default_value": "I have a hidden stash of apricot stones",
+        "help_text": "",
+        "is_hidden": true,
+        "page": 13
+    }
+},
+{
+    "pk": 4,
+    "model": "tests.hideableformfield",
+    "fields": {
+        "sort_order": 4,
+        "label": "Second secret data field",
+        "field_type": "multiline",
+        "required": true,
+        "choices": "",
+        "default_value": "",
+        "help_text": "",
+        "is_hidden": true,
+        "page": 13
+    }
+},
+
 
 {
     "pk": 1,
