@@ -15,6 +15,7 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
+ * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
 
 
