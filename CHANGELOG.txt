@@ -4,6 +4,7 @@ Changelog
 0.8 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
 
+ * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above. (Tim Heap)
  * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
 
