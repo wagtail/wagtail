@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.db import models
 from django.conf import settings
 
-from wagtail.wagtailsearch.indexed import Indexed
+from wagtail.wagtailsearch.index import Indexed
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
