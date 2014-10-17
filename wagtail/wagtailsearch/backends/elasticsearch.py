@@ -18,7 +18,7 @@ from elasticsearch import Elasticsearch, NotFoundError, RequestError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch
-from wagtail.wagtailsearch.index import Indexed, SearchField, FilterField
+from wagtail.wagtailsearch.index import Indexed, SearchField, FilterField, class_is_indexed
 
 
 class ElasticSearchMapping(object):
@@ -563,7 +563,7 @@ class ElasticSearch(BaseSearch):
 
     def add(self, obj):
         # Make sure the object can be indexed
-        if not self.object_can_be_indexed(obj):
+        if not class_is_indexed(obj.__class__):
             return
 
         # Get mapping
@@ -573,6 +573,9 @@ class ElasticSearch(BaseSearch):
         self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
 
     def add_bulk(self, model, obj_list):
+        if not class_is_indexed(model):
+            return
+
         # Get mapping
         mapping = ElasticSearchMapping(model)
         doc_type = mapping.get_document_type()
@@ -580,10 +583,6 @@ class ElasticSearch(BaseSearch):
         # Create list of actions
         actions = []
         for obj in obj_list:
-            # Object must be a decendant of Indexed and be a django model
-            if not self.object_can_be_indexed(obj):
-                continue
-
             # Create the action
             action = {
                 '_index': self.es_index,
@@ -597,8 +596,8 @@ class ElasticSearch(BaseSearch):
         bulk(self.es, actions)
 
     def delete(self, obj):
-        # Object must be a decendant of Indexed and be a django model
-        if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
+        # Make sure the object can be indexed
+        if not class_is_indexed(obj.__class__):
             return
 
         # Get mapping
