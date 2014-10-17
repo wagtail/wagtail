@@ -510,6 +510,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 return ('' if current_site.id == id else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
     @classmethod
+    def get_indexed_objects(cls):
+        content_type = ContentType.objects.get_for_model(cls)
+        return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
+
+    @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
         # Filters
         filters = extra_filters.copy()
