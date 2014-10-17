@@ -83,7 +83,7 @@ class FormBuilder(object):
             if field.field_type in self.FIELD_TYPES:
                 formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
             else:
-                raise Exception("Unrecognised field type: " + form.field_type)
+                raise Exception("Unrecognised field type: " + field.field_type)
 
         return formfields
 
