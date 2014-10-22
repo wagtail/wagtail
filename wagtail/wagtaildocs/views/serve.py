@@ -10,7 +10,11 @@ from wagtail.wagtaildocs.models import Document, document_served
 def serve(request, document_id, document_filename):
     doc = get_object_or_404(Document, id=document_id)
     wrapper = FileWrapper(doc.file)
-    response = HttpResponse(wrapper, content_type=mimetypes.guess_type(doc.filename)[0])
+    mimetype = mimetypes.guess_type(doc.filename)[0]
+    if mimetype:
+        response = HttpResponse(wrapper, content_type=mimetype)
+    else:
+        response = HttpResponse(wrapper, content_type='application/octet-stream')
 
     # Make PDFs open in the browser where possible rather than save
     if doc.file_extension == 'pdf':
