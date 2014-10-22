@@ -1,6 +1,6 @@
-=========================
-Wagtail 0.8 release notes
-=========================
+==========================================
+Wagtail 0.8 release notes - IN DEVELOPMENT
+==========================================
 
 .. contents::
     :local:
@@ -24,12 +24,12 @@ Bug fixes
 
  * Replaced references of .username with .get_username() on users for better custom user model support
  * Unpinned dependency versions for six and requests to help prevent dependency conflicts
-
+ * Fixed TypeError when getting embed HTML with oembed on Python 3
 
 Upgrade considerations
 ======================
 
-Automatic registration of signal handlers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Automatic registration of signal handlers (Django 1.7+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Signal handlers for the ``wagtailsearch`` core app and ``wagtailfrontendcache`` contrib app are automatically registered. Calls to ``register_signal_handlers`` from your ``urls.py`` can be removed.
+Signal handlers for the ``wagtailsearch`` core app and ``wagtailfrontendcache`` contrib app are automatically registered when using Django 1.7. Calls to ``register_signal_handlers`` from your ``urls.py`` can be removed.
