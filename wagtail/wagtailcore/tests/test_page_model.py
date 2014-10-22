@@ -443,6 +443,23 @@ class TestCopyPage(TestCase):
         # Check that the new revision is not submitted for moderation
         self.assertFalse(new_christmas_event.revisions.first().submitted_for_moderation)
 
+    def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision(submitted_for_moderation=True)
+
+        # Set the created_at of the revision to a time in the past
+        revision = christmas_event.get_latest_revision()
+        revision.created_at = datetime.datetime(2014, 1, 1)
+        revision.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the created_at time is the same
+        christmas_event_created_at = christmas_event.get_latest_revision().created_at
+        new_christmas_event_created_at = new_christmas_event.get_latest_revision().created_at
+        self.assertEqual(christmas_event_created_at, new_christmas_event_created_at)
+
     def test_copy_page_copies_revisions_and_doesnt_schedule(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
