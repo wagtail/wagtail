@@ -179,10 +179,10 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
             if tag:
                 blogs = blogs.filter(tags__name=tag)
 
-        return render(request, self.template, {
-            'self': self,
-            'blogs': blogs,
-        })
+            return render(request, self.template, {
+                'self': self,
+                'blogs': blogs,
+            })
 
 Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
 
