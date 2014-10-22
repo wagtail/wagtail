@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    roadmap
+   0.8
    0.7
    0.6
    0.5
