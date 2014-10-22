@@ -33,6 +33,7 @@ Contributors
 * Nathan Brizendine
 * thenewguy
 * John-Scott Atlakson
+* Eric Drechsel
 
 Translators
 ===========
