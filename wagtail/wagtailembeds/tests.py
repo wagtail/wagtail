@@ -214,7 +214,7 @@ class TestOembed(TestCase):
     def setUp(self):
         class DummyResponse(object):
             def read(self):
-                return "foo"
+                return b"foo"
         self.dummy_response = DummyResponse()
 
     def test_oembed_invalid_provider(self):
@@ -269,7 +269,7 @@ class TestEmbedFilter(TestCase):
     def setUp(self):
         class DummyResponse(object):
             def read(self):
-                return "foo"
+                return b"foo"
         self.dummy_response = DummyResponse()
 
     @patch('six.moves.urllib.request.urlopen')
