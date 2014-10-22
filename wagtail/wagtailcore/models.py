@@ -917,7 +917,7 @@ class SubmittedRevisionsManager(models.Manager):
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', related_name='revisions')
     submitted_for_moderation = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     content_json = models.TextField()
     approved_go_live_at = models.DateTimeField(null=True, blank=True)
@@ -926,6 +926,12 @@ class PageRevision(models.Model):
     submitted_revisions = SubmittedRevisionsManager()
 
     def save(self, *args, **kwargs):
+        # Set default value for created_at to now
+        # We cannot use auto_now_add as that will override
+        # any value that is set before saving
+        if self.created_at is None:
+            self.created_at = timezone.now()
+
         super(PageRevision, self).save(*args, **kwargs)
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
