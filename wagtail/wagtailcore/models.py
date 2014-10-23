@@ -669,7 +669,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Log
-        logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, self.url_path)
+        logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True):
         # Make a copy
