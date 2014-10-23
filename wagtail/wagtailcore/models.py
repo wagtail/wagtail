@@ -1,7 +1,6 @@
 import warnings
 
 import six
-from six import string_types
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
@@ -996,7 +995,7 @@ class PageRevision(models.Model):
             page_published.send(sender=page.specific_class, instance=page.specific)
 
     def __str__(self):
-        return '"' + str(self.page) + '" at ' + str(self.created_at)
+        return '"' + six.text_type(self.page) + '" at ' + six.text_type(self.created_at)
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
