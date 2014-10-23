@@ -996,7 +996,7 @@ class PageRevision(models.Model):
             page_published.send(sender=page.specific_class, instance=page.specific)
 
     def __str__(self):
-        return '"' + unicode(self.page) + '" at ' + unicode(self.created_at)
+        return '"' + str(self.page) + '" at ' + str(self.created_at)
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
