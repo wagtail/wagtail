@@ -17,6 +17,13 @@ class TestCheckUrl(TestCase):
     def test_disallowed_url_scheme(self):
         self.assertFalse(bool(check_url("invalid://url")))
 
+    def test_crafty_disallowed_url_scheme(self):
+        """
+        Some URL parsers do not parse 'jav\tascript:' as a valid scheme.
+        Browsers, however, do. The checker needs to catch these crafty schemes
+        """
+        self.assertFalse(bool(check_url("jav\tascript:alert('XSS')")))
+
 
 class TestAttributeRule(TestCase):
     def setUp(self):

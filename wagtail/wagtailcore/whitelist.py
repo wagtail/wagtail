@@ -2,19 +2,33 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
-from six.moves.urllib.parse import urlparse
+import re
+
 
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 
-ALLOWED_URL_SCHEMES = ['', 'http', 'https', 'ftp', 'mailto', 'tel']
+ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
+
+PROTOCOL_RE = re.compile("^[a-z0-9][-+.a-z0-9]*:")
 
 
 def check_url(url_string):
-    # TODO: more paranoid checks (urlparse doesn't catch
-    # "jav\tascript:alert('XSS')")
-    url = urlparse(url_string)
-    return (url_string if url.scheme in ALLOWED_URL_SCHEMES else None)
+    # Remove control characters and other disallowed characters
+    # Browsers sometimes ignore these, so that 'jav\tascript:alert("XSS")'
+    # is treated as a valid javascript: link
+
+    unescaped = url_string.lower()
+    unescaped = unescaped.replace("&lt;", "<")
+    unescaped = unescaped.replace("&gt;", ">")
+    unescaped = unescaped.replace("&amp;", "&")
+    unescaped = re.sub("[`\000-\040\177-\240\s]+", '', unescaped)
+    unescaped = unescaped.replace("\ufffd", "")
+    if PROTOCOL_RE.match(unescaped):
+        protocol = unescaped.split(':', 1)[0]
+        if protocol not in ALLOWED_URL_SCHEMES:
+            return None
+    return url_string
 
 
 def attribute_rule(allowed_attrs):
