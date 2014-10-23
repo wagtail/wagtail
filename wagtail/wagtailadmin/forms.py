@@ -40,10 +40,14 @@ class EmailLinkChooserWithLinkTextForm(forms.Form):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
-        widget=forms.TextInput(attrs={'placeholder': ugettext_lazy("Enter your username")}),
+        widget=forms.TextInput(attrs={'placeholder': ugettext_lazy("Enter your username"),
+                                      'tabindex': '1',
+                                      }),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': ugettext_lazy("Enter password")}),
+        widget=forms.PasswordInput(attrs={'placeholder': ugettext_lazy("Enter password"),
+                                          'tabindex': '2',
+                                          }),
     )
 
 
