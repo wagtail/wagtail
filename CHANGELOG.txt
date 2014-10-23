@@ -9,6 +9,7 @@ Changelog
  * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
  * Fix: Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fix: Fixed TypeError when getting embed HTML with oembed on Python 3 (John-Scott Atlakson)
+ * Fix: Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as "jav\tascript:" (Tim Heap)
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
