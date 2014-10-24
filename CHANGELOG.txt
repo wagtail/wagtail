@@ -12,6 +12,7 @@ Changelog
  * Fix: Fixed TypeError when getting embed HTML with oembed on Python 3 (John-Scott Atlakson)
  * Fix: Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as "jav\tascript:" (Tim Heap)
  * Fix: created_at timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
+ * Fix: When copying pages recursively, revisions of sub-pages were being copied regardless of the copy_revisions flag
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
