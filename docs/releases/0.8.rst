@@ -15,6 +15,7 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
+ * Page operations (creation, publishing, copying etc) are now logged via Python's ``logging`` framework; to configure this, add a logger entry for ``'wagtail'`` or ``'wagtail.core'`` to the ``LOGGING`` setup in your settings file.
  * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
 
@@ -25,6 +26,11 @@ Bug fixes
  * Replaced references of .username with .get_username() on users for better custom user model support
  * Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fixed TypeError when getting embed HTML with oembed on Python 3
+ * Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as ``jav\tascript:``
+ * ``created_at`` timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
+ * When copying pages recursively, revisions of sub-pages were being copied regardless of the ``copy_revisions`` flag
+ * Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first
+
 
 Upgrade considerations
 ======================

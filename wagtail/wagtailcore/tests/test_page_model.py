@@ -443,6 +443,23 @@ class TestCopyPage(TestCase):
         # Check that the new revision is not submitted for moderation
         self.assertFalse(new_christmas_event.revisions.first().submitted_for_moderation)
 
+    def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision(submitted_for_moderation=True)
+
+        # Set the created_at of the revision to a time in the past
+        revision = christmas_event.get_latest_revision()
+        revision.created_at = datetime.datetime(2014, 1, 1)
+        revision.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
+
+        # Check that the created_at time is the same
+        christmas_event_created_at = christmas_event.get_latest_revision().created_at
+        new_christmas_event_created_at = new_christmas_event.get_latest_revision().created_at
+        self.assertEqual(christmas_event_created_at, new_christmas_event_created_at)
+
     def test_copy_page_copies_revisions_and_doesnt_schedule(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
@@ -455,6 +472,19 @@ class TestCopyPage(TestCase):
 
         # Check that the new revision is not scheduled
         self.assertEqual(new_christmas_event.revisions.first().approved_go_live_at, None)
+
+    def test_copy_page_doesnt_copy_revisions_if_told_not_to_do_so(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False)
+
+        # Check that the revisions weren't copied
+        self.assertEqual(new_christmas_event.revisions.count(), 0, "Revisions were copied")
+
+        # Check that the revisions weren't removed from old page
+        self.assertEqual(christmas_event.revisions.count(), 1, "Revisions were removed from the original page")
 
     def test_copy_page_copies_child_objects_with_nonspecific_class(self):
         # Get chrismas page as Page instead of EventPage
@@ -515,6 +545,23 @@ class TestCopyPage(TestCase):
 
         # Check that the revisions were copied
         self.assertEqual(new_christmas_event.specific.revisions.count(), 1, "Revisions weren't copied")
+
+        # Check that the revisions weren't removed from old page
+        self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+
+    def test_copy_page_copies_recursively_but_doesnt_copy_revisions_if_told_not_to_do_so(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        old_christmas_event.save_revision()
+
+        # Copy it
+        new_events_index = events_index.copy(recursive=True, update_attrs={'title': "New events index", 'slug': 'new-events-index'}, copy_revisions=False)
+
+        # Get christmas event
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the revisions weren't copied
+        self.assertEqual(new_christmas_event.specific.revisions.count(), 0, "Revisions were copied")
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")

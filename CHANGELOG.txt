@@ -4,11 +4,16 @@ Changelog
 0.8 (xx.xx.2014)
 ~~~~~~~~~~~~~~~~
 
+ * Added logging for page operations
  * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above. (Tim Heap)
  * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
  * Fix: Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fix: Fixed TypeError when getting embed HTML with oembed on Python 3 (John-Scott Atlakson)
+ * Fix: Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as "jav\tascript:" (Tim Heap)
+ * Fix: created_at timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
+ * Fix: When copying pages recursively, revisions of sub-pages were being copied regardless of the copy_revisions flag
+ * Fix: Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first.
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
