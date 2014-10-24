@@ -27,6 +27,7 @@ Bug fixes
  * Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fixed TypeError when getting embed HTML with oembed on Python 3
  * Made HTML whitelisting in rich text fields more robust at catching disallowed URL schemes such as ``jav\tascript:``
+ * ``created_at`` timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
 
 
 Upgrade considerations
