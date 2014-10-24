@@ -716,7 +716,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Copy child pages
         if recursive:
             for child_page in self.get_children():
-                child_page.specific.copy(recursive=True, to=page_copy)
+                child_page.specific.copy(recursive=True, to=page_copy, copy_revisions=copy_revisions)
 
         return page_copy
 
