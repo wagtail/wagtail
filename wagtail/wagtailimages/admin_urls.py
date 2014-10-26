@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^(\d+)/delete/$', images.delete, name='wagtailimages_delete_image'),
     url(r'^(\d+)/generate_url/$', images.url_generator, name='wagtailimages_url_generator'),
     url(r'^(\d+)/generate_url/(.*)/$', images.generate_url, name='wagtailimages_generate_url'),
+    url(r'^(\d+)/preview/(.*)/$', images.preview, name='wagtailimages_preview'),
     url(r'^add/$', images.add, name='wagtailimages_add_image'),
     url(r'^usage/(\d+)/$', images.usage, name='wagtailimages_image_usage'),
 

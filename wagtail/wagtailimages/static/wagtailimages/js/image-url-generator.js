@@ -58,7 +58,7 @@ $(function() {
             $.getJSON(generatorUrl.replace('__filterspec__', filterSpec))
                 .done(function(data) {
                     $result.val(data['url']);
-                    $preview.attr('src', data['local_url']);
+                    $preview.attr('src', data['preview_url']);
                     $loadingMask.removeClass('loading');
                 })
                 .fail(function(data) {

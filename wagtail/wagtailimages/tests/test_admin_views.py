@@ -517,7 +517,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         # Check JSON
         content_json = json.loads(response.content.decode())
 
-        self.assertEqual(set(content_json.keys()), set(['url', 'local_url']))
+        self.assertEqual(set(content_json.keys()), set(['url', 'preview_url']))
 
         expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
             'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
@@ -525,11 +525,8 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         }
         self.assertEqual(content_json['url'], expected_url)
 
-        expected_local_url = '/images/%(signature)s/%(image_id)d/fill-800x600/' % {
-            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600').decode()),
-            'image_id': self.image.id,
-        }
-        self.assertEqual(content_json['local_url'], expected_local_url)
+        expected_preview_url = reverse('wagtailimages_preview', args=(self.image.id, 'fill-800x600'))
+        self.assertEqual(content_json['preview_url'], expected_preview_url)
 
     def test_get_bad_permissions(self):
         """
@@ -585,3 +582,41 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         self.assertJSONEqual(response.content.decode(), json.dumps({
             'error': 'Invalid filter spec.',
         }))
+
+
+class TestPreviewView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image for running tests on
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Login
+        self.user = self.login()
+
+    def test_get(self):
+        """
+        Test a valid GET request to the view
+        """
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_preview', args=(self.image.id, 'fill-800x600')))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/jpeg')
+
+    def test_get_invalid_filter_spec(self):
+        """
+        Test that an invalid filter spec returns a 400 response
+
+        This is very unlikely to happen in reality. A user would have
+        to create signature for the invalid filter spec which can't be
+        done with Wagtails built in URL generator. We should test it
+        anyway though.
+        """
+        # Get the image
+        response = self.client.get(reverse('wagtailimages_preview', args=(self.image.id, 'bad-filter-spec')))
+
+        # Check response
+        self.assertEqual(response.status_code, 400)
