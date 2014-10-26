@@ -13,6 +13,7 @@ from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.utils.rect import Rect
 
 from .utils import Image, get_test_image_file
 
@@ -30,6 +31,9 @@ class TestImage(TestCase):
 
     def test_is_landscape(self):
         self.assertTrue(self.image.is_landscape())
+
+    def test_get_rect(self):
+        self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
 
 
 class TestImagePermissions(TestCase):
