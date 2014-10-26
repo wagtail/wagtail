@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
+from wagtail.wagtailimages.babel import ImageBabel
 
 from .utils import Image, get_test_image_file
 
@@ -227,3 +228,7 @@ class TestRect(TestCase):
     def test_get_key(self):
         rect = Rect(100, 150, 200, 250)
         self.assertEqual(rect.get_key(), '150-200-100x100')
+
+
+class TestImageBabel(TestCase):
+    pass

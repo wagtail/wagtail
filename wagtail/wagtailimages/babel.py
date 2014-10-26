@@ -1,0 +1,2 @@
+class ImageBabel(object):
+    pass

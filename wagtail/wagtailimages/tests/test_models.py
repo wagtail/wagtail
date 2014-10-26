@@ -14,6 +14,7 @@ from wagtail.wagtailimages.models import Rendition
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
 from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages.babel import ImageBabel
 
 from .utils import Image, get_test_image_file
 
@@ -77,6 +78,11 @@ class TestImage(TestCase):
         self.assertEqual(self.image.focal_point_y, None)
         self.assertEqual(self.image.focal_point_width, None)
         self.assertEqual(self.image.focal_point_height, None)
+
+    def test_get_babel(self):
+        babel = self.image.get_babel()
+
+        self.assertIsInstance(babel, ImageBabel)
 
 
 class TestImagePermissions(TestCase):

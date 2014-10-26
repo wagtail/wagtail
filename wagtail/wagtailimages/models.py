@@ -25,6 +25,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages.babel import ImageBabel
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -75,6 +76,9 @@ class AbstractImage(models.Model, TagSearchable):
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
+
+    def get_babel(self):
+        return ImageBabel()
 
     def get_focal_point(self):
         if self.focal_point_x is not None and \
