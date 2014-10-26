@@ -23,8 +23,8 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
-from wagtail.wagtailimages.utils.rect import Rect
+from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailadmin.utils import get_object_usage
 
 

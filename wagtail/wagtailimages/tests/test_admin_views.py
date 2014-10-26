@@ -7,7 +7,7 @@ from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailimages.utils.crypto import generate_signature
+from wagtail.wagtailimages.utils import generate_signature
 
 from .utils import Image, get_test_image_file
 

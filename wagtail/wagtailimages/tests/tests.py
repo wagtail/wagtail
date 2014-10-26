@@ -7,8 +7,8 @@ from django import template
 from django.utils import six
 from django.core.urlresolvers import reverse
 
-from wagtail.wagtailimages.utils.crypto import generate_signature, verify_signature
-from wagtail.wagtailimages.utils.rect import Rect
+from wagtail.wagtailimages.utils import generate_signature, verify_signature
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
 
 from .utils import Image, get_test_image_file

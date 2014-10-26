@@ -2,7 +2,7 @@ from __future__ import division
 
 from django.conf import settings
 
-from wagtail.wagtailimages.utils.rect import Rect
+from wagtail.wagtailimages.rect import Rect
 
 
 class BaseImageBackend(object):
