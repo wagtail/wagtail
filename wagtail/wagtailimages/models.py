@@ -78,7 +78,11 @@ class AbstractImage(models.Model, TagSearchable):
         return Rect(0, 0, self.width, self.height)
 
     def get_babel(self):
-        return ImageBabel()
+        image_file = self.file.file
+        image_file.open('rb')
+        image_file.seek(0)
+
+        return ImageBabel.from_file(image_file)
 
     def get_focal_point(self):
         if self.focal_point_x is not None and \
