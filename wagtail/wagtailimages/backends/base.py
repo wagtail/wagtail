@@ -3,7 +3,6 @@ from __future__ import division
 from django.conf import settings
 
 from wagtail.wagtailimages.utils.rect import Rect
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
 
 
 class BaseImageBackend(object):
@@ -183,8 +182,7 @@ class BaseImageBackend(object):
 
         # Find focal point UV
         if focal_point is not None:
-            fp_x = focal_point.x
-            fp_y = focal_point.y
+            fp_x, fp_y = focal_point.centroid
         else:
             # Fall back to positioning in the centre
             fp_x = im_width / 2
@@ -205,10 +203,10 @@ class BaseImageBackend(object):
 
         # Make sure the entire focal point is in the crop box
         if focal_point is not None:
-            focal_point_left = focal_point.x - focal_point.width / 2
-            focal_point_top = focal_point.y - focal_point.height / 2
-            focal_point_right = focal_point.x + focal_point.width / 2
-            focal_point_bottom = focal_point.y + focal_point.height / 2
+            focal_point_left = focal_point.left
+            focal_point_top = focal_point.top
+            focal_point_right = focal_point.right
+            focal_point_bottom = focal_point.bottom
 
             if left > focal_point_left:
                 right -= left - focal_point_left

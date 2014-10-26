@@ -23,8 +23,8 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
 from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailimages.utils.rect import Rect
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -78,22 +78,22 @@ class AbstractImage(models.Model, TagSearchable):
            self.focal_point_y is not None and \
            self.focal_point_width is not None and \
            self.focal_point_height is not None:
-            return FocalPoint(
+            return Rect.from_point(
                 self.focal_point_x,
                 self.focal_point_y,
-                width=self.focal_point_width,
-                height=self.focal_point_height,
+                self.focal_point_width,
+                self.focal_point_height,
             )
 
     def has_focal_point(self):
         return self.get_focal_point() is not None
 
-    def set_focal_point(self, focal_point):
-        if focal_point is not None:
-            self.focal_point_x = focal_point.x
-            self.focal_point_y = focal_point.y
-            self.focal_point_width = focal_point.width
-            self.focal_point_height = focal_point.height
+    def set_focal_point(self, rect):
+        if rect is not None:
+            self.focal_point_x = rect.centroid_x
+            self.focal_point_y = rect.centroid_y
+            self.focal_point_width = rect.width
+            self.focal_point_height = rect.height
         else:
             self.focal_point_x = None
             self.focal_point_y = None
@@ -119,14 +119,36 @@ class AbstractImage(models.Model, TagSearchable):
 
         # Use feature detection to find a focal point
         feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-        focal_point = feature_detector.get_focal_point()
 
-        # Add 20% extra room around the edge of the focal point
-        if focal_point:
-            focal_point.width *= 1.20
-            focal_point.height *= 1.20
+        faces = feature_detector.detect_faces()
+        if faces:
+            # Create a bounding box around all faces
+            left = min(face.left for face in faces)
+            top = min(face.top for face in faces)
+            right = max(face.right for face in faces)
+            bottom = max(face.bottom for face in faces)
+            focal_point = Rect(left, top, right, bottom)
+        else:
+            features = feature_detector.detect_features()
+            if features:
+                # Create a bounding box around all features
+                left = min(feature.x for feature in features)
+                top = min(feature.y for feature in features)
+                right = max(feature.x for feature in features)
+                bottom = max(feature.y for feature in features)
+                focal_point = Rect(left, top, right, bottom)
 
-        return focal_point
+        # Add 20% to width and height and give it a minimum size
+        x, y = focal_point.centroid
+        width, height = focal_point.size
+
+        width *= 1.20
+        height *= 1.20
+
+        width = max(width, 100)
+        height = max(height, 100)
+
+        return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
