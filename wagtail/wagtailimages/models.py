@@ -73,6 +73,9 @@ class AbstractImage(models.Model, TagSearchable):
     def __str__(self):
         return self.title
 
+    def get_rect(self):
+        return Rect(0, 0, self.width, self.height)
+
     def get_focal_point(self):
         if self.focal_point_x is not None and \
            self.focal_point_y is not None and \
