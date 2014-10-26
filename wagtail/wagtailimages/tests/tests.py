@@ -140,13 +140,7 @@ class TestFrontendServeView(TestCase):
         response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'image/jpeg')
-
-        # Make sure the cache headers are set to expire after at least one month
-        self.assertIn('Cache-Control', response)
-        self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
-        self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
+        self.assertRedirects(response, self.image.renditions.first().url, status_code=301, target_status_code=404)
 
     def test_get_invalid_signature(self):
         """
