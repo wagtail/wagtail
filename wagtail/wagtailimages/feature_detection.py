@@ -20,7 +20,7 @@ else:
     opencv_available = False
 
 
-from wagtail.wagtailimages.utils.rect import Rect
+from wagtail.wagtailimages.rect import Rect
 
 
 class FeatureDetector(object):
