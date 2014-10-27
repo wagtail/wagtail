@@ -26,7 +26,7 @@ class TestSiteRootPathsCache(TestCase):
 
     def test_cache(self):
         """
-        This tests that the cache is cleared whenever a site is deleted
+        This tests that the cache is populated when building URLs
         """
         # Get homepage
         homepage = Page.objects.get(url_path='/home/')
@@ -39,7 +39,7 @@ class TestSiteRootPathsCache(TestCase):
 
     def test_cache_clears_when_site_saved(self):
         """
-        This tests that the cache is cleared whenever a site is deleted
+        This tests that the cache is cleared whenever a site is saved
         """
         # Get homepage
         homepage = Page.objects.get(url_path='/home/')
@@ -74,19 +74,6 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check that the cache has been cleared
         self.assertFalse(cache.get('wagtail_site_root_paths'))
-
-    def test_cache_clears_when_site_deleted(self):
-        """
-        This tests that the cache is cleared whenever a site is deleted
-        """
-        # Get homepage
-        homepage = Page.objects.get(url_path='/home/')
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Check that the cache has been set
-        print(cache.get('wagtail_site_root_paths'))
 
     def test_cache_clears_when_site_root_moves(self):
         """
