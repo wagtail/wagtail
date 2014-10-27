@@ -31,6 +31,7 @@ Bug fixes
  * ``created_at`` timestamps on page revisions were not being preserved on page copy, causing revisions to get out of sequence
  * When copying pages recursively, revisions of sub-pages were being copied regardless of the ``copy_revisions`` flag
  * Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first
+ * The cache of site root paths is now cleared when a site is deleted
 
 
 Upgrade considerations

@@ -9,7 +9,7 @@ from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
 from django.db.models import Q
-from django.db.models.signals import pre_delete, post_delete
+from django.db.models.signals import post_save, pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from django.http import Http404
 from django.core.cache import cache
@@ -121,12 +121,6 @@ class Site(models.Model):
                     ]}
                 )
 
-    # clear the wagtail_site_root_paths cache whenever Site records are updated
-    def save(self, *args, **kwargs):
-        result = super(Site, self).save(*args, **kwargs)
-        cache.delete('wagtail_site_root_paths')
-        return result
-
     @staticmethod
     def get_site_root_paths():
         """
@@ -143,6 +137,17 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
+
+
+# Clear the wagtail_site_root_paths from the cache whenever Site records are updated
+@receiver(post_save, sender=Site)
+def clear_site_root_paths_on_save(sender, instance, **kwargs):
+    cache.delete('wagtail_site_root_paths')
+
+
+@receiver(post_delete, sender=Site)
+def clear_site_root_paths_on_delete(sender, instance, **kwargs):
+    cache.delete('wagtail_site_root_paths')
 
 
 PAGE_MODEL_CLASSES = []
