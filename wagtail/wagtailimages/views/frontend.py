@@ -14,7 +14,5 @@ def serve(request, signature, image_id, filter_spec):
     if not verify_signature(signature.encode(), image_id, filter_spec):
         raise PermissionDenied
 
-    try:
-        return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'), focal_point=image.get_focal_point())
-    except Filter.InvalidFilterSpecError:
-        return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
+    # TODO: Raise 400 error on invalid filter
+    return Filter(spec=filter_spec).run(image, HttpResponse(content_type='image/jpeg'))

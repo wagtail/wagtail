@@ -21,11 +21,10 @@ from django.core.urlresolvers import reverse
 from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
-from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.babel import ImageBabel
+from wagtail.wagtailimages import image_operations
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -111,27 +110,10 @@ class AbstractImage(models.Model, TagSearchable):
             self.focal_point_width = None
             self.focal_point_height = None
 
-    def get_suggested_focal_point(self, backend_name='default'):
-        backend = get_image_backend(backend_name)
-        image_file = self.file.file
+    def get_suggested_focal_point(self):
+        babel = self.get_babel()
 
-        # Make sure image is open and seeked to the beginning
-        image_file.open('rb')
-        image_file.seek(0)
-
-        # Load the image
-        image = backend.open_image(self.file.file)
-        image_data = backend.image_data_as_rgb(image)
-
-        # Make sure we have image data
-        # If the image is animated, image_data_as_rgb will return None
-        if image_data is None:
-            return
-
-        # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-
-        faces = feature_detector.detect_faces()
+        faces = babel.detect_faces()
         if faces:
             # Create a bounding box around all faces
             left = min(face.left for face in faces)
@@ -140,7 +122,7 @@ class AbstractImage(models.Model, TagSearchable):
             bottom = max(face.bottom for face in faces)
             focal_point = Rect(left, top, right, bottom)
         else:
-            features = feature_detector.detect_features()
+            features = babel.detect_features()
             if features:
                 # Create a bounding box around all features
                 left = min(feature.x for feature in features)
@@ -162,7 +144,7 @@ class AbstractImage(models.Model, TagSearchable):
         return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'process_image'):
+        if not hasattr(filter, 'run'):
             # assume we've been passed a filter spec string, rather than a Filter object
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
@@ -179,12 +161,8 @@ class AbstractImage(models.Model, TagSearchable):
                     focal_point_key='',
                 )
         except ObjectDoesNotExist:
-            file_field = self.file
-
-            # If we have a backend attribute then pass it to process
-            # image - else pass 'default'
-            backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.get_focal_point())
+            # Run the filter
+            generated_image = filter.run(self, BytesIO())
 
             # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
             if self.has_focal_point():
@@ -192,7 +170,7 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 focal_point_key = "focus-none"
 
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            input_filename_parts = os.path.basename(self.file.file.name).split('.')
             filename_without_extension = '.'.join(input_filename_parts[:-1])
             extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
             filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
@@ -293,91 +271,42 @@ class Filter(models.Model):
     """
     spec = models.CharField(max_length=255, db_index=True)
 
-    OPERATION_NAMES = {
-        'max': 'resize_to_max',
-        'min': 'resize_to_min',
-        'width': 'resize_to_width',
-        'height': 'resize_to_height',
-        'fill': 'resize_to_fill',
-        'original': 'no_operation',
-    }
-
-    class InvalidFilterSpecError(ValueError):
-        pass
-
-    def _parse_spec_string(self):
-        # parse the spec string and return the method name and method arg.
-        # There are various possible formats to match against:
-        # 'original'
-        # 'width-200'
-        # 'max-320x200'
-        # 'fill-200x200-c50'
-
-        if self.spec == 'original':
-            return Filter.OPERATION_NAMES['original'], None
-
-        match = re.match(r'(width|height)-(\d+)$', self.spec)
-        if match:
-            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
-
-        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            crop_closeness = int(match.group(4))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height, crop_closeness)
-
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
-
-        # Spec is not one of our recognised patterns
-        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
-
     @cached_property
-    def _method(self):
-        return self._parse_spec_string()
+    def operations(self):
+        operations = []
 
-    def is_valid(self):
-        try:
-            self._parse_spec_string()
-            return True
-        except Filter.InvalidFilterSpecError:
-            return False
+        for op_spec in self.spec.split():
+            op_spec_parts = op_spec.split('-')
+            op_class = self._registered_operations[op_spec_parts[0]]
+            operations.append(op_class(*op_spec_parts))
 
-    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
-        """
-        Run this filter on the given image file then write the result into output_file and return it
-        If output_file is not given, a new BytesIO will be used instead
-        """
-        # Get backend
-        backend = get_image_backend(backend_name)
+        return operations
 
-        # Parse spec string
-        method_name, method_arg = self._method
+    def run(self, image, output_file):
+        babel = image.get_babel()
 
-        # Open image
-        input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
+        for operation in self.operations:
+            operation.run(babel, image)
 
-        # Process image
-        method = getattr(backend, method_name)
-        image = method(image, method_arg, focal_point=focal_point)
-
-        # Make sure we have an output file
-        if output_file is None:
-            output_file = BytesIO()
-
-        # Write output
-        backend.save_image(image, output_file, file_format)
-
-        # Close the input file
-        input_file.close()
+        babel.save_as_jpeg(output_file)
 
         return output_file
+
+
+    _registered_operations = {}
+
+    @classmethod
+    def register_operation(cls, operation_name, operation_class):
+        cls._registered_operations[operation_name] = operation_class
+
+
+# TODO: Make this work with hooks
+Filter.register_operation('original', image_operations.DoNothingOperation)
+Filter.register_operation('fill', image_operations.FillOperation)
+Filter.register_operation('min', image_operations.MinMaxOperation)
+Filter.register_operation('max', image_operations.MinMaxOperation)
+Filter.register_operation('width', image_operations.WidthHeightOperation)
+Filter.register_operation('height', image_operations.WidthHeightOperation)
 
 
 class AbstractRendition(models.Model):

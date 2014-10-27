@@ -165,6 +165,7 @@ def generate_url(request, image_id, filter_spec):
         }, status=403)
 
     # Parse the filter spec to make sure its valid
+    # TODO: Update this
     if not Filter(spec=filter_spec).is_valid():
         return json_response({
             'error': "Invalid filter spec."
