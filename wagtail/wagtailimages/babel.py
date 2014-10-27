@@ -30,8 +30,16 @@ class ImageBabel(object):
         if type(self.state) is new_state:
             return
 
-        buf = self.state.to_buffer()
-        self.state = new_state.from_buffer(buf)
+        if hasattr(new_state, 'from_buffer') and hasattr(self.state, 'to_buffer'):
+            buf = self.state.to_buffer()
+            self.state = new_state.from_buffer(buf)
+            return
+
+        if hasattr(new_state, 'from_file') and hasattr(self.state, 'to_file'):
+            f = BytesIO()
+            self.state.to_file(f)
+            self.state = new_state.from_file(f)
+            return
 
     @classmethod
     def from_file(cls, f):
@@ -98,6 +106,9 @@ try:
         def from_buffer(cls, buf):
             mode, size, data = buf
             return cls(PIL.Image.frombytes(mode, size, data))
+
+        def to_file(self, f):
+            return self.image.save(f, 'PNG')
 
         @classmethod
         def from_file(cls, f):
