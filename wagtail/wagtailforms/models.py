@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.exceptions import ValidationError
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -92,6 +93,47 @@ class AbstractFormField(Orderable):
     class Meta:
         abstract = True
         ordering = ['sort_order']
+
+
+class AbstractHideableFormField(AbstractFormField):
+    """ AbstractFormField subclass with an extra database field for specifying
+        a hidden form input.
+    """
+    non_hideable_fields = [
+        'checkboxes',
+    ]
+
+    is_hidden = models.BooleanField(
+        default=False,
+        help_text=_('If set, this field will not be shown to the user, but its default value will be submitted with the form.')
+    )
+
+    def clean_fields(self, *args, **kwargs):
+        super(AbstractHideableFormField, self).clean_fields(*args, **kwargs)
+        # some field types make no sense to include if hidden
+        if self.is_hidden and self.field_type in self.non_hideable_fields:
+            raise ValidationError({
+                'is_hidden': [
+                    _("It is not possible to have a hidden '%(field_type)s' field.")
+                    % {'field_type': self.get_field_type_display()}
+                ]
+            })
+
+        # hidden-yet-required fields must have a default value set
+        if self.is_hidden and self.required is True and not self.default_value:
+            raise ValidationError({
+                'default_value': [
+                    _("If you set a field to be both 'hidden' and 'required', you must set a default value.")
+                ]
+            })
+        return
+
+    panels = AbstractFormField.panels + [
+        FieldPanel('is_hidden'),
+    ]
+
+    class Meta:
+        abstract = True
 
 
 _FORM_CONTENT_TYPES = None

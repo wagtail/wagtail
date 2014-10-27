@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.core import mail
 from django import forms
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
@@ -83,18 +84,103 @@ class TestFormBuilder(TestCase):
     def setUp(self):
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
         self.fb = FormBuilder(self.form_page.form_fields.all())
+        self.hideable_field_form_page = Page.objects.get(url_path='/home/secret-info-form/').specific
+        self.hideable_fb = FormBuilder(self.hideable_field_form_page.form_fields.all())
+
+    def try_to_clean_field(self, field, expect_success=True):
+        if expect_success is True:
+            try:
+                field.clean_fields()
+            except ValidationError:
+                self.fail("wagtailforms.models.AbstractHideableFormField.clean_fields() raised ValidationError unexpectedly")
+        else:
+            self.assertRaises(ValidationError, field.clean_fields)
 
     def test_fields(self):
         """
         This tests that all fields were added to the form with the correct types
         """
         form_class = self.fb.get_form_class()
-        
+
         self.assertTrue('your-email' in form_class.base_fields.keys())
         self.assertTrue('your-message' in form_class.base_fields.keys())
 
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
+
+    def test_fields_on_hideable_forms(self):
+        """ Test that all fields were added to the form with the correct types,
+            even though their widgets may be hidden.
+        """
+        form_class = self.hideable_fb.get_form_class()
+
+        self.assertTrue('your-email' in form_class.base_fields.keys())
+        self.assertTrue('your-message' in form_class.base_fields.keys())
+        self.assertTrue('first-bunch-of-secret-data' in form_class.base_fields.keys())
+        self.assertTrue('second-secret-data-field' in form_class.base_fields.keys())
+
+        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
+        self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['first-bunch-of-secret-data'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['second-secret-data-field'], forms.CharField)
+
+    def test_widgets(self):
+        """ Test that all field widgets are correct.
+        """
+        form_class = self.hideable_fb.get_form_class()
+
+        self.assertIsInstance(form_class.base_fields['your-email'].widget, forms.EmailInput)
+        self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
+        self.assertIsInstance(form_class.base_fields['first-bunch-of-secret-data'].widget, forms.HiddenInput)
+        self.assertIsInstance(form_class.base_fields['second-secret-data-field'].widget, forms.HiddenInput)
+
+    def test_hidden_field_requiredness_validation(self):
+        """ Test that AbstractHideableFormField raises errors when a field is
+            hidden and required but no default_value is set.
+        """
+        singleline_field = self.hideable_field_form_page.form_fields.get(label='First bunch of secret data')
+
+        # check it is hidden, required and has a default, but cleans happily
+        self.assertTrue(singleline_field.is_hidden)         # hidden
+        self.assertTrue(singleline_field.required)          # required
+        self.assertTrue(singleline_field.default_value)     # has default
+        # should clean happily
+        self.try_to_clean_field(singleline_field)
+
+        # remove the default and check again
+        self.assertTrue(singleline_field.is_hidden)         # hidden
+        self.assertTrue(singleline_field.required)          # required
+        singleline_field.default_value = ''                 # no default
+        # expect ValidationError
+        self.try_to_clean_field(singleline_field, expect_success=False)
+
+        # remove the hiddenness and check again
+        singleline_field.is_hidden = False                  # shown
+        self.assertTrue(singleline_field.required)          # required
+        self.assertFalse(singleline_field.default_value)    # no default
+        # should clean happily
+        self.try_to_clean_field(singleline_field)
+
+        # hide it again, but set not required and check again
+        singleline_field.is_hidden = True                   # hidden
+        singleline_field.required = False                   # not required
+        self.assertFalse(singleline_field.default_value)    # no default
+        # should clean happily
+        self.try_to_clean_field(singleline_field)
+
+    def test_hiding_a_non_hideable_field_fails_validation(self):
+        """ Test that attempting to hide a field type defined as non-hideable
+            raises an error.
+        """
+        singleline_field = self.hideable_field_form_page.form_fields.get(label='First bunch of secret data')
+        non_hideable_type = singleline_field.__class__.non_hideable_fields[0]
+
+        # assert all is well at first
+        self.try_to_clean_field(singleline_field)
+
+        # change to non-hideable field type
+        singleline_field.field_type = non_hideable_type
+        self.try_to_clean_field(singleline_field, expect_success=False)
 
 
 class TestFormsIndex(TestCase):

@@ -49,6 +49,8 @@ AbstractEmailForm defines the fields 'to_address', 'from_address' and 'subject',
 
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of AbstractEmailForm, and omit the 'to_address', 'from_address' and 'subject' fields from the content_panels definition.
 
+If you want to enable hidden form fields, so your forms can submit extra data not seen by the user (for example when building on the wagtailforms module to submit data to an external service), then your FormField class can instead inherit from AbstractHideableFormField.
+
 You now need to create two templates named form_page.html and form_page_landing.html (where 'form_page' is the underscore-formatted version of the class name). form_page.html differs from a standard Wagtail template in that it is passed a variable 'form', containing a Django form object, in addition to the usual 'self' variable. A very basic template for the form would thus be:
 
 .. code:: html

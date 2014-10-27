@@ -81,7 +81,10 @@ class FormBuilder(object):
             options = self.get_field_options(field)
 
             if field.field_type in self.FIELD_TYPES:
-                formfields[field.clean_name] = self.FIELD_TYPES[field.field_type](self, field, options)
+                formfield = self.FIELD_TYPES[field.field_type](self, field, options)
+                if getattr(field, 'is_hidden', False) is True:
+                    formfield.widget = django.forms.widgets.HiddenInput()
+                formfields[field.clean_name] = formfield
             else:
                 raise Exception("Unrecognised field type: " + field.field_type)
 

@@ -15,7 +15,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailforms.models import AbstractForm, AbstractEmailForm, AbstractFormField, AbstractHideableFormField
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
@@ -314,6 +314,7 @@ EventIndex.content_panels = [
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
 
+
 class FormPage(AbstractEmailForm):
     pass
 
@@ -327,6 +328,18 @@ FormPage.content_panels = [
     ], "Email")
 ]
 
+
+class HideableFormField(AbstractHideableFormField):
+    page = ParentalKey('HideableFormPage', related_name='form_fields')
+
+
+class HideableFormPage(AbstractForm):
+    pass
+
+HideableFormPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+]
 
 
 # Snippets
