@@ -54,7 +54,7 @@ class ImageBabel(object):
             if WandState is None:
                 pil_exts += wand_exts
 
-            ext = os.path.splitext(f.name)[1]
+            ext = os.path.splitext(f.name)[1].lower()
             if PILState is not None and ext in pil_exts:
                 initial_state = PILState
             elif WandState is not None and ext in wand_exts:
