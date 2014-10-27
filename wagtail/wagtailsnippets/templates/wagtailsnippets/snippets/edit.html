@@ -6,7 +6,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" usage_object=instance %}
 
-    <form action="{% url 'wagtailsnippets_edit' content_type.app_label content_type.model instance.id %}" method="POST">
+    <form action="{% url 'wagtailsnippets_edit' content_type.app_label content_type.model instance.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
