@@ -42,22 +42,26 @@ class ImageBabel(object):
             return
 
     @classmethod
-    def from_file(cls, f):
-        pil_exts = ['.jpg', '.jpeg', '.png']
-        wand_exts = ['.gif']
+    def from_file(cls, f, initial_state=None):
+        if not initial_state:
+            # Work out best initial state based on file extension
+            pil_exts = ['.jpg', '.jpeg', '.png']
+            wand_exts = ['.gif']
 
-        if PILState is None:
-            wand_exts += pil_exts
+            if PILState is None:
+                wand_exts += pil_exts
 
-        if WandState is None:
-            pil_exts += wand_exts
+            if WandState is None:
+                pil_exts += wand_exts
 
-        ext = os.path.splitext(f.name)[1]
-        if PILState is not None and ext in pil_exts:
-            return cls(PILState.from_file(f))
+            ext = os.path.splitext(f.name)[1]
+            if PILState is not None and ext in pil_exts:
+                initial_state = PILState
+            elif WandState is not None and ext in wand_exts:
+                initial_state = WandState
 
-        if WandState is not None and ext in wand_exts:
-            return cls(WandState.from_file(f))
+        if initial_state:
+            return cls(initial_state.from_file(f))
 
     @classmethod
     def find_operation(cls, name, preferred_state):
