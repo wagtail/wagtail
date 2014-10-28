@@ -140,7 +140,8 @@ class TestFrontendServeView(TestCase):
         response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
 
         # Check response
-        self.assertRedirects(response, self.image.renditions.first().url, status_code=301, target_status_code=404)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'image/jpeg')
 
     def test_get_invalid_signature(self):
         """
