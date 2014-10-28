@@ -13,6 +13,6 @@ class Command(BaseCommand):
             if not os.path.exists(ren.file.path):
                 print('Regenerating: ' + ren.file.path)
                 thumb = ren.filter.process_image(ren.image.file)
-                with open(ren.file.path, 'w') as output:
+                with open(ren.file.path, 'wb') as output:
                     output.write(thumb.read())
 
