@@ -7,20 +7,20 @@ from wagtail.wagtailimages.rect import Rect
 class ImageBabel(object):
     operations = []
 
-    def __init__(self, initial_state):
-        self.state = initial_state
+    def __init__(self, initial_backend):
+        self.backend = initial_backend
 
     def __getattr__(self, attr):
-        operation = self.find_operation(attr, type(self.state))
+        operation = self.find_operation(attr, type(self.backend))
 
         if operation is not None:
-            state, func = operation
+            backend, func = operation
 
             def operation(*args, **kwargs):
-                if state is not type(self.state):
-                    self.switch_state(state)
+                if backend is not type(self.backend):
+                    self.switch_backend(backend)
 
-                return func(self.state, *args, **kwargs)
+                return func(self.backend, *args, **kwargs)
 
             return operation
         else:
@@ -28,59 +28,59 @@ class ImageBabel(object):
                 self.__class__.__name__, attr
             ))
 
-    def switch_state(self, new_state):
-        if type(self.state) is new_state:
+    def switch_backend(self, new_backend):
+        if type(self.backend) is new_backend:
             return
 
-        if hasattr(new_state, 'from_buffer') and hasattr(self.state, 'to_buffer'):
-            buf = self.state.to_buffer()
-            self.state = new_state.from_buffer(buf)
+        if hasattr(new_backend, 'from_buffer') and hasattr(self.backend, 'to_buffer'):
+            buf = self.backend.to_buffer()
+            self.backend = new_backend.from_buffer(buf)
             return
 
-        if hasattr(new_state, 'from_file') and hasattr(self.state, 'to_file'):
+        if hasattr(new_backend, 'from_file') and hasattr(self.backend, 'to_file'):
             f = BytesIO()
-            self.state.to_file(f)
-            self.state = new_state.from_file(f)
+            self.backend.to_file(f)
+            self.backend = new_backend.from_file(f)
             return
 
     @classmethod
-    def from_file(cls, f, initial_state=None):
-        if not initial_state:
-            # Work out best initial state based on file extension
+    def from_file(cls, f, initial_backend=None):
+        if not initial_backend:
+            # Work out best initial backend based on file extension
             pil_exts = ['.jpg', '.jpeg', '.png']
             wand_exts = ['.gif']
 
-            if PILState is None:
+            if PILBackend is None:
                 wand_exts += pil_exts
 
-            if WandState is None:
+            if WandBackend is None:
                 pil_exts += wand_exts
 
             ext = os.path.splitext(f.name)[1].lower()
-            if PILState is not None and ext in pil_exts:
-                initial_state = PILState
-            elif WandState is not None and ext in wand_exts:
-                initial_state = WandState
+            if PILBackend is not None and ext in pil_exts:
+                initial_backend = PILBackend
+            elif WandBackend is not None and ext in wand_exts:
+                initial_backend = WandBackend
 
-        if initial_state:
-            return cls(initial_state.from_file(f))
+        if initial_backend:
+            return cls(initial_backend.from_file(f))
 
     @classmethod
-    def find_operation(cls, name, preferred_state):
-        # Try finding in the preferred state
-        for state_class, operation_name, func in cls.operations:
-            if operation_name == name and state_class == preferred_state:
-                return state_class, func
+    def find_operation(cls, name, preferred_backend):
+        # Try finding in the preferred backend
+        for backend_class, operation_name, func in cls.operations:
+            if operation_name == name and backend_class == preferred_backend:
+                return backend_class, func
 
-        # Try finding in any other state
-        for state_class, operation_name, func in cls.operations:
+        # Try finding in any other backend
+        for backend_class, operation_name, func in cls.operations:
             if operation_name == name:
-                return state_class, func
+                return backend_class, func
 
     @classmethod
-    def operation(cls, state_class, operation_name):
+    def operation(cls, backend_class, operation_name):
         def wrapper(func):
-            cls.operations.append((state_class, operation_name, func))
+            cls.operations.append((backend_class, operation_name, func))
 
             return func
 
@@ -93,7 +93,7 @@ try:
     import PIL.Image
 
 
-    class PILState(object):
+    class PILBackend(object):
         def __init__(self, image):
             self.image = image
 
@@ -122,35 +122,35 @@ try:
             return cls(PIL.Image.open(f))
 
 
-    @ImageBabel.operation(PILState, 'get_size')
-    def pil_get_size(state):
-        return state.image.size
+    @ImageBabel.operation(PILBackend, 'get_size')
+    def pil_get_size(backend):
+        return backend.image.size
 
 
-    @ImageBabel.operation(PILState, 'resize')
-    def pil_resize(state, width, height):
-        if state.image.mode in ['1', 'P']:
-            state.image = state.image.convert('RGB')
+    @ImageBabel.operation(PILBackend, 'resize')
+    def pil_resize(backend, width, height):
+        if backend.image.mode in ['1', 'P']:
+            backend.image = backend.image.convert('RGB')
 
-        state.image = state.image.resize((width, height), PIL.Image.ANTIALIAS)
-
-
-    @ImageBabel.operation(PILState, 'crop')
-    def pil_crop(state, left, top, right, bottom):
-        state.image = state.image.crop((left, top, right, bottom))
+        backend.image = backend.image.resize((width, height), PIL.Image.ANTIALIAS)
 
 
-    @ImageBabel.operation(PILState, 'save_as_jpeg')
-    def pil_save_as_jpeg(state, f, quality=85):
-        state.image.save(f, 'JPEG', quality=quality)
+    @ImageBabel.operation(PILBackend, 'crop')
+    def pil_crop(backend, left, top, right, bottom):
+        backend.image = backend.image.crop((left, top, right, bottom))
 
 
-    @ImageBabel.operation(PILState, 'save_as_png')
-    def pil_save_as_png(state, f):
-        state.image.save(f, 'PNG')
+    @ImageBabel.operation(PILBackend, 'save_as_jpeg')
+    def pil_save_as_jpeg(backend, f, quality=85):
+        backend.image.save(f, 'JPEG', quality=quality)
+
+
+    @ImageBabel.operation(PILBackend, 'save_as_png')
+    def pil_save_as_png(backend, f):
+        backend.image.save(f, 'PNG')
 
 except ImportError:
-    PILState = None
+    PILBackend = None
 
 
 # Wand
@@ -160,7 +160,7 @@ try:
     from wand.api import library
 
 
-    class WandState(object):
+    class WandBackend(object):
         def __init__(self, image):
             self.image = image
 
@@ -182,22 +182,22 @@ try:
             return cls(image)
 
 
-    @ImageBabel.operation(WandState, 'get_size')
-    def wand_get_size(state):
-        return state.image.size
+    @ImageBabel.operation(WandBackend, 'get_size')
+    def wand_get_size(backend):
+        return backend.image.size
 
 
-    @ImageBabel.operation(WandState, 'resize')
-    def wand_resize(state, width, height):
-        state.image.resize(width, height)
+    @ImageBabel.operation(WandBackend, 'resize')
+    def wand_resize(backend, width, height):
+        backend.image.resize(width, height)
 
 
-    @ImageBabel.operation(WandState, 'crop')
-    def wand_crop(state, left, top, right, bottom):
-        state.image.crop(left=left, top=top, right=right, bottom=bottom)
+    @ImageBabel.operation(WandBackend, 'crop')
+    def wand_crop(backend, left, top, right, bottom):
+        backend.image.crop(left=left, top=top, right=right, bottom=bottom)
 
 except ImportError:
-    WandState = None
+    WandBackend = None
 
 
 # OpenCV
@@ -209,7 +209,7 @@ try:
         import cv2.cv as cv
 
 
-    class OpenCVState(object):
+    class OpenCVBackend(object):
         def __init__(self, image_mode, image_size, image_data):
             self.image_mode = image_mode
             self.image_size = image_size
@@ -234,11 +234,11 @@ try:
             return grey_image
 
 
-    @ImageBabel.operation(OpenCVState, 'detect_features')
-    def opencv_detect_features(state):
-        image = state.opencv_grey_image()
-        rows = state.image_size[0]
-        cols = state.image_size[1]
+    @ImageBabel.operation(OpenCVBackend, 'detect_features')
+    def opencv_detect_features(backend):
+        image = backend.opencv_grey_image()
+        rows = backend.image_size[0]
+        cols = backend.image_size[1]
 
         eig_image = cv.CreateMat(rows, cols, cv.CV_32FC1)
         temp_image = cv.CreateMat(rows, cols, cv.CV_32FC1)
@@ -247,11 +247,11 @@ try:
         return points
 
 
-    @ImageBabel.operation(OpenCVState, 'detect_faces')
-    def detect_faces(state):
+    @ImageBabel.operation(OpenCVBackend, 'detect_faces')
+    def detect_faces(backend):
         cascade_filename = os.path.join(os.path.dirname(__file__), 'face_detection', 'haarcascade_frontalface_alt2.xml')
         cascade = cv.Load(cascade_filename)
-        image = state.opencv_grey_image()
+        image = backend.opencv_grey_image()
 
         cv.EqualizeHist(image, image)
 
@@ -268,4 +268,4 @@ try:
         return [Rect(face[0][0], face[0][1], face[0][0] + face[0][2], face[0][1] + face[0][3]) for face in faces]
 
 except ImportError:
-    OpenCVState = None
+    OpenCVBackend = None
