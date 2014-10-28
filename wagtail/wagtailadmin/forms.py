@@ -50,7 +50,7 @@ class LoginForm(AuthenticationForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(LoginForm, self).__init__(request=request, *args, **kwargs)
-        self.fields['username'].widget.attrs['placeholder'] = ugettext_lazy("Enter %s") % self.username_field.verbose_name
+        self.fields['username'].widget.attrs['placeholder'] = ugettext_lazy("Enter your %s") % self.username_field.verbose_name
 
 
 
