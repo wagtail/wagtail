@@ -29,7 +29,7 @@ class BaseSearch(object):
     def add(self, obj):
         return NotImplemented
 
-    def add_bulk(self, obj_list):
+    def add_bulk(self, model, obj_list):
         return NotImplemented
 
     def delete(self, obj):

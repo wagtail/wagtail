@@ -572,42 +572,29 @@ class ElasticSearch(BaseSearch):
         # Add document to index
         self.es.index(self.es_index, mapping.get_document_type(), mapping.get_document(obj), id=mapping.get_document_id(obj))
 
-    def add_bulk(self, obj_list):
-        # Group all objects by their type
-        type_set = {}
+    def add_bulk(self, model, obj_list):
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
+        doc_type = mapping.get_document_type()
+
+        # Create list of actions
+        actions = []
         for obj in obj_list:
             # Object must be a decendant of Indexed and be a django model
             if not self.object_can_be_indexed(obj):
                 continue
 
-            # Get mapping
-            mapping = ElasticSearchMapping(obj.__class__)
+            # Create the action
+            action = {
+                '_index': self.es_index,
+                '_type': doc_type,
+                '_id': mapping.get_document_id(obj),
+            }
+            action.update(mapping.get_document(obj))
+            actions.append(action)
 
-            # Get document type
-            doc_type = mapping.get_document_type()
-
-            # If type is currently not in set, add it
-            if doc_type not in type_set:
-                type_set[doc_type] = []
-
-            # Add document to set
-            type_set[doc_type].append((mapping.get_document_id(obj), mapping.get_document(obj)))
-
-        # Loop through each type and bulk add them
-        for type_name, type_documents in type_set.items():
-            # Get list of actions
-            actions = []
-            for doc_id, doc in type_documents:
-                action = {
-                    '_index': self.es_index,
-                    '_type': type_name,
-                    '_id': doc_id,
-                }
-                action.update(doc)
-                actions.append(action)
-
-            yield type_name, len(type_documents)
-            bulk(self.es, actions)
+        # Run the actions
+        bulk(self.es, actions)
 
     def delete(self, obj):
         # Object must be a decendant of Indexed and be a django model

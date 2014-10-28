@@ -19,8 +19,8 @@ class DBSearch(BaseSearch):
     def add(self, obj):
         pass # Not needed
 
-    def add_bulk(self, obj_list):
-        return [] # Not needed
+    def add_bulk(self, model, obj_list):
+        pass # Not needed
 
     def delete(self, obj):
         pass # Not needed

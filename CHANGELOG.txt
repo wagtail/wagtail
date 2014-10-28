@@ -16,6 +16,7 @@ Changelog
  * Fix: When copying pages recursively, revisions of sub-pages were being copied regardless of the copy_revisions flag
  * Fix: Updated the migration dependencies within the project template to ensure that Wagtail's own migrations consistently apply first.
  * Fix: The cache of site root paths is now cleared when a site is deleted.
+ * Fix: Search indexing now prevents pages from being indexed multiple times, as both the base Page model and the specific subclass
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
