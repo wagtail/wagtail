@@ -78,11 +78,13 @@ def login(request):
     if request.user.is_authenticated() and request.user.has_perm('wagtailadmin.access_admin'):
         return redirect('wagtailadmin_home')
     else:
+        from django.contrib.auth import get_user_model
         return auth_login(request,
             template_name='wagtailadmin/login.html',
             authentication_form=forms.LoginForm,
             extra_context={
                 'show_password_reset': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True),
+                'username_field': get_user_model().USERNAME_FIELD,
             },
         )
 

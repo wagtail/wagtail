@@ -40,15 +40,18 @@ class EmailLinkChooserWithLinkTextForm(forms.Form):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
-        widget=forms.TextInput(attrs={'placeholder': ugettext_lazy("Enter your username"),
-                                      'tabindex': '1',
-                                      }),
+        widget=forms.TextInput(attrs={'tabindex': '1',}),
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': ugettext_lazy("Enter password"),
                                           'tabindex': '2',
                                           }),
     )
+
+    def __init__(self, request=None, *args, **kwargs):
+        super(LoginForm, self).__init__(request=request, *args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = ugettext_lazy("Enter your %s") % self.username_field.verbose_name
+
 
 
 class PasswordResetForm(PasswordResetForm):

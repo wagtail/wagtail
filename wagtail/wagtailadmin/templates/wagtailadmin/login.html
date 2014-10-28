@@ -15,7 +15,7 @@
         {% if form.errors %}
             <div class="messages">
                 <ul>
-                    <li class="error">{% trans "Your username and password didn't match. Please try again." %}</li>
+                    <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
                 </ul>
             </div>
         {% endif %}
