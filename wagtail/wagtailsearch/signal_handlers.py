@@ -5,21 +5,30 @@ from wagtail.wagtailsearch.index import Indexed
 from wagtail.wagtailsearch.backends import get_search_backends
 
 
-def post_save_signal_handler(instance, **kwargs):
-    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
+def get_indexed_instance(instance):
+    indexed_instance = instance.get_indexed_instance()
+
+    # Make sure that the instance is in it's classes indexed objects
+    if not type(indexed_instance).get_indexed_objects().filter(id=indexed_instance.id).exists():
         return
 
+    return indexed_instance
 
-    for backend in get_search_backends():
-        backend.add(instance)
+
+def post_save_signal_handler(instance, **kwargs):
+    indexed_instance = get_indexed_instance(instance)
+
+    if indexed_instance:
+        for backend in get_search_backends():
+            backend.add(indexed_instance)
 
 
 def post_delete_signal_handler(instance, **kwargs):
-    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
-        return
+    indexed_instance = get_indexed_instance(instance)
 
-    for backend in get_search_backends():
-        backend.delete(instance)
+    if indexed_instance:
+        for backend in get_search_backends():
+            backend.delete(indexed_instance)
 
 
 def register_signal_handlers():

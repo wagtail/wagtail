@@ -564,6 +564,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         content_type = ContentType.objects.get_for_model(cls)
         return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
 
+    def get_indexed_instance(self):
+        return self.specific
+
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
         # Filters
