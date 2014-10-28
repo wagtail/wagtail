@@ -363,7 +363,7 @@ def edit(request, page_id):
 
 @permission_required('wagtailadmin.access_admin')
 def delete(request, page_id):
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
@@ -500,7 +500,7 @@ def preview_loading(request):
 
 @permission_required('wagtailadmin.access_admin')
 def unpublish(request, page_id):
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_unpublish():
         raise PermissionDenied
 
@@ -548,7 +548,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
 
 @permission_required('wagtailadmin.access_admin')
 def move_confirm(request, page_to_move_id, destination_id):
-    page_to_move = get_object_or_404(Page, id=page_to_move_id)
+    page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
     destination = get_object_or_404(Page, id=destination_id)
     if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
         raise PermissionDenied
@@ -769,7 +769,7 @@ def preview_for_moderation(request, revision_id):
 @require_POST
 def lock(request, page_id):
     # Get the page
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
@@ -794,7 +794,7 @@ def lock(request, page_id):
 @require_POST
 def unlock(request, page_id):
     # Get the page
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
