@@ -6,7 +6,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 
 def post_save_signal_handler(instance, **kwargs):
-    if instance not in type(instance).get_indexed_objects():
+    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
         return
 
 
@@ -15,7 +15,7 @@ def post_save_signal_handler(instance, **kwargs):
 
 
 def post_delete_signal_handler(instance, **kwargs):
-    if instance not in type(instance).get_indexed_objects():
+    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
         return
 
     for backend in get_search_backends():
