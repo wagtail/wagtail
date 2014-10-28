@@ -33,7 +33,14 @@ class TestSearchFields(TestCase):
 
     def test_overriding(self):
         # If there are two fields with the same type and name
-        # the last one should override all the previous ones
+        # the last one should override all the previous ones. This ensures that the
+        # standard convention of:
+        #
+        #     class SpecificPageType(Page):
+        #         search_fields = Page.search_fields + (some_other_definitions)
+        #
+        # ...causes the definitions in some_other_definitions to override Page.search_fields
+        # as intended.
         cls = self.make_dummy_type([
             index.SearchField('test', boost=100, partial_match=False),
             index.SearchField('test', partial_match=True),
