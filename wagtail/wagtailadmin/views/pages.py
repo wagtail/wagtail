@@ -631,15 +631,9 @@ def copy(request, page_id):
             update_attrs={
                 'title': form.cleaned_data['new_title'],
                 'slug': form.cleaned_data['new_slug'],
-            }
+            },
+            keep_live=(can_publish and form.cleaned_data.get('publish_copies')),
         )
-
-        # Check if we should keep copied subpages published
-        publish_copies = can_publish and form.cleaned_data.get('publish_copies')
-
-        # Unpublish copied pages if we need to
-        if not publish_copies:
-            new_page.get_descendants(inclusive=True).unpublish()
 
         # Assign user of this request as the owner of all the new pages
         new_page.get_descendants(inclusive=True).update(owner=request.user)
