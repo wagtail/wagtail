@@ -37,15 +37,26 @@ class Indexed(object):
 
     @classmethod
     def get_search_fields(cls):
-        return cls.search_fields
+        search_fields = {}
+
+        for field in cls.search_fields:
+            search_fields[(type(field), field.field_name)] = field
+
+        return list(search_fields.values())
 
     @classmethod
     def get_searchable_search_fields(cls):
-        return filter(lambda field: isinstance(field, SearchField), cls.get_search_fields())
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, SearchField)
+        ]
 
     @classmethod
     def get_filterable_search_fields(cls):
-        return filter(lambda field: isinstance(field, FilterField), cls.get_search_fields())
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, FilterField)
+        ]
 
     @classmethod
     def get_indexed_objects(cls):
