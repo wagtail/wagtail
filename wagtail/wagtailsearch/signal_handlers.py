@@ -8,7 +8,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 def get_indexed_instance(instance):
     indexed_instance = instance.get_indexed_instance()
 
-    # Make sure that the instance is in it's classes indexed objects
+    # Make sure that the instance is in its class's indexed objects
     if not type(indexed_instance).get_indexed_objects().filter(id=indexed_instance.id).exists():
         return
 
