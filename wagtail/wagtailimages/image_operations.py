@@ -189,7 +189,6 @@ class MinMaxOperation(object):
         babel.resize(width, height)
 
 
-
 class WidthHeightOperation(object):
     def __init__(self, method, size):
         self.method = method
