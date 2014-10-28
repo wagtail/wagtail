@@ -6,11 +6,18 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 
 def post_save_signal_handler(instance, **kwargs):
+    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
+        return
+
+
     for backend in get_search_backends():
         backend.add(instance)
 
 
 def post_delete_signal_handler(instance, **kwargs):
+    if not type(instance).get_indexed_objects().filter(id=instance.id).exists():
+        return
+
     for backend in get_search_backends():
         backend.delete(instance)
 

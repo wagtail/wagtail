@@ -425,6 +425,17 @@ class SearchTest(models.Model, index.Indexed):
     def callable_indexed_field(self):
         return "Callable"
 
+    @classmethod
+    def get_indexed_objects(cls):
+        indexed_objects = super(SearchTest, cls).get_indexed_objects()
+
+        # Exclude SearchTests that have a SearchTestChild to prevent duplicates
+        if cls is SearchTest:
+            indexed_objects = indexed_objects.exclude(
+                id__in=SearchTestChild.objects.all().values_list('searchtest_ptr_id', flat=True)
+            )
+
+        return indexed_objects
 
 class SearchTestChild(SearchTest):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
