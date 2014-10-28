@@ -51,6 +51,13 @@ class Indexed(object):
     def get_indexed_objects(cls):
         return cls.objects.all()
 
+    def get_indexed_instance(self):
+        """
+        If the indexed model uses multi table inheritance, override this method
+        to return the instance in its most specific class so it reindexes properly.
+        """
+        return self
+
     search_fields = ()
 
 
