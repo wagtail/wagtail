@@ -671,7 +671,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True):
         # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
@@ -679,6 +679,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         page_copy.depth = None
         page_copy.numchild = 0
         page_copy.path = None
+
+        if not keep_live:
+            page_copy.live = False
+            page_copy.has_unpublished_changes = True
 
         if update_attrs:
             for field, value in update_attrs.items():
@@ -716,7 +720,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Copy child pages
         if recursive:
             for child_page in self.get_children():
-                child_page.specific.copy(recursive=True, to=page_copy, copy_revisions=copy_revisions)
+                child_page.specific.copy(recursive=True, to=page_copy, copy_revisions=copy_revisions, keep_live=keep_live)
 
         return page_copy
 
