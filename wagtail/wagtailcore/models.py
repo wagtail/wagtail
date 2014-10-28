@@ -22,7 +22,7 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError, ImproperlyConfigured
+from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -565,7 +565,14 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):
-        return self.specific
+        # This is accessed on save by the wagtailsearch signal handler, and in edge
+        # cases (e.g. loading test fixtures), may be called before the specific instance's
+        # entry has been created. In those cases, we aren't ready to be indexed yet, so
+        # return None.
+        try:
+            return self.specific
+        except ObjectDoesNotExist:
+            return None
 
     @classmethod
     def search(cls, query_string, show_unpublished=False, search_title_only=False, extra_filters={}, prefetch_related=[], path=None):
