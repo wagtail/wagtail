@@ -49,10 +49,10 @@ class BaseSearchQuery(object):
         return field
 
     def _process_lookup(self, field, lookup, value):
-        return NotImplemented
+        raise NotImplementedError
 
     def _connect_filters(self, filters, connector, negated):
-        return NotImplemented
+        raise NotImplementedError
 
     def _process_filter(self, field_attname, lookup, value):
         # Get the field
@@ -136,10 +136,10 @@ class BaseSearchResults(object):
         return new
 
     def _do_search(self):
-        return NotImplemented
+        raise NotImplementedError
 
     def _do_count(self):
-        return NotImplemented
+        raise NotImplementedError
 
     def results(self):
         if self._results_cache is None:
@@ -194,25 +194,25 @@ class BaseSearch(object):
         pass
 
     def reset_index(self):
-        return NotImplemented
+        raise NotImplementedError
 
     def add_type(self, model):
-        return NotImplemented
+        raise NotImplementedError
 
     def refresh_index(self):
-        return NotImplemented
+        raise NotImplementedError
 
     def add(self, obj):
-        return NotImplemented
+        raise NotImplementedError
 
     def add_bulk(self, model, obj_list):
-        return NotImplemented
+        raise NotImplementedError
 
     def delete(self, obj):
-        return NotImplemented
+        raise NotImplementedError
 
     def _search(self, queryset, query_string, fields=None):
-        return NotImplemented
+        raise NotImplementedError
 
     def search(self, query_string, model_or_queryset, fields=None, filters=None, prefetch_related=None):
         # Find model/queryset
