@@ -37,7 +37,13 @@ def get_image_edit_form():
     class ImageEditForm(ImageForm):
         class Meta(ImageForm.Meta):
             model = Image
-            exclude = ('file', )
+            exclude = (
+                'file',
+                'focal_point_x',
+                'focal_point_y',
+                'focal_point_width',
+                'focal_point_height',
+            )
 
     return ImageEditForm
 
