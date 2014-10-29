@@ -8,6 +8,7 @@ Changelog
  * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above. (Tim Heap)
  * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to on_delete=SET_NULL, to prevent inadvertent (and tree-breaking) page deletions
+ * Improved error reporting on image upload, including ability to set a maximum file size via a new setting WAGTAILIMAGES_MAX_UPLOAD_SIZE
  * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
  * Fix: Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fix: Fixed TypeError when getting embed HTML with oembed on Python 3 (John-Scott Atlakson)

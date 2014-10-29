@@ -19,6 +19,7 @@ Minor features
  * The save/publish/submit buttons on the page edit page now redirects the user back to the edit page instead of the explorer
  * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
  * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to ``on_delete=SET_NULL``, to prevent inadvertent (and tree-breaking) page deletions
+ * Improved error reporting on image upload, including ability to set a maximum file size via a new setting ``WAGTAILIMAGES_MAX_UPLOAD_SIZE``
 
 
 Bug fixes
