@@ -1,21 +1,13 @@
-from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.wagtailsearch.index import Indexed
+from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class BaseSearch(object):
     def __init__(self, params):
         pass
-
-    def object_can_be_indexed(self, obj):
-        # Object must be a decendant of Indexed and be a django model
-        if not isinstance(obj, Indexed) or not isinstance(obj, models.Model):
-            return False
-
-        return True
 
     def reset_index(self):
         return NotImplemented
@@ -47,8 +39,8 @@ class BaseSearch(object):
             model = model_or_queryset
             queryset = model_or_queryset.objects.all()
 
-        # Model must be a descendant of Indexed and be a django model
-        if not issubclass(model, Indexed) or not issubclass(model, models.Model):
+        # Model must be a class that is in the index
+        if not class_is_indexed(model):
             return []
 
         # Normalise query string

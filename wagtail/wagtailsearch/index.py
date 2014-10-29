@@ -72,6 +72,17 @@ class Indexed(object):
     search_fields = ()
 
 
+def get_indexed_models():
+    return [
+        model for model in models.get_models()
+        if issubclass(model, Indexed) and not model._meta.abstract
+    ]
+
+
+def class_is_indexed(cls):
+    return issubclass(cls, Indexed) and issubclass(cls, models.Model) and not cls._meta.abstract
+
+
 class BaseField(object):
     suffix = ''
 

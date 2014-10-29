@@ -1,22 +1,18 @@
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
-from django.db import models
 from django.conf import settings
 
-from wagtail.wagtailsearch.index import Indexed
+from wagtail.wagtailsearch.index import Indexed, get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class Command(BaseCommand):
     def get_object_list(self):
-        # Get list of indexed models
-        indexed_models = [model for model in models.get_models() if issubclass(model, Indexed)]
-
         # Return list of (model_name, queryset) tuples
         return [
             (model, model.get_indexed_objects())
-            for model in indexed_models
+            for model in get_indexed_models()
         ]
 
     def update_backend(self, backend_name, object_list):
