@@ -81,20 +81,22 @@ class BackendTests(WagtailTestUtils):
         # Should return two results
         self.assertEqual(len(results), 2)
 
-    @unittest.skip("Need something to prefetch")
-    def test_prefetch_related(self):
-        # Get results
-        results = self.backend.search("Hello", models.SearchTest, prefetch_related=['prefetch_field'])
+    def test_count(self):
+        count = self.backend.search("Hello", models.SearchTest).count()
 
-        # Test both single result and multiple result (different code for each), only checking that this doesnt crash
-        single_result = results[0]
-        multi_result = results[:2]
+        # Should have three results
+        self.assertEqual(count, 3)
+
+        results = self.backend.search("World", models.SearchTest).count()
+
+        # Should have two results
+        self.assertEqual(count, 2)
 
     def test_callable_indexed_field(self):
         # Get results
         results = self.backend.search("Callable", models.SearchTest)
 
-        # Should get all 4 results as they all have the callable indexed field
+        # Should get all four results as they all have the callable indexed field
         self.assertEqual(len(results), 4)
 
     def test_filters(self):
@@ -122,12 +124,24 @@ class BackendTests(WagtailTestUtils):
         # Get results and slice them
         sliced_results = self.backend.search("Hello", models.SearchTest)[1:3]
 
-        # Slice must have a length of 2
+        # Slice must have a length of two
         self.assertEqual(len(sliced_results), 2)
 
         # Check that the results are SearchTest objects
         for result in sliced_results:
             self.assertIsInstance(result, models.SearchTest)
+
+    def test_sliced_results_count(self):
+        # Get results and slice them
+        sliced_results = self.backend.search("Hello", models.SearchTest)[1:3]
+
+        self.assertEqual(sliced_results.count(), 2)
+
+    def test_sliced_results_count_out_of_range(self):
+        # Get results and slice them
+        sliced_results = self.backend.search("Hello", models.SearchTest)[100:]
+
+        self.assertEqual(sliced_results.count(), 0)
 
     def test_child_model(self):
         # Get results for child model
