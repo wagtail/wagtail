@@ -41,7 +41,9 @@ else:
     FILE_TOO_LARGE_ERROR = ""
     FILE_TOO_LARGE_KNOWN_SIZE_ERROR = ""
 
-    IMAGE_FIELD_HELP_TEXT = ALLOWED_EXTENSIONS_TEXT
+    IMAGE_FIELD_HELP_TEXT = _(
+        "Supported formats: %s."
+    ) % (SUPPORTED_FORMATS_TEXT, )
 
 
 class WagtailImageField(ImageField):
