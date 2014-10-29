@@ -75,6 +75,18 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
+    def test_add_no_file_selected(self):
+        response = self.post({
+            'title': "Test image",
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        self.assertFormError(response, 'form', 'file', "This field is required.")
+
 
 class TestImageEditView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -203,7 +215,35 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
 
-    # TODO: Test uploading through chooser
+    def test_upload(self):
+        response = self.client.post(reverse('wagtailimages_chooser_upload'), {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+    def test_upload_no_file_selected(self):
+        response = self.client.post(reverse('wagtailimages_chooser_upload'), {
+            'title': "Test image",
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # The form should have an error
+        self.assertFormError(response, 'uploadform', 'file', "This field is required.")
 
 
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):

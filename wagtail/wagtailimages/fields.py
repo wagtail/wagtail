@@ -110,7 +110,8 @@ class WagtailImageField(ImageField):
     def to_python(self, data):
         f = super(WagtailImageField, self).to_python(data)
 
-        self.check_image_file_size(f)
-        self.check_image_file_format(f)
+        if f is not None:
+            self.check_image_file_size(f)
+            self.check_image_file_format(f)
 
         return f
