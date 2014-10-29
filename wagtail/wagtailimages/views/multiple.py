@@ -54,7 +54,6 @@ def add(request):
     Image = get_image_model()
     ImageForm = get_image_form()
 
-    # Create a new image form class which doesn't contain the file field
     if request.method == 'POST':
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
