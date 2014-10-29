@@ -37,6 +37,7 @@ Bug fixes
  * Search indexing now avoids trying to index abstract models
  * Fixed references to "username" in login form help text for better custom user model support
  * Later items in a model's search_field list now consistently override earlier items, allowing subclasses to redefine rules from the parent
+* Image uploader now accepts JPEG images that PIL reports as being in MPO format
 
 Upgrade considerations
 ======================
