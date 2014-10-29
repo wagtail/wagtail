@@ -85,15 +85,19 @@ class WagtailImageField(ImageField):
             # Couldn't get the PIL image, skip checking the internal file format
             return
 
-        image_format = extension
-        if extension == 'jpg':
-            image_format = 'jpeg'
+        image_format = extension.upper()
+        if image_format == 'JPG':
+            image_format = 'JPEG'
+
+        internal_image_format = image.format.upper()
+        if internal_image_format == 'MPO':
+            internal_image_format = 'JPEG'
 
         # Check that the internal format matches the extension
         # It is possible to upload PSD files if their extension is set to jpg, png or gif. This should catch them out
-        if image.format.upper() != image_format.upper():
+        if internal_image_format != image_format:
             raise ValidationError(self.error_messages['invalid_image_known_format'] % (
-                image_format.upper()
+                image_format,
             ), code='invalid_image_known_format')
 
     def check_image_file_size(self, f):
