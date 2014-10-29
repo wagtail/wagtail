@@ -16,6 +16,7 @@
     <div class="nice-padding">
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
+            <p>{{ help_text }}
             
             <form action="{% url 'wagtailimages_add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
@@ -61,6 +62,7 @@
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload.js"></script>
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-process.js"></script>
         <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-image.js"></script>
+        <script src="{{ STATIC_URL }}wagtailimages/js/vendor/jquery.fileupload-validate.js"></script>
         <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
 
         <!-- Main script -->
@@ -69,7 +71,15 @@
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
-        window.simple_upload_url = "{% url 'wagtailimages_add_image' %}";
+        window.fileupload_opts = {
+            simple_upload_url: "{% url 'wagtailimages_add_image' %}",
+            accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
+            max_file_size: {{ max_filesize|default:"null" }}, //numeric format
+            errormessages: {
+                max_file_size: "{{ error_max_file_size }}",
+                accepted_file_types: "{{ error_accepted_file_types }}"
+            }
+        }
         window.tagit_opts = {
             autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
         };

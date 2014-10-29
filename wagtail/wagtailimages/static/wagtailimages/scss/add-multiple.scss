@@ -112,6 +112,10 @@
     }
     .upload-failure{
         border-color:$color-red;
+
+        .preview{
+            display:none;
+        }
         
         .status-msg.failure{
             display:block;
