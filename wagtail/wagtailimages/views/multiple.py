@@ -33,7 +33,7 @@ def get_image_edit_form():
     Image = get_image_model()
     ImageForm = get_image_form()
 
-    # Make a new form with the file field excluded
+    # Make a new form with the file and focal point fields excluded
     class ImageEditForm(ImageForm):
         class Meta(ImageForm.Meta):
             model = Image
