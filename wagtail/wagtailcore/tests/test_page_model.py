@@ -600,3 +600,22 @@ class TestSubpageTypeBusinessRules(TestCase):
         # BusinessSubIndex only allows BusinessIndex as a parent
         self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_parent_page_types())
         self.assertIn(ContentType.objects.get_for_model(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+
+
+class TestIssue756(TestCase):
+    """
+    Issue 756 reports that the latest_revision_created_at
+    field was getting clobbered whenever a revision was published
+    """
+    def test_publish_revision_doesnt_remove_latest_revision_created_at(self):
+        # Create a revision
+        revision = Page.objects.get(id=1).save_revision()
+
+        # Check that latest_revision_created_at is set
+        self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
+
+        # Publish the revision
+        revision.publish()
+
+        # Check that latest_revision_created_at is still set
+        self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
