@@ -89,7 +89,7 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         # Add some test data
         obj = models.SearchTest()
-        obj.title = "Ĥéỻø"
+        obj.title = "Ĥéllø"
         obj.live = True
         obj.save()
         self.backend.add(obj)
@@ -102,6 +102,38 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
+
+    def test_query_analyser(self):
+        """
+        This is testing that fields that use edgengram_analyzer as their index analyser do not
+        have it also as their query analyser
+        """
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Hello"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Test search for "Hello"
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
+
+        # Should find the result
+        self.assertEqual(len(results), 1)
+
+        # Test search for "Horse"
+        results = self.backend.search("Horse", models.SearchTest.objects.all())
+
+        # Even though they both start with the letter "H". This should not be considered a match
+        self.assertEqual(len(results), 0)
 
 
 class TestElasticSearchQuery(TestCase):
