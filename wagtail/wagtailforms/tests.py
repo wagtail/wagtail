@@ -24,7 +24,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob', 'your-message': 'hello world'
+            'your-email': 'bob',
+            'your-message': 'hello world',
+            'your-choices': ''
         })
 
         # Check response
@@ -34,7 +36,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com', 'your-message': 'hello world'
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -52,6 +56,27 @@ class TestFormSubmission(TestCase):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+    def test_post_multiple_values(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that the three checkbox values were saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        submission = FormSubmission.objects.filter(
+            page=form_page, form_data__contains='hello world'
+        )
+        self.assertIn("foo", submission[0].form_data)
+        self.assertIn("bar", submission[0].form_data)
+        self.assertIn("baz", submission[0].form_data)
 
 
 class TestPageModes(TestCase):
@@ -89,7 +114,7 @@ class TestFormBuilder(TestCase):
         This tests that all fields were added to the form with the correct types
         """
         form_class = self.fb.get_form_class()
-        
+
         self.assertTrue('your-email' in form_class.base_fields.keys())
         self.assertTrue('your-message' in form_class.base_fields.keys())
 
