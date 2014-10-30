@@ -337,14 +337,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             # has been set and so we can safely call get_parent
             self.set_url_path(self.get_parent())
         else:
-            # see if the slug has changed from the record in the db, in which case we need to
-            # update url_path of self and all descendants
-            old_record = Page.objects.get(id=self.id)
-            if old_record.slug != self.slug:
-                self.set_url_path(self.get_parent())
-                update_descendant_url_paths = True
-                old_url_path = old_record.url_path
-                new_url_path = self.url_path
+            # Check that we are committing the slug to the database
+            # Basically: If update_fields has been specified, and slug is not included, skip this step
+            if not ('update_fields' in kwargs and 'slug' not in kwargs['update_fields']):
+                # see if the slug has changed from the record in the db, in which case we need to
+                # update url_path of self and all descendants
+                old_record = Page.objects.get(id=self.id)
+                if old_record.slug != self.slug:
+                    self.set_url_path(self.get_parent())
+                    update_descendant_url_paths = True
+                    old_url_path = old_record.url_path
+                    new_url_path = self.url_path
 
         result = super(Page, self).save(*args, **kwargs)
 
