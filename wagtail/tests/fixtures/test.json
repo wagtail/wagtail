@@ -256,6 +256,20 @@
         "page": 8
     }
 },
+{
+    "pk": 3,
+    "model": "tests.formfield",
+    "fields": {
+        "sort_order": 3,
+        "label": "Your choices",
+        "field_type": "checkboxes",
+        "required": false,
+        "choices": "foo,bar,baz",
+        "default_value": "",
+        "help_text": "",
+        "page": 8
+    }
+},
 
 {
     "pk": 10,

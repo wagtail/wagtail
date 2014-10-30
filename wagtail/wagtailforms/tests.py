@@ -24,7 +24,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob', 'your-message': 'hello world'
+            'your-email': 'bob',
+            'your-message': 'hello world',
+            'your-choices': ''
         })
 
         # Check response
@@ -34,7 +36,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com', 'your-message': 'hello world'
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -45,13 +49,34 @@ class TestFormSubmission(TestCase):
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "The subject")
-        self.assertTrue("Your message: hello world" in mail.outbox[0].body)
+        self.assertIn("Your message: hello world", mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, ['to@email.com'])
         self.assertEqual(mail.outbox[0].from_email, 'from@email.com')
 
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+    def test_post_multiple_values(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that the three checkbox values were saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        submission = FormSubmission.objects.filter(
+            page=form_page, form_data__contains='hello world'
+        )
+        self.assertIn("foo", submission[0].form_data)
+        self.assertIn("bar", submission[0].form_data)
+        self.assertIn("baz", submission[0].form_data)
 
 
 class TestPageModes(TestCase):
@@ -89,9 +114,9 @@ class TestFormBuilder(TestCase):
         This tests that all fields were added to the form with the correct types
         """
         form_class = self.fb.get_form_class()
-        
-        self.assertTrue('your-email' in form_class.base_fields.keys())
-        self.assertTrue('your-message' in form_class.base_fields.keys())
+
+        self.assertIn('your-email', form_class.base_fields.keys())
+        self.assertIn('your-message', form_class.base_fields.keys())
 
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
@@ -178,7 +203,7 @@ class TestFormsIndex(TestCase):
         response = self.client.get(reverse('wagtailforms_index'))
 
         # Check that the user can see the form page
-        self.assertTrue(self.form_page in response.context['form_pages'])
+        self.assertIn(self.form_page, response.context['form_pages'])
 
 
 class TestFormsSubmissions(TestCase):
@@ -259,4 +284,4 @@ class TestFormsSubmissions(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         data_line = response.content.decode().split("\n")[1]
-        self.assertTrue('new@example.com' in data_line)
+        self.assertIn('new@example.com', data_line)
