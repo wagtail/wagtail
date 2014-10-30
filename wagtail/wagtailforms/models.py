@@ -1,7 +1,7 @@
 import json
 import re
 
-from six import text_type, iteritems
+from six import text_type
 
 from unidecode import unidecode
 
@@ -46,15 +46,7 @@ class FormSubmission(models.Model):
     submit_time = models.DateTimeField(auto_now_add=True)
 
     def get_data(self):
-        # Convert sequences to strings.
-        # This check is required because form values used to be stored
-        # as strings and our now stored as lists, so form data may
-        # contain a mix of lists and strings.
-        data = json.loads(self.form_data)
-        for k, v in iteritems(data):
-            if hasattr(v, '__iter__'):
-                data[k] = ", ".join(data[k])
-        return data
+        return json.loads(self.form_data)
 
     def __str__(self):
         return self.form_data
@@ -141,7 +133,7 @@ class AbstractForm(Page):
     def process_form_submission(self, form):
         # remove csrf_token from form.data
         form_data = dict(
-            i for i in form.data.lists()
+            i for i in form.data.items()
             if i[0] != 'csrfmiddlewaretoken'
         )
 
