@@ -266,8 +266,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # Find the page and check it
         page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
 
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
@@ -322,8 +322,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # Find the page and check it
         page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
 
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
        
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
@@ -550,8 +550,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
     
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page was edited
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -652,8 +652,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
     
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # The page should have "has_unpublished_changes" flag set
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
@@ -1944,8 +1944,8 @@ class TestIssue197(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.tagged_page.id, )), post_data)
 
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(self.tagged_page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that both tags are in the pages tag set
         page = TaggedPage.objects.get(id=self.tagged_page.id)
@@ -2032,8 +2032,8 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.index_page.id, )), post_data)
 
-        # Should be redirected to edit page
-        self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(self.index_page.id, )))
+        # Should be redirected to explorer
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Find the page and check it
         page = Page.objects.get(id=self.index_page.id).specific

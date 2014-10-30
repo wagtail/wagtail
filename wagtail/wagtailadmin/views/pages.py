@@ -222,7 +222,12 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 if hasattr(result, 'status_code'):
                     return result
 
-            return redirect('wagtailadmin_pages_edit', page.id)
+            if is_publishing or is_submitting:
+                # we're done here - redirect back to the explorer
+                return redirect('wagtailadmin_explore', page.get_parent().id)
+            else:
+                # Just saving - remain on edit page for further edits
+                return redirect('wagtailadmin_pages_edit', page.id)
         else:
             messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
@@ -332,7 +337,12 @@ def edit(request, page_id):
                 if hasattr(result, 'status_code'):
                     return result
 
-            return redirect('wagtailadmin_pages_edit', page.id)
+            if is_publishing or is_submitting:
+                # we're done here - redirect back to the explorer
+                return redirect('wagtailadmin_explore', page.get_parent().id)
+            else:
+                # Just saving - remain on edit page for further edits
+                return redirect('wagtailadmin_pages_edit', page.id)
         else:
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
