@@ -600,3 +600,23 @@ class TestSubpageTypeBusinessRules(TestCase):
         # BusinessSubIndex only allows BusinessIndex as a parent
         self.assertNotIn(ContentType.objects.get_for_model(SimplePage), BusinessSubIndex.allowed_parent_page_types())
         self.assertIn(ContentType.objects.get_for_model(BusinessIndex), BusinessSubIndex.allowed_parent_page_types())
+
+
+class TestIssue735(TestCase):
+    """
+    Issue 735 reports that URL paths of child pages are not
+    updated correctly when slugs of parent pages are updated
+    """
+    fixtures = ['test.json']
+
+    def test_child_urls_updated_on_parent_publish(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Change the event index slug and publish it
+        event_index.slug = 'old-events'
+        event_index.save_revision().publish()
+
+        # Check that the christmas events url path updated correctly
+        new_christmas_event = EventPage.objects.get(id=christmas_event.id)
+        self.assertEqual(new_christmas_event.url_path, '/home/old-events/christmas/')
