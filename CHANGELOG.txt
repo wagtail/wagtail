@@ -23,6 +23,7 @@ Changelog
  * Fix: Later items in a model's search_field list now consistently override earlier items, allowing subclasses to redefine rules from the parent
  * Fix: Image uploader now accepts JPEG images that PIL reports as being in MPO format
  * Fix: Multiple checkbox fields on form-builder forms did not correctly save multiple values
+ * Fix: Editing a page's slug and saving it without publishing could sometimes cause the URL paths of child pages to be corrupted
 
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~

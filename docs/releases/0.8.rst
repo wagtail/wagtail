@@ -39,9 +39,15 @@ Bug fixes
  * Later items in a model's search_field list now consistently override earlier items, allowing subclasses to redefine rules from the parent
  * Image uploader now accepts JPEG images that PIL reports as being in MPO format
  * Multiple checkbox fields on form-builder forms did not correctly save multiple values
+ * Editing a page's slug and saving it without publishing could sometimes cause the URL paths of child pages to be corrupted
 
 Upgrade considerations
 ======================
+
+Corrupted URL paths may need fixing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release fixes a bug in Wagtail 0.7 where editing a parent page's slug could cause the URL paths of child pages to become corrupted. To ensure that your database does not contain any corrupted URL paths, it is recommended that you run ``./manage.py set_url_paths`` after upgrading.
 
 Automatic registration of signal handlers (Django 1.7+)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
