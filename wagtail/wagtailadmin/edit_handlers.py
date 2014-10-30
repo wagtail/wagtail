@@ -149,6 +149,11 @@ class EditHandler(object):
     def widget_overrides(cls):
         return {}
 
+    # return list of fields that this EditHandler expects to find on the form
+    @classmethod
+    def required_fields(cls):
+        return []
+
     # return list of formset names that this EditHandler requires to be present
     # as children of the ClusterForm
     @classmethod
@@ -164,6 +169,7 @@ class EditHandler(object):
         if cls._form_class is None:
             cls._form_class = get_form_for_model(
                 model,
+                fields=cls.required_fields(),
                 formsets=cls.required_formsets(), widgets=cls.widget_overrides())
         return cls._form_class
 
@@ -217,33 +223,12 @@ class EditHandler(object):
         # by default, assume that the subclass provides a catch-all render() method
         return self.render()
 
-    def rendered_fields(self):
-        """
-        return a list of the fields of the passed form which are rendered by this
-        EditHandler.
-        """
-        return []
-
-    def render_missing_fields(self):
-        """
-        Helper function: render all of the fields of the form that are not accounted for
-        in rendered_fields
-        """
-        rendered_fields = self.rendered_fields()
-        missing_fields_html = [
-            text_type(self.form[field_name])
-            for field_name in self.form.fields
-            if field_name not in rendered_fields
-        ]
-
-        return mark_safe(''.join(missing_fields_html))
-
     def render_form_content(self):
         """
         Render this as an 'object', along with any unaccounted-for fields to make this
         a valid submittable form
         """
-        return mark_safe(self.render_as_object() + self.render_missing_fields())
+        return mark_safe(self.render_as_object())
 
 
 class BaseCompositeEditHandler(EditHandler):
@@ -263,6 +248,18 @@ class BaseCompositeEditHandler(EditHandler):
             cls._widget_overrides = widgets
 
         return cls._widget_overrides
+
+    _required_fields = None
+
+    @classmethod
+    def required_fields(cls):
+        if cls._required_fields is None:
+            fields = []
+            for handler_class in cls.children:
+                fields.extend(handler_class.required_fields())
+            cls._required_fields = fields
+
+        return cls._required_fields
 
     _required_formsets = None
 
@@ -288,13 +285,6 @@ class BaseCompositeEditHandler(EditHandler):
         return mark_safe(render_to_string(self.template, {
             'self': self
         }))
-
-    def rendered_fields(self):
-        result = []
-        for handler in self.children:
-            result += handler.rendered_fields()
-
-        return result
 
 
 class BaseTabbedInterface(BaseCompositeEditHandler):
@@ -398,7 +388,8 @@ class BaseFieldPanel(EditHandler):
         context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
 
-    def rendered_fields(self):
+    @classmethod
+    def required_fields(self):
         return [self.field_name]
 
 
