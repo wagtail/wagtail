@@ -10,9 +10,6 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
-from wagtail.wagtailimages.babel import ImageBabel
-from wagtail.wagtailimages.backends.pillow import PillowBackend
-from wagtail.wagtailimages.backends.wand import WandBackend
 
 from .utils import Image, get_test_image_file
 
@@ -230,23 +227,3 @@ class TestRect(TestCase):
     def test_get_key(self):
         rect = Rect(100, 150, 200, 250)
         self.assertEqual(rect.get_key(), '150-200-100x100')
-
-
-class TestImageBabel(TestCase):
-    def setUp(self):
-        self.babel = ImageBabel.from_file(get_test_image_file())
-
-    def test_png_uses_pil_to_load(self):
-        self.assertIsInstance(self.babel.backend, PillowBackend)
-
-    def test_gif_uses_wand_to_load(self):
-        # Load a file that's pretending to be a GIF
-        # (it's actually a PNG though, but that doesn't matter)
-        babel = ImageBabel.from_file(get_test_image_file(filename='test.gif'))
-
-        self.assertIsInstance(babel.backend, WandBackend)
-
-    def test_can_switch_to_wand(self):
-        self.babel.switch_backend(WandBackend)
-
-        self.assertIsInstance(self.babel.backend, WandBackend)

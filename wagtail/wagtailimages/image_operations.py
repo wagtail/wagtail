@@ -5,7 +5,7 @@ class DoNothingOperation(object):
     def __init__(self, method):
         pass
 
-    def run(self, babel, image):
+    def run(self, willow_image, image):
         pass
 
 
@@ -32,7 +32,7 @@ class FillOperation(object):
         if self.crop_closeness > 1:
             self.crop_closeness = 1
 
-    def run(self, babel, image):
+    def run(self, willow_image, image):
         focal_point = image.get_focal_point()
 
         # Get crop aspect ratio
@@ -127,10 +127,10 @@ class FillOperation(object):
             bottom = image.height
 
         # Crop!
-        babel.crop(int(left), int(top), int(right), int(bottom))
+        willow_image.crop(int(left), int(top), int(right), int(bottom))
 
         # Resize the final image
-        aftercrop_width, aftercrop_height = babel.get_size()
+        aftercrop_width, aftercrop_height = willow_image.get_size()
         horz_scale = self.width / aftercrop_width
         vert_scale = self.height / aftercrop_height
 
@@ -144,7 +144,7 @@ class FillOperation(object):
             width = int(aftercrop_width * vert_scale)
             height = self.height
 
-        babel.resize(width, height)
+        willow_image.resize(width, height)
 
 
 class MinMaxOperation(object):
@@ -156,7 +156,7 @@ class MinMaxOperation(object):
         self.width = int(width_str)
         self.height = int(height_str)
 
-    def run(self, babel, image):
+    def run(self, willow_image, image):
         horz_scale = self.width / image.width
         vert_scale = self.height / image.height
 
@@ -186,7 +186,7 @@ class MinMaxOperation(object):
             # Unknown method
             return
 
-        babel.resize(width, height)
+        willow_image.resize(width, height)
 
 
 class WidthHeightOperation(object):
@@ -194,7 +194,7 @@ class WidthHeightOperation(object):
         self.method = method
         self.size = int(size)
 
-    def run(self, babel, image):
+    def run(self, willow_image, image):
         if self.method == 'width':
             if image.width <= self.size:
                 return
@@ -217,4 +217,4 @@ class WidthHeightOperation(object):
             # Unknown method
             return
 
-        babel.resize(width, height)
+        willow_image.resize(width, height)

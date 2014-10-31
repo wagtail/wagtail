@@ -4,6 +4,7 @@ import re
 from six import BytesIO
 
 from taggit.managers import TaggableManager
+from willow.image import Image as WillowImage
 
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
@@ -23,7 +24,6 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
-from wagtail.wagtailimages.babel import ImageBabel
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailadmin.utils import get_object_usage
 
@@ -76,12 +76,12 @@ class AbstractImage(models.Model, TagSearchable):
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
 
-    def get_babel(self):
+    def get_willow_image(self):
         image_file = self.file.file
         image_file.open('rb')
         image_file.seek(0)
 
-        return ImageBabel.from_file(image_file)
+        return WillowImage.from_file(image_file)
 
     def get_focal_point(self):
         if self.focal_point_x is not None and \
@@ -111,9 +111,9 @@ class AbstractImage(models.Model, TagSearchable):
             self.focal_point_height = None
 
     def get_suggested_focal_point(self):
-        babel = self.get_babel()
+        willow_image = self.get_willow_image()
 
-        faces = babel.detect_faces()
+        faces = willow_image.detect_faces()
         if faces:
             # Create a bounding box around all faces
             left = min(face.left for face in faces)
@@ -122,7 +122,7 @@ class AbstractImage(models.Model, TagSearchable):
             bottom = max(face.bottom for face in faces)
             focal_point = Rect(left, top, right, bottom)
         else:
-            features = babel.detect_features()
+            features = willow_image.detect_features()
             if features:
                 # Create a bounding box around all features
                 left = min(feature.x for feature in features)
@@ -280,12 +280,12 @@ class Filter(models.Model):
         return operations
 
     def run(self, image, output_file):
-        babel = image.get_babel()
+        willow_image = image.get_willow_image()
 
         for operation in self.operations:
-            operation.run(babel, image)
+            operation.run(willow_image, image)
 
-        babel.save_as_jpeg(output_file)
+        willow_image.save_as_jpeg(output_file)
 
         return output_file
 
