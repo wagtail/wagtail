@@ -1037,6 +1037,7 @@ class PageRevision(models.Model):
         obj.has_unpublished_changes = self.page.has_unpublished_changes
         obj.owner = self.page.owner
         obj.locked = self.page.locked
+        obj.latest_revision_created_at = self.page.latest_revision_created_at
 
         return obj
 

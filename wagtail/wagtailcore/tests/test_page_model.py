@@ -620,3 +620,22 @@ class TestIssue735(TestCase):
         # Check that the christmas events url path updated correctly
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
         self.assertEqual(new_christmas_event.url_path, '/home/old-events/christmas/')
+
+
+class TestIssue756(TestCase):
+    """
+    Issue 756 reports that the latest_revision_created_at
+    field was getting clobbered whenever a revision was published
+    """
+    def test_publish_revision_doesnt_remove_latest_revision_created_at(self):
+        # Create a revision
+        revision = Page.objects.get(id=1).save_revision()
+
+        # Check that latest_revision_created_at is set
+        self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
+
+        # Publish the revision
+        revision.publish()
+
+        # Check that latest_revision_created_at is still set
+        self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
