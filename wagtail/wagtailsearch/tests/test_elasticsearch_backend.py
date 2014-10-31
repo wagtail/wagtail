@@ -89,7 +89,7 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         # Add some test data
         obj = models.SearchTest()
-        obj.title = "Ĥéỻø"
+        obj.title = "Ĥéllø"
         obj.live = True
         obj.save()
         self.backend.add(obj)
@@ -102,6 +102,38 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, obj.id)
+
+    def test_query_analyser(self):
+        """
+        This is testing that fields that use edgengram_analyzer as their index analyser do not
+        have it also as their query analyser
+        """
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Hello"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Test search for "Hello"
+        results = self.backend.search("Hello", models.SearchTest.objects.all())
+
+        # Should find the result
+        self.assertEqual(len(results), 1)
+
+        # Test search for "Horse"
+        results = self.backend.search("Horse", models.SearchTest.objects.all())
+
+        # Even though they both start with the letter "H". This should not be considered a match
+        self.assertEqual(len(results), 0)
 
 
 class TestElasticSearchQuery(TestCase):
@@ -310,10 +342,10 @@ class TestElasticSearchMapping(TestCase):
                 'properties': {
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer'},
+                    'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True}
@@ -382,15 +414,15 @@ class TestElasticSearchMappingInheritance(TestCase):
                 'properties': {
                     # New
                     'extra_content': {'type': 'string', 'include_in_all': True},
-                    'subtitle': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer'},
+                    'subtitle': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
 
                     # Inherited
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
                     'content_type': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
-                    '_partials': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
+                    '_partials': {'index_analyzer': 'edgengram_analyzer', 'include_in_all': False, 'type': 'string'},
                     'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
                     'published_date_filter': {'index': 'not_analyzed', 'type': 'date', 'include_in_all': False},
-                    'title': {'type': 'string', 'include_in_all': True, 'analyzer': 'edgengram_analyzer'},
+                    'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
                     'callable_indexed_field': {'type': 'string', 'include_in_all': True}

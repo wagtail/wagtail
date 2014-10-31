@@ -62,7 +62,7 @@ class ElasticSearchMapping(object):
                 mapping['boost'] = field.boost
 
             if field.partial_match:
-                mapping['analyzer'] = 'edgengram_analyzer'
+                mapping['index_analyzer'] = 'edgengram_analyzer'
 
             mapping['include_in_all'] = True
         elif isinstance(field, FilterField):
@@ -80,7 +80,7 @@ class ElasticSearchMapping(object):
         fields = {
             'pk': dict(type='string', index='not_analyzed', store='yes', include_in_all=False),
             'content_type': dict(type='string', index='not_analyzed', include_in_all=False),
-            '_partials': dict(type='string', analyzer='edgengram_analyzer', include_in_all=False),
+            '_partials': dict(type='string', index_analyzer='edgengram_analyzer', include_in_all=False),
         }
 
         fields.update(dict(
