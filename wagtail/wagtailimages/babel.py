@@ -1,5 +1,6 @@
 import os.path
 from io import BytesIO
+import bisect
 
 from wagtail.wagtailimages.rect import Rect
 
@@ -45,25 +46,10 @@ class ImageBabel(object):
 
     @classmethod
     def from_file(cls, f, initial_backend=None):
-        # TODO: Make this extensible
-        from wagtail.wagtailimages.backends.pillow import PillowBackend
-        from wagtail.wagtailimages.backends.wand import WandBackend
         if not initial_backend:
             # Work out best initial backend based on file extension
-            pil_exts = ['.jpg', '.jpeg', '.png']
-            wand_exts = ['.gif']
-
-            if PillowBackend is None:
-                wand_exts += pil_exts
-
-            if WandBackend is None:
-                pil_exts += wand_exts
-
             ext = os.path.splitext(f.name)[1].lower()
-            if PillowBackend is not None and ext in pil_exts:
-                initial_backend = PillowBackend
-            elif WandBackend is not None and ext in wand_exts:
-                initial_backend = WandBackend
+            initial_backend = cls.find_loader(ext)
 
         if initial_backend:
             return cls(initial_backend.from_file(f))
@@ -119,6 +105,53 @@ class ImageBabel(object):
                 ])
                 raise RuntimeError(message)
 
+    loaders = {}
+
+    @classmethod
+    def register_loader(cls, extension, backend, priority=0):
+        # If extension is a list or tuple, call this method for each one
+        if isinstance(extension, (list, tuple)):
+            for ext in extension:
+                cls.register_loader(ext, backend, priority=priority)
+            return
+
+        # Normalise the extension
+        if not extension.startswith('.'):
+            extension = '.' + extension
+
+        # Register extension in loaders
+        if extension not in cls.loaders:
+            cls.loaders[extension] = []
+
+        # Add the backend
+        bisect.insort_right(cls.loaders[extension], (priority, backend))
+
+    @classmethod
+    def find_loader(cls, extension):
+        if extension not in cls.loaders:
+            return
+
+        # Find all backends that can load images with this extension
+        backends = [backend for priority, backend in cls.loaders[extension]]
+        if backends:
+            # Now filter that list to only include backends that are available
+            available_backends, unavailable_backends = cls.check_backends(backends)
+
+            if available_backends:
+                # Select the last available backend
+                # The loaders list should be sorted with best backends last
+                return available_backends[-1]
+
+            elif unavailable_backends:
+                # Some backends were found but none of them are available, raise an error
+                message = '\n'.join([
+                    "This file can be loaded by the following backends but they all returned an error:"
+                ] + [
+                    "%s -- %s" % (backend.__name__, error)
+                    for backend, error in unavailable_backends
+                ])
+                raise RuntimeError(message)
+
 
 # Register builtin image backends
 from wagtail.wagtailimages.backends.pillow import PillowBackend
@@ -128,3 +161,13 @@ from wagtail.wagtailimages.backends.opencv import OpenCVBackend
 ImageBabel.register_backend(PillowBackend)
 ImageBabel.register_backend(WandBackend)
 ImageBabel.register_backend(OpenCVBackend)
+
+
+# Pillow is very good at loading PNG and JPEG files
+ImageBabel.register_loader(['.png', '.jpg', '.jpeg'], PillowBackend, priority=100)
+
+# Pillow can load gifs too, but without animation
+ImageBabel.register_loader('.gif', PillowBackend, priority=-100)
+
+# Wand can load PNG, JPEG and GIF (with animation), but doesn't work as fast as Pillow
+ImageBabel.register_loader(['.png', '.jpg', '.jpeg', '.gif'], WandBackend)
