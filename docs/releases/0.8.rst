@@ -40,6 +40,8 @@ Bug fixes
  * Image uploader now accepts JPEG images that PIL reports as being in MPO format
  * Multiple checkbox fields on form-builder forms did not correctly save multiple values
  * Editing a page's slug and saving it without publishing could sometimes cause the URL paths of child pages to be corrupted
+ * ``latest_revision_created_at`` was being cleared on page publish, causing the page to drop to the bottom of explorer listings
+
 
 Upgrade considerations
 ======================
