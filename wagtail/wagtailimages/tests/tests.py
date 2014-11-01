@@ -7,7 +7,8 @@ from django import template
 from django.utils import six
 from django.core.urlresolvers import reverse
 
-from wagtail.wagtailimages.utils.crypto import generate_signature, verify_signature
+from wagtail.wagtailimages.utils import generate_signature, verify_signature
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
 
 from .utils import Image, get_test_image_file
@@ -177,3 +178,52 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+
+class TestRect(TestCase):
+    def test_init(self):
+        rect = Rect(100, 150, 200, 250)
+        self.assertEqual(rect.left, 100)
+        self.assertEqual(rect.top, 150)
+        self.assertEqual(rect.right, 200)
+        self.assertEqual(rect.bottom, 250)
+
+    def test_equality(self):
+        self.assertEqual(Rect(100, 150, 200, 250), Rect(100, 150, 200, 250))
+        self.assertNotEqual(Rect(100, 150, 200, 250), Rect(10, 15, 20, 25))
+
+    def test_getitem(self):
+        rect = Rect(100, 150, 200, 250)
+        self.assertEqual(rect[0], 100)
+        self.assertEqual(rect[1], 150)
+        self.assertEqual(rect[2], 200)
+        self.assertEqual(rect[3], 250)
+        self.assertRaises(IndexError, rect.__getitem__, 4)
+
+    def test_as_tuple(self):
+        rect = Rect(100, 150, 200, 250)
+        self.assertEqual(rect.as_tuple(), (100, 150, 200, 250))
+
+    def test_size(self):
+        rect = Rect(100, 150, 200, 350)
+        self.assertEqual(rect.size, (100, 200))
+        self.assertEqual(rect.width, 100)
+        self.assertEqual(rect.height, 200)
+
+    def test_centroid(self):
+        rect = Rect(100, 150, 200, 350)
+        self.assertEqual(rect.centroid, (150, 250))
+        self.assertEqual(rect.centroid_x, 150)
+        self.assertEqual(rect.centroid_y, 250)
+
+    def test_repr(self):
+        rect = Rect(100, 150, 200, 250)
+        self.assertEqual(repr(rect), "Rect(left: 100, top: 150, right: 200, bottom: 250)")
+
+    def test_from_point(self):
+        rect = Rect.from_point(100, 200, 50, 20)
+        self.assertEqual(rect, Rect(75, 190, 125, 210))
+
+    def test_get_key(self):
+        rect = Rect(100, 150, 200, 250)
+        self.assertEqual(rect.get_key(), '150-200-100x100')

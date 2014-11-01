@@ -1,3 +1,5 @@
+from willow.image import Image as WillowImage
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -11,8 +13,7 @@ from wagtail.tests.utils import WagtailTestUtils, unittest
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition
-from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file
 
@@ -30,6 +31,57 @@ class TestImage(TestCase):
 
     def test_is_landscape(self):
         self.assertTrue(self.image.is_landscape())
+
+    def test_get_rect(self):
+        self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
+
+    def test_get_focal_point(self):
+        self.assertEqual(self.image.get_focal_point(), None)
+
+        # Add a focal point to the image
+        self.image.focal_point_x = 100
+        self.image.focal_point_y = 200
+        self.image.focal_point_width = 50
+        self.image.focal_point_height = 20
+
+        # Get it
+        self.assertEqual(self.image.get_focal_point(), Rect(75, 190, 125, 210))
+
+    def test_has_focal_point(self):
+        self.assertFalse(self.image.has_focal_point())
+
+        # Add a focal point to the image
+        self.image.focal_point_x = 100
+        self.image.focal_point_y = 200
+        self.image.focal_point_width = 50
+        self.image.focal_point_height = 20
+
+        self.assertTrue(self.image.has_focal_point())
+
+    def test_set_focal_point(self):
+        self.assertEqual(self.image.focal_point_x, None)
+        self.assertEqual(self.image.focal_point_y, None)
+        self.assertEqual(self.image.focal_point_width, None)
+        self.assertEqual(self.image.focal_point_height, None)
+
+        self.image.set_focal_point(Rect(100, 150, 200, 350))
+
+        self.assertEqual(self.image.focal_point_x, 150)
+        self.assertEqual(self.image.focal_point_y, 250)
+        self.assertEqual(self.image.focal_point_width, 100)
+        self.assertEqual(self.image.focal_point_height, 200)
+
+        self.image.set_focal_point(None)
+
+        self.assertEqual(self.image.focal_point_x, None)
+        self.assertEqual(self.image.focal_point_y, None)
+        self.assertEqual(self.image.focal_point_width, None)
+        self.assertEqual(self.image.focal_point_height, None)
+
+    def test_get_willow_image(self):
+        willow_image = self.image.get_willow_image()
+
+        self.assertIsInstance(willow_image, WillowImage)
 
 
 class TestImagePermissions(TestCase):
@@ -73,11 +125,6 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
-    def test_default_backend(self):
-        # default backend should be pillow
-        backend = get_image_backend()
-        self.assertTrue(isinstance(backend, PillowBackend))
-
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
 
@@ -92,59 +139,6 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
 
-
-    def test_resize_to_min(self):
-        rendition = self.image.get_rendition('min-120x120')
-
-        # Check size
-        self.assertEqual(rendition.width, 160)
-        self.assertEqual(rendition.height, 120)
-
-    def test_resize_to_original(self):
-        rendition = self.image.get_rendition('original')
-
-        # Check size
-        self.assertEqual(rendition.width, 640)
-        self.assertEqual(rendition.height, 480)
-
-    def test_cache(self):
-        # Get two renditions with the same filter
-        first_rendition = self.image.get_rendition('width-400')
-        second_rendition = self.image.get_rendition('width-400')
-
-        # Check that they are the same object
-        self.assertEqual(first_rendition, second_rendition)
-
-
-class TestRenditionsWand(TestCase):
-    def setUp(self):
-        try:
-            import wand
-        except ImportError:
-            # skip these tests if Wand is not installed
-            raise unittest.SkipTest(
-                "Skipping image backend tests for wand, as wand is not installed")
-
-        # Create an image for running tests on
-        self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-        self.image.backend = 'wagtail.wagtailimages.backends.wand.WandBackend'
-
-    def test_minification(self):
-        rendition = self.image.get_rendition('width-400')
-
-        # Check size
-        self.assertEqual(rendition.width, 400)
-        self.assertEqual(rendition.height, 300)
-
-    def test_resize_to_max(self):
-        rendition = self.image.get_rendition('max-100x100')
-
-        # Check size
-        self.assertEqual(rendition.width, 100)
-        self.assertEqual(rendition.height, 75)
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')

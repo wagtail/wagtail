@@ -16,7 +16,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
-from wagtail.wagtailimages.utils.crypto import generate_signature
+from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
 
 
@@ -165,6 +165,7 @@ def generate_url(request, image_id, filter_spec):
         }, status=403)
 
     # Parse the filter spec to make sure its valid
+    # TODO: Update this
     if not Filter(spec=filter_spec).is_valid():
         return json_response({
             'error': "Invalid filter spec."

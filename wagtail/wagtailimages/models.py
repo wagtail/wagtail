@@ -4,6 +4,7 @@ import re
 from six import BytesIO
 
 from taggit.managers import TaggableManager
+from willow.image import Image as WillowImage
 
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
@@ -21,10 +22,9 @@ from django.core.urlresolvers import reverse
 from unidecode import unidecode
 
 from wagtail.wagtailadmin.taggable import TagSearchable
-from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
-from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages import image_operations
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -73,71 +73,87 @@ class AbstractImage(models.Model, TagSearchable):
     def __str__(self):
         return self.title
 
-    @property
-    def focal_point(self):
+    def get_rect(self):
+        return Rect(0, 0, self.width, self.height)
+
+    def get_willow_image(self):
+        image_file = self.file.file
+        image_file.open('rb')
+        image_file.seek(0)
+
+        return WillowImage.from_file(image_file)
+
+    def get_focal_point(self):
         if self.focal_point_x is not None and \
            self.focal_point_y is not None and \
            self.focal_point_width is not None and \
            self.focal_point_height is not None:
-            return FocalPoint(
+            return Rect.from_point(
                 self.focal_point_x,
                 self.focal_point_y,
-                width=self.focal_point_width,
-                height=self.focal_point_height,
+                self.focal_point_width,
+                self.focal_point_height,
             )
 
-    @focal_point.setter
-    def focal_point(self, focal_point):
-        if focal_point is not None:
-            self.focal_point_x = focal_point.x
-            self.focal_point_y = focal_point.y
-            self.focal_point_width = focal_point.width
-            self.focal_point_height = focal_point.height
+    def has_focal_point(self):
+        return self.get_focal_point() is not None
+
+    def set_focal_point(self, rect):
+        if rect is not None:
+            self.focal_point_x = rect.centroid_x
+            self.focal_point_y = rect.centroid_y
+            self.focal_point_width = rect.width
+            self.focal_point_height = rect.height
         else:
             self.focal_point_x = None
             self.focal_point_y = None
             self.focal_point_width = None
             self.focal_point_height = None
 
-    def get_suggested_focal_point(self, backend_name='default'):
-        backend = get_image_backend(backend_name)
-        image_file = self.file.file
+    def get_suggested_focal_point(self):
+        willow_image = self.get_willow_image()
 
-        # Make sure image is open and seeked to the beginning
-        image_file.open('rb')
-        image_file.seek(0)
+        faces = willow_image.detect_faces()
+        if faces:
+            # Create a bounding box around all faces
+            left = min(face.left for face in faces)
+            top = min(face.top for face in faces)
+            right = max(face.right for face in faces)
+            bottom = max(face.bottom for face in faces)
+            focal_point = Rect(left, top, right, bottom)
+        else:
+            features = willow_image.detect_features()
+            if features:
+                # Create a bounding box around all features
+                left = min(feature.x for feature in features)
+                top = min(feature.y for feature in features)
+                right = max(feature.x for feature in features)
+                bottom = max(feature.y for feature in features)
+                focal_point = Rect(left, top, right, bottom)
 
-        # Load the image
-        image = backend.open_image(self.file.file)
-        image_data = backend.image_data_as_rgb(image)
+        # Add 20% to width and height and give it a minimum size
+        x, y = focal_point.centroid
+        width, height = focal_point.size
 
-        # Make sure we have image data
-        # If the image is animated, image_data_as_rgb will return None
-        if image_data is None:
-            return
+        width *= 1.20
+        height *= 1.20
 
-        # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-        focal_point = feature_detector.get_focal_point()
+        width = max(width, 100)
+        height = max(height, 100)
 
-        # Add 20% extra room around the edge of the focal point
-        if focal_point:
-            focal_point.width *= 1.20
-            focal_point.height *= 1.20
-
-        return focal_point
+        return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'process_image'):
+        if not hasattr(filter, 'run'):
             # assume we've been passed a filter spec string, rather than a Filter object
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         try:
-            if self.focal_point:
+            if self.has_focal_point():
                 rendition = self.renditions.get(
                     filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
+                    focal_point_key=self.get_focal_point().get_key(),
                 )
             else:
                 rendition = self.renditions.get(
@@ -145,30 +161,26 @@ class AbstractImage(models.Model, TagSearchable):
                     focal_point_key='',
                 )
         except ObjectDoesNotExist:
-            file_field = self.file
-
-            # If we have a backend attribute then pass it to process
-            # image - else pass 'default'
-            backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
+            # Run the filter
+            generated_image = filter.run(self, BytesIO())
 
             # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
-            if self.focal_point is not None:
-                focal_point_key = "focus-" + self.focal_point.get_key()
+            if self.has_focal_point():
+                focal_point_key = "focus-" + self.get_focal_point().get_key()
             else:
                 focal_point_key = "focus-none"
 
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            input_filename_parts = os.path.basename(self.file.file.name).split('.')
             filename_without_extension = '.'.join(input_filename_parts[:-1])
             extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
             filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
             output_filename = filename_without_extension + '.' + extension
             generated_image_file = File(generated_image, name=output_filename)
 
-            if self.focal_point:
+            if self.has_focal_point():
                 rendition, created = self.renditions.get_or_create(
                     filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
+                    focal_point_key=self.get_focal_point().get_key(),
                     defaults={'file': generated_image_file}
                 )
             else:
@@ -218,13 +230,10 @@ class Image(AbstractImage):
 @receiver(pre_save, sender=Image)
 def image_feature_detection(sender, instance, **kwargs):
     if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        if not opencv_available:
-            raise ImproperlyConfigured("pyOpenCV could not be found.")
-
         # Make sure the image doesn't already have a focal point
-        if instance.focal_point is None:
+        if not instance.has_focal_point():
             # Set the focal point
-            instance.focal_point = instance.get_suggested_focal_point()
+            instance.set_focal_point(instance.get_suggested_focal_point())
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
@@ -259,91 +268,42 @@ class Filter(models.Model):
     """
     spec = models.CharField(max_length=255, db_index=True)
 
-    OPERATION_NAMES = {
-        'max': 'resize_to_max',
-        'min': 'resize_to_min',
-        'width': 'resize_to_width',
-        'height': 'resize_to_height',
-        'fill': 'resize_to_fill',
-        'original': 'no_operation',
-    }
-
-    class InvalidFilterSpecError(ValueError):
-        pass
-
-    def _parse_spec_string(self):
-        # parse the spec string and return the method name and method arg.
-        # There are various possible formats to match against:
-        # 'original'
-        # 'width-200'
-        # 'max-320x200'
-        # 'fill-200x200-c50'
-
-        if self.spec == 'original':
-            return Filter.OPERATION_NAMES['original'], None
-
-        match = re.match(r'(width|height)-(\d+)$', self.spec)
-        if match:
-            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
-
-        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            crop_closeness = int(match.group(4))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height, crop_closeness)
-
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
-
-        # Spec is not one of our recognised patterns
-        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
-
     @cached_property
-    def _method(self):
-        return self._parse_spec_string()
+    def operations(self):
+        operations = []
 
-    def is_valid(self):
-        try:
-            self._parse_spec_string()
-            return True
-        except Filter.InvalidFilterSpecError:
-            return False
+        for op_spec in self.spec.split():
+            op_spec_parts = op_spec.split('-')
+            op_class = self._registered_operations[op_spec_parts[0]]
+            operations.append(op_class(*op_spec_parts))
 
-    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
-        """
-        Run this filter on the given image file then write the result into output_file and return it
-        If output_file is not given, a new BytesIO will be used instead
-        """
-        # Get backend
-        backend = get_image_backend(backend_name)
+        return operations
 
-        # Parse spec string
-        method_name, method_arg = self._method
+    def run(self, image, output_file):
+        willow_image = image.get_willow_image()
 
-        # Open image
-        input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
+        for operation in self.operations:
+            operation.run(willow_image, image)
 
-        # Process image
-        method = getattr(backend, method_name)
-        image = method(image, method_arg, focal_point=focal_point)
-
-        # Make sure we have an output file
-        if output_file is None:
-            output_file = BytesIO()
-
-        # Write output
-        backend.save_image(image, output_file, file_format)
-
-        # Close the input file
-        input_file.close()
+        willow_image.save_as_jpeg(output_file)
 
         return output_file
+
+
+    _registered_operations = {}
+
+    @classmethod
+    def register_operation(cls, operation_name, operation_class):
+        cls._registered_operations[operation_name] = operation_class
+
+
+# TODO: Make this work with hooks
+Filter.register_operation('original', image_operations.DoNothingOperation)
+Filter.register_operation('fill', image_operations.FillOperation)
+Filter.register_operation('min', image_operations.MinMaxOperation)
+Filter.register_operation('max', image_operations.MinMaxOperation)
+Filter.register_operation('width', image_operations.WidthHeightOperation)
+Filter.register_operation('height', image_operations.WidthHeightOperation)
 
 
 class AbstractRendition(models.Model):
