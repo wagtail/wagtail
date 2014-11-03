@@ -91,6 +91,10 @@ The available resizing methods are:
         This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000, height 1000, treated with ``fill`` dimensions ``200x200`` would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
         This filter will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
+        
+        **On images that won't upscale**
+        
+        It's possible to request an image with ``fill`` dimensions that the image can't support without upscaling. e.g an image 400x200 requested with ``fill-400x400``. In this situation the *ratio of the requested fill* will be matched, but the dimension will not. So with that example 400x200 image, the resulting image will be 200x200.
 
         **Cropping closer to the focal point**
 
