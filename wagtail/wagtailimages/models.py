@@ -180,62 +180,35 @@ class AbstractImage(models.Model, TagSearchable):
         return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'process_image'):
+        if not hasattr(filter, 'run'):
             # assume we've been passed a filter spec string, rather than a Filter object
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
 
+        vary_key = filter.get_vary_key(self)
+
         try:
-            if self.has_focal_point():
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key=self.get_focal_point().get_key(),
-                )
-            else:
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key='',
-                )
+            rendition = self.renditions.get(
+                filter=filter,
+                focal_point_key=vary_key,
+            )
         except ObjectDoesNotExist:
-            file_field = self.file
+            # Generate the rendition image
+            generated_image = filter.run(self, BytesIO())
 
-            # If we have a backend attribute then pass it to process
-            # image - else pass 'default'
-            backend_name = getattr(self, 'backend', 'default')
+            # Generate filename
+            input_filename = os.path.basename(self.file.file.name)
+            input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
-            try:
-                image_file = file_field.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
-            except IOError as e:
-                # re-throw this as a SourceImageIOError so that calling code can distinguish
-                # these from IOErrors elsewhere in the process
-                raise SourceImageIOError(text_type(e))
+            output_extension = '.'.join([vary_key, filter.spec]) + input_extension
+            output_filename_without_extension = input_filename_without_extension[:(59-len(output_extension))] # Truncate filename to prevent it going over 60 chars
+            output_filename = output_filename_without_extension + '.' + output_extension
 
-            generated_image = filter.process_image(image_file, backend_name=backend_name, focal_point=self.get_focal_point())
-
-            # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
-            if self.has_focal_point():
-                focal_point_key = "focus-" + self.get_focal_point().get_key()
-            else:
-                focal_point_key = "focus-none"
-
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
-            filename_without_extension = '.'.join(input_filename_parts[:-1])
-            extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
-            filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
-            output_filename = filename_without_extension + '.' + extension
-            generated_image_file = File(generated_image, name=output_filename)
-
-            if self.has_focal_point():
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    focal_point_key=self.get_focal_point().get_key(),
-                    defaults={'file': generated_image_file}
-                )
-            else:
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    defaults={'file': generated_image_file}
-                )
+            rendition, created = self.renditions.get_or_create(
+                filter=filter,
+                focal_point_key=vary_key,
+                defaults={'file': File(generated_image, name=output_filename)}
+            )
 
         return rendition
 
