@@ -4,9 +4,12 @@
 {% block furniture %}
     <div class="nav-wrapper">
         <div class="inner">
-            {% block admin_logo %}
-                <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}"><img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" /><span>{% trans "Dashboard" %}</span></a>
-            {% endblock %}
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
+                {% block admin_logo %}
+                    <img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" />
+                {% endblock %}
+                <span>{% trans "Dashboard" %}</span>
+            </a>
             
             <form class="nav-search" action="{% url 'wagtailadmin_pages_search' %}" method="get">
                 <div>
