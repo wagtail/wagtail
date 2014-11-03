@@ -1,7 +1,7 @@
 Change Logo in Dashboard
 ========================
 
-In your projects with Wagtail, maybe need switch the default logo to other image. For this, you need override the block ``logo_admin``.
+In your projects with Wagtail, maybe need switch the default logo to other image. For this, you need override the block ``logo_admin``::
 
     {% extends "wagtailadmin/base.html" %}
     
