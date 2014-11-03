@@ -1,4 +1,5 @@
 import os.path
+import hashlib
 import re
 
 from six import BytesIO, text_type
@@ -427,6 +428,22 @@ class Filter(models.Model):
         willow.save_as_jpeg(output)
 
         return output
+
+    def get_vary(self, image):
+        vary = []
+
+        for operation in self.operations:
+            if hasattr(operation, 'get_vary'):
+                vary.extend(operation.get_vary(image))
+
+        return vary
+
+    def get_vary_key(self, image):
+        vary_string = '-'.join(self.get_vary(image))
+        vary_key = hashlib.sha1(vary_string.encode('utf-8')).hexdigest()
+
+        return vary_key[:8]
+
 
     _registered_operations = None
 
