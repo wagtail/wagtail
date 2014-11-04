@@ -140,6 +140,8 @@ class AbstractImage(models.Model, TagSearchable):
                 right = max(feature.x for feature in features)
                 bottom = max(feature.y for feature in features)
                 focal_point = Rect(left, top, right, bottom)
+            else:
+                return None
 
         # Add 20% to width and height and give it a minimum size
         x, y = focal_point.centroid
