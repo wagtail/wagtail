@@ -127,36 +127,19 @@ class AbstractImage(models.Model, TagSearchable):
             self.focal_point_width = None
             self.focal_point_height = None
 
-    def get_suggested_focal_point(self, backend_name='default'):
-        backend = get_image_backend(backend_name)
-        image_file = self.file.file
+    def get_suggested_focal_point(self):
+        willow = self.get_willow_image()
 
-        # Make sure image is open and seeked to the beginning
-        image_file.open('rb')
-        image_file.seek(0)
-
-        # Load the image
-        image = backend.open_image(self.file.file)
-        image_data = backend.image_data_as_rgb(image)
-
-        # Make sure we have image data
-        # If the image is animated, image_data_as_rgb will return None
-        if image_data is None:
-            return
-
-        # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-
-        faces = feature_detector.detect_faces()
+        faces = willow.detect_faces()
         if faces:
             # Create a bounding box around all faces
-            left = min(face.left for face in faces)
-            top = min(face.top for face in faces)
-            right = max(face.right for face in faces)
-            bottom = max(face.bottom for face in faces)
+            left = min(face[0] for face in faces)
+            top = min(face[1] for face in faces)
+            right = max(face[2] for face in faces)
+            bottom = max(face[3] for face in faces)
             focal_point = Rect(left, top, right, bottom)
         else:
-            features = feature_detector.detect_features()
+            features = willow.detect_features()
             if features:
                 # Create a bounding box around all features
                 left = min(feature[0] for feature in features)
