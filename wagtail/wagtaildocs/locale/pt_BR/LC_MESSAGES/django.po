@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:12+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/wagtail/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: models.py:21 templates/wagtaildocs/documents/list.html:11
@@ -32,7 +33,7 @@ msgstr "Arquivo"
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: wagtail_hooks.py:26 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:28 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Documentos"
 
@@ -67,8 +68,14 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\n            Há um resultado\n        "
-msgstr[1] "\n            Há %(counter)s resultados\n        "
+msgstr[0] ""
+"\n"
+"            Há um resultado\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Há %(counter)s resultados\n"
+"        "
 
 #: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
@@ -128,9 +135,11 @@ msgstr "Enviados"
 #: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Você não enviou nenhum documento. Por que não <a href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Você não enviou nenhum documento. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
 #: templates/wagtaildocs/documents/usage.html:3
 #, python-format

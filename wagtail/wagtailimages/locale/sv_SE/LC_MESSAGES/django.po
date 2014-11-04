@@ -1,71 +1,110 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/wagtail/language/sv_SE/)\n"
+"Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/wagtail/"
+"language/sv_SE/)\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:37
+#: fields.py:13
+msgid "GIF, JPEG, PNG"
+msgstr ""
+
+#: fields.py:16
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr ""
+
+#: fields.py:20
+#, python-format
+msgid "Not a valid %s image."
+msgstr ""
+
+#: fields.py:29
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr ""
+
+#: fields.py:33
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr ""
+
+#: fields.py:37
+#, python-format
+msgid "Supported formats: %s. Maximum filesize: %s."
+msgstr ""
+
+#: fields.py:45
+#, python-format
+msgid "Supported formats: %s."
+msgstr ""
+
+#: forms.py:50
 msgid "Filter"
 msgstr ""
 
-#: forms.py:39
+#: forms.py:52
 msgid "Original size"
 msgstr ""
 
-#: forms.py:40
+#: forms.py:53
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:41
+#: forms.py:54
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:42
+#: forms.py:55
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:43
+#: forms.py:56
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:44
+#: forms.py:57
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:47
+#: forms.py:60
 msgid "Width"
 msgstr ""
 
-#: forms.py:48
+#: forms.py:61
 msgid "Height"
 msgstr ""
 
-#: models.py:48 templates/wagtailimages/images/usage.html:16
+#: forms.py:62
+msgid "Closeness"
+msgstr ""
+
+#: models.py:47 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr ""
 
-#: models.py:49
+#: models.py:48
 msgid "File"
 msgstr ""
 
-#: models.py:55
+#: models.py:54
 msgid "Tags"
 msgstr ""
 
-#: wagtail_hooks.py:69 templates/wagtailimages/images/index.html:5
+#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18
 msgid "Images"
 msgstr ""
@@ -81,7 +120,7 @@ msgid "Search"
 msgstr ""
 
 #: templates/wagtailimages/chooser/chooser.html:9
-#: templates/wagtailimages/chooser/chooser.html:43
+#: templates/wagtailimages/chooser/chooser.html:47
 msgid "Upload"
 msgstr ""
 
@@ -137,14 +176,14 @@ msgstr ""
 msgid "Add image"
 msgstr ""
 
-#: templates/wagtailimages/images/add.html:25
-#: templates/wagtailimages/images/edit.html:33
+#: templates/wagtailimages/images/add.html:29
+#: templates/wagtailimages/images/edit.html:46
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:4
 #: templates/wagtailimages/images/confirm_delete.html:8
-#: templates/wagtailimages/images/edit.html:33
+#: templates/wagtailimages/images/edit.html:46
 msgid "Delete image"
 msgstr ""
 
@@ -162,8 +201,26 @@ msgstr ""
 msgid "Editing image %(title)s"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:15
+#: templates/wagtailimages/images/edit.html:26
 msgid "Editing"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:51
+msgid "Focal point (optional)"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:52
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:52
+msgid "Current focal point shown"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:64
+msgid "URL Generator"
 msgstr ""
 
 #: templates/wagtailimages/images/results.html:31
@@ -174,23 +231,23 @@ msgstr ""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
 msgstr ""
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
 msgstr ""
 
-#: templates/wagtailimages/images/url_generator.html:25
+#: templates/wagtailimages/images/url_generator.html:26
 msgid "URL"
 msgstr ""
 
-#: templates/wagtailimages/images/url_generator.html:28
+#: templates/wagtailimages/images/url_generator.html:29
 msgid "Preview"
 msgstr ""
 
-#: templates/wagtailimages/images/url_generator.html:34
+#: templates/wagtailimages/images/url_generator.html:35
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
@@ -233,62 +290,49 @@ msgstr ""
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:22
+#: templates/wagtailimages/multiple/add.html:23
 msgid "Or choose from your computer"
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:47
+#: templates/wagtailimages/multiple/add.html:48
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:48
+#: templates/wagtailimages/multiple/add.html:49
 msgid "Sorry, upload failed."
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:10
+#: templates/wagtailimages/multiple/edit_form.html:14
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:11
+#: templates/wagtailimages/multiple/edit_form.html:15
 msgid "Delete"
 msgstr ""
 
-#: utils/validators.py:17 utils/validators.py:28
-msgid ""
-"Not a valid image. Please use a gif, jpeg or png file with the correct file "
-"extension (*.gif, *.jpg or *.png)."
-msgstr ""
-
-#: utils/validators.py:35
-#, python-format
-msgid ""
-"Not a valid %s image. Please use a gif, jpeg or png file with the correct "
-"file extension (*.gif, *.jpg or *.png)."
-msgstr ""
-
-#: views/images.py:38 views/images.py:48
+#: views/images.py:39 views/images.py:49
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:105
+#: views/images.py:106
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:108
+#: views/images.py:109
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:194
+#: views/images.py:195
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:217
+#: views/images.py:218
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:220
+#: views/images.py:221
 msgid "The image could not be created due to errors."
 msgstr ""

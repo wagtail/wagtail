@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-08-17 01:44+0000\n"
 "Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/wagtail/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:9
@@ -27,15 +28,19 @@ msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
-msgstr "Digite o texto completo para procurar a correspondência. Uma \n        correspondência exata é necessária para que as Sugestões dos Editores, escolha a que será \n        exibida, curingas NÃO serão permitidas."
+msgstr ""
+"Digite o texto completo para procurar a correspondência. Uma \n"
+"        correspondência exata é necessária para que as Sugestões dos "
+"Editores, escolha a que será \n"
+"        exibida, curingas NÃO serão permitidas."
 
-#: forms.py:36
+#: forms.py:37
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
 
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "Sugestões do editor"
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -45,18 +50,24 @@ msgstr "Add sugestões do editor"
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"                <p>Editors picks are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with a less common term like \"<em>giving</em>\".</p>\n"
-"                "
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/add.html:13
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
 "            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:27
+#: templates/wagtailsearch/editorspicks/add.html:14
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/add.html:28
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Salvar"
@@ -73,9 +84,12 @@ msgid "Delete"
 msgstr "Excluir"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
+#, fuzzy
 msgid ""
-"Are you sure you want to delete all editors picks for this search term?"
-msgstr "Tem certeza de que deseja excluir todas as sugestões dos editores para este termo de busca?"
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Tem certeza de que deseja excluir todas as sugestões dos editores para este "
+"termo de busca?"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
 msgid "Yes, delete"
@@ -94,17 +108,17 @@ msgstr "Editando"
 msgid "Search Terms"
 msgstr "Procurar Termos"
 
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "Buscar sugestões do editor"
-
 #: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "Add nova sugestão do editor"
+msgid "Add new promoted result"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
 msgstr "Procurar termo(s)"
+
+#: templates/wagtailsearch/editorspicks/list.html:9
+msgid "Promoted results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -129,19 +143,25 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\n            Há um resultado\n        "
-msgstr[1] "\n            Há %(counter)s resultados\n        "
+msgstr[0] ""
+"\n"
+"            Há um resultado\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Há %(counter)s resultados\n"
+"        "
 
 #: templates/wagtailsearch/editorspicks/results.html:18
 #, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
 #, python-format
 msgid ""
-"No editor's picks have been created. Why not <a "
-"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
@@ -153,8 +173,16 @@ msgid "Move down"
 msgstr "Mover para baixo"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "Sugestões do editor"
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
+msgid "Choose another page"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
+msgid "Choose a page"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
 msgid "Add recommended page"
@@ -199,3 +227,15 @@ msgstr "As recomendações não puderam ser salvas devido a erros"
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
 msgstr "Sugestões do editor deletado."
+
+#~ msgid "Editors picks"
+#~ msgstr "Sugestões do editor"
+
+#~ msgid "Editor's search picks"
+#~ msgstr "Buscar sugestões do editor"
+
+#~ msgid "Add new editor's pick"
+#~ msgstr "Add nova sugestão do editor"
+
+#~ msgid "Editors pick"
+#~ msgstr "Sugestões do editor"

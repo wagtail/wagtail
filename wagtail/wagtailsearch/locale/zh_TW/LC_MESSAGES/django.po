@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -31,13 +31,13 @@ msgstr ""
 "        輸入必須和你的 '編者精選' 完全一樣 \n"
 "        (不能使用萬用字元)"
 
-#: forms.py:36
+#: forms.py:37
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "編者精選"
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -48,18 +48,18 @@ msgstr "新增編者精選"
 #, fuzzy
 msgid ""
 "\n"
-"                <p>Editors picks are a means of recommending specific pages "
-"that might not organically come high up in search results. E.g recommending "
-"your primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
-"                "
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
 msgstr ""
 "\n"
 "        <p>編者精選是用於推薦部份在搜尋排名不高的頁面。 例如用關鍵字推薦使用"
 "者到捐獻頁面。</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:13
+#: templates/wagtailsearch/editorspicks/add.html:14
 #, fuzzy
 msgid ""
 "\n"
@@ -74,7 +74,7 @@ msgstr ""
 "能拼錯的詞。 提示，你可以從熱門的關鍵字選擇。</p>\n"
 "        "
 
-#: templates/wagtailsearch/editorspicks/add.html:27
+#: templates/wagtailsearch/editorspicks/add.html:28
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "儲存"
@@ -91,7 +91,9 @@ msgid "Delete"
 msgstr "刪除"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
+#, fuzzy
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
 msgstr "你確定想要刪除所有搜尋到的編者精選？"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
@@ -111,17 +113,17 @@ msgstr "編輯"
 msgid "Search Terms"
 msgstr "搜尋關鍵字"
 
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "編者精選"
-
 #: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "新增新的編者精選"
+msgid "Add new promoted result"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
 msgstr "搜尋關鍵字"
+
+#: templates/wagtailsearch/editorspicks/list.html:9
+msgid "Promoted results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -154,14 +156,14 @@ msgstr[1] ""
 "            有 $(counter)s 個符合"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
-#, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
+#, fuzzy, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "對不起，沒有任何編者精選符合 \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"No editor's picks have been created. Why not <a href="
+"No promoted results have been created. Why not <a href="
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 "沒有任何編者精選。 為什麼不 <a href=\"%(wagtailsearch_editorspicks_add_url)s"
@@ -176,8 +178,16 @@ msgid "Move down"
 msgstr "往下移動"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "編者精選"
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
+msgid "Choose another page"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
+msgid "Choose a page"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
 msgid "Add recommended page"
@@ -222,3 +232,15 @@ msgstr ""
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
 msgstr "編者精選已刪除"
+
+#~ msgid "Editors picks"
+#~ msgstr "編者精選"
+
+#~ msgid "Editor's search picks"
+#~ msgstr "編者精選"
+
+#~ msgid "Add new editor's pick"
+#~ msgstr "新增新的編者精選"
+
+#~ msgid "Editors pick"
+#~ msgstr "編者精選"

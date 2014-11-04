@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
@@ -34,13 +34,13 @@ msgstr ""
 "ser\n"
 "mostrades, les wildcars NO estan permeses."
 
-#: forms.py:36
+#: forms.py:37
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "Selecció dels editors"
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -50,14 +50,14 @@ msgstr "afegeix selecció dels editors"
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"                <p>Editors picks are a means of recommending specific pages "
-"that might not organically come high up in search results. E.g recommending "
-"your primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
-"                "
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:13
+#: templates/wagtailsearch/editorspicks/add.html:14
 msgid ""
 "\n"
 "                <p>The \"Search term(s)/phrase\" field below must contain "
@@ -67,7 +67,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:27
+#: templates/wagtailsearch/editorspicks/add.html:28
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Desa"
@@ -84,7 +84,9 @@ msgid "Delete"
 msgstr "Esborra"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
+#, fuzzy
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Estàs segur que vols esborrar totes les seleccions dels editors per aquest "
 "terme de cerca?"
@@ -106,17 +108,17 @@ msgstr "Editant"
 msgid "Search Terms"
 msgstr "Termini de cerca"
 
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "Cercar seleccions dels editors"
-
 #: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "Afegeix una nova selecció de l'editor"
+msgid "Add new promoted result"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
 msgstr "Cerca paraula(es)"
+
+#: templates/wagtailsearch/editorspicks/list.html:9
+msgid "Promoted results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -149,15 +151,15 @@ msgstr[1] ""
 "Hi han %(counter)s coincidències"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
-#, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
+#, fuzzy, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ho sentim, cap selecció d'editor coincideix amb \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"No editor's picks have been created. Why not <a href="
+"No promoted results have been created. Why not <a href="
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 "Encara no s'ha creat cap selecció d'editor. Per què no <a href="
@@ -172,8 +174,16 @@ msgid "Move down"
 msgstr "Baixa"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "Selecció dels editors"
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
+msgid "Choose another page"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
+msgid "Choose a page"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
 msgid "Add recommended page"
@@ -218,3 +228,15 @@ msgstr ""
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
 msgstr "Selecció de l'editor esborrada."
+
+#~ msgid "Editors picks"
+#~ msgstr "Selecció dels editors"
+
+#~ msgid "Editor's search picks"
+#~ msgstr "Cercar seleccions dels editors"
+
+#~ msgid "Add new editor's pick"
+#~ msgstr "Afegeix una nova selecció de l'editor"
+
+#~ msgid "Editors pick"
+#~ msgstr "Selecció dels editors"

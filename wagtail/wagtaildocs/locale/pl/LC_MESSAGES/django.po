@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:12+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -35,7 +35,7 @@ msgstr "Plik"
 msgid "Tags"
 msgstr "Tagi"
 
-#: wagtail_hooks.py:26 templates/wagtaildocs/documents/index.html:16
+#: wagtail_hooks.py:28 templates/wagtaildocs/documents/index.html:16
 msgid "Documents"
 msgstr "Dokumenty"
 

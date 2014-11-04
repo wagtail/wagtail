@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -35,13 +35,13 @@ msgstr ""
 "απαιτείται ακριβές ταίριασμα, δεν επιτρέπονται\n"
 "αστεράκια."
 
-#: forms.py:36
+#: forms.py:37
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/list.html:9
-msgid "Editors picks"
-msgstr "Επιλογές συντακτών"
+#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -51,14 +51,14 @@ msgstr "Προσθήκη επιλογής συντακτών"
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"                <p>Editors picks are a means of recommending specific pages "
-"that might not organically come high up in search results. E.g recommending "
-"your primary donation page to a user searching with a less common term like "
-"\"<em>giving</em>\".</p>\n"
-"                "
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:13
+#: templates/wagtailsearch/editorspicks/add.html:14
 msgid ""
 "\n"
 "                <p>The \"Search term(s)/phrase\" field below must contain "
@@ -68,7 +68,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/add.html:27
+#: templates/wagtailsearch/editorspicks/add.html:28
 #: templates/wagtailsearch/editorspicks/edit.html:19
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -85,7 +85,9 @@ msgid "Delete"
 msgstr "Διαγραφή"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-msgid "Are you sure you want to delete all editors picks for this search term?"
+#, fuzzy
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
 "εν λόγω όρο αναζήτησης;"
@@ -107,17 +109,17 @@ msgstr "Διόρθωση"
 msgid "Search Terms"
 msgstr "Όροι αναζήτησης"
 
-#: templates/wagtailsearch/editorspicks/index.html:17
-msgid "Editor's search picks"
-msgstr "Επιλογές συντακτών"
-
 #: templates/wagtailsearch/editorspicks/index.html:18
-msgid "Add new editor's pick"
-msgstr "Προσθήκη νέας επιλογής συντακτών"
+msgid "Add new promoted result"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
 msgstr "Όροι αναζήτησης"
+
+#: templates/wagtailsearch/editorspicks/list.html:9
+msgid "Promoted results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -150,16 +152,16 @@ msgstr[1] ""
 "Βρέθηκαν %(counter)s αποτελέσματα"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
-#, python-format
-msgid "Sorry, no editor's picks match \"<em>%(query_string)s</em>\""
+#, fuzzy, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Λυπούμαστε, δε ταιριάζουν επιλογές συντακτών με το \"<em>%(query_string)s</"
 "em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"No editor's picks have been created. Why not <a href="
+"No promoted results have been created. Why not <a href="
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 "Δεν υπάρχουν επιλογές συντακτών. Θέλετε να <a href="
@@ -174,8 +176,16 @@ msgid "Move down"
 msgstr "Κάτω"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Editors pick"
-msgstr "Επιλογή συντακτών"
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
+msgid "Choose another page"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
+msgid "Choose a page"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
 msgid "Add recommended page"
@@ -220,3 +230,15 @@ msgstr ""
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
 msgstr "Επιτυχής διαγραφή επιλογής συντακτών."
+
+#~ msgid "Editors picks"
+#~ msgstr "Επιλογές συντακτών"
+
+#~ msgid "Editor's search picks"
+#~ msgstr "Επιλογές συντακτών"
+
+#~ msgid "Add new editor's pick"
+#~ msgstr "Προσθήκη νέας επιλογής συντακτών"
+
+#~ msgid "Editors pick"
+#~ msgstr "Επιλογή συντακτών"

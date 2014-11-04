@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-09-01 19:33+0000\n"
 "Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/wagtail/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:11
@@ -39,7 +40,9 @@ msgstr "Inserir"
 msgid ""
 "There seems to be a problem with your embedly API key. Please check your "
 "settings."
-msgstr "Parece que há um problema com sua chave API anexada. Por favor verifique suas configurações."
+msgstr ""
+"Parece que há um problema com sua chave API anexada. Por favor verifique "
+"suas configurações."
 
 #: views/chooser.py:35
 msgid "Cannot find an embed for this URL."
@@ -49,4 +52,6 @@ msgstr "Não pode achar um anexo para esta URL."
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
-msgstr "Parece que houve um erro com a importação durante a tentativa de anexar esta URL. Por favor tente novamente."
+msgstr ""
+"Parece que houve um erro com a importação durante a tentativa de anexar esta "
+"URL. Por favor tente novamente."

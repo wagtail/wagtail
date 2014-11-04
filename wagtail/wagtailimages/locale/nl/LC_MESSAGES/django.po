@@ -1,72 +1,111 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # mahulst, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-10-29 07:52+0000\n"
 "Last-Translator: mahulst\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:37
+#: fields.py:13
+msgid "GIF, JPEG, PNG"
+msgstr ""
+
+#: fields.py:16
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr ""
+
+#: fields.py:20
+#, python-format
+msgid "Not a valid %s image."
+msgstr ""
+
+#: fields.py:29
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr ""
+
+#: fields.py:33
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr ""
+
+#: fields.py:37
+#, python-format
+msgid "Supported formats: %s. Maximum filesize: %s."
+msgstr ""
+
+#: fields.py:45
+#, python-format
+msgid "Supported formats: %s."
+msgstr ""
+
+#: forms.py:50
 msgid "Filter"
 msgstr "Filter"
 
-#: forms.py:39
+#: forms.py:52
 msgid "Original size"
 msgstr "Originele grootte"
 
-#: forms.py:40
+#: forms.py:53
 msgid "Resize to width"
 msgstr "vergroot of verklein naar breedte"
 
-#: forms.py:41
+#: forms.py:54
 msgid "Resize to height"
 msgstr "vergroot of verklein naar hoogte"
 
-#: forms.py:42
+#: forms.py:55
 msgid "Resize to min"
 msgstr "Verklein naar minimale grootte"
 
-#: forms.py:43
+#: forms.py:56
 msgid "Resize to max"
 msgstr "Vergroot naar maximale grootte"
 
-#: forms.py:44
+#: forms.py:57
 msgid "Resize to fill"
 msgstr "Vergroot of verklein om uit te vullen"
 
-#: forms.py:47
+#: forms.py:60
 msgid "Width"
 msgstr "Breedte"
 
-#: forms.py:48
+#: forms.py:61
 msgid "Height"
 msgstr "Hoogte"
 
-#: models.py:48 templates/wagtailimages/images/usage.html:16
+#: forms.py:62
+msgid "Closeness"
+msgstr ""
+
+#: models.py:47 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:49
+#: models.py:48
 msgid "File"
 msgstr "Bestand"
 
-#: models.py:55
+#: models.py:54
 msgid "Tags"
 msgstr "Bestand"
 
-#: wagtail_hooks.py:69 templates/wagtailimages/images/index.html:5
+#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18
 msgid "Images"
 msgstr "Afbeeldingen"
@@ -82,7 +121,7 @@ msgid "Search"
 msgstr "Zoek"
 
 #: templates/wagtailimages/chooser/chooser.html:9
-#: templates/wagtailimages/chooser/chooser.html:43
+#: templates/wagtailimages/chooser/chooser.html:47
 msgid "Upload"
 msgstr "Upload"
 
@@ -101,8 +140,12 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nEr is een resultaat"
-msgstr[1] "\ner zijn %(counter)s resultaten"
+msgstr[0] ""
+"\n"
+"Er is een resultaat"
+msgstr[1] ""
+"\n"
+"er zijn %(counter)s resultaten"
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -138,14 +181,14 @@ msgstr "Voeg een afbeelding toe"
 msgid "Add image"
 msgstr "Afbeelding toevoegen"
 
-#: templates/wagtailimages/images/add.html:25
-#: templates/wagtailimages/images/edit.html:33
+#: templates/wagtailimages/images/add.html:29
+#: templates/wagtailimages/images/edit.html:46
 msgid "Save"
 msgstr "Opslaan"
 
 #: templates/wagtailimages/images/confirm_delete.html:4
 #: templates/wagtailimages/images/confirm_delete.html:8
-#: templates/wagtailimages/images/edit.html:33
+#: templates/wagtailimages/images/edit.html:46
 msgid "Delete image"
 msgstr "Afbeelding verwijderen"
 
@@ -163,9 +206,27 @@ msgstr "Ja, verwijder"
 msgid "Editing image %(title)s"
 msgstr "Wijzigen van afbeelding %(title)s"
 
-#: templates/wagtailimages/images/edit.html:15
+#: templates/wagtailimages/images/edit.html:26
 msgid "Editing"
 msgstr "Wijzigen"
+
+#: templates/wagtailimages/images/edit.html:51
+msgid "Focal point (optional)"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:52
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:52
+msgid "Current focal point shown"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:64
+msgid "URL Generator"
+msgstr ""
 
 #: templates/wagtailimages/images/results.html:31
 #, python-format
@@ -175,27 +236,31 @@ msgstr "Sorry, er is geen resultaat voor \"\"<em>%(query_string)s</em>\"\" "
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "U hebt geen afbeeldingen geupload. Waarom  <a href=\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"U hebt geen afbeeldingen geupload. Waarom  <a href="
+"\"%(wagtailimages_add_image_url)s\">voegt u er niet een toe</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
 msgstr "URL aan het genereren"
 
-#: templates/wagtailimages/images/url_generator.html:25
+#: templates/wagtailimages/images/url_generator.html:26
 msgid "URL"
 msgstr "URL"
 
-#: templates/wagtailimages/images/url_generator.html:28
+#: templates/wagtailimages/images/url_generator.html:29
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: templates/wagtailimages/images/url_generator.html:34
+#: templates/wagtailimages/images/url_generator.html:35
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr "Let op, de afbeeldingen die groter dan het scherm zijn worden in het voorbeeld verkleind."
+msgstr ""
+"Let op, de afbeeldingen die groter dan het scherm zijn worden in het "
+"voorbeeld verkleind."
 
 #: templates/wagtailimages/images/usage.html:3
 #, python-format
@@ -234,62 +299,66 @@ msgstr "Voeg afbeeldingen toe"
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Sleep afbeelding hierheen om ze onmiddelijk te uploaden."
 
-#: templates/wagtailimages/multiple/add.html:22
+#: templates/wagtailimages/multiple/add.html:23
 msgid "Or choose from your computer"
 msgstr "Of kies van uw computer"
 
-#: templates/wagtailimages/multiple/add.html:47
+#: templates/wagtailimages/multiple/add.html:48
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr "Upload geslaagd. Vergeet de afbeelding niet een meer passende titel te geven, mocht dat nodig zijn. U kunt de afbeelding ook verwijderen als de upload niet nodig was."
+msgstr ""
+"Upload geslaagd. Vergeet de afbeelding niet een meer passende titel te "
+"geven, mocht dat nodig zijn. U kunt de afbeelding ook verwijderen als de "
+"upload niet nodig was."
 
-#: templates/wagtailimages/multiple/add.html:48
+#: templates/wagtailimages/multiple/add.html:49
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload niet geslaagd."
 
-#: templates/wagtailimages/multiple/edit_form.html:10
+#: templates/wagtailimages/multiple/edit_form.html:14
 msgid "Update"
 msgstr "Updaten"
 
-#: templates/wagtailimages/multiple/edit_form.html:11
+#: templates/wagtailimages/multiple/edit_form.html:15
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: utils/validators.py:17 utils/validators.py:28
-msgid ""
-"Not a valid image. Please use a gif, jpeg or png file with the correct file "
-"extension (*.gif, *.jpg or *.png)."
-msgstr "Geen geldige afbeelding. Gebruik alstublieft een gif, jpeg of png met de juiste extensie  (*.gif, *.jpg or *.png)."
-
-#: utils/validators.py:35
-#, python-format
-msgid ""
-"Not a valid %s image. Please use a gif, jpeg or png file with the correct "
-"file extension (*.gif, *.jpg or *.png)."
-msgstr "Geen geldige %s afbeelding. Gebruik alstublieft een gif, jpeg of png met de juiste extensie  (*.gif, *.jpg or *.png)."
-
-#: views/images.py:38 views/images.py:48
+#: views/images.py:39 views/images.py:49
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
-#: views/images.py:105
+#: views/images.py:106
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' geüpdatet"
 
-#: views/images.py:108
+#: views/images.py:109
 msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon niet opgeslagen worden door foutmeldingen."
 
-#: views/images.py:194
+#: views/images.py:195
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' deleted."
 
-#: views/images.py:217
+#: views/images.py:218
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
-#: views/images.py:220
+#: views/images.py:221
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon niet gemaakt worden door foutmeldingen."
+
+#~ msgid ""
+#~ "Not a valid image. Please use a gif, jpeg or png file with the correct "
+#~ "file extension (*.gif, *.jpg or *.png)."
+#~ msgstr ""
+#~ "Geen geldige afbeelding. Gebruik alstublieft een gif, jpeg of png met de "
+#~ "juiste extensie  (*.gif, *.jpg or *.png)."
+
+#~ msgid ""
+#~ "Not a valid %s image. Please use a gif, jpeg or png file with the correct "
+#~ "file extension (*.gif, *.jpg or *.png)."
+#~ msgstr ""
+#~ "Geen geldige %s afbeelding. Gebruik alstublieft een gif, jpeg of png met "
+#~ "de juiste extensie  (*.gif, *.jpg or *.png)."
