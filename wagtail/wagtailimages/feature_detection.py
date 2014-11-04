@@ -20,7 +20,7 @@ else:
     opencv_available = False
 
 
-from wagtail.wagtailimages.utils.focal_point import FocalPoint, combine_focal_points
+from wagtail.wagtailimages.rect import Rect
 
 
 class FeatureDetector(object):
@@ -50,7 +50,7 @@ class FeatureDetector(object):
             points = cv.GoodFeaturesToTrack(image, eig_image, temp_image, 20, 0.04, 1.0, useHarris=False)
 
             if points:
-                return [FocalPoint(x, y, 1) for x, y in points]
+                return points
 
         return []
 
@@ -73,19 +73,6 @@ class FeatureDetector(object):
             )
 
             if faces:
-                return [FocalPoint.from_square(face[0][0], face[0][1], face[0][2], face[0][3]) for face in faces]
+                return [Rect(face[0][0], face[0][1], face[0][0] + face[0][2], face[0][1] + face[0][3]) for face in faces]
 
         return []
-
-    def get_focal_point(self):
-        # Face detection
-        faces = self.detect_faces()
-
-        if faces:
-            return combine_focal_points(faces)
-
-        # Feature detection
-        features = self.detect_features()
-
-        if features:
-            return combine_focal_points(features)

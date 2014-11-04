@@ -13,6 +13,7 @@ from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file
 
@@ -30,6 +31,52 @@ class TestImage(TestCase):
 
     def test_is_landscape(self):
         self.assertTrue(self.image.is_landscape())
+
+    def test_get_rect(self):
+        self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
+
+    def test_get_focal_point(self):
+        self.assertEqual(self.image.get_focal_point(), None)
+
+        # Add a focal point to the image
+        self.image.focal_point_x = 100
+        self.image.focal_point_y = 200
+        self.image.focal_point_width = 50
+        self.image.focal_point_height = 20
+
+        # Get it
+        self.assertEqual(self.image.get_focal_point(), Rect(75, 190, 125, 210))
+
+    def test_has_focal_point(self):
+        self.assertFalse(self.image.has_focal_point())
+
+        # Add a focal point to the image
+        self.image.focal_point_x = 100
+        self.image.focal_point_y = 200
+        self.image.focal_point_width = 50
+        self.image.focal_point_height = 20
+
+        self.assertTrue(self.image.has_focal_point())
+
+    def test_set_focal_point(self):
+        self.assertEqual(self.image.focal_point_x, None)
+        self.assertEqual(self.image.focal_point_y, None)
+        self.assertEqual(self.image.focal_point_width, None)
+        self.assertEqual(self.image.focal_point_height, None)
+
+        self.image.set_focal_point(Rect(100, 150, 200, 350))
+
+        self.assertEqual(self.image.focal_point_x, 150)
+        self.assertEqual(self.image.focal_point_y, 250)
+        self.assertEqual(self.image.focal_point_width, 100)
+        self.assertEqual(self.image.focal_point_height, 200)
+
+        self.image.set_focal_point(None)
+
+        self.assertEqual(self.image.focal_point_x, None)
+        self.assertEqual(self.image.focal_point_y, None)
+        self.assertEqual(self.image.focal_point_width, None)
+        self.assertEqual(self.image.focal_point_height, None)
 
 
 class TestImagePermissions(TestCase):

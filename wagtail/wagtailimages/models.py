@@ -23,8 +23,8 @@ from unidecode import unidecode
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.utils.focal_point import FocalPoint
-from wagtail.wagtailimages.utils.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
+from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -73,26 +73,30 @@ class AbstractImage(models.Model, TagSearchable):
     def __str__(self):
         return self.title
 
-    @property
-    def focal_point(self):
+    def get_rect(self):
+        return Rect(0, 0, self.width, self.height)
+
+    def get_focal_point(self):
         if self.focal_point_x is not None and \
            self.focal_point_y is not None and \
            self.focal_point_width is not None and \
            self.focal_point_height is not None:
-            return FocalPoint(
+            return Rect.from_point(
                 self.focal_point_x,
                 self.focal_point_y,
-                width=self.focal_point_width,
-                height=self.focal_point_height,
+                self.focal_point_width,
+                self.focal_point_height,
             )
 
-    @focal_point.setter
-    def focal_point(self, focal_point):
-        if focal_point is not None:
-            self.focal_point_x = focal_point.x
-            self.focal_point_y = focal_point.y
-            self.focal_point_width = focal_point.width
-            self.focal_point_height = focal_point.height
+    def has_focal_point(self):
+        return self.get_focal_point() is not None
+
+    def set_focal_point(self, rect):
+        if rect is not None:
+            self.focal_point_x = rect.centroid_x
+            self.focal_point_y = rect.centroid_y
+            self.focal_point_width = rect.width
+            self.focal_point_height = rect.height
         else:
             self.focal_point_x = None
             self.focal_point_y = None
@@ -118,14 +122,38 @@ class AbstractImage(models.Model, TagSearchable):
 
         # Use feature detection to find a focal point
         feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-        focal_point = feature_detector.get_focal_point()
 
-        # Add 20% extra room around the edge of the focal point
-        if focal_point:
-            focal_point.width *= 1.20
-            focal_point.height *= 1.20
+        faces = feature_detector.detect_faces()
+        if faces:
+            # Create a bounding box around all faces
+            left = min(face.left for face in faces)
+            top = min(face.top for face in faces)
+            right = max(face.right for face in faces)
+            bottom = max(face.bottom for face in faces)
+            focal_point = Rect(left, top, right, bottom)
+        else:
+            features = feature_detector.detect_features()
+            if features:
+                # Create a bounding box around all features
+                left = min(feature.x for feature in features)
+                top = min(feature.y for feature in features)
+                right = max(feature.x for feature in features)
+                bottom = max(feature.y for feature in features)
+                focal_point = Rect(left, top, right, bottom)
+            else:
+                return None
 
-        return focal_point
+        # Add 20% to width and height and give it a minimum size
+        x, y = focal_point.centroid
+        width, height = focal_point.size
+
+        width *= 1.20
+        height *= 1.20
+
+        width = max(width, 100)
+        height = max(height, 100)
+
+        return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
         if not hasattr(filter, 'process_image'):
@@ -134,10 +162,10 @@ class AbstractImage(models.Model, TagSearchable):
             filter, created = Filter.objects.get_or_create(spec=filter)
 
         try:
-            if self.focal_point:
+            if self.has_focal_point():
                 rendition = self.renditions.get(
                     filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
+                    focal_point_key=self.get_focal_point().get_key(),
                 )
             else:
                 rendition = self.renditions.get(
@@ -150,11 +178,11 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.focal_point)
+            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.get_focal_point())
 
             # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
-            if self.focal_point is not None:
-                focal_point_key = "focus-" + self.focal_point.get_key()
+            if self.has_focal_point():
+                focal_point_key = "focus-" + self.get_focal_point().get_key()
             else:
                 focal_point_key = "focus-none"
 
@@ -165,10 +193,10 @@ class AbstractImage(models.Model, TagSearchable):
             output_filename = filename_without_extension + '.' + extension
             generated_image_file = File(generated_image, name=output_filename)
 
-            if self.focal_point:
+            if self.has_focal_point():
                 rendition, created = self.renditions.get_or_create(
                     filter=filter,
-                    focal_point_key=self.focal_point.get_key(),
+                    focal_point_key=self.get_focal_point().get_key(),
                     defaults={'file': generated_image_file}
                 )
             else:
@@ -222,9 +250,9 @@ def image_feature_detection(sender, instance, **kwargs):
             raise ImproperlyConfigured("pyOpenCV could not be found.")
 
         # Make sure the image doesn't already have a focal point
-        if instance.focal_point is None:
+        if not instance.has_focal_point():
             # Set the focal point
-            instance.focal_point = instance.get_suggested_focal_point()
+            instance.set_focal_point(instance.get_suggested_focal_point())
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
