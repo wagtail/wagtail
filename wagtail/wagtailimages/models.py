@@ -24,9 +24,7 @@ from unidecode import unidecode
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.taggable import TagSearchable
-from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
@@ -234,9 +232,6 @@ class Image(AbstractImage):
 @receiver(pre_save, sender=Image)
 def image_feature_detection(sender, instance, **kwargs):
     if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
-        if not opencv_available:
-            raise ImproperlyConfigured("pyOpenCV could not be found.")
-
         # Make sure the image doesn't already have a focal point
         if not instance.has_focal_point():
             # Set the focal point
@@ -274,93 +269,6 @@ class Filter(models.Model):
     but could potentially involve colour processing, etc.
     """
     spec = models.CharField(max_length=255, db_index=True, unique=True)
-
-    OPERATION_NAMES = {
-        'max': 'resize_to_max',
-        'min': 'resize_to_min',
-        'width': 'resize_to_width',
-        'height': 'resize_to_height',
-        'fill': 'resize_to_fill',
-        'original': 'no_operation',
-    }
-
-    class InvalidFilterSpecError(ValueError):
-        pass
-
-    def _parse_spec_string(self):
-        # parse the spec string and return the method name and method arg.
-        # There are various possible formats to match against:
-        # 'original'
-        # 'width-200'
-        # 'max-320x200'
-        # 'fill-200x200-c50'
-
-        if self.spec == 'original':
-            return Filter.OPERATION_NAMES['original'], None
-
-        match = re.match(r'(width|height)-(\d+)$', self.spec)
-        if match:
-            return Filter.OPERATION_NAMES[match.group(1)], int(match.group(2))
-
-        match = re.match(r'(fill)-(\d+)x(\d+)-c(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            crop_closeness = int(match.group(4))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height, crop_closeness)
-
-        match = re.match(r'(max|min|fill)-(\d+)x(\d+)$', self.spec)
-        if match:
-            width = int(match.group(2))
-            height = int(match.group(3))
-            return Filter.OPERATION_NAMES[match.group(1)], (width, height)
-
-        # Spec is not one of our recognised patterns
-        raise Filter.InvalidFilterSpecError("Invalid image filter spec: %r" % self.spec)
-
-    @cached_property
-    def _method(self):
-        return self._parse_spec_string()
-
-    def is_valid(self):
-        try:
-            self._parse_spec_string()
-            return True
-        except Filter.InvalidFilterSpecError:
-            return False
-
-    def process_image(self, input_file, output_file=None, focal_point=None, backend_name='default'):
-        """
-        Run this filter on the given image file then write the result into output_file and return it
-        If output_file is not given, a new BytesIO will be used instead
-        """
-        # Get backend
-        backend = get_image_backend(backend_name)
-
-        # Parse spec string
-        method_name, method_arg = self._method
-
-        # Open image
-        input_file.open('rb')
-        image = backend.open_image(input_file)
-        file_format = image.format
-
-        # Process image
-        method = getattr(backend, method_name)
-        image = method(image, method_arg, focal_point=focal_point)
-
-        # Make sure we have an output file
-        if output_file is None:
-            output_file = BytesIO()
-
-        # Write output
-        backend.save_image(image, output_file, file_format)
-
-        # Close the input file
-        input_file.close()
-
-        return output_file
-
 
     @cached_property
     def operations(self):
