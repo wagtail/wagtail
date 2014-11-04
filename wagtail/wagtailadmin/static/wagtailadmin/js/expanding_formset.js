@@ -16,11 +16,14 @@ function buildExpandingFormset(prefix, opts) {
     }
 
     addButton.click(function() {
-        var newFormHtml = emptyFormTemplate.replace(/__prefix__/g, formCount);
+        var newFormHtml = emptyFormTemplate
+            .replace(/__prefix__/g, formCount)
+            .replace(/<-(-*)\/script>/g, '<$1/script>');
         formContainer.append(newFormHtml);
         if (opts.onAdd) {
             opts.onAdd(formCount);
         }
+
 
         formCount++;
         totalFormsInput.val(formCount);

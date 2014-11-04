@@ -1,3 +1,5 @@
+{% load wagtailadmin_tags  %}
+
 {{ self.formset.management_form }}
 <ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
     {% for child in self.children %}
@@ -6,7 +8,9 @@
 </ul>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% escapescript %}
+{% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% endescapescript %}
 </script>
 
 <p class="add">

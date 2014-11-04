@@ -257,7 +257,7 @@ function InlinePanel(opts) {
             }
             self.updateMoveButtonDisabledStates();
 
-            opts.onAdd(fixPrefix);
+            opts.onAdd();
         }
     });
 

@@ -1,9 +1,12 @@
+from __future__ import absolute_import, unicode_literals
+
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_text
 
 from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
+from .widgets import AdminSnippetChooser
 
 
 class BaseSnippetChooserPanel(BaseChooserPanel):
@@ -11,6 +14,11 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     object_type_name = 'item'
 
     _content_type = None
+
+    @classmethod
+    def widget_overrides(cls):
+        return {cls.field_name: AdminSnippetChooser(
+            content_type=cls.content_type())}
 
     @classmethod
     def content_type(cls):
@@ -30,18 +38,9 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
             'show_help_text': show_help_text,
         }))
 
-    def render_js(self):
-        content_type = self.__class__.content_type()
-
-        return mark_safe("createSnippetChooser(fixPrefix('%s'), '%s/%s');" % (
-            self.bound_field.id_for_label,
-            content_type.app_label,
-            content_type.model,
-        ))
-
 
 def SnippetChooserPanel(field_name, snippet_type):
-    return type('_SnippetChooserPanel', (BaseSnippetChooserPanel,), {
+    return type(str('_SnippetChooserPanel'), (BaseSnippetChooserPanel,), {
         'field_name': field_name,
         'snippet_type_name': force_text(snippet_type._meta.verbose_name),
         'snippet_type': snippet_type,
