@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-03-14 22:16+0000\n"
 "Last-Translator: utek <mail@utek.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -21,68 +21,73 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: forms.py:18 forms.py:95
+#: forms.py:20 forms.py:97 forms.py:156
 msgid "Administrator"
 msgstr "Administrator"
 
-#: forms.py:20
+#: forms.py:22
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Zaznaczone oznacza, że użytkownik ma możliwość zarządzania kontami "
 "użytkowników"
 
-#: forms.py:23 forms.py:80
+#: forms.py:25 forms.py:82
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:24 forms.py:81
+#: forms.py:26 forms.py:83
 msgid "First Name"
 msgstr "Pierwsze imię"
 
-#: forms.py:25 forms.py:82
+#: forms.py:27 forms.py:84
 msgid "Last Name"
 msgstr "Nazwisko"
 
-#: forms.py:68
+#: forms.py:70
 msgid "A user with that username already exists."
 msgstr "Użytkownik o tej nazwie już istnieje."
 
-#: forms.py:69
+#: forms.py:71
 msgid "The two password fields didn't match."
 msgstr "Hasła się nie zgadzają."
 
-#: forms.py:72 templates/wagtailusers/list.html:15
+#: forms.py:74 templates/wagtailusers/users/list.html:15
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: forms.py:75
+#: forms.py:77
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Wymagane. 30 lub mniej znaków. Tylko litery, liczby oraz znaki @/./+/-/_."
 
-#: forms.py:77
+#: forms.py:79
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Ta wartość może zawierać tylko litery, liczby oraz znaki @/./+/-/_. "
 
-#: forms.py:85
+#: forms.py:87
 msgid "Password"
 msgstr "Hasło"
 
-#: forms.py:88
+#: forms.py:90
 msgid "Leave blank if not changing."
 msgstr "Pozostaw puste w przypadku braku zmiany."
 
-#: forms.py:90
+#: forms.py:92
 msgid "Password confirmation"
 msgstr "Potwierdzenie hasła"
 
-#: forms.py:92
+#: forms.py:94
 msgid "Enter the same password as above, for verification."
 msgstr "W celu potwierdzenie wpisz to samo hasło co powyżej."
 
-#: forms.py:97
+#: forms.py:99 forms.py:158
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratorzy mają możliwość zarządzania kontami użytkowników."
+
+#: forms.py:152
+#, fuzzy
+msgid "A group with that name already exists."
+msgstr "Użytkownik o tej nazwie już istnieje."
 
 #: models.py:13
 msgid "Receive notification when a page is submitted for moderation"
@@ -96,62 +101,157 @@ msgstr ""
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: wagtail_hooks.py:24 templates/wagtailusers/index.html:4
-#: templates/wagtailusers/index.html:17
+#: wagtail_hooks.py:27 templates/wagtailusers/users/index.html:4
+#: templates/wagtailusers/users/index.html:17
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: templates/wagtailusers/create.html:4 templates/wagtailusers/create.html:8
-#: templates/wagtailusers/create.html:35
-msgid "Add user"
-msgstr "Dodaj użytkownika"
+#: wagtail_hooks.py:31
+msgid "Groups"
+msgstr ""
 
-#: templates/wagtailusers/create.html:12 templates/wagtailusers/edit.html:12
-msgid "Account"
-msgstr "Konto"
+#: templates/wagtailusers/groups/confirm_delete.html:3
+#: templates/wagtailusers/groups/confirm_delete.html:7
+#: templates/wagtailusers/groups/edit.html:37
+msgid "Delete group"
+msgstr ""
 
-#: templates/wagtailusers/create.html:13 templates/wagtailusers/create.html:28
-#: templates/wagtailusers/edit.html:13
-msgid "Roles"
-msgstr "Role"
+#: templates/wagtailusers/groups/confirm_delete.html:12
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
 
-#: templates/wagtailusers/edit.html:4 templates/wagtailusers/edit.html.py:8
+#: templates/wagtailusers/groups/confirm_delete.html:20
+msgid "Are you sure you want to delete this group?"
+msgstr ""
+
+#: templates/wagtailusers/groups/confirm_delete.html:23
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailusers/groups/create.html:6
+#: templates/wagtailusers/groups/create.html:17
+#: templates/wagtailusers/groups/create.html:32
+msgid "Add group"
+msgstr ""
+
+#: templates/wagtailusers/groups/edit.html:6
+#: templates/wagtailusers/groups/edit.html:17
+#: templates/wagtailusers/users/edit.html:4
+#: templates/wagtailusers/users/edit.html:8
 msgid "Editing"
 msgstr "Edytowanie"
 
-#: templates/wagtailusers/edit.html:30 templates/wagtailusers/edit.html:37
+#: templates/wagtailusers/groups/edit.html:34
+#: templates/wagtailusers/users/edit.html:30
+#: templates/wagtailusers/users/edit.html:37
 msgid "Save"
 msgstr "Zapisz"
 
-#: templates/wagtailusers/index.html:18
-msgid "Add a user"
+#: templates/wagtailusers/groups/index.html:4
+#: templates/wagtailusers/groups/index.html:17
+msgid "groups"
+msgstr ""
+
+#: templates/wagtailusers/groups/index.html:18
+#, fuzzy
+msgid "Add a group"
 msgstr "Dodaj użytkownika"
 
-#: templates/wagtailusers/list.html:7
+#: templates/wagtailusers/groups/list.html:6
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/users/list.html:7
 msgid "Name"
 msgstr "Nazwa"
 
-#: templates/wagtailusers/list.html:22
+#: templates/wagtailusers/groups/results.html:9
+#, fuzzy, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_create_url)s\">dodasz "
+"kilku</a>?"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:3
+msgid "Object permissions"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:12
+msgid "Add"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:13
+msgid "Change"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:14
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:22
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:41
+msgid "Other permissions"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:4
+#, fuzzy
+msgid "Edit page"
+msgstr "Edytowanie"
+
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:5
+msgid "Choose page"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:40
+msgid "Add a page permission"
+msgstr ""
+
+#: templates/wagtailusers/users/create.html:4
+#: templates/wagtailusers/users/create.html:8
+#: templates/wagtailusers/users/create.html:35
+msgid "Add user"
+msgstr "Dodaj użytkownika"
+
+#: templates/wagtailusers/users/create.html:12
+#: templates/wagtailusers/users/edit.html:12
+msgid "Account"
+msgstr "Konto"
+
+#: templates/wagtailusers/users/create.html:13
+#: templates/wagtailusers/users/create.html:28
+#: templates/wagtailusers/users/edit.html:13
+msgid "Roles"
+msgstr "Role"
+
+#: templates/wagtailusers/users/index.html:18
+msgid "Add a user"
+msgstr "Dodaj użytkownika"
+
+#: templates/wagtailusers/users/list.html:22
 msgid "Level"
 msgstr "Poziom"
 
-#: templates/wagtailusers/list.html:23
+#: templates/wagtailusers/users/list.html:23
 msgid "Status"
 msgstr "Status"
 
-#: templates/wagtailusers/list.html:36
+#: templates/wagtailusers/users/list.html:36
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/wagtailusers/list.html:37
+#: templates/wagtailusers/users/list.html:37
 msgid "Active"
 msgstr "Aktywny"
 
-#: templates/wagtailusers/list.html:37
+#: templates/wagtailusers/users/list.html:37
 msgid "Inactive"
 msgstr "Nieaktywny"
 
-#: templates/wagtailusers/results.html:5
+#: templates/wagtailusers/users/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -174,13 +274,13 @@ msgstr[2] ""
 "            Jest %(counter)s dopasowań\n"
 "        "
 
-#: templates/wagtailusers/results.html:18
+#: templates/wagtailusers/users/results.html:18
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Przepraszamy, żaden użytkownik nie pasuje do \"<em>%(query_string)s</em>\""
 
-#: templates/wagtailusers/results.html:21
+#: templates/wagtailusers/users/results.html:21
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
@@ -189,22 +289,52 @@ msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_create_url)s\">dodasz "
 "kilku</a>?"
 
+#: views/groups.py:30 views/groups.py:37
+#, fuzzy
+msgid "Search groups"
+msgstr "Szukaj użytkowników"
+
+#: views/groups.py:94
+#, fuzzy
+msgid "Group '{0}' created."
+msgstr "Stworzono użytkownika '{0}'"
+
+#: views/groups.py:97
+#, fuzzy
+msgid "The group could not be created due to errors."
+msgstr "Użytkownik nie mógł zostać stworzony z powodu błędów."
+
+#: views/groups.py:123
+#, fuzzy
+msgid "Group '{0}' updated."
+msgstr "Uaktualniono użytkownika '{0}'."
+
+#: views/groups.py:126
+#, fuzzy
+msgid "The group could not be saved due to errors."
+msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
+
+#: views/groups.py:144
+#, fuzzy
+msgid "Group '{0}' deleted."
+msgstr "Stworzono użytkownika '{0}'"
+
 #: views/users.py:30 views/users.py:37
 msgid "Search users"
 msgstr "Szukaj użytkowników"
 
-#: views/users.py:84
+#: views/users.py:85
 msgid "User '{0}' created."
 msgstr "Stworzono użytkownika '{0}'"
 
-#: views/users.py:87
+#: views/users.py:88
 msgid "The user could not be created due to errors."
 msgstr "Użytkownik nie mógł zostać stworzony z powodu błędów."
 
-#: views/users.py:103
+#: views/users.py:104
 msgid "User '{0}' updated."
 msgstr "Uaktualniono użytkownika '{0}'."
 
-#: views/users.py:106
+#: views/users.py:107
 msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."

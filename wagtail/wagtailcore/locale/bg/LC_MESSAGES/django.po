@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:37+0100\n"
+"POT-Creation-Date: 2014-11-04 17:12+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:45
+#: models.py:56
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -29,7 +29,7 @@ msgstr ""
 "порт да се появи в URL адресите ви (напр. код-разработка на порт 8000). Не "
 "се отнася за боравене със заявки (така Port Forwarding ще работи)."
 
-#: models.py:47
+#: models.py:58
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
@@ -37,18 +37,18 @@ msgstr ""
 "Ако е Вярно, този сайт ще борави със заявки за всички останали хостове, "
 "които нямат собствен сайт."
 
-#: models.py:108
+#: models.py:119
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:251
+#: models.py:268
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Заглавието на страницата както желаете да се вижда"
 
-#: models.py:252
+#: models.py:269
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -56,11 +56,11 @@ msgstr ""
 "Името на страницата както ще изглежда в URL-ите. Например http://domain.com/"
 "blog/[my-slug]/"
 
-#: models.py:261
+#: models.py:278
 msgid "Page title"
 msgstr "Заглавие на Страница"
 
-#: models.py:261
+#: models.py:278
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -68,24 +68,20 @@ msgstr ""
 "Незадължителен. 'Оптимизирано за Търсачки' заглавие. Това ще се появи най-"
 "отгоре на браузър прозореца."
 
-#: models.py:262
+#: models.py:279
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Дали линк към тази страница ще се появи в автоматично генерираните менюта"
 
-#: models.py:265
+#: models.py:282
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:265 models.py:266
+#: models.py:282 models.py:283
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgstr ""
 
-#: models.py:266
+#: models.py:283
 msgid "Expiry date/time"
-msgstr ""
-
-#: models.py:530
-msgid "name '{0}' (used in subpage_types list) is not defined."
 msgstr ""

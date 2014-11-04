@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # ajk, 2014
 # Eugene MechanisM <contact@mechanism.name>, 2014
@@ -11,21 +11,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:37+0100\n"
+"POT-Creation-Date: 2014-11-04 17:12+0000\n"
 "PO-Revision-Date: 2014-10-05 04:55+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
+"ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: edit_handlers.py:631
+#: edit_handlers.py:509
+msgid "Choose another page"
+msgstr "Выбрать другую страницу"
+
+#: edit_handlers.py:510 templates/wagtailadmin/chooser/browse.html:6
+#: templates/wagtailadmin/chooser/search.html:2
+msgid "Choose a page"
+msgstr "Выбрать страницу"
+
+#: edit_handlers.py:633
 msgid "Scheduled publishing"
 msgstr "Отложенная публикация"
 
-#: edit_handlers.py:645
+#: edit_handlers.py:647
 msgid "Common page configuration"
 msgstr "Общие  настройки страниц"
 
@@ -33,45 +44,48 @@ msgstr "Общие  настройки страниц"
 msgid "Search term"
 msgstr "Критерий поиска"
 
-#: forms.py:43
-msgid "Enter your username"
-msgstr "Введите имя пользователя"
-
 #: forms.py:46
 msgid "Enter password"
 msgstr "Введите пароль"
 
-#: forms.py:51
+#: forms.py:53
+#, fuzzy, python-format
+msgid "Enter your %s"
+msgstr "Введите имя пользователя"
+
+#: forms.py:58
 msgid "Enter your email address to reset your password"
 msgstr "Введите Ваш адрес электронной почты для сброса пароля"
 
-#: forms.py:60
+#: forms.py:67
 msgid "Please fill your email address."
 msgstr "Пожалуйста, заполните Ваш адрес электронной почты"
 
-#: forms.py:73
+#: forms.py:80
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr "Извините, Вы не можете сбросить пароль здесь, так как Ваш аккаунт управляется другим сервером"
+msgstr ""
+"Извините, Вы не можете сбросить пароль здесь, так как Ваш аккаунт "
+"управляется другим сервером"
 
-#: forms.py:76
+#: forms.py:83
 msgid "This email address is not recognised."
 msgstr "Этот адрес электронной почты не распознан"
 
-#: forms.py:88
+#: forms.py:95
 msgid "New title"
 msgstr "Новый заголовок"
 
-#: forms.py:89
+#: forms.py:96
 msgid "New slug"
 msgstr "Новый слаг"
 
-#: forms.py:95
+#: forms.py:102
 msgid "Copy subpages"
 msgstr "Копировать подстраницы"
 
-#: forms.py:97
+#: forms.py:104
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
@@ -79,19 +93,19 @@ msgstr[0] "Скопируется %(count)s подстраница."
 msgstr[1] "Скопируется %(count)s подстраниц."
 msgstr[2] "Скопируется %(count)s подстраниц."
 
-#: forms.py:106
+#: forms.py:113
 msgid "Publish copied page"
 msgstr "Опубликовать скопированные страницы"
 
-#: forms.py:107
+#: forms.py:114
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr ""
 
-#: forms.py:109
+#: forms.py:116
 msgid "Publish copies"
 msgstr "Опубликовать копии"
 
-#: forms.py:111
+#: forms.py:118
 #, python-format
 msgid ""
 "%(count)s of the pages being copied is live. Would you like to publish its "
@@ -103,38 +117,44 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: forms.py:124 views/pages.py:153 views/pages.py:270
+#: forms.py:131 views/pages.py:157 views/pages.py:271
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
 
-#: forms.py:130 templates/wagtailadmin/pages/_privacy_indicator.html:13
+#: forms.py:137 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
 msgid "Public"
 msgstr "Опубликовано"
 
-#: forms.py:131
+#: forms.py:138
 msgid "Private, accessible with the following password"
 msgstr "Приватно, доступно со следующим паролем"
 
-#: forms.py:139
+#: forms.py:146
 msgid "This field is required."
 msgstr "Обязательное поле"
 
-#: wagtail_hooks.py:15 templates/wagtailadmin/chooser/_search_results.html:12
+#: wagtail_hooks.py:17 templates/wagtailadmin/chooser/_search_results.html:12
 msgid "Explorer"
 msgstr "Проводник"
 
-#: wagtail_hooks.py:23 templates/wagtailadmin/chooser/_search_form.html:7
-#: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:16
-msgid "Search"
-msgstr "Поиск"
+#: wagtail_hooks.py:26
+msgid "Settings"
+msgstr ""
 
 #: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
 msgid "Dashboard"
 msgstr "Панель управления"
 
-#: templates/wagtailadmin/base.html:27
+#: templates/wagtailadmin/base.html:11 templates/wagtailadmin/base.html:12
+#: templates/wagtailadmin/base.html:13
+#: templates/wagtailadmin/chooser/_search_form.html:7
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:16
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/wagtailadmin/base.html:36
 msgid "Menu"
 msgstr "Меню"
 
@@ -147,15 +167,19 @@ msgstr "Добро пожаловать в %(site_name)s Wagtail CMS"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr "Это Ваша панель управления сайтом. Здесь отображается различная информация о контенте, который Вы создаете."
+msgstr ""
+"Это Ваша панель управления сайтом. Здесь отображается различная информация о "
+"контенте, который Вы создаете."
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:59
 msgid "Sign in"
 msgstr "Войти"
 
 #: templates/wagtailadmin/login.html:18
-msgid "Your username and password didn't match. Please try again."
-msgstr "Ваши имя пользователя и пароль не подходят. Пожалуйста, попробуйте еще раз."
+#, fuzzy, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ваши имя пользователя и пароль не подходят. Пожалуйста, попробуйте еще раз."
 
 #: templates/wagtailadmin/login.html:26
 msgid "Sign in to Wagtail"
@@ -179,7 +203,10 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "Ваша аватарка предоставляется сервисом Gravatar и привязана к вашему адресу e-mail. С помощью аккаунта в Gravatar вы можете установить аватарку для любого количества e-mail адресов, которыми пользуетесь."
+msgstr ""
+"Ваша аватарка предоставляется сервисом Gravatar и привязана к вашему адресу "
+"e-mail. С помощью аккаунта в Gravatar вы можете установить аватарку для "
+"любого количества e-mail адресов, которыми пользуетесь."
 
 #: templates/wagtailadmin/account/account.html:25
 #: templates/wagtailadmin/account/change_password.html:4
@@ -206,7 +233,9 @@ msgstr "Изменить пароль"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr "Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с администратором сайта."
+msgstr ""
+"Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с "
+"администратором сайта."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
@@ -281,7 +310,8 @@ msgstr "Ссылка на адрес электронной почты"
 #, python-format
 msgid ""
 "\n"
-"            Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
+"            Only pages of type \"%(type)s\" may be chosen for this field. "
+"Search results will exclude pages of other types.\n"
 "        "
 msgstr ""
 
@@ -295,19 +325,19 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nЕсть одно совпадение"
-msgstr[1] "\nЕсть %(counter)s совпадений"
-msgstr[2] "\nЕсть %(counter)s совпадений"
+msgstr[0] ""
+"\n"
+"Есть одно совпадение"
+msgstr[1] ""
+"\n"
+"Есть %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Есть %(counter)s совпадений"
 
 #: templates/wagtailadmin/chooser/browse.html:3
 msgid "Choose"
 msgstr "Выбрать"
-
-#: templates/wagtailadmin/chooser/browse.html:6
-#: templates/wagtailadmin/chooser/search.html:2
-#: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:13
-msgid "Choose a page"
-msgstr "Выбрать страницу"
 
 #: templates/wagtailadmin/chooser/email_link.html:2
 msgid "Add an email link"
@@ -344,15 +374,11 @@ msgstr "Вниз"
 
 #: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
 #: templates/wagtailadmin/pages/confirm_delete.html:7
-#: templates/wagtailadmin/pages/edit.html:45
-#: templates/wagtailadmin/pages/list.html:84
-#: templates/wagtailadmin/pages/list.html:205
+#: templates/wagtailadmin/pages/edit.html:48
+#: templates/wagtailadmin/pages/list.html:90
+#: templates/wagtailadmin/pages/list.html:225
 msgid "Delete"
 msgstr "Удалить"
-
-#: templates/wagtailadmin/edit_handlers/page_chooser_panel.html:12
-msgid "Choose another page"
-msgstr "Выбрать другую страницу"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -360,20 +386,21 @@ msgstr "Страницы ожидающие модерации"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:13
 #: templates/wagtailadmin/home/recent_edits.html:12
-#: templates/wagtailadmin/pages/list.html:121
-#: templates/wagtailadmin/pages/list.html:124
+#: templates/wagtailadmin/pages/list.html:128
+#: templates/wagtailadmin/pages/list.html:131
 msgid "Title"
 msgstr "Заголовок"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:14
-#: templates/wagtailadmin/pages/list.html:22
+#: templates/wagtailadmin/pages/list.html:23
+#: templates/wagtailadmin/pages/list.html:135
 msgid "Parent"
 msgstr "Родительский элемент"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:15
-#: templates/wagtailadmin/pages/list.html:24
-#: templates/wagtailadmin/pages/list.html:133
-#: templates/wagtailadmin/pages/list.html:136
+#: templates/wagtailadmin/pages/list.html:26
+#: templates/wagtailadmin/pages/list.html:149
+#: templates/wagtailadmin/pages/list.html:152
 msgid "Type"
 msgstr "Тип"
 
@@ -381,37 +408,48 @@ msgstr "Тип"
 msgid "Edited"
 msgstr "Изменено"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:23
-#: templates/wagtailadmin/home/recent_edits.html:21
-#: templates/wagtailadmin/pages/list.html:176
-#: templates/wagtailadmin/pages/list.html:190
+#: templates/wagtailadmin/home/pages_for_moderation.html:24
+#: templates/wagtailadmin/home/recent_edits.html:22
+#: templates/wagtailadmin/pages/list.html:192
+#: templates/wagtailadmin/pages/list.html:210
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:28
-#: templates/wagtailadmin/pages/_moderator_userbar.html:12
+#: templates/wagtailadmin/home/recent_edits.html:26
+#: templates/wagtailadmin/pages/list.html:45
+#: templates/wagtailadmin/pages/list.html:200
+msgid "This page is protected from public view"
+msgstr ""
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:32
+#: templates/wagtailadmin/home/recent_edits.html:30
+#: templates/wagtailadmin/pages/list.html:70
+#: templates/wagtailadmin/pages/list.html:204
+msgid "This page is locked to further editing"
+msgstr ""
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:39
 #: templates/wagtailadmin/userbar/item_page_approve.html:8
 msgid "Approve"
 msgstr "Одобрить"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:34
-#: templates/wagtailadmin/pages/_moderator_userbar.html:17
+#: templates/wagtailadmin/home/pages_for_moderation.html:45
 #: templates/wagtailadmin/userbar/item_page_reject.html:8
 msgid "Reject"
 msgstr "Отклонить"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:37
-#: templates/wagtailadmin/home/recent_edits.html:23
-#: templates/wagtailadmin/pages/_moderator_userbar.html:9
-#: templates/wagtailadmin/pages/list.html:72
-#: templates/wagtailadmin/pages/list.html:190
+#: templates/wagtailadmin/home/pages_for_moderation.html:48
+#: templates/wagtailadmin/home/recent_edits.html:34
+#: templates/wagtailadmin/pages/list.html:78
+#: templates/wagtailadmin/pages/list.html:210
 #: templates/wagtailadmin/userbar/item_page_edit.html:5
 msgid "Edit"
 msgstr "Правка"
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:38
+#: templates/wagtailadmin/home/pages_for_moderation.html:49
 #: templates/wagtailadmin/pages/create.html:41
-#: templates/wagtailadmin/pages/edit.html:56
+#: templates/wagtailadmin/pages/edit.html:60
 #: templates/wagtailadmin/pages/preview.html:5
 msgid "Preview"
 msgstr "Превью"
@@ -426,21 +464,21 @@ msgstr "Дата"
 
 #: templates/wagtailadmin/home/recent_edits.html:14
 #: templates/wagtailadmin/pages/edit.html:18
-#: templates/wagtailadmin/pages/list.html:25
-#: templates/wagtailadmin/pages/list.html:142
-#: templates/wagtailadmin/pages/list.html:145
+#: templates/wagtailadmin/pages/list.html:27
+#: templates/wagtailadmin/pages/list.html:158
+#: templates/wagtailadmin/pages/list.html:161
 msgid "Status"
 msgstr "Статус"
 
-#: templates/wagtailadmin/home/recent_edits.html:25
-#: templates/wagtailadmin/pages/list.html:75
-#: templates/wagtailadmin/pages/list.html:193
+#: templates/wagtailadmin/home/recent_edits.html:36
+#: templates/wagtailadmin/pages/list.html:81
+#: templates/wagtailadmin/pages/list.html:213
 msgid "Draft"
 msgstr "Черновик"
 
-#: templates/wagtailadmin/home/recent_edits.html:28
-#: templates/wagtailadmin/pages/list.html:78
-#: templates/wagtailadmin/pages/list.html:196
+#: templates/wagtailadmin/home/recent_edits.html:39
+#: templates/wagtailadmin/pages/list.html:84
+#: templates/wagtailadmin/pages/list.html:216
 msgid "Live"
 msgstr ""
 
@@ -458,9 +496,15 @@ msgid_plural ""
 "\n"
 "                <span>%(total_pages)s</span> Pages\n"
 "            "
-msgstr[0] "\n<span>%(total_pages)s</span> Страница"
-msgstr[1] "\n<span>%(total_pages)s</span> Страниц"
-msgstr[2] "\n<span>%(total_pages)s</span> Страниц"
+msgstr[0] ""
+"\n"
+"<span>%(total_pages)s</span> Страница"
+msgstr[1] ""
+"\n"
+"<span>%(total_pages)s</span> Страниц"
+msgstr[2] ""
+"\n"
+"<span>%(total_pages)s</span> Страниц"
 
 #: templates/wagtailadmin/home/site_summary.html:16
 #, python-format
@@ -472,9 +516,15 @@ msgid_plural ""
 "\n"
 "                <span>%(total_images)s</span> Images\n"
 "            "
-msgstr[0] "\n<span>%(total_images)s</span> Изображение"
-msgstr[1] "\n<span>%(total_images)s</span> Изображений"
-msgstr[2] "\n<span>%(total_images)s</span> Изображений"
+msgstr[0] ""
+"\n"
+"<span>%(total_images)s</span> Изображение"
+msgstr[1] ""
+"\n"
+"<span>%(total_images)s</span> Изображений"
+msgstr[2] ""
+"\n"
+"<span>%(total_images)s</span> Изображений"
 
 #: templates/wagtailadmin/home/site_summary.html:25
 #, python-format
@@ -486,9 +536,15 @@ msgid_plural ""
 "\n"
 "                <span>%(total_docs)s</span> Documents\n"
 "            "
-msgstr[0] "\n<span>%(total_docs)s</span> Документ"
-msgstr[1] "\n<span>%(total_docs)s</span> Документов"
-msgstr[2] "\n<span>%(total_docs)s</span> Документов"
+msgstr[0] ""
+"\n"
+"<span>%(total_docs)s</span> Документ"
+msgstr[1] ""
+"\n"
+"<span>%(total_docs)s</span> Документов"
+msgstr[2] ""
+"\n"
+"<span>%(total_docs)s</span> Документов"
 
 #: templates/wagtailadmin/notifications/approved.html:1
 #, python-format
@@ -554,12 +610,17 @@ msgstr "Редактировать настройки приватности:"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Изменения приватности также накладываются и на дочерние страницы."
 
-#: templates/wagtailadmin/pages/_moderator_userbar.html:4
-#, python-format
-msgid ""
-"\n"
-"            Previewing '%(title)s', submitted by %(submitted_by)s on %(submitted_on)s.\n"
-"        "
+#: templates/wagtailadmin/pages/_lock_indicator.html:8
+#, fuzzy
+msgid "Edit lock"
+msgstr "Правка"
+
+#: templates/wagtailadmin/pages/_lock_indicator.html:15
+msgid "Locked"
+msgstr ""
+
+#: templates/wagtailadmin/pages/_lock_indicator.html:25
+msgid "Unlocked"
 msgstr ""
 
 #: templates/wagtailadmin/pages/_privacy_indicator.html:9
@@ -606,7 +667,8 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more subpages.\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
 "                "
 msgstr[0] ""
 msgstr[1] ""
@@ -632,8 +694,8 @@ msgid "Move %(title)s"
 msgstr "Переместить %(title)s"
 
 #: templates/wagtailadmin/pages/confirm_move.html:6
-#: templates/wagtailadmin/pages/list.html:81
-#: templates/wagtailadmin/pages/list.html:199
+#: templates/wagtailadmin/pages/list.html:87
+#: templates/wagtailadmin/pages/list.html:219
 msgid "Move"
 msgstr "Переместить"
 
@@ -659,9 +721,9 @@ msgid "Unpublish %(title)s"
 msgstr "Отменить публикацию %(title)s"
 
 #: templates/wagtailadmin/pages/confirm_unpublish.html:6
-#: templates/wagtailadmin/pages/edit.html:42
-#: templates/wagtailadmin/pages/list.html:87
-#: templates/wagtailadmin/pages/list.html:208
+#: templates/wagtailadmin/pages/edit.html:45
+#: templates/wagtailadmin/pages/list.html:93
+#: templates/wagtailadmin/pages/list.html:228
 msgid "Unpublish"
 msgstr "Отменить публикацию"
 
@@ -683,7 +745,7 @@ msgid "Copy %(title)s"
 msgstr "Копировать %(title)s"
 
 #: templates/wagtailadmin/pages/copy.html:6
-#: templates/wagtailadmin/pages/list.html:202
+#: templates/wagtailadmin/pages/list.html:222
 msgid "Copy"
 msgstr "Копировать"
 
@@ -705,12 +767,12 @@ msgid "Save as draft"
 msgstr "Сохранить как черновик"
 
 #: templates/wagtailadmin/pages/create.html:33
-#: templates/wagtailadmin/pages/edit.html:48
+#: templates/wagtailadmin/pages/edit.html:51
 msgid "Publish"
 msgstr "Опубликовать"
 
 #: templates/wagtailadmin/pages/create.html:35
-#: templates/wagtailadmin/pages/edit.html:50
+#: templates/wagtailadmin/pages/edit.html:53
 msgid "Submit for moderation"
 msgstr "Отправить на модерацию"
 
@@ -724,16 +786,20 @@ msgstr "Редактирование %(title)s"
 msgid "Editing <span>%(title)s</span>"
 msgstr "Редактирование <span>%(title)s</span>"
 
-#: templates/wagtailadmin/pages/edit.html:38
+#: templates/wagtailadmin/pages/edit.html:39
+msgid "Page locked"
+msgstr ""
+
+#: templates/wagtailadmin/pages/edit.html:39
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
-#: templates/wagtailadmin/pages/edit.html:77
+#: templates/wagtailadmin/pages/edit.html:81
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "Последние правки: %(last_mod)s"
 
-#: templates/wagtailadmin/pages/edit.html:79
+#: templates/wagtailadmin/pages/edit.html:83
 #, python-format
 msgid "by %(modified_by)s"
 msgstr ""
@@ -743,64 +809,71 @@ msgstr ""
 msgid "Exploring %(title)s"
 msgstr "Обзор %(title)s"
 
-#: templates/wagtailadmin/pages/list.html:90
-#: templates/wagtailadmin/pages/list.html:211
+#: templates/wagtailadmin/pages/list.html:25
+#: templates/wagtailadmin/pages/list.html:140
+#: templates/wagtailadmin/pages/list.html:143
+#, fuzzy
+msgid "Updated"
+msgstr "Обновить"
+
+#: templates/wagtailadmin/pages/list.html:96
+#: templates/wagtailadmin/pages/list.html:231
 msgid "Add child page"
 msgstr "Добавить дочернюю страницу"
 
-#: templates/wagtailadmin/pages/list.html:112
+#: templates/wagtailadmin/pages/list.html:119
 msgid "Disable ordering of child pages"
 msgstr "Отключить упорядочение дочерних страниц"
 
-#: templates/wagtailadmin/pages/list.html:112
-#: templates/wagtailadmin/pages/list.html:114
+#: templates/wagtailadmin/pages/list.html:119
+#: templates/wagtailadmin/pages/list.html:121
 msgid "Order"
 msgstr "Порядок"
 
-#: templates/wagtailadmin/pages/list.html:114
+#: templates/wagtailadmin/pages/list.html:121
 msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
 
-#: templates/wagtailadmin/pages/list.html:158
+#: templates/wagtailadmin/pages/list.html:174
 msgid "Drag"
 msgstr "Перетянуть"
 
-#: templates/wagtailadmin/pages/list.html:237
-#: templates/wagtailadmin/pages/list.html:241
+#: templates/wagtailadmin/pages/list.html:258
+#: templates/wagtailadmin/pages/list.html:262
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr ""
 
-#: templates/wagtailadmin/pages/list.html:237
-#: templates/wagtailadmin/pages/list.html:241
-#: templates/wagtailadmin/pages/list.html:245
+#: templates/wagtailadmin/pages/list.html:258
+#: templates/wagtailadmin/pages/list.html:262
+#: templates/wagtailadmin/pages/list.html:266
 msgid "Explore"
 msgstr "Обзор"
 
-#: templates/wagtailadmin/pages/list.html:245
+#: templates/wagtailadmin/pages/list.html:266
 #, python-format
 msgid "Explore child pages of '%(title)s'"
 msgstr ""
 
-#: templates/wagtailadmin/pages/list.html:247
+#: templates/wagtailadmin/pages/list.html:268
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавить дочернюю страницу к '%(title)s'"
 
-#: templates/wagtailadmin/pages/list.html:247
+#: templates/wagtailadmin/pages/list.html:268
 msgid "Add subpage"
 msgstr "Добавить подстраницу"
 
-#: templates/wagtailadmin/pages/list.html:256
+#: templates/wagtailadmin/pages/list.html:277
 msgid "No pages have been created."
 msgstr "Страниц не было создано."
 
-#: templates/wagtailadmin/pages/list.html:256
+#: templates/wagtailadmin/pages/list.html:277
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Почему бы не <a href=\"%(add_page_url)s\">добавить одну</a>?"
 
-#: templates/wagtailadmin/pages/list.html:263
+#: templates/wagtailadmin/pages/list.html:284
 #, python-format
 msgid ""
 "\n"
@@ -808,7 +881,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/wagtailadmin/pages/list.html:269
+#: templates/wagtailadmin/pages/list.html:290
 #: templates/wagtailadmin/pages/search_results.html:35
 #: templates/wagtailadmin/pages/search_results.html:37
 #: templates/wagtailadmin/pages/usage_results.html:13
@@ -818,7 +891,7 @@ msgstr ""
 msgid "Previous"
 msgstr "Предыдущая"
 
-#: templates/wagtailadmin/pages/list.html:274
+#: templates/wagtailadmin/pages/list.html:295
 #: templates/wagtailadmin/pages/search_results.html:44
 #: templates/wagtailadmin/pages/search_results.html:46
 #: templates/wagtailadmin/pages/usage_results.html:18
@@ -978,11 +1051,11 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: templates/wagtailadmin/shared/main_nav.html:10
+#: templates/wagtailadmin/shared/main_nav.html:8
 msgid "Account settings"
 msgstr "Настройки аккаунта"
 
-#: templates/wagtailadmin/shared/main_nav.html:11
+#: templates/wagtailadmin/shared/main_nav.html:9
 msgid "Log out"
 msgstr "Выйти"
 
@@ -1015,66 +1088,81 @@ msgstr "Ваш пароль успешно изменен!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Ваши настройки успешно изменены!"
 
-#: views/pages.py:167 views/pages.py:284
+#: views/pages.py:171 views/pages.py:285
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
 
-#: views/pages.py:177 views/pages.py:294
+#: views/pages.py:181 views/pages.py:295
 msgid "Expiry date/time must be in the future"
 msgstr ""
 
-#: views/pages.py:217 views/pages.py:349 views/pages.py:766
+#: views/pages.py:213 views/pages.py:328 views/pages.py:734
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' опубликована."
 
-#: views/pages.py:219 views/pages.py:351
+#: views/pages.py:215 views/pages.py:330
 msgid "Page '{0}' submitted for moderation."
 msgstr ""
 
-#: views/pages.py:222
+#: views/pages.py:218
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' создана."
 
-#: views/pages.py:231
+#: views/pages.py:232
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок проверки"
 
-#: views/pages.py:354
+#: views/pages.py:333
 msgid "Page '{0}' updated."
 msgstr "Страница '{0}' обновлена."
 
-#: views/pages.py:363
+#: views/pages.py:348
+#, fuzzy
+msgid "The page could not be saved as it is locked"
+msgstr "Страница не может быть сохранена из-за ошибок проверки"
+
+#: views/pages.py:350
 msgid "The page could not be saved due to validation errors"
 msgstr "Страница не может быть сохранена из-за ошибок проверки"
 
-#: views/pages.py:376
+#: views/pages.py:363
 msgid "This page is currently awaiting moderation"
 msgstr "Эта страница в данный момент ожидает модерации"
 
-#: views/pages.py:407
+#: views/pages.py:384
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' удалена."
 
-#: views/pages.py:550
+#: views/pages.py:520
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:602
+#: views/pages.py:572
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' перемещена."
 
-#: views/pages.py:684
+#: views/pages.py:653
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Страница '{0}' и {1} подстраниц скопировано."
 
-#: views/pages.py:686
+#: views/pages.py:655
 msgid "Page '{0}' copied."
 msgstr "Страница '{0}' скопирована."
 
-#: views/pages.py:760 views/pages.py:779 views/pages.py:799
+#: views/pages.py:729 views/pages.py:747 views/pages.py:766
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:785
+#: views/pages.py:752
 msgid "Page '{0}' rejected for publication."
 msgstr ""
+
+#: views/pages.py:793
+#, fuzzy
+msgid "Page '{0}' is now locked."
+msgstr "Страница '{0}' перемещена."
+
+#: views/pages.py:818
+#, fuzzy
+msgid "Page '{0}' is now unlocked."
+msgstr "Страница '{0}' перемещена."

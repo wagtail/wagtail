@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 16:38+0100\n"
+"POT-Creation-Date: 2014-11-04 17:13+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: wagtail_hooks.py:27 templates/wagtailsnippets/snippets/index.html:3
+#: wagtail_hooks.py:29 templates/wagtailsnippets/snippets/index.html:3
 msgid "Snippets"
 msgstr "Snippety"
 
