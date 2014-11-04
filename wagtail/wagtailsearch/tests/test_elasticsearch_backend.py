@@ -26,13 +26,13 @@ class TestElasticSearchBackend(BackendTests, TestCase):
 
     def test_filter_on_non_filterindex_field(self):
         # id is not listed in the search_fields for SearchTest; this should raise a FieldError
-        from wagtail.wagtailsearch.backends.elasticsearch import FieldError
+        from wagtail.wagtailsearch.backends.base import FieldError
 
         with self.assertRaises(FieldError):
             results = list(self.backend.search("Hello", models.SearchTest, filters=dict(id=42)))
 
     def test_filter_with_unsupported_lookup_type(self):
-        from wagtail.wagtailsearch.backends.elasticsearch import FilterError
+        from wagtail.wagtailsearch.backends.base import FilterError
 
         with self.assertRaises(FilterError):
             results = list(self.backend.search("Hello", models.SearchTest, filters=dict(title__iregex='h(ea)llo')))
