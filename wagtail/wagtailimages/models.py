@@ -135,10 +135,10 @@ class AbstractImage(models.Model, TagSearchable):
             features = feature_detector.detect_features()
             if features:
                 # Create a bounding box around all features
-                left = min(feature.x for feature in features)
-                top = min(feature.y for feature in features)
-                right = max(feature.x for feature in features)
-                bottom = max(feature.y for feature in features)
+                left = min(feature[0] for feature in features)
+                top = min(feature[1] for feature in features)
+                right = max(feature[0] for feature in features)
+                bottom = max(feature[1] for feature in features)
                 focal_point = Rect(left, top, right, bottom)
             else:
                 return None
