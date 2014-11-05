@@ -54,7 +54,16 @@ Corrupted URL paths may need fixing
 
 This release fixes a bug in Wagtail 0.7 where editing a parent page's slug could cause the URL paths of child pages to become corrupted. To ensure that your database does not contain any corrupted URL paths, it is recommended that you run ``./manage.py set_url_paths`` after upgrading.
 
+
 Automatic registration of signal handlers (Django 1.7+)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Signal handlers for the ``wagtailsearch`` core app and ``wagtailfrontendcache`` contrib app are automatically registered when using Django 1.7. Calls to ``register_signal_handlers`` from your ``urls.py`` can be removed.
+
+
+Change to search API when using database backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using the database backend, calling search (either through ``Page.objects.search()`` or on the backend directly) will now return a ``SearchResults`` object rather than a Django ``QuerySet`` to make the database backend work more like the Elasticsearch backend.
+
+This change shouldn't affect most people as ``SearchResults`` behaves very similarly to ``QuerySet``. But it may cause issues if you are calling ``QuerySet`` specific methods after calling ``.search()``. Eg: ``Page.objects.search("Hello").filter(foo="Bar")`` (in this case, ``.filter()`` should be moved before ``.search()`` and it would work as before).
