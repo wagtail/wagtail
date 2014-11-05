@@ -10,6 +10,7 @@ Changelog
  * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to on_delete=SET_NULL, to prevent inadvertent (and tree-breaking) page deletions
  * Improved error reporting on image upload, including ability to set a maximum file size via a new setting WAGTAILIMAGES_MAX_UPLOAD_SIZE
  * The external image URL generator now keeps persistent image renditions, rather than regenerating them on each request, so it no longer requires a front-end cache
+ * Added Dutch translation
  * Fix: Replaced references of .username with .get_username() on users for better custom user model support (John-Scott Atlakson)
  * Fix: Unpinned dependency versions for six and requests to help prevent dependency conflicts
  * Fix: Fixed TypeError when getting embed HTML with oembed on Python 3 (John-Scott Atlakson)

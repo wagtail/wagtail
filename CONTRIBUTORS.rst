@@ -42,6 +42,7 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Catalan: David Llop
 * Chinese: Lihan Li, tulpar008, wwj718
+* Dutch: mahulst, Samuel Leeuwenburg
 * French: Sylvain Fankhauser
 * Galician: fooflare
 * German: Karl Sander, Johannes Spielmann

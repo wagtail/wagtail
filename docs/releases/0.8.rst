@@ -21,6 +21,7 @@ Minor features
  * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to ``on_delete=SET_NULL``, to prevent inadvertent (and tree-breaking) page deletions
  * Improved error reporting on image upload, including ability to set a maximum file size via a new setting ``WAGTAILIMAGES_MAX_UPLOAD_SIZE``
  * The external image URL generator now keeps persistent image renditions, rather than regenerating them on each request, so it no longer requires a front-end cache.
+ * Added Dutch translation
 
 
 Bug fixes
