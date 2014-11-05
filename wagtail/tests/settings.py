@@ -7,6 +7,7 @@ from django.conf import global_settings
 WAGTAIL_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'test-media')
+MEDIA_URL = '/media/'
 
 
 DATABASES = {

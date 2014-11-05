@@ -74,9 +74,3 @@ Once you have generated a URL, you can put it straight into the ``src`` attribut
  .. code-block:: html
 
     <img src="(image url here)">
-
-
-Performance
-===========
-
-Currently, Wagtail will regenerate the image every time it is requested. For high volume sites, it is recommended to use a frontend cache to reduce load on the backend servers.

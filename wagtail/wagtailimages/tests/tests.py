@@ -143,11 +143,6 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'image/jpeg')
 
-        # Make sure the cache headers are set to expire after at least one month
-        self.assertIn('Cache-Control', response)
-        self.assertEqual(response['Cache-Control'].split('=')[0], 'max-age')
-        self.assertTrue(int(response['Cache-Control'].split('=')[1]) > datetime.timedelta(days=30).seconds)
-
     def test_get_invalid_signature(self):
         """
         Test that an invalid signature returns a 403 response

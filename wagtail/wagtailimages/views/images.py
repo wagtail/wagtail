@@ -180,7 +180,20 @@ def generate_url(request, image_id, filter_spec):
     except Site.DoesNotExist:
         site_root_url = Site.objects.first().root_url
 
-    return json_response({'url': site_root_url + url, 'local_url': url}, status=200)
+    # Generate preview url
+    preview_url = reverse('wagtailimages_preview', args=(image_id, filter_spec))
+
+    return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
+
+
+@permission_required('wagtailadmin.access_admin')
+def preview(request, image_id, filter_spec):
+    image = get_object_or_404(get_image_model(), id=image_id)
+
+    try:
+        return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'), focal_point=image.get_focal_point())
+    except Filter.InvalidFilterSpecError:
+        return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
