@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8 (xx.xx.2014)
+0.8 (05.11.2014)
 ~~~~~~~~~~~~~~~~
 
  * Added logging for page operations
