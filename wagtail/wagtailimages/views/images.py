@@ -1,7 +1,6 @@
 import json
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
@@ -12,6 +11,7 @@ from django.http import HttpResponse
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
@@ -103,7 +103,9 @@ def edit(request, image_id):
             for backend in get_search_backends():
                 backend.add(image)
 
-            messages.success(request, _("Image '{0}' updated.").format(image.title))
+            messages.success(request, _("Image '{0}' updated.").format(image.title), buttons = [
+                messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit again'))
+            ])
             return redirect('wagtailimages_index')
         else:
             messages.error(request, _("The image could not be saved due to errors."))
@@ -228,7 +230,9 @@ def add(request):
             for backend in get_search_backends():
                 backend.add(image)
 
-            messages.success(request, _("Image '{0}' added.").format(image.title))
+            messages.success(request, _("Image '{0}' added.").format(image.title), buttons = [
+                messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit'))
+            ])
             return redirect('wagtailimages_index')
         else:
             messages.error(request, _("The image could not be created due to errors."))

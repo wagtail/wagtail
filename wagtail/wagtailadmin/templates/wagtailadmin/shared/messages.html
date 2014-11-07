@@ -1,0 +1,9 @@
+{{ message }}
+
+{% if buttons %}
+    <span class="buttons">
+        {% for button in buttons %}
+            <a href="{{ button.0 }}" class="button button-small button-secondary">{{ button.1 }}</a>
+        {% endfor %}
+    </span>
+{% endif %}

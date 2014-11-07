@@ -3,10 +3,11 @@ import warnings
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.contrib import messages
+#from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.http import is_safe_url
@@ -21,6 +22,7 @@ from wagtail.wagtailadmin import tasks, signals
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
 
+from wagtail.wagtailadmin import messages
 
 @permission_required('wagtailadmin.access_admin')
 def explorer_nav(request):
@@ -325,9 +327,15 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                messages.success(request, _("Page '{0}' published.").format(page.title))
+                messages.success(request, _("Page '{0}' published.").format(page.title), buttons = [
+                    messages.button(page.url, _('View live')),
+                    messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
+                ])
             elif is_submitting:
-                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
+                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons = [
+                    messages.button(reverse('wagtailadmin_pages_view_draft', args=(page_id,)), _('View draft')),
+                    messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
+                ])
                 tasks.send_notification.delay(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
                 messages.success(request, _("Page '{0}' updated.").format(page.title))
