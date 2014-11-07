@@ -2,6 +2,7 @@ import json
 
 from six import text_type
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import permission_required
 
@@ -37,6 +38,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
 
     snippet_json = json.dumps({
         'id': item.id,
+        'edit_link': reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, item.id,)),
         'string': text_type(item),
     })
 
