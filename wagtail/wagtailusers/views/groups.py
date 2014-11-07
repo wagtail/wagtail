@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.forms.models import inlineformset_factory
 
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import GroupForm, BaseGroupPagePermissionFormSet
 from wagtail.wagtailcore.models import GroupPagePermission
@@ -91,7 +92,9 @@ def create(request):
             group = form.save()
             formset.instance = group
             formset.save()
-            messages.success(request, _("Group '{0}' created.").format(group))
+            messages.success(request, _("Group '{0}' created.").format(group), buttons = [
+                messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
+            ])
             return redirect('wagtailusers_groups_index')
         else:
             messages.error(request, _("The group could not be created due to errors."))
@@ -120,7 +123,9 @@ def edit(request, group_id):
         if form.is_valid() and formset.is_valid():
             group = form.save()
             formset.save()
-            messages.success(request, _("Group '{0}' updated.").format(group))
+            messages.success(request, _("Group '{0}' updated.").format(group), buttons = [
+                messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
+            ])
             return redirect('wagtailusers_groups_index')
         else:
             messages.error(request, _("The group could not be saved due to errors."))

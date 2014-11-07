@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
-from django.contrib import messages
 
+from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin import messages
 
 
 @permission_required('wagtailadmin.access_admin')
@@ -80,7 +81,9 @@ def add(request):
             # Save editors picks
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
             if save_editorspicks(query, query, editors_pick_formset):
-                messages.success(request, _("Editor's picks for '{0}' created.").format(query))
+                messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons = [
+                    messages.button(reverse('wagtailsearch_editorspicks_edit', args=(query.id,)), _('Edit'))
+                ])
                 return redirect('wagtailsearch_editorspicks_index')
             else:
                 if len(editors_pick_formset.non_form_errors()):
@@ -114,7 +117,9 @@ def edit(request, query_id):
 
             # Save editors picks
             if save_editorspicks(query, new_query, editors_pick_formset):
-                messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query))
+                messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query), buttons = [
+                    messages.button(reverse('wagtailsearch_editorspicks_edit', args=(query.id,)), _('Edit'))
+                ])
                 return redirect('wagtailsearch_editorspicks_index')
             else:
                 if len(editors_pick_formset.non_form_errors()):

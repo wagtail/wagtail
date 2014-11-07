@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
@@ -82,7 +83,9 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' created.").format(user))
+            messages.success(request, _("User '{0}' created.").format(user), buttons = [
+                messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
+            ])
             return redirect('wagtailusers_users_index')
         else:
             messages.error(request, _("The user could not be created due to errors.") )
@@ -101,7 +104,9 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' updated.").format(user))
+            messages.success(request, _("User '{0}' updated.").format(user), buttons = [
+                messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
+            ])
             return redirect('wagtailusers_users_index')
         else:
             messages.error(request, _("The user could not be saved due to errors."))
