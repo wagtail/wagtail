@@ -5,6 +5,7 @@ class BaseDocumentChooserPanel(BaseChooserPanel):
     field_template = "wagtaildocs/edit_handlers/document_chooser_panel.html"
     object_type_name = "document"
     js_function_name = "createDocumentChooser"
+    edit_link_reverse = "wagtaildocs_edit_document"
 
 
 def DocumentChooserPanel(field_name):

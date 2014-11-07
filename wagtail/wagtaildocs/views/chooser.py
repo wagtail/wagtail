@@ -1,5 +1,6 @@
 import json
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
@@ -11,6 +12,18 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 
+
+def get_document_json(document):
+    """
+    helper function: given a document, return the json to pass back to the
+    chooser panel
+    """
+
+    return json.dumps({
+        'id': document.id, 
+        'title': document.title,
+        'edit_link': reverse('wagtaildocs_edit_document', args=(document.id,)),
+    })
 
 @permission_required('wagtailadmin.access_admin')
 def chooser(request):
@@ -81,11 +94,9 @@ def chooser(request):
 def document_chosen(request, document_id):
     document = get_object_or_404(Document, id=document_id)
 
-    document_json = json.dumps({'id': document.id, 'title': document.title})
-
     return render_modal_workflow(
         request, None, 'wagtaildocs/chooser/document_chosen.js',
-        {'document_json': document_json}
+        {'document_json':  get_document_json(document)}
     )
 
 
@@ -102,10 +113,9 @@ def chooser_upload(request):
             for backend in get_search_backends():
                 backend.add(document)
 
-            document_json = json.dumps({'id': document.id, 'title': document.title})
             return render_modal_workflow(
                 request, None, 'wagtaildocs/chooser/document_chosen.js',
-                {'document_json': document_json}
+                {'document_json': get_document_json(document)}
             )
     else:
         form = DocumentForm()

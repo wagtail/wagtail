@@ -470,7 +470,6 @@ class BaseChooserPanel(BaseFieldPanel):
         else:
             edit_chosen_link = ''
 
-
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
