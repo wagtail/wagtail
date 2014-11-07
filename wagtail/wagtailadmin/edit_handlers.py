@@ -442,6 +442,8 @@ class BaseChooserPanel(BaseFieldPanel):
     * field_template
     * object_type_name - something like 'image' which will be used as the var name
       for the object instance in the field_template
+    * edit_link_reverse - the name of the view for editing the object, to be reversed
+      with that object's ID to create an 'edit this X' button.
     * js_function_name - a JS function responsible for the modal workflow; this receives
       the ID of the hidden field as a parameter, and should ultimately populate that field
       with the appropriate object ID. If the function requires any other parameters, the
@@ -462,11 +464,20 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
+
+        if bool(instance_obj):
+            edit_chosen_link = reverse(self.edit_link_reverse, args=(instance_obj.id,))
+        else:
+            edit_chosen_link = ''
+
+
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'is_chosen': bool(instance_obj),
             'show_help_text': show_help_text,
+            'edit_chosen_text': ugettext_lazy("Edit this"),
+            'edit_chosen_link': edit_chosen_link
         }))
 
     def render_js(self):
@@ -476,6 +487,7 @@ class BaseChooserPanel(BaseFieldPanel):
 class BasePageChooserPanel(BaseChooserPanel):
     field_template = "wagtailadmin/edit_handlers/page_chooser_panel.html"
     object_type_name = "page"
+    edit_link_reverse = "wagtailadmin_pages_edit"
 
     _target_content_type = None
 
@@ -501,6 +513,12 @@ class BasePageChooserPanel(BaseChooserPanel):
 
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
+        
+        if bool(instance_obj):
+            edit_chosen_link = reverse(self.edit_link_reverse, args=(instance_obj.id,))
+        else:
+            edit_chosen_link = ''
+
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
@@ -508,6 +526,8 @@ class BasePageChooserPanel(BaseChooserPanel):
             'show_help_text': show_help_text,
             'choose_another_text_str': ugettext_lazy("Choose another page"),
             'choose_one_text_str': ugettext_lazy("Choose a page"),
+            'edit_chosen_text': ugettext_lazy("Edit this page"),
+            'edit_chosen_link': edit_chosen_link
         }))
 
     def render_js(self):
