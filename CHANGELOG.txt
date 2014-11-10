@@ -3,11 +3,16 @@ Changelog
 
 0.9 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~~~
+
  * Fixed missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
+ * Fix: Page system check for on_delete actions of ForeignKeys was throwing false positives when page class decends from an abstract class (Alejandro Giacometti)
+
 
 0.8.1 (05.11.2014)
 ~~~~~~~~~~~~~~~~~~
+
  * Fixed a regression where images would fail to save when feature detection is active
+
 
 0.8 (05.11.2014)
 ~~~~~~~~~~~~~~~~
