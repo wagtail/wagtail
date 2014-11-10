@@ -34,6 +34,7 @@ Contributors
 * thenewguy
 * John-Scott Atlakson
 * Eric Drechsel
+* Alejandro Giacometti
 
 Translators
 ===========
