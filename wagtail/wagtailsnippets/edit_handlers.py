@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
@@ -24,9 +25,9 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
         
-        if bool(instance_obj):
+        try:
             edit_chosen_link = reverse(self.edit_link_reverse, args=(self.object_type_name, self.snippet_type_name, instance_obj.id,))
-        else:
+        except AttributeError:
             edit_chosen_link = ''
 
         return mark_safe(render_to_string(self.field_template, {

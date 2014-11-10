@@ -465,9 +465,9 @@ class BaseChooserPanel(BaseFieldPanel):
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
 
-        if bool(instance_obj):
+        try:
             edit_chosen_link = reverse(self.edit_link_reverse, args=(instance_obj.id,))
-        else:
+        except AttributeError:
             edit_chosen_link = ''
 
         return mark_safe(render_to_string(self.field_template, {
@@ -513,9 +513,9 @@ class BasePageChooserPanel(BaseChooserPanel):
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
         
-        if bool(instance_obj):
+        try:
             edit_chosen_link = reverse(self.edit_link_reverse, args=(instance_obj.id,))
-        else:
+        except AttributeError:
             edit_chosen_link = ''
 
         return mark_safe(render_to_string(self.field_template, {
