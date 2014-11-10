@@ -373,8 +373,16 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # This is the default Django behaviour which must be explicitly overridden
         # to prevent pages disappearing unexpectedly and the tree being corrupted
 
+        # get names of foreign keys pointing to parent classes (such as page_ptr)
+        field_exceptions = [field.name
+                            for model in [cls] + list(cls._meta.get_parent_list())
+                            for field in model._meta.parents.values()]
+
+        field_exceptions += ['content_type']
+
+
         for field in cls._meta.fields:
-            if isinstance(field, models.ForeignKey) and field.name not in ['page_ptr', 'content_type']:
+            if isinstance(field, models.ForeignKey) and field.name not in field_exceptions:
                 if field.rel.on_delete == models.CASCADE:
                     errors.append(
                         checks.Error(
