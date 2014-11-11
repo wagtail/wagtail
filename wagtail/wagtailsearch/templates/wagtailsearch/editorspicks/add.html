@@ -29,15 +29,6 @@
             </ul>
         </form>
     </div>
-
-    <script type="text/javascript">
-        {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
-        {% include "wagtailsearch/queries/chooser_field.js" only %}
-
-        (function() {
-            createQueryChooser('{{ query_form.query_string.auto_id }}');
-        })();
-    </script>
 {% endblock %}
 
 {% block extra_css %}
@@ -45,4 +36,13 @@
 {% endblock %}
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script type="text/javascript">
+        {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
+        {% include "wagtailsearch/queries/chooser_field.js" only %}
+
+        $(function() {
+            createQueryChooser('{{ query_form.query_string.auto_id }}');
+        });
+    </script>
 {% endblock %}
