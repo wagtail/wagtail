@@ -2,9 +2,7 @@
     var panel = InlinePanel({
         formsetPrefix: "id_{{ self.formset.prefix }}",
         emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
-        canOrder: {% if can_order %}true{% else %}false{% endif %},
-
-        onAdd: function() { }
+        canOrder: {% if can_order %}true{% else %}false{% endif %}
     });
 
     {% for child in self.children %}
