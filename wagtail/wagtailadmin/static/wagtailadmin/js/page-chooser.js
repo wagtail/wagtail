@@ -1,6 +1,7 @@
 function createPageChooser(id, pageType, openAtParentId) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
+    var editLink = chooserElement.find('.edit-link');
     var input = $('#' + id);
 
     $('.action-choose', chooserElement).click(function() {
@@ -16,6 +17,7 @@ function createPageChooser(id, pageType, openAtParentId) {
                     input.val(pageData.id);
                     openAtParentId = pageData.parentId;
                     pageTitle.text(pageData.title);
+                    editLink.attr('href', pageData.editUrl);
                     chooserElement.removeClass('blank');
                 }
             }

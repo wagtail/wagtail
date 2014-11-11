@@ -15,12 +15,13 @@
         <div class="chosen">
             {% block chosen_state_view %}{% endblock %}
 
-            <div class="actions">
+            <ul class="actions">
                 {% if not field.field.required %}
-                    <input type="button" class="action-clear button-small button-secondary" value="{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}">
+                    <li><input type="button" class="action-clear button-small button-secondary" value="{% block clear_button_label %}{% trans "Clear choice" %}{% endblock %}" /></li>
                 {% endif %}
-                <input type="button" class="action-choose button-small button-secondary" value="{% block choose_another_button_label %}{% trans "Choose another item" %}{% endblock %}">
-            </div>
+                <li><input type="button" class="action-choose button-small button-secondary" value="{% block choose_another_button_label %}{% trans "Choose another item" %}{% endblock %}" /></li>
+                <li><a href="{% block link_to_chosen_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank">{% block link_to_chosen_text %}{% trans "Edit this" %}{% endblock %}</a></li>
+            </ul>
         </div>
 
         <div class="unchosen">

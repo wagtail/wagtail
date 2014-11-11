@@ -1,6 +1,7 @@
 function createDocumentChooser(id) {
     var chooserElement = $('#' + id + '-chooser');
     var docTitle = chooserElement.find('.title');
+    var editLink = chooserElement.find('.edit-link');
     var input = $('#' + id);
 
     $('.action-choose', chooserElement).click(function() {
@@ -9,6 +10,7 @@ function createDocumentChooser(id) {
             'responses': {
                 'documentChosen': function(docData) {
                     input.val(docData.id);
+                    editLink.attr('href', docData.edit_link);
                     docTitle.text(docData.title);
                     chooserElement.removeClass('blank');
                 }

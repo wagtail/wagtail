@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
@@ -9,6 +10,7 @@ from wagtail.wagtailadmin.edit_handlers import BaseChooserPanel
 class BaseSnippetChooserPanel(BaseChooserPanel):
     field_template = "wagtailsnippets/edit_handlers/snippet_chooser_panel.html"
     object_type_name = 'item'
+    edit_link_reverse = "wagtailsnippets_edit"
 
     _content_type = None
 
@@ -22,12 +24,19 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
 
     def render_as_field(self, show_help_text=True):
         instance_obj = self.get_chosen_item()
+        
+        try:
+            edit_chosen_link = reverse(self.edit_link_reverse, args=(self.object_type_name, self.snippet_type_name, instance_obj.id,))
+        except AttributeError:
+            edit_chosen_link = ''
+
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'snippet_type_name': self.snippet_type_name,
             'is_chosen': bool(instance_obj),
             'show_help_text': show_help_text,
+            'edit_chosen_link': edit_chosen_link
         }))
 
     def render_js(self):

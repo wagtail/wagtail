@@ -1,5 +1,6 @@
 import json
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
@@ -23,6 +24,7 @@ def get_image_json(image):
 
     return json.dumps({
         'id': image.id,
+        'edit_link': reverse('wagtailimages_edit_image', args=(image.id,)),
         'title': image.title,
         'preview': {
             'url': preview_image.url,
@@ -164,6 +166,7 @@ def chooser_select_format(request, image_id):
 
             image_json = json.dumps({
                 'id': image.id,
+                'edit_link': reverse('wagtailimages_edit_image', args=(image.id,)),
                 'title': image.title,
                 'format': format.name,
                 'alt': form.cleaned_data['alt_text'],
