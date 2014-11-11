@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
 
@@ -191,7 +192,7 @@ class GroupForm(forms.ModelForm):
 class GroupPagePermissionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GroupPagePermissionForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = forms.HiddenInput()
+        self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
         model = GroupPagePermission
