@@ -4,6 +4,7 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.forms import widgets
+from django.contrib.contenttypes.models import ContentType
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.models import Page
@@ -39,8 +40,7 @@ class AdminPageChooser(WidgetWithScript, widgets.Input):
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
-        if content_type is not None:
-            self.target_content_type = content_type
+        self.target_content_type = content_type or ContentType.objects.get_for_model(Page)
 
     def render_js_init(self, id_, name, value):
         page = Page.objects.get(pk=value) if value else None

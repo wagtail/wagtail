@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib.contenttypes.models import ContentType
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch import models
 
 
@@ -21,7 +19,7 @@ class EditorsPickForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditorsPickForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = AdminPageChooser(ContentType.objects.get_for_model(Page))
+        self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
         model = models.EditorsPick
