@@ -1,9 +1,7 @@
 $(function() {
-    function fixPrefix(str) {return str;}
-
     var panel = InlinePanel({
-        formsetPrefix: fixPrefix("id_{{ formset.prefix }}"),
-        emptyChildFormPrefix: fixPrefix("{{ formset.empty_form.prefix }}")
+        formsetPrefix: "id_{{ formset.prefix }}",
+        emptyChildFormPrefix: "{{ formset.empty_form.prefix }}"
     });
 
     {% for form in formset.forms %}
