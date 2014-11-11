@@ -16,3 +16,4 @@ Bug fixes
 
  * Added missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
  * Page system check for on_delete actions of ForeignKeys was throwing false positives when page class decends from an abstract class (Alejandro Giacometti)
+ * Fixed a regression where form builder submissions containing a number field would fail with a JSON serialisation error
