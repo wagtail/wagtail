@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.forms import FormBuilder
-from wagtail.tests.models import FormPage
+from wagtail.tests.models import FormPage, FormField
 
 
 class TestFormSubmission(TestCase):
@@ -285,3 +285,32 @@ class TestFormsSubmissions(TestCase):
         self.assertEqual(response.status_code, 200)
         data_line = response.content.decode().split("\n")[1]
         self.assertIn('new@example.com', data_line)
+
+
+class TestIssue798(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.client.login(username='siteeditor', password='password')
+        self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
+
+        # Add a number field to the page
+        FormField.objects.create(
+            page=self.form_page,
+            label="Your favourite number",
+            field_type='number',
+        )
+
+    def test_post(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''},
+            'your-favourite-number': '7.3',
+        })
+
+        # Check response
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that form submission was saved correctly
+        self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='7.3').exists())
