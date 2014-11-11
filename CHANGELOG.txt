@@ -1,10 +1,10 @@
 Changelog
 =========
 
-0.9 (xx.xx.xxxx)
+0.8.2 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~~~
 
- * Fixed missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
+ * Fix: Added missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
  * Fix: Page system check for on_delete actions of ForeignKeys was throwing false positives when page class decends from an abstract class (Alejandro Giacometti)
 
 
