@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.serializers.json import DjangoJSONEncoder
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
@@ -132,7 +133,7 @@ class AbstractForm(Page):
 
     def process_form_submission(self, form):
         FormSubmission.objects.create(
-            form_data=json.dumps(form.cleaned_data),
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
 
