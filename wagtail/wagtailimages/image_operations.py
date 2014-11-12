@@ -263,3 +263,34 @@ class WidthHeightOperation(Operation):
             return
 
         willow.resize(width, height)
+
+
+class GrayscaleOperation(object):
+    def __init__(self, method):
+        pass
+
+    def run(self, willow, image):
+        willow.grayscale()
+
+
+class BlurOperation(object):
+    def __init__(self, method, radius):
+        self.radius = int(radius)
+
+    def run(self, willow, image):
+        willow.blur(self.radius)
+
+
+
+from willow.backends.pillow import PillowBackend
+from PIL import ImageFilter
+
+
+@PillowBackend.register_operation('grayscale')
+def pillow_grayscale(backend):
+    backend.image = backend.image.convert('LA').convert('RGBA')
+
+
+@PillowBackend.register_operation('blur')
+def pillow_blur(backend, radius):
+    backend.image = backend.image.filter(ImageFilter.GaussianBlur(radius))
