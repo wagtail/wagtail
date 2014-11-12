@@ -109,4 +109,6 @@ def register_image_operations():
         ('height', image_operations.WidthHeightOperation),
         ('grayscale', image_operations.GrayscaleOperation),
         ('blur', image_operations.BlurOperation),
+        ('monochrome', image_operations.MonochromeOperation),
+        ('colorize', image_operations.ColorizeOperation),
     ]

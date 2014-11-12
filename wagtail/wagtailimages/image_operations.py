@@ -281,16 +281,59 @@ class BlurOperation(object):
         willow.blur(self.radius)
 
 
+class MonochromeOperation(object):
+    def __init__(self, method):
+        pass
+
+    def run(self, willow, image):
+        willow.monochrome()
+
+
+def parse_colour(self, colour_string):
+    if len(colour_string) == 3:
+        return (
+            int(colour_string[0], 16) * 16,
+            int(colour_string[1], 16) * 16,
+            int(colour_string[2], 16) * 16,
+        )
+    elif len(colour_string) == 6:
+        return (
+            int(colour_string[0:1], 16),
+            int(colour_string[2:3], 16),
+            int(colour_string[4:5], 16),
+        )
+    else:
+        raise ValueError("Invalid length of colour (must be 3 or 6 characters long): %s" % colour_string)
+
+
+class ColorizeOperation(object):
+    def __init__(self, method, black, white):
+        self.black = parse_colour(black)
+        self.white = parse_colour(white)
+
+    def run(self, willow, image):
+        willow.colorize(self.black, self.white)
+
 
 from willow.backends.pillow import PillowBackend
-from PIL import ImageFilter
+from PIL import ImageFilter, ImageOps
 
 
 @PillowBackend.register_operation('grayscale')
 def pillow_grayscale(backend):
-    backend.image = backend.image.convert('LA').convert('RGBA')
+    backend.image = backend.image.convert('L')
 
 
 @PillowBackend.register_operation('blur')
 def pillow_blur(backend, radius):
     backend.image = backend.image.filter(ImageFilter.GaussianBlur(radius))
+
+
+@PillowBackend.register_operation('monochrome')
+def pillow_monochrome(backend):
+    backend.image = backend.image.convert('1')
+
+
+@PillowBackend.register_operation('colorize')
+def pillow_colorize(backend, black, white):
+    backend.image = ImageOps.colorize(backend.image.convert('L'), black, white)
