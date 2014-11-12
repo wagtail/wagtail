@@ -38,15 +38,15 @@ body{
     }
 }
 
-.browsermessage{
+.capabilitymessage{
+    display:block;
     background-color:$color-red;
     color:white;
     padding:1em 2em;
     margin:0;
     position:relative;
-    left:0;
-    top:0;
-    right:0;
+    width:100%;
+    text-align:center;
 
     a{
         color:white;
