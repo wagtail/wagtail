@@ -18,7 +18,11 @@ class PillowBackend(BaseImageBackend):
 
     def resize(self, image, size):
         if image.mode in ['1', 'P']:
-            image = image.convert('RGB')
+            if 'transparency' in image.info:
+                image = image.convert('RGBA')
+            else:
+                image = image.convert('RGB')
+
         return image.resize(size, PIL.Image.ANTIALIAS)
 
     def crop(self, image, rect):
