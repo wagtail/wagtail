@@ -1,0 +1,28 @@
+==========================================
+Wagtail 0.9 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+
+Bug fixes
+~~~~~~~~~
+
+
+Upgrade considerations
+======================
+
+Javascript includes in admin backend have been moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To improve compatibility with third-party form widgets, pages within the Wagtail admin backend now output their Javascript includes in the HTML header, rather than at the end of the page. If your project extends the admin backend (through the ``register_admin_menu_item`` hook, for example) you will need to ensure that all associated Javascript code runs correctly from the new location. In particular, any code that accesses HTML elements will need to be contained in an 'onload' handler (e.g. jQuery's ``$(document).ready()``).
