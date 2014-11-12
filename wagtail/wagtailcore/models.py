@@ -385,11 +385,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             if isinstance(field, models.ForeignKey) and field.name not in field_exceptions:
                 if field.rel.on_delete == models.CASCADE:
                     errors.append(
-                        checks.Error(
+                        checks.Warning(
                             "Field hasn't specified on_delete action",
                             hint="Set on_delete=models.SET_NULL and make sure the field is nullable.",
                             obj=field,
-                            id='wagtailcore.E001',
+                            id='wagtailcore.W001',
                         )
                     )
 
