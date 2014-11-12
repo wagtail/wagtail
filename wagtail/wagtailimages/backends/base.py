@@ -165,7 +165,7 @@ class BaseImageBackend(object):
             crop_min_height = crop_min_scale / crop_aspect_ratio
 
             # Sometimes, the focal point may be bigger than the image...
-            if not crop_min_scale > crop_max_scale:
+            if not crop_min_scale >= crop_max_scale:
                 # Calculate max crop closeness to prevent upscaling
                 max_crop_closeness = max(
                     1 - (fl_width - crop_min_width) / (crop_max_width - crop_min_width),
