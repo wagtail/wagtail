@@ -339,11 +339,19 @@ class ElasticSearch(BaseSearch):
             for url in self.es_urls:
                 parsed_url = urlparse(url)
 
+                use_ssl = parsed_url.scheme == 'https'
+                port = parsed_url.port or (443 if use_ssl else 80)
+
+                http_auth = None
+                if parsed_url.username is not None and parsed_url.password is not None:
+                    http_auth = (parsed_url.username, parsed_url.password)
+
                 self.es_hosts.append({
                     'host': parsed_url.hostname,
-                    'port': parsed_url.port or 9200,
+                    'port': port,
                     'url_prefix': parsed_url.path,
-                    'use_ssl': parsed_url.scheme == 'https',
+                    'use_ssl': use_ssl,
+                    'http_auth': http_auth,
                 })
 
         # Get ElasticSearch interface
