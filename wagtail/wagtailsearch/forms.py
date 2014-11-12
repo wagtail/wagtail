@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailsearch import models
 
 
@@ -18,7 +19,7 @@ class EditorsPickForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditorsPickForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = forms.HiddenInput()
+        self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
         model = models.EditorsPick
@@ -35,6 +36,7 @@ EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick,
 class EditorsPickFormSet(EditorsPickFormSetBase):
     minimum_forms = 1
     minimum_forms_message = _("Please specify at least one recommendation for this search term.")
+
     def add_fields(self, form, *args, **kwargs):
         super(EditorsPickFormSet, self).add_fields(form, *args, **kwargs)
 

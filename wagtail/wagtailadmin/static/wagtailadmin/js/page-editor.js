@@ -245,19 +245,17 @@ function InlinePanel(opts) {
 
     buildExpandingFormset(opts.formsetPrefix, {
         onAdd: function(formCount) {
-            function fixPrefix(str) {
-                return str.replace(/__prefix__/g, formCount);
-            }
-            self.initChildControls(fixPrefix(opts.emptyChildFormPrefix));
+            var newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
+            self.initChildControls(newChildPrefix);
             if (opts.canOrder) {
                 /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
                 Therefore formcount and order are currently equal and order must be incremented
                 to ensure it's *greater* than previous item */
-                $(fixPrefix('#id_' + opts.emptyChildFormPrefix + '-ORDER')).val(formCount + 1);
+                $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
             }
             self.updateMoveButtonDisabledStates();
 
-            opts.onAdd(fixPrefix);
+            if (opts.onAdd) opts.onAdd();
         }
     });
 

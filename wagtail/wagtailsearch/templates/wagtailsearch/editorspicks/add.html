@@ -41,8 +41,8 @@
         {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
         {% include "wagtailsearch/queries/chooser_field.js" only %}
 
-        (function() {
+        $(function() {
             createQueryChooser('{{ query_form.query_string.auto_id }}');
-        })();
+        });
     </script>
 {% endblock %}

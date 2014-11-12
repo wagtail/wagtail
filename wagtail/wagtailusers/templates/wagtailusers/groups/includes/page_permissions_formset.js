@@ -1,19 +1,12 @@
-(function() {
-    function fixPrefix(str) {return str;}
-
+$(function() {
     var panel = InlinePanel({
-        formsetPrefix: fixPrefix("id_{{ formset.prefix }}"),
-        emptyChildFormPrefix: fixPrefix("{{ formset.empty_form.prefix }}"),
-
-        onAdd: function(fixPrefix) {
-            createPageChooser(fixPrefix('id_{{ formset.prefix }}-__prefix__-page'), 'wagtailcore.page', null);
-        }
+        formsetPrefix: "id_{{ formset.prefix }}",
+        emptyChildFormPrefix: "{{ formset.empty_form.prefix }}"
     });
 
     {% for form in formset.forms %}
-        createPageChooser(fixPrefix('id_{{ formset.prefix }}-{{ forloop.counter0 }}-page'), 'wagtailcore.page', null);
         panel.initChildControls('{{ formset.prefix }}-{{ forloop.counter0 }}');
     {% endfor %}
 
     panel.updateMoveButtonDisabledStates();
-})();
+});
