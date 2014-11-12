@@ -8,6 +8,7 @@ Changelog
  * Fix: Page system check for on_delete actions of ForeignKeys was throwing false positives when page class decends from an abstract class (Alejandro Giacometti)
  * Fixed a regression where form builder submissions containing a number field would fail with a JSON serialisation error
  * Fix: Resizing an image with a focal point equal to the image size would result in a divide-by-zero error
+ * Fix: Elasticsearch configuration now supports specifying HTTP authentication parameters as part of the URL, and defaults to ports 80 (HTTP) and 443 (HTTPS) if port number not specified
 
 
 0.8.1 (05.11.2014)
