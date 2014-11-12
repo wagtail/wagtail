@@ -10,7 +10,7 @@ class WidgetWithScript(Widget):
 
         final_attrs = self.build_attrs(attrs, name=name)
         id_ = final_attrs.get('id', None)
-        if 'id_' is None:
+        if id_ is None:
             return widget
 
         js = self.render_js_init(id_, name, value)
