@@ -1,27 +1,44 @@
 $(function(){
+    var $explorer = $('#explorer');
+    var $body = $('body');
+
     // Dynamically load menu on request.
     $(document).on('click', '.dl-trigger', function(){
         var $this = $(this);
-        var $explorer = $('#explorer');
+        
+        // Close any submenuss
+        $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
 
-        $this.addClass('icon-spinner');
-
-        if(!$explorer.children().length){
-            $explorer.load($this.data('explorer-menu-url'), function() {
-                $this.removeClass('icon-spinner');
-
-                $explorer.addClass('dl-menuwrapper').dlmenu({
-                    animationClasses : {
-                        classin : 'dl-animate-in-2',
-                        classout : 'dl-animate-out-2'
-                    }
-                });
-                $explorer.dlmenu('openMenu');
-            });
+        if($explorer.data('dlmenu') && $explorer.dlmenu('isOpen')){
+            // if it's already open, allow the menu plugin to close it
+            return false;
         }else{
-            $explorer.dlmenu('openMenu');
-        }
+            $this.addClass('icon-spinner');
 
+            if(!$explorer.children().length){
+                $explorer.load($this.data('explorer-menu-url'), function() {
+                    $this.removeClass('icon-spinner');
+
+                    $explorer.addClass('dl-menuwrapper').dlmenu({
+                        animationClasses : {
+                            classin : 'dl-animate-in-2',
+                            classout : 'dl-animate-out-2'
+                        }
+                    });
+                    $explorer.dlmenu('openMenu');
+                });
+            }else{
+                $explorer.dlmenu('openMenu');
+                $this.removeClass('icon-spinner');
+            }
+        }
         return false;
+    });
+
+    // Close menu on ESC key
+    $(document).on('keydown click', function(e){
+        if($explorer.data('dlmenu') && $explorer.dlmenu('isOpen') && (e.keyCode == 27 || !e.keyCode)){
+            $explorer.dlmenu('closeMenu');
+        }
     });
 });
