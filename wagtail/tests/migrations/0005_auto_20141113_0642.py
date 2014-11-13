@@ -7,6 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('wagtailcore', '0002_initial_data'),
         ('tests', '0004_auto_20141008_0420'),
     ]
 
