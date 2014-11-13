@@ -1,5 +1,5 @@
 <!doctype html>
-{% load compress %}
+{% load compress i18n %}
 <html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-gb" }}">
 <head>
     <meta charset="utf-8" />
@@ -18,8 +18,9 @@
 </head>
 <body class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">
     <!--[if lt IE 9]>
-        <p class="browsermessage">You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a>.</p>
+        <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a>.{% endblocktrans %}</p>
     <![endif]-->
+    <noscript class="capabilitymessage">{% trans 'Javascript is required to use Wagtail, but it is currently disabled' %}</noscript>
 
     {% block js %}{% endblock %}
 
