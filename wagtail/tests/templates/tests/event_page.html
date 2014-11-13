@@ -11,6 +11,7 @@
         {% if self.feed_image %}
             {% image self.feed_image width-200 class="feed-image" %}
         {% endif %}
+        {{ self.body|richtext }}
         <p><a href="{% slugurl 'events' %}">Back to events index</a></p>
     </body>
 </html>
