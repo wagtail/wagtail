@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <!DOCTYPE HTML>
 <html>
@@ -8,6 +8,9 @@
     <body>
         <h1>{{ self.title }}</h1>
         <h2>Event</h2>
+        {% if self.feed_image %}
+            {% image self.feed_image width-200 class="feed-image" %}
+        {% endif %}
         <p><a href="{% slugurl 'events' %}">Back to events index</a></p>
     </body>
 </html>
