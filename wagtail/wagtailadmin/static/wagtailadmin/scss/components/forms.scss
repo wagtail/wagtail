@@ -327,7 +327,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         background-color:$color-grey-3 !important;
         border-color:$color-grey-3 !important;
         color:lighten($color-grey-2, 15%) !important;
-        cursor:default;
+        cursor:not-allowed;
     }
     &.button-secondary:disabled, &.button-secondary[disabled], &.button-secondary.disabled{
         background-color: white !important;
