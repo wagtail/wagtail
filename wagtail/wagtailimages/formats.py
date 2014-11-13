@@ -1,6 +1,7 @@
 from django.utils.html import escape
 
 from wagtail.utils.apps import get_app_submodules
+from wagtail.wagtailimages.models import SourceImageIOError
 
 
 class Format(object):
@@ -25,7 +26,15 @@ class Format(object):
         )
 
     def image_to_html(self, image, alt_text, extra_attributes=''):
-        rendition = image.get_rendition(self.filter_spec)
+        try:
+            rendition = image.get_rendition(self.filter_spec)
+        except SourceImageIOError:
+            # Image file is (probably) missing from /media/original_images - generate a dummy
+            # rendition so that we just output a broken image, rather than crashing out completely
+            # during rendering
+            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
+            rendition = Rendition(image=image, width=0, height=0)
+            rendition.file.name = 'not-found'
 
         if self.classnames:
             class_attr = 'class="%s" ' % escape(self.classnames)
