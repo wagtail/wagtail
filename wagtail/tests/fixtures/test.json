@@ -224,7 +224,7 @@
         "date_from": "2015-04-22",
         "audience": "public",
         "location": "Ameristralia",
-        "body": "<p>come celebrate the independence of Ameristralia</p>",
+        "body": "<p>come celebrate the independence of Ameristralia <embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"where did my image go?\" /></p>",
         "cost": "Free"
     }
 },

@@ -76,6 +76,11 @@ class TestMissingImage(TestCase):
         response = self.client.get('/events/christmas/')
         self.assertContains(response, '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">', html=True)
 
+    def test_rich_text_with_missing_image(self):
+        # the page /events/final-event/ has a missing image in the rich text body
+        response = self.client.get('/events/final-event/')
+        self.assertContains(response, '<img class="richtext-image full-width" src="/media/not-found" width="0" height="0" alt="where did my image go?">', html=True)
+
 
 class TestFormat(TestCase):
     def setUp(self):
