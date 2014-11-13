@@ -6,16 +6,15 @@ $(function(){
     $(document).on('click', '.dl-trigger', function(){
         var $this = $(this);
         
-        // Close any submenuss
+        // Close all submenus
         $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
 
         if($explorer.data('dlmenu') && $explorer.dlmenu('isOpen')){
             // if it's already open, allow the menu plugin to close it
             return false;
         }else{
-            $this.addClass('icon-spinner');
-
             if(!$explorer.children().length){
+                $this.addClass('icon-spinner');
                 $explorer.load($this.data('explorer-menu-url'), function() {
                     $this.removeClass('icon-spinner');
 
@@ -29,7 +28,6 @@ $(function(){
                 });
             }else{
                 $explorer.dlmenu('openMenu');
-                $this.removeClass('icon-spinner');
             }
         }
         return false;
