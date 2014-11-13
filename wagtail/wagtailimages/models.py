@@ -1,7 +1,7 @@
 import os.path
 import re
 
-from six import BytesIO
+from six import BytesIO, text_type
 
 from taggit.managers import TaggableManager
 
@@ -26,6 +26,13 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailadmin.utils import get_object_usage
+
+
+class SourceImageIOError(IOError):
+    """
+    Custom exception to distinguish IOErrors that were thrown while opening the source image
+    """
+    pass
 
 
 def get_upload_to(instance, filename):
@@ -178,7 +185,15 @@ class AbstractImage(models.Model, TagSearchable):
             # If we have a backend attribute then pass it to process
             # image - else pass 'default'
             backend_name = getattr(self, 'backend', 'default')
-            generated_image = filter.process_image(file_field.file, backend_name=backend_name, focal_point=self.get_focal_point())
+
+            try:
+                image_file = file_field.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
+            except IOError as e:
+                # re-throw this as a SourceImageIOError so that calling code can distinguish
+                # these from IOErrors elsewhere in the process
+                raise SourceImageIOError(text_type(e))
+
+            generated_image = filter.process_image(image_file, backend_name=backend_name, focal_point=self.get_focal_point())
 
             # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
             if self.has_focal_point():

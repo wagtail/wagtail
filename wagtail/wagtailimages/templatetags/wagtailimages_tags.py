@@ -1,6 +1,6 @@
 from django import template
 
-from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.models import Filter, SourceImageIOError
 
 register = template.Library()
 
@@ -53,10 +53,10 @@ class ImageNode(template.Node):
 
         try:
             rendition = image.get_rendition(self.filter)
-        except IOError:
+        except SourceImageIOError:
             # It's fairly routine for people to pull down remote databases to their
             # local dev versions without retrieving the corresponding image files.
-            # In such a case, we would get an IOError at the point where we try to
+            # In such a case, we would get a SourceImageIOError at the point where we try to
             # create the resized version of a non-existent image. Since this is a
             # bit catastrophic for a missing image, we'll substitute a dummy
             # Rendition object so that we just output a broken link instead.
