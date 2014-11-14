@@ -4,7 +4,7 @@ from django.db import models
 
 from wagtail.tests.utils import WagtailTestUtils
 from django.test.utils import override_settings
-from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel
+from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel, RegisterDecorator
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
@@ -189,9 +189,6 @@ class TestSnippetRegistering(TestCase):
         self.assertIn(RegisterFunction, SNIPPET_MODELS)
 
     def test_register_function(self):
-        @register_snippet
-        class RegisterDecorator(models.Model):
-            pass
 
         # Misbehaving decorators often return None
         self.assertIsNotNone(RegisterDecorator)
