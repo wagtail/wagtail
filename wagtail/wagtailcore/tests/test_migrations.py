@@ -57,7 +57,15 @@ class TestForMigrations(TransactionTestCase):
         if changes:
             apps = ', '.join(apps.get_app_config(label).name
                              for label in changes.keys())
-            self.fail('Model changes with no migrations detected in apps: %s' % (apps,))
+            migrations = '\n'.join((
+                '  {migration}\n{changes}'.format(
+                    migration=migration,
+                    changes='\n'.join('    {0}'.format(operation.describe())
+                                      for operation in migration.operations))
+                for (_, migrations) in changes.items()
+                for migration in migrations))
+
+            self.fail('Model changes with no migrations detected:\n%s' % migrations)
 
     @skipUnless(VERSION < (1, 7), "South migrations used for Django < 1.7")
     def test_south_migrations(self):
