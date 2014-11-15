@@ -18,7 +18,7 @@ class PillowBackend(BaseImageBackend):
 
     def resize(self, image, size):
         if image.mode in ['1', 'P']:
-            if 'transparency' in image.info:
+            if 'transparency' in image.info and isinstance(image.info['transparency'], bytes):
                 image = image.convert('RGBA')
             else:
                 image = image.convert('RGB')
