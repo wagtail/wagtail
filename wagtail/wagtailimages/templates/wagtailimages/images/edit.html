@@ -50,13 +50,18 @@
         <div class="col5">
             <h2 class="label">{% trans "Focal point (optional)" %}</h2>
             <p>{% trans "To define this image's most important region, drag a box over the image below." %} {% if image.focal_point %}({% trans "Current focal point shown" %}){% endif %}</p>
+
+            {% image image max-800x600 as rendition %}
+
             <div class="focal-point-chooser"
+                style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
                 data-focal-point-x="{{ image.focal_point_x }}"
                 data-focal-point-y="{{ image.focal_point_y }}"
                 data-focal-point-width="{{ image.focal_point_width }}"
                 data-focal-point-height="{{ image.focal_point_height }}">
 
-                {% image image max-800x600 data-original-width=image.width data-original-height=image.height %}
+                <img {{ rendition.attrs }} data-original-width="{{ image.width }}" data-original-height="{{ image.height }}">
+
                 <div class="current-focal-point-indicator{% if not image.focal_point %} hidden{% endif %}"></div>
             </div>
 
