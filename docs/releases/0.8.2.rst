@@ -19,6 +19,7 @@ Bug fixes
  * Page system check for on_delete actions of ForeignKeys now only raises warnings, not errors
  * Fixed a regression where form builder submissions containing a number field would fail with a JSON serialisation error
  * Resizing an image with a focal point equal to the image size would result in a divide-by-zero error
+ * Focal point indicator would sometimes be positioned incorrectly for small or thin images
  * Elasticsearch configuration now supports specifying HTTP authentication parameters as part of the URL, and defaults to ports 80 (HTTP) and 443 (HTTPS) if port number not specified
 
 
