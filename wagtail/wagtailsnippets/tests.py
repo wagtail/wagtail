@@ -188,7 +188,7 @@ class TestSnippetRegistering(TestCase):
 
         self.assertIn(RegisterFunction, SNIPPET_MODELS)
 
-    def test_register_function(self):
+    def test_register_decorator(self):
         @register_snippet
         class RegisterDecorator(models.Model):
             pass
