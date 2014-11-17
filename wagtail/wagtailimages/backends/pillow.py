@@ -16,24 +16,20 @@ class PillowBackend(BaseImageBackend):
     def save_image(self, image, output, format):
         image.save(output, format, quality=self.quality)
 
-    def resize(self, image, size):
-        if image.mode in ['1', 'P']:
+    def _to_rgb(self, image):
+        if image.mode not in ['RGB', 'RGBA']:
             if 'transparency' in image.info and isinstance(image.info['transparency'], bytes):
                 image = image.convert('RGBA')
             else:
                 image = image.convert('RGB')
+        return image
 
-        return image.resize(size, PIL.Image.ANTIALIAS)
+    def resize(self, image, size):
+        return self._to_rgb(image).resize(size, PIL.Image.ANTIALIAS)
 
     def crop(self, image, rect):
         return image.crop(rect)
 
     def image_data_as_rgb(self, image):
-        # https://github.com/thumbor/thumbor/blob/f52360dc96eedd9fc914fcf19eaf2358f7e2480c/thumbor/engines/pil.py#L206-L215
-        if image.mode not in ['RGB', 'RGBA']:
-            if 'A' in image.mode:
-                image = image.convert('RGBA')
-            else:
-                image = image.convert('RGB')
-
+        image = self._to_rgb(image)
         return image.mode, image.tostring()
