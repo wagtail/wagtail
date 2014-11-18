@@ -12,6 +12,8 @@ Changelog
  * Fix: Focal point indicator would sometimes be positioned incorrectly for small or thin images
  * Fix: Elasticsearch configuration now supports specifying HTTP authentication parameters as part of the URL, and defaults to ports 80 (HTTP) and 443 (HTTPS) if port number not specified
  * Fixed a TypeError when previewing pages that use RoutablePageMixin
+ * Fix: Rendering image with missing file in rich text no longer crashes the entire page
+ * Fix: IOErrors thrown by underlying image libraries that are not reporting a missing image file are no longer caught
 
 
 0.8.1 (05.11.2014)
