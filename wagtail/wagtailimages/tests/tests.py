@@ -63,6 +63,25 @@ class TestImageTag(TestCase):
         self.assertTrue('title="my wonderful title"' in result)
 
 
+class TestMissingImage(TestCase):
+    """
+    Missing image files in media/original_images should be handled gracefully, to cope with
+    pulling live databases to a development instance without copying the corresponding image files.
+    In this case, it's acceptable to render broken images, but not to fail rendering the page outright.
+    """
+    fixtures = ['test.json']
+
+    def test_image_tag_with_missing_image(self):
+        # the page /events/christmas/ has a missing image as the feed image
+        response = self.client.get('/events/christmas/')
+        self.assertContains(response, '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">', html=True)
+
+    def test_rich_text_with_missing_image(self):
+        # the page /events/final-event/ has a missing image in the rich text body
+        response = self.client.get('/events/final-event/')
+        self.assertContains(response, '<img class="richtext-image full-width" src="/media/not-found" width="0" height="0" alt="where did my image go?">', html=True)
+
+
 class TestFormat(TestCase):
     def setUp(self):
         # test format

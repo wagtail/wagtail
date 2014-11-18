@@ -81,7 +81,8 @@
         "audience": "public",
         "location": "The North Pole",
         "body": "<p>Chestnuts roasting on an open fire</p>",
-        "cost": "Free"
+        "cost": "Free",
+        "feed_image": 1
     }
 },
 
@@ -223,7 +224,7 @@
         "date_from": "2015-04-22",
         "audience": "public",
         "location": "Ameristralia",
-        "body": "<p>come celebrate the independence of Ameristralia</p>",
+        "body": "<p>come celebrate the independence of Ameristralia <embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"where did my image go?\" /></p>",
         "cost": "Free"
     }
 },
@@ -624,6 +625,17 @@
     "fields": {
         "page": 11,
         "password": "swordfish"
+    }
+},
+{
+    "pk": 1,
+    "model": "wagtailimages.image",
+    "fields": {
+        "title": "A missing image",
+        "file": "original_images/missing.jpg",
+        "width": 1000,
+        "height": 1000,
+        "created_at": "2014-01-01T12:00:00.000Z"
     }
 }
 ]
