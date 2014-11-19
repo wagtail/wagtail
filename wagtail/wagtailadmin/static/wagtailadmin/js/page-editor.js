@@ -117,7 +117,15 @@ function initDateTimeChooser(id) {
 
 function initTagField(id, autocompleteUrl) {
     $('#' + id).tagit({
-        autocomplete: {source: autocompleteUrl}
+        autocomplete: {source: autocompleteUrl},
+        preprocessTag: function(val) {
+            // Double quote a tag if it contains a space
+            // and if it isn't already quoted.
+            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
+                return '"' + val + '"';
+            }
+            return val;
+        }
     });
 }
 
@@ -345,7 +353,7 @@ $(function() {
         var $this = $(this);
 
         var previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
-        
+
         if(/MSIE/.test(navigator.userAgent)){
             submitPreview.call($this, false);
         } else {
@@ -362,22 +370,22 @@ $(function() {
                 success: function(data, textStatus, request) {
                     if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
                         var pdoc = previewWindow.document;
-                        
+
                         if(enhanced){
                             var frame = pdoc.getElementById('preview-frame');
 
                             frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                             frame.document.open();
-                            frame.document.write(data);                 
+                            frame.document.write(data);
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
                                 pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
                                 clearTimeout(hideTimeout);
-                            }) // just enough to give effect without adding discernible slowness                       
+                            }) // just enough to give effect without adding discernible slowness
                         } else {
                             pdoc.open();
-                            pdoc.write(data);                 
+                            pdoc.write(data);
                             pdoc.close()
                         }
                     } else {
@@ -401,6 +409,6 @@ $(function() {
             });
 
         }
-        
+
     });
 });
