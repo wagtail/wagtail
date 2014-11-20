@@ -7,7 +7,7 @@ Changelog
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
 
 
-0.8.2 (xx.xx.xxxx)
+0.8.3 (18.11.2014)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Added missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
@@ -23,6 +23,12 @@ Changelog
  * Fix: IOErrors thrown by underlying image libraries that are not reporting a missing image file are no longer caught
  * Fix: Minimum Pillow version bumped to 2.6.1 to work around a crash when using images with transparency
  * Fix: Images with transparency are now handled better when being used in feature detection
+
+
+0.8.2 (18.11.2014)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
 
 
 0.8.1 (05.11.2014)
