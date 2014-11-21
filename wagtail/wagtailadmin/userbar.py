@@ -24,7 +24,7 @@ class AddPageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have ability to add siblings
-        permission_checker = self.page.get_parent().permissions_for_user(request.user)
+        permission_checker = self.page.permissions_for_user(request.user)
         if not permission_checker.can_add_subpage():
             return ""
 
