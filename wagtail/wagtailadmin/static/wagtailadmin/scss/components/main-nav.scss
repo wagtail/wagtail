@@ -291,6 +291,10 @@ body.explorer-open {
                 margin:0 0.7em 0 0;
                 border:0;
                 float:left;
+
+                &:before{
+                    text-shadow:none;
+                }
             }
             em{
                 width:120px;
