@@ -1032,6 +1032,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Make sure all fields are in the form
         self.assertContains(response, "New title")
         self.assertContains(response, "New slug")
+        self.assertContains(response, "New parent page")
         self.assertContains(response, "Copy subpages")
         self.assertContains(response, "Publish copies")
 
@@ -1044,15 +1045,22 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.user.save()
 
         # Get copy page
-        response = self.client.get(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )))
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world',
+            'new_parent_page': str(self.test_page.id),
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
 
-        # Check that the user recieved a 403 response
+        # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
     def test_page_copy_post(self):
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
             'publish_copies': False,
         }
@@ -1081,6 +1089,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': False,
         }
@@ -1121,6 +1130,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': True,
         }
@@ -1157,13 +1167,14 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
-    def test_page_copy_post_existing_slug(self):
-        # This tests the existing slug checking on page copy
+    def test_page_copy_post_existing_slug_within_same_parent_page(self):
+        # This tests the existing slug checking on page copy when not changing the parent page
 
         # Attempt to copy the page but forget to change the slug
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
@@ -1172,13 +1183,29 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, 'form', 'new_slug', "This slug is already in use")
+        self.assertFormError(response, 'form', 'new_slug', "This slug is already in use within the context of its parent page \"Welcome to your new Wagtail site!\"")
+
+    def test_page_copy_post_existing_slug_to_another_parent_page(self):
+        # This tests the existing slug checking on page copy when changing the parent page
+
+        # Attempt to copy the page and changed the parent page
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world',
+            'new_parent_page': str(self.test_child_page.id),
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.test_child_page.id, )))
 
     def test_page_copy_post_invalid_slug(self):
         # Attempt to copy the page but set an invalid slug string
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello world!',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
@@ -1221,6 +1248,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         post_data = {
             'new_title': "Hello world 2",
             'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': True,
         }
