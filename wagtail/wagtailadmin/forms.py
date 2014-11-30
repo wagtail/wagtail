@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
+from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailcore.models import Page
 
 
 class SearchForm(forms.Form):
@@ -94,6 +96,13 @@ class CopyForm(forms.Form):
 
         self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
         self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
+        self.fields['new_parent_page'] = forms.ModelChoiceField(
+            initial=self.page.get_parent(),
+            queryset=Page.objects.all(),
+            widget=AdminPageChooser(),
+            label=_("New parent page"),
+            help_text=_("This copy will be a child of this given parent page.")
+        )
 
         pages_to_copy = self.page.get_descendants(inclusive=True)
         subpage_count = pages_to_copy.count() - 1
@@ -123,13 +132,24 @@ class CopyForm(forms.Form):
                     required=False, initial=True, label=label, help_text=help_text
                 )
 
-    def clean_new_slug(self):
-        # Make sure the slug isn't already in use
-        slug = self.cleaned_data['new_slug']
+    def clean(self):
+        cleaned_data = super(CopyForm, self).clean()
 
-        if self.page.get_siblings(inclusive=True).filter(slug=slug).count():
-            raise forms.ValidationError(_("This slug is already in use"))
-        return slug
+        # Make sure the slug isn't already in use
+        slug = cleaned_data.get('new_slug')
+
+        # New parent page given in form or parent of source, if parent_page is empty
+        parent_page = cleaned_data.get('new_parent_page') or self.page.get_parent()
+
+        # Count the pages with the same slug within the context of our copy's parent page
+        if slug and parent_page.get_children().filter(slug=slug).count():
+            self._errors['new_slug'] = self.error_class(
+                [_("This slug is already in use within the context of its parent page \"%s\"" % parent_page)]
+            )
+            # The slug is no longer valid, hence remove it from cleaned_data
+            del cleaned_data['new_slug']
+
+        return cleaned_data
 
 
 class PageViewRestrictionForm(forms.Form):
