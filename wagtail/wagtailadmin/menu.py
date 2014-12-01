@@ -38,7 +38,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
+            """<li class="menu-item menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
             self.name, self.url, self.classnames, self.attr_string, self.label)
 
 
@@ -103,7 +103,7 @@ class SubmenuMenuItem(MenuItem):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0}">
+            """<li class="menu-item menu-{0}">
                 <a href="#" class="submenu-trigger {1}"{2}>{3}</a>
                 <div class="nav-submenu">
                     <h2 class="{1}">{3}</h2>
