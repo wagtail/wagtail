@@ -7,7 +7,7 @@ Changelog
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
  * Added thousands separator for counters on dashboard
- * Added links to admin notification messages
+ * Added contextual links to admin notification messages
  * Fix: It is no longer possible to have the explorer and settings menu open at the same time
 
 
