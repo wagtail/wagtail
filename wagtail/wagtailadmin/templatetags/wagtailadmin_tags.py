@@ -4,6 +4,7 @@ import re
 
 from django.conf import settings
 from django import template
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
@@ -13,6 +14,7 @@ from wagtail.wagtailadmin.menu import admin_menu
 
 register = template.Library()
 
+register.filter('intcomma', intcomma)
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
 def explorer_nav():
