@@ -218,7 +218,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
     &.button-secondary{
         color:$color-button;
-        background-color:white;
+        background-color:transparent;
     }
 
     &.icon.text-replace:before{
@@ -260,7 +260,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             border-color:transparent;
             background-color: $color-button-no-hover;
         }
-    }  
+    }
 
     &.bicolor{
         border:0;

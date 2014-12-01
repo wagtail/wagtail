@@ -10,6 +10,10 @@
     z-index:5;
     background-color:$color-grey-1;
 
+    .buttons{
+        margin-left:1em;
+    }
+
     ul{
         @include unlist();
         padding-left:10px;
@@ -54,6 +58,18 @@
         &:before{
             font-family:wagtail;
             content:"9";
+        }
+    }
+
+    .success .button:hover{
+        background-color:$color-teal-dark;
+    }
+    .button-secondary{
+        border-color:rgba(255,255,255,0.5);
+        color:rgba(255,255,255,0.8);
+        &:hover{
+            border-color:transparent;
+            color:white;
         }
     }
 }

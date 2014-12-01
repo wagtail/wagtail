@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
-from django.contrib import messages
+from wagtail.wagtailadmin import messages
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.forms import SearchForm
@@ -28,9 +28,18 @@ def index(request):
 
     example_form = ExampleForm()
 
-    messages.success(request, _("Success message"))
-    messages.warning(request, _("Warning message"))
-    messages.error(request, _("Error message"))
+    messages.success(request, _("Success message"), buttons = [
+        messages.button('', _('View live')),
+        messages.button('', _('Edit'))
+    ])
+    messages.warning(request, _("Warning message"), buttons = [
+        messages.button('', _('View live')),
+        messages.button('', _('Edit'))
+    ])
+    messages.error(request, _("Error message"), buttons = [
+        messages.button('', _('View live')),
+        messages.button('', _('Edit'))
+    ])
 
     fake_pagination = {
         'number': 1,
