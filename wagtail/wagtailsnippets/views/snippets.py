@@ -15,6 +15,7 @@ from wagtail.wagtailsnippets.models import get_snippet_content_types
 from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
 from wagtail.wagtailadmin import messages
 
+
 # == Helper functions ==
 
 
@@ -129,7 +130,7 @@ def create(request, content_type_app_name, content_type_model_name):
                     snippet_type=capfirst(get_snippet_type_name(content_type)[0]),
                     instance=instance
                 ),
-                buttons = [
+                buttons=[
                     messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name,content_type_model_name,instance.id,)), _('Edit'))
                 ]
             )
@@ -173,7 +174,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
                     snippet_type=capfirst(snippet_type_name),
                     instance=instance
                 ),
-                buttons = [
+                buttons=[
                     messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name,content_type_model_name,instance.id,)), _('Edit'))
                 ]
             )

@@ -13,6 +13,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 
+
 @permission_required('wagtaildocs.add_document')
 @vary_on_headers('X-Requested-With')
 def index(request):
@@ -88,7 +89,7 @@ def add(request):
             for backend in get_search_backends():
                 backend.add(doc)
 
-            messages.success(request, _("Document '{0}' added.").format(doc.title), buttons = [
+            messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
             ])
             return redirect('wagtaildocs_index')
@@ -124,7 +125,7 @@ def edit(request, document_id):
             for backend in get_search_backends():
                 backend.add(doc)
 
-            messages.success(request, _("Document '{0}' updated").format(doc.title), buttons = [
+            messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
             ])
             return redirect('wagtaildocs_index')

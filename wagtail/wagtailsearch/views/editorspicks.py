@@ -81,7 +81,7 @@ def add(request):
             # Save editors picks
             editors_pick_formset = forms.EditorsPickFormSet(request.POST, instance=query)
             if save_editorspicks(query, query, editors_pick_formset):
-                messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons = [
+                messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons=[
                     messages.button(reverse('wagtailsearch_editorspicks_edit', args=(query.id,)), _('Edit'))
                 ])
                 return redirect('wagtailsearch_editorspicks_index')
@@ -117,7 +117,7 @@ def edit(request, query_id):
 
             # Save editors picks
             if save_editorspicks(query, new_query, editors_pick_formset):
-                messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query), buttons = [
+                messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query), buttons=[
                     messages.button(reverse('wagtailsearch_editorspicks_edit', args=(query.id,)), _('Edit'))
                 ])
                 return redirect('wagtailsearch_editorspicks_index')

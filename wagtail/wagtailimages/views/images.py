@@ -103,7 +103,7 @@ def edit(request, image_id):
             for backend in get_search_backends():
                 backend.add(image)
 
-            messages.success(request, _("Image '{0}' updated.").format(image.title), buttons = [
+            messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit again'))
             ])
             return redirect('wagtailimages_index')
@@ -230,7 +230,7 @@ def add(request):
             for backend in get_search_backends():
                 backend.add(image)
 
-            messages.success(request, _("Image '{0}' added.").format(image.title), buttons = [
+            messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit'))
             ])
             return redirect('wagtailimages_index')

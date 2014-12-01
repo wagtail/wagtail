@@ -83,7 +83,7 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' created.").format(user), buttons = [
+            messages.success(request, _("User '{0}' created.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
             ])
             return redirect('wagtailusers_users_index')
@@ -104,7 +104,7 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' updated.").format(user), buttons = [
+            messages.success(request, _("User '{0}' updated.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
             ])
             return redirect('wagtailusers_users_index')

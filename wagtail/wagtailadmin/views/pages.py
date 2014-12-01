@@ -3,7 +3,6 @@ import warnings
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
-#from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -327,12 +326,12 @@ def edit(request, page_id):
 
             # Notifications
             if is_publishing:
-                messages.success(request, _("Page '{0}' published.").format(page.title), buttons = [
+                messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
                     messages.button(page.url, _('View live')),
                     messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
                 ])
             elif is_submitting:
-                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons = [
+                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons=[
                     messages.button(reverse('wagtailadmin_pages_view_draft', args=(page_id,)), _('View draft')),
                     messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
                 ])
