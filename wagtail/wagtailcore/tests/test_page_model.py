@@ -452,10 +452,10 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the old revision is still submitted for moderation
-        self.assertTrue(christmas_event.revisions.first().submitted_for_moderation)
+        self.assertTrue(christmas_event.revisions.order_by('created_at').first().submitted_for_moderation)
 
         # Check that the new revision is not submitted for moderation
-        self.assertFalse(new_christmas_event.revisions.first().submitted_for_moderation)
+        self.assertFalse(new_christmas_event.revisions.order_by('created_at').first().submitted_for_moderation)
 
     def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -470,8 +470,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the created_at time is the same
-        christmas_event_created_at = christmas_event.revisions.first().created_at
-        new_christmas_event_created_at = new_christmas_event.revisions.first().created_at
+        christmas_event_created_at = christmas_event.revisions.order_by('created_at').first().created_at
+        new_christmas_event_created_at = new_christmas_event.revisions.order_by('created_at').first().created_at
         self.assertEqual(christmas_event_created_at, new_christmas_event_created_at)
 
     def test_copy_page_copies_revisions_and_doesnt_schedule(self):
@@ -482,10 +482,10 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the old revision is still scheduled
-        self.assertEqual(christmas_event.revisions.first().approved_go_live_at, datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+        self.assertEqual(christmas_event.revisions.order_by('created_at').first().approved_go_live_at, datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
 
         # Check that the new revision is not scheduled
-        self.assertEqual(new_christmas_event.revisions.first().approved_go_live_at, None)
+        self.assertEqual(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at, None)
 
     def test_copy_page_doesnt_copy_revisions_if_told_not_to_do_so(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
