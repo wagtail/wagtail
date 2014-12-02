@@ -584,21 +584,21 @@ class TestCopyPage(TestCase):
         self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
 
     def test_copy_page_updates_user(self):
-        event_editor = get_user_model().objects.get(username='eventeditor')
+        event_moderator = get_user_model().objects.get(username='eventmoderator')
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
 
         # Copy it
         new_christmas_event = christmas_event.copy(
             update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
-            user=event_editor,
+            user=event_moderator,
         )
 
         # Check that the owner has been updated
-        self.assertEqual(new_christmas_event.owner, event_editor)
+        self.assertEqual(new_christmas_event.owner, event_moderator)
 
         # Check that the user on the last revision is correct
-        self.assertEqual(new_christmas_event.get_latest_revision().user, event_editor)
+        self.assertEqual(new_christmas_event.get_latest_revision().user, event_moderator)
 
 
 class TestSubpageTypeBusinessRules(TestCase):
