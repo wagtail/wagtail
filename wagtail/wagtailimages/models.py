@@ -300,7 +300,7 @@ class Filter(models.Model):
     appropriate for final display on the website. Usually this would be a resize operation,
     but could potentially involve colour processing, etc.
     """
-    spec = models.CharField(max_length=255, db_index=True)
+    spec = models.CharField(max_length=255, db_index=True, unique=True)
 
     OPERATION_NAMES = {
         'max': 'resize_to_max',
