@@ -643,10 +643,8 @@ def copy(request, page_id):
                 'slug': form.cleaned_data['new_slug'],
             },
             keep_live=(can_publish and form.cleaned_data.get('publish_copies')),
+            user=request.user,
         )
-
-        # Assign user of this request as the owner of all the new pages
-        new_page.get_descendants(inclusive=True).update(owner=request.user)
 
         # Give a success message back to the user
         if form.cleaned_data.get('copy_subpages'):
