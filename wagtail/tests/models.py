@@ -497,3 +497,8 @@ class SnippetChooserModel(models.Model):
     panels = [
         SnippetChooserPanel('advert', Advert),
     ]
+
+
+@register_snippet
+class RegisterDecorator(models.Model):
+    pass
