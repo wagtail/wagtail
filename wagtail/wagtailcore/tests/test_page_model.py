@@ -426,10 +426,16 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the revisions were copied
-        self.assertEqual(new_christmas_event.revisions.count(), 1, "Revisions weren't copied")
+        # Copying creates a new revision so we're expecting the new page to have two revisions
+        self.assertEqual(new_christmas_event.revisions.count(), 2)
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(christmas_event.revisions.count(), 1, "Revisions were removed from the original page")
+
+        # Check that the attributes were updated in the latest revision
+        latest_revision = new_christmas_event.get_latest_revision_as_page()
+        self.assertEqual(latest_revision.title, "New christmas event")
+        self.assertEqual(latest_revision.slug, 'new-christmas-event')
 
         # Check that the ids within the revision were updated correctly
         new_revision = new_christmas_event.revisions.first()
@@ -463,8 +469,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'})
 
         # Check that the created_at time is the same
-        christmas_event_created_at = christmas_event.get_latest_revision().created_at
-        new_christmas_event_created_at = new_christmas_event.get_latest_revision().created_at
+        christmas_event_created_at = christmas_event.revisions.first().created_at
+        new_christmas_event_created_at = new_christmas_event.revisions.first().created_at
         self.assertEqual(christmas_event_created_at, new_christmas_event_created_at)
 
     def test_copy_page_copies_revisions_and_doesnt_schedule(self):
@@ -488,7 +494,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = christmas_event.copy(update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}, copy_revisions=False)
 
         # Check that the revisions weren't copied
-        self.assertEqual(new_christmas_event.revisions.count(), 0, "Revisions were copied")
+        # Copying creates a new revision so we're expecting the new page to have one revision
+        self.assertEqual(new_christmas_event.revisions.count(), 1)
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(christmas_event.revisions.count(), 1, "Revisions were removed from the original page")
@@ -551,7 +558,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
 
         # Check that the revisions were copied
-        self.assertEqual(new_christmas_event.specific.revisions.count(), 1, "Revisions weren't copied")
+        # Copying creates a new revision so we're expecting the new page to have two revisions
+        self.assertEqual(new_christmas_event.specific.revisions.count(), 2)
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
@@ -568,7 +576,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
 
         # Check that the revisions weren't copied
-        self.assertEqual(new_christmas_event.specific.revisions.count(), 0, "Revisions were copied")
+        # Copying creates a new revision so we're expecting the new page to have one revision
+        self.assertEqual(new_christmas_event.specific.revisions.count(), 1)
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
