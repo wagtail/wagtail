@@ -1167,6 +1167,22 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
+    def test_page_copy_post_new_parent(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.test_child_page.id),
+            'copy_subpages': False,
+            'publish_copies': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the new parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.test_child_page.id, )))
+
+        # Check that the page was copied to the correct place
+        self.assertTrue(Page.objects.filter(slug='hello-world-2').first().get_parent(), self.test_child_page)
+
     def test_page_copy_post_existing_slug_within_same_parent_page(self):
         # This tests the existing slug checking on page copy when not changing the parent page
 
