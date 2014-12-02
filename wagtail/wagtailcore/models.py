@@ -792,6 +792,18 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 # Save
                 revision.save()
 
+        # Create a new revision
+        # This code serves two purposes:
+        # * It makes sure update_attrs gets applied to the latest revision so the changes are reflected in the editor
+        # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
+        latest_revision = page_copy.get_latest_revision_as_page()
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                setattr(latest_revision, field, value)
+
+        latest_revision.save_revision()
+
         # Log
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
 
