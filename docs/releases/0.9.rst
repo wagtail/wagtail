@@ -17,6 +17,7 @@ Minor features
  * Improvements to the layout of the admin menu footer.
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
+ * When copying pages, it is now possible to specify a place to copy to
 
 
 Bug fixes

@@ -36,6 +36,7 @@ Contributors
 * Eric Drechsel
 * Alejandro Giacometti
 * linibou
+* Timo Rieber
 
 
 Translators
