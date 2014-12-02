@@ -1,5 +1,6 @@
 import warnings
 import datetime
+import json
 
 import pytz
 
@@ -429,6 +430,12 @@ class TestCopyPage(TestCase):
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(christmas_event.revisions.count(), 1, "Revisions were removed from the original page")
+
+        # Check that the ids within the revision were updated correctly
+        new_revision = new_christmas_event.revisions.first()
+        new_revision_content = json.loads(new_revision.content_json)
+        self.assertEqual(new_revision_content['pk'], new_christmas_event.id)
+        self.assertEqual(new_revision_content['speakers'][0]['page'], new_christmas_event.id)
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')

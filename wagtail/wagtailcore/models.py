@@ -1,5 +1,6 @@
 import logging
 import warnings
+import json
 
 import six
 from six import StringIO
@@ -770,6 +771,25 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
                 revision.page = page_copy
+
+                # Update ID fields in content
+                revision_content = json.loads(revision.content_json)
+                revision_content['pk'] = page_copy.pk
+
+                for child_relation in get_all_child_relations(specific_self):
+                    try:
+                        child_objects = revision_content[child_relation.get_accessor_name()]
+                    except KeyError:
+                        # KeyErrors are possible if the revision was created
+                        # before this child relation was added to the database
+                        continue
+
+                    for child_object in child_objects:
+                        child_object[child_relation.field.name] = page_copy.pk
+
+                revision.content_json = json.dumps(revision_content)
+
+                # Save
                 revision.save()
 
         # Log
