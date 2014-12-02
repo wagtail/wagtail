@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
+from django.db import connection
 
 from wagtail.tests.utils import WagtailTestUtils, unittest, test_concurrently
 from wagtail.wagtailcore.models import Page
@@ -407,7 +408,6 @@ class TestIssue312(TestCase):
         )
 
     def test_duplicate_filters(self):
-        # get renditions concurrently, using various filters that are unlikely to exist already
         @test_concurrently(10)
         def get_renditions():
             # Create an image
@@ -415,8 +415,13 @@ class TestIssue312(TestCase):
                 title="Concurrency test image",
                 file=get_test_image_file(),
             )
+            # get renditions concurrently, using various filters that are unlikely to exist already
             for width in range(10, 100, 10):
                 image.get_rendition('width-%d' % width)
+
+            # this block opens multiple database connections, which need to be closed explicitly
+            # so that we can drop the test database at the end of the test run
+            connection.close()
 
         get_renditions()
         # if the above has completed with no race conditions, there should be precisely one
