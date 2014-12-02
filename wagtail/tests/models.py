@@ -497,3 +497,14 @@ class SnippetChooserModel(models.Model):
     panels = [
         SnippetChooserPanel('advert', Advert),
     ]
+
+
+# Register model as snippet using register_snippet as both a function and a decorator
+
+class RegisterFunction(models.Model):
+    pass
+register_snippet(RegisterFunction)
+
+@register_snippet
+class RegisterDecorator(models.Model):
+    pass
