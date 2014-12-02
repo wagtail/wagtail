@@ -8,6 +8,7 @@ from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
@@ -581,6 +582,23 @@ class TestCopyPage(TestCase):
 
         # Check that the revisions weren't removed from old page
         self.assertEqual(old_christmas_event.specific.revisions.count(), 1, "Revisions were removed from the original page")
+
+    def test_copy_page_updates_user(self):
+        event_editor = get_user_model().objects.get(username='eventeditor')
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            user=event_editor,
+        )
+
+        # Check that the owner has been updated
+        self.assertEqual(new_christmas_event.owner, event_editor)
+
+        # Check that the user on the last revision is correct
+        self.assertEqual(new_christmas_event.get_latest_revision().user, event_editor)
 
 
 class TestSubpageTypeBusinessRules(TestCase):
