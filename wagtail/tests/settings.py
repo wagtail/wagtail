@@ -14,6 +14,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
         'NAME': os.environ.get('DATABASE_NAME', 'wagtaildemo'),
+        'TEST_NAME': os.environ.get('DATABASE_NAME', 'wagtaildemo'),
         'USER': os.environ.get('DATABASE_USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
     }
