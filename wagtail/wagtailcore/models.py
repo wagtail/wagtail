@@ -1,5 +1,6 @@
 import logging
 import warnings
+import json
 
 import six
 from six import StringIO
@@ -729,7 +730,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
         # Make a copy
         page_copy = Page.objects.get(id=self.id).specific
         page_copy.pk = None
@@ -741,6 +742,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         if not keep_live:
             page_copy.live = False
             page_copy.has_unpublished_changes = True
+
+        if user:
+            page_copy.owner = user
 
         if update_attrs:
             for field, value in update_attrs.items():
@@ -770,7 +774,39 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
                 revision.page = page_copy
+
+                # Update ID fields in content
+                revision_content = json.loads(revision.content_json)
+                revision_content['pk'] = page_copy.pk
+
+                for child_relation in get_all_child_relations(specific_self):
+                    try:
+                        child_objects = revision_content[child_relation.get_accessor_name()]
+                    except KeyError:
+                        # KeyErrors are possible if the revision was created
+                        # before this child relation was added to the database
+                        continue
+
+                    for child_object in child_objects:
+                        child_object[child_relation.field.name] = page_copy.pk
+
+                revision.content_json = json.dumps(revision_content)
+
+                # Save
                 revision.save()
+
+        # Create a new revision
+        # This code serves a few purposes:
+        # * It makes sure update_attrs gets applied to the latest revision so the changes are reflected in the editor
+        # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
+        # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
+        latest_revision = page_copy.get_latest_revision_as_page()
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                setattr(latest_revision, field, value)
+
+        latest_revision.save_revision(user=user)
 
         # Log
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
@@ -778,7 +814,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Copy child pages
         if recursive:
             for child_page in self.get_children():
-                child_page.specific.copy(recursive=True, to=page_copy, copy_revisions=copy_revisions, keep_live=keep_live)
+                child_page.specific.copy(recursive=True, to=page_copy, copy_revisions=copy_revisions, keep_live=keep_live, user=user)
 
         return page_copy
 
