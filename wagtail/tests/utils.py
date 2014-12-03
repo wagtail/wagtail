@@ -57,7 +57,7 @@ def test_concurrently(times):
             def call_test_func():
                 try:
                     test_func(*args, **kwargs)
-                except Exception, e:
+                except Exception as e:
                     exceptions.append(e)
                     raise
             threads = []
