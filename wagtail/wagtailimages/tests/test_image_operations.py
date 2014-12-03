@@ -1,11 +1,42 @@
 import unittest
+
 from wagtail.wagtailimages import image_operations
+from wagtail.wagtailimages.models import Image
+
+
+class WillowOperationRecorder(object):
+    """
+    This class pretends to be a Willow image but instead, it records
+    the operations that have been performed on the image for testing
+    """
+    def __init__(self, start_size):
+        self.ran_operations = []
+        self.start_size = start_size
+
+    def __getattr__(self, attr):
+        def operation(*args, **kwargs):
+            self.ran_operations.append((attr, args, kwargs))
+
+        return operation
+
+    def get_size(self):
+        size = self.start_size
+
+        for operation in self.ran_operations:
+            if operation[0] == 'resize':
+                size = operation[1]
+            elif operation[0] == 'crop':
+                crop = operation[1]
+                size = crop[2] - crop[0], crop[3] - crop[1]
+
+        return size
 
 
 class ImageOperationTestCase(unittest.TestCase):
     operation_class = None
     filter_spec_tests = []
     filter_spec_error_tests = []
+    run_tests = []
 
     @classmethod
     def make_filter_spec_test(cls, filter_spec, expected_output):
@@ -28,6 +59,25 @@ class ImageOperationTestCase(unittest.TestCase):
         test_name = 'test_filter_%s_raises_%s' % (filter_spec, expected_exception.__name__)
         test_filter_spec_error.__name__ = test_name
         return test_filter_spec_error
+
+    @classmethod
+    def make_run_test(cls, filter_spec, image, expected_output):
+        def test_run(self):
+            # Make operation
+            operation = self.operation_class(*filter_spec.split('-'))
+
+            # Make operation recorder
+            operation_recorder = WillowOperationRecorder((image.width, image.height))
+
+            # Run
+            operation.run(operation_recorder, image)
+
+            # Check
+            self.assertEqual(operation_recorder.ran_operations, expected_output)
+
+        test_name = 'test_run_%s' % filter_spec
+        test_run.__name__ = test_name
+        return test_run
  
     @classmethod
     def setup_test_methods(cls):
@@ -35,14 +85,19 @@ class ImageOperationTestCase(unittest.TestCase):
             return
 
         # Filter spec tests
-        for filter_spec, expected_output in cls.filter_spec_tests:
-            filter_spec_test = cls.make_filter_spec_test(filter_spec, expected_output)
+        for args in cls.filter_spec_tests:
+            filter_spec_test = cls.make_filter_spec_test(*args)
             setattr(cls, filter_spec_test.__name__, filter_spec_test)
 
         # Filter spec error tests
-        for filter_spec, expected_exception in cls.filter_spec_error_tests:
-            filter_spec_error_test = cls.make_filter_spec_error_test(filter_spec, expected_exception)
+        for args in cls.filter_spec_error_tests:
+            filter_spec_error_test = cls.make_filter_spec_error_test(*args)
             setattr(cls, filter_spec_error_test.__name__, filter_spec_error_test)
+
+        # Running tests
+        for args in cls.run_tests:
+            run_test = cls.make_run_test(*args)
+            setattr(cls, run_test.__name__, run_test)
 
 
 class TestDoNothingOperation(ImageOperationTestCase):
@@ -56,6 +111,10 @@ class TestDoNothingOperation(ImageOperationTestCase):
 
     filter_spec_error_tests = [
         ('cannot-take-multiple-parameters', TypeError),
+    ]
+
+    run_tests = [
+        ('original', Image(width=1000, height=1000), []),
     ]
 
 TestDoNothingOperation.setup_test_methods()
@@ -84,6 +143,116 @@ class TestFillOperation(ImageOperationTestCase):
         ('fill-800x600-d100', ValueError),
     ]
 
+    run_tests = [
+        # Basic usage
+        ('fill-800x600', Image(width=1000, height=1000), [
+            ('crop', (0, 125, 1000, 875), {}),
+            ('resize', (800, 600), {}),
+        ]),
+
+        # Closeness shouldn't have any effect when used without a focal point
+        ('fill-800x600-c100', Image(width=1000, height=1000), [
+            ('crop', (0, 125, 1000, 875), {}),
+            ('resize', (800, 600), {}),
+        ]),
+
+        # Should always crop towards focal point. Even if no closeness is set
+        ('fill-80x60', Image(
+            width=1000,
+            height=1000,
+            focal_point_x=1000,
+            focal_point_y=500,
+            focal_point_width=0,
+            focal_point_height=0,
+        ), [
+            # Crop the largest possible crop box towards the focal point
+            ('crop', (0, 125, 1000, 875), {}),
+
+            # Resize it down to final size
+            ('resize', (80, 60), {}),
+        ]),
+
+        # Should crop as close as possible without upscaling
+        ('fill-80x60-c100', Image(
+            width=1000,
+            height=1000,
+            focal_point_x=1000,
+            focal_point_y=500,
+            focal_point_width=0,
+            focal_point_height=0,
+        ), [
+            # Crop as close as possible to the focal point
+            ('crop', (920, 470, 1000, 530), {}),
+
+            # No need to resize, crop should've created an 80x60 image
+        ]),
+
+        # Ditto with a wide image
+        # Using a different filter so method name doesn't clash
+        ('fill-100x60-c100', Image(
+            width=2000,
+            height=1000,
+            focal_point_x=2000,
+            focal_point_y=500,
+            focal_point_width=0,
+            focal_point_height=0,
+        ), [
+            # Crop to the right hand side
+            ('crop', (1900, 470, 2000, 530), {}),
+        ]),
+
+        # Make sure that the crop box never enters the focal point
+        ('fill-50x50-c100', Image(
+            width=2000,
+            height=1000,
+            focal_point_x=1000,
+            focal_point_y=500,
+            focal_point_width=100,
+            focal_point_height=20,
+        ), [
+            # Crop a 100x100 box around the entire focal point
+            ('crop', (950, 450, 1050, 550), {}),
+
+            # Resize it down to 50x50
+            ('resize', (50, 50), {}),
+        ]),
+
+        # Test that the image is never upscaled
+        ('fill-1000x800', Image(width=100, height=100), [
+            ('crop', (0, 10, 100, 90), {}),
+        ]),
+
+        # Test that the crop closeness gets capped to prevent upscaling
+        ('fill-1000x800-c100', Image(
+            width=1500,
+            height=1000,
+            focal_point_x=750,
+            focal_point_y=500,
+            focal_point_width=0,
+            focal_point_height=0,
+        ), [
+            # Crop a 1000x800 square out of the image as close to the
+            # focal point as possible. Will not zoom too far in to
+            # prevent upscaling
+            ('crop', (250, 100, 1250, 900), {}),
+        ]),
+
+        # Test for an issue where a ZeroDivisionError would occur when the
+        # focal point size, image size and filter size match
+        # See: #797
+        ('fill-1500x1500-c100', Image(
+            width=1500,
+            height=1500,
+            focal_point_x=750,
+            focal_point_y=750,
+            focal_point_width=1500,
+            focal_point_height=1500,
+        ), [
+            # This operation could probably be optimised out
+            ('crop', (0, 0, 1500, 1500), {}),
+        ])
+    ]
+
 TestFillOperation.setup_test_methods()
 
 
@@ -106,6 +275,17 @@ class TestMinMaxOperation(ImageOperationTestCase):
         ('min-800x600x10', ValueError),
     ]
 
+    run_tests = [
+        # Basic usage of min
+        ('min-800x600', Image(width=1000, height=1000), [
+            ('resize', (800, 800), {}),
+        ]),
+        # Basic usage of max
+        ('max-800x600', Image(width=1000, height=1000), [
+            ('resize', (600, 600), {}),
+        ]),
+    ]
+
 TestMinMaxOperation.setup_test_methods()
 
 
@@ -123,6 +303,17 @@ class TestWidthHeightOperation(ImageOperationTestCase):
         ('width-800x600', ValueError),
         ('width-abc', ValueError),
         ('width-800-c100', TypeError),
+    ]
+
+    run_tests = [
+        # Basic usage of width
+        ('width-400', Image(width=1000, height=500), [
+            ('resize', (400, 200), {}),
+        ]),
+        # Basic usage of height
+        ('height-400', Image(width=1000, height=500), [
+            ('resize', (800, 400), {}),
+        ]),
     ]
 
 TestWidthHeightOperation.setup_test_methods()
