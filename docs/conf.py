@@ -30,7 +30,7 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 sys.path.insert(0, os.path.abspath('..'))
 
 # Get Wagtail version
-from wagtail.wagtailcore import __version__
+from wagtail import __version__
 
 # Autodoc may need to import some models modules which require django settings
 # be configured
