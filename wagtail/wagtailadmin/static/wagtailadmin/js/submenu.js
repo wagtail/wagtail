@@ -9,6 +9,11 @@ $(function(){
                 $explorer.dlmenu('closeMenu');
             }
 
+            // Close other active submenus first, if any
+            if($('.nav-wrapper.submenu-active').length){
+                $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
+            }
+
             $(this).closest('li').toggleClass('submenu-active');
             $('.nav-wrapper').toggleClass('submenu-active');
             return false
