@@ -1,6 +1,6 @@
-============================================
-Wagtail 0.8.4 release notes - IN DEVELOPMENT
-============================================
+===========================
+Wagtail 0.8.4 release notes
+===========================
 
 .. contents::
     :local:
@@ -17,7 +17,3 @@ Bug fixes
  * Page IDs in page revisions were not updated on page copy, causing subsequent edits to be committed to the original page instead
  * Copying a page now creates a new page revision, ensuring that changes to the title/slug are correctly reflected in the editor (and also ensuring that the user performing the copy is logged)
  * Prevent a race condition when creating Filter objects
-
-
-Upgrade considerations
-======================
