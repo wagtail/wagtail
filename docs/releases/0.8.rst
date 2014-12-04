@@ -67,3 +67,23 @@ Change to search API when using database backend
 When using the database backend, calling search (either through ``Page.objects.search()`` or on the backend directly) will now return a ``SearchResults`` object rather than a Django ``QuerySet`` to make the database backend work more like the Elasticsearch backend.
 
 This change shouldn't affect most people as ``SearchResults`` behaves very similarly to ``QuerySet``. But it may cause issues if you are calling ``QuerySet`` specific methods after calling ``.search()``. Eg: ``Page.objects.search("Hello").filter(foo="Bar")`` (in this case, ``.filter()`` should be moved before ``.search()`` and it would work as before).
+
+
+Removal of validate_image_format from custom image model migrations (Django 1.7+)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your project is running on Django 1.7, and you have defined a custom image model (by extending the ``wagtailimages.AbstractImage`` class), the migration that creates this model will probably have a reference to ``wagtail.wagtailimages.utils.validators.validate_image_format``. This module has now been removed, which will cause ``manage.py migrate`` to fail with an ``ImportError`` (even if the migration has already been applied). You will need to edit the migration file to remove the line::
+
+    import wagtail.wagtailimages.utils.validators
+
+and the ``validators`` attribute of the 'file' field - that is, the line::
+
+    ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
+        width_field='width', height_field='height',
+        validators=[wagtail.wagtailimages.utils.validators.validate_image_format],
+        verbose_name='File')),
+
+should become::
+
+    ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
+        width_field='width', height_field='height', verbose_name='File')),
