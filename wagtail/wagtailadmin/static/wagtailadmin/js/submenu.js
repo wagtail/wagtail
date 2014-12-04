@@ -10,7 +10,7 @@ $(function(){
             }
 
             // Close other active submenus first, if any
-            if($('.nav-wrapper.submenu-active').length){
+            if($('.nav-wrapper.submenu-active').length && !$(this).closest('li').hasClass('submenu-active')){
                 $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
             }
 
