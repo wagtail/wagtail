@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 import json
+import re
 
 try:
     from importlib import import_module
@@ -103,7 +104,7 @@ def oembed(url, max_width=None):
         raise EmbedNotFoundException
 
     # Work out params
-    params = {'url': url, 'format': 'json',  }
+    params = {'url': url, 'format': 'json', }
     if max_width:
         params['maxwidth'] = max_width
 
@@ -121,6 +122,7 @@ def oembed(url, max_width=None):
         html = '<img src="%s" />' % (oembed['url'], )
     else:
         html = oembed.get('html')
+        html = re.sub(r'http(?:s)?:', '', html)
 
     # Return embed as a dict
     return {
