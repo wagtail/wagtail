@@ -88,7 +88,10 @@ First, ``models.py``:
 
     from django.shortcuts import render
     from wagtail.wagtailcore.url_routing import RouteResult
-
+    from django.http.response import Http404
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.wagtailcore.models import Page
+    
     ...
 
     class Echoer(Page):
@@ -105,7 +108,7 @@ First, ``models.py``:
                     raise Http404
 
         def serve(self, path_components=[]):
-            render(request, self.template, {
+            return render(request, self.template, {
                 'self': self,
                 'echo': ' '.join(path_components),
             })
@@ -115,7 +118,7 @@ First, ``models.py``:
     ]
 
     Echoer.promote_panels = [
-        MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     ]
 
 This model, ``Echoer``, doesn't define any properties, but does subclass ``Page`` so objects will be able to have a custom title and slug. The template just has to display our ``{{ echo }}`` property.
