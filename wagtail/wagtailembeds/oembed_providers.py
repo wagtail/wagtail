@@ -291,7 +291,12 @@ OEMBED_ENDPOINTS = {
     ],
     "http://www.ifttt.com/oembed/": [
         "^http(?:s)?://ifttt\\.com/recipes/.+$"
-    ]
+    ],
+    
+    # Added 11th December 2014 - http://developers.issuu.com/api/oembed.html
+    "http://issuu.com/oembed": [
+        "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
+    ],
 }
 
 
