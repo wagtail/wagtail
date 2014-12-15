@@ -52,7 +52,7 @@ Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and al
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.6.2+ and 1.7.0+ on Python 2.6, 2.7, 3.2, 3.3 and 3.4.
+Wagtail supports Django 1.7.0+ on Python 2.7, 3.2, 3.3 and 3.4.
 
 Wagtail's dependencies are summarised at `requirements.io <https://requires.io/github/torchbox/wagtail/requirements>`_.
 

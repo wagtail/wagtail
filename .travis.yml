@@ -1,15 +1,8 @@
 language: python
 env:
-#  - TOXENV=py26-dj16-postgres
-  - TOXENV=py26-dj16-sqlite
-  - TOXENV=py27-dj16-postgres
-#  - TOXENV=py27-dj16-sqlite
-  - TOXENV=py32-dj16-postgres
-#  - TOXENV=py33-dj16-postgres
-  - TOXENV=py34-dj16-postgres
   - TOXENV=py27-dj17-postgres
-#  - TOXENV=py27-dj17-sqlite
-#  - TOXENV=py32-dj17-postgres
+  - TOXENV=py27-dj17-sqlite
+  - TOXENV=py32-dj17-postgres
 #  - TOXENV=py33-dj17-postgres
   - TOXENV=py34-dj17-postgres
 
