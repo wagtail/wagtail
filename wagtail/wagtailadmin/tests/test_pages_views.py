@@ -1,4 +1,5 @@
 from datetime import timedelta
+import unittest
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -13,7 +14,7 @@ from wagtail.tests.models import (
     StandardIndex, StandardChild,
     BusinessIndex, BusinessChild, BusinessSubIndex,
     TaggedPage, Advert, AdvertPlacement)
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailusers.models import UserProfile

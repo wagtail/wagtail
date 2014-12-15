@@ -1,3 +1,5 @@
+import unittest
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -8,7 +10,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.db import connection
 
-from wagtail.tests.utils import WagtailTestUtils, unittest, test_concurrently
+from wagtail.tests.utils import WagtailTestUtils, test_concurrently
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, Filter
