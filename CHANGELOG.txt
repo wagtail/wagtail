@@ -14,6 +14,7 @@ Changelog
 0.8.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
 * Fix: On adding a new page, the available page types are ordered by the displayed verbose name
+* Fix: Active admin submenus were not properly closed when activating another
 
 
 0.8.4 (04.12.2014)
