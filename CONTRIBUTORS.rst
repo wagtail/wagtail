@@ -35,9 +35,9 @@ Contributors
 * John-Scott Atlakson
 * Eric Drechsel
 * Alejandro Giacometti
+* Robert Rollins
 * linibou
 * Timo Rieber
-
 
 Translators
 ===========
