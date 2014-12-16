@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.8.5 (xx.xx.20xx)
+~~~~~~~~~~~~~~~~~~
+* Fix: On adding a new page, the available page types are ordered by the displayed verbose name
+
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~
@@ -9,7 +13,6 @@ Changelog
 * Fix: Page IDs in page revisions were not updated on page copy, causing subsequent edits to be committed to the original page instead
 * Fix: Copying a page now creates a new page revision, ensuring that changes to the title/slug are correctly reflected in the editor (and also ensuring that the user performing the copy is logged)
 * Fix: Prevent a race condition when creating Filter objects
-* Fix: On adding a new page, the available page types are ordered by the displayed verbose name
 
 
 0.8.3 (18.11.2014)

@@ -1,0 +1,16 @@
+============================================
+Wagtail 0.8.5 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * On adding a new page, the available page types are ordered by the displayed verbose name
