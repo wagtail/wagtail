@@ -341,45 +341,27 @@ $(function() {
 
     /* Set up behaviour of preview button */
     var previewWindow = null;
-    var previewOnloadRun = false;
-
     $('.action-preview').click(function(e) {
         e.preventDefault();
         var $this = $(this);
 
-        if(!previewWindow || previewWindow.closed){
-            previewOnloadRun = false;
-            previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
+        if(previewWindow){
+            previewWindow.close();
         }
+
+        previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
 
         if(/MSIE/.test(navigator.userAgent)){
             // If IE, load contents immediately without fancy effects
             submitPreview.call($this, false);
         } else {
-            // If not IE, check if the onload has already fired
-            if(!previewOnloadRun){
-                // This only runs once per new window creation
-                previewWindow.onload = function(){
-                    previewOnloadRun = true;
-                    submitPreview.call($this, true);
-                }
-            }else{
+            previewWindow.onload = function(){
                 submitPreview.call($this, true);
             }
         }
 
         function submitPreview(enhanced){
             var previewDoc = previewWindow.document;
-
-            // If onload already fired, make window appear like it's loading the content again
-            var spinner = previewDoc.getElementById('loading-spinner-wrapper');
-            previewWindow.focus();
-            
-            if(spinner){
-                spinner.className = spinner.className.replace('remove','');
-            }
-
-           
 
             $.ajax({
                 type: "POST",
@@ -396,7 +378,7 @@ $(function() {
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
-                                spinner.className += ' remove';
+                                previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';;
                                 clearTimeout(hideTimeout);
                             }) // just enough to give effect without adding discernible slowness                       
                         } else {
