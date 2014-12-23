@@ -80,7 +80,7 @@ def index(request):
 @permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id):
     Image = get_image_model()
-    ImageForm = get_image_form()
+    ImageForm = get_image_form(Image)
 
     image = get_object_or_404(Image, id=image_id)
 
@@ -217,8 +217,8 @@ def delete(request, image_id):
 
 @permission_required('wagtailimages.add_image')
 def add(request):
-    ImageForm = get_image_form()
     ImageModel = get_image_model()
+    ImageForm = get_image_form(ImageModel)
 
     if request.POST:
         image = ImageModel(uploaded_by_user=request.user)

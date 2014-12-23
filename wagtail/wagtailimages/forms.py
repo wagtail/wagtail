@@ -2,7 +2,6 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
 
@@ -17,9 +16,9 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
-def get_image_form():
+def get_image_form(model):
     return modelform_factory(
-        get_image_model(),
+        model,
         formfield_callback=formfield_for_dbfield,
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
