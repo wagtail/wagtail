@@ -2,21 +2,21 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.db.models.deletion
-import modelcluster.fields
-import wagtail.contrib.wagtailroutablepage.models
-import wagtail.wagtailcore.fields
 import wagtail.wagtailsearch.index
+import wagtail.wagtailcore.fields
+import django.db.models.deletion
+import wagtail.contrib.wagtailroutablepage.models
+import modelcluster.fields
 import modelcluster.tags
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0002_initial_data'),
-        ('wagtaildocs', '0002_initial_data'),
+        ('wagtailimages', '0005_make_filter_spec_unique'),
+        ('wagtailcore', '0010_change_page_owner_to_null_on_delete'),
         ('taggit', '0001_initial'),
-        ('wagtailimages', '0002_initial_data'),
+        ('wagtaildocs', '0002_initial_data'),
         ('tests', '0001_initial'),
     ]
 
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Advert',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('url', models.URLField(null=True, blank=True)),
                 ('text', models.CharField(max_length=255)),
             ],
@@ -35,7 +35,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AdvertPlacement',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('colour', models.CharField(max_length=255)),
                 ('advert', models.ForeignKey(to='tests.Advert', related_name='+')),
             ],
             options={
@@ -45,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AlphaSnippet',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('text', models.CharField(max_length=255)),
             ],
             options={
@@ -55,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusinessChild',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -65,7 +66,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusinessIndex',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -75,7 +76,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusinessSubIndex',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -85,7 +86,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventIndex',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
                 ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
             ],
             options={
@@ -96,9 +97,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventPage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
                 ('date_from', models.DateField(null=True, verbose_name='Start date')),
-                ('date_to', models.DateField(null=True, help_text='Not required if event is on a single day', blank=True, verbose_name='End date')),
+                ('date_to', models.DateField(null=True, blank=True, verbose_name='End date', help_text='Not required if event is on a single day')),
                 ('time_from', models.TimeField(null=True, blank=True, verbose_name='Start time')),
                 ('time_to', models.TimeField(null=True, blank=True, verbose_name='End time')),
                 ('audience', models.CharField(choices=[('public', 'Public'), ('private', 'Private')], max_length=255)),
@@ -106,7 +107,7 @@ class Migration(migrations.Migration):
                 ('body', wagtail.wagtailcore.fields.RichTextField(blank=True)),
                 ('cost', models.CharField(max_length=255)),
                 ('signup_link', models.URLField(blank=True)),
-                ('feed_image', models.ForeignKey(related_name='+', blank=True, to='wagtailimages.Image', on_delete=django.db.models.deletion.SET_NULL, null=True)),
+                ('feed_image', models.ForeignKey(to='wagtailimages.Image', null=True, on_delete=django.db.models.deletion.SET_NULL, blank=True, related_name='+')),
             ],
             options={
                 'abstract': False,
@@ -116,13 +117,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventPageCarouselItem',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True, editable=False)),
                 ('link_external', models.URLField(blank=True, verbose_name='External link')),
                 ('embed_url', models.URLField(blank=True, verbose_name='Embed URL')),
-                ('caption', models.CharField(blank=True, max_length=255)),
-                ('image', models.ForeignKey(related_name='+', blank=True, to='wagtailimages.Image', on_delete=django.db.models.deletion.SET_NULL, null=True)),
-                ('link_document', models.ForeignKey(related_name='+', blank=True, to='wagtaildocs.Document', null=True)),
+                ('caption', models.CharField(max_length=255, blank=True)),
+                ('image', models.ForeignKey(to='wagtailimages.Image', null=True, on_delete=django.db.models.deletion.SET_NULL, blank=True, related_name='+')),
+                ('link_document', models.ForeignKey(to='wagtaildocs.Document', null=True, blank=True, related_name='+')),
             ],
             options={
                 'abstract': False,
@@ -133,11 +134,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventPageRelatedLink',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True, editable=False)),
                 ('link_external', models.URLField(blank=True, verbose_name='External link')),
-                ('title', models.CharField(help_text='Link title', max_length=255)),
-                ('link_document', models.ForeignKey(related_name='+', blank=True, to='wagtaildocs.Document', null=True)),
+                ('title', models.CharField(max_length=255, help_text='Link title')),
+                ('link_document', models.ForeignKey(to='wagtaildocs.Document', null=True, blank=True, related_name='+')),
             ],
             options={
                 'abstract': False,
@@ -148,13 +149,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventPageSpeaker',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True, editable=False)),
                 ('link_external', models.URLField(blank=True, verbose_name='External link')),
-                ('first_name', models.CharField(blank=True, verbose_name='Name', max_length=255)),
-                ('last_name', models.CharField(blank=True, verbose_name='Surname', max_length=255)),
-                ('image', models.ForeignKey(related_name='+', blank=True, to='wagtailimages.Image', on_delete=django.db.models.deletion.SET_NULL, null=True)),
-                ('link_document', models.ForeignKey(related_name='+', blank=True, to='wagtaildocs.Document', null=True)),
+                ('first_name', models.CharField(max_length=255, blank=True, verbose_name='Name')),
+                ('last_name', models.CharField(max_length=255, blank=True, verbose_name='Surname')),
+                ('image', models.ForeignKey(to='wagtailimages.Image', null=True, on_delete=django.db.models.deletion.SET_NULL, blank=True, related_name='+')),
+                ('link_document', models.ForeignKey(to='wagtaildocs.Document', null=True, blank=True, related_name='+')),
             ],
             options={
                 'abstract': False,
@@ -165,14 +166,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FormField',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True, editable=False)),
-                ('label', models.CharField(help_text='The label of the form field', max_length=255)),
+                ('label', models.CharField(max_length=255, help_text='The label of the form field')),
                 ('field_type', models.CharField(choices=[('singleline', 'Single line text'), ('multiline', 'Multi-line text'), ('email', 'Email'), ('number', 'Number'), ('url', 'URL'), ('checkbox', 'Checkbox'), ('checkboxes', 'Checkboxes'), ('dropdown', 'Drop down'), ('radio', 'Radio buttons'), ('date', 'Date'), ('datetime', 'Date/time')], max_length=16)),
                 ('required', models.BooleanField(default=True)),
-                ('choices', models.CharField(blank=True, help_text='Comma seperated list of choices. Only applicable in checkboxes, radio and dropdown.', max_length=512)),
-                ('default_value', models.CharField(blank=True, help_text='Default value. Comma seperated values supported for checkboxes.', max_length=255)),
-                ('help_text', models.CharField(blank=True, max_length=255)),
+                ('choices', models.CharField(max_length=512, blank=True, help_text='Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')),
+                ('default_value', models.CharField(max_length=255, blank=True, help_text='Default value. Comma separated values supported for checkboxes.')),
+                ('help_text', models.CharField(max_length=255, blank=True)),
             ],
             options={
                 'abstract': False,
@@ -183,10 +184,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FormPage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
-                ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to this address', max_length=255)),
-                ('from_address', models.CharField(blank=True, max_length=255)),
-                ('subject', models.CharField(blank=True, max_length=255)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
+                ('to_address', models.CharField(max_length=255, blank=True, help_text='Optional - form submissions will be emailed to this address')),
+                ('from_address', models.CharField(max_length=255, blank=True)),
+                ('subject', models.CharField(max_length=255, blank=True)),
             ],
             options={
                 'abstract': False,
@@ -194,9 +195,18 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
+            name='PageChooserModel',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='PageWithOldStyleRouteMethod',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
                 ('content', models.TextField()),
             ],
             options={
@@ -205,9 +215,27 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
+            name='RegisterDecorator',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='RegisterFunction',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='RoutablePageTest',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -217,7 +245,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SearchTest',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('title', models.CharField(max_length=255)),
                 ('content', models.TextField()),
                 ('live', models.BooleanField(default=False)),
@@ -230,8 +258,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SearchTestChild',
             fields=[
-                ('searchtest_ptr', models.OneToOneField(parent_link=True, to='tests.SearchTest', serialize=False, auto_created=True, primary_key=True)),
-                ('subtitle', models.CharField(null=True, blank=True, max_length=255)),
+                ('searchtest_ptr', models.OneToOneField(to='tests.SearchTest', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
+                ('subtitle', models.CharField(null=True, max_length=255, blank=True)),
                 ('extra_content', models.TextField()),
             ],
             options={
@@ -239,27 +267,9 @@ class Migration(migrations.Migration):
             bases=('tests.searchtest',),
         ),
         migrations.CreateModel(
-            name='SearchTestOldConfig',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-            ],
-            options={
-            },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
-        ),
-        migrations.CreateModel(
-            name='SearchTestOldConfigList',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-            ],
-            options={
-            },
-            bases=(models.Model, wagtail.wagtailsearch.index.Indexed),
-        ),
-        migrations.CreateModel(
             name='SimplePage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
                 ('content', models.TextField()),
             ],
             options={
@@ -268,9 +278,19 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
+            name='SnippetChooserModel',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('advert', models.ForeignKey(to='tests.Advert', help_text='help text')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='StandardChild',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -280,7 +300,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StandardIndex',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -290,7 +310,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaggedPage',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, to='wagtailcore.Page', serialize=False, auto_created=True, primary_key=True)),
+                ('page_ptr', models.OneToOneField(to='wagtailcore.Page', auto_created=True, primary_key=True, parent_link=True, serialize=False)),
             ],
             options={
                 'abstract': False,
@@ -300,7 +320,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaggedPageTag',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('content_object', modelcluster.fields.ParentalKey(to='tests.TaggedPage', related_name='tagged_items')),
                 ('tag', models.ForeignKey(to='taggit.Tag', related_name='tests_taggedpagetag_items')),
             ],
@@ -312,7 +332,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ZuluSnippet',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('text', models.CharField(max_length=255)),
             ],
             options={
@@ -322,7 +342,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='taggedpage',
             name='tags',
-            field=modelcluster.tags.ClusterTaggableManager(through='tests.TaggedPageTag', blank=True, verbose_name='Tags', to='taggit.Tag', help_text='A comma-separated list of tags.'),
+            field=modelcluster.tags.ClusterTaggableManager(blank=True, verbose_name='Tags', help_text='A comma-separated list of tags.', to='taggit.Tag', through='tests.TaggedPageTag'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pagechoosermodel',
+            name='page',
+            field=models.ForeignKey(to='wagtailcore.Page', help_text='help text'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -334,7 +360,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='eventpagespeaker',
             name='link_page',
-            field=models.ForeignKey(related_name='+', blank=True, to='wagtailcore.Page', null=True),
+            field=models.ForeignKey(to='wagtailcore.Page', null=True, blank=True, related_name='+'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -346,7 +372,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='eventpagerelatedlink',
             name='link_page',
-            field=models.ForeignKey(related_name='+', blank=True, to='wagtailcore.Page', null=True),
+            field=models.ForeignKey(to='wagtailcore.Page', null=True, blank=True, related_name='+'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -358,7 +384,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='eventpagecarouselitem',
             name='link_page',
-            field=models.ForeignKey(related_name='+', blank=True, to='wagtailcore.Page', null=True),
+            field=models.ForeignKey(to='wagtailcore.Page', null=True, blank=True, related_name='+'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -376,11 +402,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='groups',
-            field=models.ManyToManyField(related_name='user_set', blank=True, verbose_name='groups', to='auth.Group', related_query_name='user', help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.'),
+            field=models.ManyToManyField(related_name='user_set', blank=True, verbose_name='groups', help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.', to='auth.Group', related_query_name='user'),
+            preserve_default=True,
         ),
         migrations.AlterField(
             model_name='customuser',
             name='user_permissions',
-            field=models.ManyToManyField(related_name='user_set', blank=True, verbose_name='user permissions', to='auth.Permission', related_query_name='user', help_text='Specific permissions for this user.'),
+            field=models.ManyToManyField(related_name='user_set', blank=True, verbose_name='user permissions', help_text='Specific permissions for this user.', to='auth.Permission', related_query_name='user'),
+            preserve_default=True,
         ),
     ]
