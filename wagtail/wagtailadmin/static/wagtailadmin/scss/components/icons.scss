@@ -213,6 +213,7 @@
     -webkit-animation: spin 0.5s infinite linear;
     -moz-animation: spin 0.5s infinite linear;
     content:"1";
+    display: inline-block;
 }
 .icon-pick:before{
     content:"2";
