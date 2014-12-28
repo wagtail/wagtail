@@ -14,7 +14,6 @@ from django.views.generic.base import View
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
 from wagtail.wagtailimages.fields import (
     MAX_UPLOAD_SIZE,
@@ -24,6 +23,8 @@ from wagtail.wagtailimages.fields import (
     SUPPORTED_FORMATS_TEXT,
     FILE_TOO_LARGE_ERROR,
 )
+
+from .images import ImageModuleViewMixin
 
 
 def json_response(document):
@@ -48,11 +49,11 @@ def get_image_edit_form(ImageModel):
     return ImageEditForm
 
 
-class ImageCreateMultipleView(View):
+class ImageCreateMultipleView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailimages.add_image'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):
-        Image = get_image_model()
+        Image = self.model
         ImageForm = get_image_form(Image)
 
         if request.method == 'POST':
@@ -83,6 +84,7 @@ class ImageCreateMultipleView(View):
                         'image': image,
                         'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
                         'view': self,
+                        'module': self.module,
                     }, context_instance=RequestContext(request)),
                 })
             else:
@@ -101,16 +103,17 @@ class ImageCreateMultipleView(View):
             'error_max_file_size': FILE_TOO_LARGE_ERROR,
             'error_accepted_file_types': INVALID_IMAGE_ERROR,
             'view': self,
+            'module': self.module,
         })
 
 
-class ImageCreateMultipleUpdateView(View):
+class ImageCreateMultipleUpdateView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def post(self, request, image_id, callback=None):
-        Image = get_image_model()
+    def post(self, request, pk, callback=None):
+        Image = self.model
         ImageForm = get_image_edit_form(Image)
 
-        image = get_object_or_404(Image, id=image_id)
+        image = get_object_or_404(Image, id=pk)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -118,7 +121,7 @@ class ImageCreateMultipleUpdateView(View):
         if not image.is_editable_by_user(request.user):
             raise PermissionDenied
 
-        form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-'+image_id)
+        form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-'+pk)
 
         if form.is_valid():
             form.save()
@@ -129,23 +132,25 @@ class ImageCreateMultipleUpdateView(View):
 
             return json_response({
                 'success': True,
-                'image_id': int(image_id),
+                'image_id': int(pk),
             })
         else:
             return json_response({
                 'success': False,
-                'image_id': int(image_id),
+                'image_id': int(pk),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
                     'form': form,
+                    'view': self,
+                    'module': self.module,
                 }, context_instance=RequestContext(request)),
             })
 
 
-class ImageCreateMultipleDeleteView(View):
+class ImageCreateMultipleDeleteView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def post(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def post(self, request, pk):
+        image = get_object_or_404(self.model, id=pk)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -157,5 +162,5 @@ class ImageCreateMultipleDeleteView(View):
 
         return json_response({
             'success': True,
-            'image_id': int(image_id),
+            'image_id': int(pk),
         })

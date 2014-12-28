@@ -10,10 +10,11 @@ from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailsearch.backends import get_search_backends
 
-from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
 from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
+
+from .images import ImageModuleViewMixin
 
 
 def get_image_json(image):
@@ -34,10 +35,10 @@ def get_image_json(image):
     })
 
 
-class ImageChooserView(View):
+class ImageChooserView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
     def dispatch(self, request):
-        Image = get_image_model()
+        Image = self.model
 
         if request.user.has_perm('wagtailimages.add_image'):
             ImageForm = get_image_form(Image)
@@ -78,6 +79,7 @@ class ImageChooserView(View):
                 'query_string': q,
                 'will_select_format': request.GET.get('select_format'),
                 'view': self,
+                'module': self.module,
             })
         else:
             searchform = SearchForm()
@@ -102,24 +104,25 @@ class ImageChooserView(View):
             'will_select_format': request.GET.get('select_format'),
             'popular_tags': Image.popular_tags(),
             'view': self,
+            'module': self.module,
         })
 
 
-class ImageChooserChosenView(View):
+class ImageChooserChosenView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk):
+        image = get_object_or_404(self.model, pk=pk)
 
         return render_modal_workflow(
             request, None, 'wagtailimages/chooser/image_chosen.js',
-            {'image_json': get_image_json(image), 'view': self}
+            {'image_json': get_image_json(image), 'view': self, 'module': self.module}
         )
 
 
-class ImageChooserUploadView(View):
+class ImageChooserUploadView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailimages.add_image'))
     def dispatch(self, request):
-        Image = get_image_model()
+        Image = self.model
         ImageForm = get_image_form(Image)
 
         searchform = SearchForm()
@@ -139,13 +142,13 @@ class ImageChooserUploadView(View):
                     form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
                     return render_modal_workflow(
                         request, 'wagtailimages/chooser/select_format.html', 'wagtailimages/chooser/select_format.js',
-                        {'image': image, 'form': form, 'view': self}
+                        {'image': image, 'form': form, 'view': self, 'module': self.module}
                     )
                 else:
                     # not specifying a format; return the image details now
                     return render_modal_workflow(
                         request, None, 'wagtailimages/chooser/image_chosen.js',
-                        {'image_json': get_image_json(image), 'view': self}
+                        {'image_json': get_image_json(image), 'view': self, 'module': self.module}
                     )
         else:
             form = ImageForm()
@@ -154,14 +157,14 @@ class ImageChooserUploadView(View):
 
         return render_modal_workflow(
             request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-            {'images': images, 'uploadform': form, 'searchform': searchform, 'max_filesize': MAX_UPLOAD_SIZE, 'view': self}
+            {'images': images, 'uploadform': form, 'searchform': searchform, 'max_filesize': MAX_UPLOAD_SIZE, 'view': self, 'module': self.module}
         )
 
 
-class ImageChooserSelectFormatView(View):
+class ImageChooserSelectFormatView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk):
+        image = get_object_or_404(self.model, pk=pk)
 
         if request.POST:
             form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
@@ -186,12 +189,12 @@ class ImageChooserSelectFormatView(View):
 
                 return render_modal_workflow(
                     request, None, 'wagtailimages/chooser/image_chosen.js',
-                    {'image_json': image_json, 'view': self}
+                    {'image_json': image_json, 'view': self, 'module': self.module}
                 )
         else:
             form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
 
         return render_modal_workflow(
             request, 'wagtailimages/chooser/select_format.html', 'wagtailimages/chooser/select_format.js',
-            {'image': image, 'form': form, 'view': self}
+            {'image': image, 'form': form, 'view': self, 'module': self.module}
         )

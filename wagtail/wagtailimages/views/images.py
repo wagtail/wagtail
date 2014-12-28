@@ -14,19 +14,24 @@ from django.http import HttpResponse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.modules.models import ModelModuleViewMixin
 from wagtail.wagtailsearch.backends import get_search_backends
 
-from wagtail.wagtailimages.models import get_image_model, Filter
+from wagtail.wagtailimages.models import Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
 
 
-class ImageIndexView(View):
+class ImageModuleViewMixin(ModelModuleViewMixin):
+    pass
+
+
+class ImageIndexView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailimages.add_image'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):
-        Image = get_image_model()
+        Image = self.model
 
         # Get images
         images = Image.objects.order_by('-created_at')
@@ -69,6 +74,7 @@ class ImageIndexView(View):
                 'query_string': query_string,
                 'is_searching': bool(query_string),
                 'view': self,
+                'module': self.module,
             })
         else:
             return render(request, 'wagtailimages/images/index.html', {
@@ -76,19 +82,20 @@ class ImageIndexView(View):
                 'query_string': query_string,
                 'is_searching': bool(query_string),
                 'view': self,
+                'module': self.module,
 
                 'search_form': form,
                 'popular_tags': Image.popular_tags(),
             })
 
 
-class ImageUpdateView(View):
+class ImageUpdateView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        Image = get_image_model()
+    def dispatch(self, request, pk):
+        Image = self.model
         ImageForm = get_image_form(Image)
 
-        image = get_object_or_404(Image, id=image_id)
+        image = get_object_or_404(Image, pk=pk)
 
         if not image.is_editable_by_user(request.user):
             raise PermissionDenied
@@ -110,9 +117,9 @@ class ImageUpdateView(View):
                     backend.add(image)
 
                 messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                    messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit again'))
+                    messages.button(reverse(self.module.name + ':update', args=(image.id,)), _('Edit again'))
                 ])
-                return redirect('wagtailimages_index')
+                return redirect(self.module.name + ':index')
             else:
                 messages.error(request, _("The image could not be saved due to errors."))
         else:
@@ -130,13 +137,14 @@ class ImageUpdateView(View):
             'form': form,
             'url_generator_enabled': url_generator_enabled,
             'view': self,
+            'module': self.module,
         })
 
 
-class ImageURLGeneratorView(View):
+class ImageURLGeneratorView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk):
+        image = get_object_or_404(self.model, pk=pk)
 
         if not image.is_editable_by_user(request.user):
             raise PermissionDenied
@@ -151,6 +159,7 @@ class ImageURLGeneratorView(View):
             'image': image,
             'form': form,
             'view': self,
+            'module': self.module,
         })
 
 
@@ -158,13 +167,13 @@ def json_response(document, status=200):
     return HttpResponse(json.dumps(document), content_type='application/json', status=status)
 
 
-class ImageGenerateURLView(View):
+class ImageGenerateURLView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id, filter_spec):
+    def dispatch(self, request, pk, filter_spec):
         # Get the image
-        Image = get_image_model()
+        Image = self.model
         try:
-            image = Image.objects.get(id=image_id)
+            image = Image.objects.get(pk=pk)
         except Image.DoesNotExist:
             return json_response({
                 'error': "Cannot find image."
@@ -183,8 +192,8 @@ class ImageGenerateURLView(View):
             }, status=400)
 
         # Generate url
-        signature = generate_signature(image_id, filter_spec)
-        url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
+        signature = generate_signature(pk, filter_spec)
+        url = reverse('wagtailimages_serve', args=(signature, pk, filter_spec))
 
         # Get site root url
         try:
@@ -193,15 +202,15 @@ class ImageGenerateURLView(View):
             site_root_url = Site.objects.first().root_url
 
         # Generate preview url
-        preview_url = reverse('wagtailimages_preview', args=(image_id, filter_spec))
+        preview_url = reverse(self.module.name + ':preview', args=(pk, filter_spec))
 
         return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
 
 
-class ImagePreviewView(View):
+class ImagePreviewView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id, filter_spec):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk, filter_spec):
+        image = get_object_or_404(self.model, pk=pk)
 
         try:
             return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'), focal_point=image.get_focal_point())
@@ -209,10 +218,10 @@ class ImagePreviewView(View):
             return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 
-class ImageDeleteView(View):
+class ImageDeleteView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk):
+        image = get_object_or_404(self.model, pk=pk)
 
         if not image.is_editable_by_user(request.user):
             raise PermissionDenied
@@ -220,18 +229,19 @@ class ImageDeleteView(View):
         if request.POST:
             image.delete()
             messages.success(request, _("Image '{0}' deleted.").format(image.title))
-            return redirect('wagtailimages_index')
+            return redirect(self.module.name + ':index')
 
         return render(request, "wagtailimages/images/confirm_delete.html", {
             'image': image,
             'view': self,
+            'module': self.module,
         })
 
 
-class ImageCreateView(View):
+class ImageCreateView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailimages.add_image'))
     def dispatch(self, request):
-        ImageModel = get_image_model()
+        ImageModel = self.model
         ImageForm = get_image_form(ImageModel)
 
         if request.POST:
@@ -245,9 +255,9 @@ class ImageCreateView(View):
                     backend.add(image)
 
                 messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
-                    messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit'))
+                    messages.button(reverse(self.module.name + ':update', args=(image.id,)), _('Edit'))
                 ])
-                return redirect('wagtailimages_index')
+                return redirect(self.module.name + ':index')
             else:
                 messages.error(request, _("The image could not be created due to errors."))
         else:
@@ -257,13 +267,14 @@ class ImageCreateView(View):
             'form': form,
             'max_filesize': MAX_UPLOAD_SIZE,
             'view': self,
+            'module': self.module,
         })
 
 
-class ImageUsageView(View):
+class ImageUsageView(ImageModuleViewMixin, View):
     @method_decorator(permission_required('wagtailadmin.access_admin'))
-    def dispatch(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+    def dispatch(self, request, pk):
+        image = get_object_or_404(self.model, pk=pk)
 
         # Pagination
         p = request.GET.get('p', 1)
@@ -280,4 +291,5 @@ class ImageUsageView(View):
             'image': image,
             'used_by': used_by,
             'view': self,
+            'module': self.module,
         })
