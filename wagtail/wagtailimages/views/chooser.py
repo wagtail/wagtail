@@ -37,7 +37,7 @@ def chooser(request):
     Image = get_image_model()
 
     if request.user.has_perm('wagtailimages.add_image'):
-        ImageForm = get_image_form()
+        ImageForm = get_image_form(Image)
         uploadform = ImageForm()
     else:
         uploadform = None
@@ -113,7 +113,7 @@ def image_chosen(request, image_id):
 @permission_required('wagtailimages.add_image')
 def chooser_upload(request):
     Image = get_image_model()
-    ImageForm = get_image_form()
+    ImageForm = get_image_form(Image)
 
     searchform = SearchForm()
 
