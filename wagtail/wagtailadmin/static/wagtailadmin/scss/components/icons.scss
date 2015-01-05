@@ -207,7 +207,9 @@
 .icon-bin:before{
     content:"Z";
 }
-.icon-spinner:before{
+/* Spinners, unlike other icons, are placed in :after so that they can
+ * be applied to the same element as another icon. */
+.icon-spinner:after{
     width:1em;
     animation: spin 0.5s infinite linear;
     -webkit-animation: spin 0.5s infinite linear;
