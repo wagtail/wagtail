@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailadmin.forms import UserEditForm as AdminUserEditForm
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
 
@@ -59,31 +60,11 @@ class UserCreationForm(BaseUserCreationForm):
         if commit:
             user.save()
             self.save_m2m()
+
         return user
 
 
-# Largely the same as django.contrib.auth.forms.UserCreationForm, but with enough subtle changes
-# (to make password non-required) that it isn't worth inheriting...
-class UserEditForm(forms.ModelForm):
-    required_css_class = "required"
-
-    error_messages = {
-        'duplicate_username': _("A user with that username already exists."),
-        'password_mismatch': _("The two password fields didn't match."),
-    }
-    username = forms.RegexField(
-        label=_("Username"),
-        max_length=30,
-        regex=r'^[\w.@+-]+$',
-        help_text=_("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
-        error_messages={
-            'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")
-        })
-
-    email = forms.EmailField(required=True, label=_("Email"))
-    first_name = forms.CharField(required=True, label=_("First Name"))
-    last_name = forms.CharField(required=True, label=_("Last Name"))
-
+class UserEditForm(AdminUserEditForm):
     password1 = forms.CharField(
         label=_("Password"),
         required=False,
@@ -106,16 +87,6 @@ class UserEditForm(forms.ModelForm):
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
-
-    def clean_username(self):
-        # Since User.username is unique, this check is redundant,
-        # but it sets a nicer error message than the ORM. See #13147.
-        username = self.cleaned_data["username"]
-        try:
-            User._default_manager.exclude(id=self.instance.id).get(username=username)
-        except User.DoesNotExist:
-            return username
-        raise forms.ValidationError(self.error_messages['duplicate_username'])
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")

@@ -7,6 +7,9 @@ from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore.models import Page
 
 
+User = get_user_model()
+
+
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         _placeholder = kwargs.pop('placeholder', None)
@@ -167,3 +170,50 @@ class PageViewRestrictionForm(forms.Form):
             del cleaned_data['password']
 
         return cleaned_data
+
+
+class UserEditForm(forms.ModelForm):
+    required_css_class = "required"
+
+    error_messages = {
+        'duplicate_username': _("A user with that username already exists."),
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+    username = forms.RegexField(
+        label=_("Username"),
+        max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text=_("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
+        error_messages={
+            'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")
+        })
+
+    email = forms.EmailField(required=True, label=_("Email"))
+    first_name = forms.CharField(required=True, label=_("First Name"))
+    last_name = forms.CharField(required=True, label=_("Last Name"))
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name", "is_active")
+
+    def clean_username(self):
+        # Since User.username is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        username = self.cleaned_data["username"]
+        try:
+            User._default_manager.exclude(id=self.instance.id).get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+    def save(self, commit=True, force_active=False):
+        user = super(UserEditForm, self).save(commit=False)
+
+        if force_active:
+            user.is_active = True
+
+        if commit:
+            user.save()
+            self.save_m2m()
+
+        return user
