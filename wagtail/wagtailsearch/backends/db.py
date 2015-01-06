@@ -60,7 +60,11 @@ class DBSearchResults(BaseSearchResults):
         model = self.query.queryset.model
         q = self.query.get_q()
 
-        return model.objects.filter(q).distinct()[self.start:self.stop]
+        # Make sure there are values to filter on
+        if q.children:
+            return model.objects.filter(q).distinct()[self.start:self.stop]
+        else:
+            return model.objects.none()
 
     def _do_search(self):
         return self.get_queryset()
