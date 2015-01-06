@@ -5,6 +5,7 @@ env:
   - TOXENV=py32-dj17-postgres
 #  - TOXENV=py33-dj17-postgres
   - TOXENV=py34-dj17-postgres
+  - TOXENV=py34-dj17-sqlite
 
 # Services
 services:
