@@ -28,8 +28,7 @@ PY3 = sys.version_info[0] == 3
 
 
 install_requires = [
-    "Django>=1.6.2,<1.8",
-    "South>=1.0.0",
+    "Django>=1.7.0,<1.8",
     "django-compressor>=1.4",
     "django-libsass>=0.2",
     "django-modelcluster>=0.4",
@@ -69,7 +68,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
