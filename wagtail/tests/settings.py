@@ -1,6 +1,5 @@
 import os
 
-import django
 from django.conf import global_settings
 
 
@@ -79,25 +78,12 @@ INSTALLED_APPS = [
     'wagtail.tests',
 ]
 
-# If we are using Django 1.6, add South to INSTALLED_APPS
-if django.VERSION < (1, 7):
-    INSTALLED_APPS.append('south')
 
-
-# If we are using Django 1.7 install wagtailredirects with its appconfig
+# Install wagtailredirects with its appconfig
 # Theres nothing special about wagtailredirects, we just need to have one
 # app which uses AppConfigs to test that hooks load properly
 
-if django.VERSION < (1, 7):
-    INSTALLED_APPS.append('wagtail.wagtailredirects')
-else:
-    INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')
-
-# As we don't have south migrations for tests, South thinks
-# the Django 1.7 migrations are South migrations.
-SOUTH_MIGRATION_MODULES = {
-    'tests': 'ignore',
-}
+INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')
 
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.

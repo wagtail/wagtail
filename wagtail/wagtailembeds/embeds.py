@@ -1,13 +1,5 @@
-import sys
 from datetime import datetime
 import json
-
-try:
-    from importlib import import_module
-except ImportError:
-    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
-    from django.utils.importlib import import_module
-
 
 # Needs to be imported like this to allow @patch to work in tests
 from six.moves.urllib import request as urllib_request
@@ -16,6 +8,7 @@ from six.moves.urllib.request import Request
 from six.moves.urllib.error import URLError
 from six.moves.urllib.parse import urlencode
 
+from django.utils.module_loading import import_string
 from django.conf import settings
 from django.utils import six
 
@@ -23,33 +16,9 @@ from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
 
 
-
 class EmbedNotFoundException(Exception): pass
 class EmbedlyException(Exception): pass
 class AccessDeniedEmbedlyException(EmbedlyException): pass
-
-
-# Pinched from django 1.7 source code.
-# TODO: Replace this with "from django.utils.module_loading import import_string" when django 1.7 is released
-def import_string(dotted_path):
-    """
-    Import a dotted module path and return the attribute/class designated by the
-    last name in the path. Raise ImportError if the import failed.
-    """
-    try:
-        module_path, class_name = dotted_path.rsplit('.', 1)
-    except ValueError:
-        msg = "%s doesn't look like a module path" % dotted_path
-        six.reraise(ImportError, ImportError(msg), sys.exc_info()[2])
-
-    module = import_module(module_path)
-
-    try:
-        return getattr(module, class_name)
-    except AttributeError:
-        msg = 'Module "%s" does not define a "%s" attribute/class' % (
-            dotted_path, class_name)
-        six.reraise(ImportError, ImportError(msg), sys.exc_info()[2])
 
 
 def embedly(url, max_width=None, key=None):

@@ -3,6 +3,7 @@ from six.moves.urllib.error import URLError
 
 from mock import patch
 import warnings
+import unittest
 
 try:
     import embedly
@@ -13,7 +14,7 @@ except ImportError:
 from django import template
 from django.test import TestCase
 
-from wagtail.tests.utils import WagtailTestUtils, unittest
+from wagtail.tests.utils import WagtailTestUtils
 
 from wagtail.wagtailembeds.embeds import (
     EmbedNotFoundException,
