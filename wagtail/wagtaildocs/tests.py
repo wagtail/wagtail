@@ -1,4 +1,5 @@
 from six import b
+import unittest
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -7,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.test.utils import override_settings
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 
 from wagtail.tests.models import EventPage, EventPageRelatedLink
