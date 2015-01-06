@@ -421,6 +421,8 @@ class TestIssue312(TestCase):
             for width in range(10, 100, 10):
                 image.get_rendition('width-%d' % width)
 
+            image.delete()
+
             # this block opens multiple database connections, which need to be closed explicitly
             # so that we can drop the test database at the end of the test run
             connection.close()
