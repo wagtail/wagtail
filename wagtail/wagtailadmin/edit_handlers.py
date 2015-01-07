@@ -616,3 +616,12 @@ Page.promote_panels = [
 Page.settings_panels = [
     PublishingPanel()
 ]
+
+
+class BaseStreamFieldPanel(BaseFieldPanel):
+    pass
+
+def StreamFieldPanel(field_name):
+    return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
+        'field_name': field_name,
+    })
