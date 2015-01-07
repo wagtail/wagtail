@@ -5,6 +5,7 @@ import json
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
+from django.utils.safestring import mark_safe
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.models import Page
@@ -53,3 +54,11 @@ class AdminPageChooser(WidgetWithScript, widgets.Input):
                 app=content_type.app_label,
                 model=content_type.model)),
             parent=json.dumps(parent.id if parent else None))
+
+
+class StreamWidget(widgets.Widget):
+    def render(self, name, value, attrs=None):
+        return mark_safe("<strong>hello from StreamWidget</strong>")
+
+    def value_from_datadict(self, data, files, name):
+        return 'lol idk'

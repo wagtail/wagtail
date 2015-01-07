@@ -619,7 +619,9 @@ Page.settings_panels = [
 
 
 class BaseStreamFieldPanel(BaseFieldPanel):
-    pass
+    @classmethod
+    def widget_overrides(cls):
+        return {cls.field_name: widgets.StreamWidget()}
 
 def StreamFieldPanel(field_name):
     return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
