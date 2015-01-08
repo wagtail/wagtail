@@ -66,4 +66,10 @@
 {% endblock %}
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script>
+        $(function(){
+            $('#page-edit-form .tab-content section.active input').first().focus();
+        });
+    </script>
 {% endblock %}
