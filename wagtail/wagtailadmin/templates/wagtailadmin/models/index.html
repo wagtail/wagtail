@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{{ module.model_verbose_name_plural }}{% endblock %}
+{% block content %}
+    {% if has_add_permission %}
+        {% trans "Add a " as add_a_str %}
+        {% with add_a_str|add:module.model_verbose_name as add_a_model_str %}
+            {% include "wagtailadmin/shared/header.html" with title=module.model_verbose_name_plural add_link=module.name|add:":create" add_text=add_a_model_str icon=module.icon_class %}
+        {% endwith %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=module.model_verbose_name_plural icon=module.icon_class %}
+    {% endif %}
+
+    <div class="nice-padding">
+        <div id="list">
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th class="title">
+                            {{ module.model_verbose_name }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                        <tr>
+                            <td class="title">
+                                <h2>
+                                    <a href="{% url module.name|add:':update' object.id %}">{{ object }}</a>
+                                </h2>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
