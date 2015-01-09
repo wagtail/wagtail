@@ -34,8 +34,10 @@
         </div>
         <div class="col2">
             <dl>
-                <dt>Filesize</dt>
-                <dd>{{ document.file.size|filesizeformat }}</dd>
+                {% if document.file %}
+                    <dt>Filesize</dt>
+                    <dd>{{ document.file.size|filesizeformat }}</dd>
+                {% endif %}
             </dl>
         </div>
     </div>
