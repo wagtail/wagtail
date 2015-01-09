@@ -225,6 +225,11 @@ a.tag:hover{
     }
 }
 
+hr{
+    border:1px solid $color-grey-4;
+    border-width:1px 0 0;
+    margin:1.5em 0;
+}
 
 /* general image style */
 img{
