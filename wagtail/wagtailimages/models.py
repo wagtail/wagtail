@@ -178,7 +178,7 @@ class AbstractImage(models.Model, TagSearchable):
             generated_image = filter.run(self, BytesIO())
 
             # Generate filename
-            input_filename = os.path.basename(self.file.file.name)
+            input_filename = os.path.basename(self.file.name)
             input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
             output_extension = '.'.join([vary_key, filter.spec]) + input_extension
