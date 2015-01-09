@@ -21,7 +21,7 @@
             <ul class="fields">
                 {% for field in form %}
                     {% if field.name == 'file' %}
-                        {% include "wagtaildocs/documents/_file_field.html" %}
+                        {% include "wagtaildocs/documents/_file_field_as_li.html" %}
                     {% else %}
                         {% include "wagtailadmin/shared/field_as_li.html" %}
                     {% endif %}

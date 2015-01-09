@@ -355,6 +355,7 @@ ul.listing{
     }
 
     &.images img{
+        @include transition(border-color 0.2s ease);
         border: 3px solid transparent;
     }
 }

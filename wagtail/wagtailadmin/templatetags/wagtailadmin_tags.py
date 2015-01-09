@@ -66,6 +66,11 @@ def fieldtype(bound_field):
 
 
 @register.filter
+def widgettype(bound_field):
+    return camelcase_to_underscore(bound_field.field.widget.__class__.__name__)
+
+
+@register.filter
 def meta_description(model):
     try:
         return model.model_class()._meta.description

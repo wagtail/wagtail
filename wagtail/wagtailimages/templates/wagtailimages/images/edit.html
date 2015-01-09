@@ -35,7 +35,7 @@
                     {% for field in form %}
 
                         {% if field.name == 'file' %}
-                            {% include "wagtailimages/images/_file_field.html" %}
+                            {% include "wagtailimages/images/_file_field_as_li.html" %}
                         {% elif field.is_hidden %}
                             {{ field }}
                         {% else %}
