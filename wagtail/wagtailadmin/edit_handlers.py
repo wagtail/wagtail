@@ -159,6 +159,13 @@ class EditHandler(object):
     def required_formsets(cls):
         return []
 
+    # return any HTML that needs to be output on the edit page once per edit handler definition.
+    # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
+    # for Javascript code to work with.
+    @classmethod
+    def html_declarations(cls):
+        return ''
+
     # the top-level edit handler is responsible for providing a form class that can produce forms
     # acceptable to the edit handler
     _form_class = None
@@ -279,6 +286,10 @@ class BaseCompositeEditHandler(EditHandler):
             cls._required_formsets = formsets
 
         return cls._required_formsets
+
+    @classmethod
+    def html_declarations(cls):
+        return mark_safe(''.join([c.html_declarations() for c in cls.children]))
 
     def __init__(self, instance=None, form=None):
         super(BaseCompositeEditHandler, self).__init__(instance=instance, form=form)
@@ -623,10 +634,14 @@ from wagtail.wagtailadmin.blocks import StreamBlock
 class BaseStreamFieldPanel(BaseFieldPanel):
     @classmethod
     def widget_overrides(cls):
-        return {cls.field_name: widgets.StreamWidget(block_def=StreamBlock(cls.block_types))}
+        return {cls.field_name: widgets.StreamWidget(block_def=cls.block_def)}
+
+    @classmethod
+    def html_declarations(cls):
+        return cls.block_def.all_html_declarations()
 
 def StreamFieldPanel(field_name, block_types):
     return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
         'field_name': field_name,
-        'block_types': block_types,
+        'block_def': StreamBlock(block_types),
     })
