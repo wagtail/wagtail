@@ -63,7 +63,19 @@ class StreamWidget(widgets.Widget):
 
     def render(self, name, value, attrs=None):
         bound_block = self.block_def.bind(json.loads(value), prefix=name)
-        return bound_block.render_form()
+        js_initializer = self.block_def.js_initializer()
+        if js_initializer:
+            js_snippet = """
+                <script>
+                $(function() {
+                    var initializer = %s;
+                    initializer('%s');
+                })
+                </script>
+            """ % (js_initializer, name)
+        else:
+            js_snippet = ''
+        return mark_safe(bound_block.render_form() + js_snippet)
 
     @property
     def media(self):
