@@ -82,4 +82,4 @@ class StreamWidget(widgets.Widget):
         return self.block_def.all_media()
 
     def value_from_datadict(self, data, files, name):
-        return 'lol idk'
+        return json.dumps(self.block_def.value_from_datadict(data, files, name))

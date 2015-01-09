@@ -302,7 +302,6 @@ def edit(request, page_id):
         form.clean = clean
 
         if form.is_valid() and not page.locked:
-            raise Exception(repr(form.cleaned_data))
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
