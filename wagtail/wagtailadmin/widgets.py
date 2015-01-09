@@ -65,5 +65,9 @@ class StreamWidget(widgets.Widget):
         bound_block = self.block_def.bind(json.loads(value), prefix=name)
         return bound_block.render_form()
 
+    @property
+    def media(self):
+        return self.block_def.all_media()
+
     def value_from_datadict(self, data, files, name):
         return 'lol idk'
