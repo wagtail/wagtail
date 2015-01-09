@@ -57,8 +57,13 @@ class AdminPageChooser(WidgetWithScript, widgets.Input):
 
 
 class StreamWidget(widgets.Widget):
+    def __init__(self, block_def, attrs=None):
+        super(StreamWidget, self).__init__(attrs=attrs)
+        self.block_def = block_def
+
     def render(self, name, value, attrs=None):
-        return mark_safe("<strong>hello from StreamWidget</strong>")
+        bound_block = self.block_def.bind(json.loads(value), prefix=name)
+        return bound_block.render_form()
 
     def value_from_datadict(self, data, files, name):
         return 'lol idk'

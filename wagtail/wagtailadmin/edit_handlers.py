@@ -618,12 +618,15 @@ Page.settings_panels = [
 ]
 
 
+from wagtail.wagtailadmin.blocks import StreamBlock
+
 class BaseStreamFieldPanel(BaseFieldPanel):
     @classmethod
     def widget_overrides(cls):
-        return {cls.field_name: widgets.StreamWidget()}
+        return {cls.field_name: widgets.StreamWidget(block_def=StreamBlock(cls.block_types))}
 
-def StreamFieldPanel(field_name):
+def StreamFieldPanel(field_name, block_types):
     return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
         'field_name': field_name,
+        'block_types': block_types,
     })

@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/block_forms/sequence_member.html" %}
+
+{% block hidden_fields %}
+    <input type="hidden" id="{{ prefix }}-type" name="{{ prefix }}-type" value="{{ child.block.name }}">
+{% endblock %}
+
+{% block header_controls %}
+    <button type="button" id="{{ prefix }}-delete">delete</button>
+{% endblock %}
+
+{% block footer_controls %}
+    {% include "wagtailadmin/block_forms/stream_menu.html" %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{# Common HTML structure shared by list and stream blocks #}
+
+{% if label %}<label>{{ label }}</label>{% endif %}
+<input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
+{% block header %}{% endblock %}
+<ul id="{{ prefix }}-list">
+    {% for list_member_html in list_members_html %}
+        {{ list_member_html }}
+    {% endfor %}
+</ul>
+{% block footer %}{% endblock %}
