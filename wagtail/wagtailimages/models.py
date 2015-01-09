@@ -201,7 +201,7 @@ class AbstractImage(models.Model, TagSearchable):
             else:
                 focal_point_key = "focus-none"
 
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
+            input_filename_parts = os.path.basename(file_field.name).split('.')
             filename_without_extension = '.'.join(input_filename_parts[:-1])
             extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
             filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
