@@ -404,3 +404,17 @@ $(function() {
         
     });
 });
+
+
+function makeCalculatedField(field, otherFields) {
+    $field = $('#' + field);
+    $otherFields = $('#' + otherFields.join(', #'));
+
+    $otherFields.bind('keyup', function() {
+        var value = $otherFields.map(function() {
+            return this.value;
+        }).get().join(' ');
+
+        $field.val(value);
+    });
+}

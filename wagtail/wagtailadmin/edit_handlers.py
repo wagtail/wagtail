@@ -404,6 +404,25 @@ def FieldPanel(field_name, classname=""):
     })
 
 
+class BaseCalculatedFieldPanel(BaseFieldPanel):
+    def render_js(self):
+        # Get list of ids for other fields
+        other_fields = []
+        for field in self.other_fields:
+            other_fields.append("fixPrefix('" + self.form[field].id_for_label + "')")
+
+        return mark_safe("makeCalculatedField(fixPrefix('%s'), [%s]);" % 
+            (self.bound_field.id_for_label, ', '.join(other_fields)))
+
+
+def CalculatedFieldPanel(field_name, other_fields, classname=None):
+    return type('_CalculatedFieldPanel', (BaseCalculatedFieldPanel,), {
+        'field_name': field_name,
+        'other_fields': other_fields,
+        'classname': classname,
+    })
+
+
 class BaseRichTextFieldPanel(BaseFieldPanel):
     pass
 
