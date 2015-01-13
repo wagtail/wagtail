@@ -2,15 +2,9 @@ from six import text_type
 
 from django.db import models
 from django.db.models.query import QuerySet
-from django.core.exceptions import ImproperlyConfigured
-
-# Django 1.7 lookups
-try:
-    from django.db.models.lookups import Lookup
-except ImportError:
-    Lookup = None
-
+from django.db.models.lookups import Lookup
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
+from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.wagtailsearch.index import class_is_indexed
 from wagtail.wagtailsearch.utils import normalise_query_string
@@ -71,15 +65,7 @@ class BaseSearchQuery(object):
 
     def _get_filters_from_where_node(self, where_node):
         # Check if this is a leaf node
-        if isinstance(where_node, tuple): # Django 1.6 and below
-            field_attname = where_node[0].col
-            lookup = where_node[1]
-            value = where_node[3]
-
-            # Process the filter
-            return self._process_filter(field_attname, lookup, value)
-
-        elif Lookup is not None and isinstance(where_node, Lookup): # Django 1.7 and above
+        if isinstance(where_node, Lookup):
             field_attname = where_node.lhs.target.attname
             lookup = where_node.lookup_name
             value = where_node.rhs

@@ -353,6 +353,11 @@ ul.listing{
         font-size:1em;
         opacity:0.7;
     }
+
+    &.images img{
+        @include transition(border-color 0.2s ease);
+        border: 3px solid transparent;
+    }
 }
 ul.listing{
     border-top:1px dashed $color-input-border;

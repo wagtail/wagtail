@@ -803,8 +803,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .boolean_field &,
         .choice_field &,
         .model_choice_field &,
-        .image_field &,
-        .file_field &{
+        .image_field &{
             padding-top:0;
         }
     }

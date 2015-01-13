@@ -110,6 +110,8 @@
             margin:0;
             cursor:pointer;
             background-color:$color-salmon;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     }
 

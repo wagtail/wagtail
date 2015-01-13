@@ -1,3 +1,5 @@
+import unittest
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -8,7 +10,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.db import connection
 
-from wagtail.tests.utils import WagtailTestUtils, unittest, test_concurrently
+from wagtail.tests.utils import WagtailTestUtils, test_concurrently
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, Filter
@@ -418,6 +420,8 @@ class TestIssue312(TestCase):
             # get renditions concurrently, using various filters that are unlikely to exist already
             for width in range(10, 100, 10):
                 image.get_rendition('width-%d' % width)
+
+            image.delete()
 
             # this block opens multiple database connections, which need to be closed explicitly
             # so that we can drop the test database at the end of the test run

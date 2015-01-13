@@ -1,14 +1,17 @@
 from __future__ import unicode_literals
+
+import unittest
+import six
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 
-from wagtail.tests.utils import WagtailTestUtils, unittest
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import Page, GroupPagePermission
-import six
 
 
 class TestUserIndexView(TestCase, WagtailTestUtils):

@@ -1,4 +1,4 @@
-from wagtail.tests.utils import unittest
+import unittest
 
 from django.test import TestCase
 
