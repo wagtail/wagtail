@@ -218,10 +218,10 @@ class FieldBlock(Block):
 
         widget_html = widget.render(prefix, value, {'id': prefix})
 
-        if error:
-            error_html = str(ErrorList(error.error_list))
-        else:
-            error_html = ''
+        #if error:
+        #    error_html = str(ErrorList(error.error_list))
+        #else:
+        #    error_html = ''
 
         if self.label:
             label_html = format_html(
@@ -231,7 +231,12 @@ class FieldBlock(Block):
         else:
             label_html = ''
 
-        return mark_safe(error_html + label_html + widget_html)
+        return render_to_string('wagtailadmin/block_forms/field.html', {
+            'widget': widget_html,
+            'label_tag': label_html,
+            'field': self.field,
+            'errors': error.error_list if error else [],  # TODO: should this be ErrorList(error.error_list)?
+        })
 
     def value_from_datadict(self, data, files, prefix):
         return self.field.widget.value_from_datadict(data, files, prefix)
