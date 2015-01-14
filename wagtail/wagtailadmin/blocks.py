@@ -6,6 +6,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.deconstruct import deconstructible
 from django.template.loader import render_to_string
 from django.forms import Media
 from django.forms.utils import ErrorList
@@ -35,6 +36,7 @@ def js_dict(d):
 # Top-level superclasses and helper objects
 # =========================================
 
+@deconstructible
 class Block(object):
     creation_counter = 0
 
@@ -205,6 +207,11 @@ class TextInputBlock(Block):
 # ===========
 # Field block
 # ===========
+
+# FIXME: form field instances are not deconstructible for migrations. Need some other way to refer to
+# them in the initialiser, in the case that FieldBlock appears inline within a StreamField definition.
+# (Referring to them by class would probably work; it's unlikely that any parameter passed to them
+# would affect anything you're doing in migrations)
 
 class FieldBlock(Block):
     default = None

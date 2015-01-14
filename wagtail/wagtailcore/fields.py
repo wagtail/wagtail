@@ -36,3 +36,14 @@ class RichTextField(models.TextField):
         defaults = {'widget': RichTextArea}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
+
+
+class StreamField(models.TextField):
+    def __init__(self, block_types, **kwargs):
+        self.block_types = block_types
+        super(StreamField, self).__init__(**kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(StreamField, self).deconstruct()
+        kwargs['block_types'] = self.block_types
+        return name, path, args, kwargs
