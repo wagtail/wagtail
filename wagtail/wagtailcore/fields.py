@@ -4,9 +4,11 @@ import json
 
 from django.db import models
 from django.forms import Textarea
+from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
+from wagtail.wagtailadmin.blocks import StreamBlock  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
 
 
 class RichTextArea(WidgetWithScript, Textarea):
@@ -38,12 +40,25 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(models.TextField):
+class StreamField(with_metaclass(models.SubfieldBase, models.TextField)):
     def __init__(self, block_types, **kwargs):
         self.block_types = block_types
+        self.stream_block = StreamBlock(block_types)
         super(StreamField, self).__init__(**kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super(StreamField, self).deconstruct()
         kwargs['block_types'] = self.block_types
         return name, path, args, kwargs
+
+    def to_python(self, value):
+        if value is None:
+            return []
+        elif isinstance(value, list):
+            return value
+        else:  # assume string
+            return self.stream_block.renderable(json.loads(value))
+
+    def get_prep_value(self, value):
+        return json.dumps(value)
+

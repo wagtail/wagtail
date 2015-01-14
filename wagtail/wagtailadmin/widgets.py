@@ -62,7 +62,7 @@ class StreamWidget(widgets.Widget):
         self.block_def = block_def
 
     def render(self, name, value, attrs=None):
-        bound_block = self.block_def.bind(json.loads(value), prefix=name)
+        bound_block = self.block_def.bind(value, prefix=name)
         js_initializer = self.block_def.js_initializer()
         if js_initializer:
             js_snippet = """
@@ -82,4 +82,4 @@ class StreamWidget(widgets.Widget):
         return self.block_def.all_media()
 
     def value_from_datadict(self, data, files, name):
-        return json.dumps(self.block_def.value_from_datadict(data, files, name))
+        return self.block_def.value_from_datadict(data, files, name)
