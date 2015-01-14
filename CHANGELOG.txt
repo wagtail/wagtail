@@ -9,6 +9,7 @@ Changelog
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
+ * FieldPanel now accepts an optional 'widget' parameter to override the field's default form widget (Alejandro Giacometti)
 
 
 0.8.5 (xx.xx.20xx)
