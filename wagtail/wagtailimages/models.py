@@ -82,7 +82,13 @@ class AbstractImage(models.Model, TagSearchable):
         return self.title
 
     def get_willow_image(self):
-        image_file = self.file.file
+        try:
+            image_file = self.file.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
+        except IOError as e:
+            # re-throw this as a SourceImageIOError so that calling code can distinguish
+            # these from IOErrors elsewhere in the process
+            raise SourceImageIOError(text_type(e))
+
         image_file.open('rb')
         image_file.seek(0)
 
