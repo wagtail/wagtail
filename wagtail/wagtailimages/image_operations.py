@@ -1,16 +1,44 @@
 from __future__ import division
 
+import inspect
 
-class DoNothingOperation(object):
-    def __init__(self, method):
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+
+
+class Operation(object):
+    def __init__(self, method, *args):
+        self.method = method
+        self.args = args
+
+        # Check arguments
+        try:
+            inspect.getcallargs(self.construct, *args)
+        except TypeError as e:
+            raise InvalidFilterSpecError(e)
+
+        # Call construct
+        try:
+            self.construct(*args)
+        except ValueError as e:
+            raise InvalidFilterSpecError(e)
+
+    def construct(self, *args):
+        raise NotImplementedError
+
+    def run(self, willow, image):
+        raise NotImplementedError
+
+
+class DoNothingOperation(Operation):
+    def construct(self):
         pass
 
     def run(self, willow, image):
         pass
 
 
-class FillOperation(object):
-    def __init__(self, method, size, *extra):
+class FillOperation(Operation):
+    def construct(self, size, *extra):
         # Get width and height
         width_str, height_str = size.split('x')
         self.width = int(width_str)
@@ -163,10 +191,8 @@ class FillOperation(object):
         return [focal_point_key]
 
 
-class MinMaxOperation(object):
-    def __init__(self, method, size):
-        self.method = method
-
+class MinMaxOperation(Operation):
+    def construct(self, size):
         # Get width and height
         width_str, height_str = size.split('x')
         self.width = int(width_str)
@@ -207,9 +233,8 @@ class MinMaxOperation(object):
         willow.resize(width, height)
 
 
-class WidthHeightOperation(object):
-    def __init__(self, method, size):
-        self.method = method
+class WidthHeightOperation(Operation):
+    def construct(self, size):
         self.size = int(size)
 
     def run(self, willow, image):

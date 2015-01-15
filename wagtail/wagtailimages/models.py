@@ -28,6 +28,7 @@ from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -414,6 +415,10 @@ class Filter(models.Model):
         operations = []
         for op_spec in self.spec.split():
             op_spec_parts = op_spec.split('-')
+
+            if op_spec_parts[0] not in self._registered_operations:
+                raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
+
             op_class = self._registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
 

@@ -1,6 +1,7 @@
 import unittest
 
 from wagtail.wagtailimages import image_operations
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailimages.models import Image
 
 
@@ -52,11 +53,11 @@ class ImageOperationTestCase(unittest.TestCase):
         return test_filter_spec
 
     @classmethod
-    def make_filter_spec_error_test(cls, filter_spec, expected_exception):
+    def make_filter_spec_error_test(cls, filter_spec):
         def test_filter_spec_error(self):
-            self.assertRaises(expected_exception, self.operation_class, *filter_spec.split('-'))
+            self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
 
-        test_name = 'test_filter_%s_raises_%s' % (filter_spec, expected_exception.__name__)
+        test_name = 'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
         test_filter_spec_error.__name__ = test_name
         return test_filter_spec_error
 
@@ -90,8 +91,8 @@ class ImageOperationTestCase(unittest.TestCase):
             setattr(cls, filter_spec_test.__name__, filter_spec_test)
 
         # Filter spec error tests
-        for args in cls.filter_spec_error_tests:
-            filter_spec_error_test = cls.make_filter_spec_error_test(*args)
+        for filter_spec in cls.filter_spec_error_tests:
+            filter_spec_error_test = cls.make_filter_spec_error_test(filter_spec)
             setattr(cls, filter_spec_error_test.__name__, filter_spec_error_test)
 
         # Running tests
@@ -110,7 +111,7 @@ class TestDoNothingOperation(ImageOperationTestCase):
     ]
 
     filter_spec_error_tests = [
-        ('cannot-take-multiple-parameters', TypeError),
+        'cannot-take-multiple-parameters',
     ]
 
     run_tests = [
@@ -134,13 +135,13 @@ class TestFillOperation(ImageOperationTestCase):
     ]
 
     filter_spec_error_tests = [
-        ('fill', TypeError),
-        ('fill-800', ValueError),
-        ('fill-abc', ValueError),
-        ('fill-800xabc', ValueError),
-        ('fill-800x600-', ValueError),
-        ('fill-800x600x10', ValueError),
-        ('fill-800x600-d100', ValueError),
+        'fill',
+        'fill-800',
+        'fill-abc',
+        'fill-800xabc',
+        'fill-800x600-',
+        'fill-800x600x10',
+        'fill-800x600-d100',
     ]
 
     run_tests = [
@@ -265,14 +266,14 @@ class TestMinMaxOperation(ImageOperationTestCase):
     ]
 
     filter_spec_error_tests = [
-        ('min', TypeError),
-        #('hello-800x600', ValueError),
-        ('min-800', ValueError),
-        ('min-abc', ValueError),
-        ('min-800xabc', ValueError),
-        ('min-800x600-', TypeError),
-        ('min-800x600-c100', TypeError),
-        ('min-800x600x10', ValueError),
+        'min',
+        #'hello-800x600',
+        'min-800',
+        'min-abc',
+        'min-800xabc',
+        'min-800x600-',
+        'min-800x600-c100',
+        'min-800x600x10',
     ]
 
     run_tests = [
@@ -298,11 +299,11 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     ]
 
     filter_spec_error_tests = [
-        ('width', TypeError),
-        #('hello-800', ValueError),
-        ('width-800x600', ValueError),
-        ('width-abc', ValueError),
-        ('width-800-c100', TypeError),
+        'width',
+        #'hello-800',
+        'width-800x600',
+        'width-abc',
+        'width-800-c100',
     ]
 
     run_tests = [
