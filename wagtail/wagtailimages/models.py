@@ -4,6 +4,7 @@ import re
 from six import BytesIO, text_type
 
 from taggit.managers import TaggableManager
+from willow.image import Image as WillowImage
 
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
@@ -79,6 +80,13 @@ class AbstractImage(models.Model, TagSearchable):
 
     def __str__(self):
         return self.title
+
+    def get_willow_image(self):
+        image_file = self.file.file
+        image_file.open('rb')
+        image_file.seek(0)
+
+        return WillowImage.open(image_file)
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)

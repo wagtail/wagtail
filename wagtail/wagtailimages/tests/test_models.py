@@ -1,4 +1,5 @@
 import unittest
+from willow.image import Image as WillowImage
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -266,6 +267,19 @@ class TestGetUsage(TestCase):
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
         self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
+
+
+def TestGetWillowImage(TestCase):
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_willow_image_object_returned(self):
+        willow_image = self.image.get_willow_image()
+
+        self.assertIsInstance(willow_image, WillowImage)
 
 
 class TestIssue573(TestCase):
