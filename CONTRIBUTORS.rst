@@ -36,6 +36,7 @@ Contributors
 * Eric Drechsel
 * Alejandro Giacometti
 * Robert Rollins
+* Jerel Unruh
 
 Translators
 ===========
