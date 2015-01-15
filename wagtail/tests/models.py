@@ -306,6 +306,15 @@ class EventIndex(Page):
         for path in super(EventIndex, self).get_static_site_paths():
             yield path
 
+    def get_sitemap_urls(self):
+        # Add past events url to sitemap
+        return super(EventIndex, self).get_sitemap_urls() + [
+            {
+                'location': self.full_url + 'past/',
+                'lastmod': self.latest_revision_created_at
+            }
+        ]
+
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
