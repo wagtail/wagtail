@@ -184,6 +184,80 @@
         }
     }
 
+    &.stream-field {
+        > fieldset{
+            @include column(12);
+            padding-left:0;
+            padding-right:0;
+        }
+
+        /* Object controls */
+        .stream-controls{
+            position:absolute;
+            z-index:1;
+            right:1em;
+            top:1em;
+            color:white;
+            overflow:hidden;
+            @include border-radius(2px);
+            
+            li{
+                background-color: $color-teal;
+                float:left;
+                cursor:pointer;
+                margin-right:1px;
+
+                &:last-child{
+                    margin-right:0;
+                }
+            }
+           
+            .disabled{
+                display:none;
+            }
+        }
+
+        .fields > li > .field > label{
+            display:none;
+        }
+        .sequence{
+            @include clearfix;
+            margin:1em 0;
+            border:1px solid lighten($color-grey-4, 3%);
+            padding:0 1.5em;
+        }
+        .sequence-member{
+            position:relative;
+            padding:1em 1.5em;
+            border-bottom:1px solid lighten($color-grey-4, 3%);
+            margin:0 -1.5em;
+
+            .inner > .struct-block > label{
+                display:block;
+                width:100%;
+                float:none;
+            }
+        }
+        .sequence-inner{
+            @include column(10);
+
+            &:nth-of-type(1){
+                @include column(12);
+                padding:0;
+            }
+        }
+        
+
+        .struct-block > ul > li{ /* duplicates forms.scss ln.568 */
+            @include clearfix();
+            padding-top:0.5em;
+            padding-bottom:1.2em;
+        }
+
+
+
+    }
+
     /* special panel for the publishing fields, requires a bit more pizzazz */
     &.publishing{
         h2:before{
