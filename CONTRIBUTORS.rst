@@ -38,6 +38,7 @@ Contributors
 * Robert Rollins
 * linibou
 * Timo Rieber
+* Jerel Unruh
 
 Translators
 ===========
