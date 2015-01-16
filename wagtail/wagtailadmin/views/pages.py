@@ -255,6 +255,8 @@ def edit(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     parent = page.get_parent()
 
+    content_type = ContentType.objects.get_for_model(page)
+
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
         raise PermissionDenied
@@ -373,6 +375,7 @@ def edit(request, page_id):
 
     return render(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
+        'content_type': content_type,
         'edit_handler': edit_handler,
         'errors_debug': errors_debug,
         'preview_modes': page.preview_modes,

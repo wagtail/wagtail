@@ -314,6 +314,13 @@ footer, .logo{
         @include column(12);
     }
 
+    .divider-before{
+        border-left:1px solid $color-grey-4;
+    }
+    .divider-after{
+        border-right:1px solid $color-grey-4;
+    }
+
     .row{
         @include row();
     }
