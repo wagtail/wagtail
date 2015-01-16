@@ -3,15 +3,15 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from django.db import models
-from django.forms import Textarea
+from django import forms
 from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.blocks import StreamBlock  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
+from wagtail.wagtailadmin.blocks import StreamBlock, StreamValue  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
 
 
-class RichTextArea(WidgetWithScript, Textarea):
+class RichTextArea(WidgetWithScript, forms.Textarea):
     def get_panel(self):
         from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
         return RichTextFieldPanel
@@ -40,7 +40,7 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(with_metaclass(models.SubfieldBase, models.TextField)):
+class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def __init__(self, block_types, **kwargs):
         self.block_types = block_types
         self.stream_block = StreamBlock(block_types)
@@ -54,11 +54,23 @@ class StreamField(with_metaclass(models.SubfieldBase, models.TextField)):
     def to_python(self, value):
         if value is None:
             return []
-        elif isinstance(value, list):
+        elif isinstance(value, StreamValue):
             return value
         else:  # assume string
-            return self.stream_block.renderable(json.loads(value))
+            return self.stream_block.to_python(json.loads(value))
 
     def get_prep_value(self, value):
-        return json.dumps(value)
+        return json.dumps(self.stream_block.get_prep_value(value))
 
+    def formfield(self, **kwargs):
+        """
+        Override formfield to use a plain forms.Field so that we do no transformation on the value
+        (as distinct from the usual fallback of forms.CharField, which transforms it into a string).
+        """
+        defaults = {'form_class': forms.Field}
+        defaults.update(kwargs)
+        return super(StreamField, self).formfield(**defaults)
+
+    def value_to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return self.get_prep_value(value)

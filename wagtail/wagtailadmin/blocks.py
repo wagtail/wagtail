@@ -1,5 +1,5 @@
 import re
-from collections import OrderedDict
+import collections
 
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html, format_html_join
@@ -159,13 +159,20 @@ class Block(object):
         """
         return value
 
-    def renderable(self, value):
+    def to_python(self, value):
         """
-        Return 'value' in the most convenient version for use in templates. In simple cases this might
-        be the value itself; alternatively, it might be a 'smart' version of the value which behaves mostly
+        Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
+        used in the rest of the block API and within front-end templates . In simple cases this might be
+        the value itself; alternatively, it might be a 'smart' version of the value which behaves mostly
         like the original value but provides a native HTML rendering when inserted into a template; or it
-        might be something totally different (e.g. an image chooser will use the image ID as the clean value,
-        and turn this back into an actual image object here).
+        might be something totally different (e.g. an image chooser will use the image ID as the clean
+        value, and turn this back into an actual image object here).
+        """
+        return value
+
+    def get_prep_value(self, value):
+        """
+        The reverse of to_python; convert the python value into JSON-serialisable form.
         """
         return value
 
@@ -356,9 +363,17 @@ class BaseStructBlock(Block):
 
         return result
 
-    def renderable(self, value):
+    def to_python(self, value):
+        # recursively call to_python on children and return as a RenderableStructBlock
         return RenderableStructBlock(self, [
-            (name, self.child_blocks[name].renderable(val))
+            (name, self.child_blocks[name].to_python(val))
+            for name, val in value.items()
+        ])
+
+    def get_prep_value(self, value):
+        # recursively call get_prep_value on children and return as a plain dict
+        return dict([
+            (name, self.child_blocks[name].get_prep_value(val))
             for name, val in value.items()
         ])
 
@@ -386,13 +401,13 @@ class DeclarativeSubBlocksMetaclass(type):
                 value.set_name(key)
                 attrs.pop(key)
         current_blocks.sort(key=lambda x: x[1].creation_counter)
-        attrs['declared_blocks'] = OrderedDict(current_blocks)
+        attrs['declared_blocks'] = collections.OrderedDict(current_blocks)
 
         new_class = (super(DeclarativeSubBlocksMetaclass, mcs)
             .__new__(mcs, name, bases, attrs))
 
         # Walk through the MRO.
-        declared_blocks = OrderedDict()
+        declared_blocks = collections.OrderedDict()
         for base in reversed(new_class.__mro__):
             # Collect sub-blocks from base class.
             if hasattr(base, 'declared_blocks'):
@@ -514,9 +529,17 @@ class ListBlock(Block):
 
         return result
 
-    def renderable(self, value):
+    def to_python(self, value):
+        # recursively call to_python on children and return as a list
         return [
-            self.child_block.renderable(item)
+            self.child_block.to_python(item)
+            for item in value
+        ]
+
+    def get_prep_value(self, value):
+        # recursively call get_prep_value on children and return as a list
+        return [
+            self.child_block.get_prep_value(item)
             for item in value
         ]
 
@@ -596,9 +619,9 @@ class BaseStreamBlock(Block):
 
     def render_form(self, value, prefix='', error=None):
         list_members_html = [
-            self.render_list_member(member['type'], member['value'], "%s-%d" % (prefix, i), i,
+            self.render_list_member(block_type, child_value, "%s-%d" % (prefix, i), i,
                 error=error.params[i] if error else None)
-            for (i, member) in enumerate(value)
+            for (i, (child_value, block_type)) in enumerate(value.values_with_types)
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
@@ -621,24 +644,23 @@ class BaseStreamBlock(Block):
             values_with_indexes.append(
                 (
                     data['%s-%d-order' % (prefix, i)],
+                    child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
                     block_type_name,
-                    child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i))
                 )
             )
 
         values_with_indexes.sort()
-        return [{'type': t, 'value': v} for (i, t, v) in values_with_indexes]
+        return StreamValue([(val, typ) for (index, val, typ) in values_with_indexes])
 
     def clean(self, value):
         result = []
         errors = []
-        for child_val in value:
-            child_block = self.child_blocks[child_val['type']]
+        for child_type, child_val in value.values_with_types:
+            child_block = self.child_blocks[child_type]
             try:
-                result.append({
-                    'type': child_val['type'],
-                    'value': child_block.clean(child_val['value']),
-                })
+                result.append(
+                    (child_block.clean(child_val), child_type)
+                )
             except ValidationError as e:
                 errors.append(e)
             else:
@@ -649,13 +671,40 @@ class BaseStreamBlock(Block):
             # which only involves the 'params' list
             raise ValidationError('Validation error in StreamBlock', params=errors)
 
-        return result
+        return StreamValue(result)
 
-    def renderable(self, value):
-        return [
-            self.child_blocks[item['type']].renderable(item['value'])
+    def to_python(self, value):
+        # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field.
+        # Convert this to a StreamValue backed by a list of (value, type) tuples
+        return StreamValue([
+            (self.child_blocks[item['type']].to_python(item['value']), item['type'])
             for item in value
+        ])
+
+    def get_prep_value(self, value):
+        return [
+            {'type': block_type, 'value': self.child_blocks[block_type].get_prep_value(child_value)}
+            for child_value, block_type in value.values_with_types
         ]
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
     pass
+
+
+class StreamValue(collections.Sequence):
+    """
+    Custom type used to represent the value of a StreamBlock; behaves as a sequence of block values
+    so that we can naturally iterate over it in template code, but also allows retrieval of
+    (value, type) tuples as required for the form (and other complex rendering logic) to work.
+    """
+    def __init__(self, values_with_types):
+        self.values_with_types = values_with_types
+
+    def __getitem__(self, i):
+        return self.values_with_types[i][0]
+
+    def __len__(self):
+        return len(self.values_with_types)
+
+    def __repr__(self):
+        return repr(list(self))
