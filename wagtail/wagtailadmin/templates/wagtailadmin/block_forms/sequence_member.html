@@ -1,8 +1,14 @@
-<li id="{{ prefix }}-container">
+<li id="{{ prefix }}-container" class="sequence-member">
     <input type="hidden" id="{{ prefix }}-deleted" name="{{ prefix }}-deleted" value="">
     <input type="hidden" id="{{ prefix }}-order" name="{{ prefix }}-order" value="{{ index }}">
+    
     {% block hidden_fields %}{% endblock %}
-    {% block header_controls %}{% endblock %}
-    <div>{{ child.render_form }}</div>
+
+    <div class="stream-controls">
+        {% block header_controls %}{% endblock %}
+    </div>
+
+    <div class="inner">{{ child.render_form }}</div>
+
     {% block footer_controls %}{% endblock %}
 </li>
