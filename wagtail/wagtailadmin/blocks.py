@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import re
 import collections
 
@@ -5,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
 from django.template.loader import render_to_string
 from django.forms import Media
@@ -693,6 +695,7 @@ class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBl
     pass
 
 
+@python_2_unicode_compatible
 class StreamValue(collections.Sequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of block values
@@ -710,3 +713,8 @@ class StreamValue(collections.Sequence):
 
     def __repr__(self):
         return repr(list(self))
+
+    def __str__(self):
+        return format_html_join('\n', '<div class="block-{1}">{0}</div>',
+            [(force_text(value), block_type) for value, block_type in self.values_with_types]
+        )
