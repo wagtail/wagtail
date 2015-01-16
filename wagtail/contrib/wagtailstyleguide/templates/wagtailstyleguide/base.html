@@ -230,6 +230,8 @@
         <section id="buttons">
             <h2>Buttons</h2>
 
+            <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
+
             <a href="#" class="button">button</a>
 
             <a href="#" class="button button-secondary">button-secondary</a>
@@ -250,8 +252,6 @@
 
             <div class="button no bicolor icon icon-cog">button on a div</div>
 
-            <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
-
             <button>button</button>
 
             <button class="button-small">small button</button>
@@ -261,6 +261,14 @@
             <input type="submit" class="bicolor icon icon-plus" value="bicolor only supported on button elements" />
 
             <button class="icon icon-view">button</button>
+
+            <button class="icon text-replace yes icon-tick">A proper button</button>
+            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
+            <span class="button icon text-replace no icon-bin">A non-link button</span>
+
+            <button class="button-small icon text-replace white icon-tick">A proper button</button>
+            <a href="#" class="button button-small icon text-replace white icon-cog">A link button</a>
+            <span class="button button-small icon text-replace white icon-bin">A non-link button</span>
         </section>
 
         <section id="dropdowns">

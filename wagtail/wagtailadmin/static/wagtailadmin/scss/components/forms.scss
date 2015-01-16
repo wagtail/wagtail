@@ -221,9 +221,16 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         background-color:transparent;
     }
 
-    &.icon.text-replace:before{
-        font-size:auto;
-    }
+    /* Buttons which are only an icon */
+    &.icon.text-replace{
+        font-size:0; /* unavoidable duplication of setting in icons.scss */
+        width:1.8rem;
+        height:1.8rem;
+
+        &:before{
+            line-height:1.7em;
+        }
+    }   
     
     &:hover{
         background-color: $color-button-hover;
@@ -382,9 +389,7 @@ input[type=submit], input[type=reset], input[type=button], button{
         @include border-radius(2px);
         
         li{
-            background-color: $color-teal;
             float:left;
-            cursor:pointer;
             margin-right:1px;
 
             &:last-child{
@@ -392,24 +397,6 @@ input[type=submit], input[type=reset], input[type=button], button{
             }
         }
 
-        .icon{
-            padding:0.3em;
-        }
-
-        .icon:before{
-            line-height:2em;
-            width:2em;
-        }
-        .icon:hover{
-            background-color:$color-teal-darker;
-
-            &:before{
-                color:white;
-            }
-        }
-        .icon-bin:hover{
-            background-color:$color-red;
-        }
         .disabled{
             display:none;
         }
@@ -803,8 +790,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .boolean_field &,
         .choice_field &,
         .model_choice_field &,
-        .image_field &,
-        .file_field &{
+        .image_field &{
             padding-top:0;
         }
     }
@@ -824,9 +810,23 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         height: 3em; 
         line-height:3em;
 
+        &.icon.text-replace{
+            width:2.2rem;
+            height:2.2rem;
+            &:before{
+                line-height:2.1em;
+            }
+        }   
+
         &.button-small{
-            height:2.3em;
-            line-height:2.2em;
+            &.icon.text-replace{
+                height:1.8rem;
+                width:1.8rem;
+
+                &:before{
+                    line-height:1.7em;
+                }
+            }
         }
 
         &.bicolor{
@@ -845,7 +845,8 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             &:before{
                 line-height:1.85em;
             }
-        }
+        }       
+
     }
 
     /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */

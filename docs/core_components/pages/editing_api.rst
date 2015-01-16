@@ -23,8 +23,10 @@ A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick
 
 There are four basic types of panels:
 
-  ``FieldPanel( field_name, classname=None )``
-    This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
+  ``FieldPanel( field_name, classname=None, widget=None )``
+    This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings. The optional ``widget`` parameter allows you to specify a `django form widget`_ to use instead of the default widget for this field type.
+
+.. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
 
   ``MultiFieldPanel( children, heading="", classname=None )``
     This panel condenses several ``FieldPanel`` s or choosers, from a list or tuple, under a single ``heading`` string.

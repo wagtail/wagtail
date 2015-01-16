@@ -362,6 +362,15 @@ def MultiFieldPanel(children, heading="", classname=""):
 
 
 class BaseFieldPanel(EditHandler):
+
+    @classmethod
+    def widget_overrides(cls):
+        """check if a specific widget has been defined for this field"""
+        if hasattr(cls, 'widget'):
+            return {cls.field_name: cls.widget}
+        else:
+            return {}
+
     def __init__(self, instance=None, form=None):
         super(BaseFieldPanel, self).__init__(instance=instance, form=form)
         self.bound_field = self.form[self.field_name]
@@ -408,11 +417,16 @@ class BaseFieldPanel(EditHandler):
         return [self.field_name]
 
 
-def FieldPanel(field_name, classname=""):
-    return type(str('_FieldPanel'), (BaseFieldPanel,), {
+def FieldPanel(field_name, classname="", widget=None):
+    base = {
         'field_name': field_name,
         'classname': classname,
-    })
+    }
+
+    if widget:
+        base['widget'] = widget
+
+    return type(str('_FieldPanel'), (BaseFieldPanel,), base)
 
 
 class BaseRichTextFieldPanel(BaseFieldPanel):
@@ -632,6 +646,20 @@ Page.settings_panels = [
 from wagtail.wagtailadmin.blocks import StreamBlock
 
 class BaseStreamFieldPanel(BaseFieldPanel):
+    
+    def classes(self):
+        classes = super(BaseStreamFieldPanel, self).classes()
+        classes.append("stream-field")
+        
+        # BaseFieldPanel is essentially for single fields, which are rendered on the front end
+        # with the assumption that the label (singular) will always be promoted to the full-width 
+        # divider bar thing.
+        # This results in all the other labels being promoted similarly, so it's better not to
+        # treat this as a single field, and remove the "single-field" class.
+        classes.remove("single-field")
+        
+        return classes
+
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.StreamWidget(block_def=cls.block_def)}
