@@ -351,6 +351,15 @@ def MultiFieldPanel(children, heading="", classname=""):
 
 
 class BaseFieldPanel(EditHandler):
+
+    @classmethod
+    def widget_overrides(cls):
+        """check if a specific widget has been defined for this field"""
+        if hasattr(cls, 'widget'):
+            return {cls.field_name: cls.widget}
+        else:
+            return {}
+
     def __init__(self, instance=None, form=None):
         super(BaseFieldPanel, self).__init__(instance=instance, form=form)
         self.bound_field = self.form[self.field_name]
@@ -397,11 +406,16 @@ class BaseFieldPanel(EditHandler):
         return [self.field_name]
 
 
-def FieldPanel(field_name, classname=""):
-    return type(str('_FieldPanel'), (BaseFieldPanel,), {
+def FieldPanel(field_name, classname="", widget=None):
+    base = {
         'field_name': field_name,
         'classname': classname,
-    })
+    }
+
+    if widget:
+        base['widget'] = widget
+
+    return type(str('_FieldPanel'), (BaseFieldPanel,), base)
 
 
 class BaseRichTextFieldPanel(BaseFieldPanel):

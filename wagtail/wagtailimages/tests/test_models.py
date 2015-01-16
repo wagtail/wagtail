@@ -1,4 +1,5 @@
 import unittest
+from willow.image import Image as WillowImage
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -13,7 +14,7 @@ from django.db import connection
 from wagtail.tests.utils import WagtailTestUtils, test_concurrently
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
-from wagtail.wagtailimages.models import Rendition, Filter
+from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailimages.backends.pillow import PillowBackend
 from wagtail.wagtailimages.rect import Rect
@@ -266,6 +267,29 @@ class TestGetUsage(TestCase):
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
         self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
+
+
+class TestGetWillowImage(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_willow_image_object_returned(self):
+        willow_image = self.image.get_willow_image()
+
+        self.assertIsInstance(willow_image, WillowImage)
+
+    def test_with_missing_image(self):
+        # Image id=1 in test fixtures has a missing image file
+        bad_image = Image.objects.get(id=1)
+
+        # Attempting to get the Willow image for images without files
+        # should raise a SourceImageIOError
+        self.assertRaises(SourceImageIOError, bad_image.get_willow_image)
 
 
 class TestIssue573(TestCase):
