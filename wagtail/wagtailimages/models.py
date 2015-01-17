@@ -1,4 +1,5 @@
 import os.path
+import hashlib
 import re
 
 from six import BytesIO, text_type
@@ -21,11 +22,13 @@ from django.core.urlresolvers import reverse
 
 from unidecode import unidecode
 
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.taggable import TagSearchable
 from wagtail.wagtailimages.backends import get_image_backend
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.feature_detection import FeatureDetector, opencv_available
 from wagtail.wagtailimages.rect import Rect
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
 
 
@@ -401,6 +404,64 @@ class Filter(models.Model):
         input_file.close()
 
         return output_file
+
+
+    @cached_property
+    def operations(self):
+        # Search for operations
+        self._search_for_operations()
+
+        # Build list of operation objects
+        operations = []
+        for op_spec in self.spec.split():
+            op_spec_parts = op_spec.split('-')
+
+            if op_spec_parts[0] not in self._registered_operations:
+                raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
+
+            op_class = self._registered_operations[op_spec_parts[0]]
+            operations.append(op_class(*op_spec_parts))
+
+        return operations
+
+    def run(self, image, output):
+        willow = image.get_willow_image()
+
+        for operation in self.operations:
+            operation.run(willow, image)
+
+        willow.save_as_jpeg(output)
+
+        return output
+
+    def get_vary(self, image):
+        vary = []
+
+        for operation in self.operations:
+            if hasattr(operation, 'get_vary'):
+                vary.extend(operation.get_vary(image))
+
+        return vary
+
+    def get_vary_key(self, image):
+        vary_string = '-'.join(self.get_vary(image))
+        vary_key = hashlib.sha1(vary_string.encode('utf-8')).hexdigest()
+
+        return vary_key[:8]
+
+
+    _registered_operations = None
+
+    @classmethod
+    def _search_for_operations(cls):
+        if cls._registered_operations is not None:
+            return
+
+        operations = []
+        for fn in hooks.get_hooks('register_image_operations'):
+            operations.extend(fn())
+
+        cls._registered_operations = dict(operations)
 
 
 class AbstractRendition(models.Model):
