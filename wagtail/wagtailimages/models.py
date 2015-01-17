@@ -127,36 +127,19 @@ class AbstractImage(models.Model, TagSearchable):
             self.focal_point_width = None
             self.focal_point_height = None
 
-    def get_suggested_focal_point(self, backend_name='default'):
-        backend = get_image_backend(backend_name)
-        image_file = self.file.file
+    def get_suggested_focal_point(self):
+        willow = self.get_willow_image()
 
-        # Make sure image is open and seeked to the beginning
-        image_file.open('rb')
-        image_file.seek(0)
-
-        # Load the image
-        image = backend.open_image(self.file.file)
-        image_data = backend.image_data_as_rgb(image)
-
-        # Make sure we have image data
-        # If the image is animated, image_data_as_rgb will return None
-        if image_data is None:
-            return
-
-        # Use feature detection to find a focal point
-        feature_detector = FeatureDetector(image.size, image_data[0], image_data[1])
-
-        faces = feature_detector.detect_faces()
+        faces = willow.detect_faces()
         if faces:
             # Create a bounding box around all faces
-            left = min(face.left for face in faces)
-            top = min(face.top for face in faces)
-            right = max(face.right for face in faces)
-            bottom = max(face.bottom for face in faces)
+            left = min(face[0] for face in faces)
+            top = min(face[1] for face in faces)
+            right = max(face[2] for face in faces)
+            bottom = max(face[3] for face in faces)
             focal_point = Rect(left, top, right, bottom)
         else:
-            features = feature_detector.detect_features()
+            features = willow.detect_features()
             if features:
                 # Create a bounding box around all features
                 left = min(feature[0] for feature in features)
@@ -180,62 +163,35 @@ class AbstractImage(models.Model, TagSearchable):
         return Rect.from_point(x, y, width, height)
 
     def get_rendition(self, filter):
-        if not hasattr(filter, 'process_image'):
+        if not hasattr(filter, 'run'):
             # assume we've been passed a filter spec string, rather than a Filter object
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
 
+        vary_key = filter.get_vary_key(self)
+
         try:
-            if self.has_focal_point():
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key=self.get_focal_point().get_key(),
-                )
-            else:
-                rendition = self.renditions.get(
-                    filter=filter,
-                    focal_point_key='',
-                )
+            rendition = self.renditions.get(
+                filter=filter,
+                focal_point_key=vary_key,
+            )
         except ObjectDoesNotExist:
-            file_field = self.file
+            # Generate the rendition image
+            generated_image = filter.run(self, BytesIO())
 
-            # If we have a backend attribute then pass it to process
-            # image - else pass 'default'
-            backend_name = getattr(self, 'backend', 'default')
+            # Generate filename
+            input_filename = os.path.basename(self.file.file.name)
+            input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
-            try:
-                image_file = file_field.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
-            except IOError as e:
-                # re-throw this as a SourceImageIOError so that calling code can distinguish
-                # these from IOErrors elsewhere in the process
-                raise SourceImageIOError(text_type(e))
+            output_extension = '.'.join([vary_key, filter.spec]) + input_extension
+            output_filename_without_extension = input_filename_without_extension[:(59-len(output_extension))] # Truncate filename to prevent it going over 60 chars
+            output_filename = output_filename_without_extension + '.' + output_extension
 
-            generated_image = filter.process_image(image_file, backend_name=backend_name, focal_point=self.get_focal_point())
-
-            # generate new filename derived from old one, inserting the filter spec and focal point key before the extension
-            if self.has_focal_point():
-                focal_point_key = "focus-" + self.get_focal_point().get_key()
-            else:
-                focal_point_key = "focus-none"
-
-            input_filename_parts = os.path.basename(file_field.file.name).split('.')
-            filename_without_extension = '.'.join(input_filename_parts[:-1])
-            extension = '.'.join([focal_point_key, filter.spec] + input_filename_parts[-1:])
-            filename_without_extension = filename_without_extension[:(59-len(extension))] # Truncate filename to prevent it going over 60 chars
-            output_filename = filename_without_extension + '.' + extension
-            generated_image_file = File(generated_image, name=output_filename)
-
-            if self.has_focal_point():
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    focal_point_key=self.get_focal_point().get_key(),
-                    defaults={'file': generated_image_file}
-                )
-            else:
-                rendition, created = self.renditions.get_or_create(
-                    filter=filter,
-                    defaults={'file': generated_image_file}
-                )
+            rendition, created = self.renditions.get_or_create(
+                filter=filter,
+                focal_point_key=vary_key,
+                defaults={'file': File(generated_image, name=output_filename)}
+            )
 
         return rendition
 
