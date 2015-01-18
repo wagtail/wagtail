@@ -25,9 +25,9 @@ html,body {
     font-size:0em;
     z-index:999999;
     background:white;
-    @include transition(all 0.3s ease);
-
+    
     &.remove{
+        @include transition(all 0.3s ease);
         bottom:-100%;
     }
 

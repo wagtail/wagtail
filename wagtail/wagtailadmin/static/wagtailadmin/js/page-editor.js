@@ -340,13 +340,19 @@ $(function() {
     });
 
     /* Set up behaviour of preview button */
+    var previewWindow = null;
     $('.action-preview').click(function(e) {
         e.preventDefault();
         var $this = $(this);
 
-        var previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
-        
+        if(previewWindow){
+            previewWindow.close();
+        }
+
+        previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
+
         if(/MSIE/.test(navigator.userAgent)){
+            // If IE, load contents immediately without fancy effects
             submitPreview.call($this, false);
         } else {
             previewWindow.onload = function(){
@@ -355,16 +361,16 @@ $(function() {
         }
 
         function submitPreview(enhanced){
+            var previewDoc = previewWindow.document;
+
             $.ajax({
                 type: "POST",
                 url: $this.data('action'),
                 data: $('#page-edit-form').serialize(),
                 success: function(data, textStatus, request) {
                     if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                        var pdoc = previewWindow.document;
-                        
                         if(enhanced){
-                            var frame = pdoc.getElementById('preview-frame');
+                            var frame = previewDoc.getElementById('preview-frame');
 
                             frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                             frame.document.open();
@@ -372,14 +378,15 @@ $(function() {
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
-                                pdoc.getElementById('loading-spinner-wrapper').className += 'remove';
+                                previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';;
                                 clearTimeout(hideTimeout);
                             }) // just enough to give effect without adding discernible slowness                       
                         } else {
-                            pdoc.open();
-                            pdoc.write(data);                 
-                            pdoc.close()
+                            previewDoc.open();
+                            previewDoc.write(data);                 
+                            previewDoc.close()
                         }
+
                     } else {
                         previewWindow.close();
                         document.open();
@@ -394,9 +401,9 @@ $(function() {
                     developers can debug template errors. (On a production site, we'd
                     typically be serving a friendly custom 500 page anyhow.) */
 
-                    previewWindow.document.open();
-                    previewWindow.document.write(xhr.responseText);
-                    previewWindow.document.close();
+                    previewDoc.open();
+                    previewDoc.write(xhr.responseText);
+                    previewDoc.close();
                 }
             });
 
