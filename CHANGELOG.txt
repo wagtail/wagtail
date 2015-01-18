@@ -18,6 +18,7 @@ Changelog
 * Fix: Active admin submenus were not properly closed when activating another
 * Fix: get_sitemap_urls is now called on the specific page class so it can now be overridden (Jerel Unruh)
 * Fix: (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
+* Fix: Storage backends that return raw ContentFile objects are now handled correctly when resizing images (@georgewhewell)
 
 
 0.8.4 (04.12.2014)
