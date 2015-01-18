@@ -37,6 +37,7 @@ Contributors
 * Alejandro Giacometti
 * Robert Rollins
 * Jerel Unruh
+* georgewhewell
 
 Translators
 ===========
