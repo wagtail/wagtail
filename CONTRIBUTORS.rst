@@ -39,6 +39,7 @@ Contributors
 * linibou
 * Timo Rieber
 * Jerel Unruh
+* georgewhewell
 
 Translators
 ===========
