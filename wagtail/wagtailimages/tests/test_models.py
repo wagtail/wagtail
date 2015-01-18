@@ -11,7 +11,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.db import connection
 
-from wagtail.tests.utils import WagtailTestUtils, test_concurrently
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
@@ -372,27 +372,3 @@ class TestIssue312(TestCase):
             height=rend1.height,
             focal_point_key=rend1.focal_point_key,
         )
-
-    def test_duplicate_filters(self):
-        @test_concurrently(10)
-        def get_renditions():
-            # Create an image
-            image = Image.objects.create(
-                title="Concurrency test image",
-                file=get_test_image_file(),
-            )
-            # get renditions concurrently, using various filters that are unlikely to exist already
-            for width in range(10, 100, 10):
-                image.get_rendition('width-%d' % width)
-
-            image.delete()
-
-            # this block opens multiple database connections, which need to be closed explicitly
-            # so that we can drop the test database at the end of the test run
-            connection.close()
-
-        get_renditions()
-        # if the above has completed with no race conditions, there should be precisely one
-        # of each of the above filters in the database
-        for width in range(10, 100, 10):
-            self.assertEqual(Filter.objects.filter(spec='width-%d' % width).count(), 1)
