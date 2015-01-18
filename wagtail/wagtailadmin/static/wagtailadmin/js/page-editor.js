@@ -380,7 +380,7 @@ $(function() {
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
-                                previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';;
+                                previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';
                                 clearTimeout(hideTimeout);
                             }) // just enough to give effect without adding discernible slowness                       
                         } else {
