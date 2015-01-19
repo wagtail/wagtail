@@ -60,11 +60,12 @@ You will now be able to run the following command to set up an initial file stru
 
     wagtail start myprojectname
 
-**Without Vagrant:** Run the following steps to complete setup of your project (the ``migrate`` step will prompt you to set up a superuser account)::
+**Without Vagrant:** Run the following steps to complete setup of your project (the ``createsuperuser`` step will prompt you to set up a superuser account)::
 
     cd myprojectname
     pip install -r requirements.txt
     python manage.py migrate
+    python manage.py createsuperuser
     python manage.py runserver
 
 Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/ .
@@ -95,8 +96,8 @@ To enable Postgres for your project, uncomment the ``psycopg2`` line from your p
 
     pip install -r requirements.txt
     createdb -Upostgres myprojectname
-    ./manage.py syncdb
     ./manage.py migrate
+    ./manage.py createsuperuser
 
 This assumes that your PostgreSQL instance is configured to allow you to connect as the 'postgres' user - if not, you'll need to adjust the ``createdb`` line and the database settings in settings/base.py accordingly.
 
