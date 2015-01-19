@@ -2,7 +2,6 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import logout as auth_logout, login as auth_login
 from django.utils.translation import ugettext as _ 
 from django.views.decorators.debug import sensitive_post_parameters
@@ -14,7 +13,6 @@ from wagtail.wagtailusers.models import UserProfile
 from wagtail.wagtailcore.models import UserPagePermissionsProxy
 
 
-@permission_required('wagtailadmin.access_admin')
 def account(request):
     user_perms = UserPagePermissionsProxy(request.user)
     show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
@@ -25,7 +23,6 @@ def account(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def change_password(request):
     can_change_password = request.user.has_usable_password()
 
@@ -49,7 +46,6 @@ def change_password(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def notification_preferences(request):
 
     if request.POST:

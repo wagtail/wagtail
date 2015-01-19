@@ -12,7 +12,6 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
-@permission_required('wagtailadmin.access_admin')
 def chooser(request):
     if request.user.has_perm('wagtaildocs.add_document'):
         uploadform = DocumentForm()
@@ -77,7 +76,6 @@ def chooser(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def document_chosen(request, document_id):
     document = get_object_or_404(Document, id=document_id)
 

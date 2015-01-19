@@ -78,7 +78,6 @@ def index(request):
         })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
@@ -127,7 +126,6 @@ def edit(request, image_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -150,7 +148,6 @@ def json_response(document, status=200):
     return HttpResponse(json.dumps(document), content_type='application/json', status=status)
 
 
-@permission_required('wagtailadmin.access_admin')
 def generate_url(request, image_id, filter_spec):
     # Get the image
     Image = get_image_model()
@@ -191,7 +188,6 @@ def generate_url(request, image_id, filter_spec):
     return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
 
 
-@permission_required('wagtailadmin.access_admin')
 def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -201,7 +197,6 @@ def preview(request, image_id, filter_spec):
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -248,7 +243,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
