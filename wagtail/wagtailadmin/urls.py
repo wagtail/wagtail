@@ -1,8 +1,10 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar, page_privacy
 from wagtail.wagtailcore import hooks
+from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 
 urlpatterns = [
@@ -106,3 +108,11 @@ for fn in hooks.get_hooks('register_admin_urls'):
     urls = fn()
     if urls:
         urlpatterns += urls
+
+
+urlpatterns = decorate_urlpatterns(urlpatterns,
+    permission_required(
+        'wagtailadmin.access_admin',
+        login_url='wagtailadmin_login'
+    )
+)
