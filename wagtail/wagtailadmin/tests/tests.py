@@ -28,6 +28,14 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home') + '?hide-kittens=true')
         self.assertNotContains(response, '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>')
 
+    def test_never_cache_header(self):
+        # This tests that wagtailadmins global cache settings have been applied correctly
+        response = self.client.get(reverse('wagtailadmin_home'))
+
+        self.assertIn('private', response['Cache-Control'])
+        self.assertIn('no-cache', response['Cache-Control'])
+        self.assertIn('no-store', response['Cache-Control'])
+
 
 class TestEditorHooks(TestCase, WagtailTestUtils):
     def setUp(self):
