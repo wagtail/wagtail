@@ -143,7 +143,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 
 # Wagtail settings
 
-LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 WAGTAIL_SITE_NAME = "{{ project_name }}"
