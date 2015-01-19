@@ -35,11 +35,13 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
-        post_data = {
+        response = self.client.post(reverse('wagtailadmin_login'), {
             'username': 'test',
             'password': 'password',
-        }
-        response = self.client.post(reverse('wagtailadmin_login'), post_data)
+
+            # NOTE: This is set using a hidden field in reality
+            'next': reverse('wagtailadmin_home'),
+        })
 
         # Check that the user was redirected to the dashboard
         self.assertRedirects(response, reverse('wagtailadmin_home'))
