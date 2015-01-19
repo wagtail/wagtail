@@ -299,7 +299,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         This tests that the password reset view returns a password reset page
         """
         # Get password reset page
-        response = self.client.get(reverse('password_reset'))
+        response = self.client.get(reverse('wagtailadmin_password_reset'))
 
         # Check that the user recieved a password reset page
         self.assertEqual(response.status_code, 200)
@@ -314,10 +314,10 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         post_data = {
             'email': 'test@email.com',
         }
-        response = self.client.post(reverse('password_reset'), post_data)
+        response = self.client.post(reverse('wagtailadmin_password_reset'), post_data)
 
         # Check that the user was redirected to the done page
-        self.assertRedirects(response, reverse('password_reset_done'))
+        self.assertRedirects(response, reverse('wagtailadmin_password_reset_done'))
 
         # Check that a password reset email was sent to the user
         self.assertEqual(len(mail.outbox), 1)
@@ -332,7 +332,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         post_data = {
             'email': 'unknown@email.com',
         }
-        response = self.client.post(reverse('password_reset'), post_data)
+        response = self.client.post(reverse('wagtailadmin_password_reset'), post_data)
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
@@ -352,7 +352,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         post_data = {
             'email': 'Hello world!',
         }
-        response = self.client.post(reverse('password_reset'), post_data)
+        response = self.client.post(reverse('wagtailadmin_password_reset'), post_data)
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
@@ -387,7 +387,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.setup_password_reset_confirm_tests()
 
         # Get password reset confirm page
-        response = self.client.get(reverse('password_reset_confirm', kwargs=self.url_kwargs))
+        response = self.client.get(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs))
 
         # Check that the user recieved a password confirm done page
         self.assertEqual(response.status_code, 200)
@@ -405,10 +405,10 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
             'new_password1': 'newpassword',
             'new_password2': 'newpassword',
         }
-        response = self.client.post(reverse('password_reset_confirm', kwargs=self.url_kwargs), post_data)
+        response = self.client.post(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs), post_data)
 
         # Check that the user was redirected to the complete page
-        self.assertRedirects(response, reverse('password_reset_complete'))
+        self.assertRedirects(response, reverse('wagtailadmin_password_reset_complete'))
 
         # Check that the password was changed
         self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
@@ -425,7 +425,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
             'new_password1': 'newpassword',
             'new_password2': 'badpassword',
         }
-        response = self.client.post(reverse('password_reset_confirm', kwargs=self.url_kwargs), post_data)
+        response = self.client.post(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs), post_data)
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
@@ -442,7 +442,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         This tests that the password reset done view returns a password reset done page
         """
         # Get password reset done page
-        response = self.client.get(reverse('password_reset_done'))
+        response = self.client.get(reverse('wagtailadmin_password_reset_done'))
 
         # Check that the user recieved a password reset done page
         self.assertEqual(response.status_code, 200)
@@ -453,7 +453,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         This tests that the password reset complete view returns a password reset complete page
         """
         # Get password reset complete page
-        response = self.client.get(reverse('password_reset_complete'))
+        response = self.client.get(reverse('wagtailadmin_password_reset_complete'))
 
         # Check that the user recieved a password reset complete page
         self.assertEqual(response.status_code, 200)

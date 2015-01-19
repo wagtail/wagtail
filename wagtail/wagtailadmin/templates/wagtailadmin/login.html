@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
                 {% comment %}
