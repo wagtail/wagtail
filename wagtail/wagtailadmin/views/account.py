@@ -90,7 +90,7 @@ def login(request):
 
 
 def logout(request):
-    response = auth_logout(request, next_page = 'wagtailadmin_login')
+    response = auth_logout(request, next_page='wagtailadmin_login')
 
     # By default, logging out will generate a fresh sessionid cookie. We want to use the
     # absence of sessionid as an indication that front-end pages are being viewed by a

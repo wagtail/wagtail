@@ -11,12 +11,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.db import connection
 
-from wagtail.tests.utils import WagtailTestUtils, test_concurrently
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
-from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailimages.backends.pillow import PillowBackend
 from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file
@@ -124,11 +122,6 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
-    def test_default_backend(self):
-        # default backend should be pillow
-        backend = get_image_backend()
-        self.assertTrue(isinstance(backend, PillowBackend))
-
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
 
@@ -143,59 +136,6 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
 
-
-    def test_resize_to_min(self):
-        rendition = self.image.get_rendition('min-120x120')
-
-        # Check size
-        self.assertEqual(rendition.width, 160)
-        self.assertEqual(rendition.height, 120)
-
-    def test_resize_to_original(self):
-        rendition = self.image.get_rendition('original')
-
-        # Check size
-        self.assertEqual(rendition.width, 640)
-        self.assertEqual(rendition.height, 480)
-
-    def test_cache(self):
-        # Get two renditions with the same filter
-        first_rendition = self.image.get_rendition('width-400')
-        second_rendition = self.image.get_rendition('width-400')
-
-        # Check that they are the same object
-        self.assertEqual(first_rendition, second_rendition)
-
-
-class TestRenditionsWand(TestCase):
-    def setUp(self):
-        try:
-            import wand
-        except ImportError:
-            # skip these tests if Wand is not installed
-            raise unittest.SkipTest(
-                "Skipping image backend tests for wand, as wand is not installed")
-
-        # Create an image for running tests on
-        self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-        self.image.backend = 'wagtail.wagtailimages.backends.wand.WandBackend'
-
-    def test_minification(self):
-        rendition = self.image.get_rendition('width-400')
-
-        # Check size
-        self.assertEqual(rendition.width, 400)
-        self.assertEqual(rendition.height, 300)
-
-    def test_resize_to_max(self):
-        rendition = self.image.get_rendition('max-100x100')
-
-        # Check size
-        self.assertEqual(rendition.width, 100)
-        self.assertEqual(rendition.height, 75)
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
@@ -432,27 +372,3 @@ class TestIssue312(TestCase):
             height=rend1.height,
             focal_point_key=rend1.focal_point_key,
         )
-
-    def test_duplicate_filters(self):
-        @test_concurrently(10)
-        def get_renditions():
-            # Create an image
-            image = Image.objects.create(
-                title="Concurrency test image",
-                file=get_test_image_file(),
-            )
-            # get renditions concurrently, using various filters that are unlikely to exist already
-            for width in range(10, 100, 10):
-                image.get_rendition('width-%d' % width)
-
-            image.delete()
-
-            # this block opens multiple database connections, which need to be closed explicitly
-            # so that we can drop the test database at the end of the test run
-            connection.close()
-
-        get_renditions()
-        # if the above has completed with no race conditions, there should be precisely one
-        # of each of the above filters in the database
-        for width in range(10, 100, 10):
-            self.assertEqual(Filter.objects.filter(spec='width-%d' % width).count(), 1)

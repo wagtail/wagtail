@@ -18,6 +18,7 @@ from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
 @permission_required('wagtailimages.add_image')
@@ -167,7 +168,9 @@ def generate_url(request, image_id, filter_spec):
         }, status=403)
 
     # Parse the filter spec to make sure its valid
-    if not Filter(spec=filter_spec).is_valid():
+    try:
+        Filter(spec=filter_spec).operations
+    except InvalidFilterSpecError:
         return json_response({
             'error': "Invalid filter spec."
         }, status=400)
@@ -193,8 +196,8 @@ def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'), focal_point=image.get_focal_point())
-    except Filter.InvalidFilterSpecError:
+        return Filter(spec=filter_spec).run(image, HttpResponse(content_type='image/jpeg'))
+    except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 

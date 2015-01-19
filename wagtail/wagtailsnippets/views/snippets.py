@@ -82,7 +82,7 @@ def index(request):
         if user_can_edit_snippet_type(request.user, content_type)
     ]
     return render(request, 'wagtailsnippets/snippets/index.html', {
-        'snippet_types': snippet_types,
+        'snippet_types': sorted(snippet_types, key=lambda x: x[0].lower()),
     })
 
 

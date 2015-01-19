@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.utils import verify_signature
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
 def serve(request, signature, image_id, filter_spec):
@@ -17,5 +18,5 @@ def serve(request, signature, image_id, filter_spec):
         rendition = image.get_rendition(filter_spec)
         rendition.file.open('rb')
         return HttpResponse(FileWrapper(rendition.file), content_type='image/jpeg')
-    except Filter.InvalidFilterSpecError:
+    except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
