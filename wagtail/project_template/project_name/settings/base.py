@@ -143,8 +143,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 
 # Wagtail settings
 
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-
 WAGTAIL_SITE_NAME = "{{ project_name }}"
 
 # Use Elasticsearch as the search backend for extra performance and better search results:
