@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
+from django.utils.functional import cached_property
 from django.template.loader import render_to_string
 from django.forms import Media
 from django.forms.utils import ErrorList
@@ -130,7 +131,7 @@ class Block(object):
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 
-    def bind(self, value, prefix, error=None):
+    def bind(self, value, prefix=None, error=None):
         """
         Return a BoundBlock which represents the association of this block definition with a value
         and a prefix (and optionally, a ValidationError to be rendered).
@@ -138,7 +139,7 @@ class Block(object):
         bound_block.render() rather than blockdef.render(value, prefix) which can't be called from
         within a template.
         """
-        return BoundBlock(self, prefix, value, error=error)
+        return BoundBlock(self, value, prefix=prefix, error=error)
 
     def prototype_block(self):
         """
@@ -178,16 +179,25 @@ class Block(object):
         """
         return value
 
+    def render(self, value):
+        """
+        Return a text rendering of 'value', suitable for display on templates.
+        """
+        return force_text(value)
+
 
 class BoundBlock(object):
-    def __init__(self, block, prefix, value, error=None):
+    def __init__(self, block, value, prefix=None, error=None):
         self.block = block
-        self.prefix = prefix
         self.value = value
+        self.prefix = prefix
         self.error = error
 
     def render_form(self):
         return self.block.render_form(self.value, self.prefix, error=self.error)
+
+    def render(self):
+        return self.block.render(self.value)
 
 
 # ==========
@@ -381,6 +391,9 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
+    def render(self, value):
+        return render_to_string(self.template, {'self': value})
+
 @python_2_unicode_compatible  # ensures that the output of __str__ doesn't lose its 'safe' flag
 class RenderableStructBlock(dict):
     def __init__(self, block, *args):
@@ -388,7 +401,7 @@ class RenderableStructBlock(dict):
         self.block = block
 
     def __str__(self):
-        return render_to_string(self.block.template, {'self': self})
+        return self.block.render(self)
 
 
 class DeclarativeSubBlocksMetaclass(type):
@@ -654,7 +667,7 @@ class BaseStreamBlock(Block):
             )
 
         values_with_indexes.sort()
-        return StreamValue([(val, typ) for (index, val, typ) in values_with_indexes])
+        return StreamValue(self, [(val, typ) for (index, val, typ) in values_with_indexes])
 
     def clean(self, value):
         result = []
@@ -675,21 +688,27 @@ class BaseStreamBlock(Block):
             # which only involves the 'params' list
             raise ValidationError('Validation error in StreamBlock', params=errors)
 
-        return StreamValue(result)
+        return StreamValue(self, result)
 
     def to_python(self, value):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field.
         # Convert this to a StreamValue backed by a list of (value, type) tuples
-        return StreamValue([
+        return StreamValue(self, [
             (self.child_blocks[item['type']].to_python(item['value']), item['type'])
             for item in value
         ])
 
     def get_prep_value(self, value):
         return [
-            {'type': block_type, 'value': self.child_blocks[block_type].get_prep_value(child_value)}
-            for child_value, block_type in value.values_with_types
+            {'type': bound_block.block.name, 'value': bound_block.block.get_prep_value(bound_block.value)}
+            for bound_block in value.bound_blocks
         ]
+
+    def render(self, value):
+        return format_html_join('\n', '<div class="block-{1}">{0}</div>',
+            [(bound_block.render(), bound_block.block.name) for bound_block in value.bound_blocks]
+        )
+
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
     pass
@@ -702,7 +721,8 @@ class StreamValue(collections.Sequence):
     so that we can naturally iterate over it in template code, but also allows retrieval of
     (value, type) tuples as required for the form (and other complex rendering logic) to work.
     """
-    def __init__(self, values_with_types):
+    def __init__(self, stream_block, values_with_types):
+        self.stream_block = stream_block
         self.values_with_types = values_with_types
 
     def __getitem__(self, i):
@@ -715,6 +735,11 @@ class StreamValue(collections.Sequence):
         return repr(list(self))
 
     def __str__(self):
-        return format_html_join('\n', '<div class="block-{1}">{0}</div>',
-            [(force_text(value), block_type) for value, block_type in self.values_with_types]
-        )
+        return self.stream_block.render(self)
+
+    @cached_property
+    def bound_blocks(self):
+        return [
+            BoundBlock(self.stream_block.child_blocks[block_type], value)
+            for value, block_type in self.values_with_types
+        ]
