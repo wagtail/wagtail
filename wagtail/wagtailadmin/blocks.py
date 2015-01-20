@@ -417,6 +417,13 @@ class StructValue(collections.OrderedDict):
     def __str__(self):
         return self.block.render(self)
 
+    @cached_property
+    def bound_blocks(self):
+        return collections.OrderedDict([
+            (name, block.bind(self.get(name)))
+            for name, block in self.block.child_blocks.items()
+        ])
+
 
 class DeclarativeSubBlocksMetaclass(type):
     """
