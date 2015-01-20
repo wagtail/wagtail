@@ -11,7 +11,7 @@ from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 from django.template.loader import render_to_string
-from django.forms import Media
+from django.forms import Media, CharField
 from django.forms.utils import ErrorList
 
 import six
@@ -269,6 +269,14 @@ class FieldBlock(Block):
 
     def clean(self, value):
         return self.field.clean(value)
+
+class HeadingBlock(FieldBlock):
+    def __init__(self, tag_name='h1', **kwargs):
+        self.tag_name = tag_name
+        super(HeadingBlock, self).__init__(CharField(), **kwargs)
+
+    def render(self, value):
+        return format_html("<{tag}>{value}</{tag}>", tag=self.tag_name, value=value)
 
 # =======
 # Chooser
