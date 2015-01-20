@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+# this ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
+# return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
+# calls force_text, which would cause it to lose its 'safe' flag
 
 import re
 import collections
@@ -405,7 +408,7 @@ class BaseStructBlock(Block):
     def render(self, value):
         return render_to_string(self.template, {'self': value})
 
-@python_2_unicode_compatible  # ensures that the output of __str__ doesn't lose its 'safe' flag
+@python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
         super(StructValue, self).__init__(*args)
@@ -725,7 +728,7 @@ class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBl
     pass
 
 
-@python_2_unicode_compatible
+@python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StreamValue(collections.Sequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of block values
