@@ -386,8 +386,8 @@ class BaseStructBlock(Block):
         return result
 
     def to_python(self, value):
-        # recursively call to_python on children and return as a RenderableStructBlock
-        return RenderableStructBlock(self, [
+        # recursively call to_python on children and return as a StructValue
+        return StructValue(self, [
             (name, self.child_blocks[name].to_python(val))
             for name, val in value.items()
         ])
@@ -403,9 +403,9 @@ class BaseStructBlock(Block):
         return render_to_string(self.template, {'self': value})
 
 @python_2_unicode_compatible  # ensures that the output of __str__ doesn't lose its 'safe' flag
-class RenderableStructBlock(dict):
+class StructValue(dict):
     def __init__(self, block, *args):
-        super(RenderableStructBlock, self).__init__(*args)
+        super(StructValue, self).__init__(*args)
         self.block = block
 
     def __str__(self):
