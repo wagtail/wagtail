@@ -388,8 +388,11 @@ class BaseStructBlock(Block):
     def to_python(self, value):
         # recursively call to_python on children and return as a StructValue
         return StructValue(self, [
-            (name, self.child_blocks[name].to_python(val))
-            for name, val in value.items()
+            (
+                name,
+                child_block.to_python(value.get(name, child_block.default))
+            )
+            for name, child_block in self.child_blocks.items()
         ])
 
     def get_prep_value(self, value):
@@ -403,7 +406,7 @@ class BaseStructBlock(Block):
         return render_to_string(self.template, {'self': value})
 
 @python_2_unicode_compatible  # ensures that the output of __str__ doesn't lose its 'safe' flag
-class StructValue(dict):
+class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
         super(StructValue, self).__init__(*args)
         self.block = block
