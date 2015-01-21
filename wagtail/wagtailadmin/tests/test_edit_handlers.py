@@ -2,6 +2,7 @@ from mock import MagicMock
 
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
+from django import forms
 
 from wagtail.wagtailadmin.edit_handlers import (
     get_form_for_model,
@@ -17,29 +18,72 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
-from wagtail.wagtailadmin.widgets import AdminPageChooser
+from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import PageChooserModel
+from wagtail.tests.models import PageChooserModel, EventPage
 
 
 class TestGetFormForModel(TestCase):
-    class FakeClass(object):
-        _meta = MagicMock()
-
-    def setUp(self):
-        self.mock_exclude = MagicMock()
-
     def test_get_form_for_model(self):
-        form = get_form_for_model(self.FakeClass,
-                                  fields=[],
-                                  exclude=[self.mock_exclude],
-                                  formsets=['baz'],
-                                  exclude_formsets=['quux'],
-                                  widgets=['bacon'])
-        self.assertEqual(form.Meta.exclude, [self.mock_exclude])
-        self.assertEqual(form.Meta.formsets, ['baz'])
-        self.assertEqual(form.Meta.exclude_formsets, ['quux'])
-        self.assertEqual(form.Meta.widgets, ['bacon'])
+        EventPageForm = get_form_for_model(EventPage)
+        form = EventPageForm()
+
+        # form should contain a title field (from the base Page)
+        self.assertEqual(type(form.fields['title']), forms.CharField)
+        # and 'date_from' from EventPage
+        self.assertEqual(type(form.fields['date_from']), forms.DateField)
+        # the widget should be overridden with AdminDateInput as per FORM_FIELD_OVERRIDES
+        self.assertEqual(type(form.fields['date_from'].widget), AdminDateInput)
+
+        # treebeard's 'path' field should be excluded
+        self.assertNotIn('path', form.fields)
+
+        # all child relations become formsets by default
+        self.assertIn('speakers', form.formsets)
+        self.assertIn('related_links', form.formsets)
+
+    def test_get_form_for_model_with_specific_fields(self):
+        EventPageForm = get_form_for_model(EventPage, fields=['date_from'], formsets=['speakers'])
+        form = EventPageForm()
+
+        # form should contain date_from but not title
+        self.assertEqual(type(form.fields['date_from']), forms.DateField)
+        self.assertEqual(type(form.fields['date_from'].widget), AdminDateInput)
+        self.assertNotIn('title', form.fields)
+
+        # formsets should include speakers but not related_links
+        self.assertIn('speakers', form.formsets)
+        self.assertNotIn('related_links', form.formsets)
+
+    def test_get_form_for_model_with_excluded_fields(self):
+        EventPageForm = get_form_for_model(EventPage, exclude=['title'], exclude_formsets=['related_links'])
+        form = EventPageForm()
+
+        # form should contain date_from but not title
+        self.assertEqual(type(form.fields['date_from']), forms.DateField)
+        self.assertEqual(type(form.fields['date_from'].widget), AdminDateInput)
+        self.assertNotIn('title', form.fields)
+
+        # 'path' should still be excluded even though it isn't explicitly in the exclude list
+        self.assertNotIn('path', form.fields)
+
+        # formsets should include speakers but not related_links
+        self.assertIn('speakers', form.formsets)
+        self.assertNotIn('related_links', form.formsets)
+
+    def test_get_form_for_model_with_widget_overides_by_class(self):
+        EventPageForm = get_form_for_model(EventPage, widgets={'date_from': forms.PasswordInput})
+        form = EventPageForm()
+
+        self.assertEqual(type(form.fields['date_from']), forms.DateField)
+        self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
+
+    def test_get_form_for_model_with_widget_overides_by_instance(self):
+        EventPageForm = get_form_for_model(EventPage, widgets={'date_from': forms.PasswordInput()})
+        form = EventPageForm()
+
+        self.assertEqual(type(form.fields['date_from']), forms.DateField)
+        self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
