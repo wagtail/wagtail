@@ -1,4 +1,6 @@
 from django import forms
+from django.core import validators
+from django.forms.widgets import TextInput
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
@@ -6,6 +8,25 @@ from django.utils.translation import ungettext, ugettext_lazy
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore.models import Page
 
+class URLOrAbsolutePathValidator(validators.URLValidator):
+    @staticmethod
+    def is_absolute_path(value):
+        return value.startswith('/')
+
+    def __call__(self, value):
+        if URLOrAbsolutePathValidator.is_absolute_path(value):
+            return None
+        else:
+            return super(URLOrAbsolutePathValidator, self).__call__(value)
+
+class URLOrAbsolutePathField(forms.URLField):
+    widget = TextInput
+    default_validators = [URLOrAbsolutePathValidator()]
+
+    def to_python(self, value):
+        if not URLOrAbsolutePathValidator.is_absolute_path(value):
+            value = super(URLOrAbsolutePathField, self).to_python(value)
+        return value
 
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -22,11 +43,11 @@ class SearchForm(forms.Form):
 
 
 class ExternalLinkChooserForm(forms.Form):
-    url = forms.URLField(required=True)
+    url = URLOrAbsolutePathField(required=True)
 
 
 class ExternalLinkChooserWithLinkTextForm(forms.Form):
-    url = forms.URLField(required=True)
+    url = URLOrAbsolutePathField(required=True)
     link_text = forms.CharField(required=True)
 
 
