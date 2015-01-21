@@ -9,6 +9,7 @@ from wagtail.wagtailadmin.edit_handlers import (
     extract_panel_definitions_from_model_class,
     BaseFieldPanel,
     FieldPanel,
+    BaseRichTextFieldPanel,
     WagtailAdminModelForm,
     BaseTabbedInterface,
     TabbedInterface,
@@ -19,8 +20,9 @@ from wagtail.wagtailadmin.edit_handlers import (
 )
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
+from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import PageChooserModel, EventPage
+from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
 
 
 class TestGetFormForModel(TestCase):
@@ -87,21 +89,38 @@ class TestGetFormForModel(TestCase):
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
-    def test_can_extract_panels(self):
-        mock = MagicMock()
-        mock.panels = 'foo'
-        result = extract_panel_definitions_from_model_class(mock)
-        self.assertEqual(result, 'foo')
+    def test_can_extract_panel_property(self):
+        # A class with a 'panels' property defined should return that list
+        result = extract_panel_definitions_from_model_class(EventPageSpeaker)
+        self.assertEqual(len(result), 4)
+        #print repr(result)
+        self.assertTrue(any([issubclass(panel, BaseImageChooserPanel) for panel in result]))
 
     def test_exclude(self):
         panels = extract_panel_definitions_from_model_class(Site, exclude=['hostname'])
         for panel in panels:
             self.assertNotEqual(panel.field_name, 'hostname')
 
-    def test_extracted_objects_are_panels(self):
-        panels = extract_panel_definitions_from_model_class(Page)
-        for panel in panels:
-            self.assertTrue(issubclass(panel, BaseFieldPanel))
+    def test_can_build_panel_list(self):
+        # EventPage has no 'panels' definition, so one should be derived from the field list
+        panels = extract_panel_definitions_from_model_class(EventPage)
+
+        self.assertTrue(any([
+            issubclass(panel, BaseFieldPanel) and panel.field_name == 'date_from'
+            for panel in panels
+        ]))
+
+        # returned panel types should respect modelfield.get_panel() - used on RichTextField
+        self.assertTrue(any([
+            issubclass(panel, BaseRichTextFieldPanel) and panel.field_name == 'body'
+            for panel in panels
+        ]))
+
+        # treebeard fields should be excluded
+        self.assertFalse(any([
+            issubclass(panel, BaseFieldPanel) and panel.field_name == 'path'
+            for panel in panels
+        ]))
 
 
 class TestTabbedInterface(TestCase):
