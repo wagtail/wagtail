@@ -3,6 +3,7 @@ import warnings
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 
 from wagtail.wagtailcore import hooks
@@ -17,7 +18,10 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    page, args, kwargs = request.site.root_page.specific.route(request, path_components)
+    try:
+        page, args, kwargs = request.site.root_page.specific.route(request, path_components)
+    except ObjectDoesNotExist:
+        raise Http404
 
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)
