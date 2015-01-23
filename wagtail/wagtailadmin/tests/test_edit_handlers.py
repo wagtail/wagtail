@@ -1,5 +1,7 @@
 from mock import MagicMock
 
+from datetime import date
+
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django import forms
@@ -252,83 +254,91 @@ class TestObjectList(TestCase):
 
 
 class TestFieldPanel(TestCase):
-    class FakeClass(object):
-        required = False
-        widget = 'fake widget'
-
-    class FakeField(object):
-        label = 'label'
-        help_text = 'help text'
-        errors = ['errors']
-        id_for_label = 'id for label'
-
-    class FakeForm(dict):
-        def __init__(self, *args, **kwargs):
-            self.fields = self.fields_iterator()
-
-        def fields_iterator(self):
-            for i in self:
-                yield i
-
     def setUp(self):
-        fake_field = self.FakeField()
-        fake_field.field = self.FakeClass()
-        self.field_panel = FieldPanel('barbecue', 'snowman')(
-            instance=True,
-            form={'barbecue': fake_field})
+        self.EventPageForm = get_form_for_model(EventPage, formsets = [])
+        self.event = EventPage(title='Abergavenny sheepdog trials',
+            date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
+
+        self.EndDatePanel = FieldPanel('date_to', classname='full-width')
 
     def test_render_as_object(self):
-        result = self.field_panel.render_as_object()
-        self.assertIn('<legend>label</legend>',
-                      result)
-        self.assertIn('<p class="error-message">',
-                      result)
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.EndDatePanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_object()
+
+        # check that label appears in the 'object' wrapper as well as the field
+        self.assertIn('<legend>End date</legend>', result)
+        self.assertIn('<label for="id_date_to">End date:</label>', result)
+
+        # check that help text is included
+        self.assertIn('Not required if event is on a single day', result)
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
 
     def test_render_as_field(self):
-        field = self.FakeField()
-        bound_field = self.FakeField()
-        bound_field.field = field
-        self.field_panel.bound_field = bound_field
-        result = self.field_panel.render_as_field()
-        self.assertIn('<p class="help">help text</p>',
-                      result)
-        self.assertIn('<span>errors</span>',
-                      result)
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+
+        form.is_valid()
+
+        field_panel = self.EndDatePanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
+
+        # check that label is output in the 'field' style
+        self.assertIn('<label for="id_date_to">End date:</label>', result)
+        self.assertNotIn('<legend>End date</legend>', result)
+
+        # check that help text is included
+        self.assertIn('Not required if event is on a single day', result)
+
+        # check that the populated form field is included
+        self.assertIn('value="2014-07-22"', result)
+
+        # there should be no errors on this field
+        self.assertNotIn('<p class="error-message">', result)
 
     def test_rendered_fields(self):
-        result = self.field_panel.rendered_fields()
-        self.assertEqual(result, ['barbecue'])
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
+            instance=self.event)
+        field_panel = self.EndDatePanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.rendered_fields()
+        self.assertEqual(result, ['date_to'])
 
-    def test_field_type(self):
-        fake_object = self.FakeClass()
-        another_fake_object = self.FakeClass()
-        fake_object.field = another_fake_object
-        self.field_panel.bound_field = fake_object
-        self.assertEqual(self.field_panel.field_type(), 'fake_class')
+    def test_error_message_is_rendered(self):
+        form = self.EventPageForm(
+            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-33'},
+            instance=self.event)
 
-    def test_widget_overrides(self):
-        result = FieldPanel('barbecue', 'snowman').widget_overrides()
-        self.assertEqual(result, {})
+        form.is_valid()
 
-    def test_required_formsets(self):
-        result = FieldPanel('barbecue', 'snowman').required_formsets()
-        self.assertEqual(result, [])
+        field_panel = self.EndDatePanel(
+            instance=self.event,
+            form=form
+        )
+        result = field_panel.render_as_field()
 
-    def test_get_form_class(self):
-        result = FieldPanel('barbecue', 'snowman').get_form_class(Page)
-        self.assertTrue(issubclass(result, WagtailAdminModelForm))
-
-    def test_render_missing_fields(self):
-        fake_form = self.FakeForm()
-        fake_form["foo"] = "bar"
-        self.field_panel.form = fake_form
-        self.assertEqual(self.field_panel.render_missing_fields(), "bar")
-
-    def test_render_form_content(self):
-        fake_form = self.FakeForm()
-        fake_form["foo"] = "bar"
-        self.field_panel.form = fake_form
-        self.assertIn("bar", self.field_panel.render_form_content())
+        self.assertIn('<p class="error-message">', result)
+        self.assertIn('<span>Enter a valid date.</span>', result)
 
 
 class TestPageChooserPanel(TestCase):
