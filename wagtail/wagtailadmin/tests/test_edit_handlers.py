@@ -124,46 +124,66 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
 
 
 class TestTabbedInterface(TestCase):
-    class FakeChild(object):
-        class FakeGrandchild(object):
-            def rendered_fields(self):
-                return ["rendered fields"]
-
-        def widget_overrides(self):
-            return {'foo': 'bar'}
-
-        def required_formsets(self):
-            return {'baz': 'quux'}
-
-        def __call__(self, *args, **kwargs):
-            fake_grandchild = self.FakeGrandchild()
-            return fake_grandchild
-
     def setUp(self):
-        fake_child = self.FakeChild()
-        self.TabbedInterfaceClass = TabbedInterface([fake_child])
-        self.tabbed_interface = self.TabbedInterfaceClass(instance=True,
-                                                          form=True)
+        # a custom tabbed interface for EventPage
+        self.EventPageTabbedInterface = TabbedInterface([
+            ObjectList([
+                FieldPanel('title', widget=forms.Textarea),
+                FieldPanel('date_from'),
+                FieldPanel('date_to'),
+            ], heading='Event details', classname="shiny"),
+            ObjectList([
+                InlinePanel(EventPage, 'speakers', label="Speakers"),
+            ], heading='Speakers'),
+        ])
 
-    def test_tabbed_interface(self):
-        self.assertTrue(issubclass(self.TabbedInterfaceClass,
-                                   BaseTabbedInterface))
+    def test_get_form_class(self):
+        EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
+        form = EventPageForm()
 
-    def test_widget_overrides(self):
-        result = self.tabbed_interface.widget_overrides()
-        self.assertEqual(result, {'foo': 'bar'})
+        # form must include the 'speakers' formset required by the speakers InlinePanel
+        self.assertIn('speakers', form.formsets)
 
-    def test_required_formsets(self):
-        result = self.tabbed_interface.required_formsets()
-        self.assertEqual(result, ['baz'])
+        # form must respect any overridden widgets
+        self.assertEqual(type(form.fields['title'].widget), forms.Textarea)
 
     def test_render(self):
-        result = self.tabbed_interface.render()
+        EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
+        event = EventPage(title='Abergavenny sheepdog trials')
+        form = EventPageForm(instance=event)
+
+        tabbed_interface = self.EventPageTabbedInterface(
+            instance=event,
+            form=form
+        )
+
+        result = tabbed_interface.render()
+
+        # result should contain tab buttons
+        self.assertIn('<a href="#event-details" class="active">Event details</a>', result)
+        self.assertIn('<a href="#speakers" class="">Speakers</a>', result)
+
+        # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
+        self.assertIn('<section id="event-details" class="shiny active">', result)
+        self.assertIn('<section id="speakers" class=" ">', result)
+
+        # result should contain rendered content from descendants
+        self.assertIn('Abergavenny sheepdog trials</textarea>', result)
 
     def test_rendered_fields(self):
-        result = self.tabbed_interface.rendered_fields()
-        self.assertEqual(result, ["rendered fields"])
+        EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
+        event = EventPage(title='Abergavenny sheepdog trials')
+        form = EventPageForm(instance=event)
+
+        tabbed_interface = self.EventPageTabbedInterface(
+            instance=event,
+            form=form
+        )
+
+        # rendered_fields should report the set of form fields rendered recursively as part of TabbedInterface
+        result = set(tabbed_interface.rendered_fields())
+        self.assertEqual(result, set(['title', 'date_from', 'date_to']))
 
 
 class TestObjectList(TestCase):
