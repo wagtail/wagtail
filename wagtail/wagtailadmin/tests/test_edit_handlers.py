@@ -207,9 +207,48 @@ class TestTabbedInterface(TestCase):
 
 
 class TestObjectList(TestCase):
-    def test_object_list(self):
-        object_list = ObjectList(['foo'])
-        self.assertTrue(issubclass(object_list, BaseObjectList))
+    def setUp(self):
+        # a custom ObjectList for EventPage
+        self.EventPageObjectList = ObjectList([
+            FieldPanel('title', widget=forms.Textarea),
+            FieldPanel('date_from'),
+            FieldPanel('date_to'),
+            InlinePanel(EventPage, 'speakers', label="Speakers"),
+        ], heading='Event details', classname="shiny")
+
+    def test_get_form_class(self):
+        EventPageForm = self.EventPageObjectList.get_form_class(EventPage)
+        form = EventPageForm()
+
+        # form must include the 'speakers' formset required by the speakers InlinePanel
+        self.assertIn('speakers', form.formsets)
+
+        # form must respect any overridden widgets
+        self.assertEqual(type(form.fields['title'].widget), forms.Textarea)
+
+    def test_render(self):
+        EventPageForm = self.EventPageObjectList.get_form_class(EventPage)
+        event = EventPage(title='Abergavenny sheepdog trials')
+        form = EventPageForm(instance=event)
+
+        object_list = self.EventPageObjectList(
+            instance=event,
+            form=form
+        )
+
+        result = object_list.render()
+
+        # result should contain ObjectList furniture
+        self.assertIn('<ul class="objects">', result)
+
+        # result should contain h2 headings for children
+        self.assertIn('<h2>Start date</h2>', result)
+
+        # result should contain rendered content from descendants
+        self.assertIn('Abergavenny sheepdog trials</textarea>', result)
+
+        # this result should not include fields that are not covered by the panel definition
+        self.assertNotIn('signup_link', result)
 
 
 class TestFieldPanel(TestCase):
