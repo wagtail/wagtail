@@ -159,16 +159,16 @@ Callables also provide a way to index fields from related models. In the example
 .. code-block:: python
 
     class BookPage(Page):
-    ...
-
-    def get_related_link_titles(self):
-        # Get list of titles and concatenate them
-        return '\n'.join(self.related_links.values_list('title', flat=True))
-
-    search_fields = Page.search_fields + [
         ...
-        index.SearchField('get_related_link_titles'),
-    ]
+
+        def get_related_link_titles(self):
+            # Get list of titles and concatenate them
+            return '\n'.join(self.related_links.values_list('title', flat=True))
+
+        search_fields = Page.search_fields + [
+            ...
+            index.SearchField('get_related_link_titles'),
+        ]
 
 .. _wagtailsearch_indexing_models:
 
