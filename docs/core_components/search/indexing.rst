@@ -162,7 +162,7 @@ Callables also provide a way to index fields from related models. In the example
         # ...
         def get_related_link_titles(self):
             # Get list of titles and concatenate them
-            return '\n'.join(self.related_links.values_list('title', flat=True))
+            return '\n'.join(self.related_links.all().values_list('title', flat=True))
 
         search_fields = Page.search_fields + [
             # ...
