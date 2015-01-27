@@ -23,9 +23,9 @@
         <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
-            <h1>{% trans "Sign in to Wagtail" %}</h1>
+            <h1>{% block admin_branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
 
-          
+
             <ul class="fields">
                 <li class="full">
                     <div class="field iconfield">
