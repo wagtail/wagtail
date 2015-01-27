@@ -171,18 +171,9 @@ class TestTabbedInterface(TestCase):
         # this result should not include fields that are not covered by the panel definition
         self.assertNotIn('signup_link', result)
 
-    def test_rendered_fields(self):
-        EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
-        event = EventPage(title='Abergavenny sheepdog trials')
-        form = EventPageForm(instance=event)
-
-        tabbed_interface = self.EventPageTabbedInterface(
-            instance=event,
-            form=form
-        )
-
-        # rendered_fields should report the set of form fields rendered recursively as part of TabbedInterface
-        result = set(tabbed_interface.rendered_fields())
+    def test_required_fields(self):
+        # required_fields should report the set of form fields to be rendered recursively by children of TabbedInterface
+        result = set(self.EventPageTabbedInterface.required_fields())
         self.assertEqual(result, set(['title', 'date_from', 'date_to']))
 
     def test_render_form_content(self):
@@ -198,9 +189,9 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render_form_content()
         # rendered output should contain field content as above
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
-        # rendered output should also contain all other fields that are in the form but not represented
+        # rendered output should NOT include fields that are in the model but not represented
         # in the panel definition
-        self.assertIn('signup_link', result)
+        self.assertNotIn('signup_link', result)
 
 
 class TestObjectList(TestCase):
@@ -308,15 +299,8 @@ class TestFieldPanel(TestCase):
         # there should be no errors on this field
         self.assertNotIn('<p class="error-message">', result)
 
-    def test_rendered_fields(self):
-        form = self.EventPageForm(
-            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
-            instance=self.event)
-        field_panel = self.EndDatePanel(
-            instance=self.event,
-            form=form
-        )
-        result = field_panel.rendered_fields()
+    def test_required_fields(self):
+        result = self.EndDatePanel.required_fields()
         self.assertEqual(result, ['date_to'])
 
     def test_error_message_is_rendered(self):
