@@ -22,7 +22,7 @@ Minor features
  * Dropped Django 1.6 support
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
- * Search view accepts "page" GET parameter in line with pagination.
+ * Search view accepts "page" GET parameter in line with pagination
 
 
 Bug fixes
