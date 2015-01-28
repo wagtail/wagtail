@@ -23,11 +23,15 @@ Minor features
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
  * Search view accepts "page" GET parameter in line with pagination
+ * Remove dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
+ * Password reset view names namespaced to wagtailadmin
+ * Remove the need to add permission check on admin views (now automated)
 
 
 Bug fixes
 ~~~~~~~~~
 
+* Wagtail no longer reverse Django login view to Wagtail login view (making it easier to have front end views)
 
 Upgrade considerations
 ======================
@@ -39,6 +43,16 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
+Login/Password reset views renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It was previously possible to reverse the Wagtail login using django.contrib.auth.views.login.
+This is no longer possible. Update any references to `wagtailadmin_login`.
+
+Password reset view name has changed from `password_reset` to `wagtailadmin_password_reset`.
+
+You no longer need `LOGIN_URL` and `LOGIN_REDIRECT_URL` to point to Wagtail admin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Javascript includes in admin backend have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
