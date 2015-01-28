@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import logout as auth_logout, login as auth_login
-from django.utils.translation import ugettext as _ 
+from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 
@@ -22,6 +22,27 @@ def account(request):
     return render(request, 'wagtailadmin/account/account.html', {
         'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
         'show_notification_preferences': show_notification_preferences
+    })
+
+
+@permission_required('wagtailadmin.access_admin')
+def edit_account_details(request):
+    user = request.user
+
+    if request.POST:
+        form = forms.UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save(force_active=True)
+            messages.success(request, _("User '{0}' updated.").format(user))
+            return redirect('wagtailadmin_account')
+        else:
+            messages.error(request, _("The user could not be saved due to errors."))
+    else:
+        form = forms.UserEditForm(instance=user)
+
+    return render(request, 'wagtailadmin/account/edit.html', {
+        'user': user,
+        'form': form,
     })
 
 

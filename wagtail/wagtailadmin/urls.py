@@ -86,6 +86,7 @@ urlpatterns += [
     url(r'^login/$', account.login, name='wagtailadmin_login'),
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
+    url(r'^account/edit/$', account.edit_account_details, name='wagtailadmin_edit_account_details'),
     url(r'^account/notification_preferences/$', account.notification_preferences, name='wagtailadmin_account_notification_preferences'),
     url(r'^logout/$', account.logout, name='wagtailadmin_logout'),
 
