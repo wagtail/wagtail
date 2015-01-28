@@ -154,6 +154,20 @@ One use for this is indexing ``get_*_display`` methods Django creates automatica
             index.FilterField('is_private'),
         )
 
+Callables also provide a way to index fields from related models. In the example from :ref:`inline_panels`, to index each BookPage by the titles of its related_links:
+
+.. code-block:: python
+
+    class BookPage(Page):
+        # ...
+        def get_related_link_titles(self):
+            # Get list of titles and concatenate them
+            return '\n'.join(self.related_links.all().values_list('title', flat=True))
+
+        search_fields = Page.search_fields + [
+            # ...
+            index.SearchField('get_related_link_titles'),
+        ]
 
 .. _wagtailsearch_indexing_models:
 
