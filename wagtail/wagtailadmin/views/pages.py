@@ -20,6 +20,7 @@ from wagtail.wagtailadmin import tasks, signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
+from wagtail.wagtailcore.validators import validate_not_whitespace
 
 from wagtail.wagtailadmin import messages
 
@@ -161,6 +162,19 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             return slug
         form.fields['slug'].clean = clean_slug
 
+        # Validate title and seo_title are not entirely whitespace
+        def clean_title(title):
+            validate_not_whitespace(title)
+            return title
+        form.fields['title'].clean = clean_title
+
+        def clean_seo_title(seo_title):
+            if not seo_title:
+                return ''
+            validate_not_whitespace(seo_title)
+            return seo_title
+        form.fields['seo_title'].clean = clean_seo_title
+
         # Stick another validator into the form to check that the scheduled publishing settings are set correctly
         def clean():
             cleaned_data = form_class.clean(form)
@@ -276,6 +290,20 @@ def edit(request, page_id):
                 raise ValidationError(_("This slug is already in use"))
             return slug
         form.fields['slug'].clean = clean_slug
+
+        # Validate title and seo_title are not entirely whitespace
+        def clean_title(title):
+            validate_not_whitespace(title)
+            return title
+        form.fields['title'].clean = clean_title
+
+        def clean_seo_title(seo_title):
+            if not seo_title:
+                return ''
+            validate_not_whitespace(seo_title)
+            return seo_title
+
+        form.fields['seo_title'].clean = clean_seo_title
 
         # Stick another validator into the form to check that the scheduled publishing settings are set correctly
         def clean():
