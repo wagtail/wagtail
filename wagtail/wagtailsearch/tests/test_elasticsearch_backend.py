@@ -135,7 +135,6 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Even though they both start with the letter "H". This should not be considered a match
         self.assertEqual(len(results), 0)
 
-    @unittest.expectedFailure
     def test_search_with_hyphen(self):
         """
         This tests that punctuation characters are treated the same
