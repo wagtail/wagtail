@@ -18,3 +18,4 @@ Bug fixes
  * ``get_sitemap_urls`` is now called on the specific page class so it can now be overridden
  * (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
  * Storage backends that return raw ContentFile objects are now handled correctly when resizing images
+ * Punctuation characters are no longer stripped when performing search queries
