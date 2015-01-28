@@ -31,15 +31,15 @@ Bug fixes
 Upgrade considerations
 ======================
 
-Javascript includes in admin backend have been moved
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To improve compatibility with third-party form widgets, pages within the Wagtail admin backend now output their Javascript includes in the HTML header, rather than at the end of the page. If your project extends the admin backend (through the ``register_admin_menu_item`` hook, for example) you will need to ensure that all associated Javascript code runs correctly from the new location. In particular, any code that accesses HTML elements will need to be contained in an 'onload' handler (e.g. jQuery's ``$(document).ready()``).
-
-
 Support for older Django/Python/Elasticsearch versions dropped
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90.x. Please make sure these are updated before upgrading.
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
+
+
+Javascript includes in admin backend have been moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To improve compatibility with third-party form widgets, pages within the Wagtail admin backend now output their Javascript includes in the HTML header, rather than at the end of the page. If your project extends the admin backend (through the ``register_admin_menu_item`` hook, for example) you will need to ensure that all associated Javascript code runs correctly from the new location. In particular, any code that accesses HTML elements will need to be contained in an 'onload' handler (e.g. jQuery's ``$(document).ready()``).
