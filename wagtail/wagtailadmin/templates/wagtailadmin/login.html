@@ -22,7 +22,10 @@
 
         <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}" />
+
+            {% url 'wagtailadmin_home' as home_url %}
+            <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+
             <h1>{% trans "Sign in to Wagtail" %}</h1>
 
           
@@ -43,7 +46,7 @@
                         </div>
                     </div>
                     {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'django.contrib.auth.views.password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
                     {% endif %}
                 </li>
                 {% comment %}

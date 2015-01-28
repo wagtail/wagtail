@@ -103,7 +103,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -140,7 +139,6 @@ def edit(request, document_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -157,7 +155,6 @@ def delete(request, document_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def usage(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 

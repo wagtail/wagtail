@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
@@ -9,7 +8,6 @@ from wagtail.wagtailsearch import models
 from wagtail.wagtailsearch.utils import normalise_query_string
 
 
-@permission_required('wagtailadmin.access_admin')
 def chooser(request, get_results=False):
     # Get most popular queries
     queries = models.Query.get_most_popular()

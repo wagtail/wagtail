@@ -102,9 +102,6 @@ PASSWORD_HASHERS = (
 
 COMPRESS_ENABLED = False  # disable compression so that we can run tests on the content of the compress tag
 
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-LOGIN_URL = 'wagtailadmin_login'
-
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {

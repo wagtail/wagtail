@@ -11,14 +11,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 from wagtail.wagtailforms.forms import SelectDateForm
 
 
-@permission_required('wagtailadmin.access_admin')
 def index(request):
     p = request.GET.get("p", 1)
 
@@ -38,7 +36,6 @@ def index(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def list_submissions(request, page_id):
     form_page = get_object_or_404(Page, id=page_id).specific
 

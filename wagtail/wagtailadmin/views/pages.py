@@ -4,7 +4,6 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -23,14 +22,13 @@ from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_i
 
 from wagtail.wagtailadmin import messages
 
-@permission_required('wagtailadmin.access_admin')
+
 def explorer_nav(request):
     return render(request, 'wagtailadmin/shared/explorer_nav.html', {
         'nodes': get_navigation_menu_items(),
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def index(request, parent_page_id=None):
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
@@ -67,7 +65,6 @@ def index(request, parent_page_id=None):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def add_subpage(request, parent_page_id):
     parent_page = get_object_or_404(Page, id=parent_page_id).specific
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
@@ -89,7 +86,6 @@ def add_subpage(request, parent_page_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def content_type_use(request, content_type_app_name, content_type_model_name):
     try:
         content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
@@ -123,7 +119,6 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def create(request, content_type_app_name, content_type_model_name, parent_page_id):
     parent_page = get_object_or_404(Page, id=parent_page_id).specific
     parent_page_perms = parent_page.permissions_for_user(request.user)
@@ -249,7 +244,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def edit(request, page_id):
     latest_revision = get_object_or_404(Page, id=page_id).get_latest_revision()
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
@@ -383,7 +377,6 @@ def edit(request, page_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def delete(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_delete():
@@ -408,13 +401,11 @@ def delete(request, page_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     return page.serve_preview(page.dummy_request(), page.default_preview_mode)
 
 
-@permission_required('wagtailadmin.access_admin')
 def preview_on_edit(request, page_id):
     # Receive the form submission that would typically be posted to the 'edit' view. If submission is valid,
     # return the rendered page; if not, re-render the edit form
@@ -444,7 +435,6 @@ def preview_on_edit(request, page_id):
         return response
 
 
-@permission_required('wagtailadmin.access_admin')
 def preview_on_create(request, content_type_app_name, content_type_model_name, parent_page_id):
     # Receive the form submission that would typically be posted to the 'create' view. If submission is valid,
     # return the rendered page; if not, re-render the edit form
@@ -520,7 +510,7 @@ def preview_loading(request):
     """
     return HttpResponse("<html><head><title></title></head><body></body></html>")
 
-@permission_required('wagtailadmin.access_admin')
+
 def unpublish(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_unpublish():
@@ -538,7 +528,6 @@ def unpublish(request, page_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
     page_perms = page_to_move.permissions_for_user(request.user)
@@ -568,7 +557,6 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
     destination = get_object_or_404(Page, id=destination_id)
@@ -590,7 +578,6 @@ def move_confirm(request, page_to_move_id, destination_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def set_page_position(request, page_to_move_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
     parent_page = page_to_move.get_parent()
@@ -630,7 +617,6 @@ def set_page_position(request, page_to_move_id):
     return HttpResponse('')
 
 
-@permission_required('wagtailadmin.access_admin')
 def copy(request, page_id):
     page = Page.objects.get(id=page_id)
 
@@ -703,7 +689,6 @@ def get_page_edit_handler(page_class):
     return PAGE_EDIT_HANDLERS[page_class]
 
 
-@permission_required('wagtailadmin.access_admin')
 @vary_on_headers('X-Requested-With')
 def search(request):
     pages = []
@@ -745,7 +730,6 @@ def search(request):
         })
 
 
-@permission_required('wagtailadmin.access_admin')
 def approve_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
@@ -763,7 +747,6 @@ def approve_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-@permission_required('wagtailadmin.access_admin')
 def reject_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
@@ -781,7 +764,6 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-@permission_required('wagtailadmin.access_admin')
 @require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
@@ -801,7 +783,6 @@ def preview_for_moderation(request, revision_id):
     return page.serve_preview(request, page.default_preview_mode)
 
 
-@permission_required('wagtailadmin.access_admin')
 @require_POST
 def lock(request, page_id):
     # Get the page
@@ -826,7 +807,6 @@ def lock(request, page_id):
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
 
-@permission_required('wagtailadmin.access_admin')
 @require_POST
 def unlock(request, page_id):
     # Get the page
