@@ -7,7 +7,6 @@ from django.db.models.sql.where import SubqueryConstraint, WhereNode
 from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.wagtailsearch.index import class_is_indexed
-from wagtail.wagtailsearch.utils import normalise_query_string
 
 
 class FilterError(Exception):
@@ -212,10 +211,6 @@ class BaseSearch(object):
         # Model must be a class that is in the index
         if not class_is_indexed(model):
             return []
-
-        # Normalise query string
-        if query_string is not None:
-            query_string = normalise_query_string(query_string)
 
         # Check that theres still a query string after the clean up
         if query_string == "":
