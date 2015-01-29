@@ -26,7 +26,7 @@
             {% url 'wagtailadmin_home' as home_url %}
             <input type="hidden" name="next" value="{{ next|default:home_url }}" />
 
-            <h1>{% block admin_branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
+            <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
 
             <ul class="fields">
                 <li class="full">
