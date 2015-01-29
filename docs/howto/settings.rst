@@ -480,10 +480,6 @@ settings.py
       ('text/x-scss', 'django_libsass.SassCompiler'),
   )
 
-  # Auth settings
-  LOGIN_URL = 'wagtailadmin_login'
-  LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-
   # A sample logging configuration. The only tangible logging
   # performed by this configuration is to send an email to
   # the site admins on every HTTP 500 error when DEBUG=False.
