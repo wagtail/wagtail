@@ -29,3 +29,21 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
     {% block branding_logo %}
         <img src="{{ STATIC_URL }}images/custom-logo.svg" alt="Custom Project" width="80" />
     {% endblock %}
+
+branding_login
+--------------
+
+To replace the login message, create a template file ``dashboard/templates/wagtailadmin/login.html`` that overrides the block ``branding_login``::
+
+    {% overextends "wagtailadmin/login.html" %}
+
+    {% block branding_login %}Sign in to Frank's Site{% endblock %}
+
+branding_welcome
+----------------
+
+To replace the welcome message on the dashboard, create a template file ``dashboard/templates/wagtailadmin/home.html`` that overrides the block ``branding_welcome``::
+
+    {% overextends "wagtailadmin/home.html" %}
+
+    {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
