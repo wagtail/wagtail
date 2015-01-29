@@ -5,7 +5,7 @@
     <div class="nav-wrapper">
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
-                {% block admin_logo %}
+                {% block branding_logo %}
                     <img src="{{ STATIC_URL }}wagtailadmin/images/wagtail-logo.svg" alt="Wagtail" width="80" />
                 {% endblock %}
                 <span>{% trans "Dashboard" %}</span>
