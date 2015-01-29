@@ -26,12 +26,12 @@ Minor features
  * Remove dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
  * Password reset view names namespaced to wagtailadmin
  * Remove the need to add permission check on admin views (now automated)
+ * Reversing `django.contrib.auth.admin.login` will no longer lead to Wagtails login view (making it easier to have front end views)
 
 
 Bug fixes
 ~~~~~~~~~
 
-* Wagtail no longer reverse Django login view to Wagtail login view (making it easier to have front end views)
 
 Upgrade considerations
 ======================
