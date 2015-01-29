@@ -859,10 +859,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # Apply middleware to the request - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
         handler = BaseHandler()
         handler.load_middleware()
+        # call each middleware in turn and throw away any responses that they might return
         for middleware_method in handler._request_middleware:
-            if middleware_method(request):
-                raise Exception("Couldn't create request mock object - "
-                                "request middleware returned a response")
+            middleware_method(request)
+
         return request
 
     DEFAULT_PREVIEW_MODES = [('', 'Default')]
