@@ -225,8 +225,8 @@ class EditHandler(object):
 
     def render_form_content(self):
         """
-        Render this as an 'object', along with any unaccounted-for fields to make this
-        a valid submittable form
+        Render this as an 'object', ensuring that all fields necessary for a valid form
+        submission are included
         """
         return mark_safe(self.render_as_object())
 
