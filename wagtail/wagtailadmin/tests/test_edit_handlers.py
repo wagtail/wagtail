@@ -434,6 +434,15 @@ class TestInlinePanel(TestCase):
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
 
+        # rendered panel must also contain hidden fields for id, DELETE and ORDER
+        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+
+        # rendered panel must contain maintenance form for the formset
+        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+
+        # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
 
     def test_render_with_panel_overrides(self):
@@ -467,4 +476,13 @@ class TestInlinePanel(TestCase):
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
 
+        # rendered panel must also contain hidden fields for id, DELETE and ORDER
+        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+
+        # rendered panel must contain maintenance form for the formset
+        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+
+        # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
