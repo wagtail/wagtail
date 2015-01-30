@@ -351,24 +351,27 @@ class TestPageChooserPanel(TestCase):
         self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage')
 
         # build a form class containing the fields that MyPageChooserPanel wants
-        PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
+        self.PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
 
         # a test instance of PageChooserModel, pointing to the 'christmas' page
         self.christmas_page = Page.objects.get(slug='christmas')
         self.events_index_page = Page.objects.get(slug='events')
-        test_instance = model.objects.create(page=self.christmas_page)
+        self.test_instance = model.objects.create(page=self.christmas_page)
 
-        form = PageChooserForm(instance=test_instance)
-        form.errors['page'] = form.error_class(['errors'])  # FIXME: wat
-        self.page_chooser_panel = self.MyPageChooserPanel(instance=test_instance,
-                                                                form=form)
+        self.form = self.PageChooserForm(instance=self.test_instance)
+        # self.form.errors['page'] = self.form.error_class(['errors'])  # FIXME: wat
+        self.page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
+                                                                form=self.form)
+
+    def test_page_chooser_uses_correct_widget(self):
+        self.assertEqual(type(self.form.fields['page'].widget), AdminPageChooser)
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        self.assertIn(
-            'createPageChooser("{id}", "{model}", {parent});'.format(
-                id="id_page", model="tests.eventpage", parent=self.events_index_page.id),
-            result)
+        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+
+        self.assertIn(expected_js, result)
 
     def test_get_chosen_item(self):
         result = self.page_chooser_panel.get_chosen_item()
@@ -377,11 +380,14 @@ class TestPageChooserPanel(TestCase):
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
-        self.assertIn('<span>errors</span>', result)
 
-    def test_widget_overrides(self):
-        result = self.page_chooser_panel.widget_overrides()
-        self.assertIsInstance(result['page'], AdminPageChooser)
+    def test_render_error(self):
+        form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
+        self.assertFalse(form.is_valid())
+
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
+                                                                form=form)
+        self.assertIn('<span>This field is required.</span>', page_chooser_panel.render_as_field())
 
     def test_target_content_type(self):
         result = PageChooserPanel(
