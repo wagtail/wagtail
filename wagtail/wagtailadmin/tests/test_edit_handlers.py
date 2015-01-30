@@ -420,7 +420,7 @@ class TestInlinePanel(TestCase):
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
-        self.assertEqual(['speakers'], EventPageForm.formsets.keys())
+        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
 
         event_page = EventPage.objects.get(slug='christmas')
 
@@ -457,7 +457,7 @@ class TestInlinePanel(TestCase):
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
-        self.assertEqual(['speakers'], EventPageForm.formsets.keys())
+        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
 
         event_page = EventPage.objects.get(slug='christmas')
 
