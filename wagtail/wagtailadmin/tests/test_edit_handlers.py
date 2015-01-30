@@ -453,9 +453,8 @@ class TestInlinePanel(TestCase):
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
 
-        # surname field is still rendered as a 'stray' label-less field: see #338.
-        # (Temporarily adding a test for this, so that we can verify that it fails when #338 is fixed...)
-        self.assertIn('<input id="id_speakers-0-last_name"', result)
+        # test for #338: surname field should not be rendered as a 'stray' label-less field
+        self.assertNotIn('<input id="id_speakers-0-last_name"', result)
 
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
