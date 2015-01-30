@@ -342,32 +342,37 @@ class TestFieldPanel(TestCase):
 
 
 class TestPageChooserPanel(TestCase):
+    fixtures = ['test.json']
 
     def setUp(self):
-        model = PageChooserModel
-        self.chosen_page = Page.objects.get(pk=2)
-        test_instance = model.objects.create(page=self.chosen_page)
-        self.dotted_model = model._meta.app_label + '.' + model._meta.model_name
+        model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
-        self.page_chooser_panel_class = PageChooserPanel('page', model)
+        # a PageChooserPanel class that works on PageChooserModel's 'page' field
+        self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage')
 
-        form_class = get_form_for_model(model, widgets=self.page_chooser_panel_class.widget_overrides())
-        form = form_class(instance=test_instance)
-        form.errors['page'] = form.error_class(['errors'])
+        # build a form class containing the fields that MyPageChooserPanel wants
+        PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
 
-        self.page_chooser_panel = self.page_chooser_panel_class(instance=test_instance,
+        # a test instance of PageChooserModel, pointing to the 'christmas' page
+        self.christmas_page = Page.objects.get(slug='christmas')
+        self.events_index_page = Page.objects.get(slug='events')
+        test_instance = model.objects.create(page=self.christmas_page)
+
+        form = PageChooserForm(instance=test_instance)
+        form.errors['page'] = form.error_class(['errors'])  # FIXME: wat
+        self.page_chooser_panel = self.MyPageChooserPanel(instance=test_instance,
                                                                 form=form)
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn(
             'createPageChooser("{id}", "{model}", {parent});'.format(
-                id="id_page", model=self.dotted_model, parent=self.chosen_page.get_parent().id),
+                id="id_page", model="tests.eventpage", parent=self.events_index_page.id),
             result)
 
     def test_get_chosen_item(self):
         result = self.page_chooser_panel.get_chosen_item()
-        self.assertEqual(result, self.chosen_page)
+        self.assertEqual(result, self.christmas_page)
 
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
