@@ -12,17 +12,14 @@ from wagtail.wagtailadmin.edit_handlers import (
     BaseFieldPanel,
     FieldPanel,
     BaseRichTextFieldPanel,
-    WagtailAdminModelForm,
-    BaseTabbedInterface,
     TabbedInterface,
-    BaseObjectList,
     ObjectList,
     PageChooserPanel,
     InlinePanel,
 )
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
-from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel
+from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel, ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
 
@@ -414,6 +411,8 @@ class TestPageChooserPanel(TestCase):
 
 
 class TestInlinePanel(TestCase):
+    fixtures = ['test.json']
+
     class FakeField(object):
         class FakeFormset(object):
             class FakeForm(object):
@@ -479,45 +478,54 @@ class TestInlinePanel(TestCase):
         self.mock_model = MagicMock()
         self.mock_model.formset.related.model.panels = [self.mock_panel]
 
-    def test_get_panel_definitions_no_panels(self):
-        """
-        Check that get_panel_definitions returns the panels set on the model
-        when no panels are set on the InlinePanel
-        """
-        inline_panel = InlinePanel(self.mock_model, 'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        result = inline_panel.get_panel_definitions()
-        self.assertEqual(result[0].name, 'mock panel')
-
-    def test_get_panel_definitions(self):
-        """
-        Check that get_panel_definitions returns the panels set on
-        InlinePanel
-        """
-        other_mock_panel = MagicMock()
-        other_mock_panel.name = 'other mock panel'
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset',
-                                   panels=[other_mock_panel])(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        result = inline_panel.get_panel_definitions()
-        self.assertEqual(result[0].name, 'other mock panel')
-
-    def test_required_formsets(self):
-        inline_panel = InlinePanel(self.mock_model, 'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertEqual(inline_panel.required_formsets(), ['formset'])
-
     def test_render(self):
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset',
-                                   label='foo')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertIn('Add foo', inline_panel.render())
+        """
+        Check that the inline panel renders the panels set on the model
+        when no 'panels' parameter is passed in the InlinePanel definition
+        """
+        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers")
+        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+
+        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
+        self.assertEqual(['speakers'], EventPageForm.formsets.keys())
+
+        event_page = EventPage.objects.get(slug='christmas')
+
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        result = panel.render_as_field()
+
+        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn('value="Choose an image"', result)
+
+    def test_render_with_panel_overrides(self):
+        """
+        Check that inline panel renders the panels listed in the InlinePanel definition
+        where one is specified
+        """
+        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
+            FieldPanel('first_name'),
+            ImageChooserPanel('image'),
+        ])
+        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+
+        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
+        self.assertEqual(['speakers'], EventPageForm.formsets.keys())
+
+        event_page = EventPage.objects.get(slug='christmas')
+
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        result = panel.render_as_field()
+
+        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn('value="Choose an image"', result)
 
     def test_render_js_init(self):
         inline_panel = InlinePanel(self.mock_model,
