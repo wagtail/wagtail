@@ -1,5 +1,3 @@
-from mock import MagicMock
-
 from datetime import date
 
 from django.core.exceptions import ImproperlyConfigured
@@ -413,71 +411,6 @@ class TestPageChooserPanel(TestCase):
 class TestInlinePanel(TestCase):
     fixtures = ['test.json']
 
-    class FakeField(object):
-        class FakeFormset(object):
-            class FakeForm(object):
-                class FakeInstance(object):
-                    def __repr__(self):
-                        return 'fake instance'
-                fields = {'DELETE': MagicMock(),
-                          'ORDER': MagicMock()}
-                instance = FakeInstance()
-
-                cleaned_data = {
-                    'ORDER': 0,
-                }
-
-                def __repr__(self):
-                    return 'fake form'
-
-            forms = [FakeForm()]
-            empty_form = FakeForm()
-            can_order = True
-
-            def is_valid(self):
-                return True
-
-        label = 'label'
-        help_text = 'help text'
-        errors = ['errors']
-        id_for_label = 'id for label'
-        formsets = {'formset': FakeFormset()}
-
-    class FakeInstance(object):
-        class FakePage(object):
-            class FakeParent(object):
-                id = 1
-
-            name = 'fake page'
-
-            def get_parent(self):
-                return self.FakeParent()
-
-        def __init__(self):
-            fake_page = self.FakePage()
-            self.barbecue = fake_page
-
-    class FakePanel(object):
-        name = 'mock panel'
-
-        class FakeChild(object):
-            def rendered_fields(self):
-                return ["rendered fields"]
-
-        def init(*args, **kwargs):
-            pass
-
-        def __call__(self, *args, **kwargs):
-            fake_child = self.FakeChild()
-            return fake_child
-
-    def setUp(self):
-        self.fake_field = self.FakeField()
-        self.fake_instance = self.FakeInstance()
-        self.mock_panel = self.FakePanel()
-        self.mock_model = MagicMock()
-        self.mock_model.formset.related.model.panels = [self.mock_panel]
-
     def test_render(self):
         """
         Check that the inline panel renders the panels set on the model
@@ -500,6 +433,8 @@ class TestInlinePanel(TestCase):
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
+
+        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
 
     def test_render_with_panel_overrides(self):
         """
@@ -524,13 +459,12 @@ class TestInlinePanel(TestCase):
 
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+
+        # surname field is still rendered as a 'stray' label-less field: see #338.
+        # (Temporarily adding a test for this, so that we can verify that it fails when #338 is fixed...)
+        self.assertIn('<input id="id_speakers-0-last_name"', result)
+
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
 
-    def test_render_js_init(self):
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertIn('var panel = InlinePanel({',
-                      inline_panel.render_js_init())
+        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
