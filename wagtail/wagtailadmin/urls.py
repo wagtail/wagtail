@@ -121,5 +121,5 @@ urlpatterns += [
 
 # Decorate all views with cache settings to prevent caching
 urlpatterns = decorate_urlpatterns(urlpatterns,
-    cache_control(private=True, no_cache=True, no_store=True)
+    cache_control(private=True, no_cache=True, no_store=True, max_age=0)
 )

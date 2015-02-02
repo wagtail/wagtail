@@ -35,6 +35,7 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertIn('private', response['Cache-Control'])
         self.assertIn('no-cache', response['Cache-Control'])
         self.assertIn('no-store', response['Cache-Control'])
+        self.assertIn('max-age=0', response['Cache-Control'])
 
 
 class TestEditorHooks(TestCase, WagtailTestUtils):
