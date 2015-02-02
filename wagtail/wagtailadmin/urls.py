@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import permission_required
+from django.views.decorators.cache import cache_control
 
 from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar, page_privacy
@@ -117,3 +118,8 @@ urlpatterns += [
         }, name='wagtailadmin_password_reset_complete'
     ),
 ]
+
+# Decorate all views with cache settings to prevent caching
+urlpatterns = decorate_urlpatterns(urlpatterns,
+    cache_control(private=True, no_cache=True, no_store=True, max_age=0)
+)
