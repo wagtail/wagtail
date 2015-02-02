@@ -1,5 +1,3 @@
-from mock import MagicMock
-
 from datetime import date
 
 from django.core.exceptions import ImproperlyConfigured
@@ -12,17 +10,14 @@ from wagtail.wagtailadmin.edit_handlers import (
     BaseFieldPanel,
     FieldPanel,
     BaseRichTextFieldPanel,
-    WagtailAdminModelForm,
-    BaseTabbedInterface,
     TabbedInterface,
-    BaseObjectList,
     ObjectList,
     PageChooserPanel,
     InlinePanel,
 )
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
-from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel
+from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel, ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
 
@@ -342,41 +337,52 @@ class TestFieldPanel(TestCase):
 
 
 class TestPageChooserPanel(TestCase):
+    fixtures = ['test.json']
 
     def setUp(self):
-        model = PageChooserModel
-        self.chosen_page = Page.objects.get(pk=2)
-        test_instance = model.objects.create(page=self.chosen_page)
-        self.dotted_model = model._meta.app_label + '.' + model._meta.model_name
+        model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
-        self.page_chooser_panel_class = PageChooserPanel('page', model)
+        # a PageChooserPanel class that works on PageChooserModel's 'page' field
+        self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage')
 
-        form_class = get_form_for_model(model, widgets=self.page_chooser_panel_class.widget_overrides())
-        form = form_class(instance=test_instance)
-        form.errors['page'] = form.error_class(['errors'])
+        # build a form class containing the fields that MyPageChooserPanel wants
+        self.PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
 
-        self.page_chooser_panel = self.page_chooser_panel_class(instance=test_instance,
-                                                                form=form)
+        # a test instance of PageChooserModel, pointing to the 'christmas' page
+        self.christmas_page = Page.objects.get(slug='christmas')
+        self.events_index_page = Page.objects.get(slug='events')
+        self.test_instance = model.objects.create(page=self.christmas_page)
+
+        self.form = self.PageChooserForm(instance=self.test_instance)
+        # self.form.errors['page'] = self.form.error_class(['errors'])  # FIXME: wat
+        self.page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
+                                                                form=self.form)
+
+    def test_page_chooser_uses_correct_widget(self):
+        self.assertEqual(type(self.form.fields['page'].widget), AdminPageChooser)
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        self.assertIn(
-            'createPageChooser("{id}", "{model}", {parent});'.format(
-                id="id_page", model=self.dotted_model, parent=self.chosen_page.get_parent().id),
-            result)
+        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+
+        self.assertIn(expected_js, result)
 
     def test_get_chosen_item(self):
         result = self.page_chooser_panel.get_chosen_item()
-        self.assertEqual(result, self.chosen_page)
+        self.assertEqual(result, self.christmas_page)
 
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
-        self.assertIn('<span>errors</span>', result)
 
-    def test_widget_overrides(self):
-        result = self.page_chooser_panel.widget_overrides()
-        self.assertIsInstance(result['page'], AdminPageChooser)
+    def test_render_error(self):
+        form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
+        self.assertFalse(form.is_valid())
+
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
+                                                                form=form)
+        self.assertIn('<span>This field is required.</span>', page_chooser_panel.render_as_field())
 
     def test_target_content_type(self):
         result = PageChooserPanel(
@@ -403,115 +409,80 @@ class TestPageChooserPanel(TestCase):
 
 
 class TestInlinePanel(TestCase):
-    class FakeField(object):
-        class FakeFormset(object):
-            class FakeForm(object):
-                class FakeInstance(object):
-                    def __repr__(self):
-                        return 'fake instance'
-                fields = {'DELETE': MagicMock(),
-                          'ORDER': MagicMock()}
-                instance = FakeInstance()
-
-                cleaned_data = {
-                    'ORDER': 0,
-                }
-
-                def __repr__(self):
-                    return 'fake form'
-
-            forms = [FakeForm()]
-            empty_form = FakeForm()
-            can_order = True
-
-            def is_valid(self):
-                return True
-
-        label = 'label'
-        help_text = 'help text'
-        errors = ['errors']
-        id_for_label = 'id for label'
-        formsets = {'formset': FakeFormset()}
-
-    class FakeInstance(object):
-        class FakePage(object):
-            class FakeParent(object):
-                id = 1
-
-            name = 'fake page'
-
-            def get_parent(self):
-                return self.FakeParent()
-
-        def __init__(self):
-            fake_page = self.FakePage()
-            self.barbecue = fake_page
-
-    class FakePanel(object):
-        name = 'mock panel'
-
-        class FakeChild(object):
-            def rendered_fields(self):
-                return ["rendered fields"]
-
-        def init(*args, **kwargs):
-            pass
-
-        def __call__(self, *args, **kwargs):
-            fake_child = self.FakeChild()
-            return fake_child
-
-    def setUp(self):
-        self.fake_field = self.FakeField()
-        self.fake_instance = self.FakeInstance()
-        self.mock_panel = self.FakePanel()
-        self.mock_model = MagicMock()
-        self.mock_model.formset.related.model.panels = [self.mock_panel]
-
-    def test_get_panel_definitions_no_panels(self):
-        """
-        Check that get_panel_definitions returns the panels set on the model
-        when no panels are set on the InlinePanel
-        """
-        inline_panel = InlinePanel(self.mock_model, 'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        result = inline_panel.get_panel_definitions()
-        self.assertEqual(result[0].name, 'mock panel')
-
-    def test_get_panel_definitions(self):
-        """
-        Check that get_panel_definitions returns the panels set on
-        InlinePanel
-        """
-        other_mock_panel = MagicMock()
-        other_mock_panel.name = 'other mock panel'
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset',
-                                   panels=[other_mock_panel])(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        result = inline_panel.get_panel_definitions()
-        self.assertEqual(result[0].name, 'other mock panel')
-
-    def test_required_formsets(self):
-        inline_panel = InlinePanel(self.mock_model, 'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertEqual(inline_panel.required_formsets(), ['formset'])
+    fixtures = ['test.json']
 
     def test_render(self):
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset',
-                                   label='foo')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertIn('Add foo', inline_panel.render())
+        """
+        Check that the inline panel renders the panels set on the model
+        when no 'panels' parameter is passed in the InlinePanel definition
+        """
+        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers")
+        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
-    def test_render_js_init(self):
-        inline_panel = InlinePanel(self.mock_model,
-                                   'formset')(
-            instance=self.fake_instance,
-            form=self.fake_field)
-        self.assertIn('var panel = InlinePanel({',
-                      inline_panel.render_js_init())
+        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
+        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
+
+        event_page = EventPage.objects.get(slug='christmas')
+
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        result = panel.render_as_field()
+
+        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn('value="Choose an image"', result)
+
+        # rendered panel must also contain hidden fields for id, DELETE and ORDER
+        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+
+        # rendered panel must contain maintenance form for the formset
+        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+
+        # render_js_init must provide the JS initializer
+        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
+
+    def test_render_with_panel_overrides(self):
+        """
+        Check that inline panel renders the panels listed in the InlinePanel definition
+        where one is specified
+        """
+        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
+            FieldPanel('first_name'),
+            ImageChooserPanel('image'),
+        ])
+        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+
+        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
+        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
+
+        event_page = EventPage.objects.get(slug='christmas')
+
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        result = panel.render_as_field()
+
+        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+
+        # surname field is still rendered as a 'stray' label-less field: see #338.
+        # (Temporarily adding a test for this, so that we can verify that it fails when #338 is fixed...)
+        self.assertIn('<input id="id_speakers-0-last_name"', result)
+
+        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn('value="Choose an image"', result)
+
+        # rendered panel must also contain hidden fields for id, DELETE and ORDER
+        self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-DELETE" name="speakers-0-DELETE" type="hidden"', result)
+        self.assertIn('<input id="id_speakers-0-ORDER" name="speakers-0-ORDER" type="hidden"', result)
+
+        # rendered panel must contain maintenance form for the formset
+        self.assertIn('<input id="id_speakers-TOTAL_FORMS" name="speakers-TOTAL_FORMS" type="hidden"', result)
+
+        # render_js_init must provide the JS initializer
+        self.assertIn('var panel = InlinePanel({', panel.render_js_init())
