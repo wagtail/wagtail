@@ -223,12 +223,30 @@ class EditHandler(object):
         # by default, assume that the subclass provides a catch-all render() method
         return self.render()
 
+    def render_missing_fields(self):
+        """
+        Helper function: render all of the fields that are defined on the form but not "claimed" by
+        any panels via required_fields. These fields are most likely to be hidden fields introduced
+        by the forms framework itself, such as ORDER / DELETE fields on formset members.
+
+        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
+        outside of the panel furniture. But there's not much we can do about that.)
+        """
+        rendered_fields = self.required_fields()
+        missing_fields_html = [
+            text_type(self.form[field_name])
+            for field_name in self.form.fields
+            if field_name not in rendered_fields
+        ]
+
+        return mark_safe(''.join(missing_fields_html))
+
     def render_form_content(self):
         """
         Render this as an 'object', ensuring that all fields necessary for a valid form
         submission are included
         """
-        return mark_safe(self.render_as_object())
+        return mark_safe(self.render_as_object() + self.render_missing_fields())
 
 
 class BaseCompositeEditHandler(EditHandler):
