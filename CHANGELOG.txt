@@ -19,6 +19,8 @@ Changelog
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
  * Added cache-control headers to all admin views
+ * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
+
 
 0.8.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
