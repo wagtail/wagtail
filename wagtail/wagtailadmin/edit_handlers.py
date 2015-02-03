@@ -301,31 +301,51 @@ class BaseTabbedInterface(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
 
-def TabbedInterface(children):
-    return type(str('_TabbedInterface'), (BaseTabbedInterface,), {'children': children})
+class TabbedInterface(object):
+    def __init__(self, children):
+        self.children = children
+
+    def bind_to_model(self, model):
+        return type(str('_TabbedInterface'), (BaseTabbedInterface,), {
+            'model': model,
+            'children': [child.bind_to_model(model) for child in self.children],
+        })
 
 
 class BaseObjectList(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/object_list.html"
 
 
-def ObjectList(children, heading="", classname=""):
-    return type(str('_ObjectList'), (BaseObjectList,), {
-        'children': children,
-        'heading': heading,
-        'classname': classname
-    })
+class ObjectList(object):
+    def __init__(self, children, heading="", classname=""):
+        self.children = children
+        self.heading = heading
+        self.classname = classname
+
+    def bind_to_model(self, model):
+        return type(str('_ObjectList'), (BaseObjectList,), {
+            'model': model,
+            'children': [child.bind_to_model(model) for child in self.children],
+            'heading': self.heading,
+            'classname': self.classname,
+        })
 
 
 class BaseFieldRowPanel(BaseCompositeEditHandler):
     template = "wagtailadmin/edit_handlers/field_row_panel.html"
 
 
-def FieldRowPanel(children, classname=""):
-    return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {
-        'children': children,
-        'classname': classname,
-    })
+class FieldRowPanel(object):
+    def __init__(self, children, classname=""):
+        self.children = children
+        self.classname = classname
+
+    def bind_to_model(self, model):
+        return type(str('_FieldRowPanel'), (BaseFieldRowPanel,), {
+            'model': model,
+            'children': [child.bind_to_model(model) for child in self.children],
+            'classname': self.classname,
+        })
 
 
 class BaseMultiFieldPanel(BaseCompositeEditHandler):
@@ -338,12 +358,19 @@ class BaseMultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 
-def MultiFieldPanel(children, heading="", classname=""):
-    return type(str('_MultiFieldPanel'), (BaseMultiFieldPanel,), {
-        'children': children,
-        'heading': heading,
-        'classname': classname,
-    })
+class MultiFieldPanel(object):
+    def __init__(self, children, heading="", classname=""):
+        self.children = children
+        self.heading = heading
+        self.classname = classname
+
+    def bind_to_model(self, model):
+        return type(str('_MultiFieldPanel'), (BaseMultiFieldPanel,), {
+            'model': model,
+            'children': [child.bind_to_model(model) for child in self.children],
+            'heading': self.heading,
+            'classname': self.classname,
+        })
 
 
 class BaseFieldPanel(EditHandler):
@@ -402,26 +429,38 @@ class BaseFieldPanel(EditHandler):
         return [self.field_name]
 
 
-def FieldPanel(field_name, classname="", widget=None):
-    base = {
-        'field_name': field_name,
-        'classname': classname,
-    }
+class FieldPanel(object):
+    def __init__(self, field_name, classname="", widget=None):
+        self.field_name = field_name
+        self.classname = classname
+        self.widget = widget
 
-    if widget:
-        base['widget'] = widget
+    def bind_to_model(self, model):
+        base = {
+            'model': model,
+            'field_name': self.field_name,
+            'classname': self.classname,
+        }
 
-    return type(str('_FieldPanel'), (BaseFieldPanel,), base)
+        if self.widget:
+            base['widget'] = self.widget
+
+        return type(str('_FieldPanel'), (BaseFieldPanel,), base)
 
 
 class BaseRichTextFieldPanel(BaseFieldPanel):
     pass
 
 
-def RichTextFieldPanel(field_name):
-    return type(str('_RichTextFieldPanel'), (BaseRichTextFieldPanel,), {
-        'field_name': field_name,
-    })
+class RichTextFieldPanel(object):
+    def __init__(self, field_name):
+        self.field_name = field_name
+
+    def bind_to_model(self, model):
+        return type(str('_RichTextFieldPanel'), (BaseRichTextFieldPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+        })
 
 
 class BaseChooserPanel(BaseFieldPanel):
@@ -497,11 +536,17 @@ class BasePageChooserPanel(BaseChooserPanel):
         return super(BasePageChooserPanel, self).render_as_field(show_help_text, context)
 
 
-def PageChooserPanel(field_name, page_type=None):
-    return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
-        'field_name': field_name,
-        'page_type': page_type,
-    })
+class PageChooserPanel(object):
+    def __init__(self, field_name, page_type=None):
+        self.field_name = field_name
+        self.page_type = page_type
+
+    def bind_to_model(self, model):
+        return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+            'page_type': self.page_type,
+        })
 
 
 class BaseInlinePanel(EditHandler):
@@ -520,7 +565,7 @@ class BaseInlinePanel(EditHandler):
     def get_child_edit_handler_class(cls):
         if cls._child_edit_handler_class is None:
             panels = cls.get_panel_definitions()
-            cls._child_edit_handler_class = MultiFieldPanel(panels, heading=cls.heading)
+            cls._child_edit_handler_class = MultiFieldPanel(panels, heading=cls.heading).bind_to_model(cls.related.model)
 
         return cls._child_edit_handler_class
 
@@ -586,15 +631,24 @@ class BaseInlinePanel(EditHandler):
         }))
 
 
-def InlinePanel(base_model, relation_name, panels=None, label='', help_text=''):
-    rel = getattr(base_model, relation_name).related
-    return type(str('_InlinePanel'), (BaseInlinePanel,), {
-        'relation_name': relation_name,
-        'related': rel,
-        'panels': panels,
-        'heading': label,
-        'help_text': help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
-    })
+class InlinePanel(object):
+    def __init__(self, base_model, relation_name, panels=None, label='', help_text=''):
+        # the base_model param is now redundant; we set up relations based on the model passed to
+        # bind_to_model instead
+        self.relation_name = relation_name
+        self.panels = panels
+        self.label = label
+        self.help_text = help_text
+
+    def bind_to_model(self, model):
+        return type(str('_InlinePanel'), (BaseInlinePanel,), {
+            'model': model,
+            'relation_name': self.relation_name,
+            'related': getattr(model, self.relation_name).related,
+            'panels': self.panels,
+            'heading': self.label,
+            'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+        })
 
 
 # This allows users to include the publishing panel in their own per-model override

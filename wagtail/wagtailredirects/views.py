@@ -12,7 +12,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailredirects import models
 
 
-REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
+REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels).bind_to_model(models.Redirect)
 
 
 @permission_required('wagtailredirects.change_redirect')

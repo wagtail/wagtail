@@ -39,9 +39,15 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
         }))
 
 
-def SnippetChooserPanel(field_name, snippet_type):
-    return type(str('_SnippetChooserPanel'), (BaseSnippetChooserPanel,), {
-        'field_name': field_name,
-        'snippet_type_name': force_text(snippet_type._meta.verbose_name),
-        'snippet_type': snippet_type,
-    })
+class SnippetChooserPanel(object):
+    def __init__(self, field_name, snippet_type):
+        self.field_name = field_name
+        self.snippet_type = snippet_type
+
+    def bind_to_model(self, model):
+        return type(str('_SnippetChooserPanel'), (BaseSnippetChooserPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+            'snippet_type_name': force_text(self.snippet_type._meta.verbose_name),
+            'snippet_type': self.snippet_type,
+        })
