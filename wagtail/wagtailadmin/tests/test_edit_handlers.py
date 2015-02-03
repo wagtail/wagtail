@@ -414,6 +414,7 @@ class TestInlinePanel(TestCase):
         result = panel.render_as_field()
 
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('value="Father"', result)
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
@@ -435,7 +436,7 @@ class TestInlinePanel(TestCase):
         where one is specified
         """
         SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
-            FieldPanel('first_name'),
+            FieldPanel('first_name', widget=forms.Textarea),
             ImageChooserPanel('image'),
         ])
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
@@ -450,7 +451,9 @@ class TestInlinePanel(TestCase):
 
         result = panel.render_as_field()
 
+        # rendered panel should contain first_name rendered as a text area, but no last_name field
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('Father</textarea>', result)
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
 
         # test for #338: surname field should not be rendered as a 'stray' label-less field
