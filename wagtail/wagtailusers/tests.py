@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import unittest
 import six
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -71,6 +71,23 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
 
+    @override_settings(AUTH_USER_MODEL='tests.CustomUserWithoutUsername')
+    def test_create_without_username(self):
+        response = self.post({
+            'email': "test@user.com",
+            'first_name': "Test",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+
+        # Check that the user was created
+        users = get_user_model().objects.filter(email='test@user.com')
+        self.assertEqual(users.count(), 1)
+
 
 class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -124,6 +141,25 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(AUTH_USER_MODEL='tests.CustomUserWithoutUsername')
+    def test_edit_without_username(self):
+        self.test_user = get_user_model().objects.create_user(email='testuser@email.com', password='password')
+
+        response = self.post({
+            'email': "test@user.com",
+            'first_name': "Edited",
+            'last_name': "User",
+            'password1': "password",
+            'password2': "password",
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(id=self.test_user.id)
+        self.assertEqual(user.first_name, 'Edited')
 
 
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
