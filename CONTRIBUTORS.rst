@@ -40,6 +40,7 @@ Contributors
 * Timo Rieber
 * Jerel Unruh
 * georgewhewell
+* Frank Wiles
 
 Translators
 ===========
