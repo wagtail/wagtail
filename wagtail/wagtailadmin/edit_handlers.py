@@ -538,16 +538,11 @@ class BaseInlinePanel(EditHandler):
     def required_formsets(cls):
         child_edit_handler_class = cls.get_child_edit_handler_class()
         return {
-            cls.relation_name: {'fields': child_edit_handler_class.required_fields()}
+            cls.relation_name: {
+                'fields': child_edit_handler_class.required_fields(),
+                'widgets': child_edit_handler_class.widget_overrides(),
+            }
         }
-
-    @classmethod
-    def widget_overrides(cls):
-        overrides = cls.get_child_edit_handler_class().widget_overrides()
-        if overrides:
-            return {cls.relation_name: overrides}
-        else:
-            return {}
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)
