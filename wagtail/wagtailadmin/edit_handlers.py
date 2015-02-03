@@ -154,11 +154,12 @@ class EditHandler(object):
     def required_fields(cls):
         return []
 
-    # return list of formset names that this EditHandler requires to be present
-    # as children of the ClusterForm
+    # return a dict of formsets that this EditHandler requires to be present
+    # as children of the ClusterForm; the dict is a mapping from relation name
+    # to parameters to be passed as part of get_form_for_model's 'formsets' kwarg
     @classmethod
     def required_formsets(cls):
-        return []
+        return {}
 
     # the top-level edit handler is responsible for providing a form class that can produce forms
     # acceptable to the edit handler
@@ -284,9 +285,9 @@ class BaseCompositeEditHandler(EditHandler):
     @classmethod
     def required_formsets(cls):
         if cls._required_formsets is None:
-            formsets = []
+            formsets = {}
             for handler_class in cls.children:
-                formsets.extend(handler_class.required_formsets())
+                formsets.update(handler_class.required_formsets())
             cls._required_formsets = formsets
 
         return cls._required_formsets
@@ -535,7 +536,10 @@ class BaseInlinePanel(EditHandler):
 
     @classmethod
     def required_formsets(cls):
-        return [cls.relation_name]
+        child_edit_handler_class = cls.get_child_edit_handler_class()
+        return {
+            cls.relation_name: {'fields': child_edit_handler_class.required_fields()}
+        }
 
     @classmethod
     def widget_overrides(cls):
