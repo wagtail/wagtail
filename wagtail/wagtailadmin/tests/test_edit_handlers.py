@@ -504,6 +504,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertIn('value="Father"', result)
 
     def test_invalid_inlinepanel_declaration(self):
-        self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
-        self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', 'bacon', label="Speakers"))
-        self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))
+        with self.ignore_deprecation_warnings():
+            self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
+            self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', 'bacon', label="Speakers"))
+            self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))

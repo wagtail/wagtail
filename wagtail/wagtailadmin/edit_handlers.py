@@ -655,7 +655,7 @@ class InlinePanel(object):
                 "InlinePanel no longer needs to be passed a model parameter. "
                 "InlinePanel({classname}, '{relname}') should be changed to InlinePanel('{relname}')".format(
                     classname=args[0].__name__, relname=self.relation_name
-                ), RemovedInWagtail11Warning)
+                ), RemovedInWagtail11Warning, stacklevel=2)
         else:
             raise TypeError("InlinePanel() takes exactly 1 argument (%d given)" % len(args))
 
