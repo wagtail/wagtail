@@ -1,7 +1,7 @@
 tools:
     external_code_coverage:
         timeout: 600    # Timeout in seconds.
-        runs: 6 # Wait for 6 code coverage submisisons. Corresponds to the Travis build matrix
+        runs: 5 # Wait for 6 code coverage submisisons. Corresponds to the Travis build matrix
 
 checks:
     python:
