@@ -19,3 +19,4 @@ Bug fixes
  * (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
  * Storage backends that return raw ContentFile objects are now handled correctly when resizing images
  * Punctuation characters are no longer stripped when performing search queries
+ * When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
