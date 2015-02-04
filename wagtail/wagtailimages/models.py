@@ -303,9 +303,8 @@ class Filter(models.Model):
 
         for operation in self.operations:
             for field in getattr(operation, 'vary_fields', []):
-                value = getattr(image, field)
-                if value is not None:
-                    vary.append(str(value))
+                value = getattr(image, field, '')
+                vary.append(str(value))
 
         return vary
 

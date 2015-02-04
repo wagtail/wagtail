@@ -333,7 +333,7 @@ class TestVaryKey(unittest.TestCase):
         fil = Filter(spec='fill-100x100')
         vary_key = fil.get_vary_key(image)
 
-        self.assertEqual(vary_key, '')
+        self.assertEqual(vary_key, '2e16d0ba')
 
     def test_vary_key_fill_filter_with_focal_point(self):
         image = Image(
