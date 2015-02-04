@@ -302,8 +302,10 @@ class Filter(models.Model):
         vary = []
 
         for operation in self.operations:
-            if hasattr(operation, 'get_vary'):
-                vary.extend(operation.get_vary(image))
+            for field in getattr(operation, 'vary_fields', []):
+                value = getattr(image, field)
+                if value is not None:
+                    vary.append(str(value))
 
         return vary
 

@@ -347,4 +347,4 @@ class TestVaryKey(unittest.TestCase):
         fil = Filter(spec='fill-100x100')
         vary_key = fil.get_vary_key(image)
 
-        self.assertEqual(vary_key, 'fa9841ef')
+        self.assertEqual(vary_key, '0bbe3b2f')

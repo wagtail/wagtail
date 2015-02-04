@@ -38,6 +38,8 @@ class DoNothingOperation(Operation):
 
 
 class FillOperation(Operation):
+    vary_fields = ('focal_point_width', 'focal_point_height', 'focal_point_x', 'focal_point_y')
+
     def construct(self, size, *extra):
         # Get width and height
         width_str, height_str = size.split('x')
@@ -174,21 +176,6 @@ class FillOperation(Operation):
             height = self.height
 
         willow.resize(width, height)
-
-    def get_vary(self, image):
-        focal_point = image.get_focal_point()
-
-        if focal_point is not None:
-            focal_point_key = "%(x)d-%(y)d-%(width)dx%(height)d" % {
-                'x': int(focal_point.centroid_x),
-                'y': int(focal_point.centroid_y),
-                'width': int(focal_point.width),
-                'height': int(focal_point.height),
-            }
-        else:
-            focal_point_key = ''
-
-        return [focal_point_key]
 
 
 class MinMaxOperation(Operation):
