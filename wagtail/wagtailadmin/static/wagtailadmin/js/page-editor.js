@@ -117,7 +117,15 @@ function initDateTimeChooser(id) {
 
 function initTagField(id, autocompleteUrl) {
     $('#' + id).tagit({
-        autocomplete: {source: autocompleteUrl}
+        autocomplete: {source: autocompleteUrl},
+        preprocessTag: function(val) {
+            // Double quote a tag if it contains a space
+            // and if it isn't already quoted.
+            if (val && val[0] != '"' && val.indexOf(' ') > -1) {
+                return '"' + val + '"';
+            }
+            return val;
+        }
     });
 }
 
