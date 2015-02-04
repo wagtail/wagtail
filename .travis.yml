@@ -41,10 +41,8 @@ script:
   tox
 
 after_success:
-  coveralls
-
-after_script:
-  ocular --data-file ".coverage" --config-file ".coveragerc"
+  - coveralls
+  - ocular
 
 # Who to notify about build results
 notifications:
