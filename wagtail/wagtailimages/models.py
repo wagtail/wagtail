@@ -311,10 +311,12 @@ class Filter(models.Model):
 
     def get_vary_key(self, image):
         vary_string = '-'.join(self.get_vary(image))
-        vary_key = hashlib.sha1(vary_string.encode('utf-8')).hexdigest()
 
-        return vary_key[:8]
+        # Return blank string if there are no vary fields
+        if not vary_string:
+            return ''
 
+        return  hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
 
     _registered_operations = None
 

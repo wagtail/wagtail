@@ -326,14 +326,14 @@ class TestVaryKey(unittest.TestCase):
         fil = Filter(spec='max-100x100')
         vary_key = fil.get_vary_key(image)
 
-        self.assertEqual(vary_key, 'da39a3ee')
+        self.assertEqual(vary_key, '')
 
     def test_vary_key_fill_filter(self):
         image = Image(width=1000, height=1000)
         fil = Filter(spec='fill-100x100')
         vary_key = fil.get_vary_key(image)
 
-        self.assertEqual(vary_key, 'da39a3ee')
+        self.assertEqual(vary_key, '')
 
     def test_vary_key_fill_filter_with_focal_point(self):
         image = Image(
