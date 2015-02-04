@@ -10,14 +10,30 @@ Changelog
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
  * FieldPanel now accepts an optional 'widget' parameter to override the field's default form widget (Alejandro Giacometti)
+ * Dropped Django 1.6 support
+ * Dropped Python 2.6 and 3.2 support
+ * Dropped Elasticsearch 0.90.x support
+ * Search view accepts "page" GET parameter in line with pagination
+ * Reversing `django.contrib.auth.admin.login` will no longer lead to Wagtails login view (making it easier to have front end views)
+ * Removed dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
+ * Password reset view names namespaced to wagtailadmin
+ * Removed the need to add permission check on admin views (now automated)
+ * Added cache-control headers to all admin views
+ * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
+ * Page model fields without a FieldPanel are no longer displayed in the form
+ * No longer need to specify the base model on InlinePanel definitions
 
 
 0.8.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
+
 * Fix: On adding a new page, the available page types are ordered by the displayed verbose name
 * Fix: Active admin submenus were not properly closed when activating another
 * Fix: get_sitemap_urls is now called on the specific page class so it can now be overridden (Jerel Unruh)
-
+* Fix: (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
+* Fix: Storage backends that return raw ContentFile objects are now handled correctly when resizing images (@georgewhewell)
+* Fix: Punctuation characters are no longer stripped when performing search queries
+* Fix: When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~

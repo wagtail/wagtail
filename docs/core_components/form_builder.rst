@@ -53,7 +53,7 @@ You now need to create two templates named form_page.html and form_page_landing.
 
 .. code:: html
 
-    {% load pageurl rich_text %}
+    {% load wagtailcore_tags %}
     <html>
         <head>
             <title>{{ self.title }}</title>

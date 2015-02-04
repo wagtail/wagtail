@@ -18,6 +18,7 @@ from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
+from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
 @permission_required('wagtailimages.add_image')
@@ -77,7 +78,6 @@ def index(request):
         })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
@@ -126,7 +126,6 @@ def edit(request, image_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -149,7 +148,6 @@ def json_response(document, status=200):
     return HttpResponse(json.dumps(document), content_type='application/json', status=status)
 
 
-@permission_required('wagtailadmin.access_admin')
 def generate_url(request, image_id, filter_spec):
     # Get the image
     Image = get_image_model()
@@ -167,7 +165,9 @@ def generate_url(request, image_id, filter_spec):
         }, status=403)
 
     # Parse the filter spec to make sure its valid
-    if not Filter(spec=filter_spec).is_valid():
+    try:
+        Filter(spec=filter_spec).operations
+    except InvalidFilterSpecError:
         return json_response({
             'error': "Invalid filter spec."
         }, status=400)
@@ -188,17 +188,15 @@ def generate_url(request, image_id, filter_spec):
     return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
 
 
-@permission_required('wagtailadmin.access_admin')
 def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        return Filter(spec=filter_spec).process_image(image.file.file, HttpResponse(content_type='image/jpeg'), focal_point=image.get_focal_point())
-    except Filter.InvalidFilterSpecError:
+        return Filter(spec=filter_spec).run(image, HttpResponse(content_type='image/jpeg'))
+    except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -245,7 +243,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 

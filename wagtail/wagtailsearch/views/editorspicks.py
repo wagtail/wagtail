@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import permission_required
 
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,7 +10,6 @@ from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 
 
-@permission_required('wagtailadmin.access_admin')
 @vary_on_headers('X-Requested-With')
 def index(request):
     is_searching = False
@@ -70,7 +68,6 @@ def save_editorspicks(query, new_query, editors_pick_formset):
         return False
 
 
-@permission_required('wagtailadmin.access_admin')
 def add(request):
     if request.POST:
         # Get query
@@ -102,7 +99,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def edit(request, query_id):
     query = get_object_or_404(models.Query, id=query_id)
 
@@ -138,7 +134,6 @@ def edit(request, query_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def delete(request, query_id):
     query = get_object_or_404(models.Query, id=query_id)
 

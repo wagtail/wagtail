@@ -278,10 +278,7 @@ class ElasticSearchResults(BaseSearchResults):
         hits = self.backend.es.search(**params)
 
         # Get pks from results
-        pks = [hit['fields']['pk'] for hit in hits['hits']['hits']]
-
-        # ElasticSearch 1.x likes to pack pks into lists, unpack them if this has happened
-        pks = [pk[0] if isinstance(pk, list) else pk for pk in pks]
+        pks = [hit['fields']['pk'][0] for hit in hits['hits']['hits']]
 
         # Initialise results dictionary
         results = dict((str(pk), None) for pk in pks)
@@ -298,21 +295,11 @@ class ElasticSearchResults(BaseSearchResults):
         # Get query
         query = self.query.to_es()
 
-        # Elasticsearch 1.x
-        count = self.backend.es.count(
+        # Get count
+        hit_count = self.backend.es.count(
             index=self.backend.es_index,
             body=dict(query=query),
-        )
-
-        # ElasticSearch 0.90.x fallback
-        if not count['_shards']['successful'] and "No query registered for [query]]" in count['_shards']['failures'][0]['reason']:
-            count = self.backend.es.count(
-                index=self.backend.es_index,
-                body=query,
-            )
-
-        # Get count
-        hit_count = count['count']
+        )['count']
 
         # Add limits
         hit_count -= self.start

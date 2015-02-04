@@ -135,6 +135,34 @@ class TestElasticSearchBackend(BackendTests, TestCase):
         # Even though they both start with the letter "H". This should not be considered a match
         self.assertEqual(len(results), 0)
 
+    def test_search_with_hyphen(self):
+        """
+        This tests that punctuation characters are treated the same
+        way in both indexing and querying.
+
+        See: https://github.com/torchbox/wagtail/issues/937
+        """
+        # Reset the index
+        self.backend.reset_index()
+        self.backend.add_type(models.SearchTest)
+        self.backend.add_type(models.SearchTestChild)
+
+        # Add some test data
+        obj = models.SearchTest()
+        obj.title = "Hello-World"
+        obj.live = True
+        obj.save()
+        self.backend.add(obj)
+
+        # Refresh the index
+        self.backend.refresh_index()
+
+        # Test search for "Hello-World"
+        results = self.backend.search("Hello-World", models.SearchTest.objects.all())
+
+        # Should find the result
+        self.assertEqual(len(results), 1)
+
 
 class TestElasticSearchQuery(TestCase):
     def assertDictEqual(self, a, b):

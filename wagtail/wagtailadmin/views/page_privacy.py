@@ -1,12 +1,11 @@
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
 from wagtail.wagtailadmin.forms import PageViewRestrictionForm
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 
-@permission_required('wagtailadmin.access_admin')
+
 def set_privacy(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     page_perms = page.permissions_for_user(request.user)

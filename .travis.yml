@@ -1,11 +1,21 @@
 language: python
-env:
-  - TOXENV=py27-dj17-postgres
-  - TOXENV=py27-dj17-sqlite
-  - TOXENV=py32-dj17-postgres
-#  - TOXENV=py33-dj17-postgres
-  - TOXENV=py34-dj17-postgres
-  - TOXENV=py34-dj17-sqlite
+
+matrix:
+  include:
+   - env: TOXENV=py27-dj17-postgres
+   - env: TOXENV=py27-dj17-sqlite
+   - env: TOXENV=py33-dj17-postgres
+   - env: TOXENV=py34-dj17-postgres
+   - env: TOXENV=py34-dj17-sqlite
+   - env: TOXENV=py27-dj18-postgres
+#   - env: TOXENV=py27-dj18-sqlite
+#  - env: TOXENV=py33-dj18-postgres
+   - env: TOXENV=py34-dj18-postgres
+   - env: TOXENV=py34-dj18-sqlite
+  allow_failures:
+   - env: TOXENV=py27-dj18-postgres
+   - env: TOXENV=py34-dj18-postgres
+   - env: TOXENV=py34-dj18-sqlite
 
 # Services
 services:

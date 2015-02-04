@@ -32,7 +32,6 @@ def get_image_json(image):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def chooser(request):
     Image = get_image_model()
 
@@ -100,7 +99,6 @@ def chooser(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def image_chosen(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
@@ -151,7 +149,6 @@ def chooser_upload(request):
     )
 
 
-@permission_required('wagtailadmin.access_admin')
 def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 

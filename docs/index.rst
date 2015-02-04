@@ -3,7 +3,7 @@ Welcome to Wagtail's documentation
 
 Wagtail is a modern, flexible CMS, built on Django.
 
-It supports Django 1.7.0+ on Python 2.7, 3.2, 3.3 and 3.4.
+It supports Django 1.7.0+ on Python 2.7, 3.3 and 3.4.
 
 .. toctree::
    :maxdepth: 3

@@ -150,19 +150,6 @@ Wagtail Apps
 Settings Variables (settings.py)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Authentication
---------------
-
-.. code-block:: python
-
-  LOGIN_URL = 'wagtailadmin_login'
-  LOGIN_REDIRECT_URL = 'wagtailadmin_home'
-
-These settings variables set the Django authentication system to redirect to the Wagtail admin login. If you plan to use the Django authentication module to log in non-privileged users, you should set these variables to your own login views. See `Django User Authentication`_.
-
-.. _Django User Authentication: https://docs.djangoproject.com/en/dev/topics/auth/
-
-
 Site Name
 ---------
 
@@ -479,10 +466,6 @@ settings.py
   COMPRESS_PRECOMPILERS = (
       ('text/x-scss', 'django_libsass.SassCompiler'),
   )
-
-  # Auth settings
-  LOGIN_URL = 'wagtailadmin_login'
-  LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
   # A sample logging configuration. The only tangible logging
   # performed by this configuration is to send an email to

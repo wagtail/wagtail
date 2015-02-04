@@ -186,7 +186,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Should be redirected to edit page
         self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(page.id, )))
-       
+
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
@@ -325,7 +325,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Should be redirected to explorer
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
-       
+
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
@@ -389,6 +389,20 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['self'].path.startswith(self.root_page.path))
         self.assertEqual(response.context['self'].get_parent(), self.root_page)
 
+    def test_whitespace_titles(self):
+        post_data = {
+            'title': " ",  # Single space on purpose
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+            'seo_title': '\t',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.root_page.id)), post_data)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'title', "Value cannot be entirely whitespace characters")
+        self.assertFormError(response, 'form', 'seo_title', "Value cannot be entirely whitespace characters")
+
 
 class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -439,7 +453,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Should be redirected to edit page
         self.assertRedirects(response, reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )))
 
@@ -461,7 +475,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'slug': 'hello-world',
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Shouldn't be redirected
         self.assertContains(response, "The page could not be saved as it is locked")
 
@@ -550,7 +564,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'action-publish': "Publish",
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Should be redirected to explorer
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
@@ -652,7 +666,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'action-submit': "Submit",
         }
         response = self.client.post(reverse('wagtailadmin_pages_edit', args=(self.child_page.id, )), post_data)
-    
+
         # Should be redirected to explorer
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
