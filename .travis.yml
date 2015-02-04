@@ -28,7 +28,7 @@ services:
 
 # Package installation
 install:
-  - pip install tox coveralls
+  - pip install tox coveralls scrutinizer-ocular
 
 # Pre-test configuration
 before_script:
@@ -42,6 +42,9 @@ script:
 
 after_success:
   coveralls
+
+after_script:
+  ocular --data-file ".coverage" --config-file ".coveragerc"
 
 # Who to notify about build results
 notifications:
