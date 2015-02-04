@@ -720,6 +720,9 @@ class BaseStreamBlock(Block):
         ])
 
     def get_prep_value(self, value):
+        if value is None:
+            return None
+
         return [
             {'type': bound_block.block.name, 'value': bound_block.block.get_prep_value(bound_block.value)}
             for bound_block in value.bound_blocks

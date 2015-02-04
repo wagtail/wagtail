@@ -46,6 +46,9 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         self.stream_block = StreamBlock(block_types)
         super(StreamField, self).__init__(**kwargs)
 
+    def get_internal_type(self):
+        return 'TextField'
+
     def deconstruct(self):
         name, path, args, kwargs = super(StreamField, self).deconstruct()
         kwargs['block_types'] = self.block_types
