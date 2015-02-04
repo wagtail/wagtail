@@ -6,7 +6,7 @@ tools:
     external_code_coverage:
         timeout: 1200
         enabled: true
-        runs: 5
+        runs: 2
         filter:
             excluded_paths:
                 - '*/test/*'
