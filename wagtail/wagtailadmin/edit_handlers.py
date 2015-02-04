@@ -701,8 +701,6 @@ Page.settings_panels = [
 ]
 
 
-from wagtail.wagtailadmin.blocks import StreamBlock
-
 class BaseStreamFieldPanel(BaseFieldPanel):
     
     def classes(self):
@@ -727,13 +725,12 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         return cls.block_def.all_html_declarations()
 
 class StreamFieldPanel(object):
-    def __init__(self, field_name, block_types):
+    def __init__(self, field_name):
         self.field_name = field_name
-        self.block_types = block_types
 
     def bind_to_model(self, model):
         return type(str('_StreamFieldPanel'), (BaseStreamFieldPanel,), {
             'model': model,
             'field_name': self.field_name,
-            'block_def': StreamBlock(self.block_types),
+            'block_def': model._meta.get_field(self.field_name).stream_block
         })
