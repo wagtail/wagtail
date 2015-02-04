@@ -171,18 +171,9 @@ class TestTabbedInterface(TestCase):
         # this result should not include fields that are not covered by the panel definition
         self.assertNotIn('signup_link', result)
 
-    def test_rendered_fields(self):
-        EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
-        event = EventPage(title='Abergavenny sheepdog trials')
-        form = EventPageForm(instance=event)
-
-        tabbed_interface = self.EventPageTabbedInterface(
-            instance=event,
-            form=form
-        )
-
-        # rendered_fields should report the set of form fields rendered recursively as part of TabbedInterface
-        result = set(tabbed_interface.rendered_fields())
+    def test_required_fields(self):
+        # required_fields should report the set of form fields to be rendered recursively by children of TabbedInterface
+        result = set(self.EventPageTabbedInterface.required_fields())
         self.assertEqual(result, set(['title', 'date_from', 'date_to']))
 
     def test_render_form_content(self):
@@ -198,9 +189,9 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render_form_content()
         # rendered output should contain field content as above
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
-        # rendered output should also contain all other fields that are in the form but not represented
+        # rendered output should NOT include fields that are in the model but not represented
         # in the panel definition
-        self.assertIn('signup_link', result)
+        self.assertNotIn('signup_link', result)
 
 
 class TestObjectList(TestCase):
@@ -308,15 +299,8 @@ class TestFieldPanel(TestCase):
         # there should be no errors on this field
         self.assertNotIn('<p class="error-message">', result)
 
-    def test_rendered_fields(self):
-        form = self.EventPageForm(
-            {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
-            instance=self.event)
-        field_panel = self.EndDatePanel(
-            instance=self.event,
-            form=form
-        )
-        result = field_panel.rendered_fields()
+    def test_required_fields(self):
+        result = self.EndDatePanel.required_fields()
         self.assertEqual(result, ['date_to'])
 
     def test_error_message_is_rendered(self):
@@ -430,6 +414,7 @@ class TestInlinePanel(TestCase):
         result = panel.render_as_field()
 
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('value="Father"', result)
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)
@@ -451,7 +436,7 @@ class TestInlinePanel(TestCase):
         where one is specified
         """
         SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
-            FieldPanel('first_name'),
+            FieldPanel('first_name', widget=forms.Textarea),
             ImageChooserPanel('image'),
         ])
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
@@ -466,12 +451,13 @@ class TestInlinePanel(TestCase):
 
         result = panel.render_as_field()
 
+        # rendered panel should contain first_name rendered as a text area, but no last_name field
         self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('Father</textarea>', result)
         self.assertNotIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
 
-        # surname field is still rendered as a 'stray' label-less field: see #338.
-        # (Temporarily adding a test for this, so that we can verify that it fails when #338 is fixed...)
-        self.assertIn('<input id="id_speakers-0-last_name"', result)
+        # test for #338: surname field should not be rendered as a 'stray' label-less field
+        self.assertNotIn('<input id="id_speakers-0-last_name"', result)
 
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn('value="Choose an image"', result)

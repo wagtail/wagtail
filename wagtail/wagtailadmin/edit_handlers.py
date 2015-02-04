@@ -149,11 +149,17 @@ class EditHandler(object):
     def widget_overrides(cls):
         return {}
 
-    # return list of formset names that this EditHandler requires to be present
-    # as children of the ClusterForm
+    # return list of fields that this EditHandler expects to find on the form
+    @classmethod
+    def required_fields(cls):
+        return []
+
+    # return a dict of formsets that this EditHandler requires to be present
+    # as children of the ClusterForm; the dict is a mapping from relation name
+    # to parameters to be passed as part of get_form_for_model's 'formsets' kwarg
     @classmethod
     def required_formsets(cls):
-        return []
+        return {}
 
     # the top-level edit handler is responsible for providing a form class that can produce forms
     # acceptable to the edit handler
@@ -164,6 +170,7 @@ class EditHandler(object):
         if cls._form_class is None:
             cls._form_class = get_form_for_model(
                 model,
+                fields=cls.required_fields(),
                 formsets=cls.required_formsets(), widgets=cls.widget_overrides())
         return cls._form_class
 
@@ -217,19 +224,16 @@ class EditHandler(object):
         # by default, assume that the subclass provides a catch-all render() method
         return self.render()
 
-    def rendered_fields(self):
-        """
-        return a list of the fields of the passed form which are rendered by this
-        EditHandler.
-        """
-        return []
-
     def render_missing_fields(self):
         """
-        Helper function: render all of the fields of the form that are not accounted for
-        in rendered_fields
+        Helper function: render all of the fields that are defined on the form but not "claimed" by
+        any panels via required_fields. These fields are most likely to be hidden fields introduced
+        by the forms framework itself, such as ORDER / DELETE fields on formset members.
+
+        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
+        outside of the panel furniture. But there's not much we can do about that.)
         """
-        rendered_fields = self.rendered_fields()
+        rendered_fields = self.required_fields()
         missing_fields_html = [
             text_type(self.form[field_name])
             for field_name in self.form.fields
@@ -240,8 +244,8 @@ class EditHandler(object):
 
     def render_form_content(self):
         """
-        Render this as an 'object', along with any unaccounted-for fields to make this
-        a valid submittable form
+        Render this as an 'object', ensuring that all fields necessary for a valid form
+        submission are included
         """
         return mark_safe(self.render_as_object() + self.render_missing_fields())
 
@@ -264,14 +268,26 @@ class BaseCompositeEditHandler(EditHandler):
 
         return cls._widget_overrides
 
+    _required_fields = None
+
+    @classmethod
+    def required_fields(cls):
+        if cls._required_fields is None:
+            fields = []
+            for handler_class in cls.children:
+                fields.extend(handler_class.required_fields())
+            cls._required_fields = fields
+
+        return cls._required_fields
+
     _required_formsets = None
 
     @classmethod
     def required_formsets(cls):
         if cls._required_formsets is None:
-            formsets = []
+            formsets = {}
             for handler_class in cls.children:
-                formsets.extend(handler_class.required_formsets())
+                formsets.update(handler_class.required_formsets())
             cls._required_formsets = formsets
 
         return cls._required_formsets
@@ -288,13 +304,6 @@ class BaseCompositeEditHandler(EditHandler):
         return mark_safe(render_to_string(self.template, {
             'self': self
         }))
-
-    def rendered_fields(self):
-        result = []
-        for handler in self.children:
-            result += handler.rendered_fields()
-
-        return result
 
 
 class BaseTabbedInterface(BaseCompositeEditHandler):
@@ -398,7 +407,8 @@ class BaseFieldPanel(EditHandler):
         context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
 
-    def rendered_fields(self):
+    @classmethod
+    def required_fields(self):
         return [self.field_name]
 
 
@@ -526,15 +536,13 @@ class BaseInlinePanel(EditHandler):
 
     @classmethod
     def required_formsets(cls):
-        return [cls.relation_name]
-
-    @classmethod
-    def widget_overrides(cls):
-        overrides = cls.get_child_edit_handler_class().widget_overrides()
-        if overrides:
-            return {cls.relation_name: overrides}
-        else:
-            return {}
+        child_edit_handler_class = cls.get_child_edit_handler_class()
+        return {
+            cls.relation_name: {
+                'fields': child_edit_handler_class.required_fields(),
+                'widgets': child_edit_handler_class.widget_overrides(),
+            }
+        }
 
     def __init__(self, instance=None, form=None):
         super(BaseInlinePanel, self).__init__(instance=instance, form=form)

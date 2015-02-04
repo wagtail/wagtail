@@ -495,6 +495,11 @@ class TaggedPageTag(TaggedItemBase):
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
 
+TaggedPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('tags'),
+]
+
 
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
