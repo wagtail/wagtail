@@ -20,6 +20,8 @@ Changelog
  * Removed the need to add permission check on admin views (now automated)
  * Added cache-control headers to all admin views
  * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
+ * Page model fields without a FieldPanel are no longer displayed in the form
+ * No longer need to specify the base model on InlinePanel definitions
 
 
 0.8.5 (xx.xx.20xx)
