@@ -2,7 +2,7 @@ import unittest
 
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.models import Image, Filter
 
 
 class WillowOperationRecorder(object):
@@ -318,3 +318,33 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     ]
 
 TestWidthHeightOperation.setup_test_methods()
+
+
+class TestVaryKey(unittest.TestCase):
+    def test_vary_key(self):
+        image = Image(width=1000, height=1000)
+        fil = Filter(spec='max-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, 'da39a3ee')
+
+    def test_vary_key_fill_filter(self):
+        image = Image(width=1000, height=1000)
+        fil = Filter(spec='fill-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, 'da39a3ee')
+
+    def test_vary_key_fill_filter_with_focal_point(self):
+        image = Image(
+            width=1000,
+            height=1000,
+            focal_point_width=100,
+            focal_point_height=100,
+            focal_point_x=500,
+            focal_point_y=500,
+        )
+        fil = Filter(spec='fill-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, 'fa9841ef')
