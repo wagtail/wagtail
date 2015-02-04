@@ -59,7 +59,7 @@ SNIPPET_EDIT_HANDLERS = {}
 def get_snippet_edit_handler(model):
     if model not in SNIPPET_EDIT_HANDLERS:
         panels = extract_panel_definitions_from_model_class(model)
-        edit_handler = ObjectList(panels)
+        edit_handler = ObjectList(panels).bind_to_model(model)
 
         SNIPPET_EDIT_HANDLERS[model] = edit_handler
 

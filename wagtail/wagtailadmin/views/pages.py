@@ -712,7 +712,7 @@ def get_page_edit_handler(page_class):
             ObjectList(page_class.content_panels, heading='Content'),
             ObjectList(page_class.promote_panels, heading='Promote'),
             ObjectList(page_class.settings_panels, heading='Settings', classname="settings")
-        ])
+        ]).bind_to_model(page_class)
 
     return PAGE_EDIT_HANDLERS[page_class]
 

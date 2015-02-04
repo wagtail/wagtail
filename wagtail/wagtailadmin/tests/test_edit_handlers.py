@@ -7,9 +7,8 @@ from django import forms
 from wagtail.wagtailadmin.edit_handlers import (
     get_form_for_model,
     extract_panel_definitions_from_model_class,
-    BaseFieldPanel,
     FieldPanel,
-    BaseRichTextFieldPanel,
+    RichTextFieldPanel,
     TabbedInterface,
     ObjectList,
     PageChooserPanel,
@@ -17,7 +16,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 )
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
-from wagtail.wagtailimages.edit_handlers import BaseImageChooserPanel, ImageChooserPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
 
@@ -91,7 +90,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
         self.assertEqual(len(result), 4)
         #print repr(result)
-        self.assertTrue(any([issubclass(panel, BaseImageChooserPanel) for panel in result]))
+        self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
 
     def test_exclude(self):
         panels = extract_panel_definitions_from_model_class(Site, exclude=['hostname'])
@@ -103,19 +102,19 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         panels = extract_panel_definitions_from_model_class(EventPage)
 
         self.assertTrue(any([
-            issubclass(panel, BaseFieldPanel) and panel.field_name == 'date_from'
+            isinstance(panel, FieldPanel) and panel.field_name == 'date_from'
             for panel in panels
         ]))
 
         # returned panel types should respect modelfield.get_panel() - used on RichTextField
         self.assertTrue(any([
-            issubclass(panel, BaseRichTextFieldPanel) and panel.field_name == 'body'
+            isinstance(panel, RichTextFieldPanel) and panel.field_name == 'body'
             for panel in panels
         ]))
 
         # treebeard fields should be excluded
         self.assertFalse(any([
-            issubclass(panel, BaseFieldPanel) and panel.field_name == 'path'
+            panel.field_name == 'path'
             for panel in panels
         ]))
 
@@ -132,7 +131,7 @@ class TestTabbedInterface(TestCase):
             ObjectList([
                 InlinePanel(EventPage, 'speakers', label="Speakers"),
             ], heading='Speakers'),
-        ])
+        ]).bind_to_model(EventPage)
 
     def test_get_form_class(self):
         EventPageForm = self.EventPageTabbedInterface.get_form_class(EventPage)
@@ -202,7 +201,7 @@ class TestObjectList(TestCase):
             FieldPanel('date_from'),
             FieldPanel('date_to'),
             InlinePanel(EventPage, 'speakers', label="Speakers"),
-        ], heading='Event details', classname="shiny")
+        ], heading='Event details', classname="shiny").bind_to_model(EventPage)
 
     def test_get_form_class(self):
         EventPageForm = self.EventPageObjectList.get_form_class(EventPage)
@@ -245,7 +244,7 @@ class TestFieldPanel(TestCase):
         self.event = EventPage(title='Abergavenny sheepdog trials',
             date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
-        self.EndDatePanel = FieldPanel('date_to', classname='full-width')
+        self.EndDatePanel = FieldPanel('date_to', classname='full-width').bind_to_model(EventPage)
 
     def test_render_as_object(self):
         form = self.EventPageForm(
@@ -327,7 +326,7 @@ class TestPageChooserPanel(TestCase):
         model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
         # a PageChooserPanel class that works on PageChooserModel's 'page' field
-        self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage')
+        self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage').bind_to_model(PageChooserModel)
 
         # build a form class containing the fields that MyPageChooserPanel wants
         self.PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
@@ -372,14 +371,14 @@ class TestPageChooserPanel(TestCase):
         result = PageChooserPanel(
             'barbecue',
             'wagtailcore.site'
-        ).target_content_type()
+        ).bind_to_model(PageChooserModel).target_content_type()
         self.assertEqual(result.name, 'site')
 
     def test_target_content_type_malformed_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman'
-        )
+        ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
                           result.target_content_type)
 
@@ -387,7 +386,7 @@ class TestPageChooserPanel(TestCase):
         result = PageChooserPanel(
             'barbecue',
             'snowman.lorry'
-        )
+        ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
                           result.target_content_type)
 
@@ -400,7 +399,7 @@ class TestInlinePanel(TestCase):
         Check that the inline panel renders the panels set on the model
         when no 'panels' parameter is passed in the InlinePanel definition
         """
-        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers")
+        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers").bind_to_model(EventPage)
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
@@ -438,7 +437,7 @@ class TestInlinePanel(TestCase):
         SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
             FieldPanel('first_name', widget=forms.Textarea),
             ImageChooserPanel('image'),
-        ])
+        ]).bind_to_model(EventPage)
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
