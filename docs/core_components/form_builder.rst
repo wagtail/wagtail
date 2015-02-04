@@ -36,7 +36,7 @@ Within the models.py of one of your apps, create a model that extends wagtailfor
     FormPage.content_panels = [
         FieldPanel('title', classname="full title"),
         FieldPanel('intro', classname="full"),
-        InlinePanel(FormPage, 'form_fields', label="Form fields"),
+        InlinePanel('form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
         MultiFieldPanel([
             FieldPanel('to_address', classname="full"),
