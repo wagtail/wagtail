@@ -1,4 +1,5 @@
 from datetime import date
+import warnings
 
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
@@ -19,6 +20,8 @@ from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
 class TestGetFormForModel(TestCase):
@@ -129,7 +132,7 @@ class TestTabbedInterface(TestCase):
                 FieldPanel('date_to'),
             ], heading='Event details', classname="shiny"),
             ObjectList([
-                InlinePanel(EventPage, 'speakers', label="Speakers"),
+                InlinePanel('speakers', label="Speakers"),
             ], heading='Speakers'),
         ]).bind_to_model(EventPage)
 
@@ -200,7 +203,7 @@ class TestObjectList(TestCase):
             FieldPanel('title', widget=forms.Textarea),
             FieldPanel('date_from'),
             FieldPanel('date_to'),
-            InlinePanel(EventPage, 'speakers', label="Speakers"),
+            InlinePanel('speakers', label="Speakers"),
         ], heading='Event details', classname="shiny").bind_to_model(EventPage)
 
     def test_get_form_class(self):
@@ -391,7 +394,7 @@ class TestPageChooserPanel(TestCase):
                           result.target_content_type)
 
 
-class TestInlinePanel(TestCase):
+class TestInlinePanel(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def test_render(self):
@@ -399,7 +402,7 @@ class TestInlinePanel(TestCase):
         Check that the inline panel renders the panels set on the model
         when no 'panels' parameter is passed in the InlinePanel definition
         """
-        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers").bind_to_model(EventPage)
+        SpeakerInlinePanel = InlinePanel('speakers', label="Speakers").bind_to_model(EventPage)
         EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
 
         # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
@@ -434,7 +437,7 @@ class TestInlinePanel(TestCase):
         Check that inline panel renders the panels listed in the InlinePanel definition
         where one is specified
         """
-        SpeakerInlinePanel = InlinePanel(EventPage, 'speakers', label="Speakers", panels=[
+        SpeakerInlinePanel = InlinePanel('speakers', label="Speakers", panels=[
             FieldPanel('first_name', widget=forms.Textarea),
             ImageChooserPanel('image'),
         ]).bind_to_model(EventPage)
@@ -471,3 +474,36 @@ class TestInlinePanel(TestCase):
 
         # render_js_init must provide the JS initializer
         self.assertIn('var panel = InlinePanel({', panel.render_js_init())
+
+    def test_old_style_inlinepanel_declaration(self):
+        """
+        Check that the deprecated form of InlinePanel declaration (where the base model is passed
+        as the first arg) still works
+        """
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            SpeakerInlinePanelDef = InlinePanel(EventPage, 'speakers', label="Speakers")
+
+            # Check that a RemovedInWagtail11Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail11Warning))
+            self.assertTrue("InlinePanel(EventPage, 'speakers') should be changed to InlinePanel('speakers')" in str(w[-1].message))
+
+        SpeakerInlinePanel = SpeakerInlinePanelDef.bind_to_model(EventPage)
+        EventPageForm = SpeakerInlinePanel.get_form_class(EventPage)
+
+        # SpeakerInlinePanel should instruct the form class to include a 'speakers' formset
+        self.assertEqual(['speakers'], list(EventPageForm.formsets.keys()))
+
+        event_page = EventPage.objects.get(slug='christmas')
+        form = EventPageForm(instance=event_page)
+        panel = SpeakerInlinePanel(instance=event_page, form=form)
+
+        result = panel.render_as_field()
+        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn('value="Father"', result)
+
+    def test_invalid_inlinepanel_declaration(self):
+        self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
+        self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', 'bacon', label="Speakers"))
+        self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))
