@@ -38,6 +38,8 @@ Contributors
 * Robert Rollins
 * Jerel Unruh
 * georgewhewell
+* Frank Wiles
+* Sebastian Spiegel
 
 Translators
 ===========
