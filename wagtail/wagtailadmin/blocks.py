@@ -735,7 +735,7 @@ class BaseStreamBlock(Block):
 
     def render(self, value):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
-            [(child.render(), child.block.name) for child in value]
+            [(child.render(), child.block_type) for child in value]
         )
 
 
@@ -749,6 +749,18 @@ class StreamValue(collections.Sequence):
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
     (which keep track of block types in a way that the values alone wouldn't).
     """
+
+    class StreamChild(BoundBlock):
+        """
+        Syntactic sugar so that we can say child.block_type instead of child.block.name.
+        (This doesn't belong on BoundBlock itself because the idea of block.name denoting
+        the child's "type" ('heading', 'paragraph' etc) is unique to StreamBlock, and in the
+        wider context people are liable to confuse it with the block class (CharBlock etc).
+        """
+        @property
+        def block_type(self):
+            return self.block.name
+
     def __init__(self, stream_block, stream_data):
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.stream_data = stream_data  # a list of (type_name, value) tuples
@@ -758,7 +770,7 @@ class StreamValue(collections.Sequence):
         if i not in self._bound_blocks:
             type_name, value = self.stream_data[i]
             child_block = self.stream_block.child_blocks[type_name]
-            self._bound_blocks[i] = child_block.bind(value)
+            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
 
         return self._bound_blocks[i]
 
