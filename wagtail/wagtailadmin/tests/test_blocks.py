@@ -145,3 +145,73 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
         self.assertIn('<div class="field url_field">', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
+
+
+class TestListBlock(unittest.TestCase):
+    def test_initialise_with_class(self):
+        block = blocks.ListBlock(blocks.Block)
+
+        # Child block should be initialised for us
+        self.assertIsInstance(block.child_block, blocks.Block)
+
+    def test_initialise_with_instance(self):
+        child_block = blocks.Block()
+        block = blocks.ListBlock(child_block)
+
+        self.assertEqual(block.child_block, child_block)
+
+    def render_form(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = blocks.ListBlock(LinkBlock)
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ]
+        , prefix='links')
+
+        return html
+
+    def test_render_form_wrapper_class(self):
+        html = self.render_form()
+
+        self.assertIn('<div class="sequence">', html)
+
+    def test_render_form_count_field(self):
+        html = self.render_form()
+
+        self.assertIn('<input type="hidden" name="links-count" id="links-count" value="2">', html)
+
+    def test_render_form_delete_field(self):
+        html = self.render_form()
+
+        self.assertIn('<input type="hidden" id="links-0-deleted" name="links-0-deleted" value="">', html)
+
+    def test_render_form_order_fields(self):
+        html = self.render_form()
+
+        self.assertIn('<input type="hidden" id="links-0-order" name="links-0-order" value="0">', html)
+        self.assertIn('<input type="hidden" id="links-1-order" name="links-1-order" value="1">', html)
+
+    def test_render_form_labels(self):
+        html = self.render_form()
+
+        self.assertIn('<label for=links-0-value-title>Title</label>', html)
+        self.assertIn('<label for=links-1-value-link>Link</label>', html)
+
+    def test_render_form_values(self):
+        html = self.render_form()
+
+        self.assertIn('<input id="links-0-value-title" name="links-0-value-title" type="text" value="Wagtail" />', html)
+        self.assertIn('<input id="links-0-value-link" name="links-0-value-link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn('<input id="links-1-value-title" name="links-1-value-title" type="text" value="Django" />', html)
+        self.assertIn('<input id="links-1-value-link" name="links-1-value-link" type="url" value="http://www.djangoproject.com" />', html)
