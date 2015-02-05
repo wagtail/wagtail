@@ -56,7 +56,7 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
 
     def to_python(self, value):
         if value is None:
-            return []
+            return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
         else:  # assume string
