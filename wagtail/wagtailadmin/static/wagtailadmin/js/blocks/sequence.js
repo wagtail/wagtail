@@ -80,11 +80,17 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             newMember._markAdded();
         }
 
+        function elementFromTemplate(template, newPrefix) {
+            /* generate a jquery object ready to be inserted into the list, based on the passed HTML template string.
+            '__PREFIX__' will be substituted with newPrefix, and script tags escaped as <-/script> will be un-escaped */
+            return $(template.replace(/__PREFIX__/g, newPrefix).replace(/<-(-*)\/script>/g, '<$1/script>'));
+        }
+
         self.insertMemberBefore = function(otherMember, template) {
             newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
-            var elem = $(template.replace(/__PREFIX__/g, newMemberPrefix));
+            var elem = elementFromTemplate(template, newMemberPrefix);
             otherMember.container.before(elem);
             var newMember = SequenceMember(self, newMemberPrefix);
             var index = otherMember.getIndex();
@@ -105,7 +111,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
-            var elem = $(template.replace(/__PREFIX__/g, newMemberPrefix));
+            var elem = elementFromTemplate(template, newMemberPrefix);
             otherMember.container.after(elem);
             var newMember = SequenceMember(self, newMemberPrefix);
             var index = otherMember.getIndex() + 1;
@@ -130,7 +136,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
-            var elem = $(template.replace(/__PREFIX__/g, newMemberPrefix));
+            var elem = elementFromTemplate(template, newMemberPrefix);
             list.prepend(elem);
             var newMember = SequenceMember(self, newMemberPrefix);
 
@@ -150,7 +156,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             newMemberPrefix = getNewMemberPrefix();
 
             /* Create the new list member element with the real prefix substituted in */
-            var elem = $(template.replace(/__PREFIX__/g, newMemberPrefix));
+            var elem = elementFromTemplate(template, newMemberPrefix);
             list.append(elem);
             var newMember = SequenceMember(self, newMemberPrefix);
 

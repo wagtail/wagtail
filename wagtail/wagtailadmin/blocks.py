@@ -19,6 +19,9 @@ from django.forms.utils import ErrorList
 
 import six
 
+from wagtail.wagtailcore.utils import escape_script
+from wagtail.wagtailcore.rich_text import expand_db_html
+
 # helpers for Javascript expression formatting
 
 def indent(string, depth=1):
@@ -295,6 +298,14 @@ class CharBlock(FieldBlock):
         # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
         # the CharField constructor. Figure out a system for doing this
 
+class RichTextBlock(FieldBlock):
+    def __init__(self, **kwargs):
+        from wagtail.wagtailcore.fields import RichTextArea
+        super(RichTextBlock, self).__init__(CharField(widget=RichTextArea), **kwargs)
+
+    def render_basic(self, value):
+        return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+
 # =======
 # Chooser
 # =======
@@ -520,7 +531,7 @@ class ListBlock(Block):
 
         return format_html(
             '<script type="text/template" id="{0}-newmember">{1}</script>',
-            self.definition_prefix, list_member_html
+            self.definition_prefix, mark_safe(escape_script(list_member_html))
         )
 
     def js_initializer(self):
@@ -644,7 +655,7 @@ class BaseStreamBlock(Block):
                 (
                     self.definition_prefix,
                     name,
-                    self.render_list_member(name, child_block.default, '__PREFIX__', '')
+                    mark_safe(escape_script(self.render_list_member(name, child_block.default, '__PREFIX__', '')))
                 )
                 for name, child_block in self.child_blocks.items()
             ]

@@ -36,3 +36,13 @@ def resolve_model_string(model_string, default_app=None):
 
     else:
         raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
+
+
+SCRIPT_RE = re.compile(r'<(-*)/script>')
+def escape_script(text):
+    """
+    Escape `</script>` tags in 'text' so that it can be placed within a `<script>` block without
+    accidentally closing it. A '-' character will be inserted for each time it is escaped:
+    `<-/script>`, `<--/script>` etc.
+    """
+    return SCRIPT_RE.sub(r'<-\1/script>', text)
