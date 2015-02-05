@@ -192,73 +192,115 @@
             padding-left:0;
             padding-right:0;
         }
-
-        /* Object controls */
-        .stream-controls{
-            position:absolute;
-            z-index:1;
-            right:1em;
-            top:1em;
-            color:white;
-            overflow:hidden;
-            @include border-radius(2px);
-            
-            li{
-                background-color: $color-teal;
-                float:left;
-                cursor:pointer;
-                margin-right:1px;
-
-                &:last-child{
-                    margin-right:0;
-                }
-            }
-           
-            .disabled{
-                display:none;
-            }
-        }
-
+        
         .fields > li > .field > label{
             display:none;
         }
         .sequence{
+            position:relative;
             @include clearfix;
-            margin:1em 0;
-            border:1px solid lighten($color-grey-4, 3%);
-            padding:0 1.5em;
+
+            .sequence{ /* YUK! */
+                padding:0 1.5em;
+                margin:1em 0;
+                border:1px solid lighten($color-grey-4, 3%);
+            }
         }
+
+        .sequence-inner{
+            overflow:hidden;
+
+            .sequence-inner{ /* YUK! */
+                @include column(10);
+            }
+        }
+
         .sequence-member{
+            @include clearfix;
             position:relative;
             padding:1em 1.5em;
             border-bottom:1px solid lighten($color-grey-4, 3%);
             margin:0 -1.5em;
+
+            .inner{
+                @include clearfix;
+            }
 
             .inner > .struct-block > label{
                 display:block;
                 width:100%;
                 float:none;
             }
-        }
-        .sequence-inner{
-            @include column(10);
-
-            &:nth-of-type(1){
-                @include column(12);
-                padding:0;
-            }
-        }
-        
+        }       
 
         .struct-block > ul > li{ /* duplicates forms.scss ln.568 */
             @include clearfix();
             padding-top:0.5em;
             padding-bottom:1.2em;
         }
-
-
-
     }
+
+    /* Object controls */
+    .stream-controls{
+        position:absolute;
+        z-index:1;
+        right:1em;
+        top:1em;
+        color:white;
+        overflow:hidden;
+        @include border-radius(2px);
+        
+        li{
+            background-color: $color-teal;
+            float:left;
+            cursor:pointer;
+            margin-right:1px;
+
+            &:last-child{
+                margin-right:0;
+            }
+        }
+       
+        .disabled{
+            display:none;
+        }
+    }
+
+    /* Menu of other blocks to be added at each position */
+    .stream-menu{
+        position:relative;
+        overflow:hidden;
+
+        ul{
+            @include clearfix;
+            padding:1em;
+            background-color:$color-grey-5;
+        }
+
+        &.stream-menu-closed{
+            ul{
+                height:0px;
+            }
+
+            &:before{
+                margin-top:-0.5em;
+                font-family:wagtail;
+                content:"B";
+                width:2em;
+                height:2em;
+                display:block;
+                position:relative;
+                left:0;right:0;
+                margin:auto;
+                z-index:5;
+                color:$color-teal;
+                font-size:1.7em;
+                line-height:2em;
+                text-align:center;
+            }
+        }
+    }
+
 
     /* special panel for the publishing fields, requires a bit more pizzazz */
     &.publishing{
