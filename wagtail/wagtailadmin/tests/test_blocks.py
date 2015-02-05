@@ -53,3 +53,95 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<select id="" name="">', html)
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
+
+
+class TestStructBlock(unittest.TestCase):
+    def test_initialisation(self):
+        block = blocks.StructBlock([
+            ('title', blocks.FieldBlock(forms.CharField())),
+            ('link', blocks.FieldBlock(forms.URLField())),
+        ])
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link'])
+
+    def test_initialisation_from_subclass(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = LinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link'])
+
+    def test_initialisation_from_subclass_with_extra(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = LinkBlock([
+            ('classname', blocks.FieldBlock(forms.CharField()))
+        ])
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+
+    def test_initialisation_with_multiple_subclassses(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        class StyledLinkBlock(LinkBlock):
+            classname = blocks.FieldBlock(forms.CharField())
+
+        block = StyledLinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+
+    @unittest.expectedFailure # Field order doesn't match inheritance order
+    def test_initialisation_with_mixins(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        class StylingMixin(blocks.StructBlock):
+            classname = blocks.FieldBlock(forms.CharField())
+
+        class StyledLinkBlock(LinkBlock, StylingMixin):
+            pass
+
+        block = StyledLinkBlock()
+
+        self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
+
+    @unittest.expectedFailure # Field label not being used in HTML
+    def test_render(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField(label="Title"))
+            link = blocks.FieldBlock(forms.URLField(label="Link"))
+
+        block = LinkBlock()
+        html = block.render({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        })
+
+        self.assertIn('<dt>Title</dt>', html)
+        self.assertIn('<dd>Wagtail site</dd>', html)
+        self.assertIn('<dt>Link</dt>', html)
+        self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+
+    def test_render_form(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = LinkBlock()
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="struct-block">', html)
+        self.assertIn('<div class="field char_field">', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
+        self.assertIn('<div class="field url_field">', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
