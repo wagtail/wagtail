@@ -15,7 +15,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var indexField = $('#' + self.prefix + '-order');
 
         self.menu.click(function(){
-            self.menu.toggleClass('stream-menu-closed');
+            self.toggleMenu();
         });
 
         self.delete = function() {
@@ -44,6 +44,14 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         self.setIndex = function(i) {
             indexField.val(i);
         };
+
+        self.toggleMenu = function(){
+            if(self.menu.hasClass('stream-menu-closed')){
+                self.showMenu();
+            } else {
+                self.hideMenu();
+            }
+        }
         self.showMenu = function(){
             self.menu.removeClass('stream-menu-closed');
         };
@@ -60,6 +68,10 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         /* NB countField includes deleted items; for the count of non-deleted items, use members.length */
         var members = [];
         self.menu = countField.siblings('.stream-menu');
+
+        self.menu.click(function(){
+            self.toggleMenu();
+        });
 
         self.getCount = function() {
             return parseInt(countField.val(), 10);
@@ -178,6 +190,23 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             members.splice(index, 1);
             member._markDeleted();
         };
+
+        self.toggleMenu = function(){
+            if(self.menu.hasClass('stream-menu-closed')){
+                self.showMenu();
+            } else {
+                self.hideMenu();
+            }
+        }
+        
+        self.showMenu = function(){
+            self.menu.removeClass('stream-menu-closed');
+        };
+
+        self.hideMenu = function(){
+            self.menu.addClass('stream-menu-closed')
+        }
+
 
         /* initialize initial list members */
         for (var i = 0; i < self.getCount(); i++) {
