@@ -258,6 +258,22 @@
 .icon-site:before{
     content:"@";
 }
+.icon-larger:before{
+    font-size:1.5em;
+}
+.icon-streamfield-block-placeholder:before{
+    content:"{";
+}
+.icon-pilcrow:before {
+    content: "\e600";
+}
+.icon-title:before {
+    content: "\f034";
+}
+.icon-code:before{
+    content:"\e601"
+}
+
 
 .icon.text-replace{
     font-size:0em;
@@ -275,9 +291,7 @@
     }
 }
 
-.icon.icon-larger:before{
-    font-size:1.5em;
-}
+
 
 @keyframes spin {
     from {

@@ -45,6 +45,7 @@ def js_dict(d):
 @deconstructible
 class Block(object):
     creation_counter = 0
+    icon = "streamfield-block-placeholder"
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -79,6 +80,8 @@ class Block(object):
     def __init__(self, **kwargs):
         if 'default' in kwargs:
             self.default = kwargs['default']  # if not specified, leave as the class-level default
+        if 'icon' in kwargs:
+            self.icon = kwargs['icon']  # if not specified, leave as the class-level default
         self.label = kwargs.get('label', None)
 
         # Increase the creation counter, and save our local copy.
