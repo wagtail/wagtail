@@ -273,13 +273,11 @@ class FieldBlock(Block):
     def clean(self, value):
         return self.field.clean(value)
 
-class HeadingBlock(FieldBlock):
-    def __init__(self, tag_name='h1', **kwargs):
-        self.tag_name = tag_name
-        super(HeadingBlock, self).__init__(CharField(), **kwargs)
-
-    def render(self, value):
-        return format_html("<{tag}>{value}</{tag}>", tag=self.tag_name, value=value)
+class CharBlock(FieldBlock):
+    def __init__(self, **kwargs):
+        super(CharBlock, self).__init__(CharField(), **kwargs)
+        # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
+        # the CharField constructor. Figure out a system for doing this
 
 # =======
 # Chooser
