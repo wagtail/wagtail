@@ -10,6 +10,8 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var self = {};
         self.prefix = prefix;
         self.container = $('#' + self.prefix + '-container');
+        self.menu = $('.stream-menu', self.container);
+
         var indexField = $('#' + self.prefix + '-order');
 
         self.delete = function() {
@@ -28,6 +30,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.container.fadeOut();
         };
         self._markAdded = function() {
+            self.menu.addClass('closed');
             self.container.hide();
             self.container.slideDown();
         };
