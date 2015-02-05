@@ -1,14 +1,12 @@
 from __future__ import unicode_literals
 
-import re
-
 from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
-from wagtail.wagtailcore.utils import camelcase_to_underscore
+from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 from wagtail.wagtailadmin.menu import admin_menu
 
 
@@ -136,7 +134,6 @@ def usage_count_enabled():
 
 class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
-    SCRIPT_RE = re.compile(r'<(-*)/script>')
 
     def __init__(self, nodelist):
         super(EscapeScriptNode, self).__init__()
@@ -144,8 +141,7 @@ class EscapeScriptNode(template.Node):
 
     def render(self, context):
         out = self.nodelist.render(context)
-        escaped_out = self.SCRIPT_RE.sub(r'<-\1/script>', out)
-        return escaped_out
+        return escape_script(out)
 
     @classmethod
     def handle(cls, parser, token):
