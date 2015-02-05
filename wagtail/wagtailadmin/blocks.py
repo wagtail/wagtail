@@ -187,7 +187,20 @@ class Block(object):
 
     def render(self, value):
         """
-        Return a text rendering of 'value', suitable for display on templates.
+        Return a text rendering of 'value', suitable for display on templates. By default, this will
+        use a template if a 'template' property is specified on the block, and fall back on render_basic
+        otherwise.
+        """
+        template = getattr(self, 'template', None)
+        if template:
+            return render_to_string(template, {'self': value})
+        else:
+            return self.render_basic(value)
+
+    def render_basic(self, value):
+        """
+        Return a text rendering of 'value', suitable for display on templates. render() will fall back on
+        this if the block does not define a 'template' property.
         """
         return force_text(value)
 
@@ -406,9 +419,6 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
-    def render(self, value):
-        return render_to_string(self.template, {'self': value})
-
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
@@ -582,6 +592,12 @@ class ListBlock(Block):
             for item in value
         ]
 
+    def render_basic(self, value):
+        children = format_html_join('\n', '<li>{0}</li>',
+            [(self.child_block.render(child_value),) for child_value in value]
+        )
+        return format_html("<ul>{0}</ul>", children)
+
 
 # ===========
 # StreamBlock
@@ -663,9 +679,9 @@ class BaseStreamBlock(Block):
 
     def render_form(self, value, prefix='', error=None):
         list_members_html = [
-            self.render_list_member(block_type, child_value, "%s-%d" % (prefix, i), i,
+            self.render_list_member(child.block.name, child.value, "%s-%d" % (prefix, i), i,
                 error=error.params[i] if error else None)
-            for (i, (child_value, block_type)) in enumerate(value.values_with_types)
+            for (i, child) in enumerate(value)
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
@@ -688,22 +704,24 @@ class BaseStreamBlock(Block):
             values_with_indexes.append(
                 (
                     data['%s-%d-order' % (prefix, i)],
-                    child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
                     block_type_name,
+                    child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
                 )
             )
 
         values_with_indexes.sort()
-        return StreamValue(self, [(val, typ) for (index, val, typ) in values_with_indexes])
+        return StreamValue(self, [
+            (block_type_name, value)
+            for (index, block_type_name, value) in values_with_indexes
+        ])
 
     def clean(self, value):
-        result = []
+        cleaned_data = []
         errors = []
-        for child_type, child_val in value.values_with_types:
-            child_block = self.child_blocks[child_type]
+        for child in value:  # child is a BoundBlock instance
             try:
-                result.append(
-                    (child_block.clean(child_val), child_type)
+                cleaned_data.append(
+                    (child.block.clean(child.value), child.block.name)
                 )
             except ValidationError as e:
                 errors.append(e)
@@ -715,14 +733,14 @@ class BaseStreamBlock(Block):
             # which only involves the 'params' list
             raise ValidationError('Validation error in StreamBlock', params=errors)
 
-        return StreamValue(self, result)
+        return StreamValue(self, cleaned_data)
 
     def to_python(self, value):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field.
-        # Convert this to a StreamValue backed by a list of (value, type) tuples
+        # Convert this to a StreamValue backed by a list of (type, value) tuples
         return StreamValue(self, [
-            (self.child_blocks[item['type']].to_python(item['value']), item['type'])
-            for item in value
+            (child_data['type'], self.child_blocks[child_data['type']].to_python(child_data['value']))
+            for child_data in value
         ])
 
     def get_prep_value(self, value):
@@ -730,13 +748,13 @@ class BaseStreamBlock(Block):
             return None
 
         return [
-            {'type': bound_block.block.name, 'value': bound_block.block.get_prep_value(bound_block.value)}
-            for bound_block in value.bound_blocks
+            {'type': child.block.name, 'value': child.block.get_prep_value(child.value)}
+            for child in value  # child is a BoundBlock instance
         ]
 
-    def render(self, value):
+    def render_basic(self, value):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
-            [(bound_block.render(), bound_block.block.name) for bound_block in value.bound_blocks]
+            [(child, child.block_type) for child in value]
         )
 
 
@@ -747,29 +765,45 @@ class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBl
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StreamValue(collections.Sequence):
     """
-    Custom type used to represent the value of a StreamBlock; behaves as a sequence of block values
-    so that we can naturally iterate over it in template code, but also allows retrieval of
-    (value, type) tuples as required for the form (and other complex rendering logic) to work.
+    Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
+    (which keep track of block types in a way that the values alone wouldn't).
     """
-    def __init__(self, stream_block, values_with_types):
-        self.stream_block = stream_block
-        self.values_with_types = values_with_types
+
+    @python_2_unicode_compatible
+    class StreamChild(BoundBlock):
+        """Provides some extensions to BoundBlock to make it more natural to work with on front-end templates"""
+        def __str__(self):
+            """Render the value according to the block's native rendering"""
+            return self.block.render(self.value)
+
+        @property
+        def block_type(self):
+            """
+            Syntactic sugar so that we can say child.block_type instead of child.block.name.
+            (This doesn't belong on BoundBlock itself because the idea of block.name denoting
+            the child's "type" ('heading', 'paragraph' etc) is unique to StreamBlock, and in the
+            wider context people are liable to confuse it with the block class (CharBlock etc).
+            """
+            return self.block.name
+
+    def __init__(self, stream_block, stream_data):
+        self.stream_block = stream_block  # the StreamBlock object that handles this value
+        self.stream_data = stream_data  # a list of (type_name, value) tuples
+        self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
 
     def __getitem__(self, i):
-        return self.values_with_types[i][0]
+        if i not in self._bound_blocks:
+            type_name, value = self.stream_data[i]
+            child_block = self.stream_block.child_blocks[type_name]
+            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
+
+        return self._bound_blocks[i]
 
     def __len__(self):
-        return len(self.values_with_types)
+        return len(self.stream_data)
 
     def __repr__(self):
         return repr(list(self))
 
     def __str__(self):
         return self.stream_block.render(self)
-
-    @cached_property
-    def bound_blocks(self):
-        return [
-            BoundBlock(self.stream_block.child_blocks[block_type], value)
-            for value, block_type in self.values_with_types
-        ]
