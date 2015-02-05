@@ -12,14 +12,6 @@
             listMemberTemplates[childBlock.name] = template;
         }
 
-        $('.stream-menu').addClass('stream-menu-closed');
-        $(document).on('mouseover','.stream-menu',function(){
-            $(this).removeClass('stream-menu-closed');
-        }).on('mouseout', '.stream-menu', function(){
-            $(this).addClass('stream-menu-closed')
-        });
-
-
         return function(elementPrefix) {
             var sequence = Sequence({
                 'prefix': elementPrefix,

@@ -10,9 +10,13 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var self = {};
         self.prefix = prefix;
         self.container = $('#' + self.prefix + '-container');
-        self.menu = $('.stream-menu', self.container);
+        self.menu = $('> .stream-menu', self.container);
 
         var indexField = $('#' + self.prefix + '-order');
+
+        self.menu.click(function(){
+            self.menu.toggleClass('stream-menu-closed');
+        });
 
         self.delete = function() {
             sequence.deleteMember(self);
@@ -30,7 +34,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.container.fadeOut();
         };
         self._markAdded = function() {
-            self.menu.addClass('closed');
+            self.menu.addClass('stream-menu-closed');
             self.container.hide();
             self.container.slideDown();
         };
@@ -40,6 +44,12 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         self.setIndex = function(i) {
             indexField.val(i);
         };
+        self.showMenu = function(){
+            self.menu.removeClass('stream-menu-closed');
+        };
+        self.hideMenu = function(){
+            self.menu.addClass('stream-menu-closed')
+        }
 
         return self;
     };
@@ -49,6 +59,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var countField = $('#' + opts.prefix + '-count');
         /* NB countField includes deleted items; for the count of non-deleted items, use members.length */
         var members = [];
+        self.menu = countField.siblings('.stream-menu');
 
         self.getCount = function() {
             return parseInt(countField.val(), 10);
