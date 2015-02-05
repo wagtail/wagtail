@@ -20,6 +20,7 @@ from django.forms.utils import ErrorList
 import six
 
 from wagtail.wagtailcore.utils import escape_script
+from wagtail.wagtailcore.rich_text import expand_db_html
 
 # helpers for Javascript expression formatting
 
@@ -298,6 +299,9 @@ class RichTextBlock(FieldBlock):
     def __init__(self, **kwargs):
         from wagtail.wagtailcore.fields import RichTextArea
         super(RichTextBlock, self).__init__(CharField(widget=RichTextArea), **kwargs)
+
+    def render_basic(self, value):
+        return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
 
 # =======
 # Chooser
