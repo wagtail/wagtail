@@ -113,8 +113,8 @@ class TestStructBlock(unittest.TestCase):
 
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField(), label="Title")
-            link = blocks.FieldBlock(forms.URLField(), label="Link")
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
 
         block = LinkBlock()
         html = block.render({
@@ -126,6 +126,27 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<dd>Wagtail site</dd>', html)
         self.assertIn('<dt>link</dt>', html)
         self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+
+    @unittest.expectedFailure
+    def test_render_unknown_field(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = LinkBlock()
+        html = block.render({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+            'image': 10,
+        })
+
+        self.assertIn('<dt>title</dt>', html)
+        self.assertIn('<dd>Wagtail site</dd>', html)
+        self.assertIn('<dt>link</dt>', html)
+        self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+
+        # Don't render the extra item
+        self.assertNotIn('<dt>image</dt>', html)
 
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
@@ -143,6 +164,42 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
         self.assertIn('<div class="field url_field">', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
+
+    def test_render_form_unknown_field(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = LinkBlock()
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+            'image': 10,
+        }, prefix='mylink')
+
+        self.assertIn('<div class="struct-block">', html)
+        self.assertIn('<div class="field char_field">', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
+        self.assertIn('<div class="field url_field">', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
+
+        # Don't render the extra field
+        self.assertNotIn('mylink-image', html)
+
+    @unittest.expectedFailure
+    def test_render_form_uses_initial_values(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField(initial="Torchbox"))
+            link = blocks.FieldBlock(forms.URLField(initial="http://www.torchbox.com"))
+
+        block = LinkBlock()
+        html = block.render_form({}, prefix='mylink')
+
+        self.assertIn('<div class="struct-block">', html)
+        self.assertIn('<div class="field char_field">', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Torchbox" />', html)
+        self.assertIn('<div class="field url_field">', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.torchbox.com" />', html)
 
 
 class TestListBlock(unittest.TestCase):
