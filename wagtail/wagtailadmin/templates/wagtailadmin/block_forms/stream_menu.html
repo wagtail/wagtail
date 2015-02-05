@@ -1,7 +1,7 @@
 <div class="stream-menu">
 	<ul>
 	    {% for child_block in child_blocks %}
-	        <li style="display: inline;"><button type="button" id="{{ prefix }}-add-{{ child_block.name }}">{{ child_block.name }}</button></li>
+	        <li><button type="button" id="{{ prefix }}-add-{{ child_block.name }}" class="block-{{ child_block.name|slugify }} icon icon-{{ child_block.icon }}">{{ child_block.label }}</button></li>
 	    {% endfor %}
 	</ul>
 </div>
