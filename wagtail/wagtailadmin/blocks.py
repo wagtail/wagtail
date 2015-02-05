@@ -184,7 +184,20 @@ class Block(object):
 
     def render(self, value):
         """
-        Return a text rendering of 'value', suitable for display on templates.
+        Return a text rendering of 'value', suitable for display on templates. By default, this will
+        use a template if a 'template' property is specified on the block, and fall back on render_basic
+        otherwise.
+        """
+        template = getattr(self, 'template', None)
+        if template:
+            return render_to_string(template, {'self': value})
+        else:
+            return self.render_basic(value)
+
+    def render_basic(self, value):
+        """
+        Return a text rendering of 'value', suitable for display on templates. render() will fall back on
+        this if the block does not define a 'template' property.
         """
         return force_text(value)
 
@@ -403,9 +416,6 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
-    def render(self, value):
-        return render_to_string(self.template, {'self': value})
-
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
     def __init__(self, block, *args):
@@ -579,6 +589,12 @@ class ListBlock(Block):
             for item in value
         ]
 
+    def render_basic(self, value):
+        children = format_html_join('\n', '<li>{0}</li>',
+            [(self.child_block.render(child_value),) for child_value in value]
+        )
+        return format_html("<ul>{0}</ul>", children)
+
 
 # ===========
 # StreamBlock
@@ -733,7 +749,7 @@ class BaseStreamBlock(Block):
             for child in value  # child is a BoundBlock instance
         ]
 
-    def render(self, value):
+    def render_basic(self, value):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
             [(child, child.block_type) for child in value]
         )
