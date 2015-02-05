@@ -735,7 +735,7 @@ class BaseStreamBlock(Block):
 
     def render(self, value):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
-            [(child.render(), child.block_type) for child in value]
+            [(child, child.block_type) for child in value]
         )
 
 
@@ -750,15 +750,21 @@ class StreamValue(collections.Sequence):
     (which keep track of block types in a way that the values alone wouldn't).
     """
 
+    @python_2_unicode_compatible
     class StreamChild(BoundBlock):
-        """
-        Syntactic sugar so that we can say child.block_type instead of child.block.name.
-        (This doesn't belong on BoundBlock itself because the idea of block.name denoting
-        the child's "type" ('heading', 'paragraph' etc) is unique to StreamBlock, and in the
-        wider context people are liable to confuse it with the block class (CharBlock etc).
-        """
+        """Provides some extensions to BoundBlock to make it more natural to work with on front-end templates"""
+        def __str__(self):
+            """Render the value according to the block's native rendering"""
+            return self.block.render(self.value)
+
         @property
         def block_type(self):
+            """
+            Syntactic sugar so that we can say child.block_type instead of child.block.name.
+            (This doesn't belong on BoundBlock itself because the idea of block.name denoting
+            the child's "type" ('heading', 'paragraph' etc) is unique to StreamBlock, and in the
+            wider context people are liable to confuse it with the block class (CharBlock etc).
+            """
             return self.block.name
 
     def __init__(self, stream_block, stream_data):
