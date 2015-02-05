@@ -585,7 +585,12 @@ class ListBlock(Block):
 # ===========
 
 class BaseStreamBlock(Block):
-    default = []
+    # TODO: decide what it means to pass a 'default' arg to StreamBlock's constructor. Logically we want it to be
+    # of type StreamValue, but we can't construct one of those because it needs a reference back to the StreamBlock
+    # that we haven't constructed yet...
+    @property
+    def default(self):
+        return StreamValue(self, [])
 
     def __init__(self, local_blocks=None, **kwargs):
         super(BaseStreamBlock, self).__init__(**kwargs)
