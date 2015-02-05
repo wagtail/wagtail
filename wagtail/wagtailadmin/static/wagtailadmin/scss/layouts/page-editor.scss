@@ -268,11 +268,16 @@
 
     /* Menu of other blocks to be added at each position */
     .stream-menu{
+        @include transition(all 0.2s ease);
         position:relative;
         overflow:hidden;
 
         ul{
+            @include transition(all 0.2s ease);
             @include clearfix;
+            
+            margin-bottom:0px;
+            opacity:1;
             padding:1em;
             background-color:$color-grey-5;
         }
@@ -321,9 +326,14 @@
 
 
         &.stream-menu-closed{
+            height:3em;
+            max-height:10em;
+
             ul{
-                height:0px;
-                padding:0;
+                margin-bottom:-200px;
+                max-height:10em;
+                opacity:0;
+                padding:10em;
                 overflow:hidden;
             }           
         }
