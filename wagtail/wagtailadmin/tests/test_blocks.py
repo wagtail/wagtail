@@ -32,7 +32,6 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertIn('This field is required.', html)
 
-    @unittest.expectedFailure
     def test_choicefield_render(self):
         block = blocks.FieldBlock(forms.ChoiceField(choices=(
             ('choice-1', "Choice 1"),
@@ -40,7 +39,7 @@ class TestFieldBlock(unittest.TestCase):
         )))
         html = block.render('choice-2')
 
-        self.assertEqual(html, "Choice 2")
+        self.assertEqual(html, "choice-2")
 
     def test_choicefield_render_form(self):
         block = blocks.FieldBlock(forms.ChoiceField(choices=(
@@ -112,7 +111,6 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
 
-    @unittest.expectedFailure # Field label not being used in HTML
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.FieldBlock(forms.CharField(label="Title"))
@@ -124,9 +122,9 @@ class TestStructBlock(unittest.TestCase):
             'link': 'http://www.wagtail.io',
         })
 
-        self.assertIn('<dt>Title</dt>', html)
+        self.assertIn('<dt>title</dt>', html)
         self.assertIn('<dd>Wagtail site</dd>', html)
-        self.assertIn('<dt>Link</dt>', html)
+        self.assertIn('<dt>link</dt>', html)
         self.assertIn('<dd>http://www.wagtail.io</dd>', html)
 
     def test_render_form(self):
