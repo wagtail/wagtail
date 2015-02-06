@@ -10,11 +10,7 @@
         <legend>{% trans "Promoted search result" %}</legend>
         <ul class="fields">
             <li class="model_choice_field">
-                {% if form.instance.page %}
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page is_chosen=True only %}
-                {% else %}
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page is_chosen=False only %}
-                {% endif %}
+                {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page only %}
             </li>
             <li class="char_field">
                 {% include "wagtailadmin/shared/field.html" with field=form.description only %}

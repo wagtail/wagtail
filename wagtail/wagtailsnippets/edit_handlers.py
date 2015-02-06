@@ -28,14 +28,12 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
 
         return cls._content_type
 
-    def render_as_field(self, show_help_text=True):
+    def render_as_field(self):
         instance_obj = self.get_chosen_item()
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'snippet_type_name': self.snippet_type_name,
-            'is_chosen': bool(instance_obj),
-            'show_help_text': show_help_text,
         }))
 
 

@@ -15,7 +15,7 @@
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_slug %}
 
                 <li class="{% if form.new_parent_page.field.required %}required{% endif %}">
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.new_parent_page page=parent_page is_chosen=True only %}
+                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.new_parent_page page=parent_page only %}
                 </li>
 
                 {% if form.copy_subpages %}

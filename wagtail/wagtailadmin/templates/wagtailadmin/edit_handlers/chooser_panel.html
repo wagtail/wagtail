@@ -10,7 +10,7 @@
 
 {% block form_field %}
 
-    <div id="{{ field.id_for_label }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not is_chosen %}blank{% endif %}">
+    <div id="{{ field.id_for_label }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not field.value %}blank{% endif %}">
 
         <div class="chosen">
             {% block chosen_state_view %}{% endblock %}

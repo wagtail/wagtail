@@ -499,7 +499,7 @@ class BaseChooserPanel(BaseFieldPanel):
         context = {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
-            'is_chosen': bool(instance_obj),
+            'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
         }
         return mark_safe(render_to_string(self.field_template, context))
 
