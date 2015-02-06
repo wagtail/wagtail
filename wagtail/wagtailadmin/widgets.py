@@ -5,6 +5,7 @@ import json
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.models import Page
@@ -36,10 +37,25 @@ class AdminTagWidget(WidgetWithScript, TagWidget):
 
 class AdminChooser(WidgetWithScript, widgets.Input):
     input_type = 'hidden'
+    choose_one_text = _("Choose an item")
+    choose_another_text = _("Choose another item")
+    clear_choice_text = _("Clear choice")
+
+    def __init__(self, **kwargs):
+        # allow choose_one_text / choose_another_text to be overridden per-instance
+        if 'choose_one_text' in kwargs:
+            self.choose_one_text = kwargs.pop('choose_one_text')
+        if 'choose_another_text' in kwargs:
+            self.choose_another_text = kwargs.pop('choose_another_text')
+        if 'clear_choice_text' in kwargs:
+            self.clear_choice_text = kwargs.pop('clear_choice_text')
+        super(AdminChooser, self).__init__(**kwargs)
 
 
 class AdminPageChooser(AdminChooser):
     target_content_type = None
+    choose_one_text = _('Choose a page')
+    choose_another_text = _('Choose another page')
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)

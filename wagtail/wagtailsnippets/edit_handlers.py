@@ -18,7 +18,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: AdminSnippetChooser(
-            content_type=cls.content_type())}
+            content_type=cls.content_type(), snippet_type_name=cls.snippet_type_name)}
 
     @classmethod
     def content_type(cls):
