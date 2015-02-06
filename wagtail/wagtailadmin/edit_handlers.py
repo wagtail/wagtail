@@ -427,12 +427,11 @@ class BaseFieldPanel(EditHandler):
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
 
-    def render_as_field(self, show_help_text=True, extra_context={}):
+    def render_as_field(self):
         context = {
             'field': self.bound_field,
             'field_type': self.field_type(),
         }
-        context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
@@ -495,7 +494,7 @@ class BaseChooserPanel(BaseFieldPanel):
             # like every other unpopulated field type. Yay consistency!
             return None
 
-    def render_as_field(self, show_help_text=True, extra_context={}):
+    def render_as_field(self, extra_context={}):
         instance_obj = self.get_chosen_item()
         context = {
             'field': self.bound_field,
@@ -537,13 +536,12 @@ class BasePageChooserPanel(BaseChooserPanel):
 
         return cls._target_content_type
 
-    def render_as_field(self, show_help_text=True, extra_context={}):
+    def render_as_field(self):
         context = {
             'choose_another_text_str': ugettext_lazy("Choose another page"),
             'choose_one_text_str': ugettext_lazy("Choose a page"),
         }
-        context.update(extra_context)
-        return super(BasePageChooserPanel, self).render_as_field(show_help_text, context)
+        return super(BasePageChooserPanel, self).render_as_field(extra_context=context)
 
 
 class PageChooserPanel(object):
