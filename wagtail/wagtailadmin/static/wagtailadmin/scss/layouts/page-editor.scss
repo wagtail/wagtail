@@ -153,16 +153,6 @@
             padding:0;
         }
 
-        input, textarea, .richtext{
-            @include nice-padding();
-            @include border-radius(0px);
-            font-family:Bitter, Georgia, serif;
-            padding-top:2em;
-            padding-bottom:2em;
-            font-size:1.2em;
-            line-height:1.6em;
-        }
-
         .richtext{
             padding-top:3em; /* to provide space for editor buttons */
             padding-bottom:3em;
@@ -250,6 +240,7 @@
                     padding:0;
                     color:$color-grey-2;
                     line-height:2.2em;
+                    text-transform:capitalize;
                 }
             }
 
@@ -259,7 +250,6 @@
                     opacity:1;
                 }
             }
-
         }       
 
         .struct-block > ul > li{ /* duplicates forms.scss ln.568 */
@@ -315,6 +305,8 @@
         position:relative;
         background-color:$color-grey-1;
         border-top:1px solid transparent;
+        opacity:0;
+
 
         .stream-menu-inner{
             max-width:50em;
@@ -407,19 +399,28 @@
 
             &:before{
                 @include transform(rotate(0deg));
-                color:$color-teal;
+                color:$color-grey-3;
                 background-color:white;
             }    
         }
         &.stream-menu-closed:hover{
             border-top-color:$color-teal;
+
+            &:before{
+                color:$color-teal;
+            }
         }
     }
     .sequence-member .stream-menu{
         margin:auto auto 1em auto;
     }
-    .sequence-member:hover .stream-controls{
-        opacity:1;
+    .sequence-member:hover{
+        .stream-controls{
+            opacity:1;
+        }
+        .stream-menu{
+            opacity:1;
+        }
     }
 
 
@@ -432,17 +433,6 @@
             width:1.4em;
         }
        
-    }
-
-    &.title input,
-    &.title textarea{
-        font-size:2em;
-        padding-top:2em;
-    }
-
-    &.title input{
-        padding-top:1.5em;
-        padding-bottom:1.5em;
     }
 
     .multiple{
@@ -548,6 +538,51 @@
         }
     }
 }
+
+.full input, textarea, .richtext{
+    @include nice-padding();
+    @include border-radius(0px);
+    padding-top:2em;
+    padding-bottom:2em;
+    font-size:1.2em;
+    line-height:1.6em;
+}
+
+.title input,
+.title textarea,
+.title .richtext{
+    font-family:Bitter, Georgia, serif;
+}
+
+.title.h2 input,
+.title.h2 textarea,
+.title.h2 .richtext{
+    font-size:2em;
+}
+
+.title.h3 input,
+.title.h3 textarea
+.title.h3 .richtext{
+    font-size:1.8em;
+}
+
+.title.h4 input,
+.title.h4 textarea,
+.title.h4 .richtext{
+    font-size:1.5em;
+}
+
+.intro input,
+.intro textarea,
+.intro .richtext{
+    font-size:1.4em;
+}
+
+.quote input{
+    font-style: italic;
+}
+
+
 
 footer .preview{
     button, .button{

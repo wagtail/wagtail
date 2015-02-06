@@ -67,6 +67,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     class Meta:
         label = None
         icon = "streamfield-block-placeholder"
+        classname = None
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -283,8 +284,6 @@ class FieldBlock(Block):
     def render_form(self, value, prefix='', error=None):
         widget = self.field.widget
 
-        widget_html = widget.render(prefix, value, {'id': prefix})
-
         #if error:
         #    error_html = str(ErrorList(error.error_list))
         #else:
@@ -298,7 +297,7 @@ class FieldBlock(Block):
         else:
             label_html = ''
 
-        widget_html = widget.render(prefix, value, {'id': prefix, 'placeholder': self.label})
+        widget_html = widget.render(prefix, value, {'id': prefix, 'placeholder': self.label.title() })
 
         #if error:
         #    error_html = str(ErrorList(error.error_list))
@@ -306,6 +305,8 @@ class FieldBlock(Block):
         #    error_html = ''        
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
+            'label': self.label,
+            'classname': self.meta.classname,
             'widget': widget_html,
             'label_tag': label_html,
             'field': self.field,
