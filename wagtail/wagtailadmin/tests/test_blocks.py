@@ -463,35 +463,6 @@ class TestStreamBlock(unittest.TestCase):
         self.assertIn('<input id="myarticle-1-value" name="myarticle-1-value" type="text" value="My first paragraph" />', html)
         self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" type="text" value="My second paragraph" />', html)
 
-    def test_render_form_uses_default_value(self):
-        class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField(), )
-            paragraph = blocks.FieldBlock(forms.CharField())
-
-            default = [
-                {
-                    'type': 'heading',
-                    'value': "My title",
-                }
-            ]
-
-        block = ArticleBlock()
-        value = block.to_python([
-            {
-                'type': 'heading',
-                'value': "My title",
-            },
-            {
-                'type': 'paragraph',
-                'value': 'My first paragraph',
-            },
-            {
-                'type': 'paragraph',
-                'value': 'My second paragraph',
-            },
-        ])
-        return block.render_form(value,  prefix='myarticle')
-
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.FieldBlock(forms.CharField())
