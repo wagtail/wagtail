@@ -1,5 +1,7 @@
-from django.db.models import Q, get_models
+from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
+from django.apps import apps
+
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.wagtailsearch.backends import get_search_backend
@@ -154,7 +156,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def type_q(self, klass):
         content_types = ContentType.objects.get_for_models(*[
-            model for model in get_models()
+            model for model in apps.get_models()
             if issubclass(model, klass)
         ]).values()
 
