@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
 
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.wagtailcore.models import Page
@@ -60,6 +61,14 @@ class AdminPageChooser(AdminChooser):
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
         self.target_content_type = content_type or ContentType.objects.get_for_model(Page)
+
+    def render_html(self, name, value, attrs):
+        original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
+
+        return render_to_string("wagtailadmin/widgets/page_chooser.html", {
+            'original_field_html': original_field_html,
+            'widget': self,
+        })
 
     def render_js_init(self, id_, name, value):
         page = Page.objects.get(pk=value) if value else None

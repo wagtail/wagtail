@@ -10,12 +10,14 @@ class WidgetWithScript(Widget):
         return super(WidgetWithScript, self).render(name, value, attrs)
 
     def render(self, name, value, attrs=None):
-        widget_html = self.render_html(name, value, attrs)
+        # no point trying to come up with sensible semantics for when 'id' is missing from attrs,
+        # so let's make sure it fails early in the process
+        try:
+            id_ = attrs['id']
+        except KeyError, TypeError:
+            raise TypeError("WidgetWithScript cannot be rendered without an 'id' attribute")
 
-        final_attrs = self.build_attrs(attrs, name=name)
-        id_ = final_attrs.get('id', None)
-        if id_ is None:
-            return widget_html
+        widget_html = self.render_html(name, value, attrs)
 
         js = self.render_js_init(id_, name, value)
         out = '{0}<script>{1}</script>'.format(widget_html, js)
