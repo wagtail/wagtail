@@ -1,7 +1,9 @@
-<div class="stream-menu">
-	<ul>
-	    {% for child_block in child_blocks %}
-	        <li><button type="button" id="{{ prefix }}-add-{{ child_block.name }}" class="block-{{ child_block.name|slugify }} icon icon-{{ child_block.icon }}"><span>{{ child_block.label }}</span></button></li>
-	    {% endfor %}
-	</ul>
+<div class="stream-menu {% if state == 'closed' %}stream-menu-closed{% endif %}">
+    <div class="stream-menu-inner">
+        <ul>
+            {% for child_block in child_blocks %}
+                <li><button type="button" id="{{ prefix }}-add-{{ child_block.name }}" class="block-{{ child_block.name|slugify }} icon icon-{{ child_block.icon }}"><span>{{ child_block.label }}</span></button></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>

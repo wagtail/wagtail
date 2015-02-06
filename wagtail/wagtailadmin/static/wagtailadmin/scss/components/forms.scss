@@ -335,6 +335,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         border-color:$color-grey-2;
         color:lighten($color-grey-2, 15%);
     }
+
+    &.button-nostroke{
+        border:0 !important;
+    }
 }
 
 /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */

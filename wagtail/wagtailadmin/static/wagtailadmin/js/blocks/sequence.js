@@ -37,6 +37,9 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.menu.addClass('stream-menu-closed');
             self.container.hide();
             self.container.slideDown();
+            
+            // focus first suitable input found
+            $('.input input,.input textarea,.input .richtext', self.container).first().focus();
         };
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);

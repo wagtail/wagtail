@@ -264,13 +264,6 @@ class FieldBlock(Block):
     def render_form(self, value, prefix='', error=None):
         widget = self.field.widget
 
-        widget_html = widget.render(prefix, value, {'id': prefix})
-
-        #if error:
-        #    error_html = str(ErrorList(error.error_list))
-        #else:
-        #    error_html = ''
-
         if self.label:
             label_html = format_html(
                 """<label for={label_id}>{label}</label> """,
@@ -278,6 +271,13 @@ class FieldBlock(Block):
             )
         else:
             label_html = ''
+
+        widget_html = widget.render(prefix, value, {'id': prefix, 'placeholder': self.label})
+
+        #if error:
+        #    error_html = str(ErrorList(error.error_list))
+        #else:
+        #    error_html = ''        
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'widget': widget_html,

@@ -187,8 +187,15 @@
     }
 
     &.stream-field {
+        padding:0;
+
+        &.required .field > label:after{
+            display:none;
+        }
+
         > fieldset{
             @include column(12);
+            max-width:none;
             padding-left:0;
             padding-right:0;
         }
@@ -196,6 +203,11 @@
         .fields > li > .field > label{
             display:none;
         }
+        .stream_widget > .field-content{
+            width:100%;
+            display:block;
+        }
+
         .sequence{
             position:relative;
             @include clearfix;
@@ -203,8 +215,6 @@
             .sequence{ /* YUK! */
                 padding:0 1.5em;
                 margin:1em 0;
-                border:1px solid lighten($color-grey-4, 3%);
-                border-width:0 1px;
             }
         }
 
@@ -219,23 +229,37 @@
         .sequence-member{
             @include clearfix;
             position:relative;
-            padding:1em 1.5em;
-            border-bottom:1px solid lighten($color-grey-4, 3%);
             margin:0 -1.5em;
 
-            &:first-child{
-                border-top:1px solid lighten($color-grey-4, 3%);
-            }
-
-            .inner{
+            .sequence-member-inner{
                 @include clearfix;
+                position:relative;
+                padding:0em 50px 1em 50px;
+
+                > .struct-block > label,
+                > .char_field > label{
+                    @include transition(opacity 0.2s ease);
+                    opacity:0;
+                    display:block;
+                    font-style:italic;
+                    font-weight:normal;                    
+                    position:absolute;
+                    top:0; right:4em;
+                    float:none;
+                    width:auto;
+                    padding:0;
+                    color:$color-grey-2;
+                    line-height:2.2em;
+                }
             }
 
-            .inner > .struct-block > label{
-                display:block;
-                width:100%;
-                float:none;
+            &:hover .sequence-member-inner{
+                > .struct-block > label,
+                > .char_field > label{
+                    opacity:1;
+                }
             }
+
         }       
 
         .struct-block > ul > li{ /* duplicates forms.scss ln.568 */
@@ -243,14 +267,27 @@
             padding-top:0.5em;
             padding-bottom:1.2em;
         }
+
+        .struct-block .char_field > label{
+            display:none;
+        }
+
+        input[type=text], input[type=url], input[type=email], input[type=numeric], .richtext, textarea{
+            border:0;
+            padding-left:0;
+            padding-right:0;
+            background-color:transparent;
+            max-width:1024px;
+        }
     }
 
     /* Object controls */
     .stream-controls{
+        @include transition(opacity 0.2s ease);
+        opacity:0;
         position:absolute;
+        top:0; right:1em;
         z-index:1;
-        right:1em;
-        top:1em;
         color:white;
         overflow:hidden;
         @include border-radius(2px);
@@ -274,16 +311,24 @@
     /* Menu of other blocks to be added at each position */
     .stream-menu{
         @include transition(all 0.2s ease);
+        @include box-shadow(inset 0 0 45px rgba(0,0,0,0.3));
         position:relative;
+        background-color:$color-grey-1;
+        border-top:1px solid transparent;
+
+        .stream-menu-inner{
+            max-width:50em;
+            max-height:9999em;
+            margin: auto;
+            overflow:hidden;
+        }
 
         ul{
             @include transition(all 0.2s ease);
             @include clearfix;
-            
-            margin-bottom:0px;
             opacity:1;
             padding:1em;
-            background-color:$color-grey-5;
+            overflow:hidden;
         }
         li{
             @include column(2);
@@ -291,9 +336,10 @@
         }
 
         button{
-            background-color:$color-grey-4;
+            @include transition(all 0.2s ease);
+            background-color:transparent;
             border:0;
-            color:$color-grey-2;
+            color:darken($color-grey-3, 5%);
             height:auto;
             display:block;
             width:100%;
@@ -321,46 +367,59 @@
             }
 
             &:hover{
-                color:$color-teal;
+                background-color:$color-teal;
+                color:white;
             }
         }
 
         &:before{
+            @include transition(all 0.2s ease);
+            @include transform(rotate(-45deg));
+            @include border-radius(50px);
+            cursor:pointer;
             font-family:wagtail;
             content:"B";
-            width:2em;
+            width:1em;
             height:1em;
             display:block;
-            position:relative;
-            left:0;right:0;
-            margin:auto auto -1em auto;
+            margin:-0.5em auto auto auto;
             z-index:5;
-            color:$color-teal;
+            color:$color-grey-1;
+            background-color:white;
             font-size:1.7em;
             line-height:1em;
             text-align:center;
-
-            &:hover{
-                border:1px solid red;
-            }
         }
 
-
         &.stream-menu-closed{
-            height:3em;
-            max-height:10em;
+            @include box-shadow(none);
+            height:1px;
+            background-color:transparent;
+            border-top:1px solid lighten($color-grey-4, 3%);
 
+            .stream-menu-inner{
+                max-height:1em;
+            }
             ul{
-                margin-bottom:-200px;
-                max-height:10em;
                 opacity:0;
                 padding:10em;
-                overflow:hidden;
-            }           
+            }
+
+            &:before{
+                @include transform(rotate(0deg));
+                color:$color-teal;
+                background-color:white;
+            }    
+        }
+        &.stream-menu-closed:hover{
+            border-top-color:$color-teal;
         }
     }
     .sequence-member .stream-menu{
-        margin:auto -1.5em -1em -1.5em;
+        margin:auto auto 1em auto;
+    }
+    .sequence-member:hover .stream-controls{
+        opacity:1;
     }
 
 
