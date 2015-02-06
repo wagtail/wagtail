@@ -112,7 +112,8 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def set_name(self, name):
         self.name = name
 
-    def get_label(self):
+    @property
+    def label(self):
         return self.meta.label or self.name
 
     @property
@@ -247,15 +248,15 @@ class TextInputBlock(Block):
         default = ''
 
     def render_form(self, value, prefix='', error=None):
-        if self.get_label():
+        if self.label:
             return format_html(
                 """<label for="{prefix}">{label}</label> <input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.get_label(), value=value
+                prefix=prefix, label=self.label, value=value
             )
         else:
             return format_html(
                 """<input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.get_label(), value=value
+                prefix=prefix, label=self.label, value=value
             )
 
     def value_from_datadict(self, data, files, prefix):
@@ -289,10 +290,10 @@ class FieldBlock(Block):
         #else:
         #    error_html = ''
 
-        if self.get_label():
+        if self.label:
             label_html = format_html(
                 """<label for={label_id}>{label}</label> """,
-                label_id=widget.id_for_label(prefix), label=self.get_label()
+                label_id=widget.id_for_label(prefix), label=self.label
             )
         else:
             label_html = ''
@@ -347,10 +348,10 @@ class ChooserBlock(Block):
         return "Chooser('%s')" % self.definition_prefix
 
     def render_form(self, value, prefix='', error=None):
-        if self.get_label():
+        if self.label:
             return format_html(
                 """<label>{label}</label> <input type="button" id="{prefix}-button" value="Choose a thing">""",
-                label=self.get_label(), prefix=prefix
+                label=self.label, prefix=prefix
             )
         else:
             return format_html(
@@ -413,8 +414,8 @@ class BaseStructBlock(Block):
 
        
         # Can these be rendered with a template?
-        if self.get_label():
-            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.get_label(), list_items)
+        if self.label:
+            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.label, list_items)
         else:
             return format_html('<div class="struct-block"><ul>{0}</ul></div>', list_items)
 
@@ -578,7 +579,7 @@ class ListBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/list.html', {
-            'label': self.get_label(),
+            'label': self.label,
             'prefix': prefix,
             'list_members_html': list_members_html,
         })
@@ -725,7 +726,7 @@ class BaseStreamBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'label': self.get_label(),
+            'label': self.label,
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
