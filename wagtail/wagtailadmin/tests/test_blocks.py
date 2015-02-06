@@ -54,6 +54,42 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
 
+class TestMeta(unittest.TestCase):
+    def test_set_template_with_meta(self):
+        class HeadingBlock(blocks.FieldBlock):
+            class Meta:
+                template = 'heading.html'
+
+        block = HeadingBlock(forms.CharField())
+        self.assertEqual(block.meta.template, 'heading.html')
+
+    def test_set_template_with_constructor(self):
+        block = blocks.FieldBlock(forms.CharField(), template='heading.html')
+        self.assertEqual(block.meta.template, 'heading.html')
+
+    def test_set_template_with_constructor_overrides_meta(self):
+        class HeadingBlock(blocks.FieldBlock):
+            class Meta:
+                template = 'heading.html'
+
+        block = HeadingBlock(forms.CharField(), template='subheading.html')
+        self.assertEqual(block.meta.template, 'subheading.html')
+
+    def test_meta_multiple_inheritance(self):
+        class HeadingBlock(blocks.FieldBlock):
+            class Meta:
+                template = 'heading.html'
+                test = 'Foo'
+
+        class SubHeadingBlock(HeadingBlock):
+            class Meta:
+                template = 'subheading.html'
+
+        block = SubHeadingBlock(forms.CharField())
+        self.assertEqual(block.meta.template, 'subheading.html')
+        self.assertEqual(block.meta.test, 'Foo')
+
+
 class TestStructBlock(unittest.TestCase):
     def test_initialisation(self):
         block = blocks.StructBlock([
@@ -274,8 +310,8 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for=links-0-value-title>Title</label>', html)
-        self.assertIn('<label for=links-0-value-link>Link</label>', html)
+        self.assertIn('<label for=links-0-value-title>title</label>', html)
+        self.assertIn('<label for=links-0-value-link>link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()

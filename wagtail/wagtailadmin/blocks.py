@@ -45,10 +45,28 @@ def js_dict(d):
 # Top-level superclasses and helper objects
 # =========================================
 
+
+class BaseBlock(type):
+    def __new__(mcs, name, bases, attrs):
+        meta_class = attrs.pop('Meta', None)
+
+        cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
+
+        base_meta_class = getattr(cls, '_meta_class', None)
+        bases = tuple(cls for cls in [meta_class, base_meta_class] if cls) or (object, )
+        cls._meta_class = type(name + 'Meta', bases, {})
+
+        return cls
+
+
 @deconstructible
-class Block(object):
+class Block(six.with_metaclass(BaseBlock, object)):
+    name = ''
     creation_counter = 0
-    icon = "streamfield-block-placeholder"
+
+    class Meta:
+        label = None
+        icon = "streamfield-block-placeholder"
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -81,11 +99,10 @@ class Block(object):
         return mark_safe('\n'.join(declarations))
 
     def __init__(self, **kwargs):
-        if 'default' in kwargs:
-            self.default = kwargs['default']  # if not specified, leave as the class-level default
-        if 'icon' in kwargs:
-            self.icon = kwargs['icon']  # if not specified, leave as the class-level default
-        self.label = kwargs.get('label', None)
+        self.meta = self._meta_class()
+
+        for attr, value in kwargs.items():
+            setattr(self.meta, attr, value)
 
         # Increase the creation counter, and save our local copy.
         self.creation_counter = Block.creation_counter
@@ -95,9 +112,8 @@ class Block(object):
     def set_name(self, name):
         self.name = name
 
-        # if we don't have a label already, generate one from name
-        if self.label is None:
-            self.label = capfirst(name.replace('_', ' '))
+    def get_label(self):
+        return self.meta.label or self.name
 
     @property
     def media(self):
@@ -156,7 +172,7 @@ class Block(object):
         (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
         a real prefix when it's inserted into the page) and a value equal to the block's default value.
         """
-        return self.bind(self.default, '__PREFIX__')
+        return self.bind(self.meta.default, '__PREFIX__')
 
     def clean(self, value):
         """
@@ -194,7 +210,7 @@ class Block(object):
         use a template if a 'template' property is specified on the block, and fall back on render_basic
         otherwise.
         """
-        template = getattr(self, 'template', None)
+        template = getattr(self.meta, 'template', None)
         if template:
             return render_to_string(template, {'self': value})
         else:
@@ -227,18 +243,19 @@ class BoundBlock(object):
 # ==========
 
 class TextInputBlock(Block):
-    default = ''
+    class Meta:
+        default = ''
 
     def render_form(self, value, prefix='', error=None):
-        if self.label:
+        if self.get_label():
             return format_html(
                 """<label for="{prefix}">{label}</label> <input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.label, value=value
+                prefix=prefix, label=self.get_label(), value=value
             )
         else:
             return format_html(
                 """<input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.label, value=value
+                prefix=prefix, label=self.get_label(), value=value
             )
 
     def value_from_datadict(self, data, files, prefix):
@@ -255,7 +272,8 @@ class TextInputBlock(Block):
 # would affect anything you're doing in migrations)
 
 class FieldBlock(Block):
-    default = None
+    class Meta:
+        default = None
 
     def __init__(self, field, **kwargs):
         super(FieldBlock, self).__init__(**kwargs)
@@ -264,10 +282,17 @@ class FieldBlock(Block):
     def render_form(self, value, prefix='', error=None):
         widget = self.field.widget
 
-        if self.label:
+        widget_html = widget.render(prefix, value, {'id': prefix})
+
+        #if error:
+        #    error_html = str(ErrorList(error.error_list))
+        #else:
+        #    error_html = ''
+
+        if self.get_label():
             label_html = format_html(
                 """<label for={label_id}>{label}</label> """,
-                label_id=widget.id_for_label(prefix), label=self.label
+                label_id=widget.id_for_label(prefix), label=self.get_label()
             )
         else:
             label_html = ''
@@ -311,7 +336,8 @@ class RichTextBlock(FieldBlock):
 # =======
 
 class ChooserBlock(Block):
-    default = None
+    class Meta:
+        default = None
 
     @property
     def media(self):
@@ -321,10 +347,10 @@ class ChooserBlock(Block):
         return "Chooser('%s')" % self.definition_prefix
 
     def render_form(self, value, prefix='', error=None):
-        if self.label:
+        if self.get_label():
             return format_html(
                 """<label>{label}</label> <input type="button" id="{prefix}-button" value="Choose a thing">""",
-                label=self.label, prefix=prefix
+                label=self.get_label(), prefix=prefix
             )
         else:
             return format_html(
@@ -341,8 +367,9 @@ class ChooserBlock(Block):
 # ===========
 
 class BaseStructBlock(Block):
-    default = {}
-    template = "wagtailadmin/blocks/struct.html"
+    class Meta:
+        default = {}
+        template = "wagtailadmin/blocks/struct.html"
 
     def __init__(self, local_blocks=None, **kwargs):
         super(BaseStructBlock, self).__init__(**kwargs)
@@ -374,7 +401,7 @@ class BaseStructBlock(Block):
 
     def render_form(self, value, prefix='', error=None):
         child_renderings = [
-            block.render_form(value.get(name, block.default), prefix="%s-%s" % (prefix, name),
+            block.render_form(value.get(name, block.meta.default), prefix="%s-%s" % (prefix, name),
                 error=error.params.get(name) if error else None)
             for name, block in self.child_blocks.items()
         ]
@@ -386,8 +413,8 @@ class BaseStructBlock(Block):
 
        
         # Can these be rendered with a template?
-        if self.label:
-            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.label, list_items)
+        if self.get_label():
+            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.get_label(), list_items)
         else:
             return format_html('<div class="struct-block"><ul>{0}</ul></div>', list_items)
 
@@ -418,7 +445,7 @@ class BaseStructBlock(Block):
         return StructValue(self, [
             (
                 name,
-                child_block.to_python(value.get(name, child_block.default))
+                child_block.to_python(value.get(name, child_block.meta.default))
             )
             for name, child_block in self.child_blocks.items()
         ])
@@ -447,7 +474,7 @@ class StructValue(collections.OrderedDict):
         ])
 
 
-class DeclarativeSubBlocksMetaclass(type):
+class DeclarativeSubBlocksMetaclass(BaseBlock):
     """
     Metaclass that collects sub-blocks declared on the base classes.
     (cheerfully stolen from https://github.com/django/django/blob/master/django/forms/forms.py)
@@ -492,7 +519,8 @@ class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBl
 # =========
 
 class ListBlock(Block):
-    default = []
+    class Meta:
+        default = []
 
     def __init__(self, child_block, **kwargs):
         super(ListBlock, self).__init__(**kwargs)
@@ -527,7 +555,7 @@ class ListBlock(Block):
         # this is the output of render_list_member as rendered with the prefix '__PREFIX__'
         # (to be replaced dynamically when adding the new item) and the child block's default value
         # as its value.
-        list_member_html = self.render_list_member(self.child_block.default, '__PREFIX__', '')
+        list_member_html = self.render_list_member(self.child_block.meta.default, '__PREFIX__', '')
 
         return format_html(
             '<script type="text/template" id="{0}-newmember">{1}</script>',
@@ -550,7 +578,7 @@ class ListBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/list.html', {
-            'label': self.label,
+            'label': self.get_label(),
             'prefix': prefix,
             'list_members_html': list_members_html,
         })
@@ -618,9 +646,10 @@ class BaseStreamBlock(Block):
     # TODO: decide what it means to pass a 'default' arg to StreamBlock's constructor. Logically we want it to be
     # of type StreamValue, but we can't construct one of those because it needs a reference back to the StreamBlock
     # that we haven't constructed yet...
-    @property
-    def default(self):
-        return StreamValue(self, [])
+    class Meta:
+        @property
+        def default(self):
+            return StreamValue(self, [])
 
     def __init__(self, local_blocks=None, **kwargs):
         super(BaseStreamBlock, self).__init__(**kwargs)
@@ -655,7 +684,7 @@ class BaseStreamBlock(Block):
                 (
                     self.definition_prefix,
                     name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.default, '__PREFIX__', '')))
+                    mark_safe(escape_script(self.render_list_member(name, child_block.meta.default, '__PREFIX__', '')))
                 )
                 for name, child_block in self.child_blocks.items()
             ]
@@ -696,7 +725,7 @@ class BaseStreamBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'label': self.label,
+            'label': self.get_label(),
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
