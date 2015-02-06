@@ -736,6 +736,9 @@ ul.tagit input[type="text"]{
 ul.tagit li.tagit-choice-editable{
     padding:0 23px 0 0 !important; /* having to use important, FML*/
 }
+.ui-front{ /* provided by jqueryui but not high enough an index */
+    z-index:1000;
+}
 
 .tagit-close{
     .ui-icon-close{
