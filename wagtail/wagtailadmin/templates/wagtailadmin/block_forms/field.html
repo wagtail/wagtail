@@ -1,5 +1,5 @@
 {% load wagtailadmin_tags %}
-<div class="field {{ field|fieldtype }} {% for class in classes %} blockclass-{{ class }}{% endfor %} label-{{ label }}">
+<div class="field {{ field|fieldtype }} {% for class in classes %} blockclass-{{ class }}{% endfor %} blockname-{{ label }}">
     {{ label_tag }}
     <div class="field-content">
         <div class="input">
