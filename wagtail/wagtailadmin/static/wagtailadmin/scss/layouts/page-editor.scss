@@ -244,6 +244,10 @@
                 }
             }
 
+            &:hover{
+                background-color:$color-input-focus;
+            }
+
             &:hover .sequence-member-inner{
                 > .struct-block > label,
                 > .char_field > label{
@@ -305,10 +309,11 @@
         position:relative;
         background-color:$color-grey-1;
         border-top:1px solid transparent;
-        opacity:0;
-
+        opacity:1;
+        z-index:5;
 
         .stream-menu-inner{
+            @include transition(max-height 0.2s ease);
             max-width:50em;
             max-height:9999em;
             margin: auto;
@@ -351,7 +356,7 @@
             &:before{
                 display:block;
                 font-family:wagtail;
-                font-size:3em;
+                font-size:2em;
                 width:100%;
                 height:2em;
                 line-height:2em;
@@ -385,8 +390,7 @@
 
         &.stream-menu-closed{
             @include box-shadow(none);
-            height:1px;
-            background-color:transparent;
+            height:0px;
             border-top:1px solid lighten($color-grey-4, 3%);
 
             .stream-menu-inner{
@@ -401,18 +405,22 @@
                 @include transform(rotate(0deg));
                 color:$color-grey-3;
                 background-color:white;
-            }    
-        }
-        &.stream-menu-closed:hover{
-            border-top-color:$color-teal;
+            } 
 
-            &:before{
-                color:$color-teal;
-            }
+            &:hover{
+                border-top-color:$color-teal;
+
+                &:before{
+                    color:$color-teal;
+                }
+            }   
         }
     }
     .sequence-member .stream-menu{
-        margin:auto auto 1em auto;
+        margin:auto auto 0em auto;
+    }
+    .sequence-member .stream-menu-closed{
+        opacity:0;
     }
     .sequence-member:hover{
         .stream-controls{
