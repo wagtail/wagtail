@@ -319,4 +319,4 @@ class TestEmbedBlock(TestCase):
         get_embed.assert_any_call('http://www.example.com')
 
         # Check that the embed was in the returned HTML
-        self.assertIn('<h1>Hello world!</h1', html)
+        self.assertIn('<h1>Hello world!</h1>', html)
