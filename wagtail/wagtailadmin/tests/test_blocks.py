@@ -18,13 +18,13 @@ class TestFieldBlock(unittest.TestCase):
         html = block.render_form("Hello world!")
 
         self.assertIn('<div class="field char_field">', html)
-        self.assertIn('<input id="" name="" type="text" value="Hello world!" />', html)
+        self.assertIn('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_prefix(self):
         block = blocks.FieldBlock(forms.CharField())
         html = block.render_form("Hello world!", prefix='foo')
 
-        self.assertIn('<input id="foo" name="foo" type="text" value="Hello world!" />', html)
+        self.assertIn('<input id="foo" name="foo" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_error(self):
         block = blocks.FieldBlock(forms.CharField())
@@ -49,7 +49,7 @@ class TestFieldBlock(unittest.TestCase):
         html = block.render_form('choice-2')
 
         self.assertIn('<div class="field choice_field">', html)
-        self.assertIn('<select id="" name="">', html)
+        self.assertIn('<select id="" name="" placeholder="">', html)
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
 
@@ -197,9 +197,9 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field">', html)
-        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="title" type="text" value="Wagtail site" />', html)
         self.assertIn('<div class="field url_field">', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="link" type="url" value="http://www.wagtail.io" />', html)
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -215,9 +215,9 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field">', html)
-        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Wagtail site" />', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="title" type="text" value="Wagtail site" />', html)
         self.assertIn('<div class="field url_field">', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="link" type="url" value="http://www.wagtail.io" />', html)
 
         # Don't render the extra field
         self.assertNotIn('mylink-image', html)
@@ -247,9 +247,9 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field">', html)
-        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Torchbox" />', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="title" type="text" value="Torchbox" />', html)
         self.assertIn('<div class="field url_field">', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.torchbox.com" />', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="link" type="url" value="http://www.torchbox.com" />', html)
 
 
 class TestListBlock(unittest.TestCase):
@@ -316,10 +316,10 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_values(self):
         html = self.render_form()
 
-        self.assertIn('<input id="links-0-value-title" name="links-0-value-title" type="text" value="Wagtail" />', html)
-        self.assertIn('<input id="links-0-value-link" name="links-0-value-link" type="url" value="http://www.wagtail.io" />', html)
-        self.assertIn('<input id="links-1-value-title" name="links-1-value-title" type="text" value="Django" />', html)
-        self.assertIn('<input id="links-1-value-link" name="links-1-value-link" type="url" value="http://www.djangoproject.com" />', html)
+        self.assertIn('<input id="links-0-value-title" name="links-0-value-title" placeholder="title" type="text" value="Wagtail" />', html)
+        self.assertIn('<input id="links-0-value-link" name="links-0-value-link" placeholder="link" type="url" value="http://www.wagtail.io" />', html)
+        self.assertIn('<input id="links-1-value-title" name="links-1-value-title" placeholder="title" type="text" value="Django" />', html)
+        self.assertIn('<input id="links-1-value-link" name="links-1-value-link" placeholder="link" type="url" value="http://www.djangoproject.com" />', html)
 
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
@@ -329,8 +329,8 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" />', html)
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="title" type="text" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="link" type="url" />', html)
 
     def test_html_declarations_uses_default(self):
         class LinkBlock(blocks.StructBlock):
@@ -340,8 +340,8 @@ class TestListBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" value="Github" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" value="http://www.github.com" />', html)
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="title" type="text" value="Github" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="link" type="url" value="http://www.github.com" />', html)
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -495,9 +495,9 @@ class TestStreamBlock(unittest.TestCase):
     def test_render_form_value_fields(self):
         html = self.render_form()
 
-        self.assertIn('<input id="myarticle-0-value" name="myarticle-0-value" type="text" value="My title" />', html)
-        self.assertIn('<input id="myarticle-1-value" name="myarticle-1-value" type="text" value="My first paragraph" />', html)
-        self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" type="text" value="My second paragraph" />', html)
+        self.assertIn('<input id="myarticle-0-value" name="myarticle-0-value" placeholder="heading" type="text" value="My title" />', html)
+        self.assertIn('<input id="myarticle-1-value" name="myarticle-1-value" placeholder="paragraph" type="text" value="My first paragraph" />', html)
+        self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" placeholder="paragraph" type="text" value="My second paragraph" />', html)
 
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
@@ -507,8 +507,8 @@ class TestStreamBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" />', html)
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="title" type="text" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="link" type="url" />', html)
 
     def test_html_declarations_uses_default(self):
         class LinkBlock(blocks.StructBlock):
@@ -518,5 +518,5 @@ class TestStreamBlock(unittest.TestCase):
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" value="Github" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" value="http://www.github.com" />', html)
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="title" type="text" value="Github" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="link" type="url" value="http://www.github.com" />', html)
