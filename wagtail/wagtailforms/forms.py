@@ -1,5 +1,6 @@
+from collections import OrderedDict
+
 import django.forms
-from django.utils.datastructures import SortedDict
 
 
 class BaseForm(django.forms.Form):
@@ -75,7 +76,7 @@ class FormBuilder(object):
 
     @property
     def formfields(self):
-        formfields = SortedDict()
+        formfields = OrderedDict()
 
         for field in self.fields:
             options = self.get_field_options(field)
