@@ -2,13 +2,10 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.forms import widgets
-
-from wagtail.utils.widgets import WidgetWithScript
+from wagtail.wagtailadmin.widgets import AdminChooser
 
 
-class AdminSnippetChooser(WidgetWithScript, widgets.Input):
-    input_type = 'hidden'
+class AdminSnippetChooser(AdminChooser):
     target_content_type = None
 
     def __init__(self, content_type=None, **kwargs):

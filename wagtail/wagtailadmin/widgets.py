@@ -34,8 +34,11 @@ class AdminTagWidget(WidgetWithScript, TagWidget):
             json.dumps(reverse('wagtailadmin_tag_autocomplete')))
 
 
-class AdminPageChooser(WidgetWithScript, widgets.Input):
+class AdminChooser(WidgetWithScript, widgets.Input):
     input_type = 'hidden'
+
+
+class AdminPageChooser(AdminChooser):
     target_content_type = None
 
     def __init__(self, content_type=None, **kwargs):
