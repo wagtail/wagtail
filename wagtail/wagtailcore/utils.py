@@ -1,6 +1,8 @@
 import re
-from django.db.models import Model, get_model
 from six import string_types
+
+from django.db.models import Model
+from django.apps import apps
 
 
 def camelcase_to_underscore(str):
@@ -26,10 +28,7 @@ def resolve_model_string(model_string, default_app=None):
                                  "should be in the form app_label.model_name".format(
                                      model_string), model_string)
 
-        model = get_model(app_label, model_name)
-        if not model:
-            raise LookupError("Can not resolve {0!r} into a model".format(model_string), model_string)
-        return model
+        return apps.get_model(app_label, model_name)
 
     elif isinstance(model_string, type) and issubclass(model_string, Model):
         return model_string
