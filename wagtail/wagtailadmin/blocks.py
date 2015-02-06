@@ -53,8 +53,8 @@ class BaseBlock(type):
         cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
 
         base_meta_class = getattr(cls, '_meta_class', None)
-        bases = tuple(cls for cls in [meta_class, base_meta_class] if cls) or (object, )
-        cls._meta_class = type(name + 'Meta', bases, {})
+        bases = tuple(cls for cls in [meta_class, base_meta_class] if cls) or ()
+        cls._meta_class = type(str(name + 'Meta'), bases + (object, ), {})
 
         return cls
 
