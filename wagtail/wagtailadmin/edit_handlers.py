@@ -422,7 +422,7 @@ class BaseFieldPanel(EditHandler):
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
             'self': self,
-            'field_content': self.render_as_field(show_help_text=False),
+            'field_content': self.render_as_field(),
         }))
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
@@ -431,7 +431,6 @@ class BaseFieldPanel(EditHandler):
         context = {
             'field': self.bound_field,
             'field_type': self.field_type(),
-            'show_help_text': show_help_text,
         }
         context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
@@ -502,7 +501,6 @@ class BaseChooserPanel(BaseFieldPanel):
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'is_chosen': bool(instance_obj),
-            'show_help_text': show_help_text,
         }
         context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
