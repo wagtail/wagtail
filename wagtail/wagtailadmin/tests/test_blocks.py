@@ -201,6 +201,20 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<div class="field url_field">', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.torchbox.com" />', html)
 
+    def test_render_form_uses_default_value(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField(), default="Torchbox")
+            link = blocks.FieldBlock(forms.URLField(), default="http://www.torchbox.com")
+
+        block = LinkBlock()
+        html = block.render_form({}, prefix='mylink')
+
+        self.assertIn('<div class="struct-block">', html)
+        self.assertIn('<div class="field char_field">', html)
+        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Torchbox" />', html)
+        self.assertIn('<div class="field url_field">', html)
+        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.torchbox.com" />', html)
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -261,7 +275,7 @@ class TestListBlock(unittest.TestCase):
         html = self.render_form()
 
         self.assertIn('<label for=links-0-value-title>Title</label>', html)
-        self.assertIn('<label for=links-1-value-link>Link</label>', html)
+        self.assertIn('<label for=links-0-value-link>Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
@@ -270,6 +284,28 @@ class TestListBlock(unittest.TestCase):
         self.assertIn('<input id="links-0-value-link" name="links-0-value-link" type="url" value="http://www.wagtail.io" />', html)
         self.assertIn('<input id="links-1-value-title" name="links-1-value-title" type="text" value="Django" />', html)
         self.assertIn('<input id="links-1-value-link" name="links-1-value-link" type="url" value="http://www.djangoproject.com" />', html)
+
+    def test_html_declarations(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = blocks.ListBlock(LinkBlock)
+        html = block.html_declarations()
+
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" />', html)
+
+    def test_html_declarations_uses_default(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField(), default="Github")
+            link = blocks.FieldBlock(forms.URLField(), default="http://www.github.com")
+
+        block = blocks.ListBlock(LinkBlock)
+        html = block.html_declarations()
+
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" value="Github" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" value="http://www.github.com" />', html)
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -426,3 +462,25 @@ class TestStreamBlock(unittest.TestCase):
         self.assertIn('<input id="myarticle-0-value" name="myarticle-0-value" type="text" value="My title" />', html)
         self.assertIn('<input id="myarticle-1-value" name="myarticle-1-value" type="text" value="My first paragraph" />', html)
         self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" type="text" value="My second paragraph" />', html)
+
+    def test_html_declarations(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = blocks.ListBlock(LinkBlock)
+        html = block.html_declarations()
+
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" />', html)
+
+    def test_html_declarations_uses_default(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField(), default="Github")
+            link = blocks.FieldBlock(forms.URLField(), default="http://www.github.com")
+
+        block = blocks.ListBlock(LinkBlock)
+        html = block.html_declarations()
+
+        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" type="text" value="Github" />', html)
+        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" type="url" value="http://www.github.com" />', html)
