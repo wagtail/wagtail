@@ -9,7 +9,7 @@
     {% trans "Generating URL" as title_str %}
     {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
 
-    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages_generate_url' image.id '__filterspec__' %}">
+    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
         <form>
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.filter_method %}

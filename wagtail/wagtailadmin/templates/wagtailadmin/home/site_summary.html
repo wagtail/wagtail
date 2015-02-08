@@ -12,7 +12,7 @@
             </a>
         </li>
         <li class="icon icon-image">
-            <a href="{% url 'wagtailimages_index' %}">
+            <a href="{% url 'wagtailimages:index' %}">
             {% blocktrans count counter=total_images with total_images|intcomma as total %}
                 <span>{{ total }}</span> Image
             {% plural %}
