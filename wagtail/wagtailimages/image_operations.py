@@ -158,22 +158,16 @@ class FillOperation(Operation):
         # Crop!
         willow.crop(int(left), int(top), int(right), int(bottom))
 
-        # Resize the final image
+        # Get scale for resizing
+        # The scale should be the same for both the horizontal and
+        # vertical axes
         aftercrop_width, aftercrop_height = willow.get_size()
-        horz_scale = self.width / aftercrop_width
-        vert_scale = self.height / aftercrop_height
+        scale = self.width / aftercrop_width
 
-        if aftercrop_width <= self.width or aftercrop_height <= self.height:
-            return
-
-        if horz_scale > vert_scale:
-            width = self.width
-            height = int(aftercrop_height * horz_scale)
-        else:
-            width = int(aftercrop_width * vert_scale)
-            height = self.height
-
-        willow.resize(width, height)
+        # Only resize if the image is too big
+        if scale < 1.0:
+            # Resize!
+            willow.resize(self.width, self.height)
 
     def get_vary(self, image):
         focal_point = image.get_focal_point()
