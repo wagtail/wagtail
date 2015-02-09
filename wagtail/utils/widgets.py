@@ -14,7 +14,7 @@ class WidgetWithScript(Widget):
         # so let's make sure it fails early in the process
         try:
             id_ = attrs['id']
-        except KeyError, TypeError:
+        except (KeyError, TypeError):
             raise TypeError("WidgetWithScript cannot be rendered without an 'id' attribute")
 
         widget_html = self.render_html(name, value, attrs)
