@@ -5,7 +5,6 @@ from .widgets import AdminImageChooser
 
 
 class BaseImageChooserPanel(BaseChooserPanel):
-    field_template = "wagtailimages/edit_handlers/image_chooser_panel.html"
     object_type_name = "image"
 
     @classmethod
