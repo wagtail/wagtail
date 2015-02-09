@@ -151,6 +151,13 @@ class TestFillOperation(ImageOperationTestCase):
             ('resize', (800, 600), {}),
         ]),
 
+        # Basic usage with an oddly-sized original image
+        # This checks for a rounding precision issue (#968)
+        ('fill-200x200', Image(width=539, height=720), [
+            ('crop', (0, 90, 539, 629), {}),
+            ('resize', (200, 200), {}),
+        ]),
+
         # Closeness shouldn't have any effect when used without a focal point
         ('fill-800x600-c100', Image(width=1000, height=1000), [
             ('crop', (0, 125, 1000, 875), {}),
