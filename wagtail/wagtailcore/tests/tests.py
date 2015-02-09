@@ -2,8 +2,10 @@ import unittest
 
 from django.test import TestCase
 from django.core.cache import cache
+from django.utils.safestring import SafeString
 
 from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
 from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.tests.models import SimplePage
 
@@ -184,3 +186,14 @@ class TestResolveModelString(TestCase):
     @unittest.expectedFailure # Raising LookupError instead
     def test_resolve_from_bad_type(self):
         self.assertRaises(ValueError, resolve_model_string, resolve_model_string)
+
+
+class TestRichtextTag(TestCase):
+    def test_call_with_text(self):
+        result = richtext("Hello world!")
+        self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
+        self.assertIsInstance(result, SafeString)
+
+    def test_call_with_none(self):
+        result = richtext(None)
+        self.assertEqual(result, '<div class="rich-text"></div>')
