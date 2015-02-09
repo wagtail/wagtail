@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <td>
-    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page only %}
+    {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.page only %}
 </td>
 <td>
     {% include "wagtailadmin/edit_handlers/field_panel_field.html" with field=form.permission_type only %}

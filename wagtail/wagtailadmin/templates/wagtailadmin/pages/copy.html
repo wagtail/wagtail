@@ -13,10 +13,7 @@
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_title %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_slug %}
-
-                <li class="{% if form.new_parent_page.field.required %}required{% endif %}">
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.new_parent_page page=parent_page only %}
-                </li>
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_parent_page %}
 
                 {% if form.copy_subpages %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.copy_subpages %}

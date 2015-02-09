@@ -10,7 +10,7 @@
         <legend>{% trans "Promoted search result" %}</legend>
         <ul class="fields">
             <li class="model_choice_field">
-                {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.page page=form.instance.page only %}
+                {% include "wagtailadmin/shared/field.html" with field=form.page only %}
             </li>
             <li class="char_field">
                 {% include "wagtailadmin/shared/field.html" with field=form.description only %}

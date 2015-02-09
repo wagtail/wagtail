@@ -16,11 +16,7 @@
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.hostname %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.port %}
-
-                <li>
-                    {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.root_page page=form.instance.root_page only %}
-                </li>
-
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.root_page %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_default_site %}
                 
                 <li>

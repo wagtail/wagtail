@@ -480,7 +480,7 @@ class BaseChooserPanel(BaseFieldPanel):
     a hidden foreign key input.
 
     Subclasses provide:
-    * field_template
+    * field_template (only required if the default template of field_panel_field.html is not usable)
     * object_type_name - something like 'image' which will be used as the var name
       for the object instance in the field_template
     """
@@ -505,7 +505,6 @@ class BaseChooserPanel(BaseFieldPanel):
 
 
 class BasePageChooserPanel(BaseChooserPanel):
-    field_template = "wagtailadmin/edit_handlers/page_chooser_panel.html"
     object_type_name = "page"
 
     _target_content_type = None
