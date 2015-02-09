@@ -10,7 +10,6 @@ from .widgets import AdminSnippetChooser
 
 
 class BaseSnippetChooserPanel(BaseChooserPanel):
-    field_template = "wagtailsnippets/edit_handlers/snippet_chooser_panel.html"
     object_type_name = 'item'
 
     _content_type = None

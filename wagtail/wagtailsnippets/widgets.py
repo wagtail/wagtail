@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminChooser
@@ -19,6 +20,20 @@ class AdminSnippetChooser(AdminChooser):
         super(AdminSnippetChooser, self).__init__(**kwargs)
         if content_type is not None:
             self.target_content_type = content_type
+
+    def render_html(self, name, value, attrs):
+        original_field_html = super(AdminSnippetChooser, self).render_html(name, value, attrs)
+
+        model_class = self.target_content_type.model_class()
+        instance = self.get_instance(model_class, value)
+
+        return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
+            'widget': self,
+            'original_field_html': original_field_html,
+            'attrs': attrs,
+            'value': value,
+            'item': instance,
+        })
 
     def render_js_init(self, id_, name, value):
         content_type = self.target_content_type

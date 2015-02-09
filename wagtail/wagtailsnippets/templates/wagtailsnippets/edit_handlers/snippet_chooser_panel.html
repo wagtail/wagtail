@@ -1,8 +1,2 @@
-{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
-{% load i18n %}
-
-{% block chooser_class %}snippet-chooser{% endblock %}
-
-{% block chosen_state_view %}
-    <span class="title">{{ item }}</span>
-{% endblock %}
+{# Snippet chooser is now implemented as an entirely standard form widget - snippet_chooser_panel.html is redundant #}
+{% include "wagtailadmin/shared/field.html" %}
