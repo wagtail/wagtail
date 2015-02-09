@@ -40,6 +40,7 @@ Contributors
 * georgewhewell
 * Frank Wiles
 * Sebastian Spiegel
+* Alejandro Varas
 
 Translators
 ===========
