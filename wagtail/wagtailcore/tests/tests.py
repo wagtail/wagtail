@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.cache import cache
+from django.utils.safestring import SafeString
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
@@ -146,13 +147,11 @@ class TestSiteRootPathsCache(TestCase):
 
 
 class TestRichtextTag(TestCase):
+    def test_call_with_text(self):
+        result = richtext("Hello world!")
+        self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
+        self.assertIsInstance(result, SafeString)
 
-    def test_typeerror(self):
-        """`richtext` fails when it's called with `value` being not a string
-        or buffer.
-        """
-        value = None
-
-        result = richtext(value)
-
-        self.assertEqual(result, '')
+    def test_call_with_none(self):
+        result = richtext(None)
+        self.assertEqual(result, '<div class="rich-text"></div>')
