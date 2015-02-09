@@ -52,6 +52,14 @@ class AdminChooser(WidgetWithScript, widgets.Input):
         except model_class.DoesNotExist:
             return None
 
+    def value_from_datadict(self, data, files, name):
+        # treat the empty string as None
+        result = super(AdminChooser, self).value_from_datadict(data, files, name)
+        if result == '':
+            return None
+        else:
+            return result
+
     def __init__(self, **kwargs):
         # allow choose_one_text / choose_another_text to be overridden per-instance
         if 'choose_one_text' in kwargs:
