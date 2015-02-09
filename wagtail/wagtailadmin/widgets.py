@@ -42,6 +42,16 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     choose_another_text = _("Choose another item")
     clear_choice_text = _("Clear choice")
 
+    def get_instance(self, model_class, value):
+        # helper method for cleanly turning 'value' into an instance object
+        if value is None:
+            return None
+
+        try:
+            return model_class.objects.get(pk=value)
+        except model_class.DoesNotExist:
+            return None
+
     def __init__(self, **kwargs):
         # allow choose_one_text / choose_another_text to be overridden per-instance
         if 'choose_one_text' in kwargs:
@@ -65,9 +75,15 @@ class AdminPageChooser(AdminChooser):
     def render_html(self, name, value, attrs):
         original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
 
+        model_class = self.target_content_type.model_class()
+        instance = self.get_instance(model_class, value)
+
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {
-            'original_field_html': original_field_html,
             'widget': self,
+            'original_field_html': original_field_html,
+            'attrs': attrs,
+            'value': value,
+            'page': instance,
         })
 
     def render_js_init(self, id_, name, value):
