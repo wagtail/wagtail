@@ -1,6 +1,12 @@
 {% extends "wagtailadmin/shared/field.html" %}
 {% load i18n %}
 {% comment %}
+    ------
+    DEPRECATED - provided for backwards compatibility with custom (third-party) chooser panels
+    created prior to Wagtail 0.9. New choosers should subclass wagtail.wagtailadmin.widgets.AdminChooser,
+    with a template that extends wagtailadmin/widgets/chooser.html.
+    ------
+
     Either the chosen or unchosen div will be shown, depending on the presence
     of the 'blank' class on the container.
 
