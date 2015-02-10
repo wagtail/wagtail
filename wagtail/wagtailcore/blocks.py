@@ -225,6 +225,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return force_text(value)
 
+    def get_searchable_content(self, value):
+        """
+        Returns a list of strings containing text content within this block to be used in a search engine.
+        """
+        return []
+
     def __eq__(self, other):
         """
         The deep_deconstruct method in django.db.migrations.autodetector.MigrationAutodetector does not
@@ -346,6 +352,10 @@ class FieldBlock(Block):
 
     def clean(self, value):
         return self.field.clean(value)
+
+    def get_searchable_content(self, value):
+        return [value]
+
 
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
@@ -541,6 +551,14 @@ class BaseStructBlock(Block):
             (name, self.child_blocks[name].get_prep_value(val))
             for name, val in value.items()
         ])
+
+    def get_searchable_content(self, value):
+        content = []
+
+        for name, block in self.child_blocks.items():
+            content.extend(block.get_searchable_content(value.get(name, block.meta.default)))
+
+        return content
 
     def deconstruct(self):
         """
@@ -747,6 +765,14 @@ class ListBlock(Block):
         )
         return format_html("<ul>{0}</ul>", children)
 
+    def get_searchable_content(self, value):
+        content = []
+
+        for child_value in value:
+            content.extend(self.child_block.get_searchable_content(child_value))
+
+        return content
+
 
 # ===========
 # StreamBlock
@@ -924,6 +950,14 @@ class BaseStreamBlock(Block):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
             [(child, child.block_type) for child in value]
         )
+
+    def get_searchable_content(self, value):
+        content = []
+
+        for child in value:
+            content.extend(child.block.get_searchable_content(child.value))
+
+        return content
 
     def deconstruct(self):
         """
