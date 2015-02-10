@@ -302,17 +302,20 @@ class Filter(models.Model):
         vary = []
 
         for operation in self.operations:
-            if hasattr(operation, 'get_vary'):
-                vary.extend(operation.get_vary(image))
+            for field in getattr(operation, 'vary_fields', []):
+                value = getattr(image, field, '')
+                vary.append(str(value))
 
         return vary
 
     def get_vary_key(self, image):
         vary_string = '-'.join(self.get_vary(image))
-        vary_key = hashlib.sha1(vary_string.encode('utf-8')).hexdigest()
 
-        return vary_key[:8]
+        # Return blank string if there are no vary fields
+        if not vary_string:
+            return ''
 
+        return  hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
 
     _registered_operations = None
 

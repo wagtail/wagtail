@@ -3,5 +3,10 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=snippet_type_name icon="snippet" %}
 
 <div class="nice-padding">
-    {% include "wagtailsnippets/snippets/list.html" with choosing=1 %}
+    {% if items %}
+    	{% include "wagtailsnippets/snippets/list.html" with choosing=1 %}
+    {% else %}
+    	{% url 'wagtailsnippets_create' content_type.app_label content_type.model as wagtailsnippets_create_snippet_url %}
+    	<p>{% blocktrans %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank">create one now{% endblocktrans %}</p>
+    {% endif %}
 </div>

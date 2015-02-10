@@ -15,6 +15,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 def runtests():
     # Don't ignore DeprecationWarnings
     warnings.simplefilter('default', DeprecationWarning)
+    warnings.simplefilter('default', PendingDeprecationWarning)
 
     argv = sys.argv[:1] + ['test'] + sys.argv[1:]
     try:
