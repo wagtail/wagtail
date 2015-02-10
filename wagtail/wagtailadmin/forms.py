@@ -143,6 +143,8 @@ class PasswordResetForm(PasswordResetForm):
                 domain = current_site.domain
             else:
                 site_name = domain = domain_override
+
+            protocol = 'https' if use_https else 'http'
             context = {
                 'email': user.email,
                 'domain': domain,
@@ -150,7 +152,7 @@ class PasswordResetForm(PasswordResetForm):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'user': user,
                 'token': token_generator.make_token(user),
-                'protocol': 'https' if use_https else 'http',
+                'protocol': protocol,
             }
 
             base_url = getattr(settings, 'BASE_URL', False)
