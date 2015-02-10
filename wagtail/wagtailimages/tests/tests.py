@@ -1,4 +1,5 @@
 import datetime
+from contextlib import contextmanager
 
 from mock import MagicMock
 
@@ -263,42 +264,24 @@ class TestGetImageForm(TestCase):
             'focal_point_height',
         ])
 
-    def test_fields_custom_image_model_without_admin_fields(self):
-        class CustomImage(Image):
-            caption = models.CharField(max_length=255)
+    @contextmanager
+    def patch_admin_form_fields(self, image_model, admin_form_fields):
+        old_admin_form_fields = image_model.admin_form_fields
+        image_model.admin_form_fields = admin_form_fields
+        yield
+        image_model.admin_form_fields = old_admin_form_fields
 
-        form = get_image_form(CustomImage)
+    def test_admin_form_fields_attribute(self):
+        # Remove focal point fields
+        admin_form_fields = Image.admin_form_fields[:-4]
 
-        # Caption was not put in admin_form_fields so it will not appear in the form
-        self.assertEqual(list(form.base_fields.keys()), [
-            'title',
-            'file',
-            'tags',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-        ])
-
-    def test_fields_custom_image_model_with_admin_fields(self):
-        class CustomImage(Image):
-            caption = models.CharField(max_length=255)
-
-            admin_form_fields = Image.admin_form_fields + (
-                'caption',
-            )
-
-        form = get_image_form(CustomImage)
+        with self.patch_admin_form_fields(Image, admin_form_fields):
+             form = get_image_form(Image)
 
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
             'tags',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-            'caption',
         ])
 
     def test_file_field(self):
