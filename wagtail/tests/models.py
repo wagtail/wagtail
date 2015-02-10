@@ -20,6 +20,7 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
+from wagtail.wagtailimages.models import AbstractImage, Image
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -522,3 +523,17 @@ register_snippet(RegisterFunction)
 @register_snippet
 class RegisterDecorator(models.Model):
     pass
+
+
+class CustomImageWithoutAdminFormFields(AbstractImage):
+    caption = models.CharField(max_length=255)
+    not_editable_field = models.CharField(max_length=255)
+
+
+class CustomImageWithAdminFormFields(AbstractImage):
+    caption = models.CharField(max_length=255)
+    not_editable_field = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'caption',
+    )

@@ -1,4 +1,5 @@
 import datetime
+import warnings
 from contextlib import contextmanager
 
 from mock import MagicMock
@@ -11,6 +12,9 @@ from django.db import models
 
 from taggit.forms import TagField, TagWidget
 
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.tests.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
@@ -250,7 +254,7 @@ class TestRect(TestCase):
         self.assertEqual(rect.get_key(), '150-200-100x100')
 
 
-class TestGetImageForm(TestCase):
+class TestGetImageForm(TestCase, WagtailTestUtils):
     def test_fields(self):
         form = get_image_form(Image)
 
@@ -264,23 +268,40 @@ class TestGetImageForm(TestCase):
             'focal_point_height',
         ])
 
-    @contextmanager
-    def patch_admin_form_fields(self, image_model, admin_form_fields):
-        old_admin_form_fields = image_model.admin_form_fields
-        image_model.admin_form_fields = admin_form_fields
-        yield
-        image_model.admin_form_fields = old_admin_form_fields
-
     def test_admin_form_fields_attribute(self):
-        # Remove focal point fields
-        admin_form_fields = Image.admin_form_fields[:-4]
-
-        with self.patch_admin_form_fields(Image, admin_form_fields):
-             form = get_image_form(Image)
+        form = get_image_form(CustomImageWithAdminFormFields)
 
         self.assertEqual(list(form.base_fields.keys()), [
             'title',
             'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+            'caption',
+        ])
+
+    def test_custom_image_model_without_admin_form_fields_raises_warning(self):
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            form = get_image_form(CustomImageWithoutAdminFormFields)
+
+            # Check that a RemovedInWagtail11Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail11Warning))
+            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(w[-1].message))
+
+        # All fields, including the not editable one should be on the form
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+            'caption',
+            'not_editable_field',
             'tags',
         ])
 
