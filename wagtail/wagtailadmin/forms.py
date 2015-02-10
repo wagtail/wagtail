@@ -154,8 +154,10 @@ class PasswordResetForm(PasswordResetForm):
             }
 
             base_url = getattr(settings, 'BASE_URL', False)
-            if base_url:
-                context.update({'base_url': base_url})
+            if not base_url:
+                base_url = '%s://%s' % (protocol, domain)
+
+            context.update({'base_url': base_url})
 
             from pprint import pprint
             pprint(context)
