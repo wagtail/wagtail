@@ -1,4 +1,8 @@
 {% extends "wagtailadmin/block_forms/sequence.html" %}
 {% block header %}
-    {% include "wagtailadmin/block_forms/stream_menu.html" with prefix=header_menu_prefix %}
+    {% if list_members_html %}
+        {% include "wagtailadmin/block_forms/stream_menu.html" with prefix=header_menu_prefix state="closed" %}
+    {% else %}
+        {% include "wagtailadmin/block_forms/stream_menu.html" with prefix=header_menu_prefix state="open" %}
+    {% endif %}
 {% endblock %}

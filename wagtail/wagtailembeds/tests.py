@@ -25,6 +25,8 @@ from wagtail.wagtailembeds.embeds import (
     oembed as wagtail_oembed,
 )
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
+from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.wagtailembeds.models import Embed
 
 
 class TestEmbeds(TestCase):
@@ -303,3 +305,18 @@ class TestEmbedFilter(TestCase):
         context = template.Context()
         result = temp.render(context)
         self.assertEqual(result, '')
+
+
+class TestEmbedBlock(TestCase):
+    @patch('wagtail.wagtailembeds.format.get_embed')
+    def test_render(self, get_embed):
+        get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
+
+        block = EmbedBlock()
+        html = block.render('http://www.example.com')
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call('http://www.example.com')
+
+        # Check that the embed was in the returned HTML
+        self.assertIn('<h1>Hello world!</h1>', html)

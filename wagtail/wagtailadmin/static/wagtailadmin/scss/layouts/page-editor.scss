@@ -153,16 +153,6 @@
             padding:0;
         }
 
-        input, textarea, .richtext{
-            @include nice-padding();
-            @include border-radius(0px);
-            font-family:Bitter, Georgia, serif;
-            padding-top:2em;
-            padding-bottom:2em;
-            font-size:1.2em;
-            line-height:1.6em;
-        }
-
         .richtext{
             padding-top:3em; /* to provide space for editor buttons */
             padding-bottom:3em;
@@ -187,8 +177,15 @@
     }
 
     &.stream-field {
+        padding:0;
+
+        &.required .field > label:after{
+            display:none;
+        }
+
         > fieldset{
             @include column(12);
+            max-width:none;
             padding-left:0;
             padding-right:0;
         }
@@ -196,6 +193,11 @@
         .fields > li > .field > label{
             display:none;
         }
+        .stream_widget > .field-content{
+            width:100%;
+            display:block;
+        }
+
         .sequence{
             position:relative;
             @include clearfix;
@@ -203,7 +205,6 @@
             .sequence{ /* YUK! */
                 padding:0 1.5em;
                 margin:1em 0;
-                border:1px solid lighten($color-grey-4, 3%);
             }
         }
 
@@ -218,18 +219,40 @@
         .sequence-member{
             @include clearfix;
             position:relative;
-            padding:1em 1.5em;
-            border-bottom:1px solid lighten($color-grey-4, 3%);
             margin:0 -1.5em;
 
-            .inner{
+            .sequence-member-inner{
                 @include clearfix;
+                position:relative;
+                padding:0em 50px 1em 50px;
+
+                > .struct-block > label,
+                > .char_field > label{
+                    @include transition(opacity 0.2s ease);
+                    opacity:0;
+                    display:block;
+                    font-style:italic;
+                    font-weight:normal;                    
+                    position:absolute;
+                    top:0; right:4em;
+                    float:none;
+                    width:auto;
+                    padding:0;
+                    color:$color-grey-2;
+                    line-height:2.2em;
+                    text-transform:capitalize;
+                }
             }
 
-            .inner > .struct-block > label{
-                display:block;
-                width:100%;
-                float:none;
+            &:hover{
+                background-color:$color-input-focus;
+            }
+
+            &:hover .sequence-member-inner{
+                > .struct-block > label,
+                > .char_field > label{
+                    opacity:1;
+                }
             }
         }       
 
@@ -238,14 +261,27 @@
             padding-top:0.5em;
             padding-bottom:1.2em;
         }
+
+        .struct-block .char_field > label{
+            display:none;
+        }
+
+        input[type=text], input[type=url], input[type=email], input[type=numeric], .richtext, textarea{
+            border:0;
+            padding-left:0;
+            padding-right:0;
+            background-color:transparent;
+            max-width:1024px;
+        }
     }
 
     /* Object controls */
     .stream-controls{
+        @include transition(opacity 0.2s ease);
+        opacity:0;
         position:absolute;
+        top:0; right:1em;
         z-index:1;
-        right:1em;
-        top:1em;
         color:white;
         overflow:hidden;
         @include border-radius(2px);
@@ -268,59 +304,131 @@
 
     /* Menu of other blocks to be added at each position */
     .stream-menu{
+        @include transition(all 0.2s ease);
+        @include box-shadow(inset 0 0 45px rgba(0,0,0,0.3));
         position:relative;
-        overflow:hidden;
+        background-color:$color-grey-1;
+        border-top:1px solid transparent;
+        opacity:1;
+        z-index:5;
+
+        .stream-menu-inner{
+            @include transition(max-height 0.2s ease);
+            max-width:50em;
+            max-height:9999em;
+            margin: auto;
+            overflow:hidden;
+        }
 
         ul{
+            @include transition(all 0.2s ease);
             @include clearfix;
+            opacity:1;
             padding:1em;
-            background-color:$color-grey-5;
+            overflow:hidden;
         }
         li{
-            display:inline;
+            @include column(2);
+            padding-bottom:$grid-gutter-width;
         }
 
         button{
+            @include transition(all 0.2s ease);
+            background-color:transparent;
+            border:0;
+            color:darken($color-grey-3, 5%);
             height:auto;
+            display:block;
+            width:100%;
+            padding:0 0 0.5em 0;
+
+            span{
+                text-overflow:ellipsis;
+                text-transform:none;
+                white-space: nowrap;
+                width:100%;
+                display:block;
+                overflow:hidden;
+                padding:0 1em;
+                box-sizing: border-box;
+            }
+
             &:before{
                 display:block;
                 font-family:wagtail;
-                font-size:3em;
-                width:3em;
-                height:3em;
-                line-height:3em;
+                font-size:2em;
+                width:100%;
+                height:2em;
+                line-height:2em;
                 text-align:center;
+            }
+
+            &:hover{
+                background-color:$color-teal;
+                color:white;
             }
         }
 
         &:before{
-            margin-top:-0.5em;
+            @include transition(all 0.2s ease);
+            @include transform(rotate(-45deg));
+            @include border-radius(50px);
+            cursor:pointer;
             font-family:wagtail;
             content:"B";
-            width:2em;
-            height:2em;
+            width:1em;
+            height:1em;
             display:block;
-            position:relative;
-            left:0;right:0;
-            margin:auto;
+            margin:-0.5em auto auto auto;
             z-index:5;
-            color:$color-teal;
+            color:$color-grey-1;
+            background-color:white;
             font-size:1.7em;
-            line-height:2em;
+            line-height:1em;
             text-align:center;
         }
 
-
         &.stream-menu-closed{
+            @include box-shadow(none);
+            height:0px;
+            border-top:1px solid lighten($color-grey-4, 3%);
+
+            .stream-menu-inner{
+                max-height:1em;
+            }
             ul{
-                /*height:0px;*/
+                opacity:0;
+                padding:10em;
             }
 
-           
+            &:before{
+                @include transform(rotate(0deg));
+                color:$color-grey-3;
+                background-color:white;
+            } 
+
+            &:hover{
+                border-top-color:$color-teal;
+
+                &:before{
+                    color:$color-teal;
+                }
+            }   
         }
     }
     .sequence-member .stream-menu{
-        margin:auto -1.5em;
+        margin:auto auto 0em auto;
+    }
+    .sequence-member .stream-menu-closed{
+        opacity:0;
+    }
+    .sequence-member:hover{
+        .stream-controls{
+            opacity:1;
+        }
+        .stream-menu{
+            opacity:1;
+        }
     }
 
 
@@ -333,17 +441,6 @@
             width:1.4em;
         }
        
-    }
-
-    &.title input,
-    &.title textarea{
-        font-size:2em;
-        padding-top:2em;
-    }
-
-    &.title input{
-        padding-top:1.5em;
-        padding-bottom:1.5em;
     }
 
     .multiple{
@@ -449,6 +546,51 @@
         }
     }
 }
+
+.full input, textarea, .richtext{
+    @include nice-padding();
+    @include border-radius(0px);
+    padding-top:2em;
+    padding-bottom:2em;
+    font-size:1.2em;
+    line-height:1.6em;
+}
+
+.title input,
+.title textarea,
+.title .richtext{
+    font-family:Bitter, Georgia, serif;
+}
+
+.title.h2 input,
+.title.h2 textarea,
+.title.h2 .richtext{
+    font-size:2em;
+}
+
+.title.h3 input,
+.title.h3 textarea
+.title.h3 .richtext{
+    font-size:1.8em;
+}
+
+.title.h4 input,
+.title.h4 textarea,
+.title.h4 .richtext{
+    font-size:1.5em;
+}
+
+.intro input,
+.intro textarea,
+.intro .richtext{
+    font-size:1.4em;
+}
+
+.quote input{
+    font-style: italic;
+}
+
+
 
 footer .preview{
     button, .button{
