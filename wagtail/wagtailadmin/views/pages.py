@@ -698,7 +698,6 @@ def copy(request, page_id):
 
     return render(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
-        'parent_page': parent_page,
         'form': form,
     })
 

@@ -347,12 +347,6 @@
                     {% for field in example_form %}
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
-                        {% elif field.name == 'page_chooser' %}
-                            <li>{% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=field choose_one_text_str="Choose a page" choose_another_text_str="Choose another page" only %}</li>
-                        {% elif field.name == 'image_chooser' %}
-                             <li>{% include "wagtailimages/edit_handlers/image_chooser_panel.html" with field=field choose_one_text_str="Choose an image" choose_another_text_str="Choose another image" only %}</li>
-                        {% elif field.name == 'document_chooser' %}
-                             <li>{% include "wagtaildocs/edit_handlers/document_chooser_panel.html" with field=field choose_one_text_str="Choose a document" choose_another_text_str="Choose another document" only %}</li>
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
