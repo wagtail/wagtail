@@ -306,19 +306,19 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         ])
 
     def test_file_field(self):
-        form = get_image_form(Image)
+        form = get_image_form(WagtailImage)
 
         self.assertIsInstance(form.base_fields['file'], WagtailImageField)
         self.assertIsInstance(form.base_fields['file'].widget, forms.FileInput)
 
     def test_tags_field(self):
-        form = get_image_form(Image)
+        form = get_image_form(WagtailImage)
 
         self.assertIsInstance(form.base_fields['tags'], TagField)
         self.assertIsInstance(form.base_fields['tags'].widget, TagWidget)
 
     def test_focal_point_fields(self):
-        form = get_image_form(Image)
+        form = get_image_form(WagtailImage)
 
         self.assertIsInstance(form.base_fields['focal_point_x'], forms.IntegerField)
         self.assertIsInstance(form.base_fields['focal_point_y'], forms.IntegerField)
