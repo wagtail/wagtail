@@ -259,6 +259,35 @@ class TestListBlock(unittest.TestCase):
 
         self.assertEqual(block.child_block, child_block)
 
+    def render(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.FieldBlock(forms.CharField())
+            link = blocks.FieldBlock(forms.URLField())
+
+        block = blocks.ListBlock(LinkBlock())
+        return block.render([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ])
+
+    def test_render_uses_ul(self):
+        html = self.render()
+
+        self.assertIn('<ul>', html)
+        self.assertIn('</ul>', html)
+
+    def test_render_uses_li(self):
+        html = self.render()
+
+        self.assertIn('<li>', html)
+        self.assertIn('</li>', html)
+
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.FieldBlock(forms.CharField())
