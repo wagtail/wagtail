@@ -82,3 +82,6 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def value_to_string(self, obj):
         value = self._get_val_from_obj(obj)
         return self.get_prep_value(value)
+
+    def get_searchable_content(self, value):
+        return self.stream_block.get_searchable_content(value)

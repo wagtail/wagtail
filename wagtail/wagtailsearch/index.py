@@ -116,7 +116,10 @@ class BaseField(object):
     def get_value(self, obj):
         try:
             field = self.get_field(obj.__class__)
-            return field._get_val_from_obj(obj)
+            value = field._get_val_from_obj(obj)
+            if hasattr(field, 'get_searchable_content'):
+                value = field.get_searchable_content(value)
+            return value
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
             if hasattr(value, '__call__'):
