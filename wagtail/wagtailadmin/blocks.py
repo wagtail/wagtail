@@ -356,6 +356,23 @@ class PageChooserBlock(FieldBlock):
         from wagtail.wagtailadmin.widgets import AdminPageChooser
         return ModelChoiceField(queryset=Page.objects.all(), widget=AdminPageChooser)
 
+    def to_python(self, value):
+        from wagtail.wagtailcore.models import Page
+
+        if value is None or isinstance(value, Page):
+            return value
+        else:
+            try:
+                return Page.objects.get(pk=value)  # TODO: use the specific class in place of Page where appropriate
+            except Page.DoesNotExist:
+                return None
+
+    def get_prep_value(self, value):
+        if isinstance(value, Page):
+            return value.id
+        else:
+            return value
+
 # =======
 # Chooser
 # =======
