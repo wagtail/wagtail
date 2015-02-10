@@ -67,6 +67,16 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_width = models.PositiveIntegerField(null=True, blank=True)
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
+    admin_form_fields = (
+        'title',
+        'file',
+        'tags',
+        'focal_point_x',
+        'focal_point_y',
+        'focal_point_width',
+        'focal_point_height',
+    )
+
     def get_usage(self):
         return get_object_usage(self)
 

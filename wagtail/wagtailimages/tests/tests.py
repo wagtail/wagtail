@@ -3,13 +3,19 @@ import datetime
 from mock import MagicMock
 
 from django.test import TestCase
-from django import template
+from django import template, forms
 from django.utils import six
 from django.core.urlresolvers import reverse
+from django.db import models
+
+from taggit.forms import TagField, TagWidget
 
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
+from wagtail.wagtailimages.models import Image as WagtailImage
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.fields import WagtailImageField
 
 from .utils import Image, get_test_image_file
 
@@ -241,3 +247,81 @@ class TestRect(TestCase):
     def test_get_key(self):
         rect = Rect(100, 150, 200, 250)
         self.assertEqual(rect.get_key(), '150-200-100x100')
+
+
+class TestGetImageForm(TestCase):
+    def test_fields(self):
+        form = get_image_form(Image)
+
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+        ])
+
+    def test_fields_custom_image_model_without_admin_fields(self):
+        class CustomImage(Image):
+            caption = models.CharField(max_length=255)
+
+        form = get_image_form(CustomImage)
+
+        # Caption was not put in admin_form_fields so it will not appear in the form
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+        ])
+
+    def test_fields_custom_image_model_with_admin_fields(self):
+        class CustomImage(Image):
+            caption = models.CharField(max_length=255)
+
+            admin_form_fields = Image.admin_form_fields + (
+                'caption',
+            )
+
+        form = get_image_form(CustomImage)
+
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+            'caption',
+        ])
+
+    def test_file_field(self):
+        form = get_image_form(Image)
+
+        self.assertIsInstance(form.base_fields['file'], WagtailImageField)
+        self.assertIsInstance(form.base_fields['file'].widget, forms.FileInput)
+
+    def test_tags_field(self):
+        form = get_image_form(Image)
+
+        self.assertIsInstance(form.base_fields['tags'], TagField)
+        self.assertIsInstance(form.base_fields['tags'].widget, TagWidget)
+
+    def test_focal_point_fields(self):
+        form = get_image_form(Image)
+
+        self.assertIsInstance(form.base_fields['focal_point_x'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_y'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_width'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_height'], forms.IntegerField)
+
+        self.assertIsInstance(form.base_fields['focal_point_x'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_y'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_width'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_height'].widget, forms.HiddenInput)

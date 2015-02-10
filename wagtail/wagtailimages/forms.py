@@ -19,6 +19,7 @@ def formfield_for_dbfield(db_field, **kwargs):
 def get_image_form(model):
     return modelform_factory(
         model,
+        fields=model.admin_form_fields,
         formfield_callback=formfield_for_dbfield,
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
