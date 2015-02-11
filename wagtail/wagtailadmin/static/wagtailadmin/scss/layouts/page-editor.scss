@@ -286,6 +286,7 @@
     .stream-controls{
         @include transition(opacity 0.2s ease);
         opacity:0;
+        visibility:hidden;
         position:absolute;
         top:0; right:1em;
         z-index:1;
@@ -335,7 +336,11 @@
             z-index:5;
             color:$color-grey-1;
             background-color:white;
-        
+
+            span{
+                @include visuallyhidden();
+            }
+
             &:before{
                 @include transition(all 0.2s ease);
                 @include transform(rotate(-45deg));
@@ -358,6 +363,7 @@
         ul{
             @include transition(all 0.2s ease);
             @include clearfix;
+            visibility:visible;
             opacity:1;
             padding:1em 1em 0 1em;
             overflow:hidden;
@@ -382,6 +388,7 @@
             display:block;
             width:100%;
             padding:0 0 0.5em 0;
+            outline:$color-teal;
 
             span{
                 text-transform:capitalize;
@@ -403,7 +410,8 @@
                 text-align:center;
             }
 
-            &:hover{
+            &:hover,
+            &:focus{
                 background-color:$color-teal;
                 color:white;
             }
@@ -421,12 +429,16 @@
                 &:before{
                     @include transform(rotate(0deg));
                 }
+                &:focus{
+                    color:$color-teal;
+                }
             } 
 
             .stream-menu-inner{
                 max-height:1em;
             }
             ul{
+                visibility:hidden;
                 opacity:0;
                 padding:10em;
             }           
@@ -445,12 +457,15 @@
     }
     .sequence-member .stream-menu-closed{
         opacity:0;
+        visibility:hidden;
     }
     .sequence-member:hover{
         .stream-controls{
+            visibility:visible;
             opacity:1;
         }
         .stream-menu{
+            visibility:visible;
             opacity:1;
         }
     }
