@@ -14,7 +14,8 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 
         var indexField = $('#' + self.prefix + '-order');
 
-        self.menu.click(function(){
+        self.menu.click(function(e){
+            e.preventDefault();
             self.toggleMenu();
         });
 
