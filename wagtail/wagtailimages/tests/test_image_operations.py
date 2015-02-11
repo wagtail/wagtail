@@ -2,7 +2,7 @@ import unittest
 
 from wagtail.wagtailimages import image_operations
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.models import Image, Filter
 
 
 class WillowOperationRecorder(object):
@@ -149,6 +149,13 @@ class TestFillOperation(ImageOperationTestCase):
         ('fill-800x600', Image(width=1000, height=1000), [
             ('crop', (0, 125, 1000, 875), {}),
             ('resize', (800, 600), {}),
+        ]),
+
+        # Basic usage with an oddly-sized original image
+        # This checks for a rounding precision issue (#968)
+        ('fill-200x200', Image(width=539, height=720), [
+            ('crop', (0, 90, 539, 629), {}),
+            ('resize', (200, 200), {}),
         ]),
 
         # Closeness shouldn't have any effect when used without a focal point
@@ -318,3 +325,33 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     ]
 
 TestWidthHeightOperation.setup_test_methods()
+
+
+class TestVaryKey(unittest.TestCase):
+    def test_vary_key(self):
+        image = Image(width=1000, height=1000)
+        fil = Filter(spec='max-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, '')
+
+    def test_vary_key_fill_filter(self):
+        image = Image(width=1000, height=1000)
+        fil = Filter(spec='fill-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, '2e16d0ba')
+
+    def test_vary_key_fill_filter_with_focal_point(self):
+        image = Image(
+            width=1000,
+            height=1000,
+            focal_point_width=100,
+            focal_point_height=100,
+            focal_point_x=500,
+            focal_point_y=500,
+        )
+        fil = Filter(spec='fill-100x100')
+        vary_key = fil.get_vary_key(image)
+
+        self.assertEqual(vary_key, '0bbe3b2f')

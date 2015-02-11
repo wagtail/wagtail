@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import copy
+import warnings
 
 from six import text_type
 
@@ -21,6 +22,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
 FORM_FIELD_OVERRIDES = {
@@ -431,18 +433,16 @@ class BaseFieldPanel(EditHandler):
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
             'self': self,
-            'field_content': self.render_as_field(show_help_text=False),
+            'field_content': self.render_as_field(),
         }))
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
 
-    def render_as_field(self, show_help_text=True, extra_context={}):
+    def render_as_field(self):
         context = {
             'field': self.bound_field,
             'field_type': self.field_type(),
-            'show_help_text': show_help_text,
         }
-        context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
 
     @classmethod
@@ -491,7 +491,7 @@ class BaseChooserPanel(BaseFieldPanel):
     a hidden foreign key input.
 
     Subclasses provide:
-    * field_template
+    * field_template (only required if the default template of field_panel_field.html is not usable)
     * object_type_name - something like 'image' which will be used as the var name
       for the object instance in the field_template
     """
@@ -505,20 +505,17 @@ class BaseChooserPanel(BaseFieldPanel):
             # like every other unpopulated field type. Yay consistency!
             return None
 
-    def render_as_field(self, show_help_text=True, extra_context={}):
+    def render_as_field(self):
         instance_obj = self.get_chosen_item()
         context = {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
-            'is_chosen': bool(instance_obj),
-            'show_help_text': show_help_text,
+            'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
         }
-        context.update(extra_context)
         return mark_safe(render_to_string(self.field_template, context))
 
 
 class BasePageChooserPanel(BaseChooserPanel):
-    field_template = "wagtailadmin/edit_handlers/page_chooser_panel.html"
     object_type_name = "page"
 
     _target_content_type = None
@@ -547,14 +544,6 @@ class BasePageChooserPanel(BaseChooserPanel):
                 cls._target_content_type = ContentType.objects.get_by_natural_key('wagtailcore', 'page')
 
         return cls._target_content_type
-
-    def render_as_field(self, show_help_text=True, extra_context={}):
-        context = {
-            'choose_another_text_str': ugettext_lazy("Choose another page"),
-            'choose_one_text_str': ugettext_lazy("Choose a page"),
-        }
-        context.update(extra_context)
-        return super(BasePageChooserPanel, self).render_as_field(show_help_text, context)
 
 
 class PageChooserPanel(object):
@@ -651,13 +640,29 @@ class BaseInlinePanel(EditHandler):
 
 
 class InlinePanel(object):
-    def __init__(self, base_model, relation_name, panels=None, label='', help_text=''):
-        # the base_model param is now redundant; we set up relations based on the model passed to
+    def __init__(self, *args, **kwargs):
+        # prior to Wagtail 0.9, InlinePanel required two params, base_model and relation_name.
+        # base_model is no longer required; we set up relations based on the model passed to
         # bind_to_model instead
-        self.relation_name = relation_name
-        self.panels = panels
-        self.label = label
-        self.help_text = help_text
+        if len(args) == 1:  # new-style: InlinePanel(relation_name)
+            self.relation_name = args[0]
+        elif len(args) == 2:  # old-style: InlinePanel(base_model, relation_name)
+            self.relation_name = args[1]
+
+            warnings.warn(
+                "InlinePanel no longer needs to be passed a model parameter. "
+                "InlinePanel({classname}, '{relname}') should be changed to InlinePanel('{relname}')".format(
+                    classname=args[0].__name__, relname=self.relation_name
+                ), RemovedInWagtail11Warning, stacklevel=2)
+        else:
+            raise TypeError("InlinePanel() takes exactly 1 argument (%d given)" % len(args))
+
+        self.panels = kwargs.pop('panels', None)
+        self.label = kwargs.pop('label', '')
+        self.help_text = kwargs.pop('help_text', '')
+
+        if kwargs:
+            raise TypeError("InlinePanel got an unexpected keyword argument '%s'" % kwargs.keys()[0])
 
     def bind_to_model(self, model):
         return type(str('_InlinePanel'), (BaseInlinePanel,), {

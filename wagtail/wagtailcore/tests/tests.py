@@ -1,7 +1,12 @@
+import unittest
+
 from django.test import TestCase
 from django.core.cache import cache
+from django.utils.safestring import SafeString
 
 from wagtail.wagtailcore.models import Page, Site
+from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
+from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.tests.models import SimplePage
 
 
@@ -142,3 +147,53 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check url
         self.assertEqual(homepage.url, '/')
+
+
+class TestResolveModelString(TestCase):
+    def test_resolve_from_string(self):
+        model = resolve_model_string('wagtailcore.Page')
+
+        self.assertEqual(model, Page)
+
+    def test_resolve_from_string_with_default_app(self):
+        model = resolve_model_string('Page', default_app='wagtailcore')
+
+        self.assertEqual(model, Page)
+
+    def test_resolve_from_string_with_different_default_app(self):
+        model = resolve_model_string('wagtailcore.Page', default_app='wagtailadmin')
+
+        self.assertEqual(model, Page)
+
+    def test_resolve_from_class(self):
+        model = resolve_model_string(Page)
+
+        self.assertEqual(model, Page)
+
+    def test_resolve_from_string_invalid(self):
+        self.assertRaises(ValueError, resolve_model_string, 'wagtail.wagtailcore.Page')
+
+    def test_resolve_from_string_with_incorrect_default_app(self):
+        self.assertRaises(LookupError, resolve_model_string, 'Page', default_app='wagtailadmin')
+
+    def test_resolve_from_string_with_no_default_app(self):
+        self.assertRaises(ValueError, resolve_model_string, 'Page')
+
+    @unittest.expectedFailure # Raising LookupError instead
+    def test_resolve_from_class_that_isnt_a_model(self):
+        self.assertRaises(ValueError, resolve_model_string, object)
+
+    @unittest.expectedFailure # Raising LookupError instead
+    def test_resolve_from_bad_type(self):
+        self.assertRaises(ValueError, resolve_model_string, resolve_model_string)
+
+
+class TestRichtextTag(TestCase):
+    def test_call_with_text(self):
+        result = richtext("Hello world!")
+        self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
+        self.assertIsInstance(result, SafeString)
+
+    def test_call_with_none(self):
+        result = richtext(None)
+        self.assertEqual(result, '<div class="rich-text"></div>')

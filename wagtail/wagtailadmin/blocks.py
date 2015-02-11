@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import re
 import collections
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -14,7 +14,7 @@ from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 from django.template.loader import render_to_string
-from django.forms import Media, CharField
+from django.forms import Media, CharField, ModelChoiceField
 from django.forms.utils import ErrorList
 
 import six
@@ -277,9 +277,18 @@ class FieldBlock(Block):
     class Meta:
         default = None
 
-    def __init__(self, field, **kwargs):
+    def __init__(self, field=None, **kwargs):
         super(FieldBlock, self).__init__(**kwargs)
-        self.field = field
+        self._field = field
+
+    @cached_property
+    def field(self):
+        # Sometimes the field object needs to be constructed lazily - for example, ModelChoiceFields
+        # cannot be defined until models have been loaded. In those cases, we can leave field unspecified
+        # in the constructor, and override this method instead.
+        if self._field is None:
+            raise ImproperlyConfigured("FieldBlock was not passed a field object")
+        return self._field
 
     def render_form(self, value, prefix='', error=None):
         widget = self.field.widget
@@ -339,6 +348,13 @@ class RichTextBlock(FieldBlock):
 
     def render_basic(self, value):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+
+class PageChooserBlock(FieldBlock):
+    @cached_property
+    def field(self):
+        from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
+        from wagtail.wagtailadmin.widgets import AdminPageChooser
+        return ModelChoiceField(queryset=Page.objects.all(), widget=AdminPageChooser)
 
 # =======
 # Chooser

@@ -247,10 +247,10 @@ EventPage.content_panels = [
     FieldPanel('audience'),
     FieldPanel('cost'),
     FieldPanel('signup_link'),
-    InlinePanel(EventPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(EventPage, 'speakers', label="Speakers"),
-    InlinePanel(EventPage, 'related_links', label="Related links"),
+    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 EventPage.promote_panels = [
@@ -329,7 +329,7 @@ class FormPage(AbstractEmailForm):
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
-    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+    InlinePanel('form_fields', label="Form fields"),
     MultiFieldPanel([
         FieldPanel('to_address', classname="full"),
         FieldPanel('from_address', classname="full"),
@@ -392,7 +392,7 @@ class StandardIndex(Page):
 
 StandardIndex.content_panels = [
     FieldPanel('title', classname="full title"),
-    InlinePanel(StandardIndex, 'advert_placements', label="Adverts"),
+    InlinePanel('advert_placements', label="Adverts"),
 ]
 
 

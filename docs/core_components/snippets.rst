@@ -151,7 +151,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
     ...
 
   BookPage.content_panels = [
-    InlinePanel(BookPage, 'advert_placements', label="Adverts"),
+    InlinePanel('advert_placements', label="Adverts"),
     # ...
   ]
 
