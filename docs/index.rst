@@ -8,9 +8,9 @@ Below are some useful links to help you get started with Wagtail.
 
 * **First steps**
 
-  :doc:`Installation <getting_started/installation>`
+  :doc:`getting_started/installation`
 
-  :doc:`Starting a project <getting_started/creating_your_project>`
+  :doc:`getting_started/creating_your_project`
 
 
 * **Creating your Wagtail site**
@@ -29,3 +29,21 @@ Below are some useful links to help you get started with Wagtail.
 * **Using Wagtail**
 
   :doc:`Editors guide <editor_manual/index>`
+
+
+Index
+-----
+
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+
+   getting_started/index
+   core_components/index
+   contrib_components/index
+   howto/index
+   reference/index
+   support
+   editor_manual/index
+   releases/index

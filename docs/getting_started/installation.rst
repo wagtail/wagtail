@@ -14,9 +14,14 @@ Whether you just want to try out the demo site, or you're ready to dive in and c
 Install Python
 ==============
 
+We recommend installing Python 3.4, but Wagtail also works with Python 2.7 and 3.3.
+
+
 
 Install Wagtail
 ===============
+
+``pip install wagtail``
 
 
 Optional extras

@@ -7,3 +7,4 @@ Getting started
 
     installation
     creating_your_project
+    using_vagrant

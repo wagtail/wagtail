@@ -1,6 +1,8 @@
 The project template
 ====================
 
+.. code-block:: text
+
     mysite/
         core/
             static/
@@ -46,7 +48,7 @@ Location: ``/Vagrantfile`` and ``/vagrant/``
 
 If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL and Elasticsearch inside a virtual machine.
 
-See below section `With Vagrant`_ for info on how to use Vagrant in development
+See :doc:`../getting_started/using_vagrant` for info on how to use Vagrant in development
 
 If you do not want to use Vagrant, you can just delete these files.
 
