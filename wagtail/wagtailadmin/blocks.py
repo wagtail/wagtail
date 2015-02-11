@@ -311,18 +311,12 @@ class FieldBlock(Block):
         #if error:
         #    error_html = str(ErrorList(error.error_list))
         #else:
-        #    error_html = ''        
-
-        if self.meta.classname:
-            classes = self.meta.classname.split(' ')
-        else:
-            classes = None
-
-        
+        #    error_html = ''                
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
+            'name': self.name,
             'label': self.label,
-            'classes': classes,
+            'classes': self.meta.classname,
             'widget': widget_html,
             'label_tag': label_html,
             'field': self.field,

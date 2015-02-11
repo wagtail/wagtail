@@ -11,6 +11,11 @@
 .hallotoolbar.full{
     margin-left:$mobile-nice-padding;
 }
+/* stream-field is added to hallotoolbar when invoked on a field within a stream-field */
+.hallotoolbar.stream-field{
+    margin-top:0;
+    margin-left:0;
+}
 .hallotoolbar.affixed{
     position:fixed;
     margin-top:0;
