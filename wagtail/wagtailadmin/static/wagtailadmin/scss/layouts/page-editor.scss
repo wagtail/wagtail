@@ -2,29 +2,31 @@
 @import "../mixins.scss";
 @import "../grid.scss";
 
-.page-editor .content-wrapper{
-    margin-bottom:10em;
+.page-editor {
+    .content-wrapper{
+        margin-bottom:10em;
+    }
+    .breadcrumb{
+        margin-top:-1.2em;
+        margin-bottom:2em;
+    }
+    .modal .breadcrumb{
+        margin:0;
+        background-color:transparent;
+
+        a{
+            color:$color-grey-2;
+        }
+        li:hover{
+            background-color:$color-grey-4;
+        }
+        .home{
+            padding-left:0;
+        }
+    }
 }
 
-.page-editor .breadcrumb{
-    margin-top:-1.2em;
-    margin-bottom:2em;
-}
-.page-editor .modal .breadcrumb{
-    margin:0;
-    background-color:transparent;
-
-    a{
-        color:$color-grey-2;
-    }
-    li:hover{
-        background-color:$color-grey-4;
-    }
-    .home{
-        padding-left:0;
-    }
-}
-
+/* An object is the basic wrapper around any field or group of fields in the editor interface */
 .object{
     position:relative;
     overflow:hidden;
@@ -272,6 +274,11 @@
             padding-right:0;
             background-color:transparent;
             max-width:1024px;
+        }
+
+        .richtext.inEditMode{
+            padding-top:1em;
+            padding-bottom:1em;
         }
     }
 
@@ -564,6 +571,7 @@
     }
 }
 
+/* Custom styles that make some fields look more important */
 .full input, textarea, .richtext{
     @include nice-padding();
     @include border-radius(0px);
@@ -576,39 +584,11 @@
 .title input,
 .title textarea,
 .title .richtext{
+    font-size:2em;
     font-family:Bitter, Georgia, serif;
 }
 
-.title.h2 input,
-.title.h2 textarea,
-.title.h2 .richtext{
-    font-size:2em;
-}
-
-.title.h3 input,
-.title.h3 textarea
-.title.h3 .richtext{
-    font-size:1.8em;
-}
-
-.title.h4 input,
-.title.h4 textarea,
-.title.h4 .richtext{
-    font-size:1.5em;
-}
-
-.intro input,
-.intro textarea,
-.intro .richtext{
-    font-size:1.4em;
-}
-
-.quote input{
-    font-style: italic;
-}
-
-
-
+/* Footer control bar for perfoming actions on the page */
 footer .preview{
     button, .button{
         background-color:lighten($color-grey-2,10%);

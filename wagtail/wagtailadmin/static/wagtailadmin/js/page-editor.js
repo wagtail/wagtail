@@ -31,9 +31,11 @@ function makeRichTextEditable(id) {
         removeStylingPending = false;
     }
 
+    var closestObj = input.closest('.object');
+
     richText.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (input.closest('.object').hasClass('full')) ? 'full' : '',
+        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field')) ? 'stream-field' : '',
         plugins: halloPlugins
     }).bind('hallomodified', function(event, data) {
         input.val(data.content);
