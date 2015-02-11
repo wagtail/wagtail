@@ -349,30 +349,38 @@ class RichTextBlock(FieldBlock):
     def render_basic(self, value):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
 
-class PageChooserBlock(FieldBlock):
+
+class ChooserBlock(FieldBlock):
+    """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
-        from wagtail.wagtailadmin.widgets import AdminPageChooser
-        return ModelChoiceField(queryset=Page.objects.all(), widget=AdminPageChooser)
+        return ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget)
 
     def to_python(self, value):
-        from wagtail.wagtailcore.models import Page
-
-        if value is None or isinstance(value, Page):
+        if value is None or isinstance(value, self.target_model):
             return value
         else:
             try:
-                return Page.objects.get(pk=value)  # TODO: use the specific class in place of Page where appropriate
-            except Page.DoesNotExist:
+                return self.target_model.objects.get(pk=value)
+            except self.target_model.DoesNotExist:
                 return None
 
     def get_prep_value(self, value):
-        from wagtail.wagtailcore.models import Page
-        if isinstance(value, Page):
+        if isinstance(value, self.target_model):
             return value.id
         else:
             return value
+
+class PageChooserBlock(ChooserBlock):
+    @cached_property
+    def target_model(self):
+        from wagtail.wagtailcore.models import Page  # TODO: allow limiting to specific page types
+        return Page
+
+    @cached_property
+    def widget(self):
+        from wagtail.wagtailadmin.widgets import AdminPageChooser
+        return AdminPageChooser
 
     def render_basic(self, value):
         if value:
