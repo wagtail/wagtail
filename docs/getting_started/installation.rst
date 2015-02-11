@@ -41,16 +41,8 @@ This provides everything you need to create a new Wagtail project from scratch, 
 
 You will need Python's `pip <http://pip.readthedocs.org/en/latest/installing.html>`__ package manager. We also recommend `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/>`_ so that you can manage multiple independent Python environments for different projects - although this is not strictly necessary if you intend to do all your development under Vagrant.
 
-Wagtail is based on the Django web framework and various other Python libraries. Most of these are pure Python and will install automatically using ``pip``, but there are a few native-code components that require further attention:
 
- * libsass-python (for compiling SASS stylesheets) - requires a C++ compiler and the Python development headers.
- * Pillow (for image processing) - additionally requires libjpeg and zlib.
-
-On Debian or Ubuntu, these can be installed with the command::
-
-    sudo apt-get install python-dev python-pip g++ libjpeg62-dev zlib1g-dev
-
-With these dependencies installed, Wagtail can then be installed with the command::
+Wagtail can be installed with the command::
 
     pip install wagtail
 
