@@ -321,7 +321,6 @@
         z-index:5;
 
         .toggle{
-            @include transition(all 0.2s ease);
             @include border-radius(50px);
             position:absolute;
             top:-0.5em;
@@ -342,7 +341,6 @@
             }
 
             &:before{
-                @include transition(all 0.2s ease);
                 @include transform(rotate(-45deg));
                 position:absolute;
                 font-family:wagtail;
