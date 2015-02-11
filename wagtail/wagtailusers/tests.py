@@ -215,7 +215,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         new_group = Group.objects.get(name='test group')
         self.assertEqual(new_group.page_permissions.all().count(), 2)
 
-    @unittest.skip("currently failing on Django 1.7")
+    @unittest.expectedFailure
     def test_duplicate_page_permissions_error(self):
         # Try to submit duplicate page permission entries
         response = self.post({
