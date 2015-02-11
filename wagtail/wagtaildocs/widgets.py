@@ -14,9 +14,8 @@ class AdminDocumentChooser(AdminChooser):
     choose_another_text = _('Choose another document')
 
     def render_html(self, name, value, attrs):
+        instance, value = self.get_instance_and_id(Document, value)
         original_field_html = super(AdminDocumentChooser, self).render_html(name, value, attrs)
-
-        instance = self.get_instance(Document, value)
 
         return render_to_string("wagtaildocs/widgets/document_chooser.html", {
             'widget': self,

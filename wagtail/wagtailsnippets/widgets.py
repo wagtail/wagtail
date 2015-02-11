@@ -22,10 +22,10 @@ class AdminSnippetChooser(AdminChooser):
             self.target_content_type = content_type
 
     def render_html(self, name, value, attrs):
-        original_field_html = super(AdminSnippetChooser, self).render_html(name, value, attrs)
-
         model_class = self.target_content_type.model_class()
-        instance = self.get_instance(model_class, value)
+        instance, value = self.get_instance_and_id(model_class, value)
+
+        original_field_html = super(AdminSnippetChooser, self).render_html(name, value, attrs)
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,
