@@ -1,19 +1,31 @@
 Welcome to Wagtail's documentation
 ==================================
 
-Wagtail is a modern, flexible CMS, built on Django.
+Wagtail is an open source CMS written in `Python <https://www.python.org/>`_ and built on the `Django web framework <https://www.djangoproject.com/>`_.
 
-It supports Django 1.7.0+ on Python 2.7, 3.3 and 3.4.
+Below are some useful links to help you get started with Wagtail.
 
-.. toctree::
-   :maxdepth: 3
-   :titlesonly:
 
-   getting_started/index
-   core_components/index
-   contrib_components/index
-   howto/index
-   reference/index
-   support
-   editor_manual/index
-   releases/index
+* **First steps**
+
+  :doc:`Installation <getting_started/installation>`
+
+  :doc:`Starting a project <getting_started/creating_your_project>`
+
+
+* **Creating your Wagtail site**
+
+  :doc:`core_components/pages/creating_pages`
+
+  :doc:`Writing templates <core_components/pages/writing_templates>`
+
+  :doc:`core_components/images/index`
+
+  :doc:`core_components/search/index`
+
+  :doc:`howto/third_party_tutorials`
+
+
+* **Using Wagtail**
+
+  :doc:`Editors guide <editor_manual/index>`
