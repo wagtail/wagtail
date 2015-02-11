@@ -53,6 +53,17 @@ class AdminChooser(WidgetWithScript, widgets.Input):
         except model_class.DoesNotExist:
             return None
 
+    def get_instance_and_id(self, model_class, value):
+        if value is None:
+            return (None, None)
+        elif isinstance(value, model_class):
+            return (value, value.pk)
+        else:
+            try:
+                return (model_class.objects.get(pk=value), value)
+            except model_class.DoesNotExist:
+                return (None, None)
+
     def value_from_datadict(self, data, files, name):
         # treat the empty string as None
         result = super(AdminChooser, self).value_from_datadict(data, files, name)
@@ -82,10 +93,10 @@ class AdminPageChooser(AdminChooser):
         self.target_content_type = content_type or ContentType.objects.get_for_model(Page)
 
     def render_html(self, name, value, attrs):
-        original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
-
         model_class = self.target_content_type.model_class()
-        instance = self.get_instance(model_class, value)
+        instance, value = self.get_instance_and_id(model_class, value)
+
+        original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
 
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {
             'widget': self,
@@ -96,7 +107,11 @@ class AdminPageChooser(AdminChooser):
         })
 
     def render_js_init(self, id_, name, value):
-        page = Page.objects.get(pk=value) if value else None
+        model_class = self.target_content_type.model_class()
+        if isinstance(value, model_class):
+            page = value
+        else:
+            page = self.get_instance(model_class, value)
         parent = page.get_parent() if page else None
         content_type = self.target_content_type
 

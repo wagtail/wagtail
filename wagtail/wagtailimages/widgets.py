@@ -19,9 +19,8 @@ class AdminImageChooser(AdminChooser):
         self.image_model = get_image_model()
 
     def render_html(self, name, value, attrs):
+        instance, value = self.get_instance_and_id(self.image_model, value)
         original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)
-
-        instance = self.get_instance(self.image_model, value)
 
         return render_to_string("wagtailimages/widgets/image_chooser.html", {
             'widget': self,
