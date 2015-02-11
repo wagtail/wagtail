@@ -385,36 +385,8 @@ class PageChooserBlock(ChooserBlock):
     def render_basic(self, value):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
-
-# =======
-# Chooser
-# =======
-
-class ChooserBlock(Block):
-    class Meta:
-        default = None
-
-    @property
-    def media(self):
-        return Media(js=['wagtailadmin/js/blocks/chooser.js'])
-
-    def js_initializer(self):
-        return "Chooser('%s')" % self.definition_prefix
-
-    def render_form(self, value, prefix='', error=None):
-        if self.label:
-            return format_html(
-                """<label>{label}</label> <input type="button" id="{prefix}-button" value="Choose a thing">""",
-                label=self.label, prefix=prefix
-            )
         else:
-            return format_html(
-                """<input type="button" id="{prefix}-button" value="Choose a thing">""",
-                prefix=prefix
-            )
-
-    def value_from_datadict(self, data, files, prefix):
-        return 123
+            return ''
 
 
 # ===========
