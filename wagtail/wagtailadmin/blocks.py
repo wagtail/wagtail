@@ -330,7 +330,7 @@ class FieldBlock(Block):
         })
 
     def value_from_datadict(self, data, files, prefix):
-        return self.field.widget.value_from_datadict(data, files, prefix)
+        return self.to_python(self.field.widget.value_from_datadict(data, files, prefix))
 
     def clean(self, value):
         return self.field.clean(value)
@@ -368,10 +368,15 @@ class PageChooserBlock(FieldBlock):
                 return None
 
     def get_prep_value(self, value):
+        from wagtail.wagtailcore.models import Page
         if isinstance(value, Page):
             return value.id
         else:
             return value
+
+    def render_basic(self, value):
+        if value:
+            return format_html('<a href="{0}">{1}</a>', value.url, value.title)
 
 # =======
 # Chooser
