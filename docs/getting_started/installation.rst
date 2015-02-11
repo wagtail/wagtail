@@ -14,14 +14,44 @@ Whether you just want to try out the demo site, or you're ready to dive in and c
 Install Python
 ==============
 
-We recommend installing Python 3.4, but Wagtail also works with Python 2.7 and 3.3.
+If you haven't got Python installed yet, we recommend installing Python 3.4. You can find the download for it here: https://www.python.org/downloads/
 
+
+pip
+---
+
+Python 3.4 has this built in. If you are using Python 2.7 or 3.3, you will have to install PIP separately
+
+See: https://pip.pypa.io/en/latest/installing.html
+
+
+Virtual environments
+--------------------
+
+Python 3.3 and 3.4 has this built in. If you are using Python 2.7 you will have to install the ``virtualenv`` package from pip:
+
+.. code-block:: bash
+
+    pip install virtualenv
 
 
 Install Wagtail
 ===============
 
-``pip install wagtail``
+Wagtail is available as a pip-installable package. To get the latest stable version:
+
+.. code-block:: bash
+
+    pip install wagtail
+
+
+To check that Wagtail can be seen by Python. Type ``python`` in your shell then try to import ``wagtail`` from the prompt:
+
+.. code-block:: python
+
+    >>> import wagtail
+    >>> print(wagtail.get_version())
+    0.9
 
 
 Optional extras

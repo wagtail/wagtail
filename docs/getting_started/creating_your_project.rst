@@ -2,8 +2,7 @@
 Starting your first project
 ===========================
 
-Once you've installed Wagtail, you are ready start your first project.
-
+Once you've installed Wagtail, you are ready start your first project. Wagtail projects are ordinary Django projects with a few extra apps installed.
 
 Wagtail provides a command to get you started called ``wagtail start``. Open up a command line shell in your project folder and type:
 
