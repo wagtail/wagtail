@@ -161,10 +161,6 @@ class PasswordResetForm(PasswordResetForm):
 
             context.update({'base_url': base_url})
 
-            from pprint import pprint
-            pprint(context)
-            pprint(email_template_name)
-
             self.send_mail(subject_template_name, email_template_name,
                            context, from_email, user.email,
                            html_email_template_name=html_email_template_name)
