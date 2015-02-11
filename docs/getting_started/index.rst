@@ -1,3 +1,4 @@
+===============
 Getting started
 ===============
 
@@ -7,3 +8,6 @@ Getting started
 
     installation
     creating_your_project
+    pages
+    templates
+    media
