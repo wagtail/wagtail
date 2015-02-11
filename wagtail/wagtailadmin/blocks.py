@@ -14,7 +14,7 @@ from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 from django.template.loader import render_to_string
-from django.forms import Media, CharField, ModelChoiceField, Widget
+from django import forms
 from django.forms.utils import ErrorList
 
 import six
@@ -90,7 +90,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         return result
 
     def all_media(self):
-        media = Media()
+        media = forms.Media()
         for block in self.all_blocks():
             media += block.media
         return media
@@ -119,7 +119,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
     @property
     def media(self):
-        return Media()
+        return forms.Media()
 
     def html_declarations(self):
         """
@@ -331,14 +331,14 @@ class FieldBlock(Block):
 
 class CharBlock(FieldBlock):
     def __init__(self, **kwargs):
-        super(CharBlock, self).__init__(CharField(), **kwargs)
+        super(CharBlock, self).__init__(forms.CharField(), **kwargs)
         # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
         # the CharField constructor. Figure out a system for doing this
 
 class RichTextBlock(FieldBlock):
     def __init__(self, **kwargs):
         from wagtail.wagtailcore.fields import RichTextArea
-        super(RichTextBlock, self).__init__(CharField(widget=RichTextArea), **kwargs)
+        super(RichTextBlock, self).__init__(forms.CharField(widget=RichTextArea), **kwargs)
 
     def render_basic(self, value):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
@@ -348,7 +348,7 @@ class ChooserBlock(FieldBlock):
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        return ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget)
+        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget)
 
     def to_python(self, value):
         if value is None or isinstance(value, self.target_model):
@@ -418,7 +418,7 @@ class BaseStructBlock(Block):
 
     @property
     def media(self):
-        return Media(js=['wagtailadmin/js/blocks/struct.js'])
+        return forms.Media(js=['wagtailadmin/js/blocks/struct.js'])
 
     def render_form(self, value, prefix='', error=None):
         child_renderings = [
@@ -558,7 +558,7 @@ class ListBlock(Block):
 
     @property
     def media(self):
-        return Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/list.js'])
+        return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/list.js'])
 
     def render_list_member(self, value, prefix, index, error=None):
         """
@@ -714,7 +714,7 @@ class BaseStreamBlock(Block):
 
     @property
     def media(self):
-        return Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/stream.js'])
+        return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/stream.js'])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type
@@ -875,7 +875,7 @@ class StreamValue(collections.Sequence):
 # django.forms integration
 # ========================
 
-class BlockWidget(Widget):
+class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
     def __init__(self, block_def, attrs=None):
         super(BlockWidget, self).__init__(attrs=attrs)
@@ -903,3 +903,16 @@ class BlockWidget(Widget):
 
     def value_from_datadict(self, data, files, name):
         return self.block_def.value_from_datadict(data, files, name)
+
+
+class BlockField(forms.Field):
+    """Wraps a block object as a form field so that it can be incorporated into a Django form"""
+    def __init__(self, block=None, **kwargs):
+        if block is None:
+            raise ImproperlyConfigured("BlockField was not passed a 'block' object")
+        self.block = block
+
+        if 'widget' not in kwargs:
+            kwargs['widget'] = BlockWidget(block)
+
+        super(BlockField, self).__init__(**kwargs)

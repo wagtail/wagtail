@@ -8,7 +8,7 @@ from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.blocks import StreamBlock, StreamValue  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
+from wagtail.wagtailadmin.blocks import StreamBlock, StreamValue, BlockField  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
 
 
 class RichTextArea(WidgetWithScript, forms.Textarea):
@@ -70,7 +70,7 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         Override formfield to use a plain forms.Field so that we do no transformation on the value
         (as distinct from the usual fallback of forms.CharField, which transforms it into a string).
         """
-        defaults = {'form_class': forms.Field}
+        defaults = {'form_class': BlockField, 'block': self.stream_block}
         defaults.update(kwargs)
         return super(StreamField, self).formfield(**defaults)
 

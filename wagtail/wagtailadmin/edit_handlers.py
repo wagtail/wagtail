@@ -20,7 +20,6 @@ from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
 
 from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.blocks import BlockWidget
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.deprecation import RemovedInWagtail11Warning
@@ -721,10 +720,6 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         classes.remove("single-field")
         
         return classes
-
-    @classmethod
-    def widget_overrides(cls):
-        return {cls.field_name: BlockWidget(block_def=cls.block_def)}
 
     @classmethod
     def html_declarations(cls):
