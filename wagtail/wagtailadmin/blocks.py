@@ -541,7 +541,8 @@ class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBl
 
 class ListBlock(Block):
     class Meta:
-        default = []
+        # Default to a list consisting of one empty child item (using None to trigger the child's empty / default rendering)
+        default = [None]
 
     def __init__(self, child_block, **kwargs):
         super(ListBlock, self).__init__(**kwargs)

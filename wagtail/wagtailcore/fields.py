@@ -55,7 +55,7 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         return name, path, args, kwargs
 
     def to_python(self, value):
-        if value is None:
+        if value is None or value == '':
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
