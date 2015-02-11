@@ -365,6 +365,18 @@ class ChooserBlock(FieldBlock):
         else:
             return value
 
+    def clean(self, value):
+        # ChooserBlock works natively with model instances as its 'value' type (because that's what you
+        # want to work with when doing front-end templating), but ModelChoiceField.clean expects an ID
+        # as the input value (and returns a model instance as the result). We don't want to bypass
+        # ModelChoiceField.clean entirely (it might be doing relevant validation, such as checking page
+        # type) so we convert our instance back to an ID here. It means we have a wasted round-trip to
+        # the database when ModelChoiceField.clean promptly does its own lookup, but there's no easy way
+        # around that...
+        if isinstance(value, self.target_model):
+            value = value.pk
+        return super(ChooserBlock, self).clean(value)
+
 class PageChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):
@@ -783,7 +795,7 @@ class BaseStreamBlock(Block):
         for child in value:  # child is a BoundBlock instance
             try:
                 cleaned_data.append(
-                    (child.block.clean(child.value), child.block.name)
+                    (child.block.name, child.block.clean(child.value))
                 )
             except ValidationError as e:
                 errors.append(e)
@@ -916,3 +928,6 @@ class BlockField(forms.Field):
             kwargs['widget'] = BlockWidget(block)
 
         super(BlockField, self).__init__(**kwargs)
+
+    def clean(self, value):
+        return self.block.clean(value)
