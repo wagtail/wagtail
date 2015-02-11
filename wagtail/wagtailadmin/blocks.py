@@ -14,7 +14,7 @@ from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 from django.template.loader import render_to_string
-from django.forms import Media, CharField, ModelChoiceField
+from django.forms import Media, CharField, ModelChoiceField, Widget
 from django.forms.utils import ErrorList
 
 import six
@@ -869,3 +869,37 @@ class StreamValue(collections.Sequence):
 
     def __str__(self):
         return self.stream_block.render(self)
+
+
+# ========================
+# django.forms integration
+# ========================
+
+class BlockWidget(Widget):
+    """Wraps a block object as a widget so that it can be incorporated into a Django form"""
+    def __init__(self, block_def, attrs=None):
+        super(BlockWidget, self).__init__(attrs=attrs)
+        self.block_def = block_def
+
+    def render(self, name, value, attrs=None):
+        bound_block = self.block_def.bind(value, prefix=name)
+        js_initializer = self.block_def.js_initializer()
+        if js_initializer:
+            js_snippet = """
+                <script>
+                $(function() {
+                    var initializer = %s;
+                    initializer('%s');
+                })
+                </script>
+            """ % (js_initializer, name)
+        else:
+            js_snippet = ''
+        return mark_safe(bound_block.render_form() + js_snippet)
+
+    @property
+    def media(self):
+        return self.block_def.all_media()
+
+    def value_from_datadict(self, data, files, name):
+        return self.block_def.value_from_datadict(data, files, name)

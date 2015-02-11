@@ -121,32 +121,3 @@ class AdminPageChooser(AdminChooser):
                 app=content_type.app_label,
                 model=content_type.model)),
             parent=json.dumps(parent.id if parent else None))
-
-
-class StreamWidget(widgets.Widget):
-    def __init__(self, block_def, attrs=None):
-        super(StreamWidget, self).__init__(attrs=attrs)
-        self.block_def = block_def
-
-    def render(self, name, value, attrs=None):
-        bound_block = self.block_def.bind(value, prefix=name)
-        js_initializer = self.block_def.js_initializer()
-        if js_initializer:
-            js_snippet = """
-                <script>
-                $(function() {
-                    var initializer = %s;
-                    initializer('%s');
-                })
-                </script>
-            """ % (js_initializer, name)
-        else:
-            js_snippet = ''
-        return mark_safe(bound_block.render_form() + js_snippet)
-
-    @property
-    def media(self):
-        return self.block_def.all_media()
-
-    def value_from_datadict(self, data, files, name):
-        return self.block_def.value_from_datadict(data, files, name)
