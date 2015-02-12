@@ -31,6 +31,7 @@ Minor features
  * Added validation to prevent pages being created with only whitespace characters in their title fields
  * Page model fields without a FieldPanel are no longer displayed in the form
  * No longer need to specify the base model on InlinePanel definitions
+ * The project template Vagrantfile now listens on port 8000
 
 
 Bug fixes
