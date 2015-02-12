@@ -182,7 +182,7 @@
         padding:0;
 
         label{
-            text-transform:capitalize;
+            white-space: nowrap;
         }
 
         &.required .field > label:after{
@@ -239,7 +239,6 @@
                     padding:0;
                     color:$color-grey-2;
                     line-height:2.2em;
-                    text-transform:capitalize;
                 }
             }
 
@@ -412,7 +411,7 @@
             outline:$color-teal;
 
             span{
-                text-transform:capitalize;
+                text-transform:none;
                 white-space: pre-wrap;
                 width:100%;
                 display:block;

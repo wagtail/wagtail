@@ -110,12 +110,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
         Block.creation_counter += 1
         self.definition_prefix = 'blockdef-%d' % self.creation_counter
 
+        self.label = self.meta.label or ''
+
     def set_name(self, name):
         self.name = name
-
-    @property
-    def label(self):
-        return self.meta.label or self.name
+        if not self.meta.label:
+            self.label = capfirst(name.replace('_', ' '))
 
     @property
     def media(self):
@@ -301,7 +301,7 @@ class FieldBlock(Block):
         else:
             label_html = ''
 
-        widget_attrs = {'id': prefix, 'placeholder': self.label.title()}
+        widget_attrs = {'id': prefix, 'placeholder': self.label}
 
         if hasattr(widget, 'render_with_errors'):
             widget_html = widget.render_with_errors(prefix, value, attrs=widget_attrs, errors=errors)
