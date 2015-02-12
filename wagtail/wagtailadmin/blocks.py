@@ -277,19 +277,6 @@ class FieldBlock(Block):
     class Meta:
         default = None
 
-    def __init__(self, field=None, **kwargs):
-        super(FieldBlock, self).__init__(**kwargs)
-        self._field = field
-
-    @cached_property
-    def field(self):
-        # Sometimes the field object needs to be constructed lazily - for example, ModelChoiceFields
-        # cannot be defined until models have been loaded. In those cases, we can leave field unspecified
-        # in the constructor, and override this method instead.
-        if self._field is None:
-            raise ImproperlyConfigured("FieldBlock was not passed a field object")
-        return self._field
-
     def render_form(self, value, prefix='', errors=None):
         widget = self.field.widget
 
@@ -327,15 +314,15 @@ class FieldBlock(Block):
         return self.field.clean(value)
 
 class CharBlock(FieldBlock):
-    def __init__(self, **kwargs):
-        super(CharBlock, self).__init__(forms.CharField(), **kwargs)
-        # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
-        # the CharField constructor. Figure out a system for doing this
+    field = forms.CharField()
+    # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
+    # the CharField constructor. Figure out a system for doing this
 
 class RichTextBlock(FieldBlock):
-    def __init__(self, **kwargs):
+    @cached_property
+    def field(self):
         from wagtail.wagtailcore.fields import RichTextArea
-        super(RichTextBlock, self).__init__(forms.CharField(widget=RichTextArea), **kwargs)
+        return forms.CharField(widget=RichTextArea)
 
     def render_basic(self, value):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
