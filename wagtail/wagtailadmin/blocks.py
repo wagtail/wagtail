@@ -125,7 +125,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         Return an HTML fragment to be rendered on the form page once per block definition -
         as opposed to once per occurrence of the block. For example, the block definition
-            ListBlock(label="Shopping list", TextInput(label="Product"))
+            ListBlock(label="Shopping list", CharBlock(label="Product"))
         needs to output a <script type="text/template"></script> block containing the HTML for
         a 'product' text input, to that these can be dynamically added to the list. This
         template block must only occur once in the page, even if there are multiple 'shopping list'
@@ -238,30 +238,6 @@ class BoundBlock(object):
 
     def render(self):
         return self.block.render(self.value)
-
-
-# ==========
-# Text input
-# ==========
-
-class TextInputBlock(Block):
-    class Meta:
-        default = ''
-
-    def render_form(self, value, prefix='', errors=None):
-        if self.label:
-            return format_html(
-                """<label for="{prefix}">{label}</label> <input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.label, value=value
-            )
-        else:
-            return format_html(
-                """<input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
-                prefix=prefix, label=self.label, value=value
-            )
-
-    def value_from_datadict(self, data, files, prefix):
-        return data.get(prefix, '')
 
 
 # ===========
