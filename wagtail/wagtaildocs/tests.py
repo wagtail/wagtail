@@ -551,7 +551,7 @@ class TestServeView(TestCase):
         self.assertEqual(mock_handler.call_count, 1)
         self.assertEqual(mock_handler.mock_calls[0][2]['sender'], self.document)
 
-    def test_with_nonexistant_document(self):
+    def test_with_nonexistent_document(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(1000, 'blahblahblah', )))
         self.assertEqual(response.status_code, 404)
 
