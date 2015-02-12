@@ -29,7 +29,7 @@ Then, within the SSH session::
     ./manage.py runserver 0.0.0.0:8000
 
 
-This will make the demo site available on your host machine at the URL http://localhost:8111/ - you can access the Wagtail admin interface at http://localhost:8111/admin/ . Further instructions can be found at :ref:`editor_manual`.
+This will make the demo site available on your host machine at the URL http://localhost:8000/ - you can access the Wagtail admin interface at http://localhost:8000/admin/ . Further instructions can be found at :ref:`editor_manual`.
 
 Once you’ve experimented with the demo site and are ready to build your own site, it's time to install Wagtail on your host machine. Even if you intend to do all further Wagtail work within Vagrant, installing the Wagtail package on your host machine will provide the ``wagtail start`` command that sets up the initial file structure for your project.
 
@@ -78,7 +78,7 @@ Your site is now accessible at http://localhost:8000, with the admin backend ava
     ./manage.py createsuperuser
     ./manage.py runserver 0.0.0.0:8000
 
-Your site is now accessible at http://localhost:8111, with the admin backend available at http://localhost:8111/admin/ .
+Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/ .
 
 Optional extras
 ===============

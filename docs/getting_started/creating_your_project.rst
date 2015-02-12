@@ -126,9 +126,9 @@ To setup the Vagrant box, run the following commands
     djrun
 
 
-If you now visit http://localhost:8111 you should see a very basic "Welcome to your new Wagtail site!" page.
+If you now visit http://localhost:8000 you should see a very basic "Welcome to your new Wagtail site!" page.
 
-You can browse the Wagtail admin interface at: http://localhost:8111/admin
+You can browse the Wagtail admin interface at: http://localhost:8000/admin
 
 You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
 
@@ -145,4 +145,4 @@ You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
 
         ``djrun``
         
-            This is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8111`` (note that the port number gets changed by Vagrant)
+            This is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8000`` (note that the port number gets changed by Vagrant)
