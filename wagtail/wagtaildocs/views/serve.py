@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
-from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
+from wsgiref.util import FileWrapper
 
 from wagtail.wagtaildocs.models import Document, document_served
 
