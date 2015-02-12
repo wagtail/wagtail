@@ -181,6 +181,10 @@
     &.stream-field {
         padding:0;
 
+        label{
+            text-transform:capitalize;
+        }
+
         &.required .field > label:after{
             display:none;
         }
