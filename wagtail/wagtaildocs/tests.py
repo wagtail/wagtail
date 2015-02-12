@@ -1,5 +1,6 @@
 from six import b
 import unittest
+import mock
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -15,9 +16,6 @@ from wagtail.tests.models import EventPage, EventPageRelatedLink
 from wagtail.wagtaildocs.models import Document
 
 from wagtail.wagtaildocs import models
-
-
-# TODO: Test serve view
 
 
 class TestDocumentPermissions(TestCase):
@@ -519,3 +517,46 @@ class TestIssue613(TestCase, WagtailTestUtils):
         # Check
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, document.id)
+
+
+class TestServeView(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def get(self):
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+
+    def test_response_code(self):
+        self.assertEqual(self.get().status_code, 200)
+
+    @unittest.expectedFailure # Filename has a random string appended to it
+    def test_content_disposition_header(self):
+        self.assertEqual(self.get()['Content-Disposition'], 'attachment; filename=example.doc')
+
+    def test_content_length_header(self):
+        self.assertEqual(self.get()['Content-Length'], '25')
+
+    def test_is_streaming_response(self):
+        self.assertTrue(self.get().streaming)
+
+    def test_content(self):
+        self.assertEqual(b"".join(self.get().streaming_content), b"A boring example document")
+
+    def test_document_served_fired(self):
+        mock_handler = mock.MagicMock()
+        models.document_served.connect(mock_handler)
+
+        self.get()
+
+        self.assertEqual(mock_handler.call_count, 1)
+        self.assertEqual(mock_handler.mock_calls[0][2]['sender'], self.document)
+
+    def test_with_nonexistant_document(self):
+        response = self.client.get(reverse('wagtaildocs_serve', args=(1000, 'blahblahblah', )))
+        self.assertEqual(response.status_code, 404)
+
+    @unittest.expectedFailure
+    def test_with_incorrect_filename(self):
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
+        self.assertEqual(response.status_code, 404)
