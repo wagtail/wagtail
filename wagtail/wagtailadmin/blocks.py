@@ -314,9 +314,10 @@ class FieldBlock(Block):
         return self.field.clean(value)
 
 class CharBlock(FieldBlock):
-    field = forms.CharField()
-    # TODO: some kwargs, such as max_length, and *possibly* things like help_text, should be passed to
-    # the CharField constructor. Figure out a system for doing this
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+        # TODO: decide what to do about 'label' and 'initial' parameters to the form field
+        self.field = forms.CharField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
+        super(CharBlock, self).__init__(**kwargs)
 
 class RichTextBlock(FieldBlock):
     @cached_property
