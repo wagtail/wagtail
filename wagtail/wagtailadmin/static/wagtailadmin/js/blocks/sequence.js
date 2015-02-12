@@ -35,12 +35,15 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.container.fadeOut();
         };
         self._markAdded = function() {
-            self.menu.addClass('stream-menu-closed');
             self.container.hide();
             self.container.slideDown();
-            
+
+            self.hideMenu();
+
             // focus first suitable input found
-            $('.input input,.input textarea,.input .richtext', self.container).first().focus();
+            var timeout = setTimeout(function(){
+                $('.input input,.input textarea,.input .richtext', self.container).first().focus();
+            }, 10)            
         };
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
@@ -73,7 +76,8 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var members = [];
         self.menu = countField.siblings('.stream-menu');
 
-        self.menu.click(function(){
+        self.menu.click(function(e){
+            e.preventDefault();
             self.toggleMenu();
         });
 
