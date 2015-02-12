@@ -1,6 +1,7 @@
 import unittest
 
 from django import forms
+from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
 
 from wagtail.wagtailadmin import blocks
@@ -29,7 +30,9 @@ class TestFieldBlock(unittest.TestCase):
 
     def test_charfield_render_form_with_error(self):
         block = blocks.FieldBlock(forms.CharField())
-        html = block.render_form("Hello world!", error=ValidationError("This field is required."))
+        html = block.render_form("Hello world!",
+            errors=ErrorList([ValidationError("This field is required.")])
+        )
 
         self.assertIn('This field is required.', html)
 

@@ -149,7 +149,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return None
 
-    def render_form(self, value, prefix=''):
+    def render_form(self, value, prefix='', errors=None):
         """
         Render the HTML for this block with 'value' as its content.
         """
@@ -158,7 +158,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 
-    def bind(self, value, prefix=None, error=None):
+    def bind(self, value, prefix=None, errors=None):
         """
         Return a BoundBlock which represents the association of this block definition with a value
         and a prefix (and optionally, a ValidationError to be rendered).
@@ -166,7 +166,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
         bound_block.render() rather than blockdef.render(value, prefix) which can't be called from
         within a template.
         """
-        return BoundBlock(self, value, prefix=prefix, error=error)
+        return BoundBlock(self, value, prefix=prefix, errors=errors)
 
     def prototype_block(self):
         """
@@ -227,14 +227,14 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
 
 class BoundBlock(object):
-    def __init__(self, block, value, prefix=None, error=None):
+    def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
         self.value = value
         self.prefix = prefix
-        self.error = error
+        self.errors = errors
 
     def render_form(self):
-        return self.block.render_form(self.value, self.prefix, error=self.error)
+        return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
     def render(self):
         return self.block.render(self.value)
@@ -248,7 +248,7 @@ class TextInputBlock(Block):
     class Meta:
         default = ''
 
-    def render_form(self, value, prefix='', error=None):
+    def render_form(self, value, prefix='', errors=None):
         if self.label:
             return format_html(
                 """<label for="{prefix}">{label}</label> <input type="text" name="{prefix}" id="{prefix}" value="{value}">""",
@@ -290,13 +290,8 @@ class FieldBlock(Block):
             raise ImproperlyConfigured("FieldBlock was not passed a field object")
         return self._field
 
-    def render_form(self, value, prefix='', error=None):
+    def render_form(self, value, prefix='', errors=None):
         widget = self.field.widget
-
-        #if error:
-        #    error_html = str(ErrorList(error.error_list))
-        #else:
-        #    error_html = ''
 
         if self.label:
             label_html = format_html(
@@ -308,11 +303,6 @@ class FieldBlock(Block):
 
         widget_html = widget.render(prefix, value, {'id': prefix, 'placeholder': self.label.title() })
 
-        #if error:
-        #    error_html = str(ErrorList(error.error_list))
-        #else:
-        #    error_html = ''                
-
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
             'label': self.label,
@@ -320,7 +310,7 @@ class FieldBlock(Block):
             'widget': widget_html,
             'label_tag': label_html,
             'field': self.field,
-            'errors': error.error_list if error else [],  # TODO: should this be ErrorList(error.error_list)?
+            'errors': errors,  # TODO: use widget.render_with_errors instead, if the widget supports it
         })
 
     def value_from_datadict(self, data, files, prefix):
@@ -432,10 +422,19 @@ class BaseStructBlock(Block):
     def media(self):
         return forms.Media(js=['wagtailadmin/js/blocks/struct.js'])
 
-    def render_form(self, value, prefix='', error=None):
+    def render_form(self, value, prefix='', errors=None):
+        if errors:
+            if len(errors) > 1:
+                # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
+                # 'params' attribute that we can pull apart and distribute to the child blocks
+                raise TypeError('StructBlock.render_form unexpectedly received multiple errors')
+            error_dict = errors.as_data()[0].params
+        else:
+            error_dict = {}
+
         child_renderings = [
             block.render_form(value.get(name, block.meta.default), prefix="%s-%s" % (prefix, name),
-                error=error.params.get(name) if error else None)
+                errors=error_dict.get(name))
             for name, block in self.child_blocks.items()
         ]
 
@@ -464,11 +463,11 @@ class BaseStructBlock(Block):
             try:
                 result[name] = self.child_blocks[name].clean(val)
             except ValidationError as e:
-                errors[name] = e
+                errors[name] = ErrorList([e])
 
         if errors:
-            # The message here is arbitrary - outputting error messages is delegated to the child blocks,
-            # which only involves the 'params' dict
+            # The message here is arbitrary - StructBlock.render_form will suppress it
+            # and delegate the errors contained in the 'params' dict to the child blocks instead
             raise ValidationError('Validation error in StructBlock', params=errors)
 
         return result
@@ -572,12 +571,12 @@ class ListBlock(Block):
     def media(self):
         return forms.Media(js=['wagtailadmin/js/blocks/sequence.js', 'wagtailadmin/js/blocks/list.js'])
 
-    def render_list_member(self, value, prefix, index, error=None):
+    def render_list_member(self, value, prefix, index, errors=None):
         """
         Render the HTML for a single list item in the form. This consists of an <li> wrapper, hidden fields
         to manage ID/deleted state, delete/reorder buttons, and the child block's own form HTML.
         """
-        child = self.child_block.bind(value, prefix="%s-value" % prefix, error=error)
+        child = self.child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
         return render_to_string('wagtailadmin/block_forms/list_member.html', {
             'prefix': prefix,
             'child': child,
@@ -604,10 +603,19 @@ class ListBlock(Block):
 
         return "ListBlock(%s)" % js_dict(opts)
 
-    def render_form(self, value, prefix='', error=None):
+    def render_form(self, value, prefix='', errors=None):
+        if errors:
+            if len(errors) > 1:
+                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
+                # 'params' attribute that we can pull apart and distribute to the child blocks
+                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
+            error_list = errors.as_data()[0].params
+        else:
+            error_list = None
+
         list_members_html = [
             self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                error=error.params[i] if error else None)
+                errors=error_list.params[i] if error_list else None)
             for (i, child_val) in enumerate(value)
         ]
 
@@ -640,7 +648,7 @@ class ListBlock(Block):
             try:
                 result.append(self.child_block.clean(child_val))
             except ValidationError as e:
-                errors.append(e)
+                errors.append(ErrorList([e]))
             else:
                 errors.append(None)
 
@@ -696,13 +704,13 @@ class BaseStreamBlock(Block):
 
         self.dependencies = set(self.child_blocks.values())
 
-    def render_list_member(self, block_type_name, value, prefix, index, error=None):
+    def render_list_member(self, block_type_name, value, prefix, index, errors=None):
         """
         Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
         to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
         """
         child_block = self.child_blocks[block_type_name]
-        child = child_block.bind(value, prefix="%s-value" % prefix, error=error)
+        child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
         return render_to_string('wagtailadmin/block_forms/stream_member.html', {
             'child_blocks': self.child_blocks.values(),
             'block_type_name': block_type_name,
@@ -751,10 +759,19 @@ class BaseStreamBlock(Block):
 
         return "StreamBlock(%s)" % js_dict(opts)
 
-    def render_form(self, value, prefix='', error=None):
+    def render_form(self, value, prefix='', errors=None):
+        if errors:
+            if len(errors) > 1:
+                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
+                # 'params' attribute that we can pull apart and distribute to the child blocks
+                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
+            error_list = errors.as_data()[0].params
+        else:
+            error_list = None
+
         list_members_html = [
             self.render_list_member(child.block.name, child.value, "%s-%d" % (prefix, i), i,
-                error=error.params[i] if error else None)
+                errors=error_list.params[i] if error_list else None)
             for (i, child) in enumerate(value)
         ]
 
@@ -798,7 +815,7 @@ class BaseStreamBlock(Block):
                     (child.block.name, child.block.clean(child.value))
                 )
             except ValidationError as e:
-                errors.append(e)
+                errors.append(ErrorList([e]))
             else:
                 errors.append(None)
 
