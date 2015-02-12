@@ -203,40 +203,37 @@
         .sequence{
             position:relative;
             @include clearfix;
-
-            .sequence{ /* YUK! */
-                padding:0 1.5em;
-                margin:1em 0;
-            }
-        }
-
-        .sequence-inner{
-            overflow:hidden;
-
-            .sequence-inner{ /* YUK! */
-                @include column(10);
-            }
         }
 
         .sequence-member{
             @include clearfix;
             position:relative;
-            margin:0 -1.5em;
 
             .sequence-member-inner{
                 @include clearfix;
                 position:relative;
                 padding:0em 50px 1em 50px;
 
+                > .sequence .sequence-inner{
+                    @include column(10);
+                    padding-left:0;
+                    padding-right:0;
+                }
+
+                .sequence-member-inner{
+                    padding:0 0 1em 0;
+                }
+
                 > .struct-block > label,
-                > .char_field > label{
+                > .char_field > label,
+                .sequence > label{
                     @include transition(opacity 0.2s ease);
                     opacity:0;
                     display:block;
                     font-style:italic;
                     font-weight:normal;                    
                     position:absolute;
-                    top:0; right:4em;
+                    top:1em; right:4em;
                     float:none;
                     width:auto;
                     padding:0;
@@ -252,7 +249,8 @@
 
             &:hover .sequence-member-inner{
                 > .struct-block > label,
-                > .char_field > label{
+                > .char_field > label,
+                .sequence > label{
                     opacity:1;
                 }
             }
@@ -288,7 +286,7 @@
         opacity:0;
         visibility:hidden;
         position:absolute;
-        top:0; right:1em;
+        top:1em; right:1em;
         z-index:1;
         color:white;
         overflow:hidden;
@@ -321,7 +319,6 @@
         z-index:5;
 
         .toggle{
-            @include transition(all 0.2s ease);
             @include border-radius(50px);
             position:absolute;
             top:-0.5em;
@@ -342,7 +339,6 @@
             }
 
             &:before{
-                @include transition(all 0.2s ease);
                 @include transform(rotate(-45deg));
                 position:absolute;
                 font-family:wagtail;
