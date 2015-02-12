@@ -68,7 +68,11 @@ def widgettype(bound_field):
     try:
         return camelcase_to_underscore(bound_field.field.widget.__class__.__name__)
     except AttributeError:
-        return ""
+        try:
+            return camelcase_to_underscore(bound_field.widget.__class__.__name__)
+        except AttributeError: 
+            return ""
+
 
 
 @register.filter
