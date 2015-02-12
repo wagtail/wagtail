@@ -16,6 +16,6 @@ def serve(request, document_id, document_filename):
     response['Content-Length'] = doc.file.size
 
     # Send document_served signal
-    document_served.send(sender=doc, request=request)
+    document_served.send(sender=Document, instance=doc, request=request)
 
     return response
