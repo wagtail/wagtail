@@ -9,27 +9,27 @@ from wagtail.wagtailadmin import blocks
 
 class TestFieldBlock(unittest.TestCase):
     def test_charfield_render(self):
-        block = blocks.FieldBlock(forms.CharField())
+        block = blocks.CharBlock()
         html = block.render("Hello world!")
 
         self.assertEqual(html, "Hello world!")
 
     @unittest.expectedFailure # classname seems to have broken
     def test_charfield_render_form(self):
-        block = blocks.FieldBlock(forms.CharField())
+        block = blocks.CharBlock()
         html = block.render_form("Hello world!")
 
         self.assertIn('<div class="field char_field">', html)
         self.assertIn('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_prefix(self):
-        block = blocks.FieldBlock(forms.CharField())
+        block = blocks.CharBlock()
         html = block.render_form("Hello world!", prefix='foo')
 
         self.assertIn('<input id="foo" name="foo" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_error(self):
-        block = blocks.FieldBlock(forms.CharField())
+        block = blocks.CharBlock()
         html = block.render_form("Hello world!",
             errors=ErrorList([ValidationError("This field is required.")])
         )
@@ -37,20 +37,26 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('This field is required.', html)
 
     def test_choicefield_render(self):
-        block = blocks.FieldBlock(forms.ChoiceField(choices=(
-            ('choice-1', "Choice 1"),
-            ('choice-2', "Choice 2"),
-        )))
+        class ChoiceBlock(blocks.FieldBlock):
+            field = forms.ChoiceField(choices=(
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ))
+
+        block = ChoiceBlock()
         html = block.render('choice-2')
 
         self.assertEqual(html, "choice-2")
 
     @unittest.expectedFailure # classname seems to have broken
     def test_choicefield_render_form(self):
-        block = blocks.FieldBlock(forms.ChoiceField(choices=(
-            ('choice-1', "Choice 1"),
-            ('choice-2', "Choice 2"),
-        )))
+        class ChoiceBlock(blocks.FieldBlock):
+            field = forms.ChoiceField(choices=(
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ))
+
+        block = ChoiceBlock()
         html = block.render_form('choice-2')
 
         self.assertIn('<div class="field choice_field">', html)
@@ -61,27 +67,27 @@ class TestFieldBlock(unittest.TestCase):
 
 class TestMeta(unittest.TestCase):
     def test_set_template_with_meta(self):
-        class HeadingBlock(blocks.FieldBlock):
+        class HeadingBlock(blocks.CharBlock):
             class Meta:
                 template = 'heading.html'
 
-        block = HeadingBlock(forms.CharField())
+        block = HeadingBlock()
         self.assertEqual(block.meta.template, 'heading.html')
 
     def test_set_template_with_constructor(self):
-        block = blocks.FieldBlock(forms.CharField(), template='heading.html')
+        block = blocks.CharBlock(template='heading.html')
         self.assertEqual(block.meta.template, 'heading.html')
 
     def test_set_template_with_constructor_overrides_meta(self):
-        class HeadingBlock(blocks.FieldBlock):
+        class HeadingBlock(blocks.CharBlock):
             class Meta:
                 template = 'heading.html'
 
-        block = HeadingBlock(forms.CharField(), template='subheading.html')
+        block = HeadingBlock(template='subheading.html')
         self.assertEqual(block.meta.template, 'subheading.html')
 
     def test_meta_multiple_inheritance(self):
-        class HeadingBlock(blocks.FieldBlock):
+        class HeadingBlock(blocks.CharBlock):
             class Meta:
                 template = 'heading.html'
                 test = 'Foo'
@@ -90,7 +96,7 @@ class TestMeta(unittest.TestCase):
             class Meta:
                 template = 'subheading.html'
 
-        block = SubHeadingBlock(forms.CharField())
+        block = SubHeadingBlock()
         self.assertEqual(block.meta.template, 'subheading.html')
         self.assertEqual(block.meta.test, 'Foo')
 
@@ -98,16 +104,16 @@ class TestMeta(unittest.TestCase):
 class TestStructBlock(unittest.TestCase):
     def test_initialisation(self):
         block = blocks.StructBlock([
-            ('title', blocks.FieldBlock(forms.CharField())),
-            ('link', blocks.FieldBlock(forms.URLField())),
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
         ])
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link'])
 
     def test_initialisation_from_subclass(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock()
 
@@ -115,22 +121,22 @@ class TestStructBlock(unittest.TestCase):
 
     def test_initialisation_from_subclass_with_extra(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock([
-            ('classname', blocks.FieldBlock(forms.CharField()))
+            ('classname', blocks.CharBlock())
         ])
 
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'link', 'classname'])
 
     def test_initialisation_with_multiple_subclassses(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         class StyledLinkBlock(LinkBlock):
-            classname = blocks.FieldBlock(forms.CharField())
+            classname = blocks.CharBlock()
 
         block = StyledLinkBlock()
 
@@ -139,11 +145,11 @@ class TestStructBlock(unittest.TestCase):
     @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         class StylingMixin(blocks.StructBlock):
-            classname = blocks.FieldBlock(forms.CharField())
+            classname = blocks.CharBlock()
 
         class StyledLinkBlock(LinkBlock, StylingMixin):
             pass
@@ -154,8 +160,8 @@ class TestStructBlock(unittest.TestCase):
 
     def test_render(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock()
         html = block.render({
@@ -171,8 +177,8 @@ class TestStructBlock(unittest.TestCase):
     @unittest.expectedFailure
     def test_render_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock()
         html = block.render({
@@ -192,8 +198,8 @@ class TestStructBlock(unittest.TestCase):
     @unittest.expectedFailure # Double space in classnames...
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock()
         html = block.render_form({
@@ -209,8 +215,8 @@ class TestStructBlock(unittest.TestCase):
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = LinkBlock()
         html = block.render_form({
@@ -225,22 +231,10 @@ class TestStructBlock(unittest.TestCase):
         # Don't render the extra field
         self.assertNotIn('mylink-image', html)
 
-    @unittest.expectedFailure
-    def test_render_form_uses_initial_values(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField(initial="Torchbox"))
-            link = blocks.FieldBlock(forms.URLField(initial="http://www.torchbox.com"))
-
-        block = LinkBlock()
-        html = block.render_form({}, prefix='mylink')
-
-        self.assertIn('<input id="mylink-title" name="mylink-title" type="text" value="Torchbox" />', html)
-        self.assertIn('<input id="mylink-link" name="mylink-link" type="url" value="http://www.torchbox.com" />', html)
-
     def test_render_form_uses_default_value(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField(), default="Torchbox")
-            link = blocks.FieldBlock(forms.URLField(), default="http://www.torchbox.com")
+            title = blocks.CharBlock(default="Torchbox")
+            link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
         html = block.render_form({}, prefix='mylink')
@@ -264,8 +258,8 @@ class TestListBlock(unittest.TestCase):
 
     def render(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock())
         return block.render([
@@ -293,8 +287,8 @@ class TestListBlock(unittest.TestCase):
 
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
 
@@ -349,8 +343,8 @@ class TestListBlock(unittest.TestCase):
 
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
@@ -360,8 +354,8 @@ class TestListBlock(unittest.TestCase):
 
     def test_html_declarations_uses_default(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField(), default="Github")
-            link = blocks.FieldBlock(forms.URLField(), default="http://www.github.com")
+            title = blocks.CharBlock(default="Github")
+            link = blocks.URLBlock(default="http://www.github.com")
 
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
@@ -373,16 +367,16 @@ class TestListBlock(unittest.TestCase):
 class TestStreamBlock(unittest.TestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
-            ('heading', blocks.FieldBlock(forms.CharField())),
-            ('paragraph', blocks.FieldBlock(forms.CharField())),
+            ('heading', blocks.CharBlock()),
+            ('paragraph', blocks.CharBlock()),
         ])
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph'])
 
     def test_initialisation_from_subclass(self):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
 
@@ -390,22 +384,22 @@ class TestStreamBlock(unittest.TestCase):
 
     def test_initialisation_from_subclass_with_extra(self):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         block = ArticleBlock([
-            ('intro', blocks.FieldBlock(forms.CharField()))
+            ('intro', blocks.CharBlock())
         ])
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph', 'intro'])
 
     def test_initialisation_with_multiple_subclassses(self):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         class ArticleWithIntroBlock(ArticleBlock):
-            intro = blocks.FieldBlock(forms.CharField())
+            intro = blocks.CharBlock()
 
         block = ArticleWithIntroBlock()
 
@@ -414,11 +408,11 @@ class TestStreamBlock(unittest.TestCase):
     @unittest.expectedFailure # Field order doesn't match inheritance order
     def test_initialisation_with_mixins(self):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         class IntroMixin(blocks.StreamBlock):
-            intro = blocks.FieldBlock(forms.CharField())
+            intro = blocks.CharBlock()
 
         class ArticleWithIntroBlock(ArticleBlock, IntroMixin):
             pass
@@ -429,8 +423,8 @@ class TestStreamBlock(unittest.TestCase):
 
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
         value = block.to_python(data)
@@ -469,8 +463,8 @@ class TestStreamBlock(unittest.TestCase):
 
     def render_form(self):
         class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.FieldBlock(forms.CharField())
-            paragraph = blocks.FieldBlock(forms.CharField())
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
         value = block.to_python([
@@ -527,8 +521,8 @@ class TestStreamBlock(unittest.TestCase):
 
     def test_html_declarations(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField())
-            link = blocks.FieldBlock(forms.URLField())
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()
@@ -538,8 +532,8 @@ class TestStreamBlock(unittest.TestCase):
 
     def test_html_declarations_uses_default(self):
         class LinkBlock(blocks.StructBlock):
-            title = blocks.FieldBlock(forms.CharField(), default="Github")
-            link = blocks.FieldBlock(forms.URLField(), default="http://www.github.com")
+            title = blocks.CharBlock(default="Github")
+            link = blocks.URLBlock(default="http://www.github.com")
 
         block = blocks.ListBlock(LinkBlock)
         html = block.html_declarations()

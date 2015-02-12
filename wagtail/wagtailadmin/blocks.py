@@ -295,6 +295,11 @@ class CharBlock(FieldBlock):
         self.field = forms.CharField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
         super(CharBlock, self).__init__(**kwargs)
 
+class URLBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+        self.field = forms.URLField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
+        super(URLBlock, self).__init__(**kwargs)
+
 class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
