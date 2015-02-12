@@ -35,6 +35,7 @@ Changelog
 * Fix: Punctuation characters are no longer stripped when performing search queries
 * Fix: When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
 * Fix: richtext template tag no longer raises TypeError if None is passed into it (Alejandro Varas)
+* Fix: Serving documents now uses a streaming HTTP response and will no longer break Djangos cache middleware
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~
