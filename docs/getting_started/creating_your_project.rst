@@ -78,6 +78,4 @@ Firstly, open up a command line shell in your new projects directory.
 Using Vagrant
 -------------
 
-TODO
-
 :doc:`using_vagrant`

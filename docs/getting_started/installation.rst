@@ -50,8 +50,6 @@ To check that Wagtail can be seen by Python. Type ``python`` in your shell then 
 .. code-block:: python
 
     >>> import wagtail
-    >>> print(wagtail.get_version())
-    0.9
 
 
 Optional extras
