@@ -718,7 +718,12 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         # This results in all the other labels being promoted similarly, so it's better not to
         # treat this as a single field, and remove the "single-field" class.
         classes.remove("single-field")
-        
+
+        # In case of a validation error, BlockWidget will take care of outputting the error on the
+        # relevant sub-block, so we don't want the stream block as a whole to be wrapped in an 'error' class.
+        if 'error' in classes:
+            classes.remove("error")
+
         return classes
 
     @classmethod

@@ -301,7 +301,14 @@ class FieldBlock(Block):
         else:
             label_html = ''
 
-        widget_html = widget.render(prefix, value, {'id': prefix, 'placeholder': self.label.title() })
+        widget_attrs = {'id': prefix, 'placeholder': self.label.title()}
+
+        if hasattr(widget, 'render_with_errors'):
+            widget_html = widget.render_with_errors(prefix, value, attrs=widget_attrs, errors=errors)
+            widget_has_rendered_errors = True
+        else:
+            widget_html = widget.render(prefix, value, attrs=widget_attrs)
+            widget_has_rendered_errors = False
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
@@ -310,7 +317,7 @@ class FieldBlock(Block):
             'widget': widget_html,
             'label_tag': label_html,
             'field': self.field,
-            'errors': errors,  # TODO: use widget.render_with_errors instead, if the widget supports it
+            'errors': errors if (not widget_has_rendered_errors) else None
         })
 
     def value_from_datadict(self, data, files, prefix):
@@ -615,7 +622,7 @@ class ListBlock(Block):
 
         list_members_html = [
             self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                errors=error_list.params[i] if error_list else None)
+                errors=error_list[i] if error_list else None)
             for (i, child_val) in enumerate(value)
         ]
 
@@ -771,7 +778,7 @@ class BaseStreamBlock(Block):
 
         list_members_html = [
             self.render_list_member(child.block.name, child.value, "%s-%d" % (prefix, i), i,
-                errors=error_list.params[i] if error_list else None)
+                errors=error_list[i] if error_list else None)
             for (i, child) in enumerate(value)
         ]
 
@@ -910,8 +917,8 @@ class BlockWidget(forms.Widget):
         super(BlockWidget, self).__init__(attrs=attrs)
         self.block_def = block_def
 
-    def render(self, name, value, attrs=None):
-        bound_block = self.block_def.bind(value, prefix=name)
+    def render_with_errors(self, name, value, attrs=None, errors=None):
+        bound_block = self.block_def.bind(value, prefix=name, errors=errors)
         js_initializer = self.block_def.js_initializer()
         if js_initializer:
             js_snippet = """
@@ -925,6 +932,9 @@ class BlockWidget(forms.Widget):
         else:
             js_snippet = ''
         return mark_safe(bound_block.render_form() + js_snippet)
+
+    def render(self, name, value, attrs=None):
+        return self.render_with_errors(name, value, attrs=attrs, errors=None)
 
     @property
     def media(self):
