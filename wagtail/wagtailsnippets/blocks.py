@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.utils.functional import cached_property
 from django.contrib.contenttypes.models import ContentType
 
-from wagtail.wagtailadmin.blocks import ChooserBlock
+from wagtail.wagtailcore.blocks import ChooserBlock
 
 class SnippetChooserBlock(ChooserBlock):
     def __init__(self, target_model, **kwargs):

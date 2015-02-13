@@ -4,7 +4,7 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
 
-from wagtail.wagtailadmin import blocks
+from wagtail.wagtailcore import blocks
 
 
 class TestFieldBlock(unittest.TestCase):

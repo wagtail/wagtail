@@ -8,7 +8,7 @@ from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.blocks import Block, StreamBlock, StreamValue, BlockField  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
+from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockField
 
 
 class RichTextArea(WidgetWithScript, forms.Textarea):

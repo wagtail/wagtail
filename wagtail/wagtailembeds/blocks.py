@@ -1,4 +1,4 @@
-from wagtail.wagtailadmin import blocks
+from wagtail.wagtailcore import blocks
 
 from wagtail.wagtailembeds.format import embed_to_frontend_html
 

@@ -1,6 +1,6 @@
 from django.utils.functional import cached_property
 
-from wagtail.wagtailadmin.blocks import ChooserBlock
+from wagtail.wagtailcore.blocks import ChooserBlock
 
 class ImageChooserBlock(ChooserBlock):
     @cached_property
