@@ -66,7 +66,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
     class Meta:
         label = None
-        icon = "streamfield-block-placeholder"
+        icon = "placeholder"
         classname = None
 
     """
