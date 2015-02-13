@@ -451,7 +451,6 @@ class TestStreamBlock(unittest.TestCase):
         self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
         self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
 
-    @unittest.expectedFailure
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
         html = self.render_article([
@@ -459,7 +458,14 @@ class TestStreamBlock(unittest.TestCase):
                 'type': 'foo',
                 'value': "Hello",
             },
+            {
+                'type': 'paragraph',
+                'value': 'My first paragraph',
+            },
         ])
+        self.assertNotIn('foo', html)
+        self.assertNotIn('Hello', html)
+        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
 
     def render_form(self):
         class ArticleBlock(blocks.StreamBlock):
