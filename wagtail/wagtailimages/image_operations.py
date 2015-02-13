@@ -25,7 +25,7 @@ class Operation(object):
     def construct(self, *args):
         raise NotImplementedError
 
-    def run(self, willow, image):
+    def process_transform(self, transform, image):
         raise NotImplementedError
 
 
@@ -33,7 +33,7 @@ class DoNothingOperation(Operation):
     def construct(self):
         pass
 
-    def run(self, willow, image):
+    def process_transform(self, transform, image):
         pass
 
 
@@ -62,8 +62,8 @@ class FillOperation(Operation):
         if self.crop_closeness > 1:
             self.crop_closeness = 1
 
-    def run(self, willow, image):
-        image_width, image_height = willow.get_size()
+    def process_transform(self, transform, image):
+        image_width, image_height = transform.size
         focal_point = image.get_focal_point()
 
         # Get crop aspect ratio
@@ -158,18 +158,20 @@ class FillOperation(Operation):
             bottom = image_height
 
         # Crop!
-        willow.crop(int(left), int(top), int(right), int(bottom))
+        transform = transform.crop(int(left), int(top), int(right), int(bottom))
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
         # vertical axes
-        aftercrop_width, aftercrop_height = willow.get_size()
+        aftercrop_width, aftercrop_height = transform.size
         scale = self.width / aftercrop_width
 
         # Only resize if the image is too big
         if scale < 1.0:
             # Resize!
-            willow.resize(self.width, self.height)
+            transform = transform.resize(self.width, self.height)
+
+        return transform
 
 
 class MinMaxOperation(Operation):
@@ -179,8 +181,8 @@ class MinMaxOperation(Operation):
         self.width = int(width_str)
         self.height = int(height_str)
 
-    def run(self, willow, image):
-        image_width, image_height = willow.get_size()
+    def process_transform(self, transform, image):
+        image_width, image_height = transform.size
 
         horz_scale = self.width / image_width
         vert_scale = self.height / image_height
@@ -211,15 +213,15 @@ class MinMaxOperation(Operation):
             # Unknown method
             return
 
-        willow.resize(width, height)
+        return transform.resize(width, height)
 
 
 class WidthHeightOperation(Operation):
     def construct(self, size):
         self.size = int(size)
 
-    def run(self, willow, image):
-        image_width, image_height = willow.get_size()
+    def process_transform(self, transform, image):
+        image_width, image_height = transform.size
 
         if self.method == 'width':
             if image_width <= self.size:
@@ -243,4 +245,4 @@ class WidthHeightOperation(Operation):
             # Unknown method
             return
 
-        willow.resize(width, height)
+        return transform.resize(width, height)

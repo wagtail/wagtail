@@ -6,6 +6,7 @@ from six import BytesIO, text_type
 
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
+from willow.transform import Transform as WillowTransform
 
 from django.core.files import File
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
@@ -289,11 +290,15 @@ class Filter(models.Model):
         return operations
 
     def run(self, image, output):
-        willow = image.get_willow_image()
+        # Build a transform from the operations
+        transform = WillowTransform(image.width, image.height)
 
         for operation in self.operations:
-            operation.run(willow, image)
+            transform = operation.process_transform(transform, image) or transform
 
+        # Transform the image
+        willow = image.get_willow_image()
+        willow.transform(transform)
         willow.save_as_jpeg(output)
 
         return output
