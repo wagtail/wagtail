@@ -311,10 +311,14 @@ class RichTextBlock(FieldBlock):
 
 
 class ChooserBlock(FieldBlock):
+    def __init__(self, required=True, **kwargs):
+        self.required=required
+        super(ChooserBlock, self).__init__(**kwargs)
+
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget)
+        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget, required=self.required)
 
     def to_python(self, value):
         if value is None or isinstance(value, self.target_model):
