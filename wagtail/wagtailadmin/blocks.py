@@ -745,10 +745,13 @@ class BaseStreamBlock(Block):
         else:
             error_list = None
 
+        # drop any child values that are an unrecognised block type
+        valid_children = [child for child in value if child.block_type in self.child_blocks]
+
         list_members_html = [
-            self.render_list_member(child.block.name, child.value, "%s-%d" % (prefix, i), i,
+            self.render_list_member(child.block_type, child.value, "%s-%d" % (prefix, i), i,
                 errors=error_list[i] if error_list else None)
-            for (i, child) in enumerate(value)
+            for (i, child) in enumerate(valid_children)
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
@@ -766,7 +769,10 @@ class BaseStreamBlock(Block):
             if data['%s-%d-deleted' % (prefix, i)]:
                 continue
             block_type_name = data['%s-%d-type' % (prefix, i)]
-            child_block = self.child_blocks[block_type_name]
+            try:
+                child_block = self.child_blocks[block_type_name]
+            except KeyError:
+                continue
 
             values_with_indexes.append(
                 (
@@ -808,6 +814,7 @@ class BaseStreamBlock(Block):
         return StreamValue(self, [
             (child_data['type'], self.child_blocks[child_data['type']].to_python(child_data['value']))
             for child_data in value
+            if child_data['type'] in self.child_blocks
         ])
 
     def get_prep_value(self, value):
