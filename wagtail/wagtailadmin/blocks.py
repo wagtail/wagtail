@@ -77,7 +77,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     the base 'media' and 'html_declarations' methods will return those declarations; the outer block type can
     then add its own declarations to the list by overriding those methods and using super().
     """
-    dependencies = set()
+    dependencies = []
 
     def all_blocks(self):
         """
@@ -277,6 +277,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    # Making block instances hashable in a way that's consistent with __eq__ is non-trivial, because
+    # self.deconstruct() is liable to contain unhashable data (e.g. lists and dicts). So let's set
+    # Block to be explicitly unhashable - Python 3 will do this automatically when defining __eq__,
+    # but Python 2 won't, and we'd like the behaviour to be consistent on both.
+    __hash__ = None
+
 
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
@@ -454,7 +460,7 @@ class BaseStructBlock(Block):
             if js_initializer is not None:
                 self.child_js_initializers[name] = js_initializer
 
-        self.dependencies = set(self.child_blocks.values())
+        self.dependencies = self.child_blocks.values()
 
     def js_initializer(self):
         # skip JS setup entirely if no children have js_initializers
@@ -609,7 +615,7 @@ class ListBlock(Block):
         else:
             self.child_block = child_block
 
-        self.dependencies = set([self.child_block])
+        self.dependencies = [self.child_block]
         self.child_js_initializer = self.child_block.js_initializer()
 
     @property
@@ -747,7 +753,7 @@ class BaseStreamBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        self.dependencies = set(self.child_blocks.values())
+        self.dependencies = self.child_blocks.values()
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None):
         """
