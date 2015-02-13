@@ -258,10 +258,7 @@
 .icon-site:before{
     content:"@";
 }
-.icon-larger:before{
-    font-size:1.5em;
-}
-.icon-streamfield-block-placeholder:before{
+.icon-placeholder:before{
     content:"{";
 }
 .icon-pilcrow:before {
@@ -273,7 +270,13 @@
 .icon-code:before{
     content:"\e601"
 }
+.icon-openquote:before{
+    content:"“"
+}
 
+.icon-larger:before{
+    font-size:1.5em;
+}
 
 .icon.text-replace{
     font-size:0em;
