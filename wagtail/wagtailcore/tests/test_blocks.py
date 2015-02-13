@@ -239,6 +239,29 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
 
+    def test_media_inheritance(self):
+        class ScriptedCharBlock(blocks.CharBlock):
+            media = forms.Media(js=['scripted_char_block.js'])
+
+        class LinkBlock(blocks.StructBlock):
+            title = ScriptedCharBlock(default="Torchbox")
+            link = blocks.URLBlock(default="http://www.torchbox.com")
+
+        block = LinkBlock()
+        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
+
+    def test_html_declaration_inheritance(self):
+        class CharBlockWithDeclarations(blocks.CharBlock):
+            def html_declarations(self):
+                return '<script type="text/x-html-template">hello world</script>'
+
+        class LinkBlock(blocks.StructBlock):
+            title = CharBlockWithDeclarations(default="Torchbox")
+            link = blocks.URLBlock(default="http://www.torchbox.com")
+
+        block = LinkBlock()
+        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -359,6 +382,21 @@ class TestListBlock(unittest.TestCase):
 
         self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" value="Github" />', html)
         self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" value="http://www.github.com" />', html)
+
+    def test_media_inheritance(self):
+        class ScriptedCharBlock(blocks.CharBlock):
+            media = forms.Media(js=['scripted_char_block.js'])
+
+        block = blocks.ListBlock(ScriptedCharBlock())
+        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
+
+    def test_html_declaration_inheritance(self):
+        class CharBlockWithDeclarations(blocks.CharBlock):
+            def html_declarations(self):
+                return '<script type="text/x-html-template">hello world</script>'
+
+        block = blocks.ListBlock(CharBlockWithDeclarations())
+        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -543,6 +581,29 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" value="Github" />', html)
         self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" value="http://www.github.com" />', html)
+
+    def test_media_inheritance(self):
+        class ScriptedCharBlock(blocks.CharBlock):
+            media = forms.Media(js=['scripted_char_block.js'])
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = ScriptedCharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
+
+    def test_html_declaration_inheritance(self):
+        class CharBlockWithDeclarations(blocks.CharBlock):
+            def html_declarations(self):
+                return '<script type="text/x-html-template">hello world</script>'
+
+        class ArticleBlock(blocks.StructBlock):
+            heading = CharBlockWithDeclarations(default="Torchbox")
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
     def test_ordering_in_form_submission(self):
         class ArticleBlock(blocks.StreamBlock):

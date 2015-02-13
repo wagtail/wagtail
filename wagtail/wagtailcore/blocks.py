@@ -81,12 +81,12 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
     def all_blocks(self):
         """
-        Return a set consisting of self and all block objects that are direct or indirect dependencies
+        Return a list consisting of self and all block objects that are direct or indirect dependencies
         of this block
         """
-        result = set([self])
+        result = [self]
         for dep in self.dependencies:
-            result |= dep.all_blocks()
+            result.extend(dep.all_blocks())
         return result
 
     def all_media(self):
