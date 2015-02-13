@@ -199,7 +199,12 @@
         .fields > li > .field > label{
             display:none;
         }
-        .stream_widget > .field-content{
+
+        /* Despite "BlockField" being generic and available for use outside StreamField,
+        this is the most unique handle available to undo the width set on .field-content 
+        everywhere else in wagtail. If other types of field become available for use as 
+        a direct child of Streamfield, this will need updating */
+        .block_field > .field-content{ 
             width:100%;
             display:block;
         }
