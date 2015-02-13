@@ -543,3 +543,36 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" value="Github" />', html)
         self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" value="http://www.github.com" />', html)
+
+    def test_ordering_in_form_submission(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+
+        # check that items are ordered by the 'order' field, not the order they appear in the form
+        post_data = {'article-count': '3'}
+        for i in range(0, 3):
+            post_data.update({
+                'article-%d-deleted' % i: '',
+                'article-%d-order' % i: str(2 - i),
+                'article-%d-type' % i: 'heading',
+                'article-%d-value' % i: "heading %d" % i
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'article')
+        self.assertEqual(block_value[2].value, "heading 0")
+
+        # check that items are ordered by 'order' numerically, not alphabetically
+        post_data = {'article-count': '12'}
+        for i in range(0, 12):
+            post_data.update({
+                'article-%d-deleted' % i: '',
+                'article-%d-order' % i: str(i),
+                'article-%d-type' % i: 'heading',
+                'article-%d-value' % i: "heading %d" % i
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'article')
+        self.assertEqual(block_value[2].value, "heading 2")

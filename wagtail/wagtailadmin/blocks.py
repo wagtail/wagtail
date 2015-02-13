@@ -780,7 +780,7 @@ class BaseStreamBlock(Block):
 
             values_with_indexes.append(
                 (
-                    data['%s-%d-order' % (prefix, i)],
+                    int(data['%s-%d-order' % (prefix, i)]),
                     block_type_name,
                     child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
                 )
