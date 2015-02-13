@@ -14,12 +14,11 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertEqual(html, "Hello world!")
 
-    @unittest.expectedFailure # classname seems to have broken
     def test_charfield_render_form(self):
         block = blocks.CharBlock()
         html = block.render_form("Hello world!")
 
-        self.assertIn('<div class="field char_field">', html)
+        self.assertIn('<div class="field char_field widget-text_input">', html)
         self.assertIn('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_prefix(self):
@@ -48,7 +47,6 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertEqual(html, "choice-2")
 
-    @unittest.expectedFailure # classname seems to have broken
     def test_choicefield_render_form(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -59,7 +57,7 @@ class TestFieldBlock(unittest.TestCase):
         block = ChoiceBlock()
         html = block.render_form('choice-2')
 
-        self.assertIn('<div class="field choice_field">', html)
+        self.assertIn('<div class="field choice_field widget-select">', html)
         self.assertIn('<select id="" name="" placeholder="">', html)
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
@@ -195,7 +193,6 @@ class TestStructBlock(unittest.TestCase):
         # Don't render the extra item
         self.assertNotIn('<dt>image</dt>', html)
 
-    @unittest.expectedFailure # Double space in classnames...
     def test_render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -208,9 +205,9 @@ class TestStructBlock(unittest.TestCase):
         }, prefix='mylink')
 
         self.assertIn('<div class="struct-block">', html)
-        self.assertIn('<div class="field char_field blockname-title">', html)
+        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html)
-        self.assertIn('<div class="field url_field blockname-link">', html)
+        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.wagtail.io" />', html)
 
     def test_render_form_unknown_field(self):

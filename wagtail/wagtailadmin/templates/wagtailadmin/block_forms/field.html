@@ -1,5 +1,5 @@
 {% load wagtailadmin_tags %}
-<div class="field {{ field|fieldtype }} widget-{{ field|widgettype }} fieldname-{{ name }} {{ classes }} {% if errors %}error{% endif %}">
+<div class="field {{ field|fieldtype }} widget-{{ field|widgettype }}{% if name %} fieldname-{{ name }}{% endif %}{% if classes %} {{ classes }}{% endif %}{% if errors %} error{% endif %}">
     {{ label_tag }}
     <div class="field-content">
         <div class="input">
