@@ -446,6 +446,8 @@ class BaseStructBlock(Block):
         template = "wagtailadmin/blocks/struct.html"
 
     def __init__(self, local_blocks=None, **kwargs):
+        self._constructor_kwargs = kwargs
+
         super(BaseStructBlock, self).__init__(**kwargs)
 
         self.child_blocks = self.base_blocks.copy()  # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
@@ -539,6 +541,21 @@ class BaseStructBlock(Block):
             (name, self.child_blocks[name].get_prep_value(val))
             for name, val in value.items()
         ])
+
+    def deconstruct(self):
+        """
+        Always deconstruct StructBlock instances as if they were plain StructBlocks with all of the
+        field definitions passed to the constructor - even if in reality this is a subclass of StructBlock
+        with the fields defined declaratively, or some combination of the two.
+
+        This ensures that the field definitions get frozen into migrations, rather than leaving a reference
+        to a custom subclass in the user's models.py that may or may not stick around.
+        """
+        path = 'wagtail.wagtailcore.blocks.StructBlock'
+        args = [self.child_blocks.items()]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
 
 @python_2_unicode_compatible  # provide equivalent __unicode__ and __str__ methods on Py2
 class StructValue(collections.OrderedDict):
@@ -745,6 +762,8 @@ class BaseStreamBlock(Block):
             return StreamValue(self, [])
 
     def __init__(self, local_blocks=None, **kwargs):
+        self._constructor_kwargs = kwargs
+
         super(BaseStreamBlock, self).__init__(**kwargs)
 
         self.child_blocks = self.base_blocks.copy()  # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
@@ -905,6 +924,20 @@ class BaseStreamBlock(Block):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
             [(child, child.block_type) for child in value]
         )
+
+    def deconstruct(self):
+        """
+        Always deconstruct StreamBlock instances as if they were plain StreamBlocks with all of the
+        field definitions passed to the constructor - even if in reality this is a subclass of StreamBlock
+        with the fields defined declaratively, or some combination of the two.
+
+        This ensures that the field definitions get frozen into migrations, rather than leaving a reference
+        to a custom subclass in the user's models.py that may or may not stick around.
+        """
+        path = 'wagtail.wagtailcore.blocks.StreamBlock'
+        args = [self.child_blocks.items()]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
 
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
