@@ -42,8 +42,6 @@ class RichTextField(models.TextField):
 
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def __init__(self, block_types, **kwargs):
-        self.block_types = block_types
-
         if isinstance(block_types, Block):
             self.stream_block = block_types
         elif isinstance(block_types, type):
@@ -56,8 +54,9 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         return 'TextField'
 
     def deconstruct(self):
-        name, path, args, kwargs = super(StreamField, self).deconstruct()
-        kwargs['block_types'] = self.block_types
+        name, path, _, kwargs = super(StreamField, self).deconstruct()
+        block_types = self.stream_block.child_blocks.items()
+        args = [block_types]
         return name, path, args, kwargs
 
     def to_python(self, value):
