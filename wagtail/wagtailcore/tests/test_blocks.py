@@ -561,26 +561,26 @@ class TestStreamBlock(unittest.TestCase):
         self.assertIn('<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph" type="text" value="My second paragraph" />', html)
 
     def test_html_declarations(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
 
-        block = blocks.ListBlock(LinkBlock)
+        block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />', html)
+        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
+        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />', html)
 
     def test_html_declarations_uses_default(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(default="Github")
-            link = blocks.URLBlock(default="http://www.github.com")
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock(default="Fish found on moon")
+            paragraph = blocks.CharBlock(default="Lorem ipsum dolor sit amet")
 
-        block = blocks.ListBlock(LinkBlock)
+        block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertIn('<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" value="Github" />', html)
-        self.assertIn('<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" value="http://www.github.com" />', html)
+        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" value="Fish found on moon" />', html)
+        self.assertIn('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" value="Lorem ipsum dolor sit amet" />', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -598,7 +598,7 @@ class TestStreamBlock(unittest.TestCase):
             def html_declarations(self):
                 return '<script type="text/x-html-template">hello world</script>'
 
-        class ArticleBlock(blocks.StructBlock):
+        class ArticleBlock(blocks.StreamBlock):
             heading = CharBlockWithDeclarations(default="Torchbox")
             paragraph = blocks.CharBlock()
 
