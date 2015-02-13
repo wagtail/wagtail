@@ -8,7 +8,7 @@ from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.blocks import StreamBlock, StreamValue, BlockField  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
+from wagtail.wagtailadmin.blocks import Block, StreamBlock, StreamValue, BlockField  # FIXME: wagtailcore shouldn't be depending on wagtailadmin
 
 
 class RichTextArea(WidgetWithScript, forms.Textarea):
@@ -43,7 +43,13 @@ class RichTextField(models.TextField):
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def __init__(self, block_types, **kwargs):
         self.block_types = block_types
-        self.stream_block = StreamBlock(block_types)
+
+        if isinstance(block_types, Block):
+            self.stream_block = block_types
+        elif isinstance(block_types, type):
+            self.stream_block = block_types()
+        else:
+            self.stream_block = StreamBlock(block_types)
         super(StreamField, self).__init__(**kwargs)
 
     def get_internal_type(self):
