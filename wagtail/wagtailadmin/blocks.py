@@ -225,6 +225,58 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return force_text(value)
 
+    def __eq__(self, other):
+        """
+        The deep_deconstruct method in django.db.migrations.autodetector.MigrationAutodetector does not
+        recurse into arbitrary lists and dicts. As a result, when it is passed a field such as:
+            StreamField([
+                ('heading', CharBlock()),
+            ])
+        the CharBlock object will be left in its constructed form. This causes problems when
+        MigrationAutodetector compares two separate instances of the StreamField from different project
+        states: since the CharBlocks are different objects, it will report a change where there isn't one.
+
+        To prevent this, we implement the equality operator on Block instances such that the two CharBlocks
+        are reported as equal. Since block objects are intended to be immutable with the exception of
+        set_name(), it is sufficient to compare the 'name' property and the constructor args/kwargs of the
+        two block objects. The 'deconstruct' method provides a convenient way to access the latter.
+        """
+
+        if not isinstance(other, Block):
+            # if the other object isn't a block at all, it clearly isn't equal.
+            return False
+
+            # Note that we do not require the two blocks to be of the exact same class. This is because
+            # we may wish the following blocks to be considered equal:
+            #
+            # class FooBlock(StructBlock):
+            #     first_name = CharBlock()
+            #     surname = CharBlock()
+            #
+            # class BarBlock(StructBlock):
+            #     first_name = CharBlock()
+            #     surname = CharBlock()
+            #
+            # FooBlock() == BarBlock() == StructBlock([('first_name', CharBlock()), ('surname': CharBlock())])
+            #
+            # For this to work, StructBlock will need to ensure that 'deconstruct' returns the same signature
+            # in all of these cases, including reporting StructBlock as the path:
+            #
+            # FooBlock().deconstruct() == (
+            #     'wagtail.wagtailadmin.blocks.StructBlock',
+            #     [('first_name', CharBlock()), ('surname': CharBlock())],
+            #     {}
+            # )
+            #
+            # This has the bonus side effect that the StructBlock field definition gets frozen into
+            # the migration, rather than leaving the migration vulnerable to future changes to FooBlock / BarBlock
+            # in models.py.
+
+        return (self.name == other.name) and (self.deconstruct() == other.deconstruct())
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
 
 class BoundBlock(object):
     def __init__(self, block, value, prefix=None, errors=None):
