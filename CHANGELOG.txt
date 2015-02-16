@@ -38,6 +38,7 @@ Changelog
 * Fix: When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
 * Fix: richtext template tag no longer raises TypeError if None is passed into it (Alejandro Varas)
 * Fix: Serving documents now uses a streaming HTTP response and will no longer break Djangos cache middleware
+* Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~
