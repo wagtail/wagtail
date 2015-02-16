@@ -1,148 +1,81 @@
-=====================
-Creating your project
-=====================
+===========================
+Starting your first project
+===========================
 
-.. contents:: Contents
-    :local:
+Once you've installed Wagtail, you are ready start your first project. Wagtail projects are ordinary Django projects with a few extra apps installed.
 
-
-The ``wagtail start`` command
-=============================
-
-The easiest way to start a new project with wagtail is to use the ``wagtail start`` command. This command is installed into your environment when you install Wagtail (see: :doc:`installation`).
-
-The command works the same way as ``django-admin.py startproject`` except that the produced project is pre-configured for Wagtail. It also contains some useful extras which we will look at in the next section.
-
-To create a project, cd into a directory where you would like to create your project and run the following command:
+Wagtail provides a command to get you started called ``wagtail start``. Open up a command line shell in your project folder and type:
 
  .. code-block:: bash
 
     wagtail start mysite
 
 
-The project
-===========
-
-Lets look at what ``wagtail start`` created::
-
-    mysite/
-        core/
-            static/
-            templates/
-                base.html
-                404.html
-                500.html
-        mysite/
-            settings/
-                base.py
-                dev.py
-                production.py
-        manage.py
-        vagrant/
-            provision.sh
-        Vagrantfile
-        readme.rst
-        requirements.txt
-        
-
-The "core" app
-----------------
-
-Location: ``/mysite/core/``
-
-This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first setup your app.
+This should create a new folder called ``mysite``. Its contents are similar to what ``django-admin.py startproject`` creates but ``wagtail start`` comes with some useful extras that are documented :doc:`here <../reference/project_template>`.
 
 
-Default templates and static files
-----------------------------------
+Running it
+==========
 
-Location: ``/mysite/core/templates/`` and ``/mysite/core/static/``
-
-The templates directory contains ``base.html``, ``404.html`` and ``500.html``. These files are very commonly needed on Wagtail sites to they have been added into the template.
-
-The static directory contains an empty javascript and sass file. Wagtail uses ``django-compressor`` for compiling and compressing static files. For more information, see: `Django Compressor Documentation <http://django-compressor.readthedocs.org/en/latest/>`_
+Firstly, open up a command line shell in your new projects directory.
 
 
-Vagrant configuration
----------------------
+* **1. Create a virtual environment**
 
-Location: ``/Vagrantfile`` and ``/vagrant/``
+  This is only required when you first run your project. This creates a folder to install extra Python modules into.
 
-If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL and Elasticsearch inside a virtual machine.
+  **Linux/Mac OSX:** :code:`pyvenv venv`
 
-See below section `With Vagrant`_ for info on how to use Vagrant in development
-
-If you do not want to use Vagrant, you can just delete these files.
+  **Windows:** :code:`c:\Python34\python -m venv myenv`
 
 
-Django settings
----------------
-
-Location: ``/mysite/mysite/settings/``
-
-The Django settings files are split up into ``base.py``, ``dev.py``, ``production.py`` and ``local.py``.
-
-.. glossary::
-
-    ``base.py``
-
-        This file is for global settings that will be used in both development and production. Aim to keep most of your configuration in this file.
-
-    ``dev.py``
-
-        This file is for settings that will only be used by developers. For example: ``DEBUG = True``
-
-    ``production.py``
-
-        This file is for settings that will only run on a production server. For example: ``DEBUG = False``
-
-    ``local.py``
-
-        This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
-
-        .. tip::
-
-            On production servers, we recommend that you only store secrets in local.py (such as API keys and passwords). This can save you headaches in the future if you are ever trying to debug why a server is behaving badly. If you are using multiple servers which need different settings then we recommend that you create a different ``production.py`` file for each one.
+  https://docs.python.org/3/library/venv.html
 
 
-Getting it running
-==================
+  **Python 2.7**
+
+  ``pyvenv`` is only included with Python 3.3 onwards. To get virtual environments on Python 2, use the ``virtualenv`` package:
+
+  .. code-block:: bash
+
+      pip install virtualenv
+      virtualenv venv
 
 
-With Vagrant
-------------
+* **2. Activate the virtual environment**
 
-This is the easiest way to get the project running. Vagrant runs your project locally in a virtual machine so you can use PostgreSQL and Elasticsearch in development without having to install them on your host machine. If you haven't yet installed Vagrant, see: `Installing Vagrant <https://docs.vagrantup.com/v2/installation/>`_.
+  **Linux/Mac OSX:** :code:`source venv/bin/activate`
 
+  **Windows:** :code:`venv/Scripts/activate.bat`
 
-To setup the Vagrant box, run the following commands
-
- .. code-block:: bash
-
-    vagrant up # This may take some time on first run
-    vagrant ssh
-    # within the ssh session
-    dj createsuperuser
-    djrun
+  https://docs.python.org/3/library/venv.html
 
 
-If you now visit http://localhost:8000 you should see a very basic "Welcome to your new Wagtail site!" page.
+* **3. Install PIP requirements**
 
-You can browse the Wagtail admin interface at: http://localhost:8000/admin
-
-You can read more about how Vagrant works at: https://docs.vagrantup.com/v2/
+  :code:`pip install -r requirements.txt`
 
 
-.. topic:: The ``dj`` and ``djrun`` aliases
+* **4. Create the database**
 
-    When using Vagrant, the Wagtail template provides two aliases: ``dj`` and ``djrun`` which can be used in the ``vagrant ssh`` session.
+  By default, this would create an SQLite database file within the project directory.
 
-    .. glossary::
+  :code:`python manage.py migrate`
 
-        ``dj``
-        
-            This is short for ``python manage.py`` so you can use it to reduce typing. For example: ``python manage.py syncdb`` becomes ``dj syncdb``.
 
-        ``djrun``
-        
-            This is short for ``python manage.py runserver 0.0.0.0:8000``. This is used to run the testing server which is accessible from ``http://localhost:8000`` (note that the port number gets changed by Vagrant)
+* **5. Create an admin user**
+
+  :code:`python manage.py createsuperuser`
+
+
+* **6. Run the development server**
+
+  :code:`python manage.py runserver`
+
+  Your site is now accessible at ``http://localhost:8000``, with the admin backend available at ``http://localhost:8000/admin/``.
+
+
+Using Vagrant
+-------------
+
+:doc:`using_vagrant`
