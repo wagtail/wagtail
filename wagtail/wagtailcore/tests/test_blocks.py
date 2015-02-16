@@ -408,6 +408,15 @@ class TestStreamBlock(unittest.TestCase):
 
         self.assertEqual(list(block.child_blocks.keys()), ['heading', 'paragraph'])
 
+    def test_initialisation_with_binary_string_names(self):
+        # migrations will sometimes write out names as binary strings, just to keep us on our toes
+        block = blocks.StreamBlock([
+            (b'heading', blocks.CharBlock()),
+            (b'paragraph', blocks.CharBlock()),
+        ])
+
+        self.assertEqual(list(block.child_blocks.keys()), [b'heading', b'paragraph'])
+
     def test_initialisation_from_subclass(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()

@@ -115,7 +115,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
-            self.label = capfirst(name.replace('_', ' '))
+            self.label = capfirst(force_text(name).replace('_', ' '))
 
     @property
     def media(self):
