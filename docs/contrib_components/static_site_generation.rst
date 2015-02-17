@@ -3,6 +3,9 @@ Generating a static site
 
 This document describes how to render your Wagtail site into static HTML files on your local filesystem, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
 
+.. note::
+
+    An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
 
 Installing django-medusa
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,3 +89,4 @@ For example, the BlogIndex above would need to yield one URL for each page of re
 
 
 .. _django medusa: https://github.com/mtigas/django-medusa
+.. _django-bakery: https://github.com/datadesk/django-bakery
