@@ -16,6 +16,8 @@ from wagtail.wagtailcore.models import Page, GroupPagePermission
 
 class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(username='testuser', email='testuser@email.com', password='password')
         self.login()
 
     def get(self, params={}):
@@ -25,6 +27,15 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailusers/users/index.html')
+        self.assertContains(response, 'testuser')
+
+    def test_allows_negative_ids(self):
+        # see https://github.com/torchbox/wagtail/issues/565
+        get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', id=-1)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'testuser')
+        self.assertContains(response, 'guardian')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -215,7 +226,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         new_group = Group.objects.get(name='test group')
         self.assertEqual(new_group.page_permissions.all().count(), 2)
 
-    @unittest.skip("currently failing on Django 1.7")
+    @unittest.expectedFailure
     def test_duplicate_page_permissions_error(self):
         # Try to submit duplicate page permission entries
         response = self.post({

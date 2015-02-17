@@ -23,14 +23,17 @@ Minor features
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
  * Search view accepts "page" GET parameter in line with pagination
- * Removed the dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
+ * Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
- * Reversing `django.contrib.auth.admin.login` will no longer lead to Wagtails login view (making it easier to have front end views)
+ * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
- * Added validation to prevent pages being crated with only whitespace characters in their title fields
+ * Added validation to prevent pages being created with only whitespace characters in their title fields
  * Page model fields without a FieldPanel are no longer displayed in the form
  * No longer need to specify the base model on InlinePanel definitions
+ * The project template Vagrantfile now listens on port 8000
+ * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
+ * Password reset emails now use the ``BASE_URL`` setting for the reset URL
 
 
 Bug fixes
@@ -47,18 +50,51 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
+InlinePanel definitions no longer need to specify the base model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
+
+    InlinePanel(HomePage, 'carousel_items', label="Carousel items")
+
+It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to::
+
+    InlinePanel('carousel_items', label="Carousel items")
+
+The old format is now deprecated; all existing InlinePanel declarations should be updated to the new format.
+
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It was previously possible to reverse the Wagtail login using django.contrib.auth.views.login.
-This is no longer possible. Update any references to `wagtailadmin_login`.
+This is no longer possible. Update any references to ``wagtailadmin_login``.
 
-Password reset view name has changed from `password_reset` to `wagtailadmin_password_reset`.
+Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
 
-You no longer need `LOGIN_URL` and `LOGIN_REDIRECT_URL` to point to Wagtail admin.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Javascript includes in admin backend have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To improve compatibility with third-party form widgets, pages within the Wagtail admin backend now output their Javascript includes in the HTML header, rather than at the end of the page. If your project extends the admin backend (through the ``register_admin_menu_item`` hook, for example) you will need to ensure that all associated Javascript code runs correctly from the new location. In particular, any code that accesses HTML elements will need to be contained in an 'onload' handler (e.g. jQuery's ``$(document).ready()``).
+
+EditHandler internal API has changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While it is not an official Wagtail API, it has been possible for Wagtail site implementers to define their own ``EditHandler`` subclasses for use in panel definitions, to customise the behaviour of the page / snippet editing forms. If you have made use of this facility, you will need to update your custom EditHandlers, as this mechanism has been refactored (to allow EditHandler classes to keep a persistent reference to their corresponding model). If you have only used Wagtail's built-in panel types (``FieldPanel``, ``InlinePanel``, ``PageChooserPanel`` and so on), you are unaffected by this change.
+
+Previously, functions like ``FieldPanel`` acted as 'factory' functions, where a call such as ``FieldPanel('title')`` constructed and returned an ``EditHandler`` subclass tailored to work on a 'title' field. These functions now return an object with a ``bind_to_model`` method instead; the EditHandler subclass can be obtained by calling this with the model class as a parameter. As a guide to updating your custom EditHandler code, you may wish to refer to `the relevant change to the Wagtail codebase <https://github.com/torchbox/wagtail/commit/121c01c7f7db6087a985fa8dc9957bc78b9f6a6a>`_.
+
+chooser_panel templates are obsolete
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have added your own custom admin views to the Wagtail admin (e.g. through the ``register_admin_urls`` hook), you may have used one of the following template includes to incorporate a chooser element for pages, documents, images or snippets into your forms:
+
+- ``wagtailadmin/edit_handlers/chooser_panel.html``
+- ``wagtailadmin/edit_handlers/page_chooser_panel.html``
+- ``wagtaildocs/edit_handlers/document_chooser_panel.html``
+- ``wagtailimages/edit_handlers/image_chooser_panel.html``
+- ``wagtailsnippets/edit_handlers/snippet_chooser_panel.html``
+
+All of these templates are now deprecated. Wagtail now provides a set of Django form widgets for this purpose - ``AdminPageChooser``, ``AdminDocumentChooser``, ``AdminImageChooser`` and ``AdminSnippetChooser`` - which can be used in place of the ``HiddenInput`` widget that these form fields were previously using. The field can then be rendered using the regular ``wagtailadmin/shared/field.html`` or ``wagtailadmin/shared/field_as_li.html`` template.

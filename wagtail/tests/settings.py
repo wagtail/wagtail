@@ -16,6 +16,8 @@ DATABASES = {
         'TEST_NAME': os.environ.get('DATABASE_NAME', 'test_wagtaildemo'),
         'USER': os.environ.get('DATABASE_USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
+        'HOST': os.environ.get('POSTGRES_PORT_5432_TCP_ADDR', None),
+        'PORT': os.environ.get('POSTGRES_PORT_5432_TCP_PORT', None),
     }
 }
 
@@ -121,6 +123,13 @@ try:
         'TIMEOUT': 10,
         'max_retries': 1,
     }
+
+    # Check if we're running in Drone
+    if 'ELASTICSEARCH_PORT_9200_TCP_PORT' in os.environ:
+        ip = os.environ.get('ELASTICSEARCH_PORT_9200_TCP_ADDR')
+        port = os.environ.get('ELASTICSEARCH_PORT_9200_TCP_PORT')
+
+        WAGTAILSEARCH_BACKENDS['elasticsearch']['URLS'] = ['http://%s:%s/' % (ip, port)]
 except ImportError:
     pass
 

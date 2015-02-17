@@ -26,11 +26,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
-
-try:
-    from django.core import checks
-except ImportError:
-    pass
+from django.core import checks
 
 from treebeard.mp_tree import MP_Node
 

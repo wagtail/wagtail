@@ -20,7 +20,6 @@ This example represents a typical blog post:
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-    from wagtail.wagtailimages.models import Image
 
     class BlogPage(Page):
         body = RichTextField()

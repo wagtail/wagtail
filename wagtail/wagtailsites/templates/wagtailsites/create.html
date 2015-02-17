@@ -15,17 +15,7 @@
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.hostname %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.port %}
-
-                <li>
-                    {% trans "Choose a different root page" as choose_another_text_str %}
-                    {% trans "Choose a root page" as choose_one_text_str %}
-                    {% if form.instance.root_page %}
-                        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.root_page page=form.instance.root_page is_chosen=True choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
-                    {% else %}
-                        {% include "wagtailadmin/edit_handlers/page_chooser_panel.html" with field=form.root_page is_chosen=False choose_one_text_str=choose_one_text_str choose_another_text_str=choose_another_text_str only %}
-                    {% endif %}
-                </li>
-
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.root_page %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_default_site %}
                
                 <li><input type="submit" value="{% trans 'Save' %}" /></li>

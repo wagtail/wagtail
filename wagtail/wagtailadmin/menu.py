@@ -2,13 +2,8 @@ from __future__ import unicode_literals
 
 from six import text_type, with_metaclass
 
-try:
-    # renamed util -> utils in Django 1.7; try the new name first
-    from django.forms.utils import flatatt
-except ImportError:
-    from django.forms.util import flatatt
-
 from django.forms import MediaDefiningClass, Media
+from django.forms.utils import flatatt
 from django.utils.text import slugify
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
