@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.5 (xx.xx.20xx)
+0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
 * Fix: On adding a new page, the available page types are ordered by the displayed verbose name
 * Fix: Active admin submenus were not properly closed when activating another
