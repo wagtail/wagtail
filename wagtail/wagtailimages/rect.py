@@ -57,13 +57,3 @@ class Rect(object):
             x + width / 2,
             y + height / 2,
         )
-
-
-    # DELETEME
-    def get_key(self):
-        return "%(x)d-%(y)d-%(width)dx%(height)d" % {
-            'x': int(self.centroid_x),
-            'y': int(self.centroid_y),
-            'width': int(self.width),
-            'height': int(self.height),
-        }

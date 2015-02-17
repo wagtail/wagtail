@@ -237,7 +237,3 @@ class TestRect(TestCase):
     def test_from_point(self):
         rect = Rect.from_point(100, 200, 50, 20)
         self.assertEqual(rect, Rect(75, 190, 125, 210))
-
-    def test_get_key(self):
-        rect = Rect(100, 150, 200, 250)
-        self.assertEqual(rect.get_key(), '150-200-100x100')
