@@ -23,3 +23,4 @@ Bug fixes
  * ``richtext`` template tag no longer raises ``TypeError`` if ``None`` is passed into it
  * Serving documents now uses a streaming HTTP response and will no longer break Djangos cache middleware
  * Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
+ * Password reset emails now use the ``BASE_URL`` setting for the reset URL
