@@ -24,7 +24,6 @@ Changelog
  * No longer need to specify the base model on InlinePanel definitions
  * The project template Vagrantfile now listens on port 8000
  * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
- * Password reset emails now use the ``BASE_URL`` setting for the reset URL
 
 0.8.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
@@ -39,6 +38,7 @@ Changelog
 * Fix: richtext template tag no longer raises TypeError if None is passed into it (Alejandro Varas)
 * Fix: Serving documents now uses a streaming HTTP response and will no longer break Djangos cache middleware
 * Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
+* Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~
