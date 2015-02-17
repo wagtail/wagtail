@@ -24,7 +24,7 @@ Changelog
  * No longer need to specify the base model on InlinePanel definitions
  * The project template Vagrantfile now listens on port 8000
  * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
-
+ * Password reset emails now use the ``BASE_URL`` setting for the reset URL
 
 0.8.5 (xx.xx.20xx)
 ~~~~~~~~~~~~~~~~~~
