@@ -25,7 +25,7 @@ Changelog
  * The project template Vagrantfile now listens on port 8000
  * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
 
-0.8.5 (xx.xx.20xx)
+0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
 
 * Fix: On adding a new page, the available page types are ordered by the displayed verbose name
