@@ -14,7 +14,7 @@ Changelog
 * Fix: Serving documents now uses a streaming HTTP response and will no longer break Django's cache middleware
 * Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
 * Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
-* Fix: ``BASE_URL`` is now included in the project template's default settings file
+* Fix: BASE_URL is now included in the project template's default settings file
 
 
 0.8.4 (04.12.2014)
