@@ -10,7 +10,7 @@ Third-party tutorials
 * `Upgrading Wagtail to use Django 1.7 locally using vagrant <https://jossingram.wordpress.com/2014/12/10/upgrading-wagtail-to-use-django-1-7-locally-using-vagrant/>`_ (10 December 2014)
 * `Wagtail redirect page. Can link to page, URL and document <https://gist.github.com/alej0varas/e7e334643ceab6e65744>`_ (24 September 2014)
 * `Outputing JSON for a model with properties and db fields in Wagtail/Django <https://jossingram.wordpress.com/2014/09/24/outputing-json-for-a-model-with-properties-and-db-fields-in-wagtaildjango/>`_ (24 September 2014)
-* `Bi-lingual website using Wagtail CMS <https://jossingram.wordpress.com/2014/09/17/bi-lingual-website-using-wagtail-cms/>`_ (17 September 2015)
+* `Bi-lingual website using Wagtail CMS <https://jossingram.wordpress.com/2014/09/17/bi-lingual-website-using-wagtail-cms/>`_ (17 September 2014)
 * `Wagtail CMS – Lesser known features <https://jossingram.wordpress.com/2014/09/12/wagtail-cms-lesser-known-features/>`_ (12 September 2014)
 * `Wagtail notes: stateful on/off hallo.js plugins <http://www.coactivate.org/projects/ejucovy/blog/2014/08/09/wagtail-notes-stateful-onoff-hallojs-plugins/>`_ (9 August 2014)
 * `Add some blockquote buttons to Wagtail CMS’ WYSIWYG Editor <https://jossingram.wordpress.com/2014/07/24/add-some-blockquote-buttons-to-wagtail-cms-wysiwyg-editor/>`_ (24 July 2014)
