@@ -1,4 +1,5 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase
+from django.test.utils import override_settings
 from django.core import mail
 
 from wagtail.tests.utils import WagtailTestUtils
