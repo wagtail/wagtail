@@ -136,6 +136,11 @@ def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
 
 
+@register.assignment_tag
+def base_url_setting():
+    return getattr(settings, 'BASE_URL', None)
+
+
 class EscapeScriptNode(template.Node):
     TAG_NAME = 'escapescript'
 

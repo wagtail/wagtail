@@ -22,9 +22,12 @@ Changelog
  * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
  * Page model fields without a FieldPanel are no longer displayed in the form
  * No longer need to specify the base model on InlinePanel definitions
+ * The project template Vagrantfile now listens on port 8000
+ * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
+ * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets (Martin Sanders)
+ * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
 
-
-0.8.5 (xx.xx.20xx)
+0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
 
 * Fix: On adding a new page, the available page types are ordered by the displayed verbose name
@@ -35,6 +38,10 @@ Changelog
 * Fix: Punctuation characters are no longer stripped when performing search queries
 * Fix: When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
 * Fix: richtext template tag no longer raises TypeError if None is passed into it (Alejandro Varas)
+* Fix: Serving documents now uses a streaming HTTP response and will no longer break Django's cache middleware
+* Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
+* Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
+* Fix: BASE_URL is now included in the project template's default settings file
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~

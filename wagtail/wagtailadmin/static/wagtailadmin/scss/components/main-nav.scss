@@ -72,7 +72,9 @@ $submenu-color:darken($color-grey-1, 5%);
             font-size:0.95em;
             font-weight:300;
 
-            &:hover{
+            &:hover,
+            &:focus{
+                outline:none;
                 background-color:rgba(100,100,100,0.15);
                 color:white;
                 text-shadow:-1px -1px 0px rgba(0,0,0,0.3);

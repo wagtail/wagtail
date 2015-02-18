@@ -6,7 +6,8 @@ var halloPlugins = {
     'hallolists': {},
     'hallohr': {},
     'halloreundo': {},
-    'hallowagtaillink': {}
+    'hallowagtaillink': {},
+    'hallorequireparagraphs': {}
 };
 
 function registerHalloPlugin(name, opts) {

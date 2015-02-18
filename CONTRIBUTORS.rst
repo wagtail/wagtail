@@ -43,6 +43,7 @@ Contributors
 * Frank Wiles
 * Sebastian Spiegel
 * Alejandro Varas
+* Martin Sanders
 
 Translators
 ===========
