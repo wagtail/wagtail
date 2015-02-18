@@ -24,6 +24,7 @@ Changelog
  * No longer need to specify the base model on InlinePanel definitions
  * The project template Vagrantfile now listens on port 8000
  * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
+ * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets (Martin Sanders)
 
 0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
