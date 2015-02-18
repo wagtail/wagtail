@@ -1,4 +1,5 @@
 import json
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from six import text_type
 
@@ -16,13 +17,23 @@ def choose(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
+    p = request.GET.get("p", 1)
+    paginator = Paginator(items, 25)
+
+    try:
+        paginated_items = paginator.page(p)
+    except PageNotAnInteger:
+        paginated_items = paginator.page(1)
+    except EmptyPage:
+        paginated_items = paginator.page(paginator.num_pages)
+
     return render_modal_workflow(
         request,
         'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
         {
             'content_type': content_type,
             'snippet_type_name': snippet_type_name,
-            'items': items,
+            'items': paginated_items,
         }
     )
 
