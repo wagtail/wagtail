@@ -292,7 +292,7 @@ class TestStructBlock(unittest.TestCase):
             'link': 'http://www.wagtail.io',
         })
 
-        self.assertEqual(content, ["Wagtail site", "http://www.wagtail.io"])
+        self.assertEqual(content, ["Wagtail site"])
 
 
 class TestListBlock(unittest.TestCase):
@@ -447,7 +447,7 @@ class TestListBlock(unittest.TestCase):
             },
         ])
 
-        self.assertEqual(content, ["Wagtail", "http://www.wagtail.io", "Django", "http://www.djangoproject.com"])
+        self.assertEqual(content, ["Wagtail", "Django"])
 
 
 class TestStreamBlock(unittest.TestCase):

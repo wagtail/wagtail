@@ -353,9 +353,6 @@ class FieldBlock(Block):
     def clean(self, value):
         return self.field.clean(value)
 
-    def get_searchable_content(self, value):
-        return [value]
-
 
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
@@ -363,10 +360,15 @@ class CharBlock(FieldBlock):
         self.field = forms.CharField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
         super(CharBlock, self).__init__(**kwargs)
 
+    def get_searchable_content(self, value):
+        return [value]
+
+
 class URLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.URLField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
         super(URLBlock, self).__init__(**kwargs)
+
 
 class RichTextBlock(FieldBlock):
     @cached_property
@@ -376,6 +378,10 @@ class RichTextBlock(FieldBlock):
 
     def render_basic(self, value):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+
+    def get_searchable_content(self, value):
+        return [value]
+
 
 class RawHTMLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
