@@ -361,7 +361,7 @@ class CharBlock(FieldBlock):
         super(CharBlock, self).__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [value]
+        return [force_text(value)]
 
 
 class URLBlock(FieldBlock):
@@ -380,7 +380,7 @@ class RichTextBlock(FieldBlock):
         return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
 
     def get_searchable_content(self, value):
-        return [value]
+        return [force_text(value)]
 
 
 class RawHTMLBlock(FieldBlock):
