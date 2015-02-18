@@ -34,6 +34,7 @@ Minor features
  * The project template Vagrantfile now listens on port 8000
  * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
  * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
+ * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
 
 
 Bug fixes
