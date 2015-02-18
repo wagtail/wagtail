@@ -40,6 +40,8 @@ Minor features
 Bug fixes
 ~~~~~~~~~
 
+ * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
+
 
 Upgrade considerations
 ======================
@@ -99,3 +101,8 @@ If you have added your own custom admin views to the Wagtail admin (e.g. through
 - ``wagtailsnippets/edit_handlers/snippet_chooser_panel.html``
 
 All of these templates are now deprecated. Wagtail now provides a set of Django form widgets for this purpose - ``AdminPageChooser``, ``AdminDocumentChooser``, ``AdminImageChooser`` and ``AdminSnippetChooser`` - which can be used in place of the ``HiddenInput`` widget that these form fields were previously using. The field can then be rendered using the regular ``wagtailadmin/shared/field.html`` or ``wagtailadmin/shared/field_as_li.html`` template.
+
+``document_served`` signal arguments have changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``document_served`` signal (which is fired whenever a user downloads a document) passed the document instance as the ``sender``. This has now been changed to correspond the behaviour of Django's built-in signals; ``sender`` is now the ``Document`` class, and the document instance is passed as the argument ``instance``. Any existing signal listeners that expect to receive the document instance in ``sender`` must now be updated to check the ``instance`` argument instead.
