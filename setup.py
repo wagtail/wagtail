@@ -2,7 +2,7 @@
 
 import sys, os
 
-from wagtail import __version__
+from wagtail.wagtailcore import __version__
 
 
 try:

@@ -1,4 +1,2 @@
+__version__ = '0.9.dev0'
 default_app_config = 'wagtail.wagtailcore.apps.WagtailCoreAppConfig'
-
-# Import Wagtail version so Django debug toolbar can see it
-from wagtail import __version__
