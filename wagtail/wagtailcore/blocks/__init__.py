@@ -558,6 +558,6 @@ class BlockField(forms.Field):
 
 
 # Import block types defined in submodules into the wagtail.wagtailcore.blocks namespace
-from .field import *  # NOQA
+from .field_block import *  # NOQA
 from .list_block import *  # NOQA
-from .stream import *  # NOQA
+from .stream_block import *  # NOQA
