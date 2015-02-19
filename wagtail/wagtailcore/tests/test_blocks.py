@@ -35,6 +35,12 @@ class TestFieldBlock(unittest.TestCase):
 
         self.assertIn('This field is required.', html)
 
+    def test_charfield_searchable_content(self):
+        block = blocks.CharBlock()
+        content = block.get_searchable_content("Hello world!")
+
+        self.assertEqual(content, ["Hello world!"])
+
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -61,6 +67,19 @@ class TestFieldBlock(unittest.TestCase):
         self.assertIn('<select id="" name="" placeholder="">', html)
         self.assertIn('<option value="choice-1">Choice 1</option>', html)
         self.assertIn('<option value="choice-2" selected="selected">Choice 2</option>', html)
+
+    @unittest.expectedFailure # Returning "choice-1" instead of "Choice 1"
+    def test_choicefield_searchable_content(self):
+        class ChoiceBlock(blocks.FieldBlock):
+            field = forms.ChoiceField(choices=(
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ))
+
+        block = ChoiceBlock()
+        content = block.get_searchable_content("choice-1")
+
+        self.assertEqual(content, ["Choice 1"])
 
 
 class TestMeta(unittest.TestCase):
@@ -262,6 +281,19 @@ class TestStructBlock(unittest.TestCase):
         block = LinkBlock()
         self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
+    def test_searchable_content(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = LinkBlock()
+        content = block.get_searchable_content({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        })
+
+        self.assertEqual(content, ["Wagtail site"])
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -397,6 +429,25 @@ class TestListBlock(unittest.TestCase):
 
         block = blocks.ListBlock(CharBlockWithDeclarations())
         self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
+
+    def test_searchable_content(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock())
+        content = block.get_searchable_content([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ])
+
+        self.assertEqual(content, ["Wagtail", "Django"])
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -646,3 +697,32 @@ class TestStreamBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'article')
         self.assertEqual(block_value[2].value, "heading 2")
+
+    def test_searchable_content(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        value = block.to_python([
+            {
+                'type': 'heading',
+                'value': "My title",
+            },
+            {
+                'type': 'paragraph',
+                'value': 'My first paragraph',
+            },
+            {
+                'type': 'paragraph',
+                'value': 'My second paragraph',
+            },
+        ])
+
+        content = block.get_searchable_content(value)
+
+        self.assertEqual(content, [
+             "My title",
+             "My first paragraph",
+             "My second paragraph",
+        ])
