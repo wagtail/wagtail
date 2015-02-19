@@ -235,8 +235,15 @@ class Block(six.with_metaclass(BaseBlock, object)):
                 "body to use migrations.\n"
                 % (name, module_name))
 
+        # if the module defines a DECONSTRUCT_ALIASES dictionary, see if the class has an entry in there;
+        # if so, use that instead of the real path
+        try:
+            path = module.DECONSTRUCT_ALIASES[self.__class__]
+        except (AttributeError, KeyError):
+            path = '%s.%s' % (module_name, name)
+
         return (
-            '%s.%s' % (module_name, name),
+            path,
             self._constructor_args[0],
             self._constructor_args[1],
         )
