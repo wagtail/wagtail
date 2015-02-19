@@ -68,7 +68,7 @@ Example:
 
 Then in the template, you can use the ``{% routablepageurl %}`` tag to link between the pages:
 
-..code:: html+Django
+.. code:: html+Django
 
     {% load wagtailroutablepage_tags %}
 
