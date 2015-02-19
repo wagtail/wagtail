@@ -7,8 +7,10 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.blocks import Block
 from wagtail.wagtailcore.rich_text import expand_db_html
+
+from .base import Block
+
 
 class FieldBlock(Block):
     class Meta:

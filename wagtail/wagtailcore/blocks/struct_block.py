@@ -11,8 +11,7 @@ from django.utils.html import format_html, format_html_join
 
 import six
 
-from wagtail.wagtailcore.blocks import Block, DeclarativeSubBlocksMetaclass
-
+from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
 
 

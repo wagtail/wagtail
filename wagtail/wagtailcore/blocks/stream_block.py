@@ -12,12 +12,14 @@ from django.utils.safestring import mark_safe
 
 import six
 
-from wagtail.wagtailcore.blocks import Block, DeclarativeSubBlocksMetaclass, BoundBlock
 from wagtail.wagtailcore.utils import escape_script
 
+from .base import Block, DeclarativeSubBlocksMetaclass, BoundBlock
 from .utils import indent, js_dict
 
+
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
+
 
 class BaseStreamBlock(Block):
     # TODO: decide what it means to pass a 'default' arg to StreamBlock's constructor. Logically we want it to be

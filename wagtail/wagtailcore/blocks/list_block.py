@@ -7,12 +7,14 @@ from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.blocks import Block
 from wagtail.wagtailcore.utils import escape_script
 
+from .base import Block
 from .utils import js_dict
 
+
 __all__ = ['ListBlock']
+
 
 class ListBlock(Block):
     class Meta:
