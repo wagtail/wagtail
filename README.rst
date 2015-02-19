@@ -52,7 +52,7 @@ Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and al
 
 Need Support?
 ~~~~~~~~~~~~~~~
-Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
+Ask your questions on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 
 Compatibility
