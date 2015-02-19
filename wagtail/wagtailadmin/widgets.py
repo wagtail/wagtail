@@ -81,7 +81,7 @@ class AdminPageChooser(AdminChooser):
     target_content_type = None
     choose_one_text = _('Choose a page')
     choose_another_text = _('Choose another page')
-    link_to_chosen_url = ""
+    link_to_chosen_url = "#"
     link_to_chosen_text = _('Edit this page')
 
     def __init__(self, content_type=None, **kwargs):

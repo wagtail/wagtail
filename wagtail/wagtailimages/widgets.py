@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -13,6 +14,9 @@ class AdminImageChooser(AdminChooser):
     choose_one_text = _('Choose an image')
     choose_another_text = _('Choose another image')
     clear_choice_text = _('Clear image')
+    link_to_chosen_url = "#"
+    link_to_chosen_text = _('Edit this image')
+
 
     def __init__(self, **kwargs):
         super(AdminImageChooser, self).__init__(**kwargs)
@@ -22,6 +26,11 @@ class AdminImageChooser(AdminChooser):
         original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)
 
         instance = self.get_instance(self.image_model, value)
+
+        try:
+            self.link_to_chosen_url = reverse('wagtailimages_edit_image', args=(instance.id,))
+        except AttributeError:
+            pass
 
         return render_to_string("wagtailimages/widgets/image_chooser.html", {
             'widget': self,

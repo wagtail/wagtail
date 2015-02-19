@@ -2,6 +2,7 @@ function createImageChooser(id) {
     var chooserElement = $('#' + id + '-chooser');
     var previewImage = chooserElement.find('.preview-image img');
     var input = $('#' + id);
+    var editLink = chooserElement.find('.edit-link');
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
@@ -16,6 +17,7 @@ function createImageChooser(id) {
                         'alt': imageData.title
                     });
                     chooserElement.removeClass('blank');
+                    editLink.attr('href', imageData.edit_link);
                 }
             }
         });
