@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.test import TestCase
 from django.utils.http import urlquote
@@ -122,7 +121,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         image = Image.objects.get(id=self.image.id)
         self.assertEqual(image.title, "Edited")
 
-    @unittest.expectedFailure
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
 
