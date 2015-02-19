@@ -308,11 +308,6 @@ class BoundBlock(object):
 # Field block
 # ===========
 
-# FIXME: form field instances are not deconstructible for migrations. Need some other way to refer to
-# them in the initialiser, in the case that FieldBlock appears inline within a StreamField definition.
-# (Referring to them by class would probably work; it's unlikely that any parameter passed to them
-# would affect anything you're doing in migrations)
-
 class FieldBlock(Block):
     class Meta:
         default = None
