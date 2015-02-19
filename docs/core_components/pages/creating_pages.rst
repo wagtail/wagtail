@@ -7,6 +7,13 @@ Each page type (a.k.a Content type) in Wagtail is represented by a Django model.
 As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/1.7/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides ``RichTextField`` which provides a WYSIWYG editor for editing rich-text content.
 
 
+.. topic:: Django models
+
+    If you're not yet familiar with Django models, have a quick look at the following links to get you started:
+    `Creating models <https://docs.djangoproject.com/en/1.7/intro/tutorial01/#creating-models>`_
+    `Model syntax <https://docs.djangoproject.com/en/1.7/topics/db/models/>`_
+
+
 An example Wagtail Page Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
