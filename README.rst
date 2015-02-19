@@ -30,7 +30,6 @@ Wagtail is a Django content management system built originally for the `Royal Co
 
 Find out more at `wagtail.io <http://wagtail.io/>`_.
 
-Got a question? Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 Who's using it?
 ~~~~~~~~~~~~~~~
@@ -50,11 +49,18 @@ Documentation
 ~~~~~~~~~~~~~
 Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and always being updated.
 
+
+Need Support?
+~~~~~~~~~~~~~~~
+Ask it on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
+
+
 Compatibility
 ~~~~~~~~~~~~~
 Wagtail supports Django 1.7.0+ on Python 2.7, 3.3 and 3.4.
 
 Wagtail's dependencies are summarised at `requirements.io <https://requires.io/github/torchbox/wagtail/requirements>`_.
+
 
 Contributing
 ~~~~~~~~~~~~
