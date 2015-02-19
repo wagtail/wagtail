@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='EventPageChooserModel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('page', models.ForeignKey(help_text=b'more help text', to='tests.EventPage')),
+                ('page', models.ForeignKey(help_text='more help text', to='tests.EventPage')),
             ],
             options={
             },
