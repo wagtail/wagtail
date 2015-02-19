@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 # this ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
 
-import re
 import collections
 
 from django.core.exceptions import ValidationError, ImproperlyConfigured
@@ -22,24 +21,8 @@ import six
 from wagtail.wagtailcore.utils import escape_script
 from wagtail.wagtailcore.rich_text import expand_db_html
 
-# helpers for Javascript expression formatting
+from .utils import indent, js_dict
 
-def indent(string, depth=1):
-    """indent all non-empty lines of string by 'depth' 4-character tabs"""
-    return re.sub(r'(^|\n)([^\n]+)', '\g<1>' + ('    ' * depth) + '\g<2>', string)
-
-def js_dict(d):
-    """
-    Return a Javascript expression string for the dict 'd'.
-    Keys are assumed to be strings consisting only of JS-safe characters, and will be quoted but not escaped;
-    values are assumed to be valid Javascript expressions and will be neither escaped nor quoted (but will be
-    wrapped in parentheses, in case some awkward git decides to use the comma operator...)
-    """
-    dict_items = [
-        indent("'%s': (%s)" % (k, v))
-        for (k, v) in d.items()
-    ]
-    return "{\n%s\n}" % ',\n'.join(dict_items)
 
 # =========================================
 # Top-level superclasses and helper objects
