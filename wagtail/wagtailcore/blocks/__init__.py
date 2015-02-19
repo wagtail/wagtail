@@ -4,13 +4,13 @@ from __future__ import absolute_import, unicode_literals
 # calls force_text, which would cause it to lose its 'safe' flag
 
 import collections
+from importlib import import_module
 
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.encoding import force_text, python_2_unicode_compatible
-from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 from django.template.loader import render_to_string
 from django import forms
@@ -42,7 +42,6 @@ class BaseBlock(type):
         return cls
 
 
-@deconstructible
 class Block(six.with_metaclass(BaseBlock, object)):
     name = ''
     creation_counter = 0
@@ -61,6 +60,13 @@ class Block(six.with_metaclass(BaseBlock, object)):
     then add its own declarations to the list by overriding those methods and using super().
     """
     dependencies = []
+
+    def __new__(cls, *args, **kwargs):
+        # adapted from django.utils.deconstruct.deconstructible; capture the arguments
+        # so that we can return them in the 'deconstruct' method
+        obj = super(Block, cls).__new__(cls, *args, **kwargs)
+        obj._constructor_args = (args, kwargs)
+        return obj
 
     def all_blocks(self):
         """
@@ -213,6 +219,27 @@ class Block(six.with_metaclass(BaseBlock, object)):
         Returns a list of strings containing text content within this block to be used in a search engine.
         """
         return []
+
+    def deconstruct(self):
+        # adapted from django.utils.deconstruct.deconstructible
+        module_name = self.__module__
+        name = self.__class__.__name__
+
+        # Make sure it's actually there and not an inner class
+        module = import_module(module_name)
+        if not hasattr(module, name):
+            raise ValueError(
+                "Could not find object %s in %s.\n"
+                "Please note that you cannot serialize things like inner "
+                "classes. Please move the object into the main module "
+                "body to use migrations.\n"
+                % (name, module_name))
+
+        return (
+            '%s.%s' % (module_name, name),
+            self._constructor_args[0],
+            self._constructor_args[1],
+        )
 
     def __eq__(self, other):
         """
