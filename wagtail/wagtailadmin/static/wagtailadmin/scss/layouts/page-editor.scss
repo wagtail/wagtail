@@ -611,7 +611,9 @@
 }
 
 /* Custom styles that make some fields look more important */
-.full input, textarea, .richtext{
+.full input, 
+.full textarea, 
+.full .richtext{
     @include nice-padding();
     @include border-radius(0px);
     padding-top:2em;
