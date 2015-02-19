@@ -21,6 +21,7 @@ This example represents a typical blog post:
     from wagtail.wagtailadmin.edit_handlers import FieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+
     class BlogPage(Page):
         body = RichTextField()
         date = models.DateField("Post date")
@@ -31,8 +32,6 @@ This example represents a typical blog post:
             on_delete=models.SET_NULL,
             related_name='+'
         )
-
-
 
     BlogPage.content_panels = [
         FieldPanel('title', classname="full title"),
