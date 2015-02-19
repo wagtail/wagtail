@@ -655,6 +655,16 @@ ul.inline li:first-child, li.inline:first-child{
         display: none;
     }
 
+    .actions{
+        overflow:hidden;
+        @include clearfix;
+        
+        li{
+            float:left;
+            margin:0.3em;
+        }
+    }
+
     /* ...unless the .page-chooser has the 'blank' class set */
     &.blank {
         .chosen { display: none; }
