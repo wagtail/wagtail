@@ -351,7 +351,7 @@ class FieldBlock(Block):
 
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
-        # TODO: decide what to do about 'label' and 'initial' parameters to the form field
+        # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively (via 'label' and 'default')
         self.field = forms.CharField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
         super(CharBlock, self).__init__(**kwargs)
 
