@@ -529,8 +529,8 @@ class BasePageChooserPanel(BaseChooserPanel):
 
                 cls._target_content_type = ContentType.objects.get_for_model(model)
             else:
-                # TODO: infer the content type by introspection on the foreign key
-                cls._target_content_type = ContentType.objects.get_by_natural_key('wagtailcore', 'page')
+                target_model = cls.model._meta.get_field(cls.field_name).rel.to
+                cls._target_content_type = ContentType.objects.get_for_model(target_model)
 
         return cls._target_content_type
 
