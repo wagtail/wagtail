@@ -59,7 +59,7 @@ class Block(six.with_metaclass(BaseBlock, object)):
     def __new__(cls, *args, **kwargs):
         # adapted from django.utils.deconstruct.deconstructible; capture the arguments
         # so that we can return them in the 'deconstruct' method
-        obj = super(Block, cls).__new__(cls, *args, **kwargs)
+        obj = super(Block, cls).__new__(cls)
         obj._constructor_args = (args, kwargs)
         return obj
 
