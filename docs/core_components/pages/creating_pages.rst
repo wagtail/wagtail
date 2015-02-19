@@ -2,9 +2,9 @@
 Creating page models
 ====================
 
-Wagtail provides a ``Page`` class to represent types of page (a.k.a Content types). Developers should subclass ``Page`` for their own page models. 
+Each page type (a.k.a Content type) in Wagtail is represented by a Django model. All page models must inherit from the ``wagtail.wagtailcore.models.Page`` class.
 
-``Page`` uses Django's model interface, so you can include any field type and field options that Django allows. Wagtail provides some field types of its own which simplify data entry in the Wagtail admin interface. Wagtail also wraps Django's field types and widgets with its own concept of "Edit Handlers" and "Panels". These further improve the data entry experience.
+As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/1.7/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides ``RichTextField`` which provides a WYSIWYG editor for editing rich-text content.
 
 
 An example Wagtail Page Model
