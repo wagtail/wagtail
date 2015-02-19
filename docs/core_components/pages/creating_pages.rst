@@ -81,12 +81,6 @@ Wagtail provides some fields for the ``Page`` class by default, which will be co
     ``show_in_menus`` (boolean)
         Toggles whether the page should be considered for inclusion in any site-wide menus you create.
 
-    ``go_live_at`` (datetime)
-        A datetime on which the page should be automatically made published (made publicly accessible)
-
-    ``expire_at`` (datetime)
-        A datetime on which the page should be unpublished, rendering it inaccessible to the public.
-
 
 Page Attributes, Properties and Methods Reference
 -------------------------------------------------
