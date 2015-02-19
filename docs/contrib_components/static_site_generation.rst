@@ -7,10 +7,10 @@ This document describes how to render your Wagtail site into static HTML files o
 
     An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
 
-Installing django-medusa
-~~~~~~~~~~~~~~~~~~~~~~~~
+Installing ``django-medusa``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, install django medusa from pip:
+First, install ``django-medusa` from pip:
 
 .. code::
 
