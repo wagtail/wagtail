@@ -62,16 +62,27 @@ $submenu-color:darken($color-grey-1, 5%);
             }
         }
 
-        a {
+        a{
             @include transition(border-color 0.2s ease);
             -webkit-font-smoothing: auto;
             text-decoration:none;
             display: block;
             color: #AAA;
             padding: 0.8em 1.7em;
-            position:relative;
             font-size:0.95em;
             font-weight:300;
+
+            &:hover,
+            &:focus{
+                outline:none;
+                background-color:rgba(100,100,100,0.15);
+                color:white;
+                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
+            }
+        }
+
+        .menu-item a {
+            position:relative;
             white-space:nowrap;
             border-left:3px solid transparent;
 
@@ -79,12 +90,6 @@ $submenu-color:darken($color-grey-1, 5%);
                 font-size:1rem;
                 vertical-align:-20%;
                 margin-right:0.5em;
-            }
-
-            &:hover{
-                background-color:rgba(100,100,100,0.15);
-                color:white;
-                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
             }
 
             /* only really used for spinners and settings menu */
@@ -99,11 +104,17 @@ $submenu-color:darken($color-grey-1, 5%);
             
         }       
 
-        .avatar{
-            display:none;
-
-            a:hover{
-                background-color:transparent;
+        .account{
+            @include clearfix();
+          
+       
+            .avatar{
+                display:none;
+            }
+            em{
+                font-style:normal;
+                float:left;
+                width:100%;
             }
         }
     }
@@ -115,9 +126,9 @@ $submenu-color:darken($color-grey-1, 5%);
             display:none;
         }
 
-        a{
+        .menu-item a{
             white-space:normal;
-            padding: 0.9em 0 0.9em 4.5em;
+            padding: 0.9em 1.7em 0.9em 4.5em;
 
             &:before{
                 margin-left:-1.5em;
@@ -269,19 +280,26 @@ body.explorer-open {
             position:fixed;
             width:$menu-width - 7;
             bottom:0;
-            text-align:center;
+           
         }
-        .avatar{
-            display:block;
-            margin:auto;
-            text-align:center;
-            margin-bottom:1em;
+        .account{
+            @include clearfix();
+            padding-right:0;
+            padding-left:15px;
+       
+            .avatar{
+                display:inline-block;
+                padding:0;
+                margin:0 0.7em 0 0;
+                border:0;
+                float:left;
 
-            a{
-                padding:0 0 1em 0;
+                &:before{
+                    text-shadow:none;
+                }
             }
-            &:hover{
-                @include box-shadow(0px 0px 6px 0px rgba(0,0,0,1));
+            em{
+                width:120px;
             }
         }
         a.submenu-trigger:after{

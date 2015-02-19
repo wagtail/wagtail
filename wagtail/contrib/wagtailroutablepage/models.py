@@ -67,7 +67,7 @@ class RoutablePageMixin(object):
 
     def serve_preview(self, request, mode_name):
         view, args, kwargs = self.resolve_subpage('/')
-        return view(*args, **kwargs)
+        return view(request, *args, **kwargs)
 
 
 class RoutablePage(RoutablePageMixin, Page):

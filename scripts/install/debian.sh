@@ -75,7 +75,7 @@ pip install uwsgi
 cp $PROJECT/wsgi.py $PROJECT/wsgi_production.py
 perl -pi -e"s/($PROJECT.settings)/\1.production/" $PROJECT/wsgi_production.py
 
-curl -O https://raw2.github.com/nginx/nginx/master/conf/uwsgi_params
+curl -O https://raw.githubusercontent.com/nginx/nginx/master/conf/uwsgi_params
 cat << EOF > /etc/nginx/sites-enabled/default
 upstream django {
     server unix://$PROJECT_ROOT/$PROJECT/uwsgi.sock;

@@ -35,6 +35,15 @@ Contributors
 * John-Scott Atlakson
 * Eric Drechsel
 * Alejandro Giacometti
+* Robert Rollins
+* linibou
+* Timo Rieber
+* Jerel Unruh
+* georgewhewell
+* Frank Wiles
+* Sebastian Spiegel
+* Alejandro Varas
+* Martin Sanders
 
 Translators
 ===========

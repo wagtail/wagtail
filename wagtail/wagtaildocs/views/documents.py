@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
@@ -9,6 +8,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
@@ -89,7 +89,9 @@ def add(request):
             for backend in get_search_backends():
                 backend.add(doc)
 
-            messages.success(request, _("Document '{0}' added.").format(doc.title))
+            messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
+                messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
+            ])
             return redirect('wagtaildocs_index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
@@ -101,7 +103,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -123,7 +124,9 @@ def edit(request, document_id):
             for backend in get_search_backends():
                 backend.add(doc)
 
-            messages.success(request, _("Document '{0}' updated").format(doc.title))
+            messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
+                messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
+            ])
             return redirect('wagtaildocs_index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
@@ -136,7 +139,6 @@ def edit(request, document_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -153,7 +155,6 @@ def delete(request, document_id):
     })
 
 
-@permission_required('wagtailadmin.access_admin')
 def usage(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 

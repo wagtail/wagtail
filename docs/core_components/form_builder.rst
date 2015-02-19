@@ -23,7 +23,11 @@ Within the models.py of one of your apps, create a model that extends wagtailfor
 
 
 .. code:: python
-
+    
+    from modelcluster.fields import ParentalKey
+    from wagtail.wagtailadmin.edit_handlers import (FieldPanel, InlinePanel,
+        MultiFieldPanel)
+    from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 
     class FormField(AbstractFormField):
@@ -36,7 +40,7 @@ Within the models.py of one of your apps, create a model that extends wagtailfor
     FormPage.content_panels = [
         FieldPanel('title', classname="full title"),
         FieldPanel('intro', classname="full"),
-        InlinePanel(FormPage, 'form_fields', label="Form fields"),
+        InlinePanel('form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
         MultiFieldPanel([
             FieldPanel('to_address', classname="full"),
@@ -53,7 +57,7 @@ You now need to create two templates named form_page.html and form_page_landing.
 
 .. code:: html
 
-    {% load pageurl rich_text %}
+    {% load wagtailcore_tags %}
     <html>
         <head>
             <title>{{ self.title }}</title>

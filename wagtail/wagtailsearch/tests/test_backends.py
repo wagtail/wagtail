@@ -1,12 +1,13 @@
 from six import StringIO
 import warnings
+import unittest
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests import models
 from wagtail.wagtailsearch.backends import get_search_backend, InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch

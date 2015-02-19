@@ -1,14 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
-import django
 
 from django.db import models
 from django.forms import Textarea
-
-if django.VERSION < (1, 7):
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^wagtail\.wagtailcore\.fields\.RichTextField"])
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript

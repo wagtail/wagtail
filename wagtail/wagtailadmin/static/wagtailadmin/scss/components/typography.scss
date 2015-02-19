@@ -58,6 +58,22 @@ kbd{
     padding:0.3em 0.5em;
 }
 
+dl, dt, dd{
+    padding:0;
+    margin:0;
+}
+dl{
+    margin-top:1em;
+}
+dt{
+    color:darken($color-grey-3, 5%);
+    text-transform:uppercase;
+    font-size:0.9em;
+}
+dd{
+    margin-bottom:1em;
+}
+
 /* Help text formatters */
 
 .help-block{

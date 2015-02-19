@@ -247,10 +247,10 @@ EventPage.content_panels = [
     FieldPanel('audience'),
     FieldPanel('cost'),
     FieldPanel('signup_link'),
-    InlinePanel(EventPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(EventPage, 'speakers', label="Speakers"),
-    InlinePanel(EventPage, 'related_links', label="Related links"),
+    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 EventPage.promote_panels = [
@@ -306,6 +306,15 @@ class EventIndex(Page):
         for path in super(EventIndex, self).get_static_site_paths():
             yield path
 
+    def get_sitemap_urls(self):
+        # Add past events url to sitemap
+        return super(EventIndex, self).get_sitemap_urls() + [
+            {
+                'location': self.full_url + 'past/',
+                'lastmod': self.latest_revision_created_at
+            }
+        ]
+
 EventIndex.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
@@ -320,7 +329,7 @@ class FormPage(AbstractEmailForm):
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
-    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+    InlinePanel('form_fields', label="Form fields"),
     MultiFieldPanel([
         FieldPanel('to_address', classname="full"),
         FieldPanel('from_address', classname="full"),
@@ -383,7 +392,7 @@ class StandardIndex(Page):
 
 StandardIndex.content_panels = [
     FieldPanel('title', classname="full title"),
-    InlinePanel(StandardIndex, 'advert_placements', label="Adverts"),
+    InlinePanel('advert_placements', label="Adverts"),
 ]
 
 
@@ -486,6 +495,11 @@ class TaggedPageTag(TaggedItemBase):
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
 
+TaggedPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('tags'),
+]
+
 
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
@@ -497,3 +511,14 @@ class SnippetChooserModel(models.Model):
     panels = [
         SnippetChooserPanel('advert', Advert),
     ]
+
+
+# Register model as snippet using register_snippet as both a function and a decorator
+
+class RegisterFunction(models.Model):
+    pass
+register_snippet(RegisterFunction)
+
+@register_snippet
+class RegisterDecorator(models.Model):
+    pass

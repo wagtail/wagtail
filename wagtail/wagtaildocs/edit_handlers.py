@@ -5,7 +5,6 @@ from .widgets import AdminDocumentChooser
 
 
 class BaseDocumentChooserPanel(BaseChooserPanel):
-    field_template = "wagtaildocs/edit_handlers/document_chooser_panel.html"
     object_type_name = "document"
 
     @classmethod
@@ -13,7 +12,12 @@ class BaseDocumentChooserPanel(BaseChooserPanel):
         return {cls.field_name: AdminDocumentChooser}
 
 
-def DocumentChooserPanel(field_name):
-    return type(str('_DocumentChooserPanel'), (BaseDocumentChooserPanel,), {
-        'field_name': field_name,
-    })
+class DocumentChooserPanel(object):
+    def __init__(self, field_name):
+        self.field_name = field_name
+
+    def bind_to_model(self, model):
+        return type(str('_DocumentChooserPanel'), (BaseDocumentChooserPanel,), {
+            'model': model,
+            'field_name': self.field_name,
+        })

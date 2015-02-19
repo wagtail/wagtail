@@ -37,7 +37,7 @@ def search(
 
     # Get query string and page from GET paramters
     query_string = request.GET.get('q', '')
-    page = request.GET.get('p', 1)
+    page = request.GET.get('page', request.GET.get('p', 1))
 
     # Search
     if query_string != '':

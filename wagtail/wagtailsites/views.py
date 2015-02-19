@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
-
+from wagtail.wagtailadmin import messages
 
 def user_has_site_model_perm(user):
     for verb in ['add', 'change', 'delete']:
@@ -28,7 +28,9 @@ def create(request):
         form = SiteForm(request.POST)
         if form.is_valid():
             site = form.save()
-            messages.success(request, _("Site '{0}' created.").format(site.hostname))
+            messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons = [
+                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+            ])
             return redirect('wagtailsites_index')
         else:
             messages.error(request, _("The site could not be created due to errors."))
@@ -48,7 +50,9 @@ def edit(request, site_id):
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
             site = form.save()
-            messages.success(request, _("Site '{0}' updated.").format(site.hostname))
+            messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons = [
+                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+            ])
             return redirect('wagtailsites_index')
         else:
             messages.error(request, _("The site could not be saved due to errors."))

@@ -5,9 +5,55 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * Improvements to the layout of the admin menu footer.
+ * Added thousands separator for counters on dashboard
+ * Added contextual links to admin notification messages
+ * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
+ * FieldPanel now accepts an optional 'widget' parameter to override the field's default form widget (Alejandro Giacometti)
+ * Dropped Django 1.6 support
+ * Dropped Python 2.6 and 3.2 support
+ * Dropped Elasticsearch 0.90.x support
+ * Search view accepts "page" GET parameter in line with pagination
+ * Reversing `django.contrib.auth.admin.login` will no longer lead to Wagtails login view (making it easier to have front end views)
+ * Removed dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
+ * Password reset view names namespaced to wagtailadmin
+ * Removed the need to add permission check on admin views (now automated)
+ * Added cache-control headers to all admin views
+ * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
+ * Page model fields without a FieldPanel are no longer displayed in the form
+ * No longer need to specify the base model on InlinePanel definitions
+ * The project template Vagrantfile now listens on port 8000
+ * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site (Eric Drechsel)
+ * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets (Martin Sanders)
+ * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+ * Fix: The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
+
+0.8.5 (17.02.2015)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: On adding a new page, the available page types are ordered by the displayed verbose name
+* Fix: Active admin submenus were not properly closed when activating another
+* Fix: get_sitemap_urls is now called on the specific page class so it can now be overridden (Jerel Unruh)
+* Fix: (Firefox and IE) Fixed preview window hanging and not refocusing when "Preview" button is clicked again
+* Fix: Storage backends that return raw ContentFile objects are now handled correctly when resizing images (@georgewhewell)
+* Fix: Punctuation characters are no longer stripped when performing search queries
+* Fix: When adding tags where there were none before, it is now possible to save a single tag with multiple words in it
+* Fix: richtext template tag no longer raises TypeError if None is passed into it (Alejandro Varas)
+* Fix: Serving documents now uses a streaming HTTP response and will no longer break Django's cache middleware
+* Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
+* Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
+* Fix: BASE_URL is now included in the project template's default settings file
+
+0.8.4 (04.12.2014)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: It is no longer possible to have the explorer and settings menu open at the same time
+* Fix: Page IDs in page revisions were not updated on page copy, causing subsequent edits to be committed to the original page instead
+* Fix: Copying a page now creates a new page revision, ensuring that changes to the title/slug are correctly reflected in the editor (and also ensuring that the user performing the copy is logged)
+* Fix: Prevent a race condition when creating Filter objects
 
 
-0.8.2 (xx.xx.xxxx)
+0.8.3 (18.11.2014)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Added missing jQuery UI sprite files, causing collectstatic to throw errors (most reported on Heroku)
@@ -15,7 +61,20 @@ Changelog
  * Fix: Page system check for on_delete actions of ForeignKeys now only raises warnings, not errors
  * Fixed a regression where form builder submissions containing a number field would fail with a JSON serialisation error
  * Fix: Resizing an image with a focal point equal to the image size would result in a divide-by-zero error
+ * Fix: Focal point indicator would sometimes be positioned incorrectly for small or thin images
+ * Fix: Focal point chooser background colour changed to grey to make working with transparent images easier
  * Fix: Elasticsearch configuration now supports specifying HTTP authentication parameters as part of the URL, and defaults to ports 80 (HTTP) and 443 (HTTPS) if port number not specified
+ * Fixed a TypeError when previewing pages that use RoutablePageMixin
+ * Fix: Rendering image with missing file in rich text no longer crashes the entire page
+ * Fix: IOErrors thrown by underlying image libraries that are not reporting a missing image file are no longer caught
+ * Fix: Minimum Pillow version bumped to 2.6.1 to work around a crash when using images with transparency
+ * Fix: Images with transparency are now handled better when being used in feature detection
+
+
+0.8.2 (18.11.2014)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
 
 
 0.8.1 (05.11.2014)
@@ -52,8 +111,10 @@ Changelog
  * Fix: 'latest_revision_created_at' was being cleared on page publish, causing the page to drop to the bottom of explorer listings
  * Fix: Searches on partial_match fields were wrongly applying prefix analysis to the search query as well as the document (causing e.g. a query for "water" to match against "wagtail")
 
+
 0.7 (09.10.2014)
 ~~~~~~~~~~~~~~~~
+
  * Added interface for choosing focal point on images
  * Redesigned and reorganised navigation menu to include a 'Settings' submenu
  * Added Groups administration area
@@ -77,8 +138,10 @@ Changelog
  * Fix: It is now easier to move pages to the beginning and end of their section
  * Fix: Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
+
 0.6 (11.09.2014)
 ~~~~~~~~~~~~~~~~
+
  * Added 'wagtail start' command and project template
  * Added Django 1.7 support
  * Added {% routablepageurl %} template tag (Tim Heap)
@@ -95,8 +158,10 @@ Changelog
  * Fix: (For Django 1.7 support) Do not import South when using Django 1.7 (thenewguy)
  * Fix: Tags on images and documents are now committed to the search index immediately on saving
 
+
 0.5 (01.08.2014)
 ~~~~~~~~~~~~~~~~
+
  * Added multiple image uploader
  * Added support for face and feature detection on images using the OpenCV library
  * Added RoutablePage model to allow embedding Django-style URL routing within a page
@@ -107,16 +172,19 @@ Changelog
  * Added page_unpublished signal
  * Added mechanism to obtain external URLs to images, at any size
  * Added Copy Page action to the explorer
-
  * Fix: Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface
+
 
 0.4.1 (14.07.2014)
 ~~~~~~~~~~~~~~~~~~
+
  * ElasticSearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
  * Documentation fixes
 
+
 0.4 (10.07.2014)
 ~~~~~~~~~~~~~~~~
+
  * ElasticUtils/pyelasticsearch swapped for elasticsearch-py
  * Python 3.2, 3.3 and 3.4 support
  * Added scheduled publishing
@@ -152,7 +220,6 @@ Changelog
  * Fields are now indexed in Elasticsearch with their correct type
  * Filter fields are no longer included in '_all' (in Elasticsearch)
  * Fields with partial matching are now indexed together into '_partials'
-
  * Fix: Animated GIFs are now coalesced before resizing
  * Fix: Wand backend clones images before modifying them
  * Fix: Admin breadcrumb now positioned correctly on mobile
@@ -161,14 +228,18 @@ Changelog
  * Fix: Multiple sites with same hostname but different ports are now allowed
  * Fix: No longer possible to create multiple sites with is_default_site = True
 
+
 0.3.1 (03.06.2014)
 ~~~~~~~~~~~~~~~~~~
+
  * Fix: When constructing dummy requests for pages with no routable URL, fall back on a hostname from ALLOWED_HOSTS and finally 'localhost', to avoid 'Invalid HTTP_HOST header' errors on preview when DEBUG=False.
  * Fix: Ensure that url_path is populated when previewing a newly created page, to avoid unnecessarily taking the above fallback.
  * Fix: Deleting an item from an InlinePanel, then generating a validation error on saving, no longer causes the deleted item to confusingly reappear with an error of its own.
 
+
 0.3 (28.05.2014)
 ~~~~~~~~~~~~~~~~
+
  * Added toolbar to allow logged-in users to add and edit pages from the site front-end
  * Support for alternative image processing backends such as Wand, via the WAGTAILIMAGES_BACKENDS setting
  * Added support for generating static sites using django-medusa
@@ -198,8 +269,10 @@ Changelog
  * Fix: 'Upload' tab in image chooser now retains focus if submit action returns a form error.
  * Fix: Search input now appears on image chooser after form validation error.
 
+
 0.2 (11.03.2014)
 ~~~~~~~~~~~~~~~~
+
  * SQLite support added
  * Internationalisation of the admin backend
  * Translations for Bulgarian, Catalan, Chinese, Galician, German, Greek, Polish, Romanian and Spanish. Partial translations for Basque and Mongolian.
@@ -219,6 +292,8 @@ Changelog
  * Extensive tests and test runner infrastructure
  * Numerous bugfixes
 
+
 0.1 (07.02.2014)
 ~~~~~~~~~~~~~~~~
+
  * Initial release.

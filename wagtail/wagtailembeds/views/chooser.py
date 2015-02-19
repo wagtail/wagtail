@@ -1,4 +1,4 @@
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow

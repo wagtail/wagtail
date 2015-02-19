@@ -352,8 +352,6 @@
                     {% for field in example_form %}
                         {% if field.name == 'file' %}
                             {% include "wagtailimages/images/_file_field.html" %}
-                        {% elif field.name == 'date' %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with input_classes="iconfield icon-date" %}
                         {% else %}
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
@@ -362,13 +360,7 @@
                 </ul>
             </form>
 
-            <h3>TODO: Date picker</h3>
-            <h3>TODO: Time picker</h3>
-            <h3>TODO: Datetime picker</h3>
             <h3>TODO: Rich text input</h3>            
-            <h3>TODO: Page chooser</h3>
-            <h3>TODO: Image chooser</h3>
-            <h3>TODO: Document chooser</h3>
             <h3>TODO: Snippet chooser</h3>
         </section>
 
@@ -431,8 +423,10 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" 25 %}" /></span> Gravatar set</p>
-            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" 25 %}" /></span> Gravatar not set</p>
+            <p><span class="avatar icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (normal)</p>
+            <p><span class="avatar icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (normal)</p>
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "david@torchbox.com" %}" /></span> Gravatar set (small)</p>
+            <p><span class="avatar small icon icon-user"><img src="{% gravatar_url "aeon@torchbox.com" %}" /></span> Gravatar not set (small)</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>
@@ -535,42 +529,43 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    $(function(){
-        // Debugging for stylesheet problems
-        var styleSheets = document.styleSheets, totalStyleSheets = styleSheets.length;
-        for (var j = 0; j < totalStyleSheets; j++) {
-            var styleSheet = styleSheets[j], rules = styleSheet.cssRules, totalSelectorsInStylesheet = 0, style = "";
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    <script>
+        $(function(){
+            // Debugging for stylesheet problems
+            var styleSheets = document.styleSheets, totalStyleSheets = styleSheets.length;
+            for (var j = 0; j < totalStyleSheets; j++) {
+                var styleSheet = styleSheets[j], rules = styleSheet.cssRules, totalSelectorsInStylesheet = 0, style = "";
 
-            var totalRulesInStylesheet = rules ? rules.length : 0;
+                var totalRulesInStylesheet = rules ? rules.length : 0;
 
-            for (var i = 0; i < totalRulesInStylesheet; i++) {
-                if (rules[i].selectorText) {
-                    try {
-                        totalSelectorsInStylesheet += rules[i].selectorText.split(',').length;
-                    }
-                    catch (err) {
-                        console.log(err);
+                for (var i = 0; i < totalRulesInStylesheet; i++) {
+                    if (rules[i].selectorText) {
+                        try {
+                            totalSelectorsInStylesheet += rules[i].selectorText.split(',').length;
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
                     }
                 }
+
+                if(totalSelectorsInStylesheet > 4095){
+                    style = 'color:red';
+                }
+                $('#ie9-debug').append("<h3>" + styleSheet.href + "</h3>" + "<p>Total rules: <strong>" + totalRulesInStylesheet + "</strong>. " + "Total selectors: <strong style='" + style + "'>" + totalSelectorsInStylesheet + "</strong></p>");
             }
 
-            if(totalSelectorsInStylesheet > 4095){
-                style = 'color:red';
-            }
-            $('#ie9-debug').append("<h3>" + styleSheet.href + "</h3>" + "<p>Total rules: <strong>" + totalRulesInStylesheet + "</strong>. " + "Total selectors: <strong style='" + style + "'>" + totalSelectorsInStylesheet + "</strong></p>");
-        }
-
-        (function runprogress(){
-            var to = setTimeout(function(){
-                runprogress();
-                clearTimeout(to);
-                var to2 = setTimeout(function(){
-                    $('#progress-example .bar').css('width', '20%'); 
-                }, 2000);                
-            }, 3000);
-            $('#progress-example .bar').css('width', '80%');
-        })();
-    })
-</script>
+            (function runprogress(){
+                var to = setTimeout(function(){
+                    runprogress();
+                    clearTimeout(to);
+                    var to2 = setTimeout(function(){
+                        $('#progress-example .bar').css('width', '20%'); 
+                    }, 2000);                
+                }, 3000);
+                $('#progress-example .bar').css('width', '80%');
+            })();
+        })
+    </script>
 {% endblock %}

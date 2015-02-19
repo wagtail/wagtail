@@ -10,7 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
-from wagtail.wagtailimages import admin_urls
+from wagtail.wagtailimages import admin_urls, image_operations
 
 
 @hooks.register('register_admin_urls')
@@ -96,3 +96,15 @@ def register_permissions():
     image_content_type = ContentType.objects.get(app_label='wagtailimages', model='image')
     image_permissions = Permission.objects.filter(content_type = image_content_type)
     return image_permissions
+
+
+@hooks.register('register_image_operations')
+def register_image_operations():
+    return [
+        ('original', image_operations.DoNothingOperation),
+        ('fill', image_operations.FillOperation),
+        ('min', image_operations.MinMaxOperation),
+        ('max', image_operations.MinMaxOperation),
+        ('width', image_operations.WidthHeightOperation),
+        ('height', image_operations.WidthHeightOperation),
+    ]

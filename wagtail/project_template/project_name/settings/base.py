@@ -28,6 +28,11 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Base URL to use when referring to full URLs within the Wagtail admin backend -
+# e.g. in notification emails. Don't include '/admin' or a trailing slash
+BASE_URL = 'http://example.com'
+
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -142,9 +147,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 
 
 # Wagtail settings
-
-LOGIN_URL = 'wagtailadmin_login'
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 WAGTAIL_SITE_NAME = "{{ project_name }}"
 

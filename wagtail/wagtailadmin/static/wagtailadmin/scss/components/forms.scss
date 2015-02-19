@@ -218,7 +218,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
     &.button-secondary{
         color:$color-button;
-        background-color:white;
+        background-color:transparent;
     }
 
     &.icon.text-replace:before{
@@ -260,7 +260,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             border-color:transparent;
             background-color: $color-button-no-hover;
         }
-    }  
+    }
 
     &.bicolor{
         border:0;
@@ -742,6 +742,9 @@ ul.tagit input[type="text"]{
 ul.tagit li.tagit-choice-editable{
     padding:0 23px 0 0 !important; /* having to use important, FML*/
 }
+.ui-front{ /* provided by jqueryui but not high enough an index */
+    z-index:1000;
+}
 
 .tagit-close{
     .ui-icon-close{
@@ -809,8 +812,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         .boolean_field &,
         .choice_field &,
         .model_choice_field &,
-        .image_field &,
-        .file_field &{
+        .image_field &{
             padding-top:0;
         }
     }

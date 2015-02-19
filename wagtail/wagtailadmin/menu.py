@@ -2,13 +2,8 @@ from __future__ import unicode_literals
 
 from six import text_type, with_metaclass
 
-try:
-    # renamed util -> utils in Django 1.7; try the new name first
-    from django.forms.utils import flatatt
-except ImportError:
-    from django.forms.util import flatatt
-
 from django.forms import MediaDefiningClass, Media
+from django.forms.utils import flatatt
 from django.utils.text import slugify
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -38,7 +33,7 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
+            """<li class="menu-item menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
             self.name, self.url, self.classnames, self.attr_string, self.label)
 
 
@@ -103,7 +98,7 @@ class SubmenuMenuItem(MenuItem):
 
     def render_html(self, request):
         return format_html(
-            """<li class="menu-{0}">
+            """<li class="menu-item menu-{0}">
                 <a href="#" class="submenu-trigger {1}"{2}>{3}</a>
                 <div class="nav-submenu">
                     <h2 class="{1}">{3}</h2>

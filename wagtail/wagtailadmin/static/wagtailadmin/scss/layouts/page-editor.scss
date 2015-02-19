@@ -1,6 +1,6 @@
-@import "../variables.scss";
-@import "../mixins.scss";
-@import "../grid.scss";
+@import "wagtailadmin/scss/variables.scss";
+@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/grid.scss";
 
 .page-editor .content-wrapper{
     margin-bottom:10em;
@@ -110,6 +110,8 @@
             margin:0;
             cursor:pointer;
             background-color:$color-salmon;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     }
 

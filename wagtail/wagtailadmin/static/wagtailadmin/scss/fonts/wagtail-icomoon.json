@@ -1,7 +1,7 @@
 {
 	"metadata": {
-		"name": "Wagtail 1",
-		"lastOpened": 1410881728324,
+		"name": "Wagtail",
+		"lastOpened": 1420801397108,
 		"created": 1405597423787
 	},
 	"iconSets": [
@@ -8564,20 +8564,23 @@
 				"minorVersion": 0
 			},
 			"metrics": {
-				"emSize": 512,
+				"emSize": 1024,
 				"baseline": 6.25,
 				"whitespace": 50
 			},
-			"showMetrics": false,
+			"showMetrics": true,
 			"showMetadata": false,
-			"showVersion": false
+			"showVersion": false,
+			"includeMetadata": false
 		},
 		"imagePref": {},
 		"historySize": 100,
 		"showCodes": true,
 		"search": "",
 		"gridSize": 16,
-		"showGrid": true
+		"showGrid": true,
+		"showQuickUse2": true,
+		"showSVGs": true
 	},
 	"externalSets": []
 }

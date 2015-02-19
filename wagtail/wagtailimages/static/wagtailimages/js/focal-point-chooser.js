@@ -3,6 +3,7 @@ var jcropapi;
 function setupJcrop(image, original, focalPointOriginal, fields){
     image.Jcrop({
         trueSize: [original.width, original.height],
+        bgColor: "rgb(192, 192, 192)",
         onSelect: function(box) {
             var x = Math.floor((box.x + box.x2) / 2);
             var y = Math.floor((box.y + box.y2) / 2);

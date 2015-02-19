@@ -1,3 +1,6 @@
+import unittest
+from willow.image import Image as WillowImage
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -6,13 +9,12 @@ from django.contrib.auth.models import Group, Permission
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
+from django.db import connection
 
-from wagtail.tests.utils import WagtailTestUtils, unittest
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.models import EventPage, EventPageCarouselItem
-from wagtail.wagtailimages.models import Rendition
-from wagtail.wagtailimages.backends import get_image_backend
-from wagtail.wagtailimages.backends.pillow import PillowBackend
+from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file
@@ -120,11 +122,6 @@ class TestRenditions(TestCase):
             file=get_test_image_file(),
         )
 
-    def test_default_backend(self):
-        # default backend should be pillow
-        backend = get_image_backend()
-        self.assertTrue(isinstance(backend, PillowBackend))
-
     def test_minification(self):
         rendition = self.image.get_rendition('width-400')
 
@@ -139,59 +136,6 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.width, 100)
         self.assertEqual(rendition.height, 75)
 
-
-    def test_resize_to_min(self):
-        rendition = self.image.get_rendition('min-120x120')
-
-        # Check size
-        self.assertEqual(rendition.width, 160)
-        self.assertEqual(rendition.height, 120)
-
-    def test_resize_to_original(self):
-        rendition = self.image.get_rendition('original')
-
-        # Check size
-        self.assertEqual(rendition.width, 640)
-        self.assertEqual(rendition.height, 480)
-
-    def test_cache(self):
-        # Get two renditions with the same filter
-        first_rendition = self.image.get_rendition('width-400')
-        second_rendition = self.image.get_rendition('width-400')
-
-        # Check that they are the same object
-        self.assertEqual(first_rendition, second_rendition)
-
-
-class TestRenditionsWand(TestCase):
-    def setUp(self):
-        try:
-            import wand
-        except ImportError:
-            # skip these tests if Wand is not installed
-            raise unittest.SkipTest(
-                "Skipping image backend tests for wand, as wand is not installed")
-
-        # Create an image for running tests on
-        self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
-        self.image.backend = 'wagtail.wagtailimages.backends.wand.WandBackend'
-
-    def test_minification(self):
-        rendition = self.image.get_rendition('width-400')
-
-        # Check size
-        self.assertEqual(rendition.width, 400)
-        self.assertEqual(rendition.height, 300)
-
-    def test_resize_to_max(self):
-        rendition = self.image.get_rendition('max-100x100')
-
-        # Check size
-        self.assertEqual(rendition.width, 100)
-        self.assertEqual(rendition.height, 75)
 
     def test_resize_to_min(self):
         rendition = self.image.get_rendition('min-120x120')
@@ -263,6 +207,29 @@ class TestGetUsage(TestCase):
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
         self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
+
+
+class TestGetWillowImage(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_willow_image_object_returned(self):
+        willow_image = self.image.get_willow_image()
+
+        self.assertIsInstance(willow_image, WillowImage)
+
+    def test_with_missing_image(self):
+        # Image id=1 in test fixtures has a missing image file
+        bad_image = Image.objects.get(id=1)
+
+        # Attempting to get the Willow image for images without files
+        # should raise a SourceImageIOError
+        self.assertRaises(SourceImageIOError, bad_image.get_willow_image)
 
 
 class TestIssue573(TestCase):

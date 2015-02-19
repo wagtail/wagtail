@@ -13,6 +13,7 @@
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_title %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_slug %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.new_parent_page %}
 
                 {% if form.copy_subpages %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.copy_subpages %}
@@ -26,4 +27,8 @@
             <input type="submit" value="{% trans 'Copy this page' %}">
         </form>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}

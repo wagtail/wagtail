@@ -4,6 +4,7 @@ import re
 
 from django.conf import settings
 from django import template
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
@@ -13,6 +14,7 @@ from wagtail.wagtailadmin.menu import admin_menu
 
 register = template.Library()
 
+register.filter('intcomma', intcomma)
 
 @register.inclusion_tag('wagtailadmin/shared/explorer_nav.html')
 def explorer_nav():
@@ -61,6 +63,14 @@ def fieldtype(bound_field):
             return camelcase_to_underscore(bound_field.__class__.__name__)
         except AttributeError:
             return ""
+
+
+@register.filter
+def widgettype(bound_field):
+    try:
+        return camelcase_to_underscore(bound_field.field.widget.__class__.__name__)
+    except AttributeError:
+        return ""
 
 
 @register.filter
@@ -122,6 +132,11 @@ def hook_output(hook_name):
 @register.assignment_tag
 def usage_count_enabled():
     return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
+
+
+@register.assignment_tag
+def base_url_setting():
+    return getattr(settings, 'BASE_URL', None)
 
 
 class EscapeScriptNode(template.Node):

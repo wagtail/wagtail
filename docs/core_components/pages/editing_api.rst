@@ -23,13 +23,15 @@ A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick
 
 There are four basic types of panels:
 
-  ``FieldPanel( field_name, classname=None )``
-    This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings.
+  ``FieldPanel( field_name, classname=None, widget=None )``
+    This is the panel used for basic Django field types. ``field_name`` is the name of the class property used in your model definition. ``classname`` is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields. The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor. The CSS class ``title`` can be used to mark a field as the source for auto-generated slug strings. The optional ``widget`` parameter allows you to specify a `django form widget`_ to use instead of the default widget for this field type.
+
+.. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
 
   ``MultiFieldPanel( children, heading="", classname=None )``
     This panel condenses several ``FieldPanel`` s or choosers, from a list or tuple, under a single ``heading`` string.
 
-  ``InlinePanel( base_model, relation_name, panels=None, classname=None, label='', help_text='' )``
+  ``InlinePanel( relation_name, panels=None, classname=None, label='', help_text='' )``
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. This is a very powerful, but tricky feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
   ``FieldRowPanel( children, classname=None)``
@@ -352,16 +354,20 @@ Let's look at the example of adding related links to a ``Page``-derived model. W
 
   BookPage.content_panels = [
     # ...
-    InlinePanel( BookPage, 'related_links', label="Related Links" ),
+    InlinePanel( 'related_links', label="Related Links" ),
   ]
 
 The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an ``InlinePanel`` to provide an interface for it all. Let's look again at the parameters that ``InlinePanel`` accepts:
 
 .. code-block:: python
 
-  InlinePanel( base_model, relation_name, panels=None, label='', help_text='' )
+  InlinePanel( relation_name, panels=None, label='', help_text='' )
 
-``base_model`` is the model you're extending with the cluster. The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
+The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
+
+.. versionchanged:: 0.9
+
+    In previous versions, it was necessary to pass the base model as the first parameter to ``InlinePanel``; this is no longer required.
 
 For another example of using model clusters, see :ref:`tagging`
 

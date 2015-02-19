@@ -197,12 +197,16 @@ ul.listing{
 
     .button-secondary{
         border-color:$color-grey-3;
-        font-size:0.84em; /* 0.01em difference to regular small buttons */
+        background:white;
 
         &:hover{
             border-color:$color-teal;
             background-color:$color-teal;
         }
+    }
+    
+    .button-secondary{
+        background-color:white;
     }
 
     .moderate-actions form{
@@ -345,6 +349,11 @@ ul.listing{
         margin-right:0;
         font-size:1em;
         opacity:0.7;
+    }
+
+    &.images img{
+        @include transition(border-color 0.2s ease);
+        border: 3px solid transparent;
     }
 }
 ul.listing{

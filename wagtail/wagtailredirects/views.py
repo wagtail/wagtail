@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext  as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin import messages
 
 from wagtail.wagtailredirects import models
 
 
-REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels)
+REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels).bind_to_model(models.Redirect)
 
 
 @permission_required('wagtailredirects.change_redirect')
@@ -68,7 +69,9 @@ def edit(request, redirect_id):
         form = form_class(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title))
+            messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
+                messages.button(reverse('wagtailredirects_edit_redirect', args=(theredirect.id,)), _('Edit'))
+            ])
             return redirect('wagtailredirects_index')
         else:
             messages.error(request, _("The redirect could not be saved due to errors."))
@@ -109,7 +112,9 @@ def add(request):
             theredirect.site = request.site
             theredirect.save()
 
-            messages.success(request, _("Redirect '{0}' added.").format(theredirect.title))
+            messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
+                messages.button(reverse('wagtailredirects_edit_redirect', args=(theredirect.id,)), _('Edit'))
+            ])
             return redirect('wagtailredirects_index')
         else:
             messages.error(request, _("The redirect could not be created due to errors."))

@@ -29,14 +29,13 @@ def json_response(document):
     return HttpResponse(json.dumps(document), content_type='application/json')
 
 
-def get_image_edit_form():
-    Image = get_image_model()
-    ImageForm = get_image_form()
+def get_image_edit_form(ImageModel):
+    ImageForm = get_image_form(ImageModel)
 
     # Make a new form with the file and focal point fields excluded
     class ImageEditForm(ImageForm):
         class Meta(ImageForm.Meta):
-            model = Image
+            model = ImageModel
             exclude = (
                 'file',
                 'focal_point_x',
@@ -52,7 +51,7 @@ def get_image_edit_form():
 @vary_on_headers('X-Requested-With')
 def add(request):
     Image = get_image_model()
-    ImageForm = get_image_form()
+    ImageForm = get_image_form(Image)
 
     if request.method == 'POST':
         if not request.is_ajax():
@@ -80,7 +79,7 @@ def add(request):
                 'image_id': int(image.id),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
-                    'form': get_image_edit_form()(instance=image, prefix='image-%d' % image.id),
+                    'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
                 }, context_instance=RequestContext(request)),
             })
         else:
@@ -102,10 +101,9 @@ def add(request):
 
 
 @require_POST
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, image_id, callback=None):
     Image = get_image_model()
-    ImageForm = get_image_edit_form()
+    ImageForm = get_image_edit_form(Image)
 
     image = get_object_or_404(Image, id=image_id)
 
@@ -140,7 +138,6 @@ def edit(request, image_id, callback=None):
 
 
 @require_POST
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
