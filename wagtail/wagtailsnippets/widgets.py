@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,12 +11,14 @@ from wagtail.wagtailadmin.widgets import AdminChooser
 
 class AdminSnippetChooser(AdminChooser):
     target_content_type = None
-
+    link_to_chosen_url = "#"
+ 
     def __init__(self, content_type=None, **kwargs):
         if 'snippet_type_name' in kwargs:
             snippet_type_name = kwargs.pop('snippet_type_name')
             self.choose_one_text = _('Choose %s') % snippet_type_name
             self.choose_another_text = _('Choose another %s') % snippet_type_name
+            self.link_to_chosen_text = _('Edit this %s') % snippet_type_name
 
         super(AdminSnippetChooser, self).__init__(**kwargs)
         if content_type is not None:
@@ -26,6 +29,11 @@ class AdminSnippetChooser(AdminChooser):
 
         model_class = self.target_content_type.model_class()
         instance = self.get_instance(model_class, value)
+
+        try:
+            self.link_to_chosen_url = reverse('wagtailsnippets_edit', args=(self.target_content_type.app_label, self.target_content_type, instance.id,))
+        except AttributeError:
+            pass
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,
