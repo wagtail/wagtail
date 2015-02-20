@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -13,18 +12,12 @@ from wagtail.wagtaildocs.models import Document
 class AdminDocumentChooser(AdminChooser):
     choose_one_text = _('Choose a document')
     choose_another_text = _('Choose another document')
-    link_to_chosen_url = "#"
     link_to_chosen_text = _('Edit this document')
 
     def render_html(self, name, value, attrs):
         original_field_html = super(AdminDocumentChooser, self).render_html(name, value, attrs)
 
         instance = self.get_instance(Document, value)
-
-        try:
-            self.link_to_chosen_url = reverse('wagtaildocs_edit_document', args=(instance.id,))
-        except AttributeError:
-            pass
 
         return render_to_string("wagtaildocs/widgets/document_chooser.html", {
             'widget': self,

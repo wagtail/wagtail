@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -11,7 +10,6 @@ from wagtail.wagtailadmin.widgets import AdminChooser
 
 class AdminSnippetChooser(AdminChooser):
     target_content_type = None
-    link_to_chosen_url = "#"
  
     def __init__(self, content_type=None, **kwargs):
         if 'snippet_type_name' in kwargs:
@@ -29,11 +27,6 @@ class AdminSnippetChooser(AdminChooser):
 
         model_class = self.target_content_type.model_class()
         instance = self.get_instance(model_class, value)
-
-        try:
-            self.link_to_chosen_url = reverse('wagtailsnippets_edit', args=(self.target_content_type.app_label, self.target_content_type, instance.id,))
-        except AttributeError:
-            pass
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,

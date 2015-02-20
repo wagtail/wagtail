@@ -41,7 +41,6 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     choose_one_text = _("Choose an item")
     choose_another_text = _("Choose another item")
     clear_choice_text = _("Clear choice")
-    link_to_chosen_url = "#"
     link_to_chosen_text = _("Edit this item")
 
     def get_instance(self, model_class, value):
@@ -72,8 +71,6 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             self.clear_choice_text = kwargs.pop('clear_choice_text')
         if 'link_to_chosen_text' in kwargs:
             self.link_to_chosen_text = kwargs.pop('link_to_chosen_text')
-        if 'link_to_chosen_url' in kwargs:
-            self.link_to_chosen_url = kwargs.pop('link_to_chosen_url')
         super(AdminChooser, self).__init__(**kwargs)
 
 
@@ -81,7 +78,6 @@ class AdminPageChooser(AdminChooser):
     target_content_type = None
     choose_one_text = _('Choose a page')
     choose_another_text = _('Choose another page')
-    link_to_chosen_url = "#"
     link_to_chosen_text = _('Edit this page')
 
     def __init__(self, content_type=None, **kwargs):
@@ -93,11 +89,6 @@ class AdminPageChooser(AdminChooser):
 
         model_class = self.target_content_type.model_class()
         instance = self.get_instance(model_class, value)
-
-        try:
-            self.link_to_chosen_url = reverse('wagtailadmin_pages_edit', args=(instance.id,))
-        except AttributeError:
-            pass
 
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {
             'widget': self,
