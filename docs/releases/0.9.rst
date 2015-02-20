@@ -47,7 +47,7 @@ Admin
 
  * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
  * Page model fields without a ``FieldPanel`` are no longer displayed in the form
- * No longer need to specify the base model on InlinePanel definitions
+ * No longer need to specify the base model on ``InlinePanel`` definitions
 
 
 **Other admin changes**
@@ -89,8 +89,8 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
-InlinePanel definitions no longer need to specify the base model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``InlinePanel`` definitions no longer need to specify the base model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
 
@@ -100,7 +100,7 @@ It is no longer necessary to pass the base model as a parameter, so this declara
 
     InlinePanel('carousel_items', label="Carousel items")
 
-The old format is now deprecated; all existing InlinePanel declarations should be updated to the new format.
+The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
 
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
