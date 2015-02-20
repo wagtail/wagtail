@@ -7,35 +7,70 @@ Wagtail 0.9 release notes - IN DEVELOPMENT
     :depth: 1
 
 
-What's new
-==========
+What's changed
+==============
 
-Minor features
-~~~~~~~~~~~~~~
+Minor changes
+~~~~~~~~~~~~~
 
- * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * Dropped Django 1.6 support
+ * Dropped Python 2.6 and 3.2 support
+ * Dropped Elasticsearch 0.90.x support
+
+
+Core
+----
+
+ * Added validation to prevent pages being created with only whitespace characters in their title fields
+
+
+Admin
+-----
+
+**UI**
+
  * Improvements to the layout of the admin menu footer
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to
+ * Added pagination to the snippets listing and chooser
+
+
+**Page editor**
+
+ * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
+ * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+
+
+**Edit handlers API**
+
  * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
- * Dropped Django 1.6 support
- * Dropped Python 2.6 and 3.2 support
- * Dropped Elasticsearch 0.90.x support
- * Search view accepts "page" GET parameter in line with pagination
+ * Page model fields without a ``FieldPanel`` are no longer displayed in the form
+ * No longer need to specify the base model on InlinePanel definitions
+
+
+**Other admin changes**
+
+ * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
  * Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
  * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
- * Added validation to prevent pages being created with only whitespace characters in their title fields
- * Page model fields without a FieldPanel are no longer displayed in the form
- * No longer need to specify the base model on InlinePanel definitions
- * The project template Vagrantfile now listens on port 8000
- * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
- * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
- * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
- * Added pagination to the snippets listing and chooser
+
+
+Project template
+----------------
+
+ * The Vagrantfile now listens on port 8000
+ * Removed ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings (as Wagtail no longer requires these)
+
+
+Search
+------
+
+ * Search view accepts "page" GET parameter in line with pagination
 
 
 Bug fixes
