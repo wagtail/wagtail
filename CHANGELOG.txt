@@ -27,6 +27,7 @@ Changelog
  * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets (Martin Sanders)
  * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
  * Added pagination to the snippets listing and chooser (Martin Sanders)
+ * Page / document / image / snippet choosers now include a link to edit the chosen item
  * Fix: The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
 
 0.8.5 (17.02.2015)
