@@ -63,7 +63,11 @@ class RoutablePageMixin(object):
         return super(RoutablePageMixin, self).route(request, path_components)
 
     def serve(self, request, view, args, kwargs):
-        return view(request, *args, **kwargs)
+        try:
+            return view(request, *args, **kwargs)
+        except TypeError:
+            # fall back to the parent's serve method
+            return super(RoutablePageMixin, self).serve(request, *args, **kwargs)
 
     def serve_preview(self, request, mode_name):
         view, args, kwargs = self.resolve_subpage('/')
