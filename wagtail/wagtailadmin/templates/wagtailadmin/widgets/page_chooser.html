@@ -3,3 +3,5 @@
 {% block chosen_state_view %}
     <span class="title">{{ page.title }}</span>
 {% endblock %}
+
+{% block edit_chosen_item_url %}{% if page %}{% url 'wagtailadmin_pages_edit' page.id %}{% endif %}{% endblock %}

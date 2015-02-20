@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from six import text_type
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
@@ -46,6 +47,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
     snippet_json = json.dumps({
         'id': item.id,
         'string': text_type(item),
+        'edit_link': reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, item.id,))
     })
 
     return render_modal_workflow(

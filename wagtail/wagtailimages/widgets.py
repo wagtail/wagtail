@@ -12,7 +12,7 @@ from wagtail.wagtailimages.models import get_image_model
 class AdminImageChooser(AdminChooser):
     choose_one_text = _('Choose an image')
     choose_another_text = _('Choose another image')
-    clear_choice_text = _('Clear image')
+    link_to_chosen_text = _('Edit this image')
 
     def __init__(self, **kwargs):
         super(AdminImageChooser, self).__init__(**kwargs)

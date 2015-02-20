@@ -12,12 +12,13 @@
     <div class="chosen">
         {% block chosen_state_view %}{% endblock %}
 
-        <div class="actions">
+        <ul class="actions">
             {% if not widget.is_required %}
-                <input type="button" class="action-clear button-small button-secondary" value="{{ widget.clear_choice_text }}">
+                <li><input type="button" class="action-clear button-small button-secondary" value="{{ widget.clear_choice_text }}"></li>
             {% endif %}
-            <input type="button" class="action-choose button-small button-secondary" value="{{ widget.choose_another_text }}">
-        </div>
+            <li><input type="button" class="action-choose button-small button-secondary" value="{{ widget.choose_another_text }}"></li>
+            <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank">{{ widget.link_to_chosen_text }}</a></li>
+        </ul>
     </div>
 
     <div class="unchosen">
