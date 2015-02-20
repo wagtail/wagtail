@@ -693,15 +693,3 @@ To begin, import the the ``Format`` class, ``register_image_format`` function, a
 
 
 To unregister, call ``unregister_image_format`` with the string of the ``name`` of the ``Format`` as the only argument.
-
-
-Content Index Pages (CRUD)
---------------------------
-
-
-Custom Choosers
----------------
-
-
-Tests
------
