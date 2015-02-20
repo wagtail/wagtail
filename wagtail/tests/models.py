@@ -504,6 +504,8 @@ TaggedPage.content_panels = [
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
 
+class EventPageChooserModel(models.Model):
+    page = models.ForeignKey('tests.EventPage', help_text='more help text')
 
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
