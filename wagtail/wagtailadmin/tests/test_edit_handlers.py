@@ -360,6 +360,10 @@ class TestPageChooserPanel(TestCase):
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn('<span class="title">Christmas</span>', result)
+        self.assertIn(
+            '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank">Edit this page</a>' % self.christmas_page.id,
+            result)
 
     def test_render_error(self):
         form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
