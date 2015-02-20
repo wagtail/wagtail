@@ -12,7 +12,7 @@ filters = {}
 def image(parser, token):
     bits = token.split_contents()[1:]
     image_var = bits[0]
-    filter_spec = bits[1]
+    filter_spec = bits[1].strip('\"')
     bits = bits[2:]
 
     if len(bits) == 2 and bits[0] == 'as':
