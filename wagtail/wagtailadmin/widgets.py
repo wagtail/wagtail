@@ -28,16 +28,28 @@ class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
         return '$("#{0}").autosize();'.format(id_)
 
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
+    # Set a default date format to match the one that our JS date picker expects -
+    # it can still be overridden explicitly, but this way it won't be affected by
+    # the DATE_INPUT_FORMATS setting
+    def __init__(self, attrs=None, format='%Y-%m-%d'):
+        super(AdminDateInput, self).__init__(attrs=attrs, format=format)
+
     def render_js_init(self, id_, name, value):
         return 'initDateChooser({0});'.format(json.dumps(id_))
 
 
 class AdminTimeInput(WidgetWithScript, widgets.TimeInput):
+    def __init__(self, attrs=None, format='%H:%M'):
+        super(AdminTimeInput, self).__init__(attrs=attrs, format=format)
+
     def render_js_init(self, id_, name, value):
         return 'initTimeChooser({0});'.format(json.dumps(id_))
 
 
 class AdminDateTimeInput(WidgetWithScript, widgets.DateTimeInput):
+    def __init__(self, attrs=None, format='%Y-%m-%d %H:%M'):
+        super(AdminDateTimeInput, self).__init__(attrs=attrs, format=format)
+
     def render_js_init(self, id_, name, value):
         return 'initDateTimeChooser({0});'.format(json.dumps(id_))
 
