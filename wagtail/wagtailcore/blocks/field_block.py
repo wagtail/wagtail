@@ -1,8 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
+import datetime
+
 from django import forms
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
+from django.utils.dateparse import parse_date, parse_time, parse_datetime
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -67,6 +70,66 @@ class URLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.URLField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
         super(URLBlock, self).__init__(**kwargs)
+
+
+class DateBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text}
+        super(DateBlock, self).__init__(**kwargs)
+
+    @cached_property
+    def field(self):
+        from wagtail.wagtailadmin.widgets import AdminDateInput
+        field_kwargs = {'widget': AdminDateInput}
+        field_kwargs.update(self.field_options)
+        return forms.DateField(**field_kwargs)
+
+    def to_python(self, value):
+        # Serialising to JSON uses DjangoJSONEncoder, which converts date/time objects to strings.
+        # The reverse does not happen on decoding, because there's no way to know which strings
+        # should be decoded; we have to convert strings back to dates here instead.
+        if value is None or isinstance(value, datetime.date):
+            return value
+        else:
+            return parse_date(value)
+
+
+class TimeBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text}
+        super(TimeBlock, self).__init__(**kwargs)
+
+    @cached_property
+    def field(self):
+        from wagtail.wagtailadmin.widgets import AdminTimeInput
+        field_kwargs = {'widget': AdminTimeInput}
+        field_kwargs.update(self.field_options)
+        return forms.TimeField(**field_kwargs)
+
+    def to_python(self, value):
+        if value is None or isinstance(value, datetime.time):
+            return value
+        else:
+            return parse_time(value)
+
+
+class DateTimeBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text}
+        super(DateTimeBlock, self).__init__(**kwargs)
+
+    @cached_property
+    def field(self):
+        from wagtail.wagtailadmin.widgets import AdminDateTimeInput
+        field_kwargs = {'widget': AdminDateTimeInput}
+        field_kwargs.update(self.field_options)
+        return forms.DateTimeField(**field_kwargs)
+
+    def to_python(self, value):
+        if value is None or isinstance(value, datetime.datetime):
+            return value
+        else:
+            return parse_datetime(value)
 
 
 class RichTextBlock(FieldBlock):
@@ -153,7 +216,10 @@ class PageChooserBlock(ChooserBlock):
 
 # Ensure that the blocks defined here get deconstructed as wagtailcore.blocks.FooBlock
 # rather than wagtailcore.blocks.field.FooBlock
-block_classes = [FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock]
+block_classes = [
+    FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
+    DateBlock, TimeBlock, DateTimeBlock,
+]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
     for cls in block_classes

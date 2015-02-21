@@ -4,6 +4,7 @@ import json
 
 from django.db import models
 from django import forms
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.six import with_metaclass
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
@@ -68,7 +69,7 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
             return self.stream_block.to_python(json.loads(value))
 
     def get_prep_value(self, value):
-        return json.dumps(self.stream_block.get_prep_value(value))
+        return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
 
     def formfield(self, **kwargs):
         """
