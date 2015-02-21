@@ -52,6 +52,29 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
             class BlogIndex(Page):
                 subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
+                
+        The creation of child pages can be blocked altogether for a given page by setting it's subpage_types attribute to an empty array e.g
+        
+        .. code-block:: python
+
+            class BlogPage(Page):
+                subpage_types = []
+                
+    .. attribute:: parent_page_types
+
+        A whitelist of page models which are allowed as parent page types e.g a ``BlogPage`` may only allow itself to be created below the ``BlogIndex`` page e.g
+
+        .. code-block:: python
+
+            class BlogPage(Page):
+                parent_page_types = ['mysite.BlogIndexPage']
+                
+        Pages can block themselves from being created at all by setting parent_page_types to an empty array (this is useful for creating unique pages that should only be created once) e.g
+        
+        .. code-block:: python
+
+            class HiddenPage(Page):
+                parent_page_types = []
 
     .. attribute:: password_required_template
 
