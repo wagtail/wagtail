@@ -7,30 +7,21 @@ Below are some useful links to help you get started with Wagtail.
 
 
 * **First steps**
-
-  :doc:`getting_started/trying_wagtail`
-
-  :doc:`getting_started/installation`
-
-  :doc:`getting_started/creating_your_project`
+  * :doc:`getting_started/trying_wagtail`
+  * :doc:`getting_started/installation`
+  * :doc:`getting_started/creating_your_project`
 
 
 * **Creating your Wagtail site**
-
-  :doc:`core_components/pages/creating_pages`
-
-  :doc:`Writing templates <core_components/pages/writing_templates>`
-
-  :doc:`core_components/images/index`
-
-  :doc:`core_components/search/index`
-
-  :doc:`howto/third_party_tutorials`
+  * :doc:`core_components/pages/creating_pages`
+  * :doc:`Writing templates <core_components/pages/writing_templates>`
+  * :doc:`core_components/images/index`
+  * :doc:`core_components/search/index`
+  * :doc:`howto/third_party_tutorials`
 
 
 * **Using Wagtail**
-
-  :doc:`Editors guide <editor_manual/index>`
+  * :doc:`Editors guide <editor_manual/index>`
 
 
 Index

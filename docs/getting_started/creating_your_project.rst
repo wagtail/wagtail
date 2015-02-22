@@ -20,7 +20,7 @@ Running it
 Firstly, open up a command line shell in your new projects directory.
 
 
-* **1. Create a virtual environment**
+1. **Create a virtual environment**
 
   This is only required when you first run your project. This creates a folder to install extra Python modules into.
 
@@ -41,8 +41,7 @@ Firstly, open up a command line shell in your new projects directory.
       pip install virtualenv
       virtualenv venv
 
-
-* **2. Activate the virtual environment**
+2. **Activate the virtual environment**
 
   **Linux/Mac OSX:** :code:`source venv/bin/activate`
 
@@ -50,25 +49,21 @@ Firstly, open up a command line shell in your new projects directory.
 
   https://docs.python.org/3/library/venv.html
 
-
-* **3. Install PIP requirements**
+3. **Install PIP requirements**
 
   :code:`pip install -r requirements.txt`
 
-
-* **4. Create the database**
+4. **Create the database**
 
   By default, this would create an SQLite database file within the project directory.
 
   :code:`python manage.py migrate`
 
-
-* **5. Create an admin user**
+5. **Create an admin user**
 
   :code:`python manage.py createsuperuser`
 
-
-* **6. Run the development server**
+6. **Run the development server**
 
   :code:`python manage.py runserver`
 
