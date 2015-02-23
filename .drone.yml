@@ -1,4 +1,6 @@
 image: kaedroho/django-base
+env:
+ - RUNNING_IN_DRONE=yes
 script:
  - pip3.4 install mock python-dateutil pytz elasticsearch
  - python3.4 setup.py install
