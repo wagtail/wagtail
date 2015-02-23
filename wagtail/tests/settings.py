@@ -125,7 +125,6 @@ try:
         'max_retries': 1,
     }
 
-    # Check if we're running in Drone
     if 'ELASTICSEARCH_URL' in os.environ:
         WAGTAILSEARCH_BACKENDS['elasticsearch']['URLS'] = [os.environ['ELASTICSEARCH_URL']]
 
