@@ -12,7 +12,7 @@ from modelcluster.tags import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
@@ -390,15 +390,27 @@ class StandardIndex(Page):
     parent_page_types = []
 
 
+# A custom panel setup where all Promote fields are placed in the Content tab instead;
+# we use this to test that the 'promote' tab is left out of the output when empty
 StandardIndex.content_panels = [
     FieldPanel('title', classname="full title"),
+    FieldPanel('seo_title'),
+    FieldPanel('slug'),
     InlinePanel('advert_placements', label="Adverts"),
 ]
+StandardIndex.promote_panels = []
 
 
 class StandardChild(Page):
     pass
 
+# Test overriding edit_handler with a custom one
+StandardChild.edit_handler = TabbedInterface([
+    ObjectList(StandardChild.content_panels, heading='Content'),
+    ObjectList(StandardChild.promote_panels, heading='Promote'),
+    ObjectList(StandardChild.settings_panels, heading='Settings', classname='settings'),
+    ObjectList([], heading='Dinosaurs'),
+])
 
 class BusinessIndex(Page):
     """ Can be placed anywhere, can only have Business children """
