@@ -144,3 +144,16 @@ All of these templates are now deprecated. Wagtail now provides a set of Django 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, the ``document_served`` signal (which is fired whenever a user downloads a document) passed the document instance as the ``sender``. This has now been changed to correspond the behaviour of Django's built-in signals; ``sender`` is now the ``Document`` class, and the document instance is passed as the argument ``instance``. Any existing signal listeners that expect to receive the document instance in ``sender`` must now be updated to check the ``instance`` argument instead.
+
+Custom image models must specify an ``admin_form_fields`` list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example::
+
+    from wagtail.wagtailimages.models import AbstractImage, Image
+
+    class MyImage(AbstractImage):
+        photographer = models.CharField(max_length=255)
+        has_legal_approval = models.BooleanField()
+
+        admin_form_fields = Image.admin_form_fields + ['photographer']
