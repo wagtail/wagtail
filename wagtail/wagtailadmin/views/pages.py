@@ -705,6 +705,11 @@ def copy(request, page_id):
 PAGE_EDIT_HANDLERS = {}
 
 
+def register_page_edit_handler(page_class, handler):
+    assert page_class not in PAGE_EDIT_HANDLERS
+    PAGE_EDIT_HANDLERS[page_class] = handler
+
+
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
         PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
