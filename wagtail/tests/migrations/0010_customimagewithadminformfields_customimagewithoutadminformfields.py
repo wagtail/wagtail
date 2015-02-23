@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('taggit', '0001_initial'),
-        ('tests', '0008_registerdecorator'),
+        ('tests', '0009_eventpagechoosermodel'),
     ]
 
     operations = [
