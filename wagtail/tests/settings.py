@@ -16,11 +16,10 @@ DATABASES = {
         'TEST_NAME': os.environ.get('DATABASE_NAME', 'test_wagtaildemo'),
         'USER': os.environ.get('DATABASE_USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
+        'HOST': os.environ.get('DATABASE_HOST', None),
+        'PORT': os.environ.get('DATABASE_PORT', None),
     }
 }
-
-if os.environ.get('RUNNING_IN_DRONE', False) == 'yes':
-    DATABASES['default']['HOST'] = 'postgres'
 
 
 SECRET_KEY = 'not needed'
@@ -127,8 +126,8 @@ try:
     }
 
     # Check if we're running in Drone
-    if os.environ.get('RUNNING_IN_DRONE', False) == 'yes':
-        WAGTAILSEARCH_BACKENDS['elasticsearch']['URLS'] = ['http://elasticsearch:9200/']
+    if 'ELASTICSEARCH_URL' in os.environ:
+        WAGTAILSEARCH_BACKENDS['elasticsearch']['URLS'] = [os.environ['ELASTICSEARCH_URL']]
 
 except ImportError:
     pass
