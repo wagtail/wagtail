@@ -139,6 +139,10 @@ def edit(request, document_id):
     except OSError:
         # File doesn't exist
         filesize = None
+        messages.error(request, _("The file could not be found. Please change the source or delete the document"), buttons=[
+            messages.button(reverse('wagtaildocs_delete_document', args=(doc.id,)), _('Delete'))
+        ])
+
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
         'filesize': filesize,
