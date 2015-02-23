@@ -119,10 +119,18 @@ def edit(request, image_id):
     except NoReverseMatch:
         url_generator_enabled = False
 
+    # Get file size
+    try:
+        filesize = image.file.size
+    except OSError:
+        # File doesn't exist
+        filesize = None
+
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
+        'filesize': filesize,
     })
 
 
