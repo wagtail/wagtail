@@ -29,6 +29,7 @@ Changelog
  * Added pagination to the snippets listing and chooser (Martin Sanders)
  * Page / document / image / snippet choosers now include a link to edit the chosen item
  * Fix: The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
+ * Fix: Image edit page no longer throws OSError when the original image is missing
 
 0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
