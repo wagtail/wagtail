@@ -225,7 +225,15 @@ class AbstractImage(models.Model, TagSearchable):
 
 
 class Image(AbstractImage):
-    pass
+    admin_form_fields = (
+        'title',
+        'file',
+        'tags',
+        'focal_point_x',
+        'focal_point_y',
+        'focal_point_width',
+        'focal_point_height',
+    )
 
 
 # Do smartcropping calculations when user saves an image without a focal point

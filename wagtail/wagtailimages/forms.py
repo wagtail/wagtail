@@ -1,7 +1,10 @@
+import warnings
+
 from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
 
@@ -17,8 +20,20 @@ def formfield_for_dbfield(db_field, **kwargs):
 
 
 def get_image_form(model):
+    if hasattr(model, 'admin_form_fields'):
+        fields = model.admin_form_fields
+    else:
+        fields = '__all__'
+
+        warnings.warn(
+            "Custom image models without an 'admin_form_fields' attribute are now deprecated. "
+            "Add admin_form_fields = (tuple of field names) to {classname}".format(
+                classname=model.__name__
+            ), RemovedInWagtail11Warning, stacklevel=2)
+
     return modelform_factory(
         model,
+        fields=fields,
         formfield_callback=formfield_for_dbfield,
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput
         # so that when editing, we don't get the 'currently: ...' banner which is
