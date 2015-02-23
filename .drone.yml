@@ -1,6 +1,7 @@
 image: kaedroho/django-base
 env:
- - RUNNING_IN_DRONE=yes
+ - DATABASE_HOST=postgres
+ - ELASTICSEARCH_URL=http://elasticsearch:9200/
 script:
  - pip3.4 install mock python-dateutil pytz elasticsearch
  - python3.4 setup.py install
