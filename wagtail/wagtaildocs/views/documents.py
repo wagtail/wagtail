@@ -133,12 +133,17 @@ def edit(request, document_id):
     else:
         form = DocumentForm(instance=doc)
 
-    # Get file size
-    try:
-        filesize = doc.file.size
-    except OSError:
-        # File doesn't exist
-        filesize = None
+    filesize = None
+
+    # Get file size when there is a file associated with the Document object
+    if doc.file:
+        try:
+            filesize = doc.file.size
+        except OSError:
+            # File doesn't exist
+            pass
+
+    if not filesize:
         messages.error(request, _("The file could not be found. Please change the source or delete the document"), buttons=[
             messages.button(reverse('wagtaildocs_delete_document', args=(doc.id,)), _('Delete'))
         ])
