@@ -17,22 +17,9 @@ Dependencies
 ============
 
 The basic Wagtail installation is pure Python. No build tools are required on the host machine.
-If you are installing Wagtail differently (e.g. from the Git repo), make you meet the following dependencies:
+If you are installing Wagtail differently (e.g. from the Git repository), you must run ``python setup.py install`` from the repository root. The above command will install all Wagtail dependencies.
 
-Required
---------
-
- * Django>=1.7.0,<1.8
- * django-compressor>=1.4
- * django-modelcluster>=0.5
- * django-taggit==0.12.2
- * django-treebeard==3.0
- * beautifulsoup4>=4.3.2
- * html5lib==0.999
- * Unidecode>=0.04.14
- * six>=1.7.0
- * requests>=2.0.0
- * Willow==0.1
+For the full list of absolutely required libraries, see `setup.py <https://github.com/torchbox/wagtail/blob/master/setup.py>`__.
 
 .. warning::
 
