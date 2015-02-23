@@ -133,8 +133,15 @@ def edit(request, document_id):
     else:
         form = DocumentForm(instance=doc)
 
+    # Get file size
+    try:
+        filesize = doc.file.size
+    except OSError:
+        # File doesn't exist
+        filesize = None
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
+        'filesize': filesize,
         'form': form
     })
 
