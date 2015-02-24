@@ -1,6 +1,6 @@
-import os.path
-
 from __future__ import unicode_literals
+
+import os.path
 
 from taggit.managers import TaggableManager
 

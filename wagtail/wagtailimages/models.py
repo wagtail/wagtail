@@ -1,8 +1,8 @@
+from __future__ import unicode_literals
+
 import os.path
 import hashlib
 import re
-
-from __future__ import unicode_literals
 
 from six import BytesIO, text_type
 

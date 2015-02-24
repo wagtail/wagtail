@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import logging
 import warnings
 import json
@@ -5,8 +7,6 @@ import json
 import six
 from six import StringIO
 from six.moves.urllib.parse import urlparse
-
-from __future__ import unicode_literals
 
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
