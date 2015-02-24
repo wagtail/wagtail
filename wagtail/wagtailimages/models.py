@@ -17,7 +17,7 @@ from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html_join
 from django.conf import settings
-from django.utils.translation import ugettext_lazy  as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.core.urlresolvers import reverse
@@ -55,7 +55,7 @@ def get_upload_to(instance, filename):
 
 @python_2_unicode_compatible
 class AbstractImage(models.Model, TagSearchable):
-    title = models.CharField(max_length=255, verbose_name=_('Title') )
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.ImageField(verbose_name=_('File'), upload_to=get_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -184,7 +184,7 @@ class AbstractImage(models.Model, TagSearchable):
             input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
             output_extension = '.'.join([vary_key, filter.spec]) + input_extension
-            output_filename_without_extension = input_filename_without_extension[:(59-len(output_extension))] # Truncate filename to prevent it going over 60 chars
+            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
@@ -325,7 +325,7 @@ class Filter(models.Model):
         if not vary_string:
             return ''
 
-        return  hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
+        return hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
 
     _registered_operations = None
 
@@ -383,4 +383,3 @@ class Rendition(AbstractRendition):
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-

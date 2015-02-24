@@ -1119,7 +1119,7 @@ class PageRevision(models.Model):
             page.has_unpublished_changes = not self.is_latest_revision()
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
-        page.expired = False # When a page is published it can't be expired
+        page.expired = False  # When a page is published it can't be expired
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
