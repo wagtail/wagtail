@@ -1,5 +1,7 @@
 import os.path
 
+from __future__ import unicode_literals
+
 from taggit.managers import TaggableManager
 
 from django.db import models

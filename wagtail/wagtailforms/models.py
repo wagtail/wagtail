@@ -1,6 +1,8 @@
 import json
 import re
 
+from __future__ import unicode_literals
+
 from six import text_type
 
 from unidecode import unidecode
