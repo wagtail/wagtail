@@ -36,7 +36,7 @@
             <dl>
                 {% if document.file %}
                     <dt>{% trans "Filesize" %}</dt>
-                    <dd>{{ document.file.size|filesizeformat }}</dd>
+                    <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
                 {% endif %}
             </dl>
         </div>

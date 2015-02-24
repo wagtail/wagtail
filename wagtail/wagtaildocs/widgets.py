@@ -12,6 +12,7 @@ from wagtail.wagtaildocs.models import Document
 class AdminDocumentChooser(AdminChooser):
     choose_one_text = _('Choose a document')
     choose_another_text = _('Choose another document')
+    link_to_chosen_text = _('Edit this document')
 
     def render_html(self, name, value, attrs):
         instance, value = self.get_instance_and_id(Document, value)

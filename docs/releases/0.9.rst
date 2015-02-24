@@ -7,38 +7,78 @@ Wagtail 0.9 release notes - IN DEVELOPMENT
     :depth: 1
 
 
-What's new
-==========
+What's changed
+==============
 
-Minor features
-~~~~~~~~~~~~~~
+Minor changes
+~~~~~~~~~~~~~
 
- * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * Dropped Django 1.6 support
+ * Dropped Python 2.6 and 3.2 support
+ * Dropped Elasticsearch 0.90.x support
+
+
+Core
+----
+
+ * Added validation to prevent pages being created with only whitespace characters in their title fields
+
+
+Admin
+-----
+
+**UI**
+
  * Improvements to the layout of the admin menu footer
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to
+ * Added pagination to the snippets listing and chooser
+ * Page / document / image / snippet choosers now include a link to edit the chosen item
+
+
+**Page editor**
+
+ * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
+ * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+
+
+**Edit handlers API**
+
  * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
- * Dropped Django 1.6 support
- * Dropped Python 2.6 and 3.2 support
- * Dropped Elasticsearch 0.90.x support
- * Search view accepts "page" GET parameter in line with pagination
+ * Page model fields without a ``FieldPanel`` are no longer displayed in the form
+ * No longer need to specify the base model on ``InlinePanel`` definitions
+
+
+**Other admin changes**
+
+ * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
  * Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
  * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
- * Added validation to prevent pages being created with only whitespace characters in their title fields
- * Page model fields without a FieldPanel are no longer displayed in the form
- * No longer need to specify the base model on InlinePanel definitions
- * The project template Vagrantfile now listens on port 8000
- * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
- * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
- * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+
+
+Project template
+----------------
+
+ * The Vagrantfile now listens on port 8000
+ * Removed ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings (as Wagtail no longer requires these)
+
+
+Search
+------
+
+ * Search view accepts "page" GET parameter in line with pagination
 
 
 Bug fixes
 ~~~~~~~~~
+
+ * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
+ * Image edit page no longer throws ``OSError`` when the original image is missing
 
 
 Upgrade considerations
@@ -51,8 +91,8 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
-InlinePanel definitions no longer need to specify the base model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``InlinePanel`` definitions no longer need to specify the base model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
 
@@ -62,7 +102,7 @@ It is no longer necessary to pass the base model as a parameter, so this declara
 
     InlinePanel('carousel_items', label="Carousel items")
 
-The old format is now deprecated; all existing InlinePanel declarations should be updated to the new format.
+The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
 
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,3 +139,21 @@ If you have added your own custom admin views to the Wagtail admin (e.g. through
 - ``wagtailsnippets/edit_handlers/snippet_chooser_panel.html``
 
 All of these templates are now deprecated. Wagtail now provides a set of Django form widgets for this purpose - ``AdminPageChooser``, ``AdminDocumentChooser``, ``AdminImageChooser`` and ``AdminSnippetChooser`` - which can be used in place of the ``HiddenInput`` widget that these form fields were previously using. The field can then be rendered using the regular ``wagtailadmin/shared/field.html`` or ``wagtailadmin/shared/field_as_li.html`` template.
+
+``document_served`` signal arguments have changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``document_served`` signal (which is fired whenever a user downloads a document) passed the document instance as the ``sender``. This has now been changed to correspond the behaviour of Django's built-in signals; ``sender`` is now the ``Document`` class, and the document instance is passed as the argument ``instance``. Any existing signal listeners that expect to receive the document instance in ``sender`` must now be updated to check the ``instance`` argument instead.
+
+Custom image models must specify an ``admin_form_fields`` list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example::
+
+    from wagtail.wagtailimages.models import AbstractImage, Image
+
+    class MyImage(AbstractImage):
+        photographer = models.CharField(max_length=255)
+        has_legal_approval = models.BooleanField()
+
+        admin_form_fields = Image.admin_form_fields + ['photographer']

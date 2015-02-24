@@ -1,15 +1,26 @@
 import datetime
+import warnings
+from contextlib import contextmanager
 
 from mock import MagicMock
 
 from django.test import TestCase
-from django import template
+from django import template, forms
 from django.utils import six
 from django.core.urlresolvers import reverse
+from django.db import models
 
+from taggit.forms import TagField, TagWidget
+
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.tests.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.formats import Format, get_image_format, register_image_format
+from wagtail.wagtailimages.models import Image as WagtailImage
+from wagtail.wagtailimages.forms import get_image_form
+from wagtail.wagtailimages.fields import WagtailImageField
 
 from .utils import Image, get_test_image_file
 
@@ -237,3 +248,80 @@ class TestRect(TestCase):
     def test_from_point(self):
         rect = Rect.from_point(100, 200, 50, 20)
         self.assertEqual(rect, Rect(75, 190, 125, 210))
+
+
+class TestGetImageForm(TestCase, WagtailTestUtils):
+    def test_fields(self):
+        form = get_image_form(Image)
+
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+        ])
+
+    def test_admin_form_fields_attribute(self):
+        form = get_image_form(CustomImageWithAdminFormFields)
+
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'tags',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+            'caption',
+        ])
+
+    def test_custom_image_model_without_admin_form_fields_raises_warning(self):
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            form = get_image_form(CustomImageWithoutAdminFormFields)
+
+            # Check that a RemovedInWagtail11Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail11Warning))
+            self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(w[-1].message))
+
+        # All fields, including the not editable one should be on the form
+        self.assertEqual(list(form.base_fields.keys()), [
+            'title',
+            'file',
+            'focal_point_x',
+            'focal_point_y',
+            'focal_point_width',
+            'focal_point_height',
+            'caption',
+            'not_editable_field',
+            'tags',
+        ])
+
+    def test_file_field(self):
+        form = get_image_form(WagtailImage)
+
+        self.assertIsInstance(form.base_fields['file'], WagtailImageField)
+        self.assertIsInstance(form.base_fields['file'].widget, forms.FileInput)
+
+    def test_tags_field(self):
+        form = get_image_form(WagtailImage)
+
+        self.assertIsInstance(form.base_fields['tags'], TagField)
+        self.assertIsInstance(form.base_fields['tags'].widget, TagWidget)
+
+    def test_focal_point_fields(self):
+        form = get_image_form(WagtailImage)
+
+        self.assertIsInstance(form.base_fields['focal_point_x'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_y'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_width'], forms.IntegerField)
+        self.assertIsInstance(form.base_fields['focal_point_height'], forms.IntegerField)
+
+        self.assertIsInstance(form.base_fields['focal_point_x'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_y'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_width'].widget, forms.HiddenInput)
+        self.assertIsInstance(form.base_fields['focal_point_height'].widget, forms.HiddenInput)

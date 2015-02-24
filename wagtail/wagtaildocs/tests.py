@@ -47,7 +47,7 @@ class TestDocumentPermissions(TestCase):
         self.assertFalse(self.document.is_editable_by_user(self.user))
 
 
-## ===== ADMIN VIEWS =====
+# ===== ADMIN VIEWS =====
 
 
 class TestDocumentIndexView(TestCase, WagtailTestUtils):
@@ -173,6 +173,21 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
         # Document title should be changed
         self.assertEqual(models.Document.objects.get(id=self.document.id).title, "Test document changed!")
+
+    def test_with_missing_source_file(self):
+        # Build a fake file
+        fake_file = ContentFile(b("An ephemeral document"))
+        fake_file.name = 'to-be-deleted.txt'
+
+        # Create a new document to delete the source for
+        document = models.Document.objects.create(title="Test missing source document", file=fake_file)
+        document.file.delete(False)
+
+        response = self.client.get(reverse('wagtaildocs_edit_document', args=(document.id,)), {})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+        self.assertContains(response, 'File not found')
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
@@ -530,7 +545,7 @@ class TestServeView(TestCase):
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
 
-    @unittest.expectedFailure # Filename has a random string appended to it
+    @unittest.expectedFailure  # Filename has a random string appended to it
     def test_content_disposition_header(self):
         self.assertEqual(self.get()['Content-Disposition'], 'attachment; filename=example.doc')
 
@@ -550,7 +565,8 @@ class TestServeView(TestCase):
         self.get()
 
         self.assertEqual(mock_handler.call_count, 1)
-        self.assertEqual(mock_handler.mock_calls[0][2]['sender'], self.document)
+        self.assertEqual(mock_handler.mock_calls[0][2]['sender'], models.Document)
+        self.assertEqual(mock_handler.mock_calls[0][2]['instance'], self.document)
 
     def test_with_nonexistent_document(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(1000, 'blahblahblah', )))

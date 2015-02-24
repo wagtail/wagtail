@@ -195,15 +195,13 @@ ul.listing{
         }
     }
 
-    .button{
-        color:$color-teal;
+    .button-secondary{
         border-color:$color-grey-3;
         background:white;
 
         &:hover{
             border-color:$color-teal;
             background-color:$color-teal;
-            color:white;
         }
     }
     

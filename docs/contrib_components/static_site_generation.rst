@@ -7,10 +7,10 @@ This document describes how to render your Wagtail site into static HTML files o
 
     An alternative module based on the `django-bakery`_ package is available as a third-party contribution: https://github.com/mhnbcu/wagtailbakery
 
-Installing django-medusa
-~~~~~~~~~~~~~~~~~~~~~~~~
+Installing ``django-medusa``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, install django medusa from pip:
+First, install ``django-medusa` from pip:
 
 .. code::
 
@@ -31,7 +31,7 @@ Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_
 Rendering
 ~~~~~~~~~
 
-To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called 'medusa_output'. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits django-medusa's ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
+To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called 'medusa_output'. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits ``django-medusa``'s ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
 
 To test, open the 'medusa_output' folder in a terminal and run ``python -m SimpleHTTPServer``.
 
@@ -39,31 +39,49 @@ To test, open the 'medusa_output' folder in a terminal and run ``python -m Simpl
 Advanced topics
 ~~~~~~~~~~~~~~~
 
-Replacing GET parameters with custom routing
---------------------------------------------
+GET parameters
+--------------
 
-Pages which require GET parameters (e.g. for pagination) don't generate suitable filenames for generated HTML files so they need to be changed to use custom routing instead.
+Pages which require GET parameters (e.g. for pagination) don't generate suitable filenames for generated HTML files.
 
-For example, let's say we have a Blog Index which uses pagination. We can override the ``route`` method to make it respond on urls like '/page/1', and pass the page number through to the ``serve`` method:
+Wagtail provides a mixin (``wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin``) which allows you to embed a Django url configuration into a page. This allows you to give the subpages a URL like ``/page/1/`` which work well with static site generation.
+
+
+Example:
 
 .. code:: python
 
-    from wagtail.wagtailcore.url_routing import RouteResult
+    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin
 
-    class BlogIndex(Page):
+
+    class BlogIndex(Page, RoutablePageMixin):
         ...
 
-        def serve(self, request, page=1):
+        subpage_urls = (
+            url(r'^$', 'serve_page', {'page': 1}),
+            url(r'^page/(?P<page>\d+)/$', 'serve_page', name='page'),
+        )
+
+        def serve_page(self, request, page=1):
             ...
 
-        def route(self, request, path_components):
-            if self.live and len(path_components) == 2 and path_components[0] == 'page':
-                try:
-                    return RouteResult(self, kwargs={'page': int(path_components[1])})
-                except (TypeError, ValueError):
-                    pass
 
-            return super(BlogIndex, self).route(request, path_components)
+Then in the template, you can use the ``{% routablepageurl %}`` tag to link between the pages:
+
+.. code:: html+Django
+
+    {% load wagtailroutablepage_tags %}
+
+    {% if results.has_previous %}
+        <a href="{% routablepageurl self 'page' results.previous_page_number %}">Next page</a>
+    {% else %}
+
+    {% if results.has_next %}
+        <a href="{% routablepageurl self 'page' results.next_page_number %}">Next page</a>
+    {% else %}
+
+
+Next, you have to tell the ``wagtailmedusa`` module about your custom routing...
 
 
 Rendering pages which use custom routing

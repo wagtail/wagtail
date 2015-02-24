@@ -7,3 +7,4 @@ Reference
 
     management_commands
     project_template
+    page

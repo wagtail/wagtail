@@ -36,7 +36,7 @@
                                     <li>
                                          <form action="{% url 'wagtailadmin_pages_approve_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
-                                            <input type="submit" class="button button-small" value="{% trans 'Approve' %}">
+                                            <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
                                         </form>
                                     </li>
                                     <li class="no-border">
@@ -45,8 +45,8 @@
                                             <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
                                         </form>
                                     </li>
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small">{% trans 'Edit' %}</a></li>
-                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}" class="button button-small">{% trans 'Preview' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>
                             <td valign="top">

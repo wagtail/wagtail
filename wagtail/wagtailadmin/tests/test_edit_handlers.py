@@ -19,7 +19,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import PageChooserModel, EventPage, EventPageSpeaker
+from wagtail.tests.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
@@ -329,7 +329,7 @@ class TestPageChooserPanel(TestCase):
         model = PageChooserModel  # a model with a foreign key to Page which we want to render as a page chooser
 
         # a PageChooserPanel class that works on PageChooserModel's 'page' field
-        self.MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage').bind_to_model(PageChooserModel)
+        self.MyPageChooserPanel = PageChooserPanel('page').bind_to_model(PageChooserModel)
 
         # build a form class containing the fields that MyPageChooserPanel wants
         self.PageChooserForm = self.MyPageChooserPanel.get_form_class(PageChooserModel)
@@ -340,7 +340,6 @@ class TestPageChooserPanel(TestCase):
         self.test_instance = model.objects.create(page=self.christmas_page)
 
         self.form = self.PageChooserForm(instance=self.test_instance)
-        # self.form.errors['page'] = self.form.error_class(['errors'])  # FIXME: wat
         self.page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
                                                                 form=self.form)
 
@@ -350,7 +349,7 @@ class TestPageChooserPanel(TestCase):
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
         expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
-            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+            id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
 
@@ -361,6 +360,10 @@ class TestPageChooserPanel(TestCase):
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn('<span class="title">Christmas</span>', result)
+        self.assertIn(
+            '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank">Edit this page</a>' % self.christmas_page.id,
+            result)
 
     def test_render_error(self):
         form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
@@ -369,6 +372,34 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
                                                                 form=form)
         self.assertIn('<span>This field is required.</span>', page_chooser_panel.render_as_field())
+
+    def test_override_page_type(self):
+        # Model has a foreign key to Page, but we specify EventPage in the PageChooserPanel
+        # to restrict the chooser to that page type
+        MyPageChooserPanel = PageChooserPanel('page', 'tests.EventPage').bind_to_model(EventPageChooserModel)
+        PageChooserForm = MyPageChooserPanel.get_form_class(EventPageChooserModel)
+        form = PageChooserForm(instance=self.test_instance)
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
+
+        result = page_chooser_panel.render_as_field()
+        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+
+        self.assertIn(expected_js, result)
+
+    def test_autodetect_page_type(self):
+        # Model has a foreign key to EventPage, which we want to autodetect
+        # instead of specifying the page type in PageChooserPanel
+        MyPageChooserPanel = PageChooserPanel('page').bind_to_model(EventPageChooserModel)
+        PageChooserForm = MyPageChooserPanel.get_form_class(EventPageChooserModel)
+        form = PageChooserForm(instance=self.test_instance)
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
+
+        result = page_chooser_panel.render_as_field()
+        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+
+        self.assertIn(expected_js, result)
 
     def test_target_content_type(self):
         result = PageChooserPanel(

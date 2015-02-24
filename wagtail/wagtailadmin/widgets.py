@@ -42,6 +42,7 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     choose_one_text = _("Choose an item")
     choose_another_text = _("Choose another item")
     clear_choice_text = _("Clear choice")
+    link_to_chosen_text = _("Edit this item")
 
     def get_instance(self, model_class, value):
         # helper method for cleanly turning 'value' into an instance object
@@ -80,6 +81,8 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             self.choose_another_text = kwargs.pop('choose_another_text')
         if 'clear_choice_text' in kwargs:
             self.clear_choice_text = kwargs.pop('clear_choice_text')
+        if 'link_to_chosen_text' in kwargs:
+            self.link_to_chosen_text = kwargs.pop('link_to_chosen_text')
         super(AdminChooser, self).__init__(**kwargs)
 
 
@@ -87,6 +90,7 @@ class AdminPageChooser(AdminChooser):
     target_content_type = None
     choose_one_text = _('Choose a page')
     choose_another_text = _('Choose another page')
+    link_to_chosen_text = _('Edit this page')
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)

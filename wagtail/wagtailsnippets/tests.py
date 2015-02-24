@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -42,6 +43,14 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+    def test_simple_pagination(self):
+
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
@@ -219,3 +228,48 @@ class TestUsedBy(TestCase):
     def test_snippet_used_by(self):
         advert = Advert.objects.get(id=1)
         self.assertEqual(type(advert.get_usage()[0]), Page)
+
+
+class TestSnippetChoose(TestCase, WagtailTestUtils):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, params=None):
+        return self.client.get(reverse('wagtailsnippets_choose',
+                                       args=('tests', 'advert')),
+                               params or {})
+
+    def test_simple(self):
+        response = self.get()
+        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+    def test_simple_pagination(self):
+
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+
+class TestSnippetChosen(TestCase, WagtailTestUtils):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, pk, params=None):
+        return self.client.get(reverse('wagtailsnippets_chosen',
+                                       args=('tests', 'advert', pk)),
+                               params or {})
+
+    def test_choose_a_page(self):
+        response = self.get(pk=Advert.objects.all()[0].pk)
+        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+
+    def test_choose_a_non_existing_page(self):
+
+        response = self.get(999999)
+        self.assertEqual(response.status_code, 404)

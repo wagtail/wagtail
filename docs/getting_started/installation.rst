@@ -6,10 +6,43 @@ Installation
 Before you start
 ================
 
-A basic Wagtail setup can be installed on your machine with only a few prerequisites - see `A basic Wagtail installation`_. However, there are various optional components that will improve the performance and feature set of Wagtail, and our recommended software stack includes the PostgreSQL database, ElasticSearch (for free-text searching), the OpenCV library (for image feature detection), and Redis (as a cache and message queue backend). This would be a lot to install in one go, and for this reason, we provide a virtual machine image, for use with `Vagrant <http://www.vagrantup.com/>`__, with all of these components ready installed.
+You can get basic Wagtail setup installed on your machine with only a few prerequisites. See the full  `Dependencies`_ list below.
 
-Whether you just want to try out the demo site, or you're ready to dive in and create a Wagtail site with all bells and whistles enabled, we strongly recommend the Vagrant approach. Nevertheless, if you're the sort of person who balks at the idea of downloading a whole operating system just to run a web app, we've got you covered too. Start from `A basic Wagtail installation`_ below.
+There are various optional components that will improve the performance and feature set of Wagtail. Our recommended software stack includes the PostgreSQL database, ElasticSearch (for free-text searching), the OpenCV library (for image feature detection), and Redis (as a cache and message queue backend). This would be a lot to install in one go. For this reason we provide a virtual machine image to use with `Vagrant <http://www.vagrantup.com/>`__, with all of these components ready installed.
 
+Whether you just want to try out the demo site, or you're ready to dive in and create a Wagtail site with all bells and whistles enabled, we strongly recommend the Vagrant approach. Nevertheless, if you're the sort of person who balks at the idea of downloading a whole operating system just to run a web app, we've got you covered too. Start from `Install Python`_.
+
+
+Dependencies
+============
+
+Barebones
+---------
+
+The basic Wagtail installation is pure Python. No build tools are required on the host machine.
+For the full list of absolutely required libraries, see `setup.py <https://github.com/torchbox/wagtail/blob/master/setup.py>`__.
+
+If you are installing Wagtail differently (e.g. from the Git repository), you must run ``python setup.py install`` from the repository root. The above command will install all Wagtail dependencies.
+
+Administration UI
+-----------------
+
+.. warning::
+
+    The administrative interface requires django-libsass and Pillow. The project template bundled with Wagtail includes them (see :doc:`creating_your_project`). You must add the above libraries if you are adding Wagtail to an existing project, unless you will be using it
+    in a purely framework fashion without visiting wagtailadmin or hooking it up to the urlconf.
+
+ * django-libsass>=0.2
+ * Pillow>=2.6.1
+
+Both django-libsass and Pillow have native-code components that require further attention:
+
+ * libsass-python (for compiling SASS stylesheets) - requires a C++ compiler and the Python development headers.
+ * Pillow (for image processing) - additionally requires libjpeg and zlib.
+
+On Debian or Ubuntu, these can be installed with the command::
+
+    sudo apt-get install python-dev python-pip g++ libjpeg62-dev zlib1g-dev
 
 Install Python
 ==============

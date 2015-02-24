@@ -330,10 +330,16 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         -moz-appearance: none;
         -moz-box-sizing:border-box;
     }
-    &:disabled, &[disabled]{
-        background-color:$color-grey-2;
-        border-color:$color-grey-2;
-        color:lighten($color-grey-2, 15%);
+    &:disabled, &[disabled], &.disabled{
+        background-color:$color-grey-3 !important;
+        border-color:$color-grey-3 !important;
+        color:lighten($color-grey-2, 15%) !important;
+        cursor:not-allowed;
+    }
+    &.button-secondary:disabled, &.button-secondary[disabled], &.button-secondary.disabled{
+        background-color: white !important;
+        border-color:$color-grey-3 !important;
+        color:$color-grey-3 !important;
     }
 
     &.button-nostroke{
@@ -644,6 +650,16 @@ ul.inline li:first-child, li.inline:first-child{
     }
     .unchosen {
         display: none;
+    }
+
+    .actions{
+        overflow:hidden;
+        @include clearfix;
+        
+        li{
+            float:left;
+            margin:0.3em;
+        }
     }
 
     /* ...unless the .page-chooser has the 'blank' class set */

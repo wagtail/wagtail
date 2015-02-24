@@ -121,6 +121,13 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         image = Image.objects.get(id=self.image.id)
         self.assertEqual(image.title, "Edited")
 
+    def test_with_missing_image_file(self):
+        self.image.file.delete(False)
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
 
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):

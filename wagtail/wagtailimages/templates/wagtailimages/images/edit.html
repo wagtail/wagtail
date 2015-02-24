@@ -78,7 +78,7 @@
                 <dt>{% trans "Max dimensions" %}</dt>
                 <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
                 <dt>{% trans "Filesize" %}</dt>
-                <dd>{{ image.file.size|filesizeformat }}</dd>
+                <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
             </dl>
         </div>
     </div>

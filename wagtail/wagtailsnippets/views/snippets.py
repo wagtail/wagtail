@@ -94,11 +94,22 @@ def list(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(items, 20)
+
+    try:
+        paginated_items = paginator.page(p)
+    except PageNotAnInteger:
+        paginated_items = paginator.page(1)
+    except EmptyPage:
+        paginated_items = paginator.page(paginator.num_pages)
+
     return render(request, 'wagtailsnippets/snippets/type_index.html', {
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'snippet_type_name_plural': snippet_type_name_plural,
-        'items': items,
+        'items': paginated_items,
     })
 
 

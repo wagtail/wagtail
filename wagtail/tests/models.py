@@ -20,6 +20,7 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
+from wagtail.wagtailimages.models import AbstractImage, Image
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -504,6 +505,8 @@ TaggedPage.content_panels = [
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text')
 
+class EventPageChooserModel(models.Model):
+    page = models.ForeignKey('tests.EventPage', help_text='more help text')
 
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text='help text')
@@ -522,3 +525,17 @@ register_snippet(RegisterFunction)
 @register_snippet
 class RegisterDecorator(models.Model):
     pass
+
+
+class CustomImageWithoutAdminFormFields(AbstractImage):
+    caption = models.CharField(max_length=255)
+    not_editable_field = models.CharField(max_length=255)
+
+
+class CustomImageWithAdminFormFields(AbstractImage):
+    caption = models.CharField(max_length=255)
+    not_editable_field = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'caption',
+    )
