@@ -229,36 +229,33 @@
 
         <section id="buttons">
             <h2>Buttons</h2>
+            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button">{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
 
             <h3>Regular buttons</h3>
 
             <a href="#" class="button">button link</a>
-            <input type="button" class="button" value="input[type=button]" />
             <button>button element</button>
 
             <h3>Secondary buttons</h3>
 
             <a href="#" class="button button-secondary">button link</a>
-            <input type="button" class="button button-secondary" value="input[type=button]" />
             <button class="button-secondary">button element</button>
 
             <h3>Small buttons</h3>
 
             <a href="#" class="button button-small">button link</a>
-            <input type="button" class="button button-small" value="input[type=button]" />
             <button class="button-small">button element</button>
 
             <h4>(secondary)</h4>
             <a href="#" class="button button-small button-secondary">button link</a>
-            <input type="button" class="button button-small button-secondary" value="input[type=button]" />
             <button class="button-small button-secondary">button element</button>
 
             <h3>Disabled buttons</h3>
 
             <a href="#" class="button disabled">button link</a>
-            <input type="button" class="button button-secondary disabled" value="input[type=button]" />
             <button class="button-small disabled">button element</button>
 
             <h3>Bi-color icon buttons with text</h3>

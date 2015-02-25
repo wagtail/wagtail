@@ -50,6 +50,7 @@ form{
     input[type=submit]{
         font-size:1.5em;
         padding:1.1em 2.4em;
+        height:3.5em;
     }
     input[type=checkbox]:before{
         background-color:#333;
@@ -177,7 +178,5 @@ form{
                 padding-left:($desktop-nice-padding + 50px);
             }
         }
-
-       
     }
 }

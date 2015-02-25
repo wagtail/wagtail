@@ -1,4 +1,6 @@
 {% extends "wagtailadmin/block_forms/sequence.html" %}
+{% load i18n %}
+
 {% block footer %}
-    <input type="button" id="{{ prefix }}-add" value="Add another">
+    <button type="button" id="{{ prefix }}-add">{% trans "Add another" %}</button>
 {% endblock %}

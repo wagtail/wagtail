@@ -23,14 +23,14 @@
 
             <div class="actions">
                 {% if not field.field.required %}
-                    <input type="button" class="action-clear button-small button-secondary" value="{{ field.field.widget.clear_choice_text }}">
+                    <button type="button" class="action-clear button-small button-secondary">{{ field.field.widget.clear_choice_text }}</button
                 {% endif %}
-                <input type="button" class="action-choose button-small button-secondary" value="{{ field.field.widget.choose_another_text }}">
+                <button type="button" class="action-choose button-small button-secondary">{{ field.field.widget.choose_another_text }}</button>
             </div>
         </div>
 
         <div class="unchosen">
-            <input type="button" class="action-choose button-small button-secondary" value="{{ field.field.widget.choose_one_text }}">
+            <button type="button" class="action-choose button-small button-secondary">{{ field.field.widget.choose_one_text }}</button>
         </div>
 
     </div>

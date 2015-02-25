@@ -189,7 +189,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     @include border-radius(3px);
     width:auto;
     height:2.4em;
-    line-height:2.4em;
     padding:0 1em;
     font-size:0.9em;
     font-weight:normal;
@@ -212,7 +211,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     &.button-small{
         padding:0 0.8em;
         height:2em;
-        line-height:2em;
         font-size:0.85em;
     }
 
@@ -310,7 +308,7 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         @include border-radius(0px);
         width:auto;
         height:auto;
-        line-height:auto;
+        /*line-height:auto;*/
         padding:0;
         font-size:inherit;
         font-weight:normal;
@@ -345,17 +343,76 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
     &.button-nostroke{
         border:0 !important;
     }
+
+    @media screen and (min-width: $breakpoint-mobile){
+        font-size:0.95em;
+        padding:0 1.4em;
+        height: 3em; 
+        
+        /*line-height:3em;*/
+
+        &.icon.text-replace{
+            width:2.2rem;
+            height:2.2rem;
+
+            &:before{
+                line-height:2.1em;
+            }
+        }   
+
+        &.button-small{
+            &.icon.text-replace{
+                height:1.8rem;
+                width:1.8rem;
+
+                &:before{
+                    line-height:1.7em;
+                }
+            }
+        }
+
+        &.bicolor{
+            padding-left:3.7em;
+
+            &:before{
+                width:2em;
+                line-height:2.2em;
+                font-size:1.1rem;
+            }
+        }
+
+        &.button-small.bicolor{
+            line-height:2.2em;
+            padding-left:3.2em;
+
+            &:before{
+                width:1.8em;
+                line-height:1.65em;
+            }
+        }
+    }
+}
+
+a.button{
+    line-height:2.4em;
+
+    &.button-small{
+        line-height:1.85em;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile){
+        line-height:3em;
+    }
 }
 
 /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
 input[type=submit], input[type=reset], input[type=button], button{
     padding:0 1em;
-    height: 2.4em; 
-    line-height:inherit;
 
-    &.button-small{
-        height:2em;
-        line-height:1em;
+    @media screen and (min-width: $breakpoint-mobile){
+        &.button-small{
+            height:2em;
+        }
     }
 }
 
@@ -826,66 +883,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             width:auto;
         }
     }
-
-    input[type=submit], input[type=reset], input[type=button], .button, button{
-        font-size:0.95em;
-        padding:0 1.4em;
-        height: 3em; 
-        line-height:3em;
-
-        &.icon.text-replace{
-            width:2.2rem;
-            height:2.2rem;
-            &:before{
-                line-height:2.1em;
-            }
-        }   
-
-        &.button-small{
-            &.icon.text-replace{
-                height:1.8rem;
-                width:1.8rem;
-
-                &:before{
-                    line-height:1.7em;
-                }
-            }
-        }
-
-        &.bicolor{
-            padding-left:3.7em;
-
-            &:before{
-                width:2em;
-                line-height:2.2em;
-                font-size:1.1rem;
-            }
-        }
-
-        &.button-small.bicolor{
-            line-height:2.3em;
-
-            &:before{
-                line-height:1.85em;
-            }
-        }       
-
-    }
-
-    /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
-    input[type=submit], input[type=reset], input[type=button], button{
-        line-height:1em;
-
-        &.button-small, &.bicolor,
-        &.button-small.bicolor{
-           line-height:1em; 
-        }
-
-        &.button-small{
-            height:2em;
-        }
-    }
-
 
     .help{
         opacity:1;
