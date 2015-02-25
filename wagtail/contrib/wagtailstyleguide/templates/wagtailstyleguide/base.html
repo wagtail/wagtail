@@ -232,48 +232,76 @@
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
 
-            <a href="#" class="button">button</a>
+            <h3>Regular buttons</h3>
 
-            <a href="#" class="button button-secondary">button-secondary</a>
+            <a href="#" class="button">button link</a>
+            <input type="button" class="button" value="input[type=button]" />
+            <button>button element</button>
+
+            <h3>Secondary buttons</h3>
+
+            <a href="#" class="button button-secondary">button link</a>
+            <input type="button" class="button button-secondary" value="input[type=button]" />
+            <button class="button-secondary">button element</button>
+
+            <h3>Small buttons</h3>
+
+            <a href="#" class="button button-small">button link</a>
+            <input type="button" class="button button-small" value="input[type=button]" />
+            <button class="button-small">button element</button>
+
+            <h4>(secondary)</h4>
+            <a href="#" class="button button-small button-secondary">button link</a>
+            <input type="button" class="button button-small button-secondary" value="input[type=button]" />
+            <button class="button-small button-secondary">button element</button>
+
+            <h3>Disabled buttons</h3>
+
+            <a href="#" class="button disabled">button link</a>
+            <input type="button" class="button button-secondary disabled" value="input[type=button]" />
+            <button class="button-small disabled">button element</button>
+
+            <h3>Bi-color icon buttons with text</h3>
+            <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
+
+            <a href="#" class="button bicolor icon icon-plus">button link</a>
+            <button class="bicolor icon icon-plus">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
+            <button class="button-small bicolor icon icon-plus">button element</button>
+
+            <h3>Icon buttons without text</h3>
+
+            <a href="#" class="button text-replace icon icon-cog">button link</a>
+            <button class="text-replace icon icon-cog">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
+            <button class="button-small text-replace icon icon-cog">button element</button>
+
+            <h3>Colour signifiers</h3>
+
+            <h4>Positive</h4>
 
             <a href="#" class="button yes">yes</a>
+            <a href="#" class="button button-small yes">yes</a> 
 
-            <a href="#" class="button no">no / serious</a>
+            <h4>Negative</h4>
 
-            <a href="#" class="button disabled">disabled</a>
+            <a href="#" class="button no">No</a>
+            <a href="#" class="button button-small no">No</a> 
 
-            <a href="#" class="button bicolor icon icon-plus">bicolor with icon</a>
-
-            <a href="#" class="button button-small">button-small</a>
-
-            <a href="#" class="button bicolor button-small icon icon-plus">bicolo button-small</a>
-
-            <a href="#" class="button button-secondary no">mixed 1</a>
-
-            <a href="#" class="button button-secondary disabled">disabled</a>
-
-
-            <a href="#" class="button no bicolor icon icon-cog">mixed 2</a>
-
-            <div class="button no bicolor icon icon-cog">button on a div</div>
-
-            <button>button</button>
-
-            <button class="button-small">small button</button>
-
-            <button class="bicolor icon icon-plus">bicolor with icon</button>
-
-            <input type="submit" class="bicolor icon icon-plus" value="bicolor only supported on button elements" />
-
-            <button class="icon icon-view">button</button>
+            
+            <h3>Mixtures</h3>
 
             <button class="icon text-replace yes icon-tick">A proper button</button>
             <a href="#" class="button icon text-replace white icon-cog">A link button</a>
             <span class="button icon text-replace no icon-bin">A non-link button</span>
-
-            <button class="button-small icon text-replace white icon-tick">A proper button</button>
-            <a href="#" class="button button-small icon text-replace white icon-cog">A link button</a>
-            <span class="button button-small icon text-replace white icon-bin">A non-link button</span>
+            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+            
         </section>
 
         <section id="dropdowns">

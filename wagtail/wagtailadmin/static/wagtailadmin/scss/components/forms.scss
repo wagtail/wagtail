@@ -355,7 +355,7 @@ input[type=submit], input[type=reset], input[type=button], button{
 
     &.button-small{
         height:2em;
-        line-height:inherit;
+        line-height:1em;
     }
 }
 
@@ -874,15 +874,15 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
     /* Special styles to counteract Firefox's completely unwarranted assumptions about button styles */
     input[type=submit], input[type=reset], input[type=button], button{
-        line-height:inherit;
+        line-height:1em;
 
         &.button-small, &.bicolor,
         &.button-small.bicolor{
-           line-height:inherit; 
+           line-height:1em; 
         }
 
         &.button-small{
-            height:2.3em;
+            height:2em;
         }
     }
 
