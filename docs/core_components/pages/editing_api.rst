@@ -399,7 +399,7 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
     ]
     BlogPage.sidebar_content_panels = [
         SnippetChooserPanel('advert', Advert),
-        InlinePanel(BlogPage, 'related_links', label="Related links"),
+        InlinePanel('related_links', label="Related links"),
     ]
 
     BlogPage.edit_handler = TabbedInterface([
