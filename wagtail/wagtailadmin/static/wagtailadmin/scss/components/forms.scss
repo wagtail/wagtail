@@ -395,13 +395,14 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
 
 a.button{
     line-height:2.4em;
+    height:auto;
 
     &.button-small{
         line-height:1.85em;
     }
 
     @media screen and (min-width: $breakpoint-mobile){
-        line-height:3em;
+        line-height:2.9em;
     }
 }
 
