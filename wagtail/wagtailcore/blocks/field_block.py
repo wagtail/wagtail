@@ -72,6 +72,16 @@ class URLBlock(FieldBlock):
         super(URLBlock, self).__init__(**kwargs)
 
 
+class BooleanBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        # NOTE: As with forms.BooleanField, the default of required=True means that the checkbox
+        # must be ticked to pass validation (i.e. it's equivalent to an "I agree to the terms and
+        # conditions" box). To get the conventional yes/no behaviour, you must explicitly pass
+        # required=False.
+        self.field = forms.BooleanField(required=required, help_text=help_text)
+        super(BooleanBlock, self).__init__(**kwargs)
+
+
 class DateBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, **kwargs):
         self.field_options = {'required': required, 'help_text': help_text}
@@ -218,7 +228,7 @@ class PageChooserBlock(ChooserBlock):
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    DateBlock, TimeBlock, DateTimeBlock,
+    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock,
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
