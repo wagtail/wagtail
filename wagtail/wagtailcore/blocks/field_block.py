@@ -147,9 +147,21 @@ class ChoiceBlock(FieldBlock):
     def __init__(self, choices=(), required=True, help_text=None, **kwargs):
         choices = list(choices) if choices else []
 
-        # If required=False and choices does not already contain a blank option, insert one
+        # If choices does not already contain a blank option, insert one
         # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
-        has_blank_choice = any([value in ('', None) for value, label in choices])
+        has_blank_choice = False
+        for v1, v2 in choices:
+            if isinstance(v2, (list, tuple)):
+                # this is a named group, and v2 is the value list
+                has_blank_choice = any([value in ('', None) for value, label in v2])
+                if has_blank_choice:
+                    break
+            else:
+                # this is an individual choice; v1 is the value
+                if v1 in ('', None):
+                    has_blank_choice = True
+                    break
+
         if not has_blank_choice:
             choices = BLANK_CHOICE_DASH + choices
 

@@ -83,10 +83,17 @@ class TestFieldBlock(unittest.TestCase):
 
 
 class TestChoiceBlock(unittest.TestCase):
+    def setUp(self):
+        from django.db.models.fields import BLANK_CHOICE_DASH
+        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
     def test_render_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
         html = block.render_form('coffee', prefix='beverage')
         self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        # blank option should still be rendered for required fields
+        # (we may want it as an initial value)
+        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -104,13 +111,10 @@ class TestChoiceBlock(unittest.TestCase):
             block.clean(None)
 
     def test_render_non_required_choice_block(self):
-        from django.db.models.fields import BLANK_CHOICE_DASH
-        blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
-
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
         html = block.render_form('coffee', prefix='beverage')
         self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="">%s</option>' % blank_choice_dash_label, html)
+        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -124,19 +128,77 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertEqual(block.clean(''), '')
         self.assertEqual(block.clean(None), '')
 
-    def test_render_non_required_choice_block_with_existing_blank_choice(self):
-        from django.db.models.fields import BLANK_CHOICE_DASH
-        blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
-
+    def test_render_choice_block_with_existing_blank_choice(self):
         block = blocks.ChoiceBlock(
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
             required=False)
         html = block.render_form(None, prefix='beverage')
         self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertNotIn('<option value="">%s</option>' % blank_choice_dash_label, html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<option value="" selected="selected">No thanks</option>', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertIn('<option value="coffee">Coffee</option>', html)
+
+    def test_named_groups_without_blank_option(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+            ])
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+
+    def test_named_groups_with_blank_option(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+                ('Not thirsty', [
+                    ('', 'No thanks')
+                ]),
+            ],
+            required=False)
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotIn('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
 
 
 class TestMeta(unittest.TestCase):
