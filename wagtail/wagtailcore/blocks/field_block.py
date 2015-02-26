@@ -142,6 +142,12 @@ class DateTimeBlock(FieldBlock):
             return parse_datetime(value)
 
 
+class ChoiceBlock(FieldBlock):
+    def __init__(self, choices=(), required=True, help_text=None, **kwargs):
+        self.field = forms.ChoiceField(choices=choices, required=required, help_text=help_text)
+        super(ChoiceBlock, self).__init__(**kwargs)
+
+
 class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
@@ -228,7 +234,7 @@ class PageChooserBlock(ChooserBlock):
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock,
+    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock,
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
