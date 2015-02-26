@@ -103,6 +103,41 @@ class TestChoiceBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean(None)
 
+    def test_render_non_required_choice_block(self):
+        from django.db.models.fields import BLANK_CHOICE_DASH
+        blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="">%s</option>' % blank_choice_dash_label, html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_non_required_choice_block(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        self.assertEqual(block.clean('coffee'), 'coffee')
+
+        with self.assertRaises(ValidationError):
+            block.clean('whisky')
+
+        self.assertEqual(block.clean(''), '')
+        self.assertEqual(block.clean(None), '')
+
+    def test_render_non_required_choice_block_with_existing_blank_choice(self):
+        from django.db.models.fields import BLANK_CHOICE_DASH
+        blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
+        block = blocks.ChoiceBlock(
+            choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
+            required=False)
+        html = block.render_form(None, prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % blank_choice_dash_label, html)
+        self.assertIn('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee">Coffee</option>', html)
+
 
 class TestMeta(unittest.TestCase):
     def test_set_template_with_meta(self):

@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 
 from django import forms
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.dateparse import parse_date, parse_time, parse_datetime
@@ -144,6 +145,14 @@ class DateTimeBlock(FieldBlock):
 
 class ChoiceBlock(FieldBlock):
     def __init__(self, choices=(), required=True, help_text=None, **kwargs):
+        choices = list(choices) if choices else []
+
+        # If required=False and choices does not already contain a blank option, insert one
+        # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
+        has_blank_choice = any([value in ('', None) for value, label in choices])
+        if not has_blank_choice:
+            choices = BLANK_CHOICE_DASH + choices
+
         self.field = forms.ChoiceField(choices=choices, required=required, help_text=help_text)
         super(ChoiceBlock, self).__init__(**kwargs)
 
