@@ -450,7 +450,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertIn('value="Father"', result)
         self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
-        self.assertIn('value="Choose an image"', result)
+        self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
         self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
@@ -493,7 +493,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         self.assertNotIn('<input id="id_speakers-0-last_name"', result)
 
         self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
-        self.assertIn('value="Choose an image"', result)
+        self.assertIn('Choose an image', result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
         self.assertIn('<input id="id_speakers-0-id" name="speakers-0-id" type="hidden"', result)
