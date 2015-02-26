@@ -200,6 +200,18 @@ class TestChoiceBlock(unittest.TestCase):
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
 
+    def test_subclassing(self):
+        class BeverageChoiceBlock(blocks.ChoiceBlock):
+            choices = [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = BeverageChoiceBlock()
+        html = block.render_form('tea', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+
 
 class TestMeta(unittest.TestCase):
     def test_set_template_with_meta(self):

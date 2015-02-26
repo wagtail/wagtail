@@ -144,8 +144,14 @@ class DateTimeBlock(FieldBlock):
 
 
 class ChoiceBlock(FieldBlock):
-    def __init__(self, choices=(), required=True, help_text=None, **kwargs):
-        choices = list(choices) if choices else []
+    choices = ()
+
+    def __init__(self, choices=None, required=True, help_text=None, **kwargs):
+        if choices is None:
+            # no choices specified, so pick up the choice list defined at the class level
+            choices = list(self.choices)
+        else:
+            choices = list(choices)
 
         # If choices does not already contain a blank option, insert one
         # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
