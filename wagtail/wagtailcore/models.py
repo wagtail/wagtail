@@ -483,7 +483,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return revision
 
     def get_latest_revision(self):
-        return self.revisions.order_by('-created_at').first()
+        return self.revisions.order_by('-created_at', '-id').first()
 
     def get_latest_revision_as_page(self):
         latest_revision = self.get_latest_revision()
@@ -1099,7 +1099,7 @@ class PageRevision(models.Model):
             # special case: a revision without an ID is presumed to be newly-created and is thus
             # newer than any revision that might exist in the database
             return True
-        latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at').first()
+        latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at', '-id').first()
         return (latest_revision == self)
 
     def publish(self):
