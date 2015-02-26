@@ -207,10 +207,23 @@ class TestChoiceBlock(unittest.TestCase):
                 ('coffee', 'Coffee'),
             ]
 
-        block = BeverageChoiceBlock()
+        block = BeverageChoiceBlock(required=False)
         html = block.render_form('tea', prefix='beverage')
         self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea" selected="selected">Tea</option>', html)
+
+        # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.wagtailcore.blocks.ChoiceBlock',
+                [],
+                {
+                    'choices': [('tea', 'Tea'), ('coffee', 'Coffee')],
+                    'required': False,
+                },
+            )
+        )
 
 
 class TestMeta(unittest.TestCase):

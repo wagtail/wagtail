@@ -153,6 +153,14 @@ class ChoiceBlock(FieldBlock):
         else:
             choices = list(choices)
 
+        # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
+        self._constructor_kwargs = kwargs.copy()
+        self._constructor_kwargs['choices'] = choices
+        if required is not True:
+            self._constructor_kwargs['required'] = required
+        if help_text is not None:
+            self._constructor_kwargs['help_text'] = help_text
+
         # If choices does not already contain a blank option, insert one
         # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
         has_blank_choice = False
@@ -173,6 +181,16 @@ class ChoiceBlock(FieldBlock):
 
         self.field = forms.ChoiceField(choices=choices, required=required, help_text=help_text)
         super(ChoiceBlock, self).__init__(**kwargs)
+
+    def deconstruct(self):
+        """
+        Always deconstruct ChoiceBlock instances as if they were plain ChoiceBlocks with their
+        choice list passed in the constructor, even if they are actually subclasses. This allows
+        users to define subclasses of ChoiceBlock in their models.py, with specific choice lists
+        passed in, without references to those classes ending up frozen into migrations.
+        """
+        return ('wagtail.wagtailcore.blocks.ChoiceBlock', [], self._constructor_kwargs)
+
 
 
 class RichTextBlock(FieldBlock):
