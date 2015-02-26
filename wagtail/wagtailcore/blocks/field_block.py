@@ -67,6 +67,18 @@ class CharBlock(FieldBlock):
         return [force_text(value)]
 
 
+class TextBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+        self.field = forms.CharField(
+            widget=forms.Textarea(),
+            required=required, help_text=help_text,
+            max_length=max_length, min_length=min_length)
+        super(TextBlock, self).__init__(**kwargs)
+
+    def get_searchable_content(self, value):
+        return [force_text(value)]
+
+
 class URLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.URLField(required=required, help_text=help_text, max_length=max_length, min_length=min_length)
@@ -279,7 +291,7 @@ class PageChooserBlock(ChooserBlock):
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock,
+    TextBlock, BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock,
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
