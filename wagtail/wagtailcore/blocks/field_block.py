@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 
 from django import forms
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.dateparse import parse_date, parse_time, parse_datetime
@@ -142,6 +143,56 @@ class DateTimeBlock(FieldBlock):
             return parse_datetime(value)
 
 
+class ChoiceBlock(FieldBlock):
+    choices = ()
+
+    def __init__(self, choices=None, required=True, help_text=None, **kwargs):
+        if choices is None:
+            # no choices specified, so pick up the choice list defined at the class level
+            choices = list(self.choices)
+        else:
+            choices = list(choices)
+
+        # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
+        self._constructor_kwargs = kwargs.copy()
+        self._constructor_kwargs['choices'] = choices
+        if required is not True:
+            self._constructor_kwargs['required'] = required
+        if help_text is not None:
+            self._constructor_kwargs['help_text'] = help_text
+
+        # If choices does not already contain a blank option, insert one
+        # (to match Django's own behaviour for modelfields: https://github.com/django/django/blob/1.7.5/django/db/models/fields/__init__.py#L732-744)
+        has_blank_choice = False
+        for v1, v2 in choices:
+            if isinstance(v2, (list, tuple)):
+                # this is a named group, and v2 is the value list
+                has_blank_choice = any([value in ('', None) for value, label in v2])
+                if has_blank_choice:
+                    break
+            else:
+                # this is an individual choice; v1 is the value
+                if v1 in ('', None):
+                    has_blank_choice = True
+                    break
+
+        if not has_blank_choice:
+            choices = BLANK_CHOICE_DASH + choices
+
+        self.field = forms.ChoiceField(choices=choices, required=required, help_text=help_text)
+        super(ChoiceBlock, self).__init__(**kwargs)
+
+    def deconstruct(self):
+        """
+        Always deconstruct ChoiceBlock instances as if they were plain ChoiceBlocks with their
+        choice list passed in the constructor, even if they are actually subclasses. This allows
+        users to define subclasses of ChoiceBlock in their models.py, with specific choice lists
+        passed in, without references to those classes ending up frozen into migrations.
+        """
+        return ('wagtail.wagtailcore.blocks.ChoiceBlock', [], self._constructor_kwargs)
+
+
+
 class RichTextBlock(FieldBlock):
     @cached_property
     def field(self):
@@ -228,7 +279,7 @@ class PageChooserBlock(ChooserBlock):
 # rather than wagtailcore.blocks.field.FooBlock
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock, PageChooserBlock,
-    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock,
+    BooleanBlock, DateBlock, TimeBlock, DateTimeBlock, ChoiceBlock,
 ]
 DECONSTRUCT_ALIASES = {
     cls: 'wagtail.wagtailcore.blocks.%s' % cls.__name__
