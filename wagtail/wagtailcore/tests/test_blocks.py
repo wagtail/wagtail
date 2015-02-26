@@ -82,6 +82,28 @@ class TestFieldBlock(unittest.TestCase):
         self.assertEqual(content, ["Choice 1"])
 
 
+class TestChoiceBlock(unittest.TestCase):
+    def test_render_required_choice_block(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertIn('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_required_choice_block(self):
+        block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        self.assertEqual(block.clean('coffee'), 'coffee')
+
+        with self.assertRaises(ValidationError):
+            block.clean('whisky')
+
+        with self.assertRaises(ValidationError):
+            block.clean('')
+
+        with self.assertRaises(ValidationError):
+            block.clean(None)
+
+
 class TestMeta(unittest.TestCase):
     def test_set_template_with_meta(self):
         class HeadingBlock(blocks.CharBlock):
