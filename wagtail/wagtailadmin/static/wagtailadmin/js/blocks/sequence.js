@@ -43,7 +43,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             // focus first suitable input found
             var timeout = setTimeout(function(){
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
-            }, 10)            
+            }, 10);
         };
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
@@ -58,13 +58,13 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             } else {
                 self.hideMenu();
             }
-        }
+        };
         self.showMenu = function(){
             self.menu.removeClass('stream-menu-closed');
         };
         self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed')
-        }
+            self.menu.addClass('stream-menu-closed');
+        };
 
         return self;
     };
@@ -205,15 +205,15 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             } else {
                 self.hideMenu();
             }
-        }
+        };
         
         self.showMenu = function(){
             self.menu.removeClass('stream-menu-closed');
         };
 
         self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed')
-        }
+            self.menu.addClass('stream-menu-closed');
+        };
 
 
         /* initialize initial list members */
