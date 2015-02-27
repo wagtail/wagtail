@@ -551,18 +551,21 @@
             .button{
                 @include border-radius(0);
                 overflow: visible;
-                display:inline-block;
-                padding:0;
-                width:3.45em;
-                background-color:$color-salmon;
+                background-color:$color-salmon-light;
+                font-size:0; /* helps fake the effect of t.ext-replace class, which can't be used here. */
+                width:2em;
 
                 &:before{
                     position:relative;
                     padding:0;
                     line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;
-                    width:100%;
-                    background-color:transparent;
+                    width:1.8em;
+                    background-color:$color-salmon;
+                }
+
+                &:hover:before{
+                    background-color:darken($color-salmon, 5%);
                 }
             }
         }
