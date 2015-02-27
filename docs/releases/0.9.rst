@@ -49,6 +49,7 @@ Admin
  * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
  * Page model fields without a ``FieldPanel`` are no longer displayed in the form
  * No longer need to specify the base model on ``InlinePanel`` definitions
+ * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface
 
 
 **Other admin changes**
@@ -157,3 +158,32 @@ Previously, the forms for creating and editing images followed Django's default 
         has_legal_approval = models.BooleanField()
 
         admin_form_fields = Image.admin_form_fields + ['photographer']
+
+Customising the tabbed interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. Depending on the requirements of your site, you may wish to customise this for specific page types - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` property on the page model. For example:
+
+.. code-block:: python
+
+    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+
+    class BlogPage(Page):
+        # field definitions omitted
+
+    BlogPage.content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('date'),
+        FieldPanel('body', classname="full"),
+    ]
+    BlogPage.sidebar_content_panels = [
+        SnippetChooserPanel('advert', Advert),
+        InlinePanel('related_links', label="Related links"),
+    ]
+
+    BlogPage.edit_handler = TabbedInterface([
+        ObjectList(BlogPage.content_panels, heading='Content'),
+        ObjectList(BlogPage.sidebar_content_panels, heading='Sidebar content'),
+        ObjectList(BlogPage.promote_panels, heading='Promote'),
+        ObjectList(BlogPage.settings_panels, heading='Settings', classname="settings"),
+    ])
