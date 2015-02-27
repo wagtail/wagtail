@@ -4,9 +4,7 @@
     
     {% block hidden_fields %}{% endblock %}
 
-    <div class="stream-controls">
-        {% block header_controls %}{% endblock %}
-    </div>
+    {% block header_controls %}{% endblock %}
 
     <div class="sequence-member-inner">{{ child.render_form }}</div>
 

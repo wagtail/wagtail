@@ -311,7 +311,7 @@
     }
 
     /* Object controls */
-    .stream-controls{
+    .stream-controls, .list-controls{
         @include transition(opacity 0.2s ease);
         opacity:0;
         visibility:hidden;
@@ -484,7 +484,7 @@
         visibility:hidden;
     }
     .sequence-member:hover{
-        .stream-controls{
+        .stream-controls, .list-controls{
             visibility:visible;
             opacity:1;
         }
