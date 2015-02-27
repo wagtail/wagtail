@@ -4,15 +4,16 @@
         Helper object to handle the menu of available block types.
         Options:
         childBlocks: list of block definitions (same as passed to StreamBlock)
-        menuItemPrefix: ID prefix of all menu items ('-' + childBlock.name is appended to each one)
+        id: ID of the container element (the one with class="stream-menu")
         onChooseBlock: callback fired when a block type is chosen -
             the corresponding childBlock is passed as a parameter
         */
         var self = {};
+        self.container = $('#' + opts.id);
 
         /* set up button behaviour */
         $.each(opts.childBlocks, function(i, childBlock) {
-            var button = $('#' + opts.menuItemPrefix + '-' + childBlock.name);
+            var button = self.container.find('.action-add-block-' + childBlock.name);
             button.click(function() {
                 if (opts.onChooseBlock) opts.onChooseBlock(childBlock);
             });
@@ -54,7 +55,7 @@
                     /* Set up the 'append a block' menu that appears after the block */
                     StreamBlockMenu({
                         'childBlocks': opts.childBlocks,
-                        'menuItemPrefix': sequenceMember.prefix + '-add',
+                        'id': sequenceMember.prefix + '-appendmenu',
                         'onChooseBlock': function(childBlock) {
                             var template = listMemberTemplates[childBlock.name];
                             sequenceMember.appendMember(template);
@@ -66,7 +67,7 @@
             /* Set up the 'prepend a block' menu that appears above the first block in the sequence */
             StreamBlockMenu({
                 'childBlocks': opts.childBlocks,
-                'menuItemPrefix': elementPrefix + '-before-add',
+                'id': elementPrefix + '-prependmenu',
                 'onChooseBlock': function(childBlock) {
                     var template = listMemberTemplates[childBlock.name];
                     sequence.insertMemberAtStart(template);
