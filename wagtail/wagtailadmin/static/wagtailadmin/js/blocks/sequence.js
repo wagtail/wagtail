@@ -10,14 +10,8 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var self = {};
         self.prefix = prefix;
         self.container = $('#' + self.prefix + '-container');
-        self.menu = $('> .stream-menu', self.container);
 
         var indexField = $('#' + self.prefix + '-order');
-
-        self.menu.click(function(e){
-            e.preventDefault();
-            self.toggleMenu();
-        });
 
         self.delete = function() {
             sequence.deleteMember(self);
@@ -38,8 +32,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.container.hide();
             self.container.slideDown();
 
-            self.hideMenu();
-
             // focus first suitable input found
             var timeout = setTimeout(function(){
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
@@ -52,20 +44,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             indexField.val(i);
         };
 
-        self.toggleMenu = function(){
-            if(self.menu.hasClass('stream-menu-closed')){
-                self.showMenu();
-            } else {
-                self.hideMenu();
-            }
-        };
-        self.showMenu = function(){
-            self.menu.removeClass('stream-menu-closed');
-        };
-        self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed');
-        };
-
         return self;
     };
     window.Sequence = function(opts) {
@@ -74,12 +52,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var countField = $('#' + opts.prefix + '-count');
         /* NB countField includes deleted items; for the count of non-deleted items, use members.length */
         var members = [];
-        self.menu = countField.siblings('.stream-menu');
-
-        self.menu.click(function(e){
-            e.preventDefault();
-            self.toggleMenu();
-        });
 
         self.getCount = function() {
             return parseInt(countField.val(), 10);
@@ -198,23 +170,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             members.splice(index, 1);
             member._markDeleted();
         };
-
-        self.toggleMenu = function(){
-            if(self.menu.hasClass('stream-menu-closed')){
-                self.showMenu();
-            } else {
-                self.hideMenu();
-            }
-        };
-        
-        self.showMenu = function(){
-            self.menu.removeClass('stream-menu-closed');
-        };
-
-        self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed');
-        };
-
 
         /* initialize initial list members */
         for (var i = 0; i < self.getCount(); i++) {

@@ -11,6 +11,26 @@
         var self = {};
         self.container = $('#' + opts.id);
 
+        self.show = function(){
+            self.container.removeClass('stream-menu-closed');
+        };
+        self.hide = function(){
+            self.container.addClass('stream-menu-closed');
+        };
+        self.toggle = function(){
+            if(self.container.hasClass('stream-menu-closed')){
+                self.show();
+            } else {
+                self.hide();
+            }
+        };
+
+        /* set up show/hide on click behaviour */
+        self.container.click(function(e){
+            e.preventDefault();
+            self.toggle();
+        });
+
         /* set up button behaviour */
         $.each(opts.childBlocks, function(i, childBlock) {
             var button = self.container.find('.action-add-block-' + childBlock.name);
