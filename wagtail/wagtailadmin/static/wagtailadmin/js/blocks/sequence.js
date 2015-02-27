@@ -1,9 +1,16 @@
-/* Operations on a sequence of items, common to both ListBlock and StreamBlock.
+/*
+
+Operations on a sequence of items, common to both ListBlock and StreamBlock.
+
 These assume the presence of a container element named "{prefix}-container" for each list item, and
 certain hidden fields such as "{prefix}-deleted" as defined in sequence_member.html, but make no assumptions
 about layout or visible controls within the block. 
+
 For example, they don't assume the presence of a 'delete' button - it's up to the specific subclass
 (list.js / stream.js) to attach this to the SequenceMember.delete method.
+
+CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES NOT BELONG HERE.
+
 */
 (function($) {
     window.SequenceMember = function(sequence, prefix) {
