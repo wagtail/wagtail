@@ -2,9 +2,9 @@
 {% load wagtailadmin_tags %}
 <table class="listing{% if full_width %} full-width{% endif %}{% if moving or choosing %} chooser{% endif %}">
     {% if orderable %}
-        <col width="50px" />
+        <!-- <col width="50px" /> -->
     {% endif %}
-    <col width="1%" />
+    <col width="20px" />
     <col />
     {% if show_parent %}
         <col />
@@ -16,7 +16,7 @@
         {% if moving or choosing %}
             <tr class="table-headers">
                 {% if orderable %}
-                    <th></th>
+                    <!-- <th></th> -->
                 {% endif %}
                 <th></th>
                 <th class="title">Title</th>
@@ -25,14 +25,60 @@
                 {% endif %}
                 <th class="updated">{% trans 'Updated' %}</th>
                 <th class="type">{% trans 'Type' %}</th>
-                <th></th>
             </tr>
         {% endif %}
+
+           {% if not moving and not choosing %}
+            <tr class="table-headers">
+                {% if orderable %}
+                    <!-- <th class="ord">
+                        {% if ordering == "ord" %}
+                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a></th> 
+                        {% else %}
+                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+                        {% endif %}
+                    </th> -->
+                {% endif %}
+                <th></th>
+                <th class="title">
+                    {% if sortable %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "title" %}-{% endif %}title" class="icon icon-arrow-{% if ordering == "title" %}down-after{% elif ordering == "-title" %}up-after{% else %}down-after{% endif %} {% if ordering == "title" or ordering == "-title" %}teal{% endif %}">
+                            {% trans 'Title' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Title' %}
+                    {% endif %}
+                </th>
+                {% if show_parent %}
+                <th class="parent">{% trans 'Parent' %}</th>
+                {% endif %}
+                 <th class="updated">
+                    {% if sortable %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "latest_revision_created_at" %}-{% endif %}latest_revision_created_at" class="icon icon-arrow-{% if ordering == "-latest_revision_created_at" %}up-after{% else %}down-after{% endif %} {% if ordering == "latest_revision_created_at" or ordering == "-latest_revision_created_at" %}teal {% endif %}">
+                            {% trans 'Updated' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Updated' %}
+                    {% endif %}                   
+                </th>
+                <th class="type">
+                    {% if sortable %}
+                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "content_type" %}-{% endif %}content_type" class="icon icon-arrow-{% if ordering == "-content_type" %}up-after{% else %}down-after{% endif %} {% if ordering == "content_type" or ordering == "-content_type" %}teal {% endif %}">
+                            {% trans 'Type' %}
+                        </a>
+                    {% else %}
+                        {% trans 'Type' %}
+                    {% endif %}                   
+                </th>
+            </tr>
+        {% endif %}
+        
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
-                <td valign="top"><span class="status-light {% if parent_page.live %}status-light-on{% endif %} {% if parent_page.status_string == "live + draft" %}status-light-on-off{% endif %}"><span>{{ revision.page.status_string }}</span></span></td>
-                <td class="title" {% if orderable %}colspan="2"{% endif %}>
+                <td valign="top"><span class="status-light {% if parent_page.live %}status-light-on{% endif %} {% if parent_page.status_string == "live + draft" %}status-light-on-off{% endif %}"><span>{{ parent_page.status_string }}</span></span></td>
+
+                <td class="title" valign="top">
                     {% if moving %}
                         <h2>
                             {% if parent_page.can_choose %}
@@ -72,8 +118,7 @@
                             {% endif %}
                         </h2>
                         
-                        {% include "wagtailadmin/pages/_privacy_indicator.html" with page=parent_page %}
-
+                        
                         <ul class="actions">
                             {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                 <li><a href="{% url 'wagtailadmin_pages_edit' parent_page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
@@ -100,65 +145,13 @@
                         </ul>
                     {% endif %}
                 </td>
-                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
-                <td class="type" valign="bottom">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
+                <td class="updated" valign="top">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date tip" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
+                <td class="type" valign="top">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
                 <td></td>
             </tr>
         {% endif %}
     
-        {% if not moving and not choosing %}
-            <tr class="table-headers">
-                {% if orderable %}
-                    <th class="ord">
-                        {% if ordering == "ord" %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a></th> 
-                        {% else %}
-                            <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a></th>
-                        {% endif %}
-                    </th>
-                {% endif %}
-                <th class="title">
-                    {% if sortable %}
-                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "title" %}-{% endif %}title" class="icon icon-arrow-{% if ordering == "title" %}down-after{% elif ordering == "-title" %}up-after{% else %}down-after{% endif %} {% if ordering == "title" or ordering == "-title" %}teal{% endif %}">
-                            {% trans 'Title' %}
-                        </a>
-                    {% else %}
-                        {% trans 'Title' %}
-                    {% endif %}
-                </th>
-                {% if show_parent %}
-                <th class="parent">{% trans 'Parent' %}</th>
-                {% endif %}
-                 <th class="updated">
-                    {% if sortable %}
-                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "latest_revision_created_at" %}-{% endif %}latest_revision_created_at" class="icon icon-arrow-{% if ordering == "-latest_revision_created_at" %}up-after{% else %}down-after{% endif %} {% if ordering == "latest_revision_created_at" or ordering == "-latest_revision_created_at" %}teal {% endif %}">
-                            {% trans 'Updated' %}
-                        </a>
-                    {% else %}
-                        {% trans 'Updated' %}
-                    {% endif %}                   
-                </th>
-                <th class="type">
-                    {% if sortable %}
-                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "content_type" %}-{% endif %}content_type" class="icon icon-arrow-{% if ordering == "-content_type" %}up-after{% else %}down-after{% endif %} {% if ordering == "content_type" or ordering == "-content_type" %}teal {% endif %}">
-                            {% trans 'Type' %}
-                        </a>
-                    {% else %}
-                        {% trans 'Type' %}
-                    {% endif %}                   
-                </th>
-                <th class="status">
-                    {% if sortable %}
-                        <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering={% if ordering == "live" %}-{% endif %}live" class="icon icon-arrow-{% if ordering == "-live" %}up-after{% else %}down-after{% endif %} {% if ordering == "live" or ordering == "-live" %}teal {% endif %}">
-                            {% trans 'Status' %}
-                        </a>
-                    {% else %}
-                        {% trans 'Status' %}
-                    {% endif %}
-                </th>
-                <th></th>
-            </tr>
-        {% endif %}
+     
     </thead>
     <tbody>
         {% if pages %}
@@ -166,8 +159,9 @@
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
                     {% if orderable %}
-                        <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
+                        <!-- <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td> -->
                     {% endif %}
+                    <td valign="top"><span class="status-light {% if page.live %}status-light-on{% endif %} {% if page.status_string == "live + draft" %}status-light-on-off{% endif %}"><span>{{ page.status_string }}</span></span></td>
                     <td class="title" valign="top">
                         <h2>
                             {% if moving %}
@@ -237,15 +231,8 @@
                             </td>
                         {% endwith %}
                     {% endif %}
-                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{{ page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
+                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date tip" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{{ page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
                     <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
-                    <td class="status" valign="top">
-                        {% if not choosing and not moving and page.live and 'view_live' not in hide_actions|default:'' %}
-                             <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
-                        {% else %}
-                             <span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span>
-                        {% endif %}
-                    </td>
                     <td class="{% if allow_navigation %}{% if choosing %}{% if page.can_descend %} children{% endif%}{% elif moving %}{% if page.can_descend %} children{% endif%}{% elif allow_navigation and page.is_navigable %} children{% else %}no-children{% endif %}{% endif %}">
                         {% if allow_navigation %}
                             {% if moving %}
