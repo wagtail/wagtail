@@ -4,7 +4,9 @@
 {% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Explore" merged=1 subtitle=parent_page.title icon="folder-open-inverse" %}
+    {% url 'wagtailadmin_pages_add_subpage' parent_page.id as myurl %}
+    {% trans "Add child page" as add_page_str %}
+    {% include "wagtailadmin/shared/header.html" with title="Explore" merged=1 subtitle=parent_page.title icon="folder-open-inverse" add_link_raw=myurl icon="image" add_text=add_page_str  %}
     
     {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page %}
 

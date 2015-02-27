@@ -314,11 +314,11 @@ ul.listing{
     }
 
     .index {
-        background-color:$color-grey-4;
-        border-bottom:3px solid $color-grey-3;
+        background-color:lighten($color-grey-4, 5%);
+        border-bottom:3px solid $color-grey-4;
 
         .title h2{
-            font-size:1.2em;
+            font-size:1.25em;
         }
     }
 
