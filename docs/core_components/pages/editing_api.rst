@@ -376,6 +376,40 @@ For more on ``django-modelcluster``, visit `the django-modelcluster github proje
 .. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
 
 
+.. _customising_the_tabbed_interface:
+
+Customising the tabbed interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 0.9
+
+As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. Depending on the requirements of your site, you may wish to customise this for specific page types - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` property on the page model. For example:
+
+.. code-block:: python
+
+    from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
+
+    class BlogPage(Page):
+        # field definitions omitted
+
+    BlogPage.content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('date'),
+        FieldPanel('body', classname="full"),
+    ]
+    BlogPage.sidebar_content_panels = [
+        SnippetChooserPanel('advert', Advert),
+        InlinePanel('related_links', label="Related links"),
+    ]
+
+    BlogPage.edit_handler = TabbedInterface([
+        ObjectList(BlogPage.content_panels, heading='Content'),
+        ObjectList(BlogPage.sidebar_content_panels, heading='Sidebar content'),
+        ObjectList(BlogPage.promote_panels, heading='Promote'),
+        ObjectList(BlogPage.settings_panels, heading='Settings', classname="settings"),
+    ])
+
+
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (hallo.js)
