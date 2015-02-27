@@ -133,6 +133,43 @@ form.status-tag:hover{
     color:white;
 }
 
+.status-light{
+    @include border-radius(50%);
+    position:relative;
+    overflow:hidden;
+    display:inline-block;
+    width:1em;
+    padding-bottom:1em;
+    margin:0 0.5em 0 0;
+   
+    span{
+        @include visuallyhidden();
+    }
+
+    &:before{
+        content:"";
+        display:block;
+        background-color:$color-grey-3;
+        display:inline-block;
+        width:100%;
+        height:100%;
+        position:absolute;
+    }
+
+    &.status-light-on:before{
+        background-color:$color-green-light;
+    }
+    &.status-light-on-off:after{
+        display:inline-block;
+        content:"";
+        width:100%;
+        height:100%;
+        position:absolute;
+        left:52%;
+        background-color:$color-grey-3;
+    }
+}
+
 .privacy-indicator {
     .label-private, .label-public{
         &:before{
