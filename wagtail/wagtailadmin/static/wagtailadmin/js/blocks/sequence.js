@@ -76,10 +76,27 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             countField.val(newIndex + 1);
             return opts.prefix + '-' + newIndex;
         }
+        function setInitialMoveUpDownState(newMember) {
+        }
         function postInsertMember(newMember) {
             /* run any supplied initializer functions */
             if (opts.onInitializeMember) {
                 opts.onInitializeMember(newMember);
+            }
+
+            var index = newMember.getIndex();
+            if (index === 0) {
+                /* first item should have 'move up' disabled */
+                if (opts.onDisableMoveUp) opts.onDisableMoveUp(newMember);
+            } else {
+                if (opts.onEnableMoveUp) opts.onEnableMoveUp(newMember);
+            }
+
+            if (index === (members.length - 1)) {
+                /* last item should have 'move down' disabled */
+                if (opts.onDisableMoveDown) opts.onDisableMoveDown(newMember);
+            } else {
+                if (opts.onEnableMoveDown) opts.onEnableMoveDown(newMember);
             }
 
             newMember._markAdded();
@@ -109,6 +126,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
             postInsertMember(newMember);
 
+            if (index === 0 && opts.onEnableMoveUp) {
+                /* other member can now move up */
+                opts.onEnableMoveUp(otherMember);
+            }
+
             return newMember;
         };
 
@@ -129,6 +151,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             newMember.setIndex(index);
 
             postInsertMember(newMember);
+
+            if (index === (members.length - 1) && opts.onEnableMoveDown) {
+                /* other member can now move down */
+                opts.onEnableMoveDown(otherMember);
+            }
 
             return newMember;
         };
@@ -154,6 +181,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
             postInsertMember(newMember);
 
+            if (members.length > 1 && opts.onEnableMoveUp) {
+                /* previous first member can now move up */
+                opts.onEnableMoveUp(members[1]);
+            }
+
             return newMember;
         };
 
@@ -170,6 +202,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
             postInsertMember(newMember);
 
+            if (members.length > 1 && opts.onEnableMoveDown) {
+                /* previous last member can now move down */
+                opts.onEnableMoveDown(members[members.length - 2]);
+            }
+
             return newMember;
         };
 
@@ -182,6 +219,15 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             /* remove from the 'members' list */
             members.splice(index, 1);
             member._markDeleted();
+
+            if (index === 0 && members.length > 0 && opts.onDisableMoveUp) {
+                /* deleting the first member; the new first member cannot move up now */
+                opts.onDisableMoveUp(members[0]);
+            }
+            if (index === members.length && members.length > 0 && opts.onDisableMoveDown) {
+                /* deleting the last member; the new last member cannot move down now */
+                opts.onDisableMoveDown(members[members.length - 1]);
+            }
         };
 
         self.moveMemberUp = function(member) {
@@ -197,6 +243,23 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 swappedMember.setIndex(oldIndex);
 
                 member.container.insertBefore(swappedMember.container);
+
+                if (newIndex === 0) {
+                    /*
+                    member is now the first member and cannot move up further;
+                    swappedMember is no longer the first member, and CAN move up
+                    */
+                    if (opts.onDisableMoveUp) opts.onDisableMoveUp(member);
+                    if (opts.onEnableMoveUp) opts.onEnableMoveUp(swappedMember);
+                }
+                if (oldIndex === (members.length - 1)) {
+                    /*
+                    member was previously the last member, and can now move down;
+                    swappedMember is now the last member, and cannot move down
+                    */
+                    if (opts.onEnableMoveDown) opts.onEnableMoveDown(member);
+                    if (opts.onDisableMoveDown) opts.onDisableMoveDown(swappedMember);
+                }
             }
         };
 
@@ -213,16 +276,48 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 swappedMember.setIndex(oldIndex);
 
                 member.container.insertAfter(swappedMember.container);
+
+                if (newIndex === (members.length - 1)) {
+                    /*
+                    member is now the last member and cannot move down further;
+                    swappedMember is no longer the last member, and CAN move down
+                    */
+                    if (opts.onDisableMoveDown) opts.onDisableMoveDown(member);
+                    if (opts.onEnableMoveDown) opts.onEnableMoveDown(swappedMember);
+                }
+                if (oldIndex === 0) {
+                    /*
+                    member was previously the first member, and can now move up;
+                    swappedMember is now the first member, and cannot move up
+                    */
+                    if (opts.onEnableMoveUp) opts.onEnableMoveUp(member);
+                    if (opts.onDisableMoveUp) opts.onDisableMoveUp(swappedMember);
+                }
             }
         };
 
         /* initialize initial list members */
-        for (var i = 0; i < self.getCount(); i++) {
+        var count = self.getCount();
+        for (var i = 0; i < count; i++) {
             var memberPrefix = opts.prefix + '-' + i;
             var sequenceMember = SequenceMember(self, memberPrefix);
             members[i] = sequenceMember;
             if (opts.onInitializeMember) {
                 opts.onInitializeMember(sequenceMember);
+            }
+
+            if (i === 0) {
+                /* first item should have 'move up' disabled */
+                if (opts.onDisableMoveUp) opts.onDisableMoveUp(sequenceMember);
+            } else {
+                if (opts.onEnableMoveUp) opts.onEnableMoveUp(sequenceMember);
+            }
+
+            if (i === (count - 1)) {
+                /* last item should have 'move down' disabled */
+                if (opts.onDisableMoveDown) opts.onDisableMoveDown(sequenceMember);
+            } else {
+                if (opts.onEnableMoveDown) opts.onEnableMoveDown(sequenceMember);
             }
         }
 

@@ -27,6 +27,18 @@
                     $('#' + sequenceMember.prefix + '-movedown').click(function() {
                         sequenceMember.moveDown();
                     });
+                },
+                'onEnableMoveUp': function(sequenceMember) {
+                    $('#' + sequenceMember.prefix + '-moveup').removeClass('disabled');
+                },
+                'onDisableMoveUp': function(sequenceMember) {
+                    $('#' + sequenceMember.prefix + '-moveup').addClass('disabled');
+                },
+                'onEnableMoveDown': function(sequenceMember) {
+                    $('#' + sequenceMember.prefix + '-movedown').removeClass('disabled');
+                },
+                'onDisableMoveDown': function(sequenceMember) {
+                    $('#' + sequenceMember.prefix + '-movedown').addClass('disabled');
                 }
             });
 
