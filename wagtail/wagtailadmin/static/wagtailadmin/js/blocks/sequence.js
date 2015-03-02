@@ -29,6 +29,12 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         self.appendMember = function(template) {
             sequence.insertMemberAfter(self, template);
         };
+        self.moveUp = function() {
+            sequence.moveMemberUp(self);
+        };
+        self.moveDown = function() {
+            sequence.moveMemberDown(self);
+        };
         self._markDeleted = function() {
             /* set this list member's hidden 'deleted' flag to true */
             $('#' + self.prefix + '-deleted').val('1');
@@ -176,6 +182,38 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             /* remove from the 'members' list */
             members.splice(index, 1);
             member._markDeleted();
+        };
+
+        self.moveMemberUp = function(member) {
+            var oldIndex = member.getIndex();
+            if (oldIndex > 0) {
+                var newIndex = oldIndex - 1;
+                var swappedMember = members[newIndex];
+
+                members[newIndex] = member;
+                member.setIndex(newIndex);
+
+                members[oldIndex] = swappedMember;
+                swappedMember.setIndex(oldIndex);
+
+                member.container.insertBefore(swappedMember.container);
+            }
+        };
+
+        self.moveMemberDown = function(member) {
+            var oldIndex = member.getIndex();
+            if (oldIndex < (members.length - 1)) {
+                var newIndex = oldIndex + 1;
+                var swappedMember = members[newIndex];
+
+                members[newIndex] = member;
+                member.setIndex(newIndex);
+
+                members[oldIndex] = swappedMember;
+                swappedMember.setIndex(oldIndex);
+
+                member.container.insertAfter(swappedMember.container);
+            }
         };
 
         /* initialize initial list members */

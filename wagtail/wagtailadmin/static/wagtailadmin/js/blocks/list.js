@@ -19,6 +19,14 @@
                     $('#' + sequenceMember.prefix + '-delete').click(function() {
                         sequenceMember.delete();
                     });
+
+                    /* initialise move up/down buttons */
+                    $('#' + sequenceMember.prefix + '-moveup').click(function() {
+                        sequenceMember.moveUp();
+                    });
+                    $('#' + sequenceMember.prefix + '-movedown').click(function() {
+                        sequenceMember.moveDown();
+                    });
                 }
             });
 
