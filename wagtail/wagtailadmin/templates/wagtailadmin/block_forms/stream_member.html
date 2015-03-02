@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block header_controls %}
-    <button type="button" id="{{ prefix }}-delete" class="stream-control icon text-replace no icon-bin button-secondary button-nostroke">delete</button>
+    <div class="stream-controls">
+        <button type="button" id="{{ prefix }}-delete" class="stream-control icon text-replace no icon-bin button-secondary button-nostroke">delete</button>
+    </div>
 {% endblock %}
 
 {% block footer_controls %}
-    {% include "wagtailadmin/block_forms/stream_menu.html" with state="closed"%}
+    {% include "wagtailadmin/block_forms/stream_menu.html" with menu_id=prefix|add:"-appendmenu" state="closed" %}
 {% endblock %}

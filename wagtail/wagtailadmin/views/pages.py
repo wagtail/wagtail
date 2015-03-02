@@ -707,11 +707,24 @@ PAGE_EDIT_HANDLERS = {}
 
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
-        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
-            ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote'),
-            ObjectList(page_class.settings_panels, heading='Settings', classname="settings")
-        ]).bind_to_model(page_class)
+        if hasattr(page_class, 'edit_handler'):
+            # use the edit handler specified on the page class
+            edit_handler = page_class.edit_handler
+        else:
+            # construct a TabbedInterface made up of content_panels, promote_panels
+            # and settings_panels, skipping any which are empty
+            tabs = []
+
+            if page_class.content_panels:
+                tabs.append(ObjectList(page_class.content_panels, heading='Content'))
+            if page_class.promote_panels:
+                tabs.append(ObjectList(page_class.promote_panels, heading='Promote'))
+            if page_class.settings_panels:
+                tabs.append(ObjectList(page_class.settings_panels, heading='Settings', classname="settings"))
+
+            edit_handler = TabbedInterface(tabs)
+
+        PAGE_EDIT_HANDLERS[page_class] = edit_handler.bind_to_model(page_class)
 
     return PAGE_EDIT_HANDLERS[page_class]
 
