@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.auth',
@@ -79,14 +79,14 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.tests',
-]
+
+    # Install wagtailredirects with its appconfig
+    # Theres nothing special about wagtailredirects, we just need to have one
+    # app which uses AppConfigs to test that hooks load properly
+    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+)
 
 
-# Install wagtailredirects with its appconfig
-# Theres nothing special about wagtailredirects, we just need to have one
-# app which uses AppConfigs to test that hooks load properly
-
-INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')
 
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.
