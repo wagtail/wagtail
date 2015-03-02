@@ -71,6 +71,13 @@
                     $('#' + sequenceMember.prefix + '-delete').click(function() {
                         sequenceMember.delete();
                     });
+                    /* initialise move up/down buttons */
+                    $('#' + sequenceMember.prefix + '-moveup').click(function() {
+                        sequenceMember.moveUp();
+                    });
+                    $('#' + sequenceMember.prefix + '-movedown').click(function() {
+                        sequenceMember.moveDown();
+                    });
 
                     /* Set up the 'append a block' menu that appears after the block */
                     StreamBlockMenu({
