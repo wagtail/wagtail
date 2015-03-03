@@ -54,6 +54,10 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def get_internal_type(self):
         return 'TextField'
 
+    def get_panel(self):
+        from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+        return StreamFieldPanel
+
     def deconstruct(self):
         name, path, _, kwargs = super(StreamField, self).deconstruct()
         block_types = self.stream_block.child_blocks.items()
