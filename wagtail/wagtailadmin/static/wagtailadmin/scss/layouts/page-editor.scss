@@ -394,16 +394,18 @@
             padding:1em 1em 0 1em;
             overflow:hidden;
         }
+
         li{
-            @include column(2);
+            @include column(3);
             padding-bottom:$grid-gutter-width;
             padding-left:0;
             padding-right:0;
 
-            &:nth-child(6n+7){
+            &:nth-child(4n+1){
                 clear:left;
             }
         }
+        
 
         button{
             @include transition(all 0.2s ease);
@@ -475,6 +477,18 @@
                     color:$color-teal;
                 }
             }   
+        }
+
+        @media screen and (min-width: $breakpoint-mobile){
+            li{
+                @include column(2);
+                &:nth-child(4n+1){
+                    clear:none;
+                }
+                &:nth-child(6n+1){
+                    clear:left;
+                }
+            }
         }
     }
     .sequence-member .stream-menu{
