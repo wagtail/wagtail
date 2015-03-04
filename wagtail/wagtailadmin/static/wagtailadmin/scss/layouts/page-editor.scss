@@ -379,15 +379,14 @@
         }
 
         .stream-menu-inner{
-            @include transition(max-height 0.2s ease);
             max-width:50em;
-            max-height:9999em;
             margin: auto;
             overflow:hidden;
         }
 
         ul{
             @include transition(all 0.2s ease);
+            @include transform(scale(1));
             @include clearfix;
             visibility:visible;
             opacity:1;
@@ -448,7 +447,11 @@
 
         &.stream-menu-closed{
             @include box-shadow(none);
-            height:0px;
+
+            .stream-menu-inner ul{
+                @include transform(scale(0.9));
+                opacity:0;
+            }
 
             .toggle{
                 color:$color-grey-3;
@@ -459,16 +462,7 @@
                 &:focus{
                     color:$color-teal;
                 }
-            } 
-
-            .stream-menu-inner{
-                max-height:1em;
-            }
-            ul{
-                visibility:hidden;
-                opacity:0;
-                padding:10em;
-            }           
+            }        
 
             &:hover{
                 border-top-color:$color-teal;
