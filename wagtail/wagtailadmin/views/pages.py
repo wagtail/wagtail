@@ -375,7 +375,7 @@ def edit(request, page_id):
 
 @permission_required('wagtailadmin.access_admin')
 def delete(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_object_or_404(Page, id=page_id)
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 

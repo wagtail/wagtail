@@ -366,6 +366,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         return result
 
+    def delete(self, *args, **kwargs):
+        # Ensure that deletion always happens on an instance of Page, not a specific subclass. This
+        # works around a bug in treebeard <= 3.0 where calling SpecificPage.delete() fails to delete
+        # child pages that are not instances of SpecificPage
+        if type(self) is Page:
+            # this is a Page instance, so carry on as we were
+            return super(Page, self).delete(*args, **kwargs)
+        else:
+            # retrieve an actual Page instance and delete that instead of self
+            return Page.objects.get(id=self.id).delete(*args, **kwargs)
+
     @classmethod
     def check(cls, **kwargs):
         errors = super(Page, cls).check(**kwargs)
