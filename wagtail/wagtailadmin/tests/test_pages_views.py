@@ -856,8 +856,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         page_unpublished.connect(page_unpublished_handler)
 
         # Post
-        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
@@ -885,8 +884,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         page_unpublished.connect(page_unpublished_handler)
 
         # Post
-        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))

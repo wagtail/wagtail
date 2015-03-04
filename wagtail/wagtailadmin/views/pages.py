@@ -379,7 +379,7 @@ def delete(request, page_id):
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         parent_id = page.get_parent().id
         page.delete()
 
