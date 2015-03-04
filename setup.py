@@ -31,7 +31,7 @@ install_requires = [
     "Django>=1.7.0,<1.8",
     "django-compressor>=1.4",
     "django-modelcluster>=0.5",
-    "django-taggit==0.12.2",
+    "django-taggit==0.12.3",
     "django-treebeard==3.0",
     "beautifulsoup4>=4.3.2",
     "html5lib==0.999",
