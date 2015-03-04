@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.paginator import Paginator
+from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
 from wagtail.tests.models import (
@@ -955,11 +956,21 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertFalse(signal_fired[0])
 
     def test_subpage_deletion(self):
-        # Connect a mock signal handler to page_unpublished signal
-        signals_received = []
+        # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
+        unpublish_signals_received = []
         def page_unpublished_handler(sender, instance, **kwargs):
-            signals_received.append((sender, instance))
+            unpublish_signals_received.append((sender, instance.id))
         page_unpublished.connect(page_unpublished_handler)
+
+        pre_delete_signals_received = []
+        def pre_delete_handler(sender, instance, **kwargs):
+            pre_delete_signals_received.append((sender, instance.id))
+        pre_delete.connect(pre_delete_handler)
+
+        post_delete_signals_received = []
+        def post_delete_handler(sender, instance, **kwargs):
+            post_delete_signals_received.append((sender, instance.id))
+        post_delete.connect(post_delete_handler)
 
         # Post
         response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_index.id, )))
@@ -978,9 +989,15 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertFalse(StandardChild.objects.filter(id=self.grandchild_page.id).exists())
         self.assertFalse(Page.objects.filter(id=self.grandchild_page.id).exists())
 
-        # Check that the page_unpublished signal was fired for both pages
-        self.assertIn((StandardIndex, self.child_index), signals_received)
-        self.assertIn((StandardChild, self.grandchild_page), signals_received)
+        # Check that the signals were fired for both pages
+        self.assertIn((StandardIndex, self.child_index.id), unpublish_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), unpublish_signals_received)
+
+        self.assertIn((StandardIndex, self.child_index.id), pre_delete_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), pre_delete_signals_received)
+
+        self.assertIn((StandardIndex, self.child_index.id), post_delete_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), post_delete_signals_received)
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
