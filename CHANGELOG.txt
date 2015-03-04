@@ -32,6 +32,12 @@ Changelog
  * Image/Document edit page no longer throws OSError when the original image is missing
  * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface
 
+
+0.8.6 (xx.xx.2015)
+~~~~~~~~~~~~~~~~~~
+* Fix: django-taggit library updated to 0.12.3, to fix a bug with migrations on SQLite on Django 1.7.2 and above (https://github.com/alex/django-taggit/issues/285)
+
+
 0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
 
@@ -47,6 +53,7 @@ Changelog
 * Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
 * Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
 * Fix: BASE_URL is now included in the project template's default settings file
+
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~
