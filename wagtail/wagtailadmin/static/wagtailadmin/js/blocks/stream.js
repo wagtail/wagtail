@@ -16,7 +16,9 @@
         self.inner.css('height',0);
 
         self.show = function(){
-            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing');
+            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function(){
+                $(this).height('auto');
+            });
             self.container.removeClass('stream-menu-closed');
         };
         self.hide = function(){
