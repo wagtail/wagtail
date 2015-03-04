@@ -1,7 +1,6 @@
 function(modal) {
 
     var listingUrl = $('#snippet-chooser-list', modal.body).data('url');
-    console.log(listingUrl);
 
     function ajaxifyLinks (context) {
         $('a.snippet-choice', modal.body).click(function() {
