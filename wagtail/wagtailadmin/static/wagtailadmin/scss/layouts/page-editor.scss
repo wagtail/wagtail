@@ -267,7 +267,8 @@
         }
 
         .struct-block .widget-text_input > label,
-        .struct-block .widget-textarea > label{
+        .struct-block .widget-textarea > label,
+        .struct-block .widget-admin_auto_height_text_input > label{
             display:none;
         }
 
