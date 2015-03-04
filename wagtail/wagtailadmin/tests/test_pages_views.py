@@ -861,12 +861,20 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.child_page.slug = "hello-world"
         self.root_page.add_child(instance=self.child_page)
 
+        # Add a page with child pages of its own
+        self.child_index = StandardIndex(title="Hello index", slug='hello-index')
+        self.root_page.add_child(instance=self.child_index)
+        self.grandchild_page = StandardChild(title="Hello Kitty", slug='hello-kitty')
+        self.child_index.add_child(instance=self.grandchild_page)
+
         # Login
         self.user = self.login()
 
     def test_page_delete(self):
         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
+        # deletion should not actually happen on GET
+        self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
     def test_page_delete_bad_permissions(self):
         # Remove privileges from user
@@ -881,6 +889,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
+
+        # Check that the deletion has not happened
+        self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
     def test_page_delete_post(self):
         # Connect a mock signal handler to page_unpublished signal
@@ -930,6 +941,31 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         # Check that the page_unpublished signal was not fired
         self.assertFalse(signal_fired[0])
+
+    def test_subpage_deletion(self):
+        # Connect a mock signal handler to page_unpublished signal
+        signals_received = []
+        def page_unpublished_handler(sender, instance, **kwargs):
+            signals_received.append((sender, instance))
+        page_unpublished.connect(page_unpublished_handler)
+
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_index.id, )))
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Check that the page is gone
+        self.assertFalse(StandardIndex.objects.filter(id=self.child_index.id).exists())
+        self.assertFalse(Page.objects.filter(id=self.child_index.id).exists())
+
+        # Check that the subpage is also gone
+        self.assertFalse(StandardChild.objects.filter(id=self.grandchild_page.id).exists())
+        self.assertFalse(Page.objects.filter(id=self.grandchild_page.id).exists())
+
+        # Check that the page_unpublished signal was fired for both pages
+        self.assertIn((StandardIndex, self.child_index), signals_received)
+        self.assertIn((StandardChild, self.grandchild_page), signals_received)
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
