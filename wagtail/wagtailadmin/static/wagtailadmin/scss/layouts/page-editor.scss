@@ -349,6 +349,7 @@
         z-index:5;
 
         .toggle{
+            @include transition(color 0.2s ease);
             @include border-radius(50px);
             position:absolute;
             top:-0.5em;
