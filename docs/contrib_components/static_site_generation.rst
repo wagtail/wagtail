@@ -10,7 +10,7 @@ This document describes how to render your Wagtail site into static HTML files o
 Installing ``django-medusa``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, install ``django-medusa` from pip:
+First, install ``django-medusa`` from pip:
 
 .. code::
 
