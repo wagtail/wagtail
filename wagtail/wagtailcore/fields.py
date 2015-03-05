@@ -70,7 +70,16 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         elif isinstance(value, StreamValue):
             return value
         else:  # assume string
-            return self.stream_block.to_python(json.loads(value))
+            try:
+                return self.stream_block.to_python(json.loads(value))
+            except ValueError:
+                # value is not valid JSON; most likely, this field was previously a
+                # rich text field before being migrated to StreamField, and the data
+                # was left intact in the migration. Return an empty stream instead.
+
+                # TODO: keep this raw text data around as a property of the StreamValue
+                # so that it can be retrieved in data migrations
+                return StreamValue(self.stream_block, [])
 
     def get_prep_value(self, value):
         return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
