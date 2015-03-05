@@ -146,26 +146,27 @@ $(function() {
     /* Debounce submission of long-running forms and add spinner to give sense of activity */
     $(document).on('click', 'button.button-longrunning', function(e){
         var $self = $(this);
-        var timeoutLength = 10000; // Button re-enables after this time, to allow for errors in submissions causing forms to be permanently un-usable
-        var dataname = 'disabledtimeout'
         var $replacementElem = $('em', $self);
+
+        var timeoutLength = 30; // Button re-enables after this time (seconds), to allow for errors in submissions causing forms to be permanently un-usable
+        var dataname = 'disabledtimeout'
 
         e.preventDefault();
 
         // save original button value
-        $self.data('original-text', $self.text());
+        $self.data('original-text', $replacementElem.text());
 
         if(!$self.data(dataname)) {
             $self.data(dataname, setTimeout(function(){
                 clearTimeout($self.data(dataname));
                 $self.prop('disabled', '').removeData(dataname).removeClass('button-longrunning-active')
                 $replacementElem.text($self.data('original-text'));
-            }, timeoutLength));
+            }, timeoutLength * 1000));
             
             if($self.data('clicked-text') && $replacementElem.length){
                 $replacementElem.text($self.data('clicked-text'));
             }    
-            
+
             $self.closest('form').submit();
             $self.addClass('button-longrunning-active').prop('disabled', 'true');
                
