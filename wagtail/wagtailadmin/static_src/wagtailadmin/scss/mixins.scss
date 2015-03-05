@@ -21,6 +21,15 @@
     }
 }
 
+
+@mixin filter($filter...){
+    -webkit-filter: $filter;
+       -moz-filter: $filter;
+        -ms-filter: $filter;
+         -o-filter: $filter;
+            filter: $filter;
+}
+
 @mixin transition($transition...){
     body.ready &{
         -webkit-transition: $transition;

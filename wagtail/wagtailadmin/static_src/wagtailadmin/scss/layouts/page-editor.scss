@@ -237,7 +237,7 @@
                     padding-right:0;
                 }
 
-                > .struct-block > label,
+                /*> .struct-block > label,
                 > .char_field > label,
                 .sequence > label{
                     @include transition(opacity 0.2s ease);
@@ -252,7 +252,7 @@
                     padding:0;
                     color:$color-grey-2;
                     line-height:2.2em;
-                }
+                }*/
             }
 
             &:hover{
@@ -321,30 +321,45 @@
     }
 
     /* Object controls */
-    .stream-controls, .list-controls{
+    .stream-controls, 
+    .list-controls{
+        @include border-radius(5px);
         @include transition(opacity 0.2s ease);
         opacity:0;
         visibility:hidden;
         position:absolute;
-        top:1em; right:1em;
+        top:-1.5em; right:1em;
         z-index:1;
-        color:white;
         overflow:hidden;
-        @include border-radius(2px);
-        
-        li{
-            background-color: $color-teal;
-            float:left;
-            cursor:pointer;
-            margin-right:1px;
+        background-color:$color-input-focus;
+        padding:0.5rem 1em;
 
-            &:last-child{
-                margin-right:0;
+        h3{
+            margin:0;
+            text-transform:uppercase;
+            font-size:0.7rem;
+            display:inline-block;
+            margin-right:1em;
+        }
+
+        button.icon.text-replace{
+            @include transition(opacity 0.2s ease);
+            @include border-radius(50%);
+            width:1.5rem;
+            height:1.5rem;
+            opacity:0.4;
+
+            &:before{
+                line-height:1.4em;
             }
         }
        
         .disabled{
             display:none;
+        }
+
+        &:hover button.icon.text-replace{
+            opacity:1;
         }
     }
 
@@ -503,7 +518,8 @@
         visibility:hidden;
     }
     .sequence-member:hover{
-        .stream-controls, .list-controls{
+        .stream-controls, 
+        .list-controls{
             visibility:visible;
             opacity:1;
         }

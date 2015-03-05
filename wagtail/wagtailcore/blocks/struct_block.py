@@ -83,8 +83,11 @@ class BaseStructBlock(Block):
             for child_rendering in child_renderings
         ])
 
+       
+        # TODO: Can these be rendered with a template?
+
         if self.label:
-            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.label, list_items)
+            return format_html('<div class="struct-block"><h3>{0}</h3> <ul>{1}</ul></div>', self.label, list_items)
         else:
             return format_html('<div class="struct-block"><ul>{0}</ul></div>', list_items)
 
