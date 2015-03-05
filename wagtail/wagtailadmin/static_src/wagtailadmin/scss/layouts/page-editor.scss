@@ -237,9 +237,11 @@
                     padding-right:0;
                 }
 
-                /*> .struct-block > label,
+                > .struct-block > label,
                 > .char_field > label,
                 .sequence > label{
+                    /* TODO: tidy this */
+                    /*
                     @include transition(opacity 0.2s ease);
                     opacity:0;
                     display:block;
@@ -252,7 +254,9 @@
                     padding:0;
                     color:$color-grey-2;
                     line-height:2.2em;
-                }*/
+                    */
+                    display:none;
+                }
             }
 
             &:hover{
@@ -342,12 +346,19 @@
             margin-right:1em;
         }
 
-        button.icon.text-replace{
+        .buttons{
             @include transition(opacity 0.2s ease);
+            display:inline-block;
+            opacity:0.4;  
+        }
+        &:hover .buttons{
+            opacity:1;
+        }
+
+        button.icon.text-replace{
             @include border-radius(50%);
             width:1.5rem;
             height:1.5rem;
-            opacity:0.4;
 
             &:before{
                 line-height:1.4em;
@@ -356,11 +367,7 @@
        
         .disabled{
             display:none;
-        }
-
-        &:hover button.icon.text-replace{
-            opacity:1;
-        }
+        }       
     }
 
     /* Menu of other blocks to be added at each position */
