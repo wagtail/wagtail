@@ -334,9 +334,9 @@
         position:absolute;
         top:-1.5em; right:1em;
         z-index:1;
-        overflow:hidden;
+        overflow:visible;
         background-color:$color-input-focus;
-        padding:0.5rem 1em;
+        padding:0.2rem 1em;
 
         h3{
             margin:0;
@@ -347,7 +347,6 @@
         }
 
         .buttons{
-            @include transition(opacity 0.2s ease);
             display:inline-block;
             opacity:0.4;  
         }
@@ -357,11 +356,12 @@
 
         button.icon.text-replace{
             @include border-radius(50%);
-            width:1.5rem;
-            height:1.5rem;
+            width:1.4rem;
+            height:1.4rem;
 
             &:before{
-                line-height:1.4em;
+                line-height:1.3em;
+                font-size:0.9rem;
             }
         }
        

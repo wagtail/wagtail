@@ -228,8 +228,16 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         &:before{
             line-height:1.7em;
         }
-    }   
-    
+    }
+
+    &.button-neutral{
+        color:$color-grey-2;
+
+        &:hover{
+            color:$color-teal;
+        }
+    }
+
     &:hover{
         background-color: $color-button-hover;
         color:white;
@@ -250,6 +258,10 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             border-color:transparent;
             background-color: $color-button-yes-hover;
         }
+        &.button-nobg:hover{
+            color:$color-button-yes;
+            background-color:transparent;
+        }
     }
     &.no, &.serious{
         background-color: $color-button-no;
@@ -265,7 +277,17 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
             border-color:transparent;
             background-color: $color-button-no-hover;
         }
+        &.button-nobg:hover{
+            color:$color-button-no;
+            background-color:transparent;
+        }
     }
+
+    &.button-nobg{
+        border:0;
+        background-color:transparent;
+    }
+
 
     &.bicolor{
         border:0;
