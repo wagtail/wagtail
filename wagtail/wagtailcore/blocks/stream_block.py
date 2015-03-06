@@ -182,7 +182,8 @@ class BaseStreamBlock(Block):
 
     def get_prep_value(self, value):
         if value is None:
-            return None
+            # treat None as identical to an empty stream
+            return []
 
         return [
             {'type': child.block.name, 'value': child.block.get_prep_value(child.value)}
