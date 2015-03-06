@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:12+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:56
+#: models.py:55
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -29,7 +29,7 @@ msgstr ""
 "específic en les URLs (per ex: port de desenvolupament al 8000). No afecta a "
 "la petició actual (el port de reenviament encara funciona)."
 
-#: models.py:58
+#: models.py:57
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
@@ -37,18 +37,18 @@ msgstr ""
 "Si és cert, aquest lloc s'encarregarà de les peticions de totes les altres "
 "màquines que no tenen un lloc establert."
 
-#: models.py:119
+#: models.py:118
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:268
+#: models.py:267
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "El títol de la pàgina que vols que sigui vist pel públic"
 
-#: models.py:269
+#: models.py:268
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -56,11 +56,11 @@ msgstr ""
 "El nom de la pàgina que apareixerà en la URL. Per exemple: http://domini.com/"
 "blog/[nom]/"
 
-#: models.py:278
+#: models.py:277
 msgid "Page title"
 msgstr "Títol de la pàgina"
 
-#: models.py:278
+#: models.py:277
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -68,20 +68,24 @@ msgstr ""
 "Opcional. Títol de 'Motor de cerca amigable'. Això apareixerà al cap damunt "
 "de la finetra del navegador"
 
-#: models.py:279
+#: models.py:278
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
 
-#: models.py:282
+#: models.py:281
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:282 models.py:283
+#: models.py:281 models.py:282
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgstr ""
 
-#: models.py:283
+#: models.py:282
 msgid "Expiry date/time"
+msgstr ""
+
+#: validators.py:15
+msgid "Value cannot be entirely whitespace characters"
 msgstr ""

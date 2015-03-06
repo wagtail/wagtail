@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2015-01-10 10:15+0000\n"
 "Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
+"cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: fields.py:13
@@ -52,65 +53,59 @@ msgstr "Podporované formáty: %s. Maximální velikost: %s."
 msgid "Supported formats: %s."
 msgstr "Podporované formáty: %s."
 
-#: forms.py:50
+#: forms.py:64
 msgid "Filter"
 msgstr "Filtr"
 
-#: forms.py:52
+#: forms.py:66
 msgid "Original size"
 msgstr "Původní velikost"
 
-#: forms.py:53
+#: forms.py:67
 msgid "Resize to width"
 msgstr "Přizpůsobit šířku"
 
-#: forms.py:54
+#: forms.py:68
 msgid "Resize to height"
 msgstr "Přizpůsobit výšku"
 
-#: forms.py:55
+#: forms.py:69
 msgid "Resize to min"
 msgstr "Zvětšit na minimální velikost"
 
-#: forms.py:56
+#: forms.py:70
 msgid "Resize to max"
 msgstr "Zmenšit na maximální velikost"
 
-#: forms.py:57
+#: forms.py:71
 msgid "Resize to fill"
 msgstr "Vyplnit obdélník"
 
-#: forms.py:60
+#: forms.py:74
 msgid "Width"
 msgstr "Šířka"
 
-#: forms.py:61
+#: forms.py:75
 msgid "Height"
 msgstr "Výška"
 
-#: forms.py:62
+#: forms.py:76
 msgid "Closeness"
 msgstr "Přiblížení"
 
-#: models.py:47 templates/wagtailimages/images/usage.html:16
+#: models.py:58 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Název"
 
-#: models.py:48
+#: models.py:59
 msgid "File"
 msgstr "Soubor"
 
-#: models.py:54
+#: models.py:65
 msgid "Tags"
 msgstr "Tagy"
 
-#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18
-msgid "Images"
-msgstr "Obrázky"
-
-#: templates/wagtailimages/chooser/chooser.html:3
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:19
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
 
@@ -139,9 +134,15 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nNalezen 1 obrázek"
-msgstr[1] "\nNalezeno %(counter)s obrázků"
-msgstr[2] "\nNalezeno %(counter)s obrázků"
+msgstr[0] ""
+"\n"
+"Nalezen 1 obrázek"
+msgstr[1] ""
+"\n"
+"Nalezeno %(counter)s obrázků"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s obrázků"
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -156,16 +157,10 @@ msgstr "Zvolte formát"
 msgid "Insert image"
 msgstr "Vložit obrázek"
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:17
-msgid "Clear image"
-msgstr "Odstranit obrázek"
-
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:18
-msgid "Choose another image"
-msgstr "Zvolit jiný obrázek"
-
-#: templates/wagtailimages/images/_file_field.html:6
-msgid "Change image:"
+#: templates/wagtailimages/images/_file_field.html:8
+#, fuzzy
+#| msgid "Change image:"
+msgid "Change image file:"
 msgstr "Změnit obrázek:"
 
 #: templates/wagtailimages/images/add.html:4
@@ -214,27 +209,51 @@ msgstr "Středový bod (nepovinné)"
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
-msgstr "Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku níže."
+msgstr ""
+"Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku "
+"níže."
 
 #: templates/wagtailimages/images/edit.html:52
 msgid "Current focal point shown"
 msgstr "Zobrazen aktuální středový bod"
 
-#: templates/wagtailimages/images/edit.html:64
+#: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
 msgstr "Generátor URL"
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "Max dimensions"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:80
+#, fuzzy
+#| msgid "File"
+msgid "Filesize"
+msgstr "Soubor"
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:5
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
+msgid "Images"
+msgstr "Obrázky"
 
 #: templates/wagtailimages/images/results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
+msgstr ""
+"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
 
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -252,7 +271,9 @@ msgstr "Náhled"
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr "Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu zmenšeny tak, aby se na obrazovku vešly."
+msgstr ""
+"Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu "
+"zmenšeny tak, aby se na obrazovku vešly."
 
 #: templates/wagtailimages/images/usage.html:3
 #, python-format
@@ -289,7 +310,8 @@ msgstr "Přidat obrázky"
 
 #: templates/wagtailimages/multiple/add.html:18
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
+msgstr ""
+"Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
 
 #: templates/wagtailimages/multiple/add.html:23
 msgid "Or choose from your computer"
@@ -300,7 +322,9 @@ msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr "Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
+msgstr ""
+"Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také "
+"můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
 
 #: templates/wagtailimages/multiple/add.html:49
 msgid "Sorry, upload failed."
@@ -310,30 +334,64 @@ msgstr "Nahrání obrázků na server selhalo."
 msgid "Update"
 msgstr "Uložit"
 
-#: templates/wagtailimages/multiple/edit_form.html:15
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:129
 msgid "Delete"
 msgstr "Smazat"
 
-#: views/images.py:39 views/images.py:49
+#: views/images.py:40 views/images.py:50
 msgid "Search images"
 msgstr "Hledat obrázky"
 
 #: views/images.py:106
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
-#: views/images.py:109
+#: views/images.py:107
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit again"
+msgstr "Úprava"
+
+#: views/images.py:111
 msgid "The image could not be saved due to errors."
 msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
 
-#: views/images.py:195
+#: views/images.py:128
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+
+#: views/images.py:219
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."
 
-#: views/images.py:218
+#: views/images.py:242
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 
-#: views/images.py:221
+#: views/images.py:243
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Úprava"
+
+#: views/images.py:247
 msgid "The image could not be created due to errors."
 msgstr "Obrázek nebyl vytvořen, zkontrolujte správné vyplnění polí."
+
+#: widgets.py:14
+msgid "Choose another image"
+msgstr "Zvolit jiný obrázek"
+
+#: widgets.py:15
+#, fuzzy
+#| msgid "Edit this page"
+msgid "Edit this image"
+msgstr "Upravit stránku"
+
+#~ msgid "Clear image"
+#~ msgstr "Odstranit obrázek"

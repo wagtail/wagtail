@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-08-17 01:44+0000\n"
 "Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -19,11 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:9
+#: forms.py:10
 msgid "Search term(s)/phrase"
 msgstr ""
 
-#: forms.py:10
+#: forms.py:11
 msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
@@ -34,13 +34,9 @@ msgstr ""
 "Editores, escolha a que será \n"
 "        exibida, curingas NÃO serão permitidas."
 
-#: forms.py:37
+#: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
-
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
-msgid "Promoted search results"
-msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -104,9 +100,29 @@ msgstr "Editando %(query)s"
 msgid "Editing"
 msgstr "Editando"
 
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
+msgid "Move up"
+msgstr "Mover para cima"
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
+msgid "Move down"
+msgstr "Mover para baixo"
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:16
+msgid "Add recommended page"
+msgstr "Add recomendação para página"
+
 #: templates/wagtailsearch/editorspicks/index.html:3
 msgid "Search Terms"
 msgstr "Procurar Termos"
+
+#: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/index.html:18
 msgid "Add new promoted result"
@@ -164,30 +180,6 @@ msgid ""
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
-msgid "Move up"
-msgstr "Mover para cima"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
-msgid "Move down"
-msgstr "Mover para baixo"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Promoted search result"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
-msgid "Choose another page"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
-msgid "Choose a page"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
-msgid "Add recommended page"
-msgstr "Add recomendação para página"
-
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
 msgstr "Termos populares de pesquisa"
@@ -204,23 +196,41 @@ msgstr "Termos"
 msgid "No results found"
 msgstr "Nenhum resultado encontrado"
 
-#: views/editorspicks.py:47
+#: templates/wagtailsearch/queries/chooser_field.html:3
+msgid "Date"
+msgstr ""
+
+#: templates/wagtailsearch/queries/chooser_field.html:8
+#, fuzzy
+#| msgid "Popular search terms"
+msgid "Choose from popular search terms"
+msgstr "Termos populares de pesquisa"
+
+#: views/editorspicks.py:46
 msgid "Search editor's picks"
 msgstr "Procurar sugestões dos editores"
 
-#: views/editorspicks.py:83
+#: views/editorspicks.py:81
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Sugestões dos editores para '{0}' criados."
+
+#: views/editorspicks.py:82 views/editorspicks.py:117
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Editando"
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não poderiam ser criadas devido a erros"
 
-#: views/editorspicks.py:117
+#: views/editorspicks.py:116
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Sugestões do editor para '{0}' atualizado."
 
-#: views/editorspicks.py:123
+#: views/editorspicks.py:124
 msgid "Recommendations have not been saved due to errors"
 msgstr "As recomendações não puderam ser salvas devido a erros"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-03-24 19:01+0000\n"
 "Last-Translator: pcraston <patrick@craston.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
@@ -20,15 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:10
+#: models.py:12
 msgid "Redirect from"
 msgstr "Weiterleiten von"
 
-#: models.py:12
+#: models.py:14
 msgid "Permanent"
 msgstr "Permanent"
 
-#: models.py:12
+#: models.py:14
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -37,44 +37,13 @@ msgstr ""
 "alten Einträge vergessen und stattdessen die neue Seite (aus 'Weiterleiten "
 "von') durchsuchen."
 
-#: models.py:13
+#: models.py:15
 msgid "Redirect to a page"
 msgstr "Zu einer Seite weiterleiten"
 
-#: models.py:14
+#: models.py:16
 msgid "Redirect to any URL"
 msgstr "Zu einer URL weiterleiten"
-
-#: views.py:58
-msgid "Search redirects"
-msgstr ""
-
-#: views.py:71
-msgid "Redirect '{0}' updated."
-msgstr "Weiterleitung '{0}' geändert."
-
-#: views.py:74
-msgid "The redirect could not be saved due to errors."
-msgstr ""
-"Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
-
-#: views.py:92
-msgid "Redirect '{0}' deleted."
-msgstr "Weiterleitung '{0}' gelöscht."
-
-#: views.py:112
-#, fuzzy
-msgid "Redirect '{0}' added."
-msgstr "Weiterleitung '{0}' hinzugefügt."
-
-#: views.py:115
-msgid "The redirect could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
-
-#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17
-msgid "Redirects"
-msgstr "Weiterleitungen"
 
 #: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
 #: templates/wagtailredirects/index.html:18
@@ -115,6 +84,11 @@ msgstr "Bearbeiten"
 #: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
 msgstr "Weiterleitung löschen"
+
+#: templates/wagtailredirects/index.html:3
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:25
+msgid "Redirects"
+msgstr "Weiterleitungen"
 
 #: templates/wagtailredirects/list.html:11
 #: templates/wagtailredirects/list.html:14
@@ -171,3 +145,37 @@ msgid ""
 msgstr ""
 "Sie haben noch keine Weiterleitung erstellt.<a href="
 "\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!</a>"
+
+#: views.py:59
+msgid "Search redirects"
+msgstr ""
+
+#: views.py:72
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Weiterleitung '{0}' geändert."
+
+#: views.py:73 views.py:116
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: views.py:77
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+"Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
+
+#: views.py:95
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Weiterleitung '{0}' gelöscht."
+
+#: views.py:115
+#, fuzzy, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Weiterleitung '{0}' hinzugefügt."
+
+#: views.py:120
+msgid "The redirect could not be created due to errors."
+msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."

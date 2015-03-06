@@ -1,51 +1,36 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Dan Braghis, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2015-02-06 22:12+0000\n"
 "Last-Translator: Dan Braghis\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
+"language/ro/)\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
-#: views.py:31
-msgid "Site '{0}' created."
-msgstr "Site-ul '{0}' a fost creat."
+#: forms.py:12
+msgid "Choose a root page"
+msgstr "Alege o pagină de bază"
 
-#: views.py:34
-msgid "The site could not be created due to errors."
-msgstr "Site-ul nu a fost creat din cauza erorilor."
-
-#: views.py:51
-msgid "Site '{0}' updated."
-msgstr "Site-ul '{0}' a fost actualizat."
-
-#: views.py:54
-msgid "The site could not be saved due to errors."
-msgstr "Site-ul nu a fost salvat din cauza erorilor."
-
-#: views.py:70
-msgid "Site '{0}' deleted."
-msgstr "Site-ul '{0}' a fost șters."
-
-#: wagtail_hooks.py:24 templates/wagtailsites/index.html:3
-#: templates/wagtailsites/index.html:5
-msgid "Sites"
-msgstr "Site-uri"
+#: forms.py:12
+msgid "Choose a different root page"
+msgstr "Alege o altă pagină de bază"
 
 #: templates/wagtailsites/confirm_delete.html:3
 #: templates/wagtailsites/confirm_delete.html:7
-#: templates/wagtailsites/edit.html:36
+#: templates/wagtailsites/edit.html:25
 msgid "Delete site"
 msgstr "Șterge sit"
 
@@ -61,15 +46,7 @@ msgstr "Da, șterge"
 msgid "Add site"
 msgstr "Adaugă sit"
 
-#: templates/wagtailsites/create.html:20
-msgid "Choose a different root page"
-msgstr "Alege o altă pagină de bază"
-
-#: templates/wagtailsites/create.html:21
-msgid "Choose a root page"
-msgstr "Alege o pagină de bază"
-
-#: templates/wagtailsites/create.html:31 templates/wagtailsites/edit.html:34
+#: templates/wagtailsites/create.html:21 templates/wagtailsites/edit.html:23
 msgid "Save"
 msgstr "Salveză"
 
@@ -77,13 +54,10 @@ msgstr "Salveză"
 msgid "Editing"
 msgstr "Editare"
 
-#: templates/wagtailsites/edit.html:21
-msgid "Change page"
-msgstr "Schimbă pagina"
-
-#: templates/wagtailsites/edit.html:22
-msgid "Choose page"
-msgstr "Alege pagina"
+#: templates/wagtailsites/index.html:3 templates/wagtailsites/index.html:5
+#: wagtail_hooks.py:24
+msgid "Sites"
+msgstr "Site-uri"
 
 #: templates/wagtailsites/index.html:7
 msgid "Add a site"
@@ -108,3 +82,38 @@ msgstr "Implicit?"
 #: templates/wagtailsites/index.html:42
 msgid "Default"
 msgstr "Implicit"
+
+#: views.py:31
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Site-ul '{0}' a fost creat."
+
+#: views.py:32 views.py:54
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Editare"
+
+#: views.py:36
+msgid "The site could not be created due to errors."
+msgstr "Site-ul nu a fost creat din cauza erorilor."
+
+#: views.py:53
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Site-ul '{0}' a fost actualizat."
+
+#: views.py:58
+msgid "The site could not be saved due to errors."
+msgstr "Site-ul nu a fost salvat din cauza erorilor."
+
+#: views.py:74
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Site-ul '{0}' a fost șters."
+
+#~ msgid "Change page"
+#~ msgstr "Schimbă pagina"
+
+#~ msgid "Choose page"
+#~ msgstr "Alege pagina"

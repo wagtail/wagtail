@@ -1,84 +1,86 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:12+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2015-01-10 09:52+0000\n"
 "Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
+"cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: edit_handlers.py:509
-msgid "Choose another page"
-msgstr "Zvolit jinou stránku"
-
-#: edit_handlers.py:510 templates/wagtailadmin/chooser/browse.html:6
-#: templates/wagtailadmin/chooser/search.html:2
-msgid "Choose a page"
-msgstr "Zvolit stránku"
-
-#: edit_handlers.py:633
+#: edit_handlers.py:687
 msgid "Scheduled publishing"
 msgstr "Naplánovat publikaci"
 
-#: edit_handlers.py:647
+#: edit_handlers.py:701
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
 
-#: forms.py:19
+#: forms.py:42
 msgid "Search term"
 msgstr "Hledaný výraz"
 
-#: forms.py:46
+#: forms.py:69
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
-#: forms.py:53
+#: forms.py:76
 #, python-format
 msgid "Enter your %s"
 msgstr "Zadejte své %s"
 
-#: forms.py:58
+#: forms.py:81
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 
-#: forms.py:67
+#: forms.py:90
 msgid "Please fill your email address."
 msgstr "Vyplňte prosím svou e-mailovou adresu."
 
-#: forms.py:80
+#: forms.py:103
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr "Heslo nelze obnovit, protože Váš účet je spravován jiným serverem."
 
-#: forms.py:83
+#: forms.py:106
 msgid "This email address is not recognised."
 msgstr "Tato e-mailová adresa nebyla nalezena."
 
-#: forms.py:95
+#: forms.py:118
 msgid "New title"
 msgstr "Nový název"
 
-#: forms.py:96
+#: forms.py:119
 msgid "New slug"
 msgstr "Nový název pro URL"
 
-#: forms.py:102
+#: forms.py:124
+#, fuzzy
+#| msgid "New %(page_type)s"
+msgid "New parent page"
+msgstr "Nový %(page_type)s"
+
+#: forms.py:125
+msgid "This copy will be a child of this given parent page."
+msgstr ""
+
+#: forms.py:132
 msgid "Copy subpages"
 msgstr "Zkopírovat podstránky"
 
-#: forms.py:104
+#: forms.py:134
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
@@ -86,19 +88,19 @@ msgstr[0] "Bude zkopírována %(count)s podstránka."
 msgstr[1] "Bude zkopírováno %(count)s podstránek."
 msgstr[2] "Bude zkopírováno %(count)s podstránek."
 
-#: forms.py:113
+#: forms.py:143
 msgid "Publish copied page"
 msgstr "Publikovat zkopírovanou stránku"
 
-#: forms.py:114
+#: forms.py:144
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr "Tato stránka je publikována. Chcete publikovat i zkopírovanou stránku?"
 
-#: forms.py:116
+#: forms.py:146
 msgid "Publish copies"
 msgstr "Publikovat kopie"
 
-#: forms.py:118
+#: forms.py:148
 #, python-format
 msgid ""
 "%(count)s of the pages being copied is live. Would you like to publish its "
@@ -106,78 +108,34 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] "%(count)s z kopírovaných stránek je publikována. Chcete publikovat i její kopii?"
-msgstr[1] "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i jejich kopie?"
-msgstr[2] "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i jejich kopie?"
+msgstr[0] ""
+"%(count)s z kopírovaných stránek je publikována. Chcete publikovat i její "
+"kopii?"
+msgstr[1] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+msgstr[2] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
 
-#: forms.py:131 views/pages.py:157 views/pages.py:271
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
+#: forms.py:168
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
 
-#: forms.py:137 templates/wagtailadmin/pages/_privacy_indicator.html:13
+#: forms.py:178 templates/wagtailadmin/pages/_privacy_indicator.html:13
 #: templates/wagtailadmin/pages/_privacy_indicator.html:18
 msgid "Public"
 msgstr "Veřejné"
 
-#: forms.py:138
+#: forms.py:179
 msgid "Private, accessible with the following password"
 msgstr "Soukromé, přístupné pod následujícím heslem"
 
-#: forms.py:146
+#: forms.py:187
 msgid "This field is required."
 msgstr "Toto pole je povinné."
-
-#: wagtail_hooks.py:17 templates/wagtailadmin/chooser/_search_results.html:12
-msgid "Explorer"
-msgstr "Obsah"
-
-#: wagtail_hooks.py:26
-msgid "Settings"
-msgstr "Nastavení"
-
-#: templates/wagtailadmin/base.html:7 templates/wagtailadmin/home.html:4
-msgid "Dashboard"
-msgstr "Dashboard"
-
-#: templates/wagtailadmin/base.html:11 templates/wagtailadmin/base.html:12
-#: templates/wagtailadmin/base.html:13
-#: templates/wagtailadmin/chooser/_search_form.html:7
-#: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:16
-msgid "Search"
-msgstr "Hledat"
-
-#: templates/wagtailadmin/base.html:36
-msgid "Menu"
-msgstr "Menu"
-
-#: templates/wagtailadmin/home.html:22
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Vítejte v redakčním systému %(site_name)s"
-
-#: templates/wagtailadmin/home.html:33
-msgid ""
-"This is your dashboard on which helpful information about content you've "
-"created will be displayed."
-msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
-
-#: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:59
-msgid "Sign in"
-msgstr "Přihlásit se"
-
-#: templates/wagtailadmin/login.html:18
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
-
-#: templates/wagtailadmin/login.html:26
-msgid "Sign in to Wagtail"
-msgstr "Přihlášení do redakčního systému"
-
-#: templates/wagtailadmin/login.html:46
-msgid "Forgotten it?"
-msgstr "Zapoměli jste heslo?"
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
@@ -193,23 +151,26 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr "Váš profilový obrázek je poskytován službou Gravatar a je svázán s Vaší e-mailovou adresou. Pomocí služby Gravatar můžete nastavit obrázek pro libovolný počet Vámi používaných adres."
+msgstr ""
+"Váš profilový obrázek je poskytován službou Gravatar a je svázán s Vaší e-"
+"mailovou adresou. Pomocí služby Gravatar můžete nastavit obrázek pro "
+"libovolný počet Vámi používaných adres."
 
-#: templates/wagtailadmin/account/account.html:25
+#: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
 #: templates/wagtailadmin/account/change_password.html:6
 msgid "Change password"
 msgstr "Změnit heslo"
 
-#: templates/wagtailadmin/account/account.html:29
+#: templates/wagtailadmin/account/account.html:28
 msgid "Change the password you use to log in."
 msgstr "Změnit heslo používané k přihlášení."
 
-#: templates/wagtailadmin/account/account.html:36
+#: templates/wagtailadmin/account/account.html:35
 msgid "Notification preferences"
 msgstr "Nastavení notifikací"
 
-#: templates/wagtailadmin/account/account.html:40
+#: templates/wagtailadmin/account/account.html:39
 msgid "Choose which email notifications to receive."
 msgstr "Zvolte, které e-mailové notifikace si přejete dostávat."
 
@@ -220,7 +181,9 @@ msgstr "Změnit heslo"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím administrátora."
+msgstr ""
+"Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
+"administrátora."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
@@ -276,6 +239,26 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
+#: templates/wagtailadmin/base.html:11 templates/wagtailadmin/home.html:4
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/wagtailadmin/base.html:16 templates/wagtailadmin/base.html:17
+#: templates/wagtailadmin/base.html:18
+#: templates/wagtailadmin/chooser/_search_form.html:7
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:16
+msgid "Search"
+msgstr "Hledat"
+
+#: templates/wagtailadmin/base.html:41
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/wagtailadmin/block_forms/list.html:5
+msgid "Add another"
+msgstr ""
+
 #: templates/wagtailadmin/chooser/_link_types.html:5
 #: templates/wagtailadmin/chooser/_link_types.html:7
 msgid "Internal link"
@@ -295,9 +278,17 @@ msgstr "Odkaz na e-mailovou adresu"
 #, python-format
 msgid ""
 "\n"
-"            Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
+"            Only pages of type \"%(type)s\" may be chosen for this field. "
+"Search results will exclude pages of other types.\n"
 "        "
-msgstr "\nPro toto pole mohou být zvoleny pouze stránky typu \"%(type)s\". Ve vyhledávání budou ostatní stránky skryty."
+msgstr ""
+"\n"
+"Pro toto pole mohou být zvoleny pouze stránky typu \"%(type)s\". Ve "
+"vyhledávání budou ostatní stránky skryty."
+
+#: templates/wagtailadmin/chooser/_search_results.html:12 wagtail_hooks.py:17
+msgid "Explorer"
+msgstr "Obsah"
 
 #: templates/wagtailadmin/chooser/_search_results.html:16
 #, python-format
@@ -309,13 +300,24 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nNalezena 1 stránka"
-msgstr[1] "\nNalezeno %(counter)s stránek"
-msgstr[2] "\nNalezeno %(counter)s stránek"
+msgstr[0] ""
+"\n"
+"Nalezena 1 stránka"
+msgstr[1] ""
+"\n"
+"Nalezeno %(counter)s stránek"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s stránek"
 
 #: templates/wagtailadmin/chooser/browse.html:3
 msgid "Choose"
 msgstr "Zvolit"
+
+#: templates/wagtailadmin/chooser/browse.html:6
+#: templates/wagtailadmin/chooser/search.html:2 widgets.py:91
+msgid "Choose a page"
+msgstr "Zvolit stránku"
 
 #: templates/wagtailadmin/chooser/email_link.html:2
 msgid "Add an email link"
@@ -330,18 +332,6 @@ msgstr "Vložit odkaz"
 msgid "Add an external link"
 msgstr "Vložit externí odkaz"
 
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:20
-msgid "Clear choice"
-msgstr "Zrušit výběr"
-
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:22
-msgid "Choose another item"
-msgstr "Zvolit jinou položku"
-
-#: templates/wagtailadmin/edit_handlers/chooser_panel.html:27
-msgid "Choose an item"
-msgstr "Zvolit položku"
-
 #: templates/wagtailadmin/edit_handlers/inline_panel_child.html:5
 msgid "Move up"
 msgstr "Posunout nahoru"
@@ -353,10 +343,21 @@ msgstr "Posunout dolů"
 #: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
 #: templates/wagtailadmin/pages/confirm_delete.html:7
 #: templates/wagtailadmin/pages/edit.html:48
-#: templates/wagtailadmin/pages/list.html:90
-#: templates/wagtailadmin/pages/list.html:225
+#: templates/wagtailadmin/pages/list.html:91
+#: templates/wagtailadmin/pages/list.html:226
 msgid "Delete"
 msgstr "Smazat"
+
+#: templates/wagtailadmin/home.html:22
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Vítejte v redakčním systému %(site_name)s"
+
+#: templates/wagtailadmin/home.html:33
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -364,21 +365,21 @@ msgstr "Stránky čekající na schválení"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:13
 #: templates/wagtailadmin/home/recent_edits.html:12
-#: templates/wagtailadmin/pages/list.html:128
-#: templates/wagtailadmin/pages/list.html:131
+#: templates/wagtailadmin/pages/list.html:129
+#: templates/wagtailadmin/pages/list.html:132
 msgid "Title"
 msgstr "Název"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:14
 #: templates/wagtailadmin/pages/list.html:23
-#: templates/wagtailadmin/pages/list.html:135
+#: templates/wagtailadmin/pages/list.html:136
 msgid "Parent"
 msgstr "Nadřazená stránka"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:15
 #: templates/wagtailadmin/pages/list.html:26
-#: templates/wagtailadmin/pages/list.html:149
-#: templates/wagtailadmin/pages/list.html:152
+#: templates/wagtailadmin/pages/list.html:150
+#: templates/wagtailadmin/pages/list.html:153
 msgid "Type"
 msgstr "Typ"
 
@@ -388,22 +389,22 @@ msgstr "Upraveno"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:24
 #: templates/wagtailadmin/home/recent_edits.html:22
-#: templates/wagtailadmin/pages/list.html:192
-#: templates/wagtailadmin/pages/list.html:210
+#: templates/wagtailadmin/pages/list.html:193
+#: templates/wagtailadmin/pages/list.html:211 widgets.py:93
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:28
 #: templates/wagtailadmin/home/recent_edits.html:26
 #: templates/wagtailadmin/pages/list.html:45
-#: templates/wagtailadmin/pages/list.html:200
+#: templates/wagtailadmin/pages/list.html:201
 msgid "This page is protected from public view"
 msgstr "Tato stránka není veřejně viditelná"
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:32
 #: templates/wagtailadmin/home/recent_edits.html:30
 #: templates/wagtailadmin/pages/list.html:70
-#: templates/wagtailadmin/pages/list.html:204
+#: templates/wagtailadmin/pages/list.html:205
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
 
@@ -420,8 +421,9 @@ msgstr "Zamítnout"
 #: templates/wagtailadmin/home/pages_for_moderation.html:48
 #: templates/wagtailadmin/home/recent_edits.html:34
 #: templates/wagtailadmin/pages/list.html:78
-#: templates/wagtailadmin/pages/list.html:210
-#: templates/wagtailadmin/userbar/item_page_edit.html:5
+#: templates/wagtailadmin/pages/list.html:211
+#: templates/wagtailadmin/userbar/item_page_edit.html:5 views/pages.py:357
+#: views/pages.py:362
 msgid "Edit"
 msgstr "Upravit"
 
@@ -443,20 +445,20 @@ msgstr "Datum"
 #: templates/wagtailadmin/home/recent_edits.html:14
 #: templates/wagtailadmin/pages/edit.html:18
 #: templates/wagtailadmin/pages/list.html:27
-#: templates/wagtailadmin/pages/list.html:158
-#: templates/wagtailadmin/pages/list.html:161
+#: templates/wagtailadmin/pages/list.html:159
+#: templates/wagtailadmin/pages/list.html:162
 msgid "Status"
 msgstr "Stav"
 
 #: templates/wagtailadmin/home/recent_edits.html:36
 #: templates/wagtailadmin/pages/list.html:81
-#: templates/wagtailadmin/pages/list.html:213
+#: templates/wagtailadmin/pages/list.html:214
 msgid "Draft"
 msgstr "Koncept"
 
 #: templates/wagtailadmin/home/recent_edits.html:39
-#: templates/wagtailadmin/pages/list.html:84
-#: templates/wagtailadmin/pages/list.html:216
+#: templates/wagtailadmin/pages/list.html:85
+#: templates/wagtailadmin/pages/list.html:217
 msgid "Live"
 msgstr "Publikováno"
 
@@ -465,46 +467,105 @@ msgid "Site summary"
 msgstr "Přehled obsahu"
 
 #: templates/wagtailadmin/home/site_summary.html:7
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                <span>%(total_pages)s</span> Page\n"
+#| "            "
+#| msgid_plural ""
+#| "\n"
+#| "                <span>%(total_pages)s</span> Pages\n"
+#| "            "
 msgid ""
 "\n"
-"                <span>%(total_pages)s</span> Page\n"
+"                <span>%(total)s</span> Page\n"
 "            "
 msgid_plural ""
 "\n"
-"                <span>%(total_pages)s</span> Pages\n"
+"                <span>%(total)s</span> Pages\n"
 "            "
-msgstr[0] "\n<span>%(total_pages)s</span> stránka"
-msgstr[1] "\n<span>%(total_pages)s</span> stránek"
-msgstr[2] "\n<span>%(total_pages)s</span> stránek"
+msgstr[0] ""
+"\n"
+"<span>%(total_pages)s</span> stránka"
+msgstr[1] ""
+"\n"
+"<span>%(total_pages)s</span> stránek"
+msgstr[2] ""
+"\n"
+"<span>%(total_pages)s</span> stránek"
 
 #: templates/wagtailadmin/home/site_summary.html:16
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                <span>%(total_images)s</span> Image\n"
+#| "            "
+#| msgid_plural ""
+#| "\n"
+#| "                <span>%(total_images)s</span> Images\n"
+#| "            "
 msgid ""
 "\n"
-"                <span>%(total_images)s</span> Image\n"
+"                <span>%(total)s</span> Image\n"
 "            "
 msgid_plural ""
 "\n"
-"                <span>%(total_images)s</span> Images\n"
+"                <span>%(total)s</span> Images\n"
 "            "
-msgstr[0] "\n<span>%(total_images)s</span> obrázek"
-msgstr[1] "\n<span>%(total_images)s</span> obrázků"
-msgstr[2] "\n<span>%(total_images)s</span> obrázků"
+msgstr[0] ""
+"\n"
+"<span>%(total_images)s</span> obrázek"
+msgstr[1] ""
+"\n"
+"<span>%(total_images)s</span> obrázků"
+msgstr[2] ""
+"\n"
+"<span>%(total_images)s</span> obrázků"
 
 #: templates/wagtailadmin/home/site_summary.html:25
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                <span>%(total_docs)s</span> Document\n"
+#| "            "
+#| msgid_plural ""
+#| "\n"
+#| "                <span>%(total_docs)s</span> Documents\n"
+#| "            "
 msgid ""
 "\n"
-"                <span>%(total_docs)s</span> Document\n"
+"                <span>%(total)s</span> Document\n"
 "            "
 msgid_plural ""
 "\n"
-"                <span>%(total_docs)s</span> Documents\n"
+"                <span>%(total)s</span> Documents\n"
 "            "
-msgstr[0] "\n<span>%(total_docs)s</span> dokument"
-msgstr[1] "\n<span>%(total_docs)s</span> dokumentů"
-msgstr[2] "\n<span>%(total_docs)s</span> dokumentů"
+msgstr[0] ""
+"\n"
+"<span>%(total_docs)s</span> dokument"
+msgstr[1] ""
+"\n"
+"<span>%(total_docs)s</span> dokumentů"
+msgstr[2] ""
+"\n"
+"<span>%(total_docs)s</span> dokumentů"
+
+#: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
+msgid "Sign in"
+msgstr "Přihlásit se"
+
+#: templates/wagtailadmin/login.html:18
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
+
+#: templates/wagtailadmin/login.html:29
+msgid "Sign in to Wagtail"
+msgstr "Přihlášení do redakčního systému"
+
+#: templates/wagtailadmin/login.html:48
+msgid "Forgotten it?"
+msgstr "Zapoměli jste heslo?"
 
 #: templates/wagtailadmin/notifications/approved.html:1
 #, python-format
@@ -626,17 +687,26 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more subpages.\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
 "                "
-msgstr[0] "\nTímto dojde též ke smazání jedné podstránky."
-msgstr[1] "\nTímto dojde též ke smazání %(descendant_count)s podstránek."
-msgstr[2] "\nTímto dojde též ke smazání %(descendant_count)s podstránek."
+msgstr[0] ""
+"\n"
+"Tímto dojde též ke smazání jedné podstránky."
+msgstr[1] ""
+"\n"
+"Tímto dojde též ke smazání %(descendant_count)s podstránek."
+msgstr[2] ""
+"\n"
+"Tímto dojde též ke smazání %(descendant_count)s podstránek."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:22
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr "Můžete také jen zrušit publikaci stránky. Tím přestane být stránka veřejně viditelná a později ji můžete upravit nebo znovu publikovat."
+msgstr ""
+"Můžete také jen zrušit publikaci stránky. Tím přestane být stránka veřejně "
+"viditelná a později ji můžete upravit nebo znovu publikovat."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:26
 msgid "Delete it"
@@ -652,8 +722,8 @@ msgid "Move %(title)s"
 msgstr "Přesunout %(title)s"
 
 #: templates/wagtailadmin/pages/confirm_move.html:6
-#: templates/wagtailadmin/pages/list.html:87
-#: templates/wagtailadmin/pages/list.html:219
+#: templates/wagtailadmin/pages/list.html:88
+#: templates/wagtailadmin/pages/list.html:220
 msgid "Move"
 msgstr "Přesunout"
 
@@ -667,7 +737,9 @@ msgstr "Opravdu chcete přesunout tuto stránku pod \"%(title)s\"?"
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr "Opravdu chcete přesunout tuto stránku a všechny její podstránky pod \"%(title)s\"?"
+msgstr ""
+"Opravdu chcete přesunout tuto stránku a všechny její podstránky pod "
+"\"%(title)s\"?"
 
 #: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
@@ -680,8 +752,8 @@ msgstr "Zrušit publikaci %(title)s"
 
 #: templates/wagtailadmin/pages/confirm_unpublish.html:6
 #: templates/wagtailadmin/pages/edit.html:45
-#: templates/wagtailadmin/pages/list.html:93
-#: templates/wagtailadmin/pages/list.html:228
+#: templates/wagtailadmin/pages/list.html:94
+#: templates/wagtailadmin/pages/list.html:229
 msgid "Unpublish"
 msgstr "Zrušit publikaci"
 
@@ -703,11 +775,11 @@ msgid "Copy %(title)s"
 msgstr "Kopírovat %(title)s"
 
 #: templates/wagtailadmin/pages/copy.html:6
-#: templates/wagtailadmin/pages/list.html:222
+#: templates/wagtailadmin/pages/list.html:223
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: templates/wagtailadmin/pages/copy.html:26
+#: templates/wagtailadmin/pages/copy.html:27
 msgid "Copy this page"
 msgstr "Kopírovat tuto stránku"
 
@@ -735,13 +807,15 @@ msgid "Submit for moderation"
 msgstr "Odeslat ke schválení"
 
 #: templates/wagtailadmin/pages/edit.html:5
-#, python-format
-msgid "Editing %(title)s"
+#, fuzzy, python-format
+#| msgid "Editing %(title)s"
+msgid "Editing %(page_type)s: %(title)s"
 msgstr "Úprava %(title)s"
 
 #: templates/wagtailadmin/pages/edit.html:15
-#, python-format
-msgid "Editing <span>%(title)s</span>"
+#, fuzzy, python-format
+#| msgid "Editing <span>%(title)s</span>"
+msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Úprava <span>%(title)s</span>"
 
 #: templates/wagtailadmin/pages/edit.html:39
@@ -768,77 +842,86 @@ msgid "Exploring %(title)s"
 msgstr "Obsah pod %(title)s"
 
 #: templates/wagtailadmin/pages/list.html:25
-#: templates/wagtailadmin/pages/list.html:140
-#: templates/wagtailadmin/pages/list.html:143
+#: templates/wagtailadmin/pages/list.html:141
+#: templates/wagtailadmin/pages/list.html:144
 msgid "Updated"
 msgstr "Uloženo"
 
-#: templates/wagtailadmin/pages/list.html:96
-#: templates/wagtailadmin/pages/list.html:231
+#: templates/wagtailadmin/pages/list.html:85
+#: templates/wagtailadmin/pages/list.html:217
+msgid ""
+"This page is published but does not exist within a configured Site, so "
+"cannot be viewed."
+msgstr ""
+
+#: templates/wagtailadmin/pages/list.html:97
+#: templates/wagtailadmin/pages/list.html:232
 msgid "Add child page"
 msgstr "Přidat podstránku"
 
-#: templates/wagtailadmin/pages/list.html:119
+#: templates/wagtailadmin/pages/list.html:120
 msgid "Disable ordering of child pages"
 msgstr "Vypnout řazení podstránek"
 
-#: templates/wagtailadmin/pages/list.html:119
-#: templates/wagtailadmin/pages/list.html:121
+#: templates/wagtailadmin/pages/list.html:120
+#: templates/wagtailadmin/pages/list.html:122
 msgid "Order"
 msgstr "Pořadí"
 
-#: templates/wagtailadmin/pages/list.html:121
+#: templates/wagtailadmin/pages/list.html:122
 msgid "Enable ordering of child pages"
 msgstr "Zapnout řazení podstránek"
 
-#: templates/wagtailadmin/pages/list.html:174
+#: templates/wagtailadmin/pages/list.html:175
 msgid "Drag"
 msgstr "Přetáhnout myší"
 
-#: templates/wagtailadmin/pages/list.html:258
-#: templates/wagtailadmin/pages/list.html:262
+#: templates/wagtailadmin/pages/list.html:259
+#: templates/wagtailadmin/pages/list.html:263
 #, python-format
 msgid "Explorer subpages of '%(title)s'"
 msgstr "Zobrazit podstránky \"%(title)s\""
 
-#: templates/wagtailadmin/pages/list.html:258
-#: templates/wagtailadmin/pages/list.html:262
-#: templates/wagtailadmin/pages/list.html:266
+#: templates/wagtailadmin/pages/list.html:259
+#: templates/wagtailadmin/pages/list.html:263
+#: templates/wagtailadmin/pages/list.html:267
 msgid "Explore"
 msgstr "Prozkoumat"
 
-#: templates/wagtailadmin/pages/list.html:266
+#: templates/wagtailadmin/pages/list.html:267
 #, python-format
 msgid "Explore child pages of '%(title)s'"
 msgstr "Zobrazit podstránky \"%(title)s\""
 
-#: templates/wagtailadmin/pages/list.html:268
+#: templates/wagtailadmin/pages/list.html:269
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Přidat podstránku pod \"%(title)s\""
 
-#: templates/wagtailadmin/pages/list.html:268
+#: templates/wagtailadmin/pages/list.html:269
 msgid "Add subpage"
 msgstr "Přidat podstránku"
 
-#: templates/wagtailadmin/pages/list.html:277
+#: templates/wagtailadmin/pages/list.html:278
 msgid "No pages have been created."
 msgstr "Nejsou vytvořeny žádné stránky."
 
-#: templates/wagtailadmin/pages/list.html:277
+#: templates/wagtailadmin/pages/list.html:278
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Novou stránku můžete založit <a href=\"%(add_page_url)s\">zde</a>."
 
-#: templates/wagtailadmin/pages/list.html:284
+#: templates/wagtailadmin/pages/list.html:285
 #, python-format
 msgid ""
 "\n"
 "            Page %(page_number)s of %(num_pages)s.\n"
 "        "
-msgstr "\nStrana %(page_number)s z %(num_pages)s."
+msgstr ""
+"\n"
+"Strana %(page_number)s z %(num_pages)s."
 
-#: templates/wagtailadmin/pages/list.html:290
+#: templates/wagtailadmin/pages/list.html:291
 #: templates/wagtailadmin/pages/search_results.html:35
 #: templates/wagtailadmin/pages/search_results.html:37
 #: templates/wagtailadmin/pages/usage_results.html:13
@@ -848,7 +931,7 @@ msgstr "\nStrana %(page_number)s z %(num_pages)s."
 msgid "Previous"
 msgstr "Předchozí"
 
-#: templates/wagtailadmin/pages/list.html:295
+#: templates/wagtailadmin/pages/list.html:296
 #: templates/wagtailadmin/pages/search_results.html:44
 #: templates/wagtailadmin/pages/search_results.html:46
 #: templates/wagtailadmin/pages/usage_results.html:18
@@ -878,9 +961,15 @@ msgid_plural ""
 "\n"
 "                    There are %(counter)s matching pages\n"
 "                "
-msgstr[0] "\nNalezena 1 stránka"
-msgstr[1] "\nNalezeno %(counter)s stránek"
-msgstr[2] "\nNalezeno %(counter)s stránek"
+msgstr[0] ""
+"\n"
+"Nalezena 1 stránka"
+msgstr[1] ""
+"\n"
+"Nalezeno %(counter)s stránek"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s stránek"
 
 #: templates/wagtailadmin/pages/search_results.html:16
 msgid "Other searches"
@@ -905,12 +994,15 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr "\nStrana %(page_number)s z %(num_pages)s."
+msgstr ""
+"\n"
+"Strana %(page_number)s z %(num_pages)s."
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné stránky"
+msgstr ""
+"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné stránky"
 
 #: templates/wagtailadmin/pages/search_results.html:56
 msgid "Enter a search term above"
@@ -1009,8 +1101,8 @@ msgstr[1] "Použito %(useage_count)s-krát"
 msgstr[2] "Použito %(useage_count)s-krát"
 
 #: templates/wagtailadmin/shared/main_nav.html:8
-msgid "Account settings"
-msgstr "Nastavení účtu"
+msgid "Edit your account"
+msgstr ""
 
 #: templates/wagtailadmin/shared/main_nav.html:9
 msgid "Log out"
@@ -1020,6 +1112,18 @@ msgstr "Odhlásit"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
+
+#: templates/wagtailadmin/skeleton.html:21
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a> or <a href=\"http://www.google.com/chromeframe/?redirect=true\">activate "
+"Google Chrome Frame</a>."
+msgstr ""
+
+#: templates/wagtailadmin/skeleton.html:23
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/base.html:4
 msgid "User bar"
@@ -1037,86 +1141,142 @@ msgstr "Přidat na tuto úroveň další stránku"
 msgid "Add"
 msgstr "Přidat"
 
-#: views/account.py:39
+#: views/account.py:36
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno."
 
-#: views/account.py:60
+#: views/account.py:56
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše nastavení bylo uloženo."
 
-#: views/pages.py:171 views/pages.py:285
+#: views/pages.py:156 views/pages.py:284
+msgid "This slug is already in use"
+msgstr "Název pro URL musí být unikátní"
+
+#: views/pages.py:183 views/pages.py:312
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Datum/čas zveřejnění musí být dřívější než datum/čas expirace"
 
-#: views/pages.py:181 views/pages.py:295
+#: views/pages.py:193 views/pages.py:322
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/čas expirace musí být v budoucnosti"
 
-#: views/pages.py:213 views/pages.py:328 views/pages.py:734
+#: views/pages.py:225 views/pages.py:355 views/pages.py:784
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' byla publikována."
 
-#: views/pages.py:215 views/pages.py:330
+#: views/pages.py:227 views/pages.py:360
+#, python-brace-format
 msgid "Page '{0}' submitted for moderation."
 msgstr "Stránka '{0}' byla odeslána ke schválení."
 
-#: views/pages.py:218
+#: views/pages.py:230
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
 
-#: views/pages.py:232
+#: views/pages.py:244
 msgid "The page could not be created due to validation errors"
 msgstr "Stránka nebyla vytvořena, zkontrolujte správné vyplnění polí"
 
-#: views/pages.py:333
+#: views/pages.py:356
+msgid "View live"
+msgstr ""
+
+#: views/pages.py:361
+#, fuzzy
+#| msgid "Save draft"
+msgid "View draft"
+msgstr "Uložit koncept"
+
+#: views/pages.py:366
+#, python-brace-format
 msgid "Page '{0}' updated."
 msgstr "Stránka '{0}' byla upravena."
 
-#: views/pages.py:348
+#: views/pages.py:381
 msgid "The page could not be saved as it is locked"
 msgstr "Stránku nelze uložit, protože je uzamčena"
 
-#: views/pages.py:350
+#: views/pages.py:383
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
-#: views/pages.py:363
+#: views/pages.py:396
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-#: views/pages.py:384
+#: views/pages.py:417
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
 
-#: views/pages.py:520
+#: views/pages.py:550
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránce '{0}' byla zrušena publikace."
 
-#: views/pages.py:572
+#: views/pages.py:600
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' byla přesunuta."
 
-#: views/pages.py:653
+#: views/pages.py:692
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
-#: views/pages.py:655
+#: views/pages.py:694
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' byla zkopírována."
 
-#: views/pages.py:729 views/pages.py:747 views/pages.py:766
+#: views/pages.py:779 views/pages.py:796 views/pages.py:814
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
 
-#: views/pages.py:752
+#: views/pages.py:801
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikace stránky '{0}' byla zamítnuta."
 
-#: views/pages.py:793
+#: views/pages.py:840
+#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Stránka '{0}' je nyní uzamčena."
 
-#: views/pages.py:818
+#: views/pages.py:864
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."
+
+#: wagtail_hooks.py:26
+msgid "Settings"
+msgstr "Nastavení"
+
+#: widgets.py:42
+msgid "Choose an item"
+msgstr "Zvolit položku"
+
+#: widgets.py:43
+msgid "Choose another item"
+msgstr "Zvolit jinou položku"
+
+#: widgets.py:44
+msgid "Clear choice"
+msgstr "Zrušit výběr"
+
+#: widgets.py:45
+#, fuzzy
+#| msgid "Edit this page"
+msgid "Edit this item"
+msgstr "Upravit stránku"
+
+#: widgets.py:92
+msgid "Choose another page"
+msgstr "Zvolit jinou stránku"
+
+#~ msgid "Account settings"
+#~ msgstr "Nastavení účtu"

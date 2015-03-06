@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/"
@@ -18,34 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: views.py:31
-msgid "Site '{0}' created."
+#: forms.py:12
+msgid "Choose a root page"
 msgstr ""
 
-#: views.py:34
-msgid "The site could not be created due to errors."
-msgstr ""
-
-#: views.py:51
-msgid "Site '{0}' updated."
-msgstr ""
-
-#: views.py:54
-msgid "The site could not be saved due to errors."
-msgstr ""
-
-#: views.py:70
-msgid "Site '{0}' deleted."
-msgstr ""
-
-#: wagtail_hooks.py:24 templates/wagtailsites/index.html:3
-#: templates/wagtailsites/index.html:5
-msgid "Sites"
+#: forms.py:12
+msgid "Choose a different root page"
 msgstr ""
 
 #: templates/wagtailsites/confirm_delete.html:3
 #: templates/wagtailsites/confirm_delete.html:7
-#: templates/wagtailsites/edit.html:36
+#: templates/wagtailsites/edit.html:25
 msgid "Delete site"
 msgstr ""
 
@@ -61,15 +44,7 @@ msgstr ""
 msgid "Add site"
 msgstr ""
 
-#: templates/wagtailsites/create.html:20
-msgid "Choose a different root page"
-msgstr ""
-
-#: templates/wagtailsites/create.html:21
-msgid "Choose a root page"
-msgstr ""
-
-#: templates/wagtailsites/create.html:31 templates/wagtailsites/edit.html:34
+#: templates/wagtailsites/create.html:21 templates/wagtailsites/edit.html:23
 msgid "Save"
 msgstr ""
 
@@ -77,12 +52,9 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsites/edit.html:21
-msgid "Change page"
-msgstr ""
-
-#: templates/wagtailsites/edit.html:22
-msgid "Choose page"
+#: templates/wagtailsites/index.html:3 templates/wagtailsites/index.html:5
+#: wagtail_hooks.py:24
+msgid "Sites"
 msgstr ""
 
 #: templates/wagtailsites/index.html:7
@@ -107,4 +79,31 @@ msgstr ""
 
 #: templates/wagtailsites/index.html:42
 msgid "Default"
+msgstr ""
+
+#: views.py:31
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr ""
+
+#: views.py:32 views.py:54
+msgid "Edit"
+msgstr ""
+
+#: views.py:36
+msgid "The site could not be created due to errors."
+msgstr ""
+
+#: views.py:53
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr ""
+
+#: views.py:58
+msgid "The site could not be saved due to errors."
+msgstr ""
+
+#: views.py:74
+#, python-brace-format
+msgid "Site '{0}' deleted."
 msgstr ""

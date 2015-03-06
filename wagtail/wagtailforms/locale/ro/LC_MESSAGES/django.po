@@ -1,87 +1,92 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Dan Braghis, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2015-02-06 23:02+0000\n"
 "Last-Translator: Dan Braghis\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
+"language/ro/)\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
-#: models.py:22
+#: models.py:25
 msgid "Single line text"
 msgstr "Linie de text"
 
-#: models.py:23
+#: models.py:26
 msgid "Multi-line text"
 msgstr "Linii de text"
 
-#: models.py:24
+#: models.py:27
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:25
+#: models.py:28
 msgid "Number"
 msgstr "Număr"
 
-#: models.py:26
+#: models.py:29
 msgid "URL"
 msgstr "Adresă de internet"
 
-#: models.py:27
+#: models.py:30
 msgid "Checkbox"
 msgstr "Casetă"
 
-#: models.py:28
+#: models.py:31
 msgid "Checkboxes"
 msgstr "Casete"
 
-#: models.py:29
+#: models.py:32
 msgid "Drop down"
 msgstr "Listă derulantă"
 
-#: models.py:30
+#: models.py:33
 msgid "Radio buttons"
 msgstr "Butoane radio"
 
-#: models.py:31
+#: models.py:34
 msgid "Date"
 msgstr "Dată"
 
-#: models.py:32
+#: models.py:35
 msgid "Date/time"
 msgstr "Dată/Timp"
 
-#: models.py:60
+#: models.py:63
 msgid "The label of the form field"
 msgstr "Etichetă pentru câmp de formular"
 
-#: models.py:67
+#: models.py:70
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
-msgstr "Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio și liste derulante."
+msgstr ""
+"Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio "
+"și liste derulante."
 
-#: models.py:72
+#: models.py:75
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
 
-#: models.py:185
+#: models.py:188
 msgid "Optional - form submissions will be emailed to this address"
-msgstr "Opțional. Depunerile de formular vor fi trimise la această adresă de email."
+msgstr ""
+"Opțional. Depunerile de formular vor fi trimise la această adresă de email."
 
-#: wagtail_hooks.py:25 templates/wagtailforms/index.html:3
-#: templates/wagtailforms/index.html:6
+#: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
+#: wagtail_hooks.py:25
 msgid "Forms"
 msgstr "Formulare"
 
