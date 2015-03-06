@@ -1,130 +1,129 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Dan Braghis, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-04 17:13+0000\n"
-"PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
-"language/ro/)\n"
-"Language: ro\n"
+"PO-Revision-Date: 2015-02-06 23:02+0000\n"
+"Last-Translator: Dan Braghis\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: models.py:22
 msgid "Single line text"
-msgstr ""
+msgstr "Linie de text"
 
 #: models.py:23
 msgid "Multi-line text"
-msgstr ""
+msgstr "Linii de text"
 
 #: models.py:24
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: models.py:25
 msgid "Number"
-msgstr ""
+msgstr "Număr"
 
 #: models.py:26
 msgid "URL"
-msgstr ""
+msgstr "Adresă de internet"
 
 #: models.py:27
 msgid "Checkbox"
-msgstr ""
+msgstr "Casetă"
 
 #: models.py:28
 msgid "Checkboxes"
-msgstr ""
+msgstr "Casete"
 
 #: models.py:29
 msgid "Drop down"
-msgstr ""
+msgstr "Listă derulantă"
 
 #: models.py:30
 msgid "Radio buttons"
-msgstr ""
+msgstr "Butoane radio"
 
 #: models.py:31
 msgid "Date"
-msgstr ""
+msgstr "Dată"
 
 #: models.py:32
 msgid "Date/time"
-msgstr ""
+msgstr "Dată/Timp"
 
 #: models.py:60
 msgid "The label of the form field"
-msgstr ""
+msgstr "Etichetă pentru câmp de formular"
 
 #: models.py:67
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
-msgstr ""
+msgstr "Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio și liste derulante."
 
 #: models.py:72
 msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
+msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
 
 #: models.py:185
 msgid "Optional - form submissions will be emailed to this address"
-msgstr ""
+msgstr "Opțional. Depunerile de formular vor fi trimise la această adresă de email."
 
 #: wagtail_hooks.py:25 templates/wagtailforms/index.html:3
 #: templates/wagtailforms/index.html:6
 msgid "Forms"
-msgstr ""
+msgstr "Formulare"
 
 #: templates/wagtailforms/index.html:7
 msgid "Pages"
-msgstr ""
+msgstr "Pagini"
 
 #: templates/wagtailforms/index_submissions.html:3
 #, python-format
 msgid "Submissions of %(form_title)s"
-msgstr ""
+msgstr "Depuneri pentru %(form_title)s"
 
 #: templates/wagtailforms/index_submissions.html:36
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
-msgstr ""
+msgstr "Datele pentru formularul <span>%(form_title)s</span>"
 
 #: templates/wagtailforms/index_submissions.html:45
 msgid "Filter"
-msgstr ""
+msgstr "Filtrează"
 
 #: templates/wagtailforms/index_submissions.html:51
 msgid "Download CSV"
-msgstr ""
+msgstr "Descarcă CSV"
 
 #: templates/wagtailforms/index_submissions.html:63
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr ""
+msgstr "Nu sunt depunero pentru formularul '%(title)s'"
 
 #: templates/wagtailforms/list_forms.html:7
 msgid "Title"
-msgstr ""
+msgstr "Titlu"
 
 #: templates/wagtailforms/list_forms.html:8
 msgid "Origin"
-msgstr ""
+msgstr "Origine"
 
 #: templates/wagtailforms/list_submissions.html:9
 msgid "Submission Date"
-msgstr ""
+msgstr "Data trimiterii"
 
 #: templates/wagtailforms/results_forms.html:7
 msgid "No form pages have been created."
-msgstr ""
+msgstr "Nu a fost creată nici o pagină de formular"
