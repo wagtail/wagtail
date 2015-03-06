@@ -17,10 +17,6 @@ __all__ = ['ListBlock']
 
 
 class ListBlock(Block):
-    class Meta:
-        # Default to a list consisting of one empty child item (using None to trigger the child's empty / default rendering)
-        default = [None]
-
     def __init__(self, child_block, **kwargs):
         super(ListBlock, self).__init__(**kwargs)
 
@@ -29,6 +25,10 @@ class ListBlock(Block):
             self.child_block = child_block()
         else:
             self.child_block = child_block
+
+        if not hasattr(self.meta, 'default'):
+            # Default to a list consisting of one empty (i.e. default-valued) child item
+            self.meta.default = [self.child_block.meta.default]
 
         self.dependencies = [self.child_block]
         self.child_js_initializer = self.child_block.js_initializer()

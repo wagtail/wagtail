@@ -441,13 +441,13 @@ class TestStructBlock(unittest.TestCase):
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
-        block = blocks.ListBlock(blocks.Block)
+        block = blocks.ListBlock(blocks.CharBlock)
 
         # Child block should be initialised for us
-        self.assertIsInstance(block.child_block, blocks.Block)
+        self.assertIsInstance(block.child_block, blocks.CharBlock)
 
     def test_initialise_with_instance(self):
-        child_block = blocks.Block()
+        child_block = blocks.CharBlock()
         block = blocks.ListBlock(child_block)
 
         self.assertEqual(block.child_block, child_block)
