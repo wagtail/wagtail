@@ -71,6 +71,8 @@ Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in!
 
+To get up and running quickly you can use Docker and fig (now docker-compose) to kick start your development. Just clone out this repo, make sure you have Docker and fig installed and setup and then run `fig build` to build the image. You can then run the tests with `fig run app make test`.
+
 We suggest you start by checking the `Help develop me! <https://github.com/torchbox/wagtail/labels/Help%20develop%20me%21>`_ label and the `coding guidelines <http://wagtail.readthedocs.org/en/latest/howto/contributing.html#coding-guidelines>`_.
 
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
