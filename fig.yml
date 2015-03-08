@@ -1,0 +1,16 @@
+---
+app:
+  build: .
+  links:
+    - db
+  volumes:
+    - .:/app
+  environment:
+    DATABASE_NAME: wagtail
+    DATABASE_USER: postgres
+    DATABASE_HOST: db
+
+db:
+  image: postgres:9.4
+  environment:
+    POSTGRES_USER: wagtail
