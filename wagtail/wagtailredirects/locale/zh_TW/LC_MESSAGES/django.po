@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:10
+#: models.py:12
 msgid "Redirect from"
 msgstr "重導向起點"
 
-#: models.py:12
+#: models.py:14
 msgid "Permanent"
 msgstr "永久"
 
-#: models.py:12
+#: models.py:14
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -33,43 +33,13 @@ msgstr ""
 "(推薦) 永久頁面重導向確保搜尋引擎忘記舊頁面(重導向起點)，並且改成對新頁面做索"
 "引。"
 
-#: models.py:13
+#: models.py:15
 msgid "Redirect to a page"
 msgstr "重導向到一個頁面"
 
-#: models.py:14
+#: models.py:16
 msgid "Redirect to any URL"
 msgstr "重導向到任何一個 URL"
-
-#: views.py:58
-msgid "Search redirects"
-msgstr "搜尋重導向"
-
-#: views.py:71
-msgid "Redirect '{0}' updated."
-msgstr "重導向 '{0}' 已更新"
-
-#: views.py:74
-msgid "The redirect could not be saved due to errors."
-msgstr "重導向因有錯誤而無法儲存。"
-
-#: views.py:92
-msgid "Redirect '{0}' deleted."
-msgstr "重導向 '{0}' 已刪除"
-
-#: views.py:112
-#, fuzzy
-msgid "Redirect '{0}' added."
-msgstr "重導向 '{0}' 已加入"
-
-#: views.py:115
-msgid "The redirect could not be created due to errors."
-msgstr "重導向因有錯誤而無法建立。"
-
-#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17
-msgid "Redirects"
-msgstr "重導向"
 
 #: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
 #: templates/wagtailredirects/index.html:18
@@ -110,6 +80,11 @@ msgstr "編輯"
 #: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
 msgstr "刪除重導向"
+
+#: templates/wagtailredirects/index.html:3
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:25
+msgid "Redirects"
+msgstr "重導向"
 
 #: templates/wagtailredirects/list.html:11
 #: templates/wagtailredirects/list.html:14
@@ -162,3 +137,36 @@ msgid ""
 msgstr ""
 "沒有任何已儲存的重導向。為什麼不 <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">新增一個</a>?"
+
+#: views.py:59
+msgid "Search redirects"
+msgstr "搜尋重導向"
+
+#: views.py:72
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "重導向 '{0}' 已更新"
+
+#: views.py:73 views.py:116
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "編輯"
+
+#: views.py:77
+msgid "The redirect could not be saved due to errors."
+msgstr "重導向因有錯誤而無法儲存。"
+
+#: views.py:95
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "重導向 '{0}' 已刪除"
+
+#: views.py:115
+#, fuzzy, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "重導向 '{0}' 已加入"
+
+#: views.py:120
+msgid "The redirect could not be created due to errors."
+msgstr "重導向因有錯誤而無法建立。"

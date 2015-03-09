@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-09-17 17:32+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
@@ -19,55 +19,55 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: models.py:22
+#: models.py:25
 msgid "Single line text"
 msgstr "Linha de texto"
 
-#: models.py:23
+#: models.py:26
 msgid "Multi-line text"
 msgstr "Caixa de linhas de texto"
 
-#: models.py:24
+#: models.py:27
 msgid "Email"
 msgstr "Email"
 
-#: models.py:25
+#: models.py:28
 msgid "Number"
 msgstr "Número"
 
-#: models.py:26
+#: models.py:29
 msgid "URL"
 msgstr "URL"
 
-#: models.py:27
+#: models.py:30
 msgid "Checkbox"
 msgstr "Caixa de seleção"
 
-#: models.py:28
+#: models.py:31
 msgid "Checkboxes"
 msgstr "Caixas de seleção"
 
-#: models.py:29
+#: models.py:32
 msgid "Drop down"
 msgstr "Lista pendente"
 
-#: models.py:30
+#: models.py:33
 msgid "Radio buttons"
 msgstr "Botões de seleção"
 
-#: models.py:31
+#: models.py:34
 msgid "Date"
 msgstr "Data"
 
-#: models.py:32
+#: models.py:35
 msgid "Date/time"
 msgstr "Data/hora"
 
-#: models.py:60
+#: models.py:63
 msgid "The label of the form field"
 msgstr "O nome do campo do formulário"
 
-#: models.py:67
+#: models.py:70
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
@@ -75,20 +75,20 @@ msgstr ""
 "Lista de opções separadas por vírgula. Só utilizável nas caixas de seleção, "
 "botões e listas pendentes."
 
-#: models.py:72
+#: models.py:75
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 "Valor pré-definido. Valores separados por vírgula admitidos nas caixas de "
 "seleção."
 
-#: models.py:185
+#: models.py:188
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 "Opcional - as submissões de formulários serão enviadas por email para este "
 "endereço"
 
-#: wagtail_hooks.py:25 templates/wagtailforms/index.html:3
-#: templates/wagtailforms/index.html:6
+#: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
+#: wagtail_hooks.py:25
 msgid "Forms"
 msgstr "Formulários"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
@@ -18,90 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:20 forms.py:97 forms.py:156
+#: forms.py:21 forms.py:98 forms.py:157
 msgid "Administrator"
 msgstr "管理员"
 
-#: forms.py:22
+#: forms.py:23
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "如果已选，这个用户将有权限管理用户账号"
 
-#: forms.py:25 forms.py:82
+#: forms.py:26 forms.py:83
 msgid "Email"
 msgstr "电子邮件"
 
-#: forms.py:26 forms.py:83
+#: forms.py:27 forms.py:84
 msgid "First Name"
 msgstr "名"
 
-#: forms.py:27 forms.py:84
+#: forms.py:28 forms.py:85
 msgid "Last Name"
 msgstr "姓"
 
-#: forms.py:70
+#: forms.py:71
 msgid "A user with that username already exists."
 msgstr "一个用户已经占用那个用户名"
 
-#: forms.py:71
+#: forms.py:72
 msgid "The two password fields didn't match."
 msgstr "两个密码不匹配"
 
-#: forms.py:74 templates/wagtailusers/users/list.html:15
+#: forms.py:75 templates/wagtailusers/users/list.html:15
 msgid "Username"
 msgstr "用户名"
 
-#: forms.py:77
+#: forms.py:78
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
 
-#: forms.py:79
+#: forms.py:80
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
 
-#: forms.py:87
+#: forms.py:88
 msgid "Password"
 msgstr "密码"
 
-#: forms.py:90
+#: forms.py:91
 msgid "Leave blank if not changing."
 msgstr "留空如果不修改"
 
-#: forms.py:92
+#: forms.py:93
 msgid "Password confirmation"
 msgstr "密码确认"
 
-#: forms.py:94
+#: forms.py:95
 msgid "Enter the same password as above, for verification."
 msgstr "输入和上面一样的密码用于验证"
 
-#: forms.py:99 forms.py:158
+#: forms.py:100 forms.py:159
 msgid "Administrators have the ability to manage user accounts."
 msgstr "管理员们有管理用户账号的权限"
 
-#: forms.py:152
+#: forms.py:153
 #, fuzzy
 msgid "A group with that name already exists."
 msgstr "一个用户已经占用那个用户名"
 
-#: models.py:13
+#: models.py:15
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:18
+#: models.py:20
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:23
+#: models.py:25
 msgid "Receive notification when your page edit is rejected"
-msgstr ""
-
-#: wagtail_hooks.py:27 templates/wagtailusers/users/index.html:4
-#: templates/wagtailusers/users/index.html:17
-msgid "Users"
-msgstr "用户"
-
-#: wagtail_hooks.py:31
-msgid "Groups"
 msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
@@ -144,34 +135,16 @@ msgstr "编辑"
 msgid "Save"
 msgstr "保存"
 
-#: templates/wagtailusers/groups/index.html:4
-#: templates/wagtailusers/groups/index.html:17
-msgid "groups"
-msgstr ""
-
-#: templates/wagtailusers/groups/index.html:18
-#, fuzzy
-msgid "Add a group"
-msgstr "添加用户"
-
-#: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
-#: templates/wagtailusers/users/list.html:7
-msgid "Name"
-msgstr "名字"
-
-#: templates/wagtailusers/groups/results.html:9
-#, fuzzy, python-format
-msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
-msgstr ""
-"没有用户. 为什么不 <a href=\"%(wagtailusers_create_url)s\">添加一个</a>?"
-
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:3
 msgid "Object permissions"
 msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/groups/list.html:6
+#: templates/wagtailusers/users/list.html:7
+msgid "Name"
+msgstr "名字"
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:12
 msgid "Add"
@@ -182,7 +155,7 @@ msgid "Change"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:14
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:22
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:15
 msgid "Delete"
 msgstr ""
 
@@ -190,18 +163,27 @@ msgstr ""
 msgid "Other permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:4
-#, fuzzy
-msgid "Edit page"
-msgstr "编辑"
-
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:5
-msgid "Choose page"
-msgstr ""
-
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:40
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:42
 msgid "Add a page permission"
 msgstr ""
+
+#: templates/wagtailusers/groups/index.html:4
+#: templates/wagtailusers/groups/index.html:17
+msgid "groups"
+msgstr ""
+
+#: templates/wagtailusers/groups/index.html:18
+#, fuzzy
+msgid "Add a group"
+msgstr "添加用户"
+
+#: templates/wagtailusers/groups/results.html:9
+#, fuzzy, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"没有用户. 为什么不 <a href=\"%(wagtailusers_create_url)s\">添加一个</a>?"
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:8
@@ -219,6 +201,11 @@ msgstr "账号"
 #: templates/wagtailusers/users/edit.html:13
 msgid "Roles"
 msgstr "角色"
+
+#: templates/wagtailusers/users/index.html:4
+#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:27
+msgid "Users"
+msgstr "用户"
 
 #: templates/wagtailusers/users/index.html:18
 msgid "Add a user"
@@ -269,51 +256,67 @@ msgid ""
 msgstr ""
 "没有用户. 为什么不 <a href=\"%(wagtailusers_create_url)s\">添加一个</a>?"
 
-#: views/groups.py:30 views/groups.py:37
+#: views/groups.py:31 views/groups.py:38
 msgid "Search groups"
 msgstr ""
 
-#: views/groups.py:94
-#, fuzzy
+#: views/groups.py:95
+#, fuzzy, python-brace-format
 msgid "Group '{0}' created."
 msgstr "用户 '{0}' 已创建"
 
-#: views/groups.py:97
+#: views/groups.py:96 views/groups.py:127 views/users.py:87 views/users.py:108
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "编辑"
+
+#: views/groups.py:100
 #, fuzzy
 msgid "The group could not be created due to errors."
 msgstr "无法创建用户，页面有错。"
 
-#: views/groups.py:123
-#, fuzzy
+#: views/groups.py:126
+#, fuzzy, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "用户 '{0}' 已更新"
 
-#: views/groups.py:126
+#: views/groups.py:131
 #, fuzzy
 msgid "The group could not be saved due to errors."
 msgstr "用户无法保存，页面有错。"
 
-#: views/groups.py:144
-#, fuzzy
+#: views/groups.py:149
+#, fuzzy, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "用户 '{0}' 已创建"
 
-#: views/users.py:30 views/users.py:37
+#: views/users.py:31 views/users.py:38
 msgid "Search users"
 msgstr ""
 
-#: views/users.py:85
+#: views/users.py:86
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "用户 '{0}' 已创建"
 
-#: views/users.py:88
+#: views/users.py:91
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户，页面有错。"
 
-#: views/users.py:104
+#: views/users.py:107
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "用户 '{0}' 已更新"
 
-#: views/users.py:107
+#: views/users.py:112
 msgid "The user could not be saved due to errors."
 msgstr "用户无法保存，页面有错。"
+
+#: wagtail_hooks.py:31
+msgid "Groups"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Edit page"
+#~ msgstr "编辑"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-10-05 02:43+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
@@ -20,34 +20,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: views.py:31
-msgid "Site '{0}' created."
-msgstr "Сайт '{0}' создан."
+#: forms.py:12
+msgid "Choose a root page"
+msgstr "Выберите корневую страницу"
 
-#: views.py:34
-msgid "The site could not be created due to errors."
-msgstr "Сайт не может быть создан из-за ошибок."
-
-#: views.py:51
-msgid "Site '{0}' updated."
-msgstr "Сайт '{0}' обновлен."
-
-#: views.py:54
-msgid "The site could not be saved due to errors."
-msgstr "Сайт не может быть сохранен из-за ошибок."
-
-#: views.py:70
-msgid "Site '{0}' deleted."
-msgstr "Сайт '{0}' удален."
-
-#: wagtail_hooks.py:24 templates/wagtailsites/index.html:3
-#: templates/wagtailsites/index.html:5
-msgid "Sites"
-msgstr "Сайты"
+#: forms.py:12
+msgid "Choose a different root page"
+msgstr "Выбрать другую корневую страницу"
 
 #: templates/wagtailsites/confirm_delete.html:3
 #: templates/wagtailsites/confirm_delete.html:7
-#: templates/wagtailsites/edit.html:36
+#: templates/wagtailsites/edit.html:25
 msgid "Delete site"
 msgstr "Удалить сайт"
 
@@ -63,15 +46,7 @@ msgstr "Да, удалить"
 msgid "Add site"
 msgstr "Добавить сайт"
 
-#: templates/wagtailsites/create.html:20
-msgid "Choose a different root page"
-msgstr "Выбрать другую корневую страницу"
-
-#: templates/wagtailsites/create.html:21
-msgid "Choose a root page"
-msgstr "Выберите корневую страницу"
-
-#: templates/wagtailsites/create.html:31 templates/wagtailsites/edit.html:34
+#: templates/wagtailsites/create.html:21 templates/wagtailsites/edit.html:23
 msgid "Save"
 msgstr "Сохранить"
 
@@ -79,13 +54,10 @@ msgstr "Сохранить"
 msgid "Editing"
 msgstr "Редактирование"
 
-#: templates/wagtailsites/edit.html:21
-msgid "Change page"
-msgstr "Изменить страницу"
-
-#: templates/wagtailsites/edit.html:22
-msgid "Choose page"
-msgstr "Выбрать страницу"
+#: templates/wagtailsites/index.html:3 templates/wagtailsites/index.html:5
+#: wagtail_hooks.py:24
+msgid "Sites"
+msgstr "Сайты"
 
 #: templates/wagtailsites/index.html:7
 msgid "Add a site"
@@ -110,3 +82,38 @@ msgstr "По умолчанию?"
 #: templates/wagtailsites/index.html:42
 msgid "Default"
 msgstr "По умолчанию"
+
+#: views.py:31
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Сайт '{0}' создан."
+
+#: views.py:32 views.py:54
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Редактирование"
+
+#: views.py:36
+msgid "The site could not be created due to errors."
+msgstr "Сайт не может быть создан из-за ошибок."
+
+#: views.py:53
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Сайт '{0}' обновлен."
+
+#: views.py:58
+msgid "The site could not be saved due to errors."
+msgstr "Сайт не может быть сохранен из-за ошибок."
+
+#: views.py:74
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Сайт '{0}' удален."
+
+#~ msgid "Change page"
+#~ msgstr "Изменить страницу"
+
+#~ msgid "Choose page"
+#~ msgstr "Выбрать страницу"

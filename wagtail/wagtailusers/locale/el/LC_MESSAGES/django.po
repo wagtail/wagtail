@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-03-14 21:15+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
@@ -20,97 +20,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:20 forms.py:97 forms.py:156
+#: forms.py:21 forms.py:98 forms.py:157
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
-#: forms.py:22
+#: forms.py:23
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης "
 "λογαριασμών χρηστών."
 
-#: forms.py:25 forms.py:82
+#: forms.py:26 forms.py:83
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:26 forms.py:83
+#: forms.py:27 forms.py:84
 msgid "First Name"
 msgstr "Όνομα"
 
-#: forms.py:27 forms.py:84
+#: forms.py:28 forms.py:85
 msgid "Last Name"
 msgstr "Επίθετο"
 
-#: forms.py:70
+#: forms.py:71
 msgid "A user with that username already exists."
 msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο όνομα χρήστη."
 
-#: forms.py:71
+#: forms.py:72
 msgid "The two password fields didn't match."
 msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
 
-#: forms.py:74 templates/wagtailusers/users/list.html:15
+#: forms.py:75 templates/wagtailusers/users/list.html:15
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: forms.py:77
+#: forms.py:78
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Απαραίτητο. Λιγότερο από 30 χαρακτήρες. Επιτρέπονται μόνο γράμματα, αριθμοί "
 "και οι χαρακτήρες @/./+/-/_."
 
-#: forms.py:79
+#: forms.py:80
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./"
 "+/-/_."
 
-#: forms.py:87
+#: forms.py:88
 msgid "Password"
 msgstr "Κωδικός"
 
-#: forms.py:90
+#: forms.py:91
 msgid "Leave blank if not changing."
 msgstr "Αφήστε κενό αν δεν το αλλάζετε."
 
-#: forms.py:92
+#: forms.py:93
 msgid "Password confirmation"
 msgstr "Επιβεβαίωση κωδικού."
 
-#: forms.py:94
+#: forms.py:95
 msgid "Enter the same password as above, for verification."
 msgstr "Εισάγετε τον ίδιο κωδικό για επιβεβαίωση"
 
-#: forms.py:99 forms.py:158
+#: forms.py:100 forms.py:159
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
 "Οι Διαχειριστές έχουν τη δυνατότητα να διαχειρίζονται λογαριασμούς χρηστών."
 
-#: forms.py:152
+#: forms.py:153
 #, fuzzy
 msgid "A group with that name already exists."
 msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο όνομα χρήστη."
 
-#: models.py:13
+#: models.py:15
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:18
+#: models.py:20
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:23
+#: models.py:25
 msgid "Receive notification when your page edit is rejected"
-msgstr ""
-
-#: wagtail_hooks.py:27 templates/wagtailusers/users/index.html:4
-#: templates/wagtailusers/users/index.html:17
-msgid "Users"
-msgstr "Χρήστες"
-
-#: wagtail_hooks.py:31
-msgid "Groups"
 msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
@@ -153,35 +144,16 @@ msgstr "Διόρθωση"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: templates/wagtailusers/groups/index.html:4
-#: templates/wagtailusers/groups/index.html:17
-msgid "groups"
-msgstr ""
-
-#: templates/wagtailusers/groups/index.html:18
-#, fuzzy
-msgid "Add a group"
-msgstr "Προσθήκη χρήστη"
-
-#: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
-#: templates/wagtailusers/users/list.html:7
-msgid "Name"
-msgstr "Όνομα"
-
-#: templates/wagtailusers/groups/results.html:9
-#, fuzzy, python-format
-msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
-msgstr ""
-"Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s"
-"\">προσθέσετε μερικούς</a>?"
-
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:3
 msgid "Object permissions"
 msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/groups/list.html:6
+#: templates/wagtailusers/users/list.html:7
+msgid "Name"
+msgstr "Όνομα"
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:12
 msgid "Add"
@@ -192,7 +164,7 @@ msgid "Change"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:14
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:22
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:15
 msgid "Delete"
 msgstr ""
 
@@ -200,18 +172,28 @@ msgstr ""
 msgid "Other permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:4
-#, fuzzy
-msgid "Edit page"
-msgstr "Διόρθωση"
-
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:5
-msgid "Choose page"
-msgstr ""
-
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:40
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:42
 msgid "Add a page permission"
 msgstr ""
+
+#: templates/wagtailusers/groups/index.html:4
+#: templates/wagtailusers/groups/index.html:17
+msgid "groups"
+msgstr ""
+
+#: templates/wagtailusers/groups/index.html:18
+#, fuzzy
+msgid "Add a group"
+msgstr "Προσθήκη χρήστη"
+
+#: templates/wagtailusers/groups/results.html:9
+#, fuzzy, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s"
+"\">προσθέσετε μερικούς</a>?"
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:8
@@ -229,6 +211,11 @@ msgstr "Λογαριασμός"
 #: templates/wagtailusers/users/edit.html:13
 msgid "Roles"
 msgstr "Ρόλοι"
+
+#: templates/wagtailusers/users/index.html:4
+#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:27
+msgid "Users"
+msgstr "Χρήστες"
 
 #: templates/wagtailusers/users/index.html:18
 msgid "Add a user"
@@ -285,52 +272,68 @@ msgstr ""
 "Δεν έχουν [προστεθεί χρήστες. Θέλετε να <a href=\"%(wagtailusers_create_url)s"
 "\">προσθέσετε μερικούς</a>?"
 
-#: views/groups.py:30 views/groups.py:37
+#: views/groups.py:31 views/groups.py:38
 #, fuzzy
 msgid "Search groups"
 msgstr "Αναζήτηση χρηστών"
 
-#: views/groups.py:94
-#, fuzzy
+#: views/groups.py:95
+#, fuzzy, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
-#: views/groups.py:97
+#: views/groups.py:96 views/groups.py:127 views/users.py:87 views/users.py:108
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Διόρθωση"
+
+#: views/groups.py:100
 #, fuzzy
 msgid "The group could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
-#: views/groups.py:123
-#, fuzzy
+#: views/groups.py:126
+#, fuzzy, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
-#: views/groups.py:126
+#: views/groups.py:131
 #, fuzzy
 msgid "The group could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
 
-#: views/groups.py:144
-#, fuzzy
+#: views/groups.py:149
+#, fuzzy, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
-#: views/users.py:30 views/users.py:37
+#: views/users.py:31 views/users.py:38
 msgid "Search users"
 msgstr "Αναζήτηση χρηστών"
 
-#: views/users.py:85
+#: views/users.py:86
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
-#: views/users.py:88
+#: views/users.py:91
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
-#: views/users.py:104
+#: views/users.py:107
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
-#: views/users.py:107
+#: views/users.py:112
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
+
+#: wagtail_hooks.py:31
+msgid "Groups"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Edit page"
+#~ msgstr "Διόρθωση"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-10-05 03:17+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
@@ -20,23 +20,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: wagtail_hooks.py:29 templates/wagtailsnippets/snippets/index.html:3
-msgid "Snippets"
-msgstr "Фрагменты"
-
 #: templates/wagtailsnippets/chooser/choose.html:2
 msgid "Choose"
 msgstr "Выбрать"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:10
-#, python-format
-msgid "Choose another %(snippet_type_name)s"
-msgstr "Выбрать другой %(snippet_type_name)s"
+#: templates/wagtailsnippets/chooser/choose.html:10
+#, fuzzy, python-format
+#| msgid ""
+#| "No %(snippet_type_name_plural)s have been created. Why not <a href="
+#| "\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"%(snippet_type_name_plural)s еще не были созданы. Почему бы не <a href="
+"\"%(wagtailsnippets_create_url)s\">добавить один</a>?"
 
-#: templates/wagtailsnippets/edit_handlers/snippet_chooser_panel.html:11
-#, python-format
-msgid "Choose %(snippet_type_name)s"
-msgstr "Выбрать %(snippet_type_name)s"
+#: templates/wagtailsnippets/chooser/list.html:11
+#: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Title"
+msgstr "Заголовок"
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:3
 #, python-format
@@ -80,10 +84,9 @@ msgstr "Редактирование %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Редактирование"
 
-#: templates/wagtailsnippets/snippets/list.html:8
-#: templates/wagtailsnippets/snippets/usage.html:16
-msgid "Title"
-msgstr "Заголовок"
+#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:29
+msgid "Snippets"
+msgstr "Фрагменты"
 
 #: templates/wagtailsnippets/snippets/type_index.html:3
 #, python-format
@@ -134,22 +137,52 @@ msgstr "Статус"
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
 
-#: views/snippets.py:129
+#: views/snippets.py:136
+#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' создан."
 
-#: views/snippets.py:136
+#: views/snippets.py:141 views/snippets.py:184
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Редактирование"
+
+#: views/snippets.py:146
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
-#: views/snippets.py:170
+#: views/snippets.py:179
+#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' обновлен."
 
-#: views/snippets.py:177
+#: views/snippets.py:189
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
 
-#: views/snippets.py:206
+#: views/snippets.py:217
+#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' удален."
+
+#: widgets.py:17
+#, fuzzy, python-format
+#| msgid "Choose"
+msgid "Choose %s"
+msgstr "Выбрать"
+
+#: widgets.py:18
+#, fuzzy, python-format
+#| msgid "Choose another %(snippet_type_name)s"
+msgid "Choose another %s"
+msgstr "Выбрать другой %(snippet_type_name)s"
+
+#: widgets.py:19
+#, fuzzy, python-format
+#| msgid "Edit this page"
+msgid "Edit this %s"
+msgstr "Редактировать эту страницу"
+
+#~ msgid "Choose %(snippet_type_name)s"
+#~ msgstr "Выбрать %(snippet_type_name)s"
