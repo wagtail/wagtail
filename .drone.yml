@@ -2,10 +2,11 @@ image: kaedroho/django-base
 env:
  - DATABASE_HOST=postgres
  - ELASTICSEARCH_URL=http://elasticsearch:9200/
+cache:
+ - .tox
 script:
- - pip3.4 install mock python-dateutil pytz elasticsearch
- - python3.4 setup.py install
- - python3.4 runtests.py
+ - pip install tox
+ - tox
 services:
  - postgres
  - dockerfile/elasticsearch
