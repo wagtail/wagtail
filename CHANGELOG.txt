@@ -38,6 +38,7 @@ Changelog
 * Fix: django-taggit library updated to 0.12.3, to fix a bug with migrations on SQLite on Django 1.7.2 and above (https://github.com/alex/django-taggit/issues/285)
 * Translations updated, including new translations for Czech, Italian and Japanese
 * The "fixtree" command can now delete orphaned pages
+* Fix: Fixed a bug that caused children of a deleted page to not be deleted if they had a different type
 
 
 0.8.5 (17.02.2015)
