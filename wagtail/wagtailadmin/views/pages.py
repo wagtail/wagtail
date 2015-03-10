@@ -406,11 +406,11 @@ def edit(request, page_id):
 
 
 def delete(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_object_or_404(Page, id=page_id)
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         parent_id = page.get_parent().id
         page.delete()
 

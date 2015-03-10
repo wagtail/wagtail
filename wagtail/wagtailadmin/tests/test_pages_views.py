@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.paginator import Paginator
+from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
 from wagtail.tests.models import (
@@ -212,6 +213,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
 
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
         expire_at = timezone.now() + timedelta(days=2)
@@ -299,6 +303,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(signal_fired[0])
         self.assertEqual(signal_page[0], page)
         self.assertEqual(signal_page[0], signal_page[0].specific)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_create_simplepage_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
@@ -861,12 +868,20 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.child_page.slug = "hello-world"
         self.root_page.add_child(instance=self.child_page)
 
+        # Add a page with child pages of its own
+        self.child_index = StandardIndex(title="Hello index", slug='hello-index')
+        self.root_page.add_child(instance=self.child_index)
+        self.grandchild_page = StandardChild(title="Hello Kitty", slug='hello-kitty')
+        self.child_index.add_child(instance=self.grandchild_page)
+
         # Login
         self.user = self.login()
 
     def test_page_delete(self):
         response = self.client.get(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
+        # deletion should not actually happen on GET
+        self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
     def test_page_delete_bad_permissions(self):
         # Remove privileges from user
@@ -882,6 +897,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
 
+        # Check that the deletion has not happened
+        self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
+
     def test_page_delete_post(self):
         # Connect a mock signal handler to page_unpublished signal
         signal_fired = [False]
@@ -892,11 +910,13 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         page_unpublished.connect(page_unpublished_handler)
 
         # Post
-        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
         # Check that the page is gone
         self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
@@ -921,17 +941,63 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         page_unpublished.connect(page_unpublished_handler)
 
         # Post
-        post_data = {'hello': 'world'} # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
 
         # Should be redirected to explorer page
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
         # Check that the page is gone
         self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
 
         # Check that the page_unpublished signal was not fired
         self.assertFalse(signal_fired[0])
+
+    def test_subpage_deletion(self):
+        # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
+        unpublish_signals_received = []
+        def page_unpublished_handler(sender, instance, **kwargs):
+            unpublish_signals_received.append((sender, instance.id))
+        page_unpublished.connect(page_unpublished_handler)
+
+        pre_delete_signals_received = []
+        def pre_delete_handler(sender, instance, **kwargs):
+            pre_delete_signals_received.append((sender, instance.id))
+        pre_delete.connect(pre_delete_handler)
+
+        post_delete_signals_received = []
+        def post_delete_handler(sender, instance, **kwargs):
+            post_delete_signals_received.append((sender, instance.id))
+        post_delete.connect(post_delete_handler)
+
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_index.id, )))
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
+        # Check that the page is gone
+        self.assertFalse(StandardIndex.objects.filter(id=self.child_index.id).exists())
+        self.assertFalse(Page.objects.filter(id=self.child_index.id).exists())
+
+        # Check that the subpage is also gone
+        self.assertFalse(StandardChild.objects.filter(id=self.grandchild_page.id).exists())
+        self.assertFalse(Page.objects.filter(id=self.grandchild_page.id).exists())
+
+        # Check that the signals were fired for both pages
+        self.assertIn((StandardIndex, self.child_index.id), unpublish_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), unpublish_signals_received)
+
+        self.assertIn((StandardIndex, self.child_index.id), pre_delete_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), pre_delete_signals_received)
+
+        self.assertIn((StandardIndex, self.child_index.id), post_delete_signals_received)
+        self.assertIn((StandardChild, self.grandchild_page.id), post_delete_signals_received)
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
@@ -1121,6 +1187,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that the children were not copied
         self.assertEqual(page_copy.get_children().count(), 0)
 
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
     def test_page_copy_post_copy_subpages(self):
         post_data = {
             'new_title': "Hello world 2",
@@ -1161,6 +1230,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertNotEqual(unpublished_child_copy, None)
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_page_copy_post_copy_subpages_publish_copies(self):
         post_data = {
@@ -1203,6 +1275,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
     def test_page_copy_post_new_parent(self):
         post_data = {
             'new_title': "Hello world 2",
@@ -1218,6 +1293,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # Check that the page was copied to the correct place
         self.assertTrue(Page.objects.filter(slug='hello-world-2').first().get_parent(), self.test_child_page)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
     def test_page_copy_post_existing_slug_within_same_parent_page(self):
         # This tests the existing slug checking on page copy when not changing the parent page
@@ -1333,6 +1411,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
         self.assertNotEqual(unpublished_child_copy, None)
         self.assertFalse(unpublished_child_copy.live)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):
