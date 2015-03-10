@@ -1,22 +1,38 @@
-from django.core.management.base import NoArgsCommand
+import operator
+import functools
+from optparse import make_option
+
+from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+from django.db.models import Q
+from django.utils import six
 
 from wagtail.wagtailcore.models import Page
 
 
-class Command(NoArgsCommand):
-    def handle_noargs(self, **options):
-        problems_found = False
+class Command(BaseCommand):
+    help = "Checks for data integrity errors on the page tree, and fixes them where possible."
+    base_options = (
+        make_option('--noinput', action='store_false', dest='interactive', default=True,
+            help='If provided, any fixes requiring user interaction will be skipped.'
+        ),
+    )
+    option_list = BaseCommand.option_list + base_options
+
+    def handle(self, **options):
+        any_problems_fixed = False
 
         for page in Page.objects.all():
             try:
                 page.specific
             except ObjectDoesNotExist:
                 self.stdout.write("Page %d (%s) is missing a subclass record; deleting." % (page.id, page.title))
-                problems_found = True
+                any_problems_fixed = True
                 page.delete()
 
-        (_, _, _, bad_depth, bad_numchild) = Page.find_problems()
+        (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = Page.find_problems()
+
         if bad_depth:
             self.stdout.write("Incorrect depth value found for pages: %r" % bad_depth)
         if bad_numchild:
@@ -24,12 +40,54 @@ class Command(NoArgsCommand):
 
         if bad_depth or bad_numchild:
             Page.fix_tree(destructive=False)
-            problems_found = True
+            any_problems_fixed = True
 
-        remaining_problems = Page.find_problems()
-        if any(remaining_problems):
+        if orphans:
+            # The 'orphans' list as returned by treebeard only includes pages that are
+            # missing an immediate parent; descendants of orphans are not included.
+            # Deleting only the *actual* orphans is a bit silly (since it'll just create
+            # more orphans), so generate a queryset that contains descendants as well.
+            orphan_paths = Page.objects.filter(id__in=orphans).values_list('path', flat=True)
+            filter_conditions = []
+            for path in orphan_paths:
+                filter_conditions.append(Q(path__startswith=path))
+
+            # combine filter_conditions into a single ORed condition
+            final_filter = functools.reduce(operator.or_, filter_conditions)
+
+            # build a queryset of all pages to be removed; this must be a vanilla Django
+            # queryset rather than a treebeard MP_NodeQuerySet, so that we bypass treebeard's
+            # custom delete() logic that would trip up on the very same corruption that we're
+            # trying to fix here.
+            pages_to_delete = models.query.QuerySet(Page).filter(final_filter)
+
+            self.stdout.write("Orphaned pages found:")
+            for page in pages_to_delete:
+                self.stdout.write("ID %d: %s" % (page.id, page.title))
+            self.stdout.write('')
+
+            if options.get('interactive', True):
+                yes_or_no = six.moves.input("Delete these pages? [y/N] ")
+                delete_orphans = yes_or_no.lower().startswith('y')
+                self.stdout.write('')
+            else:
+                # Running tests, check for the "delete_orphans" option
+                delete_orphans = options.get('delete_orphans', False)
+
+            if delete_orphans:
+                deletion_count = len(pages_to_delete)
+                pages_to_delete.delete()
+                self.stdout.write(
+                    "%d orphaned page%s deleted." % (deletion_count, "s"[deletion_count==1:])
+                )
+                any_problems_fixed = True
+
+        if any_problems_fixed:
+            # re-run find_problems to see if any new ones have surfaced
+            (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = Page.find_problems()
+
+        if any((bad_alpha, bad_path, orphans, bad_depth, bad_numchild)):
             self.stdout.write("Remaining problems (cannot fix automatically):")
-            (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = remaining_problems
             if bad_alpha:
                 self.stdout.write("Invalid characters found in path for pages: %r" % bad_alpha)
             if bad_path:
@@ -41,7 +99,7 @@ class Command(NoArgsCommand):
             if bad_numchild:
                 self.stdout.write("Incorrect numchild value found for pages: %r" % bad_numchild)
 
-        elif problems_found:
+        elif any_problems_fixed:
             self.stdout.write("All problems fixed.")
         else:
             self.stdout.write("No problems found.")
