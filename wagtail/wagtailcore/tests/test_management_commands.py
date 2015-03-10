@@ -5,6 +5,7 @@ from six import StringIO
 from django.test import TestCase
 from django.core import management
 from django.utils import timezone
+from django.db import models
 
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
@@ -14,8 +15,19 @@ from wagtail.tests.models import SimplePage, EventPage
 class TestFixTreeCommand(TestCase):
     fixtures = ['test.json']
 
-    def run_command(self):
-        management.call_command('fixtree', interactive=False, stdout=StringIO())
+    def badly_delete_page(self, page):
+        # Deletes a page the wrong way.
+        # This will not update numchild and may leave orphans
+        models.Model.delete(page)
+
+    def run_command(self, **options):
+        options.setdefault('interactive', False)
+
+        output = StringIO()
+        management.call_command('fixtree', stdout=output, **options)
+        output.seek(0)
+
+        return output
 
     def test_fixes_numchild(self):
         # Get homepage and save old value
@@ -52,6 +64,49 @@ class TestFixTreeCommand(TestCase):
 
         # Check if its fixed
         self.assertEqual(Page.objects.get(url_path='/home/').depth, old_depth)
+
+    def test_detects_orphans(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Delete the events index badly
+        self.badly_delete_page(events_index)
+
+        # Check that christmas_page is still in the tree
+        self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
+
+        # Call command
+        output = self.run_command()
+
+        # Check that the issues were detected
+        output_string = output.read()
+        self.assertIn("Incorrect numchild value found for pages: [2]", output_string)
+        self.assertIn("Orphaned pages found: [4, 5, 6, 9]", output_string)
+
+        # Check that christmas_page is still in the tree
+        self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
+
+    def test_deletes_orphans(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Delete the events index badly
+        self.badly_delete_page(events_index)
+
+        # Check that christmas_page is still in the tree
+        self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
+
+        # Call command
+        # delete_orphans simulates a user pressing "y" at the prompt
+        output = self.run_command(delete_orphans=True)
+
+        # Check that the issues were detected
+        output_string = output.read()
+        self.assertIn("Incorrect numchild value found for pages: [2]", output_string)
+        self.assertIn("4 orphaned pages deleted.", output_string)
+
+        # Check that christmas_page has been deleted
+        self.assertFalse(Page.objects.filter(id=christmas_page.id).exists())
 
 
 class TestMovePagesCommand(TestCase):
