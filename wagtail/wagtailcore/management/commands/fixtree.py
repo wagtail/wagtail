@@ -68,15 +68,19 @@ class Command(BaseCommand):
 
             if options.get('interactive', True):
                 yes_or_no = six.moves.input("Delete these pages? [y/N] ")
-                if yes_or_no.lower().startswith('y'):
-                    deletion_count = len(pages_to_delete)
-                    pages_to_delete.delete()
-                    self.stdout.write(
-                        "%d orphaned page%s deleted." % (deletion_count, "s"[deletion_count==1:])
-                    )
-                    any_problems_fixed = True
-
+                delete_orphans = yes_or_no.lower().startswith('y')
                 self.stdout.write('')
+            else:
+                # Running tests, check for the "delete_orphans" option
+                delete_orphans = options.get('delete_orphans', False)
+
+            if delete_orphans:
+                deletion_count = len(pages_to_delete)
+                pages_to_delete.delete()
+                self.stdout.write(
+                    "%d orphaned page%s deleted." % (deletion_count, "s"[deletion_count==1:])
+                )
+                any_problems_fixed = True
 
         if any_problems_fixed:
             # re-run find_problems to see if any new ones have surfaced
