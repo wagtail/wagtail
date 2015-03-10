@@ -1,4 +1,5 @@
 import operator
+import functools
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
@@ -52,7 +53,7 @@ class Command(BaseCommand):
                 filter_conditions.append(Q(path__startswith=path))
 
             # combine filter_conditions into a single ORed condition
-            final_filter = reduce(operator.or_, filter_conditions)
+            final_filter = functools.reduce(operator.or_, filter_conditions)
 
             # build a queryset of all pages to be removed; this must be a vanilla Django
             # queryset rather than a treebeard MP_NodeQuerySet, so that we bypass treebeard's
