@@ -1,6 +1,6 @@
 # Minimal requirements
 Django>=1.7,<1.8
-wagtail==0.8.5
+wagtail==0.8.6
 django-libsass>=0.2
 Pillow>=2.6.1
 
