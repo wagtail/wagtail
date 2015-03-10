@@ -14,6 +14,8 @@ Minor features
 ~~~~~~~~~~~~~~
 
  * Translations updated, including new translations for Czech, Italian and Japanese
+ * The "fixtree" command can now delete orphaned pages
+
 
 Bug fixes
 ~~~~~~~~~
