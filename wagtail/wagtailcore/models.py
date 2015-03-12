@@ -284,6 +284,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     locked = models.BooleanField(default=False, editable=False)
 
+    first_published_at = models.DateTimeField(null=True, editable=False)
     latest_revision_created_at = models.DateTimeField(null=True, editable=False)
 
     search_fields = (
