@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import get_related_model
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
@@ -21,20 +22,22 @@ def get_object_usage(obj):
         include_proxy_eq=True
     )
     for relation in relations:
+        related_model = get_related_model(relation)
+
         # if the relation is between obj and a page, get the page
-        if issubclass(relation.model, Page):
+        if issubclass(related_model, Page):
             pages |= Page.objects.filter(
-                id__in=relation.model._base_manager.filter(**{
+                id__in=related_model._base_manager.filter(**{
                     relation.field.name: obj.id
                 }).values_list('id', flat=True)
             )
         else:
             # if the relation is between obj and an object that has a page as a
             # property, return the page
-            for f in relation.model._meta.fields:
+            for f in related_model._meta.fields:
                 if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
                     pages |= Page.objects.filter(
-                        id__in=relation.model._base_manager.filter(
+                        id__in=related_model._base_manager.filter(
                             **{
                                 relation.field.name: obj.id
                             }).values_list(f.attname, flat=True)
