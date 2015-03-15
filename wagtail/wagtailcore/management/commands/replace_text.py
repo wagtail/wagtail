@@ -20,6 +20,8 @@ def replace_in_model(model, from_text, to_text):
 
 
 class Command(BaseCommand):
+    args = "<from text> <to text>"
+
     def handle(self, from_text, to_text, **options):
         for revision in PageRevision.objects.filter(content_json__contains=from_text):
             revision.content_json = revision.content_json.replace(from_text, to_text)
