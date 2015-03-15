@@ -83,7 +83,8 @@ def create(request):
         Group,
         GroupPagePermission,
         formset=BaseGroupPagePermissionFormSet,
-        extra=0
+        extra=0,
+        fields=('page', 'permission_type'),
     )
     if request.POST:
         form = GroupForm(request.POST)
@@ -115,7 +116,8 @@ def edit(request, group_id):
         Group,
         GroupPagePermission,
         formset=BaseGroupPagePermissionFormSet,
-        extra=0
+        extra=0,
+        fields=('page', 'permission_type'),
     )
     if request.POST:
         form = GroupForm(request.POST, instance=group)
