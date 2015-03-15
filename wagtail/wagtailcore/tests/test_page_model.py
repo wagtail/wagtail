@@ -187,6 +187,11 @@ class TestRouting(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context_data['self'], christmas_page)
         used_template = response.resolve_template(response.template_name)
+
+        # Django 1.8+
+        if hasattr(used_template, 'template'):
+            used_template = used_template.template
+
         self.assertEqual(used_template.name, 'tests/event_page.html')
 
     def test_route_to_unknown_page_returns_404(self):
