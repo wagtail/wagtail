@@ -20,6 +20,11 @@ class Command(BaseCommand):
     )
     option_list = BaseCommand.option_list + base_options
 
+    def numberlist_to_string(self, numberlist):
+        # Converts a list of numbers into a string
+        # Doesn't put "L" after longs
+        return '[' + ', '.join(map(str, numberlist)) + ']'
+
     def handle(self, **options):
         any_problems_fixed = False
 
@@ -34,9 +39,9 @@ class Command(BaseCommand):
         (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = Page.find_problems()
 
         if bad_depth:
-            self.stdout.write("Incorrect depth value found for pages: %r" % bad_depth)
+            self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
         if bad_numchild:
-            self.stdout.write("Incorrect numchild value found for pages: %r" % bad_numchild)
+            self.stdout.write("Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild))
 
         if bad_depth or bad_numchild:
             Page.fix_tree(destructive=False)
@@ -89,15 +94,15 @@ class Command(BaseCommand):
         if any((bad_alpha, bad_path, orphans, bad_depth, bad_numchild)):
             self.stdout.write("Remaining problems (cannot fix automatically):")
             if bad_alpha:
-                self.stdout.write("Invalid characters found in path for pages: %r" % bad_alpha)
+                self.stdout.write("Invalid characters found in path for pages: %s" % self.numberlist_to_string(bad_alpha))
             if bad_path:
-                self.stdout.write("Invalid path length found for pages: %r" % bad_path)
+                self.stdout.write("Invalid path length found for pages: %s" % self.numberlist_to_string(bad_path))
             if orphans:
-                self.stdout.write("Orphaned pages found: %r" % orphans)
+                self.stdout.write("Orphaned pages found: %s" % self.numberlist_to_string(orphans))
             if bad_depth:
-                self.stdout.write("Incorrect depth value found for pages: %r" % bad_depth)
+                self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
             if bad_numchild:
-                self.stdout.write("Incorrect numchild value found for pages: %r" % bad_numchild)
+                self.stdout.write("Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild))
 
         elif any_problems_fixed:
             self.stdout.write("All problems fixed.")
