@@ -212,6 +212,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
@@ -298,6 +299,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertTrue(page.live)
+        self.assertTrue(page.first_published_at)
 
         # Check that the page_published signal was fired
         self.assertTrue(signal_fired[0])
@@ -333,6 +335,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
         # But Page won't be live
         self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
         self.assertTrue(page.status_string, "scheduled")
 
     def test_create_simplepage_post_submit(self):
@@ -357,6 +360,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.title, post_data['title'])
         self.assertIsInstance(page, SimplePage)
         self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
 
         # The latest revision for the page should now be in moderation
         self.assertTrue(page.get_latest_revision().submitted_for_moderation)
@@ -438,12 +442,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         # Add child page
-        self.child_page = SimplePage()
-        self.child_page.title = "Hello world!"
-        self.child_page.slug = "hello-world"
-        self.child_page.live = True
-        self.root_page.add_child(instance=self.child_page)
-        self.child_page.save_revision()
+        child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SimplePage.objects.get(id=child_page.id)
 
         # Add event page (to test edit handlers)
         self.event_page = EventPage()
@@ -584,6 +589,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.child_page.has_unpublished_changes = True
         self.child_page.save()
 
+        # Save current value of first_published_at so we can check that it doesn't change
+        first_published_at = SimplePage.objects.get(id=self.child_page.id).first_published_at
+
         # Tests publish from edit page
         post_data = {
             'title': "I've been edited!",
@@ -607,6 +615,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
+
+        # first_published_at should not change as it was already set
+        self.assertEqual(first_published_at, child_page_new.first_published_at)
 
     def test_edit_post_publish_scheduled(self):
         go_live_at = timezone.now() + timedelta(days=1)
