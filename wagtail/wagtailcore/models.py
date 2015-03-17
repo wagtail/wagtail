@@ -284,6 +284,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     locked = models.BooleanField(default=False, editable=False)
 
+    first_published_at = models.DateTimeField(null=True, editable=False)
     latest_revision_created_at = models.DateTimeField(null=True, editable=False)
 
     search_fields = (
@@ -1099,6 +1100,7 @@ class PageRevision(models.Model):
         obj.owner = self.page.owner
         obj.locked = self.page.locked
         obj.latest_revision_created_at = self.page.latest_revision_created_at
+        obj.first_published_at = self.page.first_published_at
 
         return obj
 
@@ -1139,6 +1141,11 @@ class PageRevision(models.Model):
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False  # When a page is published it can't be expired
+
+        # Set first_published_at if the page is being published now
+        if page.live and page.first_published_at is None:
+            page.first_published_at = timezone.now()
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)

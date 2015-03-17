@@ -22,6 +22,7 @@ Core
 ----
 
  * Added validation to prevent pages being created with only whitespace characters in their title fields
+ * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
 
 
 Admin
