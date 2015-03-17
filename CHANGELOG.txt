@@ -31,6 +31,7 @@ Changelog
  * The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
  * Image/Document edit page no longer throws OSError when the original image is missing
  * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface
+ * The Page model now records the date/time that a page was first published, as the field `first_published_at`
 
 
 0.8.6 (10.03.2015)
