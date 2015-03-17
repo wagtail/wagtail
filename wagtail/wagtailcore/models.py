@@ -1100,6 +1100,7 @@ class PageRevision(models.Model):
         obj.owner = self.page.owner
         obj.locked = self.page.locked
         obj.latest_revision_created_at = self.page.latest_revision_created_at
+        obj.first_published_at = self.page.first_published_at
 
         return obj
 
