@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import Group
 from django.core import validators
 from django.forms.widgets import TextInput
 from django.contrib.auth import get_user_model
@@ -177,14 +178,28 @@ class PageViewRestrictionForm(forms.Form):
     restriction_type = forms.ChoiceField(label="Visibility", choices=[
         ('none', ugettext_lazy("Public")),
         ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
+        ('group', ugettext_lazy("Private, accessible to Users in the following Groups")),
+    ], widget=forms.Select)
     password = forms.CharField(required=False)
+    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.order_by('name'),
+                                            widget=forms.CheckboxSelectMultiple,
+                                            required=False)
 
     def clean(self):
         cleaned_data = super(PageViewRestrictionForm, self).clean()
+        restriction_type = cleaned_data.get('restriction_type')
 
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
+        if restriction_type == 'password' and not cleaned_data.get('password'):
             self._errors["password"] = self.error_class([_('This field is required.')])
+            del cleaned_data['password']
+        elif restriction_type == 'group' and not cleaned_data.get('groups'):
+            self._errors["groups"] = self.error_class([_('This field is required.')])
+            del cleaned_data['groups']
+
+        # Don't allow both.
+        if restriction_type == 'password':
+            del cleaned_data['groups']
+        elif restriction_type == 'group':
             del cleaned_data['password']
 
         return cleaned_data

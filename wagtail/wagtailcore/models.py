@@ -1391,4 +1391,5 @@ class PagePermissionTester(object):
 
 class PageViewRestriction(models.Model):
     page = models.ForeignKey('Page', related_name='view_restrictions')
-    password = models.CharField(max_length=255)
+    password = models.CharField(max_length=255, blank=True)
+    groups = models.ManyToManyField(Group)

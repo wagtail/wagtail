@@ -24,18 +24,36 @@ def set_privacy(request, page_id):
     if request.POST:
         form = PageViewRestrictionForm(request.POST)
         if form.is_valid() and not restriction_exists_on_ancestor:
-            if form.cleaned_data['restriction_type'] == 'none':
+            restriction_type = form.cleaned_data['restriction_type']
+            if restriction_type == 'none':
                 # remove any existing restriction
                 if restriction:
                     restriction.delete()
-            else:  # restriction_type = 'password'
+            elif restriction_type == 'password':
                 if restriction:
+                    restriction.groups.clear()
                     restriction.password = form.cleaned_data['password']
                     restriction.save()
                 else:
                     # create a new restriction object
                     PageViewRestriction.objects.create(
-                        page=page, password = form.cleaned_data['password'])
+                        page=page, password=form.cleaned_data['password'])
+            elif restriction_type == 'group':
+                if restriction:
+                    restriction.groups.clear()
+
+                    for g in form.cleaned_data['groups']:
+                        restriction.groups.add(g)
+
+                    restriction.password = ''
+                    restriction.save()
+                else:
+                    # create a new restriction object
+                    restriction = PageViewRestriction.objects.create(
+                        page=page, password='')
+
+                    for g in form.cleaned_data['groups']:
+                        restriction.groups.add(g)
 
             return render_modal_workflow(
                 request, None, 'wagtailadmin/page_privacy/set_privacy_done.js', {
@@ -46,8 +64,14 @@ def set_privacy(request, page_id):
     else:  # request is a GET
         if not restriction_exists_on_ancestor:
             if restriction:
+                groups = restriction.groups.all()
+                # If there are groups assigned, use that restriction type.
+                restriction_type = groups and 'group' or 'password'
+
                 form = PageViewRestrictionForm(initial={
-                    'restriction_type': 'password', 'password': restriction.password
+                    'restriction_type': restriction_type,
+                    'password': restriction.password,
+                    'groups': [g for g in groups]
                 })
             else:
                 # no current view restrictions on this page

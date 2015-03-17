@@ -613,6 +613,12 @@ li.focused > .help{
     }
 }
 
+.model_multiple_choice_field .input.left ul li{
+  float: left;
+  white-space: nowrap;
+  padding-right: 1.5em;
+}
+
 .fields > li,
 .field-col{
     @include clearfix();
