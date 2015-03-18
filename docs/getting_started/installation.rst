@@ -8,7 +8,7 @@ Before you start
 
 You can get basic Wagtail setup installed on your machine with only a few prerequisites. See the full  `Dependencies`_ list below.
 
-There are various optional components that will improve the performance and feature set of Wagtail. Our recommended software stack includes the PostgreSQL database, ElasticSearch (for free-text searching), the OpenCV library (for image feature detection), and Redis (as a cache and message queue backend). This would be a lot to install in one go. For this reason we provide a virtual machine image to use with `Vagrant <http://www.vagrantup.com/>`__, with all of these components ready installed.
+There are various optional components that will improve the performance and feature set of Wagtail. Our recommended software stack includes the PostgreSQL database, Elasticsearch (for free-text searching), the OpenCV library (for image feature detection), and Redis (as a cache and message queue backend). This would be a lot to install in one go. For this reason we provide a virtual machine image to use with `Vagrant <http://www.vagrantup.com/>`__, with all of these components ready installed.
 
 Whether you just want to try out the demo site, or you're ready to dive in and create a Wagtail site with all bells and whistles enabled, we strongly recommend the Vagrant approach. Nevertheless, if you're the sort of person who balks at the idea of downloading a whole operating system just to run a web app, we've got you covered too. Start from `Install Python`_.
 
@@ -107,12 +107,12 @@ To enable Postgres for your project, uncomment the ``psycopg2`` line from your p
 This assumes that your PostgreSQL instance is configured to allow you to connect as the 'postgres' user - if not, you'll need to adjust the ``createdb`` line and the database settings in settings/base.py accordingly.
 
 
-ElasticSearch
+Elasticsearch
 -------------
 
-Wagtail integrates with ElasticSearch to provide full-text searching of your content, both within the Wagtail interface and on your site's front-end. If ElasticSearch is not available, Wagtail will fall back to much more basic search functionality using database queries. ElasticSearch is pre-installed as part of the Vagrant virtual machine image; non-Vagrant users can use the `debian.sh <https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`__ or `ubuntu.sh <https://github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh>`__ installation scripts as a guide.
+Wagtail integrates with Elasticsearch to provide full-text searching of your content, both within the Wagtail interface and on your site's front-end. If Elasticsearch is not available, Wagtail will fall back to much more basic search functionality using database queries. Elasticsearch is pre-installed as part of the Vagrant virtual machine image; non-Vagrant users can use the `debian.sh <https://github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh>`__ or `ubuntu.sh <https://github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh>`__ installation scripts as a guide.
 
-To enable ElasticSearch for your project, uncomment the ``elasticsearch`` line from your project's requirements.txt, and in ``myprojectname/settings/base.py``, uncomment the WAGTAILSEARCH_BACKENDS section. Then run::
+To enable Elasticsearch for your project, uncomment the ``elasticsearch`` line from your project's requirements.txt, and in ``myprojectname/settings/base.py``, uncomment the WAGTAILSEARCH_BACKENDS section. Then run::
 
     pip install -r requirements.txt
     ./manage.py update_index
