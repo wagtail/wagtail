@@ -5,10 +5,10 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 from modelcluster.fields import ParentalKey
-from modelcluster.models import get_related_model
 
 from wagtail.wagtailcore.models import Page, PageRevision, GroupPagePermission
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.utils.compat import get_related_model
 
 
 def get_object_usage(obj):

@@ -6,7 +6,6 @@ import warnings
 from six import text_type
 
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
-from modelcluster.models import get_related_model
 
 from django.db import models
 from django.template.loader import render_to_string
@@ -23,6 +22,7 @@ from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
+from wagtail.utils.compat import get_related_model
 
 
 # Form field properties to override whenever we encounter a model field
