@@ -260,13 +260,13 @@ URL Patterns
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
+  from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
   urlpatterns = patterns('',
     url(r'^django-admin/', include(admin.site.urls)),
 
     url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^search/', include(wagtailsearch_frontend_urls)),
+    url(r'^search/', include(wagtailsearch_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
     # Optional urlconf for including your own vanilla Django urls/views
@@ -526,14 +526,14 @@ urls.py
   from wagtail.wagtailcore import urls as wagtail_urls
   from wagtail.wagtailadmin import urls as wagtailadmin_urls
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
-  from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
+  from wagtail.wagtailsearch import urls as wagtailsearch__urls
 
 
   urlpatterns = patterns('',
       url(r'^django-admin/', include(admin.site.urls)),
 
       url(r'^admin/', include(wagtailadmin_urls)),
-      url(r'^search/', include(wagtailsearch_frontend_urls)),
+      url(r'^search/', include(wagtailsearch_urls)),
       url(r'^documents/', include(wagtaildocs_urls)),
 
       # For anything not caught by a more specific rule above, hand over to
