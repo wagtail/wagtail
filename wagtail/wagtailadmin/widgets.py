@@ -15,6 +15,18 @@ from wagtail.wagtailcore.models import Page
 from taggit.forms import TagWidget
 
 
+class AdminAutoHeightTextInput(WidgetWithScript, widgets.Textarea):
+    def __init__(self, attrs=None):
+        # Use more appropriate rows default, given autoheight will alter this anyway
+        default_attrs = {'rows': '1'}
+        if attrs:
+            default_attrs.update(attrs)
+
+        super(AdminAutoHeightTextInput, self).__init__(default_attrs)
+
+    def render_js_init(self, id_, name, value):
+        return '$("#{0}").autosize();'.format(id_)
+
 class AdminDateInput(WidgetWithScript, widgets.DateInput):
     def render_js_init(self, id_, name, value):
         return 'initDateChooser({0});'.format(json.dumps(id_))
