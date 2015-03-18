@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.forms.models import inlineformset_factory
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
@@ -211,6 +212,15 @@ class BaseGroupPagePermissionFormSet(forms.models.BaseInlineFormSet):
         empty_form = super(BaseGroupPagePermissionFormSet, self).empty_form
         empty_form.fields['DELETE'].widget = forms.HiddenInput()
         return empty_form
+
+
+GroupPagePermissionFormSet = inlineformset_factory(
+    Group,
+    GroupPagePermission,
+    formset=BaseGroupPagePermissionFormSet,
+    extra=0,
+    fields=('page', 'permission_type'),
+)
 
 
 class NotificationPreferencesForm(forms.ModelForm):
