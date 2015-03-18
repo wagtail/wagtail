@@ -106,14 +106,6 @@ It is no longer necessary to pass the base model as a parameter, so this declara
 
 The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
 
-Login/Password reset views renamed
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-It was previously possible to reverse the Wagtail login using django.contrib.auth.views.login.
-This is no longer possible. Update any references to ``wagtailadmin_login``.
-
-Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
-
 You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -122,6 +114,14 @@ If you are upgrading from an older version of Wagtail, you probably want to remo
 Prevously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
 respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
 should work fine without them.
+
+Login/Password reset views renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It was previously possible to reverse the Wagtail login using django.contrib.auth.views.login.
+This is no longer possible. Update any references to ``wagtailadmin_login``.
+
+Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
 
 Javascript includes in admin backend have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
