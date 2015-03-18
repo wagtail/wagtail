@@ -63,11 +63,9 @@ Apps (settings.py)
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'south',
     'compressor',
     'taggit',
     'modelcluster',
-    'django.contrib.admin',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -89,11 +87,6 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
 Third-Party Apps
 ----------------
 
-``south``
-  Used for database migrations. See `South Documentation`_.
-
-.. _South Documentation: http://south.readthedocs.org/en/latest/
-
 ``compressor``
   Static asset combiner and minifier for Django. Compressor also enables for the use of preprocessors. See `Compressor Documentation`_.
 
@@ -108,9 +101,6 @@ Third-Party Apps
   Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
 
 .. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
-
-``django.contrib.admin``
-  The Django admin module. While Wagtail will eventually provide a sites-editing interface, the Django admin is included for now to provide that functionality.
 
 
 Wagtail Apps
@@ -438,11 +428,9 @@ settings.py
       'django.contrib.messages',
       'django.contrib.staticfiles',
 
-      'south',
       'compressor',
       'taggit',
       'modelcluster',
-      'django.contrib.admin',
 
       'wagtail.wagtailcore',
       'wagtail.wagtailadmin',
