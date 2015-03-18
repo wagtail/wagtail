@@ -117,6 +117,12 @@ Password reset view name has changed from ``password_reset`` to ``wagtailadmin_p
 You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+If you are upgrading from an older version of Wagtail, you probably want to remove these from your project settings.
+
+Prevously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
+respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
+should work fine without them.
+
 Javascript includes in admin backend have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
