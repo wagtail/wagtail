@@ -68,12 +68,17 @@ class CharBlock(FieldBlock):
 
 
 class TextBlock(FieldBlock):
-    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
-        self.field = forms.CharField(
-            widget=forms.Textarea(),
-            required=required, help_text=help_text,
-            max_length=max_length, min_length=min_length)
+    def __init__(self, required=True, help_text=None, rows=1, max_length=None, min_length=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text, 'max_length': max_length, 'min_length': min_length}
+        self.rows = rows
         super(TextBlock, self).__init__(**kwargs)
+
+    @cached_property
+    def field(self):
+        from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput
+        field_kwargs = {'widget': AdminAutoHeightTextInput(attrs={'rows':self.rows})}
+        field_kwargs.update(self.field_options)
+        return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
         return [force_text(value)]
