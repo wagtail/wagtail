@@ -13,14 +13,14 @@ We have tried to minimise external dependencies for a working installation of Wa
 Cache
 -----
 
-We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis-cache`` to your requirements.txt, and enable it as a cache backend::
+We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your requirements.txt, and enable it as a cache backend::
 
 	CACHES = {
 	    'default': {
-	        'BACKEND': 'redis_cache.cache.RedisCache',
+	        'BACKEND': 'django_redis.cache.RedisCache',
 	        'LOCATION': '127.0.0.1:6379',
 	        'OPTIONS': {
-	            'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
+	            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
 	        }
 	    }
 	}
