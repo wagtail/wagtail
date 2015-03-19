@@ -18,15 +18,7 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
         passed_restrictions = request.session.get('passed_page_view_restrictions', [])
         for restriction in restrictions:
             if restriction.id not in passed_restrictions:
-                if restriction.password:
-                    # password protected
-                    from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
-
-                    form = PasswordPageViewRestrictionForm(instance=restriction,
-                                                           initial={'return_url': request.get_full_path()})
-                    action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
-                    return page.serve_password_required_response(request, form, action_url)
-                else:
+                if restriction.groups.all():
                     # group protected
                     login_required = True
                     user = request.user
@@ -49,3 +41,11 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                         return login(request, extra_context={
                             'next': page.url
                         })
+                else:
+                    # password protected
+                    from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
+
+                    form = PasswordPageViewRestrictionForm(instance=restriction,
+                                                           initial={'return_url': request.get_full_path()})
+                    action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
+                    return page.serve_password_required_response(request, form, action_url)

@@ -68,10 +68,13 @@ def set_privacy(request, page_id):
                 # If there are groups assigned, use that restriction type.
                 restriction_type = groups and 'group' or 'password'
 
+                if restriction_type == 'group':
+                    restriction.password = ''
+
                 form = PageViewRestrictionForm(initial={
                     'restriction_type': restriction_type,
                     'password': restriction.password,
-                    'groups': [g for g in groups]
+                    'groups': groups
                 })
             else:
                 # no current view restrictions on this page

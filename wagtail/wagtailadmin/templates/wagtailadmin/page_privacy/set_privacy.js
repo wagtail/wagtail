@@ -11,23 +11,22 @@ function(modal) {
     var groupsRow = $("li.groups-field", modal.body);
     function refreshFormFields() {
         var restrictType = restrictionTypePasswordField.val();
-        if (restrictType != "none") {
-            if (restrictType == "password") {
-                passwordField.removeAttr('disabled');
-                passwordRow.show();
-                groupFields.attr('disabled', true);
-                groupsRow.hide();
-            } else if(restrictType == "group") {
-                passwordField.attr('disabled', true);
-                passwordRow.hide();
-                groupFields.removeAttr('disabled');
-                groupsRow.show();
-            }
-        } else {
+
+        if (restrictType == "none") {
             passwordField.attr('disabled', true);
             passwordRow.hide();
             groupFields.attr('disabled', true);
             groupsRow.hide();
+        }else if (restrictType == "password"){
+            passwordField.removeAttr('disabled');
+            passwordRow.show();
+            groupFields.attr('disabled', true);
+            groupsRow.hide();
+        }else if (restrictType == "group"){
+            passwordField.attr('disabled', true);
+            passwordRow.hide();
+            groupFields.removeAttr('disabled');
+            groupsRow.show();
         }
     }
     refreshFormFields();

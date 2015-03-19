@@ -179,7 +179,7 @@ class PageViewRestrictionForm(forms.Form):
         ('none', ugettext_lazy("Public")),
         ('password', ugettext_lazy("Private, accessible with the following password")),
         ('group', ugettext_lazy("Private, accessible to Users in the following Groups")),
-    ], widget=forms.Select)
+    ])
     password = forms.CharField(required=False)
     groups = forms.ModelMultipleChoiceField(queryset=Group.objects.order_by('name'),
                                             widget=forms.CheckboxSelectMultiple,

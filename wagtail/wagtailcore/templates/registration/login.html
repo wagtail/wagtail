@@ -4,6 +4,11 @@
         <title>Password required</title>
     </head>
     <body>
+    <!--
+     It is expected that you will use your own login template. This one
+     is only here for convenience and testing. Follow Django Auth
+     recommendations for your login template.
+    -->
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
