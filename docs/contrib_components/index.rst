@@ -7,8 +7,8 @@ Wagtail ships with a variety of extra optional modules.
 .. toctree::
     :maxdepth: 2
 
-    static_site_generation
-    sitemap_generation
+    staticsitegen
+    sitemaps
     frontendcache
 
 
