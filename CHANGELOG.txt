@@ -33,6 +33,7 @@ Changelog
  * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface
  * The Page model now records the date/time that a page was first published, as the field `first_published_at`
  * Increased the maximum length of a page slug from 50 to 255 characters
+ * Plain text fields in the page editor now use auto-expanding text areas
 
 
 0.8.6 (10.03.2015)
