@@ -25,26 +25,43 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_str
 from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
+# Form field properties to override whenever we encounter a model field
+# that matches one of these types - including subclasses
 FORM_FIELD_OVERRIDES = {
     models.DateField: {'widget': widgets.AdminDateInput},
     models.TimeField: {'widget': widgets.AdminTimeInput},
     models.DateTimeField: {'widget': widgets.AdminDateTimeInput},
-    TaggableManager: {'widget': widgets.AdminTagWidget}
+    TaggableManager: {'widget': widgets.AdminTagWidget},
+}
+
+# Form field properties to override whenever we encounter a model field
+# that matches one of these types exactly, ignoring subclasses.
+# (This allows us to override the widget for models.TextField, but leave
+# the RichTextField widget alone)
+DIRECT_FORM_FIELD_OVERRIDES = {
+    models.TextField: {'widget': widgets.AdminAutoHeightTextInput},
 }
 
 
 # Callback to allow us to override the default form fields provided for each model field.
 def formfield_for_dbfield(db_field, **kwargs):
-    # snarfed from django/contrib/admin/options.py
+    # adapted from django/contrib/admin/options.py
+
+    overrides = None
 
     # If we've got overrides for the formfield defined, use 'em. **kwargs
     # passed to formfield_for_dbfield override the defaults.
-    for klass in db_field.__class__.mro():
-        if klass in FORM_FIELD_OVERRIDES:
-            kwargs = dict(copy.deepcopy(FORM_FIELD_OVERRIDES[klass]), **kwargs)
-            return db_field.formfield(**kwargs)
+    if db_field.__class__ in DIRECT_FORM_FIELD_OVERRIDES:
+        overrides = DIRECT_FORM_FIELD_OVERRIDES[db_field.__class__]
+    else:
+        for klass in db_field.__class__.mro():
+            if klass in FORM_FIELD_OVERRIDES:
+                overrides = FORM_FIELD_OVERRIDES[klass]
+                break
 
-    # For any other type of field, just call its formfield() method.
+    if overrides:
+        kwargs = dict(copy.deepcopy(overrides), **kwargs)
+
     return db_field.formfield(**kwargs)
 
 
