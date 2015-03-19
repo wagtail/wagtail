@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0010_change_page_owner_to_null_on_delete'),
+        ('wagtailcore', '0012_extend_page_slug_field'),
     ]
 
     operations = [
