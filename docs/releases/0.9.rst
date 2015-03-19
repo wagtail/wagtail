@@ -63,6 +63,7 @@ Admin
  * Removed the need to add permission check on admin views (now automated)
  * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
+ * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
 
 
 Project template
