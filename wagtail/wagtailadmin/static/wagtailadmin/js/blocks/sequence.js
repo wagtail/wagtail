@@ -48,7 +48,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             // focus first suitable input found
             var timeout = setTimeout(function(){
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
-            }, 10);
+            }, 250);
         };
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
