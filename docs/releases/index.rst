@@ -4,7 +4,6 @@ Release notes
 .. toctree::
    :maxdepth: 1
 
-   roadmap
    0.9
    0.8.6
    0.8.5
