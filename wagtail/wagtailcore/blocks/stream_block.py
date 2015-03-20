@@ -6,7 +6,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
@@ -192,7 +192,7 @@ class BaseStreamBlock(Block):
 
     def render_basic(self, value):
         return format_html_join('\n', '<div class="block-{1}">{0}</div>',
-            [(child, child.block_type) for child in value]
+            [(force_text(child), child.block_type) for child in value]
         )
 
     def get_searchable_content(self, value):
