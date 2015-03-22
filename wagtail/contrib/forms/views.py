@@ -13,8 +13,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
-from wagtail.wagtailforms.forms import SelectDateForm
+from wagtail.contrib.forms.models import FormSubmission, get_forms_for_user
+from wagtail.contrib.forms.forms import SelectDateForm
 
 
 def index(request):

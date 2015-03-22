@@ -6,8 +6,8 @@ from django import forms
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission
-from wagtail.wagtailforms.forms import FormBuilder
+from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.tests.models import FormPage, FormField
 
 
