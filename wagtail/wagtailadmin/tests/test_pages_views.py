@@ -1,5 +1,6 @@
 from datetime import timedelta
 import unittest
+import mock
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -274,12 +275,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_publish(self):
         # Connect a mock signal handler to page_published signal
-        signal_fired = [False]
-        signal_page = [None]
-        def page_published_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-            signal_page[0] = instance
-        page_published.connect(page_published_handler)
+        mock_handler = mock.MagicMock()
+        page_published.connect(mock_handler)
 
         # Post
         post_data = {
@@ -302,9 +299,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(page.first_published_at)
 
         # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call['sender'], page.specific_class)
+        self.assertEqual(mock_call['instance'], page)
+        self.assertIsInstance(mock_call['instance'], page.specific_class)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
@@ -577,12 +577,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_page_edit_post_publish(self):
         # Connect a mock signal handler to page_published signal
-        signal_fired = [False]
-        signal_page = [None]
-        def page_published_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-            signal_page[0] = instance
-        page_published.connect(page_published_handler)
+        mock_handler = mock.MagicMock()
+        page_published.connect(mock_handler)
 
         # Set has_unpublished_changes=True on the existing record to confirm that the publish action
         # is resetting it (and not just leaving it alone)
@@ -609,9 +605,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(child_page_new.title, post_data['title'])
 
         # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], child_page_new)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call['sender'], child_page_new.specific_class)
+        self.assertEqual(mock_call['instance'], child_page_new)
+        self.assertIsInstance(mock_call['instance'], child_page_new.specific_class)
 
         # The page shouldn't have "has_unpublished_changes" flag set
         self.assertFalse(child_page_new.has_unpublished_changes)
@@ -913,12 +912,8 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
     def test_page_delete_post(self):
         # Connect a mock signal handler to page_unpublished signal
-        signal_fired = [False]
-        signal_page = [None]
-        def page_unpublished_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-            signal_page[0] = instance
-        page_unpublished.connect(page_unpublished_handler)
+        mock_handler = mock.MagicMock()
+        page_unpublished.connect(mock_handler)
 
         # Post
         response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
@@ -933,9 +928,12 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
 
         # Check that the page_unpublished signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], self.child_page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call['sender'], self.child_page.specific_class)
+        self.assertEqual(mock_call['instance'], self.child_page)
+        self.assertIsInstance(mock_call['instance'], self.child_page.specific_class)
 
     def test_page_delete_notlive_post(self):
         # Same as above, but this makes sure the page_unpublished signal is not fired
@@ -946,10 +944,8 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.child_page.save()
 
         # Connect a mock signal handler to page_unpublished signal
-        signal_fired = [False]
-        def page_unpublished_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-        page_unpublished.connect(page_unpublished_handler)
+        mock_handler = mock.MagicMock()
+        page_unpublished.connect(mock_handler)
 
         # Post
         response = self.client.post(reverse('wagtailadmin_pages_delete', args=(self.child_page.id, )))
@@ -964,7 +960,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(Page.objects.filter(path__startswith=self.root_page.path, slug='hello-world').count(), 0)
 
         # Check that the page_unpublished signal was not fired
-        self.assertFalse(signal_fired[0])
+        self.assertEqual(mock_handler.call_count, 0)
 
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
@@ -1483,12 +1479,8 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         This posts to the unpublish view and checks that the page was unpublished
         """
         # Connect a mock signal handler to page_unpublished signal
-        signal_fired = [False]
-        signal_page = [None]
-        def page_unpublished_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-            signal_page[0] = instance
-        page_unpublished.connect(page_unpublished_handler)
+        mock_handler = mock.MagicMock()
+        page_unpublished.connect(mock_handler)
 
         # Post to the unpublish page
         response = self.client.post(reverse('wagtailadmin_pages_unpublish', args=(self.page.id, )))
@@ -1500,9 +1492,12 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
 
         # Check that the page_unpublished signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], self.page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call['sender'], self.page.specific_class)
+        self.assertEqual(mock_call['instance'], self.page)
+        self.assertIsInstance(mock_call['instance'], self.page.specific_class)
 
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
@@ -1533,12 +1528,8 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This posts to the approve moderation view and checks that the page was approved
         """
         # Connect a mock signal handler to page_published signal
-        signal_fired = [False]
-        signal_page = [None]
-        def page_published_handler(sender, instance, **kwargs):
-            signal_fired[0] = True
-            signal_page[0] = instance
-        page_published.connect(page_published_handler)
+        mock_handler = mock.MagicMock()
+        page_published.connect(mock_handler)
 
         # Post
         response = self.client.post(reverse('wagtailadmin_pages_approve_moderation', args=(self.revision.id, )))
@@ -1553,9 +1544,12 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         self.assertFalse(page.has_unpublished_changes, "Approving moderation failed to set has_unpublished_changes=False")
 
         # Check that the page_published signal was fired
-        self.assertTrue(signal_fired[0])
-        self.assertEqual(signal_page[0], self.page)
-        self.assertEqual(signal_page[0], signal_page[0].specific)
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call['sender'], self.page.specific_class)
+        self.assertEqual(mock_call['instance'], self.page)
+        self.assertIsInstance(mock_call['instance'], self.page.specific_class)
 
     def test_approve_moderation_when_later_revision_exists(self):
         self.page.title = "Goodbye world!"
