@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+import re
 
 # Needs to be imported like this to allow @patch to work in tests
 from six.moves.urllib import request as urllib_request
@@ -72,7 +73,7 @@ def oembed(url, max_width=None):
         raise EmbedNotFoundException
 
     # Work out params
-    params = {'url': url, 'format': 'json',  }
+    params = {'url': url, 'format': 'json', }
     if max_width:
         params['maxwidth'] = max_width
 
@@ -90,6 +91,7 @@ def oembed(url, max_width=None):
         html = '<img src="%s" />' % (oembed['url'], )
     else:
         html = oembed.get('html')
+        html = re.sub(r'http(?:s)?:', '', html)
 
     # Return embed as a dict
     return {
