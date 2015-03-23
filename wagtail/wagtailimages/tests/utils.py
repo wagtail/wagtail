@@ -1,5 +1,6 @@
+from io import BytesIO
+
 import PIL.Image
-from six import BytesIO
 
 from django.core.files.images import ImageFile
 
