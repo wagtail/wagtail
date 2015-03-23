@@ -1,6 +1,5 @@
 from datetime import timedelta
-
-from six import StringIO
+from io import StringIO
 
 from django.test import TestCase
 from django.core import management
