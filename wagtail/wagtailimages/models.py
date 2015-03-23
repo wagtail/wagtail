@@ -4,6 +4,7 @@ import os.path
 import hashlib
 import re
 from contextlib import contextmanager
+import warnings
 
 from six import BytesIO, text_type
 
@@ -309,7 +310,18 @@ class Filter(models.Model):
 
             if willow.original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
-                quality = getattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY', 85)
+                if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
+                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
+                elif hasattr(settings, 'IMAGE_COMPRESSION_QUALITY'):
+                    quality = settings.IMAGE_COMPRESSION_QUALITY
+
+                    warnings.warn(
+                        "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
+                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings."
+                        , RemovedInWagtail11Warning)
+                else:
+                    quality = 85
+
                 willow.save_as_jpeg(output, quality=quality)
             else:
                 willow.save(willow.original_format, output)
