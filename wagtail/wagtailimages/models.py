@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os.path
 import hashlib
 import re
+from contextlib import contextmanager
 
 from six import BytesIO, text_type
 
@@ -84,6 +85,7 @@ class AbstractImage(models.Model, TagSearchable):
     def __str__(self):
         return self.title
 
+    @contextmanager
     def get_willow_image(self):
         try:
             image_file = self.file.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
@@ -95,7 +97,9 @@ class AbstractImage(models.Model, TagSearchable):
         image_file.open('rb')
         image_file.seek(0)
 
-        return WillowImage.open(image_file)
+        yield WillowImage.open(image_file)
+
+        image_file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -128,27 +132,27 @@ class AbstractImage(models.Model, TagSearchable):
             self.focal_point_height = None
 
     def get_suggested_focal_point(self):
-        willow = self.get_willow_image()
+        with self.get_willow_image() as willow:
+            faces = willow.detect_faces()
 
-        faces = willow.detect_faces()
-        if faces:
-            # Create a bounding box around all faces
-            left = min(face[0] for face in faces)
-            top = min(face[1] for face in faces)
-            right = max(face[2] for face in faces)
-            bottom = max(face[3] for face in faces)
-            focal_point = Rect(left, top, right, bottom)
-        else:
-            features = willow.detect_features()
-            if features:
-                # Create a bounding box around all features
-                left = min(feature[0] for feature in features)
-                top = min(feature[1] for feature in features)
-                right = max(feature[0] for feature in features)
-                bottom = max(feature[1] for feature in features)
+            if faces:
+                # Create a bounding box around all faces
+                left = min(face[0] for face in faces)
+                top = min(face[1] for face in faces)
+                right = max(face[2] for face in faces)
+                bottom = max(face[3] for face in faces)
                 focal_point = Rect(left, top, right, bottom)
             else:
-                return None
+                features = willow.detect_features()
+                if features:
+                    # Create a bounding box around all features
+                    left = min(feature[0] for feature in features)
+                    top = min(feature[1] for feature in features)
+                    right = max(feature[0] for feature in features)
+                    bottom = max(feature[1] for feature in features)
+                    focal_point = Rect(left, top, right, bottom)
+                else:
+                    return None
 
         # Add 20% to width and height and give it a minimum size
         x, y = focal_point.centroid
@@ -299,12 +303,11 @@ class Filter(models.Model):
         return operations
 
     def run(self, image, output):
-        willow = image.get_willow_image()
+        with image.get_willow_image() as willow:
+            for operation in self.operations:
+                operation.run(willow, image)
 
-        for operation in self.operations:
-            operation.run(willow, image)
-
-        willow.save_as_jpeg(output)
+            willow.save_as_jpeg(output)
 
         return output
 

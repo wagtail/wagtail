@@ -219,9 +219,8 @@ class TestGetWillowImage(TestCase):
         )
 
     def test_willow_image_object_returned(self):
-        willow_image = self.image.get_willow_image()
-
-        self.assertIsInstance(willow_image, WillowImage)
+        with self.image.get_willow_image() as willow_image:
+            self.assertIsInstance(willow_image, WillowImage)
 
     def test_with_missing_image(self):
         # Image id=1 in test fixtures has a missing image file
@@ -229,7 +228,9 @@ class TestGetWillowImage(TestCase):
 
         # Attempting to get the Willow image for images without files
         # should raise a SourceImageIOError
-        self.assertRaises(SourceImageIOError, bad_image.get_willow_image)
+        with self.assertRaises(SourceImageIOError):
+            with bad_image.get_willow_image() as willow_image:
+                self.fail() # Shouldn't get here
 
 
 class TestIssue573(TestCase):
