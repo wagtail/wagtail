@@ -307,7 +307,7 @@ class Filter(models.Model):
             for operation in self.operations:
                 operation.run(willow, image)
 
-            willow.save_as_jpeg(output)
+            willow.save(willow.original_format, output)
 
         return output
 
