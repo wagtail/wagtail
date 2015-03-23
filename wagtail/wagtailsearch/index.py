@@ -3,6 +3,7 @@ import warnings
 from six import string_types
 
 from django.db import models
+from django.apps import apps
 
 
 class Indexed(object):
@@ -74,7 +75,7 @@ class Indexed(object):
 
 def get_indexed_models():
     return [
-        model for model in models.get_models()
+        model for model in apps.get_models()
         if issubclass(model, Indexed) and not model._meta.abstract
     ]
 
