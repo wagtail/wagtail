@@ -39,7 +39,7 @@ Index
    snippets
    search/index
    form_builder
-   contrib_components/index
+   contrib/index
    howto/index
    reference/index
    support
