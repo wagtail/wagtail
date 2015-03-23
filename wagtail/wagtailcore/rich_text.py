@@ -156,6 +156,33 @@ LINK_HANDLERS = {
     'document': DocumentLinkHandler,
 }
 
+has_loaded_embed_handlers = False
+has_loaded_link_handlers = False
+
+def get_embed_handler(embed_type):
+    global EMBED_HANDLERS, has_loaded_embed_handlers
+
+    if not has_loaded_embed_handlers:
+        for hook in hooks.get_hooks('register_rich_text_embed_handler'):
+            handler_name, handler = hook()
+            EMBED_HANDLERS[handler_name] = handler
+
+        has_loaded_embed_handlers = True
+
+    return EMBED_HANDLERS[embed_type]
+
+def get_link_handler(link_type):
+    global LINK_HANDLERS, has_loaded_link_handlers
+
+    if not has_loaded_link_handlers:
+        for hook in hooks.get_hooks('register_rich_text_link_handler'):
+            handler_name, handler = hook()
+            LINK_HANDLERS[handler_name] = handler
+
+        has_loaded_link_handlers = True
+
+    return LINK_HANDLERS[link_type]
+
 
 class DbWhitelister(Whitelister):
     """
@@ -189,7 +216,7 @@ class DbWhitelister(Whitelister):
         if 'data-embedtype' in tag.attrs:
             embed_type = tag['data-embedtype']
             # fetch the appropriate embed handler for this embedtype
-            embed_handler = EMBED_HANDLERS[embed_type]
+            embed_handler = get_embed_handler(embed_type)
             embed_attrs = embed_handler.get_db_attributes(tag)
             embed_attrs['embedtype'] = embed_type
 
@@ -202,7 +229,7 @@ class DbWhitelister(Whitelister):
                 cls.clean_node(doc, child)
 
             link_type = tag['data-linktype']
-            link_handler = LINK_HANDLERS[link_type]
+            link_handler = get_link_handler(link_type)
             link_attrs = link_handler.get_db_attributes(tag)
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
@@ -238,12 +265,12 @@ def expand_db_html(html, for_editor=False):
         if 'linktype' not in attrs:
             # return unchanged
             return m.group(0)
-        handler = LINK_HANDLERS[attrs['linktype']]
+        handler = get_link_handler(attrs['linktype'])
         return handler.expand_db_attributes(attrs, for_editor)
 
     def replace_embed_tag(m):
         attrs = extract_attrs(m.group(1))
-        handler = EMBED_HANDLERS[attrs['embedtype']]
+        handler = get_embed_handler(attrs['embedtype'])
         return handler.expand_db_attributes(attrs, for_editor)
 
     html = FIND_A_TAG.sub(replace_a_tag, html)
