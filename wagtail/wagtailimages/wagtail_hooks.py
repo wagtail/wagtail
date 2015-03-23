@@ -11,6 +11,7 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
 
 @hooks.register('register_admin_urls')
@@ -108,3 +109,8 @@ def register_image_operations():
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
     ]
+
+
+@hooks.register('register_rich_text_embed_handler')
+def register_image_embed_handler():
+    return ('image', ImageEmbedHandler)

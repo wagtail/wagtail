@@ -1,6 +1,7 @@
 from six import b
 import unittest
 import mock
+from bs4 import BeautifulSoup
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -16,6 +17,7 @@ from wagtail.tests.models import EventPage, EventPageRelatedLink
 from wagtail.wagtaildocs.models import Document
 
 from wagtail.wagtaildocs import models
+from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
 class TestDocumentPermissions(TestCase):
@@ -576,3 +578,39 @@ class TestServeView(TestCase):
     def test_with_incorrect_filename(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
         self.assertEqual(response.status_code, 404)
+
+
+class TestDocumentLinkHandler(TestCase):
+    fixtures = ['wagtail/tests/fixtures/test.json']
+
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup(
+            '<a data-id="test-id">foo</a>'
+        )
+        tag = soup.a
+        result = DocumentLinkHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'id': 'test-id'})
+
+    def test_expand_db_attributes_document_does_not_exist(self):
+        result = DocumentLinkHandler.expand_db_attributes(
+            {'id': 0},
+            False
+        )
+        self.assertEqual(result, '<a>')
+
+    def test_expand_db_attributes_for_editor(self):
+        result = DocumentLinkHandler.expand_db_attributes(
+            {'id': 1},
+            True
+        )
+        self.assertEqual(result,
+                         '<a data-linktype="document" data-id="1" href="/documents/1/">')
+
+    def test_expand_db_attributes_not_for_editor(self):
+        result = DocumentLinkHandler.expand_db_attributes(
+            {'id': 1},
+            False
+        )
+        self.assertEqual(result,
+                         '<a href="/documents/1/">')
