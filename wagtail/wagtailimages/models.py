@@ -309,7 +309,7 @@ class Filter(models.Model):
 
             if willow.original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
-                quality = getattr(settings, 'WAGTAILIMAGES_JPEG_COMPRESSION_QUALITY', 85)
+                quality = getattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY', 85)
                 willow.save_as_jpeg(output, quality=quality)
             else:
                 willow.save(willow.original_format, output)
