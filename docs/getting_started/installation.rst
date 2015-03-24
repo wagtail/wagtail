@@ -16,26 +16,9 @@ Whether you just want to try out the demo site, or you're ready to dive in and c
 Dependencies
 ============
 
-Barebones
----------
+Wagtail is based on the Django web framework and various other Python libraries. For the full list of absolutely required libraries, see `setup.py <https://github.com/torchbox/wagtail/blob/master/setup.py>`__.
 
-The basic Wagtail installation is pure Python. No build tools are required on the host machine.
-For the full list of absolutely required libraries, see `setup.py <https://github.com/torchbox/wagtail/blob/master/setup.py>`__.
-
-If you are installing Wagtail differently (e.g. from the Git repository), you must run ``python setup.py install`` from the repository root. The above command will install all Wagtail dependencies.
-
-Administration UI
------------------
-
-.. warning::
-
-    The administrative interface requires django-libsass and Pillow. The project template bundled with Wagtail includes them (see :doc:`creating_your_project`). You must add the above libraries if you are adding Wagtail to an existing project, unless you will be using it
-    in a purely framework fashion without visiting wagtailadmin or hooking it up to the urlconf.
-
- * django-libsass>=0.2
- * Pillow>=2.6.1
-
-Both django-libsass and Pillow have native-code components that require further attention:
+Most of Wagtail's dependencies are pure Python and will install automatically using ``pip``, but there are a few native-code components that require further attention:
 
  * libsass-python (for compiling SASS stylesheets) - requires a C++ compiler and the Python development headers.
  * Pillow (for image processing) - additionally requires libjpeg and zlib.
@@ -77,6 +60,8 @@ The quickest way to install Wagtail is using pip. To get the latest stable versi
 
     pip install wagtail
 
+
+If you are installing Wagtail differently (e.g. from the Git repository), you must run ``python setup.py install`` from the repository root. The above command will install all Wagtail dependencies.
 
 To check that Wagtail can be seen by Python, type ``python`` in your shell then try to import ``wagtail`` from the prompt:
 
