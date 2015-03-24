@@ -580,7 +580,7 @@ class TestServeView(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestDocumentLinkHandler(TestCase):
+class TestDocumentRichTextLinkHandler(TestCase):
     fixtures = ['wagtail/tests/fixtures/test.json']
 
     def test_get_db_attributes(self):
