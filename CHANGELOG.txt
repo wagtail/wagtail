@@ -35,6 +35,7 @@ Changelog
  * Increased the maximum length of a page slug from 50 to 255 characters
  * Plain text fields in the page editor now use auto-expanding text areas
  * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
+ * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
 
 
 0.8.6 (10.03.2015)
