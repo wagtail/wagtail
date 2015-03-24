@@ -1,5 +1,6 @@
 from wagtail.wagtailembeds import format
 
+
 class MediaEmbedHandler(object):
     """
     MediaEmbedHandler will be invoked whenever we encounter an element in HTML content

@@ -1,6 +1,7 @@
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.formats import get_image_format
 
+
 class ImageEmbedHandler(object):
     """
     ImageEmbedHandler will be invoked whenever we encounter an element in HTML content
