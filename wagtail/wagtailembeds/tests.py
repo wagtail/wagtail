@@ -2,8 +2,10 @@ import six.moves.urllib.request
 from six.moves.urllib.error import URLError
 
 from mock import patch
-import warnings
 import unittest
+from bs4 import BeautifulSoup
+
+from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 
 try:
     import embedly
@@ -320,3 +322,55 @@ class TestEmbedBlock(TestCase):
 
         # Check that the embed was in the returned HTML
         self.assertIn('<h1>Hello world!</h1>', html)
+
+
+class TestMediaEmbedHandler(TestCase):
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup(
+            '<b data-url="test-url">foo</b>'
+        )
+        tag = soup.b
+        result = MediaEmbedHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'url': 'test-url'})
+
+    @patch('wagtail.wagtailembeds.embeds.oembed')
+    def test_expand_db_attributes_for_editor(self, oembed):
+        oembed.return_value = {
+            'title': 'test title',
+            'author_name': 'test author name',
+            'provider_name': 'test provider name',
+            'type': 'test type',
+            'thumbnail_url': 'test thumbnail url',
+            'width': 'test width',
+            'height': 'test height',
+            'html': 'test html'
+        }
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            True
+        )
+        self.assertIn('<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="http://www.youtube.com/watch/">', result)
+        self.assertIn('<h3>test title</h3>', result)
+        self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
+        self.assertIn('<p>Provider: test provider name</p>', result)
+        self.assertIn('<p>Author: test author name</p>', result)
+        self.assertIn('<img src="test thumbnail url" alt="test title">', result)
+
+    @patch('wagtail.wagtailembeds.embeds.oembed')
+    def test_expand_db_attributes_not_for_editor(self, oembed):
+        oembed.return_value = {
+            'title': 'test title',
+            'author_name': 'test author name',
+            'provider_name': 'test provider name',
+            'type': 'test type',
+            'thumbnail_url': 'test thumbnail url',
+            'width': 'test width',
+            'height': 'test height',
+            'html': 'test html'
+        }
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            False
+        )
+        self.assertIn('test html', result)
