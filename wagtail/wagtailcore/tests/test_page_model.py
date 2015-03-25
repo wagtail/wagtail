@@ -463,7 +463,7 @@ class TestCopyPage(TestCase):
 
         # Set the created_at of the revision to a time in the past
         revision = christmas_event.get_latest_revision()
-        revision.created_at = datetime.datetime(2014, 1, 1)
+        revision.created_at = datetime.datetime(2014, 1, 1, 0, 0, 0, tzinfo=pytz.utc)
         revision.save()
 
         # Copy it
