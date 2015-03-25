@@ -1,7 +1,7 @@
 Generating a static site
 ========================
 
-This document describes how to render your Wagtail site into static HTML files on your local filesystem, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
+This document describes how to render your Wagtail site into static HTML files on your local filesystem, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.staticsitegen`` module.
 
 .. note::
 
@@ -17,14 +17,14 @@ First, install ``django-medusa`` from pip:
     pip install django-medusa
 
 
-Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
+Then add ``django_medusa`` and ``wagtail.contrib.staticsitegen`` to ``INSTALLED_APPS``:
 
 .. code:: python
 
     INSTALLED_APPS = [
        ...
        'django_medusa',
-       'wagtail.contrib.wagtailmedusa',
+       'wagtail.contrib.staticsitegen',
     ]
 
 
@@ -81,7 +81,7 @@ Then in the template, you can use the ``{% routablepageurl %}`` tag to link betw
     {% else %}
 
 
-Next, you have to tell the ``wagtailmedusa`` module about your custom routing...
+Next, you have to tell the ``staticsitegen`` module about your custom routing...
 
 
 Rendering pages which use custom routing
