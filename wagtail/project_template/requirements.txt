@@ -7,5 +7,5 @@ wagtail==0.8.6
 # elasticsearch==1.1.1
 
 # Recommended components to improve performance in production:
-# django-redis-cache==0.13.0
+# django-redis==3.8.2
 # django-celery==3.1.10
