@@ -438,6 +438,23 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertEqual(content, ["Wagtail site"])
 
+    def test_value_from_datadict(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+
+        struct_val = block.value_from_datadict({
+            'mylink-title': "Torchbox",
+            'mylink-link': "http://www.torchbox.com"
+        }, {}, 'mylink')
+
+        self.assertEqual(struct_val['title'], "Torchbox")
+        self.assertEqual(struct_val['link'], "http://www.torchbox.com")
+        self.assertTrue(isinstance(struct_val, blocks.StructValue))
+        self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
+
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
