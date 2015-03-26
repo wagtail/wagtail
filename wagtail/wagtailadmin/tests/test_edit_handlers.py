@@ -16,10 +16,11 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
-from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput
+from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminAutoHeightTextInput
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker
+from wagtail.wagtailcore.fields import RichTextArea
+from wagtail.tests.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
@@ -42,6 +43,22 @@ class TestGetFormForModel(TestCase):
         # all child relations become formsets by default
         self.assertIn('speakers', form.formsets)
         self.assertIn('related_links', form.formsets)
+
+    def test_direct_form_field_overrides(self):
+        # Test that field overrides defined through DIRECT_FORM_FIELD_OVERRIDES
+        # are applied
+
+        SimplePageForm = get_form_for_model(SimplePage)
+        simple_form = SimplePageForm()
+        # plain TextFields should use AdminAutoHeightTextInput as the widget
+        self.assertEqual(type(simple_form.fields['content'].widget), AdminAutoHeightTextInput)
+
+        # This override should NOT be applied to subclasses of TextField such as
+        # RichTextField - they should retain their default widgets
+        EventPageForm = get_form_for_model(EventPage)
+        event_form = EventPageForm()
+        self.assertEqual(type(event_form.fields['body'].widget), RichTextArea)
+
 
     def test_get_form_for_model_with_specific_fields(self):
         EventPageForm = get_form_for_model(EventPage, fields=['date_from'], formsets=['speakers'])

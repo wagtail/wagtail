@@ -22,6 +22,9 @@ Core
 ----
 
  * Added validation to prevent pages being created with only whitespace characters in their title fields
+ * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
+ * Increased the maximum length of a page slug from 50 to 255 characters
+ * Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
 
 
 Admin
@@ -29,12 +32,13 @@ Admin
 
 **UI**
 
- * Improvements to the layout of the admin menu footer
+ * Improvements to the layout of the left-hand menu footer
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to
  * Added pagination to the snippets listing and chooser
  * Page / document / image / snippet choosers now include a link to edit the chosen item
+ * Plain text fields in the page editor now use auto-expanding text areas
 
 
 **Page editor**
@@ -60,6 +64,7 @@ Admin
  * Removed the need to add permission check on admin views (now automated)
  * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
+ * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
 
 
 Project template
@@ -105,6 +110,15 @@ It is no longer necessary to pass the base model as a parameter, so this declara
 
 The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
 
+You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are upgrading from an older version of Wagtail, you probably want to remove these from your project settings.
+
+Prevously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
+respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
+should work fine without them.
+
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -112,9 +126,6 @@ It was previously possible to reverse the Wagtail login using django.contrib.aut
 This is no longer possible. Update any references to ``wagtailadmin_login``.
 
 Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
-
-You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Javascript includes in admin backend have been moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -265,7 +265,7 @@ class PageBase(models.base.ModelBase):
 @python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
-    slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
+    slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
@@ -278,12 +278,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
-    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
     locked = models.BooleanField(default=False, editable=False)
 
+    first_published_at = models.DateTimeField(null=True, editable=False)
     latest_revision_created_at = models.DateTimeField(null=True, editable=False)
 
     search_fields = (
@@ -1099,6 +1100,7 @@ class PageRevision(models.Model):
         obj.owner = self.page.owner
         obj.locked = self.page.locked
         obj.latest_revision_created_at = self.page.latest_revision_created_at
+        obj.first_published_at = self.page.first_published_at
 
         return obj
 
@@ -1139,6 +1141,11 @@ class PageRevision(models.Model):
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False  # When a page is published it can't be expired
+
+        # Set first_published_at if the page is being published now
+        if page.live and page.first_published_at is None:
+            page.first_published_at = timezone.now()
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)

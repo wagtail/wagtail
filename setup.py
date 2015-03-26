@@ -28,11 +28,13 @@ PY3 = sys.version_info[0] == 3
 
 
 install_requires = [
-    "Django>=1.7.0,<1.8",
+    "Django>=1.7.1,<1.8",
     "django-compressor>=1.4",
+    "django-libsass>=0.2",
     "django-modelcluster>=0.5",
     "django-taggit==0.12.3",
     "django-treebeard==3.0",
+    "Pillow>=2.6.1",
     "beautifulsoup4>=4.3.2",
     "html5lib==0.999",
     "Unidecode>=0.04.14",

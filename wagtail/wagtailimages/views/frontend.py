@@ -1,6 +1,7 @@
+from wsgiref.util import FileWrapper
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from django.core.servers.basehttp import FileWrapper
 from django.core.exceptions import PermissionDenied
 
 from wagtail.wagtailimages.models import get_image_model, Filter

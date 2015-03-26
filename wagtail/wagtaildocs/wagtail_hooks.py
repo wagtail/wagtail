@@ -10,6 +10,7 @@ from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtaildocs import admin_urls
+from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
 @hooks.register('register_admin_urls')
@@ -53,3 +54,8 @@ def register_permissions():
     document_content_type = ContentType.objects.get(app_label='wagtaildocs', model='document')
     document_permissions = Permission.objects.filter(content_type = document_content_type)
     return document_permissions
+
+
+@hooks.register('register_rich_text_link_handler')
+def register_document_link_handler():
+    return ('document', DocumentLinkHandler)

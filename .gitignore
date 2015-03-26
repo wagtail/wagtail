@@ -1,3 +1,4 @@
+*.swp
 *.pyc
 .DS_Store
 /.coverage
@@ -6,3 +7,4 @@
 /wagtail.egg-info/
 /docs/_build/
 /.tox/
+/venv

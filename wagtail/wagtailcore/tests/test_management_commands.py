@@ -188,6 +188,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertTrue(p.live)
+        self.assertTrue(p.first_published_at)
         self.assertFalse(p.has_unpublished_changes)
         self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
 

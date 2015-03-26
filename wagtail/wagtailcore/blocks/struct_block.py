@@ -74,15 +74,13 @@ class BaseStructBlock(Block):
             for child_rendering in child_renderings
         ])
 
-       
-        # Can these be rendered with a template?
         if self.label:
             return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.label, list_items)
         else:
             return format_html('<div class="struct-block"><ul>{0}</ul></div>', list_items)
 
     def value_from_datadict(self, data, files, prefix):
-        return dict([
+        return StructValue(self, [
             (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
             for name, block in self.child_blocks.items()
         ])

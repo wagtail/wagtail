@@ -52,12 +52,12 @@ Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and al
 
 Need Support?
 ~~~~~~~~~~~~~~~
-Ask your questions on our `Google Group <https://groups.google.com/forum/#!forum/wagtail>`_.
+Ask your questions on our `Wagtail support group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 
 Compatibility
 ~~~~~~~~~~~~~
-Wagtail supports Django 1.7.0+ on Python 2.7, 3.3 and 3.4.
+Wagtail supports Django 1.7.1+ on Python 2.7, 3.3 and 3.4.
 
 Wagtail's dependencies are summarised at `requirements.io <https://requires.io/github/torchbox/wagtail/requirements>`_.
 
@@ -71,3 +71,5 @@ We suggest you start by checking the `Help develop me! <https://github.com/torch
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
 
 We also welcome `translations <http://wagtail.readthedocs.org/en/latest/howto/contributing.html#translations>`_ for Wagtail's interface.
+
+We run a separate Wagtail developers group here: https://groups.google.com/forum/#!forum/wagtail-developers please not that this is not for support requests.

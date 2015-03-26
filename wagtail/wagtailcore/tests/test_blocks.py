@@ -438,6 +438,23 @@ class TestStructBlock(unittest.TestCase):
 
         self.assertEqual(content, ["Wagtail site"])
 
+    def test_value_from_datadict(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+
+        struct_val = block.value_from_datadict({
+            'mylink-title': "Torchbox",
+            'mylink-link': "http://www.torchbox.com"
+        }, {}, 'mylink')
+
+        self.assertEqual(struct_val['title'], "Torchbox")
+        self.assertEqual(struct_val['link'], "http://www.torchbox.com")
+        self.assertTrue(isinstance(struct_val, blocks.StructValue))
+        self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
+
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):
@@ -663,7 +680,7 @@ class TestStreamBlock(unittest.TestCase):
     def render_article(self, data):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
-            paragraph = blocks.CharBlock()
+            paragraph = blocks.RichTextBlock()
 
         block = ArticleBlock()
         value = block.to_python(data)
@@ -678,7 +695,7 @@ class TestStreamBlock(unittest.TestCase):
             },
             {
                 'type': 'paragraph',
-                'value': 'My first paragraph',
+                'value': 'My <i>first</i> paragraph',
             },
             {
                 'type': 'paragraph',
@@ -687,8 +704,8 @@ class TestStreamBlock(unittest.TestCase):
         ])
 
         self.assertIn('<div class="block-heading">My title</div>', html)
-        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
-        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
+        self.assertIn('<div class="block-paragraph"><div class="rich-text">My <i>first</i> paragraph</div></div>', html)
+        self.assertIn('<div class="block-paragraph"><div class="rich-text">My second paragraph</div></div>', html)
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -704,7 +721,7 @@ class TestStreamBlock(unittest.TestCase):
         ])
         self.assertNotIn('foo', html)
         self.assertNotIn('Hello', html)
-        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
+        self.assertIn('<div class="block-paragraph"><div class="rich-text">My first paragraph</div></div>', html)
 
     def render_form(self):
         class ArticleBlock(blocks.StreamBlock):
