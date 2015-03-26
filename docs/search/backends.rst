@@ -28,9 +28,6 @@ Prerequisites are the Elasticsearch service itself and, via pip, the `elasticsea
 
   pip install elasticsearch
 
-.. note::
-  If you are using Elasticsearch < 1.0, install elasticsearch-py version 0.4.5: ```pip install elasticsearch==0.4.5```
-
 The backend is configured in settings:
 
 .. code-block:: python
