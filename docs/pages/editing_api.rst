@@ -3,9 +3,6 @@
 Displaying fields with the Editing API
 ======================================
 
-.. note::
-    This documentation is currently being written.
-
 Wagtail provides a highly-customizable editing interface consisting of several components:
 
   * **Fields** — built-in content types to augment the basic types provided by Django
