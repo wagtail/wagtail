@@ -14,7 +14,7 @@ Below are some useful links to help you get started with Wagtail.
 
 * **Creating your Wagtail site**
   * :doc:`pages/creating_pages`
-  * :doc:`Writing templates <pages/writing_templates>`
+  * :doc:`pages/writing_templates`
   * :doc:`images/index`
   * :doc:`search/index`
   * :doc:`howto/third_party_tutorials`
@@ -33,7 +33,6 @@ Index
    :titlesonly:
 
    getting_started/index
-   sites
    pages/index
    images/index
    snippets

@@ -1,5 +1,5 @@
-For Front End developers
-========================
+Writing templates
+=================
 
 .. contents:: Contents
     :local:
