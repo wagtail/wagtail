@@ -7,8 +7,8 @@ Wagtail ships with a variety of extra optional modules.
 .. toctree::
     :maxdepth: 2
 
-    static_site_generation
-    sitemap_generation
+    staticsitegen
+    sitemaps
     frontendcache
     routablepage
 
@@ -16,7 +16,7 @@ Wagtail ships with a variety of extra optional modules.
 ``wagtailmedusa``
 -----------------
 
-:doc:`static_site_generation`
+:doc:`staticsitegen`
 
 Provides a management command that turns a Wagtail site into a set of static HTML files.
 
@@ -24,7 +24,7 @@ Provides a management command that turns a Wagtail site into a set of static HTM
 ``wagtailsitemaps``
 -------------------
 
-:doc:`sitemap_generation`
+:doc:`sitemaps`
 
 Provides a view that generates a Google XML sitemap of your public wagtail content.
 
