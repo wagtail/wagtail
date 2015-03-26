@@ -49,6 +49,12 @@ function(modal) {
     $('form.image-upload', modal.body).submit(function() {
         var formdata = new FormData(this);
 
+        $('form.image-upload input:submit').attr("disabled", true);
+        $(this).append('<div style="line-height: 22px;">' +
+            '<img style="float: left; margin-right: 5px; border: none;" ' +
+                'src="{{ STATIC_URL }}wagtailadmin/images/spinner.gif" ' +
+                'alt="Spinner" width="20" /> Uploading...</div>');
+
         $.ajax({
             url: this.action,
             data: formdata,
