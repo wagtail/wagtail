@@ -1,7 +1,7 @@
 .. _editing-api:
 
-Customizing the page editor interface
-=====================================
+Setting up the page editor interface
+====================================
 
 Wagtail provides a highly-customizable editing interface consisting of several components:
 
