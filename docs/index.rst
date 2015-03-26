@@ -33,7 +33,6 @@ Index
    :titlesonly:
 
    getting_started/index
-   sites
    pages/index
    images/index
    snippets
