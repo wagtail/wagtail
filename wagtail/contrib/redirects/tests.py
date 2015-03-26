@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test.client import Client
-from wagtail.wagtailredirects import models
+from wagtail.contrib.redirects import models
 from wagtail.tests.utils import WagtailTestUtils
 from django.core.urlresolvers import reverse
 

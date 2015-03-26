@@ -9,7 +9,7 @@ from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 
-from wagtail.wagtailredirects import models
+from wagtail.contrib.redirects import models
 
 
 REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels).bind_to_model(models.Redirect)

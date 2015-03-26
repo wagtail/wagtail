@@ -2,7 +2,7 @@ from django.test import TestCase, RequestFactory
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.models import RoutablePageTest, routable_page_external_view
-from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
+from wagtail.contrib.routablepage.templatetags.wagtailroutablepage_tags import routablepageurl
 
 
 class TestRoutablePage(TestCase):
