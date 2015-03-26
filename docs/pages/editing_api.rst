@@ -1,7 +1,7 @@
 .. _editing-api:
 
-Displaying fields with the Editing API
-======================================
+Customizing the page editor interface
+=====================================
 
 Wagtail provides a highly-customizable editing interface consisting of several components:
 
@@ -31,7 +31,7 @@ There are four basic types of panels:
   ``InlinePanel( relation_name, panels=None, classname=None, label='', help_text='' )``
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel. This is a very powerful, but tricky feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
-  ``FieldRowPanel( children, classname=None)``
+  ``FieldRowPanel( children, classname=None )``
     This panel is purely aesthetic. It creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below. Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
     FieldRowPanel should be used in combination with ``col*`` classnames added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is layed out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
