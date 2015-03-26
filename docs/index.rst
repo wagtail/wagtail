@@ -13,10 +13,10 @@ Below are some useful links to help you get started with Wagtail.
 
 
 * **Creating your Wagtail site**
-  * :doc:`core_components/pages/creating_pages`
-  * :doc:`Writing templates <core_components/pages/writing_templates>`
-  * :doc:`core_components/images/index`
-  * :doc:`core_components/search/index`
+  * :doc:`pages/creating_pages`
+  * :doc:`Writing templates <pages/writing_templates>`
+  * :doc:`images/index`
+  * :doc:`search/index`
   * :doc:`howto/third_party_tutorials`
 
 
@@ -33,8 +33,13 @@ Index
    :titlesonly:
 
    getting_started/index
-   core_components/index
-   contrib_components/index
+   sites
+   pages/index
+   images/index
+   snippets
+   search/index
+   form_builder
+   contrib/index
    howto/index
    reference/index
    support
