@@ -39,6 +39,7 @@ Using StreamField
         StreamFieldPanel('body'),
     ]
 
+
 Note: StreamField is not backwards compatible with other field types such as RichTextField; if you migrate an existing field to StreamField, the existing data will be lost.
 
 The parameter to ``StreamField`` is a list of (name, block_type) tuples; 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single ``StreamBlock`` instance - see `Structural block types`_.)
@@ -155,14 +156,19 @@ A dropdown select box for choosing from a list of choices. The following keyword
 ``help_text``
   Help text to display alongside the field.
 
-``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as::
+``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
+
+.. code-block:: python
 
     blocks.ChoiceBlock(choices=[
         ('tea', 'Tea'),
         ('coffee', 'Coffee'),
     ], icon='cup')
 
-could be rewritten as a subclass of ChoiceBlock::
+
+could be rewritten as a subclass of ChoiceBlock:
+
+.. code-block:: python
 
     class DrinksChoiceBlock(blocks.ChoiceBlock):
         choices = [
@@ -172,6 +178,7 @@ could be rewritten as a subclass of ChoiceBlock::
 
         class Meta:
             icon = 'cup'
+
 
 ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition.
 
@@ -221,7 +228,9 @@ StructBlock
 
 ``wagtail.wagtailcore.blocks.StructBlock``
 
-A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of (name, block_definition) tuples as its first argument::
+A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of (name, block_definition) tuples as its first argument:
+
+.. code-block:: python
 
     ('person', blocks.StructBlock([
         ('first_name', blocks.CharBlock(required=True)),
@@ -231,7 +240,9 @@ A block consisting of a fixed group of sub-blocks to be displayed together. Take
     ], icon='user'))
 
 
-Alternatively, the list of sub-blocks can be provided in a subclass of StructBlock::
+Alternatively, the list of sub-blocks can be provided in a subclass of StructBlock:
+
+.. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
         first_name = blocks.CharBlock(required=True)
@@ -245,7 +256,9 @@ Alternatively, the list of sub-blocks can be provided in a subclass of StructBlo
 
 The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``; these have the same meanings as when they are passed to the block's constructor.
 
-This defines ``PersonBlock()`` as a block type that can be re-used as many times as you like within your model definitions::
+This defines ``PersonBlock()`` as a block type that can be re-used as many times as you like within your model definitions:
+
+.. code-block:: python
 
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
@@ -260,12 +273,16 @@ ListBlock
 
 ``wagtail.wagtailcore.blocks.ListBlock``
 
-A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument::
+A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument:
+
+.. code-block:: python
 
     ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient")))
 
 
-Any block type is valid as the sub-block type, including structural types::
+Any block type is valid as the sub-block type, including structural types:
+
+.. code-block:: python
 
     ('ingredients_list', blocks.ListBlock(blocks.StructBlock(
         ('ingredient', blocks.CharBlock(required=True)),
@@ -278,7 +295,9 @@ StreamBlock
 
 ``wagtail.wagtailcore.blocks.StreamBlock``
 
-A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered in any order. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of (name, block_definition) tuples as its first argument::
+A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered in any order. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of (name, block_definition) tuples as its first argument:
+
+.. code-block:: python
 
     ('carousel', blocks.StreamBlock(
         [
@@ -293,7 +312,9 @@ A block consisting of a sequence of sub-blocks of different types, which can be 
     ))
 
 
-As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock::
+As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
+
+.. code-block:: python
 
     class CarouselBlock(blocks.StreamBlock):
         image = ImageChooserBlock()
@@ -307,7 +328,9 @@ As with StructBlock, the list of sub-blocks can also be provided as a subclass o
             icon='cogs'
 
 
-Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set block types without repeating definitions::
+Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set block types without repeating definitions:
+
+.. code-block:: python
 
     class HomePage(Page):
         carousel = StreamField(CarouselBlock())
@@ -316,11 +339,16 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 Template rendering
 ------------------
 
-The simplest way to render the contents of a StreamField into your template is to output it as a variable, like any other field::
+The simplest way to render the contents of a StreamField into your template is to output it as a variable, like any other field:
+
+.. code-block:: django
 
     {{ self.body }}
 
-This will render each block of the stream in turn, wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value to access each block in turn::
+
+This will render each block of the stream in turn, wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value to access each block in turn:
+
+.. code-block:: django
 
     <article>
         {% for block in self.body %}
@@ -329,7 +357,9 @@ This will render each block of the stream in turn, wrapped in a ``<div class="bl
     </article>
 
 
-For more control over the rendering of specific block types, each block object provides ``block_type`` and ``value`` properties::
+For more control over the rendering of specific block types, each block object provides ``block_type`` and ``value`` properties:
+
+.. code-block:: django
 
     <article>
         {% for block in self.body %}
@@ -346,7 +376,9 @@ For more control over the rendering of specific block types, each block object p
 
 Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as CharBlock, this will simply output the field's value, but others will provide their own HTML markup; for example, a ListBlock will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
 
-To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock, as the default StructBlock rendering is simple and somewhat generic::
+To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock, as the default StructBlock rendering is simple and somewhat generic:
+
+.. code-block:: python
 
     ('person', blocks.StructBlock(
         [
@@ -360,7 +392,9 @@ To override this with your own custom HTML rendering, you can pass a ``template`
     ))
 
 
-Or, when defined as a subclass of StructBlock::
+Or, when defined as a subclass of StructBlock:
+
+.. code-block:: python
 
     class PersonBlock(blocks.StructBlock):
         first_name = blocks.CharBlock(required=True)
@@ -373,8 +407,9 @@ Or, when defined as a subclass of StructBlock::
             icon = 'user'
 
 
+Within the template, the block value is accessible as the variable ``self``:
 
-Within the template, the block value is accessible as the variable ``self``::
+.. code-block:: django
 
     {% load wagtailimages_tags %}
 
@@ -393,13 +428,14 @@ Custom block types
 
 If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
-For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.wagtailcore.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object::
+For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.wagtailcore.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
+
+.. code-block:: python
 
     class IPAddressBlock(FieldBlock):
         def __init__(self, required=True, help_text=None, **kwargs):
             self.field = forms.GenericIPAddressField(required=required, help_text=help_text)
             super(IPAddressBlock, self).__init__(**kwargs)
-
 
 
 Migrations
