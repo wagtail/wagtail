@@ -12,7 +12,7 @@ from django.db import models
 
 from taggit.forms import TagField, TagWidget
 
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.tests.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
@@ -283,9 +283,9 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         with warnings.catch_warnings(record=True) as w:
             form = get_image_form(CustomImageWithoutAdminFormFields)
 
-            # Check that a RemovedInWagtail11Warning has been triggered
+            # Check that a RemovedInWagtail12Warning has been triggered
             self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail11Warning))
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
             self.assertTrue("Add admin_form_fields = (tuple of field names) to CustomImageWithoutAdminFormFields" in str(w[-1].message))
 
         # All fields, including the not editable one should be on the form

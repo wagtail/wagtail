@@ -22,7 +22,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 # Form field properties to override whenever we encounter a model field
@@ -670,7 +670,7 @@ class InlinePanel(object):
                 "InlinePanel no longer needs to be passed a model parameter. "
                 "InlinePanel({classname}, '{relname}') should be changed to InlinePanel('{relname}')".format(
                     classname=args[0].__name__, relname=self.relation_name
-                ), RemovedInWagtail11Warning, stacklevel=2)
+                ), RemovedInWagtail12Warning, stacklevel=2)
         else:
             raise TypeError("InlinePanel() takes exactly 1 argument (%d given)" % len(args))
 

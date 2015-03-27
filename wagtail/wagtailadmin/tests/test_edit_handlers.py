@@ -22,7 +22,7 @@ from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.fields import RichTextArea
 from wagtail.tests.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class TestGetFormForModel(TestCase):
@@ -532,9 +532,9 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         with warnings.catch_warnings(record=True) as w:
             SpeakerInlinePanelDef = InlinePanel(EventPage, 'speakers', label="Speakers")
 
-            # Check that a RemovedInWagtail11Warning has been triggered
+            # Check that a RemovedInWagtail12Warning has been triggered
             self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail11Warning))
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
             self.assertTrue("InlinePanel(EventPage, 'speakers') should be changed to InlinePanel('speakers')" in str(w[-1].message))
 
         SpeakerInlinePanel = SpeakerInlinePanelDef.bind_to_model(EventPage)
