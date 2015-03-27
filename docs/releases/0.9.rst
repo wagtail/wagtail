@@ -10,6 +10,12 @@ Wagtail 0.9 release notes - IN DEVELOPMENT
 What's changed
 ==============
 
+StreamField - a field type for freeform content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield`.
+
+
 Minor changes
 ~~~~~~~~~~~~~
 
