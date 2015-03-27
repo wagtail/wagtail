@@ -4,9 +4,6 @@ from wagtail.wagtailimages.models import Filter, SourceImageIOError
 
 register = template.Library()
 
-# Local cache of filters, avoid hitting the DB
-filters = {}
-
 
 @register.tag(name="image")
 def image(parser, token):
@@ -37,10 +34,7 @@ class ImageNode(template.Node):
         self.image_var = template.Variable(image_var_name)
         self.output_var_name = output_var_name
         self.attrs = attrs
-
-        if filter_spec not in filters:
-            filters[filter_spec], _ = Filter.objects.get_or_create(spec=filter_spec)
-        self.filter = filters[filter_spec]
+        self.filter_spec = filter_spec
 
     def render(self, context):
         try:
@@ -51,8 +45,11 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
+        # Get filter
+        filter_, _ = Filter.objects.get_or_create(spec=self.filter_spec)
+
         try:
-            rendition = image.get_rendition(self.filter)
+            rendition = image.get_rendition(filter_)
         except SourceImageIOError:
             # It's fairly routine for people to pull down remote databases to their
             # local dev versions without retrieving the corresponding image files.
