@@ -684,7 +684,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     @classmethod
     def allowed_subpage_types(cls):
         """
-        Returns the list of page types that this page type can be a subpage of
+        Returns the list of page types that this page type can have as subpages
         """
         # Special case the 'Page' class, such as the Root page or Home page -
         # otherwise you can not add initial pages when setting up a site
@@ -1371,7 +1371,24 @@ class PagePermissionTester(object):
         if self.page == destination or destination.is_descendant_of(self.page):
             return False
 
-        # and shortcut the trivial 'everything' / 'nothing' permissions
+        # reject moves that are forbidden by subpage_types / parent_page_types rules
+        # (these rules apply to superusers too)
+
+        # We need to roll our own tests here rather than just checking allowed_subpage_types, because
+        # allowed_subpage_types does not include 'abstract' page types such as Page itself, which makes
+        # it impossible to move wagtailcore's default homepage record even if no actual business rules
+        # have been set
+        if getattr(self.page.specific_class, 'parent_page_types', None) is not None:
+            destination_page_type = ContentType.objects.get_for_model(destination.specific_class)
+            if destination_page_type not in self.page.specific_class.clean_parent_page_types():
+                return False
+
+        if getattr(destination.specific_class, 'subpage_types', None) is not None:
+            moved_page_type = ContentType.objects.get_for_model(self.page.specific_class)
+            if moved_page_type not in destination.specific_class.clean_subpage_types():
+                return False
+
+        # shortcut the trivial 'everything' / 'nothing' permissions
         if not self.user.is_active:
             return False
         if self.user.is_superuser:
