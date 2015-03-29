@@ -96,7 +96,7 @@ Next, let's look at the template itself:
 .. code-block:: django
 
   {% extends "mysite/base.html" %}
-  {% load pageurl %}
+  {% load wagtailcore_tags %}
 
   {% block title %}Search{% if search_results %} Results{% endif %}{% endblock %}
 
