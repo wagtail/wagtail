@@ -1,3 +1,5 @@
+from itertools import count
+from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -32,6 +34,23 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             live=True,
         ))
 
+        self.private_groups_page = self.homepage.add_child(instance=SimplePage(
+            title="Private groups page",
+            slug='private-groups-page',
+            live=True,
+        ))
+        restriction = PageViewRestriction.objects.create(page=self.private_groups_page, password='')
+        self.group = Group.objects.create(name='Private page group')
+        self.group2 = Group.objects.create(name='Private page group2')
+        restriction.groups.add(self.group)
+        restriction.groups.add(self.group2)
+
+        self.private_groups_child_page = self.private_groups_page.add_child(instance=SimplePage(
+            title="Private groups child page",
+            slug='private-groups-child-page',
+            live=True,
+        ))
+
     def test_get_public(self):
         """
         This tests that a blank form is returned when a user opens the set_privacy view on a public page
@@ -60,6 +79,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         # Check form attributes
         self.assertEqual(response.context['form']['restriction_type'].value(), 'password')
         self.assertEqual(response.context['form']['password'].value(), 'password123')
+        self.assertEqual(response.context['form']['groups'].value(), [])
 
     def test_get_private_child(self):
         """
@@ -79,6 +99,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         post_data = {
             'restriction_type': 'password',
             'password': 'helloworld',
+            'groups': [],
         }
         response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
 
@@ -92,6 +113,9 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         # Check that the password is set correctly
         self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).password, 'helloworld')
 
+        # Be sure there are no groups set
+        self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).groups.all().count(), 0)
+
     def test_set_password_restriction_password_unset(self):
         """
         This tests that the password field on the form is validated correctly
@@ -99,6 +123,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         post_data = {
             'restriction_type': 'password',
             'password': '',
+            'groups': [],
         }
         response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
 
@@ -115,6 +140,86 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         post_data = {
             'restriction_type': 'none',
             'password': '',
+            'groups': [],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.private_page.id, )), post_data)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "modal.respond('setPermission', true);")
+
+        # Check that the page restriction has been deleted
+        self.assertFalse(PageViewRestriction.objects.filter(page=self.private_page).exists())
+
+
+    def test_get_private_groups(self):
+        """
+        This tests that the restriction type and group fields as set correctly when a user opens the set_privacy view on a public page
+        """
+        response = self.client.get(reverse('wagtailadmin_pages_set_privacy', args=(self.private_groups_page.id, )))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/page_privacy/set_privacy.html')
+        self.assertEqual(response.context['page'].specific, self.private_groups_page)
+
+        # Check form attributes
+        self.assertEqual(response.context['form']['restriction_type'].value(), 'group')
+        self.assertEqual(response.context['form']['password'].value(), '')
+        self.assertEqual(response.context['form']['groups'].value(), [self.group.id, self.group2.id])
+
+    def test_set_group_restriction(self):
+        """
+        This tests that setting a group restriction using the set_privacy view works
+        """
+        post_data = {
+            'restriction_type': 'group',
+            'password': '',
+            'groups': [self.group.id, self.group2.id],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "modal.respond('setPermission', false);")
+
+        # Check that a page restriction has been created
+        self.assertTrue(PageViewRestriction.objects.filter(page=self.public_page).exists())
+
+        # Be sure there is no password set
+        self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).password, '')
+
+        # Check that the groups are set correctly
+        self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).groups.all()[0], self.group)
+        self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).groups.all()[1], self.group2)
+        self.assertEqual(PageViewRestriction.objects.get(page=self.public_page).groups.all().count(), 2)
+
+    def test_set_group_restriction_password_unset(self):
+        """
+        This tests that the group fields on the form are validated correctly
+        """
+        post_data = {
+            'restriction_type': 'group',
+            'password': '',
+            'groups': [],
+        }
+        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(response, 'form', 'groups', "This field is required.")
+
+    def test_unset_group_restriction(self):
+        """
+        This tests that removing a groups restriction using the set_privacy view works
+        This is currently the same as testing for unset password.
+        """
+        post_data = {
+            'restriction_type': 'none',
+            'password': '',
+            'groups': [],
         }
         response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.private_page.id, )), post_data)
 

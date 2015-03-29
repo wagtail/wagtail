@@ -344,7 +344,54 @@
         "cost": "free"
     }
 },
-
+{
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Secret plans to group",
+        "numchild": 1,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010006",
+        "url_path": "/home/secret-plans-to-group/",
+        "slug": "secret-plans-to-group"
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>muahahahaha groups</p>"
+    }
+},
+{
+    "pk": 14,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Steal underpants from group",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "eventpage"],
+        "path": "0001000100060001",
+        "url_path": "/home/secret-plans-to-group/steal-underpants-from-group/",
+        "slug": "steal-underpants-from-group"
+    }
+},
+{
+    "pk": 14,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2015-07-04",
+        "audience": "private",
+        "location": "Marks and Spencer Group",
+        "body": "<p>meet in the menswear department at noon as a group</p>",
+        "cost": "free"
+    }
+},
 {
     "pk": 1,
     "model": "wagtailcore.site",
@@ -403,6 +450,13 @@
         "permissions": [
             ["access_admin", "wagtailadmin", "admin"]
         ]
+    }
+},
+{
+    "pk": 7,
+    "model": "auth.group",
+    "fields": {
+        "name": "Public site private page group"
     }
 },
 {
@@ -566,6 +620,56 @@
         "email": "admin_only_user@example.com"
     }
 },
+{
+    "pk": 7,
+    "model": "tests.customuser",
+    "fields": {
+        "username": "page_privacy_user_without_group",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "user_permissions": [],
+        "password": "md5$seasalt$1ae1784477dc1642829e80f2a29d16cd",
+        "email": "page_privacy_user_without_group@example.com"
+    }
+},
+{
+    "pk": 8,
+    "model": "tests.customuser",
+    "fields": {
+        "username": "page_privacy_user_with_group",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Public site private page group"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1ae1784477dc1642829e80f2a29d16cd",
+        "email": "page_privacy_user_with_group@example.com"
+    }
+},
+{
+    "pk": 9,
+    "model": "tests.customuser",
+    "fields": {
+        "username": "superuser_group_privacy_test",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "groups": [
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1ae1784477dc1642829e80f2a29d16cd",
+        "email": "superuser_group_privacy_test@example.com"
+    }
+},
 
 {
     "pk": 1,
@@ -625,6 +729,14 @@
     "fields": {
         "page": 11,
         "password": "swordfish"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 13,
+        "groups": [7]
     }
 },
 {

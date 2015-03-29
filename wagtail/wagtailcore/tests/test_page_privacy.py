@@ -9,6 +9,9 @@ class TestPagePrivacy(TestCase):
         self.secret_plans_page = Page.objects.get(url_path='/home/secret-plans/')
         self.view_restriction = PageViewRestriction.objects.get(
             page=self.secret_plans_page)
+        self.secret_plans_page_group = Page.objects.get(url_path='/home/secret-plans-to-group/')
+        self.view_restriction_group = PageViewRestriction.objects.get(
+            page=self.secret_plans_page_group)
 
     def test_anonymous_user_must_authenticate(self):
         response = self.client.get('/secret-plans/')
@@ -67,4 +70,189 @@ class TestPagePrivacy(TestCase):
 
         # now requests to /secret-plans/ should pass authentication
         response = self.client.get('/secret-plans/steal-underpants/')
+        self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+
+
+    def test_anonymous_user_must_authenticate_group(self):
+        """
+        This test checks to be sure a private page that requires a group goes to the login
+        """
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/" />')
+
+        # posting the wrong username should redisplay the password page
+        response = self.client.post(submit_url, {
+            'username': 'wrongusername',
+            'password': '123',
+            'next': '/secret-plans-to-group/',
+        })
+
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the wrong password should redisplay the password page
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_with_group',
+            'password': 'wrongpassword',
+            'next': '/secret-plans-to-group/',
+        })
+
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the correct username and password for a user in the required group
+        # should redirect back to next
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_with_group',
+            'password': '123',
+            'next': '/secret-plans-to-group/',
+        })
+        self.assertRedirects(response, '/secret-plans-to-group/')
+
+        # now requests to /secret-plans-to-group/ should pass authentication
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
+
+    def test_anonymous_user_must_be_in_group(self):
+        """
+        This test checks to be sure a private page that requires a group only lets users in said group see it.
+        """
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/" />')
+
+        # posting the correct username and password but for a user that is not in the
+        # required groups for a page should not auth the user
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_without_group',
+            'password': '123',
+            'next': '/secret-plans-to-group/',
+        })
+
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/" />')
+
+    def test_super_user_but_no_group(self):
+        """
+        This test checks to be sure a private page that requires a group will let super users in.
+        """
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/" />')
+
+        # posting the correct username and password but for a super user
+        # should let them see the page
+        response = self.client.post(submit_url, {
+            'username': 'superuser_group_privacy_test',
+            'password': '123',
+            'next': '/secret-plans-to-group/',
+        })
+
+        # now requests to /secret-plans-to-group/ should pass authentication
+        response = self.client.get('/secret-plans-to-group/')
+        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
+
+
+    def test_view_group_restrictions_apply_to_subpages(self):
+        """
+        This test checks to be sure a subpage of a private page that requires a group goes to the login
+        """
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/steal-underpants-from-group/" />')
+
+        # posting the wrong username should redisplay the password page
+        response = self.client.post(submit_url, {
+            'username': 'wrongusername',
+            'password': '123',
+            'next': '/secret-plans-to-group/steal-underpants-from-group/',
+        })
+
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the wrong password should redisplay the password page
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_with_group',
+            'password': 'wrongpassword',
+            'next': '/secret-plans-to-group/steal-underpants-from-group/',
+        })
+
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+        self.assertContains(response, '<form action="%s"' % submit_url)
+
+        # posting the correct username and password for a user in the required group
+        # should redirect back to next
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_with_group',
+            'password': '123',
+            'next': '/secret-plans-to-group/steal-underpants-from-group/',
+        })
+        self.assertRedirects(response, '/secret-plans-to-group/steal-underpants-from-group/')
+
+        # now requests to /secret-plans-to-group/steal-underpants-from-group/ should pass authentication
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
+        self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+
+    def test_anonymous_user_must_be_in_group_for_subpage(self):
+        """
+        This test checks to be sure a subpage of a private page that requires a group only lets users in said group see it.
+        """
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/steal-underpants-from-group/" />')
+
+        # posting the correct username and password but for a user that is not in the
+        # required groups for a page should not auth the user
+        response = self.client.post(submit_url, {
+            'username': 'page_privacy_user_without_group',
+            'password': '123',
+            'next': '/secret-plans-to-group/steal-underpants-from-group/',
+        })
+
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/steal-underpants-from-group/" />')
+
+    def test_super_user_but_no_group_for_subpage(self):
+        """
+        This test checks to be sure a subpage of a private page that requires a group will let super users in.
+        """
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
+        self.assertEqual(response.templates[0].name, 'registration/login.html')
+
+        submit_url = "/login/"
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(response, '<input type="hidden" name="next" value="/secret-plans-to-group/steal-underpants-from-group/" />')
+
+        # posting the correct username and password but for a super user
+        # should let them see the page
+        response = self.client.post(submit_url, {
+            'username': 'superuser_group_privacy_test',
+            'password': '123',
+            'next': '/secret-plans-to-group/steal-underpants-from-group/',
+        })
+
+        # now requests to /secret-plans-to-group/ should pass authentication
+        response = self.client.get('/secret-plans-to-group/steal-underpants-from-group/')
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
