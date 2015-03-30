@@ -9,12 +9,14 @@ def routable_page_external_view(request, arg):
     return HttpResponse("EXTERNAL VIEW: " + arg)
 
 class RoutablePageTest(RoutablePage):
-    subpage_urls = (
-        url(r'^$', 'main', name='main'),
-        url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
-        url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
-        url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
-    )
+    @property
+    def subpage_urls(self):
+        return (
+            url(r'^$', self.main, name='main'),
+            url(r'^archive/year/(\d+)/$', self.archive_by_year, name='archive_by_year'),
+            url(r'^archive/author/(?P<author_slug>.+)/$', self.archive_by_author, name='archive_by_author'),
+            url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
+        )
 
     def archive_by_year(self, request, year):
         return HttpResponse("ARCHIVE BY YEAR: " + str(year))
