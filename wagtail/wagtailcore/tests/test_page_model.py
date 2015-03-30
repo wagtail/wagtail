@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
+from wagtail.tests.testapp.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
 
 
 class TestSiteRouting(TestCase):

@@ -8,7 +8,7 @@ import json
 from django.test import TestCase
 from django.db.models import Q
 
-from wagtail.tests import models
+from wagtail.tests.testapp import models
 from .test_backends import BackendTests
 
 

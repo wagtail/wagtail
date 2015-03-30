@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy
-from wagtail.tests.models import EventPage
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestPagePermission(TestCase):

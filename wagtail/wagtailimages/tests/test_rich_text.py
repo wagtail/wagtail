@@ -7,8 +7,6 @@ from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
 
 class TestImageEmbedHandler(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
-
     def test_get_db_attributes(self):
         soup = BeautifulSoup(
             '<b data-id="test-id" data-format="test-format" data-alt="test-alt">foo</b>'

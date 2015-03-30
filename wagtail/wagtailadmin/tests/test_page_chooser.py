@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.models import SimplePage
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
 

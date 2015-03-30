@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.wagtailsearch import signal_handlers
-from wagtail.tests import models
+from wagtail.tests.testapp import models
 
 
 class TestGetIndexedInstance(TestCase):

@@ -2,10 +2,10 @@ from django.http import Http404
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.test.utils import override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
-from django.test.utils import override_settings
-from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel, RegisterDecorator, RegisterFunction
+from wagtail.tests.testapp.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel, RegisterDecorator, RegisterFunction
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
@@ -91,7 +91,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(id=1)
@@ -138,7 +138,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(id=1)
@@ -160,7 +160,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
 
 class TestSnippetChooserPanel(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         model = SnippetChooserModel
@@ -213,7 +213,7 @@ class TestSnippetOrdering(TestCase):
 
 
 class TestUsageCount(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_usage_count(self):
@@ -222,7 +222,7 @@ class TestUsageCount(TestCase):
 
 
 class TestUsedBy(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_used_by(self):
@@ -231,7 +231,7 @@ class TestUsedBy(TestCase):
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.login()
@@ -255,7 +255,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
 
 class TestSnippetChosen(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.login()

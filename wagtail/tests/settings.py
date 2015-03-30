@@ -76,7 +76,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.tests',
+    'wagtail.tests.testapp',
 
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
