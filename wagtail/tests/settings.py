@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.tests.testapp',
+    'wagtail.tests.customuser',
 
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
@@ -110,7 +111,7 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-AUTH_USER_MODEL = 'tests.CustomUser'
+AUTH_USER_MODEL = 'customuser.CustomUser'
 
 try:
     # Only add Elasticsearch backend if the elasticsearch-py library is installed
