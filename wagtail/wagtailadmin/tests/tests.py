@@ -1,10 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.core import mail
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.utils import send_email_task
+from wagtail.wagtailadmin.utils import send_mail
 
 
 class TestHome(TestCase, WagtailTestUtils):
@@ -56,15 +56,48 @@ class TestEditorHooks(TestCase, WagtailTestUtils):
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')
 
 
-class TestSendEmailTask(TestCase):
+class TestSendMail(TestCase):
     def test_send_email(self):
-        send_email_task("Test subject", "Test content", ["nobody@email.com"], "test@email.com")
+        send_mail("Test subject", "Test content", ["nobody@email.com"], "test@email.com")
 
         # Check that the email was sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "Test subject")
         self.assertEqual(mail.outbox[0].body, "Test content")
         self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_FROM_EMAIL='anothertest@email.com')
+    def test_send_fallback_to_wagtailadmin_notification_from_email_setting(self):
+        send_mail("Test subject", "Test content", ["nobody@email.com"])
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "anothertest@email.com")
+
+    @override_settings(DEFAULT_FROM_EMAIL='yetanothertest@email.com')
+    def test_send_fallback_to_default_from_email_setting(self):
+        send_mail("Test subject", "Test content", ["nobody@email.com"])
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "yetanothertest@email.com")
+
+    def test_send_default_from_email(self):
+        send_mail("Test subject", "Test content", ["nobody@email.com"])
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "webmaster@localhost")
 
 
 class TestExplorerNavView(TestCase, WagtailTestUtils):
