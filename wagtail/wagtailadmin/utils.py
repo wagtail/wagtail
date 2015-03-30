@@ -1,5 +1,5 @@
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -59,6 +59,18 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     return User.objects.filter(is_active=True).filter(q).distinct()
 
 
+def send_mail(email_subject, email_content, email_addresses, from_email=None):
+    if not from_email:
+        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+            from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
+        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
+            from_email = settings.DEFAULT_FROM_EMAIL
+        else:
+            from_email = 'webmaster@localhost'
+
+    django_send_mail(email_subject, email_content, from_email, email_addresses)
+
+
 def send_notification(page_revision_id, notification, excluded_user_id):
     # Get revision
     revision = PageRevision.objects.get(id=page_revision_id)
@@ -89,25 +101,5 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     email_subject = rendered_template[0]
     email_content = '\n'.join(rendered_template[1:])
 
-    # Get from email
-    if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
-        from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
-    elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
-        from_email = settings.DEFAULT_FROM_EMAIL
-    else:
-        from_email = 'webmaster@localhost'
-
     # Send email
-    send_mail(email_subject, email_content, from_email, email_addresses)
-
-
-def send_email_task(email_subject, email_content, email_addresses, from_email=None):
-    if not from_email:
-        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
-            from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
-        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
-            from_email = settings.DEFAULT_FROM_EMAIL
-        else:
-            from_email = 'webmaster@localhost'
-
-    send_mail(email_subject, email_content, from_email, email_addresses)
+    send_mail(email_subject, email_content, email_addresses)
