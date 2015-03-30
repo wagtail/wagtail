@@ -34,6 +34,8 @@ install:
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
+  - mysql -e "SET GLOBAL wait_timeout = 36000;"
+  - mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
 
 # Run the tests
 script:
