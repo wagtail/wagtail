@@ -3,33 +3,13 @@ from django.conf import settings
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
-from wagtail.wagtailadmin.forms import SearchForm
-
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
 
-from wagtail.wagtaildocs.models import Document
-
-from wagtail.wagtailimages.models import get_image_model
+from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
 
 # Panels for the homepage
-class SiteSummaryPanel(object):
-    name = 'site_summary'
-    order = 100
-
-    def __init__(self, request):
-        self.request = request
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/site_summary.html', {
-            'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
-            'total_images': get_image_model().objects.count(),
-            'total_docs': Document.objects.count(),
-            'search_form': SearchForm(),
-        }, RequestContext(self.request))
-
-
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200

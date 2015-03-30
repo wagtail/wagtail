@@ -13,6 +13,9 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os.environ.get('DATABASE_NAME', 'wagtail'),
+        'USER': os.environ.get('DATABASE_USER', None),
+        'PASSWORD': os.environ.get('DATABASE_PASS', None),
+        'HOST': os.environ.get('DATABASE_HOST', None),
     }
 }
 

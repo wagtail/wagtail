@@ -8,21 +8,22 @@ matrix:
    - env: TOXENV=py33-dj17-postgres
    - env: TOXENV=py34-dj17-postgres
    - env: TOXENV=py34-dj17-sqlite
+   - env: TOXENV=py34-dj17-mysql
    - env: TOXENV=py27-dj18-postgres
 #   - env: TOXENV=py27-dj18-mysql
 #   - env: TOXENV=py27-dj18-sqlite
 #  - env: TOXENV=py33-dj18-postgres
    - env: TOXENV=py34-dj18-postgres
    - env: TOXENV=py34-dj18-sqlite
+   - env: TOXENV=py34-dj18-mysql
   allow_failures:
-   - env: TOXENV=py27-dj17-mysql
    - env: TOXENV=py27-dj18-postgres
    - env: TOXENV=py34-dj18-postgres
    - env: TOXENV=py34-dj18-sqlite
+   - env: TOXENV=py34-dj18-mysql
 
 # Services
 services:
-  - redis-server
   - elasticsearch
 
 # Package installation
@@ -32,6 +33,8 @@ install:
 # Pre-test configuration
 before_script:
   - psql -c 'create database wagtaildemo;' -U postgres
+  - mysql -e "SET GLOBAL wait_timeout = 36000;"
+  - mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
 
 # Run the tests
 script:

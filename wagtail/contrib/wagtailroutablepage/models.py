@@ -15,7 +15,8 @@ class RoutablePageMixin(object):
     This class can be mixed in to a Page subclass to allow urlconfs to be
     embedded inside pages.
     """
-    #: Set this to a tuple of ``django.conf.urls.url`` objects.
+    #: This attribute should contain a tuple of ``django.conf.url`` objects.
+    #: It can also be set to a property that returns a tuple of ``django.conf.url`` objects.
     subpage_urls = None
 
     def reverse_subpage(self, name, args=None, kwargs=None):

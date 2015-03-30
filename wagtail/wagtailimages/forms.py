@@ -4,7 +4,7 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 from wagtail.wagtailimages.formats import get_image_formats
 from wagtail.wagtailimages.fields import WagtailImageField
 
@@ -29,7 +29,7 @@ def get_image_form(model):
             "Custom image models without an 'admin_form_fields' attribute are now deprecated. "
             "Add admin_form_fields = (tuple of field names) to {classname}".format(
                 classname=model.__name__
-            ), RemovedInWagtail11Warning, stacklevel=2)
+            ), RemovedInWagtail12Warning, stacklevel=2)
 
     return modelform_factory(
         model,
