@@ -91,6 +91,12 @@ The available hooks are:
       return panels.append( WelcomePanel() )
 
 
+.. _construct_homepage_summary_items:
+
+``construct_homepage_summary_items``
+  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
+
+
 .. _after_create_page:
 
 ``after_create_page``
