@@ -16,7 +16,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailadmin import tasks
+from wagtail.wagtailadmin.utils import send_email_task
 
 from .forms import FormBuilder
 
@@ -194,7 +194,7 @@ class AbstractEmailForm(AbstractForm):
 
         if self.to_address:
             content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
-            tasks.send_email_task.delay(self.subject, content, [self.to_address], self.from_address,)
+            send_email_task(self.subject, content, [self.to_address], self.from_address,)
 
 
     class Meta:

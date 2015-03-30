@@ -4,7 +4,7 @@ from django.core import mail
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.tasks import send_email_task
+from wagtail.wagtailadmin.utils import send_email_task
 
 
 class TestHome(TestCase, WagtailTestUtils):
