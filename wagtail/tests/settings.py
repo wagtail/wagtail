@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.tests.testapp',
+    'wagtail.tests.demosite',
     'wagtail.tests.customuser',
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
