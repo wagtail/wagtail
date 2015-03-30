@@ -35,6 +35,11 @@ class PagesSummaryItem(SummaryItem):
             'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
         }
 
+@hooks.register('construct_homepage_summary_items')
+def add_pages_summary_item(request, items):
+    items.append(PagesSummaryItem(request))
+
+
 class ImagesSummaryItem(SummaryItem):
     order = 200
     template = 'wagtailadmin/home/site_summary_images.html'
@@ -43,6 +48,11 @@ class ImagesSummaryItem(SummaryItem):
         return {
             'total_images': get_image_model().objects.count(),
         }
+
+@hooks.register('construct_homepage_summary_items')
+def add_images_summary_item(request, items):
+    items.append(ImagesSummaryItem(request))
+
 
 class DocumentsSummaryItem(SummaryItem):
     order = 300
@@ -53,6 +63,10 @@ class DocumentsSummaryItem(SummaryItem):
             'total_docs': Document.objects.count(),
         }
 
+@hooks.register('construct_homepage_summary_items')
+def add_documents_summary_item(request, items):
+    items.append(DocumentsSummaryItem(request))
+
 
 # Panels for the homepage
 class SiteSummaryPanel(object):
@@ -61,11 +75,9 @@ class SiteSummaryPanel(object):
 
     def __init__(self, request):
         self.request = request
-        self.summary_items = [
-            PagesSummaryItem(request),
-            ImagesSummaryItem(request),
-            DocumentsSummaryItem(request),
-        ]
+        self.summary_items = []
+        for fn in hooks.get_hooks('construct_homepage_summary_items'):
+            fn(request, self.summary_items)
 
     def render(self):
         return render_to_string('wagtailadmin/home/site_summary.html', {
