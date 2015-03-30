@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
-from django.conf.urls import url
-from django.http import HttpResponse
 
 from taggit.models import TaggedItemBase
 
@@ -20,7 +18,6 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
-from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 from wagtail.wagtailimages.models import AbstractImage, Image
 
 
@@ -412,27 +409,6 @@ class SearchTestChild(SearchTest):
         index.SearchField('subtitle', partial_match=True),
         index.SearchField('extra_content'),
     ]
-
-
-def routable_page_external_view(request, arg):
-    return HttpResponse("EXTERNAL VIEW: " + arg)
-
-class RoutablePageTest(RoutablePage):
-    subpage_urls = (
-        url(r'^$', 'main', name='main'),
-        url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
-        url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
-        url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
-    )
-
-    def archive_by_year(self, request, year):
-        return HttpResponse("ARCHIVE BY YEAR: " + str(year))
-
-    def archive_by_author(self, request, author_slug):
-        return HttpResponse("ARCHIVE BY AUTHOR: " + author_slug)
-
-    def main(self, request):
-        return HttpResponse("MAIN VIEW")
 
 
 class TaggedPageTag(TaggedItemBase):
