@@ -24,7 +24,6 @@ matrix:
 
 # Services
 services:
-  - redis-server
   - elasticsearch
 
 # Package installation
