@@ -2,32 +2,8 @@
 <section class="panel summary nice-padding">
     <h2 class="visuallyhidden">{% trans "Site summary" %}</h2>
     <ul class="stats">
-        <li class="icon icon-doc-empty-inverse">
-            <a href="{% url 'wagtailadmin_explore_root' %}">
-            {% blocktrans count counter=total_pages with total_pages|intcomma as total %}
-                <span>{{ total }}</span> Page
-            {% plural %}
-                <span>{{ total }}</span> Pages
-            {% endblocktrans %}
-            </a>
-        </li>
-        <li class="icon icon-image">
-            <a href="{% url 'wagtailimages_index' %}">
-            {% blocktrans count counter=total_images with total_images|intcomma as total %}
-                <span>{{ total }}</span> Image
-            {% plural %}
-                <span>{{ total }}</span> Images
-            {% endblocktrans %}
-            </a>
-        </li>
-        <li class="icon icon-doc-full-inverse">
-            <a href="{% url 'wagtaildocs_index' %}">
-            {% blocktrans count counter=total_docs with total_docs|intcomma as total %}
-                <span>{{ total }}</span> Document
-            {% plural %}
-                <span>{{ total }}</span> Documents
-            {% endblocktrans %}
-            </a>
-        </li>
+        {% for item in summary_items %}
+            {{ item.render }}
+        {% endfor %}
     </ul>
 </section>

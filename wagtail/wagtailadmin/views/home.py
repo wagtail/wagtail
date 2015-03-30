@@ -11,6 +11,49 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailimages.models import get_image_model
 
 
+# Items for the site summary panel
+class SummaryItem(object):
+    order = 100
+
+    def __init__(self, request):
+        self.request = request
+
+    def get_context(self):
+        return {}
+
+    def render(self):
+        return render_to_string(self.template, self.get_context(),
+            RequestContext(self.request))
+
+
+class PagesSummaryItem(SummaryItem):
+    order = 100
+    template = 'wagtailadmin/home/site_summary_pages.html'
+
+    def get_context(self):
+        return {
+            'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
+        }
+
+class ImagesSummaryItem(SummaryItem):
+    order = 200
+    template = 'wagtailadmin/home/site_summary_images.html'
+
+    def get_context(self):
+        return {
+            'total_images': get_image_model().objects.count(),
+        }
+
+class DocumentsSummaryItem(SummaryItem):
+    order = 300
+    template = 'wagtailadmin/home/site_summary_documents.html'
+
+    def get_context(self):
+        return {
+            'total_docs': Document.objects.count(),
+        }
+
+
 # Panels for the homepage
 class SiteSummaryPanel(object):
     name = 'site_summary'
@@ -18,12 +61,15 @@ class SiteSummaryPanel(object):
 
     def __init__(self, request):
         self.request = request
+        self.summary_items = [
+            PagesSummaryItem(request),
+            ImagesSummaryItem(request),
+            DocumentsSummaryItem(request),
+        ]
 
     def render(self):
         return render_to_string('wagtailadmin/home/site_summary.html', {
-            'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
-            'total_images': get_image_model().objects.count(),
-            'total_docs': Document.objects.count(),
+            'summary_items': sorted(self.summary_items, key=lambda p: p.order),
         }, RequestContext(self.request))
 
 
