@@ -461,7 +461,7 @@
 },
 {
     "pk": 1,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "superuser",
         "first_name": "",
@@ -478,7 +478,7 @@
 },
 {
     "pk": 2,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "eventeditor",
         "first_name": "",
@@ -496,7 +496,7 @@
 },
 {
     "pk": 3,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "eventmoderator",
         "first_name": "",
@@ -514,7 +514,7 @@
 },
 {
     "pk": 4,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "inactiveuser",
         "first_name": "",
@@ -532,7 +532,7 @@
 },
 {
     "pk": 5,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "siteeditor",
         "first_name": "",
@@ -550,7 +550,7 @@
 },
 {
     "pk": 6,
-    "model": "tests.customuser",
+    "model": "customuser.customuser",
     "fields": {
         "username": "admin_only_user",
         "first_name": "",

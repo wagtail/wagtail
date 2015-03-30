@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
-from wagtail.tests.models import (
+from wagtail.tests.testapp.models import (
     SimplePage, EventPage, EventPageCarouselItem,
     StandardIndex, StandardChild,
     BusinessIndex, BusinessChild, BusinessSubIndex,

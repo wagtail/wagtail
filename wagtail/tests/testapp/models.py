@@ -2,10 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.encoding import python_2_unicode_compatible
-from django.conf.urls import url
-from django.http import HttpResponse
 
 from taggit.models import TaggedItemBase
 
@@ -17,11 +14,10 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
-from wagtail.contrib.wagtailroutablepage.models import RoutablePage
 from wagtail.wagtailimages.models import AbstractImage, Image
 
 
@@ -37,50 +33,6 @@ COMMON_PANELS = (
     FieldPanel('show_in_menus'),
     FieldPanel('search_description'),
 )
-
-
-class CustomUserManager(BaseUserManager):
-    def _create_user(self, username, email, password,
-                     is_staff, is_superuser, **extra_fields):
-        """
-        Creates and saves a User with the given username, email and password.
-        """
-        if not username:
-            raise ValueError('The given username must be set')
-        email = self.normalize_email(email)
-        user = self.model(username=username, email=email,
-                          is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, username, email=None, password=None, **extra_fields):
-        return self._create_user(username, email, password, False, False,
-                                 **extra_fields)
-
-    def create_superuser(self, username, email, password, **extra_fields):
-        return self._create_user(username, email, password, True, True,
-                                 **extra_fields)
-
-
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(max_length=255, blank=True)
-    is_staff = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
-    first_name = models.CharField(max_length=50, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
-
-    USERNAME_FIELD = 'username'
-
-    objects = CustomUserManager()
-
-    def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
-
-    def get_short_name(self):
-        return self.first_name
 
 
 # Link fields
@@ -365,29 +317,6 @@ class Advert(models.Model):
 register_snippet(Advert)
 
 
-# AlphaSnippet and ZuluSnippet are for testing ordering of
-# snippets when registering.  They are named as such to ensure
-# thier ordering is clear.  They are registered during testing
-# to ensure specific [in]correct register ordering
-
-# AlphaSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
-class AlphaSnippet(models.Model):
-    text = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.text
-
-
-# ZuluSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
-class ZuluSnippet(models.Model):
-    text = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.text
-
-
 class StandardIndex(Page):
     """ Index for the site, not allowed to be placed anywhere """
     parent_page_types = []
@@ -432,77 +361,6 @@ class BusinessChild(Page):
     parent_page_types = ['tests.BusinessIndex', BusinessSubIndex]
 
 
-class SearchTest(models.Model, index.Indexed):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    live = models.BooleanField(default=False)
-    published_date = models.DateField(null=True)
-
-    search_fields = [
-        index.SearchField('title', partial_match=True),
-        index.SearchField('content'),
-        index.SearchField('callable_indexed_field'),
-        index.FilterField('title'),
-        index.FilterField('live'),
-        index.FilterField('published_date'),
-    ]
-
-    def callable_indexed_field(self):
-        return "Callable"
-
-    @classmethod
-    def get_indexed_objects(cls):
-        indexed_objects = super(SearchTest, cls).get_indexed_objects()
-
-        # Exclude SearchTests that have a SearchTestChild to stop update_index creating duplicates
-        if cls is SearchTest:
-            indexed_objects = indexed_objects.exclude(
-                id__in=SearchTestChild.objects.all().values_list('searchtest_ptr_id', flat=True)
-            )
-
-        # Exclude SearchTests that have the title "Don't index me!"
-        indexed_objects = indexed_objects.exclude(title="Don't index me!")
-
-        return indexed_objects
-
-    def get_indexed_instance(self):
-        # Check if there is a SearchTestChild that descends from this
-        child = SearchTestChild.objects.filter(searchtest_ptr_id=self.id).first()
-
-        # Return the child if there is one, otherwise return self
-        return child or self
-
-class SearchTestChild(SearchTest):
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
-    extra_content = models.TextField()
-
-    search_fields = SearchTest.search_fields + [
-        index.SearchField('subtitle', partial_match=True),
-        index.SearchField('extra_content'),
-    ]
-
-
-def routable_page_external_view(request, arg):
-    return HttpResponse("EXTERNAL VIEW: " + arg)
-
-class RoutablePageTest(RoutablePage):
-    subpage_urls = (
-        url(r'^$', 'main', name='main'),
-        url(r'^archive/year/(\d+)/$', 'archive_by_year', name='archive_by_year'),
-        url(r'^archive/author/(?P<author_slug>.+)/$', 'archive_by_author', name='archive_by_author'),
-        url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
-    )
-
-    def archive_by_year(self, request, year):
-        return HttpResponse("ARCHIVE BY YEAR: " + str(year))
-
-    def archive_by_author(self, request, author_slug):
-        return HttpResponse("ARCHIVE BY AUTHOR: " + author_slug)
-
-    def main(self, request):
-        return HttpResponse("MAIN VIEW")
-
-
 class TaggedPageTag(TaggedItemBase):
     content_object = ParentalKey('tests.TaggedPage', related_name='tagged_items')
 
@@ -528,17 +386,6 @@ class SnippetChooserModel(models.Model):
     panels = [
         SnippetChooserPanel('advert', Advert),
     ]
-
-
-# Register model as snippet using register_snippet as both a function and a decorator
-
-class RegisterFunction(models.Model):
-    pass
-register_snippet(RegisterFunction)
-
-@register_snippet
-class RegisterDecorator(models.Model):
-    pass
 
 
 class CustomImageWithoutAdminFormFields(AbstractImage):

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.forms import FormBuilder
-from wagtail.tests.models import FormPage, FormField
+from wagtail.tests.testapp.models import FormPage, FormField
 
 
 class TestFormSubmission(TestCase):

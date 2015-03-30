@@ -13,7 +13,7 @@ from django.db import connection
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.models import EventPage, EventPageCarouselItem
+from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
@@ -161,7 +161,7 @@ class TestRenditions(TestCase):
 
 
 class TestUsageCount(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.image = Image.objects.create(
@@ -184,7 +184,7 @@ class TestUsageCount(TestCase):
 
 
 class TestGetUsage(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.image = Image.objects.create(
