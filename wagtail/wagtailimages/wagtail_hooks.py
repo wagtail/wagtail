@@ -9,8 +9,10 @@ from django.contrib.contenttypes.models import ContentType
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.site_summary import SummaryItem
 
 from wagtail.wagtailimages import admin_urls, image_operations
+from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 
 
@@ -114,3 +116,17 @@ def register_image_operations():
 @hooks.register('register_rich_text_embed_handler')
 def register_image_embed_handler():
     return ('image', ImageEmbedHandler)
+
+
+class ImagesSummaryItem(SummaryItem):
+    order = 200
+    template = 'wagtailimages/homepage/site_summary_images.html'
+
+    def get_context(self):
+        return {
+            'total_images': get_image_model().objects.count(),
+        }
+
+@hooks.register('construct_homepage_summary_items')
+def add_images_summary_item(request, items):
+    items.append(ImagesSummaryItem(request))

@@ -4,87 +4,12 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
 
-from wagtail.wagtaildocs.models import Document
-
-from wagtail.wagtailimages.models import get_image_model
-
-
-# Items for the site summary panel
-class SummaryItem(object):
-    order = 100
-
-    def __init__(self, request):
-        self.request = request
-
-    def get_context(self):
-        return {}
-
-    def render(self):
-        return render_to_string(self.template, self.get_context(),
-            RequestContext(self.request))
-
-
-class PagesSummaryItem(SummaryItem):
-    order = 100
-    template = 'wagtailadmin/home/site_summary_pages.html'
-
-    def get_context(self):
-        return {
-            'total_pages': Page.objects.count() - 1,  # subtract 1 because the root node is not a real page
-        }
-
-@hooks.register('construct_homepage_summary_items')
-def add_pages_summary_item(request, items):
-    items.append(PagesSummaryItem(request))
-
-
-class ImagesSummaryItem(SummaryItem):
-    order = 200
-    template = 'wagtailadmin/home/site_summary_images.html'
-
-    def get_context(self):
-        return {
-            'total_images': get_image_model().objects.count(),
-        }
-
-@hooks.register('construct_homepage_summary_items')
-def add_images_summary_item(request, items):
-    items.append(ImagesSummaryItem(request))
-
-
-class DocumentsSummaryItem(SummaryItem):
-    order = 300
-    template = 'wagtailadmin/home/site_summary_documents.html'
-
-    def get_context(self):
-        return {
-            'total_docs': Document.objects.count(),
-        }
-
-@hooks.register('construct_homepage_summary_items')
-def add_documents_summary_item(request, items):
-    items.append(DocumentsSummaryItem(request))
+from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
 
 # Panels for the homepage
-class SiteSummaryPanel(object):
-    name = 'site_summary'
-    order = 100
-
-    def __init__(self, request):
-        self.request = request
-        self.summary_items = []
-        for fn in hooks.get_hooks('construct_homepage_summary_items'):
-            fn(request, self.summary_items)
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/site_summary.html', {
-            'summary_items': sorted(self.summary_items, key=lambda p: p.order),
-        }, RequestContext(self.request))
-
-
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200

@@ -8,8 +8,10 @@ from django.contrib.auth.models import Permission
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.site_summary import SummaryItem
 
 from wagtail.wagtaildocs import admin_urls
+from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
@@ -59,3 +61,17 @@ def register_permissions():
 @hooks.register('register_rich_text_link_handler')
 def register_document_link_handler():
     return ('document', DocumentLinkHandler)
+
+
+class DocumentsSummaryItem(SummaryItem):
+    order = 300
+    template = 'wagtaildocs/homepage/site_summary_documents.html'
+
+    def get_context(self):
+        return {
+            'total_docs': Document.objects.count(),
+        }
+
+@hooks.register('construct_homepage_summary_items')
+def add_documents_summary_item(request, items):
+    items.append(DocumentsSummaryItem(request))
