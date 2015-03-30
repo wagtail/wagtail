@@ -16,8 +16,8 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePage
@@ -320,29 +320,6 @@ class Advert(models.Model):
 register_snippet(Advert)
 
 
-# AlphaSnippet and ZuluSnippet are for testing ordering of
-# snippets when registering.  They are named as such to ensure
-# thier ordering is clear.  They are registered during testing
-# to ensure specific [in]correct register ordering
-
-# AlphaSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
-class AlphaSnippet(models.Model):
-    text = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.text
-
-
-# ZuluSnippet is registered during TestSnippetOrdering
-@python_2_unicode_compatible
-class ZuluSnippet(models.Model):
-    text = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.text
-
-
 class StandardIndex(Page):
     """ Index for the site, not allowed to be placed anywhere """
     parent_page_types = []
@@ -483,17 +460,6 @@ class SnippetChooserModel(models.Model):
     panels = [
         SnippetChooserPanel('advert', Advert),
     ]
-
-
-# Register model as snippet using register_snippet as both a function and a decorator
-
-class RegisterFunction(models.Model):
-    pass
-register_snippet(RegisterFunction)
-
-@register_snippet
-class RegisterDecorator(models.Model):
-    pass
 
 
 class CustomImageWithoutAdminFormFields(AbstractImage):

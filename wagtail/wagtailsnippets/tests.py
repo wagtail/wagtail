@@ -5,7 +5,8 @@ from django.db import models
 from django.test.utils import override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.testapp.models import Advert, AlphaSnippet, ZuluSnippet, SnippetChooserModel, RegisterDecorator, RegisterFunction
+from wagtail.tests.testapp.models import Advert, SnippetChooserModel
+from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
