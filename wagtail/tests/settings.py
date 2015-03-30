@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'wagtail.tests.customuser',
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
+    'wagtail.tests.search',
 
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
