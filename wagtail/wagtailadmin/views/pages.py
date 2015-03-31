@@ -201,10 +201,8 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
             is_submitting = bool(request.POST.get('action-submit'))
 
-            # Set live to False and has_unpublished_changes to True if we are not publishing
             if not is_publishing:
                 page.live = False
-                page.has_unpublished_changes = True
 
             # Save page
             parent_page.add_child(instance=page)
@@ -339,15 +337,6 @@ def edit(request, page_id):
             # Publish
             if is_publishing:
                 revision.publish()
-            else:
-                # Set has_unpublished_changes flag
-                if page.live:
-                    # To avoid overwriting the live version, we only save the page
-                    # to the revisions table
-                    Page.objects.filter(id=page.id).update(has_unpublished_changes=True)
-                else:
-                    page.has_unpublished_changes = True
-                    page.save()
 
             # Notifications
             if is_publishing:
