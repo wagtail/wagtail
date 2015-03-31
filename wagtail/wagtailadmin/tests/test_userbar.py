@@ -7,7 +7,7 @@ from django.contrib.auth.models import AnonymousUser
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.models import BusinessIndex, BusinessChild
+from wagtail.tests.testapp.models import BusinessIndex, BusinessChild
 
 
 class TestUserbarTag(TestCase):
