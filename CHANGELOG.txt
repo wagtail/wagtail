@@ -40,6 +40,7 @@ Changelog
  * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
  * No longer automatically tries to use Celery for sending notification emails
+ * Added "Add child page" button to admin userbar (Eric Drechsel)
 
 
 0.8.6 (10.03.2015)
