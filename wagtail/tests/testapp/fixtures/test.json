@@ -461,7 +461,7 @@
 },
 {
     "pk": 1,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "superuser",
         "first_name": "",
@@ -478,7 +478,7 @@
 },
 {
     "pk": 2,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "eventeditor",
         "first_name": "",
@@ -496,7 +496,7 @@
 },
 {
     "pk": 3,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "eventmoderator",
         "first_name": "",
@@ -514,7 +514,7 @@
 },
 {
     "pk": 4,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "inactiveuser",
         "first_name": "",
@@ -532,7 +532,7 @@
 },
 {
     "pk": 5,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "siteeditor",
         "first_name": "",
@@ -550,7 +550,7 @@
 },
 {
     "pk": 6,
-    "model": "customuser.customuser",
+    "model": "auth.user",
     "fields": {
         "username": "admin_only_user",
         "first_name": "",
