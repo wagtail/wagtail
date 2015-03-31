@@ -23,8 +23,8 @@ class AddPageItem(BaseItem):
         if not request.user.has_perm('wagtailadmin.access_admin'):
             return ""
 
-        # Don't render if user doesn't have ability to add siblings
-        permission_checker = self.page.get_parent().permissions_for_user(request.user)
+        # Don't render if user doesn't have ability to add children here
+        permission_checker = self.page.permissions_for_user(request.user)
         if not permission_checker.can_add_subpage():
             return ""
 

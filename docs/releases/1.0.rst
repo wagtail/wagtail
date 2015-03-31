@@ -51,6 +51,7 @@ Admin
  * Added pagination to the snippets listing and chooser
  * Page / document / image / snippet choosers now include a link to edit the chosen item
  * Plain text fields in the page editor now use auto-expanding text areas
+ * Added "Add child page" button to admin userbar
 
 
 **Page editor**
