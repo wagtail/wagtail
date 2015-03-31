@@ -305,9 +305,9 @@ A block consisting of a sequence of sub-blocks of different types, which can be 
             ('image', ImageChooserBlock()),
             ('quotation', blocks.StructBlock([
                 ('text', blocks.TextBlock()),
-                ('author', blocks.CharBlock),
+                ('author', blocks.CharBlock()),
             ])),
-            ('video', blocks.EmbedBlock()),
+            ('video', EmbedBlock()),
         ],
         icon='cogs'
     ))
@@ -321,9 +321,9 @@ As with StructBlock, the list of sub-blocks can also be provided as a subclass o
         image = ImageChooserBlock()
         quotation = blocks.StructBlock([
             ('text', blocks.TextBlock()),
-            ('author', blocks.CharBlock),
+            ('author', blocks.CharBlock()),
         ])
-        video = blocks.EmbedBlock
+        video = EmbedBlock()
 
         class Meta:
             icon='cogs'
