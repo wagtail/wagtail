@@ -13,19 +13,6 @@ TEMPLATE_DEBUG = False
 COMPRESS_OFFLINE = True
 
 
-# Send notification emails as a background task using Celery,
-# to prevent this from blocking web server threads
-# (requires the django-celery package):
-# http://celery.readthedocs.org/en/latest/configuration.html
-
-# import djcelery
-#
-# djcelery.setup_loader()
-#
-# CELERY_SEND_TASK_ERROR_EMAILS = True
-# BROKER_URL = 'redis://'
-
-
 # Use Redis as the cache backend for extra performance
 # (requires the django-redis-cache package):
 # http://wagtail.readthedocs.org/en/latest/howto/performance.html#cache
