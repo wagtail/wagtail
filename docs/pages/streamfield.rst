@@ -285,10 +285,10 @@ Any block type is valid as the sub-block type, including structural types:
 
 .. code-block:: python
 
-    ('ingredients_list', blocks.ListBlock(blocks.StructBlock(
+    ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
         ('ingredient', blocks.CharBlock(required=True)),
         ('amount', blocks.CharBlock()),
-    )))
+    ])))
 
 
 StreamBlock
