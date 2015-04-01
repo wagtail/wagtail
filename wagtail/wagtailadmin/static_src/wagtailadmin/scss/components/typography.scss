@@ -80,6 +80,7 @@ dd{
     padding:1em;
     margin:1em 0;
     clear:both;
+    color:$color-text-base;
 
     p{
         margin-top:0;
@@ -87,6 +88,9 @@ dd{
         &:last-child{
             margin-bottom:0;
         }
+    }
+    a{
+        color:$color-teal;
     }
 }
     .help-info, .help-warning, .help-critical{

@@ -217,6 +217,16 @@ Email Notifications
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
 
 
+Wagtail update notifications
+----------------------------
+
+.. code-block:: python
+
+  WAGTAIL_ENABLE_UPDATE_CHECK = True
+
+For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with extremely basic information about where Wagtail is in use. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
+
+
 Private Pages
 -------------
 

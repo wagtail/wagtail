@@ -1,0 +1,8 @@
+{% load wagtailcore_tags static %}
+
+<div class="panel nice-padding panel-upgrade-notification" style="display:none">
+    <div class="help-block help-warning">Wagtail upgrade available. Your version: <strong>{% wagtail_version %}</strong>. New version: <strong class="newversion"></strong>. <a class="releasenotes-link" href="">Read the release notes.</a></div>
+
+    <script>window.wagtailVersion = "{% wagtail_version %}";</script>
+    <script src="{% static 'wagtailadmin/js/upgrade_notify.js' %}" async="true"></script>
+</div>
