@@ -34,13 +34,15 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script>
-        window.stats = {
-            "django_version": "{{ django_version }}",
-            "python_version": "{{ python_version }}",
-            "wagtail_version": "{% wagtail_version %}",
-            "db_engine": "{{ db_engine }}"       
-        }
-    </script>
-    <script src="{% static 'wagtailadmin/js/stats.js' %}" async="true"></script>
+    {% if allow_stats_reporting %}
+        <script>
+            window.stats = {
+                "django_version": "{{ django_version }}",
+                "python_version": "{{ python_version }}",
+                "wagtail_version": "{% wagtail_version %}",
+                "db_engine": "{{ db_engine }}"       
+            }
+        </script>
+        <script src="{% static 'wagtailadmin/js/stats.js' %}" async="true"></script>
+    {% endif %}
 {% endblock %}

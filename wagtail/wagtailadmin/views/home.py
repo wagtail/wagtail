@@ -59,6 +59,7 @@ def home(request):
         fn(request, panels)
 
     return render(request, "wagtailadmin/home.html", {
+        'allow_stats_reporting': getattr(settings, "WAGTAIL_ENABLE_STATS", True),
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
         'user': request.user,
