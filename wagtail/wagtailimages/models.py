@@ -195,7 +195,10 @@ class AbstractImage(models.Model, TagSearchable):
                 'gif': '.gif',
             }
 
-            output_extension = '.'.join([vary_key, filter.spec]) + FORMAT_EXTENSIONS[output_format]
+            output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
+            if vary_key:
+                output_extension = vary_key + '.' + output_extension
+
             output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 

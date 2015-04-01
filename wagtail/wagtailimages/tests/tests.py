@@ -325,3 +325,39 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertIsInstance(form.base_fields['focal_point_y'].widget, forms.HiddenInput)
         self.assertIsInstance(form.base_fields['focal_point_width'].widget, forms.HiddenInput)
         self.assertIsInstance(form.base_fields['focal_point_height'].widget, forms.HiddenInput)
+
+
+class TestRenditionFilenames(TestCase):
+    # Can't create image in setUp as we need a unique filename for each test.
+    # This stops Django appending some rubbish to the filename which makes
+    # the assertions difficult.
+
+    def test_normal_filter(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf1.png'),
+        )
+        rendition = image.get_rendition('width-100')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf1.width-100.png')
+
+    def test_fill_filter(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf2.png'),
+        )
+        rendition = image.get_rendition('fill-100x100')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf2.2e16d0ba.fill-100x100.png')
+
+    def test_fill_filter_with_focal_point(self):
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(filename='test_rf3.png'),
+        )
+        image.set_focal_point(Rect(100, 100, 200, 200))
+        image.save()
+
+        rendition = image.get_rendition('fill-100x100')
+
+        self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
