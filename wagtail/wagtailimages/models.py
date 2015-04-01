@@ -182,13 +182,20 @@ class AbstractImage(models.Model, TagSearchable):
             )
         except ObjectDoesNotExist:
             # Generate the rendition image
-            generated_image = filter.run(self, BytesIO())
+            generated_image, output_format = filter.run(self, BytesIO())
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
             input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
-            output_extension = '.'.join([vary_key, filter.spec]) + input_extension
+            # A mapping of image formats to extensions
+            FORMAT_EXTENSIONS = {
+                'jpeg': '.jpg',
+                'png': '.png',
+                'gif': '.gif',
+            }
+
+            output_extension = '.'.join([vary_key, filter.spec]) + FORMAT_EXTENSIONS[output_format]
             output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 
@@ -308,6 +315,8 @@ class Filter(models.Model):
             for operation in self.operations:
                 operation.run(willow, image)
 
+            output_format = willow.original_format
+
             if willow.original_format == 'jpeg':
                 # Allow changing of JPEG compression quality
                 if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
@@ -323,10 +332,21 @@ class Filter(models.Model):
                     quality = 85
 
                 willow.save_as_jpeg(output, quality=quality)
+            if willow.original_format == 'gif':
+                # Convert image to PNG if it's not animated
+                if not willow.has_animation():
+                    output_format = 'png'
+                    willow.save_as_png(output)
+                else:
+                    willow.save_as_gif(output)
+            if willow.original_format == 'bmp':
+                # Convert to PNG
+                output_format = 'png'
+                willow.save_as_png(output)
             else:
                 willow.save(willow.original_format, output)
 
-        return output
+        return output, output_format
 
     def get_vary(self, image):
         vary = []
