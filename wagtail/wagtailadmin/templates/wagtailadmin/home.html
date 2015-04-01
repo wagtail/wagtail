@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load gravatar static compress i18n %}
+{% load gravatar static compress i18n wagtailcore_tags%}
 {% block titletag %}{% trans "Dashboard" %}{% endblock %}
 {% block bodyclass %}homepage{% endblock %}
 
@@ -31,5 +31,16 @@
     {% else %}
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
     {% endif %}
+{% endblock %}
 
+{% block extra_js %}
+    <script>
+        window.stats = {
+            "django_version": "{{ django_version }}",
+            "python_version": "{{ python_version }}",
+            "wagtail_version": "{% wagtail_version %}",
+            "db_engine": "{{ db_engine }}"       
+        }
+    </script>
+    <script src="{% static 'wagtailadmin/js/stats.js' %}" async="true"></script>
 {% endblock %}

@@ -1,3 +1,6 @@
+import sys
+from django import get_version
+from django.db import connection
 from django.shortcuts import render
 from django.conf import settings
 
@@ -46,7 +49,6 @@ class RecentEditsPanel(object):
 
 
 def home(request):
-
     panels = [
         SiteSummaryPanel(request),
         PagesForModerationPanel(request),
@@ -59,7 +61,10 @@ def home(request):
     return render(request, "wagtailadmin/home.html", {
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
-        'user': request.user
+        'user': request.user,
+        'python_version': sys.version.split()[0],
+        'django_version': get_version(),
+        'db_engine': connection.vendor
     })
 
 
