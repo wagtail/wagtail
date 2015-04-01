@@ -16,6 +16,14 @@ StreamField - a field type for freeform content
 StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield`.
 
 
+Wagtail API - A RESTful API for your Wagtail site
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When installed, the new Wagtail API module provides a RESTful web API to your
+Wagtail site. You can use this for accessing your raw field content for your
+sites pages, images and documents in JSON format. See :doc:`/contrib/api/index`
+
+
 MySQL support
 ~~~~~~~~~~~~~
 
@@ -111,6 +119,65 @@ Support for older Django/Python/Elasticsearch versions dropped
 This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90.x. Please make sure these are updated before upgrading.
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
+
+Upgrading from the external ``wagtailapi`` module.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you were previously using the external ``wagtailapi`` module, it is important to note these two backwards-incompatible changes.
+
+**1. Representation of foreign keys has changed**
+
+Foreign keys were previously represented by just the value of their primary key.
+For example::
+
+    "feed_image": 1
+
+This has now been changed to add some ``meta`` information::
+
+    "feed_image": {
+        "id": 1,
+        "meta": {
+            "type": "wagtailimages.Image",
+            "detail_url": "http://api.example.com/api/v1/images/1/"
+        }
+    }
+
+
+**2. On the page detail view, the "parent" field has been moved out of meta**
+
+Previously, there was a "parent" field in the "meta" section on the page detail
+view::
+
+    {
+        "id": 10,
+        "meta": {
+             "type": "demo.BlogPage",
+             "parent": 2
+        },
+
+        ...
+    }
+
+
+This has now been moved to the top level. Also, the above change to how foreign
+keys are represented applies to this field too::
+
+    {
+        "id": 10,
+        "meta": {
+             "type": "demo.BlogPage"
+        },
+        "parent": {
+             "id": 2,
+             "meta": {
+                 "type": "demo.BlogIndexPage"
+             }
+        }
+
+        ...
+    }
+
+
 
 ``InlinePanel`` definitions no longer need to specify the base model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
