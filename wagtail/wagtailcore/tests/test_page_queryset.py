@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
-from wagtail.tests.models import EventPage
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestPageQuerySet(TestCase):

@@ -261,7 +261,7 @@ def image_delete(sender, instance, **kwargs):
 
 def get_image_model():
     from django.conf import settings
-    from django.db.models import get_model
+    from django.apps import apps
 
     try:
         app_label, model_name = settings.WAGTAILIMAGES_IMAGE_MODEL.split('.')
@@ -270,7 +270,7 @@ def get_image_model():
     except ValueError:
         raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'")
 
-    image_model = get_model(app_label, model_name)
+    image_model = apps.get_model(app_label, model_name)
     if image_model is None:
         raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % settings.WAGTAILIMAGES_IMAGE_MODEL)
     return image_model

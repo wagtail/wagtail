@@ -13,7 +13,7 @@ from django.db import models
 from taggit.forms import TagField, TagWidget
 
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
-from wagtail.tests.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
+from wagtail.tests.testapp.models import CustomImageWithAdminFormFields, CustomImageWithoutAdminFormFields
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect

@@ -13,7 +13,7 @@ from django.test.utils import override_settings
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 
-from wagtail.tests.models import EventPage, EventPageRelatedLink
+from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
 from wagtail.wagtaildocs.models import Document
 
 from wagtail.wagtaildocs import models
@@ -340,7 +340,7 @@ class TestDocumentFilenameProperties(TestCase):
 
 
 class TestUsageCount(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.login()
@@ -391,7 +391,7 @@ class TestUsageCount(TestCase, WagtailTestUtils):
 
 
 class TestGetUsage(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.login()
@@ -581,7 +581,7 @@ class TestServeView(TestCase):
 
 
 class TestDocumentRichTextLinkHandler(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def test_get_db_attributes(self):
         soup = BeautifulSoup(

@@ -51,6 +51,7 @@ Admin
  * Added pagination to the snippets listing and chooser
  * Page / document / image / snippet choosers now include a link to edit the chosen item
  * Plain text fields in the page editor now use auto-expanding text areas
+ * Added "Add child page" button to admin userbar
 
 
 **Page editor**
@@ -85,6 +86,7 @@ Project template
 
  * The Vagrantfile now listens on port 8000
  * Removed ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings (as Wagtail no longer requires these)
+ * Removed example Celery configuration from ``production.py`` and ``requirements.txt``
 
 
 Search
@@ -122,6 +124,17 @@ It is no longer necessary to pass the base model as a parameter, so this declara
     InlinePanel('carousel_items', label="Carousel items")
 
 The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
+
+Celery no longer automatically used for sending notification emails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, Wagtail would try to use Celery whenever the ``djcelery`` module was
+installed, even if Celery wasn't actually set up. This could cause a very hard
+to track down problem where notification emails would not be sent so this 
+functionality has now been removed.
+
+If you would like to keep using Celery for sending notification emails, have a
+look at: `django-celery-email <https://pypi.python.org/pypi/django-celery-email>`_
 
 You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

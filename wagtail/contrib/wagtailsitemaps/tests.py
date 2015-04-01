@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.cache import cache
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
-from wagtail.tests.models import SimplePage, EventIndex
+from wagtail.tests.testapp.models import SimplePage, EventIndex
 
 from .sitemap_generator import Sitemap
 

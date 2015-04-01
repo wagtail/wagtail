@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 
 class TestPageLinkHandler(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def test_get_db_attributes(self):
         soup = BeautifulSoup(

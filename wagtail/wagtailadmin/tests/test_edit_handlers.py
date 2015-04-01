@@ -20,7 +20,7 @@ from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, Admin
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.wagtailcore.fields import RichTextArea
-from wagtail.tests.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
+from wagtail.tests.testapp.models import PageChooserModel, EventPageChooserModel, EventPage, EventPageSpeaker, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
 

@@ -28,21 +28,6 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
 Without a persistent cache, Wagtail will recreate all compressable assets at each server start, e.g. when any files change under ``./manage.py runserver``.
 
 
-Sending emails in the background using Celery
----------------------------------------------
-
-Various actions in the Wagtail admin backend can trigger notification emails - for example, submitting a page for moderation. In Wagtail's default configuration, these are sent as part of the page request/response cycle, which means that web server threads can get tied up for long periods if many emails are being sent. To avoid this, Wagtail can be configured to do this as a background task, using `Celery <http://www.celeryproject.org/>`_ as a task queue. To install Celery, add ``django-celery`` to your requirements.txt. A sample configuration, using Redis as the queue backend, would look like::
-
-    import djcelery
-
-    djcelery.setup_loader()
-
-    CELERY_SEND_TASK_ERROR_EMAILS = True
-    BROKER_URL = 'redis://'
-
-See the Celery documentation for instructions on running the worker process in development or production.
-
-
 Search
 ------
 

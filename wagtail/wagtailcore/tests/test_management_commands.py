@@ -9,7 +9,7 @@ from django.db import models
 
 from wagtail.wagtailcore.models import Page, PageRevision
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.tests.models import SimplePage, EventPage
+from wagtail.tests.testapp.models import SimplePage, EventPage
 
 
 class TestFixTreeCommand(TestCase):
