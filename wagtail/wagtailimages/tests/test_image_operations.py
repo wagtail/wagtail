@@ -25,9 +25,9 @@ class WillowOperationRecorder(object):
 
         for operation in self.ran_operations:
             if operation[0] == 'resize':
-                size = operation[1]
+                size = operation[1][0]
             elif operation[0] == 'crop':
-                crop = operation[1]
+                crop = operation[1][0]
                 size = crop[2] - crop[0], crop[3] - crop[1]
 
         return size
@@ -147,21 +147,21 @@ class TestFillOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage
         ('fill-800x600', Image(width=1000, height=1000), [
-            ('crop', (0, 125, 1000, 875), {}),
-            ('resize', (800, 600), {}),
+            ('crop', ((0, 125, 1000, 875), ), {}),
+            ('resize', ((800, 600), ), {}),
         ]),
 
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
         ('fill-200x200', Image(width=539, height=720), [
-            ('crop', (0, 90, 539, 629), {}),
-            ('resize', (200, 200), {}),
+            ('crop', ((0, 90, 539, 629), ), {}),
+            ('resize', ((200, 200), ), {}),
         ]),
 
         # Closeness shouldn't have any effect when used without a focal point
         ('fill-800x600-c100', Image(width=1000, height=1000), [
-            ('crop', (0, 125, 1000, 875), {}),
-            ('resize', (800, 600), {}),
+            ('crop', ((0, 125, 1000, 875), ), {}),
+            ('resize', ((800, 600), ), {}),
         ]),
 
         # Should always crop towards focal point. Even if no closeness is set
@@ -174,10 +174,10 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop the largest possible crop box towards the focal point
-            ('crop', (0, 125, 1000, 875), {}),
+            ('crop', ((0, 125, 1000, 875), ), {}),
 
             # Resize it down to final size
-            ('resize', (80, 60), {}),
+            ('resize', ((80, 60), ), {}),
         ]),
 
         # Should crop as close as possible without upscaling
@@ -190,7 +190,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop as close as possible to the focal point
-            ('crop', (920, 470, 1000, 530), {}),
+            ('crop', ((920, 470, 1000, 530), ), {}),
 
             # No need to resize, crop should've created an 80x60 image
         ]),
@@ -206,7 +206,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop to the right hand side
-            ('crop', (1900, 470, 2000, 530), {}),
+            ('crop', ((1900, 470, 2000, 530), ), {}),
         ]),
 
         # Make sure that the crop box never enters the focal point
@@ -219,15 +219,15 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=20,
         ), [
             # Crop a 100x100 box around the entire focal point
-            ('crop', (950, 450, 1050, 550), {}),
+            ('crop', ((950, 450, 1050, 550), ), {}),
 
             # Resize it down to 50x50
-            ('resize', (50, 50), {}),
+            ('resize', ((50, 50), ), {}),
         ]),
 
         # Test that the image is never upscaled
         ('fill-1000x800', Image(width=100, height=100), [
-            ('crop', (0, 10, 100, 90), {}),
+            ('crop', ((0, 10, 100, 90), ), {}),
         ]),
 
         # Test that the crop closeness gets capped to prevent upscaling
@@ -242,7 +242,7 @@ class TestFillOperation(ImageOperationTestCase):
             # Crop a 1000x800 square out of the image as close to the
             # focal point as possible. Will not zoom too far in to
             # prevent upscaling
-            ('crop', (250, 100, 1250, 900), {}),
+            ('crop', ((250, 100, 1250, 900), ), {}),
         ]),
 
         # Test for an issue where a ZeroDivisionError would occur when the
@@ -257,7 +257,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=1500,
         ), [
             # This operation could probably be optimised out
-            ('crop', (0, 0, 1500, 1500), {}),
+            ('crop', ((0, 0, 1500, 1500), ), {}),
         ])
     ]
 
@@ -286,11 +286,11 @@ class TestMinMaxOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage of min
         ('min-800x600', Image(width=1000, height=1000), [
-            ('resize', (800, 800), {}),
+            ('resize', ((800, 800), ), {}),
         ]),
         # Basic usage of max
         ('max-800x600', Image(width=1000, height=1000), [
-            ('resize', (600, 600), {}),
+            ('resize', ((600, 600), ), {}),
         ]),
     ]
 
@@ -316,11 +316,11 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage of width
         ('width-400', Image(width=1000, height=500), [
-            ('resize', (400, 200), {}),
+            ('resize', ((400, 200), ), {}),
         ]),
         # Basic usage of height
         ('height-400', Image(width=1000, height=500), [
-            ('resize', (800, 400), {}),
+            ('resize', ((800, 400), ), {}),
         ]),
     ]
 

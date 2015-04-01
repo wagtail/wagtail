@@ -611,7 +611,7 @@ class TestPreviewView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'image/jpeg')
+        self.assertEqual(response['Content-Type'], 'image/png')
 
     def test_get_invalid_filter_spec(self):
         """
