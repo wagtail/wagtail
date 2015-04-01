@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
+from wagtail.tests.testapp.models import EventPage, EventIndex, SimplePage, PageWithOldStyleRouteMethod, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
 
 
 class TestSiteRouting(TestCase):
@@ -463,7 +463,7 @@ class TestCopyPage(TestCase):
 
         # Set the created_at of the revision to a time in the past
         revision = christmas_event.get_latest_revision()
-        revision.created_at = datetime.datetime(2014, 1, 1)
+        revision.created_at = datetime.datetime(2014, 1, 1, 0, 0, 0, tzinfo=pytz.utc)
         revision.save()
 
         # Copy it

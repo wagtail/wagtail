@@ -51,17 +51,23 @@ Translators
 * Basque: Unai Zalakain
 * Bulgarian: Lyuboslav Petrov
 * Catalan: David Llop
-* Chinese: Lihan Li, tulpar008, wwj718
-* Dutch: mahulst, Samuel Leeuwenburg
-* French: Sylvain Fankhauser
-* Galician: fooflare
-* German: Karl Sander, Johannes Spielmann
-* Greek: Serafeim Papastefanos
-* Mongolian: Delgermurun Purevkhuu
+* Chinese: Victoria Chan, Leway Colin, hanfeng, qiulin, Tulpar Turamat, wwj718
+* Chinese (China): hanfeng, Lihan Li, ufoym
+* Chinese (Taiwan): wdv4758h, jshc
+* Czech: Jiri Stepanek
+* Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
+* French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel
+* Galician: fooflare, fonso
+* German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston
+* Greek: Serafeim Papastefanos, Jim Dal
+* Italian: Andrea Tagliazucchi
+* Japanese: Daigo Shitara, Toshikazu Michisu
+* Mongolian: Delgermurun Purevkhuu, miiiga
 * Polish: Łukasz Bołdys
-* Portuguese: Jose Lourenco
-* Portuguese Brazil: Gilson Filho
+* Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
+* Portuguese (Portugal): Jose Lourenco
 * Romanian: Dan Braghis
-* Russian: ice9, HNKNTA
+* Russian: ice9, HNKNTA, MechanisM, Andrey Tykhonov, Kirill Drozdov, Liliana Kastilio, Sergey Komarov
 * Spanish: Unai Zalakain, fooflare
-* Traditional Chinese (Taiwan): wdv4758h
+* Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
+* Vietnamese: binhle, Luan Nguyen

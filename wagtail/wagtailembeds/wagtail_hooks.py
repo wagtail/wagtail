@@ -5,6 +5,7 @@ from django.utils.html import format_html
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailembeds import urls
+from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 
 
 @hooks.register('register_admin_urls')
@@ -27,3 +28,8 @@ def editor_js():
         'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
         urlresolvers.reverse('wagtailembeds_chooser')
     )
+
+
+@hooks.register('register_rich_text_embed_handler')
+def register_media_embed_handler():
+    return ('media', MediaEmbedHandler)

@@ -1,9 +1,11 @@
 Changelog
 =========
 
-0.9 (xx.xx.xxxx)
+1.0 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 
+ * Added StreamField, a model field for freeform page content
+ * MySQL support
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
  * Added thousands separator for counters on dashboard
@@ -28,8 +30,26 @@ Changelog
  * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
  * Added pagination to the snippets listing and chooser (Martin Sanders)
  * Page / document / image / snippet choosers now include a link to edit the chosen item
- * Fix: The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
- * Fix: Image edit page no longer throws OSError when the original image is missing
+ * The `document_served` signal now correctly passes the Document class as `sender` and the document as `instance`
+ * Image/Document edit page no longer throws OSError when the original image is missing
+ * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface
+ * The Page model now records the date/time that a page was first published, as the field `first_published_at`
+ * Increased the maximum length of a page slug from 50 to 255 characters
+ * Plain text fields in the page editor now use auto-expanding text areas
+ * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
+ * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
+ * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
+ * No longer automatically tries to use Celery for sending notification emails
+ * Added "Add child page" button to admin userbar (Eric Drechsel)
+
+
+0.8.6 (10.03.2015)
+~~~~~~~~~~~~~~~~~~
+* Translations updated, including new translations for Czech, Italian and Japanese
+* The "fixtree" command can now delete orphaned pages
+* Fix: django-taggit library updated to 0.12.3, to fix a bug with migrations on SQLite on Django 1.7.2 and above (https://github.com/alex/django-taggit/issues/285)
+* Fix: Fixed a bug that caused children of a deleted page to not be deleted if they had a different type
+
 
 0.8.5 (17.02.2015)
 ~~~~~~~~~~~~~~~~~~
@@ -46,6 +66,7 @@ Changelog
 * Fix: User admin area no longer fails in the presence of negative user IDs (as used by django-guardian's default settings)
 * Fix: Password reset emails now use the ``BASE_URL`` setting for the reset URL
 * Fix: BASE_URL is now included in the project template's default settings file
+
 
 0.8.4 (04.12.2014)
 ~~~~~~~~~~~~~~~~~~

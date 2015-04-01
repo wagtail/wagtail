@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:12+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
@@ -21,26 +21,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:21 templates/wagtaildocs/documents/list.html:11
+#: models.py:23 templates/wagtaildocs/documents/list.html:11
 #: templates/wagtaildocs/documents/list.html:14
 #: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:22 templates/wagtaildocs/documents/list.html:17
+#: models.py:24 templates/wagtaildocs/documents/list.html:17
 msgid "File"
 msgstr "Datei"
 
-#: models.py:26
+#: models.py:28
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: wagtail_hooks.py:28 templates/wagtaildocs/documents/index.html:16
-msgid "Documents"
-msgstr "Dokumente"
-
-#: templates/wagtaildocs/chooser/chooser.html:2
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:11
+#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
 msgid "Choose a document"
 msgstr "Dokument auswählen"
 
@@ -55,7 +50,7 @@ msgstr "Hochladen"
 
 #: templates/wagtaildocs/chooser/chooser.html:34
 #: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:29
+#: templates/wagtaildocs/documents/edit.html:31
 msgid "Save"
 msgstr "Speichern"
 
@@ -109,7 +104,7 @@ msgid "Delete %(title)s"
 msgstr "%(title)s löschen"
 
 #: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:29
+#: templates/wagtaildocs/documents/edit.html:31
 msgid "Delete document"
 msgstr "Dokument löschen"
 
@@ -129,6 +124,20 @@ msgstr "%(title)s bearbeiten"
 #: templates/wagtaildocs/documents/edit.html:15
 msgid "Editing"
 msgstr "Bearbeiten"
+
+#: templates/wagtaildocs/documents/edit.html:38
+#, fuzzy
+#| msgid "File"
+msgid "Filesize"
+msgstr "Datei"
+
+#: templates/wagtaildocs/documents/edit.html:39
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:28
+msgid "Documents"
+msgstr "Dokumente"
 
 #: templates/wagtaildocs/documents/list.html:21
 #: templates/wagtaildocs/documents/list.html:24
@@ -169,30 +178,53 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:9
-msgid "Clear choice"
-msgstr "Auswahl zurücksetzen"
-
-#: templates/wagtaildocs/edit_handlers/document_chooser_panel.html:10
-msgid "Choose another document"
-msgstr "Anderes Dokument wählen"
-
 #: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
 #: views/documents.py:92
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' wurde hinzugefügt."
 
-#: views/documents.py:95 views/documents.py:129
+#: views/documents.py:93 views/documents.py:128
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: views/documents.py:97 views/documents.py:132
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
-#: views/documents.py:126
+#: views/documents.py:127
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' wurde hochgeladen"
 
+#: views/documents.py:147
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+
 #: views/documents.py:148
+msgid "Delete"
+msgstr ""
+
+#: views/documents.py:166
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' wurde gelöscht."
+
+#: widgets.py:14
+msgid "Choose another document"
+msgstr "Anderes Dokument wählen"
+
+#: widgets.py:15
+#, fuzzy
+#| msgid "Add a document"
+msgid "Edit this document"
+msgstr "Ein Dokument hinzufügen"
+
+#~ msgid "Clear choice"
+#~ msgstr "Auswahl zurücksetzen"

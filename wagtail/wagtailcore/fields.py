@@ -54,6 +54,10 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def get_internal_type(self):
         return 'TextField'
 
+    def get_panel(self):
+        from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+        return StreamFieldPanel
+
     def deconstruct(self):
         name, path, _, kwargs = super(StreamField, self).deconstruct()
         block_types = self.stream_block.child_blocks.items()
@@ -66,7 +70,24 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
         elif isinstance(value, StreamValue):
             return value
         else:  # assume string
-            return self.stream_block.to_python(json.loads(value))
+            try:
+                unpacked_value = json.loads(value)
+            except ValueError:
+                # value is not valid JSON; most likely, this field was previously a
+                # rich text field before being migrated to StreamField, and the data
+                # was left intact in the migration. Return an empty stream instead.
+
+                # TODO: keep this raw text data around as a property of the StreamValue
+                # so that it can be retrieved in data migrations
+                return StreamValue(self.stream_block, [])
+
+            if unpacked_value is None:
+                # we get here if value is the literal string 'null'. This should probably
+                # never happen if the rest of the (de)serialization code is working properly,
+                # but better to handle it just in case...
+                return StreamValue(self.stream_block, [])
+
+            return self.stream_block.to_python(unpacked_value)
 
     def get_prep_value(self, value):
         return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)

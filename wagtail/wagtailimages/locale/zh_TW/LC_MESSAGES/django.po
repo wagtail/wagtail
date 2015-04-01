@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -51,65 +51,59 @@ msgstr ""
 msgid "Supported formats: %s."
 msgstr ""
 
-#: forms.py:50
+#: forms.py:64
 msgid "Filter"
 msgstr ""
 
-#: forms.py:52
+#: forms.py:66
 msgid "Original size"
 msgstr ""
 
-#: forms.py:53
+#: forms.py:67
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:54
+#: forms.py:68
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:55
+#: forms.py:69
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:56
+#: forms.py:70
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:57
+#: forms.py:71
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:60
+#: forms.py:74
 msgid "Width"
 msgstr ""
 
-#: forms.py:61
+#: forms.py:75
 msgid "Height"
 msgstr ""
 
-#: forms.py:62
+#: forms.py:76
 msgid "Closeness"
 msgstr ""
 
-#: models.py:47 templates/wagtailimages/images/usage.html:16
+#: models.py:58 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "標題"
 
-#: models.py:48
+#: models.py:59
 msgid "File"
 msgstr "文件"
 
-#: models.py:54
+#: models.py:65
 msgid "Tags"
 msgstr "標籤"
 
-#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18
-msgid "Images"
-msgstr "圖片"
-
-#: templates/wagtailimages/chooser/chooser.html:3
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:19
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
 msgid "Choose an image"
 msgstr "選擇一個圖片"
 
@@ -158,16 +152,10 @@ msgstr "選擇一個格式"
 msgid "Insert image"
 msgstr "插入圖片"
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:17
-msgid "Clear image"
-msgstr "清除圖片"
-
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:18
-msgid "Choose another image"
-msgstr "選擇另外一個圖片"
-
-#: templates/wagtailimages/images/_file_field.html:6
-msgid "Change image:"
+#: templates/wagtailimages/images/_file_field.html:8
+#, fuzzy
+#| msgid "Change image:"
+msgid "Change image file:"
 msgstr "更改圖片："
 
 #: templates/wagtailimages/images/add.html:4
@@ -222,9 +210,28 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:64
+#: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
 msgstr ""
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "Max dimensions"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:80
+#, fuzzy
+#| msgid "File"
+msgid "Filesize"
+msgstr "文件"
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:5
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
+msgid "Images"
+msgstr "圖片"
 
 #: templates/wagtailimages/images/results.html:31
 #, python-format
@@ -316,34 +323,66 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:129
 #, fuzzy
 msgid "Delete"
 msgstr "刪除圖片"
 
-#: views/images.py:39 views/images.py:49
+#: views/images.py:40 views/images.py:50
 msgid "Search images"
 msgstr "搜尋圖片"
 
 #: views/images.py:106
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "圖片 '{0}' 已更新"
 
-#: views/images.py:109
+#: views/images.py:107
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit again"
+msgstr "編輯"
+
+#: views/images.py:111
 msgid "The image could not be saved due to errors."
 msgstr "圖片因有錯誤而無法儲存。"
 
-#: views/images.py:195
+#: views/images.py:128
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+
+#: views/images.py:219
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "圖片 '{0}' 已刪除."
 
-#: views/images.py:218
+#: views/images.py:242
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "圖片 '{0}' 已加入."
 
-#: views/images.py:221
+#: views/images.py:243
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "編輯"
+
+#: views/images.py:247
 msgid "The image could not be created due to errors."
 msgstr "圖片因有錯而不能被建立。"
+
+#: widgets.py:14
+msgid "Choose another image"
+msgstr "選擇另外一個圖片"
+
+#: widgets.py:15
+msgid "Edit this image"
+msgstr ""
+
+#~ msgid "Clear image"
+#~ msgstr "清除圖片"
 
 #, fuzzy
 #~ msgid ""

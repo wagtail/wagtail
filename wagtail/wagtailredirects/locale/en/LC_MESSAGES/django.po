@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,55 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:10
+#: models.py:12
 msgid "Redirect from"
 msgstr ""
 
-#: models.py:12
+#: models.py:14
 msgid "Permanent"
 msgstr ""
 
-#: models.py:12
+#: models.py:14
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 
-#: models.py:13
+#: models.py:15
 msgid "Redirect to a page"
 msgstr ""
 
-#: models.py:14
+#: models.py:16
 msgid "Redirect to any URL"
-msgstr ""
-
-#: views.py:58
-msgid "Search redirects"
-msgstr ""
-
-#: views.py:71
-msgid "Redirect '{0}' updated."
-msgstr ""
-
-#: views.py:74
-msgid "The redirect could not be saved due to errors."
-msgstr ""
-
-#: views.py:92
-msgid "Redirect '{0}' deleted."
-msgstr ""
-
-#: views.py:112
-msgid "Redirect '{0}' added."
-msgstr ""
-
-#: views.py:115
-msgid "The redirect could not be created due to errors."
-msgstr ""
-
-#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17
-msgid "Redirects"
 msgstr ""
 
 #: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
@@ -106,6 +77,11 @@ msgstr ""
 
 #: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
+msgstr ""
+
+#: templates/wagtailredirects/index.html:3
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:25
+msgid "Redirects"
 msgstr ""
 
 #: templates/wagtailredirects/list.html:11
@@ -152,4 +128,35 @@ msgstr ""
 msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+
+#: views.py:59
+msgid "Search redirects"
+msgstr ""
+
+#: views.py:72
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr ""
+
+#: views.py:73 views.py:116
+msgid "Edit"
+msgstr ""
+
+#: views.py:77
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+
+#: views.py:95
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr ""
+
+#: views.py:115
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr ""
+
+#: views.py:120
+msgid "The redirect could not be created due to errors."
 msgstr ""

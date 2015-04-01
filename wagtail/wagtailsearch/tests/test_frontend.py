@@ -5,7 +5,7 @@ from django.core import paginator
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
 
-from wagtail.tests.models import EventPage
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestSearchView(TestCase):

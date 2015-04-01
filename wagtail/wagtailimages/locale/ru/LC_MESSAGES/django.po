@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-10-05 04:46+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
@@ -55,65 +55,59 @@ msgstr ""
 msgid "Supported formats: %s."
 msgstr ""
 
-#: forms.py:50
+#: forms.py:64
 msgid "Filter"
 msgstr "Фильтр"
 
-#: forms.py:52
+#: forms.py:66
 msgid "Original size"
 msgstr "Оригинальный размер"
 
-#: forms.py:53
+#: forms.py:67
 msgid "Resize to width"
 msgstr "Изменение размера по ширине"
 
-#: forms.py:54
+#: forms.py:68
 msgid "Resize to height"
 msgstr "Изменение размера по высоте"
 
-#: forms.py:55
+#: forms.py:69
 msgid "Resize to min"
 msgstr "Изменение размера до минимального"
 
-#: forms.py:56
+#: forms.py:70
 msgid "Resize to max"
 msgstr "Изменение размера до максимального"
 
-#: forms.py:57
+#: forms.py:71
 msgid "Resize to fill"
 msgstr "Изменение размера для заполнения"
 
-#: forms.py:60
+#: forms.py:74
 msgid "Width"
 msgstr "Ширина"
 
-#: forms.py:61
+#: forms.py:75
 msgid "Height"
 msgstr "Высота"
 
-#: forms.py:62
+#: forms.py:76
 msgid "Closeness"
 msgstr ""
 
-#: models.py:47 templates/wagtailimages/images/usage.html:16
+#: models.py:58 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:48
+#: models.py:59
 msgid "File"
 msgstr "Файл"
 
-#: models.py:54
+#: models.py:65
 msgid "Tags"
 msgstr "Тэги"
 
-#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18
-msgid "Images"
-msgstr "Изображения"
-
-#: templates/wagtailimages/chooser/chooser.html:3
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:19
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -165,16 +159,10 @@ msgstr "Выберите формат"
 msgid "Insert image"
 msgstr "Вставить изображение"
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:17
-msgid "Clear image"
-msgstr "Убрать изображение"
-
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:18
-msgid "Choose another image"
-msgstr "Выбрать другое изображение"
-
-#: templates/wagtailimages/images/_file_field.html:6
-msgid "Change image:"
+#: templates/wagtailimages/images/_file_field.html:8
+#, fuzzy
+#| msgid "Change image:"
+msgid "Change image file:"
 msgstr "Изменить изображение:"
 
 #: templates/wagtailimages/images/add.html:4
@@ -229,9 +217,28 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:64
+#: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
 msgstr ""
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "Max dimensions"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:80
+#, fuzzy
+#| msgid "File"
+msgid "Filesize"
+msgstr "Файл"
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:5
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
+msgid "Images"
+msgstr "Изображения"
 
 #: templates/wagtailimages/images/results.html:31
 #, python-format
@@ -327,33 +334,67 @@ msgstr "Извините, загрузка не удалась."
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/wagtailimages/multiple/edit_form.html:15
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:129
 msgid "Delete"
 msgstr "Удалить"
 
-#: views/images.py:39 views/images.py:49
+#: views/images.py:40 views/images.py:50
 msgid "Search images"
 msgstr "Поиск изображений"
 
 #: views/images.py:106
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Изображение '{0}' обновлено."
 
-#: views/images.py:109
+#: views/images.py:107
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit again"
+msgstr "Редактирование"
+
+#: views/images.py:111
 msgid "The image could not be saved due to errors."
 msgstr "Это изображение не может быть сохранено из-за ошибок."
 
-#: views/images.py:195
+#: views/images.py:128
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+
+#: views/images.py:219
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Изображение '{0}' удалено."
 
-#: views/images.py:218
+#: views/images.py:242
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Изображение '{0}' добавлено."
 
-#: views/images.py:221
+#: views/images.py:243
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Редактирование"
+
+#: views/images.py:247
 msgid "The image could not be created due to errors."
 msgstr "Это изображение не может быть создано из-за ошибок."
+
+#: widgets.py:14
+msgid "Choose another image"
+msgstr "Выбрать другое изображение"
+
+#: widgets.py:15
+#, fuzzy
+#| msgid "Edit this page"
+msgid "Edit this image"
+msgstr "Редактировать эту страницу"
+
+#~ msgid "Clear image"
+#~ msgstr "Убрать изображение"
 
 #~ msgid ""
 #~ "Not a valid image. Please use a gif, jpeg or png file with the correct "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-08-03 01:56+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: \n"
@@ -20,15 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: models.py:10
+#: models.py:12
 msgid "Redirect from"
 msgstr "Redirecionar de"
 
-#: models.py:12
+#: models.py:14
 msgid "Permanent"
 msgstr "Permanente"
 
-#: models.py:12
+#: models.py:14
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
@@ -36,42 +36,13 @@ msgstr ""
 "Recomendado. Redirecionamentos permanentes garantem que os motores de busca "
 "esqueçam a página antiga (o 'Redirecionar de') e indexem a nova página."
 
-#: models.py:13
+#: models.py:15
 msgid "Redirect to a page"
 msgstr "Redirecionar para uma página"
 
-#: models.py:14
+#: models.py:16
 msgid "Redirect to any URL"
 msgstr "Redirecionar para qualquer URL"
-
-#: views.py:58
-msgid "Search redirects"
-msgstr "Procurar redireções"
-
-#: views.py:71
-msgid "Redirect '{0}' updated."
-msgstr "Redireção '{0}' atualizada."
-
-#: views.py:74
-msgid "The redirect could not be saved due to errors."
-msgstr "A redireção não pôde ser guardada devido a erros."
-
-#: views.py:92
-msgid "Redirect '{0}' deleted."
-msgstr "Redireção '{0}' eliminada."
-
-#: views.py:112
-msgid "Redirect '{0}' added."
-msgstr "Redireção '{0}' adicionada."
-
-#: views.py:115
-msgid "The redirect could not be created due to errors."
-msgstr "A redireção não pôde ser criada devido a erros."
-
-#: wagtail_hooks.py:25 templates/wagtailredirects/index.html:3
-#: templates/wagtailredirects/index.html:17
-msgid "Redirects"
-msgstr "Redireções"
 
 #: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
 #: templates/wagtailredirects/index.html:18
@@ -112,6 +83,11 @@ msgstr "Editando"
 #: templates/wagtailredirects/edit.html:15
 msgid "Delete redirect"
 msgstr "Eliminar redireção"
+
+#: templates/wagtailredirects/index.html:3
+#: templates/wagtailredirects/index.html:17 wagtail_hooks.py:25
+msgid "Redirects"
+msgstr "Redireções"
 
 #: templates/wagtailredirects/list.html:11
 #: templates/wagtailredirects/list.html:14
@@ -167,3 +143,36 @@ msgid ""
 msgstr ""
 "Nenhuma redireção foi criada.  Porque não <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">adicionar uma</a>?"
+
+#: views.py:59
+msgid "Search redirects"
+msgstr "Procurar redireções"
+
+#: views.py:72
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Redireção '{0}' atualizada."
+
+#: views.py:73 views.py:116
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Editando"
+
+#: views.py:77
+msgid "The redirect could not be saved due to errors."
+msgstr "A redireção não pôde ser guardada devido a erros."
+
+#: views.py:95
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Redireção '{0}' eliminada."
+
+#: views.py:115
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Redireção '{0}' adicionada."
+
+#: views.py:120
+msgid "The redirect could not be created due to errors."
+msgstr "A redireção não pôde ser criada devido a erros."

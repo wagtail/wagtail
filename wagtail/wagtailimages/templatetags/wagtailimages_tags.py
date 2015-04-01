@@ -1,11 +1,9 @@
 from django import template
+from django.utils.functional import cached_property
 
 from wagtail.wagtailimages.models import Filter, SourceImageIOError
 
 register = template.Library()
-
-# Local cache of filters, avoid hitting the DB
-filters = {}
 
 
 @register.tag(name="image")
@@ -37,10 +35,12 @@ class ImageNode(template.Node):
         self.image_var = template.Variable(image_var_name)
         self.output_var_name = output_var_name
         self.attrs = attrs
+        self.filter_spec = filter_spec
 
-        if filter_spec not in filters:
-            filters[filter_spec], _ = Filter.objects.get_or_create(spec=filter_spec)
-        self.filter = filters[filter_spec]
+    @cached_property
+    def filter(self):
+        _filter, _ = Filter.objects.get_or_create(spec=self.filter_spec)
+        return _filter
 
     def render(self, context):
         try:

@@ -266,7 +266,9 @@
             padding-bottom:1.2em;
         }
 
-        .struct-block .widget-text_input > label{
+        .struct-block .widget-text_input > label,
+        .struct-block .widget-textarea > label,
+        .struct-block .widget-admin_auto_height_text_input > label{
             display:none;
         }
 
@@ -311,7 +313,7 @@
     }
 
     /* Object controls */
-    .stream-controls{
+    .stream-controls, .list-controls{
         @include transition(opacity 0.2s ease);
         opacity:0;
         visibility:hidden;
@@ -348,6 +350,7 @@
         z-index:5;
 
         .toggle{
+            @include transition(color 0.2s ease);
             @include border-radius(50px);
             position:absolute;
             top:-0.5em;
@@ -378,31 +381,32 @@
         }
 
         .stream-menu-inner{
-            @include transition(max-height 0.2s ease);
             max-width:50em;
-            max-height:9999em;
             margin: auto;
             overflow:hidden;
         }
 
         ul{
             @include transition(all 0.2s ease);
+            @include transform(scale(1));
             @include clearfix;
             visibility:visible;
             opacity:1;
             padding:1em 1em 0 1em;
             overflow:hidden;
         }
+
         li{
-            @include column(2);
+            @include column(3);
             padding-bottom:$grid-gutter-width;
             padding-left:0;
             padding-right:0;
 
-            &:nth-child(6n+7){
+            &:nth-child(4n+1){
                 clear:left;
             }
         }
+        
 
         button{
             @include transition(all 0.2s ease);
@@ -445,7 +449,11 @@
 
         &.stream-menu-closed{
             @include box-shadow(none);
-            height:0px;
+
+            .stream-menu-inner ul{
+                @include transform(scale(0.9));
+                opacity:0;
+            }
 
             .toggle{
                 color:$color-grey-3;
@@ -456,16 +464,7 @@
                 &:focus{
                     color:$color-teal;
                 }
-            } 
-
-            .stream-menu-inner{
-                max-height:1em;
-            }
-            ul{
-                visibility:hidden;
-                opacity:0;
-                padding:10em;
-            }           
+            }        
 
             &:hover{
                 border-top-color:$color-teal;
@@ -474,6 +473,18 @@
                     color:$color-teal;
                 }
             }   
+        }
+
+        @media screen and (min-width: $breakpoint-mobile){
+            li{
+                @include column(2);
+                &:nth-child(4n+1){
+                    clear:none;
+                }
+                &:nth-child(6n+1){
+                    clear:left;
+                }
+            }
         }
     }
     .sequence-member .stream-menu{
@@ -484,7 +495,7 @@
         visibility:hidden;
     }
     .sequence-member:hover{
-        .stream-controls{
+        .stream-controls, .list-controls{
             visibility:visible;
             opacity:1;
         }
@@ -551,18 +562,21 @@
             .button{
                 @include border-radius(0);
                 overflow: visible;
-                display:inline-block;
-                padding:0;
-                width:3.45em;
-                background-color:$color-salmon;
+                background-color:$color-salmon-light;
+                font-size:0; /* helps fake the effect of t.ext-replace class, which can't be used here. */
+                width:2em;
 
                 &:before{
                     position:relative;
                     padding:0;
                     line-height:1.8em; /* specific height required as parent 'a' has no height */
                     font-size:1.4rem;
-                    width:100%;
-                    background-color:transparent;
+                    width:1.8em;
+                    background-color:$color-salmon;
+                }
+
+                &:hover:before{
+                    background-color:darken($color-salmon, 5%);
                 }
             }
         }

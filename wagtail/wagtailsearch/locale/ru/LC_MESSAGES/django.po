@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-10-07 20:16+0000\n"
 "Last-Translator: Sergey Komarov <sjkomarov@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
@@ -22,26 +22,22 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: forms.py:9
+#: forms.py:10
 msgid "Search term(s)/phrase"
 msgstr "Критерий поиска/фраза"
 
-#: forms.py:10
+#: forms.py:11
 msgid ""
 "Enter the full search string to match. An \n"
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: forms.py:37
+#: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Пожалуйста, сформулируйте по крайней мере, одну рекомендацию по этому "
 "поисковому запросу."
-
-#: wagtail_hooks.py:25 templates/wagtailsearch/editorspicks/index.html:17
-msgid "Promoted search results"
-msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -102,9 +98,29 @@ msgstr ""
 msgid "Editing"
 msgstr "Редактирование"
 
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
+msgid "Move up"
+msgstr "Вверх"
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
+msgid "Move down"
+msgstr "Вниз"
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
+msgid "Promoted search result"
+msgstr ""
+
+#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:16
+msgid "Add recommended page"
+msgstr "Добавить рекомендованную страницу"
+
 #: templates/wagtailsearch/editorspicks/index.html:3
 msgid "Search Terms"
 msgstr "Критерии поиска"
+
+#: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
+msgid "Promoted search results"
+msgstr ""
 
 #: templates/wagtailsearch/editorspicks/index.html:18
 msgid "Add new promoted result"
@@ -157,30 +173,6 @@ msgid ""
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
 
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:4
-msgid "Move up"
-msgstr "Вверх"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:5
-msgid "Move down"
-msgstr "Вниз"
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
-msgid "Promoted search result"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:13
-msgid "Choose another page"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:14
-msgid "Choose a page"
-msgstr ""
-
-#: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:14
-msgid "Add recommended page"
-msgstr "Добавить рекомендованную страницу"
-
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
 msgstr "Популярные критерии поиска"
@@ -197,23 +189,41 @@ msgstr "Критерии"
 msgid "No results found"
 msgstr "Ничего не найдено"
 
-#: views/editorspicks.py:47
+#: templates/wagtailsearch/queries/chooser_field.html:3
+msgid "Date"
+msgstr ""
+
+#: templates/wagtailsearch/queries/chooser_field.html:8
+#, fuzzy
+#| msgid "Popular search terms"
+msgid "Choose from popular search terms"
+msgstr "Популярные критерии поиска"
+
+#: views/editorspicks.py:46
 msgid "Search editor's picks"
 msgstr ""
 
-#: views/editorspicks.py:83
+#: views/editorspicks.py:81
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr ""
+
+#: views/editorspicks.py:82 views/editorspicks.py:117
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Редактирование"
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендации не были созданы из-за ошибок"
 
-#: views/editorspicks.py:117
+#: views/editorspicks.py:116
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 
-#: views/editorspicks.py:123
+#: views/editorspicks.py:124
 msgid "Recommendations have not been saved due to errors"
 msgstr "Рекомендации не были сохранены из-за ошибок"
 

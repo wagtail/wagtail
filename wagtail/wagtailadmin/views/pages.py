@@ -15,7 +15,8 @@ from django.db.models import Count
 
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
-from wagtail.wagtailadmin import tasks, signals
+from wagtail.wagtailadmin.utils import send_notification
+from wagtail.wagtailadmin import signals
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision, get_navigation_menu_items
@@ -225,7 +226,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 messages.success(request, _("Page '{0}' published.").format(page.title))
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
-                tasks.send_notification.delay(page.get_latest_revision().id, 'submitted', request.user.id)
+                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.title))
 
@@ -361,7 +362,7 @@ def edit(request, page_id):
                     messages.button(reverse('wagtailadmin_pages_view_draft', args=(page_id,)), _('View draft')),
                     messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
                 ])
-                tasks.send_notification.delay(page.get_latest_revision().id, 'submitted', request.user.id)
+                send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
                 messages.success(request, _("Page '{0}' updated.").format(page.title))
 
@@ -406,11 +407,11 @@ def edit(request, page_id):
 
 
 def delete(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_object_or_404(Page, id=page_id)
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
-    if request.POST:
+    if request.method == 'POST':
         parent_id = page.get_parent().id
         page.delete()
 
@@ -707,11 +708,24 @@ PAGE_EDIT_HANDLERS = {}
 
 def get_page_edit_handler(page_class):
     if page_class not in PAGE_EDIT_HANDLERS:
-        PAGE_EDIT_HANDLERS[page_class] = TabbedInterface([
-            ObjectList(page_class.content_panels, heading='Content'),
-            ObjectList(page_class.promote_panels, heading='Promote'),
-            ObjectList(page_class.settings_panels, heading='Settings', classname="settings")
-        ]).bind_to_model(page_class)
+        if hasattr(page_class, 'edit_handler'):
+            # use the edit handler specified on the page class
+            edit_handler = page_class.edit_handler
+        else:
+            # construct a TabbedInterface made up of content_panels, promote_panels
+            # and settings_panels, skipping any which are empty
+            tabs = []
+
+            if page_class.content_panels:
+                tabs.append(ObjectList(page_class.content_panels, heading='Content'))
+            if page_class.promote_panels:
+                tabs.append(ObjectList(page_class.promote_panels, heading='Promote'))
+            if page_class.settings_panels:
+                tabs.append(ObjectList(page_class.settings_panels, heading='Settings', classname="settings"))
+
+            edit_handler = TabbedInterface(tabs)
+
+        PAGE_EDIT_HANDLERS[page_class] = edit_handler.bind_to_model(page_class)
 
     return PAGE_EDIT_HANDLERS[page_class]
 
@@ -769,7 +783,7 @@ def approve_moderation(request, revision_id):
     if request.method == 'POST':
         revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.title))
-        tasks.send_notification.delay(revision.id, 'approved', request.user.id)
+        send_notification(revision.id, 'approved', request.user.id)
 
     return redirect('wagtailadmin_home')
 
@@ -786,7 +800,7 @@ def reject_moderation(request, revision_id):
     if request.method == 'POST':
         revision.reject_moderation()
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title))
-        tasks.send_notification.delay(revision.id, 'rejected', request.user.id)
+        send_notification(revision.id, 'rejected', request.user.id)
 
     return redirect('wagtailadmin_home')
 

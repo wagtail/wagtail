@@ -265,7 +265,7 @@ class PageBase(models.base.ModelBase):
 @python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
-    slug = models.SlugField(help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
+    slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
@@ -278,12 +278,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
     search_description = models.TextField(blank=True)
 
-    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
-    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm:ss."), blank=True, null=True)
+    go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
+    expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expired = models.BooleanField(default=False, editable=False)
 
     locked = models.BooleanField(default=False, editable=False)
 
+    first_published_at = models.DateTimeField(null=True, editable=False)
     latest_revision_created_at = models.DateTimeField(null=True, editable=False)
 
     search_fields = (
@@ -364,6 +365,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         return result
 
+    def delete(self, *args, **kwargs):
+        # Ensure that deletion always happens on an instance of Page, not a specific subclass. This
+        # works around a bug in treebeard <= 3.0 where calling SpecificPage.delete() fails to delete
+        # child pages that are not instances of SpecificPage
+        if type(self) is Page:
+            # this is a Page instance, so carry on as we were
+            return super(Page, self).delete(*args, **kwargs)
+        else:
+            # retrieve an actual Page instance and delete that instead of self
+            return Page.objects.get(id=self.id).delete(*args, **kwargs)
+
     @classmethod
     def check(cls, **kwargs):
         errors = super(Page, cls).check(**kwargs)
@@ -425,7 +437,15 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # the ContentType.objects manager keeps a cache, so this should potentially
         # avoid a database lookup over doing self.content_type. I think.
         content_type = ContentType.objects.get_for_id(self.content_type_id)
-        if isinstance(self, content_type.model_class()):
+        model_class = content_type.model_class()
+        if model_class is None:
+            # Cannot locate a model class for this content type. This might happen
+            # if the codebase and database are out of sync (e.g. the model exists
+            # on a different git branch and we haven't rolled back migrations before
+            # switching branches); if so, the best we can do is return the page
+            # unchanged.
+            return self
+        elif isinstance(self, model_class):
             # self is already the an instance of the most specific class
             return self
         else:
@@ -1080,6 +1100,7 @@ class PageRevision(models.Model):
         obj.owner = self.page.owner
         obj.locked = self.page.locked
         obj.latest_revision_created_at = self.page.latest_revision_created_at
+        obj.first_published_at = self.page.first_published_at
 
         return obj
 
@@ -1120,6 +1141,11 @@ class PageRevision(models.Model):
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
         page.expired = False  # When a page is published it can't be expired
+
+        # Set first_published_at if the page is being published now
+        if page.live and page.first_published_at is None:
+            page.first_published_at = timezone.now()
+
         page.save()
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)

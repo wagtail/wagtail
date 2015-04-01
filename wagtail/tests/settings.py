@@ -11,13 +11,11 @@ MEDIA_URL = '/media/'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql_psycopg2'),
-        'NAME': os.environ.get('DATABASE_NAME', 'wagtaildemo'),
-        'TEST_NAME': os.environ.get('DATABASE_NAME', 'test_wagtaildemo'),
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
+        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('DATABASE_NAME', 'wagtail'),
+        'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
-        'PORT': os.environ.get('DATABASE_PORT', None),
     }
 }
 
@@ -53,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.auth',
@@ -78,15 +76,20 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.tests',
-]
+    'wagtail.tests.testapp',
+    'wagtail.tests.demosite',
+    'wagtail.tests.customuser',
+    'wagtail.tests.snippets',
+    'wagtail.tests.routablepage',
+    'wagtail.tests.search',
+
+    # Install wagtailredirects with its appconfig
+    # Theres nothing special about wagtailredirects, we just need to have one
+    # app which uses AppConfigs to test that hooks load properly
+    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+)
 
 
-# Install wagtailredirects with its appconfig
-# Theres nothing special about wagtailredirects, we just need to have one
-# app which uses AppConfigs to test that hooks load properly
-
-INSTALLED_APPS.append('wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig')
 
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.
@@ -112,7 +115,7 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-AUTH_USER_MODEL = 'tests.CustomUser'
+AUTH_USER_MODEL = 'customuser.CustomUser'
 
 try:
     # Only add Elasticsearch backend if the elasticsearch-py library is installed

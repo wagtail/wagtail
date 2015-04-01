@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:07+0000\n"
 "PO-Revision-Date: 2014-08-03 01:59+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: \n"
@@ -20,95 +20,86 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: forms.py:20 forms.py:97 forms.py:156
+#: forms.py:21 forms.py:98 forms.py:157
 msgid "Administrator"
 msgstr "Administrador"
 
-#: forms.py:22
+#: forms.py:23
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Se selecionado, este utilizador terá permissão para gerir contas de "
 "utilizadores."
 
-#: forms.py:25 forms.py:82
+#: forms.py:26 forms.py:83
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:26 forms.py:83
+#: forms.py:27 forms.py:84
 msgid "First Name"
 msgstr "Primeiro Nome"
 
-#: forms.py:27 forms.py:84
+#: forms.py:28 forms.py:85
 msgid "Last Name"
 msgstr "Último nome"
 
-#: forms.py:70
+#: forms.py:71
 msgid "A user with that username already exists."
 msgstr "Um utilizador com esse nome já existe."
 
-#: forms.py:71
+#: forms.py:72
 msgid "The two password fields didn't match."
 msgstr "As senhas nos dois campos não coincidem."
 
-#: forms.py:74 templates/wagtailusers/users/list.html:15
+#: forms.py:75 templates/wagtailusers/users/list.html:15
 msgid "Username"
 msgstr "Nome de utilizador"
 
-#: forms.py:77
+#: forms.py:78
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Obrigatório. 30 caracteres ou menos. Somente letras, números e @/./+/-/_."
 
-#: forms.py:79
+#: forms.py:80
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Este valor apenas pode conter letras, números e os caracteres @/./+/-/_."
 
-#: forms.py:87
+#: forms.py:88
 msgid "Password"
 msgstr "Senha"
 
-#: forms.py:90
+#: forms.py:91
 msgid "Leave blank if not changing."
 msgstr "Deixar em branco se não houver alteração"
 
-#: forms.py:92
+#: forms.py:93
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
-#: forms.py:94
+#: forms.py:95
 msgid "Enter the same password as above, for verification."
 msgstr "Introduza a mesma senha anterior para verificação."
 
-#: forms.py:99 forms.py:158
+#: forms.py:100 forms.py:159
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Os administradores têm a permissão para gerir contas de utilizadores."
 
-#: forms.py:152
+#: forms.py:153
 #, fuzzy
 msgid "A group with that name already exists."
 msgstr "Um utilizador com esse nome já existe."
 
-#: models.py:13
+#: models.py:15
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Receber notificação quando uma página for enviada para moderação"
 
-#: models.py:18
+#: models.py:20
 msgid "Receive notification when your page edit is approved"
 msgstr "Receber notificação quando a edição da sua página for aprovada"
 
-#: models.py:23
+#: models.py:25
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber notificação quando a edição da sua página for rejeitada"
-
-#: wagtail_hooks.py:27 templates/wagtailusers/users/index.html:4
-#: templates/wagtailusers/users/index.html:17
-msgid "Users"
-msgstr "Utilizadores"
-
-#: wagtail_hooks.py:31
-msgid "Groups"
-msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:7
@@ -150,35 +141,16 @@ msgstr "Editando"
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/wagtailusers/groups/index.html:4
-#: templates/wagtailusers/groups/index.html:17
-msgid "groups"
-msgstr ""
-
-#: templates/wagtailusers/groups/index.html:18
-#, fuzzy
-msgid "Add a group"
-msgstr "Adicionar um utilizador"
-
-#: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
-#: templates/wagtailusers/users/list.html:7
-msgid "Name"
-msgstr "Nome"
-
-#: templates/wagtailusers/groups/results.html:9
-#, fuzzy, python-format
-msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
-msgstr ""
-"Não existem utilizadores configurados. Por que não <a href="
-"\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
-
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:3
 msgid "Object permissions"
 msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+#: templates/wagtailusers/groups/list.html:6
+#: templates/wagtailusers/users/list.html:7
+msgid "Name"
+msgstr "Nome"
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:12
 msgid "Add"
@@ -189,7 +161,7 @@ msgid "Change"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:14
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:22
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:15
 msgid "Delete"
 msgstr ""
 
@@ -197,18 +169,28 @@ msgstr ""
 msgid "Other permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:4
-#, fuzzy
-msgid "Edit page"
-msgstr "Editando"
-
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:5
-msgid "Choose page"
-msgstr ""
-
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:40
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:42
 msgid "Add a page permission"
 msgstr ""
+
+#: templates/wagtailusers/groups/index.html:4
+#: templates/wagtailusers/groups/index.html:17
+msgid "groups"
+msgstr ""
+
+#: templates/wagtailusers/groups/index.html:18
+#, fuzzy
+msgid "Add a group"
+msgstr "Adicionar um utilizador"
+
+#: templates/wagtailusers/groups/results.html:9
+#, fuzzy, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Não existem utilizadores configurados. Por que não <a href="
+"\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:8
@@ -226,6 +208,11 @@ msgstr "Conta"
 #: templates/wagtailusers/users/edit.html:13
 msgid "Roles"
 msgstr "Funções (roles)"
+
+#: templates/wagtailusers/users/index.html:4
+#: templates/wagtailusers/users/index.html:17 wagtail_hooks.py:27
+msgid "Users"
+msgstr "Utilizadores"
 
 #: templates/wagtailusers/users/index.html:18
 msgid "Add a user"
@@ -285,52 +272,68 @@ msgstr ""
 "Não existem utilizadores configurados. Por que não <a href="
 "\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
 
-#: views/groups.py:30 views/groups.py:37
+#: views/groups.py:31 views/groups.py:38
 #, fuzzy
 msgid "Search groups"
 msgstr "Procurar utilizadores"
 
-#: views/groups.py:94
-#, fuzzy
+#: views/groups.py:95
+#, fuzzy, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Utilizador '{0}' criado."
 
-#: views/groups.py:97
+#: views/groups.py:96 views/groups.py:127 views/users.py:87 views/users.py:108
+#, fuzzy
+#| msgid "Editing"
+msgid "Edit"
+msgstr "Editando"
+
+#: views/groups.py:100
 #, fuzzy
 msgid "The group could not be created due to errors."
 msgstr "O utilizador não pôde ser criado devido a erros."
 
-#: views/groups.py:123
-#, fuzzy
+#: views/groups.py:126
+#, fuzzy, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Utilizador '{0}' atualizado."
 
-#: views/groups.py:126
+#: views/groups.py:131
 #, fuzzy
 msgid "The group could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."
 
-#: views/groups.py:144
-#, fuzzy
+#: views/groups.py:149
+#, fuzzy, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Utilizador '{0}' criado."
 
-#: views/users.py:30 views/users.py:37
+#: views/users.py:31 views/users.py:38
 msgid "Search users"
 msgstr "Procurar utilizadores"
 
-#: views/users.py:85
+#: views/users.py:86
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Utilizador '{0}' criado."
 
-#: views/users.py:88
+#: views/users.py:91
 msgid "The user could not be created due to errors."
 msgstr "O utilizador não pôde ser criado devido a erros."
 
-#: views/users.py:104
+#: views/users.py:107
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Utilizador '{0}' atualizado."
 
-#: views/users.py:107
+#: views/users.py:112
 msgid "The user could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."
+
+#: wagtail_hooks.py:31
+msgid "Groups"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Edit page"
+#~ msgstr "Editando"

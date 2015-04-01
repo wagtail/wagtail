@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-11-04 11:06+0000\n"
 "Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
@@ -19,70 +19,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:22
+#: models.py:25
 msgid "Single line text"
 msgstr "单行文本"
 
-#: models.py:23
+#: models.py:26
 msgid "Multi-line text"
 msgstr "多行文本"
 
-#: models.py:24
+#: models.py:27
 msgid "Email"
 msgstr "电子邮件"
 
-#: models.py:25
+#: models.py:28
 msgid "Number"
 msgstr ""
 
-#: models.py:26
+#: models.py:29
 msgid "URL"
 msgstr "URL"
 
-#: models.py:27
+#: models.py:30
 msgid "Checkbox"
 msgstr "复选框"
 
-#: models.py:28
+#: models.py:31
 msgid "Checkboxes"
 msgstr "复选框"
 
-#: models.py:29
+#: models.py:32
 msgid "Drop down"
 msgstr "下拉"
 
-#: models.py:30
+#: models.py:33
 msgid "Radio buttons"
 msgstr "单选按钮"
 
-#: models.py:31
+#: models.py:34
 msgid "Date"
 msgstr "日期"
 
-#: models.py:32
+#: models.py:35
 msgid "Date/time"
 msgstr "日期/时间"
 
-#: models.py:60
+#: models.py:63
 msgid "The label of the form field"
 msgstr ""
 
-#: models.py:67
+#: models.py:70
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
-#: models.py:72
+#: models.py:75
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
-#: models.py:185
+#: models.py:188
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
 
-#: wagtail_hooks.py:25 templates/wagtailforms/index.html:3
-#: templates/wagtailforms/index.html:6
+#: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
+#: wagtail_hooks.py:25
 msgid "Forms"
 msgstr "表单"
 

@@ -1,23 +1,24 @@
-/* Operations on a sequence of items, common to both ListBlock and StreamBlock.
+/*
+
+Operations on a sequence of items, common to both ListBlock and StreamBlock.
+
 These assume the presence of a container element named "{prefix}-container" for each list item, and
 certain hidden fields such as "{prefix}-deleted" as defined in sequence_member.html, but make no assumptions
 about layout or visible controls within the block. 
+
 For example, they don't assume the presence of a 'delete' button - it's up to the specific subclass
 (list.js / stream.js) to attach this to the SequenceMember.delete method.
+
+CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES NOT BELONG HERE.
+
 */
 (function($) {
     window.SequenceMember = function(sequence, prefix) {
         var self = {};
         self.prefix = prefix;
         self.container = $('#' + self.prefix + '-container');
-        self.menu = $('> .stream-menu', self.container);
 
         var indexField = $('#' + self.prefix + '-order');
-
-        self.menu.click(function(e){
-            e.preventDefault();
-            self.toggleMenu();
-        });
 
         self.delete = function() {
             sequence.deleteMember(self);
@@ -27,6 +28,12 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         };
         self.appendMember = function(template) {
             sequence.insertMemberAfter(self, template);
+        };
+        self.moveUp = function() {
+            sequence.moveMemberUp(self);
+        };
+        self.moveDown = function() {
+            sequence.moveMemberDown(self);
         };
         self._markDeleted = function() {
             /* set this list member's hidden 'deleted' flag to true */
@@ -38,12 +45,10 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             self.container.hide();
             self.container.slideDown();
 
-            self.hideMenu();
-
             // focus first suitable input found
             var timeout = setTimeout(function(){
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
-            }, 10)            
+            }, 250);
         };
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
@@ -51,20 +56,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         self.setIndex = function(i) {
             indexField.val(i);
         };
-
-        self.toggleMenu = function(){
-            if(self.menu.hasClass('stream-menu-closed')){
-                self.showMenu();
-            } else {
-                self.hideMenu();
-            }
-        }
-        self.showMenu = function(){
-            self.menu.removeClass('stream-menu-closed');
-        };
-        self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed')
-        }
 
         return self;
     };
@@ -74,12 +65,6 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
         var countField = $('#' + opts.prefix + '-count');
         /* NB countField includes deleted items; for the count of non-deleted items, use members.length */
         var members = [];
-        self.menu = countField.siblings('.stream-menu');
-
-        self.menu.click(function(e){
-            e.preventDefault();
-            self.toggleMenu();
-        });
 
         self.getCount = function() {
             return parseInt(countField.val(), 10);
@@ -91,10 +76,27 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             countField.val(newIndex + 1);
             return opts.prefix + '-' + newIndex;
         }
+        function setInitialMoveUpDownState(newMember) {
+        }
         function postInsertMember(newMember) {
             /* run any supplied initializer functions */
             if (opts.onInitializeMember) {
                 opts.onInitializeMember(newMember);
+            }
+
+            var index = newMember.getIndex();
+            if (index === 0) {
+                /* first item should have 'move up' disabled */
+                if (opts.onDisableMoveUp) opts.onDisableMoveUp(newMember);
+            } else {
+                if (opts.onEnableMoveUp) opts.onEnableMoveUp(newMember);
+            }
+
+            if (index === (members.length - 1)) {
+                /* last item should have 'move down' disabled */
+                if (opts.onDisableMoveDown) opts.onDisableMoveDown(newMember);
+            } else {
+                if (opts.onEnableMoveDown) opts.onEnableMoveDown(newMember);
             }
 
             newMember._markAdded();
@@ -124,6 +126,11 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 
             postInsertMember(newMember);
 
+            if (index === 0 && opts.onEnableMoveUp) {
+                /* other member can now move up */
+                opts.onEnableMoveUp(otherMember);
+            }
+
             return newMember;
         };
 
@@ -144,6 +151,11 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             newMember.setIndex(index);
 
             postInsertMember(newMember);
+
+            if (index === (members.length - 1) && opts.onEnableMoveDown) {
+                /* other member can now move down */
+                opts.onEnableMoveDown(otherMember);
+            }
 
             return newMember;
         };
@@ -169,6 +181,11 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 
             postInsertMember(newMember);
 
+            if (members.length > 1 && opts.onEnableMoveUp) {
+                /* previous first member can now move up */
+                opts.onEnableMoveUp(members[1]);
+            }
+
             return newMember;
         };
 
@@ -185,6 +202,11 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 
             postInsertMember(newMember);
 
+            if (members.length > 1 && opts.onEnableMoveDown) {
+                /* previous last member can now move down */
+                opts.onEnableMoveDown(members[members.length - 2]);
+            }
+
             return newMember;
         };
 
@@ -197,32 +219,105 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
             /* remove from the 'members' list */
             members.splice(index, 1);
             member._markDeleted();
-        };
 
-        self.toggleMenu = function(){
-            if(self.menu.hasClass('stream-menu-closed')){
-                self.showMenu();
-            } else {
-                self.hideMenu();
+            if (index === 0 && members.length > 0 && opts.onDisableMoveUp) {
+                /* deleting the first member; the new first member cannot move up now */
+                opts.onDisableMoveUp(members[0]);
             }
-        }
-        
-        self.showMenu = function(){
-            self.menu.removeClass('stream-menu-closed');
+            if (index === members.length && members.length > 0 && opts.onDisableMoveDown) {
+                /* deleting the last member; the new last member cannot move down now */
+                opts.onDisableMoveDown(members[members.length - 1]);
+            }
         };
 
-        self.hideMenu = function(){
-            self.menu.addClass('stream-menu-closed')
-        }
+        self.moveMemberUp = function(member) {
+            var oldIndex = member.getIndex();
+            if (oldIndex > 0) {
+                var newIndex = oldIndex - 1;
+                var swappedMember = members[newIndex];
 
+                members[newIndex] = member;
+                member.setIndex(newIndex);
+
+                members[oldIndex] = swappedMember;
+                swappedMember.setIndex(oldIndex);
+
+                member.container.insertBefore(swappedMember.container);
+
+                if (newIndex === 0) {
+                    /*
+                    member is now the first member and cannot move up further;
+                    swappedMember is no longer the first member, and CAN move up
+                    */
+                    if (opts.onDisableMoveUp) opts.onDisableMoveUp(member);
+                    if (opts.onEnableMoveUp) opts.onEnableMoveUp(swappedMember);
+                }
+                if (oldIndex === (members.length - 1)) {
+                    /*
+                    member was previously the last member, and can now move down;
+                    swappedMember is now the last member, and cannot move down
+                    */
+                    if (opts.onEnableMoveDown) opts.onEnableMoveDown(member);
+                    if (opts.onDisableMoveDown) opts.onDisableMoveDown(swappedMember);
+                }
+            }
+        };
+
+        self.moveMemberDown = function(member) {
+            var oldIndex = member.getIndex();
+            if (oldIndex < (members.length - 1)) {
+                var newIndex = oldIndex + 1;
+                var swappedMember = members[newIndex];
+
+                members[newIndex] = member;
+                member.setIndex(newIndex);
+
+                members[oldIndex] = swappedMember;
+                swappedMember.setIndex(oldIndex);
+
+                member.container.insertAfter(swappedMember.container);
+
+                if (newIndex === (members.length - 1)) {
+                    /*
+                    member is now the last member and cannot move down further;
+                    swappedMember is no longer the last member, and CAN move down
+                    */
+                    if (opts.onDisableMoveDown) opts.onDisableMoveDown(member);
+                    if (opts.onEnableMoveDown) opts.onEnableMoveDown(swappedMember);
+                }
+                if (oldIndex === 0) {
+                    /*
+                    member was previously the first member, and can now move up;
+                    swappedMember is now the first member, and cannot move up
+                    */
+                    if (opts.onEnableMoveUp) opts.onEnableMoveUp(member);
+                    if (opts.onDisableMoveUp) opts.onDisableMoveUp(swappedMember);
+                }
+            }
+        };
 
         /* initialize initial list members */
-        for (var i = 0; i < self.getCount(); i++) {
+        var count = self.getCount();
+        for (var i = 0; i < count; i++) {
             var memberPrefix = opts.prefix + '-' + i;
             var sequenceMember = SequenceMember(self, memberPrefix);
             members[i] = sequenceMember;
             if (opts.onInitializeMember) {
                 opts.onInitializeMember(sequenceMember);
+            }
+
+            if (i === 0) {
+                /* first item should have 'move up' disabled */
+                if (opts.onDisableMoveUp) opts.onDisableMoveUp(sequenceMember);
+            } else {
+                if (opts.onEnableMoveUp) opts.onEnableMoveUp(sequenceMember);
+            }
+
+            if (i === (count - 1)) {
+                /* last item should have 'move down' disabled */
+                if (opts.onDisableMoveDown) opts.onDisableMoveDown(sequenceMember);
+            } else {
+                if (opts.onEnableMoveDown) opts.onEnableMoveDown(sequenceMember);
             }
         }
 

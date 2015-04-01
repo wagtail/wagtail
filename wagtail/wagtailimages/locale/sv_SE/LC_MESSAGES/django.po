@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-04 17:13+0000\n"
+"POT-Creation-Date: 2015-03-06 12:06+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/wagtail/"
@@ -52,65 +52,59 @@ msgstr ""
 msgid "Supported formats: %s."
 msgstr ""
 
-#: forms.py:50
+#: forms.py:64
 msgid "Filter"
 msgstr ""
 
-#: forms.py:52
+#: forms.py:66
 msgid "Original size"
 msgstr ""
 
-#: forms.py:53
+#: forms.py:67
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:54
+#: forms.py:68
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:55
+#: forms.py:69
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:56
+#: forms.py:70
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:57
+#: forms.py:71
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:60
+#: forms.py:74
 msgid "Width"
 msgstr ""
 
-#: forms.py:61
+#: forms.py:75
 msgid "Height"
 msgstr ""
 
-#: forms.py:62
+#: forms.py:76
 msgid "Closeness"
 msgstr ""
 
-#: models.py:47 templates/wagtailimages/images/usage.html:16
+#: models.py:58 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr ""
 
-#: models.py:48
+#: models.py:59
 msgid "File"
 msgstr ""
 
-#: models.py:54
+#: models.py:65
 msgid "Tags"
 msgstr ""
 
-#: wagtail_hooks.py:71 templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18
-msgid "Images"
-msgstr ""
-
-#: templates/wagtailimages/chooser/chooser.html:3
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:19
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
 msgid "Choose an image"
 msgstr ""
 
@@ -155,16 +149,8 @@ msgstr ""
 msgid "Insert image"
 msgstr ""
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:17
-msgid "Clear image"
-msgstr ""
-
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:18
-msgid "Choose another image"
-msgstr ""
-
-#: templates/wagtailimages/images/_file_field.html:6
-msgid "Change image:"
+#: templates/wagtailimages/images/_file_field.html:8
+msgid "Change image file:"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
@@ -219,8 +205,25 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:64
+#: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "Max dimensions"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:80
+msgid "Filesize"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "File not found"
+msgstr ""
+
+#: templates/wagtailimages/images/index.html:5
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
+msgid "Images"
 msgstr ""
 
 #: templates/wagtailimages/images/results.html:31
@@ -309,30 +312,55 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:129
 msgid "Delete"
 msgstr ""
 
-#: views/images.py:39 views/images.py:49
+#: views/images.py:40 views/images.py:50
 msgid "Search images"
 msgstr ""
 
 #: views/images.py:106
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:109
+#: views/images.py:107
+msgid "Edit again"
+msgstr ""
+
+#: views/images.py:111
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:195
+#: views/images.py:128
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+
+#: views/images.py:219
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:218
+#: views/images.py:242
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:221
+#: views/images.py:243
+msgid "Edit"
+msgstr ""
+
+#: views/images.py:247
 msgid "The image could not be created due to errors."
+msgstr ""
+
+#: widgets.py:14
+msgid "Choose another image"
+msgstr ""
+
+#: widgets.py:15
+msgid "Edit this image"
 msgstr ""
