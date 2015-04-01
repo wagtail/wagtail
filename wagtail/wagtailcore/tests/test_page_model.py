@@ -3,6 +3,7 @@ import json
 
 import pytz
 
+import django
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
@@ -189,7 +190,7 @@ class TestRouting(TestCase):
         used_template = response.resolve_template(response.template_name)
 
         # Django 1.8+
-        if hasattr(used_template, 'template'):
+        if django.VERSION >= (1, 8):
             used_template = used_template.template
 
         self.assertEqual(used_template.name, 'tests/event_page.html')
