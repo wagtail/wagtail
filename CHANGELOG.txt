@@ -39,6 +39,7 @@ Changelog
  * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
  * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
+ * Basic environment and usage statistics are now reported to Wagtail's development team to help improve Wagtail. Statistics gathering is on by default but disabling it is simple with a new setting `WAGTAIL_ENABLE_STATS = False`. The development team is keen to understand how Wagtail is used in the wild and would obviously appreciate this being left enabled but you can check the code which gathers the statistics if you're uncomfortable with what we're recording, or you can disable it entirely.
 
 
 0.8.6 (10.03.2015)
