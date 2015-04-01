@@ -67,7 +67,10 @@ def home(request):
         'allow_tracking': getattr(settings, "WAGTAIL_ENABLE_TRACKING", True),
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
-        'user': request.user
+        'user': request.user,
+        'python_version': sys.version.split()[0],
+        'django_version': get_version(),
+        'db_engine': connection.vendor
     })
 
 
