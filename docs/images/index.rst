@@ -8,5 +8,5 @@ Images
 
     using_in_templates
     using_images_outside_wagtail
-    feature_detection
+    advanced_topics
 
