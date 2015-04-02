@@ -609,10 +609,12 @@ class TestPageCacheInvalidation(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        super(TestPageCacheInvalidation, cls).setUpClass()
         signal_handlers.register_signal_handlers()
 
     @classmethod
     def tearDownClass(cls):
+        super(TestPageCacheInvalidation, cls).tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
