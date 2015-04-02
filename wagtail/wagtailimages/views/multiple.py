@@ -6,7 +6,6 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends import get_search_backends
@@ -20,6 +19,7 @@ from wagtail.wagtailimages.fields import (
     ALLOWED_EXTENSIONS,
     FILE_TOO_LARGE_ERROR,
 )
+from wagtail.utils.compat import render_to_string
 
 
 def json_response(document):
