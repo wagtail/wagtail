@@ -43,7 +43,7 @@ The available resizing methods are:
 
         Fit **within** the given dimensions. 
 
-        The longest edge will be reduced to the equivalent dimension size defined. e.g A portrait image of width 1000, height 2000, treated with the ``max`` dimensions ``1000x500`` (landscape) would result in the image shrunk so the *height* was 500 pixels and the width 250.
+        The longest edge will be reduced to the equivalent dimension size defined. For example, a portrait image of width 1000, height 2000, treated with the ``max`` dimensions ``1000x500`` (landscape) would result in the image shrunk so the *height* was 500 pixels and the width 250.
 
     ``min`` 
         (takes two dimensions)
@@ -54,7 +54,7 @@ The available resizing methods are:
 
         **Cover** the given dimensions.
 
-        This may result in an image slightly **larger** than the dimensions you specify. e.g A square image of width 2000, height 2000, treated with the ``min`` dimensions ``500x200`` (landscape) would have it's height and width changed to 500, i.e matching the width required, but greater than the height.
+        This may result in an image slightly **larger** than the dimensions you specify. e.g A square image of width 2000, height 2000, treated with the ``min`` dimensions ``500x200`` (landscape) would have its height and width changed to 500, i.e matching the width required, but greater than the height.
 
     ``width`` 
         (takes one dimension)
@@ -119,7 +119,7 @@ The available resizing methods are:
 
 
 .. Note::
-    Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their their native dimensions.
+    Wagtail does not allow deforming or stretching images. Image dimension ratios will always be kept. Wagtail also *does not support upscaling*. Small images forced to appear at larger sizes will "max out" at their native dimensions.
 
 
 .. _image_tag_alt:
