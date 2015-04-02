@@ -360,10 +360,12 @@ class TestImageCacheInvalidation(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        super(TestImageCacheInvalidation, cls).setUpClass()
         signal_handlers.register_signal_handlers()
 
     @classmethod
     def tearDownClass(cls):
+        super(TestImageCacheInvalidation, cls).tearDownClass()
         signal_handlers.unregister_signal_handlers()
 
     def test_resave_image_purges(self, purge):
