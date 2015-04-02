@@ -17,13 +17,11 @@ Add an entry in your URLs configuration for ``wagtail.wagtailimages.urls``:
     from wagtail.wagtailimages import urls as wagtailimages_urls
 
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         ...
 
         url(r'^images/', include(wagtailimages_urls)),
-
-        ...
-    )
+    ]
 
 
 Generating URLs for images
