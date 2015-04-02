@@ -1,4 +1,3 @@
-from django.template import RequestContext
 from django.template.loader import render_to_string
 
 from wagtail.wagtailcore import hooks
@@ -15,8 +14,7 @@ class SummaryItem(object):
         return {}
 
     def render(self):
-        return render_to_string(self.template, self.get_context(),
-            RequestContext(self.request))
+        return render_to_string(self.template, self.get_context(), request=self.request)
 
 
 class PagesSummaryItem(SummaryItem):
@@ -46,4 +44,4 @@ class SiteSummaryPanel(object):
     def render(self):
         return render_to_string('wagtailadmin/home/site_summary.html', {
             'summary_items': sorted(self.summary_items, key=lambda p: p.order),
-        }, RequestContext(self.request))
+        }, request=self.request)
