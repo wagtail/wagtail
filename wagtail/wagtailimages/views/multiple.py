@@ -6,7 +6,6 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 
@@ -78,7 +77,7 @@ def add(request):
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                     'image': image,
                     'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
-                }, context_instance=RequestContext(request)),
+                }, request=request),
             })
         else:
             # Validation error
@@ -131,7 +130,7 @@ def edit(request, image_id, callback=None):
             'form': render_to_string('wagtailimages/multiple/edit_form.html', {
                 'image': image,
                 'form': form,
-            }, context_instance=RequestContext(request)),
+            }, request=request),
         })
 
 
