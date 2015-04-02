@@ -98,9 +98,10 @@ class AbstractImage(models.Model, TagSearchable):
         image_file.open('rb')
         image_file.seek(0)
 
-        yield WillowImage.open(image_file)
-
-        image_file.close()
+        try:
+            yield WillowImage.open(image_file)
+        finally:
+            image_file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
