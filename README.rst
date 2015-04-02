@@ -57,7 +57,7 @@ Ask your questions on our `Wagtail support group <https://groups.google.com/foru
 
 Commercial Support
 ~~~~~~~~~~~~~~~~~~
-Wagtail is sponsored by `Torchbox <https://torchbox.com/>`_. If you need help implementing Wagtail, please contact us: hello@torchbox.com.
+Wagtail is sponsored by `Torchbox <https://torchbox.com/>`_. If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com.
 
 
 Compatibility
