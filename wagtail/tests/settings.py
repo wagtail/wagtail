@@ -120,7 +120,7 @@ AUTH_USER_MODEL = 'customuser.CustomUser'
 
 try:
     # Only add Elasticsearch backend if the elasticsearch-py library is installed
-    import elasticsearch
+    import elasticsearch  # noqa
 
     # Import succeeded, add an Elasticsearch backend
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {

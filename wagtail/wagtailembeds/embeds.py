@@ -10,7 +10,6 @@ from six.moves.urllib.parse import urlencode
 
 from django.utils.module_loading import import_string
 from django.conf import settings
-from django.utils import six
 
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed

@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 
 try:
-    import embedly
+    import embedly  # noqa
     no_embedly = False
 except ImportError:
     no_embedly = True

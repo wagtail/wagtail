@@ -3,12 +3,11 @@ import json
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
 from django.utils.encoding import force_text
 
 from wagtail.wagtailsearch.backends import get_search_backends
@@ -20,7 +19,6 @@ from wagtail.wagtailimages.fields import (
     IMAGE_FIELD_HELP_TEXT,
     INVALID_IMAGE_ERROR,
     ALLOWED_EXTENSIONS,
-    SUPPORTED_FORMATS_TEXT,
     FILE_TOO_LARGE_ERROR,
 )
 

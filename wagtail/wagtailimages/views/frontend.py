@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
 
-from wagtail.wagtailimages.models import get_image_model, Filter
+from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.utils import verify_signature
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 

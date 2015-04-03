@@ -1,6 +1,5 @@
 import logging
 
-from django.utils import six
 from django.conf import settings
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured

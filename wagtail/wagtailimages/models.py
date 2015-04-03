@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import os.path
 import hashlib
-import re
 from contextlib import contextmanager
 import warnings
 

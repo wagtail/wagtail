@@ -1,7 +1,3 @@
-import warnings
-
-from six import string_types
-
 from django.db import models
 from django.apps import apps
 

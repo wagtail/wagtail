@@ -9,12 +9,11 @@ from django.contrib.auth.models import Group, Permission
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
-from django.db import connection
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
-from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
+from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file

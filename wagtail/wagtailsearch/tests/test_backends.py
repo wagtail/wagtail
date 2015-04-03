@@ -1,5 +1,4 @@
 from six import StringIO
-import warnings
 import unittest
 
 from django.test import TestCase

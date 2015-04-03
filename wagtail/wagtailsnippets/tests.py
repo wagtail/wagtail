@@ -1,7 +1,5 @@
-from django.http import Http404
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.db import models
 from django.test.utils import override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
