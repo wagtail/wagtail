@@ -743,7 +743,7 @@ class TestStreamBlock(unittest.TestCase):
                 'value': 'My second paragraph',
             },
         ])
-        return block.render_form(value,  prefix='myarticle')
+        return block.render_form(value, prefix='myarticle')
 
     def test_render_form_wrapper_class(self):
         html = self.render_form()
