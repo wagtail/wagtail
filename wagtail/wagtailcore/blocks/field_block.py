@@ -239,7 +239,7 @@ class RawHTMLBlock(FieldBlock):
 
 class ChooserBlock(FieldBlock):
     def __init__(self, required=True, **kwargs):
-        self.required=required
+        self.required = required
         super(ChooserBlock, self).__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
