@@ -111,7 +111,7 @@ def edit(request, image_id, callback=None):
     if not image.is_editable_by_user(request.user):
         raise PermissionDenied
 
-    form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-'+image_id)
+    form = ImageForm(request.POST, request.FILES, instance=image, prefix='image-' + image_id)
 
     if form.is_valid():
         form.save()
