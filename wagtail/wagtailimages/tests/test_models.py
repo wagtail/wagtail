@@ -228,7 +228,7 @@ class TestGetWillowImage(TestCase):
         # Attempting to get the Willow image for images without files
         # should raise a SourceImageIOError
         with self.assertRaises(SourceImageIOError):
-            with bad_image.get_willow_image() as willow_image:
+            with bad_image.get_willow_image():
                 self.fail() # Shouldn't get here
 
 

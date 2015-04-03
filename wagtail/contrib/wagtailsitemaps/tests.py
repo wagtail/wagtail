@@ -49,7 +49,7 @@ class TestSitemapGenerator(TestCase):
 
     def test_get_urls_uses_specific(self):
         # Add an event page which has an extra url in the sitemap
-        events_page = self.home_page.add_child(instance=EventIndex(
+        self.home_page.add_child(instance=EventIndex(
             title="Events",
             slug='events',
             live=True,

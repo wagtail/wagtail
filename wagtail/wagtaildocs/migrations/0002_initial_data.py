@@ -8,7 +8,6 @@ def add_document_permissions_to_admin_groups(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')
     Group = apps.get_model('auth.Group')
-    Document = apps.get_model('wagtaildocs.Document')
 
     # Get document permissions
     document_content_type, _created = ContentType.objects.get_or_create(

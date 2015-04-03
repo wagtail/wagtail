@@ -339,7 +339,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
-        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Submit
         post_data = {
@@ -693,7 +693,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
-        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Tests submitting from edit page
         post_data = {

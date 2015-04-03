@@ -227,7 +227,7 @@ class TestOembed(TestCase):
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
-        with patch.object(six.moves.urllib.request, 'urlopen', **config) as urlopen:
+        with patch.object(six.moves.urllib.request, 'urlopen', **config):
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 

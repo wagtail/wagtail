@@ -32,7 +32,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         the user was logged in successfully
         """
         # Create user to log in with
-        user = get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         response = self.client.post(reverse('wagtailadmin_login'), {
