@@ -81,15 +81,6 @@ class BackendTests(WagtailTestUtils):
         # Should return two results
         self.assertEqual(len(results), 2)
 
-    @unittest.skip("Need something to prefetch")
-    def test_prefetch_related(self):
-        # Get results
-        results = self.backend.search("Hello", models.SearchTest, prefetch_related=['prefetch_field'])
-
-        # Test both single result and multiple result (different code for each), only checking that this doesnt crash
-        single_result = results[0]
-        multi_result = results[:2]
-
     def test_callable_indexed_field(self):
         # Get results
         results = self.backend.search("Callable", models.SearchTest)
