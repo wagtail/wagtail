@@ -407,16 +407,21 @@ footer, .logo{
         }
     }
     .explorer {
-        z-index:$explorer-z-index;
+        z-index: $explorer-z-index;
     }
     .nav-submenu {
-        z-index:$explorer-z-index;
+        z-index: $explorer-z-index;
     }
-    .nav-wrapper{
-        z-index:auto;  /* allows overspill of messages banner onto left menu, but also explorer to spill over main content */
+
+    // Allows overspill of messages banner onto left menu, but also explorer
+    // to spill over main content
+    .nav-wrapper {
+        z-index: auto;
     }
-    .nav-wrapper.submenu-active{
-        z-index:5;
+
+    // footer is z-index: 100, so ensure the navigation sits on top of it.
+    .nav-wrapper.submenu-active {
+        z-index: 200;
     }
 }
 
