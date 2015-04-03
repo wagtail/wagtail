@@ -72,7 +72,7 @@ def oembed(url, max_width=None):
         raise EmbedNotFoundException
 
     # Work out params
-    params = {'url': url, 'format': 'json',  }
+    params = {'url': url, 'format': 'json'}
     if max_width:
         params['maxwidth'] = max_width
 
