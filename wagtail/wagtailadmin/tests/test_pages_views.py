@@ -2105,7 +2105,7 @@ class TestIssue197(TestCase, WagtailTestUtils):
         # Add some tags and publish using edit view
         post_data = {
             'title': "Tagged page",
-            'slug':'tagged-page',
+            'slug': 'tagged-page',
             'tags': "hello, world",
             'action-publish': "Publish",
         }

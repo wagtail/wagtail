@@ -138,7 +138,7 @@ def create(request, content_type_app_name, content_type_model_name):
                     instance=instance
                 ),
                 buttons=[
-                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name,content_type_model_name,instance.id,)), _('Edit'))
+                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
                 ]
             )
             return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
@@ -181,7 +181,7 @@ def edit(request, content_type_app_name, content_type_model_name, id):
                     instance=instance
                 ),
                 buttons=[
-                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name,content_type_model_name,instance.id,)), _('Edit'))
+                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
                 ]
             )
             return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)

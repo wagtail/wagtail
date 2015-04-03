@@ -76,7 +76,7 @@ class TextBlock(FieldBlock):
     @cached_property
     def field(self):
         from wagtail.wagtailadmin.widgets import AdminAutoHeightTextInput
-        field_kwargs = {'widget': AdminAutoHeightTextInput(attrs={'rows':self.rows})}
+        field_kwargs = {'widget': AdminAutoHeightTextInput(attrs={'rows': self.rows})}
         field_kwargs.update(self.field_options)
         return forms.CharField(**field_kwargs)
 
