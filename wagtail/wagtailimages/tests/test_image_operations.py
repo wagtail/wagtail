@@ -274,7 +274,6 @@ class TestMinMaxOperation(ImageOperationTestCase):
 
     filter_spec_error_tests = [
         'min',
-#       'hello-800x600',
         'min-800',
         'min-abc',
         'min-800xabc',
@@ -307,7 +306,6 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 
     filter_spec_error_tests = [
         'width',
-#       'hello-800',
         'width-800x600',
         'width-abc',
         'width-800-c100',
