@@ -109,7 +109,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         # A class with a 'panels' property defined should return that list
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
         self.assertEqual(len(result), 4)
-        #print repr(result)
         self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
 
     def test_exclude(self):
