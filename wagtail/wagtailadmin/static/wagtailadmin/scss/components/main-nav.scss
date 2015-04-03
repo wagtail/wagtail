@@ -101,13 +101,13 @@ $submenu-color:darken($color-grey-1, 5%);
                 top:0.5em;
                 margin-top:0.15em;
             }
-            
-        }       
+
+        }
 
         .account{
             @include clearfix();
-          
-       
+
+
             .avatar{
                 display:none;
             }
@@ -119,9 +119,9 @@ $submenu-color:darken($color-grey-1, 5%);
         }
     }
 
-    .nav-submenu{ 
+    .nav-submenu{
         background:$submenu-color;
-        
+
         h2{
             display:none;
         }
@@ -145,8 +145,8 @@ $submenu-color:darken($color-grey-1, 5%);
     }
 
     .explorer{
-        position:absolute;
-        margin-top:70px;
+        // position:absolute;
+        // margin-top:70px;
         font-size:0.95em;
     }
 
@@ -186,7 +186,7 @@ $submenu-color:darken($color-grey-1, 5%);
             padding:0;
             width:3em; height:100%;
             overflow:hidden;
-            
+
             &:before{
                 font-family:wagtail;
                 font-weight:200;
@@ -198,7 +198,7 @@ $submenu-color:darken($color-grey-1, 5%);
                 padding:0 1em;
             }
         }
-       
+
     }
 
 /* Navigation open condition */
@@ -212,6 +212,18 @@ body.nav-open{
     }
     footer{
         bottom:1px;
+    }
+}
+
+
+.explorer-close {
+    display: none;
+    padding: .9em;
+    border-bottom:1px solid rgba(200, 200, 200, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        color: white;
     }
 }
 
@@ -232,13 +244,15 @@ body.explorer-open {
 
     .explorer{
         display:block;
-        border-top:1px solid rgba(200,200,200,0.1);
+    }
 
-        &:before{
-            position:absolute;
-            top:-3em;
-            content:"Close explorer";
-            padding:0.9em;
+    .explorer-close {
+        display: block;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        .explorer-close {
+            display: none;
         }
     }
 }
@@ -280,13 +294,13 @@ body.explorer-open {
             position:fixed;
             width:$menu-width - 7;
             bottom:0;
-           
+
         }
         .account{
             @include clearfix();
             padding-right:0;
             padding-left:15px;
-       
+
             .avatar{
                 display:inline-block;
                 padding:0;
@@ -307,7 +321,7 @@ body.explorer-open {
         }
     }
 
-    .nav-submenu{ 
+    .nav-submenu{
         position:fixed;
         height:100%;
         width:0;
@@ -317,7 +331,7 @@ body.explorer-open {
         overflow:auto;
         max-height:100%;
         border-right:1px solid rgba(0,0,0,0.1);
-        
+
         h2,ul{
             float:right;
             width:$menu-width;
@@ -348,9 +362,9 @@ body.explorer-open {
 
         > a{
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
-            
+
             &:hover{
-                background-color:transparent;  
+                background-color:transparent;
             }
         }
         .nav-submenu{
