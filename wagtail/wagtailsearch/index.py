@@ -140,4 +140,3 @@ class SearchField(BaseField):
 
 class FilterField(BaseField):
     suffix = '_filter'
-
