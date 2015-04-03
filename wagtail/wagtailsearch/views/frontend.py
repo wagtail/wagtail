@@ -20,7 +20,7 @@ def search(
         search_title_only=False,
         extra_filters={},
         path=None,
-    ):
+        ):
 
     # Get default templates
     if template is None:
