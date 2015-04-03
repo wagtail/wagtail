@@ -112,13 +112,11 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_non_existant_model(self):
-        response = self.client.get(reverse('wagtailsnippets_edit',
-                                            args=('tests', 'foo', self.test_snippet.id)))
+        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'foo', self.test_snippet.id)))
         self.assertEqual(response.status_code, 404)
 
     def test_nonexistant_id(self):
-        response = self.client.get(reverse('wagtailsnippets_edit',
-                                            args=('tests', 'advert', 999999)))
+        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'advert', 999999)))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):

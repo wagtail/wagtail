@@ -356,8 +356,7 @@ class TestPageChooserPanel(TestCase):
         self.test_instance = model.objects.create(page=self.christmas_page)
 
         self.form = self.PageChooserForm(instance=self.test_instance)
-        self.page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
-                                                                form=self.form)
+        self.page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=self.form)
 
     def test_page_chooser_uses_correct_widget(self):
         self.assertEqual(type(self.form.fields['page'].widget), AdminPageChooser)
@@ -385,8 +384,7 @@ class TestPageChooserPanel(TestCase):
         form = self.PageChooserForm({'page': ''}, instance=self.test_instance)
         self.assertFalse(form.is_valid())
 
-        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance,
-                                                                form=form)
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
         self.assertIn('<span>This field is required.</span>', page_chooser_panel.render_as_field())
 
     def test_override_page_type(self):
