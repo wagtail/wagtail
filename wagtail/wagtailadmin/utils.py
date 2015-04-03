@@ -29,8 +29,8 @@ def get_object_usage(obj):
                 }).values_list('id', flat=True)
             )
         else:
-        # if the relation is between obj and an object that has a page as a
-        # property, return the page
+            # if the relation is between obj and an object that has a page as a
+            # property, return the page
             for f in relation.model._meta.fields:
                 if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
                     pages |= Page.objects.filter(
