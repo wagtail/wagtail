@@ -514,8 +514,7 @@ class TestListBlock(unittest.TestCase):
                 'title': "Django",
                 'link': 'http://www.djangoproject.com',
             },
-        ]
-        , prefix='links')
+        ], prefix='links')
 
         return html
 

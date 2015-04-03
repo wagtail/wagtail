@@ -329,8 +329,8 @@ class Filter(models.Model):
 
                     warnings.warn(
                         "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
-                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings."
-                        , RemovedInWagtail11Warning)
+                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
+                        RemovedInWagtail11Warning)
                 else:
                     quality = 85
 
