@@ -964,18 +964,20 @@ class TestPageDelete(TestCase, WagtailTestUtils):
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
         unpublish_signals_received = []
+        pre_delete_signals_received = []
+        post_delete_signals_received = []
+
         def page_unpublished_handler(sender, instance, **kwargs):
             unpublish_signals_received.append((sender, instance.id))
-        page_unpublished.connect(page_unpublished_handler)
 
-        pre_delete_signals_received = []
         def pre_delete_handler(sender, instance, **kwargs):
             pre_delete_signals_received.append((sender, instance.id))
-        pre_delete.connect(pre_delete_handler)
 
-        post_delete_signals_received = []
         def post_delete_handler(sender, instance, **kwargs):
             post_delete_signals_received.append((sender, instance.id))
+
+        page_unpublished.connect(page_unpublished_handler)
+        pre_delete.connect(pre_delete_handler)
         post_delete.connect(post_delete_handler)
 
         # Post
