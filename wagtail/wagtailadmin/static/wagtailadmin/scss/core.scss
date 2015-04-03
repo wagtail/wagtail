@@ -80,6 +80,9 @@ body{
         border:0;
         margin-right:1em;
     }
+    &:hover {
+        color: white;
+    }
 }
 
 .content-wrapper{
@@ -187,7 +190,7 @@ footer{
 
             &:after{
                 right:0;
-                z-index:5;
+                // z-index:5;
                 position:absolute;
                 font-family:wagtail;
                 content:"n";
