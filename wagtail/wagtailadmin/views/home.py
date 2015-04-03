@@ -36,7 +36,7 @@ class RecentEditsPanel(object):
             """
             select wp.* FROM
                 wagtailcore_pagerevision wp JOIN (
-                    SELECT max(created_at) as max_created_at, page_id FROM wagtailcore_pagerevision group by page_id 
+                    SELECT max(created_at) as max_created_at, page_id FROM wagtailcore_pagerevision group by page_id
                 ) as max_rev on max_rev.max_created_at = wp.created_at and wp.user_id = %s order by wp.created_at desc
             """, [request.user.id])[:5]
     def render(self):

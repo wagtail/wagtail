@@ -62,7 +62,7 @@ def add(request):
         form = ImageForm({
             'title': request.FILES['files[]'].name,
         }, {
-            'file': request.FILES['files[]'], 
+            'file': request.FILES['files[]'],
         })
 
         if form.is_valid():

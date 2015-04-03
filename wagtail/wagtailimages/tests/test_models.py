@@ -365,7 +365,7 @@ class TestIssue312(TestCase):
         # Now manually duplicate the renditon and check that the database blocks it
         self.assertRaises(
             IntegrityError,
-            Rendition.objects.create, 
+            Rendition.objects.create,
             image=rend1.image,
             filter=rend1.filter,
             width=rend1.width,

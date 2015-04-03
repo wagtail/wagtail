@@ -729,7 +729,7 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         classes.append("stream-field")
 
         # BaseFieldPanel is essentially for single fields, which are rendered on the front end
-        # with the assumption that the label (singular) will always be promoted to the full-width 
+        # with the assumption that the label (singular) will always be promoted to the full-width
         # divider bar thing.
         # This results in all the other labels being promoted similarly, so it's better not to
         # treat this as a single field, and remove the "single-field" class.

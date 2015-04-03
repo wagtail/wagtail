@@ -70,7 +70,7 @@ def widgettype(bound_field):
     except AttributeError:
         try:
             return camelcase_to_underscore(bound_field.widget.__class__.__name__)
-        except AttributeError: 
+        except AttributeError:
             return ""
 
 
