@@ -448,7 +448,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['image_id'], self.image.id)
         self.assertTrue(response_json['success'])
 
-    def test_edit_post_noajax(self):
+    def test_delete_post_noajax(self):
         """
         This tests that a POST request to the delete view without AJAX returns a 400 response
         """

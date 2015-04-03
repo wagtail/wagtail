@@ -1952,7 +1952,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         # Check that the page is locked
         self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
 
-    def test_unlock_post_with_bad_redirect(self):
+    def test_lock_post_with_bad_redirect(self):
         response = self.client.post(reverse('wagtailadmin_pages_lock', args=(self.child_page.id, )), {
             'next': 'http://www.google.co.uk'
         })
