@@ -43,7 +43,7 @@ def check_old_style_urlconf():
     # wagtail.wagtailimages.admin_urls is loaded to, resulting in the wagtailimages_serve path
     # being equal to wagtailimages_index followed by three arbitrary args
     try:
-        wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args = ['123', '456', '789'])
+        wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args=['123', '456', '789'])
     except urlresolvers.NoReverseMatch:
         # wagtailimages_serve is not defined at all, so there's no collision
         OLD_STYLE_URLCONF_CHECK_PASSED = True
@@ -97,7 +97,7 @@ def editor_js():
 @hooks.register('register_permissions')
 def register_permissions():
     image_content_type = ContentType.objects.get(app_label='wagtailimages', model='image')
-    image_permissions = Permission.objects.filter(content_type = image_content_type)
+    image_permissions = Permission.objects.filter(content_type=image_content_type)
     return image_permissions
 
 

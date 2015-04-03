@@ -227,7 +227,7 @@ class RawHTMLBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         self.field = forms.CharField(
             required=required, help_text=help_text, max_length=max_length, min_length=min_length,
-            widget = forms.Textarea)
+            widget=forms.Textarea)
         super(RawHTMLBlock, self).__init__(**kwargs)
 
     def render_basic(self, value):

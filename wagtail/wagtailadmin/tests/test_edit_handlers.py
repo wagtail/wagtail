@@ -260,7 +260,7 @@ class TestObjectList(TestCase):
 
 class TestFieldPanel(TestCase):
     def setUp(self):
-        self.EventPageForm = get_form_for_model(EventPage, formsets = [])
+        self.EventPageForm = get_form_for_model(EventPage, formsets=[])
         self.event = EventPage(title='Abergavenny sheepdog trials',
             date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
