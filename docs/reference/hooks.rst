@@ -48,6 +48,12 @@ The available hooks are:
 
 .. _construct_wagtail_userbar:
 
+.. versionadded:: 0.3
+
+.. versionchanged:: 1.0
+
+   The hook was renamed from ``construct_wagtail_edit_bird``
+
 ``construct_wagtail_userbar``
   Add or remove items from the wagtail userbar. Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the ``request`` object and a list of menu objects, ``items``. The menu item objects must have a ``render`` method which can take a ``request`` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information.
 
