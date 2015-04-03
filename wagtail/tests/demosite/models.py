@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 

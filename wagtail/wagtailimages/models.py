@@ -31,6 +31,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
 class SourceImageIOError(IOError):

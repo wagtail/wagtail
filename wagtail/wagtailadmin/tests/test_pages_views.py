@@ -1959,7 +1959,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is locked
-        self.assertTrue(page.objects.get(id=self.child_page.id).locked)
+        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
 
     def test_lock_post_bad_page(self):
         response = self.client.post(reverse('wagtailadmin_pages_lock', args=(9999, )))
