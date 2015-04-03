@@ -87,7 +87,7 @@ class TestSitemapView(TestCase):
         cache_key = 'wagtail-sitemap:%d' % Site.objects.get(is_default_site=True).id
 
         # Check that the key is not in the cache
-        self.assertFalse(cache.has_key(cache_key))
+        self.assertNotIn(cache_key, cache)
 
         # Hit the view
         first_response = self.client.get('/sitemap.xml')
@@ -96,7 +96,7 @@ class TestSitemapView(TestCase):
         self.assertTemplateUsed(first_response, 'wagtailsitemaps/sitemap.xml')
 
         # Check that the key is in the cache
-        self.assertTrue(cache.has_key(cache_key))
+        self.assertIn(cache_key, cache)
 
         # Hit the view again. Should come from the cache this time
         second_response = self.client.get('/sitemap.xml')
