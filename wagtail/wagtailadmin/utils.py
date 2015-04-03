@@ -74,7 +74,7 @@ def send_mail(email_subject, email_content, email_addresses, from_email=None):
 def send_notification(page_revision_id, notification, excluded_user_id):
     # Get revision
     revision = PageRevision.objects.get(id=page_revision_id)
-    
+
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers

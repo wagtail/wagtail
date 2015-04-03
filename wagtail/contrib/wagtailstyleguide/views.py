@@ -10,7 +10,6 @@ from wagtail.wagtailimages.widgets import AdminImageChooser
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
 
 class ExampleForm(forms.Form):
-    
     def __init__(self, *args, **kwargs):
         super(ExampleForm, self).__init__(*args, **kwargs)
         self.fields['page_chooser'].widget = AdminPageChooser()

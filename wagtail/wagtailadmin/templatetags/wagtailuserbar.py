@@ -13,7 +13,7 @@ register = template.Library()
 def wagtailuserbar(context):
     # Find request object
     request = context['request']
-    
+
     # Don't render if user doesn't have permission to access the admin area
     if not request.user.has_perm('wagtailadmin.access_admin'):
         return ''

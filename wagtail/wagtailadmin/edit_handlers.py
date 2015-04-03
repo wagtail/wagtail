@@ -724,11 +724,10 @@ Page.settings_panels = [
 
 
 class BaseStreamFieldPanel(BaseFieldPanel):
-    
     def classes(self):
         classes = super(BaseStreamFieldPanel, self).classes()
         classes.append("stream-field")
-        
+
         # BaseFieldPanel is essentially for single fields, which are rendered on the front end
         # with the assumption that the label (singular) will always be promoted to the full-width 
         # divider bar thing.

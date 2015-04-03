@@ -79,7 +79,7 @@ class ImageOperationTestCase(unittest.TestCase):
         test_name = 'test_run_%s' % filter_spec
         test_run.__name__ = test_name
         return test_run
- 
+
     @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:

@@ -10,7 +10,7 @@ from wagtail.wagtailadmin.widgets import AdminChooser
 
 class AdminSnippetChooser(AdminChooser):
     target_content_type = None
- 
+
     def __init__(self, content_type=None, **kwargs):
         if 'snippet_type_name' in kwargs:
             snippet_type_name = kwargs.pop('snippet_type_name')

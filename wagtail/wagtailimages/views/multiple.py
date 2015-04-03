@@ -66,7 +66,7 @@ def add(request):
         }, {
             'file': request.FILES['files[]'], 
         })
-        
+
         if form.is_valid():
             # Save it
             image = form.save(commit=False)
