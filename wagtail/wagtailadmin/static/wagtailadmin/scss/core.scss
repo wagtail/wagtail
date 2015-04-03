@@ -265,9 +265,16 @@ footer{
 .nav-wrapper{
     z-index:2;
 }
-.content-wrapper{
-    z-index:3;
-}
+
+// Avoiding a stacking context for the content-wrapper saves us a world
+// of pain when dealing with overlays that are appended to the end of
+// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
+// the z-index shouldn't be required.
+
+// .content-wrapper{
+    // z-index:3;
+// }
+
 .nav-submenu{
     z-index:6;
 }
@@ -338,7 +345,7 @@ footer, .logo{
     }
     .content-wrapper{
         border-bottom-right-radius: 5px;
-    }    
+    }
 
     .logo{
         margin:1em auto;
@@ -353,13 +360,13 @@ footer, .logo{
             margin:auto;
             display:block;
         }
-    }   
+    }
 
     footer{
         width:80%;
         margin-left:50px;
     }
-    
+
     .content{
         border-top:0;
         background-color:none;
