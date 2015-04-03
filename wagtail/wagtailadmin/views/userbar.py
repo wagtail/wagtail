@@ -1,9 +1,13 @@
+import warnings
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.userbar import EditPageItem, AddPageItem, ApproveModerationEditPageItem, RejectModerationEditPageItem
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import Page, PageRevision
+
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
 @permission_required('wagtailadmin.access_admin', raise_exception=True)
@@ -14,6 +18,14 @@ def for_frontend(request, page_id):
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
+        fn(request, items)
+
+        warnings.warn(
+            "The 'construct_wagtail_edit_bird' hook has been renamed to 'construct_wagtail_userbar'."
+            "Please update function '%s' in '%s'." % (fn.__name__, fn.__module__), RemovedInWagtail11Warning
+        )
+
+    for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
     # Render the items
@@ -38,6 +50,14 @@ def for_moderation(request, revision_id):
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_edit_bird'):
+        fn(request, items)
+
+        warnings.warn(
+            "The 'construct_wagtail_edit_bird' hook has been renamed to 'construct_wagtail_userbar'."
+            "Please update function '%s' in '%s'." % (fn.__name__, fn.__module__), RemovedInWagtail11Warning
+        )
+
+    for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
     # Render the items
