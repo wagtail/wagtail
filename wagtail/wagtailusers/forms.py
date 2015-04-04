@@ -16,7 +16,6 @@ User = get_user_model()
 
 # extend Django's UserCreationForm with an 'is_superuser' field
 class UserCreationForm(BaseUserCreationForm):
-
     required_css_class = "required"
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
@@ -35,6 +34,10 @@ class UserCreationForm(BaseUserCreationForm):
             'groups': forms.CheckboxSelectMultiple
         }
 
+    def __init__(self, user, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.user = user
+
     def clean_username(self):
         # Method copied from parent
 
@@ -50,6 +53,15 @@ class UserCreationForm(BaseUserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
+
+    def clean_is_superuser(self):
+        is_superuser = self.cleaned_data["is_superuser"]
+        if not self.user.is_superuser and is_superuser:
+            raise forms.ValidationError(
+                _('You are not an Administrator so cannot create Administrative users.'),
+                code='normal_user_cannot_create_admin',
+            )
+        return is_superuser
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -108,6 +120,10 @@ class UserEditForm(forms.ModelForm):
             'groups': forms.CheckboxSelectMultiple
         }
 
+    def __init__(self, user, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        self.user = user
+
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
@@ -117,6 +133,15 @@ class UserEditForm(forms.ModelForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+    def clean_is_superuser(self):
+        is_superuser = self.cleaned_data["is_superuser"]
+        if not self.user.is_superuser and is_superuser:
+            raise forms.ValidationError(
+                _('You are not an Administrator so cannot set other users as an Administrator.'),
+                code='normal_user_cannot_edit_admin',
+            )
+        return is_superuser
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
