@@ -139,18 +139,18 @@ footer{
     }
 }
 
-::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-    background: $color-grey-1;
-}
-::-webkit-scrollbar-thumb {
-    background: $color-grey-2;
-    -webkit-border-radius: 1ex;
-}
-::-webkit-scrollbar-corner {
-    background: $color-grey-1;
-}
+// ::-webkit-scrollbar {
+//     height: 10px;
+//     width: 10px;
+//     background: $color-grey-1;
+// }
+// ::-webkit-scrollbar-thumb {
+//     background: $color-grey-2;
+//     -webkit-border-radius: 1ex;
+// }
+// ::-webkit-scrollbar-corner {
+//     background: $color-grey-1;
+// }
 
 .breadcrumb{
     @include unlist();
@@ -338,7 +338,7 @@ footer, .logo{
     }
     .content-wrapper{
         border-bottom-right-radius: 5px;
-    }    
+    }
 
     .logo{
         margin:1em auto;
@@ -353,13 +353,13 @@ footer, .logo{
             margin:auto;
             display:block;
         }
-    }   
+    }
 
     footer{
         width:80%;
         margin-left:50px;
     }
-    
+
     .content{
         border-top:0;
         background-color:none;
@@ -433,4 +433,153 @@ footer,
 }
 .nav-main a, a{
     @include transition(color 0.2s ease, background-color 0.2s ease);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Explorer interface prototype
+
+@-webkit-keyframes tada {
+    0% {
+        transform: translateX(5%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+
+.bn-explorer-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+}
+
+
+.bn-explorer {
+    -webkit-animation: tada .15s ease-out;
+    background: #e6e6e6;
+    height: 100%;
+}
+
+
+.bn-explorer__header {
+    background: $color-teal;
+    color: white;
+    padding: 1.5em 3em;
+
+    h1 {
+        color: #fff;
+        margin: 0;
+        padding: .3em 0;
+    }
+}
+
+.bn-explorer__body {
+    display: table;
+    table-layout: fixed;
+    margin-right: -3px;
+    height: 100%;
+
+    &:after {
+        display: table;
+        content: "";
+        clear: both;
+    }
+}
+
+.bn-explorer__overflow {
+    width: 100%;
+    overflow-x: scroll;
+    position: absolute;
+    top: 75px;
+    bottom: 0;
+}
+
+.bn-arrow {
+    color: $color-teal-darker;
+    display: inline-block;
+
+    &:after {
+        content: "n";
+        font-family: "wagtail";
+    }
+}
+
+
+.bn-column {
+    display: table-cell;
+    width: 320px;
+    min-width: 320px;
+    border-right: solid 1px #ccc;
+    -webkit-animation: tada .15s ease-out;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.bn-column-scroll {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.bn-add {
+    display: none;
+    padding: .5em 3em;
+    cursor: pointer;
+    color: $color-teal-darker;
+}
+
+.bn-column:hover .bn-add {
+    display: block;
+}
+
+.bn-column:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.bn-node {
+    background: #fff;
+    padding: .5em 3em;
+    height: 80px;
+    border-bottom: solid 1px #ddd;
+    cursor: pointer;
+}
+
+.bn-node:hover {
+    background: #ECFFFF;
+    transition: transform .07s ease-out;
+    transform-origin: 50% 50%;
+}
+
+.bn-node--drag {
+    transform: rotateZ(-1deg) translateY(-5px);
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
+    border-bottom-color: #aaa;
+}
+
+.bn-node--active {
+    // background: #4B5B61;
+    background: #555;
+    color: #fff;
+    &:hover {
+        background: #5a5a5a;
+    }
+}
+
+.bn-active {
+    background: #1a1a1a;
 }
