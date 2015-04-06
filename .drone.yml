@@ -6,4 +6,6 @@ services:
  - mysql
  - dockerfile/elasticsearch
 env:
+ - PGHOST=postgres
+ - MYSQL_HOST=mysql
  - ELASTICSEARCH_URL=http://elasticsearch:9200
