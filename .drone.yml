@@ -1,5 +1,6 @@
-image: kaedroho/django-base
+image: wagtail-ci
 script:
- - python3.4 setup.py install
- - pip3.4 install -r requirements-dev.txt
- - python3.4 runtests.py
+ - tox
+services:
+ - postgres
+ - mysql
