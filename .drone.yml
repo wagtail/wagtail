@@ -4,3 +4,6 @@ script:
 services:
  - postgres
  - mysql
+ - dockerfile/elasticsearch
+env:
+ - ELASTICSEARCH_URL=http://elasticsearch:9200
