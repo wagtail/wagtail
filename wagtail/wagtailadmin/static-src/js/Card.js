@@ -18,16 +18,14 @@ const dropTarget = {
     over(component, item) {
         const id = component.props.id;
         const column = component.props.column;
-        component.props.moveCard(component.props.data, id, column);
-        component.addPlaceholder();
+        component.props.moveCard(component.props.data, id, column, item);
     },
     leave(component, item) {
-        component.removePlaceholder();
+        // component.removePlaceholder();
     },
     acceptDrop(component, item, isHandled, effect) {
         const id = component.props.id;
         const column = component.props.column;
-        component.removePlaceholder();
         component.props.updateCard(component.props.data, id, column, item)
     }
 };
@@ -49,16 +47,6 @@ const Card = React.createClass({
             hasPlaceholder: false
         }
     },
-    addPlaceholder() {
-        this.setState({
-            hasPlaceholder: true
-        });
-    },
-    removePlaceholder() {
-        this.setState({
-            hasPlaceholder: false
-        });
-    },
     handleClick() {
         this.props.clickHandler();
         this.setState({
@@ -66,15 +54,16 @@ const Card = React.createClass({
         })
     },
     render() {
-        var className = 'bn-node ' + (this.props.active ? "bn-node--active" : "");
-
+        const className = 'bn-node ' + (this.props.active ? "bn-node--active" : "");
         const { isDragging } = this.getDragState(ItemTypes.CARD);
+        const { isHovering } = this.getDropState(ItemTypes.CARD);
+
 
         return (
             <div
                 className={className}
                 onClick={this.handleClick}
-                style={{backgroundColor: this.state.hasPlaceholder ? "red" : "" }}
+                style={{backgroundColor:  isHovering ? "red" : "" , opacity: isDragging ? ".25" : "1"}}
                 {...this.dragSourceFor(ItemTypes.CARD)}
                 {...this.dropTargetFor(ItemTypes.CARD)}
                 >

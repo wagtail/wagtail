@@ -49,6 +49,7 @@
     "watchify": "^3.1.0"
   },
   "dependencies": {
+    "babel": "^5.0.9",
     "react-dnd": "^0.9.8"
   }
 }

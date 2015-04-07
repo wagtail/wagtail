@@ -3,6 +3,9 @@ import scroll from 'scroll';
 import Card from './Card';
 import PageService from './services/PageService';
 import update from 'react/lib/update';
+import isParent from './utils/common';
+
+
 
 
 
@@ -21,73 +24,51 @@ const ColumnView = React.createClass({
             cards: [this.props.data]
         }
     },
-    moveCard: function(item, afterId, column) {
-        const { cards } = this.state;
-        const { stack } = this.state;
-
-        console.log(item, afterId, column);
-
-        // Target column
+    moveCard: function(item, afterId, column, newItem) {
+        // const { stack } = this.state;
         // const targetColumn = stack[column];
+        // const originalItem = stack[newItem.column].children[newItem.id];
 
-        // console.log(targetColumn);
+        // if (isParent(item, originalItem)) {
+        //     // TODO: Fire a message if user attempts to drag node into child.
+        //     return;
+        // }
 
-        // if ()
 
-        // targetColumn.children.splice(afterId+1, 0, {
-        //     name: "placeholder",
-        //     "type": "placeholder"
-        // });
-
+        // targetColumn.children.splice(afterId, 0, item);
         // stack[column] = targetColumn;
 
-        // Original item
-        this.setState({
-            stack: stack
-        });
-
-
-        // this.setState(update(this.state, {
+        // // Original item
+        // this.setState({
         //     stack: stack
-        // }));
+        // });
 
 
-        // const card = cards.filter(c => c.id === id)[0];
-        // const afterCard = cards.filter(c => c.id === afterId)[0];
-        // const cardIndex = cards.indexOf(card);
-        // const afterIndex = cards.indexOf(afterCard);
-
-        // this.setState(update(this.state, {
-        //     cards: {
-        //         $splice: [
-        //             [cardIndex, 1],
-        //             [afterIndex, 0, card]
-        //         ]
-        //     }
-        // }));
     },
-    updateCard: function(item, afterId, column, newItem) {
+    updateCard: function(targetItem, afterId, column, newItem) {
         const { stack } = this.state;
         const targetColumn = stack[column];
+        const draggedItem = stack[newItem.column].children[newItem.id];
 
+        if (isParent(targetItem, draggedItem)) {
+            // TODO: Fire a message if user attempts to drag node into child.
+            return;
+        }
 
-        const originalItem = stack[newItem.column].children[newItem.id];
+        // Don't proceed if the child is a direct descendant.
+        if ( targetItem.children.indexOf(draggedItem) > -1) {
+            return;
+        }
 
-        console.log(originalItem);
-
-        // Remove originalItem from the stack...
-        if (originalItem) {
+        // Remove draggedItem from the stack...
+        if (draggedItem) {
             stack[newItem.column].children.splice(newItem.id, 1);
         }
 
-        // TODO: Check if trying to drag item into descendant.
+
+        targetColumn.children[afterId].children.splice(targetColumn.children[afterId].children.length, 0, draggedItem);
 
 
-
-        targetColumn.children[afterId].children.splice(targetColumn.children[afterId].children.length, 0, originalItem);
-
-
-        // targetColumn.children.splice(afterId+1, 0, originalItem);
         stack[column] = targetColumn;
         this.setState({
             stack: stack
