@@ -17,11 +17,24 @@
   "bugs": {
     "url": "https://github.com/torchbox/wagtaildemo/issues"
   },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  },
   "homepage": "https://github.com/torchbox/wagtaildemo",
   "devDependencies": {
+    "babel": "^5.0.9",
+    "babelify": "^6.0.1",
     "browserify": "^9.0.7",
     "glob": "^5.0.3",
     "gulp": "^3.8.11",
+    "gulp-babel": "^5.0.0",
     "gulp-jshint": "^1.10.0",
     "gulp-livereload": "^3.8.0",
     "gulp-pleeease": "^1.2.0",
@@ -34,5 +47,8 @@
     "scroll": "0.0.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.1.0"
+  },
+  "dependencies": {
+    "react-dnd": "^0.9.8"
   }
 }

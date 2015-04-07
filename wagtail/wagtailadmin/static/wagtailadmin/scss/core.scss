@@ -443,8 +443,16 @@ footer,
 
 
 
+body {
+    height: 99.9%;
+    // min-height: 100%;
+}
 
 
+.wrapper {
+    height: 100%;
+    min-height: 100%;
+}
 
 // Explorer interface prototype
 
@@ -465,13 +473,15 @@ footer,
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    -webkit-animation: tada .15s ease-out;
+    background: #e6e6e6;
 
 }
 
 
 .bn-explorer {
-    -webkit-animation: tada .15s ease-out;
-    background: #e6e6e6;
+
     height: 100%;
 }
 
@@ -528,6 +538,7 @@ footer,
     -webkit-animation: tada .15s ease-out;
     height: 100%;
     overflow: hidden;
+    vertical-align: top;
 }
 
 

@@ -13,6 +13,8 @@ var streamify   = require("gulp-streamify");
 var glob        = require("glob");
 
 
+var babelify = require("babelify");
+
 // Main JS entrypoint config
 var jsPath          = path.join( __dirname, "..",  "wagtail", "wagtailadmin", "static", "wagtailadmin", "js");
 var jsEntryPoint    = path.join( __dirname, "..",  "wagtail", "wagtailadmin", "static-src", "js", "explorer.js");
@@ -26,10 +28,10 @@ var jsBundleName    = "explorer-menu.js";
 function getBundler(debug) {
     return browserify({
         entries: [jsEntryPoint],
-        transform: [reactify],
+        // transform: [babelify],
         debug: debug,
         cache: {}, packageCache: {}, fullPaths: debug
-    })
+    }).transform(babelify)
 }
 
 function handleError(err) {

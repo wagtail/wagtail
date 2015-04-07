@@ -37,7 +37,8 @@ PageService.prototype = {
                             },
                             {
                                 "name": "other test page",
-                                "url": "/pages/about-us/other-test-page"
+                                "url": "/pages/about-us/other-test-page",
+                                "children": []
                             },
                             {
                                 "name": "our staff",
@@ -51,47 +52,63 @@ PageService.prototype = {
                                 ]
                             },
                             {
-                                "name": "some test data"
+                                "name": "some test data",
+                                "children": []
                             },
                             {
-                                "name": "some more test data"
+                                "name": "some more test data",
+                                "children": []
                             },
                             {
-                                "name": "some test data"
+                                "name": "some test data",
+                                "children": []
                             },
                             {
-                                "name": "some more test data"
+                                "name": "some more test data",
+                                "children": []
                             },
                             {
-                                "name": "some test data"
+                                "name": "some test data",
+                                "children": []
                             },
                             {
-                                "name": "some more test data"
+                                "name": "some more test data",
+                                "children": []
                             },
                             {
-                                "name": "some test data"
+                                "name": "some test data",
+                                "children": []
                             },
                             {
-                                "name": "some more test data"
+                                "name": "some more test data",
+                                "children": []
                             }
                         ]
                     },
                     {
                         "name": "New product page",
                         "status": "draft",
-                        "path": ",new-product-page"
+                        "path": ",new-product-page",
+                        "children": []
                     },
                     {
                         "name": "Media release",
                         "status": "pending",
-                        "path": ",media-release"
+                        "path": ",media-release",
+                        "children": []
                     }
                 ]
             },{
-                "name": "Some other top level page"
+                "name": "Some other top level page",
+                "children": []
             }
             ]
         };
+
+
+        // function decorate(item) {
+
+        // }
 
         return data;
         // var delay = Math.ceil(Math.random() * 300);
@@ -104,5 +121,7 @@ PageService.prototype = {
 }
 
 
-module.exports = PageService;
+export default PageService;
+
+// module.exports = pageeService;
 
