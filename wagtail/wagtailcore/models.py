@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import os
 import logging
 import json
 
@@ -261,13 +262,13 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-@python_2_unicode_compatible
-class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
+@python_2_unicode_compatible   
+class Page(six.with_metaclass( PageBase, MP_Node, ClusterableModel, index.Indexed)):
     title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
     slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
-    content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
+    content_type    = models.ForeignKey('contenttypes.ContentType', related_name='pages')
     live = models.BooleanField(default=True, editable=False)
     has_unpublished_changes = models.BooleanField(default=False, editable=False)
     url_path = models.CharField(max_length=255, blank=True, editable=False)
@@ -405,10 +406,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         return errors
 
-    def _update_descendant_url_paths(self, old_url_path, new_url_path):
+    def _update_descendant_url_paths(self, old_url_path, new_url_path): 
         cursor = connection.cursor()
-        if connection.vendor == 'sqlite':
-            update_statement = """
+        if connection.vendor ==  'sqlite':
+             update_statement = """
                 UPDATE wagtailcore_page
                 SET url_path = %s || substr(url_path, %s)
                 WHERE path LIKE %s AND id <> %s
