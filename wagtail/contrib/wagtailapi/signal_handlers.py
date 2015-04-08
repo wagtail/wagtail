@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save, post_delete
-from django.conf import settings
 
 from wagtail.wagtailcore.signals import page_published, page_unpublished
 from wagtail.wagtailcore.models import PAGE_MODEL_CLASSES

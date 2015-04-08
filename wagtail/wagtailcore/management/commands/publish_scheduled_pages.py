@@ -27,8 +27,9 @@ class Command(BaseCommand):
             action='store_true',
             dest='dryrun',
             default=False,
-            help='Dry run -- don\'t change anything.'),
-        )
+            help='Dry run -- don\'t change anything.'
+        ),
+    )
 
     def handle(self, *args, **options):
         dryrun = False

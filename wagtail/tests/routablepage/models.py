@@ -1,4 +1,3 @@
-from django.db import models
 from django.http import HttpResponse
 from django.conf.urls import url
 

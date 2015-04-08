@@ -1,5 +1,3 @@
-import warnings
-
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -794,7 +792,7 @@ def reject_moderation(request, revision_id):
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format( revision.page.title))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.title))
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':

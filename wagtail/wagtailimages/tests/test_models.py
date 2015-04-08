@@ -9,12 +9,11 @@ from django.contrib.auth.models import Group, Permission
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
-from django.db import connection
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
-from wagtail.wagtailimages.models import Rendition, Filter, SourceImageIOError
+from wagtail.wagtailimages.models import Rendition, SourceImageIOError
 from wagtail.wagtailimages.rect import Rect
 
 from .utils import Image, get_test_image_file
@@ -229,7 +228,7 @@ class TestGetWillowImage(TestCase):
         # Attempting to get the Willow image for images without files
         # should raise a SourceImageIOError
         with self.assertRaises(SourceImageIOError):
-            with bad_image.get_willow_image() as willow_image:
+            with bad_image.get_willow_image():
                 self.fail() # Shouldn't get here
 
 
@@ -366,7 +365,7 @@ class TestIssue312(TestCase):
         # Now manually duplicate the renditon and check that the database blocks it
         self.assertRaises(
             IntegrityError,
-            Rendition.objects.create, 
+            Rendition.objects.create,
             image=rend1.image,
             filter=rend1.filter,
             width=rend1.width,

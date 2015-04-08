@@ -5,7 +5,6 @@ import json
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.contrib.contenttypes.models import ContentType
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 

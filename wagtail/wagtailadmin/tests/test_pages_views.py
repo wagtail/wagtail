@@ -1,5 +1,4 @@
 from datetime import timedelta
-import unittest
 import mock
 
 from django.test import TestCase
@@ -340,7 +339,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
-        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Submit
         post_data = {
@@ -694,7 +693,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
-        moderator = get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Tests submitting from edit page
         post_data = {
@@ -965,18 +964,20 @@ class TestPageDelete(TestCase, WagtailTestUtils):
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
         unpublish_signals_received = []
+        pre_delete_signals_received = []
+        post_delete_signals_received = []
+
         def page_unpublished_handler(sender, instance, **kwargs):
             unpublish_signals_received.append((sender, instance.id))
-        page_unpublished.connect(page_unpublished_handler)
 
-        pre_delete_signals_received = []
         def pre_delete_handler(sender, instance, **kwargs):
             pre_delete_signals_received.append((sender, instance.id))
-        pre_delete.connect(pre_delete_handler)
 
-        post_delete_signals_received = []
         def post_delete_handler(sender, instance, **kwargs):
             post_delete_signals_received.append((sender, instance.id))
+
+        page_unpublished.connect(page_unpublished_handler)
+        pre_delete.connect(pre_delete_handler)
         post_delete.connect(post_delete_handler)
 
         # Post
@@ -1951,7 +1952,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         # Check that the page is locked
         self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
 
-    def test_unlock_post_with_bad_redirect(self):
+    def test_lock_post_with_bad_redirect(self):
         response = self.client.post(reverse('wagtailadmin_pages_lock', args=(self.child_page.id, )), {
             'next': 'http://www.google.co.uk'
         })
@@ -1960,7 +1961,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is locked
-        self.assertTrue(page.objects.get(id=self.child_page.id).locked)
+        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
 
     def test_lock_post_bad_page(self):
         response = self.client.post(reverse('wagtailadmin_pages_lock', args=(9999, )))
@@ -2104,7 +2105,7 @@ class TestIssue197(TestCase, WagtailTestUtils):
         # Add some tags and publish using edit view
         post_data = {
             'title': "Tagged page",
-            'slug':'tagged-page',
+            'slug': 'tagged-page',
             'tags': "hello, world",
             'action-publish': "Publish",
         }

@@ -63,7 +63,7 @@ class EmailLinkChooserWithLinkTextForm(forms.Form):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254,
-        widget=forms.TextInput(attrs={'tabindex': '1',}),
+        widget=forms.TextInput(attrs={'tabindex': '1'}),
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': ugettext_lazy("Enter password"),
@@ -133,7 +133,7 @@ class CopyForm(forms.Form):
                 help_text=ungettext(
                     "This will copy %(count)s subpage.",
                     "This will copy %(count)s subpages.",
-                subpage_count) % {'count': subpage_count})
+                    subpage_count) % {'count': subpage_count})
 
         if can_publish:
             pages_to_publish_count = pages_to_copy.live().count()
@@ -147,7 +147,7 @@ class CopyForm(forms.Form):
                     help_text = ungettext(
                         "%(count)s of the pages being copied is live. Would you like to publish its copy?",
                         "%(count)s of the pages being copied are live. Would you like to publish their copies?",
-                    pages_to_publish_count) % {'count': pages_to_publish_count}
+                        pages_to_publish_count) % {'count': pages_to_publish_count}
 
                 self.fields['publish_copies'] = forms.BooleanField(
                     required=False, initial=True, label=label, help_text=help_text

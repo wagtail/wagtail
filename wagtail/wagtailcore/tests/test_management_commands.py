@@ -163,9 +163,11 @@ class TestPublishScheduledPagesCommand(TestCase):
         # Connect a mock signal handler to page_published signal
         signal_fired = [False]
         signal_page = [None]
+
         def page_published_handler(sender, instance, **kwargs):
             signal_fired[0] = True
             signal_page[0] = instance
+
         page_published.connect(page_published_handler)
 
 
@@ -244,11 +246,12 @@ class TestPublishScheduledPagesCommand(TestCase):
         # Connect a mock signal handler to page_unpublished signal
         signal_fired = [False]
         signal_page = [None]
+
         def page_unpublished_handler(sender, instance, **kwargs):
             signal_fired[0] = True
             signal_page[0] = instance
-        page_unpublished.connect(page_unpublished_handler)
 
+        page_unpublished.connect(page_unpublished_handler)
 
         page = SimplePage(
             title="Hello world!",

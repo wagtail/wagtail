@@ -4,13 +4,11 @@ import json
 
 from six.moves.urllib.parse import urlparse
 
-from django.db import models
-
-from elasticsearch import Elasticsearch, NotFoundError, RequestError
+from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
-from wagtail.wagtailsearch.index import Indexed, SearchField, FilterField, class_is_indexed
+from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
 
 
 class ElasticSearchMapping(object):

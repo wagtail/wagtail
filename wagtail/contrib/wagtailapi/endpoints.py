@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-import urllib
 from collections import OrderedDict
 
 from modelcluster.models import get_all_child_relations
@@ -8,9 +7,7 @@ from taggit.managers import _TaggableManager
 
 from django.db import models
 from django.utils.encoding import force_text
-from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator, EmptyPage
 from django.conf.urls import url
 from django.conf import settings
 

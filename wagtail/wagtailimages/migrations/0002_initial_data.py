@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 
 
 def add_image_permissions_to_admin_groups(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')
     Group = apps.get_model('auth.Group')
-    Image = apps.get_model('wagtailimages.Image')
 
     # Get image permissions
     image_content_type, _created = ContentType.objects.get_or_create(

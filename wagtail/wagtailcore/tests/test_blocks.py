@@ -514,8 +514,7 @@ class TestListBlock(unittest.TestCase):
                 'title': "Django",
                 'link': 'http://www.djangoproject.com',
             },
-        ]
-        , prefix='links')
+        ], prefix='links')
 
         return html
 
@@ -743,7 +742,7 @@ class TestStreamBlock(unittest.TestCase):
                 'value': 'My second paragraph',
             },
         ])
-        return block.render_form(value,  prefix='myarticle')
+        return block.render_form(value, prefix='myarticle')
 
     def test_render_form_wrapper_class(self):
         html = self.render_form()

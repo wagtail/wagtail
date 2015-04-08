@@ -1,12 +1,10 @@
 import json
-import unittest
 import mock
 import collections
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
 from wagtail.wagtailcore.models import Page
 

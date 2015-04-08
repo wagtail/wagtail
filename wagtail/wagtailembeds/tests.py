@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 
 try:
-    import embedly
+    import embedly  # noqa
     no_embedly = False
 except ImportError:
     no_embedly = True
@@ -89,7 +89,7 @@ class TestEmbeds(TestCase):
         # Width must be set to None
         self.assertEqual(embed.width, None)
 
-    def test_no_html(self) :
+    def test_no_html(self):
         def no_html_finder(url, max_width=None):
             """
             A finder which returns everything but HTML
@@ -227,13 +227,13 @@ class TestOembed(TestCase):
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
-        with patch.object(six.moves.urllib.request, 'urlopen', **config) as urlopen:
+        with patch.object(six.moves.urllib.request, 'urlopen', **config):
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 
     @patch('six.moves.urllib.request.urlopen')
     @patch('json.loads')
-    def test_oembed_photo_request(self, loads, urlopen) :
+    def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}

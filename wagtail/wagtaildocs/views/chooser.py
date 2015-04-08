@@ -19,7 +19,7 @@ def get_document_json(document):
     """
 
     return json.dumps({
-        'id': document.id, 
+        'id': document.id,
         'title': document.title,
         'edit_link': reverse('wagtaildocs_edit_document', args=(document.id,)),
     })
@@ -94,7 +94,7 @@ def document_chosen(request, document_id):
 
     return render_modal_workflow(
         request, None, 'wagtaildocs/chooser/document_chosen.js',
-        {'document_json':  get_document_json(document)}
+        {'document_json': get_document_json(document)}
     )
 
 
