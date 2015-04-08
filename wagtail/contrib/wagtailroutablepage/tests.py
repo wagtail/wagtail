@@ -1,14 +1,17 @@
 from django.test import TestCase, RequestFactory
+from django.core.urlresolvers import NoReverseMatch
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.routablepage.models import RoutablePageTest, routable_page_external_view
+from wagtail.tests.routablepage.models import OldStyleRoutablePageTest, NewStyleRoutablePageTest, routable_page_external_view
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
 
 
-class TestRoutablePage(TestCase):
+class TestNewStyleRoutablePage(TestCase):
+    model = NewStyleRoutablePageTest
+
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
+        self.routable_page = self.home_page.add_child(instance=self.model(
             title="Routable Page",
             slug='routable-page',
             live=True,
@@ -38,8 +41,15 @@ class TestRoutablePage(TestCase):
     def test_resolve_external_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage('/external/joe-bloggs/')
 
-        self.assertEqual(view, routable_page_external_view)
+        self.assertEqual(view, self.routable_page.external_view)
         self.assertEqual(args, ('joe-bloggs', ))
+        self.assertEqual(kwargs, {})
+
+    def test_resolve_external_view_other_route(self):
+        view, args, kwargs = self.routable_page.resolve_subpage('/external-no-arg/')
+
+        self.assertEqual(view, self.routable_page.external_view)
+        self.assertEqual(args, ())
         self.assertEqual(kwargs, {})
 
     def test_reverse_main_view(self):
@@ -57,10 +67,24 @@ class TestRoutablePage(TestCase):
 
         self.assertEqual(url, 'archive/author/joe-bloggs/')
 
+    def test_reverse_overridden_name(self):
+        url = self.routable_page.reverse_subpage('name_overridden')
+
+        self.assertEqual(url, 'override-name-test/')
+
+    def test_reverse_overridden_name_default_doesnt_work(self):
+        with self.assertRaises(NoReverseMatch):
+            self.routable_page.reverse_subpage('override_name_test')
+
     def test_reverse_external_view(self):
         url = self.routable_page.reverse_subpage('external_view', args=('joe-bloggs', ))
 
         self.assertEqual(url, 'external/joe-bloggs/')
+
+    def test_reverse_external_view_other_route(self):
+        url = self.routable_page.reverse_subpage('external_view')
+
+        self.assertEqual(url, 'external-no-arg/')
 
     def test_get_main_view(self):
         response = self.client.get(self.routable_page.url)
@@ -82,10 +106,39 @@ class TestRoutablePage(TestCase):
 
         self.assertContains(response, "EXTERNAL VIEW: joe-bloggs")
 
+    def test_get_external_view_other_route(self):
+        response = self.client.get(self.routable_page.url + 'external-no-arg/')
 
-class TestRoutablePageTemplateTag(TestRoutablePage):
+        self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
+
+
+class TestOldStyleRoutablePage(TestNewStyleRoutablePage):
+    model = OldStyleRoutablePageTest
+
+    def test_resolve_external_view(self):
+        view, args, kwargs = self.routable_page.resolve_subpage('/external/joe-bloggs/')
+
+        self.assertEqual(view, routable_page_external_view)
+        self.assertEqual(args, ('joe-bloggs', ))
+        self.assertEqual(kwargs, {})
+
+    test_resolve_external_view_other_route = None
+    test_reverse_external_view_other_route = None
+    test_get_external_view_other_route = None
+
+    test_reverse_overridden_name = None
+    test_reverse_overridden_name_default_doesnt_work = None
+
+
+class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
-        super(TestRoutablePageTemplateTag, self).setUp()
+        self.home_page = Page.objects.get(id=2)
+        self.routable_page = self.home_page.add_child(instance=NewStyleRoutablePageTest(
+            title="Routable Page",
+            slug='routable-page',
+            live=True,
+        ))
+
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
         self.request.site = Site.find_for_request(self.request)
