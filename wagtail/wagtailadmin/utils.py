@@ -29,8 +29,8 @@ def get_object_usage(obj):
                 }).values_list('id', flat=True)
             )
         else:
-        # if the relation is between obj and an object that has a page as a
-        # property, return the page
+            # if the relation is between obj and an object that has a page as a
+            # property, return the page
             for f in relation.model._meta.fields:
                 if isinstance(f, ParentalKey) and issubclass(f.rel.to, Page):
                     pages |= Page.objects.filter(
@@ -74,7 +74,7 @@ def send_mail(email_subject, email_content, email_addresses, from_email=None):
 def send_notification(page_revision_id, notification, excluded_user_id):
     # Get revision
     revision = PageRevision.objects.get(id=page_revision_id)
-    
+
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers

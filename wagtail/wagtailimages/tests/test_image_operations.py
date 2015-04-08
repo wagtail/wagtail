@@ -79,7 +79,7 @@ class ImageOperationTestCase(unittest.TestCase):
         test_name = 'test_run_%s' % filter_spec
         test_run.__name__ = test_name
         return test_run
- 
+
     @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:
@@ -274,7 +274,6 @@ class TestMinMaxOperation(ImageOperationTestCase):
 
     filter_spec_error_tests = [
         'min',
-        #'hello-800x600',
         'min-800',
         'min-abc',
         'min-800xabc',
@@ -307,7 +306,6 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 
     filter_spec_error_tests = [
         'width',
-        #'hello-800',
         'width-800x600',
         'width-abc',
         'width-800-c100',

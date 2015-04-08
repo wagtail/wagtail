@@ -87,7 +87,6 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
     def test_not_descendant_of(self):
-        homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
         pages = Page.objects.not_descendant_of(events_index)
 
@@ -99,7 +98,6 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
     def test_not_descendant_of_inclusive(self):
-        homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
         pages = Page.objects.not_descendant_of(events_index, inclusive=True)
 

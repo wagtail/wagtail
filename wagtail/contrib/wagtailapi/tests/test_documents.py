@@ -1,17 +1,13 @@
 import json
-import unittest
 import mock
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
 from wagtail.wagtaildocs.models import Document
 
 from wagtail.contrib.wagtailapi import signal_handlers
-
-from wagtail.tests.demosite import models
 
 
 class TestDocumentListing(TestCase):

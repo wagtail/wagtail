@@ -1,6 +1,4 @@
-import datetime
 import warnings
-from contextlib import contextmanager
 
 from mock import MagicMock
 
@@ -8,7 +6,6 @@ from django.test import TestCase
 from django import template, forms
 from django.utils import six
 from django.core.urlresolvers import reverse
-from django.db import models
 
 from taggit.forms import TagField, TagWidget
 

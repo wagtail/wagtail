@@ -1,6 +1,5 @@
 import logging
 
-from django.utils import six
 from django.conf import settings
 from django.utils.module_loading import import_string
 from django.core.exceptions import ImproperlyConfigured
@@ -55,7 +54,7 @@ def get_backends(backend_settings=None, backends=None):
     return backend_objects
 
 
-def purge_url_from_cache(url, backend_settings=None, backends=None): 
+def purge_url_from_cache(url, backend_settings=None, backends=None):
     for backend_name, backend in get_backends(backend_settings=backend_settings, backends=backends).items():
         logger.info("[%s] Purging URL: %s", backend_name, url)
         backend.purge(url)

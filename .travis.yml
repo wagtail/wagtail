@@ -21,6 +21,7 @@ matrix:
    - env: TOXENV=py34-dj18-postgres
    - env: TOXENV=py34-dj18-sqlite
    - env: TOXENV=py34-dj18-mysql
+   - env: TOXENV=flake8
 
 # Services
 services:

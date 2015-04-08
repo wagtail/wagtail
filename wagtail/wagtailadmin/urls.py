@@ -113,7 +113,7 @@ urlpatterns += [
         }, name='wagtailadmin_password_reset_confirm',
     ),
     url(
-        r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete',{
+        r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete', {
             'template_name': 'wagtailadmin/account/password_reset/complete.html'
         }, name='wagtailadmin_password_reset_complete'
     ),
