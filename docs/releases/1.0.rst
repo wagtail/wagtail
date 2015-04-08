@@ -108,6 +108,7 @@ Bug fixes
 
  * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
  * Image edit page no longer throws ``OSError`` when the original image is missing
+ * Users are no longer logged out on changing password when SessionAuthenticationMiddleware is in use
 
 
 Upgrade considerations
