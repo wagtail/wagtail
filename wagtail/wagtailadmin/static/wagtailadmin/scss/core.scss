@@ -483,6 +483,10 @@ body {
 .bn-explorer {
 
     height: 100%;
+
+    h1 span {
+        font-weight: inherit;
+    }
 }
 
 
@@ -529,6 +533,10 @@ body {
     }
 }
 
+.bn-arrow-unloaded {
+    color: #999;
+}
+
 
 .bn-column {
     display: table-cell;
@@ -547,12 +555,6 @@ body {
     height: 100%;
 }
 
-.bn-add {
-    display: none;
-    padding: .5em 3em;
-    cursor: pointer;
-    color: $color-teal-darker;
-}
 
 .bn-column:hover .bn-add {
     display: block;
@@ -565,9 +567,17 @@ body {
 .bn-node {
     background: #fff;
     padding: .5em 3em;
-    height: 80px;
+    min-height: 5em;
     border-bottom: solid 1px #ddd;
     cursor: pointer;
+    transition: height .2s, background .2s, opacity .2s ease-out;
+
+    &.-ghost {
+        background: none;
+        &:hover {
+            background: none;
+        }
+    }
 }
 
 .bn-node:hover {
@@ -583,7 +593,6 @@ body {
 }
 
 .bn-node--active {
-    // background: #4B5B61;
     background: #555;
     color: #fff;
     &:hover {
@@ -591,6 +600,113 @@ body {
     }
 }
 
+.bn-node--active ~ .bn-node {
+    opacity: .5;
+}
+
+
+
 .bn-active {
     background: #1a1a1a;
 }
+
+.bn-explorer__root,
+.bn-breadcrumb {
+    cursor: pointer;
+
+}
+    .bn-explorer__root:hover,
+    .bn-breadcrum-item:hover {
+        text-decoration: underline;
+    }
+
+
+
+.bn-add {
+    cursor: pointer;
+    padding: .5em 2.25em;
+    color: #fff;
+    font-weight: bold;
+    background: #F37E77;
+}
+
+.btn-group {
+    margin-bottom: .5em;
+
+    & > .btn {
+        margin-right: .5em;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: .25em;
+    background: rgba(0,0,0,0.2);
+    white-space: nowrap;
+    line-height: 2;
+    padding-left: .5em;
+    padding-right: .5em;
+    font-size: inherit;
+    cursor: pointer;
+
+    &.-small {
+        line-height: 1.5;
+    }
+}
+
+.btn:hover {
+    background-color: rgba(0,0,0,0.5);
+}
+
+
+.bn-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+
+.bn-reveal {
+    -webkit-animation: tada .07s ease-out;
+}
+
+    .bn-modal-view {
+         -webkit-animation: tada .07s ease-out;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        background: #fff;
+        padding: 1.5em 2.25em;
+        border-radius: .25em;
+        box-shadow: 0 .25em .5em rgba(0,0,0,0.15);
+    }
+
+    .bn-chooser {
+        max-width: 35em;
+        background: #fff;
+    }
+
+    .bn-choser-item {
+        width: 40%;
+        text-align: center;
+        padding-top: .5em;
+        padding-bottom: .5em;
+        font-size: 1.125em;
+        background: #fff;
+        border: solid 1px $color-teal;
+        color: $color-teal-darker;
+        margin-right: 1em;
+    }
+
+    .bn-choser-item:hover {
+        background: $color-teal;
+        color: #fff;
+    }

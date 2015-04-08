@@ -42,6 +42,7 @@
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.4",
+    "lodash": "^3.6.0",
     "react": "^0.13.1",
     "reactify": "^1.1.0",
     "scroll": "0.0.3",
@@ -50,6 +51,8 @@
   },
   "dependencies": {
     "babel": "^5.0.9",
+    "flux": "^2.0.1",
+    "microevent": "^1.0.0",
     "react-dnd": "^0.9.8"
   }
 }
