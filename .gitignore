@@ -8,3 +8,6 @@
 /docs/_build/
 /.tox/
 /venv
+/demosite.sqlite3
+/demosite-static
+/demosite-media
