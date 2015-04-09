@@ -3,8 +3,6 @@
 Sitemap generation
 ==================
 
-.. versionadded:: 0.4
-
 This document describes how to create XML sitemaps for your Wagtail website using the ``wagtail.contrib.wagtailsitemaps`` module.
 
 

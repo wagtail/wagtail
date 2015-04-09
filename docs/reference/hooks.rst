@@ -6,9 +6,6 @@ Hooks
 
 On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
 
-.. versionadded:: 0.5
-  Decorator syntax was added in 0.5; earlier versions only supported ``hooks.register`` as an ordinary function call.
-
 Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
 .. code-block:: python
@@ -32,7 +29,6 @@ The available hooks are:
 .. _before_serve_page:
 
 ``before_serve_page``
-  .. versionadded:: 0.4
 
   Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
 
@@ -47,8 +43,6 @@ The available hooks are:
 
 
 .. _construct_wagtail_userbar:
-
-.. versionadded:: 0.3
 
 .. versionchanged:: 1.0
 
@@ -159,7 +153,6 @@ The available hooks are:
 .. _register_admin_menu_item:
 
 ``register_admin_menu_item``
-  .. versionadded:: 0.6
 
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
@@ -253,7 +246,6 @@ The available hooks are:
 .. _construct_whitelister_element_rules:
 
 ``construct_whitelister_element_rules``
-.. versionadded:: 0.4
 
   Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 

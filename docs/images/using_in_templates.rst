@@ -131,8 +131,6 @@ Wagtail provides two shortcuts to give greater control over the ``img`` element:
 
 **1. Adding attributes to the  {% image %} tag**
 
-.. versionadded:: 0.4
-
 Extra attributes can be specified with the syntax ``attribute="value"``:
 
 .. code-block:: django
@@ -169,8 +167,6 @@ Therefore in the above example, if you'd added the field ``foo`` to your Abstrac
 
 The ``attrs`` shortcut
 -----------------------
-
-.. versionadded:: 0.4
 
 You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
 

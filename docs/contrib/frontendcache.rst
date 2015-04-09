@@ -3,8 +3,6 @@
 Frontend cache invalidation
 ===========================
 
-.. versionadded:: 0.4
-
 .. versionchanged:: 0.7
 
    * Multiple backend support added
