@@ -362,7 +362,7 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
 
 The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
 
-.. versionchanged:: 0.9
+.. versionchanged:: 1.0
 
     In previous versions, it was necessary to pass the base model as the first parameter to ``InlinePanel``; this is no longer required.
 
@@ -378,7 +378,7 @@ For more on ``django-modelcluster``, visit `the django-modelcluster github proje
 Customising the tabbed interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 0.9
+.. versionadded:: 1.0
 
 As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. Depending on the requirements of your site, you may wish to customise this for specific page types - for example, adding an additional tab for sidebar content. This can be done by specifying an ``edit_handler`` property on the page model. For example:
 
