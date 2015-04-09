@@ -293,3 +293,11 @@ Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. D
         ObjectList(BlogPage.promote_panels, heading='Promote'),
         ObjectList(BlogPage.settings_panels, heading='Settings', classname="settings"),
     ])
+
+The ``construct_wagtail_edit_bird`` has changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+The hook has been renamed to ``construct_wagtail_userbar``.
+
+The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.
