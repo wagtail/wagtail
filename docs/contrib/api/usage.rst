@@ -63,14 +63,16 @@ This is what a typical response from a ``GET`` request to this listing would loo
             {
                 "id": 2,
                 "meta": {
-                    "type": "demo.HomePage"
+                    "type": "demo.HomePage",
+                    "detail_url": "http://api.example.com/api/v1/pages/2/"
                 },
                 "title": "Homepage"
             },
             {
                 "id": 3,
                 "meta": {
-                    "type": "demo.BlogIndexPage"
+                    "type": "demo.BlogIndexPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/3/"
                 },
                 "title": "Blog"
             }
@@ -84,7 +86,10 @@ Each page object contains the ``id``, a ``meta`` section and the fields with the
 ``meta``
 ^^^^^^^^
 
-This section is for any piece of information that is useful, but not a database field. The initial implementation only includes the type name here, but possible additions would be things like urls to relevant parts of the API (eg. detail/edit views), status, parent page, etc.
+This section is used to hold "metadata" fields which aren't fields in the database. Wagtail API adds two by default:
+
+ - ``type`` - The app label/model name of the object
+ - ``detail_url`` - A URL linking to the detail view for this object
 
 
 Selecting a page type
@@ -110,21 +115,24 @@ The ``type`` query parameter must be set to the Pages model name in the format: 
             {
                 "id": 4,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/4/"
                 },
                 "title": "My blog 1"
             },
             {
                 "id": 5,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/5/"
                 },
                 "title": "My blog 2"
             },
             {
                 "id": 6,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/6/"
                 },
                 "title": "My blog 3"
             }
@@ -154,42 +162,48 @@ Just set ``fields`` to a command-separated list of field names that you would li
             {
                 "id": 4,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/4/"
                 },
                 "title": "My blog 1",
                 "date_posted": "2015-01-23",
                 "feed_image": {
                     "id": 1,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/1/"
                     }
                 }
             },
             {
                 "id": 5,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/5/"
                 },
                 "title": "My blog 2",
                 "date_posted": "2015-01-24",
                 "feed_image": {
                     "id": 2,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/2/"
                     }
                 }
             },
             {
                 "id": 6,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/6/"
                 },
                 "title": "My blog 3",
                 "date_posted": "2015-01-25",
                 "feed_image": {
                     "id": 3,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/3/"
                     }
                 }
             }
@@ -221,7 +235,8 @@ Exact matches on field values can be done by using a query parameter with the sa
             {
                 "id": 5,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/5/"
                 },
                 "title": "My blog 2",
                 "date_posted": "2015-01-24",
@@ -252,7 +267,8 @@ For example (imagine we are in the same project as all previous examples, and pa
             {
                 "id": 4,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/4/"
                 },
                 "title": "Other blog 1"
             }
@@ -280,42 +296,48 @@ Like filtering, it is also possible to order on database fields. The endpoint ac
             {
                 "id": 6,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/6/"
                 },
                 "title": "My blog 3",
                 "date_posted": "2015-01-25",
                 "feed_image": {
                     "id": 3,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/3/"
                     }
                 }
             },
             {
                 "id": 5,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/5/"
                 },
                 "title": "My blog 2",
                 "date_posted": "2015-01-24",
                 "feed_image": {
-                    "id": 32,
+                    "id": 2,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/2/"
                     }
                 }
             },
             {
                 "id": 4,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/4/"
                 },
                 "title": "My blog 1",
                 "date_posted": "2015-01-23",
                 "feed_image": {
                     "id": 1,
                     "meta": {
-                        "type": "wagtailimages.Image"
+                        "type": "wagtailimages.Image",
+                        "detail_url": "http://api.example.com/api/v1/images/1/"
                     }
                 }
             }
@@ -343,7 +365,8 @@ Pagination is done using two query parameters called ``limit`` and ``offset``. `
             {
                 "id": 3,
                 "meta": {
-                    "type": "demo.BlogIndexPage"
+                    "type": "demo.BlogIndexPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/3/"
                 },
                 "title": "Blog"
             }
@@ -374,28 +397,32 @@ To perform a full-text search, set the ``search`` parameter to the query string 
             {
                 "id": 3,
                 "meta": {
-                    "type": "demo.BlogIndexPage"
+                    "type": "demo.BlogIndexPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/3/"
                 },
                 "title": "Blog"
             },
             {
                 "id": 4,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/4/"
                 },
                 "title": "My blog 1",
             },
             {
                 "id": 5,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/5/"
                 },
                 "title": "My blog 2",
             },
             {
                 "id": 6,
                 "meta": {
-                    "type": "demo.BlogPage"
+                    "type": "demo.BlogPage",
+                    "detail_url": "http://api.example.com/api/v1/pages/6/"
                 },
                 "title": "My blog 3",
             }
@@ -424,11 +451,13 @@ This view gives you access to all of the details for a particular page.
         "id": 6,
         "meta": {
             "type": "demo.BlogPage",
+            "detail_url": "http://api.example.com/api/v1/pages/6/"
         },
         "parent": {
             "id": 3,
             "meta": {
-                "type": "demo.BlogIndexPage"
+                "type": "demo.BlogIndexPage",
+                "detail_url": "http://api.example.com/api/v1/pages/3/"
             }
         },
         "title": "My blog 3",
@@ -436,13 +465,20 @@ This view gives you access to all of the details for a particular page.
         "feed_image": {
             "id": 3,
             "meta": {
-                "type": "wagtailimages.Image"
+                "type": "wagtailimages.Image",
+                "detail_url": "http://api.example.com/api/v1/images/3/"
             }
         },
         "related_links": [
             {
                 "title": "Other blog page",
-                "page": 6
+                "page": {
+                    "id": 5,
+                    "meta": {
+                        "type": "demo.BlogPage",
+                        "detail_url": "http://api.example.com/api/v1/pages/5/"
+                    }
+                }
             }
         ]
     }
@@ -478,14 +514,26 @@ This is what a typical response from a ``GET`` request to this listing would loo
         "images": [
             {
                 "id": 4, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/4/"
+                },
                 "title": "Wagtail by Mark Harkin"
             }, 
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce"
             }, 
             {
                 "id": 6, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/6/"
+                },
                 "title": "David Mitchell"
             }
         ]
@@ -516,18 +564,30 @@ By default, this will allow you to add the ``width`` and ``height`` fields to yo
         "images": [
             {
                 "id": 4, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/4/"
+                },
                 "title": "Wagtail by Mark Harkin", 
                 "width": 640, 
                 "height": 427
             }, 
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce", 
                 "width": 500, 
                 "height": 392
             }, 
             {
                 "id": 6, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/6/"
+                },
                 "title": "David Mitchell", 
                 "width": 360, 
                 "height": 282
@@ -555,6 +615,10 @@ Exact matches on field values can be done by using a query parameter with the sa
         "images": [
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce"
             }
         ]
@@ -580,16 +644,28 @@ The images endpoint also accepts the ``order`` parameter which should be set to 
         "images": [
             {
                 "id": 6, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/6/"
+                },
                 "title": "David Mitchell", 
                 "width": 360
             },
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce", 
                 "width": 500
             },
             {
                 "id": 4, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/4/"
+                },
                 "title": "Wagtail by Mark Harkin", 
                 "width": 640
             }
@@ -616,6 +692,10 @@ Pagination is done using two query parameters called ``limit`` and ``offset``. `
         "images": [
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce", 
                 "width": 500, 
                 "height": 392
@@ -646,6 +726,10 @@ To perform a full-text search, set the ``search`` parameter to the query string 
         "pages": [
             {
                 "id": 5, 
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/api/v1/images/5/"
+                },
                 "title": "James Joyce", 
                 "width": 500, 
                 "height": 392
@@ -672,6 +756,10 @@ This view gives you access to all of the details for a particular image.
 
     {
         "id": 5, 
+        "meta": {
+            "type": "wagtailimages.Image",
+            "detail_url": "http://api.example.com/api/v1/images/5/"
+        },
         "title": "James Joyce", 
         "width": 500, 
         "height": 392
@@ -705,6 +793,8 @@ This view gives you access to all of the details for a particular document.
     {
         "id": 1, 
         "meta": {
+            "type": "wagtaildocs.Document",
+            "detail_url": "http://api.example.com/api/v1/documents/1/",
             "download_url": "http://api.example.com/documents/1/usage.md"
         }, 
         "title": "Wagtail API usage"
