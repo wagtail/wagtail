@@ -16,7 +16,12 @@ class BasePageTypeStore extends EventEmitter {
 
     }
     populate(payload) {
-        this.items = payload.data;
+        this.items = payload.data.map(function(item) {
+            if (!item.subpage_types) {
+                item.subpage_types = [];
+            }
+            return item;
+        });
         this.emit('change');
     }
     beforeUpdate(payload) {

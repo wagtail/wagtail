@@ -75,46 +75,50 @@ const Explorer = React.createClass({
                 break;
         }
 
-        if (data) {
+        if (data.children) {
             el = React.createElement(view, {
                 data,
                 stack,
                 pageTypes
             });
         } else {
-            el = (<div>Loading</div>);
+            el = (
+            <div className='bn-loading'>
+                 <img src='/static/wagtailadmin/images/spinner.gif' />
+            </div>);
         }
 
-
         return (
-            <div className="bn-explorer">
-                <div className="bn-explorer__header">
-                    <h1>
-                        <span
-                            onClick={this.handleRootNodeClick}
-                            className='bn-explorer__root'
-                        >
-                            Explorer
-                        </span>
-                        <small>
-                            <Breadcrumb
-                                data={stack}
-                            />
-                        </small>
+            <div className="bn-explorer-container">
+                <div className="bn-explorer">
+                    <div className="bn-explorer__header">
+                        <h1>
+                            <span
+                                onClick={this.handleRootNodeClick}
+                                className='bn-explorer__root'
+                            >
+                                Explorer
+                            </span>
+                            <small>
+                                <Breadcrumb
+                                    data={stack}
+                                />
+                            </small>
 
-                    </h1>
+                        </h1>
+                    </div>
+                    <div className='bn-explorer__overflow'>
+                        {el}
+                    </div>
+                    { modal ?
+                    <div className='bn-modal' onClick={this.handleClose}>
+                        <PageChooser
+                            data={data}
+                            stack={stack}
+                            pageTypes={pageTypes}
+                        />
+                    </div> : null }
                 </div>
-                <div className='bn-explorer__overflow'>
-                    {el}
-                </div>
-                { modal ?
-                <div className='bn-modal' onClick={this.handleClose}>
-                    <PageChooser
-                        data={data}
-                        stack={stack}
-                        pageTypes={pageTypes}
-                    />
-                </div> : null }
             </div>
         );
     },
@@ -125,14 +129,36 @@ const Explorer = React.createClass({
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+function handleInit(e) {
+    var isReactified = false;
     var el = document.querySelector('.content-wrapper');
     var mount = document.createElement('div');
-    // var height = document.documentElement.offsetHeight;
 
-    mount.classList.add('bn-explorer-container');
-    // mount.style.height = height + "px";
+    function handleClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!isReactified) {
+            isReactified = true;
+            ColumnViewActions.reset();
+            document.body.className = document.body.className.replace(/menu-.+  /, "");
+            document.body.classList.add('menu-explorer');
+            React.render(React.createElement(Explorer), mount);
+        } else {
+            // document.body.classList.remove('menu-explorer');
+            React.unmountComponentAtNode(mount);
+            isReactified = false;
+        }
+    }
+
+
+    var triggerEl = document.querySelector('[data-explorer-menu-url]');
+    triggerEl.addEventListener('click', handleClick, false);
+
     el.appendChild(mount);
-    React.render(React.createElement(Explorer), mount);
-});
+}
+
+
+
+document.addEventListener('DOMContentLoaded', handleInit);
 

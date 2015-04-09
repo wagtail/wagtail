@@ -92,6 +92,21 @@ const ColumnViewActions = {
             node: node,
             url: url
         });
+    },
+    hideExplorer(payload) {
+        AppDispatcher.dispatch({
+            eventName: 'EXPLORER_HIDE'
+        });
+    },
+    showExplorer(payload) {
+        AppDispatcher.dispatch({
+            eventName: 'EXPLORER_SHOW'
+        });
+    },
+    reset(payload) {
+        AppDispatcher.dispatch({
+            eventName: 'EXPLORER_RESET'
+        });
     }
 }
 

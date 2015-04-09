@@ -3,6 +3,36 @@ import { DragDropMixin } from 'react-dnd';
 import ItemTypes from './ItemTypes';
 import ColumnViewActions from './actions/ColumnViewActions';
 import PageTypeStore from './stores/PageTypeStore';
+import ColumnViewStore from './stores/ColumnViewStore';
+import CardControls from './CardControls';
+
+
+const ToolTip = React.createClass({
+    render() {
+        const {message} = this.props;
+        return (
+            <div className='bn-tooltip'>
+                {message}
+            </div>
+        );
+    }
+});
+
+
+const NodeStatusIndicator = React.createClass({
+    render() {
+        const { data } = this.props;
+        const status = data.status;
+
+        var className = "bn-status -" + status;
+
+        return (
+            <span className={className}>
+            </span>
+        );
+    }
+});
+
 
 
 const dragSource = {
@@ -18,52 +48,21 @@ const dragSource = {
 
 const dropTarget = {
     over(component, item) {
-        const id = component.props.id;
-        const column = component.props.column;
+        const id        = component.props.id;
+        const column    = component.props.column;
         ColumnViewActions.move(component.props.data, id, column, item)
     },
     leave(component, item) {
+        const id        = component.props.id;
+        const column    = component.props.column;
         ColumnViewActions.leave(component.props.data, id, column, item)
     },
     acceptDrop(component, item, isHandled, effect) {
-        const id = component.props.id;
-        const column = component.props.column;
+        const id        = component.props.id;
+        const column    = component.props.column;
         ColumnViewActions.move(component.props.data, id, column, item);
     }
 };
-
-
-const CardControls = React.createClass({
-    handleClick(e) {
-        e.stopPropagation();
-    },
-    handleRemove(e) {
-        const { data, stack } = this.props;
-        ColumnViewActions.removeCard(data);
-    },
-    handleAdd(e) {
-        ColumnViewActions.showModal();
-    },
-    render() {
-        const { data, stack } = this.props;
-        return (
-            <div
-                className='bn-controls btn-group bn-reveal'
-                onClick={this.handleClick}>
-                <span className='btn -small' >Edit</span>
-                <span className='btn -small' >Move</span>
-                <span
-                    className='btn -small'
-                    onClick={this.handleRemove}>
-                    Delete
-                </span>
-                <span className='btn -small' onClick={this.handleAdd}>
-                    Add page
-                </span>
-            </div>
-        );
-    }
-});
 
 
 
@@ -94,46 +93,75 @@ const Card = React.createClass({
             });
         }
     },
+    isSibling(node, stack) {
+        var isSibling = false;
+
+        if (stack.indexOf(node) > -1) {
+            return isSibling;
+        }
+
+        // Array.some(). Who knew?
+        isSibling = stack.some((item) => {
+            return item.parent ? item.parent.children.indexOf(node) > -1 : false;
+        });
+
+        return isSibling;
+    },
+    isLast(node, stack) {
+        return stack.indexOf(node) === stack.length-1;
+    },
     render() {
-        const { isDragging } = this.getDragState(ItemTypes.CARD);
-        const { isHovering } = this.getDropState(ItemTypes.CARD);
-        const { data, stack } = this.props;
-        const isLoading = data.loading;
-        var isSelected = false;
-        var isLast = false;
+        const { isDragging }        = this.getDragState(ItemTypes.CARD);
+        const { isHovering }        = this.getDropState(ItemTypes.CARD);
+        const { data, stack }       = this.props;
+        const isLoading             = data.loading;
 
+        var isSelected              = false;
+        var isLast                  = false;
+        var isSiblingOfSelected     = false;
+        var className               = ['bn-node'];
+        var type                    = PageTypeStore.getTypeByName(data.type);
 
-        var type = PageTypeStore.getTypeByName(data.type);
+        isSelected                  = stack.indexOf(data) > -1;
+        isSiblingOfSelected         = this.isSibling(data, stack);
+        isLast                      = this.isLast(data, stack);
 
-        if (stack.indexOf(data) > -1) {
-            isSelected = true;
+        if (isSelected)             className.push('bn-node--active');
+        if (isSiblingOfSelected)    className.push('bn-node--sibling');
+        if (isHovering)             className.push('bn-node--hover');
+        if (isDragging)             className.push('bn-node--drag');
+
+        if (isLoading)              className.push('bn-node--loading');
+        if (isLoading)              className.push('icon-spinner');
+
+        if (!isLoading) {
+            if (data.children.length) {
+                className.push('bn-node--children');
+            }
+            if (data.url && !data.children.length) {
+                className.push('bn-node--unloaded');
+            }
         }
-
-        if (stack.indexOf(data) === stack.length-1) {
-            isLast = true;
-        }
-
-        var canAddChildPage = isLast;
-        var className = 'bn-node ' + (isSelected ? 'bn-node--active': '');
 
         return (
+            <div className='bn-node-wrap'>
             <div
-                className={className}
+                className={className.join(" ")}
                 onClick={this.handleClick}
-                style={{backgroundColor:  isHovering ? "red" : "" , opacity: isDragging ? ".25" : null}}
                 {...this.dragSourceFor(ItemTypes.CARD)}
-                {...this.dropTargetFor(ItemTypes.CARD)}
-            >
+                {...this.dropTargetFor(ItemTypes.CARD)} >
                 <h3>
-                    {data.name}
-                    {isLoading ? <img src='/static/wagtailadmin/images/spinner.gif' width="16" height="16" /> : null }
-                    {!isLoading && data.children && data.children.length ? <span className='icon bn-arrow'></span> : null}
-                    {!isLoading && data.url && !data.children.length ? <span className='icon bn-arrow bn-arrow-unloaded'></span> : null}
+                    <NodeStatusIndicator data={data} />{data.name}
                 </h3>
                 <p>
-                    {data.status} | {type ? type.verbose_name : null }
+
+                    {type ?
+                        <span className="bn-node-type">
+                            {type.verbose_name}
+                        </span> : null }
                 </p>
-                {isLast ? <CardControls data={data} stack={stack} /> : null}
+            </div>
+            {isLast ? <CardControls data={data} stack={stack} /> : null}
             </div>
         );
     }

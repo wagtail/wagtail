@@ -71,43 +71,32 @@ class BaseColumnViewStore extends EventEmitter {
         this.emit('change');
     }
 
+    parseNode(node) {
+        if (!node.children) {
+            node.children = [];
+        }
+
+        if (!node.status) {
+            node.status = 'draft';
+        }
+
+        if (!node.type) {
+            node.type = 'site.StandardPage';
+        }
+
+        node.children = node.children.map(function(item) {
+            return this.parseNode(item);
+        }, this);
+
+        return node;
+    }
+
     populate(payload) {
         const { data } = payload;
 
+        const newData = this.parseNode(data);
 
-        function createLinkedList(collection) {
-            if (!collection.children) {
-                collection.children = [];
-            }
-
-            if (!collection.status) {
-                collection.status = "draft";
-            }
-
-            collection.children.forEach(function(model) {
-
-                if (!model.children) {
-                    model.children = [];
-                }
-
-                if (!model.parent) {
-                    model.parent = collection;
-                }
-
-                if (!model.status) {
-                    model.status = "draft";
-                }
-
-                if (model.children.length > 0){
-                    createLinkedList(model);
-                }
-            });
-        };
-
-        createLinkedList(data);
-        console.log(data);
-
-        this.data = data;
+        this.data = newData;
         this.stack = [];
         // Push the root node on the stack;
         this.stack.push(this.data);
@@ -134,7 +123,14 @@ class BaseColumnViewStore extends EventEmitter {
         const { node } = payload;
 
         node.loading = false;
-        node.children = payload.data;
+        const newNodes = payload.data.map(function(item) {
+            var nodeData = this.parseNode(item);
+            nodeData.parent = node;
+
+            return nodeData;
+        }, this);
+
+        node.children = node.children.concat(newNodes);
 
         this.emit('change');
     }
@@ -142,12 +138,12 @@ class BaseColumnViewStore extends EventEmitter {
     create(payload) {
         const { target, typeObject, index } = payload;
 
-        target.children.push({
+        target.children.push(this.parseNode({
             name: "New page",
             status: "draft",
             type: typeObject.type,
             parent: target
-        });
+        }));
 
         this.emit('change');
     }
@@ -159,6 +155,15 @@ class BaseColumnViewStore extends EventEmitter {
         if (!target.parent) {
             return;
         }
+
+        function recursiveDelete(next) {
+            next.children.map(recursiveDelete);
+            return null;
+        }
+
+        var res = target.children.map(recursiveDelete);
+
+        target.children = [];
 
         var index = target.parent.children.indexOf(target);
         target.parent.children.splice(index, 1);
@@ -178,6 +183,12 @@ class BaseColumnViewStore extends EventEmitter {
 
     getModal() {
         return this.modal;
+    }
+
+    reset(){
+        this.stack = [];
+        this.data = {};
+        this.initalStackData = {};
     }
 }
 
@@ -220,6 +231,9 @@ AppDispatcher.register( function( payload ) {
             break;
         case 'CARD_REMOVE':
             ColumnViewStore.remove(payload);
+            break;
+        case 'EXPLORER_RESET':
+            ColumnViewStore.reset();
             break;
     }
 

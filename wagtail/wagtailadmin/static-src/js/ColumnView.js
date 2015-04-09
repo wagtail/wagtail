@@ -16,6 +16,8 @@ import ColumnViewActions from './actions/ColumnViewActions';
 
 const ColumnView = React.createClass({
     componentDidUpdate() {
+        const { data, stack } = this.props;
+
         // const node = this.getDOMNode();
         // const scroller = node.querySelector(".bn-explorer__overflow");
         // const all = node.querySelectorAll('.bn-node');

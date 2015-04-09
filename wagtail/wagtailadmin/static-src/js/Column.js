@@ -5,22 +5,6 @@ import Card from './Card';
 
 import ColumnViewActions from './actions/ColumnViewActions';
 
-const AddButton = React.createClass({
-    render() {
-        return (
-            <div className='bn-add' onClick={this.handleClick}>
-                <span>
-                    + Add
-                </span>
-            </div>
-        );
-    },
-    handleClick() {
-
-    }
-});
-
-
 
 const dragSource = {
     beginDrag(component) {
@@ -35,14 +19,25 @@ const dragSource = {
 
 const dropTarget = {
     over(component, item) {
+        console.log("DRAG over");
+
+
         const id = component.props.id;
         const column = component.props.column;
+        this.setState({
+            active: true
+        });
         ColumnViewActions.move(component.props.data, id, column, item);
     },
     leave(component, item) {
+        console.log("DRAG leave");
+
         const id = component.props.id;
         const column = component.props.column;
         ColumnViewActions.leave(component.props.data, id, column, item);
+        this.setState({
+            active: false
+        });
     },
     acceptDrop(component, item, isHandled, effect) {
         const id = component.props.id;
@@ -64,14 +59,15 @@ const Column = React.createClass({
     },
     getInitialState() {
         return {
-            hasPlaceholder: false
+            hasPlaceholder: false,
+            active: false
         }
     },
     handleClick() {
-        this.props.clickHandler();
-        this.setState({
-            active: true
-        })
+        // this.props.clickHandler();
+        // this.setState({
+        //     active: true
+        // })
     },
     mapNodes(data, columnNumber) {
         return data.children.map(function(item, index) {
@@ -99,8 +95,12 @@ const Column = React.createClass({
             isCurrent = true;
         }
 
+        var className = 'bn-column';
+
+        if (this.state.active) className += ' bn-column--active';
+
         return (
-            <div className='bn-column'>
+            <div className={className}>
                 <div className='bn-column-scroll'>
                     { nodes.length ? nodes : "" }
                 </div>
