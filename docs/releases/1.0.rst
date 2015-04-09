@@ -87,6 +87,8 @@ Admin
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
  * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
  * Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
+ * Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
+
 
 
 Project template
@@ -198,7 +200,7 @@ Celery no longer automatically used for sending notification emails
 
 Previously, Wagtail would try to use Celery whenever the ``djcelery`` module was
 installed, even if Celery wasn't actually set up. This could cause a very hard
-to track down problem where notification emails would not be sent so this 
+to track down problem where notification emails would not be sent so this
 functionality has now been removed.
 
 If you would like to keep using Celery for sending notification emails, have a
@@ -292,3 +294,11 @@ Wagtail organises panels into three tabs: 'Content', 'Promote' and 'Settings'. D
         ObjectList(BlogPage.promote_panels, heading='Promote'),
         ObjectList(BlogPage.settings_panels, heading='Settings', classname="settings"),
     ])
+
+The ``construct_wagtail_edit_bird`` has changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+The hook has been renamed to ``construct_wagtail_userbar``.
+
+The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.
