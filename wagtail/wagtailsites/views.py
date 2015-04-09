@@ -28,7 +28,7 @@ def create(request):
         form = SiteForm(request.POST)
         if form.is_valid():
             site = form.save()
-            messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons = [
+            messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons=[
                 messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
             ])
             return redirect('wagtailsites_index')
@@ -50,7 +50,7 @@ def edit(request, site_id):
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
             site = form.save()
-            messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons = [
+            messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons=[
                 messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
             ])
             return redirect('wagtailsites_index')

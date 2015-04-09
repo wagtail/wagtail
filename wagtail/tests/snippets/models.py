@@ -36,4 +36,3 @@ register_snippet(RegisterFunction)
 @register_snippet
 class RegisterDecorator(models.Model):
     pass
-

@@ -123,6 +123,7 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
 .. code-block:: python
 
     # models.py
+    from django.dispatch import receiver
     from django.db.models.signals import pre_delete
 
     from wagtail.wagtailcore.signals import page_published
@@ -140,12 +141,12 @@ Let's take the the above BlogIndexPage as an example. We need to register a sign
                 purge_page_from_cache(blog_index)
 
 
-    @register(page_published, sender=BlogPage):
+    @receiver(page_published, sender=BlogPage):
     def blog_published_handler(instance):
         blog_page_changed(instance)
 
 
-    @register(pre_delete, sender=BlogPage)
+    @receiver(pre_delete, sender=BlogPage)
     def blog_deleted_handler(instance):
         blog_page_changed(instance)
 

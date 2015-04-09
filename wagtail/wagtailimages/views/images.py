@@ -203,7 +203,9 @@ def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        return Filter(spec=filter_spec).run(image, HttpResponse(content_type='image/jpeg'))
+        response, image_format = Filter(spec=filter_spec).run(image, HttpResponse())
+        response['Content-Type'] = 'image/' + image_format
+        return response
     except InvalidFilterSpecError:
         return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
 

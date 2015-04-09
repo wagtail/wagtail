@@ -14,7 +14,7 @@ A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any othe
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define a ``subpage_urls`` property that returns a tuple of ``django.conf.url`` objects.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, and configure the ``subpage_urls`` attribute with your URL configuration.
 
 Here's an example of an ``EventPage`` with three views:
 
@@ -27,13 +27,11 @@ Here's an example of an ``EventPage`` with three views:
 
 
     class EventPage(RoutablePageMixin, Page):
-        @property
-        def subpage_urls(self):
-            return (
-                url(r'^$', self.current_events, name='current_events'),
-                url(r'^past/$', self.past_events, name='past_events'),
-                url(r'^year/(\d+)/$', self.events_for_year, name='events_for_year'),
-            )
+        subpage_urls = (
+            url(r'^$', 'current_events', name='current_events'),
+            url(r'^past/$', 'past_events', name='past_events'),
+            url(r'^year/(\d+)/$', 'events_for_year', name='events_for_year'),
+        )
 
         def current_events(self, request):
             """
@@ -53,16 +51,6 @@ Here's an example of an ``EventPage`` with three views:
             """
             ...
 
-You can also set this as an attribute on the class. This will not work on Django 1.8 and above as the ``url`` function no longer allows strings to be specified as view names.
-
-.. code-block:: python
-
-    class EventPage(RoutablePageMixin, Page):
-        subpage_urls = (
-            url(r'^$', 'current_events', name='current_events'),
-            url(r'^past/$', 'past_events', name='past_events'),
-            url(r'^year/(\d+)/$', 'events_for_year', name='events_for_year'),
-        )
 
 The ``RoutablePageMixin`` class
 ===============================
@@ -71,10 +59,6 @@ The ``RoutablePageMixin`` class
 .. autoclass:: RoutablePageMixin
 
     .. autoattribute:: subpage_urls
-
-        .. versionchanged:: 0.9
-
-            It was previously recommended to define ``subpage_urls`` as a class attribute. It is now recommend to define it as a property as Django 1.8 and above requires that the view argument to the ``url`` function is a callable and not a string.
 
         Example:
 
@@ -86,17 +70,16 @@ The ``RoutablePageMixin`` class
 
 
             class MyPage(RoutablePageMixin, Page):
-                def subpage_urls(self):
-                    return (
-                        url(r'^$', self.main_view, name='main'),
-                        url(r'^archive/$', self.archive_view, name='archive'),
-                        url(r'^archive/(?P<year>[0-9]{4})/$', self.archive_view, name='archive'),
-                    )
+                subpage_urls = (
+                    url(r'^$', 'main', name='main'),
+                    url(r'^archive/$', 'archive', name='archive'),
+                    url(r'^archive/(?P<year>[0-9]{4})/$', 'archive', name='archive'),
+                )
 
-                def main_view(self, request):
+                def main(self, request):
                     ...
 
-                def archive_view(self, request, year=None):
+                def archive(self, request, year=None):
                     ...
 
     .. automethod:: resolve_subpage
@@ -115,6 +98,7 @@ The ``RoutablePageMixin`` class
         .. code-block:: python
 
             url = page.url + page.reverse_subpage('archive', kwargs={'year': '2014'})
+
 
  .. _routablepageurl_template_tag:
 

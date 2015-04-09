@@ -37,7 +37,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path='/home/')
 
         # Warm up the cache by getting the url
-        _ = homepage.url
+        _ = homepage.url  # noqa
 
         # Check that the cache has been set correctly
         self.assertEqual(cache.get('wagtail_site_root_paths'), [(1, '/home/', 'http://localhost')])
@@ -50,7 +50,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path='/home/')
 
         # Warm up the cache by getting the url
-        _ = homepage.url
+        _ = homepage.url  # noqa
 
         # Check that the cache has been set
         self.assertTrue(cache.get('wagtail_site_root_paths'))
@@ -69,7 +69,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path='/home/')
 
         # Warm up the cache by getting the url
-        _ = homepage.url
+        _ = homepage.url  # noqa
 
         # Check that the cache has been set
         self.assertTrue(cache.get('wagtail_site_root_paths'))
@@ -107,7 +107,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site.save()
 
         # Warm up the cache by getting the url
-        _ = homepage.url
+        _ = homepage.url  # noqa
 
         # Move new homepage to root
         new_homepage.move(root_page, pos='last-child')
@@ -135,7 +135,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path='/home/')
 
         # Warm up the cache by getting the url
-        _ = homepage.url
+        _ = homepage.url  # noqa
 
         # Change homepage title and slug
         homepage.title = "New home"

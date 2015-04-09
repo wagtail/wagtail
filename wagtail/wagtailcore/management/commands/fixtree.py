@@ -83,7 +83,7 @@ class Command(BaseCommand):
                 deletion_count = len(pages_to_delete)
                 pages_to_delete.delete()
                 self.stdout.write(
-                    "%d orphaned page%s deleted." % (deletion_count, "s"[deletion_count==1:])
+                    "%d orphaned page%s deleted." % (deletion_count, "s" if deletion_count != 1 else "")
                 )
                 any_problems_fixed = True
 

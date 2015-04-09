@@ -35,7 +35,7 @@ def set_privacy(request, page_id):
                 else:
                     # create a new restriction object
                     PageViewRestriction.objects.create(
-                        page=page, password = form.cleaned_data['password'])
+                        page=page, password=form.cleaned_data['password'])
 
             return render_modal_workflow(
                 request, None, 'wagtailadmin/page_privacy/set_privacy_done.js', {

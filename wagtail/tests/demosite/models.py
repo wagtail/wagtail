@@ -1,9 +1,11 @@
+from datetime import date
+
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-from taggit.models import Tag, TaggedItemBase
+from taggit.models import TaggedItemBase
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -11,8 +13,6 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, \
     InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 
 
@@ -162,8 +162,8 @@ class HomePageRelatedLink(Orderable, AbstractRelatedLink):
 HomePage.content_panels = Page.content_panels + [
     FieldPanel('body', classname="full"),
 
-    InlinePanel(HomePage, 'carousel_items', label="Carousel items"),
-    InlinePanel(HomePage, 'related_links', label="Related links"),
+    InlinePanel('carousel_items', label="Carousel items"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 
@@ -202,9 +202,9 @@ class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
 
 StandardPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
-    InlinePanel(StandardPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(StandardPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 StandardPage.promote_panels = [
@@ -239,7 +239,7 @@ class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 StandardIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
-    InlinePanel(StandardIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 StandardIndexPage.promote_panels = [
@@ -292,8 +292,8 @@ class BlogEntryPageTag(TaggedItemBase):
 BlogEntryPage.content_panels = Page.content_panels + [
     FieldPanel('date'),
     FieldPanel('body', classname="full"),
-    InlinePanel(BlogEntryPage, 'carousel_items', label="Carousel items"),
-    InlinePanel(BlogEntryPage, 'related_links', label="Related links"),
+    InlinePanel('carousel_items', label="Carousel items"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 BlogEntryPage.promote_panels = [
@@ -354,7 +354,7 @@ class BlogIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 BlogIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
-    InlinePanel(BlogIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 
@@ -455,10 +455,10 @@ EventPage.content_panels = Page.content_panels + [
     FieldPanel('audience'),
     FieldPanel('cost'),
     FieldPanel('signup_link'),
-    InlinePanel(EventPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(EventPage, 'speakers', label="Speakers"),
-    InlinePanel(EventPage, 'related_links', label="Related links"),
+    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 EventPage.promote_panels = [
@@ -498,7 +498,7 @@ class EventIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 EventIndexPage.content_panels = Page.content_panels + [
     FieldPanel('intro', classname="full"),
-    InlinePanel(EventIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 
@@ -552,7 +552,7 @@ PersonPage.content_panels = Page.content_panels + [
     FieldPanel('biography', classname="full"),
     ImageChooserPanel('image'),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
-    InlinePanel(PersonPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
 PersonPage.promote_panels = [

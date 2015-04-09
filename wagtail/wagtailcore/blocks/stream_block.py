@@ -147,8 +147,8 @@ class BaseStreamBlock(Block):
 
         values_with_indexes.sort()
         return StreamValue(self, [
-            (block_type_name, value)
-            for (index, block_type_name, value) in values_with_indexes
+            (child_block_type_name, value)
+            for (index, child_block_type_name, value) in values_with_indexes
         ])
 
     def clean(self, value):

@@ -1,6 +1,20 @@
+===============
+Advanced topics
+===============
+
+Animated GIF support
+====================
+
+Pillow (Wagtail's default image library) doesn't support resizing animated
+GIFs. If you need animated GIFs in your site, install
+`Wand <https://pypi.python.org/pypi/Wand>`_.
+
+When Wand is installed, Wagtail will automatically start using it for resizing
+GIF files, and will continue to resize other images with Pillow.
+
+
 .. _image_feature_detection:
 
-=================
 Feature Detection
 =================
 
@@ -10,13 +24,13 @@ Feature detection uses OpenCV to detect faces/features in an image when the imag
 
 
 Setup
-=====
+-----
 
 Feature detection requires OpenCV which can be a bit tricky to install as it's not currently pip-installable.
 
 
 Installing OpenCV on Debian/Ubuntu
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Debian and ubuntu provide an apt-get package called ``python-opencv``:
 
@@ -28,7 +42,7 @@ This will install PyOpenCV into your site packages. If you are using a virtual e
 
 
 Enabling site packages in the virtual environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you are not using a virtual envionment, you can skip this step.
 
@@ -48,7 +62,7 @@ Go into your virtualenv directory and delete a file called ``lib/python-x.x/no-g
 
 
 Testing the OpenCV installation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can test that OpenCV can be seen by Wagtail by opening up a python shell (with your virtual environment active) and typing:
 
@@ -60,7 +74,7 @@ If you don't see an ``ImportError``, it worked. (If you see the error ``libdc139
 
 
 Switching on feature detection in Wagtail
------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once OpenCV is installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting to ``True``:
 
@@ -72,7 +86,7 @@ Once OpenCV is installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_
 
 
 Manually running feature detection
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Feature detection runs when new images are uploaded in to Wagtail. If you already have images in your Wagtail site and would like to run feature detection on them, you will have to run it manually.
 

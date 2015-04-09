@@ -84,7 +84,7 @@ def create(request):
             group = form.save()
             formset.instance = group
             formset.save()
-            messages.success(request, _("Group '{0}' created.").format(group), buttons = [
+            messages.success(request, _("Group '{0}' created.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
             ])
             return redirect('wagtailusers_groups_index')
@@ -109,7 +109,7 @@ def edit(request, group_id):
         if form.is_valid() and formset.is_valid():
             group = form.save()
             formset.save()
-            messages.success(request, _("Group '{0}' updated.").format(group), buttons = [
+            messages.success(request, _("Group '{0}' updated.").format(group), buttons=[
                 messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
             ])
             return redirect('wagtailusers_groups_index')

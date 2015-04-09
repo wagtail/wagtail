@@ -22,7 +22,7 @@ DATABASES = {
 
 SECRET_KEY = 'not needed'
 
-ROOT_URLCONF='wagtail.tests.urls'
+ROOT_URLCONF = 'wagtail.tests.urls'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = STATIC_ROOT
@@ -43,6 +43,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
@@ -76,6 +77,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
+    'wagtail.contrib.wagtailapi',
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
     'wagtail.tests.customuser',
@@ -119,7 +121,7 @@ AUTH_USER_MODEL = 'customuser.CustomUser'
 
 try:
     # Only add Elasticsearch backend if the elasticsearch-py library is installed
-    import elasticsearch
+    import elasticsearch  # noqa
 
     # Import succeeded, add an Elasticsearch backend
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {

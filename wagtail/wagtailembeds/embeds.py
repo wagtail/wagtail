@@ -10,15 +10,19 @@ from six.moves.urllib.parse import urlencode
 
 from django.utils.module_loading import import_string
 from django.conf import settings
-from django.utils import six
 
 from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
 
 
-class EmbedNotFoundException(Exception): pass
-class EmbedlyException(Exception): pass
-class AccessDeniedEmbedlyException(EmbedlyException): pass
+class EmbedNotFoundException(Exception):
+    pass
+
+class EmbedlyException(Exception):
+    pass
+
+class AccessDeniedEmbedlyException(EmbedlyException):
+    pass
 
 
 def embedly(url, max_width=None, key=None):
@@ -72,7 +76,7 @@ def oembed(url, max_width=None):
         raise EmbedNotFoundException
 
     # Work out params
-    params = {'url': url, 'format': 'json',  }
+    params = {'url': url, 'format': 'json'}
     if max_width:
         params['maxwidth'] = max_width
 

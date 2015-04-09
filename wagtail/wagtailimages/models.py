@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 import os.path
 import hashlib
-import re
 from contextlib import contextmanager
+import warnings
 
 from six import BytesIO, text_type
 
@@ -31,6 +31,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
+from wagtail.utils.deprecation import RemovedInWagtail11Warning
 
 
 class SourceImageIOError(IOError):
@@ -97,9 +98,10 @@ class AbstractImage(models.Model, TagSearchable):
         image_file.open('rb')
         image_file.seek(0)
 
-        yield WillowImage.open(image_file)
-
-        image_file.close()
+        try:
+            yield WillowImage.open(image_file)
+        finally:
+            image_file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -181,13 +183,23 @@ class AbstractImage(models.Model, TagSearchable):
             )
         except ObjectDoesNotExist:
             # Generate the rendition image
-            generated_image = filter.run(self, BytesIO())
+            generated_image, output_format = filter.run(self, BytesIO())
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
             input_filename_without_extension, input_extension = os.path.splitext(input_filename)
 
-            output_extension = '.'.join([vary_key, filter.spec]) + input_extension
+            # A mapping of image formats to extensions
+            FORMAT_EXTENSIONS = {
+                'jpeg': '.jpg',
+                'png': '.png',
+                'gif': '.gif',
+            }
+
+            output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
+            if vary_key:
+                output_extension = vary_key + '.' + output_extension
+
             output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 
@@ -307,9 +319,38 @@ class Filter(models.Model):
             for operation in self.operations:
                 operation.run(willow, image)
 
-            willow.save_as_jpeg(output)
+            output_format = willow.original_format
 
-        return output
+            if willow.original_format == 'jpeg':
+                # Allow changing of JPEG compression quality
+                if hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
+                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
+                elif hasattr(settings, 'IMAGE_COMPRESSION_QUALITY'):
+                    quality = settings.IMAGE_COMPRESSION_QUALITY
+
+                    warnings.warn(
+                        "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
+                        "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
+                        RemovedInWagtail11Warning)
+                else:
+                    quality = 85
+
+                willow.save_as_jpeg(output, quality=quality)
+            if willow.original_format == 'gif':
+                # Convert image to PNG if it's not animated
+                if not willow.has_animation():
+                    output_format = 'png'
+                    willow.save_as_png(output)
+                else:
+                    willow.save_as_gif(output)
+            if willow.original_format == 'bmp':
+                # Convert to PNG
+                output_format = 'png'
+                willow.save_as_png(output)
+            else:
+                willow.save(willow.original_format, output)
+
+        return output, output_format
 
     def get_vary(self, image):
         vary = []

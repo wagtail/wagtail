@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField, a model field for freeform page content
+ * Added Wagtail API, a module for creating a RESTful API for your content
  * MySQL support
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
@@ -41,6 +42,8 @@ Changelog
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
  * No longer automatically tries to use Celery for sending notification emails
  * Added "Add child page" button to admin userbar (Eric Drechsel)
+ * Renamed the `construct_wagtail_edit_bird` hook to `construct_wagtail_userbar`
+ * Fix: Prevent logout on changing password when SessionAuthenticationMiddleware is in use
 
 
 0.8.6 (10.03.2015)

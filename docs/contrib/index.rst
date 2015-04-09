@@ -11,6 +11,7 @@ Wagtail ships with a variety of extra optional modules.
     sitemaps
     frontendcache
     routablepage
+    api/index
 
 
 ``wagtailmedusa``
@@ -43,3 +44,11 @@ A module for automatically purging pages from a cache (Varnish, Squid or Cloudfl
 :doc:`routablepage`
 
 Provides a way of embedding Django URLconfs into pages.
+
+
+``wagtailapi``
+--------------
+
+:doc:`api/index`
+
+A module for adding a read only, JSON based web API to your Wagtail site

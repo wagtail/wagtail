@@ -88,7 +88,7 @@ def create(request):
             ])
             return redirect('wagtailusers_users_index')
         else:
-            messages.error(request, _("The user could not be created due to errors.") )
+            messages.error(request, _("The user could not be created due to errors."))
     else:
         form = UserCreationForm()
 

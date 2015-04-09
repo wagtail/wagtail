@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import logging
-import warnings
 import json
 
 import six
@@ -974,6 +973,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+
     def serve_password_required_response(self, request, form, action_url):
         """
         Serve a response indicating that the user has been denied access to view this page,

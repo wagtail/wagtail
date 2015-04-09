@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.views import logout as auth_logout, login as auth_login
-from django.utils.translation import ugettext as _ 
+from django.contrib.auth import update_session_auth_hash
+from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 
@@ -32,6 +33,7 @@ def change_password(request):
 
             if form.is_valid():
                 form.save()
+                update_session_auth_hash(request, form.user)
 
                 messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')

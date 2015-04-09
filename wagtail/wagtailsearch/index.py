@@ -1,7 +1,3 @@
-import warnings
-
-from six import string_types
-
 from django.db import models
 from django.apps import apps
 
@@ -140,4 +136,3 @@ class SearchField(BaseField):
 
 class FilterField(BaseField):
     suffix = '_filter'
-

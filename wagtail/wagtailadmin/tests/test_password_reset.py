@@ -2,7 +2,6 @@ from django.test import TestCase, override_settings
 from django.core import mail
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore.models import Site
 
 
 class TestUserPasswordReset(TestCase, WagtailTestUtils):
