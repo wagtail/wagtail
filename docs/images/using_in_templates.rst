@@ -3,9 +3,6 @@
 Using images in templates
 =========================
 
-.. versionchanged:: 0.4
-    The 'image_tags' tags library was renamed to 'wagtailimages_tags'
-
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
 The syntax for the tag is thus::
