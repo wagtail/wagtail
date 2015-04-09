@@ -46,9 +46,15 @@ The available hooks are:
             return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
 
-.. _construct_wagtail_edit_bird:
+.. _construct_wagtail_userbar:
 
-``construct_wagtail_edit_bird``
+.. versionadded:: 0.3
+
+.. versionchanged:: 1.0
+
+   The hook was renamed from ``construct_wagtail_edit_bird``
+
+``construct_wagtail_userbar``
   Add or remove items from the wagtail userbar. Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the ``request`` object and a list of menu objects, ``items``. The menu item objects must have a ``render`` method which can take a ``request`` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information.
 
   .. code-block:: python
@@ -60,7 +66,7 @@ The available hooks are:
         return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
         + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
 
-    @hooks.register('construct_wagtail_edit_bird')
+    @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):
       return items.append( UserbarPuppyLinkItem() )
 

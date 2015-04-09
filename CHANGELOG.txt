@@ -42,6 +42,7 @@ Changelog
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
  * No longer automatically tries to use Celery for sending notification emails
  * Added "Add child page" button to admin userbar (Eric Drechsel)
+ * Renamed the `construct_wagtail_edit_bird` hook to `construct_wagtail_userbar`
  * Fix: Prevent logout on changing password when SessionAuthenticationMiddleware is in use
 
 
