@@ -1,4 +1,4 @@
-// import isParent from '../utils/common';
+import ColumnViewActions from '../actions/ColumnViewActions';
 import AppDispatcher from '../dispatcher';
 import EventEmitter from 'events';
 import generateUUID from '../utils/uuid';
@@ -204,7 +204,7 @@ class BaseColumnViewStore extends EventEmitter {
     }
 
     create(payload) {
-        const { target, typeObject, index } = payload;
+        const { target, typeObject } = payload;
         var node = this.getById(target);
 
         node.children.push(this.parseNode({
@@ -267,6 +267,8 @@ class BaseColumnViewStore extends EventEmitter {
 
     }
 
+
+
     showModal(payload) {
         this.modal = true;
         this.emit('change');
@@ -299,6 +301,23 @@ class BaseColumnViewStore extends EventEmitter {
         this.stack = [];
         this.data = {};
         this.initalStackData = {};
+    }
+
+    triggerAdd(payload) {
+        const { id } = payload;
+        const targetNode = this.getById(id);
+        var typeObj = PageTypeStore.getTypeByName(targetNode.type);
+
+        if (typeObj.subpage_types.length > 1) {
+            this.showModal();
+            // this.emit('change');
+        } else {
+            var _type = PageTypeStore.getTypeByName(typeObj.subpage_types[0]);
+            this.create({
+                typeObject: _type,
+                target: id
+            });
+        }
     }
 }
 
@@ -350,6 +369,9 @@ AppDispatcher.register( function( payload ) {
             break;
         case 'CARD_CHANGE_ATTRIBUTE':
             ColumnViewStore.updateAttribute(payload);
+            break;
+        case 'CARD_TRIGGER_ADD':
+            ColumnViewStore.triggerAdd(payload);
             break;
     }
 

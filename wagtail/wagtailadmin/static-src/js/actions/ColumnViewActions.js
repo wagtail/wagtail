@@ -121,6 +121,12 @@ const ColumnViewActions = {
         AppDispatcher.dispatch({
             eventName: 'EXPLORER_RESET'
         });
+    },
+    triggerAdd(id) {
+        AppDispatcher.dispatch({
+            eventName: 'CARD_TRIGGER_ADD',
+            id
+        });
     }
 }
 

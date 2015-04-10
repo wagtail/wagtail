@@ -32,7 +32,8 @@ const CardControls = React.createClass({
         });
     },
     handleAdd(e) {
-        ColumnViewActions.showModal();
+        ColumnViewActions.triggerAdd(this.props.data.id);
+        // ColumnViewActions.showModal();
     },
     render() {
         const { data, stack } = this.props;
@@ -50,14 +51,21 @@ const CardControls = React.createClass({
             <div
                 className='bn-controls btn-group bn-reveal'
                 onClick={this.handleClick}>
-                <span className='btn -tiny -none' ><span className="icon icon-view" /></span>
+                <span className='btn -tiny -none' >
+                    <span className="icon icon-view" />
+                </span>
                 <span className='btn -tiny -none' >Edit</span>
                 <span
                     className={deleteClassName}
                     onClick={this.handleRemove}>
                     { confirmDelete ? 'Confirm' : 'Delete' }
                 </span>
-                {confirmDelete ? <span onClick={this.cancelRemove} className='btn -tiny -positive'>×</span> : null}
+                {confirmDelete ?
+                    <span
+                        onClick={this.cancelRemove}
+                        className='btn -tiny -positive'>
+                        ×
+                    </span> : null}
                 {supportsSubpages ?
                 <span className='btn -tiny -none' onClick={this.handleAdd}>
                     Add
