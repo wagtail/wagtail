@@ -83,7 +83,7 @@ class BaseColumnViewStore extends EventEmitter {
         const sourceNode = this.getById(sourceId);
         const targetNode = this.getById(targetId);
 
-        if (isParent(sourceNode, targetNode)) {
+        if (targetNode.parent === sourceNode.id) {
             targetNode.isValidDrop = false;
             this.emit('change');
             return;
