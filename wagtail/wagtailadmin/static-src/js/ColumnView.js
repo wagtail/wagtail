@@ -1,9 +1,10 @@
-import React from 'react';
+var React = require("react/addons");
 import scroll from 'scroll';
 import Column from './Column';
 import update from 'react/lib/update';
 import ColumnViewActions from './actions/ColumnViewActions';
 
+const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 
 // NeXT ColumnView
@@ -15,16 +16,6 @@ import ColumnViewActions from './actions/ColumnViewActions';
 // 4. Display the new node's children.
 
 const ColumnView = React.createClass({
-    componentDidUpdate() {
-        const { data, stack } = this.props;
-
-        // const node = this.getDOMNode();
-        // const scroller = node.querySelector(".bn-explorer__overflow");
-        // const all = node.querySelectorAll('.bn-node');
-        // const last = all[all.length-1];
-        // const left = last.offsetLeft;
-        // scroll.left(scroller, left, { duration: 700, ease: 'inOutQuint' });
-    },
     render() {
         const { data, stack } = this.props;
 
@@ -40,9 +31,9 @@ const ColumnView = React.createClass({
         }, this);
 
         return (
-            <div className="bn-explorer__body">
+            <CSSTransitionGroup  component="div" className="bn-explorer__body" transitionName="column">
                 {columns}
-            </div>
+            </CSSTransitionGroup>
         );
     }
 });

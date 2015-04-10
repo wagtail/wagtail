@@ -3,22 +3,25 @@ import AppDispatcher from '../dispatcher';
 
 
 const ColumnViewActions = {
-    updateCard(targetItem, afterId, column, newItem) {
+    dropCard(targetId, sourceId) {
         AppDispatcher.dispatch({
-            eventName: 'CARD_UPDATE',
-            targetItem,
-            afterId,
-            column,
-            newItem
+            eventName: 'CARD_DROP',
+            targetId,
+            sourceId
         });
     },
-    move(targetItem, afterId, column, newItem) {
+    move(targetId, sourceId) {
         AppDispatcher.dispatch({
             eventName: 'CARD_MOVE',
-            targetItem,
-            afterId,
-            column,
-            newItem
+            targetId,
+            sourceId
+        });
+    },
+    leave(targetId, sourceId) {
+        AppDispatcher.dispatch({
+            eventName: 'CARD_LEAVE',
+            targetId,
+            sourceId
         });
     },
     clearStack() {
@@ -26,12 +29,10 @@ const ColumnViewActions = {
             eventName: 'CARD_CLEAR_STACK'
         });
     },
-    show(node, index, level) {
+    show(node) {
         AppDispatcher.dispatch({
             eventName: 'CARD_SHOW',
-            node,
-            index,
-            level
+            node
         });
     },
     showModal() {
@@ -44,11 +45,6 @@ const ColumnViewActions = {
             eventName: 'CARD_MODAL_DISMISS'
         });
     },
-    leave() {
-        AppDispatcher.dispatch({
-            eventName: 'CARD_LEAVE'
-        });
-    },
     createCard(payload) {
         const {target, typeObject, index } = payload;
 
@@ -59,10 +55,10 @@ const ColumnViewActions = {
             index
         });
     },
-    removeCard(target) {
+    removeCard(id) {
         AppDispatcher.dispatch({
             eventName: 'CARD_REMOVE',
-            target
+            id
         });
     },
     populate(data) {
@@ -88,9 +84,27 @@ const ColumnViewActions = {
 
         AppDispatcher.dispatch({
             eventName: 'CARD_FETCH_COMPLETE',
-            data: data,
-            node: node,
-            url: url
+            data,
+            node,
+            url
+        });
+    },
+    updateAttribute(payload) {
+        const { node, attribute, value } = payload;
+
+        AppDispatcher.dispatch({
+            eventName: 'CARD_CHANGE_ATTRIBUTE',
+            node,
+            attribute,
+            value
+        });
+    },
+    setActive(payload) {
+        AppDispatcher.dispatch({
+            eventName: 'CARD_SET_ACTIVE',
+            node,
+            attribute,
+            value
         });
     },
     hideExplorer(payload) {

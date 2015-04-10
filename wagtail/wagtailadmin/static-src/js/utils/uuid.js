@@ -5,9 +5,9 @@ function generateUUID() {
           .substring(1);
     }
 
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
+    return s4() + s4() + s4() + s4() +
+        s4() + s4() + s4() + s4();
 }
 
 
-module.exports = generateUUID;
+export default generateUUID;

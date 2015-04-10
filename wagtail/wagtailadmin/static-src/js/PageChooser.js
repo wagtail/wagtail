@@ -36,6 +36,8 @@ const PageChooser = React.createClass({
                     key={index}
                     onClick={this.handleAdd.bind(this, last, typeObject, index)}
                 >
+                    <span className="icon icon-doc-full" style={{fontSize: '2em'}}></span>
+                    <br />
                     {typeObject.verbose_name}
                 </p>
             );
@@ -53,7 +55,7 @@ const PageChooser = React.createClass({
     },
     handleAdd(target, typeObject, index) {
         ColumnViewActions.createCard({
-            target,
+            target: target.id,
             typeObject,
             index
         });

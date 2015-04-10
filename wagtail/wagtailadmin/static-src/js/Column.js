@@ -5,6 +5,10 @@ import Card from './Card';
 
 import ColumnViewActions from './actions/ColumnViewActions';
 
+import PageTypeStore from './stores/PageTypeStore';
+import ColumnViewStore from './stores/ColumnViewStore';
+import scroll from 'scroll';
+
 
 const dragSource = {
     beginDrag(component) {
@@ -60,14 +64,13 @@ const Column = React.createClass({
     getInitialState() {
         return {
             hasPlaceholder: false,
-            active: false
+            active: false,
+            nodeCountChanged: false,
+            nodeCount: 0
         }
     },
     handleClick() {
-        // this.props.clickHandler();
-        // this.setState({
-        //     active: true
-        // })
+       ColumnViewActions.showModal();
     },
     mapNodes(data, columnNumber) {
         return data.children.map(function(item, index) {
@@ -82,27 +85,61 @@ const Column = React.createClass({
             );
         }, this);
     },
+    componentDidMount() {
+        const node      = this.getDOMNode();
+        const scroller  = document.querySelector(".bn-explorer__overflow");
+        const left      = node.offsetLeft;
+
+        scroll.left(scroller, left, { duration: 700, ease: 'inOutQuint' });
+    },
+    componentDidUpdate() {
+        const { data, index, stack } = this.props;
+        const last = stack[stack.length-1];
+
+        if (last.id === data.id) {
+            const node      = this.getDOMNode();
+            const scroller  = document.querySelector(".bn-explorer__overflow");
+            const left      = node.offsetLeft;
+
+            scroll.left(scroller, left, { duration: 700, ease: 'inOutQuint' });
+        }
+    },
     render() {
         const { isDragging } = this.getDragState(ItemTypes.CARD);
         const { isHovering } = this.getDropState(ItemTypes.CARD);
 
         const { data, index, stack } = this.props;
-        const nodes = data.children ? this.mapNodes(data, index) : [];
+        const nodes     = data.children ? this.mapNodes(data, index) : [];
+        const last      = stack[stack.length-1];
 
         var isCurrent = false;
+        var className = 'bn-column';
+        var type = {subpage_types: []};
+        var acceptsChildren = false;
 
-        if (stack[stack.length-1] === data) {
+        if (last.id === data.id) {
             isCurrent = true;
+            type                = PageTypeStore.getTypeByName(data.type);
+            acceptsChildren     = type.subpage_types.length > 0;
         }
 
-        var className = 'bn-column';
+        if (this.state.active) {
+            className += ' bn-column--active';
+        }
 
-        if (this.state.active) className += ' bn-column--active';
 
         return (
             <div className={className}>
                 <div className='bn-column-scroll'>
-                    { nodes.length ? nodes : "" }
+                    { nodes.length ? nodes :
+                         acceptsChildren ?
+                        <div className='bn-column-placeholder'>
+                            <p>No pages have been created.</p>
+                            <span
+                                className='btn -primary'
+                                onClick={this.handleClick}>Why not add one?</span>
+                        </div> : null
+                     }
                 </div>
             </div>
         );
@@ -111,8 +148,3 @@ const Column = React.createClass({
 
 export default Column;
 
-// { data.children && !nodes.length && isCurrent ? <AddButton data={data} /> : null }
-// column={columnNumber}
-// clickHandler={clickHandler}
-// moveHandler={moveHandler}
-// updateHandler={updateHandler}

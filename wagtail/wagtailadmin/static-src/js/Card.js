@@ -5,33 +5,8 @@ import ColumnViewActions from './actions/ColumnViewActions';
 import PageTypeStore from './stores/PageTypeStore';
 import ColumnViewStore from './stores/ColumnViewStore';
 import CardControls from './CardControls';
-
-
-const ToolTip = React.createClass({
-    render() {
-        const {message} = this.props;
-        return (
-            <div className='bn-tooltip'>
-                {message}
-            </div>
-        );
-    }
-});
-
-
-const NodeStatusIndicator = React.createClass({
-    render() {
-        const { data } = this.props;
-        const status = data.status;
-
-        var className = "bn-status -" + status;
-
-        return (
-            <span className={className}>
-            </span>
-        );
-    }
-});
+import NodeStatusIndicator from './NodeStatusIndicator';
+import NodeTitleEditor from './NodeTitleEditor';
 
 
 
@@ -39,8 +14,7 @@ const dragSource = {
     beginDrag(component) {
         return {
             item: {
-                id: component.props.id,
-                column: component.props.column
+                id: component.props.data.id
             }
         };
     }
@@ -48,19 +22,16 @@ const dragSource = {
 
 const dropTarget = {
     over(component, item) {
-        const id        = component.props.id;
-        const column    = component.props.column;
-        ColumnViewActions.move(component.props.data, id, column, item)
+        const id     = component.props.data.id;
+        ColumnViewActions.move(id, item.id)
     },
     leave(component, item) {
-        const id        = component.props.id;
-        const column    = component.props.column;
-        ColumnViewActions.leave(component.props.data, id, column, item)
+        const id     = component.props.data.id;
+        ColumnViewActions.leave(id, item.id)
     },
     acceptDrop(component, item, isHandled, effect) {
-        const id        = component.props.id;
-        const column    = component.props.column;
-        ColumnViewActions.move(component.props.data, id, column, item);
+        const id = component.props.data.id;
+        ColumnViewActions.dropCard(id, item.id);
     }
 };
 
@@ -82,13 +53,12 @@ const Card = React.createClass({
         }
     },
     handleClick() {
-        const { data, id, column } = this.props;
-
-        ColumnViewActions.show(data, id, column);
+        const { data } = this.props;
+        ColumnViewActions.show(data.id);
 
         if (data.children && !data.children.length && data.url) {
             ColumnViewActions.fetch({
-                node: data,
+                node: data.id,
                 url: data.url
             });
         }
@@ -96,14 +66,14 @@ const Card = React.createClass({
     isSibling(node, stack) {
         var isSibling = false;
 
-        if (stack.indexOf(node) > -1) {
-            return isSibling;
-        }
+        // if (stack.indexOf(node) > -1) {
+        //     return isSibling;
+        // }
 
-        // Array.some(). Who knew?
-        isSibling = stack.some((item) => {
-            return item.parent ? item.parent.children.indexOf(node) > -1 : false;
-        });
+        // // Array.some(). Who knew?
+        // isSibling = stack.some((item) => {
+        //     return item.parent ? item.parent.children.indexOf(node) > -1 : false;
+        // });
 
         return isSibling;
     },
@@ -118,6 +88,7 @@ const Card = React.createClass({
 
         var isSelected              = false;
         var isLast                  = false;
+        var acceptsChildren         = true;
         var isSiblingOfSelected     = false;
         var className               = ['bn-node'];
         var type                    = PageTypeStore.getTypeByName(data.type);
@@ -143,6 +114,10 @@ const Card = React.createClass({
             }
         }
 
+        if (typeof data.isValidDrop === 'boolean' && !data.isValidDrop) {
+            className.push('bn-node--hover-error');
+        }
+
         return (
             <div className='bn-node-wrap'>
             <div
@@ -151,11 +126,12 @@ const Card = React.createClass({
                 {...this.dragSourceFor(ItemTypes.CARD)}
                 {...this.dropTargetFor(ItemTypes.CARD)} >
                 <h3>
-                    <NodeStatusIndicator data={data} />{data.name}
+                    <NodeStatusIndicator data={data} />
+                    <NodeTitleEditor data={data} />
                 </h3>
                 <p>
 
-                    {type ?
+                    {type && !data.edit ?
                         <span className="bn-node-type">
                             {type.verbose_name}
                         </span> : null }

@@ -129,6 +129,8 @@ const Explorer = React.createClass({
 
 
 
+var originalClassName = "";
+
 function handleInit(e) {
     var isReactified = false;
     var el = document.querySelector('.content-wrapper');
@@ -141,11 +143,25 @@ function handleInit(e) {
         if (!isReactified) {
             isReactified = true;
             ColumnViewActions.reset();
-            document.body.className = document.body.className.replace(/menu-.+  /, "");
-            document.body.classList.add('menu-explorer');
+
+            var classes = document.body.className.split(" ");
+
+            classes = classes.filter((item) => {
+                var thing = item.match(/^menu/);
+
+                if (thing) {
+                    originalClassName = item;
+                }
+                return !thing;
+            });
+
+            classes.push('menu-explorer');
+
+            document.body.className = classes.join(" ");
             React.render(React.createElement(Explorer), mount);
         } else {
-            // document.body.classList.remove('menu-explorer');
+            document.body.classList.remove('menu-explorer');
+            document.body.classList.add(originalClassName);
             React.unmountComponentAtNode(mount);
             isReactified = false;
         }

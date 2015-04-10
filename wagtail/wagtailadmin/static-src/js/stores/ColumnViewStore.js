@@ -1,7 +1,31 @@
-import isParent from '../utils/common';
+// import isParent from '../utils/common';
 import AppDispatcher from '../dispatcher';
 import EventEmitter from 'events';
-import ColumnViewActions from '../actions/ColumnViewActions';
+import generateUUID from '../utils/uuid';
+import PageTypeStore from './PageTypeStore';
+
+
+var lodash = require('lodash');
+
+function visitBfs(node, func) {
+    var q = [node];
+    while (q.length > 0) {
+        node = q.shift();
+        var res = true;
+
+        if (func) {
+            res = func(node);
+        }
+
+        if (res === false) {
+            return;
+        }
+
+        node.children.forEach(function (child) {
+            q.push(child);
+        });
+    }
+}
 
 
 class BaseColumnViewStore extends EventEmitter {
@@ -9,71 +33,116 @@ class BaseColumnViewStore extends EventEmitter {
         super();
         this.stack = [];
         this.data = {};
-        this.initalStackData = {};
+        this._initalStackData = {};
     }
 
-    update(payload) {
-        const stack = this.stack;
-        const targetColumn = stack[column];
-        const draggedItem = stack[newItem.column].children[newItem.id];
 
-        if (isParent(targetItem, draggedItem)) {
-            // TODO: Fire a message if user attempts to drag node into child.
-            return;
+    drop(payload) {
+        const { targetId, sourceId } = payload;
+        const sourceNode = this.getById(sourceId);
+        const currentParent = this.getById(sourceNode.parent);
+        const newParent = this.getById(targetId);
+
+        const isParent = function(parent, child) {
+            if (parent.children.indexOf(child) > -1) {
+                return true;
+            }
+            return parent.children.forEach(function(item) {
+                isParent(item, child);
+            });
+        }.bind(this);
+
+        // No dragging items into their parent nodes!
+        if (isParent(sourceNode, newParent)) {
+            return false;
         }
 
-        // Don't proceed if the child is a direct descendant.
-        if ( targetItem.children.indexOf(draggedItem) > -1) {
-            return;
+        var types = PageTypeStore.getTypeByName(newParent.type);
+        var isValidType = types.subpage_types.indexOf(sourceNode.type) > -1;
+
+        if (!isValidType) {
+            return false;
         }
 
-        // Remove draggedItem from the stack...
-        if (draggedItem) {
-            stack[newItem.column].children.splice(newItem.id, 1);
-        }
+        var idx = currentParent.children.indexOf(sourceNode);
+        currentParent.children.splice(idx, 1);
 
-        targetColumn.children[afterId].children.splice(targetColumn.children[afterId].children.length, 0, draggedItem);
+        sourceNode.parent = targetId;
+        newParent.children.push(sourceNode);
 
-
-        stack[column] = targetColumn;
-        this.stack = stack;
         this.emit('change');
     }
 
     move(payload) {
-        // TODO
+        const { targetId, sourceId } = payload;
+        const sourceNode = this.getById(sourceId);
+        const targetNode = this.getById(targetId);
+        var types = PageTypeStore.getTypeByName(targetNode.type);
+        var isValidType = types.subpage_types.indexOf(sourceNode.type) > -1;
+        targetNode.isValidDrop = isValidType;
+        console.log(types, isValidType, targetNode);
+        this.emit('change');
+    }
+
+    leave(payload) {
+        const { targetId, sourceId } = payload;
+        const targetNode = this.getById(targetId);
+        targetNode.isValidDrop = undefined;
         this.emit('change');
     }
 
     show(payload) {
         const stack = this.stack;
-        const { node, index, level } = payload;
+        const nodeId = payload.node;
+        const node = this.getById(nodeId);
 
-        const indexOfNode = stack.indexOf(node);
+        // Clear edits on the stack...
+        const last = this.getLast();
+        last.edit = false;
 
-        if (stack.length > level && indexOfNode < stack.length) {
-            while (stack.length > level + 1) {
-                stack.pop();
+        // Determine path back to root...
+        const getPathToRoot = function(item, arr) {
+            if (!arr) arr = [];
+
+            arr.push(item.id);
+
+            if (item.parent) {
+                var parentNode = this.getById(item.parent);
+                getPathToRoot(parentNode, arr);
             }
+
+            return arr;
+        }.bind(this);
+
+        const newStack = getPathToRoot(node);
+        newStack.reverse();
+
+        var stackIndex = this.stack.indexOf(node.id);
+
+        if (stackIndex === this.stack.length-1) {
+            newStack.pop();
         }
 
-        // Only allow items to be pushed onto the stack once.
-        if (indexOfNode < 0) {
-            stack.push(node);
-        }
-
-        this.stack = stack;
+        this.stack = newStack;
         this.emit('change');
     }
 
     clear(payload) {
-        this.stack = [this._initialStackData];
+        this.stack = [this._initialStackData.id];
         this.emit('change');
     }
 
-    parseNode(node) {
+    parseNode(node, parent) {
         if (!node.children) {
             node.children = [];
+        }
+
+        if (!node.id) {
+            node.id = generateUUID();
+        }
+
+        if (parent) {
+            node.parent = parent.id;
         }
 
         if (!node.status) {
@@ -85,7 +154,7 @@ class BaseColumnViewStore extends EventEmitter {
         }
 
         node.children = node.children.map(function(item) {
-            return this.parseNode(item);
+            return this.parseNode(item, node);
         }, this);
 
         return node;
@@ -93,82 +162,109 @@ class BaseColumnViewStore extends EventEmitter {
 
     populate(payload) {
         const { data } = payload;
-
-        const newData = this.parseNode(data);
+        const newData = this.parseNode(data, null);
 
         this.data = newData;
-        this.stack = [];
-        // Push the root node on the stack;
-        this.stack.push(this.data);
+        this.stack = [newData.id];
         this._initialStackData = this.stack[0];
         this.emit('change');
     }
 
-    getAll() {
-        return this.data;
-    }
-
-    getStack() {
-        return this.stack;
-    }
 
     setLoadingState(payload) {
         const { node } = payload;
+        var targetNode = this.getById(node);
 
-        node.loading = true;
+        targetNode.loading = true;
         this.emit('change');
     }
 
     updateNode(payload) {
         const { node } = payload;
+        var targetNode = this.getById(node);
 
-        node.loading = false;
+        targetNode.loading = false;
+
         const newNodes = payload.data.map(function(item) {
-            var nodeData = this.parseNode(item);
-            nodeData.parent = node;
-
-            return nodeData;
+            return this.parseNode(item, targetNode);
         }, this);
 
-        node.children = node.children.concat(newNodes);
+        targetNode.children = targetNode.children.concat(newNodes);
 
+        this.emit('change');
+    }
+
+    updateAttribute(payload) {
+        const { node, attribute, value } = payload;
+        var targetNode = this.getById(node);
+
+
+        node[attribute] = value;
         this.emit('change');
     }
 
     create(payload) {
         const { target, typeObject, index } = payload;
+        var node = this.getById(target);
 
-        target.children.push(this.parseNode({
+        node.children.push(this.parseNode({
             name: "New page",
             status: "draft",
             type: typeObject.type,
-            parent: target
-        }));
+        }, node));
 
         this.emit('change');
     }
 
+    getById(id) {
+        var result;
+
+        visitBfs(this.data, function(item) {
+            if (item.id === id) {
+                result = item;
+                return false;
+            }
+        });
+
+        return result;
+    }
+
     remove(payload) {
-        const { target } = payload;
+        const { id } = payload;
+
+        var targetNode = this.getById(id);
 
         // No deleting the root node, thank you very much!
-        if (!target.parent) {
+        if (!targetNode.parent) {
             return;
         }
 
-        function recursiveDelete(next) {
+        const recursiveDelete = function(next) {
+            var stackIndex = this.stack.indexOf(next.id);
+
+            if (stackIndex > -1) {
+                this.stack.splice(stackIndex, 1);
+            }
+
             next.children.map(recursiveDelete);
             return null;
+        }.bind(this);
+
+        var res = targetNode.children.map(recursiveDelete);
+        targetNode.children = [];
+
+        var parentNode = this.getById(targetNode.parent);
+        var index = parentNode.children.indexOf(targetNode);
+
+        var stackIndex = this.stack.indexOf(id);
+
+        if (stackIndex > -1) {
+            this.stack.splice(stackIndex, 1);
         }
 
-        var res = target.children.map(recursiveDelete);
-
-        target.children = [];
-
-        var index = target.parent.children.indexOf(target);
-        target.parent.children.splice(index, 1);
-
+        parentNode.children.splice(index, 1);
         this.emit('change');
+
     }
 
     showModal(payload) {
@@ -183,6 +279,20 @@ class BaseColumnViewStore extends EventEmitter {
 
     getModal() {
         return this.modal;
+    }
+
+    getAll() {
+        return lodash.cloneDeep(this.data);
+    }
+
+    getStack() {
+        return this.stack.map(function(id) {
+            return this.getById(id);
+        }, this);
+    }
+
+    getLast() {
+        return this.getById(this.stack[this.stack.length-1]);
     }
 
     reset(){
@@ -205,11 +315,14 @@ AppDispatcher.register( function( payload ) {
         case 'CARD_MOVE':
             ColumnViewStore.move(payload);
             break;
+        case 'CARD_LEAVE':
+            ColumnViewStore.leave(payload);
+            break;
         case 'CARD_CLEAR_STACK':
             ColumnViewStore.clear(payload);
             break;
-        case 'CARD_UPDATE':
-            ColumnViewStore.update(payload);
+        case 'CARD_DROP':
+            ColumnViewStore.drop(payload);
             break;
         case 'CARD_POPULATE':
             ColumnViewStore.populate(payload);
@@ -234,6 +347,9 @@ AppDispatcher.register( function( payload ) {
             break;
         case 'EXPLORER_RESET':
             ColumnViewStore.reset();
+            break;
+        case 'CARD_CHANGE_ATTRIBUTE':
+            ColumnViewStore.updateAttribute(payload);
             break;
     }
 

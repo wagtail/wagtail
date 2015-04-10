@@ -17,7 +17,8 @@ PageService.prototype = {
                         'site.FormPage',
                         'site.BlogPostPage',
                         'site.BlogPostIndexPage',
-                        'site.PersonPage'
+                        'site.PersonPage',
+                        'site.PersonIndexPage'
                     ]
                 },
                 {
