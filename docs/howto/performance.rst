@@ -48,6 +48,4 @@ Caching proxy
 
 To support high volumes of traffic with excellent response times, we recommend a caching proxy. Both `Varnish <http://www.varnish-cache.org/>`_ and `Squid <http://www.squid-cache.org/>`_ have been tested in production. Hosted proxies like `Cloudflare <https://www.cloudflare.com/>`_ should also work well.
 
-.. versionadded:: 0.4
-
-    Wagtail supports automatic cache invalidation for Varnish/Squid. See :ref:`frontend_cache_purging` for more information.
+ Wagtail supports automatic cache invalidation for Varnish/Squid. See :ref:`frontend_cache_purging` for more information.

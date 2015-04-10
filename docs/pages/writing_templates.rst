@@ -117,9 +117,6 @@ See :ref:`image_tag` for full documentation.
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
-.. versionchanged:: 0.4
-    The 'rich_text' tags library was renamed to 'wagtailcore_tags'
-
 This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly it also expands internal shorthand references to embedded images and links made in the Wagtail editor into fully-baked HTML ready for display.
 
 Only fields using ``RichTextField`` need this applied in the template.
@@ -161,9 +158,6 @@ Wagtail embeds and images are included at their full width, which may overflow t
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
-
-.. versionchanged:: 0.4
-    The 'pageurl' tags library was renamed to 'wagtailcore_tags'
 
 pageurl
 --------

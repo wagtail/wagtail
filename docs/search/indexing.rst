@@ -60,15 +60,6 @@ The search may not return any results while this command is running, so avoid ru
 Indexing extra fields
 =====================
 
-.. versionchanged:: 0.4
-
-    The ``indexed_fields`` configuration format was replaced with ``search_fields``
-
-.. versionchanged:: 0.6
-
-   The ``wagtail.wagtailsearch.indexed`` module was renamed to ``wagtail.wagtailsearch.index``
-
-
 .. warning::
 
     Indexing extra fields is only supported with ElasticSearch as your backend. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.

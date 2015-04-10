@@ -3,9 +3,6 @@
 Using images in templates
 =========================
 
-.. versionchanged:: 0.4
-    The 'image_tags' tags library was renamed to 'wagtailimages_tags'
-
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
 The syntax for the tag is thus::
@@ -131,8 +128,6 @@ Wagtail provides two shortcuts to give greater control over the ``img`` element:
 
 **1. Adding attributes to the  {% image %} tag**
 
-.. versionadded:: 0.4
-
 Extra attributes can be specified with the syntax ``attribute="value"``:
 
 .. code-block:: django
@@ -169,8 +164,6 @@ Therefore in the above example, if you'd added the field ``foo`` to your Abstrac
 
 The ``attrs`` shortcut
 -----------------------
-
-.. versionadded:: 0.4
 
 You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
 
