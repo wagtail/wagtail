@@ -11,11 +11,16 @@ const Breadcrumb = React.createClass({
         }
 
         const breadcrumb = data.map((item, index) => {
+
+            if (!item) {
+                return <span key={index} />
+            }
+
             return (
                 <span
                     key={index}
                     className='bn-breadcrum-item'
-                    onClick={this.clickHandler.bind(this, item, index)}>
+                    onClick={this.clickHandler.bind(this, item.id, index)}>
                     {item.name === "root" ? "" : item.name}
                     <span  className="bn-arrow" />
                 </span>
@@ -28,8 +33,8 @@ const Breadcrumb = React.createClass({
             </span>
         );
     },
-    clickHandler: function(item, index) {
-        ColumnViewActions.show(item, index, index);
+    clickHandler: function(id, index) {
+        ColumnViewActions.show(id);
     }
 });
 

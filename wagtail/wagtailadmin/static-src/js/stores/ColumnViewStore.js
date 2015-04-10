@@ -140,7 +140,7 @@ class BaseColumnViewStore extends EventEmitter {
     }
 
     clear(payload) {
-        this.stack = [this._initialStackData.id];
+        this.stack = [this._initialStackData];
         this.emit('change');
     }
 
