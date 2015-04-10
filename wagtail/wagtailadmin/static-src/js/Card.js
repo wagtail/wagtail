@@ -95,7 +95,7 @@ const Card = React.createClass({
 
         isSelected                  = stack.indexOf(data) > -1;
         isSiblingOfSelected         = this.isSibling(data, stack);
-        isLast                      = this.isLast(data.id, stack);
+        isLast                      = this.isLast(data, stack);
 
         if (isSelected)             className.push('bn-node--active');
         if (isSiblingOfSelected)    className.push('bn-node--sibling');
