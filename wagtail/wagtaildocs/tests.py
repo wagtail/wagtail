@@ -142,6 +142,37 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
 
 
+class TestDocumentServeView(TestCase, WagtailTestUtils):
+
+    def test_get(self):
+        self.login()
+
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Submit
+        post_data = {
+            'title': "Test document",
+            'file': fake_file,
+        }
+        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse('wagtaildocs_index'))
+
+        # Document should be created
+        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+
+        self.client.logout()
+
+        self.document = Document.objects.get(title="Test document")
+
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+
+        self.assertEqual(response.status_code, 200)
+
+
 class TestDocumentEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
