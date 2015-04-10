@@ -556,6 +556,9 @@ class TestServeView(TestCase):
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
 
+    def test_content_type_header(self):
+        self.assertEqual(self.get()['Content-Type'], 'application/msword')
+
     def test_is_streaming_response(self):
         self.assertTrue(self.get().streaming)
 
