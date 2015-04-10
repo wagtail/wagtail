@@ -143,8 +143,19 @@ COMPRESS_ENABLED = False  # disable compression so that we can run tests on the 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.wagtailsearch.backends.db',
-    }
+    },
 }
+
+
+if os.environ.get('DATABASE_ENGINE', None) == 'django.db.backends.postgresql_psycopg2':
+    INSTALLED_APPS += (
+        'wagtail.contrib.wagtailpostgressearch',
+    )
+
+    WAGTAILSEARCH_BACKENDS['postgres'] = {
+        'BACKEND': 'wagtail.contrib.wagtailpostgressearch.backend',
+    }
+
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
