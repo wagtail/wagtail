@@ -3,9 +3,23 @@ import AppDispatcher from '../dispatcher';
 import EventEmitter from 'events';
 import generateUUID from '../utils/uuid';
 import PageTypeStore from './PageTypeStore';
-
-
 var lodash = require('lodash');
+
+
+const isParent = function(parent, child) {
+    if (parent.children.indexOf(child) > -1) {
+        return true;
+    }
+
+    var test = false;
+
+    parent.children.forEach(function(item) {
+        test = isParent(item, child);
+    });
+
+    return test;
+};
+
 
 function visitBfs(node, func) {
     var q = [node];
@@ -43,15 +57,6 @@ class BaseColumnViewStore extends EventEmitter {
         const currentParent = this.getById(sourceNode.parent);
         const newParent = this.getById(targetId);
 
-        const isParent = function(parent, child) {
-            if (parent.children.indexOf(child) > -1) {
-                return true;
-            }
-            return parent.children.forEach(function(item) {
-                isParent(item, child);
-            });
-        }.bind(this);
-
         // No dragging items into their parent nodes!
         if (isParent(sourceNode, newParent)) {
             return false;
@@ -77,6 +82,13 @@ class BaseColumnViewStore extends EventEmitter {
         const { targetId, sourceId } = payload;
         const sourceNode = this.getById(sourceId);
         const targetNode = this.getById(targetId);
+
+        if (isParent(sourceNode, targetNode)) {
+            targetNode.isValidDrop = false;
+            this.emit('change');
+            return;
+        }
+
         var types = PageTypeStore.getTypeByName(targetNode.type);
         var isValidType = types.subpage_types.indexOf(sourceNode.type) > -1;
         targetNode.isValidDrop = isValidType;
