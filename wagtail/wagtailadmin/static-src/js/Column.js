@@ -70,7 +70,7 @@ const Column = React.createClass({
         }
     },
     handleClick() {
-       ColumnViewActions.showModal();
+       ColumnViewActions.triggerAdd(this.props.data.id);
     },
     mapNodes(data, columnNumber) {
         return data.children.map(function(item, index) {
