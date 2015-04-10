@@ -18,7 +18,8 @@ PageService.prototype = {
                         'site.BlogPostPage',
                         'site.BlogPostIndexPage',
                         'site.PersonPage',
-                        'site.PersonIndexPage'
+                        'site.PersonIndexPage',
+                        'site.MediaReleaseIndexPage'
                     ]
                 },
                 {
@@ -153,10 +154,12 @@ PageService.prototype = {
                                 type: "site.PersonIndexPage",
                                 children: [
                                     {
-                                        name: "bob"
+                                        name: "bob",
+                                        type: "site.PersonPage"
                                     },
                                     {
-                                        name: "frank"
+                                        name: "frank",
+                                        type: "site.PersonPage"
                                     }
                                 ]
                             },
