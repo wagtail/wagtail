@@ -184,6 +184,7 @@ class BaseColumnViewStore extends EventEmitter {
         var targetNode = this.getById(node);
 
         targetNode.loading = false;
+        targetNode.isLoaded = true;
 
         const newNodes = payload.data.map(function(item) {
             return this.parseNode(item, targetNode);

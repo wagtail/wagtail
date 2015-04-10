@@ -56,7 +56,7 @@ const Card = React.createClass({
         const { data } = this.props;
         ColumnViewActions.show(data.id);
 
-        if (data.children && !data.children.length && data.url) {
+        if (!data.isLoaded && data.url) {
             ColumnViewActions.fetch({
                 node: data.id,
                 url: data.url
@@ -95,7 +95,7 @@ const Card = React.createClass({
 
         isSelected                  = stack.indexOf(data) > -1;
         isSiblingOfSelected         = this.isSibling(data, stack);
-        isLast                      = this.isLast(data, stack);
+        isLast                      = this.isLast(data.id, stack);
 
         if (isSelected)             className.push('bn-node--active');
         if (isSiblingOfSelected)    className.push('bn-node--sibling');

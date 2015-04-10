@@ -33,7 +33,6 @@ const CardControls = React.createClass({
     },
     handleAdd(e) {
         ColumnViewActions.triggerAdd(this.props.data.id);
-        // ColumnViewActions.showModal();
     },
     render() {
         const { data, stack } = this.props;
