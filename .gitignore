@@ -8,5 +8,6 @@
 /docs/_build/
 /.tox/
 /venv
-/node_modules
+# Ignore nodejs generated files
+node_modules
 npm-debug.log
