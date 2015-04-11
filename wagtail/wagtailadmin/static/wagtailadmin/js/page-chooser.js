@@ -9,6 +9,7 @@ function createPageChooser(id, pageType, openAtParentId) {
         if (openAtParentId) {
             initialUrl += openAtParentId + '/';
         }
+
         ModalWorkflow({
             'url': initialUrl,
             'urlParams': {'page_type': pageType},
