@@ -2,6 +2,7 @@
 (function() {
     (function($) {
         return $.widget('IKS.hallowagtaildoclink', {
+
             options: {
                 uuid: '',
                 editable: null
@@ -19,7 +20,9 @@
                     command: null
                 });
                 toolbar.append(button);
+
                 return button.on('click', function(event) {
+
                     var lastSelection;
 
                     lastSelection = widget.options.editable.getSelection();

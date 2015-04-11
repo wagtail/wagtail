@@ -32,7 +32,6 @@
                 toolbar.append(button);
                 return button.on('click', function(event) {
                     var enclosingLink, lastSelection, url;
-
                     enclosingLink = getEnclosingLink();
                     if (enclosingLink) {
                         $(enclosingLink).replaceWith(enclosingLink.innerHTML);

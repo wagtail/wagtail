@@ -101,6 +101,7 @@ $(function() {
             var response = $.parseJSON(data.result);
 
             if (response.success) {
+
                 itemElement.addClass('upload-success')
 
                 $('.right', itemElement).append(response.form);
@@ -126,6 +127,7 @@ $(function() {
     });
 
     // ajax-enhance forms added on done()
+
     $('#upload-list').on('submit', 'form', function(e) {
         var form = $(this);
         var itemElement = form.closest('#upload-list > li');

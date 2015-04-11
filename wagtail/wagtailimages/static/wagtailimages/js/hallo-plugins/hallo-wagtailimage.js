@@ -2,6 +2,7 @@
 (function() {
     (function($) {
         return $.widget('IKS.hallowagtailimage', {
+
             options: {
                 uuid: '',
                 editable: null
@@ -19,6 +20,7 @@
                     command: null
                 });
                 toolbar.append(button);
+
                 return button.on('click', function(event) {
                     var insertionPoint, lastSelection;
 

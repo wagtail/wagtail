@@ -142,6 +142,7 @@ function InlinePanel(opts) {
         if ($('> li', self.formsUl).not('.deleted').length) {
             self.formsUl.parent().removeClass('empty');
         } else {
+
             self.formsUl.parent().addClass('empty');
         }
     };
@@ -210,6 +211,7 @@ function InlinePanel(opts) {
          message so that it doesn't count towards the number of errors on the tab at the
          top of the page. */
         if ($('#' + deleteInputId).val() === '1') {
+
             $('#' + childId).addClass('deleted').hide(0, function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();

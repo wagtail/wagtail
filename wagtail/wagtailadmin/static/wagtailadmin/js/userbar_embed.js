@@ -10,6 +10,7 @@
         // Get the height from the passed data.
         try {
             h = Number(e.data.replace(/.*fh=(\d+)(?:&|$)/, '$1'));
+
             if (!isNaN(h) && h > 0 && h !== frameHeight) {
                 f.style.opacity = 1;
                 f.style.height = h + 'px';
