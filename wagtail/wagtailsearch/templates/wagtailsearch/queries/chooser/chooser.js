@@ -6,7 +6,7 @@ function(modal) {
         });
 
         $('.pagination a', context).click(function() {
-            var page = this.getAttribute("data-page");
+            var page = this.getAttribute('data-page');
             setPage(page);
             return false;
         });
@@ -26,9 +26,9 @@ function(modal) {
     }
     function setPage(page) {
 
-        if($('#id_q').val().length){
+        if ($('#id_q').val().length) {
             dataObj = {q: $('#id_q').val(), p: page};
-        }else{
+        } else {
             dataObj = {p: page};
         }
 

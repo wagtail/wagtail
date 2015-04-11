@@ -8,7 +8,7 @@ function(modal) {
         });
 
         $('.pagination a', context).click(function() {
-            var page = this.getAttribute("data-page");
+            var page = this.getAttribute('data-page');
             setPage(page);
             return false;
         });
@@ -23,13 +23,14 @@ function(modal) {
                 ajaxifyLinks($('#image-results'));
             }
         });
+
         return false;
     }
 
     function setPage(page) {
-        if($('#id_q').val().length){
+        if ($('#id_q').val().length) {
             dataObj = {q: $('#id_q').val(), p: page};
-        }else{
+        } else {
             dataObj = {p: page};
         }
 
@@ -41,6 +42,7 @@ function(modal) {
                 ajaxifyLinks($('#image-results'));
             }
         });
+
         return false;
     }
 
@@ -71,6 +73,7 @@ function(modal) {
         var wait = setTimeout(search, 200);
         $(this).data('timer', wait);
     });
+
     $('a.suggested-tag').click(function() {
         $('#id_q').val($(this).text());
         search();
@@ -78,7 +81,7 @@ function(modal) {
     });
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    
+
     /* Add tag entry interface (with autocompletion) to the tag field of the image upload form */
     $('#id_tags', modal.body).tagit({
         autocomplete: {source: "{{ autocomplete_url|addslashes }}"}

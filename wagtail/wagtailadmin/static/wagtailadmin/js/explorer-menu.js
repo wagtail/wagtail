@@ -5,14 +5,14 @@ $(function() {
     // Dynamically load menu on request.
     $(document).on('click', '.dl-trigger', function() {
         var $this = $(this);
-        
+
         // Close all submenus
         $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
 
         if ($explorer.data('dlmenu') && $explorer.dlmenu('isOpen')) {
             // if it's already open, allow the menu plugin to close it
             return false;
-        }else {
+        } else {
             if (!$explorer.children().length) {
                 $this.addClass('icon-spinner');
                 $explorer.load($this.data('explorer-menu-url'), function() {
@@ -26,7 +26,7 @@ $(function() {
                     });
                     $explorer.dlmenu('openMenu');
                 });
-            }else {
+            } else {
                 $explorer.dlmenu('openMenu');
             }
         }
