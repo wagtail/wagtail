@@ -62,6 +62,7 @@ function ModalWorkflow(opts) {
             self.body.html(response.html);
             container.modal('show');
         }
+
         if (response.onload) {
             // if the response is a function
             response.onload(self);
