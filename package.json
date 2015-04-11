@@ -1,0 +1,28 @@
+{
+  "name": "wagtail",
+  "version": "1.0.0",
+  "description": ".. image:: https://travis-ci.org/torchbox/wagtail.png?branch=master     :target: https://travis-ci.org/torchbox/wagtail",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "jscs": "^1.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:js": "./node_modules/.bin/jscs ./wagtail || true",
+    "format:js": "./node_modules/.bin/jscs ./wagtail -x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/torchbox/wagtail.git"
+  },
+  "author": "Torchbox",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/torchbox/wagtail/issues"
+  },
+  "homepage": "https://github.com/torchbox/wagtail"
+}
