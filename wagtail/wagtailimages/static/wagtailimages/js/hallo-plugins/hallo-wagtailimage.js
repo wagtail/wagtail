@@ -2,7 +2,10 @@
 (function() {
     (function($) {
         return $.widget('IKS.hallowagtailimage', {
+<<<<<<< HEAD
 
+=======
+>>>>>>> updated jscs config to accept multiple variable declarations, added widget = this to the safe words list, fixed issues with }else { formatting
             options: {
                 uuid: '',
                 editable: null
@@ -20,7 +23,10 @@
                     command: null
                 });
                 toolbar.append(button);
+<<<<<<< HEAD
 
+=======
+>>>>>>> updated jscs config to accept multiple variable declarations, added widget = this to the safe words list, fixed issues with }else { formatting
                 return button.on('click', function(event) {
                     var insertionPoint, lastSelection;
 

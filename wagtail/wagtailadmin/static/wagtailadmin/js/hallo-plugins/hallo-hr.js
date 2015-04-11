@@ -12,7 +12,6 @@
                 var buttonElement, buttonset;
 
                 buttonset = jQuery('<span class="' + this.widgetName + '"></span>');
-
                 buttonElement = jQuery('<span></span>');
                 buttonElement.hallobutton({
                     uuid: this.options.uuid,
