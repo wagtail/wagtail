@@ -98,6 +98,7 @@ def chooser(request):
         'query_string': q,
         'will_select_format': request.GET.get('select_format'),
         'popular_tags': Image.popular_tags(),
+        'autocomplete_url': reverse('wagtailadmin_tag_autocomplete')
     })
 
 
@@ -146,8 +147,13 @@ def chooser_upload(request):
     images = Image.objects.order_by('title')
 
     return render_modal_workflow(
-        request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form, 'searchform': searchform, 'max_filesize': MAX_UPLOAD_SIZE}
+        request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
+            'images': images,
+            'uploadform': form,
+            'searchform': searchform,
+            'max_filesize': MAX_UPLOAD_SIZE,
+            'autocomplete_url': reverse('wagtailadmin_tag_autocomplete')
+        }
     )
 
 

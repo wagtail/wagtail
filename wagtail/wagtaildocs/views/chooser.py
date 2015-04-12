@@ -86,6 +86,7 @@ def chooser(request):
         'uploadform': uploadform,
         'searchform': searchform,
         'is_searching': False,
+        'autocomplete_url': reverse('wagtailadmin_tag_autocomplete')
     })
 
 
@@ -121,6 +122,9 @@ def chooser_upload(request):
     documents = Document.objects.order_by('title')
 
     return render_modal_workflow(
-        request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js',
-        {'documents': documents, 'uploadform': form}
+        request, 'wagtaildocs/chooser/chooser.html', 'wagtaildocs/chooser/chooser.js', {
+            'documents': documents,
+            'uploadform': form,
+            'autocomplete_url': reverse('wagtailadmin_tag_autocomplete')
+        }
     )
