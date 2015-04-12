@@ -150,7 +150,7 @@ class TestDocumentServeView(TestCase, WagtailTestUtils):
         fake_file = ContentFile(b("A boring example document"))
         fake_file.name = 'test.txt'
 
-        # Submit
+        # Submit it
         post_data = {
             'title': "Test document",
             'file': fake_file,
@@ -165,11 +165,20 @@ class TestDocumentServeView(TestCase, WagtailTestUtils):
 
         self.client.logout()
 
+        # Serve document
         self.document = Document.objects.get(title="Test document")
 
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
 
         self.assertEqual(response.status_code, 200)
+        self.assertEquals(
+            response.get('Content-Disposition'),
+            'attachment; filename="%s"' % self.document.filename
+        )
+        self.assertEquals(
+            response.get('Content-Type'),
+            "text/plain"
+        )
 
 
 class TestDocumentEditView(TestCase, WagtailTestUtils):
