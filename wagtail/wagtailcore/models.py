@@ -50,10 +50,10 @@ class SiteManager(models.Manager):
 
 @python_2_unicode_compatible
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, db_index=True)
-    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
-    root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
+    hostname = models.CharField(max_length=255, db_index=True, verbose_name=_("Hostname"))
+    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).", verbose_name=_("Port")))
+    root_page = models.ForeignKey('Page', related_name='sites_rooted_here', verbose_name=_("Root page"))
+    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"), verbose_name=_("Is default site"))
 
     class Meta:
         unique_together = ('hostname', 'port')
@@ -263,28 +263,28 @@ class PageBase(models.base.ModelBase):
 
 @python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
-    title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
-    slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
+    title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"), verbose_name=_("Title"))
+    slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"), verbose_name=_("Slug"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
-    content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
-    live = models.BooleanField(default=True, editable=False)
-    has_unpublished_changes = models.BooleanField(default=False, editable=False)
-    url_path = models.CharField(max_length=255, blank=True, editable=False)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
+    content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages', verbose_name=_("Content type"))
+    live = models.BooleanField(default=True, editable=False, verbose_name=_("Live"))
+    has_unpublished_changes = models.BooleanField(default=False, editable=False, verbose_name=_("Has unpublished changes"))
+    url_path = models.CharField(max_length=255, blank=True, editable=False, verbose_name=_("URL path"))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages', verbose_name=_("Owner"))
 
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
-    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
-    search_description = models.TextField(blank=True)
+    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"), verbose_name=_("Show in menus"))
+    search_description = models.TextField(blank=True, verbose_name=_("Search description"))
 
     go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
-    expired = models.BooleanField(default=False, editable=False)
+    expired = models.BooleanField(default=False, editable=False, verbose_name=_("Expired"))
 
-    locked = models.BooleanField(default=False, editable=False)
+    locked = models.BooleanField(default=False, editable=False, verbose_name=_("Locked"))
 
-    first_published_at = models.DateTimeField(null=True, editable=False)
-    latest_revision_created_at = models.DateTimeField(null=True, editable=False)
+    first_published_at = models.DateTimeField(null=True, editable=False, verbose_name=_("First published at"))
+    latest_revision_created_at = models.DateTimeField(null=True, editable=False, verbose_name=_("Last revision created at"))
 
     search_fields = (
         index.SearchField('title', partial_match=True, boost=2),
@@ -1058,12 +1058,12 @@ class SubmittedRevisionsManager(models.Manager):
 
 @python_2_unicode_compatible
 class PageRevision(models.Model):
-    page = models.ForeignKey('Page', related_name='revisions')
-    submitted_for_moderation = models.BooleanField(default=False)
-    created_at = models.DateTimeField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    content_json = models.TextField()
-    approved_go_live_at = models.DateTimeField(null=True, blank=True)
+    page = models.ForeignKey('Page', related_name='revisions', verbose_name=_("Page"))
+    submitted_for_moderation = models.BooleanField(default=False, verbose_name=_("Submitted for moderation"))
+    created_at = models.DateTimeField(verbose_name=_("Created at"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, verbose_name=_("User"))
+    content_json = models.TextField(verbose_name=_("Content json"))
+    approved_go_live_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Approved go live at"))
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -1397,5 +1397,5 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', related_name='view_restrictions')
-    password = models.CharField(max_length=255)
+    page = models.ForeignKey('Page', related_name='view_restrictions', verbose_name=_("Page"))
+    password = models.CharField(max_length=255, verbose_name=_("Password"))
