@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import os
 
 import six
 from six import StringIO
@@ -50,7 +51,7 @@ class SiteManager(models.Manager):
 
 @python_2_unicode_compatible
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, db_index=True)
+    hostname =models.CharField(max_length=255,db_index=True )
     port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
     root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
     is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
@@ -78,7 +79,7 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
         try:
-            hostname = request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
+            hostname =request.META['HTTP_HOST'].split(':')[0]  # KeyError here goes to the final except clause
             try:
                 # find a Site matching this specific hostname
                 return Site.objects.get(hostname=hostname)  # Site.DoesNotExist here goes to the final except clause
