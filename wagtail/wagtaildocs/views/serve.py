@@ -10,4 +10,4 @@ def serve(request, document_id, document_filename):
     # Send document_served signal
     document_served.send(sender=Document, instance=doc, request=request)
 
-    return sendfile(request, doc.file, attachment=True, attachment_filename=doc.filename)
+    return sendfile(request, doc.file.path, attachment=True, attachment_filename=doc.filename)
