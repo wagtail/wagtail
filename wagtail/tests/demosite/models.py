@@ -99,7 +99,7 @@ class AbstractCarouselItem(AbstractLinkFields):
 
 class ContactFieldsMixin(models.Model):
     telephone = models.CharField(max_length=20, blank=True)
-    email = models.EmailField(blank=True)
+    email = models.EmailField(blank=True, max_length=254)
     address_1 = models.CharField(max_length=255, blank=True)
     address_2 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)

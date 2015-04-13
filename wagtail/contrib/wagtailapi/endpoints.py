@@ -16,6 +16,7 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.utils.compat import get_related_model
 
 from .utils import BadRequestError
 
@@ -47,7 +48,7 @@ def get_api_data(obj, fields):
     child_relations = {}
     if isinstance(obj, Page):
         child_relations = {
-            child_relation.field.rel.related_name: child_relation.model
+            child_relation.field.rel.related_name: get_related_model(child_relation)
             for child_relation in get_all_child_relations(type(obj))
         }
 

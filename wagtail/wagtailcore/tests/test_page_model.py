@@ -3,6 +3,7 @@ import json
 
 import pytz
 
+import django
 from django.test import TestCase, Client
 from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
@@ -187,6 +188,11 @@ class TestRouting(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context_data['self'], christmas_page)
         used_template = response.resolve_template(response.template_name)
+
+        # Django 1.8+
+        if django.VERSION >= (1, 8):
+            used_template = used_template.template
+
         self.assertEqual(used_template.name, 'tests/event_page.html')
 
     def test_route_to_unknown_page_returns_404(self):
