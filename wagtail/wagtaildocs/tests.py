@@ -142,46 +142,6 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
 
 
-class TestDocumentServeView(TestCase, WagtailTestUtils):
-
-    def test_get(self):
-        self.login()
-
-        # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
-        fake_file.name = 'test.txt'
-
-        # Submit it
-        post_data = {
-            'title': "Test document",
-            'file': fake_file,
-        }
-        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
-
-        # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
-
-        # Document should be created
-        self.assertTrue(models.Document.objects.filter(title="Test document").exists())
-
-        self.client.logout()
-
-        # Serve document
-        self.document = Document.objects.get(title="Test document")
-
-        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEquals(
-            response.get('Content-Disposition'),
-            'attachment; filename="%s"' % self.document.filename
-        )
-        self.assertEquals(
-            response.get('Content-Type'),
-            "text/plain"
-        )
-
-
 class TestDocumentEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -593,6 +553,9 @@ class TestServeView(TestCase):
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
+
+    def test_content_type_header(self):
+        self.assertEqual(self.get()['Content-Type'], 'application/msword')
 
     def test_is_streaming_response(self):
         self.assertTrue(self.get().streaming)

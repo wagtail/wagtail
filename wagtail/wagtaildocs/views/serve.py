@@ -4,6 +4,7 @@ from sendfile import sendfile
 
 from wagtail.wagtaildocs.models import Document, document_served
 
+
 def serve(request, document_id, document_filename):
     doc = get_object_or_404(Document, id=document_id)
 
