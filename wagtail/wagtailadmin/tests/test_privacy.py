@@ -84,7 +84,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "modal.respond('setPermission', false);")
+        self.assertContains(response, "modal.respond('setPermission', '' === 'true');")
 
         # Check that a page restriction has been created
         self.assertTrue(PageViewRestriction.objects.filter(page=self.public_page).exists())
@@ -120,7 +120,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "modal.respond('setPermission', true);")
+        self.assertContains(response, "modal.respond('setPermission', 'true' === 'true' );")
 
         # Check that the page restriction has been deleted
         self.assertFalse(PageViewRestriction.objects.filter(page=self.private_page).exists())
