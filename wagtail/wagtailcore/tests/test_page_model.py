@@ -8,6 +8,7 @@ from django.test.utils import override_settings
 from django.http import HttpRequest, Http404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.testapp.models import EventPage, EventIndex, SimplePage, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
@@ -182,12 +183,16 @@ class TestRouting(TestCase):
 
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
         request = HttpRequest()
+        request.user = AnonymousUser()
+        request.site = Site.objects.first()
+
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context_data['self'], christmas_page)
-        used_template = response.resolve_template(response.template_name)
-        self.assertEqual(used_template.name, 'tests/event_page.html')
+        # confirm that the event_page.html template was used
+        self.assertContains(response, '<h2>Event</h2>')
 
     def test_route_to_unknown_page_returns_404(self):
         homepage = Page.objects.get(url_path='/home/')
