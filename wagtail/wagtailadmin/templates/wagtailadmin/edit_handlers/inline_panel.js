@@ -3,7 +3,7 @@
     var panel = InlinePanel({
         formsetPrefix: 'id_{{ self.formset.prefix }}',
         emptyChildFormPrefix: '{{ self.empty_child.form.prefix }}',
-        canOrder: '{% if can_order %}true{% endif %}' === 'true' ? true: false
+        canOrder: '{% if can_order %}true{% endif %}' === 'true'
     });
 
     for (var i = 0; i < children.length; i++) {
