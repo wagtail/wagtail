@@ -101,7 +101,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(self.get({'prompt_for_link_text': 'foo'}).status_code, 200)
 
     def test_create_link(self):
-        response = self.post({'url': 'http://www.example.com'})
+        response = self.post({'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "'onload'")  # indicates success / post back to calling page
         self.assertContains(response, "'url': 'http://www.example.com/',")
