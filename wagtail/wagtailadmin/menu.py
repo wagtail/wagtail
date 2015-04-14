@@ -11,13 +11,19 @@ from django.utils.safestring import mark_safe
 from wagtail.wagtailcore import hooks
 
 
+from django.template import Context, loader
+
+
+
 class MenuItem(with_metaclass(MediaDefiningClass)):
-    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
+
+    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000, template='wagtailadmin/shared/menu_item.html'):
         self.label = label
         self.url = url
         self.classnames = classnames
         self.name = (name or slugify(text_type(label)))
         self.order = order
+        self.template = template
 
         if attrs:
             self.attr_string = flatatt(attrs)
@@ -31,10 +37,22 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         """
         return True
 
+    def is_active(self, request):
+        return request.path.startswith(self.url)
+
     def render_html(self, request):
-        return format_html(
-            """<li class="menu-item menu-{0}"><a href="{1}" class="{2}"{3}>{4}</a></li>""",
-            self.name, self.url, self.classnames, self.attr_string, self.label)
+        t = loader.get_template(self.template)
+        c = Context({
+            'name': self.name,
+            'url': self.url,
+            'classnames': self.classnames,
+            'attr_string': self.attr_string,
+            'label': self.label,
+            'request': request,
+            'active': self.is_active(request)
+        })
+
+        return t.render(c)
 
 
 class Menu(object):
@@ -55,6 +73,9 @@ class Menu(object):
 
     def menu_items_for_request(self, request):
         return [item for item in self.registered_menu_items if item.is_shown(request)]
+
+    def menu_items_active(self, request):
+        return [item for item in self.menu_items_for_request(request) if item.is_active(request)]
 
     @property
     def media(self):
@@ -77,16 +98,18 @@ class Menu(object):
                 rendered_menu_items.append(item.render_html(request))
             except TypeError:
                 # fallback for older render_html methods that don't accept a request arg
-                rendered_menu_items.append(item.render_html())
+                rendered_menu_items.append(item.render_html(request))
 
         return mark_safe(''.join(rendered_menu_items))
 
 
 class SubmenuMenuItem(MenuItem):
     """A MenuItem which wraps an inner Menu object"""
-    def __init__(self, label, menu, **kwargs):
+    def __init__(self, label, menu,
+                 template='wagtailadmin/shared/menu_submenu_item.html',
+                 **kwargs):
         self.menu = menu
-        super(SubmenuMenuItem, self).__init__(label, '#', **kwargs)
+        super(SubmenuMenuItem, self).__init__(label, '#', template=template, **kwargs)
 
     @property
     def media(self):
@@ -96,17 +119,30 @@ class SubmenuMenuItem(MenuItem):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
 
+    def is_active(self, request):
+        return bool(self.menu.menu_items_active(request))
+
     def render_html(self, request):
-        return format_html(
-            """<li class="menu-item menu-{0}">
-                <a href="#" class="submenu-trigger {1}"{2}>{3}</a>
-                <div class="nav-submenu">
-                    <h2 class="{1}">{3}</h2>
-                    <ul>{4}</ul>
-                </div>
-            </li>""",
-            self.name, self.classnames, self.attr_string, self.label, self.menu.render_html(request)
-        )
+
+        self.menu.menu_items_for_request(request)
+        is_active = request.path.startswith(self.url)
+
+        if not is_active:
+            is_active = self.is_active(request)
+
+        t = loader.get_template(self.template)
+        c = Context({
+            'name': self.name,
+            'url': self.url,
+            'classnames': self.classnames,
+            'attr_string': self.attr_string,
+            'label': self.label,
+            'menu_html': self.menu.render_html(request),
+            'request': request,
+            'active': is_active
+        })
+
+        return t.render(c)
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
