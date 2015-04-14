@@ -55,7 +55,7 @@ def browse(request, parent_page_id=None):
 
     shown_pages = []
     for page in pages:
-        page.can_choose = issubclass(page.specific_class, desired_class)
+        page.can_choose = issubclass(page.specific_class or Page, desired_class)
         page.can_descend = page.get_children_count()
 
         if page.can_choose or page.can_descend:
