@@ -10,8 +10,5 @@
         {{ parent_page.title }}
     {% endif %}
 
-    {% test_page_is_public parent_page as is_public %}
-    {% if not is_public %}
-        <span class="indicator privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
-    {% endif %}
+    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=parent_page %}
 </h2>
