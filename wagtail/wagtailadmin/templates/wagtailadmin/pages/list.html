@@ -117,65 +117,11 @@
                     {% endif %}
                     <td class="title" valign="top">
                         {% if moving %}
-                            <h2>
-                                {% if page.can_choose %}
-                                    <a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id page.id %}">{{ page.title }}</a>
-                                {% else %}
-                                    {{ page.title }}
-                                {% endif %}
-
-                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
-                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
-                            </h2>
+                            {% include "wagtailadmin/pages/listing/_page_title_move.html" %}
                         {% elif choosing %}
-                            <h2>
-                                {% if page.can_choose %}
-                                    <a class="choose-page" href="#{{ page.id }}" data-id="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}" data-edit-url="{% url 'wagtailadmin_pages_edit' page.id %}">{{ page.title }}</a>
-                                {% else %}
-                                    {{ page.title }}
-                                {% endif %}
-
-                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
-                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
-                            </h2>
+                            {% include "wagtailadmin/pages/listing/_page_title_choose.html" %}
                         {% else %}
-                            <h2>
-                                {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                                    <a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a>
-                                {% else %}
-                                    {{ page.title }}
-                                {% endif %}
-
-                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
-                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
-                            </h2>
-
-                            <ul class="actions">
-                                {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" class="button button-small button-secondary" title="{% trans 'Edit this page' %}">{% trans 'Edit' %}</a></li>
-                                {% endif %}
-                                {% if page.has_unpublished_changes and 'view_draft' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_view_draft' page.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Draft' %}</a></li>
-                                {% endif %}
-                                {% if page.live and 'view_live' not in hide_actions|default:'' %}
-                                    <li><a {% if page.url %}href="{{ page.url }}"{% endif %} class="button button-small button-secondary {% if not page.url %}disabled{% endif %}" target="_blank" {% if not page.url %}title="{% trans 'This page is published but does not exist within a configured Site, so cannot be viewed.' %}"{% endif %}>{% trans 'Live' %}</a></li>
-                                {% endif %}
-                                {% if page_perms.can_move and 'move' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_move' page.id %}" class="button button-small button-secondary">{% trans 'Move' %}</a></li>
-                                {% endif %}
-                                {% if parent_page_perms.can_add_subpage and 'copy' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_copy' page.id %}" class="button button-small button-secondary">{% trans 'Copy' %}</a></li>
-                                {% endif %}
-                                {% if page_perms.can_delete and 'delete' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="button button-small button-secondary">{% trans 'Delete' %}</a></li>
-                                {% endif %}
-                                {% if page_perms.can_unpublish and 'unpublish' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}" class="button button-small button-secondary">{% trans 'Unpublish' %}</a></li>
-                                {% endif %}
-                                {% if page_perms.can_add_subpage and 'add_subpage' not in hide_actions|default:'' %}
-                                    <li><a href="{% url 'wagtailadmin_pages_add_subpage' page.id %}" class="button button-small button-secondary">{% trans 'Add child page' %}</a></li>
-                                {% endif %}
-                            </ul>
+                            {% include "wagtailadmin/pages/listing/_page_title_explore.html" %}
                         {% endif %}
                     </td>
                     {% if show_parent %}
