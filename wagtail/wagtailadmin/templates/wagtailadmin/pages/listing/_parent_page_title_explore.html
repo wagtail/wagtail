@@ -15,7 +15,7 @@
     {% endif %}
 </h2>
 
-{% include "wagtailadmin/pages/_privacy_indicator.html" with page=parent_page %}
+{% include "wagtailadmin/pages/_privacy_switch.html" with page=parent_page %}
 
 <ul class="actions">
     {% if parent_page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
