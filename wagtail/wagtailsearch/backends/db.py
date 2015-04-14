@@ -43,8 +43,8 @@ class DBSearchQuery(BaseSearchQuery):
                 for field_name in fields:
                     # Check if the field exists (this will filter out indexed callables)
                     try:
-                        model._meta.get_field_by_name(field_name)
-                    except:
+                        model._meta.get_field(field_name)
+                    except models.fields.FieldDoesNotExist:
                         continue
 
                     # Filter on this field

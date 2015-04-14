@@ -64,7 +64,7 @@ def get_api_data(obj, fields):
 
         # Check django fields
         try:
-            field = obj._meta.get_field_by_name(field_name)[0]
+            field = obj._meta.get_field(field_name)
 
             if field.rel and isinstance(field.rel, models.ManyToOneRel):
                 # Foreign key

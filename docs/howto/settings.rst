@@ -262,7 +262,7 @@ URL Patterns
   from wagtail.wagtaildocs import urls as wagtaildocs_urls
   from wagtail.wagtailsearch import urls as wagtailsearch_urls
 
-  urlpatterns = patterns('',
+  urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
 
     url(r'^admin/', include(wagtailadmin_urls)),
@@ -275,7 +275,7 @@ URL Patterns
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     url(r'', include(wagtail_urls)),
-  )
+  ]
 
 This block of code for your project's ``urls.py`` does a few things:
 
