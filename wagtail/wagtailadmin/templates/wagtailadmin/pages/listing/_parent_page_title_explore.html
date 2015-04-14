@@ -10,9 +10,7 @@
         {{ parent_page.title }}
     {% endif %}
 
-    {% if parent_page.locked %}
-        <span class="indicator locked-indicator icon icon-locked" title="{% trans "This page is locked to further editing" %}"></span>
-    {% endif %}
+    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=parent_page %}
 </h2>
 
 {% include "wagtailadmin/pages/_privacy_switch.html" with page=parent_page %}

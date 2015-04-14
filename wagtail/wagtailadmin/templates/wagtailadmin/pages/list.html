@@ -138,10 +138,7 @@
                             {% endif %}
 
                             {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
-
-                            {% if page.locked %}
-                                <span class="indicator locked-indicator icon icon-locked" title="{% trans 'This page is locked to further editing' %}"></span>
-                            {% endif %}
+                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
                         </h2>
                         {% if not moving and not choosing %}
                             <ul class="actions">
