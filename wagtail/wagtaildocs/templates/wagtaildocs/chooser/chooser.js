@@ -28,7 +28,7 @@ function(modal) {
 
         if($('#id_q').val().length){
             dataObj = {q: $('#id_q').val(), p: page};
-        }else{
+        } else{
             dataObj = {p: page};
         }
 

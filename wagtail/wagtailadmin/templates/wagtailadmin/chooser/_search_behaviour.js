@@ -5,12 +5,13 @@ var searchUrl = $('form.search-form', modal.body).attr('action');
 function search() {
     $.ajax({
         url: searchUrl,
-        data: {q: $('#id_q', modal.body).val(), 'results_only': true},
+        data: {q: $('#id_q', modal.body).val(), results_only: true},
         success: function(data, status) {
             $('.page-results', modal.body).html(data);
             ajaxifySearchResults();
         }
     });
+
     return false;
 }
 

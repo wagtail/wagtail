@@ -24,7 +24,6 @@ function buildExpandingFormset(prefix, opts) {
             opts.onAdd(formCount);
         }
 
-
         formCount++;
         totalFormsInput.val(formCount);
     });
