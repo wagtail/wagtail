@@ -1,4 +1,22 @@
 {% load i18n wagtailadmin_tags %}
+{% comment %}
+
+    Variables accepted by this template:
+
+    title
+    subtitle
+
+    search_url - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
+    query_parameters - a query string (without the '?') to be placed after the search URL
+
+    icon - name of an icon to place against the title
+
+    tabbed - if true, add the classname 'tab-merged'
+    merged - if true, add the classname 'merged'
+
+    add_link - if present, display an 'add' button. This is a URL route name (taking no parameters) to be used as the link URL for the button
+    add_text - text for the 'add' button
+{% endcomment %}
 <header class="nice-padding {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     <div class="row">
         <div class="left">
