@@ -116,31 +116,40 @@
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
                     <td class="title" valign="top">
-                        <h2>
-                            {% if moving %}
+                        {% if moving %}
+                            <h2>
                                 {% if page.can_choose %}
                                     <a href="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id page.id %}">{{ page.title }}</a>
                                 {% else %}
                                     {{ page.title }}
                                 {% endif %}
-                            {% elif choosing %}
+
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                            </h2>
+                        {% elif choosing %}
+                            <h2>
                                 {% if page.can_choose %}
                                     <a class="choose-page" href="#{{ page.id }}" data-id="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}" data-edit-url="{% url 'wagtailadmin_pages_edit' page.id %}">{{ page.title }}</a>
                                 {% else %}
                                     {{ page.title }}
                                 {% endif %}
-                            {% else %}
+
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                            </h2>
+                        {% else %}
+                            <h2>
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                     <a href="{% url 'wagtailadmin_pages_edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a>
                                 {% else %}
                                     {{ page.title }}
                                 {% endif %}
-                            {% endif %}
 
-                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
-                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
-                        </h2>
-                        {% if not moving and not choosing %}
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                            </h2>
+
                             <ul class="actions">
                                 {% if page_perms.can_edit and 'edit' not in hide_actions|default:'' %}
                                     <li><a href="{% url 'wagtailadmin_pages_edit' page.id %}" class="button button-small button-secondary" title="{% trans 'Edit this page' %}">{% trans 'Edit' %}</a></li>
