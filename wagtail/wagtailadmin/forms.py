@@ -28,15 +28,11 @@ class URLOrAbsolutePathField(forms.URLField):
             value = super(URLOrAbsolutePathField, self).to_python(value)
         return value
 
+
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        _placeholder = kwargs.pop('placeholder', None)
-        placeholder_suffix = kwargs.pop('placeholder_suffix', "")
+        placeholder = kwargs.pop('placeholder', _("Search"))
         super(SearchForm, self).__init__(*args, **kwargs)
-        if _placeholder is not None:
-            placeholder = _placeholder
-        else:
-            placeholder = 'Search {0}'.format(placeholder_suffix)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
     q = forms.CharField(label=_("Search term"), widget=forms.TextInput())
