@@ -5,14 +5,10 @@ from six import text_type, with_metaclass
 from django.forms import MediaDefiningClass, Media
 from django.forms.utils import flatatt
 from django.utils.text import slugify
-from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-
-from wagtail.wagtailcore import hooks
-
-
 from django.template import Context, loader
 
+from wagtail.wagtailcore import hooks
 
 
 class MenuItem(with_metaclass(MediaDefiningClass)):
