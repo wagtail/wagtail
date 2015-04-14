@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{# The title field for a parent page when the listing is in 'choose' mode #}
+
+<h2>
+    {% if parent_page.can_choose %}
+        <a class="choose-page" href="#{{ parent_page.id }}" data-id="{{ parent_page.id }}" data-title="{{ parent_page.title }}" data-url="{{ parent_page.url }}" data-edit-url="{% url 'wagtailadmin_pages_edit' parent_page.id %}">{{ parent_page.title }}</a>
+    {% else %}
+        {{ parent_page.title }}
+    {% endif %}
+
+    {% test_page_is_public parent_page as is_public %}
+    {% if not is_public %}
+        <span class="indicator privacy-indicator icon icon-no-view" title="This page is protected from public view"></span>
+    {% endif %}
+</h2>
