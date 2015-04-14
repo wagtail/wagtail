@@ -1,5 +1,6 @@
 import os
 
+import django
 from django.conf import global_settings
 
 
@@ -34,9 +35,27 @@ STATICFILES_FINDERS = (
 
 USE_TZ = True
 
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django.core.context_processors.request',
-)
+if django.VERSION >= (1, 8):
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                    'django.template.context_processors.request',
+                ],
+            },
+        },
+    ]
+else:
+    TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+        'django.core.context_processors.request',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

@@ -1,11 +1,12 @@
-from django.template import RequestContext
-from django.template.loader import render_to_string
+from wagtail.utils.compat import render_to_string
+
 
 class BaseItem(object):
     template = 'wagtailadmin/userbar/item_base.html'
 
     def render(self, request):
-        return render_to_string(self.template, dict(self=self, request=request), context_instance=RequestContext(request))
+        return render_to_string(self.template, dict(self=self, request=request), request=request)
+
 
 class AddPageItem(BaseItem):
     template = 'wagtailadmin/userbar/item_page_add.html'
@@ -30,6 +31,7 @@ class AddPageItem(BaseItem):
 
         return super(AddPageItem, self).render(request)
 
+
 class EditPageItem(BaseItem):
     template = 'wagtailadmin/userbar/item_page_edit.html'
 
@@ -52,8 +54,8 @@ class EditPageItem(BaseItem):
 
         return super(EditPageItem, self).render(request)
 
-class ModeratePageItem(BaseItem):
 
+class ModeratePageItem(BaseItem):
     def __init__(self, revision):
         self.revision = revision
 
@@ -72,8 +74,10 @@ class ModeratePageItem(BaseItem):
 
         return super(ModeratePageItem, self).render(request)
 
+
 class ApproveModerationEditPageItem(ModeratePageItem):
     template = 'wagtailadmin/userbar/item_page_approve.html'
+
 
 class RejectModerationEditPageItem(ModeratePageItem):
     template = 'wagtailadmin/userbar/item_page_reject.html'

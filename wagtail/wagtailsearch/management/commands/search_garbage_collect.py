@@ -1,10 +1,10 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from wagtail.wagtailsearch import models
 
 
-class Command(NoArgsCommand):
-    def handle_noargs(self, **options):
+class Command(BaseCommand):
+    def handle(self, **options):
         # Clean daily hits
         self.stdout.write("Cleaning daily hits records... ")
         models.QueryDailyHits.garbage_collect()

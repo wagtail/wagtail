@@ -26,11 +26,11 @@ Then, in urls.py, you need to add a link to the ``wagtail.contrib.wagtailsitemap
 
     from wagtail.contrib.wagtailsitemaps.views import sitemap
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         ...
 
         url('^sitemap\.xml$', sitemap),
-    )
+    ]
 
 
 You should now be able to browse to "/sitemap.xml" and see the sitemap working. By default, all published pages in your website will be added to the site map.
