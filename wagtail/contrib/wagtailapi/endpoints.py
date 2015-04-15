@@ -442,7 +442,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     model = get_image_model()
 
     def get_queryset(self, request):
-        return self.model.objects.all()
+        return self.model.objects.all().order_by('id')
 
     def get_api_fields(self, model):
         api_fields = ['title', 'tags', 'width', 'height']
@@ -508,7 +508,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         return data
 
     def listing_view(self, request):
-        queryset = Document.objects.all()
+        queryset = Document.objects.all().order_by('id')
 
         # Check query paramters
         self.check_query_parameters(request, queryset)
