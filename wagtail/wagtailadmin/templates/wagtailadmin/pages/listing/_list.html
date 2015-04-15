@@ -13,32 +13,16 @@
     <col width="12%" />
     <col width="10%" />
     <thead>
-        {% if moving or choosing %}
-            <tr class="table-headers">
-                {% if orderable %}
-                    <th></th>
-                {% endif %}
-                <th class="title">Title</th>
-                {% if show_parent %}
-                    <th class="parent">{% trans 'Parent' %}</th>
-                {% endif %}
-                <th class="updated">{% trans 'Updated' %}</th>
-                <th class="type">{% trans 'Type' %}</th>
-                <th class="status">{% trans 'Status' %}</th>
-                <th></th>
-            </tr>
-        {% endif %}
+        {% block pre_parent_page_headers %}
+        {% endblock %}
+
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
-                    {% if moving %}
-                        {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=parent_page %}
-                    {% elif choosing %}
-                        {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
-                    {% else %}
+                    {% block parent_page_title %}
                         {% include "wagtailadmin/pages/listing/_parent_page_title_explore.html" %}
-                    {% endif %}
+                    {% endblock %}
                 </td>
                 <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
                 <td class="type" valign="bottom">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
@@ -53,9 +37,9 @@
             </tr>
         {% endif %}
     
-        {% if not moving and not choosing %}
+        {% block post_parent_page_headers %}
             {% include "wagtailadmin/pages/listing/_table_headers_explore.html" %}
-        {% endif %}
+        {% endblock %}
     </thead>
     <tbody>
         {% if pages %}

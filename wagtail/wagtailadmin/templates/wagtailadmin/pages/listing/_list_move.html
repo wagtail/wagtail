@@ -1,3 +1,27 @@
 {% extends "wagtailadmin/pages/listing/_list.html" %}
 
+{% load i18n %}
+
 {# Page listing include, customised for 'move' mode #}
+
+{% block pre_parent_page_headers %}
+    <tr class="table-headers">
+        {% if orderable %}
+            <th></th>
+        {% endif %}
+        <th class="title">Title</th>
+        {% if show_parent %}
+            <th class="parent">{% trans 'Parent' %}</th>
+        {% endif %}
+        <th class="updated">{% trans 'Updated' %}</th>
+        <th class="type">{% trans 'Type' %}</th>
+        <th class="status">{% trans 'Status' %}</th>
+        <th></th>
+    </tr>
+{% endblock %}
+
+{% block parent_page_title %}
+    {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=parent_page %}
+{% endblock %}
+
+{% block post_parent_page_headers %}{% endblock %}
