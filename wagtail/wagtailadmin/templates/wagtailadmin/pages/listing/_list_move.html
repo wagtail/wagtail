@@ -4,6 +4,8 @@
 
 {# Page listing include, customised for 'move' mode #}
 
+{% block table_classname %}chooser{% endblock %}
+
 {% block pre_parent_page_headers %}
     <tr class="table-headers">
         {% if orderable %}
@@ -20,8 +22,14 @@
     </tr>
 {% endblock %}
 
+{% block parent_page_row_classname %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endblock %}
+
 {% block parent_page_title %}
     {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=parent_page %}
 {% endblock %}
 
 {% block post_parent_page_headers %}{% endblock %}
+
+{% block page_title %}
+    {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=page %}
+{% endblock %}

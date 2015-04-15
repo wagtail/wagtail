@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load wagtailadmin_tags %}
-<table class="listing{% if full_width %} full-width{% endif %}{% if moving or choosing %} chooser{% endif %}">
+<table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
     {% if orderable %}
         <col width="50px" />
     {% endif %}
@@ -18,7 +18,7 @@
 
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
-            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if moving or choosing %}{% if parent_page.can_choose %}can-disabled{% endif %}{% endif %}">
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% block parent_page_title %}
                         {% include "wagtailadmin/pages/listing/_parent_page_title_explore.html" %}
@@ -50,13 +50,9 @@
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
                     <td class="title" valign="top">
-                        {% if moving %}
-                            {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=page %}
-                        {% elif choosing %}
-                            {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page %}
-                        {% else %}
+                        {% block page_title %}
                             {% include "wagtailadmin/pages/listing/_page_title_explore.html" %}
-                        {% endif %}
+                        {% endblock %}
                     </td>
                     {% if show_parent %}
                         {% with page.get_parent as parent %}
