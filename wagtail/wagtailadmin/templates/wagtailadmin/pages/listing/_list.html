@@ -28,9 +28,9 @@
                 <td class="type" valign="bottom">{{ parent_page.content_type.model_class.get_verbose_name }}</td>
                 <td class="status" valign="bottom">
                     {% if not choosing and not moving and parent_page.live and not parent_page.is_root and 'view_live' not in hide_actions|default:'' %}
-                        <a href="{{ parent_page.url }}" target="_blank" class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</a>
+                        <a href="{{ parent_page.url }}" target="_blank" class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string }}</a>
                     {% else %}
-                        <span class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string|capfirst }}</span>
+                        <span class="status-tag {% if parent_page.status_string != "draft" %}primary{% endif %}">{{ parent_page.status_string }}</span>
                     {% endif %}
                 </td>
                 <td></td>
