@@ -55,7 +55,7 @@ def browse(request, parent_page_id=None):
 
     shown_pages = []
     for page in pages:
-        page.can_choose = issubclass(page.specific_class, desired_class)
+        page.can_choose = issubclass(page.specific_class or Page, desired_class)
         page.can_descend = page.get_children_count()
 
         if page.can_choose or page.can_descend:
@@ -66,7 +66,6 @@ def browse(request, parent_page_id=None):
             'querystring': get_querystring(request),
             'searchform': search_form,
             'pages': shown_pages,
-            'is_searching': is_searching,
             'page_type_string': page_type,
             'page_type': desired_class,
             'page_types_restricted': page_types_restricted
@@ -79,7 +78,6 @@ def browse(request, parent_page_id=None):
         'parent_page': parent_page,
         'pages': shown_pages,
         'search_form': search_form,
-        'is_searching': False,
         'page_type_string': page_type,
         'page_type': desired_class,
         'page_types_restricted': page_types_restricted
