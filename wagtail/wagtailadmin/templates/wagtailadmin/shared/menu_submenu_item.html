@@ -1,7 +1,7 @@
-<li class="menu-item menu-{{name}}{% if active %} menu-active{% endif %}">
-    <a href="#" class="submenu-trigger {{classnames}}"{{attr_string}}>{{label}}</a>
+<li class="menu-item menu-{{ name }}{% if active %} menu-active{% endif %}">
+    <a href="#" class="submenu-trigger {{ classnames }}"{{ attr_string }}>{{ label }}</a>
     <div class="nav-submenu">
-        <h2 class="{{classnames}}">{{label}}</h2>
-        <ul>{{menu_html}}</ul>
+        <h2 class="{{ classnames }}">{{ label }}</h2>
+        <ul>{{ menu_html }}</ul>
     </div>
 </li>
