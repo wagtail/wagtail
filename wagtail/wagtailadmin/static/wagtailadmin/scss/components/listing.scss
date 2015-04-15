@@ -314,35 +314,11 @@ ul.listing{
     }
 
     .index {
-        background-color:$color-grey-4;
+        background-color:lighten($color-grey-4, 5%);
+        border-bottom:3px solid $color-grey-4;
 
         .title h2{
-            font-size:1.2em;
-            opacity:1;
-
-            a{
-                @include transition(opacity 0.2s ease);
-            }
-            a:hover{
-                opacity:0.7;
-            }
-        }
-        .actions{
-            margin-top:1em;
-        }
-        .button{
-            background-color:transparent;
-            color:white;
-            border-color:$color-teal-darker;
-
-            &:hover{
-                color:white;
-                background:$color-teal-darker;
-            }
-
-            &.bicolor{
-                background:$color-teal-darker;
-            }
+            font-size:1.25em;
         }
     }
 
@@ -371,14 +347,6 @@ table.listing{
     position:relative;
 
     .index{
-        color:white;
-        background-color:$color-header-bg;
-
-        td{
-            padding-top:1.5em;
-            padding-bottom:1.5em;
-        }
-
         .privacy-indicator{
             font-size:1em;
             opacity:1;
@@ -388,19 +356,6 @@ table.listing{
         }
         .locked-indicator{
             font-size:0.8em;
-        }
-
-        .title{
-            h2{
-                color:white;
-                font-size:1.8em;
-                font-weight:500;
-
-                a:hover{
-                    color:white;
-                }
-            }
-
         }
     }
 
@@ -412,7 +367,7 @@ table.listing{
             padding-left:0;
         }
     }
-    tbody .title{
+    .title{
         padding-left:0;
     }
 }
@@ -528,9 +483,7 @@ table.listing{
         .actions{
            visibility: hidden;
         }
-        .index .actions{
-            visibility:visible;
-        }
+      
         td:hover .actions{
             visibility:visible;
         }

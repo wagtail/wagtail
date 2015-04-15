@@ -23,9 +23,9 @@
                     <a href="{{ usage_object.usage_url }}">{% blocktrans count useage_count=usage_object.get_usage.count %}Used {{ useage_count  }} time{% plural %}Used {{ useage_count }} times{% endblocktrans %}</a>
                 </div>
             {% endif %}
-            {% if add_link %}
+            {% if add_link or add_link_raw %}
                 <div class="addbutton">
-                    <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>
+                    <a href="{% if add_link %}{% url add_link %}{% else %}{{ add_link_raw }}{% endif %}" class="button bicolor icon icon-plus">{{ add_text }}</a>
                 </div>
             {% endif %}
         </div>
