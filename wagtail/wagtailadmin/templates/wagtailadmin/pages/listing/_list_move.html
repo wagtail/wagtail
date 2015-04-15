@@ -30,6 +30,12 @@
 
 {% block post_parent_page_headers %}{% endblock %}
 
+{% block page_row_classname %}{% if not page.can_choose %}disabled{% endif %}{% endblock %}
+
 {% block page_title %}
     {% include "wagtailadmin/pages/listing/_page_title_move.html" with page=page %}
+{% endblock %}
+
+{% block page_navigation %}
+    {% include "wagtailadmin/pages/listing/_navigation_move.html" %}
 {% endblock %}

@@ -43,7 +43,7 @@
         {% if pages %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %} unpublished{% endif %}{% if moving or choosing %}{% if not page.can_choose %}disabled{% endif %}{% endif %}">
+                <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if orderable %}
                         <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
@@ -66,13 +66,9 @@
                     <td class="status" valign="top">
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                     </td>
-                    {% if moving %}
-                        {% include "wagtailadmin/pages/listing/_navigation_move.html" %}
-                    {% elif choosing %}
-                        {% include "wagtailadmin/pages/listing/_navigation_choose.html" %}
-                    {% else %}
+                    {% block page_navigation %}
                         {% include "wagtailadmin/pages/listing/_navigation_explore.html" %}
-                    {% endif %}
+                    {% endblock %}
                 </tr>
             {% endfor %}
         {% else %}
