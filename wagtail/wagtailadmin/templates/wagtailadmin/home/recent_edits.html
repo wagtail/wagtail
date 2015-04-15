@@ -36,11 +36,7 @@
                             </td>
                             <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{{ revision.created_at|timesince }} ago</div></td>
                             <td valign="top">
-                                {% if revision.page.live %}
-                                    <a href="{{ revision.page.url }}" target="_blank" class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</a>
-                                {% else %}
-                                    <span class="status-tag {% if revision.page.status_string != "draft" %}primary{% endif %}">{{ revision.page.status_string }}</span>
-                                {% endif %}
+                                {% include "wagtailadmin/shared/page_status_tag.html" with page=revision.page %}
                             </td>
                         </tr>
                     {% endfor %}
