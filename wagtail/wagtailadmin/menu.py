@@ -6,20 +6,20 @@ from django.forms import MediaDefiningClass, Media
 from django.forms.utils import flatatt
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
-from django.template import Context, loader
+from wagtail.utils.compat import render_to_string
 
 from wagtail.wagtailcore import hooks
 
 
 class MenuItem(with_metaclass(MediaDefiningClass)):
+    template = 'wagtailadmin/shared/menu_item.html'
 
-    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000, template='wagtailadmin/shared/menu_item.html'):
+    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
         self.label = label
         self.url = url
         self.classnames = classnames
         self.name = (name or slugify(text_type(label)))
         self.order = order
-        self.template = template
 
         if attrs:
             self.attr_string = flatatt(attrs)
@@ -37,18 +37,14 @@ class MenuItem(with_metaclass(MediaDefiningClass)):
         return request.path.startswith(self.url)
 
     def render_html(self, request):
-        t = loader.get_template(self.template)
-        c = Context({
+        return render_to_string(self.template, {
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
             'attr_string': self.attr_string,
             'label': self.label,
-            'request': request,
             'active': self.is_active(request)
-        })
-
-        return t.render(c)
+        }, request=request)
 
 
 class Menu(object):
@@ -70,7 +66,7 @@ class Menu(object):
     def menu_items_for_request(self, request):
         return [item for item in self.registered_menu_items if item.is_shown(request)]
 
-    def menu_items_active(self, request):
+    def active_menu_items(self, request):
         return [item for item in self.menu_items_for_request(request) if item.is_active(request)]
 
     @property
@@ -100,12 +96,12 @@ class Menu(object):
 
 
 class SubmenuMenuItem(MenuItem):
+    template = 'wagtailadmin/shared/menu_submenu_item.html'
+
     """A MenuItem which wraps an inner Menu object"""
-    def __init__(self, label, menu,
-                 template='wagtailadmin/shared/menu_submenu_item.html',
-                 **kwargs):
+    def __init__(self, label, menu, **kwargs):
         self.menu = menu
-        super(SubmenuMenuItem, self).__init__(label, '#', template=template, **kwargs)
+        super(SubmenuMenuItem, self).__init__(label, '#', **kwargs)
 
     @property
     def media(self):
@@ -115,30 +111,20 @@ class SubmenuMenuItem(MenuItem):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
 
-    def is_active(self, request):
-        return bool(self.menu.menu_items_active(request))
+    def is_child_active(self, request):
+        return bool(self.menu.active_menu_items(request))
 
     def render_html(self, request):
-
-        self.menu.menu_items_for_request(request)
-        is_active = request.path.startswith(self.url)
-
-        if not is_active:
-            is_active = self.is_active(request)
-
-        t = loader.get_template(self.template)
-        c = Context({
+        return render_to_string(self.template, {
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
             'attr_string': self.attr_string,
-            'label': self.label,
             'menu_html': self.menu.render_html(request),
+            'label': self.label,
             'request': request,
-            'active': is_active
-        })
-
-        return t.render(c)
+            'active': self.is_child_active(request)
+        }, request=request)
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
