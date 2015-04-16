@@ -125,7 +125,7 @@ msgstr "Mover para baixo"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
 msgid "Promoted search result"
-msgstr ""
+msgstr "Escolha do editor"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:16
 msgid "Add recommended page"
@@ -137,11 +137,11 @@ msgstr "Procurar Termos"
 
 #: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
 msgid "Promoted search results"
-msgstr ""
+msgstr "Escolhas do editor"
 
 #: templates/wagtailsearch/editorspicks/index.html:18
 msgid "Add new promoted result"
-msgstr ""
+msgstr "Adicionar nova escolha do editor"
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
@@ -149,7 +149,7 @@ msgstr "Procurar termo(s)"
 
 #: templates/wagtailsearch/editorspicks/list.html:9
 msgid "Promoted results"
-msgstr ""
+msgstr "Escolhas do editor"
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -216,7 +216,7 @@ msgstr "Nenhum resultado encontrado"
 
 #: templates/wagtailsearch/queries/chooser_field.html:3
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: templates/wagtailsearch/queries/chooser_field.html:8
 msgid "Choose from popular search terms"
