@@ -85,9 +85,8 @@ msgid "Administrators have the ability to manage user accounts."
 msgstr "Os administradores têm a permissão para gerir contas de utilizadores."
 
 #: forms.py:153
-#, fuzzy
 msgid "A group with that name already exists."
-msgstr "Um utilizador com esse nome já existe."
+msgstr "Um grupo com esse nome já existe."
 
 #: models.py:15
 msgid "Receive notification when a page is submitted for moderation"
@@ -179,18 +178,17 @@ msgid "groups"
 msgstr ""
 
 #: templates/wagtailusers/groups/index.html:18
-#, fuzzy
 msgid "Add a group"
-msgstr "Adicionar um utilizador"
+msgstr "Adicionar um grupo"
 
 #: templates/wagtailusers/groups/results.html:9
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Não existem utilizadores configurados. Por que não <a href="
-"\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
+"Não existem grupos configurados. Porque não <a href="
+"\"%(wagtailusers_create_group_url)s\">adicionar um</a>?"
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:8
@@ -273,40 +271,35 @@ msgstr ""
 "\"%(wagtailusers_create_url)s\">adicionar algum</a>?"
 
 #: views/groups.py:31 views/groups.py:38
-#, fuzzy
 msgid "Search groups"
-msgstr "Procurar utilizadores"
+msgstr "Procurar grupos"
 
 #: views/groups.py:95
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Group '{0}' created."
-msgstr "Utilizador '{0}' criado."
+msgstr "Grupo '{0}' criado."
 
 #: views/groups.py:96 views/groups.py:127 views/users.py:87 views/users.py:108
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views/groups.py:100
-#, fuzzy
 msgid "The group could not be created due to errors."
-msgstr "O utilizador não pôde ser criado devido a erros."
+msgstr "O grupo não pôde ser criado devido a erros."
 
 #: views/groups.py:126
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Group '{0}' updated."
-msgstr "Utilizador '{0}' atualizado."
+msgstr "Grupo '{0}' atualizado."
 
 #: views/groups.py:131
-#, fuzzy
 msgid "The group could not be saved due to errors."
-msgstr "O utilizador não pôde ser guardado devido a erros."
+msgstr "O grupo não pôde ser guardado devido a erros."
 
 #: views/groups.py:149
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Group '{0}' deleted."
-msgstr "Utilizador '{0}' criado."
+msgstr "Grupo '{0}' criado."
 
 #: views/users.py:31 views/users.py:38
 msgid "Search users"

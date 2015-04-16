@@ -46,7 +46,6 @@ msgid "Add editor's pick"
 msgstr "Adicionar escolha de editor"
 
 #: templates/wagtailsearch/editorspicks/add.html:10
-#, fuzzy
 msgid ""
 "\n"
 "                <p>Promoted search results are a means of recommending "
@@ -56,10 +55,11 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                <p>Escolhas de Editores servem para recomendar páginas que "
-"poderiam não ser selecionadas para aparecer em posição alta em resultados de "
-"pesquisa. Por ex., recomendar a sua página principal de donativos para ser "
-"pesquisada usando termos menos comuns como \"<em>dar</em>\".</p>\n"
+"                <p>As escolhas do editor servem para recomendar páginas "
+"que poderiam não ser aparecer normalmente em posição elevada nos resultados "
+"de pesquisa. Por exemplo, recomendar a sua página principal de donativos a "
+"um utilizador pesquisando com um termo menos comum como "
+"\"<em>dar</em>\".</p>\n"
 "        "
 
 #: templates/wagtailsearch/editorspicks/add.html:14
@@ -96,11 +96,10 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-#, fuzzy
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Tem a certeza que pretende eliminar todas as escolhas de editores para este "
+"Tem a certeza que pretende eliminar todas as escolhas do editor para este "
 "termo de pesquisa?"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
@@ -185,18 +184,18 @@ msgstr[1] ""
 "        "
 
 #: templates/wagtailsearch/editorspicks/results.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Desculpe, nenhuma escolha de editor contém \"<em>%(query_string)s</em>\""
+"Desculpe, nenhuma escolha do editor contém \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "No promoted results have been created. Why not <a href="
 "\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
-"Nenhuma escolha de editor foi criada. Porque não <a href="
+"Nenhuma escolha do editor foi criada. Porque não <a href="
 "\"%(wagtailsearch_editorspicks_add_url)s\">adicionar uma</a>?"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
@@ -220,10 +219,8 @@ msgid "Date"
 msgstr ""
 
 #: templates/wagtailsearch/queries/chooser_field.html:8
-#, fuzzy
-#| msgid "Popular search terms"
 msgid "Choose from popular search terms"
-msgstr "Termos de procura populares"
+msgstr "Escolha entre os termos de pesquisa populares"
 
 #: views/editorspicks.py:46
 msgid "Search editor's picks"
@@ -235,10 +232,8 @@ msgid "Editor's picks for '{0}' created."
 msgstr "Escolhas de editor para '{0}' criadas."
 
 #: views/editorspicks.py:82 views/editorspicks.py:117
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"

@@ -37,9 +37,9 @@ msgid "Enter password"
 msgstr "Introduza a sua senha"
 
 #: forms.py:76
-#, fuzzy, python-format
+#, python-format
 msgid "Enter your %s"
-msgstr "Introduza o seu nome de utilizador"
+msgstr "Introduza seu/sua %s"
 
 #: forms.py:81
 msgid "Enter your email address to reset your password"
@@ -70,10 +70,8 @@ msgid "New slug"
 msgstr "Novo endereço"
 
 #: forms.py:124
-#, fuzzy
-#| msgid "New %(page_type)s"
 msgid "New parent page"
-msgstr "Nova %(page_type)s"
+msgstr "Nova página mãe"
 
 #: forms.py:125
 msgid "This copy will be a child of this given parent page."
@@ -466,15 +464,7 @@ msgid "Site summary"
 msgstr "Resumo do Site"
 
 #: templates/wagtailadmin/home/site_summary.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Page\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Pages\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "                <span>%(total)s</span> Page\n"
@@ -485,23 +475,15 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"                <span>%(total_pages)s</span> Página\n"
+"                <span>%(total)s</span> Página\n"
 "            "
 msgstr[1] ""
 "\n"
-"                <span>%(total_pages)s</span> Páginas\n"
+"                <span>%(total)s</span> Páginas\n"
 "            "
 
 #: templates/wagtailadmin/home/site_summary.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_images)s</span> Image\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_images)s</span> Images\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "                <span>%(total)s</span> Image\n"
@@ -512,23 +494,15 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"                <span>%(total_images)s</span> Imagem\n"
+"                <span>%(total)s</span> Imagem\n"
 "            "
 msgstr[1] ""
 "\n"
-"                <span>%(total_images)s</span> Imagens\n"
+"                <span>%(total)s</span> Imagens\n"
 "            "
 
 #: templates/wagtailadmin/home/site_summary.html:25
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_docs)s</span> Document\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_docs)s</span> Documents\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "                <span>%(total)s</span> Document\n"
@@ -539,11 +513,11 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"                <span>%(total_docs)s</span> Documento\n"
+"                <span>%(total)s</span> Documento\n"
 "            "
 msgstr[1] ""
 "\n"
-"                <span>%(total_docs)s</span> Documentos\n"
+"                <span>%(total)s</span> Documentos\n"
 "            "
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
@@ -551,9 +525,9 @@ msgid "Sign in"
 msgstr "Entrar"
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "O seu nome de utilizador ou senha não estão corretos. Tente novamente."
+msgstr "O seu %(username_field)s e senha não estão corretos. Tente novamente."
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -630,9 +604,8 @@ msgstr ""
 "filhas desta página."
 
 #: templates/wagtailadmin/pages/_lock_indicator.html:8
-#, fuzzy
 msgid "Edit lock"
-msgstr "Editar"
+msgstr "Edição trancada"
 
 #: templates/wagtailadmin/pages/_lock_indicator.html:15
 msgid "Locked"
@@ -807,16 +780,14 @@ msgid "Submit for moderation"
 msgstr "Enviar para moderação"
 
 #: templates/wagtailadmin/pages/edit.html:5
-#, fuzzy, python-format
-#| msgid "Editing %(title)s"
+#, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "Editando %(title)s"
+msgstr "Editando %(page_type)s: %(title)s"
 
 #: templates/wagtailadmin/pages/edit.html:15
-#, fuzzy, python-format
-#| msgid "Editing <span>%(title)s</span>"
+#, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editando <span>%(title)s</span>"
+msgstr "Editando %(page_type)s <span>%(title)s</span>"
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Page locked"
@@ -844,9 +815,8 @@ msgstr "Explorando %(title)s"
 #: templates/wagtailadmin/pages/list.html:25
 #: templates/wagtailadmin/pages/list.html:141
 #: templates/wagtailadmin/pages/list.html:144
-#, fuzzy
 msgid "Updated"
-msgstr "Atualizar"
+msgstr "Atualizado"
 
 #: templates/wagtailadmin/pages/list.html:85
 #: templates/wagtailadmin/pages/list.html:217
@@ -1185,10 +1155,8 @@ msgid "View live"
 msgstr ""
 
 #: views/pages.py:361
-#, fuzzy
-#| msgid "Save draft"
 msgid "View draft"
-msgstr "Guardar rascunho"
+msgstr "Ver rascunho"
 
 #: views/pages.py:366
 #, python-brace-format
@@ -1196,9 +1164,8 @@ msgid "Page '{0}' updated."
 msgstr "Página '{0}' atualizada."
 
 #: views/pages.py:381
-#, fuzzy
 msgid "The page could not be saved as it is locked"
-msgstr "A página não pôde ser guardada devido a erros na validação"
+msgstr "A página não pôde ser guardada por estar trancada"
 
 #: views/pages.py:383
 msgid "The page could not be saved due to validation errors"
@@ -1244,14 +1211,14 @@ msgid "Page '{0}' rejected for publication."
 msgstr "Página '{0}' rejeitada para publicação."
 
 #: views/pages.py:840
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now locked."
-msgstr "Página '{0}' movida."
+msgstr "Página '{0}' foi trancada."
 
 #: views/pages.py:864
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
-msgstr "Página '{0}' movida."
+msgstr "Página '{0}' foi destrancada."
 
 #: wagtail_hooks.py:26
 msgid "Settings"
@@ -1270,10 +1237,8 @@ msgid "Clear choice"
 msgstr "Limpar escolha"
 
 #: widgets.py:45
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "Editar esta página"
+msgstr "Editar este item"
 
 #: widgets.py:92
 msgid "Choose another page"

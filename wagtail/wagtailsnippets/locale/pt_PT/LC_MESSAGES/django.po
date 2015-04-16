@@ -23,16 +23,13 @@ msgid "Choose"
 msgstr "Escolher"
 
 #: templates/wagtailsnippets/chooser/choose.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "No %(snippet_type_name_plural)s have been created. Why not <a href="
-#| "\"%(wagtailsnippets_create_url)s\">add one</a>?"
+#, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
 msgstr ""
-"Nenhum %(snippet_type_name_plural)s foi criado. Porque não <a href="
-"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
+"Nenhum fragmento %(snippet_type_name)s foi criado. Porque não <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">criar um agora"
 
 #: templates/wagtailsnippets/chooser/list.html:11
 #: templates/wagtailsnippets/snippets/list.html:8
@@ -141,10 +138,8 @@ msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' atualizado."
 
 #: views/snippets.py:141 views/snippets.py:184
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views/snippets.py:146
 msgid "The snippet could not be created due to errors."
@@ -165,22 +160,19 @@ msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eliminado."
 
 #: widgets.py:17
-#, fuzzy, python-format
-#| msgid "Choose"
+#, python-format
 msgid "Choose %s"
-msgstr "Escolher"
+msgstr "Escolher %s"
 
 #: widgets.py:18
-#, fuzzy, python-format
-#| msgid "Choose another %(snippet_type_name)s"
+#, python-format
 msgid "Choose another %s"
-msgstr "Escolher outro %(snippet_type_name)s"
+msgstr "Escolher outro/a %s"
 
 #: widgets.py:19
-#, fuzzy, python-format
-#| msgid "Edit this page"
+#, python-format
 msgid "Edit this %s"
-msgstr "Editar esta página"
+msgstr "Editar este/a %s"
 
 #~ msgid "Choose %(snippet_type_name)s"
 #~ msgstr "Escolher %(snippet_type_name)s"
