@@ -12,6 +12,11 @@ from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
 
 # Panels for the homepage
+
+class UpgradeNotificationPanel(object):
+    name = 'upgrade_notification'
+    order = 100
+
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200
@@ -59,13 +64,10 @@ def home(request):
         fn(request, panels)
 
     return render(request, "wagtailadmin/home.html", {
-        'allow_stats_reporting': getattr(settings, "WAGTAIL_ENABLE_STATS", True),
+        'allow_tracking': getattr(settings, "WAGTAIL_ENABLE_TRACKING", True),
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
-        'user': request.user,
-        'python_version': sys.version.split()[0],
-        'django_version': get_version(),
-        'db_engine': connection.vendor
+        'user': request.user
     })
 
 
