@@ -13,7 +13,7 @@
         </p>
         <p>
             {% if group.user_set.count %}
-                Deleting this group will revoke this group's permissions from all member users.
+                {% trans "Deleting this group will revoke this group's permissions from all member users." %}
             {% endif %}
         </p>
 

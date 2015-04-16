@@ -726,11 +726,11 @@ def get_page_edit_handler(page_class):
             tabs = []
 
             if page_class.content_panels:
-                tabs.append(ObjectList(page_class.content_panels, heading='Content'))
+                tabs.append(ObjectList(page_class.content_panels, heading=_('Content')))
             if page_class.promote_panels:
-                tabs.append(ObjectList(page_class.promote_panels, heading='Promote'))
+                tabs.append(ObjectList(page_class.promote_panels, heading=_('Promote')))
             if page_class.settings_panels:
-                tabs.append(ObjectList(page_class.settings_panels, heading='Settings', classname="settings"))
+                tabs.append(ObjectList(page_class.settings_panels, heading=_('Settings'), classname="settings"))
 
             edit_handler = TabbedInterface(tabs)
 
