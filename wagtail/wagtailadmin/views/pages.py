@@ -605,7 +605,7 @@ def move_confirm(request, page_to_move_id, destination_id):
         page_to_move.move(destination, pos='last-child')
 
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.title), buttons=[
-            messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+            messages.button(reverse('wagtailadmin_pages_edit', args=(page_to_move.id,)), _('Edit'))
         ])
 
         return redirect('wagtailadmin_explore', destination.id)
