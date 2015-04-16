@@ -27,6 +27,13 @@ Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_
        'wagtail.contrib.wagtailmedusa',
     ]
 
+Define ``MEDUSA_RENDERER_CLASS`` and ``MEDUSA_DEPLOY_DIR`` in settings:
+
+.. code:: python
+
+    MEDUSA_RENDERER_CLASS = 'django_medusa.renderers.DiskStaticSiteRenderer'
+    MEDUSA_DEPLOY_DIR = os.path.join(BASE_DIR, 'build')
+
 
 Rendering
 ~~~~~~~~~
