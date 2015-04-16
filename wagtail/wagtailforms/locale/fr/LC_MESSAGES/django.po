@@ -7,9 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
-"PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-04-16 15:27+0200\n"
+"PO-Revision-Date: 2015-04-16 15:35+0100\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -17,113 +16,120 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: models.py:25
 msgid "Single line text"
-msgstr ""
+msgstr "Texte d'une seule ligne"
 
 #: models.py:26
 msgid "Multi-line text"
-msgstr ""
+msgstr "Texte multiligne"
 
 #: models.py:27
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: models.py:28
 msgid "Number"
-msgstr ""
+msgstr "Nombre"
 
 #: models.py:29
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: models.py:30
 msgid "Checkbox"
-msgstr ""
+msgstr "Case à cocher"
 
 #: models.py:31
 msgid "Checkboxes"
-msgstr ""
+msgstr "Cases à cocher"
 
 #: models.py:32
 msgid "Drop down"
-msgstr ""
+msgstr "Menu déroulant"
 
 #: models.py:33
 msgid "Radio buttons"
-msgstr ""
+msgstr "Boutons radio"
 
 #: models.py:34
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: models.py:35
 msgid "Date/time"
-msgstr ""
+msgstr "Date/Heure"
 
 #: models.py:63
 msgid "The label of the form field"
-msgstr ""
+msgstr "Le label du champ de formulaire"
 
 #: models.py:70
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
+"Liste de choix séparés par une virgule. Seulement applicable pour les cases "
+"à cocher, les boutons radio et les listes déroulantes."
 
 #: models.py:75
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
+"Valeur par défaut. Liste de valeurs séparées par une virgule pour les cases "
+"à cocher."
 
 #: models.py:188
 msgid "Optional - form submissions will be emailed to this address"
 msgstr ""
+"Facultatif - les soumissions de formulaire seront envoyées à cette adresse"
 
 #: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
 #: wagtail_hooks.py:25
 msgid "Forms"
-msgstr ""
+msgstr "Formulaires"
 
 #: templates/wagtailforms/index.html:7
 msgid "Pages"
-msgstr ""
+msgstr "Pages"
 
 #: templates/wagtailforms/index_submissions.html:3
 #, python-format
 msgid "Submissions of %(form_title)s"
-msgstr ""
+msgstr "Soumission de %(form_title)s"
 
 #: templates/wagtailforms/index_submissions.html:36
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
-msgstr ""
+msgstr "Données du formulaire <span>%(form_title)s</span>"
 
 #: templates/wagtailforms/index_submissions.html:45
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #: templates/wagtailforms/index_submissions.html:51
 msgid "Download CSV"
-msgstr ""
+msgstr "Télécharger en CSV"
 
 #: templates/wagtailforms/index_submissions.html:63
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr ""
+msgstr "Aucune soumission pour le formulaire '%(title)s'."
 
 #: templates/wagtailforms/list_forms.html:7
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: templates/wagtailforms/list_forms.html:8
 msgid "Origin"
-msgstr ""
+msgstr "Origine"
 
 #: templates/wagtailforms/list_submissions.html:9
 msgid "Submission Date"
-msgstr ""
+msgstr "Date de soumission"
 
 #: templates/wagtailforms/results_forms.html:7
 msgid "No form pages have been created."
-msgstr ""
+msgstr "Aucune page contenant un formulaire n'a été créée."

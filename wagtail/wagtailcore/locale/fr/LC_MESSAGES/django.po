@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-04-16 15:37+0200\n"
+"PO-Revision-Date: 2015-04-16 15:45+0100\n"
+"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -18,8 +18,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.5\n"
 
-#: models.py:55
+#: models.py:53
+msgid "hostname"
+msgstr "nom d'hôte"
+
+#: models.py:54
+msgid "port"
+msgstr "port"
+
+#: models.py:54
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -30,24 +39,44 @@ msgstr ""
 "Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
 "continuent de fonctionner)."
 
-#: models.py:57
+#: models.py:55
+msgid "root page"
+msgstr "page racine"
+
+#: models.py:56
+msgid "is default site"
+msgstr "site par défaut"
+
+#: models.py:56
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
+"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
+"pas de site défini."
 
-#: models.py:118
+#: models.py:117
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
+"%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
+"ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
-#: models.py:267
+#: models.py:266
+msgid "title"
+msgstr "titre"
+
+#: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
 
-#: models.py:268
+#: models.py:267
+msgid "slug"
+msgstr "slug"
+
+#: models.py:267
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -55,35 +84,101 @@ msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
 
-#: models.py:277
-msgid "Page title"
+#: models.py:276
+msgid "page title"
 msgstr "Titre de la page"
 
-#: models.py:277
+#: models.py:276
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
+"Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
+"navigateur."
 
-#: models.py:278
+#: models.py:277
+msgid "show in menus"
+msgstr "apparaît dans les menus ?"
+
+#: models.py:277
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si un lien vers cette page devra apparaître dans les menus générés "
 "automatiquement"
 
-#: models.py:281
+#: models.py:278
+msgid "search description"
+msgstr "description pour moteurs de recherche"
+
+#: models.py:280
 msgid "Go live date/time"
-msgstr ""
+msgstr "Date/heure de publication"
 
-#: models.py:281 models.py:282
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
-msgstr ""
+#: models.py:280 models.py:281
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Veuillez ajouter une date/heure au format YYYY-MM-DD hh:mm."
 
-#: models.py:282
+#: models.py:281
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Date/heure d'expiration"
+
+#: models.py:710
+msgid "expired"
+msgstr "expirée"
+
+#: models.py:712
+msgid "scheduled"
+msgstr "programmée"
+
+#: models.py:714
+msgid "draft"
+msgstr "brouillon"
+
+#: models.py:717
+msgid "live + draft"
+msgstr "publiée + brouillon"
+
+#: models.py:719
+msgid "live"
+msgstr "publiée"
+
+#: models.py:885
+msgid "Default"
+msgstr "Par défaut"
+
+#: models.py:1166
+msgid "Add/edit pages you own"
+msgstr "Ajouter/modifier vos pages"
+
+#: models.py:1167
+msgid "Add/edit any page"
+msgstr "Ajouter/modifier n'importe quelle page"
+
+#: models.py:1168
+msgid "Publish any page"
+msgstr "Publier n'importe quelle page"
+
+#: models.py:1169
+msgid "Lock/unlock any page"
+msgstr "Verrouiller/déverrouiller n'importe quelle page"
+
+#: models.py:1174
+msgid "group"
+msgstr "group"
+
+#: models.py:1175 models.py:1401
+msgid "page"
+msgstr "page"
+
+#: models.py:1176
+msgid "permission type"
+msgstr "type de permission"
+
+#: models.py:1402
+msgid "password"
+msgstr "mot de passe"
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "La valeur ne peut pas uniquement être des espaces blancs"
