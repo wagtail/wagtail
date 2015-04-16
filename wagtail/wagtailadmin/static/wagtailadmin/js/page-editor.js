@@ -385,16 +385,16 @@ $(function() {
 
                             frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                             frame.document.open();
-                            frame.document.write(data);                 
+                            frame.document.write(data);
                             frame.document.close();
 
                             var hideTimeout = setTimeout(function(){
                                 previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';
                                 clearTimeout(hideTimeout);
-                            }) // just enough to give effect without adding discernible slowness                       
+                            }) // just enough to give effect without adding discernible slowness
                         } else {
                             previewDoc.open();
-                            previewDoc.write(data);                 
+                            previewDoc.write(data);
                             previewDoc.close()
                         }
 
@@ -419,6 +419,6 @@ $(function() {
             });
 
         }
-        
+
     });
 });

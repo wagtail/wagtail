@@ -71,7 +71,6 @@ function(modal) {
         $(this).data('timer', wait);
     });
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     $('#id_tags', modal.body).tagit({
         autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
     });

@@ -1,13 +1,17 @@
 $(function() {
+    var prefix = '{{formset.prefix}}';
+    var emptyPrefix = '{{formset.empty_form.prefix}}';
+    var numForms = parseInt('{{formset.forms|length}}', 10);
+
     var panel = InlinePanel({
-        formsetPrefix: "id_{{ formset.prefix }}",
-        emptyChildFormPrefix: "{{ formset.empty_form.prefix }}",
+        formsetPrefix: 'id_' + prefix,
+        emptyChildFormPrefix: emptyPrefix,
         canOrder: true
     });
 
-    {% for form in formset.forms %}
-        panel.initChildControls('{{ formset.prefix }}-{{ forloop.counter0 }}');
-    {% endfor %}
+    for (var i = 0; i < numForms; i++) {
+        panel.initChildControls([prefix, i].join('-'));
+    }
 
     panel.updateMoveButtonDisabledStates();
 });
