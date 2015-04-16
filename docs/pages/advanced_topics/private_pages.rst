@@ -3,8 +3,6 @@
 Private pages
 =============
 
-.. versionadded:: 0.4
-
 Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface, and setting a password. Users visiting this page, or any of its subpages, will be prompted to enter a password before they can view the page.
 
 Private pages work on Wagtail out of the box - the site implementer does not need to do anything to set them up. However, the default "password required" form is only a bare-bones HTML page, and site implementers may wish to replace this with a page customised to their site design.

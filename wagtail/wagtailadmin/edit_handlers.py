@@ -7,7 +7,6 @@ from six import text_type
 
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
-
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -23,6 +22,7 @@ from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.deprecation import RemovedInWagtail12Warning
+from wagtail.utils.compat import get_related_model
 
 
 # Form field properties to override whenever we encounter a model field
@@ -584,7 +584,7 @@ class BaseInlinePanel(EditHandler):
             return cls.panels
         # Failing that, get it from the model
         else:
-            return extract_panel_definitions_from_model_class(cls.related.model, exclude=[cls.related.field.name])
+            return extract_panel_definitions_from_model_class(get_related_model(cls.related), exclude=[cls.related.field.name])
 
     _child_edit_handler_class = None
 
@@ -592,7 +592,7 @@ class BaseInlinePanel(EditHandler):
     def get_child_edit_handler_class(cls):
         if cls._child_edit_handler_class is None:
             panels = cls.get_panel_definitions()
-            cls._child_edit_handler_class = MultiFieldPanel(panels, heading=cls.heading).bind_to_model(cls.related.model)
+            cls._child_edit_handler_class = MultiFieldPanel(panels, heading=cls.heading).bind_to_model(get_related_model(cls.related))
 
         return cls._child_edit_handler_class
 

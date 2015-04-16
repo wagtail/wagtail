@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django import VERSION as DJANGO_VERSION
 from django.db import migrations
 
 
@@ -13,7 +14,7 @@ def add_document_permissions_to_admin_groups(apps, schema_editor):
     document_content_type, _created = ContentType.objects.get_or_create(
         model='document',
         app_label='wagtaildocs',
-        defaults={'name': 'document'}
+        defaults={'name': 'document'} if DJANGO_VERSION < (1, 8) else {}
     )
 
     add_document_permission, _created = Permission.objects.get_or_create(

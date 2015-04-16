@@ -48,7 +48,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Check that the user was logged in
         self.assertTrue('_auth_user_id' in self.client.session)
-        self.assertEqual(self.client.session['_auth_user_id'], get_user_model().objects.get(username='test').id)
+        self.assertEqual(str(self.client.session['_auth_user_id']), str(get_user_model().objects.get(username='test').id))
 
     def test_already_logged_in_redirect(self):
         """

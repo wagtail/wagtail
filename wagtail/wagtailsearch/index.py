@@ -88,7 +88,7 @@ class BaseField(object):
         self.kwargs = kwargs
 
     def get_field(self, cls):
-        return cls._meta.get_field_by_name(self.field_name)[0]
+        return cls._meta.get_field(self.field_name)
 
     def get_attname(self, cls):
         try:

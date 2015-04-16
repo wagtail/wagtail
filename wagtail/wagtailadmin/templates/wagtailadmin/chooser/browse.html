@@ -1,9 +1,9 @@
 {% load i18n %}
 {% if page_types_restricted %}
-	{% trans "Choose" as choose_str %}
-	{% trans page_type.get_verbose_name as subtitle %}
+    {% trans "Choose" as choose_str %}
+    {% trans page_type.get_verbose_name as subtitle %}
 {% else %}
-	{% trans "Choose a page" as choose_str %}
+    {% trans "Choose a page" as choose_str %}
 {% endif %}
 
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=subtitle search_url="wagtailadmin_choose_page" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
@@ -12,6 +12,6 @@
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
 
     <div class="page-results">
-        {% include 'wagtailadmin/chooser/_search_results.html' %}
+        {% include 'wagtailadmin/chooser/_browse_results.html' %}
     </div>
 </div>

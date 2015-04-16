@@ -16,6 +16,7 @@ from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.utils.compat import get_related_model
 
 from .utils import BadRequestError
 
@@ -47,7 +48,7 @@ def get_api_data(obj, fields):
     child_relations = {}
     if isinstance(obj, Page):
         child_relations = {
-            child_relation.field.rel.related_name: child_relation.model
+            child_relation.field.rel.related_name: get_related_model(child_relation)
             for child_relation in get_all_child_relations(type(obj))
         }
 
@@ -63,7 +64,7 @@ def get_api_data(obj, fields):
 
         # Check django fields
         try:
-            field = obj._meta.get_field_by_name(field_name)[0]
+            field = obj._meta.get_field(field_name)
 
             if field.rel and isinstance(field.rel, models.ManyToOneRel):
                 # Foreign key
@@ -441,7 +442,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     model = get_image_model()
 
     def get_queryset(self, request):
-        return self.model.objects.all()
+        return self.model.objects.all().order_by('id')
 
     def get_api_fields(self, model):
         api_fields = ['title', 'tags', 'width', 'height']
@@ -507,7 +508,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         return data
 
     def listing_view(self, request):
-        queryset = Document.objects.all()
+        queryset = Document.objects.all().order_by('id')
 
         # Check query paramters
         self.check_query_parameters(request, queryset)

@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.template import RequestContext
-from django.template.loader import render_to_string
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
+from wagtail.utils.compat import render_to_string
 
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
@@ -22,7 +21,7 @@ class PagesForModerationPanel(object):
     def render(self):
         return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
             'page_revisions_for_moderation': self.page_revisions_for_moderation,
-        }, RequestContext(self.request))
+        }, request=self.request)
 
 
 class RecentEditsPanel(object):
@@ -43,7 +42,7 @@ class RecentEditsPanel(object):
     def render(self):
         return render_to_string('wagtailadmin/home/recent_edits.html', {
             'last_edits': self.last_edits,
-        }, RequestContext(self.request))
+        }, request=self.request)
 
 
 def home(request):
