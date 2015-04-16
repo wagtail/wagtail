@@ -1,5 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-<h2>Page permissions</h2>
+<h2>{% trans "Page permissions" %}</h2>
 
 {{ formset.management_form }}{# what is this? #}
 
@@ -9,8 +9,8 @@
     <col />
     <thead>
         <tr>
-            <th>Page</th>
-            <th>Permission type</th>
+            <th>{% trans "Page" %}</th>
+            <th>{% trans "Permission type" %}</th>
             <th></th>
         </tr>
     </thead>

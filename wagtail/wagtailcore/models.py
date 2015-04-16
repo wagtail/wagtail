@@ -50,10 +50,10 @@ class SiteManager(models.Manager):
 
 @python_2_unicode_compatible
 class Site(models.Model):
-    hostname = models.CharField(max_length=255, db_index=True)
-    port = models.IntegerField(default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
-    root_page = models.ForeignKey('Page', related_name='sites_rooted_here')
-    is_default_site = models.BooleanField(default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
+    hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
+    port = models.IntegerField(verbose_name=_('port'), default=80, help_text=_("Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."))
+    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here')
+    is_default_site = models.BooleanField(verbose_name=_('is default site'), default=False, help_text=_("If true, this site will handle requests for all other hostnames that do not have a site entry of their own"))
 
     class Meta:
         unique_together = ('hostname', 'port')
@@ -263,8 +263,8 @@ class PageBase(models.base.ModelBase):
 
 @python_2_unicode_compatible
 class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed)):
-    title = models.CharField(max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
-    slug = models.SlugField(max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
+    title = models.CharField(verbose_name=_('title'), max_length=255, help_text=_("The page title as you'd like it to be seen by the public"))
+    slug = models.SlugField(verbose_name=_('slug'), max_length=255, help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/"))
     # TODO: enforce uniqueness on slug field per parent (will have to be done at the Django
     # level rather than db, since there is no explicit parent relation in the db)
     content_type = models.ForeignKey('contenttypes.ContentType', related_name='pages')
@@ -273,9 +273,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     url_path = models.CharField(max_length=255, blank=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
 
-    seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
-    show_in_menus = models.BooleanField(default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
-    search_description = models.TextField(blank=True)
+    seo_title = models.CharField(verbose_name=_("page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
+    show_in_menus = models.BooleanField(verbose_name=_('show in menus'), default=False, help_text=_("Whether a link to this page will appear in automatically generated menus"))
+    search_description = models.TextField(verbose_name=_('search description'), blank=True)
 
     go_live_at = models.DateTimeField(verbose_name=_("Go live date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
     expire_at = models.DateTimeField(verbose_name=_("Expiry date/time"), help_text=_("Please add a date-time in the form YYYY-MM-DD hh:mm."), blank=True, null=True)
@@ -707,16 +707,16 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     def status_string(self):
         if not self.live:
             if self.expired:
-                return "expired"
+                return _("expired")
             elif self.approved_schedule:
-                return "scheduled"
+                return _("scheduled")
             else:
-                return "draft"
+                return _("draft")
         else:
             if self.has_unpublished_changes:
-                return "live + draft"
+                return _("live + draft")
             else:
-                return "live"
+                return _("live")
 
     @property
     def approved_schedule(self):
@@ -882,7 +882,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
         return request
 
-    DEFAULT_PREVIEW_MODES = [('', 'Default')]
+    DEFAULT_PREVIEW_MODES = [('', _('Default'))]
 
     @property
     def preview_modes(self):
@@ -1163,17 +1163,17 @@ class PageRevision(models.Model):
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
-    ('add', 'Add/edit pages you own'),
-    ('edit', 'Add/edit any page'),
-    ('publish', 'Publish any page'),
-    ('lock', 'Lock/unlock any page'),
+    ('add', _('Add/edit pages you own')),
+    ('edit', _('Add/edit any page')),
+    ('publish', _('Publish any page')),
+    ('lock', _('Lock/unlock any page')),
 ]
 
 
 class GroupPagePermission(models.Model):
-    group = models.ForeignKey(Group, related_name='page_permissions')
-    page = models.ForeignKey('Page', related_name='group_permissions')
-    permission_type = models.CharField(max_length=20, choices=PAGE_PERMISSION_TYPE_CHOICES)
+    group = models.ForeignKey(Group, verbose_name=_('group'), related_name='page_permissions')
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='group_permissions')
+    permission_type = models.CharField(verbose_name=_('permission type'), max_length=20, choices=PAGE_PERMISSION_TYPE_CHOICES)
 
     class Meta:
         unique_together = ('group', 'page', 'permission_type')
@@ -1398,5 +1398,5 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
-    page = models.ForeignKey('Page', related_name='view_restrictions')
-    password = models.CharField(max_length=255)
+    page = models.ForeignKey('Page', verbose_name=_('page'), related_name='view_restrictions')
+    password = models.CharField(verbose_name=_('password'), max_length=255)
