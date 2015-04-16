@@ -59,7 +59,7 @@ msgstr ""
 
 #: forms.py:106
 msgid "This email address is not recognised."
-msgstr "Este email não é reconhecido."
+msgstr "Este e-mail não é reconhecido."
 
 #: forms.py:118
 msgid "New title"

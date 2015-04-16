@@ -22,7 +22,7 @@ msgstr ""
 
 #: forms.py:10
 msgid "Search term(s)/phrase"
-msgstr "Procurar termo(s)/frase"
+msgstr "Pesquisar termo(s)/frase"
 
 #: forms.py:11
 msgid ""
@@ -30,9 +30,9 @@ msgid ""
 "        exact match is required for your Editors Picks to be \n"
 "        displayed, wildcards are NOT allowed."
 msgstr ""
-"introduza a frase completa a procurar. É \n"
-"        necessária uma coincidência exacta com os termos de procura para que "
-"as suas Seleções de Editor sejam \n"
+"introduza a frase completa a pesquisar. É \n"
+"        necessária uma coincidência exacta com os termos de pesquisa para que "
+"as suas Escolhas do Editor sejam \n"
 "        mostradas, caracteres de substituição (wildcards) NÃO são permitidos."
 
 #: forms.py:38
@@ -43,7 +43,7 @@ msgstr ""
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
 msgid "Add editor's pick"
-msgstr "Adicionar escolha de editor"
+msgstr "Adicionar escolha do editor"
 
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
@@ -72,8 +72,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                <p>O campo \"Procurar termo(s)/frase\" abaixo tem de conter "
-"a pesquisa completa e exata para a qual pretende indicar resultados "
+"                <p>O campo \"Persquisar termo(s)/frase\" abaixo tem de conter "
+"a pesquisa completa e exata para a qual pretende obter resultados "
 "recomendados, <em>incluindo</em> quaisquer erros de ortografia/utilizador. "
 "Para facilitar, pode escolher de entre termos de pesquisa que tenham sido "
 "usados frequentemente por utilizadores do seu site.</p>\n"
@@ -133,7 +133,7 @@ msgstr "Adicionar uma página recomendada"
 
 #: templates/wagtailsearch/editorspicks/index.html:3
 msgid "Search Terms"
-msgstr "Procurar Termos"
+msgstr "Pesquisar Termos"
 
 #: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
 msgid "Promoted search results"
@@ -145,7 +145,7 @@ msgstr "Adicionar nova escolha do editor"
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
-msgstr "Procurar termo(s)"
+msgstr "Pesquisar termo(s)"
 
 #: templates/wagtailsearch/editorspicks/list.html:9
 msgid "Promoted results"
@@ -200,11 +200,11 @@ msgstr ""
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
-msgstr "Termos de procura populares"
+msgstr "Termos de pesquisa populares"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:11
 msgid "Search"
-msgstr "Procurar"
+msgstr "Pesquisar"
 
 #: templates/wagtailsearch/queries/chooser/results.html:7
 msgid "Terms"
@@ -224,12 +224,12 @@ msgstr "Escolha entre os termos de pesquisa populares"
 
 #: views/editorspicks.py:46
 msgid "Search editor's picks"
-msgstr "Procurar nas escolhas de editor"
+msgstr "Pesquisar nas escolhas do editor"
 
 #: views/editorspicks.py:81
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."
-msgstr "Escolhas de editor para '{0}' criadas."
+msgstr "Escolhas do editor para '{0}' criadas."
 
 #: views/editorspicks.py:82 views/editorspicks.py:117
 msgid "Edit"
@@ -242,7 +242,7 @@ msgstr "Recomendações não foram criadas devido a erros."
 #: views/editorspicks.py:116
 #, python-brace-format
 msgid "Editor's picks for '{0}' updated."
-msgstr "Escolhas de editor para '{0}' atualizadas."
+msgstr "Escolhas do editor para '{0}' atualizadas."
 
 #: views/editorspicks.py:124
 msgid "Recommendations have not been saved due to errors"
@@ -250,16 +250,16 @@ msgstr "Recomendações não foram guardadas devido a erros."
 
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
-msgstr "Escolhas de editor eliminadas."
+msgstr "Escolhas do editor eliminadas."
 
 #~ msgid "Editors picks"
 #~ msgstr "Escolhas do editor"
 
 #~ msgid "Editor's search picks"
-#~ msgstr "Procurar escolhas de editor"
+#~ msgstr "Pesquisar escolhas do editor"
 
 #~ msgid "Add new editor's pick"
-#~ msgstr "Adicionar nova escolha de editor"
+#~ msgstr "Adicionar nova escolha do editor"
 
 #~ msgid "Editors pick"
-#~ msgstr "Escolha de editor"
+#~ msgstr "Escolha do editor"
