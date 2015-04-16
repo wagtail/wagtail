@@ -221,9 +221,15 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             # Notifications
             if is_publishing:
-                messages.success(request, _("Page '{0}' published.").format(page.title))
+                messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
+                    messages.button(page.url, _('View live')),
+                    messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+                ])
             elif is_submitting:
-                messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title))
+                messages.success(request, _("Page '{0}' created and submitted for moderation.").format(page.title), buttons=[
+                    messages.button(reverse('wagtailadmin_pages_view_draft', args=(page.id,)), _('View draft')),
+                    messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+                ])
                 send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.title))
@@ -546,7 +552,9 @@ def unpublish(request, page_id):
     if request.method == 'POST':
         page.unpublish()
 
-        messages.success(request, _("Page '{0}' unpublished.").format(page.title))
+        messages.success(request, _("Page '{0}' unpublished.").format(page.title), buttons=[
+            messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+        ])
 
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
@@ -596,7 +604,10 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         page_to_move.move(destination, pos='last-child')
 
-        messages.success(request, _("Page '{0}' moved.").format(page_to_move.title))
+        messages.success(request, _("Page '{0}' moved.").format(page_to_move.title), buttons=[
+            messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+        ])
+
         return redirect('wagtailadmin_explore', destination.id)
 
     return render(request, 'wagtailadmin/pages/confirm_move.html', {
@@ -780,7 +791,10 @@ def approve_moderation(request, revision_id):
 
     if request.method == 'POST':
         revision.approve_moderation()
-        messages.success(request, _("Page '{0}' published.").format(revision.page.title))
+        messages.success(request, _("Page '{0}' published.").format(revision.page.title), buttons=[
+            messages.button(revision.page.url, _('View live')),
+            messages.button(reverse('wagtailadmin_pages_edit', args=(revision.page.id,)), _('Edit'))
+        ])
         send_notification(revision.id, 'approved', request.user.id)
 
     return redirect('wagtailadmin_home')
@@ -797,7 +811,9 @@ def reject_moderation(request, revision_id):
 
     if request.method == 'POST':
         revision.reject_moderation()
-        messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title))
+        messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title), buttons=[
+            messages.button(reverse('wagtailadmin_pages_edit', args=(revision.page.id,)), _('Edit'))
+        ])
         send_notification(revision.id, 'rejected', request.user.id)
 
     return redirect('wagtailadmin_home')
