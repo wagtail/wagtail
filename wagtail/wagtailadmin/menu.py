@@ -111,7 +111,7 @@ class SubmenuMenuItem(MenuItem):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
 
-    def is_child_active(self, request):
+    def is_active(self, request):
         return bool(self.menu.active_menu_items(request))
 
     def render_html(self, request):
@@ -123,7 +123,7 @@ class SubmenuMenuItem(MenuItem):
             'menu_html': self.menu.render_html(request),
             'label': self.label,
             'request': request,
-            'active': self.is_child_active(request)
+            'active': self.is_active(request)
         }, request=request)
 
 
