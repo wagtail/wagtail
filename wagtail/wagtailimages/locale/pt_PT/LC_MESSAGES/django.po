@@ -158,10 +158,8 @@ msgid "Insert image"
 msgstr "Inserir imagem"
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "Alterar imagem:"
+msgstr "Alterar ficheiro de imagem:"
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -224,10 +222,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Ficheiro"
+msgstr "Tamanho do ficheiro"
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -345,10 +341,8 @@ msgid "Image '{0}' updated."
 msgstr "Imagem '{0}' atualizada."
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "Editando"
+msgstr "Editar de novo"
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -371,10 +365,8 @@ msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 
 #: views/images.py:243
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views/images.py:247
 msgid "The image could not be created due to errors."
@@ -385,10 +377,8 @@ msgid "Choose another image"
 msgstr "Escolher outra imagem"
 
 #: widgets.py:15
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this image"
-msgstr "Editar esta página"
+msgstr "Editar esta imagem"
 
 #~ msgid "Clear image"
 #~ msgstr "Limpar imagem"

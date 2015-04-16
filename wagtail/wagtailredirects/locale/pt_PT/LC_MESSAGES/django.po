@@ -154,10 +154,8 @@ msgid "Redirect '{0}' updated."
 msgstr "Redireção '{0}' atualizada."
 
 #: views.py:73 views.py:116
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views.py:77
 msgid "The redirect could not be saved due to errors."
