@@ -331,4 +331,4 @@ msgstr "Grupos"
 
 #, fuzzy
 #~ msgid "Edit page"
-#~ msgstr "Editando"
+#~ msgstr "Editar página"
