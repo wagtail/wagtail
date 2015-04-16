@@ -129,7 +129,7 @@ msgstr "Tamanho do ficheiro"
 
 #: templates/wagtaildocs/documents/edit.html:39
 msgid "File not found"
-msgstr ""
+msgstr "Ficheiro não encontrado"
 
 #: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:28
 msgid "Documents"
@@ -200,10 +200,12 @@ msgstr "Documento '{0}' atualizado"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
+"O ficheiro não foi encontrado. Por favor altere a fonte ou apague o "
+"documento"
 
 #: views/documents.py:148
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: views/documents.py:166
 #, python-brace-format

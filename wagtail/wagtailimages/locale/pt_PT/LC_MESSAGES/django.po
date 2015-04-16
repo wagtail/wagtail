@@ -22,37 +22,37 @@ msgstr ""
 
 #: fields.py:13
 msgid "GIF, JPEG, PNG"
-msgstr ""
+msgstr "GIF, JPEG, PNG"
 
 #: fields.py:16
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
-msgstr ""
+msgstr "Formato de imagem não suportado. Formatos suportados: %s."
 
 #: fields.py:20
 #, python-format
 msgid "Not a valid %s image."
-msgstr ""
+msgstr "Não é uma imagem %s válida."
 
 #: fields.py:29
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
-msgstr ""
+msgstr "Este ficheiro é demasiado grande. Tamanho máximo %s."
 
 #: fields.py:33
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr ""
+msgstr "Este ficheiro é demasiado grande (%%s). Tamanho máximo %s."
 
 #: fields.py:37
 #, python-format
 msgid "Supported formats: %s. Maximum filesize: %s."
-msgstr ""
+msgstr "Formatos suportados: %s. Tamanho máximo: %s."
 
 #: fields.py:45
 #, python-format
 msgid "Supported formats: %s."
-msgstr ""
+msgstr "Formatos suportados: %s."
 
 #: forms.py:64
 msgid "Filter"
@@ -92,7 +92,7 @@ msgstr "Altura"
 
 #: forms.py:76
 msgid "Closeness"
-msgstr ""
+msgstr "Proximidade"
 
 #: models.py:58 templates/wagtailimages/images/usage.html:16
 msgid "Title"
@@ -201,25 +201,27 @@ msgstr "Editando"
 
 #: templates/wagtailimages/images/edit.html:51
 msgid "Focal point (optional)"
-msgstr ""
+msgstr "Ponto de enfoque (opcional)"
 
 #: templates/wagtailimages/images/edit.html:52
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
 msgstr ""
+"Para definir a região mais importante desta imagem, arrasta uma caixa por "
+"cima da imagem abaixo."
 
 #: templates/wagtailimages/images/edit.html:52
 msgid "Current focal point shown"
-msgstr ""
+msgstr "Ponto de enfoque atual apresentado"
 
 #: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
-msgstr ""
+msgstr "Gerador de URL"
 
 #: templates/wagtailimages/images/edit.html:78
 msgid "Max dimensions"
-msgstr ""
+msgstr "Dimensões máximas"
 
 #: templates/wagtailimages/images/edit.html:80
 msgid "Filesize"
@@ -227,7 +229,7 @@ msgstr "Tamanho do ficheiro"
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
-msgstr ""
+msgstr "Ficheiro não encontrado"
 
 #: templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
@@ -353,6 +355,8 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
+"A imagem fonte não foi encontrada. Por favor altere a fonte ou apague a "
+"imagem."
 
 #: views/images.py:219
 #, python-brace-format
