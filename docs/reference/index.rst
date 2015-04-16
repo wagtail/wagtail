@@ -9,3 +9,4 @@ Reference
     hooks
     project_template
     page
+    css_guidelines
