@@ -124,10 +124,8 @@ msgid "Editing"
 msgstr "Editando"
 
 #: templates/wagtaildocs/documents/edit.html:38
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Ficheiro"
+msgstr "Tamanho do ficheiro"
 
 #: templates/wagtaildocs/documents/edit.html:39
 msgid "File not found"
@@ -186,8 +184,6 @@ msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
 
 #: views/documents.py:93 views/documents.py:128
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
 msgstr "Editando"
 
@@ -219,10 +215,8 @@ msgid "Choose another document"
 msgstr "Escolher outro documento"
 
 #: widgets.py:15
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this document"
-msgstr "Editar esta ágina"
+msgstr "Editar este documento"
 
 #~ msgid "Clear choice"
 #~ msgstr "Limpar escolha"
