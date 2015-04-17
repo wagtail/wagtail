@@ -50,6 +50,7 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinxcontrib.spelling',
 ]
 
 if not on_rtd:
