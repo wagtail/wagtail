@@ -11,19 +11,19 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     submitted_notifications = models.BooleanField(
-        verbose_name=_('submitted notifications'),
+        verbose_name=_('Submitted notifications'),
         default=True,
         help_text=_("Receive notification when a page is submitted for moderation")
     )
 
     approved_notifications = models.BooleanField(
-        verbose_name=_('approved notifications'),
+        verbose_name=_('Approved notifications'),
         default=True,
         help_text=_("Receive notification when your page edit is approved")
     )
 
     rejected_notifications = models.BooleanField(
-        verbose_name=_('rejected notifications'),
+        verbose_name=_('Rejected notifications'),
         default=True,
         help_text=_("Receive notification when your page edit is rejected")
     )
