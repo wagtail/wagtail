@@ -21,7 +21,7 @@ class UpgradeNotificationPanel(object):
         self.request = request
 
     def render(self):
-        if getattr(settings, "WAGTAIL_ENABLE_TRACKING", True):
+        if self.request.user.is_superuser and getattr(settings, "WAGTAIL_ENABLE_TRACKING", True):
             return render_to_string('wagtailadmin/home/upgrade_notification.html', {}, request=self.request) 
         else:
             return ""
