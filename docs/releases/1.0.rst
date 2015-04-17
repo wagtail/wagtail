@@ -53,6 +53,7 @@ Admin
 **UI**
 
  * Improvements to the layout of the left-hand menu footer
+ * Menu items of custom apps are now highlighted when being used
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to

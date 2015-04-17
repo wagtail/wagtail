@@ -9,6 +9,7 @@ Changelog
  * MySQL support
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
+ * Menu items of custom apps are now highlighted when being used (Josh Barr)
  * Added thousands separator for counters on dashboard
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
