@@ -22,8 +22,8 @@ from wagtail.wagtailsearch import index
 class Document(models.Model, TagSearchable):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     file = models.FileField(upload_to='documents', verbose_name=_('File'))
-    created_at = models.DateTimeField(auto_now_add=True)
-    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, editable=False)
+    created_at = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True)
+    uploaded_by_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Uploaded by user'), null=True, blank=True, editable=False)
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
@@ -67,6 +67,9 @@ class Document(models.Model, TagSearchable):
             return True
         else:
             return False
+
+    class Meta:
+        verbose_name = _('Document')
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.

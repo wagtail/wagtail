@@ -34,3 +34,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.get_username()
+
+    class Meta:
+        verbose_name = _('User Profile')
