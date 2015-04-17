@@ -44,6 +44,8 @@ Contributors
 * Sebastian Spiegel
 * Alejandro Varas
 * Martin Sanders
+* Benoît Bar
+* Claudemiro
 
 Translators
 ===========
@@ -56,7 +58,7 @@ Translators
 * Chinese (Taiwan): wdv4758h, jshc
 * Czech: Jiri Stepanek
 * Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
-* French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel
+* French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel, Benoît Bar
 * Galician: fooflare, fonso
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston
 * Greek: Serafeim Papastefanos, Jim Dal
@@ -65,9 +67,9 @@ Translators
 * Mongolian: Delgermurun Purevkhuu, miiiga
 * Polish: Łukasz Bołdys
 * Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
-* Portuguese (Portugal): Jose Lourenco
+* Portuguese (Portugal): Jose Lourenco, Tiago Henriques
 * Romanian: Dan Braghis
 * Russian: ice9, HNKNTA, MechanisM, Andrey Tykhonov, Kirill Drozdov, Liliana Kastilio, Sergey Komarov
-* Spanish: Unai Zalakain, fooflare
+* Spanish: Unai Zalakain, fooflare, Yusuf (Josè) Luis
 * Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
 * Vietnamese: binhle, Luan Nguyen
