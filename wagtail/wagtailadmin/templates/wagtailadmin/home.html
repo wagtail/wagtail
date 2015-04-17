@@ -32,10 +32,3 @@
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
     {% endif %}
 {% endblock %}
-
-{% block extra_js %}
-    {% if allow_tracking %}
-        <script>window.wagtailVersion = "{% wagtail_version %}";</script>
-        <script src="{% static 'wagtailadmin/js/tracking.js' %}" async="true"></script>
-    {% endif %}
-{% endblock %}

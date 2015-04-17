@@ -17,6 +17,15 @@ class UpgradeNotificationPanel(object):
     name = 'upgrade_notification'
     order = 100
 
+    def __init__(self, request):
+        self.request = request
+
+    def render(self):
+        if getattr(settings, "WAGTAIL_ENABLE_TRACKING", True):
+            return render_to_string('wagtailadmin/home/upgrade_notification.html', {}, request=self.request) 
+        else:
+            return ""
+
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200
@@ -56,6 +65,7 @@ class RecentEditsPanel(object):
 def home(request):
     panels = [
         SiteSummaryPanel(request),
+        UpgradeNotificationPanel(request),
         PagesForModerationPanel(request),
         RecentEditsPanel(request),
     ]
@@ -64,7 +74,6 @@ def home(request):
         fn(request, panels)
 
     return render(request, "wagtailadmin/home.html", {
-        'allow_tracking': getattr(settings, "WAGTAIL_ENABLE_TRACKING", True),
         'site_name': settings.WAGTAIL_SITE_NAME,
         'panels': sorted(panels, key=lambda p: p.order),
         'user': request.user

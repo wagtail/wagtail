@@ -4,12 +4,9 @@ $(function(){
     /* 
     *   Expected JSON payload:
     *   {
-    *       'version' :'1.2.3'    // Version number excluding "v" etc. Must match /^(\d+\.)?(\d+\.)?(|\d+)$/ (xxx.xxx.xxx) mandatory to ensure version number comparison is possible
-    *       'download_url' : ''   // Absolute URL to a page/file/archive at which to download the new version e.g PYPI or Github
-    *       'release_notes' : ''  // Absolute URL to page/file containing release notes, readable in the browser.
+    *       'version' :'1.2.3'    // Version number. Can only contain numbers and decimal point.
+    *       'url' : 'https://wagtail.io'  // Absolute URL to page/file containing release notes or actual package. It's up to you.
     *   }
-    *
-    *
     */    
 
     function cmpVersion(a, b) {
@@ -32,12 +29,14 @@ $(function(){
     var trackingUrl = "https://releases.wagtail.io/latest.txt";
     var currentVersion = window.wagtailVersion;
 
-    // $.getJSON(trackingUrl, function(data) {
-        var data = {}
-        data.version = "1.0.1"
-        if(data.version && gtVersion(data.version, currentVersion)){
-            $('.panel.summary').after('<div class="panel nice-padding upgrade-available"><div class="help-block help-warning">Wagtail upgrade available. Your version: <strong>' + currentVersion + '</strong>, new version: <strong>' + data.version + '</strong>. <a href="' + data.release_notes + '">Read the release notes.</a></div></div>')
-        }
-    // });
-
+    $.getJSON(trackingUrl, function(data) {
+        try{
+            if(data.version && gtVersion(data.version, currentVersion)){
+                var $container = $('.panel-upgrade-notification')
+                $('.newversion', $container).html(data.version);
+                $('.releasenotes-link', $container).attr('href', data.url);
+                $container.show();
+            }
+        } catch (e){}
+    });
 });
