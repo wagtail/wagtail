@@ -1,4 +1,4 @@
-Contributing to Wagtail
+Developing Wagtail
 -----------------------
 
 Issues

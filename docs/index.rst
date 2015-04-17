@@ -43,4 +43,5 @@ Index
    reference/index
    support
    editor_manual/index
+   contributing/index
    releases/index

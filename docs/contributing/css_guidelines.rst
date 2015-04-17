@@ -1,4 +1,4 @@
-Contributing CSS to Wagtail
+CSS coding guidelines
 ===========================
 
 Our CSS is written in Sass, using the SCSS syntax.
@@ -48,7 +48,7 @@ Leave off underscores and file extensions in includes:
 Pixels vs. ems
 ~~~~~~~~~~~~~~
 
-Use ``rems`` for ``font-size`` with a ``px`` fallback, because it offers
+Use ``rems`` for ``font-size``, because they offer
 absolute control over text. Additionally, unit-less ``line-height`` is
 preferred because it does not inherit a percentage value of its parent
 element, but instead is based on a multiplier of the ``font-size``.
@@ -56,8 +56,8 @@ element, but instead is based on a multiplier of the ``font-size``.
 Specificity (classes vs. ids)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Prefer classes over IDs in CSS code. IDs can be overly specific and lead
-to duplication of CSS. When in doubt, use a class name.
+Always use classes instead of IDs in CSS code. IDs are overly specific and lead
+to duplication of CSS.
 
 When styling a component, start with an element + class namespace,
 prefer direct descendant selectors by default, and use as little
@@ -66,24 +66,24 @@ specificity as possible. Here is a good example:
 .. code-block:: html
 
     <ul class="category-list">
-      <li class="item">Category 1</li>
-      <li class="item">Category 2</li>
-      <li class="item">Category 3</li>
+        <li class="item">Category 1</li>
+        <li class="item">Category 2</li>
+        <li class="item">Category 3</li>
     </ul>
 
 .. code-block:: scss
 
     .category-list { // element + class namespace
 
-      // Direct descendant selector > for list items
-      > li {
-        list-style-type: disc;
-      }
+        // Direct descendant selector > for list items
+        > li {
+            list-style-type: disc;
+        }
 
-      // Minimal specificity for all links
-      a {
-        color: #f00;
-      }
+        // Minimal specificity for all links
+        a {
+            color: #f00;
+        }
     }
 
 Class naming conventions
@@ -111,30 +111,47 @@ Here are some good examples that apply the above guidelines:
 
     // Example of good basic formatting practices
     .styleguide-format {
-      color: #000;
-      background-color: rgba(0, 0, 0, .5);
-      border: 1px solid #0f0;
+        color: #000;
+        background-color: rgba(0, 0, 0, .5);
+        border: 1px solid #0f0;
     }
 
     // Example of individual selectors getting their own lines (for error reporting)
     .multiple,
     .classes,
     .get-new-lines {
-      display: block;
+        display: block;
     }
 
     // Avoid unnecessary shorthand declarations
     .not-so-good {
-      margin: 0 0 20px;
+        margin: 0 0 20px;
     }
     .good {
-      margin-bottom: 20px;
+        margin-bottom: 20px;
     }
 
 Vendor prefixes
 ~~~~~~~~~~~~~~~
 
-Where possible, use the autoprefixer
+Line up your vendor prefixes.
+
+.. code-block:: scss
+
+    // Example of good prefix formatting practices
+    .styleguide-format {
+        -webkit-transition: opacity 0.2s ease-out;
+           -moz-transition: opacity 0.2s ease-out;
+            -ms-transition: opacity 0.2s ease-out;
+             -o-transition: opacity 0.2s ease-out;
+                transition: opacity 0.2s ease-out;
+    }
+
+Don't write vendor prefixes for ``border-radius``, it's pretty well supported.
+
+If you're unsure, you can always check support at
+`caniuse <http://caniuse.com/>`_
+
 
 Linting SCSS
 ~~~~~~~~~~~~
@@ -142,9 +159,9 @@ Linting SCSS
 The guidelines are included in a ``.scss-lint.yml`` file so that you can
 check that your code conforms to the style guide.
 
-Run the linter from the wagtail project root with ``scss-lint .``.
+Run the linter with ``scss-lint .`` from the wagtail project root.
 You'll need to have the linter installed to do this. You can get it by
-running
+running:
 
 .. code-block:: bash
 
