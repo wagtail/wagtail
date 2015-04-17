@@ -8,9 +8,6 @@
 
 {% block pre_parent_page_headers %}
     <tr class="table-headers">
-        {% if orderable %}
-            <th></th>
-        {% endif %}
         <th class="title">Title</th>
         {% if show_parent %}
             <th class="parent">{% trans 'Parent' %}</th>
