@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mahulst, 2014
+# mahulst, 2014
+# Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-10-31 15:41+0000\n"
-"Last-Translator: Samuel Leeuwenburg\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/"
-"nl/)\n"
-"Language: nl\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit_handlers.py:704
@@ -44,9 +45,9 @@ msgid "Enter password"
 msgstr "Voer wachtwoord in"
 
 #: forms.py:72
-#, fuzzy, python-format
+#, python-format
 msgid "Enter your %s"
-msgstr "Vul uw gebruikersnaam in"
+msgstr ""
 
 #: forms.py:77
 msgid "Enter your email address to reset your password"
@@ -60,9 +61,7 @@ msgstr "Vul uw e-mailadres in"
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
-"Sorry, u kunt uw wachtwoord hier niet herstellen omdat uw account beheert "
-"wordt door een andere server."
+msgstr "Sorry, u kunt uw wachtwoord hier niet herstellen omdat uw account beheert wordt door een andere server."
 
 #: forms.py:102
 msgid "This email address is not recognised."
@@ -77,10 +76,8 @@ msgid "New slug"
 msgstr "Nieuwe slug"
 
 #: forms.py:120
-#, fuzzy
-#| msgid "New %(page_type)s"
 msgid "New parent page"
-msgstr "Nieuw %(page_type)s"
+msgstr ""
 
 #: forms.py:121
 msgid "This copy will be a child of this given parent page."
@@ -122,8 +119,7 @@ msgstr[1] ""
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+msgid "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
@@ -153,10 +149,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"Uw avatar afbeelding wordt aangeboden door Gravatar en is verbonden met uw e-"
-"mailadres. Met uw Gravatar account kunt u een avatar instellen voor uw "
-"andere e-maildressen die u gebruikt."
+msgstr "Uw avatar afbeelding wordt aangeboden door Gravatar en is verbonden met uw e-mailadres. Met uw Gravatar account kunt u een avatar instellen voor uw andere e-maildressen die u gebruikt."
 
 #: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
@@ -183,9 +176,7 @@ msgstr "Verander wachtwoord"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Uw wachtwoord kan hier niet veranderd worden. Neem alstublieft contact op "
-"met de beheerder van de site."
+msgstr "Uw wachtwoord kan hier niet veranderd worden. Neem alstublieft contact op met de beheerder van de site."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
@@ -227,8 +218,7 @@ msgstr "Check uw e-mail"
 
 #: templates/wagtailadmin/account/password_reset/done.html:16
 msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Een link om uw wachtwoord te herstellen is naar u e-mailadres verstuurd"
+msgstr "Een link om uw wachtwoord te herstellen is naar u e-mailadres verstuurd"
 
 #: templates/wagtailadmin/account/password_reset/email.txt:2
 msgid "Please follow the link below to reset your password"
@@ -274,32 +264,15 @@ msgid "Email link"
 msgstr "E-mail link"
 
 #: templates/wagtailadmin/chooser/_page_type_restricted_warning.html:4
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            Only pages of type \"%(type)s\" may be chosen for this field. "
-#| "Search results will exclude pages of other types.\n"
-#| "        "
+#, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
-"\n"
-"Alleen paginas van het type \"%(type)s\" mogen gekozen worden voor dit veld. "
-"andere types zullen niet in de zoekresultaten voorkomen."
 
 #: templates/wagtailadmin/chooser/_search_results.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            There is one match\n"
-#| "        "
-#| msgid_plural ""
-#| "\n"
-#| "            There are %(counter)s matches\n"
-#| "        "
+#, python-format
 msgid ""
 "\n"
 "        There is one match\n"
@@ -309,11 +282,7 @@ msgid_plural ""
 "        There are %(counter)s matches\n"
 "    "
 msgstr[0] ""
-"\n"
-"Er is een resultaat"
 msgstr[1] ""
-"\n"
-"Er zijn %(counter)s resultaten"
 
 #: templates/wagtailadmin/chooser/browse.html:3
 msgid "Choose"
@@ -361,8 +330,7 @@ msgstr "Welkom het Wagtail CMS van %(site_name)s"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"Dit is uw dashboard waar informatie staat over content die weergegeven wordt."
+msgstr "Dit is uw dashboard waar informatie staat over content die weergegeven wordt."
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -460,15 +428,7 @@ msgid "Site summary"
 msgstr "Site samenvatting"
 
 #: templates/wagtailadmin/home/site_summary_pages.html:5
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Page\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Pages\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "        <span>%(total)s</span> Page\n"
@@ -478,22 +438,16 @@ msgid_plural ""
 "        <span>%(total)s</span> Pages\n"
 "    "
 msgstr[0] ""
-"\n"
-"<span>%(total_pages)s</span> Pagina"
 msgstr[1] ""
-"\n"
-"<span>%(total_pages)s</span> Pagina's"
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
 msgid "Sign in"
 msgstr "Inloggen"
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
-"Deze combinatie van gebruikersnaam en wachtwoord zijn onbekend. Probeer "
-"alstublieft opnieuw."
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -565,14 +519,11 @@ msgstr "U kunt de privacy voorkeuren wijzigen op:"
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
 msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Privacy wijzigingen hebben ook effect op alle child pagina's  van deze "
-"pagina."
+msgstr "Privacy wijzigingen hebben ook effect op alle child pagina's  van deze pagina."
 
 #: templates/wagtailadmin/pages/_lock_switch.html:8
-#, fuzzy
 msgid "Edit lock"
-msgstr "Wijzigen"
+msgstr ""
 
 #: templates/wagtailadmin/pages/_lock_switch.html:15
 msgid "Locked"
@@ -626,23 +577,16 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] ""
-"\n"
-"Dit zal ook een subpagina verwijderen."
-msgstr[1] ""
-"\n"
-"Dit zal ook %(descendant_count)s subpagina's verwijderen."
+msgstr[0] "\nDit zal ook een subpagina verwijderen."
+msgstr[1] "\nDit zal ook %(descendant_count)s subpagina's verwijderen."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:22
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr ""
-"U kunt ook de pagina unpubliceren. Dit verwijderd de pagina enkel op de "
-"publieke site zodat u deze later weer kunt wijzigen en/of opnieuw publiceren."
+msgstr "U kunt ook de pagina unpubliceren. Dit verwijderd de pagina enkel op de publieke site zodat u deze later weer kunt wijzigen en/of opnieuw publiceren."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:26
 msgid "Delete it"
@@ -673,9 +617,7 @@ msgstr "Weet u zeker dat u deze pagina wilt verplaatsen naar '%(title)s'?"
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
-"Weet u zeker dat u deze pagina en alle child pagina's wilt verplaatsen naar "
-"'%(title)s'?"
+msgstr "Weet u zeker dat u deze pagina en alle child pagina's wilt verplaatsen naar '%(title)s'?"
 
 #: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
@@ -778,9 +720,8 @@ msgstr ""
 #: templates/wagtailadmin/pages/list.html:25
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:42
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:45
-#, fuzzy
 msgid "Updated"
-msgstr "Update"
+msgstr ""
 
 #: templates/wagtailadmin/pages/list.html:66
 msgid "Drag"
@@ -829,10 +770,9 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_move.html:9
-#, fuzzy, python-format
-#| msgid "Add a child page to '%(title)s'"
+#, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "Voeg child pagina toe aan '%(title)s'"
+msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
@@ -1047,8 +987,8 @@ msgstr ""
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
@@ -1064,10 +1004,8 @@ msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail administratie interface"
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
-#, fuzzy
-#| msgid "Add child page"
 msgid "Add a child page"
-msgstr "Voeg child pagina toe"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
 msgid "Add"
@@ -1094,10 +1032,9 @@ msgid "Expiry date/time must be in the future"
 msgstr ""
 
 #: views/pages.py:224
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' published."
+#, python-brace-format
 msgid "Page '{0}' created and published."
-msgstr "Pagina '{0}' gepubliceerd."
+msgstr ""
 
 #: views/pages.py:225 views/pages.py:361 views/pages.py:795
 msgid "View live"
@@ -1109,10 +1046,8 @@ msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
 #: views/pages.py:230 views/pages.py:366
-#, fuzzy
-#| msgid "Save draft"
 msgid "View draft"
-msgstr "Concept opslaan"
+msgstr ""
 
 #: views/pages.py:235
 #, python-brace-format
@@ -1139,9 +1074,8 @@ msgid "Page '{0}' updated."
 msgstr ""
 
 #: views/pages.py:386
-#, fuzzy
 msgid "The page could not be saved as it is locked"
-msgstr "Deze pagina kon niet opgeslagen worden vanwege validatie fouten"
+msgstr ""
 
 #: views/pages.py:388
 msgid "The page could not be saved due to validation errors"
@@ -1199,14 +1133,14 @@ msgid "Page '{0}' rejected for publication."
 msgstr ""
 
 #: views/pages.py:855
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' verplaatst."
+msgstr ""
 
 #: views/pages.py:879
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
-msgstr "Pagina '{0}' verplaatst."
+msgstr ""
 
 #: widgets.py:65
 msgid "Choose an item"
@@ -1221,65 +1155,9 @@ msgid "Clear choice"
 msgstr "Leeg keuze"
 
 #: widgets.py:68
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "Wijzig deze pagina"
+msgstr ""
 
 #: widgets.py:115
 msgid "Choose another page"
 msgstr "Kies een andere pagina"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Image\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Images\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Image\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Images\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "<span>%(total_images)s</span> Afbeelding"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "<span>%(total_images)s</span> Afbeeldingen"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Document\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Documents\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Document\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Documents\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "<span>%(total_docs)s</span> Document"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "<span>%(total_docs)s</span> Documenten"
-
-#~ msgid "Add another page at this level"
-#~ msgstr "Voeg nog een pagina toe op dit niveau"
-
-#~ msgid "Account settings"
-#~ msgstr "Account instellingen"

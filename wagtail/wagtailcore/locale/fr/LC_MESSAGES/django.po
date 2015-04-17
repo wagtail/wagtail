@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# nahuel, 2014
 # nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-04-16 15:45+0100\n"
-"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -18,13 +20,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.5\n"
 
 #: models.py:53
-#, fuzzy
-#| msgid "hostname"
 msgid "Hostname"
-msgstr "nom d'hôte"
+msgstr ""
 
 #: models.py:54
 msgid "Port"
@@ -42,16 +41,12 @@ msgstr ""
 "continuent de fonctionner)."
 
 #: models.py:55
-#, fuzzy
-#| msgid "root page"
 msgid "Root page"
-msgstr "page racine"
+msgstr ""
 
 #: models.py:56
-#, fuzzy
-#| msgid "is default site"
 msgid "Is default site"
-msgstr "site par défaut"
+msgstr ""
 
 #: models.py:56
 msgid ""
@@ -71,10 +66,8 @@ msgstr ""
 "ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
 #: models.py:266
-#, fuzzy
-#| msgid "title"
 msgid "Title"
-msgstr "titre"
+msgstr ""
 
 #: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
@@ -93,8 +86,6 @@ msgstr ""
 "blog/[my-slug]/"
 
 #: models.py:276
-#, fuzzy
-#| msgid "page title"
 msgid "Page title"
 msgstr "Titre de la page"
 
@@ -107,10 +98,8 @@ msgstr ""
 "navigateur."
 
 #: models.py:277
-#, fuzzy
-#| msgid "show in menus"
 msgid "Show in menus"
-msgstr "apparaît dans les menus ?"
+msgstr ""
 
 #: models.py:277
 msgid ""
@@ -120,10 +109,8 @@ msgstr ""
 "automatiquement"
 
 #: models.py:278
-#, fuzzy
-#| msgid "search description"
 msgid "Search description"
-msgstr "description pour moteurs de recherche"
+msgstr ""
 
 #: models.py:280
 msgid "Go live date/time"
@@ -178,36 +165,21 @@ msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
 
 #: models.py:1174
-#, fuzzy
-#| msgid "group"
 msgid "Group"
-msgstr "group"
+msgstr ""
 
 #: models.py:1175 models.py:1401
 msgid "Page"
 msgstr ""
 
 #: models.py:1176
-#, fuzzy
-#| msgid "permission type"
 msgid "Permission type"
-msgstr "type de permission"
+msgstr ""
 
 #: models.py:1402
-#, fuzzy
-#| msgid "password"
 msgid "Password"
-msgstr "mot de passe"
+msgstr ""
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
 msgstr "La valeur ne peut pas uniquement être des espaces blancs"
-
-#~ msgid "port"
-#~ msgstr "port"
-
-#~ msgid "slug"
-#~ msgstr "slug"
-
-#~ msgid "page"
-#~ msgstr "page"

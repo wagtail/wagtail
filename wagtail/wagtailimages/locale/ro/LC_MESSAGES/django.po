@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Dan Braghis, 2014-2015
 msgid ""
@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2015-02-06 23:13+0000\n"
-"Last-Translator: Dan Braghis\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
-"language/ro/)\n"
-"Language: ro\n"
+"PO-Revision-Date: 2015-04-17 11:52+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: fields.py:13
 msgid "GIF, JPEG, PNG"
@@ -35,30 +33,26 @@ msgid "Not a valid %s image."
 msgstr "Imaginea %s nu este validă."
 
 #: fields.py:29
-#, fuzzy, python-format
-#| msgid "This file is too big. Maximum filesize %s."
+#, python-format
 msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr "Acest fișier este prea mare. Volum maxim de fișier: %s."
+msgstr ""
 
 #: fields.py:35
-#, fuzzy, python-format
-#| msgid "This file is too big (%%s). Maximum filesize %s."
+#, python-format
 msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr "Acest fișier este prea mare (%%s). Volum maxim de fișier: %s."
+msgstr ""
 
 #: fields.py:41
-#, fuzzy, python-format
-#| msgid "Supported formats: %s. Maximum filesize: %s."
+#, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
-msgstr "Formate suportate: %s. Volum maxim de fișier: %s."
+msgstr ""
 
 #: fields.py:52
-#, fuzzy, python-format
-#| msgid "Not a supported image format. Supported formats: %s."
+#, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Format de imagine neacceptat. Formate suportate: %s."
+msgstr ""
 
 #: forms.py:64
 msgid "Filter"
@@ -141,15 +135,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Există o potrivire"
-msgstr[1] ""
-"\n"
-"Sunt %(counter)s potriviri"
-msgstr[2] ""
-"\n"
-"Sunt %(counter)s potriviri"
+msgstr[0] "\nExistă o potrivire"
+msgstr[1] "\nSunt %(counter)s potriviri"
+msgstr[2] "\nSunt %(counter)s potriviri"
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -179,10 +167,8 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "Schimbă imaginea:"
+msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -245,10 +231,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Fișier"
+msgstr ""
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -262,17 +246,14 @@ msgstr "Imagini"
 #: templates/wagtailimages/images/results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
+msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
 
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Nu ați încărcat nici o imagine. De să nu <a href="
-"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Nu ați încărcat nici o imagine. De să nu <a href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -362,10 +343,8 @@ msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "Editare"
+msgstr ""
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -373,8 +352,8 @@ msgstr "Imaginea nu a fost salvată din cauza erorilor."
 
 #: views/images.py:128
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 
 #: views/images.py:221
@@ -388,10 +367,8 @@ msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 
 #: views/images.py:245
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editare"
+msgstr ""
 
 #: views/images.py:249
 msgid "The image could not be created due to errors."
@@ -402,13 +379,5 @@ msgid "Choose another image"
 msgstr "Alege altă imagine"
 
 #: widgets.py:15
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this image"
-msgstr "Editează această pagină"
-
-#~ msgid "Supported formats: %s."
-#~ msgstr "Formate suportate: %s."
-
-#~ msgid "Clear image"
-#~ msgstr "Curăță imaginea"
+msgstr ""

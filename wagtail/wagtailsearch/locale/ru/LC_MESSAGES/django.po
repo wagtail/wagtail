@@ -1,9 +1,10 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Eugene MechanisM <contact@mechanism.name>, 2014
+# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# HNKNTA <hnknta@gmail.com>, 2014
 # HNKNTA <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
@@ -11,16 +12,14 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:39+0100\n"
-"PO-Revision-Date: 2014-10-07 20:16+0000\n"
-"Last-Translator: Sergey Komarov <sjkomarov@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
-"ru/)\n"
-"Language: ru\n"
+"PO-Revision-Date: 2015-04-17 11:58+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: forms.py:10
 msgid "Search term(s)/phrase"
@@ -34,9 +33,7 @@ msgstr ""
 
 #: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Пожалуйста, сформулируйте по крайней мере, одну рекомендацию по этому "
-"поисковому запросу."
+msgstr "Пожалуйста, сформулируйте по крайней мере, одну рекомендацию по этому поисковому запросу."
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -46,20 +43,14 @@ msgstr "Добавить подборку"
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
+"                <p>Promoted search results are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with the less common term \"<em>giving</em>\".</p>\n"
 "            "
 msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:14
 msgid ""
 "\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
 "            "
 msgstr ""
 
@@ -82,7 +73,7 @@ msgstr "Удалить"
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
+msgstr "Вы уверены что вы хотите удалить все раскручиваемые результаты поиска для этого поискового запроса?"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
 msgid "Yes, delete"
@@ -91,7 +82,7 @@ msgstr "Да, удалить"
 #: templates/wagtailsearch/editorspicks/edit.html:3
 #, python-format
 msgid "Editing %(query)s"
-msgstr ""
+msgstr "Редактирование %(query)s"
 
 #: templates/wagtailsearch/editorspicks/edit.html:5
 msgid "Editing"
@@ -107,7 +98,7 @@ msgstr "Вниз"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
 msgid "Promoted search result"
-msgstr ""
+msgstr "Раскручиваемый результат поиска"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:16
 msgid "Add recommended page"
@@ -119,11 +110,11 @@ msgstr "Критерии поиска"
 
 #: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
 msgid "Promoted search results"
-msgstr ""
+msgstr "Раскручиваемые результаты поиска"
 
 #: templates/wagtailsearch/editorspicks/index.html:18
 msgid "Add new promoted result"
-msgstr ""
+msgstr "Добавить новый раскручиваемый результат"
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
@@ -131,16 +122,16 @@ msgstr "Критерии поиска"
 
 #: templates/wagtailsearch/editorspicks/list.html:9
 msgid "Promoted results"
-msgstr ""
+msgstr "Раскручиваемые результаты"
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
 msgid "Views (past week)"
-msgstr ""
+msgstr "Просмотров (прошлая неделя)"
 
 #: templates/wagtailsearch/editorspicks/list.html:17
 msgid "Edit this pick"
-msgstr ""
+msgstr "Редактировать эту подборку"
 
 #: templates/wagtailsearch/editorspicks/list.html:23
 msgid "None"
@@ -156,21 +147,21 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "\nНайдено одно совпадение"
+msgstr[1] "\nНайдено %(counter)s совпадений"
+msgstr[2] "\nНайдено %(counter)s совпадений"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
+msgstr "Извините, нет раскручиваемых результатов совпадающих с \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+msgstr "Раскручиваемых поисковых запросов пока не создано. Почему бы не <a href=\"%(wagtailsearch_editorspicks_add_url)s\">добавить один</a>?"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
@@ -190,28 +181,24 @@ msgstr "Ничего не найдено"
 
 #: templates/wagtailsearch/queries/chooser_field.html:3
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: templates/wagtailsearch/queries/chooser_field.html:8
-#, fuzzy
-#| msgid "Popular search terms"
 msgid "Choose from popular search terms"
-msgstr "Популярные критерии поиска"
+msgstr "Выбрать из популярных поисковых запросов"
 
 #: views/editorspicks.py:46
 msgid "Search editor's picks"
-msgstr ""
+msgstr "Искать подборки"
 
 #: views/editorspicks.py:81
 #, python-brace-format
 msgid "Editor's picks for '{0}' created."
-msgstr ""
+msgstr "Подборка '{0}' создана."
 
 #: views/editorspicks.py:82 views/editorspicks.py:117
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Редактирование"
+msgstr "Правка"
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
@@ -220,7 +207,7 @@ msgstr "Рекомендации не были созданы из-за ошиб
 #: views/editorspicks.py:116
 #, python-brace-format
 msgid "Editor's picks for '{0}' updated."
-msgstr ""
+msgstr "Подборка '{0}' обновлена."
 
 #: views/editorspicks.py:124
 msgid "Recommendations have not been saved due to errors"
@@ -228,7 +215,4 @@ msgstr "Рекомендации не были сохранены из-за ош
 
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
-msgstr ""
-
-#~ msgid "Editors picks"
-#~ msgstr "Подборки"
+msgstr "Подборка удалена."

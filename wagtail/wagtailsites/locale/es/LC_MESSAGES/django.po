@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# fonso <fonzzo@gmail.com>, 2015
 # Mauricio Baeza <web@mauriciobaeza.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:39+0100\n"
-"PO-Revision-Date: 2014-10-28 22:18+0000\n"
-"Last-Translator: Mauricio Baeza <web@mauriciobaeza.org>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
-"es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2015-04-17 11:59+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:12
@@ -88,10 +88,8 @@ msgid "Site '{0}' created."
 msgstr "Sitio '{0}' creado."
 
 #: views.py:32 views.py:54
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 #: views.py:36
 msgid "The site could not be created due to errors."
@@ -110,9 +108,3 @@ msgstr "El sitio no puede ser guardado debido a errores"
 #, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sitio '{0}' eliminado."
-
-#~ msgid "Change page"
-#~ msgstr "Cambiar página"
-
-#~ msgid "Choose page"
-#~ msgstr "Seleccionar página"

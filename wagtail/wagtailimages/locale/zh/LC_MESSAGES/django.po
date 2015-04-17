@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:52+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
-"zh/)\n"
-"Language: zh\n"
+"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: fields.py:13
@@ -163,10 +162,8 @@ msgid_plural ""
 msgstr[0] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "改变图片："
+msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -229,10 +226,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "文件"
+msgstr ""
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -251,11 +246,9 @@ msgstr ""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"没有任何上传的图片。为什么不 <a href=\"%(wagtailimages_add_image_url)s\">添加"
-"一个</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "没有任何上传的图片。为什么不 <a href=\"%(wagtailimages_add_image_url)s\">添加一个</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -345,10 +338,8 @@ msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新"
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "编辑"
+msgstr ""
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -356,8 +347,8 @@ msgstr "图片 因为有错不能被保存"
 
 #: views/images.py:128
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 
 #: views/images.py:221
@@ -371,10 +362,8 @@ msgid "Image '{0}' added."
 msgstr "图片 '{0}' 已添加."
 
 #: views/images.py:245
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "编辑"
+msgstr ""
 
 #: views/images.py:249
 msgid "The image could not be created due to errors."
@@ -387,6 +376,3 @@ msgstr "选择另外一个图片"
 #: widgets.py:15
 msgid "Edit this image"
 msgstr ""
-
-#~ msgid "Clear image"
-#~ msgstr "清除图片"

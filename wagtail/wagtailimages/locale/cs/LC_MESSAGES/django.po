@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2015-01-10 10:15+0000\n"
-"Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
-"cs/)\n"
-"Language: cs\n"
+"PO-Revision-Date: 2015-04-17 11:52+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: fields.py:13
@@ -34,30 +33,26 @@ msgid "Not a valid %s image."
 msgstr "Toto není validní obrázek %s."
 
 #: fields.py:29
-#, fuzzy, python-format
-#| msgid "This file is too big. Maximum filesize %s."
+#, python-format
 msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr "Tento soubor je příliš velký. Maximální povolená velikost je %s."
+msgstr ""
 
 #: fields.py:35
-#, fuzzy, python-format
-#| msgid "This file is too big (%%s). Maximum filesize %s."
+#, python-format
 msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr "Tento soubor je příliš velký (%%s). Maximální povolená velikost je %s."
+msgstr ""
 
 #: fields.py:41
-#, fuzzy, python-format
-#| msgid "Supported formats: %s. Maximum filesize: %s."
+#, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
-msgstr "Podporované formáty: %s. Maximální velikost: %s."
+msgstr ""
 
 #: fields.py:52
-#, fuzzy, python-format
-#| msgid "Not a supported image format. Supported formats: %s."
+#, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Nepodporovaný formát obrázku. Podporovány jsou formáty %s"
+msgstr ""
 
 #: forms.py:64
 msgid "Filter"
@@ -140,15 +135,9 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Nalezen 1 obrázek"
-msgstr[1] ""
-"\n"
-"Nalezeno %(counter)s obrázků"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s obrázků"
+msgstr[0] "\nNalezen 1 obrázek"
+msgstr[1] "\nNalezeno %(counter)s obrázků"
+msgstr[2] "\nNalezeno %(counter)s obrázků"
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -178,10 +167,8 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "Změnit obrázek:"
+msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -229,9 +216,7 @@ msgstr "Středový bod (nepovinné)"
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
-msgstr ""
-"Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku "
-"níže."
+msgstr "Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku níže."
 
 #: templates/wagtailimages/images/edit.html:52
 msgid "Current focal point shown"
@@ -246,10 +231,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Soubor"
+msgstr ""
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -263,17 +246,14 @@ msgstr "Obrázky"
 #: templates/wagtailimages/images/results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
+msgstr "Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
 
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
-"\"%(wagtailimages_add_image_url)s\">zde</a>."
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href=\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -291,9 +271,7 @@ msgstr "Náhled"
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr ""
-"Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu "
-"zmenšeny tak, aby se na obrazovku vešly."
+msgstr "Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu zmenšeny tak, aby se na obrazovku vešly."
 
 #: templates/wagtailimages/images/usage.html:3
 #, python-format
@@ -330,8 +308,7 @@ msgstr "Přidat obrázky"
 
 #: templates/wagtailimages/multiple/add.html:18
 msgid "Drag and drop images into this area to upload immediately."
-msgstr ""
-"Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
+msgstr "Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
 
 #: templates/wagtailimages/multiple/add.html:23
 msgid "Or choose from your computer"
@@ -342,9 +319,7 @@ msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr ""
-"Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také "
-"můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
+msgstr "Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
 
 #: templates/wagtailimages/multiple/add.html:49
 msgid "Sorry, upload failed."
@@ -368,10 +343,8 @@ msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "Úprava"
+msgstr ""
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -379,8 +352,8 @@ msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
 
 #: views/images.py:128
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 
 #: views/images.py:221
@@ -394,10 +367,8 @@ msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 
 #: views/images.py:245
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Úprava"
+msgstr ""
 
 #: views/images.py:249
 msgid "The image could not be created due to errors."
@@ -408,13 +379,5 @@ msgid "Choose another image"
 msgstr "Zvolit jiný obrázek"
 
 #: widgets.py:15
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this image"
-msgstr "Upravit stránku"
-
-#~ msgid "Supported formats: %s."
-#~ msgstr "Podporované formáty: %s."
-
-#~ msgid "Clear image"
-#~ msgstr "Odstranit obrázek"
+msgstr ""

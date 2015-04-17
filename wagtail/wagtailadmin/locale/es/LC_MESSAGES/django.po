@@ -1,28 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# Joaquín Tita <carpincho@gmail.com>, 2014
+# Mauricio Baeza <web@mauriciobaeza.net>, 2015
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
-"es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit_handlers.py:704
 msgid "Scheduled publishing"
-msgstr ""
+msgstr "Publicación programada"
 
 #: edit_handlers.py:718
 msgid "Common page configuration"
@@ -44,9 +46,9 @@ msgid "Enter password"
 msgstr "Introduce contraseña"
 
 #: forms.py:72
-#, fuzzy, python-format
+#, python-format
 msgid "Enter your %s"
-msgstr "Introduce tu nombre de usuario"
+msgstr "Ingrese su %s"
 
 #: forms.py:77
 msgid "Enter your email address to reset your password"
@@ -60,9 +62,7 @@ msgstr "Rellena tu dirección de correo por favor."
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
-"Lo sentimos, no puedes restablecer tu contraseña aquí porque tu cuenta es "
-"gestionada por otro servidor."
+msgstr "Lo sentimos, no puedes restablecer tu contraseña aquí porque tu cuenta es gestionada por otro servidor."
 
 #: forms.py:102
 msgid "This email address is not recognised."
@@ -70,17 +70,15 @@ msgstr "No se reconoce la dirección de correo."
 
 #: forms.py:114
 msgid "New title"
-msgstr ""
+msgstr "Nuevo título"
 
 #: forms.py:115
 msgid "New slug"
-msgstr ""
+msgstr "Nuevo slug"
 
 #: forms.py:120
-#, fuzzy
-#| msgid "New %(page_type)s"
 msgid "New parent page"
-msgstr "Nueva %(page_type)s"
+msgstr "Nueva página padre"
 
 #: forms.py:121
 msgid "This copy will be a child of this given parent page."
@@ -88,26 +86,26 @@ msgstr ""
 
 #: forms.py:128
 msgid "Copy subpages"
-msgstr ""
+msgstr "Copiar subpáginas"
 
 #: forms.py:130
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Esto copiará %(count)s subpágina."
+msgstr[1] "Esto copiará %(count)s subpáginas."
 
 #: forms.py:139
 msgid "Publish copied page"
-msgstr ""
+msgstr "Publicar página copiada"
 
 #: forms.py:140
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr ""
+msgstr "Esta página es en vivo. Quiere publicar su copia también?"
 
 #: forms.py:142
 msgid "Publish copies"
-msgstr ""
+msgstr "Copias publicadas"
 
 #: forms.py:144
 #, python-format
@@ -117,27 +115,26 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s de las páginas copiadas es en vivo. Quiere publicar su copia?"
+msgstr[1] "%(count)s de las páginas copiadas es en vivo. Quiere publicar sus copias?"
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+msgid "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
 #: templates/wagtailadmin/pages/_privacy_switch.html:18
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: forms.py:175
 msgid "Private, accessible with the following password"
-msgstr ""
+msgstr "Privado, accessible con la siguiente contraseña"
 
 #: forms.py:183
 msgid "This field is required."
-msgstr ""
+msgstr "Este campo es necesario."
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
@@ -153,10 +150,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"Tu avatar es provisto por Gravatar y está conectado a tu dirección de "
-"correo. Con una cuenta Gravatar puedes establecer un avatar para cualquier "
-"número de correos electrónicos."
+msgstr "Tu avatar es provisto por Gravatar y está conectado a tu dirección de correo. Con una cuenta Gravatar puedes establecer un avatar para cualquier número de correos electrónicos."
 
 #: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
@@ -170,11 +164,11 @@ msgstr "Cambia la contraseña que utilizas para iniciar sesión."
 
 #: templates/wagtailadmin/account/account.html:35
 msgid "Notification preferences"
-msgstr ""
+msgstr "Preferencias de notificación"
 
 #: templates/wagtailadmin/account/account.html:39
 msgid "Choose which email notifications to receive."
-msgstr ""
+msgstr "Seleccione cuales notificaciones por correo electrónico desea recibir."
 
 #: templates/wagtailadmin/account/change_password.html:18
 msgid "Change Password"
@@ -183,18 +177,16 @@ msgstr "Cambiar Contraseña"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Tu contraseña no puede cambiarse aquí. Por favor, contacta con el "
-"administrador."
+msgstr "Tu contraseña no puede cambiarse aquí. Por favor, contacta con el administrador."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
 msgid "Notification Preferences"
-msgstr ""
+msgstr "Preferencias de Notificación"
 
 #: templates/wagtailadmin/account/notification_preferences.html:16
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 #: templates/wagtailadmin/account/password_reset/complete.html:4
 #: templates/wagtailadmin/account/password_reset/confirm.html:42
@@ -227,9 +219,7 @@ msgstr "Revisa tu correo electrónico"
 
 #: templates/wagtailadmin/account/password_reset/done.html:16
 msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Un enlace para restablecer tu contraseña, te ha sido enviado por correo "
-"electrónico."
+msgstr "Un enlace para restablecer tu contraseña, te ha sido enviado por correo electrónico."
 
 #: templates/wagtailadmin/account/password_reset/email.txt:2
 msgid "Please follow the link below to reset your password"
@@ -253,7 +243,7 @@ msgstr "Menú"
 
 #: templates/wagtailadmin/block_forms/list.html:5
 msgid "Add another"
-msgstr ""
+msgstr "Agregar otro"
 
 #: templates/wagtailadmin/chooser/_browse_results.html:7 wagtail_hooks.py:17
 msgid "Explorer"
@@ -278,21 +268,12 @@ msgstr "Enlace de correo electrónico"
 #, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
 
 #: templates/wagtailadmin/chooser/_search_results.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            There is one match\n"
-#| "        "
-#| msgid_plural ""
-#| "\n"
-#| "            There are %(counter)s matches\n"
-#| "        "
+#, python-format
 msgid ""
 "\n"
 "        There is one match\n"
@@ -302,18 +283,11 @@ msgid_plural ""
 "        There are %(counter)s matches\n"
 "    "
 msgstr[0] ""
-"\n"
-"           Hay una coincidencia\n"
-"        "
 msgstr[1] ""
-"\n"
-"            Hay %(counter)s coincidencias\n"
-"        "
 
 #: templates/wagtailadmin/chooser/browse.html:3
-#, fuzzy
 msgid "Choose"
-msgstr "Elige una página"
+msgstr "Seleccionar"
 
 #: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
 msgid "Choose a page"
@@ -357,9 +331,7 @@ msgstr "Bienvenido al CMS Wagtail %(site_name)s"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"Este es tu panel de control donde aparecerá información útil sobre el "
-"contenido que has creado."
+msgstr "Este es tu panel de control donde aparecerá información útil sobre el contenido que has creado."
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -444,28 +416,20 @@ msgstr "Estado"
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:21
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:23
 msgid "Draft"
-msgstr ""
+msgstr "Borrador"
 
 #: templates/wagtailadmin/home/recent_edits.html:33
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
 msgid "Live"
-msgstr ""
+msgstr "En vivo"
 
 #: templates/wagtailadmin/home/site_summary.html:3
 msgid "Site summary"
 msgstr "Resumen del sitio"
 
 #: templates/wagtailadmin/home/site_summary_pages.html:5
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Page\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Pages\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "        <span>%(total)s</span> Page\n"
@@ -475,22 +439,16 @@ msgid_plural ""
 "        <span>%(total)s</span> Pages\n"
 "    "
 msgstr[0] ""
-"\n"
-"                <span>%(total_pages)s</span> Página\n"
-"            "
 msgstr[1] ""
-"\n"
-"                <span>%(total_pages)s</span> Páginas\n"
-"            "
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Tu usuario y contraseña no coinciden. Por favor, inténtalo de nuevo."
+msgstr "Su %(username_field)s y contraseña no concuerdan. Por favor intente nuevamente."
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -516,7 +474,7 @@ msgstr "Puede visualizar la página aquí:"
 
 #: templates/wagtailadmin/notifications/base_notification.html:3
 msgid "Edit your notification preferences here:"
-msgstr ""
+msgstr "Modifique sus preferencias de notificación aquí:"
 
 #: templates/wagtailadmin/notifications/rejected.html:1
 #, python-format
@@ -550,41 +508,40 @@ msgstr "Puedes previsualizar la página aquí:"
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:2
 #: templates/wagtailadmin/page_privacy/set_privacy.html:2
 msgid "Page privacy"
-msgstr ""
+msgstr "Privacidad de la página"
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:6
 msgid "This page has been made private by a parent page."
-msgstr ""
+msgstr "Esta página fue convertida en privada por una página padre."
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
 msgid "You can edit the privacy settings on:"
-msgstr ""
+msgstr "Puede editar los ajustes de privacidad sobre:"
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
 msgid "Privacy changes apply to all children of this page too."
-msgstr ""
+msgstr "Los cambios de privacidad se aplican a todos los hijos de esta página."
 
 #: templates/wagtailadmin/pages/_lock_switch.html:8
-#, fuzzy
 msgid "Edit lock"
-msgstr "Editar"
+msgstr "Editar bloqueo"
 
 #: templates/wagtailadmin/pages/_lock_switch.html:15
 msgid "Locked"
-msgstr ""
+msgstr "Bloqueada"
 
 #: templates/wagtailadmin/pages/_lock_switch.html:25
 msgid "Unlocked"
-msgstr ""
+msgstr "Desbloqueada"
 
 #: templates/wagtailadmin/pages/_privacy_switch.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Privacidad"
 
 #: templates/wagtailadmin/pages/_privacy_switch.html:14
 #: templates/wagtailadmin/pages/_privacy_switch.html:20
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: templates/wagtailadmin/pages/add_subpage.html:6
 #, python-format
@@ -621,26 +578,16 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] ""
-"\n"
-"                    Esto también borrará otra subpágina.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Esto también eliminará %(descendant_count)s subpáginas "
-"más.\n"
-"                "
+msgstr[0] "\n                    Esto también borrará otra subpágina.\n                "
+msgstr[1] "\n                    Esto también eliminará %(descendant_count)s subpáginas más.\n                "
 
 #: templates/wagtailadmin/pages/confirm_delete.html:22
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr ""
-"Otra opción es no publicar la página. Esto no permite que el público la vea "
-"y la puedes editar o volver a publicar más tarde."
+msgstr "Otra opción es no publicar la página. Esto no permite que el público la vea y la puedes editar o volver a publicar más tarde."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:26
 msgid "Delete it"
@@ -671,9 +618,7 @@ msgstr "Estás seguro de que quieres mover esta página a dentro de '%(title)s'?
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
-"Estás seguro de que quieres mover esta página y todas sus páginas hijas a "
-"'%(title)s'?"
+msgstr "Estás seguro de que quieres mover esta página y todas sus páginas hijas a '%(title)s'?"
 
 #: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
@@ -706,16 +651,16 @@ msgstr "Páginas usando"
 #: templates/wagtailadmin/pages/copy.html:3
 #, python-format
 msgid "Copy %(title)s"
-msgstr ""
+msgstr "Copiar %(title)s"
 
 #: templates/wagtailadmin/pages/copy.html:6
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:30
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: templates/wagtailadmin/pages/copy.html:27
 msgid "Copy this page"
-msgstr ""
+msgstr "Copiar esta página"
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -741,20 +686,18 @@ msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
 
 #: templates/wagtailadmin/pages/edit.html:5
-#, fuzzy, python-format
-#| msgid "Editing %(title)s"
+#, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "Editando %(title)s"
+msgstr ""
 
 #: templates/wagtailadmin/pages/edit.html:15
-#, fuzzy, python-format
-#| msgid "Editing <span>%(title)s</span>"
+#, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editando <span>%(title)s</span>"
+msgstr ""
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Page locked"
-msgstr ""
+msgstr "Página bloqueada"
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Save draft"
@@ -779,7 +722,7 @@ msgstr "Explorando %(title)s"
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:42
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:45
 msgid "Updated"
-msgstr ""
+msgstr "Actualizada"
 
 #: templates/wagtailadmin/pages/list.html:66
 msgid "Drag"
@@ -800,7 +743,7 @@ msgid ""
 "\n"
 "            Page %(page_number)s of %(num_pages)s.\n"
 "        "
-msgstr ""
+msgstr "\nPágina %(page_number)s de %(num_pages)s."
 
 #: templates/wagtailadmin/pages/list.html:119
 #: templates/wagtailadmin/pages/search_results.html:35
@@ -824,14 +767,13 @@ msgstr "Siguiente"
 
 #: templates/wagtailadmin/pages/listing/_locked_indicator.html:10
 msgid "This page is locked to further editing"
-msgstr ""
+msgstr "Esta página se encuentra bloqueada para su edición"
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_move.html:9
-#, fuzzy, python-format
-#| msgid "Explorer subpages of '%(title)s'"
+#, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "Explorar subpáginas de '%(title)s'"
+msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
@@ -842,7 +784,7 @@ msgstr "Explorar"
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr ""
+msgstr "Explorar páginas hijas de '%(title)s'"
 
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
 #, python-format
@@ -867,7 +809,7 @@ msgstr "Añadir página hija"
 
 #: templates/wagtailadmin/pages/listing/_privacy_indicator.html:11
 msgid "This page is protected from public view"
-msgstr ""
+msgstr "Esta página esta protegida para ser accedida públicamente"
 
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
 msgid "Disable ordering of child pages"
@@ -902,12 +844,12 @@ msgid_plural ""
 "\n"
 "                    There are %(counter)s matching pages\n"
 "                "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\nHay una página coincidente"
+msgstr[1] "\nExisten %(counter)s páginas coincidentes"
 
 #: templates/wagtailadmin/pages/search_results.html:16
 msgid "Other searches"
-msgstr ""
+msgstr "Otras búsquedas"
 
 #: templates/wagtailadmin/pages/search_results.html:18
 msgid "Images"
@@ -928,10 +870,7 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"                Página %(page_number)s de %(num_pages)s.\n"
-"            "
+msgstr "\n                Página %(page_number)s de %(num_pages)s.\n            "
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
@@ -944,7 +883,7 @@ msgstr "Introduce el término de búsqueda arriba"
 
 #: templates/wagtailadmin/pages/usage_results.html:24
 msgid "No pages use"
-msgstr ""
+msgstr "Páginas sin uso"
 
 #: templates/wagtailadmin/shared/breadcrumb.html:6
 msgid "Home"
@@ -952,90 +891,90 @@ msgstr "Hogar"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:6
 msgid "January"
-msgstr ""
+msgstr "Enero"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:7
 msgid "February"
-msgstr ""
+msgstr "Febrero"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:8
 msgid "March"
-msgstr ""
+msgstr "Marzo"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:9
 msgid "April"
-msgstr ""
+msgstr "Abril"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:10
 msgid "May"
-msgstr ""
+msgstr "Mayo"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:11
 msgid "June"
-msgstr ""
+msgstr "Junio"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:12
 msgid "July"
-msgstr ""
+msgstr "Julio"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:13
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:14
 msgid "September"
-msgstr ""
+msgstr "Septiembre"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:15
 msgid "October"
-msgstr ""
+msgstr "Octubre"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:16
 msgid "November"
-msgstr ""
+msgstr "Noviembre"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:17
 msgid "December"
-msgstr ""
+msgstr "Diciembre"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:20
 msgid "Sun"
-msgstr ""
+msgstr "Dom"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:21
 msgid "Mon"
-msgstr ""
+msgstr "Lun"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:22
 msgid "Tue"
-msgstr ""
+msgstr "Mar"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:23
 msgid "Wed"
-msgstr ""
+msgstr "Mié"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:24
 msgid "Thu"
-msgstr ""
+msgstr "Jue"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:25
 msgid "Fri"
-msgstr ""
+msgstr "Vie"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:26
 msgid "Sat"
-msgstr ""
+msgstr "Sáb"
 
 #: templates/wagtailadmin/shared/header.html:41
 #, python-format
 msgid "Used %(useage_count)s time"
 msgid_plural "Used %(useage_count)s times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Utilizado  %(useage_count)s vez"
+msgstr[1] "Utilizado %(useage_count)s veces"
 
 #: templates/wagtailadmin/shared/main_nav.html:8
 msgid "Edit your account"
-msgstr ""
+msgstr "Editar tu cuenta"
 
 #: templates/wagtailadmin/shared/main_nav.html:9
 msgid "Log out"
@@ -1049,8 +988,8 @@ msgstr "Página %(page_num)s de %(total_pages)s."
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
@@ -1059,21 +998,19 @@ msgstr ""
 
 #: templates/wagtailadmin/userbar/base.html:4
 msgid "User bar"
-msgstr ""
+msgstr "Barra de usuario"
 
 #: templates/wagtailadmin/userbar/base.html:14
 msgid "Go to Wagtail admin interface"
-msgstr ""
+msgstr "Ir a la interface de admin Wagtail"
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
-#, fuzzy
-#| msgid "Add child page"
 msgid "Add a child page"
-msgstr "Añadir página hija"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
 msgid "Add"
-msgstr ""
+msgstr "Agregar"
 
 #: views/account.py:38
 msgid "Your password has been changed successfully!"
@@ -1081,7 +1018,7 @@ msgstr "¡Tu contraseña ha sido cambiada con éxito!"
 
 #: views/account.py:58
 msgid "Your preferences have been updated successfully!"
-msgstr ""
+msgstr "¡Sus preferencias han sido actualizadas exitosamente!"
 
 #: views/pages.py:155 views/pages.py:289
 msgid "This slug is already in use"
@@ -1089,33 +1026,29 @@ msgstr "Este slug ya está en uso"
 
 #: views/pages.py:182 views/pages.py:317
 msgid "Go live date/time must be before expiry date/time"
-msgstr ""
+msgstr "Ir en vivo fecha/tiempo debe ser anterior a la fecha/tiempo de expiración"
 
 #: views/pages.py:192 views/pages.py:327
 msgid "Expiry date/time must be in the future"
-msgstr ""
+msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 
 #: views/pages.py:224
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' unpublished."
+#, python-brace-format
 msgid "Page '{0}' created and published."
-msgstr "Página '{0}' no publicada."
+msgstr ""
 
 #: views/pages.py:225 views/pages.py:361 views/pages.py:795
 msgid "View live"
 msgstr ""
 
 #: views/pages.py:229
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' submitted for moderation."
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
-msgstr "Página '{0}' enviada para ser moderada."
+msgstr ""
 
 #: views/pages.py:230 views/pages.py:366
-#, fuzzy
-#| msgid "Save draft"
 msgid "View draft"
-msgstr "Guardar borrador"
+msgstr ""
 
 #: views/pages.py:235
 #, python-brace-format
@@ -1124,7 +1057,7 @@ msgstr "Página '{0}' creada."
 
 #: views/pages.py:249
 msgid "The page could not be created due to validation errors"
-msgstr ""
+msgstr "Esta página no pudo ser creada debido a errores de validación"
 
 #: views/pages.py:360 views/pages.py:794
 #, python-brace-format
@@ -1142,9 +1075,8 @@ msgid "Page '{0}' updated."
 msgstr "Página '{0}' actualizada."
 
 #: views/pages.py:386
-#, fuzzy
 msgid "The page could not be saved as it is locked"
-msgstr "La página no ha podido ser guardada debido a errores de validación"
+msgstr "La página no pudo ser guardada debido a que se encuentra bloqueada"
 
 #: views/pages.py:388
 msgid "The page could not be saved due to validation errors"
@@ -1172,12 +1104,12 @@ msgstr "Página '{0}' movida."
 #: views/pages.py:702
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
-msgstr ""
+msgstr "Página '{0}' y '{1}' subpáginas copiadas."
 
 #: views/pages.py:704
 #, python-brace-format
 msgid "Page '{0}' copied."
-msgstr ""
+msgstr "Página '{0}' copiada."
 
 #: views/pages.py:729
 msgid "Content"
@@ -1189,7 +1121,7 @@ msgstr ""
 
 #: views/pages.py:733 wagtail_hooks.py:27
 msgid "Settings"
-msgstr ""
+msgstr "Propiedades"
 
 #: views/pages.py:789 views/pages.py:809 views/pages.py:829
 #, python-brace-format
@@ -1202,14 +1134,14 @@ msgid "Page '{0}' rejected for publication."
 msgstr "Rechazada la publicación de la página '{0}'."
 
 #: views/pages.py:855
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now locked."
-msgstr "Página '{0}' movida."
+msgstr "Página '{0}' se encuentra bloqueada."
 
 #: views/pages.py:879
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
-msgstr "Página '{0}' movida."
+msgstr "Página '{0}' se encuentra desbloqueada."
 
 #: widgets.py:65
 msgid "Choose an item"
@@ -1224,77 +1156,9 @@ msgid "Clear choice"
 msgstr "Borrar selección"
 
 #: widgets.py:68
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "Editar esta página"
+msgstr ""
 
 #: widgets.py:115
 msgid "Choose another page"
 msgstr "Elige otra página"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Image\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Images\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Image\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Images\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                <span>%(total_images)s</span> Imagen\n"
-#~ "            "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "                <span>%(total_images)s</span> Imágenes\n"
-#~ "            "
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Document\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Documents\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Document\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Documents\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                <span>%(total_docs)s</span> Documento\n"
-#~ "            "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "                <span>%(total_docs)s</span> Documentos\n"
-#~ "            "
-
-#~ msgid "Account settings"
-#~ msgstr "Ajustes de cuenta"
-
-#~ msgid ""
-#~ "\n"
-#~ "            Previewing '%(title)s', submitted by %(submitted_by)s on "
-#~ "%(submitted_on)s.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "            Previsualizando '%(title)s', enviada por %(submitted_by)s en "
-#~ "%(submitted_on)s.\n"
-#~ "        "

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # David Llop <d.lloople@gmail.com>, 2014
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:39+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:58+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/"
-"ca/)\n"
-"Language: ca\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/wagtail/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:10
@@ -24,19 +23,10 @@ msgid "Search term(s)/phrase"
 msgstr "Cerca paraula(es)/frases"
 
 #: forms.py:11
-#, fuzzy
-#| msgid ""
-#| "Enter the full search string to match. An \n"
-#| "        exact match is required for your Editors Picks to be \n"
-#| "        displayed, wildcards are NOT allowed."
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Editors Picks to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Escriu el text a cercar. Una\n"
-"coincidència exacta és requerida per les teves seleccions dels editors per "
-"ser\n"
-"mostrades, les wildcars NO estan permeses."
 
 #: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
@@ -50,20 +40,14 @@ msgstr "afegeix selecció dels editors"
 #: templates/wagtailsearch/editorspicks/add.html:10
 msgid ""
 "\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
+"                <p>Promoted search results are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with the less common term \"<em>giving</em>\".</p>\n"
 "            "
 msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:14
 msgid ""
 "\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
 "            "
 msgstr ""
 
@@ -84,12 +68,9 @@ msgid "Delete"
 msgstr "Esborra"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-#, fuzzy
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Estàs segur que vols esborrar totes les seleccions dels editors per aquest "
-"terme de cerca?"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:12
 msgid "Yes, delete"
@@ -163,27 +144,20 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"Hi ha una coincidència"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s coincidències"
+msgstr[0] "\nHi ha una coincidència"
+msgstr[1] "\nHi han %(counter)s coincidències"
 
 #: templates/wagtailsearch/editorspicks/results.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Ho sentim, cap selecció d'editor coincideix amb \"<em>%(query_string)s</em>\""
 
 #: templates/wagtailsearch/editorspicks/results.html:21
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
 msgstr ""
-"Encara no s'ha creat cap selecció d'editor. Per què no <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">afegeixes una</a>?"
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2
 msgid "Popular search terms"
@@ -206,10 +180,8 @@ msgid "Date"
 msgstr ""
 
 #: templates/wagtailsearch/queries/chooser_field.html:8
-#, fuzzy
-#| msgid "Popular search terms"
 msgid "Choose from popular search terms"
-msgstr "terminis de cerca populars"
+msgstr ""
 
 #: views/editorspicks.py:46
 msgid "Search editor's picks"
@@ -221,10 +193,8 @@ msgid "Editor's picks for '{0}' created."
 msgstr "Selecció de l'editor per a '{0}' creada."
 
 #: views/editorspicks.py:82 views/editorspicks.py:117
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editant"
+msgstr ""
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
@@ -242,15 +212,3 @@ msgstr ""
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
 msgstr "Selecció de l'editor esborrada."
-
-#~ msgid "Editors picks"
-#~ msgstr "Selecció dels editors"
-
-#~ msgid "Editor's search picks"
-#~ msgstr "Cercar seleccions dels editors"
-
-#~ msgid "Add new editor's pick"
-#~ msgstr "Afegeix una nova selecció de l'editor"
-
-#~ msgid "Editors pick"
-#~ msgstr "Selecció dels editors"

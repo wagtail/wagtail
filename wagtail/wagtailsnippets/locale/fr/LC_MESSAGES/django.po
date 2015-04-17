@@ -1,24 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# nahuel, 2014
 # nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:39+0100\n"
-"PO-Revision-Date: 2015-04-16 16:14+0100\n"
-"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
-"fr/)\n"
-"Language: fr\n"
+"PO-Revision-Date: 2015-04-17 11:58+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.5\n"
 
 #: templates/wagtailsnippets/chooser/choose.html:2
 msgid "Choose"
@@ -27,12 +27,10 @@ msgstr "Choisir"
 #: templates/wagtailsnippets/chooser/choose.html:10
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
-msgstr ""
-"Aucun %(snippet_type_name)s n'a été créé. Pourquoi ne pas en <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">créer un "
-"maintenant"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one"
+" now"
+msgstr "Aucun %(snippet_type_name)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">créer un maintenant"
 
 #: templates/wagtailsnippets/chooser/list.html:11
 #: templates/wagtailsnippets/snippets/list.html:8
@@ -104,11 +102,9 @@ msgstr "Ajouter un %(snippet_type_name)s"
 #: templates/wagtailsnippets/snippets/type_index.html:23
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href="
-"\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr "Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
 
 #: templates/wagtailsnippets/snippets/usage.html:3
 #, python-format

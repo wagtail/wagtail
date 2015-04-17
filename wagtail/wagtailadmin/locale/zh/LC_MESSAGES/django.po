@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/"
-"zh/)\n"
-"Language: zh\n"
+"Language-Team: Chinese (http://www.transifex.com/projects/p/wagtail/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: edit_handlers.py:704
@@ -73,10 +73,8 @@ msgid "New slug"
 msgstr ""
 
 #: forms.py:120
-#, fuzzy
-#| msgid "New %(page_type)s"
 msgid "New parent page"
-msgstr "新%(page_type)s类"
+msgstr ""
 
 #: forms.py:121
 msgid "This copy will be a child of this given parent page."
@@ -116,8 +114,7 @@ msgstr[0] ""
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+msgid "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
@@ -147,9 +144,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号"
-"可以设置多个电子邮件地址的头像图片。"
+msgstr "您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号可以设置多个电子邮件地址的头像图片。"
 
 #: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
@@ -267,8 +262,7 @@ msgstr "电子邮件链接"
 #, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
 
@@ -285,9 +279,8 @@ msgid_plural ""
 msgstr[0] ""
 
 #: templates/wagtailadmin/chooser/browse.html:3
-#, fuzzy
 msgid "Choose"
-msgstr "选择一个页面"
+msgstr ""
 
 #: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
 msgid "Choose a page"
@@ -429,11 +422,7 @@ msgid "Site summary"
 msgstr "网站摘要"
 
 #: templates/wagtailadmin/home/site_summary_pages.html:5
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                Page %(page_number)s of %(num_pages)s.\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "        <span>%(total)s</span> Page\n"
@@ -443,18 +432,15 @@ msgid_plural ""
 "        <span>%(total)s</span> Pages\n"
 "    "
 msgstr[0] ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
 msgid "Sign in"
 msgstr "登录"
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "您的账号和密码不匹配，请重试。"
+msgstr ""
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -529,9 +515,8 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 
 #: templates/wagtailadmin/pages/_lock_switch.html:8
-#, fuzzy
 msgid "Edit lock"
-msgstr "编辑"
+msgstr ""
 
 #: templates/wagtailadmin/pages/_lock_switch.html:15
 msgid "Locked"
@@ -585,8 +570,7 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
 msgstr[0] ""
 
@@ -693,16 +677,14 @@ msgid "Submit for moderation"
 msgstr "提交审核"
 
 #: templates/wagtailadmin/pages/edit.html:5
-#, fuzzy, python-format
-#| msgid "Editing %(title)s"
+#, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "编辑%(title)s"
+msgstr ""
 
 #: templates/wagtailadmin/pages/edit.html:15
-#, fuzzy, python-format
-#| msgid "Editing <span>%(title)s</span>"
+#, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "编辑<span>%(title)s</span>"
+msgstr ""
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Page locked"
@@ -780,10 +762,9 @@ msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_move.html:9
-#, fuzzy, python-format
-#| msgid "Explorer subpages of '%(title)s'"
+#, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "浏览 '%(title)s' 的子页面"
+msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
@@ -879,10 +860,7 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"                第 %(page_number)s / %(num_pages)s页.\n"
-"            "
+msgstr "\n                第 %(page_number)s / %(num_pages)s页.\n            "
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
@@ -999,8 +977,8 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
@@ -1016,10 +994,8 @@ msgid "Go to Wagtail admin interface"
 msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
-#, fuzzy
-#| msgid "Add child page"
 msgid "Add a child page"
-msgstr "添加子页面"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
 msgid "Add"
@@ -1046,26 +1022,22 @@ msgid "Expiry date/time must be in the future"
 msgstr ""
 
 #: views/pages.py:224
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' unpublished."
+#, python-brace-format
 msgid "Page '{0}' created and published."
-msgstr "第 '{0}' 页已停止发布"
+msgstr ""
 
 #: views/pages.py:225 views/pages.py:361 views/pages.py:795
 msgid "View live"
 msgstr ""
 
 #: views/pages.py:229
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' submitted for moderation."
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
-msgstr "第 '{0}' 页已提交审核。"
+msgstr ""
 
 #: views/pages.py:230 views/pages.py:366
-#, fuzzy
-#| msgid "Save draft"
 msgid "View draft"
-msgstr "保存草稿"
+msgstr ""
 
 #: views/pages.py:235
 #, python-brace-format
@@ -1092,9 +1064,8 @@ msgid "Page '{0}' updated."
 msgstr "第 '{0}' 页已更新"
 
 #: views/pages.py:386
-#, fuzzy
 msgid "The page could not be saved as it is locked"
-msgstr "这页无法保存，因为页面发生验证错误"
+msgstr ""
 
 #: views/pages.py:388
 msgid "The page could not be saved due to validation errors"
@@ -1152,14 +1123,14 @@ msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
 
 #: views/pages.py:855
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now locked."
-msgstr "第 '{0}' 页已移动。"
+msgstr ""
 
 #: views/pages.py:879
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
-msgstr "第 '{0}' 页已移动。"
+msgstr ""
 
 #: widgets.py:65
 msgid "Choose an item"
@@ -1174,60 +1145,9 @@ msgid "Clear choice"
 msgstr "清除选择"
 
 #: widgets.py:68
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "编辑这个页面"
+msgstr ""
 
 #: widgets.py:115
 msgid "Choose another page"
 msgstr "选择另外一个页面"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                Page %(page_number)s of %(num_pages)s.\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Image\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Images\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                第 %(page_number)s / %(num_pages)s页.\n"
-#~ "            "
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                Page %(page_number)s of %(num_pages)s.\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Document\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Documents\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                第 %(page_number)s / %(num_pages)s页.\n"
-#~ "            "
-
-#~ msgid "Account settings"
-#~ msgstr "账号设置"
-
-#~ msgid ""
-#~ "\n"
-#~ "            Previewing '%(title)s', submitted by %(submitted_by)s on "
-#~ "%(submitted_on)s.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "            预览 '%(title)s', %(submitted_by)s 在 %(submitted_on)s 提交.\n"
-#~ "        "

@@ -4,14 +4,14 @@
 #
 # Translators:
 # ajk, 2014
-# Eugene MechanisM <contact@mechanism.name>, 2014
+# Eugene MechanisM <contact@mechanism.name>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-10-05 03:49+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
 "ru/)\n"
 "Language: ru\n"
@@ -116,10 +116,8 @@ msgid "Go live date/time"
 msgstr "Дата/время публикации"
 
 #: models.py:280 models.py:281
-#, fuzzy
-#| msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Пожалуйста, добавьте дату-время в формате YYYY-MM-DD hh:mm:ss."
+msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
@@ -183,7 +181,4 @@ msgstr ""
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
-
-#~ msgid "name '{0}' (used in subpage_types list) is not defined."
-#~ msgstr "имя '{0}' (использованное в списке subpage_types) не определено."
+msgstr "Значение не может состоять полностью из пробельных символов"
