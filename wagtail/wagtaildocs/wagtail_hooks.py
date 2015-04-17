@@ -28,7 +28,7 @@ class DocumentsMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_documents_menu_item():
-    return DocumentsMenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), classnames='icon icon-doc-full-inverse', order=400)
+    return DocumentsMenuItem(_('Documents'), urlresolvers.reverse('wagtaildocs_index'), name='documents', classnames='icon icon-doc-full-inverse', order=400)
 
 
 @hooks.register('insert_editor_js')

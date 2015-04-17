@@ -71,7 +71,7 @@ class ImagesMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
-    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), classnames='icon icon-image', order=300)
+    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), name='images', classnames='icon icon-image', order=300)
 
 
 @hooks.register('insert_editor_js')
