@@ -237,6 +237,11 @@ img{
     height:auto;
 }
 
+/* Show a transparency grid in background */
+.show-transparency{
+    background:url('#{$static-root}transparency.svg');
+}
+
 /* make a block-level element inline */
 .inline{
     display:inline;

@@ -60,7 +60,7 @@
                 data-focal-point-width="{{ image.focal_point_width }}"
                 data-focal-point-height="{{ image.focal_point_height }}">
 
-                <img {{ rendition.attrs }} data-original-width="{{ image.width }}" data-original-height="{{ image.height }}">
+                <img {{ rendition.attrs }} data-original-width="{{ image.width }}" data-original-height="{{ image.height }}" class="show-transparency">
 
                 <div class="current-focal-point-indicator{% if not image.focal_point %} hidden{% endif %}"></div>
             </div>
