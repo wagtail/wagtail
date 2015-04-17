@@ -224,7 +224,7 @@ Usage statistics reporting
 
   WAGTAIL_ENABLE_STATS = True
 
-By default Wagtail gathers basic information about Django, Python, your Wagtail installation and your browser, which is reported back to Wagtail's developers to help improve the product based on its usage in the wild. If you'd rather not participate in this, or if your site is of a sensitive nature, you can disable it with this setting.
+For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with extremely basic information about where Wagtail is in use. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 
 Private Pages
