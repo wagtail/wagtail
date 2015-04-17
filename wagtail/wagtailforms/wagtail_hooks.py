@@ -22,7 +22,7 @@ class FormsMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_forms_menu_item():
-    return FormsMenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), classnames='icon icon-form', order=700)
+    return FormsMenuItem(_('Forms'), urlresolvers.reverse('wagtailforms_index'), name='forms', classnames='icon icon-form', order=700)
 
 
 @hooks.register('insert_editor_js')
