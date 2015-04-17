@@ -5,6 +5,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
 
@@ -69,16 +70,18 @@ class QueryDailyHits(models.Model):
         unique_together = (
             ('query', 'date'),
         )
+        verbose_name = _('Query Daily Hits')
 
 
 class EditorsPick(models.Model):
     query = models.ForeignKey(Query, db_index=True, related_name='editors_picks')
-    page = models.ForeignKey('wagtailcore.Page')
+    page = models.ForeignKey('wagtailcore.Page', verbose_name=_('Page'))
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
-    description = models.TextField(blank=True)
+    description = models.TextField(verbose_name=_('Description'), blank=True)
 
     def __repr__(self):
         return 'EditorsPick(query="' + self.query.query_string + '", page="' + self.page.title + '")'
 
     class Meta:
         ordering = ('sort_order', )
+        verbose_name = _("Editor's Pick")
