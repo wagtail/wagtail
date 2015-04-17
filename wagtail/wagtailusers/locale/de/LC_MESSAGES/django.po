@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:07+0000\n"
+"POT-Creation-Date: 2015-04-17 12:39+0100\n"
 "PO-Revision-Date: 2014-03-14 21:12+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
@@ -19,85 +19,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:21 forms.py:98 forms.py:157
+#: forms.py:22 forms.py:99 forms.py:158
 msgid "Administrator"
 msgstr "Administrator"
 
-#: forms.py:23
+#: forms.py:24
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Wenn ausgewählt hat der Benutzer die Möglichkeit Benutzerkonten zu verwalten."
 
-#: forms.py:26 forms.py:83
+#: forms.py:27 forms.py:84
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:27 forms.py:84
+#: forms.py:28 forms.py:85
 msgid "First Name"
 msgstr "Vorname"
 
-#: forms.py:28 forms.py:85
+#: forms.py:29 forms.py:86
 msgid "Last Name"
 msgstr "Nachname"
 
-#: forms.py:71
+#: forms.py:72
 msgid "A user with that username already exists."
 msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
 
-#: forms.py:72
+#: forms.py:73
 msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
-#: forms.py:75 templates/wagtailusers/users/list.html:15
+#: forms.py:76 templates/wagtailusers/users/list.html:15
 msgid "Username"
 msgstr "Benutzername"
 
-#: forms.py:78
+#: forms.py:79
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Pflicht. Bis zu 30 Zeichen. Buchstaben, Zahlen und die Sonderzeichen \"@\", "
 "\".\", \"+\", und \"_\"."
 
-#: forms.py:80
+#: forms.py:81
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Dieser Wert darf nur Buchstaben, Zahlen und die Sonderzeichen \"@\", \".\", "
 "\"+\", und \"_\" enthalten."
 
-#: forms.py:88
+#: forms.py:89
 msgid "Password"
 msgstr "Passwort"
 
-#: forms.py:91
+#: forms.py:92
 msgid "Leave blank if not changing."
 msgstr "Freilassen um nicht zu ändern."
 
-#: forms.py:93
+#: forms.py:94
 msgid "Password confirmation"
 msgstr "Passwort wiederholen"
 
-#: forms.py:95
+#: forms.py:96
 msgid "Enter the same password as above, for verification."
 msgstr "Geben Sie das gleiche Passwort wie oben zur Übrprüfung ein."
 
-#: forms.py:100 forms.py:159
+#: forms.py:101 forms.py:160
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratoren haben die Möglichkeit Benutzerkonten zu verwalten."
 
-#: forms.py:153
+#: forms.py:154
 #, fuzzy
 msgid "A group with that name already exists."
 msgstr "Es existiert bereits ein Benutzer mit diesem Benutzernamen."
 
-#: models.py:15
+#: models.py:14
+msgid "Submitted notifications"
+msgstr ""
+
+#: models.py:16
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
 #: models.py:20
+msgid "Approved notifications"
+msgstr ""
+
+#: models.py:22
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
+msgid "Rejected notifications"
+msgstr ""
+
+#: models.py:28
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
@@ -112,6 +124,12 @@ msgstr ""
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
 "assigned."
+msgstr ""
+
+#: templates/wagtailusers/groups/confirm_delete.html:16
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
 msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:20
@@ -167,6 +185,18 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:41
 msgid "Other permissions"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:2
+msgid "Page permissions"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:12
+msgid "Page"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:13
+msgid "Permission type"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/page_permissions_formset.html:42
@@ -271,37 +301,37 @@ msgstr ""
 "Es gibt zur Zeit noch keine Benutzer. <a href=\"%(wagtailusers_create_url)s"
 "\">Legen Sie doch einen an!</a>"
 
-#: views/groups.py:31 views/groups.py:38
+#: views/groups.py:29 views/groups.py:36
 msgid "Search groups"
 msgstr ""
 
-#: views/groups.py:95
+#: views/groups.py:87
 #, fuzzy, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Benutzer '{0}' erstellt."
 
-#: views/groups.py:96 views/groups.py:127 views/users.py:87 views/users.py:108
+#: views/groups.py:88 views/groups.py:113 views/users.py:87 views/users.py:108
 #, fuzzy
 #| msgid "Editing"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: views/groups.py:100
+#: views/groups.py:92
 #, fuzzy
 msgid "The group could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
-#: views/groups.py:126
+#: views/groups.py:112
 #, fuzzy, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Benutzer '{0}' geändert."
 
-#: views/groups.py:131
+#: views/groups.py:117
 #, fuzzy
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
-#: views/groups.py:149
+#: views/groups.py:135
 #, fuzzy, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Benutzer '{0}' erstellt."

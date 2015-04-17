@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
+"POT-Creation-Date: 2015-04-17 12:35+0100\n"
 "PO-Revision-Date: 2014-02-28 16:07+0000\n"
 "Last-Translator: wdv4758h <wdv4758h@gmail.com>\n"
 "Language-Team: \n"
@@ -17,7 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:55
+#: models.py:53
+msgid "Hostname"
+msgstr ""
+
+#: models.py:54
+msgid "Port"
+msgstr ""
+
+#: models.py:54
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -26,55 +34,135 @@ msgstr ""
 "如果你需要指定 port，請選擇一個非 80 的 port number (例如: 開發中用 8000 "
 "port)。 不影響 request 處理 (port forwarding 仍然有效)"
 
-#: models.py:57
+#: models.py:55
+msgid "Root page"
+msgstr ""
+
+#: models.py:56
+msgid "Is default site"
+msgstr ""
+
+#: models.py:56
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 "如果這是 Ture 的話，這個網站將處理其他沒有自己網站的 hostname 的 request。"
 
-#: models.py:118
+#: models.py:117
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:267
+#: models.py:266
+msgid "Title"
+msgstr ""
+
+#: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "頁面標題 (你想讓外界看到的)"
 
-#: models.py:268
+#: models.py:267
+msgid "Slug"
+msgstr ""
+
+#: models.py:267
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr "一個出現在 URL 的名字，例如 http://domain.com/blog/[my-slug]/"
 
-#: models.py:277
+#: models.py:276
 msgid "Page title"
 msgstr "頁面標題"
 
-#: models.py:277
+#: models.py:276
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr "(可選) '搜尋引擎友善' 標題。 這會顯示在瀏覽器的視窗最上方"
 
-#: models.py:278
+#: models.py:277
+msgid "Show in menus"
+msgstr ""
+
+#: models.py:277
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否在自動生成的 Menu 裡顯示一個連結到此頁面"
 
-#: models.py:281
+#: models.py:278
+msgid "Search description"
+msgstr ""
+
+#: models.py:280
 msgid "Go live date/time"
 msgstr ""
 
-#: models.py:281 models.py:282
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
+#: models.py:280 models.py:281
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr ""
 
-#: models.py:282
+#: models.py:281
 msgid "Expiry date/time"
+msgstr ""
+
+#: models.py:710
+msgid "expired"
+msgstr ""
+
+#: models.py:712
+msgid "scheduled"
+msgstr ""
+
+#: models.py:714
+msgid "draft"
+msgstr ""
+
+#: models.py:717
+msgid "live + draft"
+msgstr ""
+
+#: models.py:719
+msgid "live"
+msgstr ""
+
+#: models.py:885
+msgid "Default"
+msgstr ""
+
+#: models.py:1166
+msgid "Add/edit pages you own"
+msgstr ""
+
+#: models.py:1167
+msgid "Add/edit any page"
+msgstr ""
+
+#: models.py:1168
+msgid "Publish any page"
+msgstr ""
+
+#: models.py:1169
+msgid "Lock/unlock any page"
+msgstr ""
+
+#: models.py:1174
+msgid "Group"
+msgstr ""
+
+#: models.py:1175 models.py:1401
+msgid "Page"
+msgstr ""
+
+#: models.py:1176
+msgid "Permission type"
+msgstr ""
+
+#: models.py:1402
+msgid "Password"
 msgstr ""
 
 #: validators.py:15

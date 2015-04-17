@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
+"POT-Creation-Date: 2015-04-17 12:38+0100\n"
 "PO-Revision-Date: 2014-10-29 07:52+0000\n"
 "Last-Translator: mahulst\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/wagtail/language/"
@@ -35,22 +35,24 @@ msgstr ""
 
 #: fields.py:29
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
+msgid "This file is too big. Maximum filesize %(max_upload_size)s."
 msgstr ""
 
-#: fields.py:33
+#: fields.py:35
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
+msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
 msgstr ""
 
-#: fields.py:37
+#: fields.py:41
 #, python-format
-msgid "Supported formats: %s. Maximum filesize: %s."
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
 msgstr ""
 
-#: fields.py:45
+#: fields.py:52
 #, python-format
-msgid "Supported formats: %s."
+msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
 #: forms.py:64
@@ -93,15 +95,15 @@ msgstr "Hoogte"
 msgid "Closeness"
 msgstr ""
 
-#: models.py:58 templates/wagtailimages/images/usage.html:16
+#: models.py:60 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:59
+#: models.py:61
 msgid "File"
 msgstr "Bestand"
 
-#: models.py:65
+#: models.py:67
 msgid "Tags"
 msgstr "Bestand"
 
@@ -153,6 +155,19 @@ msgstr "Kies een formaat"
 #: templates/wagtailimages/chooser/select_format.html:17
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
+
+#: templates/wagtailimages/homepage/site_summary_images.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
 #, fuzzy
@@ -231,7 +246,7 @@ msgid "File not found"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:71
+#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:74
 msgid "Images"
 msgstr "Afbeeldingen"
 
@@ -357,23 +372,23 @@ msgid ""
 "the image."
 msgstr ""
 
-#: views/images.py:219
+#: views/images.py:221
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' deleted."
 
-#: views/images.py:242
+#: views/images.py:244
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 
-#: views/images.py:243
+#: views/images.py:245
 #, fuzzy
 #| msgid "Editing"
 msgid "Edit"
 msgstr "Wijzigen"
 
-#: views/images.py:247
+#: views/images.py:249
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon niet gemaakt worden door foutmeldingen."
 

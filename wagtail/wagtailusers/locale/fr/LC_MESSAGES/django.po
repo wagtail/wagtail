@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 16:32+0200\n"
+"POT-Creation-Date: 2015-04-17 12:39+0100\n"
 "PO-Revision-Date: 2015-04-16 16:33+0100\n"
 "Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -88,7 +88,9 @@ msgid "A group with that name already exists."
 msgstr "Un groupe avec ce nom existe déjà."
 
 #: models.py:14
-msgid "submitted notifications"
+#, fuzzy
+#| msgid "submitted notifications"
+msgid "Submitted notifications"
 msgstr "notifications à la soumission"
 
 #: models.py:16
@@ -96,7 +98,9 @@ msgid "Receive notification when a page is submitted for moderation"
 msgstr "Recevoir une notification quand une page est soumise pour modération"
 
 #: models.py:20
-msgid "approved notifications"
+#, fuzzy
+#| msgid "approved notifications"
+msgid "Approved notifications"
 msgstr "notifications à l'approbation"
 
 #: models.py:22
@@ -105,7 +109,9 @@ msgstr ""
 "Recevoir une notification quand vos modifications de page sont approuvées"
 
 #: models.py:26
-msgid "rejected notifications"
+#, fuzzy
+#| msgid "rejected notifications"
+msgid "Rejected notifications"
 msgstr "notifications au rejet"
 
 #: models.py:28

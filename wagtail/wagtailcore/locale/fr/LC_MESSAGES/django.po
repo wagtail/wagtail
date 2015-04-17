@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 15:37+0200\n"
+"POT-Creation-Date: 2015-04-17 12:35+0100\n"
 "PO-Revision-Date: 2015-04-16 15:45+0100\n"
 "Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -21,12 +21,14 @@ msgstr ""
 "X-Generator: Poedit 1.7.5\n"
 
 #: models.py:53
-msgid "hostname"
+#, fuzzy
+#| msgid "hostname"
+msgid "Hostname"
 msgstr "nom d'hôte"
 
 #: models.py:54
-msgid "port"
-msgstr "port"
+msgid "Port"
+msgstr ""
 
 #: models.py:54
 msgid ""
@@ -40,11 +42,15 @@ msgstr ""
 "continuent de fonctionner)."
 
 #: models.py:55
-msgid "root page"
+#, fuzzy
+#| msgid "root page"
+msgid "Root page"
 msgstr "page racine"
 
 #: models.py:56
-msgid "is default site"
+#, fuzzy
+#| msgid "is default site"
+msgid "Is default site"
 msgstr "site par défaut"
 
 #: models.py:56
@@ -65,7 +71,9 @@ msgstr ""
 "ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
 #: models.py:266
-msgid "title"
+#, fuzzy
+#| msgid "title"
+msgid "Title"
 msgstr "titre"
 
 #: models.py:266
@@ -73,8 +81,8 @@ msgid "The page title as you'd like it to be seen by the public"
 msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
 
 #: models.py:267
-msgid "slug"
-msgstr "slug"
+msgid "Slug"
+msgstr ""
 
 #: models.py:267
 msgid ""
@@ -85,7 +93,9 @@ msgstr ""
 "blog/[my-slug]/"
 
 #: models.py:276
-msgid "page title"
+#, fuzzy
+#| msgid "page title"
+msgid "Page title"
 msgstr "Titre de la page"
 
 #: models.py:276
@@ -97,7 +107,9 @@ msgstr ""
 "navigateur."
 
 #: models.py:277
-msgid "show in menus"
+#, fuzzy
+#| msgid "show in menus"
+msgid "Show in menus"
 msgstr "apparaît dans les menus ?"
 
 #: models.py:277
@@ -108,7 +120,9 @@ msgstr ""
 "automatiquement"
 
 #: models.py:278
-msgid "search description"
+#, fuzzy
+#| msgid "search description"
+msgid "Search description"
 msgstr "description pour moteurs de recherche"
 
 #: models.py:280
@@ -164,21 +178,36 @@ msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
 
 #: models.py:1174
-msgid "group"
+#, fuzzy
+#| msgid "group"
+msgid "Group"
 msgstr "group"
 
 #: models.py:1175 models.py:1401
-msgid "page"
-msgstr "page"
+msgid "Page"
+msgstr ""
 
 #: models.py:1176
-msgid "permission type"
+#, fuzzy
+#| msgid "permission type"
+msgid "Permission type"
 msgstr "type de permission"
 
 #: models.py:1402
-msgid "password"
+#, fuzzy
+#| msgid "password"
+msgid "Password"
 msgstr "mot de passe"
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
 msgstr "La valeur ne peut pas uniquement être des espaces blancs"
+
+#~ msgid "port"
+#~ msgstr "port"
+
+#~ msgid "slug"
+#~ msgstr "slug"
+
+#~ msgid "page"
+#~ msgstr "page"
