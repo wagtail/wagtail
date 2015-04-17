@@ -1,6 +1,3 @@
-import sys
-from django import get_version
-from django.db import connection
 from django.shortcuts import render
 from django.conf import settings
 
@@ -63,6 +60,7 @@ class RecentEditsPanel(object):
 
 
 def home(request):
+
     panels = [
         SiteSummaryPanel(request),
         UpgradeNotificationPanel(request),
