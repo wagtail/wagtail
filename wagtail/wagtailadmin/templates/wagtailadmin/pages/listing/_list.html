@@ -21,7 +21,6 @@
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
                 <td class="title" {% if orderable %}colspan="2"{% endif %}>
                     {% block parent_page_title %}
-                        {% include "wagtailadmin/pages/listing/_parent_page_title_explore.html" %}
                     {% endblock %}
                 </td>
                 <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{{ parent_page.latest_revision_created_at|timesince }} ago</div>{% endif %}</td>
@@ -36,7 +35,6 @@
         {% endif %}
     
         {% block post_parent_page_headers %}
-            {% include "wagtailadmin/pages/listing/_table_headers_explore.html" %}
         {% endblock %}
     </thead>
     <tbody>
@@ -49,7 +47,6 @@
                     {% endif %}
                     <td class="title" valign="top">
                         {% block page_title %}
-                            {% include "wagtailadmin/pages/listing/_page_title_explore.html" %}
                         {% endblock %}
                     </td>
                     {% if show_parent %}
@@ -67,33 +64,14 @@
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                     </td>
                     {% block page_navigation %}
-                        {% include "wagtailadmin/pages/listing/_navigation_explore.html" %}
                     {% endblock %}
                 </tr>
             {% endfor %}
         {% else %}
-            {% url 'wagtailadmin_pages_add_subpage' parent_page.id as add_page_url%}
-            <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans %}Why not <a href="{{ add_page_url }}">add one</a>?{% endblocktrans %}{% endif %}</td></tr>
+            {% block no_results %}{% endblock %}
         {% endif %}
     </tbody>
 </table>
 
-{% if parent_page and pages and pages.paginator %}
-    <div class="pagination">
-        <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
-            Page {{ page_number }} of {{ num_pages }}.
-        {% endblocktrans %}</p>
-        <ul>
-            <li class="prev">
-                {% if pages.has_previous %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.previous_page_number }}{% if ordering %}&amp;ordering={{ ordering }}{% endif %}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
-                {% endif %}
-            </li>
-            <li class="next">
-                {% if pages.has_next %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?p={{ pages.next_page_number }}{% if ordering %}&amp;ordering={{ ordering }}{% endif %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-{% endif %}
+{% block pagination_links %}
+{% endblock %}
