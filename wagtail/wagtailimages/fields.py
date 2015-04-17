@@ -26,24 +26,33 @@ if MAX_UPLOAD_SIZE is not None:
     MAX_UPLOAD_SIZE_TEXT = filesizeformat(MAX_UPLOAD_SIZE)
 
     FILE_TOO_LARGE_ERROR = _(
-        "This file is too big. Maximum filesize %s."
-    ) % (MAX_UPLOAD_SIZE_TEXT, )
+        "This file is too big. Maximum filesize %(max_upload_size)s."
+    ) % {
+        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
+    }
 
     FILE_TOO_LARGE_KNOWN_SIZE_ERROR = _(
-        "This file is too big (%%s). Maximum filesize %s."
-    ) % (MAX_UPLOAD_SIZE_TEXT, )
+        "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
+    ) % {
+        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
+    }
 
     IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: %s. Maximum filesize: %s."
-    ) % (SUPPORTED_FORMATS_TEXT, MAX_UPLOAD_SIZE_TEXT, )
+        "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
+    ) % {
+        'supported_formats': SUPPORTED_FORMATS_TEXT,
+        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
+    }
 else:
     MAX_UPLOAD_SIZE_TEXT = ""
     FILE_TOO_LARGE_ERROR = ""
     FILE_TOO_LARGE_KNOWN_SIZE_ERROR = ""
 
     IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: %s."
-    ) % (SUPPORTED_FORMATS_TEXT, )
+        "Supported formats: %(supported_formats)s."
+    ) % {
+        'supported_formats': SUPPORTED_FORMATS_TEXT,
+    }
 
 
 class WagtailImageField(ImageField):
