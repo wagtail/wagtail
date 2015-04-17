@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 16:14+0200\n"
+"POT-Creation-Date: 2015-04-17 12:38+0100\n"
 "PO-Revision-Date: 2015-04-16 16:16+0100\n"
 "Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -45,8 +45,7 @@ msgstr "Rediriger vers une page"
 msgid "Redirect to any URL"
 msgstr "Rediriger vers une URL"
 
-#: templates/wagtailredirects/add.html:3
-#: templates/wagtailredirects/add.html:6
+#: templates/wagtailredirects/add.html:3 templates/wagtailredirects/add.html:6
 #: templates/wagtailredirects/index.html:18
 msgid "Add redirect"
 msgstr "Ajouter une redirection"

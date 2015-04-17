@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 15:46+0200\n"
+"POT-Creation-Date: 2015-04-17 12:38+0100\n"
 "PO-Revision-Date: 2015-04-16 15:57+0100\n"
 "Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -35,24 +35,30 @@ msgid "Not a valid %s image."
 msgstr "Image %s non valide."
 
 #: fields.py:29
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
+#, fuzzy, python-format
+#| msgid "This file is too big. Maximum filesize %s."
+msgid "This file is too big. Maximum filesize %(max_upload_size)s."
 msgstr "Ce fichier est trop gros. La taille maximum est %s."
 
-#: fields.py:33
-#, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
+#: fields.py:35
+#, fuzzy, python-format
+#| msgid "This file is too big (%%s). Maximum filesize %s."
+msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
 msgstr "Ce fichier est trop gros (%%s). La taille maximum est %s."
 
-#: fields.py:37
-#, python-format
-msgid "Supported formats: %s. Maximum filesize: %s."
+#: fields.py:41
+#, fuzzy, python-format
+#| msgid "Supported formats: %s. Maximum filesize: %s."
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
 msgstr "Formats supporté s: %s. Taille de fichier maximum : %s."
 
-#: fields.py:45
-#, python-format
-msgid "Supported formats: %s."
-msgstr "Formats supportés : %s."
+#: fields.py:52
+#, fuzzy, python-format
+#| msgid "Not a supported image format. Supported formats: %s."
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format d'image non supporté. Formats supportés : %s."
 
 #: forms.py:64
 msgid "Filter"
@@ -403,3 +409,6 @@ msgstr "Choisir une autre image"
 #: widgets.py:15
 msgid "Edit this image"
 msgstr "Modifier cette image"
+
+#~ msgid "Supported formats: %s."
+#~ msgstr "Formats supportés : %s."

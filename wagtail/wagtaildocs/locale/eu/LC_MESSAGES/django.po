@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
+"POT-Creation-Date: 2015-04-17 12:35+0100\n"
 "PO-Revision-Date: 2014-08-01 15:43+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/wagtail/language/"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:28
+#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:31
 msgid "Documents"
 msgstr ""
 
@@ -163,6 +163,19 @@ msgstr ""
 #: templates/wagtaildocs/documents/usage.html:26
 msgid "Edit this page"
 msgstr ""
+
+#: templates/wagtaildocs/homepage/site_summary_documents.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
 
 #: views/documents.py:38 views/documents.py:47
 msgid "Search documents"

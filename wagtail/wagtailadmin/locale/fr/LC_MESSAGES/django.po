@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 14:14+0200\n"
+"POT-Creation-Date: 2015-04-17 12:35+0100\n"
 "PO-Revision-Date: 2015-04-16 15:21+0100\n"
 "Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
@@ -404,8 +404,9 @@ msgstr "Rejeter"
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:18
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:20
-#: templates/wagtailadmin/userbar/item_page_edit.html:5 views/pages.py:356
-#: views/pages.py:361
+#: templates/wagtailadmin/userbar/item_page_edit.html:5 views/pages.py:226
+#: views/pages.py:231 views/pages.py:362 views/pages.py:367 views/pages.py:556
+#: views/pages.py:608 views/pages.py:796 views/pages.py:815
 msgid "Edit"
 msgstr "Modifier"
 
@@ -1080,115 +1081,127 @@ msgstr "Votre mot de passe a été changé avec succès!"
 msgid "Your preferences have been updated successfully!"
 msgstr "Vos préférences ont été mises à jour avec succès !"
 
-#: views/pages.py:155 views/pages.py:283
+#: views/pages.py:155 views/pages.py:289
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
 
-#: views/pages.py:182 views/pages.py:311
+#: views/pages.py:182 views/pages.py:317
 msgid "Go live date/time must be before expiry date/time"
 msgstr "La date de publication doit être antérieure à la date d'expiration"
 
-#: views/pages.py:192 views/pages.py:321
+#: views/pages.py:192 views/pages.py:327
 msgid "Expiry date/time must be in the future"
 msgstr "La date d'expiration doit être dans le futur"
 
-#: views/pages.py:224 views/pages.py:354 views/pages.py:783
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Page '{0}' publiée."
+#: views/pages.py:224
+#, fuzzy, python-brace-format
+#| msgid "Page '{0}' unpublished."
+msgid "Page '{0}' created and published."
+msgstr "Page '{0}' dé-publiée."
 
-#: views/pages.py:226 views/pages.py:359
-#, python-brace-format
-msgid "Page '{0}' submitted for moderation."
-msgstr "Page '{0}' soumise pour modération."
+#: views/pages.py:225 views/pages.py:361 views/pages.py:795
+msgid "View live"
+msgstr "Visualiser en direct"
 
 #: views/pages.py:229
+#, fuzzy, python-brace-format
+#| msgid "Page '{0}' submitted for moderation."
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Page '{0}' soumise pour modération."
+
+#: views/pages.py:230 views/pages.py:366
+msgid "View draft"
+msgstr "Voir le brouillon"
+
+#: views/pages.py:235
 #, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Page '{0}' créée."
 
-#: views/pages.py:243
+#: views/pages.py:249
 msgid "The page could not be created due to validation errors"
 msgstr "La page n'a pas pu être créée en raison d'erreurs de validation"
 
-#: views/pages.py:355
-msgid "View live"
-msgstr "Visualiser en direct"
-
-#: views/pages.py:360
-msgid "View draft"
-msgstr "Voir le brouillon"
+#: views/pages.py:360 views/pages.py:794
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Page '{0}' publiée."
 
 #: views/pages.py:365
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "Page '{0}' soumise pour modération."
+
+#: views/pages.py:371
 #, python-brace-format
 msgid "Page '{0}' updated."
 msgstr "Page '{0}' mise à jour."
 
-#: views/pages.py:380
+#: views/pages.py:386
 msgid "The page could not be saved as it is locked"
 msgstr "La page n'a pas pu être enregistrée car elle est verrouillée"
 
-#: views/pages.py:382
+#: views/pages.py:388
 msgid "The page could not be saved due to validation errors"
 msgstr "La page n'a pu être enregistré à cause d'erreurs de validation."
 
-#: views/pages.py:395
+#: views/pages.py:401
 msgid "This page is currently awaiting moderation"
 msgstr "Cette page est actuellement en attente de modération"
 
-#: views/pages.py:416
+#: views/pages.py:422
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Page '{0}' supprimée."
 
-#: views/pages.py:549
+#: views/pages.py:555
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' dé-publiée."
 
-#: views/pages.py:599
+#: views/pages.py:607
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' déplacée."
 
-#: views/pages.py:691
+#: views/pages.py:702
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Page '{0}' et {1} sous-pages copiées."
 
-#: views/pages.py:693
+#: views/pages.py:704
 #, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Page '{0}' copiée."
 
-#: views/pages.py:718
+#: views/pages.py:729
 msgid "Content"
 msgstr "Contenu"
 
-#: views/pages.py:720
+#: views/pages.py:731
 msgid "Promote"
 msgstr "Promotion"
 
-#: views/pages.py:722 wagtail_hooks.py:26
+#: views/pages.py:733 wagtail_hooks.py:27
 msgid "Settings"
 msgstr "Paramètres"
 
-#: views/pages.py:778 views/pages.py:795 views/pages.py:813
+#: views/pages.py:789 views/pages.py:809 views/pages.py:829
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La page '{0}' est actuellement en attente de modération."
 
-#: views/pages.py:800
+#: views/pages.py:814
 #, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Page '{0}' refusée à la publication."
 
-#: views/pages.py:839
+#: views/pages.py:855
 #, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "La page '{0}' est maintenant verrouillée."
 
-#: views/pages.py:863
+#: views/pages.py:879
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La page '{0}' est maintenant déverrouillée."

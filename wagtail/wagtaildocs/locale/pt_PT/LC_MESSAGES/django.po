@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:06+0000\n"
+"POT-Creation-Date: 2015-04-17 12:35+0100\n"
 "PO-Revision-Date: 2014-08-03 01:53+0100\n"
 "Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
 "Language-Team: \n"
@@ -131,7 +131,7 @@ msgstr "Tamanho do ficheiro"
 msgid "File not found"
 msgstr "Ficheiro não encontrado"
 
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:28
+#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:31
 msgid "Documents"
 msgstr "Documentos"
 
@@ -174,6 +174,19 @@ msgstr "Estado"
 msgid "Edit this page"
 msgstr "Editar esta ágina"
 
+#: templates/wagtaildocs/homepage/site_summary_documents.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
 #: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Procurar documentos"
@@ -200,8 +213,7 @@ msgstr "Documento '{0}' atualizado"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"O ficheiro não foi encontrado. Por favor altere a fonte ou apague o "
-"documento"
+"O ficheiro não foi encontrado. Por favor altere a fonte ou apague o documento"
 
 #: views/documents.py:148
 msgid "Delete"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 12:07+0000\n"
+"POT-Creation-Date: 2015-04-17 12:39+0100\n"
 "PO-Revision-Date: 2014-10-07 20:16+0000\n"
 "Last-Translator: Sergey Komarov <sjkomarov@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
@@ -28,9 +28,8 @@ msgstr "Критерий поиска/фраза"
 
 #: forms.py:11
 msgid ""
-"Enter the full search string to match. An \n"
-"        exact match is required for your Editors Picks to be \n"
-"        displayed, wildcards are NOT allowed."
+"Enter the full search string to match. An exact match is required for your "
+"Editors Picks to be displayed, wildcards are NOT allowed."
 msgstr ""
 
 #: forms.py:38
