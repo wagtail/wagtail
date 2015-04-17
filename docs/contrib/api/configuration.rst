@@ -26,7 +26,7 @@ Adding more fields to the pages endpoint
 
 By default, the pages endpoint only includes the ``id``, ``title`` and ``type`` fields in both the listing and detail views.
 
-You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a list/tuple of field names:
+You can add more fields to the pages endpoint by setting an attribute called ``api_fields`` to a ``list`` or ``tuple`` of field names:
 
 .. code-block:: python
 
@@ -63,6 +63,6 @@ If you have a Varnish, Squid or Cloudflare instance in front of your API, the ``
 
 To enable it, firstly configure the ``wagtail.contrib.wagtailfrontendcache`` module within your project (see [Wagtail frontend cache docs](http://docs.wagtail.io/en/latest/contrib_components/frontendcache.html) for more information).
 
-Then make sure that the ``WAGTAILAPI_BASE_URL`` setting is set correctly (eg. ``WAGTAILAPI_BASE_URL = 'http://api.mysite.com'``).
+Then make sure that the ``WAGTAILAPI_BASE_URL`` setting is set correctly (Example: ``WAGTAILAPI_BASE_URL = 'http://api.mysite.com'``).
 
 Then finally, switch it on by setting ``WAGTAILAPI_USE_FRONTENDCACHE`` to ``True``.

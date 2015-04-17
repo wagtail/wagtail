@@ -21,7 +21,7 @@ Wagtail provides a ``search`` method on the QuerySet for all page models:
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
 
 
-All methods of ``PageQuerySet`` are supported by wagtailsearch:
+All methods of ``PageQuerySet`` are supported by ``wagtailsearch``:
 
 .. code-block:: python
 
@@ -83,7 +83,7 @@ The most basic search functionality just needs a search box which submits a requ
     <input type="submit" value="Search">
   </form>
 
-The form is submitted to the url of the ``wagtailsearch_search`` view, with the search terms variable ``q``. The view will use its own basic search results template.
+The form is submitted to the URL of the ``wagtailsearch_search`` view, with the search terms variable ``q``. The view will use its own basic search results template.
 
 Let's use our own template for the results, though. First, in your project's ``settings.py``, define a path to your template:
 
@@ -156,7 +156,7 @@ Now add a simple interface for the search with a ``<input>`` element to gather s
     <div id="json-results"></div>
   </div>
 
-Finally, we'll use JQuery to make the asynchronous requests and handle the interactivity:
+Finally, we'll use jQuery to make the asynchronous requests and handle the interactivity:
 
 .. code-block:: guess
 

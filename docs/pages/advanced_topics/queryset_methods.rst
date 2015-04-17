@@ -1,8 +1,8 @@
 =====================
-Page Queryset Methods
+Page QuerySet Methods
 =====================
 
-All models that inherit from ``Page`` are given some extra Queryset methods accessible from their ``.objects`` attribute.
+All models that inherit from ``Page`` are given some extra QuerySet methods accessible from their ``.objects`` attribute.
 
 
 Examples
@@ -24,7 +24,7 @@ Examples
 
     .. code-block:: python
 
-        # This gets a queryset of live children of the homepage with ``show_in_menus`` set
+        # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
         menu_items = homepage.get_children().live().in_menu()
 
 
@@ -75,7 +75,7 @@ Reference
 
         .. code-block:: python
 
-            # Append an extra page to a queryset
+            # Append an extra page to a QuerySet
             new_queryset = old_queryset | Page.objects.page(page_to_add)
 
     .. automethod:: not_page
@@ -84,7 +84,7 @@ Reference
 
         .. code-block:: python
 
-            # Remove a page from a queryset
+            # Remove a page from a QuerySet
             new_queryset = old_queryset & Page.objects.not_page(page_to_remove)
 
     .. automethod:: descendant_of
