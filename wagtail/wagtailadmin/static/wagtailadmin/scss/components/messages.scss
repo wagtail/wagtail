@@ -87,28 +87,8 @@
 }
 
 @media screen and (min-width: $breakpoint-mobile){
-    .messages ul{
-        margin-left:-15px;
-
-        li{
-            padding-left:$desktop-nice-padding;
-            padding-right:$desktop-nice-padding;
-
-            &:before{
-                margin-left:-0.75em;
-            }
-
-        }
-        &:before{
-            content: "";
-            height: 0;
-            width: 0;
-            display: block;
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            border-top: 15px solid #000;
-            border-left: 15px solid transparent;
-        }
+    .messages ul li{
+        padding-left:$desktop-nice-padding;
+        padding-right:$desktop-nice-padding;
     }
 }
