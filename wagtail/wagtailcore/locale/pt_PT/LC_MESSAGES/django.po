@@ -92,7 +92,7 @@ msgstr "Data/hora terminal"
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "O valor não pode conter apenas espaços"
 
 #~ msgid "name '{0}' (used in subpage_types list) is not defined."
 #~ msgstr ""

@@ -20,90 +20,90 @@ msgstr ""
 
 #: forms.py:12
 msgid "Choose a root page"
-msgstr ""
+msgstr "Escolher uma página raíz"
 
 #: forms.py:12
 msgid "Choose a different root page"
-msgstr ""
+msgstr "Escolher uma página raíz diferente"
 
 #: templates/wagtailsites/confirm_delete.html:3
 #: templates/wagtailsites/confirm_delete.html:7
 #: templates/wagtailsites/edit.html:25
 msgid "Delete site"
-msgstr ""
+msgstr "Apagar site"
 
 #: templates/wagtailsites/confirm_delete.html:11
 msgid "Are you sure you want to delete this site?"
-msgstr ""
+msgstr "Tem a certeza que quer apagar este site?"
 
 #: templates/wagtailsites/confirm_delete.html:14
 msgid "Yes, delete"
-msgstr ""
+msgstr "Sim, apagar"
 
 #: templates/wagtailsites/create.html:4 templates/wagtailsites/create.html:9
 msgid "Add site"
-msgstr ""
+msgstr "Adicionar site"
 
 #: templates/wagtailsites/create.html:21 templates/wagtailsites/edit.html:23
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: templates/wagtailsites/edit.html:4 templates/wagtailsites/edit.html.py:9
 msgid "Editing"
-msgstr ""
+msgstr "Editar"
 
 #: templates/wagtailsites/index.html:3 templates/wagtailsites/index.html:5
 #: wagtail_hooks.py:24
 msgid "Sites"
-msgstr ""
+msgstr "Sites"
 
 #: templates/wagtailsites/index.html:7
 msgid "Add a site"
-msgstr ""
+msgstr "Adicionar site"
 
 #: templates/wagtailsites/index.html:19
 msgid "Site"
-msgstr ""
+msgstr "Site"
 
 #: templates/wagtailsites/index.html:26
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 #: templates/wagtailsites/index.html:27
 msgid "Root page"
-msgstr ""
+msgstr "Página raíz"
 
 #: templates/wagtailsites/index.html:28
 msgid "Default?"
-msgstr ""
+msgstr "Pré-definido?"
 
 #: templates/wagtailsites/index.html:42
 msgid "Default"
-msgstr ""
+msgstr "Pré-definido"
 
 #: views.py:31
 #, python-brace-format
 msgid "Site '{0}' created."
-msgstr ""
+msgstr "Site '{0}' criado."
 
 #: views.py:32 views.py:54
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: views.py:36
 msgid "The site could not be created due to errors."
-msgstr ""
+msgstr "Não foi possível criar o site devido a erros."
 
 #: views.py:53
 #, python-brace-format
 msgid "Site '{0}' updated."
-msgstr ""
+msgstr "Site '{0}' atualizado."
 
 #: views.py:58
 msgid "The site could not be saved due to errors."
-msgstr ""
+msgstr "O site não pode ser guardado devido a erros."
 
 #: views.py:74
 #, python-brace-format
 msgid "Site '{0}' deleted."
-msgstr ""
+msgstr "Site '{0}' apagado."
