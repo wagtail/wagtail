@@ -50,6 +50,7 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinxcontrib.spelling',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -114,6 +115,12 @@ pygments_style = 'sphinx'
 
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
+
+
+# splhinxcontrib.spelling settings
+
+spelling_lang = 'en_US'
+spelling_word_list_filename='spelling_wordlist.txt'
 
 
 # -- Options for HTML output ----------------------------------------------
