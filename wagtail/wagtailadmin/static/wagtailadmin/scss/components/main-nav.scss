@@ -2,7 +2,7 @@ $selected-highlight:darken($color-grey-1, 10%);
 $submenu-color:darken($color-grey-1, 5%);
 
 .nav-wrapper{
-    position:relative;
+    position: relative;
     background: $color-grey-1;
     margin-left: -$menu-width;
     width: $menu-width;
@@ -11,9 +11,9 @@ $submenu-color:darken($color-grey-1, 5%);
     min-height:800px;
 }
     #nav-toggle{
-        left:$mobile-nice-padding;
+        left: $mobile-nice-padding;
         cursor:pointer;
-        position:absolute;
+        position: absolute;
 
         &:before{
             font-size:40px;
@@ -23,43 +23,32 @@ $submenu-color:darken($color-grey-1, 5%);
         }
     }
 
-    .nav-main{
+    .menu-active {
+        background: $selected-highlight;
+        text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+
+        & > a {
+            border-left-color:$color-salmon;
+            color:white;
+        }
+    }
+
+
+    .nav-main {
         top: 43px;
         bottom: 0px;
         overflow: auto;
-        width:100%;
+        width: 100%;
 
-        ul, li{
-            margin:0;
-            padding:0;
-            list-style-type:none;
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
         }
 
-        li{
+        li {
             @include transition(border-color 0.2s ease);
-            position:relative;
-
-            /* TODO: find better way to procedurally detect the appropriate menu to highlight */
-            .menu-snippets &.menu-snippets,
-            .menu-users &.menu-users,
-            .menu-groups &.menu-groups,
-            .menu-sites &.menu-sites,
-            .menu-redirects &.menu-redirects,
-            .menu-editorspicks &.menu-editors-picks,
-            .menu-snippets &.menu-snippets,
-            .menu-documents &.menu-documents,
-            .menu-images &.menu-images,
-            .menu-search &.menu-search,
-            .menu-explorer &.menu-explorer,
-            .menu-forms &.menu-forms{
-                background:$selected-highlight;
-                text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
-
-                a{
-                    border-left-color:$color-salmon;
-                    color:white;
-                }
-            }
+            position: relative;
         }
 
         a{
@@ -101,13 +90,13 @@ $submenu-color:darken($color-grey-1, 5%);
                 top:0.5em;
                 margin-top:0.15em;
             }
-            
-        }       
+
+        }
 
         .account{
             @include clearfix();
-          
-       
+
+
             .avatar{
                 display:none;
             }
@@ -119,9 +108,9 @@ $submenu-color:darken($color-grey-1, 5%);
         }
     }
 
-    .nav-submenu{ 
+    .nav-submenu{
         background:$submenu-color;
-        
+
         h2{
             display:none;
         }
@@ -186,7 +175,7 @@ $submenu-color:darken($color-grey-1, 5%);
             padding:0;
             width:3em; height:100%;
             overflow:hidden;
-            
+
             &:before{
                 font-family:wagtail;
                 font-weight:200;
@@ -198,7 +187,7 @@ $submenu-color:darken($color-grey-1, 5%);
                 padding:0 1em;
             }
         }
-       
+
     }
 
 /* Navigation open condition */
@@ -280,13 +269,13 @@ body.explorer-open {
             position:fixed;
             width:$menu-width - 7;
             bottom:0;
-           
+
         }
         .account{
             @include clearfix();
             padding-right:0;
             padding-left:15px;
-       
+
             .avatar{
                 display:inline-block;
                 padding:0;
@@ -307,7 +296,7 @@ body.explorer-open {
         }
     }
 
-    .nav-submenu{ 
+    .nav-submenu{
         position:fixed;
         height:100%;
         width:0;
@@ -317,7 +306,7 @@ body.explorer-open {
         overflow:auto;
         max-height:100%;
         border-right:1px solid rgba(0,0,0,0.1);
-        
+
         h2,ul{
             float:right;
             width:$menu-width;
@@ -348,9 +337,9 @@ body.explorer-open {
 
         > a{
             text-shadow:-1px -1px 0px rgba(0,0,0,0.3);
-            
+
             &:hover{
-                background-color:transparent;  
+                background-color:transparent;
             }
         }
         .nav-submenu{
