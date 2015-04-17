@@ -4,12 +4,13 @@
 #
 # Translators:
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
 "de/)\n"
@@ -59,6 +60,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
+"%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
+"Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
 
 #: models.py:266
 msgid "Title"
@@ -108,7 +111,7 @@ msgstr ""
 
 #: models.py:280
 msgid "Go live date/time"
-msgstr ""
+msgstr "Veröffentlichungszeitpunkt"
 
 #: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
@@ -116,7 +119,7 @@ msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Verfallszeitpunkt"
 
 #: models.py:710
 msgid "expired"
@@ -176,4 +179,4 @@ msgstr ""
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "Der Wert darf nicht vollständig Leerzeichen enthalten"

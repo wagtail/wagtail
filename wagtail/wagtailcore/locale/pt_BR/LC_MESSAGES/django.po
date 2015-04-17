@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Thiago Cangussu <cng.thg@gmail.com>, 2014
+# Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-17 01:02+0000\n"
-"Last-Translator: Gladson <gladsonbrito@gmail.com>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "wagtail/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -112,17 +113,15 @@ msgstr ""
 
 #: models.py:280
 msgid "Go live date/time"
-msgstr ""
+msgstr "Data/hora para ficar online"
 
 #: models.py:280 models.py:281
-#, fuzzy
-#| msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Por favor add uma data-hora no formato YYYY-MM-DD hh:mm:ss."
+msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
-msgstr "Validade data/hora"
+msgstr "Data/hora de expiração"
 
 #: models.py:710
 msgid "expired"
@@ -182,7 +181,4 @@ msgstr ""
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
-
-#~ msgid "name '{0}' (used in subpage_types list) is not defined."
-#~ msgstr "nome '{0}' (used in subpage_types list) não está definido."
+msgstr "Valor não pode ser apenas com caracteres vázios"

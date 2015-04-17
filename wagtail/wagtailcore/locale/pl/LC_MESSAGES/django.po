@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/wagtail/language/"
 "pl/)\n"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: models.py:280
 msgid "Go live date/time"
-msgstr ""
+msgstr "Data/czas publikacji"
 
 #: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
@@ -118,7 +118,7 @@ msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Data/czas ważności"
 
 #: models.py:710
 msgid "expired"

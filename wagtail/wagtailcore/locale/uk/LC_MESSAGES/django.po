@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/wagtail/"
 "language/uk/)\n"
 "Language: uk\n"
@@ -33,6 +34,9 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
+"Введіть будь-якій інший порт ніж 80, якщо потрібно, щоб цей порт було "
+"вказано у URL (наприклад, для розробки на порту 8000). Не впливає на обробку "
+"запитів (перенаправлення портів буде працювати)."
 
 #: models.py:55
 msgid "Root page"
@@ -47,6 +51,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
+"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
+"не мають своїх окремих налаштувань"
 
 #: models.py:117
 #, python-format
@@ -54,6 +60,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
+"%(hostname)s вже налаштовано, як сайт за замовчанням. Якщо хочете зберегти "
+"цей сайт, як сайт за замовчанням, спочатку приберіть цей атрибут."
 
 #: models.py:266
 msgid "Title"
@@ -61,7 +69,7 @@ msgstr ""
 
 #: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
-msgstr ""
+msgstr "Заголовок сторінки, який міг би зацікавити публіку"
 
 #: models.py:267
 msgid "Slug"
@@ -72,16 +80,20 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
+"Назва сторінки, що з'явиться в URLs (краще латиницею), наприклад: http://"
+"domain.com/blog/[nazva_storinky]/"
 
 #: models.py:276
 msgid "Page title"
-msgstr ""
+msgstr "Заголовок сторінки"
 
 #: models.py:276
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
+"Додатково. Назва 'для пошукових систем', буде розташована згори вікна "
+"браузера."
 
 #: models.py:277
 msgid "Show in menus"
@@ -91,6 +103,7 @@ msgstr ""
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
+"Чи буде посилання на цю сторінку з'являтися в автоматично сгенерованих меню"
 
 #: models.py:278
 msgid "Search description"
@@ -98,7 +111,7 @@ msgstr ""
 
 #: models.py:280
 msgid "Go live date/time"
-msgstr ""
+msgstr "Опублікуваті матеріал по даті/часу"
 
 #: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
@@ -106,7 +119,7 @@ msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Буде доступним до дати/часу"
 
 #: models.py:710
 msgid "expired"

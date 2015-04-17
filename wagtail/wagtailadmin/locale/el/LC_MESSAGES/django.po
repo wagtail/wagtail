@@ -1,28 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
-"el/)\n"
-"Language: el\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit_handlers.py:704
 msgid "Scheduled publishing"
-msgstr ""
+msgstr "Προγραμματισμένη δημοσίευση"
 
 #: edit_handlers.py:718
 msgid "Common page configuration"
@@ -44,9 +45,9 @@ msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
 
 #: forms.py:72
-#, fuzzy, python-format
+#, python-format
 msgid "Enter your %s"
-msgstr "Εισάγετε το όνομα σας"
+msgstr "Εισάγετε το %s"
 
 #: forms.py:77
 msgid "Enter your email address to reset your password"
@@ -60,9 +61,7 @@ msgstr "Συμπληρώσατε τη διεύθυνση email σας."
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
-"Λυπούμαστε, δε μπορείτε να αλλάξετε τον κωδικό σας διότι το λογαριασμό "
-"χρήστη σας τον διαχειρίζεται ένας διαφορετικός εξυπηρετητής."
+msgstr "Λυπούμαστε, δε μπορείτε να αλλάξετε τον κωδικό σας διότι το λογαριασμό χρήστη σας τον διαχειρίζεται ένας διαφορετικός εξυπηρετητής."
 
 #: forms.py:102
 msgid "This email address is not recognised."
@@ -70,44 +69,42 @@ msgstr "Δε βρέθηκε το email."
 
 #: forms.py:114
 msgid "New title"
-msgstr ""
+msgstr "Νέος τίτλος"
 
 #: forms.py:115
 msgid "New slug"
-msgstr ""
+msgstr "Νέο slug"
 
 #: forms.py:120
-#, fuzzy
-#| msgid "New %(page_type)s"
 msgid "New parent page"
-msgstr "Νέα %(page_type)s"
+msgstr "Νέα γονική σελίδα"
 
 #: forms.py:121
 msgid "This copy will be a child of this given parent page."
-msgstr ""
+msgstr "Το αντίγραφο αυτό θα είναι ένα παιδί αυτής της δεδομένης γονικής σελίδας."
 
 #: forms.py:128
 msgid "Copy subpages"
-msgstr ""
+msgstr "Αντιγραφή υποσελίδων"
 
 #: forms.py:130
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Αντιγραφή %(count)s υποσελίδας."
+msgstr[1] "Αντιγραφή %(count)s υποσελίδων."
 
 #: forms.py:139
 msgid "Publish copied page"
-msgstr ""
+msgstr "Δημοσίευση αντιγραμμένης σελίδας"
 
 #: forms.py:140
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr ""
+msgstr "Αυτή η σελίδα είναι ζωντανή. Θα θέλατε να δημοσιεύθει αντίγραφο της;"
 
 #: forms.py:142
 msgid "Publish copies"
-msgstr ""
+msgstr "Δημοσίευση αντιγράφων"
 
 #: forms.py:144
 #, python-format
@@ -117,27 +114,26 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s των σελίδων που αντιγράφεται είναι ζωντανο. Θέλετε να δημοσιεύει το αντίγραφο τους;"
+msgstr[1] "%(count)s των σελίδων που αντιγράφεται είναι ζωντανά. Θέλετε να δημοσιεύουν τα αντίγραφα τους;"
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr ""
+msgid "This slug is already in use within the context of its parent page \"%s\""
+msgstr "Αυτό το περιθωρίου τυπογραφικού είναι ήδη σε χρήση στο πλαίσιο της γονικής σελίδας  \"%s\""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
 #: templates/wagtailadmin/pages/_privacy_switch.html:18
 msgid "Public"
-msgstr ""
+msgstr "Δημόσια"
 
 #: forms.py:175
 msgid "Private, accessible with the following password"
-msgstr ""
+msgstr "Ιδιωτική, προσβάσιμη με τον ακόλουθο κωδικό"
 
 #: forms.py:183
 msgid "This field is required."
-msgstr ""
+msgstr "Το πεδίο πρέπει να συμπληρωθεί"
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
@@ -153,10 +149,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"Η εικόνα σας παρέχετε από το Gravatar και συσχετίζεται με τη διεύθυνση email "
-"σας. Με το λογαριασμό σας στο Gravatar μπορείτε να δημιουργήσετε εικόνα και "
-"για τις άλλες διευθύνσεις email που έχετε."
+msgstr "Η εικόνα σας παρέχετε από το Gravatar και συσχετίζεται με τη διεύθυνση email σας. Με το λογαριασμό σας στο Gravatar μπορείτε να δημιουργήσετε εικόνα και για τις άλλες διευθύνσεις email που έχετε."
 
 #: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
@@ -170,11 +163,11 @@ msgstr "Αλλάξτε τον κωδικό σας"
 
 #: templates/wagtailadmin/account/account.html:35
 msgid "Notification preferences"
-msgstr ""
+msgstr "Προτιμήσεις Ειδοποιήσεων"
 
 #: templates/wagtailadmin/account/account.html:39
 msgid "Choose which email notifications to receive."
-msgstr ""
+msgstr "Επιλέξτε ποιες ειδοποιήσεις ηλεκτρονικού ταχυδρομείου θα λαμβάνετε"
 
 #: templates/wagtailadmin/account/change_password.html:18
 msgid "Change Password"
@@ -183,17 +176,16 @@ msgstr "Αλλαγή κωδικού"
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
+msgstr "Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
 msgid "Notification Preferences"
-msgstr ""
+msgstr "Προτιμήσεις Ειδοποιήσεων"
 
 #: templates/wagtailadmin/account/notification_preferences.html:16
 msgid "Update"
-msgstr ""
+msgstr "Ενημέρωση"
 
 #: templates/wagtailadmin/account/password_reset/complete.html:4
 #: templates/wagtailadmin/account/password_reset/confirm.html:42
@@ -230,8 +222,7 @@ msgstr "Μια σύνδεση για ανανέωση του κωδικού σα
 
 #: templates/wagtailadmin/account/password_reset/email.txt:2
 msgid "Please follow the link below to reset your password"
-msgstr ""
-"Παρακαλούμε ακολουθήστε τη σύνδεση παρακάτω για να ανανεώσετε τον κωδικό σας"
+msgstr "Παρακαλούμε ακολουθήστε τη σύνδεση παρακάτω για να ανανεώσετε τον κωδικό σας"
 
 #: templates/wagtailadmin/account/password_reset/email_subject.txt:2
 msgid "Password reset"
@@ -251,7 +242,7 @@ msgstr "Μενού"
 
 #: templates/wagtailadmin/block_forms/list.html:5
 msgid "Add another"
-msgstr ""
+msgstr "Προσθήκη ένος άλλου"
 
 #: templates/wagtailadmin/chooser/_browse_results.html:7 wagtail_hooks.py:17
 msgid "Explorer"
@@ -276,21 +267,12 @@ msgstr "Σύνδεση με email"
 #, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
 
 #: templates/wagtailadmin/chooser/_search_results.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            There is one match\n"
-#| "        "
-#| msgid_plural ""
-#| "\n"
-#| "            There are %(counter)s matches\n"
-#| "        "
+#, python-format
 msgid ""
 "\n"
 "        There is one match\n"
@@ -300,16 +282,11 @@ msgid_plural ""
 "        There are %(counter)s matches\n"
 "    "
 msgstr[0] ""
-"\n"
-"Βρέθηκε ένα αποτέλεσμα"
 msgstr[1] ""
-"\n"
-"Βρέθηκαν %(counter)s αποτελέσματα"
 
 #: templates/wagtailadmin/chooser/browse.html:3
-#, fuzzy
 msgid "Choose"
-msgstr "Επιλογή σελίδας"
+msgstr "Επιλογή"
 
 #: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
 msgid "Choose a page"
@@ -353,9 +330,7 @@ msgstr "Καλώς ήρθατε στο %(site_name)s Wagtail CMS"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
-"με το περιεχόμενου που έχετε δημιουργήσει."
+msgstr "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές με το περιεχόμενου που έχετε δημιουργήσει."
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -440,28 +415,20 @@ msgstr "Κατάσταση"
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:21
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:23
 msgid "Draft"
-msgstr ""
+msgstr "Σχέδιο"
 
 #: templates/wagtailadmin/home/recent_edits.html:33
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
 msgid "Live"
-msgstr ""
+msgstr "Ζωντανά"
 
 #: templates/wagtailadmin/home/site_summary.html:3
 msgid "Site summary"
 msgstr "Κατάσταση site"
 
 #: templates/wagtailadmin/home/site_summary_pages.html:5
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Page\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                <span>%(total_pages)s</span> Pages\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "        <span>%(total)s</span> Page\n"
@@ -471,20 +438,16 @@ msgid_plural ""
 "        <span>%(total)s</span> Pages\n"
 "    "
 msgstr[0] ""
-"\n"
-"<span>%(total_pages)s</span> Σελίδα"
 msgstr[1] ""
-"\n"
-"<span>%(total_pages)s</span> Σελίδες"
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
 msgid "Sign in"
 msgstr "Είσοδος"
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Το όνομα χρήση και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
+msgstr "Το %(username_field)s και ο κωδικός δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά."
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -510,7 +473,7 @@ msgstr "Μπορείτε να δείτε τη σελίδα εδώ:"
 
 #: templates/wagtailadmin/notifications/base_notification.html:3
 msgid "Edit your notification preferences here:"
-msgstr ""
+msgstr "Επεξεργαστείτε τις προτιμήσεις ειδοποίησης εδώ:"
 
 #: templates/wagtailadmin/notifications/rejected.html:1
 #, python-format
@@ -544,41 +507,40 @@ msgstr "Μπορείτε να τη δείτε εδώ:"
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:2
 #: templates/wagtailadmin/page_privacy/set_privacy.html:2
 msgid "Page privacy"
-msgstr ""
+msgstr "Ιδιωτικότητα της σελίδας"
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:6
 msgid "This page has been made private by a parent page."
-msgstr ""
+msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από σελίδα - γονέα"
 
 #: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
 msgid "You can edit the privacy settings on:"
-msgstr ""
+msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
 
 #: templates/wagtailadmin/page_privacy/set_privacy.html:6
 msgid "Privacy changes apply to all children of this page too."
-msgstr ""
+msgstr "Αλλαγές Προστασίας Προσωπικών Δεδομένων ισχύουν για όλα τα παιδιά αυτής της σελίδας επίσης."
 
 #: templates/wagtailadmin/pages/_lock_switch.html:8
-#, fuzzy
 msgid "Edit lock"
-msgstr "Διόρθωση"
+msgstr "Επεξεργασία κλειδώματος"
 
 #: templates/wagtailadmin/pages/_lock_switch.html:15
 msgid "Locked"
-msgstr ""
+msgstr "Κλειδωμένο"
 
 #: templates/wagtailadmin/pages/_lock_switch.html:25
 msgid "Unlocked"
-msgstr ""
+msgstr "Ξεκλειδωμένο"
 
 #: templates/wagtailadmin/pages/_privacy_switch.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Ιδιωτικότητα"
 
 #: templates/wagtailadmin/pages/_privacy_switch.html:14
 #: templates/wagtailadmin/pages/_privacy_switch.html:20
 msgid "Private"
-msgstr ""
+msgstr "Ιδιωτική"
 
 #: templates/wagtailadmin/pages/add_subpage.html:6
 #, python-format
@@ -615,26 +577,16 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
-msgstr[0] ""
-"\n"
-"                    Επίσης θα διαγραφεί και μια ακόμα σελίδα.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Επίσης θα διαγραφούν και %(descendant_count)s ακόμα "
-"σελίδες.\n"
-"                "
+msgstr[0] "\n                    Επίσης θα διαγραφεί και μια ακόμα σελίδα.\n                "
+msgstr[1] "\n                    Επίσης θα διαγραφούν και %(descendant_count)s ακόμα σελίδες.\n                "
 
 #: templates/wagtailadmin/pages/confirm_delete.html:22
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
 "view and you can edit or publish it again later."
-msgstr ""
-"Εναλλακτικά μπορείτε να αποεκδόσετε τη σελίδα ώστε να μην εμφανίζεται στο "
-"κοινό. Στη συνέχεια μπορείτε να τη διορθώστε και να την εκδόσετε ."
+msgstr "Εναλλακτικά μπορείτε να αποεκδόσετε τη σελίδα ώστε να μην εμφανίζεται στο κοινό. Στη συνέχεια μπορείτε να τη διορθώστε και να την εκδόσετε ."
 
 #: templates/wagtailadmin/pages/confirm_delete.html:26
 msgid "Delete it"
@@ -665,9 +617,7 @@ msgstr "Είστε σίγουρος ότι θέλετε να μετακινήσ�
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr ""
-"Είστε σίγουρος ότι θέλετε να μετακινήσετε τη σελίδα και όλα τα παιδιά της "
-"στο  '%(title)s';"
+msgstr "Είστε σίγουρος ότι θέλετε να μετακινήσετε τη σελίδα και όλα τα παιδιά της στο  '%(title)s';"
 
 #: templates/wagtailadmin/pages/confirm_move.html:18
 msgid "Yes, move this page"
@@ -700,16 +650,16 @@ msgstr "Οι σελίδες που το χρησιμοποιούν"
 #: templates/wagtailadmin/pages/copy.html:3
 #, python-format
 msgid "Copy %(title)s"
-msgstr ""
+msgstr "Αντιγραφή %(title)s"
 
 #: templates/wagtailadmin/pages/copy.html:6
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:30
 msgid "Copy"
-msgstr ""
+msgstr "Αντιγραφή"
 
 #: templates/wagtailadmin/pages/copy.html:27
 msgid "Copy this page"
-msgstr ""
+msgstr "Αντιγραφή αυτής της σελίδας"
 
 #: templates/wagtailadmin/pages/create.html:5
 #, python-format
@@ -735,20 +685,18 @@ msgid "Submit for moderation"
 msgstr "Υποβολή για έλεγχο"
 
 #: templates/wagtailadmin/pages/edit.html:5
-#, fuzzy, python-format
-#| msgid "Editing %(title)s"
+#, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "Διόρθωση %(title)s"
+msgstr "Επεξεργασία %(page_type)s: %(title)s"
 
 #: templates/wagtailadmin/pages/edit.html:15
-#, fuzzy, python-format
-#| msgid "Editing <span>%(title)s</span>"
+#, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Διόρθωση <span>%(title)s</span>"
+msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Page locked"
-msgstr ""
+msgstr "Σελίδα κλειδωμένη"
 
 #: templates/wagtailadmin/pages/edit.html:39
 msgid "Save draft"
@@ -773,7 +721,7 @@ msgstr "Εξερεύνηση %(title)s"
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:42
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:45
 msgid "Updated"
-msgstr ""
+msgstr "Ενημέρωση"
 
 #: templates/wagtailadmin/pages/list.html:66
 msgid "Drag"
@@ -794,7 +742,7 @@ msgid ""
 "\n"
 "            Page %(page_number)s of %(num_pages)s.\n"
 "        "
-msgstr ""
+msgstr "\nΣελίδα %(page_number)s από %(num_pages)s."
 
 #: templates/wagtailadmin/pages/list.html:119
 #: templates/wagtailadmin/pages/search_results.html:35
@@ -818,14 +766,13 @@ msgstr "Επόμενο"
 
 #: templates/wagtailadmin/pages/listing/_locked_indicator.html:10
 msgid "This page is locked to further editing"
-msgstr ""
+msgstr "Αυτή η σελίδα έχει κλειδωθεί για περαιτέρω επεξεργασία"
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_move.html:9
-#, fuzzy, python-format
-#| msgid "Explorer subpages of '%(title)s'"
+#, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
+msgstr ""
 
 #: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
@@ -836,7 +783,7 @@ msgstr "Εξερεύνηση"
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr ""
+msgstr "Εξερεύνηση των σελίδων - παιδιών του '%(title)s'"
 
 #: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
 #, python-format
@@ -852,7 +799,7 @@ msgstr "Προσθήκη υποσελίδας"
 msgid ""
 "This page is published but does not exist within a configured Site, so "
 "cannot be viewed."
-msgstr ""
+msgstr "Αυτή η σελίδα έχει δημοσιευθεί, αλλά δεν υφίστανται εντός ενός διαμορφωμένου Site, έτσι δεν μπορεί να εμφανιστεί."
 
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:39
 #: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:39
@@ -861,7 +808,7 @@ msgstr "Προσθήκη σελίδας-παιδί"
 
 #: templates/wagtailadmin/pages/listing/_privacy_indicator.html:11
 msgid "This page is protected from public view"
-msgstr ""
+msgstr "Αυτή η σελίδα προστατεύεται από τη δημοσιότητα"
 
 #: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
 msgid "Disable ordering of child pages"
@@ -896,12 +843,12 @@ msgid_plural ""
 "\n"
 "                    There are %(counter)s matching pages\n"
 "                "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                    Υπάρχει μία σελίδα που ταιριάζει\n                "
+msgstr[1] "\n                    Υπάρχουν %(counter)s σελίδες που ταιριάζουν\n                "
 
 #: templates/wagtailadmin/pages/search_results.html:16
 msgid "Other searches"
-msgstr ""
+msgstr "Άλλες αναζητήσεις"
 
 #: templates/wagtailadmin/pages/search_results.html:18
 msgid "Images"
@@ -922,15 +869,12 @@ msgid ""
 "\n"
 "                Page %(page_number)s of %(num_pages)s.\n"
 "            "
-msgstr ""
-"\n"
-"Σελίδα %(page_number)s of %(num_pages)s."
+msgstr "\nΣελίδα %(page_number)s of %(num_pages)s."
 
 #: templates/wagtailadmin/pages/search_results.html:54
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Λυπούμαστε, καμία σελίδα δε ταιριάζει με το <em>\"%(query_string)s\"</em>"
+msgstr "Λυπούμαστε, καμία σελίδα δε ταιριάζει με το <em>\"%(query_string)s\"</em>"
 
 #: templates/wagtailadmin/pages/search_results.html:56
 msgid "Enter a search term above"
@@ -938,7 +882,7 @@ msgstr "Εισάγετε όρο αναζήτησης"
 
 #: templates/wagtailadmin/pages/usage_results.html:24
 msgid "No pages use"
-msgstr ""
+msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτε"
 
 #: templates/wagtailadmin/shared/breadcrumb.html:6
 msgid "Home"
@@ -946,90 +890,90 @@ msgstr "Αρχή"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:6
 msgid "January"
-msgstr ""
+msgstr "Ιανουάριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:7
 msgid "February"
-msgstr ""
+msgstr "Φεβρουάριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:8
 msgid "March"
-msgstr ""
+msgstr "Μάρτιος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:9
 msgid "April"
-msgstr ""
+msgstr "Απρίλιος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:10
 msgid "May"
-msgstr ""
+msgstr "Μάιος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:11
 msgid "June"
-msgstr ""
+msgstr "Ιούνιος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:12
 msgid "July"
-msgstr ""
+msgstr "Ιούλιος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:13
 msgid "August"
-msgstr ""
+msgstr "Αύγουστος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:14
 msgid "September"
-msgstr ""
+msgstr "Σεπτέμβριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:15
 msgid "October"
-msgstr ""
+msgstr "Οκτώβριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:16
 msgid "November"
-msgstr ""
+msgstr "Νοέμβριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:17
 msgid "December"
-msgstr ""
+msgstr "Δεκέμβριος"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:20
 msgid "Sun"
-msgstr ""
+msgstr "Κυρ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:21
 msgid "Mon"
-msgstr ""
+msgstr "Δευ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:22
 msgid "Tue"
-msgstr ""
+msgstr "Τρ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:23
 msgid "Wed"
-msgstr ""
+msgstr "Τετ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:24
 msgid "Thu"
-msgstr ""
+msgstr "Πεμ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:25
 msgid "Fri"
-msgstr ""
+msgstr "Παρ"
 
 #: templates/wagtailadmin/shared/datetimepicker_translations.html:26
 msgid "Sat"
-msgstr ""
+msgstr "Σαβ"
 
 #: templates/wagtailadmin/shared/header.html:41
 #, python-format
 msgid "Used %(useage_count)s time"
 msgid_plural "Used %(useage_count)s times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Χρησιμοποιήθηκε %(useage_count)s φορά"
+msgstr[1] "Χρησιμοποιήθηκε %(useage_count)s φορές"
 
 #: templates/wagtailadmin/shared/main_nav.html:8
 msgid "Edit your account"
-msgstr ""
+msgstr "Επεξεργαστείτε το λογαριασμό σας"
 
 #: templates/wagtailadmin/shared/main_nav.html:9
 msgid "Log out"
@@ -1043,31 +987,29 @@ msgstr "Σελίδα %(page_num)s από %(total_pages)s."
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
-msgstr ""
+msgstr "Javascript χρειάζεται για να χρησιμοποιήσετε το Wagtail, αλλά είναι προς το παρόν απενεργοποιημένο"
 
 #: templates/wagtailadmin/userbar/base.html:4
 msgid "User bar"
-msgstr ""
+msgstr "Μπάρα χρήστη"
 
 #: templates/wagtailadmin/userbar/base.html:14
 msgid "Go to Wagtail admin interface"
-msgstr ""
+msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
-#, fuzzy
-#| msgid "Add child page"
 msgid "Add a child page"
-msgstr "Προσθήκη σελίδας-παιδί"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
 msgid "Add"
-msgstr ""
+msgstr "Πρόσθηκη"
 
 #: views/account.py:38
 msgid "Your password has been changed successfully!"
@@ -1075,7 +1017,7 @@ msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 
 #: views/account.py:58
 msgid "Your preferences have been updated successfully!"
-msgstr ""
+msgstr "Οι προτιμήσεις σας έχουν ενημερωθεί επιτυχώς!"
 
 #: views/pages.py:155 views/pages.py:289
 msgid "This slug is already in use"
@@ -1083,33 +1025,29 @@ msgstr "Το slug χρησιμοποιείται"
 
 #: views/pages.py:182 views/pages.py:317
 msgid "Go live date/time must be before expiry date/time"
-msgstr ""
+msgstr "Μετάβαση ζωντανής ημερομηνίας/ώρας πρέπει να είναι πριν από την ημερομηνία λήξης/ώρας"
 
 #: views/pages.py:192 views/pages.py:327
 msgid "Expiry date/time must be in the future"
-msgstr ""
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
 
 #: views/pages.py:224
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' unpublished."
+#, python-brace-format
 msgid "Page '{0}' created and published."
-msgstr "Έγινε αποδημοσίευση της '{0}'."
+msgstr ""
 
 #: views/pages.py:225 views/pages.py:361 views/pages.py:795
 msgid "View live"
-msgstr ""
+msgstr "Εμφάνιση στο site"
 
 #: views/pages.py:229
-#, fuzzy, python-brace-format
-#| msgid "Page '{0}' submitted for moderation."
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
-msgstr "Η σελίδα '{0}' στάλθηκε προς έλεγχο."
+msgstr ""
 
 #: views/pages.py:230 views/pages.py:366
-#, fuzzy
-#| msgid "Save draft"
 msgid "View draft"
-msgstr "Αποθήκευση πρόχειρου"
+msgstr "Εμφάνιση προσχεδίου"
 
 #: views/pages.py:235
 #, python-brace-format
@@ -1118,7 +1056,7 @@ msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 
 #: views/pages.py:249
 msgid "The page could not be created due to validation errors"
-msgstr ""
+msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
 
 #: views/pages.py:360 views/pages.py:794
 #, python-brace-format
@@ -1136,9 +1074,8 @@ msgid "Page '{0}' updated."
 msgstr "Έγινε η αποθήκευση της σελίδας '{0}'."
 
 #: views/pages.py:386
-#, fuzzy
 msgid "The page could not be saved as it is locked"
-msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
+msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
 
 #: views/pages.py:388
 msgid "The page could not be saved due to validation errors"
@@ -1166,12 +1103,12 @@ msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
 #: views/pages.py:702
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
-msgstr ""
+msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφηκαν."
 
 #: views/pages.py:704
 #, python-brace-format
 msgid "Page '{0}' copied."
-msgstr ""
+msgstr "Η σελίδα '{0}' αντιγράφηκε."
 
 #: views/pages.py:729
 msgid "Content"
@@ -1183,7 +1120,7 @@ msgstr ""
 
 #: views/pages.py:733 wagtail_hooks.py:27
 msgid "Settings"
-msgstr ""
+msgstr "Ρυθμίσεις"
 
 #: views/pages.py:789 views/pages.py:809 views/pages.py:829
 #, python-brace-format
@@ -1196,14 +1133,14 @@ msgid "Page '{0}' rejected for publication."
 msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκε."
 
 #: views/pages.py:855
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now locked."
-msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
+msgstr "Η σελίδα '{0}' είναι τώρα κλειδωμένη."
 
 #: views/pages.py:879
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
-msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
+msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."
 
 #: widgets.py:65
 msgid "Choose an item"
@@ -1218,75 +1155,9 @@ msgid "Clear choice"
 msgstr "Διαγραφή επιλογής"
 
 #: widgets.py:68
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "Διόρθωση της σελίδας"
+msgstr "Επεξεργασία αυτού του στοιχείου"
 
 #: widgets.py:115
 msgid "Choose another page"
 msgstr "Επιλογή διαφορετικής σελίδας"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Image\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_images)s</span> Images\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Image\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Images\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "<span>%(total_images)s</span> Εικόνα"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "<span>%(total_images)s</span> Εικόνες"
-
-#, fuzzy
-#~| msgid ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Document\n"
-#~| "            "
-#~| msgid_plural ""
-#~| "\n"
-#~| "                <span>%(total_docs)s</span> Documents\n"
-#~| "            "
-#~ msgid ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Document\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                <span>%(total)s</span> Documents\n"
-#~ "            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "\n"
-#~ "<span>%(total_docs)s</span> Έγγραφο"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "\n"
-#~ "<span>%(total_docs)s</span> Έγγραφα"
-
-#~ msgid "Account settings"
-#~ msgstr "Επιλογές λογαριασμού"
-
-#~ msgid ""
-#~ "\n"
-#~ "            Previewing '%(title)s', submitted by %(submitted_by)s on "
-#~ "%(submitted_on)s.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "            Προεπισκόπηση της '%(title)s', που δημιουργήθηκε από τον "
-#~ "%(submitted_by)s στις %(submitted_on)s.\n"
-#~ "        "

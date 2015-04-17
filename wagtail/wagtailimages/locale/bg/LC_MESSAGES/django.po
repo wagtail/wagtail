@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:52+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/"
-"language/bg/)\n"
-"Language: bg\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/wagtail/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: fields.py:13
@@ -136,13 +135,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Има едно съвпадение\n"
-"        "
-msgstr[1] ""
-"\n"
-"Има %(counter)s съвпадения"
+msgstr[0] "\n            Има едно съвпадение\n        "
+msgstr[1] "\nИма %(counter)s съвпадения"
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -171,10 +165,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "Промени Изображение:"
+msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -237,10 +229,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Файл"
+msgstr ""
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -259,11 +249,9 @@ msgstr ""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"Не сте качили никакви изображения. Защо не <a href="
-"\"%(wagtailimages_add_image_url)s\">качите едно сега</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Не сте качили никакви изображения. Защо не <a href=\"%(wagtailimages_add_image_url)s\">качите едно сега</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -353,10 +341,8 @@ msgid "Image '{0}' updated."
 msgstr "Изображение '{0}' обновено."
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "Редактиране"
+msgstr ""
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -364,8 +350,8 @@ msgstr "Изображението не можеше да бъде запазе�
 
 #: views/images.py:128
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 
 #: views/images.py:221
@@ -379,10 +365,8 @@ msgid "Image '{0}' added."
 msgstr "Изображение '{0}' добавено."
 
 #: views/images.py:245
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Редактиране"
+msgstr ""
 
 #: views/images.py:249
 msgid "The image could not be created due to errors."
@@ -395,6 +379,3 @@ msgstr "Избери друго Изображение"
 #: widgets.py:15
 msgid "Edit this image"
 msgstr ""
-
-#~ msgid "Clear image"
-#~ msgstr "Изчисти Изображение"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-11-04 09:53+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -105,10 +105,8 @@ msgid "Go live date/time"
 msgstr "发布 日期/时间"
 
 #: models.py:280 models.py:281
-#, fuzzy
-#| msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "请输入一个YYYY-MM-DD hh:mm:ss格式的日期时间。如 1989-06-04 01:23:45"
+msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
@@ -173,6 +171,3 @@ msgstr ""
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
 msgstr ""
-
-#~ msgid "name '{0}' (used in subpage_types list) is not defined."
-#~ msgstr "名称'{0}' (用于子页面类型列表)尚未定义"

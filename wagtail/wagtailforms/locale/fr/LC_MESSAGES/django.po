@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Adrien <laadrien@gmail.com>, 2014
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-04-16 15:35+0100\n"
-"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
-"fr/)\n"
-"Language: fr\n"
+"PO-Revision-Date: 2015-04-17 11:59+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.5\n"
 
 #: models.py:25
 msgid "Single line text"
@@ -71,20 +71,15 @@ msgstr "Le label du champ de formulaire"
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
-msgstr ""
-"Liste de choix séparés par une virgule. Seulement applicable pour les cases "
-"à cocher, les boutons radio et les listes déroulantes."
+msgstr "Liste de choix séparés par une virgule. Seulement applicable pour les cases à cocher, les boutons radio et les listes déroulantes."
 
 #: models.py:75
 msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Valeur par défaut. Liste de valeurs séparées par une virgule pour les cases "
-"à cocher."
+msgstr "Valeur par défaut. Liste de valeurs séparées par une virgule pour les cases à cocher."
 
 #: models.py:188
 msgid "Optional - form submissions will be emailed to this address"
-msgstr ""
-"Facultatif - les soumissions de formulaire seront envoyées à cette adresse"
+msgstr "Facultatif - les soumissions de formulaire seront envoyées à cette adresse"
 
 #: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
 #: wagtail_hooks.py:25

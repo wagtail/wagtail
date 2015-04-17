@@ -1,77 +1,76 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/projects/p/wagtail/"
-"language/uk/)\n"
-"Language: uk\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/wagtail/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: edit_handlers.py:704
 msgid "Scheduled publishing"
-msgstr ""
+msgstr "Запланована публікація"
 
 #: edit_handlers.py:718
 msgid "Common page configuration"
-msgstr ""
+msgstr "Загальні налаштування сторінкі"
 
 #: forms.py:34 templates/wagtailadmin/base.html:16
 #: templates/wagtailadmin/base.html:17 templates/wagtailadmin/base.html:18
 #: templates/wagtailadmin/pages/search.html:3
 #: templates/wagtailadmin/pages/search.html:16
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: forms.py:38
 msgid "Search term"
-msgstr ""
+msgstr "Пошуковий термін"
 
 #: forms.py:65
 msgid "Enter password"
-msgstr ""
+msgstr "Введіть пароль"
 
 #: forms.py:72
 #, python-format
 msgid "Enter your %s"
-msgstr ""
+msgstr "Введіть ваш %s"
 
 #: forms.py:77
 msgid "Enter your email address to reset your password"
-msgstr ""
+msgstr "Введіть вашу е-мейл адресу для перевстановлення паролю"
 
 #: forms.py:86
 msgid "Please fill your email address."
-msgstr ""
+msgstr "Будь-ласка, введіть вашу е-мейл адресу."
 
 #: forms.py:99
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
+msgstr "Нажаль ви не можете перевстановиті пароль тут, тому що, ваш обліковий запис управляється іншим сервером."
 
 #: forms.py:102
 msgid "This email address is not recognised."
-msgstr ""
+msgstr "Ця адреса електронної пошти невідома системі."
 
 #: forms.py:114
 msgid "New title"
-msgstr ""
+msgstr "Новий заголовок"
 
 #: forms.py:115
 msgid "New slug"
-msgstr ""
+msgstr "Нова коротка назва для URL"
 
 #: forms.py:120
 msgid "New parent page"
@@ -83,27 +82,27 @@ msgstr ""
 
 #: forms.py:128
 msgid "Copy subpages"
-msgstr ""
+msgstr "Скопіюваті підсторінки"
 
 #: forms.py:130
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ця дія скопіює %(count)s підсторінку."
+msgstr[1] "Ця дія скопіює %(count)s підсторінок."
+msgstr[2] "Ця дія скопіює %(count)s підсторінок."
 
 #: forms.py:139
 msgid "Publish copied page"
-msgstr ""
+msgstr "Опублікуваті скопійовані сторінки"
 
 #: forms.py:140
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr ""
+msgstr "Ця сторїнка вїдображається на сайті, хочете також опублїкуваті також її копію?"
 
 #: forms.py:142
 msgid "Publish copies"
-msgstr ""
+msgstr "Опублїкувати копії"
 
 #: forms.py:144
 #, python-format
@@ -113,20 +112,19 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(count)s сторінку, що ви копіюєте, вже опубліковано. Хочете опублїкувати її копїю?"
+msgstr[1] "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх копїю?"
+msgstr[2] "%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх копїю?"
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+msgid "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
 #: templates/wagtailadmin/pages/_privacy_switch.html:18
 msgid "Public"
-msgstr ""
+msgstr "Відкритий "
 
 #: forms.py:175
 msgid "Private, accessible with the following password"
@@ -134,16 +132,16 @@ msgstr ""
 
 #: forms.py:183
 msgid "This field is required."
-msgstr ""
+msgstr "Це поле необхідно заповнити"
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
 msgid "Account"
-msgstr ""
+msgstr "Обліковий запис"
 
 #: templates/wagtailadmin/account/account.html:13
 msgid "Set gravatar"
-msgstr ""
+msgstr "Встановити gravatar"
 
 #: templates/wagtailadmin/account/account.html:17
 msgid ""
@@ -235,11 +233,11 @@ msgstr ""
 
 #: templates/wagtailadmin/base.html:11 templates/wagtailadmin/home.html:4
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель"
 
 #: templates/wagtailadmin/base.html:41
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: templates/wagtailadmin/block_forms/list.html:5
 msgid "Add another"
@@ -247,7 +245,7 @@ msgstr ""
 
 #: templates/wagtailadmin/chooser/_browse_results.html:7 wagtail_hooks.py:17
 msgid "Explorer"
-msgstr ""
+msgstr "Управління файлами"
 
 #: templates/wagtailadmin/chooser/_link_types.html:5
 #: templates/wagtailadmin/chooser/_link_types.html:7
@@ -268,8 +266,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
 
@@ -293,7 +290,7 @@ msgstr ""
 
 #: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
 msgid "Choose a page"
-msgstr ""
+msgstr "Оберіть сторінку"
 
 #: templates/wagtailadmin/chooser/email_link.html:2
 msgid "Add an email link"
@@ -327,7 +324,7 @@ msgstr ""
 #: templates/wagtailadmin/home.html:22
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr ""
+msgstr "Ласкаво просимо до %(site_name)s Wagtail CMS"
 
 #: templates/wagtailadmin/home.html:33
 msgid ""
@@ -446,7 +443,7 @@ msgstr[2] ""
 
 #: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
 msgid "Sign in"
-msgstr ""
+msgstr "Увійдіть"
 
 #: templates/wagtailadmin/login.html:18
 #, python-format
@@ -455,11 +452,11 @@ msgstr ""
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
-msgstr ""
+msgstr "Увійдіть до Wagtail"
 
 #: templates/wagtailadmin/login.html:48
 msgid "Forgotten it?"
-msgstr ""
+msgstr "Забули це?"
 
 #: templates/wagtailadmin/notifications/approved.html:1
 #, python-format
@@ -581,8 +578,7 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
 msgstr[0] ""
 msgstr[1] ""
@@ -995,8 +991,8 @@ msgstr ""
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
@@ -1029,7 +1025,7 @@ msgstr ""
 
 #: views/pages.py:155 views/pages.py:289
 msgid "This slug is already in use"
-msgstr ""
+msgstr "Ця коротка назва вже використовується"
 
 #: views/pages.py:182 views/pages.py:317
 msgid "Go live date/time must be before expiry date/time"
@@ -1128,7 +1124,7 @@ msgstr ""
 
 #: views/pages.py:733 wagtail_hooks.py:27
 msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 #: views/pages.py:789 views/pages.py:809 views/pages.py:829
 #, python-brace-format
@@ -1168,4 +1164,4 @@ msgstr ""
 
 #: widgets.py:115
 msgid "Choose another page"
-msgstr ""
+msgstr "Оберіть іншу сторінку"

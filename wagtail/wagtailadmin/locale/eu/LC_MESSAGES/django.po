@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
@@ -9,14 +9,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:48+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Basque (http://www.transifex.com/projects/p/wagtail/language/"
-"eu/)\n"
-"Language: eu\n"
+"Language-Team: Basque (http://www.transifex.com/projects/p/wagtail/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit_handlers.py:704
@@ -59,9 +58,7 @@ msgstr "Idatzi zure eposta helbidea mesedez."
 msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
-msgstr ""
-"Sentitzen dugu, ezin duzu zure pasahitza hemen berrezarri zure kontua beste "
-"zerbitzari batek kudeatzen duelako."
+msgstr "Sentitzen dugu, ezin duzu zure pasahitza hemen berrezarri zure kontua beste zerbitzari batek kudeatzen duelako."
 
 #: forms.py:102
 msgid "This email address is not recognised."
@@ -119,8 +116,7 @@ msgstr[1] ""
 
 #: forms.py:164
 #, python-format
-msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+msgid "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 
 #: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
@@ -150,10 +146,7 @@ msgid ""
 "Your avatar image is provided by Gravatar and is connected to your email "
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
-msgstr ""
-"Zure avatar irudia Gravatar-ek hornitzen du eta zure eposta helbidera "
-"konektatua dago. Gravatar kontu batekin erabiltzen duzun eposta helbide "
-"bakoitzeko avatar bat ezarri dezakezu."
+msgstr "Zure avatar irudia Gravatar-ek hornitzen du eta zure eposta helbidera konektatua dago. Gravatar kontu batekin erabiltzen duzun eposta helbide bakoitzeko avatar bat ezarri dezakezu."
 
 #: templates/wagtailadmin/account/account.html:24
 #: templates/wagtailadmin/account/change_password.html:4
@@ -180,8 +173,7 @@ msgstr ""
 #: templates/wagtailadmin/account/change_password.html:21
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Zure pasahitza ezin da hemen aldatu. Mesedez kontaktatu administratzailea."
+msgstr "Zure pasahitza ezin da hemen aldatu. Mesedez kontaktatu administratzailea."
 
 #: templates/wagtailadmin/account/notification_preferences.html:4
 #: templates/wagtailadmin/account/notification_preferences.html:6
@@ -272,8 +264,7 @@ msgstr "Eposta esteka"
 #, python-format
 msgid ""
 "\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
 "    "
 msgstr ""
 
@@ -291,9 +282,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailadmin/chooser/browse.html:3
-#, fuzzy
 msgid "Choose"
-msgstr "Orrialde bat aukeratu"
+msgstr ""
 
 #: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
 msgid "Choose a page"
@@ -337,9 +327,7 @@ msgstr "Ongi etorri %(site_name)s Wagtail CMSra"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio "
-"baliagarria agertuko da."
+msgstr "Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio baliagarria agertuko da."
 
 #: templates/wagtailadmin/home/pages_for_moderation.html:5
 msgid "Pages awaiting moderation"
@@ -454,11 +442,9 @@ msgid "Sign in"
 msgstr ""
 
 #: templates/wagtailadmin/login.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
-"Zure erabiltzaileak eta pasahitzak ez dute bat egin. Mesedez saiatu "
-"beranduago."
 
 #: templates/wagtailadmin/login.html:29
 msgid "Sign in to Wagtail"
@@ -588,8 +574,7 @@ msgid ""
 "                "
 msgid_plural ""
 "\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
 "                "
 msgstr[0] ""
 msgstr[1] ""
@@ -999,8 +984,8 @@ msgstr ""
 #: templates/wagtailadmin/skeleton.html:21
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
 msgstr ""
 
 #: templates/wagtailadmin/skeleton.html:23
@@ -1016,10 +1001,8 @@ msgid "Go to Wagtail admin interface"
 msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Add a child page"
-msgstr "Orrialde hau editatu"
+msgstr ""
 
 #: templates/wagtailadmin/userbar/item_page_add.html:5
 msgid "Add"
@@ -1169,10 +1152,8 @@ msgid "Clear choice"
 msgstr "Aukeraketa garbitu"
 
 #: widgets.py:68
-#, fuzzy
-#| msgid "Edit this page"
 msgid "Edit this item"
-msgstr "Orrialde hau editatu"
+msgstr ""
 
 #: widgets.py:115
 msgid "Choose another page"

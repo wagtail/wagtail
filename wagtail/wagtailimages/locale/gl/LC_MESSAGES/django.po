@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 msgid ""
@@ -10,14 +11,13 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2014-08-01 15:43+0000\n"
+"PO-Revision-Date: 2015-04-17 11:52+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/"
-"language/gl/)\n"
-"Language: gl\n"
+"Language-Team: Galician (http://www.transifex.com/projects/p/wagtail/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: fields.py:13
@@ -137,14 +137,8 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] ""
-"\n"
-"            Hai unha coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hai %(counter)s coincidencias\n"
-"        "
+msgstr[0] "\n            Hai unha coincidencia\n        "
+msgstr[1] "\n            Hai %(counter)s coincidencias\n        "
 
 #: templates/wagtailimages/chooser/results.html:13
 #: templates/wagtailimages/images/results.html:13
@@ -173,10 +167,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailimages/images/_file_field.html:8
-#, fuzzy
-#| msgid "Change image:"
 msgid "Change image file:"
-msgstr "Cambiar imaxe:"
+msgstr ""
 
 #: templates/wagtailimages/images/add.html:4
 #: templates/wagtailimages/images/index.html:19
@@ -239,10 +231,8 @@ msgid "Max dimensions"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:80
-#, fuzzy
-#| msgid "File"
 msgid "Filesize"
-msgstr "Arquivo"
+msgstr ""
 
 #: templates/wagtailimages/images/edit.html:81
 msgid "File not found"
@@ -261,11 +251,9 @@ msgstr "Sentímolo, ningunha imaxe contén \"<em>%(query_string)s</em>\""
 #: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr ""
-"No subiches imaxes. ¿Por qué non <a href=\"%(wagtailimages_add_image_url)s"
-"\">engadir unha agora</a>?"
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "No subiches imaxes. ¿Por qué non <a href=\"%(wagtailimages_add_image_url)s\">engadir unha agora</a>?"
 
 #: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
@@ -355,10 +343,8 @@ msgid "Image '{0}' updated."
 msgstr "Imaxe '{0}' actualizada."
 
 #: views/images.py:107
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit again"
-msgstr "Editando"
+msgstr ""
 
 #: views/images.py:111
 msgid "The image could not be saved due to errors."
@@ -366,8 +352,8 @@ msgstr "A imaxe non puido ser gardada debido a erros"
 
 #: views/images.py:128
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 
 #: views/images.py:221
@@ -381,10 +367,8 @@ msgid "Image '{0}' added."
 msgstr "Imaxe '{0}' engadida."
 
 #: views/images.py:245
-#, fuzzy
-#| msgid "Editing"
 msgid "Edit"
-msgstr "Editando"
+msgstr ""
 
 #: views/images.py:249
 msgid "The image could not be created due to errors."
@@ -397,6 +381,3 @@ msgstr "Seleccionar outra imaxe"
 #: widgets.py:15
 msgid "Edit this image"
 msgstr ""
-
-#~ msgid "Clear image"
-#~ msgstr "Borrar imaxe"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-01-09 17:13+0000\n"
-"Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>\n"
+"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -111,10 +111,8 @@ msgid "Go live date/time"
 msgstr "Datum/čas zobrazení"
 
 #: models.py:280 models.py:281
-#, fuzzy
-#| msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Zadejte prosím datum a čas ve formátu RRRR-MM-DD hh:mm:ss."
+msgstr ""
 
 #: models.py:281
 msgid "Expiry date/time"
