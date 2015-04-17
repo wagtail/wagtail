@@ -80,6 +80,9 @@ body{
         border:0;
         margin-right:1em;
     }
+    &:hover {
+        color: white;
+    }
 }
 
 .content-wrapper{
@@ -187,7 +190,7 @@ footer{
 
             &:after{
                 right:0;
-                z-index:5;
+                // z-index:5;
                 position:absolute;
                 font-family:wagtail;
                 content:"n";
@@ -265,9 +268,16 @@ footer{
 .nav-wrapper{
     z-index:2;
 }
-.content-wrapper{
-    z-index:3;
-}
+
+// Avoiding a stacking context for the content-wrapper saves us a world
+// of pain when dealing with overlays that are appended to the end of
+// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
+// the z-index shouldn't be required.
+
+// .content-wrapper{
+    // z-index:3;
+// }
+
 .nav-submenu{
     z-index:6;
 }
@@ -338,7 +348,7 @@ footer, .logo{
     }
     .content-wrapper{
         border-bottom-right-radius: 5px;
-    }    
+    }
 
     .logo{
         margin:1em auto;
@@ -353,13 +363,13 @@ footer, .logo{
             margin:auto;
             display:block;
         }
-    }   
+    }
 
     footer{
         width:80%;
         margin-left:50px;
     }
-    
+
     .content{
         border-top:0;
         background-color:none;
@@ -397,16 +407,21 @@ footer, .logo{
         }
     }
     .explorer {
-        z-index:$explorer-z-index;
+        z-index: $explorer-z-index;
     }
     .nav-submenu {
-        z-index:$explorer-z-index;
+        z-index: $explorer-z-index;
     }
-    .nav-wrapper{
-        z-index:auto;  /* allows overspill of messages banner onto left menu, but also explorer to spill over main content */
+
+    // Allows overspill of messages banner onto left menu, but also explorer
+    // to spill over main content
+    .nav-wrapper {
+        z-index: auto;
     }
-    .nav-wrapper.submenu-active{
-        z-index:5;
+
+    // footer is z-index: 100, so ensure the navigation sits on top of it.
+    .nav-wrapper.submenu-active {
+        z-index: 200;
     }
 }
 

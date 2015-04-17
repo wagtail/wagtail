@@ -134,8 +134,8 @@ $submenu-color:darken($color-grey-1, 5%);
     }
 
     .explorer{
-        position:absolute;
-        margin-top:70px;
+        // position:absolute;
+        // margin-top:70px;
         font-size:0.95em;
     }
 
@@ -204,6 +204,18 @@ body.nav-open{
     }
 }
 
+
+.explorer-close {
+    display: none;
+    padding: .9em;
+    border-bottom:1px solid rgba(200, 200, 200, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        color: white;
+    }
+}
+
 /* Explorer open condition, widens navigation area */
 body.explorer-open {
     .wrapper{
@@ -221,13 +233,15 @@ body.explorer-open {
 
     .explorer{
         display:block;
-        border-top:1px solid rgba(200,200,200,0.1);
+    }
 
-        &:before{
-            position:absolute;
-            top:-3em;
-            content:"Close explorer";
-            padding:0.9em;
+    .explorer-close {
+        display: block;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile) {
+        .explorer-close {
+            display: none;
         }
     }
 }

@@ -7,7 +7,7 @@
 	padding-left: 0px;
 	padding-top: 2px;
 	position: absolute;
-	z-index: 9999;
+	z-index: 1;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	display:none;
@@ -98,7 +98,7 @@
 			content:"n";
 		}
 	}
-	
+
 	.xdsoft_timepicker{
 		width: 70px;
 		float:left;
@@ -153,7 +153,7 @@
 			}
 		}
 	}
-		
+
 	.xdsoft_label{
 		display: inline;
 	    position: relative;
@@ -184,16 +184,16 @@
 			background:#fff;
 			max-height:160px;
 			overflow-y:hidden;
-			
+
 			&.xdsoft_monthselect{right:-7px;}
 			&.xdsoft_yearselect{right:2px;}
-			
+
 			> div > .xdsoft_option:hover{
 				color: #fff;
 			    background: #ff8000;
 			}
 			> div > .xdsoft_option{
-				padding:2px 15px 2px 5px; 
+				padding:2px 15px 2px 5px;
 			}
 			> div > .xdsoft_option.xdsoft_current{
 				background: #33AAFF;
@@ -213,7 +213,7 @@
 	}
 	.xdsoft_calendar{
 		clear:both;
-		
+
 		table{
 			border-collapse:collapse;
 		}
@@ -256,7 +256,7 @@
 		opacity:0.5;
 		background:$color-grey-3;
 	}
-	
+
 	.xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled{
 		opacity:0.2;
 	}
