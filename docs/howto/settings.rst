@@ -1,4 +1,3 @@
-
 ==============================
 Configuring Django for Wagtail
 ==============================
@@ -173,7 +172,7 @@ The search settings customize the search results templates as well as choosing a
 Embeds
 ------
 
-Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (youtube, vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function. 
+Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (Youtube, Vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function. 
 
 .. code-block:: python
 

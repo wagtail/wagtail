@@ -29,7 +29,7 @@ Signal handlers
 
     Signal handlers are now automatically registered in Django 1.7 and upwards
 
-Wagtailsearch provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
+``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``.
 
 If you are using Django version 1.7 or newer, these signal handlers are automatically registered when the ``wagtail.wagtailsearch`` app is loaded. Otherwise, they must be registered as your application starts up. This can be done by placing the following code in your ``urls.py``:
 
@@ -101,9 +101,9 @@ These are added to the search index and are used for performing full-text search
 Options
 ```````
 
- - **partial_match** (boolean) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default so a page titled "Hello World!" will be found if the user only types "Hel" into the search box.
- - **boost** (number) - This allows you to set fields as being more important than others. Setting this to a high number on a field will make pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
- - **es_extra** (dict) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
+ - **partial_match** (``boolean``) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default so a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
+ - **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will make pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
+ - **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
 
 ``index.FilterField``
