@@ -30,7 +30,7 @@ msgstr "URL"
 
 #: templates/wagtailembeds/chooser/chooser.html:3
 msgid "Insert embed"
-msgstr "Insertar embed"
+msgstr "Insertar embebido"
 
 #: templates/wagtailembeds/chooser/chooser.html:14
 msgid "Insert"
