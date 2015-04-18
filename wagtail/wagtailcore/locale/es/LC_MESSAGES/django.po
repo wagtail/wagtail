@@ -47,6 +47,8 @@ msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
+"%(hostname)s ya está configurado como sitio por defecto. Debes quitarlo de configuración "
+"antes de que puedas guardarlo como sitio por defecto."
 
 #: models.py:267
 msgid "The page title as you'd like it to be seen by the public"
@@ -79,16 +81,16 @@ msgstr "Un enlace a esta página aparecerá en menús generados automáticamente
 
 #: models.py:281
 msgid "Go live date/time"
-msgstr ""
+msgstr "Ir a una fecha/hora activa"
 
 #: models.py:281 models.py:282
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm:ss."
-msgstr ""
+msgstr "Por favor añade fecha-hora en el formato YYYY-MM-DD hh:mm:ss."
 
 #: models.py:282
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Fecha/Hora de Expiración"
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "El valor no puede consistir enteramente de espacios en blancos"
