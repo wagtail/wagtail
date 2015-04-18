@@ -37,7 +37,7 @@ msgstr ""
 
 #: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
-msgstr ""
+msgstr "Por favor especifíca al menos una recomendación para la búsqueda de este término."
 
 #: templates/wagtailsearch/editorspicks/add.html:3
 #: templates/wagtailsearch/editorspicks/add.html:5
@@ -53,6 +53,12 @@ msgid ""
 "common term \"<em>giving</em>\".</p>\n"
 "            "
 msgstr ""
+"\n"
+"                <p>Resultados de búsqueda promovidos significa que se recomienda  "
+"específicas que podrían no venir orgánicamente en la parte superior de en resultados de búsquedas. Por"
+"ejemplo, recomendar tu página de donaciones principal al usario que busque con al menos "
+"un término común \"<em>dado</em>\".</p>\n"
+"            "
 
 #: templates/wagtailsearch/editorspicks/add.html:14
 msgid ""
@@ -63,6 +69,12 @@ msgid ""
 "search terms that have been popular with users of your site.</p>\n"
 "            "
 msgstr ""
+"\n"
+"                <p>El campo \"Términos(s) de Búsqueda/phrase\" inferior debe contener "
+"a búsqueda completa y exacta para la que desea proporcionar resultados recomendados, "
+"<em>incluyendo</em> cualquier error de ortografía o uso. Para ayudarte, puedes escoger de los siguientes"
+"términos de búsqueda que han sido populares entre los usuarios de tu sitio.</p>\n"
+"            "
 
 #: templates/wagtailsearch/editorspicks/add.html:28
 #: templates/wagtailsearch/editorspicks/edit.html:19
@@ -81,7 +93,6 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #: templates/wagtailsearch/editorspicks/confirm_delete.html:9
-#, fuzzy
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
@@ -111,7 +122,7 @@ msgstr "Bajar"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_form.html:10
 msgid "Promoted search result"
-msgstr ""
+msgstr "Resultado de búsqueda promovidos"
 
 #: templates/wagtailsearch/editorspicks/includes/editorspicks_formset.html:16
 msgid "Add recommended page"
@@ -123,11 +134,11 @@ msgstr "Términos de búsqueda"
 
 #: templates/wagtailsearch/editorspicks/index.html:17 wagtail_hooks.py:25
 msgid "Promoted search results"
-msgstr ""
+msgstr "Resultados de búsqueda promovidos""
 
 #: templates/wagtailsearch/editorspicks/index.html:18
 msgid "Add new promoted result"
-msgstr ""
+msgstr "Añadir un nuevo resiltado promovido"
 
 #: templates/wagtailsearch/editorspicks/list.html:8
 msgid "Search term(s)"
@@ -135,7 +146,7 @@ msgstr "Término(s) de búsqueda"
 
 #: templates/wagtailsearch/editorspicks/list.html:9
 msgid "Promoted results"
-msgstr ""
+msgstr "Resultados promovidos"
 
 #: templates/wagtailsearch/editorspicks/list.html:10
 #: templates/wagtailsearch/queries/chooser/results.html:8
@@ -203,7 +214,7 @@ msgstr "No hay resultados"
 
 #: templates/wagtailsearch/queries/chooser_field.html:3
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: templates/wagtailsearch/queries/chooser_field.html:8
 #, fuzzy
@@ -228,7 +239,7 @@ msgstr "Editando"
 
 #: views/editorspicks.py:89
 msgid "Recommendations have not been created due to errors"
-msgstr ""
+msgstr "Las recomendaciones no se han creado debido a errores"
 
 #: views/editorspicks.py:116
 #, python-brace-format
@@ -237,7 +248,7 @@ msgstr "Selecciones del editor para '{0}' actualizadas."
 
 #: views/editorspicks.py:124
 msgid "Recommendations have not been saved due to errors"
-msgstr ""
+msgstr "Las recomendaciones no se han guardado debido a errores"
 
 #: views/editorspicks.py:142
 msgid "Editor's picks deleted."
