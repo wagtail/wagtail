@@ -13,13 +13,13 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def live(self):
         """
-        This filters the queryset to only contain published pages.
+        This filters the QuerySet to only contain published pages.
         """
         return self.filter(self.live_q())
 
     def not_live(self):
         """
-        This filters the queryset to only contain unpublished pages.
+        This filters the QuerySet to only contain unpublished pages.
         """
         return self.exclude(self.live_q())
 
@@ -28,7 +28,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def in_menu(self):
         """
-        This filters the queryset to only contain pages that are in the menus.
+        This filters the QuerySet to only contain pages that are in the menus.
         """
         return self.filter(self.in_menu_q())
 
@@ -40,13 +40,13 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def page(self, other):
         """
-        This filters the queryset so it only contains the specified page.
+        This filters the QuerySet so it only contains the specified page.
         """
         return self.filter(self.page_q(other))
 
     def not_page(self, other):
         """
-        This filters the queryset so it doesn't contain the specified page.
+        This filters the QuerySet so it doesn't contain the specified page.
         """
         return self.exclude(self.page_q(other))
 
@@ -60,7 +60,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def descendant_of(self, other, inclusive=False):
         """
-        This filters the queryset to only contain pages that descend from the specified page.
+        This filters the QuerySet to only contain pages that descend from the specified page.
 
         If inclusive is set to True, it will also contain the page itself (instead of just its descendants).
         """
@@ -68,7 +68,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def not_descendant_of(self, other, inclusive=False):
         """
-        This filters the queryset to not contain any pages that descend from the specified page.
+        This filters the QuerySet to not contain any pages that descend from the specified page.
 
         If inclusive is set to True, it will also exclude the specified page.
         """
@@ -79,13 +79,13 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def child_of(self, other):
         """
-        This filters the queryset to only contain pages that are direct children of the specified page.
+        This filters the QuerySet to only contain pages that are direct children of the specified page.
         """
         return self.filter(self.child_of_q(other))
 
     def not_child_of(self, other):
         """
-        This filters the queryset to not contain any pages that are direct children of the specified page.
+        This filters the QuerySet to not contain any pages that are direct children of the specified page.
         """
         return self.exclude(self.child_of_q(other))
 
@@ -103,7 +103,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def ancestor_of(self, other, inclusive=False):
         """
-        This filters the queryset to only contain pages that are ancestors of the specified page.
+        This filters the QuerySet to only contain pages that are ancestors of the specified page.
 
         If inclusive is set to True, it will also include the specified page.
         """
@@ -111,7 +111,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def not_ancestor_of(self, other, inclusive=False):
         """
-        This filters the queryset to not contain any pages that are ancestors of the specified page.
+        This filters the QuerySet to not contain any pages that are ancestors of the specified page.
 
         If inclusive is set to True, it will also exclude the specified page.
         """
@@ -136,7 +136,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def sibling_of(self, other, inclusive=True):
         """
-        This filters the queryset to only contain pages that are siblings of the specified page.
+        This filters the QuerySet to only contain pages that are siblings of the specified page.
 
         By default, inclusive is set to True so it will include the specified page in the results.
 
@@ -146,7 +146,7 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def not_sibling_of(self, other, inclusive=True):
         """
-        This filters the queryset to not contain any pages that are siblings of the specified page.
+        This filters the QuerySet to not contain any pages that are siblings of the specified page.
 
         By default, inclusive is set to True so it will exclude the specified page from the results.
 
@@ -164,13 +164,13 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def type(self, model):
         """
-        This filters the queryset to only contain pages that are an instance of the specified model (including subclasses).
+        This filters the QuerySet to only contain pages that are an instance of the specified model (including subclasses).
         """
         return self.filter(self.type_q(model))
 
     def not_type(self, model):
         """
-        This filters the queryset to not contain any pages which are an instance of the specified model.
+        This filters the QuerySet to not contain any pages which are an instance of the specified model.
         """
         return self.exclude(self.type_q(model))
 
@@ -184,25 +184,25 @@ class PageQuerySet(MP_NodeQuerySet):
 
     def public(self):
         """
-        This filters the queryset to only contain pages that are not in a private section
+        This filters the QuerySet to only contain pages that are not in a private section
         """
         return self.filter(self.public_q())
 
     def not_public(self):
         """
-        This filters the queryset to only contain pages that are in a private section
+        This filters the QuerySet to only contain pages that are in a private section
         """
         return self.exclude(self.public_q())
 
     def search(self, query_string, fields=None, backend='default'):
         """
-        This runs a search query on all the pages in the queryset
+        This runs a search query on all the pages in the QuerySet
         """
         search_backend = get_search_backend(backend)
         return search_backend.search(query_string, self, fields=None)
 
     def unpublish(self):
         """
-        This unpublishes all pages in the queryset
+        This unpublishes all pages in the QuerySet
         """
         self.update(live=False, has_unpublished_changes=True)
