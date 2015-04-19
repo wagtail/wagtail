@@ -119,7 +119,7 @@ pygments_style = 'sphinx'
 
 # splhinxcontrib.spelling settings
 
-spelling_lang = 'en_US'
+spelling_lang = 'en_GB'
 spelling_word_list_filename='spelling_wordlist.txt'
 
 
