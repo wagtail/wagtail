@@ -20,7 +20,7 @@ You firstly need to add ``"wagtail.contrib.wagtailsitemaps"`` to INSTALLED_APPS 
     ]
 
 
-Then, in urls.py, you need to add a link to the ``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the sitemap:
+Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the sitemap:
 
 .. code-block:: python
 

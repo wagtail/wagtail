@@ -41,7 +41,7 @@ types, in one step. As the root user::
   curl -O https://raw.githubusercontent.com/torchbox/wagtail/master/scripts/install/ubuntu.sh; bash ubuntu.sh
 
 This script installs all the dependencies for a production-ready Wagtail site,
-including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
+including PostgreSQL, Redis, Elasticsearch, Nginx and uWSGI. We
 recommend you check through the script before running it, and adapt it according
 to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/ubuntu.sh
@@ -58,7 +58,7 @@ step. As the root user::
   curl -O https://raw.githubusercontent.com/torchbox/wagtail/master/scripts/install/debian.sh; bash debian.sh
 
 This script installs all the dependencies for a production-ready Wagtail site,
-including PostgreSQL, Redis, Elasticsearch, Nginx and uwsgi. We
+including PostgreSQL, Redis, Elasticsearch, Nginx and uWSGI. We
 recommend you check through the script before running it, and adapt it according
 to your deployment preferences. The canonical version is at
 `github.com/torchbox/wagtail/blob/master/scripts/install/debian.sh
