@@ -84,7 +84,7 @@ Admin
  * Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
- * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails log in view (making it easier to have frontend log in views)
+ * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
  * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
  * Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
  * Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
@@ -219,7 +219,7 @@ should work fine without them.
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-It was previously possible to reverse the Wagtail log in view using ``django.contrib.auth.views.login``.
+It was previously possible to reverse the Wagtail login view using ``django.contrib.auth.views.login``.
 This is no longer possible. Update any references to ``wagtailadmin_login``.
 
 Password reset view name has changed from ``password_reset`` to ``wagtailadmin_password_reset``.
