@@ -159,8 +159,8 @@ Wagtail embeds and images are included at their full width, which may overflow t
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
-pageurl
---------
+``pageurl``
+-----------
 
 Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 

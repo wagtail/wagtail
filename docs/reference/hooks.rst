@@ -30,7 +30,7 @@ The available hooks are:
 
 ``before_serve_page``
 
-  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the args and kwargs that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
+  Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the ``args`` and ``kwargs`` that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
 
   .. code-block:: python
 

@@ -20,7 +20,7 @@ You firstly need to add ``"wagtail.contrib.wagtailsitemaps"`` to INSTALLED_APPS 
     ]
 
 
-Then, in urls.py, you need to add a link to the ``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the sitemap:
+Then, in ``urls.py``, you need to add a link to the ``wagtail.contrib.wagtailsitemaps.views.sitemap`` view which generates the sitemap:
 
 .. code-block:: python
 
@@ -33,7 +33,7 @@ Then, in urls.py, you need to add a link to the ``wagtail.contrib.wagtailsitemap
     ]
 
 
-You should now be able to browse to "/sitemap.xml" and see the sitemap working. By default, all published pages in your website will be added to the site map.
+You should now be able to browse to ``/sitemap.xml`` and see the sitemap working. By default, all published pages in your website will be added to the site map.
 
 
 Customising
@@ -42,7 +42,7 @@ Customising
 URLs
 ----
 
-The Page class defines a ``get_sitemap_urls`` method which you can override to customise sitemaps per page instance. This method must return a list of dictionaries, one dictionary per URL entry in the sitemap. You can exclude pages from the sitemap by returning an empty list.
+The ``Page`` class defines a ``get_sitemap_urls`` method which you can override to customise sitemaps per ``Page`` instance. This method must return a list of dictionaries, one dictionary per URL entry in the sitemap. You can exclude pages from the sitemap by returning an empty list.
 
 Each dictionary can contain the following:
 

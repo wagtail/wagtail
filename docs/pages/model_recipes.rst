@@ -78,7 +78,7 @@ Wagtail routes requests by iterating over the path components (separated with a 
 
 ``route()`` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling ``route()`` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
 
-The ``RouteResult`` object (defined in wagtail.wagtailcore.url_routing) encapsulates all the information Wagtail needs to call a page's ``serve()`` method and return a final response: this information consists of the page object, and any additional args / kwargs to be passed to ``serve()``.
+The ``RouteResult`` object (defined in wagtail.wagtailcore.url_routing) encapsulates all the information Wagtail needs to call a page's ``serve()`` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to ``serve()``.
 
 By overriding the ``route()`` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
 

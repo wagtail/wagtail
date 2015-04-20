@@ -1,4 +1,3 @@
-
 ==============================
 Configuring Django for Wagtail
 ==============================
@@ -24,8 +23,8 @@ From your app directory, you can safely remove ``admin.py`` and ``views.py``, si
 What follows is a settings reference which skips many boilerplate Django settings. If you just want to get your Wagtail install up quickly without fussing with settings at the moment, see :ref:`complete_example_config`.
 
 
-Middleware (settings.py)
-~~~~~~~~~~~~~~~~~~~~~~~~
+Middleware (``settings.py``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -137,8 +136,8 @@ Wagtail Apps
   Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.
 
 
-Settings Variables (settings.py)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Settings Variables (``settings.py``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Site Name
 ---------
@@ -167,13 +166,13 @@ Search
     }
   }
 
-The search settings customize the search results templates as well as choosing a custom backend for search. For a full explanation, see :ref:`search`.
+The search settings customise the search results templates as well as choosing a custom backend for search. For a full explanation, see :ref:`search`.
 
 
 Embeds
 ------
 
-Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (youtube, vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function. 
+Wagtail uses the oEmbed standard with a large but not comprehensive number of "providers" (Youtube, Vimeo, etc.). You can also use a different embed backend by providing an Embedly key or replacing the embed backend by writing your own embed finder function. 
 
 .. code-block:: python
 
@@ -289,14 +288,14 @@ That's not everything you might want to include in your project's urlconf, but i
 
 .. _complete_example_config:
 
-Ready to Use Example Config Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ready to Use Example Configuration Files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These two files should reside in your project directory (``myproject/myproject/``).
 
 
-settings.py
------------
+``settings.py``
+---------------
 
 .. code-block:: python
 
@@ -511,8 +510,8 @@ settings.py
   # EMBEDLY_KEY = '253e433d59dc4d2xa266e9e0de0cb830'
 
 
-urls.py
--------
+``urls.py``
+-----------
 
 .. code-block:: python
 

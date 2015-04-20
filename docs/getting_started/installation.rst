@@ -78,11 +78,11 @@ For the best possible performance and feature set, we recommend setting up the f
 
 PostgreSQL
 ----------
-PostgreSQL is a mature database engine suitable for production use, and is recommended by the Django development team. Non-Vagrant users will need to install the PostgreSQL development headers in addition to Postgres itself; on Debian or Ubuntu, this can be done with the following command::
+PostgreSQL is a mature database engine suitable for production use, and is recommended by the Django development team. Non-Vagrant users will need to install the PostgreSQL development headers in addition to PostgreSQL itself; on Debian or Ubuntu, this can be done with the following command::
 
     sudo apt-get install postgresql postgresql-server-dev-all
 
-To enable Postgres for your project, uncomment the ``psycopg2`` line from your project's requirements.txt, and in ``myprojectname/settings/base.py``, uncomment the DATABASES section for PostgreSQL, commenting out the SQLite one instead. Then run::
+To enable PostgreSQL for your project, uncomment the ``psycopg2`` line from your project's requirements.txt, and in ``myprojectname/settings/base.py``, uncomment the DATABASES section for PostgreSQL, commenting out the SQLite one instead. Then run::
 
     pip install -r requirements.txt
     createdb -Upostgres myprojectname

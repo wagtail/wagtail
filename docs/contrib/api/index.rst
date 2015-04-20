@@ -1,7 +1,7 @@
 Wagtail API
 ===========
 
-The wagtailapi module can be used to create a read-only, JSON-based API for public Wagtail content.
+The ``wagtailapi`` module can be used to create a read-only, JSON-based API for public Wagtail content.
 
 There are three endpoints to the API:
 

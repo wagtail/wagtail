@@ -9,7 +9,7 @@ Wagtail provides a highly-customizable editing interface consisting of several c
   * **Panels** — the basic editing blocks for fields, groups of fields, and related object clusters
   * **Choosers** — interfaces for finding related objects in a ForeignKey relationship
 
-Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customization, including extending the hallo.js rich text editor.
+Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customization, including extending the ``hallo.js`` rich text editor.
 
 There is also an Edit Handler API for creating your own Wagtail editor components.
 
@@ -412,7 +412,7 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
 Extending the WYSIWYG Editor (hallo.js)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To inject javascript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
 
 .. code-block:: javascript
 

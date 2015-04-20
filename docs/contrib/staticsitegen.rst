@@ -1,7 +1,7 @@
 Generating a static site
 ========================
 
-This document describes how to render your Wagtail site into static HTML files on your local filesystem, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
+This document describes how to render your Wagtail site into static HTML files on your local file system, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
 
 .. note::
 
@@ -38,9 +38,9 @@ Define ``MEDUSA_RENDERER_CLASS`` and ``MEDUSA_DEPLOY_DIR`` in settings:
 Rendering
 ~~~~~~~~~
 
-To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called 'medusa_output'. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits ``django-medusa``'s ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
+To render a site, run ``./manage.py staticsitegen``. This will render the entire website and place the HTML in a folder called ``medusa_output``. The static and media folders need to be copied into this folder manually after the rendering is complete. This feature inherits ``django-medusa``'s ability to render your static site to Amazon S3 or Google App Engine; see the `medusa docs <https://github.com/mtigas/django-medusa/blob/master/README.markdown>`_ for configuration details.
 
-To test, open the 'medusa_output' folder in a terminal and run ``python -m SimpleHTTPServer``.
+To test, open the ``medusa_output`` folder in a terminal and run ``python -m SimpleHTTPServer``.
 
 
 Advanced topics
@@ -51,7 +51,7 @@ GET parameters
 
 Pages which require GET parameters (e.g. for pagination) don't generate suitable filenames for generated HTML files.
 
-Wagtail provides a mixin (``wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin``) which allows you to embed a Django url configuration into a page. This allows you to give the subpages a URL like ``/page/1/`` which work well with static site generation.
+Wagtail provides a mixin (``wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin``) which allows you to embed a Django URL configuration into a page. This allows you to give the subpages a URL like ``/page/1/`` which work well with static site generation.
 
 
 Example:
@@ -94,7 +94,7 @@ Next, you have to tell the ``wagtailmedusa`` module about your custom routing...
 Rendering pages which use custom routing
 ----------------------------------------
 
-For page types that override the ``route`` method, we need to let django medusa know which URLs it responds on. This is done by overriding the ``get_static_site_paths`` method to make it yield one string per URL path.
+For page types that override the ``route`` method, we need to let ``django-medusa`` know which URLs it responds on. This is done by overriding the ``get_static_site_paths`` method to make it yield one string per URL path.
 
 For example, the BlogIndex above would need to yield one URL for each page of results:
 
