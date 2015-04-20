@@ -4,6 +4,7 @@ from six import b
 import unittest
 import mock
 from bs4 import BeautifulSoup
+import os.path
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -11,6 +12,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.test.utils import override_settings
+from django.conf import settings
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page
@@ -583,6 +585,34 @@ class TestServeView(TestCase):
     def test_with_incorrect_filename(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
         self.assertEqual(response.status_code, 404)
+
+    def clear_sendfile_cache(self):
+        from sendfile import _get_sendfile
+        _get_sendfile.clear()
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.xsendfile')
+    def test_sendfile_xsendfile_backend(self):
+        self.clear_sendfile_cache()
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['X-Sendfile'], os.path.join(settings.MEDIA_ROOT, self.document.file.name))
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.mod_wsgi', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    def test_sendfile_mod_wsgi_backend(self):
+        self.clear_sendfile_cache()
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Location'], os.path.join(settings.MEDIA_URL, self.document.file.name))
+
+    @override_settings(SENDFILE_BACKEND='sendfile.backends.nginx', SENDFILE_ROOT=settings.MEDIA_ROOT, SENDFILE_URL=settings.MEDIA_URL[:-1])
+    def test_sendfile_nginx_backend(self):
+        self.clear_sendfile_cache()
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['X-Accel-Redirect'], os.path.join(settings.MEDIA_URL, self.document.file.name))
 
 
 class TestServeWithUnicodeFilename(TestCase):
