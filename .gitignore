@@ -8,3 +8,4 @@
 /docs/_build/
 /.tox/
 /venv
+/node_modules/

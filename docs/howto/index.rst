@@ -10,5 +10,4 @@ How to
     performance
     multilingual_sites
     custom_branding
-    contributing
     third_party_tutorials
