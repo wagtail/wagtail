@@ -4,7 +4,7 @@ $(function(){
     /* 
     *   Expected JSON payload:
     *   {
-    *       "version" : "1.2.3"    // Version number. Can only contain numbers and decimal point.
+    *       "version" : "1.2.3",    // Version number. Can only contain numbers and decimal point.
     *       "url" : "https://wagtail.io"  // Absolute URL to page/file containing release notes or actual package. It's up to you.
     *   }
     */    
