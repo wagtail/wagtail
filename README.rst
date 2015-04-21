@@ -75,6 +75,6 @@ We suggest you start by checking the `Help develop me! <https://github.com/torch
 
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
 
-We also welcome `translations <http://wagtail.readthedocs.org/en/latest/howto/contributing.html#translations>`_ for Wagtail's interface.
+We also welcome `translations <http://docs.wagtail.io/en/latest/contributing/developing.html#translations>`_ for Wagtail's interface.
 
 We run a separate Wagtail developers group here: https://groups.google.com/forum/#!forum/wagtail-developers please not that this is not for support requests.
