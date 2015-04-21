@@ -1,0 +1,15 @@
+============================================
+Wagtail 0.8.7 release notes - IN DEVELOPMENT
+============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* ``wagtailfrontendcache`` no longer tries to purge pages that are not in a site
