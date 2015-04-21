@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 13:05+0100\n"
-"PO-Revision-Date: 2015-04-17 11:49+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-04-21 17:11+0200\n"
+"PO-Revision-Date: 2015-04-21 17:13+0100\n"
+"Last-Translator: Benoit Bar <benoit.bar@scopart.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -20,14 +20,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: models.py:53
 msgid "Hostname"
-msgstr ""
+msgstr "Nom d'hôte"
 
 #: models.py:54
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: models.py:54
 msgid ""
@@ -42,11 +43,11 @@ msgstr ""
 
 #: models.py:55
 msgid "Root page"
-msgstr ""
+msgstr "Page racine"
 
 #: models.py:56
 msgid "Is default site"
-msgstr ""
+msgstr "Site par défaut"
 
 #: models.py:56
 msgid ""
@@ -56,7 +57,11 @@ msgstr ""
 "Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
 "pas de site défini."
 
-#: models.py:117
+#: models.py:60
+msgid "Site"
+msgstr "Site"
+
+#: models.py:118
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -67,7 +72,7 @@ msgstr ""
 
 #: models.py:266
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
@@ -75,7 +80,7 @@ msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
 
 #: models.py:267
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: models.py:267
 msgid ""
@@ -84,6 +89,26 @@ msgid ""
 msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
+
+#: models.py:270
+msgid "Content type"
+msgstr "Type de contenu"
+
+#: models.py:271
+msgid "Live"
+msgstr "Publiée"
+
+#: models.py:272
+msgid "Has unpublished changes"
+msgstr "Contient des changements non publiés"
+
+#: models.py:273
+msgid "URL path"
+msgstr "URL"
+
+#: models.py:274
+msgid "Owner"
+msgstr "Auteur"
 
 #: models.py:276
 msgid "Page title"
@@ -99,7 +124,7 @@ msgstr ""
 
 #: models.py:277
 msgid "Show in menus"
-msgstr ""
+msgstr "Faire apparaître dans les menus"
 
 #: models.py:277
 msgid ""
@@ -110,7 +135,7 @@ msgstr ""
 
 #: models.py:278
 msgid "Search description"
-msgstr ""
+msgstr "Description pour moteurs de recherche"
 
 #: models.py:280
 msgid "Go live date/time"
@@ -123,6 +148,22 @@ msgstr "Veuillez ajouter une date/heure au format YYYY-MM-DD hh:mm."
 #: models.py:281
 msgid "Expiry date/time"
 msgstr "Date/heure d'expiration"
+
+#: models.py:282
+msgid "Expired"
+msgstr "Expirée"
+
+#: models.py:284
+msgid "Locked"
+msgstr "Verrouillé"
+
+#: models.py:286
+msgid "First published at"
+msgstr "Première publication le"
+
+#: models.py:287
+msgid "Latest revision created at"
+msgstr "Dernière version créée le"
 
 #: models.py:710
 msgid "expired"
@@ -148,37 +189,69 @@ msgstr "publiée"
 msgid "Default"
 msgstr "Par défaut"
 
-#: models.py:1166
+#: models.py:1061 models.py:1178 models.py:1405
+msgid "Page"
+msgstr "Page"
+
+#: models.py:1062
+msgid "Submitted for moderation"
+msgstr "Soumettre pour modération"
+
+#: models.py:1063
+msgid "Created at"
+msgstr "Créé le"
+
+#: models.py:1064
+msgid "User"
+msgstr "Utilisateur"
+
+#: models.py:1065
+msgid "Content JSON"
+msgstr "Contenu JSON"
+
+#: models.py:1066
+msgid "Approved go live at"
+msgstr "Approuvée le"
+
+#: models.py:1165
+msgid "Page Revision"
+msgstr "Version de page"
+
+#: models.py:1169
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
 
-#: models.py:1167
+#: models.py:1170
 msgid "Add/edit any page"
 msgstr "Ajouter/modifier n'importe quelle page"
 
-#: models.py:1168
+#: models.py:1171
 msgid "Publish any page"
 msgstr "Publier n'importe quelle page"
 
-#: models.py:1169
+#: models.py:1172
 msgid "Lock/unlock any page"
 msgstr "Verrouiller/déverrouiller n'importe quelle page"
 
-#: models.py:1174
+#: models.py:1177
 msgid "Group"
-msgstr ""
+msgstr "Group"
 
-#: models.py:1175 models.py:1401
-msgid "Page"
-msgstr ""
-
-#: models.py:1176
+#: models.py:1179
 msgid "Permission type"
-msgstr ""
+msgstr "Type de permission"
 
-#: models.py:1402
+#: models.py:1183
+msgid "Group Page Permission"
+msgstr "Permission de page par groupe"
+
+#: models.py:1406
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
+
+#: models.py:1409
+msgid "Page View Restriction"
+msgstr "Confidentialité de page"
 
 #: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
