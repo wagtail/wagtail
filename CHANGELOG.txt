@@ -47,6 +47,11 @@ Changelog
  * Fix: Prevent logout on changing password when SessionAuthenticationMiddleware is in use
 
 
+0.8.7 (xx.xx.2015)
+~~~~~~~~~~~~~~~~~~
+* Fix: wagtailfrontendcache no longer tries to purge pages that are not in a site
+
+
 0.8.6 (10.03.2015)
 ~~~~~~~~~~~~~~~~~~
 * Translations updated, including new translations for Czech, Italian and Japanese

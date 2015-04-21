@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    1.0
+   0.8.7
    0.8.6
    0.8.5
    0.8.4
