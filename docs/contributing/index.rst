@@ -1,5 +1,5 @@
 Contributing to Wagtail
-======
+=======================
 
 
 .. toctree::
