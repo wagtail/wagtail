@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:39+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,22 @@ msgstr ""
 
 #: forms.py:38
 msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+
+#: models.py:73
+msgid "Query Daily Hits"
+msgstr ""
+
+#: models.py:78
+msgid "Page"
+msgstr ""
+
+#: models.py:80
+msgid "Description"
+msgstr ""
+
+#: models.py:87
+msgid "Editor's Pick"
 msgstr ""
 
 #: templates/wagtailsearch/editorspicks/add.html:3
