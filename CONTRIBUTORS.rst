@@ -46,6 +46,7 @@ Contributors
 * Martin Sanders
 * Benoît Bar
 * Claudemiro
+* Tiago Henriques
 
 Translators
 ===========
