@@ -127,9 +127,10 @@ class DbWhitelister(Whitelister):
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
             tag.attrs.update(**link_attrs)
-        elif tag.name == 'div':
-            tag.name = 'p'
         else:
+            if tag.name == 'div':
+                tag.name = 'p'
+
             super(DbWhitelister, cls).clean_tag_node(doc, tag)
 
 
