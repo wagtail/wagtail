@@ -1,8 +1,11 @@
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.wagtailcore.models import Page
+from wagtail.tests.testapp.models import EventIndex
+
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend
+from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
 
 
 class TestBackendConfiguration(TestCase):
@@ -76,3 +79,44 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(set(backends.keys()), set(['default']))
         self.assertIsInstance(backends['default'], HTTPBackend)
         self.assertEqual(backends['default'].cache_location, 'http://localhost:8000')
+
+
+PURGED_URLS = []
+
+
+class MockBackend(BaseBackend):
+    def __init__(self, config):
+        pass
+
+    def purge(self, url):
+        PURGED_URLS.append(url)
+
+
+@override_settings(WAGTAILFRONTENDCACHE={
+    'varnish': {
+        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.tests.MockBackend',
+    },
+})
+class TestCachePurging(TestCase):
+
+    fixtures = ['test.json']
+
+    def test_purge_on_publish(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        page = EventIndex.objects.get(url_path='/home/events/')
+        page.save_revision().publish()
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/'])
+
+    def test_purge_on_unpublish(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        page = EventIndex.objects.get(url_path='/home/events/')
+        page.unpublish()
+        self.assertEqual(PURGED_URLS, ['http://localhost/events/'])
+
+    def test_purge_with_unroutable_page(self):
+        PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
+        root = Page.objects.get(url_path='/')
+        page = EventIndex(title='new top-level page', slug='new-top-level-page')
+        root.add_child(instance=page)
+        page.save_revision().publish()
+        self.assertEqual(PURGED_URLS, [])
