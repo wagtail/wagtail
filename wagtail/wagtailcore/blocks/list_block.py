@@ -99,7 +99,7 @@ class ListBlock(Block):
                 continue
             values_with_indexes.append(
                 (
-                    data['%s-%d-order' % (prefix, i)],
+                    int(data['%s-%d-order' % (prefix, i)]),
                     self.child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i))
                 )
             )
