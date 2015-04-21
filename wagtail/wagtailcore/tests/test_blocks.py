@@ -609,7 +609,7 @@ class TestListBlock(unittest.TestCase):
 
         self.assertEqual(content, ["Wagtail", "Django"])
 
-    def test_ordering_in_form_submission(self):
+    def test_ordering_in_form_submission_uses_order_field(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
         # check that items are ordered by the 'order' field, not the order they appear in the form
@@ -623,6 +623,9 @@ class TestListBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
         self.assertEqual(block_value[2], "item 0")
+
+    def test_ordering_in_form_submission_is_numeric(self):
+        block = blocks.ListBlock(blocks.CharBlock())
 
         # check that items are ordered by 'order' numerically, not alphabetically
         post_data = {'shoppinglist-count': '12'}
@@ -852,7 +855,7 @@ class TestStreamBlock(unittest.TestCase):
         block = ArticleBlock()
         self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
-    def test_ordering_in_form_submission(self):
+    def test_ordering_in_form_submission_uses_order_field(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
@@ -871,6 +874,13 @@ class TestStreamBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'article')
         self.assertEqual(block_value[2].value, "heading 0")
+
+    def test_ordering_in_form_submission_is_numeric(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
 
         # check that items are ordered by 'order' numerically, not alphabetically
         post_data = {'article-count': '12'}
