@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,22 +61,66 @@ msgstr ""
 msgid "Date/time"
 msgstr ""
 
-#: models.py:63
+#: models.py:49
+msgid "Submit time"
+msgstr ""
+
+#: models.py:58
+msgid "Form Submission"
+msgstr ""
+
+#: models.py:64
+msgid "Label"
+msgstr ""
+
+#: models.py:66
 msgid "The label of the form field"
 msgstr ""
 
+#: models.py:68
+msgid "Field type"
+msgstr ""
+
+#: models.py:69
+msgid "Required"
+msgstr ""
+
 #: models.py:70
+msgid "Choices"
+msgstr ""
+
+#: models.py:73
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
 #: models.py:75
+msgid "Default value"
+msgstr ""
+
+#: models.py:78
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
-#: models.py:188
+#: models.py:80
+msgid "Help text"
+msgstr ""
+
+#: models.py:191
+msgid "To address"
+msgstr ""
+
+#: models.py:191
 msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+
+#: models.py:192
+msgid "From address"
+msgstr ""
+
+#: models.py:193
+msgid "Subject"
 msgstr ""
 
 #: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:38+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,11 +81,11 @@ msgstr ""
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:74
+#: forms.py:74 models.py:62
 msgid "Width"
 msgstr ""
 
-#: forms.py:75
+#: forms.py:75 models.py:63
 msgid "Height"
 msgstr ""
 
@@ -99,6 +99,14 @@ msgstr ""
 
 #: models.py:61
 msgid "File"
+msgstr ""
+
+#: models.py:64
+msgid "Created at"
+msgstr ""
+
+#: models.py:65
+msgid "Uploaded by user"
 msgstr ""
 
 #: models.py:67

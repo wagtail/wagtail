@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 13:05+0100\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,11 @@ msgid ""
 "have a site entry of their own"
 msgstr ""
 
-#: models.py:117
+#: models.py:60
+msgid "Site"
+msgstr ""
+
+#: models.py:118
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -69,6 +73,26 @@ msgstr ""
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
+msgstr ""
+
+#: models.py:270
+msgid "Content type"
+msgstr ""
+
+#: models.py:271
+msgid "Live"
+msgstr ""
+
+#: models.py:272
+msgid "Has unpublished changes"
+msgstr ""
+
+#: models.py:273
+msgid "URL path"
+msgstr ""
+
+#: models.py:274
+msgid "Owner"
 msgstr ""
 
 #: models.py:276
@@ -106,6 +130,22 @@ msgstr ""
 msgid "Expiry date/time"
 msgstr ""
 
+#: models.py:282
+msgid "Expired"
+msgstr ""
+
+#: models.py:284
+msgid "Locked"
+msgstr ""
+
+#: models.py:286
+msgid "First published at"
+msgstr ""
+
+#: models.py:287
+msgid "Latest revision created at"
+msgstr ""
+
 #: models.py:710
 msgid "expired"
 msgstr ""
@@ -130,36 +170,68 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: models.py:1166
-msgid "Add/edit pages you own"
-msgstr ""
-
-#: models.py:1167
-msgid "Add/edit any page"
-msgstr ""
-
-#: models.py:1168
-msgid "Publish any page"
-msgstr ""
-
-#: models.py:1169
-msgid "Lock/unlock any page"
-msgstr ""
-
-#: models.py:1174
-msgid "Group"
-msgstr ""
-
-#: models.py:1175 models.py:1401
+#: models.py:1061 models.py:1178 models.py:1405
 msgid "Page"
 msgstr ""
 
-#: models.py:1176
+#: models.py:1062
+msgid "Submitted for moderation"
+msgstr ""
+
+#: models.py:1063
+msgid "Created at"
+msgstr ""
+
+#: models.py:1064
+msgid "User"
+msgstr ""
+
+#: models.py:1065
+msgid "Content JSON"
+msgstr ""
+
+#: models.py:1066
+msgid "Approved go live at"
+msgstr ""
+
+#: models.py:1165
+msgid "Page Revision"
+msgstr ""
+
+#: models.py:1169
+msgid "Add/edit pages you own"
+msgstr ""
+
+#: models.py:1170
+msgid "Add/edit any page"
+msgstr ""
+
+#: models.py:1171
+msgid "Publish any page"
+msgstr ""
+
+#: models.py:1172
+msgid "Lock/unlock any page"
+msgstr ""
+
+#: models.py:1177
+msgid "Group"
+msgstr ""
+
+#: models.py:1179
 msgid "Permission type"
 msgstr ""
 
-#: models.py:1402
+#: models.py:1183
+msgid "Group Page Permission"
+msgstr ""
+
+#: models.py:1406
 msgid "Password"
+msgstr ""
+
+#: models.py:1409
+msgid "Page View Restriction"
 msgstr ""
 
 #: validators.py:15

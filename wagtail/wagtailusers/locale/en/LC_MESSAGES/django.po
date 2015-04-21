@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:39+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,6 +103,10 @@ msgstr ""
 
 #: models.py:28
 msgid "Receive notification when your page edit is rejected"
+msgstr ""
+
+#: models.py:39
+msgid "User Profile"
 msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3

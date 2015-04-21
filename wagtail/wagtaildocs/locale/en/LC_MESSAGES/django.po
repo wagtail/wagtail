@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,8 +27,20 @@ msgstr ""
 msgid "File"
 msgstr ""
 
+#: models.py:25
+msgid "Created at"
+msgstr ""
+
+#: models.py:26
+msgid "Uploaded by user"
+msgstr ""
+
 #: models.py:28
 msgid "Tags"
+msgstr ""
+
+#: models.py:72
+msgid "Document"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
