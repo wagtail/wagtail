@@ -61,18 +61,21 @@ class FormSubmission(models.Model):
 class AbstractFormField(Orderable):
     """Database Fields required for building a Django Form field."""
 
-    label = models.CharField(verbose_name=_('Label'),
+    label = models.CharField(
+        verbose_name=_('Label'),
         max_length=255,
         help_text=_('The label of the form field')
     )
     field_type = models.CharField(verbose_name=_('Field type'), max_length=16, choices=FORM_FIELD_CHOICES)
     required = models.BooleanField(verbose_name=_('Required'), default=True)
-    choices = models.CharField(verbose_name=_('Choices'),
+    choices = models.CharField(
+        verbose_name=_('Choices'),
         max_length=512,
         blank=True,
         help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
-    default_value = models.CharField(verbose_name=_('Default value'),
+    default_value = models.CharField(
+        verbose_name=_('Default value'),
         max_length=255,
         blank=True,
         help_text=_('Default value. Comma separated values supported for checkboxes.')
@@ -101,6 +104,7 @@ class AbstractFormField(Orderable):
 
 
 _FORM_CONTENT_TYPES = None
+
 
 def get_form_types():
     global _FORM_CONTENT_TYPES
@@ -198,7 +202,6 @@ class AbstractEmailForm(AbstractForm):
         if self.to_address:
             content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
             send_mail(self.subject, content, [self.to_address], self.from_address,)
-
 
     class Meta:
         abstract = True
