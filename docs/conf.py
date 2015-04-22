@@ -50,8 +50,10 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.spelling',
 ]
+
+if not on_rtd:
+    extensions.append('sphinxcontrib.spelling')
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
