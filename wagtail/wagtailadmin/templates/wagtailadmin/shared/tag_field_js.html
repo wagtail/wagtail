@@ -1,6 +1,6 @@
-{% load compress %}
+{% load compress static %}
 {% compress js %}
-    <script src="{{ STATIC_URL }}wagtailadmin/js/vendor/tag-it.js"></script>
+    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 {% endcompress %}
 
 {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}

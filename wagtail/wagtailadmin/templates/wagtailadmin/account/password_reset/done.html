@@ -1,12 +1,11 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load i18n %}
-{% load compress %}
+{% load compress static i18n %}
 {% block titletag %}{% trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/login.scss" type="text/x-scss" />
+        <link rel="stylesheet" href="{% static 'wagtailadmin/scss/layouts/login.scss' %}" type="text/x-scss" />
     {% endcompress %}
 {% endblock %}
 

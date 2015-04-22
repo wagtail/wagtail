@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags compress %}
+{% load wagtailadmin_tags static compress i18n %}
 {% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
@@ -20,8 +20,8 @@
 
 {% block extra_js %}
     {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
-    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
-    <script src="{{ STATIC_URL }}wagtailadmin/js/privacy-switch.js"></script>
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 
     <script type="text/javascript">
         {% if ordering == 'ord' %}
