@@ -41,13 +41,13 @@ Got one of your own? Feel free to add it!
 Getting started
 ~~~~~~~~~~~~~~~
 * To get you up and running quickly, we've provided a demonstration site with all the configuration in place, at `github.com/torchbox/wagtaildemo <https://github.com/torchbox/wagtaildemo/>`_; see the `README <https://github.com/torchbox/wagtaildemo/blob/master/README.md>`_ for installation instructions.
-* See the `Getting Started <http://wagtail.readthedocs.org/en/latest/getting_started/installation.html>`_ docs for installation (with the demo app) on a fresh Debian/Ubuntu box with production-ready dependencies, on OS X and on a Vagrant box.
+* See the `Getting Started <http://docs.wagtail.io/en/latest/getting_started/installation.html>`_ docs for installation (with the demo app) on a fresh Debian/Ubuntu box with production-ready dependencies, on OS X and on a Vagrant box.
 * `Serafeim Papastefanos <https://github.com/spapas>`_ has written a `tutorial <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_ with all the steps to build a simple Wagtail site from scratch.
 * We've also provided a skeletal django-template to get started on a blank site: https://github.com/torchbox/wagtail-template
 
 Documentation
 ~~~~~~~~~~~~~
-Available at `wagtail.readthedocs.org <http://wagtail.readthedocs.org/>`_ and always being updated.
+Available at `docs.wagtail.io <http://docs.wagtail.io/>`_ and always being updated.
 
 
 Need Support?
@@ -71,10 +71,10 @@ Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in!
 
-We suggest you start by checking the `Help develop me! <https://github.com/torchbox/wagtail/labels/Help%20develop%20me%21>`_ label and the `coding guidelines <http://wagtail.readthedocs.org/en/latest/howto/contributing.html#coding-guidelines>`_.
+We suggest you start by checking the `Help develop me! <https://github.com/torchbox/wagtail/labels/Help%20develop%20me%21>`_ label and the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_.
 
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
 
-We also welcome `translations <http://docs.wagtail.io/en/latest/contributing/developing.html#translations>`_ for Wagtail's interface.
+We also welcome translations for Wagtail's interface. Our preferred way to submit or contribute to a language translation is via `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
 
 We run a separate Wagtail developers group here: https://groups.google.com/forum/#!forum/wagtail-developers please not that this is not for support requests.

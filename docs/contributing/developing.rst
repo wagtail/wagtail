@@ -109,8 +109,6 @@ Wagtail has internationalisation support so if you are fluent in a non-English l
 
 Our preferred way to submit or contribute to a language translation is via `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
 
-If you do not want to use Transifex we also welcome pull requests of ``django.po`` files for any of the Wagtail modules.
-
 Other contributions
 ~~~~~~~~~~~~~~~~~~~
 
