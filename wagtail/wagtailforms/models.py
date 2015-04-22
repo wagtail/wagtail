@@ -143,6 +143,10 @@ class AbstractForm(Page):
     class Meta:
         abstract = True
 
+    def get_form_class(self):
+        fb = self.form_builder(self.form_fields.all())
+        return fb.get_form_class()
+
     def get_form_parameters(self):
         return {}
 
@@ -153,8 +157,7 @@ class AbstractForm(Page):
         )
 
     def serve(self, request):
-        fb = self.form_builder(self.form_fields.all())
-        form_class = fb.get_form_class()
+        form_class = self.get_form_class()
         form_params = self.get_form_parameters()
 
         if request.method == 'POST':
