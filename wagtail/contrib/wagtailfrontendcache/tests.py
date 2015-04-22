@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import EventIndex
+from wagtail.tests.models import EventIndex
 
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
