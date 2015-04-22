@@ -48,6 +48,7 @@ if django.VERSION >= (1, 8):
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'django.template.context_processors.request',
+                    'wagtail.tests.context_processors.do_not_use_static_url',
                 ],
             },
         },
@@ -55,6 +56,7 @@ if django.VERSION >= (1, 8):
 else:
     TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
         'django.core.context_processors.request',
+        'wagtail.tests.context_processors.do_not_use_static_url',
     )
 
 MIDDLEWARE_CLASSES = (
