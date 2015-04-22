@@ -150,6 +150,13 @@ class AbstractForm(Page):
     def get_form_parameters(self):
         return {}
 
+    def get_form(self, *args, **kwargs):
+        form_class = self.get_form_class()
+        form_params = self.get_form_parameters()
+        form_params.update(kwargs)
+
+        return form_class(*args, **form_params)
+
     def process_form_submission(self, form):
         FormSubmission.objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
@@ -157,11 +164,8 @@ class AbstractForm(Page):
         )
 
     def serve(self, request):
-        form_class = self.get_form_class()
-        form_params = self.get_form_parameters()
-
         if request.method == 'POST':
-            form = form_class(request.POST, **form_params)
+            form = self.get_form(request.POST)
 
             if form.is_valid():
                 self.process_form_submission(form)
@@ -172,7 +176,7 @@ class AbstractForm(Page):
                     'self': self,
                 })
         else:
-            form = form_class(**form_params)
+            form = self.get_form()
 
         return render(request, self.template, {
             'self': self,
