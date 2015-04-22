@@ -107,7 +107,7 @@ Translations
 
 Wagtail has internationalisation support so if you are fluent in a non-English language you can contribute by localising the interface.
 
-Our preferred way to submit or contribute to a language translation is via `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
+Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
 
 Other contributions
 ~~~~~~~~~~~~~~~~~~~
