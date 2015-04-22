@@ -59,7 +59,9 @@ class FormSubmission(models.Model):
 
 
 class AbstractFormField(Orderable):
-    """Database Fields required for building a Django Form field."""
+    """
+    Database Fields required for building a Django Form field.
+    """
 
     label = models.CharField(
         verbose_name=_('Label'),
@@ -117,13 +119,17 @@ def get_form_types():
 
 
 def get_forms_for_user(user):
-    """Return a queryset of form pages that this user is allowed to access the submissions for"""
+    """
+    Return a queryset of form pages that this user is allowed to access the submissions for
+    """
     editable_pages = UserPagePermissionsProxy(user).editable_pages()
     return editable_pages.filter(content_type__in=get_form_types())
 
 
 class AbstractForm(Page):
-    """A Form Page. Pages implementing a form should inhert from it"""
+    """
+    A Form Page. Pages implementing a form should inhert from it
+    """
 
     form_builder = FormBuilder
     is_abstract = True  # Don't display me in "Add"
@@ -185,7 +191,9 @@ class AbstractForm(Page):
 
 
 class AbstractEmailForm(AbstractForm):
-    """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
+    """
+    A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
+    """
     is_abstract = True  # Don't display me in "Add"
 
     to_address = models.CharField(verbose_name=_('To address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
