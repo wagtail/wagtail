@@ -1,8 +1,7 @@
 from six import string_types
 
 from django.http import Http404
-from django.core.urlresolvers import get_resolver
-from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import RegexURLResolver
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
@@ -16,28 +15,36 @@ class RoutablePageMixin(object):
     #: Set this to a tuple of ``django.conf.urls.url`` objects.
     subpage_urls = None
 
+    @classmethod
+    def get_subpage_urls(cls):
+        if cls.subpage_urls:
+            return cls.subpage_urls
+
+        return ()
+
+    @classmethod
+    def get_resolver(cls):
+        if '_routablepage_urlresolver' not in cls.__dict__:
+            subpage_urls = cls.get_subpage_urls()
+            cls._routablepage_urlresolver = RegexURLResolver(r'^/', subpage_urls)
+
+        return cls._routablepage_urlresolver
+
     def reverse_subpage(self, name, args=None, kwargs=None):
         """
-        This method does the same job as Djangos' built in "urlresolvers.reverse()" function for subpage urlconfs.
+        This method does the same job as Djangos' built in
+        "urlresolvers.reverse()" function for subpage urlconfs.
         """
         args = args or []
         kwargs = kwargs or {}
 
-        if self.subpage_urls is None:
-            raise ImproperlyConfigured("You must set 'subpage_urls' on " + type(self).__name__)
-
-        resolver = get_resolver(self.subpage_urls)
-        return resolver.reverse(name, *args, **kwargs)
+        return self.get_resolver().reverse(name, *args, **kwargs)
 
     def resolve_subpage(self, path):
         """
         This finds a view method/function from a URL path.
         """
-        if self.subpage_urls is None:
-            raise ImproperlyConfigured("You must set 'subpage_urls' on " + type(self).__name__)
-
-        resolver = get_resolver(self.subpage_urls)
-        view, args, kwargs = resolver.resolve(path)
+        view, args, kwargs = self.get_resolver().resolve(path)
 
         # If view is a string, find it as an attribute of self
         if isinstance(view, string_types):
