@@ -156,10 +156,6 @@ class AbstractForm(Page):
 
             if form.is_valid():
                 self.process_form_submission(form)
-                # If we have a form_processing_backend call its process method
-                if hasattr(self, 'form_processing_backend'):
-                    form_processor = self.form_processing_backend()
-                    form_processor.process(self, form)
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
