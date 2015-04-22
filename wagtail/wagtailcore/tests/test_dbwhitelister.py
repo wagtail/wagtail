@@ -36,6 +36,13 @@ class TestDbWhitelister(TestCase):
         expected = '<p>OMG look at this video of a kitten: <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p>'
         self.assertHtmlEqual(expected, output_html)
 
+    def test_div_conversion(self):
+        # DIVs should be converted to P, and all whitelist / conversion rules still applied
+        input_html = '<p>before</p><div class="shiny">OMG <b>look</b> at this <blink>video</blink> of a kitten: <iframe data-embedtype="media" data-url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><p>after</p>'
+        output_html = DbWhitelister.clean(input_html)
+        expected = '<p>before</p><p>OMG <b>look</b> at this video of a kitten: <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p><p>after</p>'
+        self.assertHtmlEqual(expected, output_html)
+
     def test_whitelist_hooks(self):
         # wagtail.tests.wagtail_hooks overrides the whitelist to permit <blockquote> and <a target="...">
         input_html = '<blockquote>I would put a tax on all people who <a href="https://twitter.com/DMReporter/status/432914941201223680/photo/1" target="_blank" tea="darjeeling">stand in water</a>.</blockquote><p>- <character>Gumby</character></p>'
