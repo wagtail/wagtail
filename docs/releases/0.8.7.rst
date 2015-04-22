@@ -13,3 +13,5 @@ Bug fixes
 ~~~~~~~~~
 
 * ``wagtailfrontendcache`` no longer tries to purge pages that are not in a site
+* The contents of ``<div>`` elements in the rich text editor were not being whitelisted
+* Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
