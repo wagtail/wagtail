@@ -41,7 +41,6 @@ Minor changes
 Core
 ----
 
- * Added validation to prevent pages being created with only whitespace characters in their title fields
  * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
  * Increased the maximum length of a page slug from 50 to 255 characters
  * Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields

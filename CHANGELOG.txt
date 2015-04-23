@@ -23,7 +23,6 @@ Changelog
  * Password reset view names namespaced to wagtailadmin
  * Removed the need to add permission check on admin views (now automated)
  * Added cache-control headers to all admin views
- * Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
  * Page model fields without a FieldPanel are no longer displayed in the form
  * No longer need to specify the base model on InlinePanel definitions
  * The project template Vagrantfile now listens on port 8000
@@ -53,6 +52,7 @@ Changelog
 * Fix: The contents of <div> elements in the rich text editor were not being whitelisted
 * Fix: Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
 * Fix: RoutablePage now prevents subpage_urls from being defined as a property, which would cause a memory leak
+* Fix: Added validation to prevent pages being crated with only whitespace characters in their title fields (Frank Wiles)
 
 
 0.8.6 (10.03.2015)
