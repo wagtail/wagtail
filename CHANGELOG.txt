@@ -6,6 +6,7 @@ Changelog
 * Fix: wagtailfrontendcache no longer tries to purge pages that are not in a site
 * Fix: The contents of <div> elements in the rich text editor were not being whitelisted
 * Fix: Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
+* Fix: RoutablePage now prevents subpage_urls from being defined as a property, which would cause a memory leak
 
 
 0.8.6 (10.03.2015)
