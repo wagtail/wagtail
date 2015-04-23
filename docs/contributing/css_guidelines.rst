@@ -3,6 +3,26 @@ CSS coding guidelines
 
 Our CSS is written in Sass, using the SCSS syntax.
 
+Compiling
+~~~~~~~~~
+
+The SCSS source files are compiled to CSS using the
+[gulp](http://gulpjs.com/) build system.
+This requires [node.js](http://nodejs.org) to run.
+To install the libraries required for compiling the SCSS,
+run the following from the Wagtail repository root:
+
+    $ npm install
+
+To compile the assets, run:
+
+    $ npm run build
+
+Alternatively, the SCSS files can be monitored,
+automatically recompiling when any changes are observed, by running:
+
+    $ npm start
+
 Spacing
 ~~~~~~~
 
