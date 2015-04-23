@@ -15,7 +15,9 @@
 
     <ul class="listing horiz images">
         {% for image in images %}
-            {% include "wagtailimages/images/includes/image_listing_item.html" %}
+            <li>
+                {% include "wagtailimages/images/includes/image_listing_item.html" %}
+            </li>
         {% endfor %}
     </ul>
 
