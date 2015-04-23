@@ -5,12 +5,12 @@
 {% endcomment %}
 
 {% compress css %}
-    <link rel="stylesheet" href="{% static 'wagtailadmin/scss/layouts/page-editor.scss' %}" type="text/x-scss" />
-    <link rel="stylesheet" href="{% static 'wagtailadmin/scss/panels/rich-text.scss' %}" type="text/x-scss" />
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/page-editor.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/panels/rich-text.css' %}" type="text/css" />
 
     {# we'll want tag-it included, for the benefit of any modals that use it, like images. #}
     {# TODO: a method of injecting these sorts of things on demand when the modal is spawned #}
-    <link rel="stylesheet" href="{% static 'wagtailadmin/scss/vendor/jquery.tagit.css' %}">
+    <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery.tagit.css' %}">
 
     {% hook_output 'insert_editor_css' %}
 {% endcompress %}
