@@ -1,3 +1,4 @@
+import django
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -6,6 +7,11 @@ from wagtail.tests.models import EventIndex
 
 from wagtail.contrib.wagtailfrontendcache.utils import get_backends
 from wagtail.contrib.wagtailfrontendcache.backends import HTTPBackend, CloudflareBackend, BaseBackend
+
+
+if django.VERSION < (1, 7):
+    from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
+    register_signal_handlers()
 
 
 class TestBackendConfiguration(TestCase):
