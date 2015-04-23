@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from sendfile import sendfile
+from wagtail.utils.sendfile import sendfile
 
 from wagtail.wagtaildocs.models import Document, document_served
 
