@@ -17,9 +17,14 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailimages.models import get_image_model, Filter
 from wagtail.wagtailimages.forms import get_image_form, URLGeneratorForm
 from wagtail.wagtailimages.utils import generate_signature
-from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
-
+from wagtail.wagtailimages.fields import (
+    MAX_UPLOAD_SIZE,
+    IMAGE_FIELD_HELP_TEXT,
+    INVALID_IMAGE_ERROR,
+    ALLOWED_EXTENSIONS,
+    FILE_TOO_LARGE_ERROR,
+)
 
 @permission_required('wagtailimages.add_image')
 @vary_on_headers('X-Requested-With')
@@ -69,6 +74,11 @@ def index(request):
         })
     else:
         return render(request, 'wagtailimages/images/index.html', {
+            'max_filesize': MAX_UPLOAD_SIZE,
+            'help_text': IMAGE_FIELD_HELP_TEXT,
+            'allowed_extensions': ALLOWED_EXTENSIONS,
+            'error_max_file_size': FILE_TOO_LARGE_ERROR,
+            'error_accepted_file_types': INVALID_IMAGE_ERROR,
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),

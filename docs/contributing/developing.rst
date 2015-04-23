@@ -109,6 +109,7 @@ Wagtail has internationalisation support so if you are fluent in a non-English l
 
 Translation work should be submitted through `Transifex <https://www.transifex.com/projects/p/wagtail/>`_.
 
+
 Other contributions
 ~~~~~~~~~~~~~~~~~~~
 
