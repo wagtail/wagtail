@@ -1,8 +1,10 @@
 $(function(){
     // Redirect users that don't support filereader
     if(!$('html').hasClass('filereader')){
-        document.location.href = window.fileupload_opts.simple_upload_url;
-        return false;
+        // TODO: Display an alternate button linking to the single uploader for users without filereader
+        
+        // document.location.href = window.fileupload_opts.simple_upload_url;
+        // return false;
     }
 
     // prevents browser default drag/drop
@@ -11,15 +13,16 @@ $(function(){
     });
 
     $('#fileupload').fileupload({
+        addUploadsTo: $(window.fileupload_opts.add_uploads_to),
         dataType: 'html',
         sequentialUploads: true,
         dropZone: $('.drop-zone'),
         acceptFileTypes: window.fileupload_opts.accepted_file_types,
         maxFileSize: window.fileupload_opts.max_file_size,
-        previewMinWidth:150,
-        previewMaxWidth:150,
-        previewMinHeight:150,
-        previewMaxHeight:150,
+        previewMinWidth: 150,
+        previewMaxWidth: 150,
+        previewMinHeight: 150,
+        previewMaxHeight: 150,
         messages: {
             acceptFileTypes: window.fileupload_opts.errormessages.accepted_file_types,
             maxFileSize: window.fileupload_opts.errormessages.max_file_size
@@ -30,17 +33,17 @@ $(function(){
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
             var options = that.options;
 
-            $('#upload-list').append(li);
+            options.addUploadsTo.prepend(li);
             data.context = li;
 
             data.process(function () {
                 return $this.fileupload('process', data);
             }).always(function () {
                 data.context.removeClass('processing');
-                data.context.find('.left').each(function(index, elm){
-                    $(elm).append(data.files[index].name);
-                });
-                data.context.find('.preview .thumb').each(function (index, elm) {
+                // data.context.find('.left').each(function(index, elm){
+                //     $(elm).append(data.files[index].name);
+                // });
+                data.context.find('.image').each(function (index, elm) {
                     $(elm).addClass('hasthumb')
                     $(elm).append(data.files[index].preview);
                 });
@@ -53,10 +56,12 @@ $(function(){
                 }
             }).fail(function () {
                 if (data.files.error) {
+                    console.log(data)
+
                     data.context.each(function (index) {
                         var error = data.files[index].error;
                         if (error) {
-                            $(this).find('.error_messages').text(error);
+                            $(this).find('.error_messages').text(options.messages[error]);
                         }
                     });
                 }
@@ -99,15 +104,11 @@ $(function(){
             var response = $.parseJSON(data.result);
 
             if(response.success){   
-                itemElement.addClass('upload-success')
-
-                $('.right', itemElement).append(response.form);
-                
-                // run tagit enhancement
-                $('.tag_field input', itemElement).tagit(window.tagit_opts);
+                itemElement.addClass('upload-success');
+                itemElement.empty().append(response.content);
             } else {
                 itemElement.addClass('upload-failure');
-                $('.right .error_messages', itemElement).append(response.error_message);
+                $('.error_messages', itemElement).append(response.error_message);
             }          
 
         },
@@ -122,40 +123,4 @@ $(function(){
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         },
     });
-
-    // ajax-enhance forms added on done() 
-    $('#upload-list').on('submit', 'form', function(e){
-        var form = $(this);
-        var itemElement = form.closest('#upload-list > li');
-
-        e.preventDefault();
-
-        $.post(this.action, form.serialize(), function(data) {
-            if (data.success) {
-                itemElement.slideUp(function(){$(this).remove()});
-            }else{
-                form.replaceWith(data.form);
-                // run tagit enhancement on new form
-                $('.tag_field input', form).tagit(window.tagit_opts);
-            }
-        });
-    });
-
-    $('#upload-list').on('click', '.delete', function(e){
-        var form = $(this).closest('form');
-        var itemElement = form.closest('#upload-list > li');
-        
-        e.preventDefault();
-
-        var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
-
-        $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
-            if (data.success) {
-                itemElement.slideUp(function(){$(this).remove()});
-            }else{
-            
-            }
-        });
-    });
-
 });

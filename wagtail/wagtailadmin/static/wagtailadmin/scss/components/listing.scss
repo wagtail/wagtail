@@ -352,9 +352,22 @@ ul.listing{
         opacity:0.7;
     }
 
-    &.images img{
-        @include transition(border-color 0.2s ease);
-        border: 3px solid white;
+    &.images {
+        .image{
+            position: relative;
+        }
+        
+        .progress{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+        }
+
+        img{
+            @include transition(border-color 0.2s ease);
+            border: 3px solid white;
+        }
     }
 }
 ul.listing{
@@ -505,7 +518,8 @@ table.listing{
                         margin-right: -0.25em;
                     }
 
-                    img{
+                    // img is obvious I'd hope. Canvas is for images displayed using file API and query upload plugins
+                    img, canvas{
                         display:inline-block;
                         vertical-align: middle;
                     }
@@ -517,6 +531,11 @@ table.listing{
                     img{
                         border-color:$color-teal;
                     }
+                }
+
+                .progress{
+                    left: 1.3em;
+                    right: 1.3em;
                 }
             }
             a{
