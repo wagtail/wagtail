@@ -11,15 +11,16 @@ $(function() {
     });
 
     $('#fileupload').fileupload({
+        addUploadsTo: $(window.fileupload_opts.add_uploads_to),
         dataType: 'html',
         sequentialUploads: true,
         dropZone: $('.drop-zone'),
         acceptFileTypes: window.fileupload_opts.accepted_file_types,
         maxFileSize: window.fileupload_opts.max_file_size,
-        previewMinWidth:150,
-        previewMaxWidth:150,
-        previewMinHeight:150,
-        previewMaxHeight:150,
+        previewMinWidth: 150,
+        previewMaxWidth: 150,
+        previewMinHeight: 150,
+        previewMaxHeight: 150,
         messages: {
             acceptFileTypes: window.fileupload_opts.errormessages.accepted_file_types,
             maxFileSize: window.fileupload_opts.errormessages.max_file_size
@@ -30,18 +31,17 @@ $(function() {
             var li = $($('#upload-list-item').html()).addClass('upload-uploading')
             var options = that.options;
 
-            $('#upload-list').append(li);
+            options.addUploadsTo.prepend(li);
             data.context = li;
 
             data.process(function() {
                 return $this.fileupload('process', data);
             }).always(function() {
                 data.context.removeClass('processing');
-                data.context.find('.left').each(function(index, elm) {
-                    $(elm).append(escapeHtml(data.files[index].name));
-                });
-
-                data.context.find('.preview .thumb').each(function(index, elm) {
+                // data.context.find('.left').each(function(index, elm){
+                //     $(elm).append(data.files[index].name);
+                // });
+                data.context.find('.image').each(function (index, elm) {
                     $(elm).addClass('hasthumb')
                     $(elm).append(data.files[index].preview);
                 });
@@ -55,10 +55,10 @@ $(function() {
                 }
             }).fail(function() {
                 if (data.files.error) {
-                    data.context.each(function(index) {
+                    data.context.each(function (index) {
                         var error = data.files[index].error;
                         if (error) {
-                            $(this).find('.error_messages').text(error);
+                            $(this).find('.error_messages').text(options.messages[error]);
                         }
                     });
                 }
@@ -100,18 +100,13 @@ $(function() {
             var itemElement = $(data.context);
             var response = $.parseJSON(data.result);
 
-            if (response.success) {
-                itemElement.addClass('upload-success')
-
-                $('.right', itemElement).append(response.form);
-
-                // run tagit enhancement
-                $('.tag_field input', itemElement).tagit(window.tagit_opts);
+            if(response.success){   
+                itemElement.addClass('upload-success');
+                itemElement.empty().append(response.content);
             } else {
                 itemElement.addClass('upload-failure');
-                $('.right .error_messages', itemElement).append(response.error_message);
+                $('.error_messages', itemElement).append(response.error_message);
             }
-
         },
 
         fail: function(e, data) {

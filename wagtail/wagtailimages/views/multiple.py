@@ -64,9 +64,8 @@ def add(request):
             return JsonResponse({
                 'success': True,
                 'image_id': int(image.id),
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'image': image,
-                    'form': get_image_edit_form(Image)(instance=image, prefix='image-%d' % image.id),
+                'content': render_to_string('wagtailimages/images/includes/image_listing_item.html', {
+                    'image': image
                 }, request=request),
             })
         else:

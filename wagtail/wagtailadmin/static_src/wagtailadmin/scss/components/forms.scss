@@ -1027,6 +1027,39 @@ li.inline:first-child {
     }
 }
 
+// Means of replacing a file input with a button. 
+// Requires <button> be added at same level as input, and both wraped with .replace-file-input
+.replace-file-input {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 2px;
+
+    input[type=file] {
+        padding: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        direction: ltr;
+        width: auto;
+        display: block;
+        font-size: 5em;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        button {
+            background-color: $color-teal-darker;
+        }
+    }
+}
+
 // Transitions
 fieldset, 
 input, 
