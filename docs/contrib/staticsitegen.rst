@@ -16,6 +16,11 @@ First, install ``django-medusa`` from pip:
 
     pip install django-medusa
 
+.. note::
+
+    Since 0.8.6, Wagtail uses StreamingHttpResponse to return Documents. `django-medusa`_ currently does not support this and the staticsitegen command will fail if your site contains Documents.
+    For a temporary fix, install this fork https://github.com/ctxis/django-medusa. (see also #1183)
+
 
 Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
 
