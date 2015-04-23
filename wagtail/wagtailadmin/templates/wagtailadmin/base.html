@@ -31,13 +31,13 @@
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">
-                {% if messages %}
-                    <ul>
+                <ul>
+                    {% if messages %}
                         {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
                         {% endfor %}
-                    </ul>
-                {% endif %}
+                    {% endif %}
+                </ul>
             </div>
 
             <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>

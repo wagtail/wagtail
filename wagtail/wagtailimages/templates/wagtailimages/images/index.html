@@ -12,53 +12,61 @@
         }
     </script>
 
+    <script id="upload-list-item" type="text/template">
+        <li>
+            <div class="image">
+                <div class="progress"><div class="bar" style="width: 0%;"></div></div>
+            </div>
+        </li>
+    </script>
+
     {% compress js %}
-        <!-- this exact order of plugins is vital -->
-        <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.iframe-transport.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-process.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
-        <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
-        <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+        <!-- this exact order of files is vital -->
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/load-image.min.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/canvas-to-blob.min.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/jquery.iframe-transport.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/jquery.fileupload.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/jquery.fileupload-process.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/jquery.fileupload-image.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/vendor/fileupload/jquery.fileupload-validate.js' %}"></script>
+        <script src="{% static 'wagtailadmin/js/fileupload.js' %}"></script>        
 
-        {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
         <script>
-            window.fileupload_opts = {
-                add_uploads_to: '#image-results > ul.listing',
-                simple_upload_url: "{% url 'wagtailimages_add_image' %}",
-                accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
-                max_file_size: {{ max_filesize|default:"null" }}, //numeric format
-                errormessages: {
-                    max_file_size: "{{ error_max_file_size }}",
-                    accepted_file_types: "{{ error_accepted_file_types }}"
-                }
-            }
-
-            window.tagit_opts = {
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            };
-        </script>
-
-        <!-- Main script -->
-        <script src="{% static 'wagtailimages/js/add-multiple.js' %}"></script>
+            $(function(){
+                Fileuploader({
+                    field: $('#fileupload'),
+                    dropZone: $('.drop-zone'),
+                    newItemContainer: $('#upload-list-item'),
+                    addUploadsTo: $('#image-results > ul.listing'),
+                    simpleUploadUrl: "{% url 'wagtailimages_add_image' %}",
+                    acceptFileTypes: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
+                    maxFileSize: {{ max_filesize|default:"null" }}, //numeric format
+                    messages: {
+                        maxFileSize: "{{ error_max_file_size }}",
+                        acceptFileTypes: "{{ error_accepted_file_types }}"
+                    },
+                    supported: function(){
+                        $('header .addbutton').hide();
+                    },
+                    unsupported: function(){
+                        $('.drop-zone').hide();
+                    }
+                });  
+            });
+        </script>        
     {% endcompress %}    
-
 {% endblock %}
 
 {% block content %}
     {% trans "Images" as im_str %}
-
     {% if perms.wagtailimages.add_image %}
         {% trans "Add an image" as add_img_str %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add_multiple" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" %}
     {% endif %}
 
     <div class="nice-padding">
-
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
             <p>{{ help_text }}
@@ -70,20 +78,7 @@
                 </div>
                 {% csrf_token %}
             </form>
-        </div>
-
-        <div id="overall-progress" class="progress progress-secondary">
-            <div class="bar" style="width: 0%;">0%</div>
-        </div>
-
-        <script id="upload-list-item" type="text/template">
-            <li>
-                <div class="image">
-                    <div class="progress"><div class="bar" style="width: 0%;"></div></div>
-                </div>
-                
-            </li>
-        </script>
+        </div>       
 
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}
