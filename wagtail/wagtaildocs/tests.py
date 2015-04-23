@@ -587,7 +587,7 @@ class TestServeView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def clear_sendfile_cache(self):
-        from sendfile import _get_sendfile
+        from wagtail.utils.sendfile import _get_sendfile
         _get_sendfile.clear()
 
     @override_settings(SENDFILE_BACKEND='sendfile.backends.xsendfile')
