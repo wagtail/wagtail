@@ -92,8 +92,6 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     except ContentType.DoesNotExist:
         raise Http404
 
-    p = request.GET.get("p", 1)
-
     page_class = content_type.model_class()
 
     # page_class must be a Page type and not some other random model
@@ -102,10 +100,10 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
 
     pages = page_class.objects.all()
 
+    page_number = request.GET.get('page', 1)
     paginator = Paginator(pages, 10)
-
     try:
-        pages = paginator.page(p)
+        pages = paginator.page(page_number)
     except PageNotAnInteger:
         pages = paginator.page(1)
     except EmptyPage:
