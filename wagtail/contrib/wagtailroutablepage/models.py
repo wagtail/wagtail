@@ -45,7 +45,7 @@ class RoutablePageMixin(object):
 
     @classmethod
     def check(cls, **kwargs):
-        if cls.subpage_urls:
+        if cls.subpage_urls and not hasattr(cls, '_disable_subpage_urls_deprecation_warning'):
             warnings.warn(
                 "{app_label}.{classname}: subpage_urls is deprecated. Use the "
                 "@route decorator to define page routes instead.".format(
