@@ -141,14 +141,15 @@ class TestOldStyleRoutablePage(TestNewStyleRoutablePage, WagtailTestUtils):
         from django.conf.urls import url
 
         class TestPageModel(RoutablePageMixin, Page):
-            abstract = True
-
             subpage_urls = (
                 url('r^$', 'main'),
             )
 
             def main(self, request):
                 pass
+
+            class Meta:
+                abstract = True
 
         # Calling check() should raise a deprecation warning
         # This would usually be called by Django when it loads
