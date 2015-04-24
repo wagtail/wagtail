@@ -71,7 +71,7 @@ Contributing
 ~~~~~~~~~~~~
 If you're a Python or Django developer, fork the repo and get stuck in!
 
-We suggest you start by checking the `Ready to develop! <https://github.com/torchbox/wagtail/labels/Ready+to+develop%21>`_ label and the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_.
+We suggest you start by checking the `Ready to develop! <https://github.com/torchbox/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3A%22Ready+to+develop%21%22>`_ label and the `coding guidelines <http://docs.wagtail.io/en/latest/contributing/developing.html#coding-guidelines>`_.
 
 Send us a useful pull request and we'll post you a `t-shirt <https://twitter.com/WagtailCMS/status/432166799464210432/photo/1>`_.
 
