@@ -88,6 +88,7 @@ Admin
  * Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
  * Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
  * Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
+ * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
 
 
 
