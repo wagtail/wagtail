@@ -1,4 +1,4 @@
-{% load compress %}
+{% load compress static %}
 {% compress css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/vendor/jquery.tagit.css">
+    <link rel="stylesheet" href="{% static 'wagtailadmin/scss/vendor/jquery.tagit.css' %}">
 {% endcompress %}

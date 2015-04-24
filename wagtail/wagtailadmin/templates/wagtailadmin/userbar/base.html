@@ -1,10 +1,10 @@
 {% extends "wagtailadmin/skeleton.html" %}
-{% load compress i18n %}
+{% load compress static i18n %}
 
 {% block titletag %}{% trans 'User bar' %}{% endblock %}
 {% block css %}
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/userbar.scss" type="text/x-scss" />
+        <link rel="stylesheet" href="{% static 'wagtailadmin/scss/userbar.scss' %}" type="text/x-scss" />
     {% endcompress %}
 {% endblock %}
 
@@ -23,6 +23,6 @@
 
 {% block js %}
     {% compress js %}
-        <script src="{{ STATIC_URL }}wagtailadmin/js/userbar.js"></script>
+        <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>
     {% endcompress %}
 {% endblock %}
