@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from six import string_types
+import warnings
 
 from django.http import Http404
 from django.core.urlresolvers import RegexURLResolver
@@ -8,6 +9,7 @@ from django.conf.urls import url
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 _creation_counter = 0
@@ -40,6 +42,18 @@ class RoutablePageMixin(object):
     """
     #: Set this to a tuple of ``django.conf.urls.url`` objects.
     subpage_urls = None
+
+    @classmethod
+    def check(cls, **kwargs):
+        if cls.subpage_urls:
+            warnings.warn(
+                "{app_label}.{classname}: subpage_urls is deprecated. Use the "
+                "@route decorator to define page routes instead.".format(
+                    app_label=cls._meta.app_label,
+                    classname=cls.__name__,
+                ), RemovedInWagtail12Warning)
+
+        return super(RoutablePageMixin, cls).check(**kwargs)
 
     @classmethod
     def get_subpage_urls(cls):
