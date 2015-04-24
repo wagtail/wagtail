@@ -1,4 +1,5 @@
 import unittest
+import warnings
 
 import django
 from django.test import TestCase, RequestFactory
@@ -6,7 +7,10 @@ from django.core.urlresolvers import NoReverseMatch
 
 from wagtail.wagtailcore.models import Page, Site
 from wagtail.tests.routablepage.models import OldStyleRoutablePageTest, NewStyleRoutablePageTest, routable_page_external_view
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.contrib.wagtailroutablepage.templatetags.wagtailroutablepage_tags import routablepageurl
+from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class TestNewStyleRoutablePage(TestCase):
@@ -116,7 +120,7 @@ class TestNewStyleRoutablePage(TestCase):
 
 
 @unittest.skipIf(django.VERSION >= (1, 8), "Old style routable pages don't work on Django 1.8")
-class TestOldStyleRoutablePage(TestNewStyleRoutablePage):
+class TestOldStyleRoutablePage(TestNewStyleRoutablePage, WagtailTestUtils):
     model = OldStyleRoutablePageTest
 
     def test_resolve_external_view(self):
@@ -132,6 +136,32 @@ class TestOldStyleRoutablePage(TestNewStyleRoutablePage):
 
     test_reverse_overridden_name = None
     test_reverse_overridden_name_default_doesnt_work = None
+
+    def test_deprecation_warning(self):
+        from django.conf.urls import url
+
+        class TestPageModel(RoutablePageMixin, Page):
+            abstract = True
+
+            subpage_urls = (
+                url('r^$', 'main'),
+            )
+
+            def main(self, request):
+                pass
+
+        # Calling check() should raise a deprecation warning
+        # This would usually be called by Django when it loads
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            TestPageModel.check()
+
+            # Check that a RemovedInWagtail12Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail12Warning))
+            self.assertEqual("wagtailroutablepage.TestPageModel: subpage_urls "
+                             "is deprecated. Use the @route decorator to "
+                             "define page routes instead.", str(w[-1].message))
 
 
 class TestRoutablePageTemplateTag(TestCase):
