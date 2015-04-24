@@ -6,7 +6,7 @@ CSS into ${STATIC_URL}/CACHE/css/ regardless of compilation mode, so we can
 reliably use relative paths to get back to STATIC_URL. */
 
 $static-root: "../../wagtailadmin/images/";
-$css-root: "../../wagtailadmin/scss/";
+$font-root: "../../wagtailadmin/fonts/";
 
 /* grid settings */
 $grid-columns: 12;

@@ -29,11 +29,11 @@ class assets(Command):
 class check_bdist_egg(bdist_egg):
 
     # If this file does not exist, warn the user to compile the assets
-    sentinel_file = 'wagtail/wagtailadmin/static/wagtailadmin/css/core.css'
+    sentinel_dir = 'wagtail/wagtailadmin/static/'
 
     def run(self):
         bdist_egg.run(self)
-        if not os.path.isfile(self.sentinel_file):
+        if not os.path.isdir(self.sentinel_dir):
             print("\n".join([
                 "************************************************************",
                 "The front end assets for Wagtail are missing.",
