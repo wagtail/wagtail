@@ -16,6 +16,9 @@ class OldStyleRoutablePageTest(RoutablePage):
         url(r'^external/(.+)/$', routable_page_external_view, name='external_view')
     )
 
+    # Don't show deprecation warning for this class to keep test log clean
+    _disable_subpage_urls_deprecation_warning = True
+
     def archive_by_year(self, request, year):
         return HttpResponse("ARCHIVE BY YEAR: " + str(year))
 
