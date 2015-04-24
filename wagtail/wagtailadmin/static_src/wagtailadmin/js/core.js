@@ -147,38 +147,40 @@ $(function() {
     $(document).on('click', 'button.button-longrunning', function(e){
         var $self = $(this);
         var $replacementElem = $('em', $self);
+
+        // Time (seconds) after which the button re-activates
         var reEnableAfter = 30; 
         var dataName = 'disabledtimeout'
 
-        // Disabling a button prevents it submitting the form, so disabling 
-        // must occur on a brief timeout only after this function returns.
-        var timeout = setTimeout(function(){
-            if(!$self.data(dataName)) {
-                // Button re-enables after a timeout to prevent button becoming
-                // permanently un-usable
-                $self.data(dataName, setTimeout(function(){
-                    clearTimeout($self.data(dataName));
-                    
-                    $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
-                    
-                    if($self.data('clicked-text')){
-                        $replacementElem.text($self.data('original-text'));
-                    }
+        // Trigger form submission if it's a submit button
+        if (this.form && this.getAttribute('type') === 'submit') {
+            $(this.form).trigger('submit');
+        }
 
-                }, reEnableAfter * 1000));
+        if(!$self.data(dataName)) {
+            // Button re-enables after a timeout to prevent button becoming
+            // permanently un-usable
+            $self.data(dataName, setTimeout(function(){
+                clearTimeout($self.data(dataName));
                 
-                if($self.data('clicked-text') && $replacementElem.length){
-                    // Save current button text
-                    $self.data('original-text', $replacementElem.text());
-                    
-                    $replacementElem.text($self.data('clicked-text'));
+                $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active')
+                
+                if($self.data('clicked-text')){
+                    $replacementElem.text($self.data('original-text'));
                 }
 
-                // Disabling button must be done last: disabled buttons can't be
-                // modified in the normal way, it would seem.
-                $self.addClass('button-longrunning-active').prop('disabled', 'true');                   
+            }, reEnableAfter * 1000));
+            
+            if($self.data('clicked-text') && $replacementElem.length){
+                // Save current button text
+                $self.data('original-text', $replacementElem.text());
+                
+                $replacementElem.text($self.data('clicked-text'));
             }
-            clearTimeout(timeout);
-        },10);   
+
+            // Disabling button must be done last: disabled buttons can't be
+            // modified in the normal way, it would seem.
+            $self.addClass('button-longrunning-active').prop('disabled', 'true');                   
+        }
     });
 });
