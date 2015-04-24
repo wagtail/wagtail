@@ -17,3 +17,4 @@ Bug fixes
 * Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
 * RoutablePage now prevents ``subpage_urls`` from being defined as a property, which would cause a memory leak
 * Added validation to prevent pages being created with only whitespace characters in their title fields
+* Users are no longer logged out on changing password when SessionAuthenticationMiddleware (added in Django 1.7) is in use

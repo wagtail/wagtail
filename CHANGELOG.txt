@@ -8,6 +8,7 @@ Changelog
 * Fix: Due to the above issue, embeds/images in a rich text field would sometimes be saved into the database in their editor representation
 * Fix: RoutablePage now prevents subpage_urls from being defined as a property, which would cause a memory leak
 * Fix: Added validation to prevent pages being created with only whitespace characters in their title fields (Frank Wiles)
+* Fix: Prevent logout on changing password when SessionAuthenticationMiddleware is in use
 
 
 0.8.6 (10.03.2015)

@@ -1,3 +1,4 @@
+import django
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -35,6 +36,10 @@ def change_password(request):
 
             if form.is_valid():
                 form.save()
+
+                if django.VERSION >= (1, 7):
+                    from django.contrib.auth import update_session_auth_hash
+                    update_session_auth_hash(request, form.user)
 
                 messages.success(request, _("Your password has been changed successfully!"))
                 return redirect('wagtailadmin_account')
