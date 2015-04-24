@@ -408,7 +408,8 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
     def test_add_post(self):
         """
-        This tests that a POST request to the add view saves the image and returns an edit form
+        This tests that a POST request to the add view saves the image and returns an html snippet
+        linking to that image, for use in a listing
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
@@ -417,21 +418,17 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailimages/images/includes/image_listing_item.html')
 
         # Check image
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'].title, 'test.png')
         self.assertTrue(response.context['image'].file_size)
 
-        # Check form
-        self.assertIn('form', response.context)
-        self.assertEqual(response.context['form'].initial['title'], 'test.png')
-
         # Check JSON
         response_json = json.loads(response.content.decode())
         self.assertIn('image_id', response_json)
-        self.assertIn('form', response_json)
+        self.assertIn('content', response_json)
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], response.context['image'].id)
         self.assertTrue(response_json['success'])
