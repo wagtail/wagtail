@@ -1029,6 +1029,9 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Login
         self.login()
 
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
     def get(self, params=None, **extra):
         return self.client.get(reverse('wagtailadmin_pages_search'), params or {}, **extra)
 
@@ -1050,12 +1053,48 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/pages/search_results.html')
         self.assertEqual(response.context['query_string'], "Hello")
 
+    def make_pages(self):
+        for i in range(150):
+            self.root_page.add_child(instance=SimplePage(
+                title="Page " + str(i),
+                slug="page-" + str(i),
+            ))
+
     def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
-        for page in pages:
-            response = self.get({'q': "Hello", 'p': page})
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+        self.make_pages()
+
+        response = self.get({'q': 'Page', 'page': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['pages'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_pages()
+
+        response = self.get({'q': 'Page', 'page': 'Hello world!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['pages'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_pages()
+
+        response = self.get({'q': 'Page', 'page': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
     def test_root_can_appear_in_search_results(self):
         response = self.get({'q': "roo"})
