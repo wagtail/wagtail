@@ -49,10 +49,10 @@ def index(request, parent_page_id=None):
             ordering_no_minus = ordering[1:]
         pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
 
-        p = request.GET.get('p', 1)
+        page_number = request.GET.get('page', 1)
         paginator = Paginator(pages, 50)
         try:
-            pages = paginator.page(p)
+            pages = paginator.page(page_number)
         except PageNotAnInteger:
             pages = paginator.page(1)
         except EmptyPage:

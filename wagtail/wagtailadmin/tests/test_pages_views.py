@@ -92,7 +92,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_pages()
 
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 2})
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'page': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -104,7 +104,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_pages()
 
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'page': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -116,7 +116,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_pages()
 
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'p': 99999})
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )), {'page': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
