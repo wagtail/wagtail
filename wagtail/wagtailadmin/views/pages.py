@@ -679,7 +679,7 @@ def get_page_edit_handler(page_class):
 
 @vary_on_headers('X-Requested-With')
 def search(request):
-    pages = []
+    pages = Page.objects.none()
     search_query = None
 
     if 'q' in request.GET:
@@ -687,7 +687,7 @@ def search(request):
 
         if form.is_valid():
             search_query = form.cleaned_data['q']
-            pages = Page.search(search_query, show_unpublished=True, search_title_only=True, prefetch_related=['content_type'])
+            pages = Page.objects.all().prefetch_related('content_type').search(search_query, fields=['title'])
 
             # Pagination
             page_number = request.GET.get('page', 1)
