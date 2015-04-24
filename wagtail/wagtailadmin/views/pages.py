@@ -686,16 +686,14 @@ def search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             q = form.cleaned_data['q']
-
-            # page number
-            p = request.GET.get("p", 1)
             is_searching = True
             pages = Page.search(q, show_unpublished=True, search_title_only=True, prefetch_related=['content_type'])
 
             # Pagination
+            page_number = request.GET.get('page', 1)
             paginator = Paginator(pages, 20)
             try:
-                pages = paginator.page(p)
+                pages = paginator.page(page_number)
             except PageNotAnInteger:
                 pages = paginator.page(1)
             except EmptyPage:

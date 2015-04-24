@@ -32,18 +32,18 @@
                 <li class="prev">
                     {% if pages.has_previous %}
                         {% if is_searching %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
+                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;page={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
                         {% else %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
+                            <a href="{% url 'wagtailadmin_pages_search' %}?page={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
                         {% endif %}
                     {% endif %}
                 </li>
                 <li class="next">
                     {% if pages.has_next %}
                         {% if is_searching %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                            <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;page={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                         {% else %}
-                            <a href="{% url 'wagtailadmin_pages_search' %}?p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                            <a href="{% url 'wagtailadmin_pages_search' %}?page={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                         {% endif %}
                     {% endif %}
                 </li>
