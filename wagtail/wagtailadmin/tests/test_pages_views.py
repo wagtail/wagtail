@@ -1670,6 +1670,9 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
 
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
     def test_content_type_use(self):
         # Get use of event page
         response = self.client.get(reverse('wagtailadmin_pages_type_use', args=('tests', 'eventpage')))
@@ -1678,6 +1681,49 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
         self.assertContains(response, "Christmas")
+
+    def make_pages(self):
+        for i in range(150):
+            self.root_page.add_child(instance=SimplePage(
+                title="Page " + str(i),
+                slug="page-" + str(i),
+            ))
+
+    def test_pagination(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_pages_type_use', args=('tests', 'simplepage')), {'page': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['pages'].number, 2)
+
+    def test_pagination_invalid(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_pages_type_use', args=('tests', 'simplepage')), {'page': 'Hello world!'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
+
+        # Check that we got page one
+        self.assertEqual(response.context['pages'].number, 1)
+
+    def test_pagination_out_of_range(self):
+        self.make_pages()
+
+        response = self.client.get(reverse('wagtailadmin_pages_type_use', args=('tests', 'simplepage')), {'page': 99999})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
+
+        # Check that we got the last page
+        self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
 
 class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
