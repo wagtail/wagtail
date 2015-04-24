@@ -1,3 +1,6 @@
+import unittest
+
+import django
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import NoReverseMatch
 
@@ -112,6 +115,7 @@ class TestNewStyleRoutablePage(TestCase):
         self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
 
 
+@unittest.skipIf(django.VERSION >= (1, 8), "Old style routable pages don't work on Django 1.8")
 class TestOldStyleRoutablePage(TestNewStyleRoutablePage):
     model = OldStyleRoutablePageTest
 
