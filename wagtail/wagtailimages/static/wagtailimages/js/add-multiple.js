@@ -40,10 +40,12 @@ $(function() {
                 data.context.find('.left').each(function(index, elm) {
                     $(elm).append(data.files[index].name);
                 });
+
                 data.context.find('.preview .thumb').each(function(index, elm) {
                     $(elm).addClass('hasthumb')
                     $(elm).append(data.files[index].preview);
                 });
+
             }).done(function() {
                 data.context.find('.start').prop('disabled', false);
                 if ((that._trigger('added', e, data) !== false) &&
@@ -67,7 +69,7 @@ $(function() {
             var itemElement = $(data.context);
             itemElement.removeClass('upload-uploading').addClass('upload-failure');
         },
-        
+
         progress: function(e, data) {
             if (e.isDefaultPrevented()) {
                 return false;
@@ -81,7 +83,7 @@ $(function() {
                 ).html(progress + '%');
             });
         },
-        
+
         progressall: function(e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#overall-progress').addClass('active').attr('aria-valuenow', progress).find('.bar').css(
@@ -93,25 +95,25 @@ $(function() {
                 $('#overall-progress').removeClass('active').find('.bar').css('width', '0%');
             }
         },
-        
+
         done: function(e, data) {
             var itemElement = $(data.context);
             var response = $.parseJSON(data.result);
 
-            if (response.success) {   
+            if (response.success) {
                 itemElement.addClass('upload-success')
 
                 $('.right', itemElement).append(response.form);
-                
+
                 // run tagit enhancement
                 $('.tag_field input', itemElement).tagit(window.tagit_opts);
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);
-            }          
+            }
 
         },
-      
+
         fail: function(e, data) {
             var itemElement = $(data.context);
             itemElement.addClass('upload-failure');
@@ -120,10 +122,10 @@ $(function() {
         always: function(e, data) {
             var itemElement = $(data.context);
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
-        },
+        }
     });
 
-    // ajax-enhance forms added on done() 
+    // ajax-enhance forms added on done()
     $('#upload-list').on('submit', 'form', function(e) {
         var form = $(this);
         var itemElement = form.closest('#upload-list > li');
@@ -145,7 +147,7 @@ $(function() {
     $('#upload-list').on('click', '.delete', function(e) {
         var form = $(this).closest('form');
         var itemElement = form.closest('#upload-list > li');
-        
+
         e.preventDefault();
 
         var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
@@ -153,8 +155,6 @@ $(function() {
         $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
             if (data.success) {
                 itemElement.slideUp(function() {$(this).remove()});
-            } else {
-            
             }
         });
     });

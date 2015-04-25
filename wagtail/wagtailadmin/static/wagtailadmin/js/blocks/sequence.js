@@ -4,7 +4,7 @@ Operations on a sequence of items, common to both ListBlock and StreamBlock.
 
 These assume the presence of a container element named "{prefix}-container" for each list item, and
 certain hidden fields such as "{prefix}-deleted" as defined in sequence_member.html, but make no assumptions
-about layout or visible controls within the block. 
+about layout or visible controls within the block.
 
 For example, they don't assume the presence of a 'delete' button - it's up to the specific subclass
 (list.js / stream.js) to attach this to the SequenceMember.delete method.
@@ -23,24 +23,30 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         self.delete = function() {
             sequence.deleteMember(self);
         };
+
         self.prependMember = function(template) {
             sequence.insertMemberBefore(self, template);
         };
+
         self.appendMember = function(template) {
             sequence.insertMemberAfter(self, template);
         };
+
         self.moveUp = function() {
             sequence.moveMemberUp(self);
         };
+
         self.moveDown = function() {
             sequence.moveMemberDown(self);
         };
+
         self._markDeleted = function() {
             /* set this list member's hidden 'deleted' flag to true */
             $('#' + self.prefix + '-deleted').val('1');
             /* hide the list item */
             self.container.fadeOut();
         };
+
         self._markAdded = function() {
             self.container.hide();
             self.container.slideDown();
@@ -50,15 +56,18 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
             }, 250);
         };
+
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
         };
+
         self.setIndex = function(i) {
             indexField.val(i);
         };
 
         return self;
     };
+
     window.Sequence = function(opts) {
         var self = {};
         var list = $('#' + opts.prefix + '-list');

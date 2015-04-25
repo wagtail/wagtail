@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
+
 document.addEventListener('DOMContentLoaded', function() {
     var body = document.querySelectorAll('body')[0];
     var nav = document.querySelectorAll('nav')[0];
     var className = 'ready';
-    var has_pm = window.postMessage;
+    var hasPostMessage = window.postMessage;
 
-    if (has_pm) {
-        parent.postMessage("fh=" + nav.offsetHeight, '*');
+    if (hasPostMessage) {
+        parent.postMessage('fh=' + nav.offsetHeight, '*');
     }
 
     if (body.classList) {

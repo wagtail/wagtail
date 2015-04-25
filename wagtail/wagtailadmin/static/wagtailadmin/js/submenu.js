@@ -3,7 +3,7 @@ $(function() {
 
     $('.nav-main .submenu-trigger').on('click', function() {
         if ($(this).closest('li').find('.nav-submenu').length) {
-            
+
             // Close explorer menu, although it may not be instantiated yet
             if ($explorer.data('dlmenu') && $explorer.dlmenu('isOpen')) {
                 $explorer.dlmenu('closeMenu');

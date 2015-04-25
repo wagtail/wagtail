@@ -8,8 +8,8 @@
 
         return function(elementPrefix) {
             var sequence = Sequence({
-                'prefix': elementPrefix,
-                'onInitializeMember': function(sequenceMember) {
+                prefix: elementPrefix,
+                onInitializeMember: function(sequenceMember) {
                     /* initialize child block's JS behaviour */
                     if (opts.childInitializer) {
                         opts.childInitializer(sequenceMember.prefix + '-value');
@@ -24,20 +24,25 @@
                     $('#' + sequenceMember.prefix + '-moveup').click(function() {
                         sequenceMember.moveUp();
                     });
+
                     $('#' + sequenceMember.prefix + '-movedown').click(function() {
                         sequenceMember.moveDown();
                     });
                 },
-                'onEnableMoveUp': function(sequenceMember) {
+
+                onEnableMoveUp: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-moveup').removeClass('disabled');
                 },
-                'onDisableMoveUp': function(sequenceMember) {
+
+                onDisableMoveUp: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-moveup').addClass('disabled');
                 },
-                'onEnableMoveDown': function(sequenceMember) {
+
+                onEnableMoveDown: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-movedown').removeClass('disabled');
                 },
-                'onDisableMoveDown': function(sequenceMember) {
+
+                onDisableMoveDown: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-movedown').addClass('disabled');
                 }
             });

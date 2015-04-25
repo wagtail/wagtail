@@ -3,7 +3,7 @@ var jcropapi;
 function setupJcrop(image, original, focalPointOriginal, fields) {
     image.Jcrop({
         trueSize: [original.width, original.height],
-        bgColor: "rgb(192, 192, 192)",
+        bgColor: 'rgb(192, 192, 192)',
         onSelect: function(box) {
             var x = Math.floor((box.x + box.x2) / 2);
             var y = Math.floor((box.y + box.y2) / 2);
@@ -15,12 +15,13 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
             fields.width.val(w);
             fields.height.val(h);
         },
+
         onRelease: function() {
             fields.x.val(focalPointOriginal.x);
             fields.y.val(focalPointOriginal.y);
             fields.width.val(focalPointOriginal.width);
             fields.height.val(focalPointOriginal.height);
-        },
+        }
     }, function() {
         jcropapi = this
     });

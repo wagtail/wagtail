@@ -29,7 +29,9 @@ $(function() {
             var footerHeight = $('.footer', $(this)).height();
         });
     };
+
     fitNav();
+
     $(window).resize(function() {
         fitNav();
     });
@@ -44,6 +46,7 @@ $(function() {
         $(this).closest('fieldset').addClass('focused');
         $(this).closest('li').addClass('focused');
     });
+
     $(document).on('blur mouseout', 'input,textarea,select', function() {
         $(this).closest('.field').removeClass('focused');
         $(this).closest('fieldset').removeClass('focused');
@@ -55,6 +58,7 @@ $(function() {
         e.preventDefault();
         $(this).tab('show');
     });
+
     $(document).on('click', '.tab-toggle', function(e) {
         e.preventDefault();
         $('.tab-nav a[href="' + $(this).attr('href') + '"]').click();
@@ -84,8 +88,8 @@ $(function() {
 
     /* Header search behaviour */
     if (window.headerSearch) {
-        var search_current_index = 0;
-        var search_next_index = 0;
+        var searchCurrentIndex = 0;
+        var searchNextIndex = 0;
 
         $(window.headerSearch.termInput).on('input', function() {
             clearTimeout($.data(this, 'timer'));
@@ -97,21 +101,22 @@ $(function() {
         $(window.headerSearch.termInput).trigger('focus');
 
         function search() {
-            var workingClasses = "icon-spinner";
+            var workingClasses = 'icon-spinner';
 
             $(window.headerSearch.termInput).parent().addClass(workingClasses);
-            search_next_index++;
-            var index = search_next_index;
+            searchNextIndex++;
+            var index = searchNextIndex;
             $.ajax({
                 url: window.headerSearch.url,
                 data: {q: $(window.headerSearch.termInput).val()},
                 success: function(data, status) {
-                    if (index > search_current_index) {
-                        search_current_index = index;
+                    if (index > searchCurrentIndex) {
+                        searchCurrentIndex = index;
                         $(window.headerSearch.targetOutput).html(data).slideDown(800);
-                        window.history.pushState(null, "Search results", "?q=" + $(window.headerSearch.termInput).val());
+                        window.history.pushState(null, 'Search results', '?q=' + $(window.headerSearch.termInput).val());
                     }
                 },
+
                 complete: function() {
                     $(window.headerSearch.termInput).parent().removeClass(workingClasses);
                 }

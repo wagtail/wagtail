@@ -5,7 +5,7 @@ $(function() {
     // Dynamically load menu on request.
     $(document).on('click', '.dl-trigger', function() {
         var $this = $(this);
-        
+
         // Close all submenus
         $('.nav-main .submenu-active, .nav-wrapper').removeClass('submenu-active');
 
