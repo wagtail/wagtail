@@ -43,6 +43,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
@@ -50,6 +51,13 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
+
+if django.VERSION < (1, 7):
+    # Django 1.6 does not have SessionAuthenticationMiddleware
+    MIDDLEWARE_CLASSES = tuple(
+        i for i in MIDDLEWARE_CLASSES
+        if i != 'django.contrib.auth.middleware.SessionAuthenticationMiddleware'
+    )
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
