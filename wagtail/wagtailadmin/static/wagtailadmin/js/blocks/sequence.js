@@ -46,7 +46,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             self.container.slideDown();
 
             // focus first suitable input found
-            var timeout = setTimeout(function(){
+            var timeout = setTimeout(function() {
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
             }, 250);
         };
@@ -76,8 +76,10 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             countField.val(newIndex + 1);
             return opts.prefix + '-' + newIndex;
         }
+
         function setInitialMoveUpDownState(newMember) {
         }
+
         function postInsertMember(newMember) {
             /* run any supplied initializer functions */
             if (opts.onInitializeMember) {
@@ -121,6 +123,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = index; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
@@ -147,6 +150,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = index; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
@@ -176,6 +180,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = 0; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.unshift(newMember);
             newMember.setIndex(0);
 
@@ -224,6 +229,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 /* deleting the first member; the new first member cannot move up now */
                 opts.onDisableMoveUp(members[0]);
             }
+
             if (index === members.length && members.length > 0 && opts.onDisableMoveDown) {
                 /* deleting the last member; the new last member cannot move down now */
                 opts.onDisableMoveDown(members[members.length - 1]);
@@ -252,6 +258,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                     if (opts.onDisableMoveUp) opts.onDisableMoveUp(member);
                     if (opts.onEnableMoveUp) opts.onEnableMoveUp(swappedMember);
                 }
+
                 if (oldIndex === (members.length - 1)) {
                     /*
                     member was previously the last member, and can now move down;
@@ -285,6 +292,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                     if (opts.onDisableMoveDown) opts.onDisableMoveDown(member);
                     if (opts.onEnableMoveDown) opts.onEnableMoveDown(swappedMember);
                 }
+
                 if (oldIndex === 0) {
                     /*
                     member was previously the first member, and can now move up;

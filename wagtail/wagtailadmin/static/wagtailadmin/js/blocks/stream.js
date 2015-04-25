@@ -13,22 +13,22 @@
         self.inner = $('.stream-menu-inner', self.container);
         self.blocklist = $('ul', self.inner);
 
-        if(self.container.hasClass('stream-menu-closed')){
-            self.inner.css('height',0);
+        if (self.container.hasClass('stream-menu-closed')) {
+            self.inner.css('height', 0);
         }
 
-        self.show = function(){
-            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function(){
+        self.show = function() {
+            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function() {
                 $(this).height('auto');
             });
             self.container.removeClass('stream-menu-closed');
         };
-        self.hide = function(){
+        self.hide = function() {
             self.inner.animate({height: 0}, 250)
             self.container.addClass('stream-menu-closed');
         };
-        self.toggle = function(){
-            if(self.container.hasClass('stream-menu-closed')){
+        self.toggle = function() {
+            if (self.container.hasClass('stream-menu-closed')) {
                 self.show();
             } else {
                 self.hide();
@@ -36,7 +36,7 @@
         };
 
         /* set up show/hide on click behaviour */
-        self.container.click(function(e){
+        self.container.click(function(e) {
             e.preventDefault();
             self.toggle();
         });

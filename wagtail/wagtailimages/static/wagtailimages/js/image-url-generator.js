@@ -48,9 +48,9 @@ $(function() {
             }
 
             // Display note about scaled down images if image is large
-            if($widthField.val() > $(window).width()){
+            if ($widthField.val() > $(window).width()) {
                 $sizeNote.show();
-            }else{
+            } else {
                 $sizeNote.hide();
             }
 
