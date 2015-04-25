@@ -7,7 +7,14 @@
         "catch"
     ],
     "disallowMultipleVarDecl": "exceptUndefined",
-    "excludeFiles": ["node_modules/**", "**/*.min.js", "**/vendor/**/*.js"],
+    "excludeFiles": [
+        "node_modules/**",
+        "**/*.min.js",
+        "**/vendor/**/*.js",
+        "./wagtail/wagtailadmin/templates/wagtailadmin/edit_handlers/inline_panel.js",
+        "./wagtail/wagtailsearch/templates/wagtailsearch/editorspicks/includes/editorspicks_formset.js",
+        "./wagtail/wagtailusers/templates/wagtailusers/groups/includes/page_permissions_formset.js"
+    ],
     "fileExtensions": [".js"],
     "preset":"airbnb"
 }
