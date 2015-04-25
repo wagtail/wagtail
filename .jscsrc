@@ -1,0 +1,13 @@
+{
+    "validateIndentation": 4,
+    "safeContextKeyword": ["_this", "widget"],
+    "requireSpaceBeforeKeywords": [
+        "else",
+        "while",
+        "catch"
+    ],
+    "disallowMultipleVarDecl": "exceptUndefined",
+    "excludeFiles": ["node_modules/**", "**/*.min.js", "**/vendor/**/*.js"],
+    "fileExtensions": [".js"],
+    "preset":"airbnb"
+}
