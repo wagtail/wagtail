@@ -287,8 +287,8 @@ function initSlugAutoPopulate(){
         $(this).data('previous-val', $(this).val());
     });
     $('#id_title').on('keyup keydown keypress blur', function(){
-        if($('body').hasClass('create') || (!$('#id_slug').data('previous-val').length || cleanForSlug($('#id_title').data('previous-val')) === $('#id_slug').data('previous-val'))){
-            // only update slug if the page is being created from scratch, if slug is completely blank, or if title and slug prior to typing were identical
+        // update slug only during page creation or if slug was removed on an existing page
+        if($('body').hasClass('create') || !$('#id_slug').data('previous-val').length){
             $('#id_slug').val(cleanForSlug($('#id_title').val()));
         }
     });
