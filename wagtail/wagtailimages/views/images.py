@@ -3,9 +3,11 @@ import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
+from django.utils.encoding import force_text
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.http import HttpResponse, JsonResponse
+
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailcore.models import Site
@@ -25,6 +27,7 @@ from wagtail.wagtailimages.fields import (
     ALLOWED_EXTENSIONS,
     FILE_TOO_LARGE_ERROR,
 )
+from wagtail.utils.compat import render_to_string
 
 @any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
 @vary_on_headers('X-Requested-With')
@@ -69,7 +72,6 @@ def index(request):
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
-
             'search_form': form,
             'popular_tags': Image.popular_tags(),
         })
@@ -250,6 +252,52 @@ def add(request):
     return render(request, "wagtailimages/images/add.html", {
         'form': form,
     })
+
+
+@permission_required('wagtailimages.add_image')
+@vary_on_headers('X-Requested-With')
+def add_ajax(request):
+    ImageModel = get_image_model()
+    ImageForm = get_image_form(ImageModel)
+
+    if request.method == 'POST':
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+        if not request.FILES:
+            return HttpResponseBadRequest("Must upload a file")
+
+        # Build a form for validation
+        form = ImageForm({
+            'title': request.FILES['files[]'].name,
+        }, {
+            'file': request.FILES['files[]'],
+        })
+
+        if form.is_valid():
+            # Save it
+            image = form.save(commit=False)
+            image.uploaded_by_user = request.user
+            image.save()
+
+            # Success! Send back an edit form for this image to the user
+            return json_response({
+                'success': True,
+                'image_id': int(image.id),
+                'content': render_to_string('wagtailimages/images/includes/image_listing_item.html', {
+                    'image': image
+                }, request=request),
+            })
+        else:
+            # Validation error
+            return json_response({
+                'success': False,
+
+                # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
+                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
+            })
+    else:
+        return redirect('wagtailimages_index')
 
 
 def usage(request, image_id):
