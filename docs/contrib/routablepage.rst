@@ -12,7 +12,7 @@ A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any othe
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherits from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` and :class:`wagtail.wagtailcore.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.wagtailroutablepage.models.route``.
 
 Here's an example of an ``EventPage`` with three views:
 
