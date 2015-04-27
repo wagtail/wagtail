@@ -30,6 +30,12 @@ MySQL support
 Wagtail now officially supports MySQL as a database backend.
 
 
+Django 1.8 support
+~~~~~~~~~~~~~~~~~~
+
+Wagtail now officially supports running under Django 1.8.
+
+
 Minor changes
 ~~~~~~~~~~~~~
 
