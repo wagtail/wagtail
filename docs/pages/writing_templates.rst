@@ -127,9 +127,6 @@ Only fields using ``RichTextField`` need this applied in the template.
     ...
     {{ self.body|richtext }}
 
-.. Note::
-    Note that the template tag loaded differs from the name of the filter.
-
 Responsive Embeds
 -----------------
 
