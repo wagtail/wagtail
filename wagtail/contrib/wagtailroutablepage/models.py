@@ -1,12 +1,38 @@
 from __future__ import unicode_literals
 
 from six import string_types
+import warnings
 
 from django.http import Http404
 from django.core.urlresolvers import RegexURLResolver
+from django.conf.urls import url
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
+
+
+_creation_counter = 0
+
+
+def route(pattern, name=None):
+    def decorator(view_func):
+        global _creation_counter
+        _creation_counter += 1
+
+        # Make sure page has _routablepage_routes attribute
+        if not hasattr(view_func, '_routablepage_routes'):
+            view_func._routablepage_routes = []
+
+        # Add new route to view
+        view_func._routablepage_routes.append((
+            url(pattern, view_func, name=(name or view_func.__name__)),
+            _creation_counter,
+        ))
+
+        return view_func
+
+    return decorator
 
 
 class RoutablePageMixin(object):
@@ -18,11 +44,34 @@ class RoutablePageMixin(object):
     subpage_urls = None
 
     @classmethod
+    def check(cls, **kwargs):
+        if cls.subpage_urls and not hasattr(cls, '_disable_subpage_urls_deprecation_warning'):
+            warnings.warn(
+                "{app_label}.{classname}: subpage_urls is deprecated. Use the "
+                "@route decorator to define page routes instead.".format(
+                    app_label=cls._meta.app_label,
+                    classname=cls.__name__,
+                ), RemovedInWagtail12Warning)
+
+        return super(RoutablePageMixin, cls).check(**kwargs)
+
+    @classmethod
     def get_subpage_urls(cls):
+        # Old style
         if cls.subpage_urls:
             return cls.subpage_urls
 
-        return ()
+        # New style
+        routes = []
+        for attr in dir(cls):
+            val = getattr(cls, attr)
+            if hasattr(val, '_routablepage_routes'):
+                routes.extend(val._routablepage_routes)
+
+        return tuple([
+            route[0]
+            for route in sorted(routes, key=lambda route: route[1])
+        ])
 
     @classmethod
     def get_resolver(cls):
@@ -48,9 +97,14 @@ class RoutablePageMixin(object):
         """
         view, args, kwargs = self.get_resolver().resolve(path)
 
-        # If view is a string, find it as an attribute of self
-        if isinstance(view, string_types):
-            view = getattr(self, view)
+        if self.subpage_urls:  # Old style
+            # If view is a string, find it as an attribute of self
+            if isinstance(view, string_types):
+                view = getattr(self, view)
+
+        else:  # New style
+            # Bind the method
+            view = view.__get__(self, type(self))
 
         return view, args, kwargs
 

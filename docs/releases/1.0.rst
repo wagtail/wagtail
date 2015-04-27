@@ -106,6 +106,12 @@ Search
  * Search view accepts "page" GET parameter in line with pagination
 
 
+Routable pages
+--------------
+
+ * Added a new decorator-based syntax for RoutablePage, compatible with Django 1.8
+
+
 Bug fixes
 ~~~~~~~~~
 
@@ -194,6 +200,13 @@ It is no longer necessary to pass the base model as a parameter, so this declara
     InlinePanel('carousel_items', label="Carousel items")
 
 The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
+
+``RoutablePage`` now uses decorator syntax for defining views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, ``RoutablePage`` models were configured by setting a ``subpage_urls`` attribute within the page model. This fails in Django 1.8, because it relies on passing the view function name as a string which is not an absolute module path. To address this, Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
+
+The old ``subpage_urls`` convention will continue to work on Django versions prior to 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
 
 Celery no longer automatically used for sending notification emails
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
