@@ -83,6 +83,7 @@ INSTALLED_APPS = (
 
     'taggit',
     'compressor',
+    'sendfile',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -157,5 +158,7 @@ try:
 except ImportError:
     pass
 
+# Sendfile dev backend, do NOT use in production https://github.com/johnsensible/django-sendfile#django-sendfile
+SENDFILE_BACKEND = 'sendfile.backends.development'
 
 WAGTAIL_SITE_NAME = "Test Site"
