@@ -1,5 +1,5 @@
 $(function() {
-    "use strict";
+    'use strict';
 
     $('.image-url-generator').each(function() {
         var $this = $(this);
@@ -48,21 +48,21 @@ $(function() {
             }
 
             // Display note about scaled down images if image is large
-            if($widthField.val() > $(window).width()){
+            if ($widthField.val() > $(window).width()) {
                 $sizeNote.show();
-            }else{
+            } else {
                 $sizeNote.hide();
             }
 
             // Fields with width and height
             $.getJSON(generatorUrl.replace('__filterspec__', filterSpec))
                 .done(function(data) {
-                    $result.val(data['url']);
-                    $preview.attr('src', data['preview_url']);
+                    $result.val(data.url);
+                    $preview.attr('src', data.preview_url);
                     $loadingMask.removeClass('loading');
                 })
                 .fail(function(data) {
-                    $result.val(data.responseJSON['error']);
+                    $result.val(data.responseJSON.error);
                     $preview.attr('src', '');
                     $loadingMask.removeClass('loading');
                 });

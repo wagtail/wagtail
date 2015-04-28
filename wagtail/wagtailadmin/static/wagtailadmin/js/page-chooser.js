@@ -9,11 +9,12 @@ function createPageChooser(id, pageType, openAtParentId) {
         if (openAtParentId) {
             initialUrl += openAtParentId + '/';
         }
+
         ModalWorkflow({
-            'url': initialUrl,
-            'urlParams': {'page_type': pageType},
-            'responses': {
-                'pageChosen': function(pageData) {
+            url: initialUrl,
+            urlParams: { page_type: pageType },
+            responses: {
+                pageChosen: function(pageData) {
                     input.val(pageData.id);
                     openAtParentId = pageData.parentId;
                     pageTitle.text(pageData.title);

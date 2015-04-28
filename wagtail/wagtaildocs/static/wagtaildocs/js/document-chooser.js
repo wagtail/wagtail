@@ -6,9 +6,9 @@ function createDocumentChooser(id) {
 
     $('.action-choose', chooserElement).click(function() {
         ModalWorkflow({
-            'url': window.chooserUrls.documentChooser,
-            'responses': {
-                'documentChosen': function(docData) {
+            url: window.chooserUrls.documentChooser,
+            responses: {
+                documentChosen: function(docData) {
                     input.val(docData.id);
                     docTitle.text(docData.title);
                     chooserElement.removeClass('blank');

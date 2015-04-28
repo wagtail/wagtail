@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
 var halloPlugins = {
-    'halloformat': {},
-    'halloheadings': {formatBlocks: ["p", "h2", "h3", "h4", "h5"]},
-    'hallolists': {},
-    'hallohr': {},
-    'halloreundo': {},
-    'hallowagtaillink': {},
-    'hallorequireparagraphs': {}
+    halloformat: {},
+    halloheadings: {formatBlocks: ['p', 'h2', 'h3', 'h4', 'h5']},
+    hallolists: {},
+    hallohr: {},
+    halloreundo: {},
+    hallowagtaillink: {},
+    hallorequireparagraphs: {}
 };
 
 function registerHalloPlugin(name, opts) {
@@ -75,7 +75,7 @@ function initDateChooser(id) {
         $('#' + id).datetimepicker({
             timepicker: false,
             scrollInput:false,
-            format: 'Y-m-d',
+            format: 'Y-m-d'
         });
     }
 }
@@ -95,7 +95,7 @@ function initTimeChooser(id) {
     } else {
         $('#' + id).datetimepicker({
             datepicker: false,
-            format: 'H:i',
+            format: 'H:i'
         });
     }
 }
@@ -113,7 +113,7 @@ function initDateTimeChooser(id) {
         });
     } else {
         $('#' + id).datetimepicker({
-            format: 'Y-m-d H:i',
+            format: 'Y-m-d H:i'
         });
     }
 }
@@ -127,6 +127,7 @@ function initTagField(id, autocompleteUrl) {
             if (val && val[0] != '"' && val.indexOf(' ') > -1) {
                 return '"' + val + '"';
             }
+
             return val;
         }
     });
@@ -135,15 +136,15 @@ function initTagField(id, autocompleteUrl) {
 function InlinePanel(opts) {
     var self = {};
 
-    self.setHasContent = function(){
-        if($('> li', self.formsUl).not(".deleted").length){
+    self.setHasContent = function() {
+        if ($('> li', self.formsUl).not('.deleted').length) {
             self.formsUl.parent().removeClass('empty');
-        }else{
+        } else {
             self.formsUl.parent().addClass('empty');
         }
     };
 
-    self.initChildControls = function (prefix) {
+    self.initChildControls = function(prefix) {
         var childId = 'inline_child_' + prefix;
         var deleteInputId = 'id_' + prefix + '-DELETE';
 
@@ -158,6 +159,7 @@ function InlinePanel(opts) {
                 self.setHasContent();
             });
         });
+
         if (opts.canOrder) {
             $('#' + prefix + '-move-up').click(function() {
                 var currentChild = $('#' + childId);
@@ -205,12 +207,13 @@ function InlinePanel(opts) {
         /* Hide container on page load if it is marked as deleted. Remove the error
          message so that it doesn't count towards the number of errors on the tab at the
          top of the page. */
-        if ($('#' + deleteInputId).val() === "1" ) {
+        if ($('#' + deleteInputId).val() === '1') {
             $('#' + childId).addClass('deleted').hide(0, function() {
                 self.updateMoveButtonDisabledStates();
                 self.setHasContent();
             });
-            $('#' + childId).find(".error-message").remove();
+
+            $('#' + childId).find('.error-message').remove();
         }
     };
 
@@ -226,7 +229,7 @@ function InlinePanel(opts) {
         }
     };
 
-    self.animateSwap = function(item1, item2){
+    self.animateSwap = function(item1, item2) {
         var parent = self.formsUl;
         var children = parent.children('li:visible');
 
@@ -234,7 +237,7 @@ function InlinePanel(opts) {
         // Also set it's relatively calculated height to be an absolute one, to prevent the container collapsing while its children go absolute
         parent.addClass('moving').css('height', parent.height());
 
-        children.each(function(){
+        children.each(function() {
             // console.log($(this));
             $(this).css('top', $(this).position().top);
         }).addClass('moving');
@@ -242,13 +245,14 @@ function InlinePanel(opts) {
         // animate swapping around
         item1.animate({
             top:item2.position().top
-        }, 200, function(){
+        }, 200, function() {
             parent.removeClass('moving').removeAttr('style');
             children.removeClass('moving').removeAttr('style');
         });
+
         item2.animate({
             top:item1.position().top
-        }, 200, function(){
+        }, 200, function() {
             parent.removeClass('moving').removeAttr('style');
             children.removeClass('moving').removeAttr('style');
         });
@@ -264,6 +268,7 @@ function InlinePanel(opts) {
                 to ensure it's *greater* than previous item */
                 $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
             }
+
             self.updateMoveButtonDisabledStates();
 
             if (opts.onAdd) opts.onAdd();
@@ -273,68 +278,70 @@ function InlinePanel(opts) {
     return self;
 }
 
-function cleanForSlug(val, useURLify){
-    if(URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
+function cleanForSlug(val, useURLify) {
+    if (URLify != undefined && useURLify !== false) { // Check to be sure that URLify function exists, and that we want to use it.
         return URLify(val, val.length);
     } else { // If not just do the "replace"
-        return val.replace(/\s/g,"-").replace(/[^A-Za-z0-9\-]/g,"").toLowerCase();
+        return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-]/g, '').toLowerCase();
     }
 }
 
-function initSlugAutoPopulate(){
-    $('#id_title').on('focus', function(){
+function initSlugAutoPopulate() {
+    $('#id_title').on('focus', function() {
         $('#id_slug').data('previous-val', $('#id_slug').val());
         $(this).data('previous-val', $(this).val());
     });
-    $('#id_title').on('keyup keydown keypress blur', function(){
-        if($('body').hasClass('create') || (!$('#id_slug').data('previous-val').length || cleanForSlug($('#id_title').data('previous-val')) === $('#id_slug').data('previous-val'))){
+
+    $('#id_title').on('keyup keydown keypress blur', function() {
+        if ($('body').hasClass('create') || (!$('#id_slug').data('previous-val').length || cleanForSlug($('#id_title').data('previous-val')) === $('#id_slug').data('previous-val'))) {
             // only update slug if the page is being created from scratch, if slug is completely blank, or if title and slug prior to typing were identical
             $('#id_slug').val(cleanForSlug($('#id_title').val()));
         }
     });
 }
 
-function initSlugCleaning(){
-    $('#id_slug').blur(function(){
+function initSlugCleaning() {
+    $('#id_slug').blur(function() {
         // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
         $(this).val(cleanForSlug($(this).val(), false));
     });
 }
 
-function initErrorDetection(){
+function initErrorDetection() {
     var errorSections = {};
 
     // first count up all the errors
-    $('.error-message').each(function(){
+    $('.error-message').each(function() {
         var parentSection = $(this).closest('section');
 
-        if(!errorSections[parentSection.attr('id')]){
+        if (!errorSections[parentSection.attr('id')]) {
             errorSections[parentSection.attr('id')] = 0;
         }
 
-        errorSections[parentSection.attr('id')] = errorSections[parentSection.attr('id')]+1;
+        errorSections[parentSection.attr('id')] = errorSections[parentSection.attr('id')] + 1;
     });
 
     // now identify them on each tab
-    for(var index in errorSections) {
-        $('.tab-nav a[href=#'+ index +']').addClass('errors').attr('data-count', errorSections[index]);
+    for (var index in errorSections) {
+        $('.tab-nav a[href=#' + index + ']').addClass('errors').attr('data-count', errorSections[index]);
     }
 }
 
-function initCollapsibleBlocks(){
-    $(".object.multi-field.collapsible").each(function(){
+function initCollapsibleBlocks() {
+    $('.object.multi-field.collapsible').each(function() {
         var $li = $(this);
-        var $fieldset = $li.find("fieldset");
-        if($li.hasClass("collapsed")){
+        var $fieldset = $li.find('fieldset');
+        if ($li.hasClass('collapsed')) {
             $fieldset.hide();
         }
-        $li.find("h2").click(function(){
-            if(!$li.hasClass("collapsed")){
-                $li.addClass("collapsed");
-                $fieldset.hide("slow");
-            }else{
-                $li.removeClass("collapsed");
-                $fieldset.show("show");
+
+        $li.find('h2').click(function() {
+            if (!$li.hasClass('collapsed')) {
+                $li.addClass('collapsed');
+                $fieldset.hide('slow');
+            } else {
+                $li.removeClass('collapsed');
+                $fieldset.show('show');
             }
         });
     });
@@ -356,45 +363,47 @@ $(function() {
         e.preventDefault();
         var $this = $(this);
 
-        if(previewWindow){
+        if (previewWindow) {
             previewWindow.close();
         }
 
         previewWindow = window.open($this.data('placeholder'), $this.data('windowname'));
 
-        if(/MSIE/.test(navigator.userAgent)){
+        if (/MSIE/.test(navigator.userAgent)) {
             // If IE, load contents immediately without fancy effects
             submitPreview.call($this, false);
         } else {
-            previewWindow.onload = function(){
+            previewWindow.onload = function() {
                 submitPreview.call($this, true);
             }
         }
 
-        function submitPreview(enhanced){
+        function submitPreview(enhanced) {
             var previewDoc = previewWindow.document;
 
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: $this.data('action'),
                 data: $('#page-edit-form').serialize(),
                 success: function(data, textStatus, request) {
                     if (request.getResponseHeader('X-Wagtail-Preview') == 'ok') {
-                        if(enhanced){
+                        if (enhanced) {
                             var frame = previewDoc.getElementById('preview-frame');
 
                             frame = frame.contentWindow || frame.contentDocument.document || frame.contentDocument;
                             frame.document.open();
-                            frame.document.write(data);                 
+                            frame.document.write(data);
                             frame.document.close();
 
-                            var hideTimeout = setTimeout(function(){
+                            var hideTimeout = setTimeout(function() {
                                 previewDoc.getElementById('loading-spinner-wrapper').className += ' remove';
                                 clearTimeout(hideTimeout);
-                            }) // just enough to give effect without adding discernible slowness                       
+                            })
+
+ // just enough to give effect without adding discernible slowness
                         } else {
                             previewDoc.open();
-                            previewDoc.write(data);                 
+                            previewDoc.write(data);
                             previewDoc.close()
                         }
 
@@ -405,6 +414,7 @@ $(function() {
                         document.close();
                     }
                 },
+
                 error: function(xhr, textStatus, errorThrown) {
                     /* If an error occurs, display it in the preview window so that
                     we aren't just showing the spinner forever. We preserve the original
@@ -419,6 +429,6 @@ $(function() {
             });
 
         }
-        
+
     });
 });

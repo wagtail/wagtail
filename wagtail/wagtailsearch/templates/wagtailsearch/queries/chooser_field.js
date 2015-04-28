@@ -6,9 +6,9 @@ function createQueryChooser(id) {
         var initialUrl = '{% url "wagtailsearch_queries_chooser" %}';
 
         ModalWorkflow({
-            'url': initialUrl,
-            'responses': {
-                'queryChosen': function(queryData) {
+            url: initialUrl,
+            responses: {
+                queryChosen: function(queryData) {
                     input.val(queryData.querystring);
                 }
             }

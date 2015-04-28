@@ -1,0 +1,32 @@
+{
+  "name": "wagtail",
+  "version": "1.0.0",
+  "repository": "https://github.com/torchbox/wagtail",
+  "private": true,
+  "browser": {},
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {},
+  "devDependencies": {
+    "browserify": "~3.36.0",
+    "browserify-shim": "~3.4.1",
+    "gulp": "~3.8.11",
+    "gulp-autoprefixer": "~1.0.1",
+    "gulp-pixrem": "~0.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "~1.0.0",
+    "gulp-sourcemaps": "~1.2.2",
+    "gulp-util": "~2.2.14",
+    "jscs": "^1.12.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "build": "gulp build",
+    "start": "gulp watch",
+    "lint:js": "./node_modules/.bin/jscs ./wagtail || true",
+    "format:js": "./node_modules/.bin/jscs ./wagtail -x"
+  }
+}

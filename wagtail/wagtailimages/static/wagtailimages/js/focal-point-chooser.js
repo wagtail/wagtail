@@ -1,9 +1,9 @@
 var jcropapi;
 
-function setupJcrop(image, original, focalPointOriginal, fields){
+function setupJcrop(image, original, focalPointOriginal, fields) {
     image.Jcrop({
         trueSize: [original.width, original.height],
-        bgColor: "rgb(192, 192, 192)",
+        bgColor: 'rgb(192, 192, 192)',
         onSelect: function(box) {
             var x = Math.floor((box.x + box.x2) / 2);
             var y = Math.floor((box.y + box.y2) / 2);
@@ -15,13 +15,14 @@ function setupJcrop(image, original, focalPointOriginal, fields){
             fields.width.val(w);
             fields.height.val(h);
         },
+
         onRelease: function() {
             fields.x.val(focalPointOriginal.x);
             fields.y.val(focalPointOriginal.y);
             fields.width.val(focalPointOriginal.width);
             fields.height.val(focalPointOriginal.height);
-        },
-    }, function(){
+        }
+    }, function() {
         jcropapi = this
     });
 }
@@ -64,7 +65,7 @@ $(function() {
 
     setupJcrop.apply(this, params)
 
-    $(window).resize($.debounce(300, function(){
+    $(window).resize($.debounce(300, function() {
         // jcrop doesn't support responsive images so to cater for resizing the browser
         // we have to destroy() it, which doesn't properly do it,
         // so destory it some more, then re-apply it

@@ -4,7 +4,7 @@ Operations on a sequence of items, common to both ListBlock and StreamBlock.
 
 These assume the presence of a container element named "{prefix}-container" for each list item, and
 certain hidden fields such as "{prefix}-deleted" as defined in sequence_member.html, but make no assumptions
-about layout or visible controls within the block. 
+about layout or visible controls within the block.
 
 For example, they don't assume the presence of a 'delete' button - it's up to the specific subclass
 (list.js / stream.js) to attach this to the SequenceMember.delete method.
@@ -23,42 +23,51 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         self.delete = function() {
             sequence.deleteMember(self);
         };
+
         self.prependMember = function(template) {
             sequence.insertMemberBefore(self, template);
         };
+
         self.appendMember = function(template) {
             sequence.insertMemberAfter(self, template);
         };
+
         self.moveUp = function() {
             sequence.moveMemberUp(self);
         };
+
         self.moveDown = function() {
             sequence.moveMemberDown(self);
         };
+
         self._markDeleted = function() {
             /* set this list member's hidden 'deleted' flag to true */
             $('#' + self.prefix + '-deleted').val('1');
             /* hide the list item */
             self.container.fadeOut();
         };
+
         self._markAdded = function() {
             self.container.hide();
             self.container.slideDown();
 
             // focus first suitable input found
-            var timeout = setTimeout(function(){
+            var timeout = setTimeout(function() {
                 $('.input input,.input textarea,.input .richtext', self.container).first().focus();
             }, 250);
         };
+
         self.getIndex = function() {
             return parseInt(indexField.val(), 10);
         };
+
         self.setIndex = function(i) {
             indexField.val(i);
         };
 
         return self;
     };
+
     window.Sequence = function(opts) {
         var self = {};
         var list = $('#' + opts.prefix + '-list');
@@ -76,8 +85,10 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             countField.val(newIndex + 1);
             return opts.prefix + '-' + newIndex;
         }
+
         function setInitialMoveUpDownState(newMember) {
         }
+
         function postInsertMember(newMember) {
             /* run any supplied initializer functions */
             if (opts.onInitializeMember) {
@@ -121,6 +132,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = index; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
@@ -147,6 +159,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = index; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.splice(index, 0, newMember);
             newMember.setIndex(index);
 
@@ -176,6 +189,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             for (var i = 0; i < members.length; i++) {
                 members[i].setIndex(i + 1);
             }
+
             members.unshift(newMember);
             newMember.setIndex(0);
 
@@ -224,6 +238,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 /* deleting the first member; the new first member cannot move up now */
                 opts.onDisableMoveUp(members[0]);
             }
+
             if (index === members.length && members.length > 0 && opts.onDisableMoveDown) {
                 /* deleting the last member; the new last member cannot move down now */
                 opts.onDisableMoveDown(members[members.length - 1]);
@@ -252,6 +267,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                     if (opts.onDisableMoveUp) opts.onDisableMoveUp(member);
                     if (opts.onEnableMoveUp) opts.onEnableMoveUp(swappedMember);
                 }
+
                 if (oldIndex === (members.length - 1)) {
                     /*
                     member was previously the last member, and can now move down;
@@ -285,6 +301,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                     if (opts.onDisableMoveDown) opts.onDisableMoveDown(member);
                     if (opts.onEnableMoveDown) opts.onEnableMoveDown(swappedMember);
                 }
+
                 if (oldIndex === 0) {
                     /*
                     member was previously the first member, and can now move up;

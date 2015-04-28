@@ -13,22 +13,25 @@
         self.inner = $('.stream-menu-inner', self.container);
         self.blocklist = $('ul', self.inner);
 
-        if(self.container.hasClass('stream-menu-closed')){
-            self.inner.css('height',0);
+        if (self.container.hasClass('stream-menu-closed')) {
+            self.inner.css('height', 0);
         }
 
-        self.show = function(){
-            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function(){
+        self.show = function() {
+            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function() {
                 $(this).height('auto');
             });
+
             self.container.removeClass('stream-menu-closed');
         };
-        self.hide = function(){
+
+        self.hide = function() {
             self.inner.animate({height: 0}, 250)
             self.container.addClass('stream-menu-closed');
         };
-        self.toggle = function(){
-            if(self.container.hasClass('stream-menu-closed')){
+
+        self.toggle = function() {
+            if (self.container.hasClass('stream-menu-closed')) {
                 self.show();
             } else {
                 self.hide();
@@ -36,7 +39,7 @@
         };
 
         /* set up show/hide on click behaviour */
-        self.container.click(function(e){
+        self.container.click(function(e) {
             e.preventDefault();
             self.toggle();
         });
@@ -67,8 +70,8 @@
 
         return function(elementPrefix) {
             var sequence = Sequence({
-                'prefix': elementPrefix,
-                'onInitializeMember': function(sequenceMember) {
+                prefix: elementPrefix,
+                onInitializeMember: function(sequenceMember) {
                     /* initialize child block's JS behaviour */
                     var blockTypeName = $('#' + sequenceMember.prefix + '-type').val();
                     var blockOpts = childBlocksByName[blockTypeName];
@@ -81,43 +84,49 @@
                     $('#' + sequenceMember.prefix + '-delete').click(function() {
                         sequenceMember.delete();
                     });
+
                     /* initialise move up/down buttons */
                     $('#' + sequenceMember.prefix + '-moveup').click(function() {
                         sequenceMember.moveUp();
                     });
+
                     $('#' + sequenceMember.prefix + '-movedown').click(function() {
                         sequenceMember.moveDown();
                     });
 
                     /* Set up the 'append a block' menu that appears after the block */
                     StreamBlockMenu({
-                        'childBlocks': opts.childBlocks,
-                        'id': sequenceMember.prefix + '-appendmenu',
-                        'onChooseBlock': function(childBlock) {
+                        childBlocks: opts.childBlocks,
+                        id: sequenceMember.prefix + '-appendmenu',
+                        onChooseBlock: function(childBlock) {
                             var template = listMemberTemplates[childBlock.name];
                             sequenceMember.appendMember(template);
                         }
                     });
                 },
-                'onEnableMoveUp': function(sequenceMember) {
+
+                onEnableMoveUp: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-moveup').removeClass('disabled');
                 },
-                'onDisableMoveUp': function(sequenceMember) {
+
+                onDisableMoveUp: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-moveup').addClass('disabled');
                 },
-                'onEnableMoveDown': function(sequenceMember) {
+
+                onEnableMoveDown: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-movedown').removeClass('disabled');
                 },
-                'onDisableMoveDown': function(sequenceMember) {
+
+                onDisableMoveDown: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-movedown').addClass('disabled');
                 }
             });
 
             /* Set up the 'prepend a block' menu that appears above the first block in the sequence */
             StreamBlockMenu({
-                'childBlocks': opts.childBlocks,
-                'id': elementPrefix + '-prependmenu',
-                'onChooseBlock': function(childBlock) {
+                childBlocks: opts.childBlocks,
+                id: elementPrefix + '-prependmenu',
+                onChooseBlock: function(childBlock) {
                     var template = listMemberTemplates[childBlock.name];
                     sequence.insertMemberAtStart(template);
                 }
