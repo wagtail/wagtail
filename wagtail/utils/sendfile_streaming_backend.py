@@ -10,7 +10,6 @@ except ImportError:
     from email.Utils import parsedate_tz, mktime_tz
 from wsgiref.util import FileWrapper
 
-from django.core.files.base import File
 from django.http import StreamingHttpResponse, HttpResponseNotModified
 from django.utils.http import http_date
 
@@ -60,4 +59,3 @@ def was_modified_since(header=None, mtime=0, size=0):
     except (AttributeError, ValueError, OverflowError):
         return True
     return False
-
