@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from six import b
 import mock
 
@@ -559,3 +561,17 @@ class TestServeView(TestCase):
     def test_with_incorrect_filename(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
         self.assertEqual(response.status_code, 404)
+
+
+class TestServeWithUnicodeFilename(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+
+        # Setting this filename in the content-disposition header fails on Django <1.8, Python 2
+        # due to https://code.djangoproject.com/ticket/20889
+        self.filename = 'docs\u0627\u0644\u0643\u0627\u062a\u062f\u0631\u0627\u064a\u064a\u0629_\u0648\u0627\u0644\u0633\u0648\u0642'
+        self.document.file.save(self.filename, ContentFile("A boring example document"))
+
+    def test_response_code(self):
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.filename)))
+        self.assertEqual(response.status_code, 200)
