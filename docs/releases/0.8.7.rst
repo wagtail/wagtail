@@ -18,3 +18,4 @@ Bug fixes
 * RoutablePage now prevents ``subpage_urls`` from being defined as a property, which would cause a memory leak
 * Added validation to prevent pages being created with only whitespace characters in their title fields
 * Users are no longer logged out on changing password when SessionAuthenticationMiddleware (added in Django 1.7) is in use
+* Added a workaround for a Python / Django issue that prevented documents with certain non-ASCII filenames from being served
