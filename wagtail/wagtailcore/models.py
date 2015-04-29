@@ -481,7 +481,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             else:
                 raise Http404
 
-    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None):
+    def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True):
         # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),
@@ -490,8 +490,17 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             approved_go_live_at=approved_go_live_at,
         )
 
+        update_fields = []
+
         self.latest_revision_created_at = revision.created_at
-        self.save(update_fields=['latest_revision_created_at'])
+        update_fields.append('latest_revision_created_at')
+
+        if changed:
+            self.has_unpublished_changes = True
+            update_fields.append('has_unpublished_changes')
+
+        if update_fields:
+            self.save(update_fields=update_fields)
 
         # Log
         logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
@@ -823,7 +832,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             for field, value in update_attrs.items():
                 setattr(latest_revision, field, value)
 
-        latest_revision.save_revision(user=user)
+        latest_revision.save_revision(user=user, changed=False)
 
         # Log
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
