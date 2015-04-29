@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.7 (xx.xx.2015)
+0.8.7 (29.04.2015)
 ~~~~~~~~~~~~~~~~~~
 * Fix: wagtailfrontendcache no longer tries to purge pages that are not in a site
 * Fix: The contents of <div> elements in the rich text editor were not being whitelisted
