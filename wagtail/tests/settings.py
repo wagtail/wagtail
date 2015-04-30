@@ -135,7 +135,7 @@ COMPRESS_ENABLED = False  # disable compression so that we can run tests on the 
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
     }
 }
 
@@ -147,7 +147,7 @@ try:
 
     # Import succeeded, add an Elasticsearch backend
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'TIMEOUT': 10,
         'max_retries': 1,
     }

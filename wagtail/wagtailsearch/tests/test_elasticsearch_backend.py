@@ -13,7 +13,7 @@ from .test_backends import BackendTests
 
 
 class TestElasticSearchBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+    backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
     def test_search_with_spaces_only(self):
         # Search for some space characters and hope it doesn't crash

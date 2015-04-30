@@ -162,7 +162,7 @@ Search
   # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
     'default': {
-      'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+      'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
       'INDEX': 'myapp'
     }
   }
@@ -498,7 +498,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
   #    'INDEX': 'myapp'
   #  }
   #}
