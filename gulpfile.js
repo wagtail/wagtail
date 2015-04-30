@@ -102,14 +102,14 @@ gulp.task('watch', ['build'], function () {
 gulp.task('styles', ['styles:sass', 'styles:css']);
 
 // SASS - Compile and move sass
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 gulp.task('styles:sass', function () {
-	var sass = require('gulp-sass');
-	var autoprefixer = require('gulp-autoprefixer');
 
 	// Wagtail Sass files include each other across applications,
 	// e.g. wagtailimages Sass files will include wagtailadmin/sass/mixins.scss
 	// Thus, each app is used as an includePath.
-	var includePaths = flatten(apps.map(function(app) { return app.scssIncludePaths() }))
+	var includePaths = flatten(apps.map(function(app) { return app.scssIncludePaths(); }));
 
 	// Not all files in a directory need to be compiled, so each app defines
 	// its own Sass files that need to be compiled.
