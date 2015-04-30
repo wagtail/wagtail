@@ -4,7 +4,7 @@ var rename = require('gulp-rename');
 var path = require('path');
 
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['build', 'watch']);
 gulp.task('build', ['styles', 'javascript', 'images', 'fonts']);
 
 
