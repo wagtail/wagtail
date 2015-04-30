@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+from django import VERSION as DJANGO_VERSION
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
@@ -206,3 +209,59 @@ class PageQuerySet(MP_NodeQuerySet):
         This unpublishes all pages in the QuerySet
         """
         self.update(live=False, has_unpublished_changes=True)
+
+    def specific(self):
+        """
+        This efficiently gets all the specific pages for the queryset, using
+        the minimum number of queries.
+        """
+        if DJANGO_VERSION >= (1, 9):
+            clone = self._clone()
+            clone._iterator_class = SpecificIterator
+            return clone
+        else:
+            return self._clone(klass=SpecificQuerySet)
+
+
+def specific_iterator(qs):
+    """
+    This efficiently iterates all the specific pages in a queryset, using
+    the minimum number of queries.
+
+    This should be called from ``PageQuerySet.specific``
+    """
+    pks_and_types = qs.values_list('pk', 'content_type')
+    pks_by_type = defaultdict(list)
+    for pk, content_type in pks_and_types:
+        pks_by_type[content_type].append(pk)
+
+    # Content types are cached by ID, so this will not run any queries.
+    content_types = {pk: ContentType.objects.get_for_id(pk)
+                     for _, pk in pks_and_types}
+
+    # Get the specific instances of all pages, one model class at a time.
+    pages_by_type = {}
+    for content_type, pks in pks_by_type.items():
+        model = content_types[content_type].model_class()
+        pages = model.objects.filter(pk__in=pks)
+        pages_by_type[content_type] = {page.pk: page for page in pages}
+
+    # Yield all of the pages, in the order they occurred in the original query.
+    for pk, content_type in pks_and_types:
+        yield pages_by_type[content_type][pk]
+
+
+# Django 1.9 changed how extending QuerySets with different iterators behaved
+# considerably, in a way that is not easily compatible between the two versions
+if DJANGO_VERSION >= (1, 9):
+    # TODO Test this once Wagtail runs under Django 1.9.
+    from django.db.models.query import BaseIterator
+
+    class SpecificIterator(BaseIterator):
+        __iter__ = specific_iterator
+
+else:
+    from django.db.models.query import QuerySet
+
+    class SpecificQuerySet(QuerySet):
+        iterator = specific_iterator
