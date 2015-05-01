@@ -95,14 +95,14 @@ elif [ "$1" = "edit" -o "$1" = "vi" ]; then
         printf >&2 -- '%s: cannot create temporary file\n' "$0"
         exit 1
     fi
-    trap 'rm -f "${LTMP}"' 0 EXIT INT
+    trap 'rm -f "${LTMP}"' 0 TERM INT
 
     LTMP2=$(mktemp "${TMPDIR:-/tmp}/latest.XXXXXX")
     if [ "$?" -ne 0 ]; then
         printf >&2 -- '%s: cannot create temporary file\n' "$0"
         exit 1
     fi
-    trap 'rm -f "${LTMP2}"' 0 EXIT INT
+    trap 'rm -f "${LTMP2}"' 0 TERM INT
 
     if ! _get "${LTMP}"; then
         exit 1
