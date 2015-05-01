@@ -47,7 +47,7 @@ _get() {
 }
 
 _put() {
-    if ! $AWS_CLI s3 cp --region "${REGION}" "$1" "s3://${BUCKET}/latest.txt"; then
+    if ! $AWS_CLI s3 cp --acl public-read --region "${REGION}" "$1" "s3://${BUCKET}/latest.txt"; then
         printf >&2 -- "%s: failed to upload latest.txt; see above messages\\n" "$0"
         exit 1
     fi
