@@ -22,6 +22,7 @@ done
 
 if [ -z "$version" ]; then
     printf >&2 -- '%s: must specify --version\n' "$0"
+    printf >&2 -- 'usage: %s --version=<version> [--url=<url>]\n' "$0"
     exit 1
 fi
 
