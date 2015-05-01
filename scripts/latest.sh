@@ -121,7 +121,7 @@ elif [ "$1" = "edit" -o "$1" = "vi" ]; then
     $editor "${LTMP}"
     if cmp "${LTMP}" "${LTMP2}" >/dev/null; then
         printf >&2 -- '%s: no changes; exiting\n' "$0"
-        exit 1
+        exit
     fi
 
     diff -u "${LTMP2}" "${LTMP}"
