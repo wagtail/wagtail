@@ -144,7 +144,7 @@ class TestBackendLoader(TestCase):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
         self.assertIsInstance(db, DBSearch)
 
-    def test_nonexistant_backend_import(self):
+    def test_nonexistent_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
 
     def test_invalid_backend_import(self):
