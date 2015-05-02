@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.test import TestCase
 from django.core import mail
@@ -79,7 +78,6 @@ class TestFormSubmission(TestCase):
         self.assertIn("bar", submission[0].form_data)
         self.assertIn("baz", submission[0].form_data)
 
-    @unittest.expectedFailure
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob@example.com',
