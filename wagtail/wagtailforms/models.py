@@ -191,7 +191,7 @@ class AbstractEmailForm(AbstractForm):
         super(AbstractEmailForm, self).process_form_submission(form)
 
         if self.to_address:
-            content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
+            content = '\n'.join([x[1].label + ': ' + str(form.data.get(x[0])) for x in form.fields.items()])
             tasks.send_email_task.delay(self.subject, content, [self.to_address], self.from_address,)
 
 
