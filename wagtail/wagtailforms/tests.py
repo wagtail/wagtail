@@ -1,4 +1,5 @@
 import json
+import unittest
 
 from django.test import TestCase
 from django.core import mail
@@ -77,6 +78,29 @@ class TestFormSubmission(TestCase):
         self.assertIn("foo", submission[0].form_data)
         self.assertIn("bar", submission[0].form_data)
         self.assertIn("baz", submission[0].form_data)
+
+    @unittest.expectedFailure
+    def test_post_blank_checkbox(self):
+        response = self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'hello world',
+            'your-choices': {},
+        })
+
+        # Check response
+        self.assertContains(response, "Thank you for your feedback.")
+        self.assertTemplateNotUsed(response, 'tests/form_page.html')
+        self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # Check that the checkbox was serialised in the email correctly
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your choices: None", mail.outbox[0].body)
+
+        # Check that the checkbox value was saved correctly
+        form_page = Page.objects.get(url_path='/home/contact-us/')
+        submission = FormSubmission.objects.filter(
+            page=form_page, form_data__contains='hello world'
+        )
 
 
 class TestPageModes(TestCase):
