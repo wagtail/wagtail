@@ -94,12 +94,6 @@ class TestFormSubmission(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Your choices: None", mail.outbox[0].body)
 
-        # Check that the checkbox value was saved correctly
-        form_page = Page.objects.get(url_path='/home/contact-us/')
-        submission = FormSubmission.objects.filter(
-            page=form_page, form_data__contains='hello world'
-        )
-
 
 class TestPageModes(TestCase):
     fixtures = ['test.json']
