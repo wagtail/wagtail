@@ -41,6 +41,7 @@ Contributors
 * Frank Wiles
 * Sebastian Spiegel
 * Alejandro Varas
+* Arne Schauf
 
 Translators
 ===========

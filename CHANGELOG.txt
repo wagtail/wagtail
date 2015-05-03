@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.8.8 (xx.xx.2015)
+~~~~~~~~~~~~~~~~~~
+* Fix: Formbuilder no longer raises TypeError when submitting unchecked boolean field (Arne Schauf)
+
+
 0.8.7 (29.04.2015)
 ~~~~~~~~~~~~~~~~~~
 * Fix: wagtailfrontendcache no longer tries to purge pages that are not in a site

@@ -1,0 +1,15 @@
+===========================
+Wagtail 0.8.8 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Form builder no longer raises a ``TypeError`` when submitting unchecked boolean field
