@@ -3,6 +3,7 @@ backends
 callable
 callables
 Cloudflare
+contrib
 Django
 Elasticsearch
 Embedly
