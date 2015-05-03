@@ -47,6 +47,7 @@ Contributors
 * Benoît Bar
 * Claudemiro
 * Tiago Henriques
+* Arne Schauf
 
 Translators
 ===========
