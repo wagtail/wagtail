@@ -1,6 +1,5 @@
 import datetime
 import json
-import unittest
 
 import pytz
 
@@ -681,7 +680,6 @@ class TestIssue756(TestCase):
 
 
 class TestPageProxy(TestCase):
-    @unittest.expectedFailure
     def test_page_proxy(self):
         from django.apps import apps
         wagtailcore_models = apps.all_models['wagtailcore'].copy()
