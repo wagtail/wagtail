@@ -388,7 +388,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # get names of foreign keys pointing to parent classes (such as page_ptr)
         field_exceptions = [field.name
                             for model in [cls] + list(cls._meta.get_parent_list())
-                            for field in model._meta.parents.values()]
+                            for field in model._meta.parents.values() if field]
 
         field_exceptions += ['content_type']
 
