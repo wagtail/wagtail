@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import json
 
 from django.test import TestCase
@@ -95,6 +98,22 @@ class TestFormSubmission(TestCase):
         # Check that form submission was saved correctly
         form_page = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(FormSubmission.objects.filter(page=form_page, form_data__contains='hello world').exists())
+
+    def test_post_unicode_characters(self):
+        self.client.post('/contact-us/', {
+            'your-email': 'bob@example.com',
+            'your-message': 'こんにちは、世界',
+            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your message: こんにちは、世界", mail.outbox[0].body)
+
+        # Check the form submission
+        submission = FormSubmission.objects.get()
+        submission_data = json.loads(submission.form_data)
+        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
 
     def test_post_multiple_values(self):
         response = self.client.post('/contact-us/', {
