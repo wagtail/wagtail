@@ -171,8 +171,8 @@ class BaseSearchResults(object):
             if self._results_cache is not None:
                 return self._results_cache[key]
 
-            new.start = key
-            new.stop = key + 1
+            new.start = self.start + key
+            new.stop = self.start + key + 1
             return list(new)[0]
 
     def __iter__(self):
