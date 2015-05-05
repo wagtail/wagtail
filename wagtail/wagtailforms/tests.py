@@ -9,10 +9,49 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.forms import FormBuilder
 from wagtail.tests.testapp.models import FormPage, FormField
+from wagtail.tests.utils import WagtailTestUtils
+
+
+def make_form_page(**kwargs):
+    kwargs.setdefault('title', "Contact us")
+    kwargs.setdefault('slug', "contact-us")
+    kwargs.setdefault('to_address', "to@email.com")
+    kwargs.setdefault('from_address', "from@email.com")
+    kwargs.setdefault('subject', "The subject")
+
+    home_page = Page.objects.get(url_path='/home/')
+    form_page = home_page.add_child(instance=FormPage(**kwargs))
+
+    FormField.objects.create(
+        page=form_page,
+        sort_order=1,
+        label="Your email",
+        field_type='email',
+        required=True,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=2,
+        label="Your message",
+        field_type='multiline',
+        required=True,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=3,
+        label="Your choices",
+        field_type='checkboxes',
+        required=False,
+        choices='foo,bar,baz',
+    )
+
+    return form_page
 
 
 class TestFormSubmission(TestCase):
-    fixtures = ['test.json']
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_form_page()
 
     def test_get_form(self):
         response = self.client.get('/contact-us/')
@@ -96,10 +135,11 @@ class TestFormSubmission(TestCase):
 
 
 class TestFormBuilder(TestCase):
-    fixtures = ['test.json']
-
     def setUp(self):
-        self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
+        # Create a form page
+        self.form_page = make_form_page()
+
+        # Create a form builder
         self.fb = FormBuilder(self.form_page.form_fields.all())
 
     def test_fields(self):
@@ -199,12 +239,34 @@ class TestFormsIndex(TestCase):
         self.assertIn(self.form_page, response.context['form_pages'])
 
 
-class TestFormsSubmissions(TestCase):
-    fixtures = ['test.json']
-
+class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.client.login(username='siteeditor', password='password')
-        self.form_page = Page.objects.get(url_path='/home/contact-us/')
+        # Create a form page
+        self.form_page = make_form_page()
+
+        # Add a couple of form submissions
+        old_form_submission = FormSubmission.objects.create(
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "old@example.com",
+                'your-message': "this is a really old message",
+            }),
+        )
+        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        old_form_submission.save()
+
+        new_form_submission = FormSubmission.objects.create(
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "new@example.com",
+                'your-message': "this is a fairly new message",
+            }),
+        )
+        new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        new_form_submission.save()
+
+        # Login
+        self.login()
 
     def make_list_submissions(self):
         """
