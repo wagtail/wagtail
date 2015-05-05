@@ -8,7 +8,7 @@ Wagtail demo
 
 We provide a demo site containing a set of standard templates and page types - if you're new to Wagtail, this is the best way to try it out and familiarise yourself with how Wagtail works from the point of view of an editor.
 
-If you're happy to use Vagrant, and you just want to set up the Wagtail demo site, or any other pre-existing Wagtail site that ships with Vagrant support, you don't need to install Wagtail at all. Install `Vagrant <http://www.vagrantup.com/>`__ and `VirtualBox <https://www.virtualbox.org/>`__, and run::
+If you're happy to use Vagrant, and you just want to set up the Wagtail demo site, or any other pre-existing Wagtail site that ships with Vagrant support, you don't need to install Wagtail at all. Install `Vagrant <http://www.vagrantup.com/>`__ and `VirtualBox <https://www.virtualbox.org/>`__, open VirtualBox GUI, and run::
 
     git clone https://github.com/torchbox/wagtaildemo.git
     cd wagtaildemo
