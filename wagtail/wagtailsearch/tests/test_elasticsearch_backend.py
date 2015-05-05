@@ -454,7 +454,6 @@ class TestElasticSearchResults(TestCase):
             size=10
         )
 
-    @unittest.expectedFailure # 1271
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_slice_results_and_get_item(self, search):
         # Need to return something to prevent index error
