@@ -331,7 +331,7 @@ function initCollapsibleBlocks() {
     $('.object.multi-field.collapsible').each(function() {
         var $li = $(this);
         var $fieldset = $li.find('fieldset');
-        if ($li.hasClass('collapsed')) {
+        if ($li.hasClass('collapsed') && $li.find('.error-message').length == 0) {
             $fieldset.hide();
         }
 
