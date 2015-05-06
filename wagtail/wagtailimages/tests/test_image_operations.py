@@ -325,22 +325,22 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
-class TestVaryKey(unittest.TestCase):
-    def test_vary_key(self):
+class TestCacheKey(unittest.TestCase):
+    def test_cache_key(self):
         image = Image(width=1000, height=1000)
         fil = Filter(spec='max-100x100')
-        vary_key = fil.get_vary_key(image)
+        cache_key = fil.get_cache_key(image)
 
-        self.assertEqual(vary_key, '')
+        self.assertEqual(cache_key, '')
 
-    def test_vary_key_fill_filter(self):
+    def test_cache_key_fill_filter(self):
         image = Image(width=1000, height=1000)
         fil = Filter(spec='fill-100x100')
-        vary_key = fil.get_vary_key(image)
+        cache_key = fil.get_cache_key(image)
 
-        self.assertEqual(vary_key, '2e16d0ba')
+        self.assertEqual(cache_key, '2e16d0ba')
 
-    def test_vary_key_fill_filter_with_focal_point(self):
+    def test_cache_key_fill_filter_with_focal_point(self):
         image = Image(
             width=1000,
             height=1000,
@@ -350,6 +350,6 @@ class TestVaryKey(unittest.TestCase):
             focal_point_y=500,
         )
         fil = Filter(spec='fill-100x100')
-        vary_key = fil.get_vary_key(image)
+        cache_key = fil.get_cache_key(image)
 
-        self.assertEqual(vary_key, '0bbe3b2f')
+        self.assertEqual(cache_key, '0bbe3b2f')

@@ -174,12 +174,12 @@ class AbstractImage(models.Model, TagSearchable):
             # TODO: keep an in-memory cache of filters, to avoid a db lookup
             filter, created = Filter.objects.get_or_create(spec=filter)
 
-        vary_key = filter.get_vary_key(self)
+        cache_key = filter.get_cache_key(self)
 
         try:
             rendition = self.renditions.get(
                 filter=filter,
-                focal_point_key=vary_key,
+                focal_point_key=cache_key,
             )
         except ObjectDoesNotExist:
             # Generate the rendition image
@@ -197,15 +197,15 @@ class AbstractImage(models.Model, TagSearchable):
             }
 
             output_extension = filter.spec + FORMAT_EXTENSIONS[output_format]
-            if vary_key:
-                output_extension = vary_key + '.' + output_extension
+            if cache_key:
+                output_extension = cache_key + '.' + output_extension
 
             output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]  # Truncate filename to prevent it going over 60 chars
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
                 filter=filter,
-                focal_point_key=vary_key,
+                focal_point_key=cache_key,
                 defaults={'file': File(generated_image, name=output_filename)}
             )
 
@@ -352,18 +352,15 @@ class Filter(models.Model):
 
         return output, output_format
 
-    def get_vary(self, image):
-        vary = []
+    def get_cache_key(self, image):
+        vary_parts = []
 
         for operation in self.operations:
             for field in getattr(operation, 'vary_fields', []):
                 value = getattr(image, field, '')
-                vary.append(str(value))
+                vary_parts.append(str(value))
 
-        return vary
-
-    def get_vary_key(self, image):
-        vary_string = '-'.join(self.get_vary(image))
+        vary_string = '-'.join(vary_parts)
 
         # Return blank string if there are no vary fields
         if not vary_string:
