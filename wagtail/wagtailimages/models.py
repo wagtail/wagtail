@@ -95,13 +95,19 @@ class AbstractImage(models.Model, TagSearchable):
             # these from IOErrors elsewhere in the process
             raise SourceImageIOError(text_type(e))
 
-        image_file.open('rb')
+        # Open file if it is closed
+        close_file = False
+        if image_file.closed:
+            image_file.open('rb')
+            close_file = True
+
         image_file.seek(0)
 
         try:
             yield WillowImage.open(image_file)
         finally:
-            image_file.close()
+            if close_file:
+                image_file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)

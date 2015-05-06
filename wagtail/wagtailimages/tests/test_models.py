@@ -238,7 +238,6 @@ class TestGetWillowImage(TestCase):
 
         self.assertTrue(self.image.file.closed)
 
-    @unittest.expectedFailure
     def test_doesnt_close_open_image(self):
         # This tests that when the image file is already open, get_willow_image doesn't close it (#1256)
         self.image.file.open('rb')
