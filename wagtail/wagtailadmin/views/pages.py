@@ -147,53 +147,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=page)
-
-        # Stick an extra validator into the form to make sure that the slug is not already in use
-        def clean_slug(slug):
-            # Make sure the slug isn't already in use
-            if parent_page.get_children().filter(slug=slug).count() > 0:
-                raise ValidationError(_("This slug is already in use"))
-            return slug
-        form.fields['slug'].clean = clean_slug
-
-        # Validate title and seo_title are not entirely whitespace
-        def clean_title(title):
-            validate_not_whitespace(title)
-            return title
-        form.fields['title'].clean = clean_title
-
-        def clean_seo_title(seo_title):
-            if not seo_title:
-                return ''
-            validate_not_whitespace(seo_title)
-            return seo_title
-        form.fields['seo_title'].clean = clean_seo_title
-
-        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
-        def clean():
-            cleaned_data = form_class.clean(form)
-
-            # Go live must be before expire
-            go_live_at = cleaned_data.get('go_live_at')
-            expire_at = cleaned_data.get('expire_at')
-
-            if go_live_at and expire_at:
-                if go_live_at > expire_at:
-                    msg = _('Go live date/time must be before expiry date/time')
-                    form._errors['go_live_at'] = form.error_class([msg])
-                    form._errors['expire_at'] = form.error_class([msg])
-                    del cleaned_data['go_live_at']
-                    del cleaned_data['expire_at']
-
-            # Expire must be in the future
-            expire_at = cleaned_data.get('expire_at')
-
-            if expire_at and expire_at < timezone.now():
-                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
-                del cleaned_data['expire_at']
-
-            return cleaned_data
-        form.clean = clean
+        validate_page_form(form, parent_page)
 
         if form.is_valid():
             page = form.save(commit=False)
@@ -279,54 +233,7 @@ def edit(request, page_id):
 
     if request.POST:
         form = form_class(request.POST, request.FILES, instance=page)
-
-        # Stick an extra validator into the form to make sure that the slug is not already in use
-        def clean_slug(slug):
-            # Make sure the slug isn't already in use
-            if parent.get_children().filter(slug=slug).exclude(id=page_id).count() > 0:
-                raise ValidationError(_("This slug is already in use"))
-            return slug
-        form.fields['slug'].clean = clean_slug
-
-        # Validate title and seo_title are not entirely whitespace
-        def clean_title(title):
-            validate_not_whitespace(title)
-            return title
-        form.fields['title'].clean = clean_title
-
-        def clean_seo_title(seo_title):
-            if not seo_title:
-                return ''
-            validate_not_whitespace(seo_title)
-            return seo_title
-
-        form.fields['seo_title'].clean = clean_seo_title
-
-        # Stick another validator into the form to check that the scheduled publishing settings are set correctly
-        def clean():
-            cleaned_data = form_class.clean(form)
-
-            # Go live must be before expire
-            go_live_at = cleaned_data.get('go_live_at')
-            expire_at = cleaned_data.get('expire_at')
-
-            if go_live_at and expire_at:
-                if go_live_at > expire_at:
-                    msg = _('Go live date/time must be before expiry date/time')
-                    form._errors['go_live_at'] = form.error_class([msg])
-                    form._errors['expire_at'] = form.error_class([msg])
-                    del cleaned_data['go_live_at']
-                    del cleaned_data['expire_at']
-
-            # Expire must be in the future
-            expire_at = cleaned_data.get('expire_at')
-
-            if expire_at and expire_at < timezone.now():
-                form._errors['expire_at'] = form.error_class([_('Expiry date/time must be in the future')])
-                del cleaned_data['expire_at']
-
-            return cleaned_data
-        form.clean = clean
+        validate_page_form(form, parent, page)
 
         if form.is_valid() and not page.locked:
             page = form.save(commit=False)
@@ -397,6 +304,50 @@ def edit(request, page_id):
         'preview_modes': page.preview_modes,
         'form': form, # Used in unit tests
     })
+
+
+def validate_page_form(form, parent_page, instance=None):
+    # Perform default validation first
+    form.full_clean()
+
+    if 'slug' in form.cleaned_data:
+        # Get siblings for the page
+        siblings = parent_page.get_children()
+        if instance and instance.id:
+            siblings = siblings.exclude(id=instance.id)
+
+        # Make sure the slug isn't being used by a sibling
+        if siblings.filter(slug=form.cleaned_data['slug']).exists():
+            form.add_error('slug', ValidationError(_("This slug is already in use")))
+
+    # Check that the title and seo_title are not entirely whitespace
+    if 'title' in form.cleaned_data:
+        try:
+            validate_not_whitespace(form.cleaned_data['title'])
+        except ValidationError as error:
+            form.add_error('title', error)
+
+    if 'seo_title' in form.cleaned_data:
+        if form.cleaned_data['seo_title']:
+            try:
+                validate_not_whitespace(form.cleaned_data['seo_title'])
+            except ValidationError as error:
+                form.add_error('seo_title', error)
+
+    # Check scheduled publishing fields
+    go_live_at = form.cleaned_data.get('go_live_at')
+    expire_at = form.cleaned_data.get('expire_at')
+
+    # Go live must be before expire
+    if go_live_at and expire_at:
+        if go_live_at > expire_at:
+            msg = _('Go live date/time must be before expiry date/time')
+            form.add_error('go_live_at', ValidationError(msg))
+            form.add_error('expire_at', ValidationError(msg))
+
+    # Expire at must be in the future
+    if expire_at and expire_at < timezone.now():
+        form.add_error('expire_at', ValidationError(_('Expiry date/time must be in the future')))
 
 
 def delete(request, page_id):
