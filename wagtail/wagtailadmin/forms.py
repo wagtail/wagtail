@@ -7,6 +7,11 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailusers.forms import UserEditForm
+
+
+User = get_user_model()
+
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
@@ -184,3 +189,16 @@ class PageViewRestrictionForm(forms.Form):
             del cleaned_data['password']
 
         return cleaned_data
+
+
+class SingleUserEditForm(UserEditForm):
+    def __init__(self, *args, **kwargs):
+        disable_password_fields = kwargs.pop('disable_password_fields', False)
+        super(SingleUserEditForm, self).__init__(*args, **kwargs)
+        if disable_password_fields:
+            self.fields.pop('password1')
+            self.fields.pop('password2')
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name")
