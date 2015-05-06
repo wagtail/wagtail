@@ -123,6 +123,8 @@ Bug fixes
 
  * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
  * Image edit page no longer throws ``OSError`` when the original image is missing
+ * Collapsible blocks stay open on any form error
+ * Document upload modal no longer switches tabs on form errors
 
 
 Upgrade considerations
