@@ -50,10 +50,6 @@ $(function() {
         fitNav();
     });
 
-    // Apply auto-height sizing to text areas
-    // NB .richtext (hallo.js-enabled) divs do not need this as they expand to fit their content by default
-    // $('.page-editor textarea').autosize();
-
     // Enable nice focus effects on all fields. This enables help text on hover.
     $(document).on('focus mouseover', 'input,textarea,select', function() {
         $(this).closest('.field').addClass('focused');
@@ -137,4 +133,13 @@ $(function() {
             });
         }
     }
+
+    /* Functions that need to run/rerun when active tabs are changed */
+    $(document).on('shown.bs.tab', function(e){
+        // Resize autosize textareas
+        $('textarea[data-autosize-on]').each(function(){
+            autosize.update($(this).get());
+        });
+    });
+    
 });
