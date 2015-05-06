@@ -238,6 +238,17 @@ class TestGetWillowImage(TestCase):
 
         self.assertTrue(self.image.file.closed)
 
+    def test_closes_image_on_exception(self):
+        # This tests that willow closes images when the with is exited with an exception
+        try:
+            with self.image.get_willow_image():
+                self.assertFalse(self.image.file.closed)
+                raise ValueError("Something went wrong!")
+        except ValueError:
+            pass
+
+        self.assertTrue(self.image.file.closed)
+
     def test_doesnt_close_open_image(self):
         # This tests that when the image file is already open, get_willow_image doesn't close it (#1256)
         self.image.file.open('rb')
