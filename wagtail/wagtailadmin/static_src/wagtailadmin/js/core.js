@@ -135,11 +135,10 @@ $(function() {
     }
 
     /* Functions that need to run/rerun when active tabs are changed */
-    $(document).on('shown.bs.tab', function(e){
+    $(document).on('shown.bs.tab', function(e) {
         // Resize autosize textareas
-        $('textarea[data-autosize-on]').each(function(){
+        $('textarea[data-autosize-on]').each(function() {
             autosize.update($(this).get());
         });
     });
-    
 });
