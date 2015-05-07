@@ -97,6 +97,13 @@ Admin
  * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
 
 
+Docs
+----
+
+ * Support for ``django-sendfile`` added
+ * Documents now served with correct mime-type
+ * Support for ``If-Modified-Since`` HTTP header
+
 
 Project template
 ----------------

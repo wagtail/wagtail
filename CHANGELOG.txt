@@ -18,6 +18,9 @@ Changelog
  * Dropped Django 1.6 support
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
+ * Serving documents will now use django-sendfile if it's configured (Jordi Joan)
+ * Documents are now served with correct mime-type (Jordi Joan, Damian Moore)
+ * Support for If-Modified-Since HTTP header (Jordi Joan)
  * Search view accepts "page" GET parameter in line with pagination
  * Reversing `django.contrib.auth.admin.login` will no longer lead to Wagtails login view (making it easier to have front end views)
  * Removed dependency on `LOGIN_URL` and `LOGIN_REDIRECT_URL` settings
