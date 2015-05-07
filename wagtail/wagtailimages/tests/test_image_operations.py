@@ -325,6 +325,68 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
+class TestCropOperation(ImageOperationTestCase):
+    operation_class = image_operations.CropOperation
+
+    filter_spec_tests = [
+        ('crop-100x200', dict(width=100, height=200)),
+        ('crop-x250', dict(width=float('inf'), height=250)),
+        ('crop-175x', dict(width=175, height=float('inf'))),
+        ('crop-x', dict(width=float('inf'), height=float('inf'))),
+    ]
+
+    run_tests = [
+        # Wide banner image
+        ('crop-x200', Image(width=1000, height=500), [
+            ('crop', ((0, 150, 1000, 350), ), {}),
+        ]),
+
+        # Tall sidebar image
+        ('crop-100x', Image(width=800, height=600), [
+            ('crop', ((350, 0, 450, 600), ), {}),
+        ]),
+
+        # Wide banner with focal point
+        ('crop-x200', Image(
+            width=1000,
+            height=800,
+            focal_point_x=300,
+            focal_point_y=10,
+            focal_point_width=200,
+            focal_point_height=100,
+        ), [
+            ('crop', ((0, 0, 1000, 200), ), {}),
+        ]),
+
+        # Both dimensions set, image smaller than both
+        ('crop-200x200', Image(width=100, height=100), []),
+
+        # Both dimensions set, image smaller than one
+        ('crop-200x200', Image(width=300, height=100), [
+            ('crop', ((50, 0, 250, 100), ), {}),
+        ]),
+        ('crop-200x200', Image(width=100, height=300), [
+            ('crop', ((0, 50, 100, 250), ), {}),
+        ]),
+
+        # Both dimensions set, image larger than both
+        ('crop-200x200', Image(width=600, height=400), [
+            ('resize', ((300, 200), ), {}),
+            ('crop', ((50, 0, 250, 200), ), {}),
+        ]),
+        ('crop-200x200', Image(width=400, height=600), [
+            ('resize', ((200, 300), ), {}),
+            ('crop', ((0, 50, 200, 250), ), {}),
+        ]),
+        ('crop-200x200', Image(width=400, height=400), [
+            ('resize', ((200, 200), ), {}),
+            ('crop', ((0, 0, 200, 200), ), {}),
+        ]),
+    ]
+
+TestCropOperation.setup_test_methods()
+
+
 class TestVaryKey(unittest.TestCase):
     def test_vary_key(self):
         image = Image(width=1000, height=1000)

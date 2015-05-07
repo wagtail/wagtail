@@ -104,6 +104,27 @@ The available resizing methods are:
 
         If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50`` (any whole number from 0 to 100 is accepted).
 
+    ``crop``
+        (takes two dimensions)
+
+        .. code-block:: django
+
+            {% image self.banner crop-100x200 %}
+
+        Crop the image so it fits within the given dimensions.
+
+        Both dimensions are optional. If they are left blank, that dimension is not cropped. This is useful for cropping banner images for page headers to a specific height, but leaving the image as wide as possible:
+
+        .. code-block:: django
+
+            {% image self.banner crop-x150 %}
+
+        If the image is smaller than the crop area, the image is returned unmodified.
+
+        If the image is smaller than the crop area in one dimension, but larger in the other, only the larger dimension is cropped. The smaller dimension is left unchanged. This will result in an image with one dimension the same size as the crop area, and the other dimension smaller.
+
+        If the image is larger than the crop area in both dimensions, the image is first scaled down to just cover the crop area. The image is then cropped down to size. This will result in an image with the same size as the crop area.
+
     ``original`` 
         (takes no dimensions)
 
