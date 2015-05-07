@@ -48,6 +48,8 @@ Contributors
 * Claudemiro
 * Tiago Henriques
 * Arne Schauf
+* Jordi Joan
+* Damian Moore
 
 Translators
 ===========

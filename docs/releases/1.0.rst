@@ -97,6 +97,13 @@ Admin
  * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
 
 
+Docs
+----
+
+ * Support for ``django-sendfile`` added
+ * Documents now served with correct mime-type
+ * Support for ``If-Modified-Since`` HTTP header
+
 
 Project template
 ----------------
@@ -123,6 +130,8 @@ Bug fixes
 
  * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
  * Image edit page no longer throws ``OSError`` when the original image is missing
+ * Collapsible blocks stay open on any form error
+ * Document upload modal no longer switches tabs on form errors
 
 
 Upgrade considerations

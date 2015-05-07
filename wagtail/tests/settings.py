@@ -83,6 +83,7 @@ INSTALLED_APPS = (
 
     'taggit',
     'compressor',
+    'sendfile',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
