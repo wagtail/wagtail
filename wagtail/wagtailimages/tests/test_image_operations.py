@@ -40,7 +40,7 @@ class ImageOperationTestCase(unittest.TestCase):
     run_tests = []
 
     @classmethod
-    def make_filter_spec_test(cls, filter_spec, expected_output):
+    def make_filter_spec_test(cls, i, filter_spec, expected_output):
         def test_filter_spec(self):
             operation = self.operation_class(*filter_spec.split('-'))
 
@@ -48,21 +48,21 @@ class ImageOperationTestCase(unittest.TestCase):
             for attr, value in expected_output.items():
                 self.assertEqual(getattr(operation, attr), value)
 
-        test_name = 'test_filter_%s' % filter_spec
+        test_name = 'test_filter_%d_%s' % (i, filter_spec)
         test_filter_spec.__name__ = test_name
         return test_filter_spec
 
     @classmethod
-    def make_filter_spec_error_test(cls, filter_spec):
+    def make_filter_spec_error_test(cls, i, filter_spec):
         def test_filter_spec_error(self):
             self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
 
-        test_name = 'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
+        test_name = 'test_filter_%d_%s_raises_%s' % (i, filter_spec, InvalidFilterSpecError.__name__)
         test_filter_spec_error.__name__ = test_name
         return test_filter_spec_error
 
     @classmethod
-    def make_run_test(cls, filter_spec, image, expected_output):
+    def make_run_test(cls, i, filter_spec, image, expected_output):
         def test_run(self):
             # Make operation
             operation = self.operation_class(*filter_spec.split('-'))
@@ -76,7 +76,7 @@ class ImageOperationTestCase(unittest.TestCase):
             # Check
             self.assertEqual(operation_recorder.ran_operations, expected_output)
 
-        test_name = 'test_run_%s' % filter_spec
+        test_name = 'test_run_%d_%s' % (i, filter_spec)
         test_run.__name__ = test_name
         return test_run
 
@@ -86,18 +86,18 @@ class ImageOperationTestCase(unittest.TestCase):
             return
 
         # Filter spec tests
-        for args in cls.filter_spec_tests:
-            filter_spec_test = cls.make_filter_spec_test(*args)
+        for i, args in enumerate(cls.filter_spec_tests):
+            filter_spec_test = cls.make_filter_spec_test(i, *args)
             setattr(cls, filter_spec_test.__name__, filter_spec_test)
 
         # Filter spec error tests
-        for filter_spec in cls.filter_spec_error_tests:
-            filter_spec_error_test = cls.make_filter_spec_error_test(filter_spec)
+        for i, filter_spec in enumerate(cls.filter_spec_error_tests):
+            filter_spec_error_test = cls.make_filter_spec_error_test(i, filter_spec)
             setattr(cls, filter_spec_error_test.__name__, filter_spec_error_test)
 
         # Running tests
-        for args in cls.run_tests:
-            run_test = cls.make_run_test(*args)
+        for i, args in enumerate(cls.run_tests):
+            run_test = cls.make_run_test(i, *args)
             setattr(cls, run_test.__name__, run_test)
 
 
