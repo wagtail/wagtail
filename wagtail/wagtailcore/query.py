@@ -205,4 +205,5 @@ class PageQuerySet(MP_NodeQuerySet):
         """
         This unpublishes all live pages in the QuerySet
         """
-        self.live().update(live=False, has_unpublished_changes=True)
+        for page in self.live():
+            page.unpublish()
