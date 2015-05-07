@@ -145,6 +145,64 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
 
+    def test_edit_view(self):
+        """
+        This tests that the change edit view responds with a change edit page
+        """
+        # Get change password page
+        response = self.client.get(reverse('wagtailadmin_account_edit'))
+
+        # Check that the user recieved a change password page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/edit.html')
+
+    def test_edit_view_post(self):
+        """
+        This posts a new password to the edit view and checks
+        that the users password was changed
+        """
+        # Post new password to change password page
+        post_data = {
+            'username': 'test',
+            'email': 'test@example.com',
+            'first_name': 'test',
+            'last_name': 'test',
+            'password1': 'newpassword',
+            'password2': 'newpassword',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_edit'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the password was changed
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
+
+    def test_edit_view_post_password_mismatch(self):
+        """
+        This posts a two passwords that don't match to the edit
+        view and checks that a validation error was raised
+        """
+        # Post new password to change password page
+        post_data = {
+            'username': 'test',
+            'email': 'test@example.com',
+            'first_name': 'test',
+            'last_name': 'test',
+            'password1': 'newpassword',
+            'password2': 'badpassword',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_edit'), post_data)
+
+        # Check that the user wasn't redirected
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a validation error was raised
+        self.assertTrue('password2' in response.context['form'].errors.keys())
+        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['password2'])
+
+        # Check that the password was not changed
+        self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))
 
     def test_notification_preferences_view(self):
         """
