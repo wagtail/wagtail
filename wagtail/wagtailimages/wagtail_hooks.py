@@ -110,6 +110,7 @@ def register_image_operations():
         ('max', image_operations.MinMaxOperation),
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
+        ('crop', image_operations.CropOperation),
     ]
 
 

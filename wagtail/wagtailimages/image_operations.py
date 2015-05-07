@@ -244,3 +244,86 @@ class WidthHeightOperation(Operation):
             return
 
         willow.resize((width, height))
+
+
+class CropOperation(Operation):
+    """
+    Crop an image to a maximum size. Does not preserve the aspect ratio if the
+    crop size is larger than the image. Useful for creating full-width image
+    banners for page headers.
+    """
+
+    vary_fields = ('focal_point_width', 'focal_point_height', 'focal_point_x', 'focal_point_y')
+
+    def construct(self, size, *extra):
+        width_str, height_str = size.split('x', 2)
+        self.width = int(width_str) if width_str else float('inf')
+        self.height = int(height_str) if height_str else float('inf')
+
+    def run(self, willow, image):
+        original_width, original_height = willow.get_size()
+        focal_point = image.get_focal_point()
+
+        # If the image is smaller than the desired dimensions, bail early
+        if original_width <= self.width and original_height <= self.height:
+            return
+
+        width = min(self.width, original_width)
+        height = min(self.height, original_height)
+
+        # Center the cropped region on the focal point, or the image center
+        if focal_point:
+            focus = focal_point.centroid
+        else:
+            focus = (original_width / 2, original_height / 2)
+
+        # If the image is completely larger than the crop region,
+        # then shrink it down.
+        if original_width > self.width and original_height > self.height:
+            original_ratio = original_width / original_height
+            ratio = width / height
+
+            if original_ratio > ratio:
+                # Image is wider by ratio than crop area
+                # Matching height, scaling width
+                scale = height / original_height
+                original_width = int(original_width * scale)
+                original_height = height
+            else:
+                # Image is taller by ratio than crop area
+                # Matching width, scaling height
+                scale = width / original_width
+                original_width = width
+                original_height = int(original_height * scale)
+
+            willow.resize((original_width, original_height))
+            focus = (focus[0] * scale, focus[1] * scale)
+
+        cx, cy = focus
+
+        # Work out the bounding box for the cropped region
+        left = int(cx - width / 2)
+        top = int(cy - height / 2)
+        right = left + width
+        bottom = top + height
+
+        # Ensure the bounding box is inside the image.
+        # A focal point near an edge may move the crop outside the image bounds
+        if left < 0:
+            right -= left
+            left = 0
+
+        if top < 0:
+            bottom -= top
+            top = 0
+
+        if right > original_width:
+            left -= right - original_width
+            right = original_width
+
+        if bottom > original_height:
+            top -= bottom - original_height
+            bottom = original_height
+
+        # Crop to size
+        willow.crop((int(left), int(top), int(right), int(bottom)))

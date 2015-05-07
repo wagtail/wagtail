@@ -40,7 +40,7 @@ class ImageOperationTestCase(unittest.TestCase):
     run_tests = []
 
     @classmethod
-    def make_filter_spec_test(cls, filter_spec, expected_output):
+    def make_filter_spec_test(cls, i, filter_spec, expected_output):
         def test_filter_spec(self):
             operation = self.operation_class(*filter_spec.split('-'))
 
@@ -48,21 +48,21 @@ class ImageOperationTestCase(unittest.TestCase):
             for attr, value in expected_output.items():
                 self.assertEqual(getattr(operation, attr), value)
 
-        test_name = 'test_filter_%s' % filter_spec
+        test_name = 'test_filter_%d_%s' % (i, filter_spec)
         test_filter_spec.__name__ = test_name
         return test_filter_spec
 
     @classmethod
-    def make_filter_spec_error_test(cls, filter_spec):
+    def make_filter_spec_error_test(cls, i, filter_spec):
         def test_filter_spec_error(self):
             self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
 
-        test_name = 'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
+        test_name = 'test_filter_%d_%s_raises_%s' % (i, filter_spec, InvalidFilterSpecError.__name__)
         test_filter_spec_error.__name__ = test_name
         return test_filter_spec_error
 
     @classmethod
-    def make_run_test(cls, filter_spec, image, expected_output):
+    def make_run_test(cls, i, filter_spec, image, expected_output):
         def test_run(self):
             # Make operation
             operation = self.operation_class(*filter_spec.split('-'))
@@ -76,7 +76,7 @@ class ImageOperationTestCase(unittest.TestCase):
             # Check
             self.assertEqual(operation_recorder.ran_operations, expected_output)
 
-        test_name = 'test_run_%s' % filter_spec
+        test_name = 'test_run_%d_%s' % (i, filter_spec)
         test_run.__name__ = test_name
         return test_run
 
@@ -86,18 +86,18 @@ class ImageOperationTestCase(unittest.TestCase):
             return
 
         # Filter spec tests
-        for args in cls.filter_spec_tests:
-            filter_spec_test = cls.make_filter_spec_test(*args)
+        for i, args in enumerate(cls.filter_spec_tests):
+            filter_spec_test = cls.make_filter_spec_test(i, *args)
             setattr(cls, filter_spec_test.__name__, filter_spec_test)
 
         # Filter spec error tests
-        for filter_spec in cls.filter_spec_error_tests:
-            filter_spec_error_test = cls.make_filter_spec_error_test(filter_spec)
+        for i, filter_spec in enumerate(cls.filter_spec_error_tests):
+            filter_spec_error_test = cls.make_filter_spec_error_test(i, filter_spec)
             setattr(cls, filter_spec_error_test.__name__, filter_spec_error_test)
 
         # Running tests
-        for args in cls.run_tests:
-            run_test = cls.make_run_test(*args)
+        for i, args in enumerate(cls.run_tests):
+            run_test = cls.make_run_test(i, *args)
             setattr(cls, run_test.__name__, run_test)
 
 
@@ -323,6 +323,68 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     ]
 
 TestWidthHeightOperation.setup_test_methods()
+
+
+class TestCropOperation(ImageOperationTestCase):
+    operation_class = image_operations.CropOperation
+
+    filter_spec_tests = [
+        ('crop-100x200', dict(width=100, height=200)),
+        ('crop-x250', dict(width=float('inf'), height=250)),
+        ('crop-175x', dict(width=175, height=float('inf'))),
+        ('crop-x', dict(width=float('inf'), height=float('inf'))),
+    ]
+
+    run_tests = [
+        # Wide banner image
+        ('crop-x200', Image(width=1000, height=500), [
+            ('crop', ((0, 150, 1000, 350), ), {}),
+        ]),
+
+        # Tall sidebar image
+        ('crop-100x', Image(width=800, height=600), [
+            ('crop', ((350, 0, 450, 600), ), {}),
+        ]),
+
+        # Wide banner with focal point
+        ('crop-x200', Image(
+            width=1000,
+            height=800,
+            focal_point_x=300,
+            focal_point_y=10,
+            focal_point_width=200,
+            focal_point_height=100,
+        ), [
+            ('crop', ((0, 0, 1000, 200), ), {}),
+        ]),
+
+        # Both dimensions set, image smaller than both
+        ('crop-200x200', Image(width=100, height=100), []),
+
+        # Both dimensions set, image smaller than one
+        ('crop-200x200', Image(width=300, height=100), [
+            ('crop', ((50, 0, 250, 100), ), {}),
+        ]),
+        ('crop-200x200', Image(width=100, height=300), [
+            ('crop', ((0, 50, 100, 250), ), {}),
+        ]),
+
+        # Both dimensions set, image larger than both
+        ('crop-200x200', Image(width=600, height=400), [
+            ('resize', ((300, 200), ), {}),
+            ('crop', ((50, 0, 250, 200), ), {}),
+        ]),
+        ('crop-200x200', Image(width=400, height=600), [
+            ('resize', ((200, 300), ), {}),
+            ('crop', ((0, 50, 200, 250), ), {}),
+        ]),
+        ('crop-200x200', Image(width=400, height=400), [
+            ('resize', ((200, 200), ), {}),
+            ('crop', ((0, 0, 200, 200), ), {}),
+        ]),
+    ]
+
+TestCropOperation.setup_test_methods()
 
 
 class TestVaryKey(unittest.TestCase):
