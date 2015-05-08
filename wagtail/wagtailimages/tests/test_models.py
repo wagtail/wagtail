@@ -307,10 +307,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtailimages_add_image'), post_data)
+        response = self.client.post(reverse('wagtailimages:add_image'), post_data)
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages:index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -335,10 +335,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'title': "Edited",
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+        response = self.client.post(reverse('wagtailimages:edit_image', args=(self.image.id,)), post_data)
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages:index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
