@@ -103,9 +103,9 @@ def edit(request, image_id):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit again'))
+                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit again'))
             ])
-            return redirect('wagtailimages_index')
+            return redirect('wagtailimages:index')
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
@@ -125,7 +125,7 @@ def edit(request, image_id):
         # File doesn't exist
         filesize = None
         messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
-            messages.button(reverse('wagtailimages_delete_image', args=(image.id,)), _('Delete'))
+            messages.button(reverse('wagtailimages:delete_image', args=(image.id,)), _('Delete'))
         ])
 
     return render(request, "wagtailimages/images/edit.html", {
@@ -193,7 +193,7 @@ def generate_url(request, image_id, filter_spec):
         site_root_url = Site.objects.first().root_url
 
     # Generate preview url
-    preview_url = reverse('wagtailimages_preview', args=(image_id, filter_spec))
+    preview_url = reverse('wagtailimages:preview', args=(image_id, filter_spec))
 
     return json_response({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
 
@@ -218,7 +218,7 @@ def delete(request, image_id):
     if request.POST:
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect('wagtailimages_index')
+        return redirect('wagtailimages:index')
 
     return render(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
@@ -241,9 +241,9 @@ def add(request):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages_edit_image', args=(image.id,)), _('Edit'))
+                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit'))
             ])
-            return redirect('wagtailimages_index')
+            return redirect('wagtailimages:index')
         else:
             messages.error(request, _("The image could not be created due to errors."))
     else:
