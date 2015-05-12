@@ -23,17 +23,6 @@ $submenu-color:darken($color-grey-1, 5%);
         }
     }
 
-    .menu-active {
-        background: $selected-highlight;
-        text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
-
-        & > a {
-            border-left-color:$color-salmon;
-            color:white;
-        }
-    }
-
-
     .nav-main {
         top: 43px;
         bottom: 0px;
@@ -91,6 +80,16 @@ $submenu-color:darken($color-grey-1, 5%);
                 margin-top:0.15em;
             }
 
+        }
+
+        .menu-active {
+            background: $selected-highlight;
+            text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+
+            & > a {
+                border-left-color:$color-salmon;
+                color:white;
+            }
         }
 
         .account{
