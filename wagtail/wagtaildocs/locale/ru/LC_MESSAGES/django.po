@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Eugene MechanisM <contact@mechanism.name>, 2014-2015
 # HNKNTA <hnknta@gmail.com>, 2014
@@ -9,51 +9,49 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-04-17 11:51+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/ru/)\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-28 07:05+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
+"ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: models.py:23 templates/wagtaildocs/documents/list.html:11
-#: templates/wagtaildocs/documents/list.html:14
-#: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:24 templates/wagtaildocs/documents/list.html:17
 msgid "File"
 msgstr "Файл"
 
-#: models.py:28
+msgid "Created at"
+msgstr "Создано"
+
+msgid "Uploaded by user"
+msgstr "Загружено пользователем"
+
 msgid "Tags"
 msgstr "Тэги"
 
-#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
+msgid "Document"
+msgstr "Документ"
+
 msgid "Choose a document"
 msgstr "Выберите документ"
 
-#: templates/wagtaildocs/chooser/chooser.html:7
-#: templates/wagtaildocs/chooser/chooser.html:19
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/wagtaildocs/chooser/chooser.html:8
 msgid "Upload"
 msgstr "Загрузка"
 
-#: templates/wagtaildocs/chooser/chooser.html:34
-#: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:31
 msgid "Save"
 msgstr "Сохранить"
 
-#: templates/wagtaildocs/chooser/results.html:5
-#: templates/wagtaildocs/documents/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -63,110 +61,95 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nНайдено одно совпадение"
-msgstr[1] "\nНайдено %(counter)s совпадений"
-msgstr[2] "\nНайдено %(counter)s совпадений"
+msgstr[0] ""
+"\n"
+"Найдено одно совпадение"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
 
-#: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
 msgstr "Последние документы"
 
-#: templates/wagtaildocs/chooser/results.html:19
-#: templates/wagtaildocs/documents/results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
-#: templates/wagtaildocs/documents/_file_field.html:5
 msgid "Change document:"
 msgstr "Изменить документ"
 
-#: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:17
 msgid "Add a document"
 msgstr "Добавить документ"
 
-#: templates/wagtaildocs/documents/add.html:15
 msgid "Add document"
 msgstr "Добавить документ"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Удалить %(title)s"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:31
 msgid "Delete document"
 msgstr "Удалить документ"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
 msgstr "Вы уверены, что хотите удалить этот документ?"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
-#: templates/wagtaildocs/documents/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редактирование %(title)s"
 
-#: templates/wagtaildocs/documents/edit.html:15
 msgid "Editing"
 msgstr "Редактирование"
 
-#: templates/wagtaildocs/documents/edit.html:38
 msgid "Filesize"
 msgstr "Размер файла"
 
-#: templates/wagtaildocs/documents/edit.html:39
 msgid "File not found"
 msgstr "Файл не найден"
 
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:31
 msgid "Documents"
 msgstr "Документы"
 
-#: templates/wagtaildocs/documents/list.html:21
-#: templates/wagtaildocs/documents/list.html:24
 msgid "Uploaded"
 msgstr "Загружено"
 
-#: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Вы еще не загрузили ни одного документа. Почему бы не <a href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа. Почему бы не <a href="
+"\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
 
-#: templates/wagtaildocs/documents/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Использование %(title)s"
 
-#: templates/wagtaildocs/documents/usage.html:5
 msgid "Usage of"
 msgstr "Использование"
 
-#: templates/wagtaildocs/documents/usage.html:17
 msgid "Parent"
 msgstr "Родительский элемент"
 
-#: templates/wagtaildocs/documents/usage.html:18
 msgid "Type"
 msgstr "Тип"
 
-#: templates/wagtaildocs/documents/usage.html:19
 msgid "Status"
 msgstr "Статус"
 
-#: templates/wagtaildocs/documents/usage.html:26
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
 
-#: templates/wagtaildocs/homepage/site_summary_documents.html:5
 #, python-format
 msgid ""
 "\n"
@@ -177,49 +160,51 @@ msgid_plural ""
 "        <span>%(total)s</span> Documents\n"
 "    "
 msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Документ\n"
+"    "
 msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Документов\n"
+"    "
 msgstr[2] ""
+msgstr[3] ""
+"\n"
+"        <span>%(total)s</span> Документа\n"
+"    "
 
-#: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Поиск документов"
 
-#: views/documents.py:92
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавлен."
 
-#: views/documents.py:93 views/documents.py:128
 msgid "Edit"
 msgstr "Править"
 
-#: views/documents.py:97 views/documents.py:132
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
 
-#: views/documents.py:127
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документ '{0}' обновлен"
 
-#: views/documents.py:147
 msgid ""
 "The file could not be found. Please change the source or delete the document"
-msgstr "Файл не может быть найден. Пожалуйста. измените исходный файл или удалите документ"
+msgstr ""
+"Файл не может быть найден. Пожалуйста. измените исходный файл или удалите "
+"документ"
 
-#: views/documents.py:148
 msgid "Delete"
 msgstr "Удалить"
 
-#: views/documents.py:166
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."
 
-#: widgets.py:14
 msgid "Choose another document"
 msgstr "Выбрать другой документ"
 
-#: widgets.py:15
 msgid "Edit this document"
 msgstr "Править этот документ"

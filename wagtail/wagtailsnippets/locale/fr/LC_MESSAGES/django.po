@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
 # nahuel, 2014
@@ -10,165 +10,134 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:39+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: 2015-04-17 11:58+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
+"fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/wagtailsnippets/chooser/choose.html:2
 msgid "Choose"
 msgstr "Choisir"
 
-#: templates/wagtailsnippets/chooser/choose.html:10
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one"
-" now"
-msgstr "Aucun %(snippet_type_name)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">créer un maintenant"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now"
+msgstr ""
+"Aucun %(snippet_type_name)s n'a été créé. Pourquoi ne pas en <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">créer un "
+"maintenant"
 
-#: templates/wagtailsnippets/chooser/list.html:11
-#: templates/wagtailsnippets/snippets/list.html:8
-#: templates/wagtailsnippets/snippets/usage.html:16
 msgid "Title"
 msgstr "Titre"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:3
 #, python-format
 msgid "Delete %(snippet_type_name)s - %(instance)s"
 msgstr "Supprimer  %(snippet_type_name)s - %(instance)s"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:6
-#: templates/wagtailsnippets/snippets/edit.html:20
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:10
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce %(snippet_type_name)s?"
 
-#: templates/wagtailsnippets/snippets/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
-#: templates/wagtailsnippets/snippets/create.html:3
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nouveau %(snippet_type_name)s"
 
-#: templates/wagtailsnippets/snippets/create.html:6
 msgid "New"
 msgstr "Nouveau"
 
-#: templates/wagtailsnippets/snippets/create.html:17
-#: templates/wagtailsnippets/snippets/edit.html:17
 msgid "Save"
 msgstr "Enregistrer"
 
-#: templates/wagtailsnippets/snippets/edit.html:3
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Modification de %(snippet_type_name)s - %(instance)s"
 
-#: templates/wagtailsnippets/snippets/edit.html:6
 msgid "Editing"
 msgstr "Rédaction"
 
-#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:29
 msgid "Snippets"
 msgstr "Blocs"
 
-#: templates/wagtailsnippets/snippets/type_index.html:3
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Blocs %(snippet_type_name_plural)s"
 
-#: templates/wagtailsnippets/snippets/type_index.html:10
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
 msgstr "Blocs <span>%(snippet_type_name_plural)s</span>"
 
-#: templates/wagtailsnippets/snippets/type_index.html:13
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Ajouter un %(snippet_type_name)s"
 
-#: templates/wagtailsnippets/snippets/type_index.html:23
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr "Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href=\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas en <a href="
+"\"%(wagtailsnippets_create_url)s\">ajouter un</a>?"
 
-#: templates/wagtailsnippets/snippets/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Utilisation de %(title)s"
 
-#: templates/wagtailsnippets/snippets/usage.html:5
 msgid "Usage of"
 msgstr "Utilisation de"
 
-#: templates/wagtailsnippets/snippets/usage.html:17
 msgid "Parent"
 msgstr "Parent"
 
-#: templates/wagtailsnippets/snippets/usage.html:18
 msgid "Type"
 msgstr "Type"
 
-#: templates/wagtailsnippets/snippets/usage.html:19
 msgid "Status"
 msgstr "Statut"
 
-#: templates/wagtailsnippets/snippets/usage.html:26
 msgid "Edit this page"
 msgstr "Modifier cette page"
 
-#: views/snippets.py:136
 #, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' créé."
 
-#: views/snippets.py:141 views/snippets.py:184
 msgid "Edit"
 msgstr "Modifier"
 
-#: views/snippets.py:146
 msgid "The snippet could not be created due to errors."
 msgstr "Le bloc n'a pas pu être créé en raison d'erreurs."
 
-#: views/snippets.py:179
 #, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' mis à jour."
 
-#: views/snippets.py:189
 msgid "The snippet could not be saved due to errors."
 msgstr "Le bloc n'a pas pu être sauvegardé en raison d'erreurs."
 
-#: views/snippets.py:217
 #, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' supprimé."
 
-#: widgets.py:17
 #, python-format
 msgid "Choose %s"
 msgstr "Choisir %s"
 
-#: widgets.py:18
 #, python-format
 msgid "Choose another %s"
 msgstr "Choisir un autre %s"
 
-#: widgets.py:19
 #, python-format
 msgid "Edit this %s"
 msgstr "Modifier ce %s"

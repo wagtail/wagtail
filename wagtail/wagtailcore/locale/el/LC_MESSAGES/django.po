@@ -11,26 +11,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 13:05+0100\n"
-"PO-Revision-Date: 2015-04-17 11:49+0000\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
 "el/)\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:53
 msgid "Hostname"
-msgstr ""
+msgstr "Όνομα κεντρικού υπολογιστή"
 
-#: models.py:54
 msgid "Port"
-msgstr ""
+msgstr "Θυρα"
 
-#: models.py:54
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -41,15 +38,12 @@ msgstr ""
 "8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
 "προώθηση θύρας δουλεύει ακόμα)"
 
-#: models.py:55
 msgid "Root page"
-msgstr ""
+msgstr "Κεντρική σελίδα"
 
-#: models.py:56
 msgid "Is default site"
-msgstr ""
+msgstr "Είναι προεπιλεγμένη τοποθεσία"
 
-#: models.py:56
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
@@ -57,7 +51,6 @@ msgstr ""
 "Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
 "άλλα ονόματα που δεν έχουν δική τους εγγραφή"
 
-#: models.py:117
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -67,19 +60,15 @@ msgstr ""
 "απενεργοποιήσετε αυτο προτού μπορείτε να αποθηκεύσετε αυτήν την τοποθεσία ως "
 "προεπιλογή."
 
-#: models.py:266
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
-#: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Ο τίτλος της σελίδας έτσι όπως θα εμφανίζεται στο κοινό"
 
-#: models.py:267
 msgid "Slug"
-msgstr ""
+msgstr "Περιθωριο"
 
-#: models.py:267
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -87,11 +76,9 @@ msgstr ""
 "Το όνομα της σελίδας έτσι όπως θα εμφανίζεται στις διευθύνσεις, π.χ http://"
 "domain.com/blog/[my-slug]/"
 
-#: models.py:276
 msgid "Page title"
 msgstr "Τίτλος σελίδας"
 
-#: models.py:276
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -99,89 +86,68 @@ msgstr ""
 "Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα "
 "εμφανιστεί στην κορυφή του παραθύρου."
 
-#: models.py:277
 msgid "Show in menus"
-msgstr ""
+msgstr "Εμφάνιση σε μενού"
 
-#: models.py:277
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
 
-#: models.py:278
 msgid "Search description"
-msgstr ""
+msgstr "Περιγραφή αναζήτησης"
 
-#: models.py:280
 msgid "Go live date/time"
 msgstr "Μετάβαση στην ζωντανή ημερομηνία/ώρα"
 
-#: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr ""
+msgstr "Παρακαλούμε προσθέστε μια ημερομηνία στη μορφή YYYY-MM-DD hh:mm:ss."
 
-#: models.py:281
 msgid "Expiry date/time"
 msgstr "Ημερομηνία/ώρα λήξης"
 
-#: models.py:710
 msgid "expired"
-msgstr ""
+msgstr "έχει λήξει"
 
-#: models.py:712
 msgid "scheduled"
-msgstr ""
+msgstr "έχει προγραμματιστεί"
 
-#: models.py:714
 msgid "draft"
-msgstr ""
+msgstr "Σχέδιο"
 
-#: models.py:717
 msgid "live + draft"
-msgstr ""
+msgstr "ζωντανα + σχέδιο "
 
-#: models.py:719
 msgid "live"
-msgstr ""
+msgstr "Ζωντανα"
 
-#: models.py:885
 msgid "Default"
-msgstr ""
+msgstr "Προεπιλογή"
 
-#: models.py:1166
-msgid "Add/edit pages you own"
-msgstr ""
-
-#: models.py:1167
-msgid "Add/edit any page"
-msgstr ""
-
-#: models.py:1168
-msgid "Publish any page"
-msgstr ""
-
-#: models.py:1169
-msgid "Lock/unlock any page"
-msgstr ""
-
-#: models.py:1174
-msgid "Group"
-msgstr ""
-
-#: models.py:1175 models.py:1401
 msgid "Page"
-msgstr ""
+msgstr "Σελίδα"
 
-#: models.py:1176
+msgid "Add/edit pages you own"
+msgstr "Προσθήκη σελίδων/Επεξεργασία αυτων που έχετε στην κατοχή σας"
+
+msgid "Add/edit any page"
+msgstr "Προσθήκη σελίδων/Επεξεργασία καθε σελιδας"
+
+msgid "Publish any page"
+msgstr "Δημοσίευση καθε σελίδας"
+
+msgid "Lock/unlock any page"
+msgstr "Κλείδωμα/ξεκλείδωμα κάθε σελίδας"
+
+msgid "Group"
+msgstr "Ομάδα"
+
 msgid "Permission type"
-msgstr ""
+msgstr "Αδεια τύπου "
 
-#: models.py:1402
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός"
 
-#: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Η τιμή δεν μπορεί να εχει εντελώς λευκου χώρου χαρακτήρες"

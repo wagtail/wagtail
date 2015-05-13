@@ -3,166 +3,90 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alessio Di Stasio <aledista@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 13:05+0100\n"
-"PO-Revision-Date: 2015-04-17 11:49+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-05-08 22:15+0000\n"
+"Last-Translator: Alessio Di Stasio <aledista@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
 "it/)\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:53
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
-#: models.py:54
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
-#: models.py:54
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-
-#: models.py:55
 msgid "Root page"
-msgstr ""
+msgstr "Pagina di root"
 
-#: models.py:56
 msgid "Is default site"
-msgstr ""
+msgstr "è sito di default"
 
-#: models.py:56
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
+msgid "Site"
+msgstr "Sito"
 
-#: models.py:117
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-
-#: models.py:266
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
-#: models.py:266
-msgid "The page title as you'd like it to be seen by the public"
-msgstr ""
+msgid "Owner"
+msgstr "Proprietario"
 
-#: models.py:267
-msgid "Slug"
-msgstr ""
-
-#: models.py:267
-msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
-msgstr ""
-
-#: models.py:276
 msgid "Page title"
-msgstr ""
+msgstr "Titolo pagina"
 
-#: models.py:276
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-
-#: models.py:277
-msgid "Show in menus"
-msgstr ""
-
-#: models.py:277
-msgid ""
-"Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-
-#: models.py:278
 msgid "Search description"
-msgstr ""
+msgstr "Descrizione della ricerca"
 
-#: models.py:280
-msgid "Go live date/time"
-msgstr ""
+msgid "Expired"
+msgstr "Scaduto"
 
-#: models.py:280 models.py:281
-msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr ""
+msgid "Locked"
+msgstr "Bloccato"
 
-#: models.py:281
-msgid "Expiry date/time"
-msgstr ""
-
-#: models.py:710
 msgid "expired"
-msgstr ""
+msgstr "scaduto"
 
-#: models.py:712
 msgid "scheduled"
-msgstr ""
+msgstr "schedulato"
 
-#: models.py:714
 msgid "draft"
-msgstr ""
+msgstr "bozza"
 
-#: models.py:717
-msgid "live + draft"
-msgstr ""
-
-#: models.py:719
-msgid "live"
-msgstr ""
-
-#: models.py:885
-msgid "Default"
-msgstr ""
-
-#: models.py:1166
-msgid "Add/edit pages you own"
-msgstr ""
-
-#: models.py:1167
-msgid "Add/edit any page"
-msgstr ""
-
-#: models.py:1168
-msgid "Publish any page"
-msgstr ""
-
-#: models.py:1169
-msgid "Lock/unlock any page"
-msgstr ""
-
-#: models.py:1174
-msgid "Group"
-msgstr ""
-
-#: models.py:1175 models.py:1401
 msgid "Page"
-msgstr ""
+msgstr "Pagina"
 
-#: models.py:1176
+msgid "Created at"
+msgstr "Creato alle"
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Page Revision"
+msgstr "Revisione pagina"
+
+msgid "Publish any page"
+msgstr "Pubblica ogni pagina"
+
+msgid "Lock/unlock any page"
+msgstr "Blocca/sblocca ogni pagina"
+
+msgid "Group"
+msgstr "Gruppo"
+
 msgid "Permission type"
-msgstr ""
+msgstr "Tipo di permesso"
 
-#: models.py:1402
+msgid "Group Page Permission"
+msgstr "Permesso della pagina del gruppo"
+
 msgid "Password"
-msgstr ""
-
-#: validators.py:15
-msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "Parola chiave"

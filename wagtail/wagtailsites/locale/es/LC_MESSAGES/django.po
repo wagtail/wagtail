@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # fonso <fonzzo@gmail.com>, 2015
 # Mauricio Baeza <web@mauriciobaeza.org>, 2014
@@ -9,102 +9,79 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:39+0100\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
 "PO-Revision-Date: 2015-04-17 11:59+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
+"es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:12
 msgid "Choose a root page"
 msgstr "Seleccionar una página inicial"
 
-#: forms.py:12
 msgid "Choose a different root page"
 msgstr "Seleccionar una página inicial diferente"
 
-#: templates/wagtailsites/confirm_delete.html:3
-#: templates/wagtailsites/confirm_delete.html:7
-#: templates/wagtailsites/edit.html:25
 msgid "Delete site"
 msgstr "Sitio borrado"
 
-#: templates/wagtailsites/confirm_delete.html:11
 msgid "Are you sure you want to delete this site?"
 msgstr "Esta Usted seguro de querer eliminar este sitio?"
 
-#: templates/wagtailsites/confirm_delete.html:14
 msgid "Yes, delete"
 msgstr "Si, borrar"
 
-#: templates/wagtailsites/create.html:4 templates/wagtailsites/create.html:9
 msgid "Add site"
 msgstr "Agregar sitio"
 
-#: templates/wagtailsites/create.html:21 templates/wagtailsites/edit.html:23
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/wagtailsites/edit.html:4 templates/wagtailsites/edit.html.py:9
 msgid "Editing"
 msgstr "Editando"
 
-#: templates/wagtailsites/index.html:3 templates/wagtailsites/index.html:5
-#: wagtail_hooks.py:24
 msgid "Sites"
 msgstr "Sitios"
 
-#: templates/wagtailsites/index.html:7
 msgid "Add a site"
 msgstr "Agregar un sitio"
 
-#: templates/wagtailsites/index.html:19
 msgid "Site"
 msgstr "Sitio"
 
-#: templates/wagtailsites/index.html:26
 msgid "Port"
 msgstr "Puerto"
 
-#: templates/wagtailsites/index.html:27
 msgid "Root page"
 msgstr "Página inicial"
 
-#: templates/wagtailsites/index.html:28
 msgid "Default?"
 msgstr "Predeterminado?"
 
-#: templates/wagtailsites/index.html:42
 msgid "Default"
 msgstr "Predeterminado"
 
-#: views.py:31
 #, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sitio '{0}' creado."
 
-#: views.py:32 views.py:54
 msgid "Edit"
 msgstr "Editar"
 
-#: views.py:36
 msgid "The site could not be created due to errors."
 msgstr "El sitio no puede ser creado debido a errores"
 
-#: views.py:53
 #, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sitio '{0}' actualizado."
 
-#: views.py:58
 msgid "The site could not be saved due to errors."
 msgstr "El sitio no puede ser guardado debido a errores"
 
-#: views.py:74
 #, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sitio '{0}' eliminado."
