@@ -5,81 +5,76 @@
 # Translators:
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
+# chimeno <daniel@chimeno.me>, 2015
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
+# José Alaguna <alagunajs@gmail.com>, 2015
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 # Unai Zalakain <unai@gisa-elkartea.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 13:05+0100\n"
-"PO-Revision-Date: 2015-04-17 11:49+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-22 02:20+0000\n"
+"Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/wagtail/language/"
 "es/)\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:53
 msgid "Hostname"
-msgstr ""
+msgstr "Nombre del host"
 
-#: models.py:54
 msgid "Port"
-msgstr ""
+msgstr "Puerto"
 
-#: models.py:54
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Cambia esto a algo que no sea 80 si necesitas que un puerto específico "
-"aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no afecta al "
-"manejo de solicitudes (así que la redirección de puertos sigue funcionando)."
+"Cambia esto a algo que no sea el puerto 80 si necesitas que un puerto "
+"específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no "
+"afecta al manejo de solicitudes (así que la redirección de puertos sigue "
+"funcionando)."
 
-#: models.py:55
 msgid "Root page"
-msgstr ""
+msgstr "Página raíz"
 
-#: models.py:56
 msgid "Is default site"
-msgstr ""
+msgstr "Es sitio por defecto"
 
-#: models.py:56
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Si afirmativo, este sitio manejará solicitudes para todos los demás "
-"hostnames que no tengan un site por sí mismos"
+"Si es afirmativo, este sitio manejará solicitudes para todos los demás "
+"nombres de host que no tengan un sitio para sí mismos"
 
-#: models.py:117
+msgid "Site"
+msgstr "Sitio"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 "%(hostname)s está seleccionado como sitio por defecto. Debe desactivarlo "
-"antes de poder seleccionar este sitio como por defecto."
+"antes de poder seleccionar este sitio por defecto."
 
-#: models.py:266
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
-#: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "El título de la página como quieres que sea visto por el público"
 
-#: models.py:267
 msgid "Slug"
-msgstr ""
+msgstr "Marca"
 
-#: models.py:267
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -87,11 +82,24 @@ msgstr ""
 "El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
 "blog/[my-slug]/"
 
-#: models.py:276
+msgid "Content type"
+msgstr "Tipo de contenido"
+
+msgid "Live"
+msgstr "En vivo"
+
+msgid "Has unpublished changes"
+msgstr "Tiene cambios no publicados"
+
+msgid "URL path"
+msgstr "Dirección URL"
+
+msgid "Owner"
+msgstr "Propietario"
+
 msgid "Page title"
 msgstr "Título de la página"
 
-#: models.py:276
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
@@ -99,87 +107,102 @@ msgstr ""
 "Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
 "superior de la ventana del navegador."
 
-#: models.py:277
 msgid "Show in menus"
-msgstr ""
+msgstr "Mostrar en los menús"
 
-#: models.py:277
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
 
-#: models.py:278
 msgid "Search description"
-msgstr ""
+msgstr "Descripción para búsquedas"
 
-#: models.py:280
 msgid "Go live date/time"
 msgstr "Ir en vivo fecha/hora"
 
-#: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr ""
+msgstr "Por favor añada una fecha-hora con el formato YYYY-MM-DD hh:mm:ss."
 
-#: models.py:281
 msgid "Expiry date/time"
-msgstr "Expiración fecha/hora"
+msgstr "Fecha/hora de expiración"
 
-#: models.py:710
+msgid "Expired"
+msgstr "Expirado"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+msgid "First published at"
+msgstr "Publicado por primera vez a las "
+
+msgid "Latest revision created at"
+msgstr "Última revisión creada a las "
+
 msgid "expired"
-msgstr ""
+msgstr "Expiró"
 
-#: models.py:712
 msgid "scheduled"
-msgstr ""
+msgstr "Agendado"
 
-#: models.py:714
 msgid "draft"
-msgstr ""
+msgstr "Borrador"
 
-#: models.py:717
 msgid "live + draft"
-msgstr ""
+msgstr "Ver borrador"
 
-#: models.py:719
 msgid "live"
-msgstr ""
+msgstr "Ver en vivo"
 
-#: models.py:885
 msgid "Default"
-msgstr ""
+msgstr "Predeterminado"
 
-#: models.py:1166
-msgid "Add/edit pages you own"
-msgstr ""
-
-#: models.py:1167
-msgid "Add/edit any page"
-msgstr ""
-
-#: models.py:1168
-msgid "Publish any page"
-msgstr ""
-
-#: models.py:1169
-msgid "Lock/unlock any page"
-msgstr ""
-
-#: models.py:1174
-msgid "Group"
-msgstr ""
-
-#: models.py:1175 models.py:1401
 msgid "Page"
-msgstr ""
+msgstr "Página"
 
-#: models.py:1176
+msgid "Submitted for moderation"
+msgstr "Enviado para moderación"
+
+msgid "Created at"
+msgstr "Creado a las"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "Content JSON"
+msgstr "Contenido JSON"
+
+msgid "Approved go live at"
+msgstr "Aprobado para publicación"
+
+msgid "Page Revision"
+msgstr "Revisión de página"
+
+msgid "Add/edit pages you own"
+msgstr "Añadir/editar tus propias páginas"
+
+msgid "Add/edit any page"
+msgstr "Añadir/editar cualquier página"
+
+msgid "Publish any page"
+msgstr "Publicar cualquier página"
+
+msgid "Lock/unlock any page"
+msgstr "Bloquear/desbloquear cualquier página"
+
+msgid "Group"
+msgstr "Grupo"
+
 msgid "Permission type"
-msgstr ""
+msgstr "Tipo de permiso"
 
-#: models.py:1402
+msgid "Group Page Permission"
+msgstr "Grupo de permisos de página"
+
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
-#: validators.py:15
+msgid "Page View Restriction"
+msgstr "Página de vista restringida"
+
 msgid "Value cannot be entirely whitespace characters"
-msgstr ""
+msgstr "El valor no puede consistir enteramente en espacios en blanco"

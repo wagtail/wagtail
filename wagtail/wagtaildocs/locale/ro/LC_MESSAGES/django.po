@@ -1,58 +1,46 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-04-17 11:51+0000\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/language/ro/)\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
+"language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
-#: models.py:23 templates/wagtaildocs/documents/list.html:11
-#: templates/wagtaildocs/documents/list.html:14
-#: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr "Titlu"
 
-#: models.py:24 templates/wagtaildocs/documents/list.html:17
 msgid "File"
 msgstr "Fișier"
 
-#: models.py:28
 msgid "Tags"
 msgstr "Etichete"
 
-#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
 msgid "Choose a document"
 msgstr "Alege document"
 
-#: templates/wagtaildocs/chooser/chooser.html:7
-#: templates/wagtaildocs/chooser/chooser.html:19
 msgid "Search"
 msgstr "Căută"
 
-#: templates/wagtaildocs/chooser/chooser.html:8
 msgid "Upload"
 msgstr "Încărcare"
 
-#: templates/wagtaildocs/chooser/chooser.html:34
-#: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:31
 msgid "Save"
 msgstr "Salveză"
 
-#: templates/wagtaildocs/chooser/results.html:5
-#: templates/wagtaildocs/documents/results.html:5
 #, python-format
 msgid ""
 "\n"
@@ -62,163 +50,104 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nExistă o potrivire"
-msgstr[1] "\nSunt %(counter)s potriviri"
-msgstr[2] "\nSunt %(counter)s potriviri"
+msgstr[0] ""
+"\n"
+"Există o potrivire"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"Sunt %(counter)s potriviri"
 
-#: templates/wagtaildocs/chooser/results.html:12
 msgid "Latest documents"
 msgstr "Documente recente"
 
-#: templates/wagtaildocs/chooser/results.html:19
-#: templates/wagtaildocs/documents/results.html:18
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un document"
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
+"document"
 
-#: templates/wagtaildocs/documents/_file_field.html:5
 msgid "Change document:"
 msgstr "Schimbă documentul:"
 
-#: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:17
 msgid "Add a document"
 msgstr "Adaugă un document"
 
-#: templates/wagtaildocs/documents/add.html:15
 msgid "Add document"
 msgstr "Adaugă document"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:3
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Șterge %(title)s"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:31
 msgid "Delete document"
 msgstr "Șterge document"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:10
 msgid "Are you sure you want to delete this document?"
 msgstr "Sigur doriți să ștergeți acest document?"
 
-#: templates/wagtaildocs/documents/confirm_delete.html:13
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
-#: templates/wagtaildocs/documents/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editare %(title)s"
 
-#: templates/wagtaildocs/documents/edit.html:15
 msgid "Editing"
 msgstr "Editare"
 
-#: templates/wagtaildocs/documents/edit.html:38
-msgid "Filesize"
-msgstr ""
-
-#: templates/wagtaildocs/documents/edit.html:39
-msgid "File not found"
-msgstr ""
-
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:31
 msgid "Documents"
 msgstr "Documente"
 
-#: templates/wagtaildocs/documents/list.html:21
-#: templates/wagtaildocs/documents/list.html:24
 msgid "Uploaded"
 msgstr "Încărcat"
 
-#: templates/wagtaildocs/documents/results.html:21
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
-msgstr "Nu ați încărcat nici un document. De ce să nu <a href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici un document. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
-#: templates/wagtaildocs/documents/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Utilizare %(title)s"
 
-#: templates/wagtaildocs/documents/usage.html:5
 msgid "Usage of"
 msgstr "Utilizare"
 
-#: templates/wagtaildocs/documents/usage.html:17
 msgid "Parent"
 msgstr "Bază"
 
-#: templates/wagtaildocs/documents/usage.html:18
 msgid "Type"
 msgstr "Tip"
 
-#: templates/wagtaildocs/documents/usage.html:19
 msgid "Status"
 msgstr "Status"
 
-#: templates/wagtaildocs/documents/usage.html:26
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
-#: templates/wagtaildocs/homepage/site_summary_documents.html:5
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: views/documents.py:38 views/documents.py:47
 msgid "Search documents"
 msgstr "Caută documente"
 
-#: views/documents.py:92
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
 
-#: views/documents.py:93 views/documents.py:128
-msgid "Edit"
-msgstr ""
-
-#: views/documents.py:97 views/documents.py:132
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
 
-#: views/documents.py:127
 #, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documentul '{0}' a fost actualizat."
 
-#: views/documents.py:147
-msgid ""
-"The file could not be found. Please change the source or delete the document"
-msgstr ""
-
-#: views/documents.py:148
-msgid "Delete"
-msgstr ""
-
-#: views/documents.py:166
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
 
-#: widgets.py:14
 msgid "Choose another document"
 msgstr "Alege alt document"
-
-#: widgets.py:15
-msgid "Edit this document"
-msgstr ""

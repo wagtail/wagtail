@@ -1,129 +1,143 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:35+0100\n"
-"PO-Revision-Date: 2015-04-17 11:59+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/wagtail/language/pt_PT/)\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-29 17:39+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:25
 msgid "Single line text"
-msgstr "Linha de texto"
+msgstr "Texto duma só linha"
 
-#: models.py:26
 msgid "Multi-line text"
-msgstr "Caixa de linhas de texto"
+msgstr "Texto multi-linha"
 
-#: models.py:27
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
-#: models.py:28
 msgid "Number"
 msgstr "Número"
 
-#: models.py:29
 msgid "URL"
 msgstr "URL"
 
-#: models.py:30
 msgid "Checkbox"
 msgstr "Caixa de seleção"
 
-#: models.py:31
 msgid "Checkboxes"
 msgstr "Caixas de seleção"
 
-#: models.py:32
 msgid "Drop down"
 msgstr "Lista pendente"
 
-#: models.py:33
 msgid "Radio buttons"
-msgstr "Botões de seleção"
+msgstr "Botões de opção"
 
-#: models.py:34
 msgid "Date"
 msgstr "Data"
 
-#: models.py:35
 msgid "Date/time"
 msgstr "Data/hora"
 
-#: models.py:63
-msgid "The label of the form field"
-msgstr "O nome do campo do formulário"
+msgid "Submit time"
+msgstr "Hora de envio"
 
-#: models.py:70
+msgid "Form Submission"
+msgstr "Envio de Formulário"
+
+msgid "Label"
+msgstr "Etiqueta"
+
+msgid "The label of the form field"
+msgstr "A etiqueta do campo de formulário"
+
+msgid "Field type"
+msgstr "Tipo de campo"
+
+msgid "Required"
+msgstr "Obrigatório"
+
+msgid "Choices"
+msgstr "Escolhas"
+
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
-msgstr "Lista de opções separadas por vírgula. Só utilizável nas caixas de seleção, botões e listas pendentes."
+msgstr ""
+"Lista de escolhas separadas por vírgula. Só utilizável nas caixas de "
+"seleção, botões e listas pendentes."
 
-#: models.py:75
+msgid "Default value"
+msgstr "Valor pré-definido"
+
 msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Valor pré-definido. Valores separados por vírgula admitidos nas caixas de seleção."
+msgstr ""
+"Valor pré-definido. Valores separados por vírgula admitidos nas caixas de "
+"seleção."
 
-#: models.py:188
+msgid "Help text"
+msgstr "Texto de ajuda"
+
+msgid "To address"
+msgstr "Endereço do destinatário"
+
 msgid "Optional - form submissions will be emailed to this address"
-msgstr "Opcional - as submissões de formulários serão enviadas por email para este endereço"
+msgstr ""
+"Opcional - os formulários recebidos serão enviados por e-mail para este "
+"endereço"
 
-#: templates/wagtailforms/index.html:3 templates/wagtailforms/index.html:6
-#: wagtail_hooks.py:25
+msgid "From address"
+msgstr "Endereço do remetente"
+
+msgid "Subject"
+msgstr "Assunto"
+
 msgid "Forms"
 msgstr "Formulários"
 
-#: templates/wagtailforms/index.html:7
 msgid "Pages"
 msgstr "Páginas"
 
-#: templates/wagtailforms/index_submissions.html:3
 #, python-format
 msgid "Submissions of %(form_title)s"
-msgstr "Submissões de %(form_title)s"
+msgstr "Envios de %(form_title)s"
 
-#: templates/wagtailforms/index_submissions.html:36
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr "Dados do formulário <span>%(form_title)s</span>"
 
-#: templates/wagtailforms/index_submissions.html:45
 msgid "Filter"
 msgstr "Filtrar"
 
-#: templates/wagtailforms/index_submissions.html:51
 msgid "Download CSV"
 msgstr "Descarregar CSV"
 
-#: templates/wagtailforms/index_submissions.html:63
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Não houve submissões do formulário '%(title)s'."
+msgstr "Não houve envios do formulário '%(title)s'."
 
-#: templates/wagtailforms/list_forms.html:7
 msgid "Title"
 msgstr "Título"
 
-#: templates/wagtailforms/list_forms.html:8
 msgid "Origin"
 msgstr "Origem"
 
-#: templates/wagtailforms/list_submissions.html:9
 msgid "Submission Date"
-msgstr "Data de submissão"
+msgstr "Data de Envio"
 
-#: templates/wagtailforms/results_forms.html:7
 msgid "No form pages have been created."
-msgstr "Não foram criadas páginas de formulários."
+msgstr "Nenhuma página de formulário foi criada."

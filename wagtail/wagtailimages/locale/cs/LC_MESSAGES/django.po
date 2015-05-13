@@ -1,131 +1,86 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 12:38+0100\n"
-"PO-Revision-Date: 2015-04-17 11:52+0000\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/wagtail/language/"
+"cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: fields.py:13
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
-#: fields.py:16
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr "Nepodporovaný formát obrázku. Podporovány jsou formáty %s"
 
-#: fields.py:20
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Toto není validní obrázek %s."
 
-#: fields.py:29
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-
-#: fields.py:35
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-
-#: fields.py:41
-#, python-format
-msgid ""
-"Supported formats: %(supported_formats)s. Maximum filesize: "
-"%(max_upload_size)s."
-msgstr ""
-
-#: fields.py:52
-#, python-format
-msgid "Supported formats: %(supported_formats)s."
-msgstr ""
-
-#: forms.py:64
 msgid "Filter"
 msgstr "Filtr"
 
-#: forms.py:66
 msgid "Original size"
 msgstr "Původní velikost"
 
-#: forms.py:67
 msgid "Resize to width"
 msgstr "Přizpůsobit šířku"
 
-#: forms.py:68
 msgid "Resize to height"
 msgstr "Přizpůsobit výšku"
 
-#: forms.py:69
 msgid "Resize to min"
 msgstr "Zvětšit na minimální velikost"
 
-#: forms.py:70
 msgid "Resize to max"
 msgstr "Zmenšit na maximální velikost"
 
-#: forms.py:71
 msgid "Resize to fill"
 msgstr "Vyplnit obdélník"
 
-#: forms.py:74
 msgid "Width"
 msgstr "Šířka"
 
-#: forms.py:75
 msgid "Height"
 msgstr "Výška"
 
-#: forms.py:76
 msgid "Closeness"
 msgstr "Přiblížení"
 
-#: models.py:60 templates/wagtailimages/images/usage.html:16
 msgid "Title"
 msgstr "Název"
 
-#: models.py:61
 msgid "File"
 msgstr "Soubor"
 
-#: models.py:67
 msgid "Tags"
 msgstr "Tagy"
 
-#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
 
-#: templates/wagtailimages/chooser/chooser.html:8
-#: templates/wagtailimages/chooser/chooser.html:20
 msgid "Search"
 msgstr "Hledat"
 
-#: templates/wagtailimages/chooser/chooser.html:9
-#: templates/wagtailimages/chooser/chooser.html:47
 msgid "Upload"
 msgstr "Nahrát"
 
-#: templates/wagtailimages/chooser/chooser.html:23
 msgid "Popular tags"
 msgstr "Oblíbené tagy"
 
-#: templates/wagtailimages/chooser/results.html:6
-#: templates/wagtailimages/images/results.html:6
 #, python-format
 msgid ""
 "\n"
@@ -135,249 +90,167 @@ msgid_plural ""
 "\n"
 "            There are %(counter)s matches\n"
 "        "
-msgstr[0] "\nNalezen 1 obrázek"
-msgstr[1] "\nNalezeno %(counter)s obrázků"
-msgstr[2] "\nNalezeno %(counter)s obrázků"
+msgstr[0] ""
+"\n"
+"Nalezen 1 obrázek"
+msgstr[1] ""
+"\n"
+"Nalezeno %(counter)s obrázků"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s obrázků"
 
-#: templates/wagtailimages/chooser/results.html:13
-#: templates/wagtailimages/images/results.html:13
 msgid "Latest images"
 msgstr "Poslední obrázky"
 
-#: templates/wagtailimages/chooser/select_format.html:3
 msgid "Choose a format"
 msgstr "Zvolte formát"
 
-#: templates/wagtailimages/chooser/select_format.html:17
 msgid "Insert image"
 msgstr "Vložit obrázek"
 
-#: templates/wagtailimages/homepage/site_summary_images.html:5
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: templates/wagtailimages/images/_file_field.html:8
-msgid "Change image file:"
-msgstr ""
-
-#: templates/wagtailimages/images/add.html:4
-#: templates/wagtailimages/images/index.html:19
 msgid "Add an image"
 msgstr "Přidat obrázek"
 
-#: templates/wagtailimages/images/add.html:15
 msgid "Add image"
 msgstr "Přidat obrázek"
 
-#: templates/wagtailimages/images/add.html:29
-#: templates/wagtailimages/images/edit.html:46
 msgid "Save"
 msgstr "Uložit"
 
-#: templates/wagtailimages/images/confirm_delete.html:4
-#: templates/wagtailimages/images/confirm_delete.html:8
-#: templates/wagtailimages/images/edit.html:46
 msgid "Delete image"
 msgstr "Smazat obrázek"
 
-#: templates/wagtailimages/images/confirm_delete.html:16
 msgid "Are you sure you want to delete this image?"
 msgstr "Opravdu chcete smazat tento obrázek?"
 
-#: templates/wagtailimages/images/confirm_delete.html:19
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
-#: templates/wagtailimages/images/edit.html:4
-#: templates/wagtailimages/images/url_generator.html:4
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Úprava obrázku %(title)s"
 
-#: templates/wagtailimages/images/edit.html:26
 msgid "Editing"
 msgstr "Úprava"
 
-#: templates/wagtailimages/images/edit.html:51
 msgid "Focal point (optional)"
 msgstr "Středový bod (nepovinné)"
 
-#: templates/wagtailimages/images/edit.html:52
 msgid ""
 "To define this image's most important region, drag a box over the image "
 "below."
-msgstr "Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku níže."
+msgstr ""
+"Nejdůležitější oblast obrázku můžete nadefinovat přetažením boxu po obrázku "
+"níže."
 
-#: templates/wagtailimages/images/edit.html:52
 msgid "Current focal point shown"
 msgstr "Zobrazen aktuální středový bod"
 
-#: templates/wagtailimages/images/edit.html:71
 msgid "URL Generator"
 msgstr "Generátor URL"
 
-#: templates/wagtailimages/images/edit.html:78
-msgid "Max dimensions"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:80
-msgid "Filesize"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:81
-msgid "File not found"
-msgstr ""
-
-#: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18 wagtail_hooks.py:74
 msgid "Images"
 msgstr "Obrázky"
 
-#: templates/wagtailimages/images/results.html:31
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr "Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
+msgstr ""
+"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné obrázky"
 
-#: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
-"You've not uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
-msgstr "Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
-#: templates/wagtailimages/images/url_generator.html:9
 msgid "Generating URL"
 msgstr "Generuji URL"
 
-#: templates/wagtailimages/images/url_generator.html:26
 msgid "URL"
 msgstr "URL"
 
-#: templates/wagtailimages/images/url_generator.html:29
 msgid "Preview"
 msgstr "Náhled"
 
-#: templates/wagtailimages/images/url_generator.html:35
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr "Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu zmenšeny tak, aby se na obrazovku vešly."
+msgstr ""
+"Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu "
+"zmenšeny tak, aby se na obrazovku vešly."
 
-#: templates/wagtailimages/images/usage.html:3
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "Použití %(title)s"
 
-#: templates/wagtailimages/images/usage.html:5
 msgid "Usage of"
 msgstr "Použití"
 
-#: templates/wagtailimages/images/usage.html:17
 msgid "Parent"
 msgstr "Nadřazená stránka"
 
-#: templates/wagtailimages/images/usage.html:18
 msgid "Type"
 msgstr "Typ"
 
-#: templates/wagtailimages/images/usage.html:19
 msgid "Status"
 msgstr "Stav"
 
-#: templates/wagtailimages/images/usage.html:26
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
-#: templates/wagtailimages/multiple/add.html:3
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
 
-#: templates/wagtailimages/multiple/add.html:13
 msgid "Add images"
 msgstr "Přidat obrázky"
 
-#: templates/wagtailimages/multiple/add.html:18
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
+msgstr ""
+"Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
 
-#: templates/wagtailimages/multiple/add.html:23
 msgid "Or choose from your computer"
 msgstr "Nebo zvolte soubor ve vašem počítači"
 
-#: templates/wagtailimages/multiple/add.html:48
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr "Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
+msgstr ""
+"Obrázky byly nahrány. Níže můžete upravit titulky, je-li to třeba. Také "
+"můžete vybrané obrázky úplně odstranit, jestliže byly nahrány omylem."
 
-#: templates/wagtailimages/multiple/add.html:49
 msgid "Sorry, upload failed."
 msgstr "Nahrání obrázků na server selhalo."
 
-#: templates/wagtailimages/multiple/edit_form.html:14
 msgid "Update"
 msgstr "Uložit"
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:129
 msgid "Delete"
 msgstr "Smazat"
 
-#: views/images.py:40 views/images.py:50
 msgid "Search images"
 msgstr "Hledat obrázky"
 
-#: views/images.py:106
 #, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
-#: views/images.py:107
-msgid "Edit again"
-msgstr ""
-
-#: views/images.py:111
 msgid "The image could not be saved due to errors."
 msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
 
-#: views/images.py:128
-msgid ""
-"The source image file could not be found. Please change the source or delete"
-" the image."
-msgstr ""
-
-#: views/images.py:221
 #, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."
 
-#: views/images.py:244
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 
-#: views/images.py:245
-msgid "Edit"
-msgstr ""
-
-#: views/images.py:249
 msgid "The image could not be created due to errors."
 msgstr "Obrázek nebyl vytvořen, zkontrolujte správné vyplnění polí."
 
-#: widgets.py:14
 msgid "Choose another image"
 msgstr "Zvolit jiný obrázek"
-
-#: widgets.py:15
-msgid "Edit this image"
-msgstr ""
