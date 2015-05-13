@@ -88,20 +88,25 @@ class AbstractImage(models.Model, TagSearchable):
 
     @contextmanager
     def get_willow_image(self):
+        # Open file if it is closed
+        close_file = False
         try:
-            image_file = self.file.file  # triggers a call to self.storage.open, so IOErrors from missing files will be raised at this point
+            if self.file.closed:
+                self.file.open('rb')
+                close_file = True
         except IOError as e:
             # re-throw this as a SourceImageIOError so that calling code can distinguish
             # these from IOErrors elsewhere in the process
             raise SourceImageIOError(text_type(e))
 
-        image_file.open('rb')
-        image_file.seek(0)
+        # Seek to beginning
+        self.file.seek(0)
 
         try:
-            yield WillowImage.open(image_file)
+            yield WillowImage.open(self.file)
         finally:
-            image_file.close()
+            if close_file:
+                self.file.close()
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
