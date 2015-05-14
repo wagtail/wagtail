@@ -32,5 +32,6 @@ We welcome contributions to all aspects of Wagtail. If you would like to improve
 
     developing
     styleguide
+    python_guidelines
     css_guidelines
     javascript_guidelines
