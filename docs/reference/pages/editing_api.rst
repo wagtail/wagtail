@@ -76,9 +76,20 @@ FieldRowPanel
 
 .. class:: FieldRowPanel(children, classname=None)
 
-    This panel is purely aesthetic. It creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below. Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
+    This panel creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below.
+
+    Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
     FieldRowPanel should be used in combination with ``col*`` classnames added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is layed out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+
+    .. attribute:: FieldRowPanel.children
+
+        A ``list`` or ``tuple`` of child panels to display on the row
+
+    .. attribute:: FieldRowPanel.classname
+
+        A class to apply to the FieldRowPanel as a whole
+
 
   **(In addition to these four, there are also Chooser Panels, detailed below.)**
 
