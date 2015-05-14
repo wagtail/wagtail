@@ -122,9 +122,119 @@ FieldRowPanel
 
         A class to apply to the FieldRowPanel as a whole
 
+PageChooserPanel
+----------------
 
-  **(In addition to these four, there are also Chooser Panels, detailed below.)**
+.. class:: PageChooserPanel(field_name, model=None)
 
+    You can explicitly link ``Page``-derived models together using the ``Page`` model and ``PageChooserPanel``.
+
+    .. code-block:: python
+
+      from wagtail.wagtailcore.models import Page
+      from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
+
+
+      class BookPage(Page):
+        publisher = models.ForeignKey(
+          'wagtailcore.Page',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+',
+        )
+
+        content_panels = Page.content_panels + [
+          PageChooserPanel('related_page', 'demo.PublisherPage'),
+        ]
+
+    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
+
+ImageChooserPanel
+-----------------
+
+.. class:: ImageChooserPanel(field_name)
+
+    One of the features of Wagtail is a unified image library, which you can access in your models through the ``Image`` model and the ``ImageChooserPanel`` chooser. Here's how:
+
+    .. code-block:: python
+
+      from wagtail.wagtailimages.models import Image
+      from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+
+      class BookPage(Page):
+        cover = models.ForeignKey(
+          'wagtailimages.Image',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+        )
+
+        content_panels = Page.content_panels + [
+          ImageChooserPanel('cover'),
+        ]
+
+    Django's default behavior is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
+
+    .. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
+
+    Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
+
+DocumentChooserPanel
+--------------------
+
+.. class:: DocumentChooserPanel(field_name)
+
+    For files in other formats, Wagtail provides a generic file store through the ``Document`` model:
+
+    .. code-block:: python
+
+      from wagtail.wagtaildocs.models import Document
+      from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+
+
+      class BookPage(Page):
+        book_file = models.ForeignKey(
+          'wagtaildocs.Document',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+        )
+
+        BookPage.content_panels = Page.content_panels + [
+          DocumentChooserPanel('book_file'),
+        ]
+
+    As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
+
+SnippetChooserPanel
+-------------------
+
+.. class:: SnippetChooserPanel(field_name, model)
+
+    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
+
+    .. code-block:: python
+
+      from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+      # ...
+      class BookPage(Page):
+        advert = models.ForeignKey(
+          'demo.Advert',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+        )
+
+        content_panels = [
+          SnippetChooserPanel('advert', Advert),
+        ]
+
+    See :ref:`snippets` for more information.
 
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,116 +267,6 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 However, template output from ``RichTextField`` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
 
 If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (hallo.js), See :ref:`extending_wysiwyg`.
-
-
-Images
-------
-
-One of the features of Wagtail is a unified image library, which you can access in your models through the ``Image`` model and the ``ImageChooserPanel`` chooser. Here's how:
-
-.. code-block:: python
-
-  from wagtail.wagtailimages.models import Image
-  from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-
-
-  class BookPage(Page):
-    cover = models.ForeignKey(
-      'wagtailimages.Image',
-      null=True,
-      blank=True,
-      on_delete=models.SET_NULL,
-      related_name='+'
-    )
-
-    content_panels = Page.content_panels + [
-      ImageChooserPanel('cover'),
-    ]
-
-Django's default behavior is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
-
-.. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
-
-Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
-
-
-Documents
----------
-
-For files in other formats, Wagtail provides a generic file store through the ``Document`` model:
-
-.. code-block:: python
-
-  from wagtail.wagtaildocs.models import Document
-  from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-
-
-  class BookPage(Page):
-    book_file = models.ForeignKey(
-      'wagtaildocs.Document',
-      null=True,
-      blank=True,
-      on_delete=models.SET_NULL,
-      related_name='+'
-    )
-
-    BookPage.content_panels = Page.content_panels + [
-      DocumentChooserPanel('book_file'),
-    ]
-
-As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
-
-
-Pages and Page-derived Models
------------------------------
-
-You can explicitly link ``Page``-derived models together using the ``Page`` model and ``PageChooserPanel``.
-
-.. code-block:: python
-
-  from wagtail.wagtailcore.models import Page
-  from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
-
-
-  class BookPage(Page):
-    publisher = models.ForeignKey(
-      'wagtailcore.Page',
-      null=True,
-      blank=True,
-      on_delete=models.SET_NULL,
-      related_name='+',
-    )
-
-    content_panels = Page.content_panels + [
-      PageChooserPanel('related_page', 'demo.PublisherPage'),
-    ]
-
-``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
-
-
-Snippets
---------
-
-Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
-
-.. code-block:: python
-
-  from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-  # ...
-  class BookPage(Page):
-    advert = models.ForeignKey(
-      'demo.Advert',
-      null=True,
-      blank=True,
-      on_delete=models.SET_NULL,
-      related_name='+'
-    )
-
-    content_panels = [
-      SnippetChooserPanel('advert', Advert),
-    ]
-
-See :ref:`snippets` for more information.
 
 
 Field Customization
