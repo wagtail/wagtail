@@ -10,9 +10,14 @@
 Wagtail CMS
 ===========
 
-.. image:: http://i.imgur.com/U5MDa0l.jpg
+Wagtail is a content management system built on Django. It's focused on user experience, 
+and offers precise control for designers and developers. 
 
-Wagtail is a content management system built on Django. It's focused on user experience, and precise control for designers and developers. Wagtail's features include:
+.. image:: http://i.imgur.com/U5MDa0l.jpg
+   :width: 728 px
+
+Features
+~~~~~~~~
 
 * A fast, attractive interface for authors and editors
 * Complete control over design with standard Django templates
@@ -42,7 +47,7 @@ Getting started
      python manage.py createsuperuser
      python manage.py runserver
 
-Sign in at http://127.0.0.1:8000/admin/
+then sign in at http://127.0.0.1:8000/admin/
 
 For detailed installation and setup docs, see `docs.wagtail.io <http://docs.wagtail.io/>`_.
 
