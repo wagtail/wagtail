@@ -38,7 +38,7 @@ $(function() {
             }).always(function() {
                 data.context.removeClass('processing');
                 data.context.find('.left').each(function(index, elm) {
-                    $(elm).append(data.files[index].name);
+                    $(elm).append(escapeHtml(data.files[index].name));
                 });
 
                 data.context.find('.preview .thumb').each(function(index, elm) {
