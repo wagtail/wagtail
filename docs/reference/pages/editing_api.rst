@@ -289,12 +289,6 @@ Titles
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
 
 
-Col*
-------
-
-Fields within a ``FieldRowPanel`` can have their width dictated in terms of the number of columns it should span. The ``FieldRowPanel`` is always considered to be 12 columns wide regardless of browser size or the nesting of ``FieldRowPanel`` in any other type of panel. Specify a number of columns thus: ``col3``, ``col4``, ``col6`` etc (up to 12). The resulting width with be *relative* to the full width of the ``FieldRowPanel``.
-
-
 Required Fields
 ---------------
 
