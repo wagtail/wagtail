@@ -94,6 +94,24 @@ MultiFieldPanel
 
         A heading for the fields
 
+.. topic:: Collapsing MultiFieldPanels to save space
+
+    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding the classname ``collapsible`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the classname parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
+
+    .. code-block:: python
+
+        content_panels = [
+            MultiFieldPanel(
+                [
+                    ImageChooserPanel('cover'),
+                    DocumentChooserPanel('book_file'),
+                    PageChooserPanel('publisher'),
+                ],
+                heading="Collection of Book Fields",
+                classname="collapsible collapsed"
+            ),
+        ]
+
 InlinePanel
 -----------
 
@@ -303,30 +321,6 @@ Hiding Fields
 Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with ``editable=False`` (See `Django model field reference (editable)`_ ).
 
 .. _Django model field reference (editable): https://docs.djangoproject.com/en/dev/ref/models/fields/#editable
-
-
-MultiFieldPanel
-~~~~~~~~~~~~~~~
-
-The ``MultiFieldPanel`` groups a list of child fields into a fieldset, which can also be collapsed into a heading bar to save space.
-
-.. code-block:: python
-
-    BOOK_FIELD_COLLECTION = [
-        ImageChooserPanel('cover'),
-        DocumentChooserPanel('book_file'),
-        PageChooserPanel('publisher'),
-    ]
-
-    BookPage.content_panels = [
-        MultiFieldPanel(
-            BOOK_FIELD_COLLECTION,
-            heading="Collection of Book Fields",
-            classname="collapsible collapsed"
-        ),
-    ]
-
-By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding the classname ``collapsible`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the classname parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
 
 
 .. _inline_panels:
