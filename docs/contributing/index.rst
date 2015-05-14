@@ -6,5 +6,6 @@ Contributing to Wagtail
     :maxdepth: 2
 
     developing
+    styleguide
     css_guidelines
     javascript_guidelines
