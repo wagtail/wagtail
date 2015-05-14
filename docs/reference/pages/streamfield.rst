@@ -41,182 +41,198 @@ Using StreamField
     ]
 
 
-Note: StreamField is not backwards compatible with other field types such as RichTextField; if you migrate an existing field to StreamField, the existing data will be lost.
+Note: StreamField is not backwards compatible with other field types such as :class:`RichTextField`; if you migrate an existing field to StreamField, the existing data will be lost.
 
-The parameter to ``StreamField`` is a list of (name, block_type) tuples; 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single ``StreamBlock`` instance - see `Structural block types`_.)
+The parameter to ``StreamField`` is a list of (name, block_type) tuples; 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single :class:`StreamBlock` instance - see `Structural block types`_.)
 
 This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
 
 Basic block types
 -----------------
 
+.. module:: wagtail.wagtailcore.blocks
+
 All block types accept the following optional keyword arguments:
 
-``default``
-  The default value that a new 'empty' block should receive.
+.. class:: Block
 
-``label``
-  The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a ``ListBlock`` - the empty string).
+    .. attribute:: Block.default
 
-``icon``
-  The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding ``wagtail.contrib.wagtailstyleguide`` to your project's ``INSTALLED_APPS``.
+        The default value that a new 'empty' block should receive.
 
-``template``
-  The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
+    .. attribute:: Block.label
+
+        The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a ``ListBlock`` - the empty string).
+
+    .. attribute:: Block.icon
+
+        The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding ``wagtail.contrib.wagtailstyleguide`` to your project's ``INSTALLED_APPS``.
+
+    .. attribute:: Block.template
+
+        The path to a Django template that will be used to render this block on the front end. See `Template rendering`_.
 
 The basic block types provided by Wagtail are as follows:
 
 CharBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.CharBlock``
+.. class:: CharBlock
 
-A single-line text input. The following keyword arguments are accepted:
+    A single-line text input. The following keyword arguments are accepted:
 
-``required`` (default: True)
-  If true, the field cannot be left blank.
+    .. attribute:: CharBlock.required (default: True)
 
-``max_length``, ``min_length``
-  Ensures that the string is at most or at least the given length.
+        If true, the field cannot be left blank.
 
-``help_text``
-  Help text to display alongside the field.
+    .. attribute:: CharBlock.max_length
+    .. attribute:: CharBlock.min_length
+
+        Ensures that the string is at most or at least the given length.
+
+    .. attribute:: help_text
+
+        Help text to display alongside the field.
 
 TextBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.TextBlock``
+.. class:: TextBlock
 
-A multi-line text input. As with ``CharBlock``, the keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+    A multi-line text input. As with :class:`CharBlock`, the keyword arguments :attr:`~CharBlock.required`, :attr:`~CharBlock.max_length`, :attr:`~CharBlock.min_length` and :attr:`~CharBlock.help_text` are accepted.
 
 URLBlock
 ~~~~~~~~
 
-``wagtail.wagtailcore.blocks.URLBlock``
+.. class:: URLBlock
 
-A single-line text input that validates that the string is a valid URL. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+    A single-line text input that validates that the string is a valid URL. The keyword arguments :attr:`~CharBlock.required`, :attr:`~CharBlock.max_length`, :attr:`~CharBlock.min_length` and :attr:`~CharBlock.help_text` are accepted.
 
 BooleanBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.BooleanBlock``
+.. class:: BooleanBlock
 
-A checkbox. The keyword arguments ``required`` and ``help_text`` are accepted. As with Django's ``BooleanField``, a value of ``required=True`` (the default) indicates that the checkbox must be ticked in order to proceed; for a checkbox that can be ticked or unticked, you must explicitly pass in ``required=False``.
+    A checkbox. The keyword arguments :attr:`~CharBlock.required` and :attr:`~CharBlock.help_text` are accepted. As with Django's :class:`BooleanField`, a value of ``required=True`` (the default) indicates that the checkbox must be ticked in order to proceed; for a checkbox that can be ticked or unticked, you must explicitly pass in ``required=False``.
 
 DateBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.DateBlock``
+.. class:: DateBlock
 
-A date picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+    A date picker. The keyword arguments :attr:`~CharBlock.required` and :attr:`~CharBlock.help_text` are accepted.
 
 TimeBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.TimeBlock``
+.. class:: TimeBlock
 
-A time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+    A time picker. The keyword arguments :attr:`~CharBlock.required` and :attr:`~CharBlock.help_text` are accepted.
 
 DateTimeBlock
 ~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.DateTimeBlock``
+.. class:: DateTimeBlock
 
-A combined date / time picker. The keyword arguments ``required`` and ``help_text`` are accepted.
+    A combined date / time picker. The keyword arguments `:attr:`~CharBlock.required` and :attr:`~CharBlock.help_text` are accepted.
 
 RichTextBlock
 ~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.RichTextBlock``
+.. class:: RichTextBlock
 
-A WYSIWYG editor for creating formatted text including links, bold / italics etc.
+    A WYSIWYG editor for creating formatted text including links, bold / italics etc.
 
 RawHTMLBlock
 ~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.RawHTMLBlock``
+.. class:: RawHTMLBlock
 
-A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+    A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments :attr:`~CharBlock.required`, :attr:`~CharBlock.max_length`, :attr:`~CharBlock.min_length` and :attr:`~CharBlock.help_text` are accepted.
 
-.. WARNING::
-   When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
+    .. WARNING::
+
+       When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
 
 ChoiceBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.ChoiceBlock``
+.. class:: ChoiceBlock
 
-A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
+    A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
-``choices``
-  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields: https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices
+    .. attribute:: ChoiceBlock.min_length
 
-``required`` (default: True)
-  If true, the field cannot be left blank.
+        A list of choices, in any format accepted by Django's :attr:`~Field.choices` parameter for model fields: https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices
 
-``help_text``
-  Help text to display alongside the field.
+    .. attribute:: ChoiceBlock.required (default: True)
 
-``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
+        If true, the field cannot be left blank.
 
-.. code-block:: python
+    .. attribute:: ChoiceBlock.help_text
 
-    blocks.ChoiceBlock(choices=[
-        ('tea', 'Tea'),
-        ('coffee', 'Coffee'),
-    ], icon='cup')
+        Help text to display alongside the field.
 
+    :class:`ChoiceBlock` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
-could be rewritten as a subclass of ChoiceBlock:
+    .. code-block:: python
 
-.. code-block:: python
-
-    class DrinksChoiceBlock(blocks.ChoiceBlock):
-        choices = [
+        blocks.ChoiceBlock(choices=[
             ('tea', 'Tea'),
             ('coffee', 'Coffee'),
-        ]
-
-        class Meta:
-            icon = 'cup'
+        ], icon='cup')
 
 
-``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition.
+    could be rewritten as a subclass of :class:`ChoiceBlock`:
+
+    .. code-block:: python
+
+        class DrinksChoiceBlock(blocks.ChoiceBlock):
+            choices = [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+            class Meta:
+                icon = 'cup'
+
+
+    ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full :class:`ChoiceBlock` definition.
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.PageChooserBlock``
+.. class:: PageChooserBlock
 
-A control for selecting a page object, using Wagtail's page browser. The keyword argument ``required`` is accepted.
+    A control for selecting a page object, using Wagtail's page browser. The keyword argument :attr:`~ChoiceBlock.required` is accepted.
 
 DocumentChooserBlock
 ~~~~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtaildocs.blocks.DocumentChooserBlock``
+.. class:: wagtail.wagtaildocs.blocks.DocumentChooserBlock
 
-A control to allow the editor to select an existing document object, or upload a new one. The keyword argument ``required`` is accepted.
+    A control to allow the editor to select an existing document object, or upload a new one. The keyword argument :attr:`~ChoiceBlock.required` is accepted.
 
 ImageChooserBlock
 ~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailimages.blocks.ImageChooserBlock``
+.. class:: wagtail.wagtailimages.blocks.ImageChooserBlock
 
-A control to allow the editor to select an existing image, or upload a new one. The keyword argument ``required`` is accepted.
+    A control to allow the editor to select an existing image, or upload a new one. The keyword argument :attr:`~ChoiceBlock.required` is accepted.
 
 SnippetChooserBlock
 ~~~~~~~~~~~~~~~~~~~
 
-``wagtail.wagtailsnippets.blocks.SnippetChooserBlock``
+.. class:: wagtail.wagtailsnippets.blocks.SnippetChooserBlock
 
-A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument ``required`` is accepted.
+    A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The keyword argument :attr:`~ChoiceBlock.required` is accepted.
 
 EmbedBlock
 ~~~~~~~~~~
 
-``wagtail.wagtailembeds.blocks.EmbedBlock``
+.. class:: wagtail.wagtailembeds.blocks.EmbedBlock
 
-A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments ``required``, ``max_length``, ``min_length`` and ``help_text`` are accepted.
+    A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The keyword arguments :attr:`~CharBlock.required`, :attr:`~CharBlock.max_length`, :attr:`~CharBlock.min_length` and :attr:`~CharBlock.help_text` are accepted.
 
 
 Structural block types
@@ -227,114 +243,114 @@ In addition to the basic block types above, it is possible to define new block t
 StructBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.StructBlock``
+.. class:: StructBlock
 
-A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of (name, block_definition) tuples as its first argument:
+    A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of (name, block_definition) tuples as its first argument:
 
-.. code-block:: python
+    .. code-block:: python
 
-    ('person', blocks.StructBlock([
-        ('first_name', blocks.CharBlock(required=True)),
-        ('surname', blocks.CharBlock(required=True)),
-        ('photo', ImageChooserBlock()),
-        ('biography', blocks.RichTextBlock()),
-    ], icon='user'))
-
-
-Alternatively, the list of sub-blocks can be provided in a subclass of StructBlock:
-
-.. code-block:: python
-
-    class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock(required=True)
-        surname = blocks.CharBlock(required=True)
-        photo = ImageChooserBlock()
-        biography = blocks.RichTextBlock()
-
-        class Meta:
-            icon = 'user'
+        ('person', blocks.StructBlock([
+            ('first_name', blocks.CharBlock(required=True)),
+            ('surname', blocks.CharBlock(required=True)),
+            ('photo', ImageChooserBlock()),
+            ('biography', blocks.RichTextBlock()),
+        ], icon='user'))
 
 
-The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``; these have the same meanings as when they are passed to the block's constructor.
+    Alternatively, the list of sub-blocks can be provided in a subclass of :class:`StructBlock`:
 
-This defines ``PersonBlock()`` as a block type that can be re-used as many times as you like within your model definitions:
+    .. code-block:: python
 
-.. code-block:: python
+        class PersonBlock(blocks.StructBlock):
+            first_name = blocks.CharBlock(required=True)
+            surname = blocks.CharBlock(required=True)
+            photo = ImageChooserBlock()
+            biography = blocks.RichTextBlock()
 
-    body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('person', PersonBlock()),
-    ])
+            class Meta:
+                icon = 'user'
+
+
+    The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``; these have the same meanings as when they are passed to the block's constructor.
+
+    This defines ``PersonBlock()`` as a block type that can be re-used as many times as you like within your model definitions:
+
+    .. code-block:: python
+
+        body = StreamField([
+            ('heading', blocks.CharBlock(classname="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('person', PersonBlock()),
+        ])
 
 
 ListBlock
 ~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.ListBlock``
+.. class:: ListBlock
 
-A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument:
+    A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument:
 
-.. code-block:: python
+    .. code-block:: python
 
-    ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient")))
+        ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient")))
 
 
-Any block type is valid as the sub-block type, including structural types:
+    Any block type is valid as the sub-block type, including structural types:
 
-.. code-block:: python
+    .. code-block:: python
 
-    ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
-        ('ingredient', blocks.CharBlock(required=True)),
-        ('amount', blocks.CharBlock()),
-    ])))
+        ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
+            ('ingredient', blocks.CharBlock(required=True)),
+            ('amount', blocks.CharBlock()),
+        ])))
 
 
 StreamBlock
 ~~~~~~~~~~~
 
-``wagtail.wagtailcore.blocks.StreamBlock``
+.. class:: StreamBlock
 
-A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered in any order. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of (name, block_definition) tuples as its first argument:
+    A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered in any order. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of (name, block_definition) tuples as its first argument:
 
-.. code-block:: python
+    .. code-block:: python
 
-    ('carousel', blocks.StreamBlock(
-        [
-            ('image', ImageChooserBlock()),
-            ('quotation', blocks.StructBlock([
+        ('carousel', blocks.StreamBlock(
+            [
+                ('image', ImageChooserBlock()),
+                ('quotation', blocks.StructBlock([
+                    ('text', blocks.TextBlock()),
+                    ('author', blocks.CharBlock()),
+                ])),
+                ('video', EmbedBlock()),
+            ],
+            icon='cogs'
+        ))
+
+
+    As with :class:`StructBlock`, the list of sub-blocks can also be provided as a subclass of :class:`StreamBlock`:
+
+    .. code-block:: python
+
+        class CarouselBlock(blocks.StreamBlock):
+            image = ImageChooserBlock()
+            quotation = blocks.StructBlock([
                 ('text', blocks.TextBlock()),
                 ('author', blocks.CharBlock()),
-            ])),
-            ('video', EmbedBlock()),
-        ],
-        icon='cogs'
-    ))
+            ])
+            video = EmbedBlock()
+
+            class Meta:
+                icon='cogs'
 
 
-As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
+    Since ``StreamField`` accepts an instance of :class:`StreamBlock` as a parameter, in place of a list of block types, this makes it possible to re-use a common set block types without repeating definitions:
 
-.. code-block:: python
+    .. code-block:: python
 
-    class CarouselBlock(blocks.StreamBlock):
-        image = ImageChooserBlock()
-        quotation = blocks.StructBlock([
-            ('text', blocks.TextBlock()),
-            ('author', blocks.CharBlock()),
-        ])
-        video = EmbedBlock()
-
-        class Meta:
-            icon='cogs'
-
-
-Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set block types without repeating definitions:
-
-.. code-block:: python
-
-    class HomePage(Page):
-        carousel = StreamField(CarouselBlock())
+        class HomePage(Page):
+            carousel = StreamField(CarouselBlock())
 
 
 Template rendering
@@ -375,9 +391,9 @@ For more control over the rendering of specific block types, each block object p
     </article>
 
 
-Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as CharBlock, this will simply output the field's value, but others will provide their own HTML markup; for example, a ListBlock will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
+Each block type provides its own front-end HTML rendering mechanism, and this is used for the output of ``{{ block }}``. For most simple block types, such as :class:`CharBlock`, this will simply output the field's value, but others will provide their own HTML markup; for example, a :class:`ListBlock` will output the list of child blocks as a ``<ul>`` element (with each child wrapped in an ``<li>`` element and rendered using the child block's own HTML rendering).
 
-To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock, as the default StructBlock rendering is simple and somewhat generic:
+To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from :class:`StructBlock`, as the default :class:`StructBlock` rendering is simple and somewhat generic:
 
 .. code-block:: python
 
@@ -393,7 +409,7 @@ To override this with your own custom HTML rendering, you can pass a ``template`
     ))
 
 
-Or, when defined as a subclass of StructBlock:
+Or, when defined as a subclass of :class:`StructBlock`:
 
 .. code-block:: python
 
@@ -429,7 +445,7 @@ Custom block types
 
 If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
-For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.wagtailcore.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
+For block types that simply wrap an existing Django form field, Wagtail provides an abstract class :class:`wagtail.wagtailcore.blocks.FieldBlock` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
 
 .. code-block:: python
 
@@ -444,6 +460,6 @@ Migrations
 
 As with any model field in Django, any changes to a model definition that affect a StreamField will result in a migration file that contains a 'frozen' copy of that field definition. Since a StreamField definition is more complex than a typical model field, there is an increased likelihood of definitions from your project being imported into the migration - which would cause problems later on if those definitions are moved or deleted.
 
-To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock - in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
+To mitigate this, :class:`StructBlock`, :class:`StreamBlock` and :class:`ChoiceBlock` implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of :class:`StructBlock`, :class:`StreamBlock` and :class:`ChoiceBlock` - in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
 
-If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/1.7/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type - for example, if you add extra arguments to the constructor - you will need to provide your own ``deconstruct`` method.
+If you subclass any other block class, such as :class:`FieldBlock`, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/1.7/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a :class:`StructBlock`, :class:`StreamBlock` or :class:`ChoiceBlock` subclass to the point where it can no longer be expressed as an instance of the basic block type - for example, if you add extra arguments to the constructor - you will need to provide your own ``deconstruct`` method.
