@@ -48,34 +48,24 @@ Let's look at an example of a panel definition:
 
 .. code-block:: python
 
-  COMMON_PANELS = (
-    FieldPanel('slug'),
-    FieldPanel('seo_title'),
-    FieldPanel('show_in_menus'),
-    FieldPanel('search_description'),
-  )
-
-  ...
-
-  class ExamplePage( Page ):
+  class ExamplePage(Page):
     # field definitions omitted
     ...
 
-  ExamplePage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full"),
-    FieldRowPanel([
-      FieldPanel('start_date', classname="col3"),
-      FieldPanel('end_date', classname="col3"),
-    ]),
-    ImageChooserPanel('splash_image'),
-    DocumentChooserPanel('free_download'),
-    PageChooserPanel('related_page'),
-  ]
+    content_panels = Page.content_panels + [
+      FieldPanel('body', classname="full"),
+      FieldRowPanel([
+        FieldPanel('start_date', classname="col3"),
+        FieldPanel('end_date', classname="col3"),
+      ]),
+      ImageChooserPanel('splash_image'),
+      DocumentChooserPanel('free_download'),
+      PageChooserPanel('related_page'),
+    ]
 
-  ExamplePage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-  ]
+    promote_panels = [
+      MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+    ]
 
 After the ``Page``-derived class definition, just add lists of panel definitions to order and organize the Wagtail page editing interface for your model.
 
@@ -97,14 +87,14 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
   from wagtail.wagtailcore.fields import RichTextField
   from wagtail.wagtailadmin.edit_handlers import FieldPanel
-  # ...
+
+
   class BookPage(Page):
     book_text = RichTextField()
 
-  BookPage.content_panels = [
-    FieldPanel('body', classname="full"),
-    # ...
-  ]
+    content_panels = Page.content_panels + [
+      FieldPanel('body', classname="full"),
+    ]
 
 ``RichTextField`` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into ``RichTextField`` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
@@ -122,7 +112,8 @@ One of the features of Wagtail is a unified image library, which you can access 
 
   from wagtail.wagtailimages.models import Image
   from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-  # ...
+
+
   class BookPage(Page):
     cover = models.ForeignKey(
       'wagtailimages.Image',
@@ -132,10 +123,9 @@ One of the features of Wagtail is a unified image library, which you can access 
       related_name='+'
     )
 
-  BookPage.content_panels = [
-    ImageChooserPanel('cover'),
-    # ...
-  ]
+    content_panels = Page.content_panels + [
+      ImageChooserPanel('cover'),
+    ]
 
 Django's default behavior is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
 
@@ -153,7 +143,8 @@ For files in other formats, Wagtail provides a generic file store through the ``
 
   from wagtail.wagtaildocs.models import Document
   from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-  # ...
+
+
   class BookPage(Page):
     book_file = models.ForeignKey(
       'wagtaildocs.Document',
@@ -163,10 +154,9 @@ For files in other formats, Wagtail provides a generic file store through the ``
       related_name='+'
     )
 
-  BookPage.content_panels = [
-    DocumentChooserPanel('book_file'),
-    # ...
-  ]
+    BookPage.content_panels = Page.content_panels + [
+      DocumentChooserPanel('book_file'),
+    ]
 
 As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
@@ -180,7 +170,8 @@ You can explicitly link ``Page``-derived models together using the ``Page`` mode
 
   from wagtail.wagtailcore.models import Page
   from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
-  # ...
+
+
   class BookPage(Page):
     publisher = models.ForeignKey(
       'wagtailcore.Page',
@@ -190,10 +181,9 @@ You can explicitly link ``Page``-derived models together using the ``Page`` mode
       related_name='+',
     )
 
-  BookPage.content_panels = [
-    PageChooserPanel('related_page', 'demo.PublisherPage'),
-    # ...
-  ]
+    content_panels = Page.content_panels + [
+      PageChooserPanel('related_page', 'demo.PublisherPage'),
+    ]
 
 ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
 
@@ -216,10 +206,9 @@ Snippets are vanilla Django models you create yourself without a Wagtail-provide
       related_name='+'
     )
 
-  BookPage.content_panels = [
-    SnippetChooserPanel('advert', Advert),
-    # ...
-  ]
+    content_panels = [
+      SnippetChooserPanel('advert', Advert),
+    ]
 
 See :ref:`snippets` for more information.
 
@@ -324,13 +313,12 @@ Let's look at the example of adding related links to a ``Page``-derived model. W
   class BookPageRelatedLinks(Orderable, RelatedLink):
       page = ParentalKey('demo.BookPage', related_name='related_links')
 
-  class BookPage( Page ):
+  class BookPage(Page):
     # ...
 
-  BookPage.content_panels = [
-    # ...
-    InlinePanel( 'related_links', label="Related Links" ),
-  ]
+    content_panels = Page.content_panels + [
+      InlinePanel( 'related_links', label="Related Links" ),
+    ]
 
 The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an ``InlinePanel`` to provide an interface for it all. Let's look again at the parameters that ``InlinePanel`` accepts:
 
@@ -367,22 +355,22 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
     class BlogPage(Page):
         # field definitions omitted
 
-    BlogPage.content_panels = [
-        FieldPanel('title', classname="full title"),
-        FieldPanel('date'),
-        FieldPanel('body', classname="full"),
-    ]
-    BlogPage.sidebar_content_panels = [
-        SnippetChooserPanel('advert', Advert),
-        InlinePanel('related_links', label="Related links"),
-    ]
+      content_panels = [
+          FieldPanel('title', classname="full title"),
+          FieldPanel('date'),
+          FieldPanel('body', classname="full"),
+      ]
+      sidebar_content_panels = [
+          SnippetChooserPanel('advert', Advert),
+          InlinePanel('related_links', label="Related links"),
+      ]
 
-    BlogPage.edit_handler = TabbedInterface([
-        ObjectList(BlogPage.content_panels, heading='Content'),
-        ObjectList(BlogPage.sidebar_content_panels, heading='Sidebar content'),
-        ObjectList(BlogPage.promote_panels, heading='Promote'),
-        ObjectList(BlogPage.settings_panels, heading='Settings', classname="settings"),
-    ])
+      edit_handler = TabbedInterface([
+          ObjectList(content_panels, heading='Content'),
+          ObjectList(sidebar_content_panels, heading='Sidebar content'),
+          ObjectList(Page.promote_panels, heading='Promote'),
+          ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+      ])
 
 
 .. _extending_wysiwyg:
