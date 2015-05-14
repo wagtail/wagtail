@@ -2,6 +2,76 @@
 Advanced topics
 ===============
 
+Custom image model
+==================
+
+The ``Image`` model can be customised, allowing additional fields to be added
+to images.
+
+To do this, you need to add two models to your project:
+
+ - The image model itself that inherits from
+   ``wagtail.wagtailimages.models.AbstractImage``. This is where you would add
+   your additional fields
+ - The renditions model that inherits from
+   ``wagtail.wagtailimages.models.AbstractRendition``. This is used to store
+   renditions for the new model.
+
+Here's an example:
+
+.. code-block:: python
+
+    # models.py
+    from django.db import models
+    from django.db.models.signals import pre_delete
+    from django.dispatch import receiver
+    
+    from wagtail.wagtailimages.models import AbstractImage, AbstractRendition
+
+
+    class CustomImage(AbstractImage):
+        # Add any extra fields to image here
+
+        # eg. To add a caption field:
+        # caption = models.CharField(max_length=255)
+
+
+    class CustomRendition(AbstractRendition):
+        image = models.ForeignKey(CustomImage, related_name='renditions')
+
+        class Meta:
+            unique_together = (
+                ('image', 'filter', 'focal_point_key'),
+            )
+
+
+    # Delete the source image file when an image is deleted
+    @receiver(pre_delete, sender=CustomImage)
+    def image_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Delete the rendition image file when a rendition is deleted
+    @receiver(pre_delete, sender=CustomRendition)
+    def rendition_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
+
+.. code-block:: python
+
+    WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'
+
+.. topic:: Migrating from the builtin image model
+
+    When changing an existing site to use a custom image model. No images will
+    be copied to the new model automatically. Copying old images to the new
+    model would need to be done manually with a
+    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+
+    Any templates that reference the builtin image model will still continue to
+    work as before but would need to be updated in order to see any new images.
+
 Animated GIF support
 ====================
 
