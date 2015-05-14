@@ -1,5 +1,5 @@
-Development process
--------------------
+Development
+-----------
 
 Using the demo site & Vagrant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,14 +28,23 @@ Uncomment the lines from ``import sys`` onward, and edit the rest of ``local.py`
 If your VM is currently running, you'll then need to run ``vagrant halt`` followed by ``vagrant up`` for the changes to take effect.
 
 
+Development dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Unit tests
-~~~~~~~~~~
+Developing Wagtail requires additional Python modules for testing and documentation. 
 
-Wagtail has extensive tests which should be run before submitting pull requests. To run Wagtail's test suite you will need to install some dependencies. We recommend installing these into a virtual environment.
+The list of dependencies is in the Wagtail root directory in ``requirements-dev.txt`` and if you've used the Vagrant environment above, can be installed thus, from the Wagtail codebase root directory::
+
+    pip install -r requirements-dev.txt
 
 
-**Setting up the virtual environment**
+
+Testing
+~~~~~~~
+
+Wagtail has unit tests which should be run before submitting pull requests. 
+
+**Testing virtual environment** (skip this if working in Vagrant box)
 
 If you are using Python 3.3 or above, run the following commands in your shell
 at the root of the Wagtail repo::
@@ -52,8 +61,7 @@ the first line above with:
 
 **Running the tests**
 
-With your virtual environment active, run the following command to run all the
-tests::
+From the root of the Wagtail codebase, run the following command to run all the tests::
 
     python runtests.py
 
