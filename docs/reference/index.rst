@@ -14,4 +14,3 @@ Reference
     management_commands
     hooks
     project_template
-    page
