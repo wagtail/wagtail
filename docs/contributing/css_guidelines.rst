@@ -16,14 +16,14 @@ Spacing
 -  Each declaration should appear on its own line for more accurate
    error reporting.
 -  Add a newline at the end of your ``.scss`` files.
--  Strip trailing whitespace from your rules.
+-  Strip trailing white space from your rules.
 
 Formatting
 ~~~~~~~~~~
 
--  Use hex color codes ``#000`` unless using ``rgba()`` in raw CSS
-   (SCSS' ``rgba()`` function is overloaded to accept hex colors as a
-   param, e.g., ``rgba(#000, .5)``).
+-  Use hex colour codes ``#000`` unless using ``rgba()`` in raw CSS
+   (SCSS' ``rgba()`` function is overloaded to accept hex colours as a
+   parameter. For example, ``rgba(#000, .5)``).
 -  Use ``//`` for comment blocks (instead of ``/* */``).
 -  Use single quotes for string values
    ``background: url('my/image.png')`` or ``content: 'moose'``

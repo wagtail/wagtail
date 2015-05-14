@@ -27,7 +27,7 @@ In order to run Wagtail's test suite, you will need to install some dependencies
 **Setting up the virtual environment**
 
 If you are using Python 3.3 or above, run the following commands in your shell
-at the root of the Wagtail repo::
+at the root of the Wagtail project folder::
 
     pyvenv venv
     source venv/bin/activate
@@ -85,7 +85,7 @@ If you no longer want Wagtail to test against Elasticsearch, uninstall the
 Styleguide
 ~~~~~~~~~~
 
-Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
+Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module ``wagtailstyleguide``.
 
 To install the styleguide module on your site, add it to the list of ``INSTALLED_APPS`` in your settings:
 
@@ -112,4 +112,4 @@ Translation work should be submitted through `Transifex <https://www.transifex.c
 Other contributions
 ~~~~~~~~~~~~~~~~~~~
 
-We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. If you're not familiar with Github or pull requests, `contact us directly <mailto:hello@wagtail.io>`_ and we'll work something out.
+We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. If you're not familiar with GitHub or pull requests, `contact us directly <mailto:hello@wagtail.io>`_ and we'll work something out.

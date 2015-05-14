@@ -3,6 +3,7 @@ backends
 callable
 callables
 Cloudflare
+codebase
 contrib
 Django
 Elasticsearch
@@ -11,9 +12,11 @@ frontend
 Heroku
 hostname
 jQuery
+linter
 login
 metadata
 mixin
+namespace
 Nginx
 oEmbed
 PostgreSQL
@@ -22,10 +25,13 @@ Redis
 resize
 resized
 resizing
+rulesets
+screenshot
 searchable
 Searchly
 sitemap
 sitemaps
+styleguide
 subpage
 subpages
 Torchbox
@@ -33,4 +39,5 @@ uWSGI
 Vagrantfile
 Vimeo
 Wagtail
+workflow
 Youtube
