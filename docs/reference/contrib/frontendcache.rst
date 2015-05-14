@@ -1,7 +1,7 @@
 .. _frontend_cache_purging:
 
-Frontend cache invalidation
-===========================
+Frontend cache invalidator
+==========================
 
 .. versionchanged:: 0.7
 

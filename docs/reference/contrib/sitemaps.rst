@@ -1,7 +1,7 @@
 .. _sitemap_generation:
 
-Sitemap generation
-==================
+Sitemap generator
+=================
 
 This document describes how to create XML sitemaps for your Wagtail website using the ``wagtail.contrib.wagtailsitemaps`` module.
 

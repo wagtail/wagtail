@@ -1,5 +1,5 @@
-Generating a static site
-========================
+Static site generator
+=====================
 
 This document describes how to render your Wagtail site into static HTML files on your local file system, Amazon S3 or Google App Engine, using `django medusa`_ and the ``wagtail.contrib.wagtailmedusa`` module.
 
