@@ -13,7 +13,7 @@ We have tried to minimise external dependencies for a working installation of Wa
 Cache
 -----
 
-We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your requirements.txt, and enable it as a cache backend::
+We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend::
 
 	CACHES = {
 	    'default': {
@@ -25,7 +25,7 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
 	    }
 	}
 
-Without a persistent cache, Wagtail will recreate all compressable assets at each server start, e.g. when any files change under ``./manage.py runserver``.
+Without a persistent cache, Wagtail will recreate all compressible assets at each server start, e.g. when any files change under ``./manage.py runserver``.
 
 
 Search
