@@ -19,3 +19,23 @@ On other PAASs and IAASs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 We know of Wagtail sites running on `Heroku <http://spapas.github.io/2014/02/13/wagtail-tutorial/>`_, Digital Ocean and elsewhere. If you have successfully installed Wagtail on your platform or infrastructure, please :doc:`contribute </howto/contributing>` your notes to this documentation!
+
+On Webfaction
+~~~~~~~~~~~~~
+
+Well, in web faction you need to do three aditional steps from a normal webfaction django's deploying: Install gcc>=4.6, compile and install libsass and use compress comamand in static files.
+
+1. Install gcc>= 4.6:
+You can find how do this here: `https://community.webfaction.com/questions/6921/compiling-gcc-46`. You need almost RAM 1GB, take a one hour at least in finish the installation.
+Maybe you can use this script in side read all page: `https://gist.githubusercontent.com/wsfulmer/776c6fea1366fe6d142b/raw/5cd87b55e17c6048e4d4914a47e79c5e68e235d2/buildgcc.sh`
+
+2. Install libsass:
+Use `pipx.y install libsass`, is very easy.
+
+3. Use compressor commads:
+Is very important, if you don't collect the static files with compressor wagtail's admin won't have any style; compressor use libsass to compile sass files, and wagtail admin's styles are sass files.
+
+The rest is normal django deploitment.
+
+Is you have any doug please ask us or ask in `https://help.webfaction.com/` or `https://community.webfaction.com/questions/`.
+Enjoy it
