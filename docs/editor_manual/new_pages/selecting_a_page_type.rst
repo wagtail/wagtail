@@ -8,5 +8,5 @@ Selecting a page type
 
 .. image:: ../../_static/images/screen10_blank_page_edit_screen.png
 
-* Once you’ve selected a page type you will be presented with a blank New page screen.
+* Once you've selected a page type you will be presented with a blank New page screen.
 * Click into the areas below each field's heading to start entering content.

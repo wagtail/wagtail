@@ -25,7 +25,7 @@ Below is a summary of what the different buttons represent:
 
 .. image:: ../../_static/images/screen11.4_horizontal_rule.png
 
-**Horizontal rule:** Creates a horizontal line at the position of the cursor. If inserted inside a paragraph it will split the paragraph into two seperate paragraphs.
+**Horizontal rule:** Creates a horizontal line at the position of the cursor. If inserted inside a paragraph it will split the paragraph into two separate paragraphs.
 
 .. image:: ../../_static/images/screen11.5_undo_redo.png
 

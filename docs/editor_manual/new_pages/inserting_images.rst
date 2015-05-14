@@ -58,12 +58,12 @@ ___________________________________
 
 Images can also be inserted into the body text of a page. When editing the Body field of a standard page, click the image illustrated above. You will then be presented with the same options as for inserting images into the main carousel.
 
-In addition, the Wagtail Demo site allows you to chose an aligmnent for you image.
+In addition, the Wagtail Demo site allows you to chose an alignment for you image.
 
 .. image:: ../../_static/images/screen18_image_alignment.png
 
 #. You can select how the image is displayed by selecting one of the format options.
-#. In the Wagtail Demo site, images inserted into the body text do not have embeded captions (these should be added as regular body text). However you must still provide specific alt text for your image.
+#. In the Wagtail Demo site, images inserted into the body text do not have embedded captions (these should be added as regular body text). However you must still provide specific alt text for your image.
 
 The alignments available are described below:
 
