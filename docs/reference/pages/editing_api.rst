@@ -262,31 +262,6 @@ Django's field types are automatically recognized and provided with an appropria
 Here are some Wagtail-specific types that you might include as fields in your models.
 
 
-Rich Text (HTML)
-----------------
-
-Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the ``RichTextField()`` function when defining a model field:
-
-.. code-block:: python
-
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
-
-
-    class BookPage(Page):
-        book_text = RichTextField()
-
-        content_panels = Page.content_panels + [
-            FieldPanel('body', classname="full"),
-        ]
-
-``RichTextField`` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into ``RichTextField`` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
-
-However, template output from ``RichTextField`` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
-
-If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (hallo.js), See :ref:`extending_wysiwyg`.
-
-
 Field Customization
 ~~~~~~~~~~~~~~~~~~~
 
@@ -416,10 +391,34 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
         ])
 
 
+Rich Text (HTML)
+~~~~~~~~~~~~~~~~
+
+Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the ``RichTextField()`` function when defining a model field:
+
+.. code-block:: python
+
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+
+
+    class BookPage(Page):
+        book_text = RichTextField()
+
+        content_panels = Page.content_panels + [
+            FieldPanel('body', classname="full"),
+        ]
+
+``RichTextField`` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into ``RichTextField`` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
+
+However, template output from ``RichTextField`` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
+
+If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (hallo.js), See :ref:`extending_wysiwyg`.
+
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (hallo.js)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
 
