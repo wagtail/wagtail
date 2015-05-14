@@ -1,4 +1,4 @@
-Wagtail API usage guide
+Wagtail API Usage Guide
 =======================
 
 Listing views
