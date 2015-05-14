@@ -7,4 +7,4 @@ Contributing to Wagtail
 
     developing
     css_guidelines
-    js_guidelines
+    javascript_guidelines
