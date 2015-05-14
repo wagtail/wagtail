@@ -37,7 +37,7 @@ def route(pattern, name=None):
 
 class RoutablePageMixin(object):
     """
-    This class can be mixed in to a Page model to allow extra routes to be
+    This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
     #: Set this to a tuple of ``django.conf.urls.url`` objects.
@@ -109,7 +109,7 @@ class RoutablePageMixin(object):
 
     def route(self, request, path_components):
         """
-        This hooks the subpage URLs into Wagtails routing.
+        This hooks the subpage URLs into Wagtail's routing.
         """
         if self.live:
             try:
@@ -134,7 +134,7 @@ class RoutablePageMixin(object):
 
 class RoutablePage(RoutablePageMixin, Page):
     """
-    This class extends Page by adding methods to allow extra routes to be
+    This class extends Page by adding methods which allows extra routes to be
     added to it.
     """
 
