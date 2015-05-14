@@ -7,6 +7,20 @@ function addMessage(status, text) {
     }, 100);
 }
 
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        '\'': '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) {
+        return map[m];
+    });
+}
+
 $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
