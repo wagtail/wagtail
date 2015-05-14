@@ -37,8 +37,8 @@ def route(pattern, name=None):
 
 class RoutablePageMixin(object):
     """
-    This class can be mixed in to a Page subclass to allow urlconfs to be
-    embedded inside pages.
+    This class can be mixed in to a Page model, allowing extra routes to be
+    added to it.
     """
     #: Set this to a tuple of ``django.conf.urls.url`` objects.
     subpage_urls = None
@@ -83,8 +83,7 @@ class RoutablePageMixin(object):
 
     def reverse_subpage(self, name, args=None, kwargs=None):
         """
-        This method does the same job as Djangos' built in
-        "urlresolvers.reverse()" function for subpage urlconfs.
+        This method takes a route name/arguments and returns a URL path.
         """
         args = args or []
         kwargs = kwargs or {}
@@ -93,7 +92,7 @@ class RoutablePageMixin(object):
 
     def resolve_subpage(self, path):
         """
-        This finds a view method/function from a URL path.
+        This method takes a URL path and finds the view to call.
         """
         view, args, kwargs = self.get_resolver().resolve(path)
 
@@ -110,7 +109,7 @@ class RoutablePageMixin(object):
 
     def route(self, request, path_components):
         """
-        This hooks the subpage urls into Wagtails routing.
+        This hooks the subpage URLs into Wagtail's routing.
         """
         if self.live:
             try:
@@ -135,8 +134,8 @@ class RoutablePageMixin(object):
 
 class RoutablePage(RoutablePageMixin, Page):
     """
-    This class extends Page by adding methods to allow urlconfs
-    to be embedded inside pages
+    This class extends Page by adding methods which allows extra routes to be
+    added to it.
     """
 
     is_abstract = True

@@ -49,7 +49,7 @@ Advanced topics
 GET parameters
 --------------
 
-Pages which require GET parameters (e.g. for pagination) don't generate suitable filenames for generated HTML files.
+Pages which require GET parameters (e.g. for pagination) don't generate a suitable file name for the generated HTML files.
 
 Wagtail provides a mixin (``wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin``) which allows you to embed a Django URL configuration into a page. This allows you to give the subpages a URL like ``/page/1/`` which work well with static site generation.
 
