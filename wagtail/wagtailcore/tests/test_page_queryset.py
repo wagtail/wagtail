@@ -270,7 +270,6 @@ class TestPageQuerySet(TestCase):
         contact_us = Page.objects.get(url_path='/home/contact-us/')
         self.assertTrue(pages.filter(id=contact_us.id).exists())
 
-
     def test_not_type(self):
         pages = Page.objects.not_type(EventPage)
 
@@ -321,3 +320,93 @@ class TestPageQuerySet(TestCase):
 
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
+
+
+class TestSpecificQuery(TestCase):
+    """
+    Test the .specific() queryset method. This is isolated in its own test case
+    because it is sensitive to database changes that might happen for other
+    tests.
+
+    The fixture sets up a page structure like:
+
+    =========== =========================================
+    Type        Path
+    =========== =========================================
+    Page        /
+    Page        /home/
+    SimplePage  /home/about-us/
+    EventIndex  /home/events/
+    EventPage   /home/events/christmas/
+    EventPage   /home/events/someone-elses-event/
+    EventPage   /home/events/tentative-unpublished-event/
+    SimplePage  /home/other/
+    EventPage   /home/other/special-event/
+    =========== =========================================
+    """
+
+    fixtures = ['test_specific.json']
+
+    def test_specific(self):
+        root = Page.objects.get(url_path='/home/')
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = root.get_descendants().specific()
+
+        with self.assertNumQueries(4):
+            # One query to get page type and ID, one query per page type:
+            # EventIndex, EventPage, SimplePage
+            pages = list(qs)
+
+        self.assertIsInstance(pages, list)
+        self.assertEqual(len(pages), 7)
+
+        for page in pages:
+            # An instance of the specific page type should be returned,
+            # not wagtailcore.Page.
+            content_type = page.content_type
+            model = content_type.model_class()
+            self.assertIsInstance(page, model)
+
+            # The page should already be the specific type, so this should not
+            # need another database query.
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+    def test_filtering_before_specific(self):
+        # This will get the other events, and then christmas
+        # 'someone-elses-event' and the tentative event are unpublished.
+
+        with self.assertNumQueries(0):
+            qs = Page.objects.live().order_by('-url_path')[:3].specific()
+
+        with self.assertNumQueries(3):
+            # Metadata, EventIndex and EventPage
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 3)
+
+        self.assertEqual(pages, [
+            Page.objects.get(url_path='/home/other/special-event/').specific,
+            Page.objects.get(url_path='/home/other/').specific,
+            Page.objects.get(url_path='/home/events/christmas/').specific])
+
+    def test_filtering_after_specific(self):
+        # This will get the other events, and then christmas
+        # 'someone-elses-event' and the tentative event are unpublished.
+
+        with self.assertNumQueries(0):
+            qs = Page.objects.specific().live().in_menu().order_by('-url_path')[:4]
+
+        with self.assertNumQueries(4):
+            # Metadata, EventIndex, EventPage, SimplePage.
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 4)
+
+        self.assertEqual(pages, [
+            Page.objects.get(url_path='/home/other/').specific,
+            Page.objects.get(url_path='/home/events/christmas/').specific,
+            Page.objects.get(url_path='/home/events/').specific,
+            Page.objects.get(url_path='/home/about-us/').specific])
