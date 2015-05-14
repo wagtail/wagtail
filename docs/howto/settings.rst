@@ -18,7 +18,7 @@ To install Wagtail completely from scratch, create a new Django project and an a
           views.py
       manage.py
 
-From your app directory, you can safely remove ``admin.py`` and ``views.py``, since Wagtail will provide this functionality for your models. Configuring Django to load Wagtail involves adding modules and variables to ``settings.py`` and urlconfs to ``urls.py``. For a more complete view of what's defined in these files, see `Django Settings <https://docs.djangoproject.com/en/dev/topics/settings/>`__ and `Django URL Dispatcher <https://docs.djangoproject.com/en/dev/topics/http/urls/>`_.
+From your app directory, you can safely remove ``admin.py`` and ``views.py``, since Wagtail will provide this functionality for your models. Configuring Django to load Wagtail involves adding modules and variables to ``settings.py`` and URL configuration to ``urls.py``. For a more complete view of what's defined in these files, see `Django Settings <https://docs.djangoproject.com/en/dev/topics/settings/>`__ and `Django URL Dispatcher <https://docs.djangoproject.com/en/dev/topics/http/urls/>`_.
 
 What follows is a settings reference which skips many boilerplate Django settings. If you just want to get your Wagtail install up quickly without fussing with settings at the moment, see :ref:`complete_example_config`.
 
@@ -50,8 +50,8 @@ Wagtail requires several common Django middleware modules to work and cover basi
   Wagtail provides a simple interface for adding arbitrary redirects to your site and this module makes it happen.
 
 
-Apps (settings.py)
-~~~~~~~~~~~~~~~~~~
+Apps (``settings.py``)
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -190,7 +190,7 @@ Providing an API key for the Embedly service will use that as a embed backend, w
 
 .. _Embedly: http://embed.ly/
 
-To use Embedly, you must also install their python module:
+To use Embedly, you must also install their Python module:
 
 .. code-block:: bash
 
@@ -269,7 +269,7 @@ URL Patterns
     url(r'^search/', include(wagtailsearch_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
-    # Optional urlconf for including your own vanilla Django urls/views
+    # Optional URL for including your own vanilla Django urls/views
     url(r'', include('myapp.urls')),
 
     # For anything not caught by a more specific rule above, hand over to
@@ -281,10 +281,10 @@ This block of code for your project's ``urls.py`` does a few things:
 
 * Load the vanilla Django admin interface to ``/django-admin/``
 * Load the Wagtail admin and its various apps
-* Dispatch any vanilla Django apps you're using other than Wagtail which require their own urlconfs (this is optional, since Wagtail might be all you need)
+* Dispatch any vanilla Django apps you're using other than Wagtail which require their own URL configuration (this is optional, since Wagtail might be all you need)
 * Lets Wagtail handle any further URL dispatching.
 
-That's not everything you might want to include in your project's urlconf, but it's what's necessary for Wagtail to flourish.
+That's not everything you might want to include in your project's URL configuration, but it's what's necessary for Wagtail to flourish.
 
 
 .. _complete_example_config:

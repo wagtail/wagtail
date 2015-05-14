@@ -22,7 +22,7 @@ The root page
 
 The root page (``/``) should detect the browsers language and forward them to the correct language homepage (``/en/``, ``/fr/``). This page should sit at the site root (where the homepage would normally be).
 
-We must set Djangos ``LANGUAGES`` setting so we don't redirect non English/French users to pages that don't exist.
+We must set Django's ``LANGUAGES`` setting so we don't redirect non English/French users to pages that don't exist.
 
 
 .. code-block:: python
@@ -52,11 +52,11 @@ We must set Djangos ``LANGUAGES`` setting so we don't redirect non English/Frenc
 Linking pages together
 ======================
 
-It may be useful to link different versions of the same page together to allow the user to easily switch between languages. But we don't want to increse the burdon on the editor too much so ideally, editors should only need to link one of the pages to the other versions and the links between the other versions should be created implicitly.
+It may be useful to link different versions of the same page together to allow the user to easily switch between languages. But we don't want to increase the burden on the editor too much so ideally, editors should only need to link one of the pages to the other versions and the links between the other versions should be created implicitly.
 
 As this behaviour needs to be added to all page types that would be translated, its best to put this behaviour in a mixin.
 
-Heres an example of how this could be implemented (with English as the main language and French/Spanish as alternative languages):
+Here's an example of how this could be implemented (with English as the main language and French/Spanish as alternative languages):
 
 .. code-block:: python
 
