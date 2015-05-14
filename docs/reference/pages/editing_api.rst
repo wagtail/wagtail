@@ -131,22 +131,22 @@ PageChooserPanel
 
     .. code-block:: python
 
-      from wagtail.wagtailcore.models import Page
-      from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
+        from wagtail.wagtailcore.models import Page
+        from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
 
 
-      class BookPage(Page):
-        publisher = models.ForeignKey(
-          'wagtailcore.Page',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+',
-        )
+        class BookPage(Page):
+            publisher = models.ForeignKey(
+                'wagtailcore.Page',
+                null=True,
+                blank=True,
+                on_delete=models.SET_NULL,
+                related_name='+',
+            )
 
-        content_panels = Page.content_panels + [
-          PageChooserPanel('related_page', 'demo.PublisherPage'),
-        ]
+            content_panels = Page.content_panels + [
+                PageChooserPanel('related_page', 'demo.PublisherPage'),
+            ]
 
     ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
 
@@ -164,17 +164,17 @@ ImageChooserPanel
 
 
       class BookPage(Page):
-        cover = models.ForeignKey(
-          'wagtailimages.Image',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-        )
+          cover = models.ForeignKey(
+              'wagtailimages.Image',
+              null=True,
+              blank=True,
+              on_delete=models.SET_NULL,
+              related_name='+'
+          )
 
-        content_panels = Page.content_panels + [
-          ImageChooserPanel('cover'),
-        ]
+          content_panels = Page.content_panels + [
+              ImageChooserPanel('cover'),
+          ]
 
     Django's default behavior is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
 
@@ -196,17 +196,17 @@ DocumentChooserPanel
 
 
       class BookPage(Page):
-        book_file = models.ForeignKey(
-          'wagtaildocs.Document',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-        )
+          book_file = models.ForeignKey(
+              'wagtaildocs.Document',
+              null=True,
+              blank=True,
+              on_delete=models.SET_NULL,
+              related_name='+'
+          )
 
-        BookPage.content_panels = Page.content_panels + [
-          DocumentChooserPanel('book_file'),
-        ]
+          content_panels = Page.content_panels + [
+              DocumentChooserPanel('book_file'),
+          ]
 
     As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
@@ -220,19 +220,19 @@ SnippetChooserPanel
     .. code-block:: python
 
       from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-      # ...
-      class BookPage(Page):
-        advert = models.ForeignKey(
-          'demo.Advert',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-        )
 
-        content_panels = [
-          SnippetChooserPanel('advert', Advert),
-        ]
+      class BookPage(Page):
+          advert = models.ForeignKey(
+              'demo.Advert',
+              null=True,
+              blank=True,
+              on_delete=models.SET_NULL,
+              related_name='+'
+          )
+
+          content_panels = Page.content_panels + [
+              SnippetChooserPanel('advert', Advert),
+          ]
 
     See :ref:`snippets` for more information.
 
@@ -251,16 +251,16 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 .. code-block:: python
 
-  from wagtail.wagtailcore.fields import RichTextField
-  from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
 
-  class BookPage(Page):
-    book_text = RichTextField()
+    class BookPage(Page):
+        book_text = RichTextField()
 
-    content_panels = Page.content_panels + [
-      FieldPanel('body', classname="full"),
-    ]
+        content_panels = Page.content_panels + [
+            FieldPanel('body', classname="full"),
+        ]
 
 ``RichTextField`` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into ``RichTextField`` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
@@ -312,20 +312,19 @@ The ``MultiFieldPanel`` groups a list of child fields into a fieldset, which can
 
 .. code-block:: python
 
-  BOOK_FIELD_COLLECTION = [
-    ImageChooserPanel('cover'),
-    DocumentChooserPanel('book_file'),
-    PageChooserPanel('publisher'),
-  ]
+    BOOK_FIELD_COLLECTION = [
+        ImageChooserPanel('cover'),
+        DocumentChooserPanel('book_file'),
+        PageChooserPanel('publisher'),
+    ]
 
-  BookPage.content_panels = [
-    MultiFieldPanel(
-      BOOK_FIELD_COLLECTION,
-      heading="Collection of Book Fields",
-      classname="collapsible collapsed"
-    ),
-    # ...
-  ]
+    BookPage.content_panels = [
+        MultiFieldPanel(
+            BOOK_FIELD_COLLECTION,
+            heading="Collection of Book Fields",
+            classname="collapsible collapsed"
+        ),
+    ]
 
 By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding the classname ``collapsible`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the classname parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
 
@@ -367,14 +366,14 @@ Let's look at the example of adding related links to a ``Page``-derived model. W
     # ...
 
     content_panels = Page.content_panels + [
-      InlinePanel( 'related_links', label="Related Links" ),
+      InlinePanel('related_links', label="Related Links"),
     ]
 
 The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an ``InlinePanel`` to provide an interface for it all. Let's look again at the parameters that ``InlinePanel`` accepts:
 
 .. code-block:: python
 
-  InlinePanel( relation_name, panels=None, label='', help_text='' )
+    InlinePanel( relation_name, panels=None, label='', help_text='' )
 
 The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
 
@@ -405,22 +404,22 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
     class BlogPage(Page):
         # field definitions omitted
 
-      content_panels = [
-          FieldPanel('title', classname="full title"),
-          FieldPanel('date'),
-          FieldPanel('body', classname="full"),
-      ]
-      sidebar_content_panels = [
-          SnippetChooserPanel('advert', Advert),
-          InlinePanel('related_links', label="Related links"),
-      ]
+        content_panels = [
+            FieldPanel('title', classname="full title"),
+            FieldPanel('date'),
+            FieldPanel('body', classname="full"),
+        ]
+        sidebar_content_panels = [
+            SnippetChooserPanel('advert', Advert),
+            InlinePanel('related_links', label="Related links"),
+        ]
 
-      edit_handler = TabbedInterface([
-          ObjectList(content_panels, heading='Content'),
-          ObjectList(sidebar_content_panels, heading='Sidebar content'),
-          ObjectList(Page.promote_panels, heading='Promote'),
-          ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
-      ])
+        edit_handler = TabbedInterface([
+            ObjectList(content_panels, heading='Content'),
+            ObjectList(sidebar_content_panels, heading='Sidebar content'),
+            ObjectList(Page.promote_panels, heading='Promote'),
+            ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ])
 
 
 .. _extending_wysiwyg:
@@ -432,7 +431,7 @@ To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_j
 
 .. code-block:: javascript
 
-  registerHalloPlugin(name, opts);
+    registerHalloPlugin(name, opts);
 
 hallo.js plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
 
@@ -447,10 +446,10 @@ As an example, add a "thumbnail" format:
 
 .. code-block:: python
 
-  # image_formats.py
-  from wagtail.wagtailimages.formats import Format, register_image_format
+    # image_formats.py
+    from wagtail.wagtailimages.formats import Format, register_image_format
 
-  register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
+    register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
 
 
 To begin, import the the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` takes the following init arguments:
