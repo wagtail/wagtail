@@ -33,7 +33,7 @@ Find out more at `wagtail.io <http://wagtail.io/>`_.
 
 Getting started
 ~~~~~~~~~~~~~~~
-    .. code-block:: bash
+    .. code-block::
 
      pip install wagtail
      wagtail start mysite
