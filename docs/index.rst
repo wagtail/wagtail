@@ -7,12 +7,14 @@ Below are some useful links to help you get started with Wagtail.
 
 
 * **First steps**
+
   * :doc:`getting_started/trying_wagtail`
   * :doc:`getting_started/installation`
   * :doc:`getting_started/creating_your_project`
 
 
 * **Creating your Wagtail site**
+
   * :doc:`reference/pages/creating_pages`
   * :doc:`reference/pages/writing_templates`
   * :doc:`reference/images/index`
@@ -21,6 +23,7 @@ Below are some useful links to help you get started with Wagtail.
 
 
 * **Using Wagtail**
+
   * :doc:`Editors guide <editor_manual/index>`
 
 
