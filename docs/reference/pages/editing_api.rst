@@ -170,28 +170,6 @@ For files in other formats, Wagtail provides a generic file store through the ``
 
 As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
-Documents can be used directly in templates without tags or filters. Its properties are:
-
-.. glossary::
-
-  ``title``
-    The title of the document.
-
-  ``url``
-    URL to the file.
-
-  ``created_at``
-    The date and time the document was created (DateTime).
-
-  ``filename``
-    The filename of the file.
-
-  ``file_extension``
-    The extension of the file.
-
-  ``tags``
-    A ``TaggableManager`` which keeps track of tags associated with the document (uses the ``django-taggit`` module).
-
 
 Pages and Page-derived Models
 -----------------------------
