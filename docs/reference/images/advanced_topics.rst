@@ -2,6 +2,8 @@
 Advanced topics
 ===============
 
+.. _custom_image_model:
+
 Custom image model
 ==================
 
@@ -56,11 +58,17 @@ Here's an example:
     def rendition_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
+.. note::
+
+    If you are using image feature detection, follow these instructions to
+    enable it on your custom image model: :ref:`feature_detection_custom_image_model`
+
 Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
 .. code-block:: python
 
     WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'
+
 
 .. topic:: Migrating from the builtin image model
 
@@ -170,3 +178,28 @@ You can manually run feature detection on all images by running the following co
         if not image.has_focal_point():
             image.set_focal_point(image.get_suggested_focal_point())
             image.save()
+
+.. _feature_detection_custom_image_model:
+
+Feature detection and custom image models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using a :ref:`custom_image_model`, you need to add a signal handler to
+the model to trigger feature detection whenever a new image is uploaded:
+
+.. code-block:: python
+
+    # Do feature detection when a user saves an image without a focal point
+    @receiver(pre_save, sender=CustomImage)
+    def image_feature_detection(sender, instance, **kwargs):
+        # Make sure the image doesn't already have a focal point
+        if not instance.has_focal_point():
+            # Set the focal point
+            instance.set_focal_point(instance.get_suggested_focal_point())
+
+.. note::
+
+    This example will always run feature detection regardless of whether the
+    ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting is set.
+
+    Add a check for this setting if you still want it to have effect.
