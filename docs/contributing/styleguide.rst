@@ -1,5 +1,5 @@
-Styleguide
-==========
+UI Styleguide
+=============
 
 Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
 
