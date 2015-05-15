@@ -42,6 +42,8 @@ Contributors
 * Sebastian Spiegel
 * Alejandro Varas
 * Arne Schauf
+* signalkraft
+* Mac Chapman
 
 Translators
 ===========

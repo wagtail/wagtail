@@ -13,3 +13,5 @@ Bug fixes
 ~~~~~~~~~
 
 * Form builder no longer raises a ``TypeError`` when submitting unchecked boolean field
+* Image upload form no longer breaks when using i10n thousand separators
+* Multiple image uploader now escapes HTML in filenames
