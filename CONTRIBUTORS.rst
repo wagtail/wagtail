@@ -50,6 +50,8 @@ Contributors
 * Arne Schauf
 * Jordi Joan
 * Damian Moore
+* signalkraft
+* Mac Chapman
 
 Translators
 ===========
