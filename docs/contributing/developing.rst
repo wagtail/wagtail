@@ -39,6 +39,8 @@ The list of dependencies is in the Wagtail root directory in ``requirements-dev.
 
 
 
+.. _testing:
+
 Testing
 ~~~~~~~
 
