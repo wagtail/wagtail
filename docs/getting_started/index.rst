@@ -17,7 +17,7 @@ With the above installed and enabled, the quickest way to install Wagtail is::
 
 .. note::
 
-    Wagtail depends on the Pillow package for image manipulation and on some platforms may require some additional steps before you ``pip install wagtail`` e.g on OSX you need to install Homebrew. `More information here <http://pillow.readthedocs.org/en/latest/installation.html#os-x-installation>`_
+    Wagtail depends on the Pillow package for image manipulation and on some platforms may require additional steps to get images working in Wagtail. `More information here <http://pillow.readthedocs.org/en/latest/installation.html#os-x-installation>`_
 
 Once installed, Wagtail provides a command similar to Django's ``django-admin startproject``::
 
