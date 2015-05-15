@@ -23,6 +23,7 @@ class UpgradeNotificationPanel(object):
         else:
             return ""
 
+
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200

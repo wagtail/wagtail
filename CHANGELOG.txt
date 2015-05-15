@@ -71,7 +71,6 @@ Changelog
 * Fix: Work around a Python / Django issue that prevented documents with certain non-ASCII filenames from being served
 
 
-
 0.8.6 (10.03.2015)
 ~~~~~~~~~~~~~~~~~~
 * Translations updated, including new translations for Czech, Italian and Japanese

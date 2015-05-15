@@ -22,7 +22,6 @@ $(function(){
         }
         return a.length - b.length;
     }
-    
     function gtVersion(a, b) {
         return cmpVersion(a, b) > 0;
     }
