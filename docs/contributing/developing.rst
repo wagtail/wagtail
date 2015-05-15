@@ -38,6 +38,8 @@ The list of dependencies is in the Wagtail root directory in ``requirements-dev.
     pip install -r requirements-dev.txt
 
 
+.. _testing:
+
 Testing
 ~~~~~~~
 
