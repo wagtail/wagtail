@@ -4,7 +4,7 @@ Getting started
 Wagtail is built on Django, so this document assumes you've already got the essentials installed. But if not, those essentials are:
 
  * `Python <https://wiki.python.org/moin/BeginnersGuide/Download>`_
- * `pip <https://pip.pypa.io/en/latest/installing.html>`_
+ * `pip <https://pip.pypa.io/en/latest/installing.html>`_ (Note that pip is included by default with Python 2.7.9 and later and Python 3.4 and later)
 
 We'd also strongly recommend:
 
