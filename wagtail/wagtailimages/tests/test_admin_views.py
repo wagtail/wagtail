@@ -40,7 +40,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
         for page in pages:
-            response = self.get({'p': page})
+            response = self.get({'page': page})
             self.assertEqual(response.status_code, 200)
 
     def test_ordering(self):
@@ -192,7 +192,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
         for page in pages:
-            response = self.get({'p': page})
+            response = self.get({'page': page})
             self.assertEqual(response.status_code, 200)
 
 

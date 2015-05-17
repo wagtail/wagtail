@@ -30,7 +30,7 @@ function(modal) {
         if($('#id_q').val().length){
             dataObj = {q: $('#id_q').val(), p: page};
         }else{
-            dataObj = {p: page};
+            dataObj = {page: page};
         }
 
         $.ajax({

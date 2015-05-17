@@ -78,7 +78,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 2})
+        response = self.client.get(reverse('wagtaildocs_index'), {'page': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -90,7 +90,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaildocs_index'), {'page': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -102,7 +102,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 99999})
+        response = self.client.get(reverse('wagtaildocs_index'), {'page': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -245,7 +245,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 2})
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'page': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -257,7 +257,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'page': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -269,7 +269,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 99999})
+        response = self.client.get(reverse('wagtaildocs_chooser'), {'page': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
