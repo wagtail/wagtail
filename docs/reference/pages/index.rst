@@ -20,4 +20,4 @@ The presentation of your content, the actual webpages, includes the normal use o
     sites
     advanced_topics/queryset_methods
     advanced_topics/private_pages
-    attributes_properties_methods
+    model_reference

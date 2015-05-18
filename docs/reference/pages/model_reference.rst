@@ -1,9 +1,54 @@
-Page Attributes, Properties and Methods Reference
--------------------------------------------------
+Page model Reference
+====================
+
+.. automodule:: wagtail.wagtailcore.models
+
+
+Fields
+------
+
+.. glossary::
+
+    ``title`` (text)
+
+        The title of the page (set in the admin).
+
+    ``slug`` (text)
+
+        The slug of the page (set in the admin). This is used for constructing the page's URL.
+
+    ``content_type`` (foreign key)
+
+        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this page.
+
+    ``live`` (boolean)
+
+        A boolean that is set to ``True`` if the page is published.
+
+        Note: this field defaults to ``True`` meaning that any pages that are created programmatically will be published by default.
+
+    ``has_unpublished_changes`` (boolean)
+
+        A boolean that is set to ``True`` when the page is either in draft or published with draft changes.
+
+    ``owner`` (foreign key)
+
+        A foreign key to the user that created the page.
+
+    ``first_published_at`` (date/time)
+
+        The date/time when the page was first published.
+
+..    ``seo_title`` (text)
+..    ``show_in_menus`` (boolean)
+..    ``search_description`` (text)
+
+
+Other methods, attributes and properties
+----------------------------------------
 
 In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
-.. automodule:: wagtail.wagtailcore.models
 .. autoclass:: Page
 
     .. autoattribute:: specific
@@ -79,3 +124,48 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. attribute:: password_required_template
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
+
+
+Other models
+------------
+
+``Site``
+~~~~~~~~
+
+.. autoclass:: Site
+
+    .. automethod:: find_for_request
+
+    .. autoattribute:: root_url
+
+    .. automethod:: get_site_root_paths
+
+``PageRevision``
+~~~~~~~~~~~~~~~~
+
+.. autoclass:: PageRevision
+
+    .. automethod:: as_page_object
+
+    .. automethod:: approve_moderation
+
+    .. automethod:: reject_moderation
+
+    .. automethod:: is_latest_revision
+
+    .. automethod:: publish
+
+``GroupPagePermission``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: GroupPagePermission
+
+``PageViewRestriction``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: PageViewRestriction
+
+``Orderable`` (abstract)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: Orderable

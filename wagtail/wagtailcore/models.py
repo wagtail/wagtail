@@ -70,11 +70,13 @@ class Site(models.Model):
         """
         Find the site object responsible for responding to this HTTP
         request object. Try:
-         - unique hostname first
-         - then hostname and port
-         - if there is no matching hostname at all, or no matching
-           hostname:port combination, fall back to the unique default site,
-           or raise an exception
+
+        * unique hostname first
+        * then hostname and port
+        * if there is no matching hostname at all, or no matching
+          hostname:port combination, fall back to the unique default site,
+          or raise an exception
+
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
         """
