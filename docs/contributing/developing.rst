@@ -16,13 +16,13 @@ Enable the Vagrantfile included with the demo - this ensures you can edit the Wa
 
     cd wagtaildemo
     cp Vagrantfile.local.example Vagrantfile.local
-        
-If you clone Wagtail's codebase to somewhere other than one level above, edit ``Vagrantfile.local`` to specify the alternate path. 
 
-Lastly, we tell Django to use your freshly cloned Wagtail codebase as the source of Wagtail CMS, not the pip-installed version that came with wagtaildemo::
+If you clone Wagtail's codebase to somewhere other than one level above, edit ``Vagrantfile.local`` to specify the alternate path.
+
+Lastly, we tell Django to use your freshly cloned Wagtail codebase as the source of Wagtail CMS, not the pip-installed version that camewith wagtaildemo::
 
     cp wagtaildemo/settings/local.py.example wagtaildemo/settings/local.py
-    
+
 Uncomment the lines from ``import sys`` onward, and edit the rest of ``local.py`` as appropriate.
 
 If your VM is currently running, you'll then need to run ``vagrant halt`` followed by ``vagrant up`` for the changes to take effect.
