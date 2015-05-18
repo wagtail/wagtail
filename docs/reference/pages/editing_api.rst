@@ -3,25 +3,25 @@
 Setting up the page editor interface
 ====================================
 
-Wagtail provides a highly-customizable editing interface consisting of several components:
+Wagtail provides a highly-customisable editing interface consisting of several components:
 
   * **Fields** — built-in content types to augment the basic types provided by Django
   * **Panels** — the basic editing blocks for fields, groups of fields, and related object clusters
   * **Choosers** — interfaces for finding related objects in a ForeignKey relationship
 
-Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customization, including extending the ``hallo.js`` rich text editor.
+Configuring your models to use these components will shape the Wagtail editor to your needs. Wagtail also provides an API for injecting custom CSS and JavaScript for further customisation, including extending the ``hallo.js`` rich text editor.
 
 There is also an Edit Handler API for creating your own Wagtail editor components.
 
 Defining Panels
 ~~~~~~~~~~~~~~~
 
-A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types; implementors just need to add a panel for each field they want to show in the Wagtail page editor, in the order they want them to appear.
+A "panel" is the basic editing block in Wagtail. Wagtail will automatically pick the appropriate editing widget for most Django field types; implementers just need to add a panel for each field they want to show in the Wagtail page editor, in the order they want them to appear.
 
-Wagtail provides a tabbed interface to help organize panels. Three such tabs are provided:
+Wagtail provides a tabbed interface to help organise panels. Three such tabs are provided:
 
 * ``content_panels`` is the main tab, used for the bulk of your model's fields.
-* ``promote_panels`` is suggested for organizing fields regarding the promotion of the page around the site and the Internet. For example, a field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO-friendly titles, OpenGraph meta tag content and other machine-readable information.
+* ``promote_panels`` is suggested for organising fields regarding the promotion of the page around the site and the Internet. For example, a field to dictate whether the page should show in site-wide menus, descriptive text that should appear in site search results, SEO-friendly titles, OpenGraph meta tag content and other machine-readable information.
 * ``settings_panels`` is essentially for non-copy fields. By default it contains the page's scheduled publishing fields. Other suggested fields could include a field to switch between one layout/style and another.
 
 Let's look at an example of a panel definition:
@@ -47,7 +47,7 @@ Let's look at an example of a panel definition:
       MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     ]
 
-After the ``Page``-derived class definition, just add lists of panel definitions to order and organize the Wagtail page editing interface for your model.
+After the ``Page``-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
 
 Available panel types
 ~~~~~~~~~~~~~~~~~~~~~
@@ -96,7 +96,7 @@ MultiFieldPanel
 
 .. topic:: Collapsing MultiFieldPanels to save space
 
-    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding the classname ``collapsible`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the classname parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
+    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
 
     .. code-block:: python
 
@@ -130,7 +130,7 @@ FieldRowPanel
 
     Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
 
-    FieldRowPanel should be used in combination with ``col*`` classnames added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is layed out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
+    FieldRowPanel should be used in combination with ``col*`` class names added to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns wide. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
 
     .. attribute:: FieldRowPanel.children
 
@@ -194,7 +194,7 @@ ImageChooserPanel
               ImageChooserPanel('cover'),
           ]
 
-    Django's default behavior is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
+    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which is probably not what you want happening. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
 
     .. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
 
@@ -257,15 +257,15 @@ SnippetChooserPanel
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Django's field types are automatically recognized and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into ``FieldPanel()`` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into ``FieldPanel()`` when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
 
-Field Customization
+Field Customisation
 ~~~~~~~~~~~~~~~~~~~
 
-By adding CSS classnames to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customization covered there. (See `Django model field reference`_ ).
+By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See `Django model field reference`_ ).
 
 .. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
 
@@ -285,7 +285,7 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Required Fields
 ---------------
 
-To make input or chooser selection manditory for a field, add ``blank=False`` to its model definition. (See `Django model field reference (blank)`_ ).
+To make input or chooser selection mandatory for a field, add ``blank=False`` to its model definition. (See `Django model field reference (blank)`_ ).
 
 .. _Django model field reference (blank): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.blank
 
@@ -413,27 +413,27 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 However, template output from ``RichTextField`` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
 
-If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (hallo.js), See :ref:`extending_wysiwyg`.
+If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (``hallo.js``), See :ref:`extending_wysiwyg`.
 
 .. _extending_wysiwyg:
 
-Extending the WYSIWYG Editor (hallo.js)
+Extending the WYSIWYG Editor (``hallo.js``)
 ---------------------------------------
 
-To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your hallo.js plugin loads into the Wagtail page editor, use the following Javascript to register the plugin with hallo.js.
+To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your ``hallo.js`` plugin loads into the Wagtail page editor, use the following JavaScript to register the plugin with ``hallo.js``.
 
 .. code-block:: javascript
 
     registerHalloPlugin(name, opts);
 
-hallo.js plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
+``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
 
-For information on developing custom hallo.js plugins, see the project's page: https://github.com/bergie/hallo
+For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
 
 Image Formats in the Rich Text Editor
 -------------------------------------
 
-On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customize the formatting options shown to the editor when inserting images in the ``RichTextField`` editor.
+On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customise the formatting options shown to the editor when inserting images in the ``RichTextField`` editor.
 
 As an example, add a "thumbnail" format:
 
@@ -445,7 +445,7 @@ As an example, add a "thumbnail" format:
     register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
 
 
-To begin, import the the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` takes the following init arguments:
+To begin, import the the ``Format`` class, ``register_image_format`` function, and optionally ``unregister_image_format`` function. To register a new ``Format``, call the ``register_image_format`` with the ``Format`` object as the argument. The ``Format`` class takes the following constructor arguments:
 
 ``name``
   The unique key used to identify the format. To unregister this format, call ``unregister_image_format`` with this string as the only argument.

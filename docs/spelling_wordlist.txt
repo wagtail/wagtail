@@ -9,6 +9,7 @@ Django
 Elasticsearch
 embeddable
 Embedly
+formset
 frontend
 Gondor
 Gunicorn
@@ -21,6 +22,7 @@ metadata
 middleware
 minifier
 mixin
+namespace
 Nginx
 oEmbed
 PostgreSQL
@@ -36,6 +38,7 @@ resizing
 screenshot
 searchable
 Searchly
+SEO
 sitemap
 sitemaps
 subpage
@@ -43,6 +46,7 @@ subpages
 Torchbox
 unpublish
 unpublishing
+unregister
 username
 uWSGI
 Vagrantfile
