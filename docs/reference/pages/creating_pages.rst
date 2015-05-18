@@ -2,9 +2,9 @@
 Creating page models
 ====================
 
-Each page type (a.k.a Content type) in Wagtail is represented by a Django model. All page models must inherit from the ``wagtail.wagtailcore.models.Page`` class.
+Each page type (a.k.a Content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.wagtailcore.models.Page` class.
 
-As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/1.7/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides ``RichTextField`` which provides a WYSIWYG editor for editing rich-text content.
+As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/1.7/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides :class:`~wagtail.wagtailcore.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
 
 .. topic:: Django models
@@ -53,11 +53,11 @@ This example represents a typical blog post:
 .. tip::
     To keep track of ``Page`` models and avoid class name clashes, it can be helpful to suffix model class names with "Page" e.g BlogPage, ListingIndexPage. 
 
-In the example above the ``BlogPage`` class defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (``RichTextField``), and a pointer to a Wagtail model (``Image``).
+In the example above the ``BlogPage`` class defines three properties: ``body``, ``date``, and ``feed_image``. These are a mix of basic Django models (``DateField``), Wagtail fields (:class:`~wagtail.wagtailcore.fields.RichTextField`), and a pointer to a Wagtail model (:class:`~wagtail.wagtailimages.models.Image`).
 
-Below that the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the page editing interface in the Wagtail admin. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The ``ImageChooserPanel``, for instance, lets one browse the image library, upload new images and input image metadata. The ``RichTextField`` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
+Below that the ``content_panels`` and ``promote_panels`` lists define the capabilities and layout of the page editing interface in the Wagtail admin. The lists are filled with "panels" and "choosers", which will provide a fine-grain interface for inputting the model's content. The :class:`~wagtail.wagtailimages.edit_handlers.ImageChooserPanel`, for instance, lets one browse the image library, upload new images and input image metadata. The :class:`~wagtail.wagtailcore.fields.RichTextField` is the basic field for creating web-ready website rich text, including text formatting and embedded media like images and video. The Wagtail admin offers other choices for fields, Panels, and Choosers, with the option of creating your own to precisely fit your content without workarounds or other compromises.
 
-Your models may be even more complex, with methods overriding the built-in functionality of the ``Page`` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
+Your models may be even more complex, with methods overriding the built-in functionality of the :class:`~wagtail.wagtailcore.models.Page` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
 
 
 Tips
