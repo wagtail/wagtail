@@ -17,7 +17,6 @@ The presentation of your content, the actual webpages, includes the normal use o
     model_recipes
     editing_api
     streamfield
-    sites
     model_reference
     queryset_reference
     advanced_topics/privacy
