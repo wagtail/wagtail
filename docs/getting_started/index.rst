@@ -19,7 +19,7 @@ With the above installed and enabled, the quickest way to install Wagtail is::
 
     Wagtail depends on the Pillow package for image manipulation. On some platforms Pillow requires additional steps to get images working in Wagtail. `More information here <http://pillow.readthedocs.org/en/latest/installation.html#os-x-installation>`_
 
-Once installed, Wagtail provides a command similar to Django's ``django-admin startproject``::
+Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` which stubs out a new site/project::
 
     wagtail start mysite
 
