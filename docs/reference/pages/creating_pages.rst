@@ -25,7 +25,7 @@ This example represents a typical blog post:
 
     from wagtail.wagtailcore.models import Page
     from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
@@ -40,19 +40,15 @@ This example represents a typical blog post:
             related_name='+'
         )
 
-    BlogPage.content_panels = [
-        FieldPanel('title', classname="full title"),
-        FieldPanel('date'),
-        FieldPanel('body', classname="full"),
-    ]
+        content_panels = Page.content_panels [
+            FieldPanel('date'),
+            FieldPanel('body', classname="full"),
+        ]
 
-    BlogPage.promote_panels = [
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('show_in_menus'),
-        FieldPanel('search_description'),
-        ImageChooserPanel('feed_image'),
-    ]
+        promote_panels = [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+            ImageChooserPanel('feed_image'),
+        ]
 
 .. tip::
     To keep track of ``Page`` models and avoid class name clashes, it can be helpful to suffix model class names with "Page" e.g BlogPage, ListingIndexPage. 
