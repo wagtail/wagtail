@@ -4,6 +4,9 @@ Page model Reference
 .. automodule:: wagtail.wagtailcore.models
 
 
+``Page`` Class Reference
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 Fields
 ------
 
@@ -11,11 +14,13 @@ Fields
 
     ``title`` (text)
 
-        The title of the page (set in the admin).
+        Human-readable title of the page.
 
     ``slug`` (text)
 
-        The slug of the page (set in the admin). This is used for constructing the page's URL.
+        The slug of the page. This is used for constructing the page's URL.
+
+        For example: ``http://domain.com/blog/[my-slug]/``
 
     ``content_type`` (foreign key)
 
@@ -39,9 +44,19 @@ Fields
 
         The date/time when the page was first published.
 
-..    ``seo_title`` (text)
-..    ``show_in_menus`` (boolean)
-..    ``search_description`` (text)
+    ``seo_title`` (text)
+
+        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
+
+    ``search_description`` (text)
+
+        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+
+    ``show_in_menus`` (boolean)
+
+        Toggles whether the page should be included in site-wide menus.
+
+        This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
 
 Other methods, attributes and properties

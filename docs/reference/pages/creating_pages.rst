@@ -60,29 +60,6 @@ Below that the ``content_panels`` and ``promote_panels`` lists define the capabi
 Your models may be even more complex, with methods overriding the built-in functionality of the ``Page`` to achieve webdev magic. Or, you can keep your models simple and let Wagtail's built-in functionality do the work.
 
 
-``Page`` Class Reference
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Default fields
---------------
-
-Wagtail provides some fields for the ``Page`` class by default, which will be common to all your pages. You don't need to add these fields to your own page models however you do need to allocate them to ``content_panels``, ``promote_panels`` or ``settings_panels``. See above example and for further information on the panels see :ref:`editing-api`.
-
-    ``title`` (string, required)
-        Human-readable title of the page - what you'd probably use as your ``<h1>`` tag.
-
-    ``slug`` (string, required)
-        Machine-readable URL component for this page. The name of the page as it will appear in URLs e.g ``http://domain.com/blog/[my-slug]/``
-
-    ``seo_title`` (string)
-        Alternate SEO-crafted title, mainly for use in the page ``<title>`` tag.
-
-    ``search_description`` (string)
-        SEO-crafted description of the content, used for internal search indexing, suitable for your page's ``<meta name="description">`` tag.
-
-    ``show_in_menus`` (boolean)
-        Toggles whether the page should be considered for inclusion in any site-wide menus you create.
-
 Tips
 ~~~~
 
