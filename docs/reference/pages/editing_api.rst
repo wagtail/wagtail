@@ -418,7 +418,7 @@ If you're interested in extending the capabilities of the Wagtail WYSIWYG editor
 .. _extending_wysiwyg:
 
 Extending the WYSIWYG Editor (``hallo.js``)
----------------------------------------
+-------------------------------------------
 
 To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your ``hallo.js`` plugin loads into the Wagtail page editor, use the following JavaScript to register the plugin with ``hallo.js``.
 
