@@ -43,6 +43,10 @@ With this strategy, you could use Django or Python utilities to render your mode
 Adding Endpoints with Custom :meth:`~wagtail.wagtailcore.models.Page.route` Methods
 -----------------------------------------------------------------------------------
 
+.. note::
+
+    A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.wagtailroutablepage` module.
+
 Wagtail routes requests by iterating over the path components (separated with a forward slash ``/``), finding matching objects based on their slug, and delegating further routing to that object's model class. The Wagtail source is very instructive in figuring out what's happening. This is the default ``route()`` method of the ``Page`` class:
 
 .. code-block:: python
