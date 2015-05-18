@@ -1,70 +1,62 @@
 Page model Reference
 ====================
 
-.. automodule:: wagtail.wagtailcore.models
-
 
 ``Page`` Class Reference
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Fields
-------
+.. automodule:: wagtail.wagtailcore.models
+.. autoclass:: Page
 
-.. glossary::
+    The following Django model fields are provided for all pages and are queryable from ``Page.objects``.
 
-    ``title`` (text)
+    .. attribute:: title (text)
 
         Human-readable title of the page.
 
-    ``slug`` (text)
+    .. attribute:: slug (text)
 
-        The slug of the page. This is used for constructing the page's URL.
+            The slug of the page. This is used for constructing the page's URL.
 
-        For example: ``http://domain.com/blog/[my-slug]/``
+            For example: ``http://domain.com/blog/[my-slug]/``
 
-    ``content_type`` (foreign key)
+    .. attribute:: content_type (foreign key)
 
-        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this page.
+            A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this page.
 
-    ``live`` (boolean)
+    .. attribute:: live (boolean)
 
-        A boolean that is set to ``True`` if the page is published.
+            A boolean that is set to ``True`` if the page is published.
 
-        Note: this field defaults to ``True`` meaning that any pages that are created programmatically will be published by default.
+            Note: this field defaults to ``True`` meaning that any pages that are created programmatically will be published by default.
 
-    ``has_unpublished_changes`` (boolean)
+    .. attribute:: has_unpublished_changes (boolean)
 
-        A boolean that is set to ``True`` when the page is either in draft or published with draft changes.
+            A boolean that is set to ``True`` when the page is either in draft or published with draft changes.
 
-    ``owner`` (foreign key)
+    .. attribute:: owner (foreign key)
 
-        A foreign key to the user that created the page.
+            A foreign key to the user that created the page.
 
-    ``first_published_at`` (date/time)
+    .. attribute:: first_published_at (date/time)
 
-        The date/time when the page was first published.
+            The date/time when the page was first published.
 
-    ``seo_title`` (text)
+    .. attribute:: seo_title (text)
 
-        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
+            Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
 
-    ``search_description`` (text)
+    .. attribute:: search_description (text)
 
-        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+            SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
 
-    ``show_in_menus`` (boolean)
+    .. attribute:: show_in_menus (boolean)
 
-        Toggles whether the page should be included in site-wide menus.
+            Toggles whether the page should be included in site-wide menus.
 
-        This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
+            This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
-
-Other methods, attributes and properties
-----------------------------------------
-
-In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
-
-.. autoclass:: Page
+    In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
     .. autoattribute:: specific
 
