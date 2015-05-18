@@ -18,6 +18,6 @@ The presentation of your content, the actual webpages, includes the normal use o
     editing_api
     streamfield
     sites
-    advanced_topics/queryset_methods
-    advanced_topics/private_pages
     model_reference
+    queryset_reference
+    advanced_topics/privacy

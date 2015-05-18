@@ -1,6 +1,6 @@
-=====================
-Page QuerySet Methods
-=====================
+=======================
+Page QuerySet reference
+=======================
 
 All models that inherit from :class:`~wagtail.wagtailcore.models.Page` are given some extra QuerySet methods accessible from their ``.objects`` attribute.
 
