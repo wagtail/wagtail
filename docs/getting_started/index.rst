@@ -6,7 +6,7 @@ Wagtail is built on the `Django web framework <https://www.djangoproject.com/>`_
  * `Python <https://www.python.org/downloads/>`_
  * `pip <https://pip.pypa.io/en/latest/installing.html>`_ (Note that pip is included by default with Python 2.7.9 and later and Python 3.4 and later)
 
-We'd also recommend:
+We'd also recommend Virtualenv, which provides isolated Python environments:
 
  * `Virtualenv <https://virtualenv.pypa.io/en/latest/installation.html>`_
 
@@ -15,7 +15,7 @@ Before we install Wagtail we should install Pillow for image manipulation. Befor
 
 With the above installed, the quickest way to install Wagtail is::
 
-    pip install wagtail  
+    pip install wagtail
 
 (``sudo`` may be required if installing system-wide or without virtualenv)
 
