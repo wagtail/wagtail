@@ -17,6 +17,8 @@ With the above installed, the quickest way to install Wagtail is::
 
     pip install wagtail  
 
+(``sudo`` may be required if installing system-wide or without virtualenv)
+
 Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` which stubs out a new site/project::
 
     wagtail start mysite
