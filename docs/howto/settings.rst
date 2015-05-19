@@ -450,11 +450,6 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   INTERNAL_IPS = ('127.0.0.1', '10.0.2.2')
 
-  # django-compressor settings
-  COMPRESS_PRECOMPILERS = (
-      ('text/x-scss', 'django_libsass.SassCompiler'),
-  )
-
   # A sample logging configuration. The only tangible logging
   # performed by this configuration is to send an email to
   # the site admins on every HTTP 500 error when DEBUG=False.

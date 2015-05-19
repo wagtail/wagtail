@@ -20,7 +20,6 @@ Wagtail is based on the Django web framework and various other Python libraries.
 
 Most of Wagtail's dependencies are pure Python and will install automatically using ``pip``, but there are a few native-code components that require further attention:
 
- * libsass-python (for compiling SASS stylesheets) - requires a C++ compiler and the Python development headers.
  * Pillow (for image processing) - additionally requires libjpeg and zlib.
 
 On Debian or Ubuntu, these can be installed with the command::

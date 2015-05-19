@@ -33,7 +33,7 @@
 
     l = d.createElement('link');
     l.rel = 'stylesheet';
-    l.href = w.wagtail.static_root + 'scss/userbar_embed.css';
+    l.href = w.wagtail.static_root + 'css/userbar_embed.css';
 
     f = d.createElement('iframe');
     f.id = 'wagtail-userbar';
@@ -50,4 +50,4 @@
     t = d.getElementsByTagName('title')[0];
     t.parentNode.insertBefore(l, t.nextSibling);
     d.body.appendChild(f);
-}(window, document));
+}(window,document));

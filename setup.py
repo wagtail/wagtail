@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-import sys, os
+import sys
+
+from setuptools.command.sdist import sdist
 
 from wagtail.wagtailcore import __version__
-
+from wagtail.utils.setup import assets, add_subcommand, check_bdist_egg
 
 try:
     from setuptools import setup, find_packages
@@ -20,17 +22,12 @@ except ImportError:
     pass
 
 
-# Disable parallel builds, because Pillow 2.5.3 does some crazy monkeypatching of
-# the build process on multicore systems, which breaks installation of libsass
-os.environ['MAX_CONCURRENCY'] = '1'
-
 PY3 = sys.version_info[0] == 3
 
 
 install_requires = [
     "Django>=1.7.1,<1.9",
     "django-compressor>=1.4",
-    "django-libsass>=0.2",
     "django-modelcluster>=0.6",
     "django-taggit>=0.13.0",
     "django-treebeard==3.0",
@@ -83,4 +80,9 @@ setup(
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
+    cmdclass={
+        'sdist': add_subcommand(sdist, [('assets', None)]),
+        'bdist_egg': check_bdist_egg,
+        'assets': assets,
+    },
 )

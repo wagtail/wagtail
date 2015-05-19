@@ -14,7 +14,7 @@
 
         {% templatetag openblock %} compress css {% templatetag closeblock %}
             {# Global stylesheets #}
-            <link rel="stylesheet" type="text/x-scss" href="{% templatetag openblock %} static 'css/{{ project_name }}.scss' {% templatetag closeblock %}">
+            <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
         {% templatetag openblock %} endcompress {% templatetag closeblock %}
 
         {% templatetag openblock %} block extra_css {% templatetag closeblock %}

@@ -101,3 +101,27 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
 If you no longer want Wagtail to test against Elasticsearch, uninstall the
 ``elasticsearch`` package.
+
+Compiling static assets
+~~~~~~~~~~~~~~~~~~~~~~~
+
+All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``gulp``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
+
+To compile the assets, Node.js and the compilation tool chain need to be installed. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_. Once Node.js is installed, installing the tool chain is done via ``npm``:
+
+.. code-block:: bash
+
+    $ cd /path/to/wagtail
+    $ npm install
+
+To compile the assets, run:
+
+.. code-block:: bash
+
+    $ npm run build
+
+This must be done after every change to the source files. To watch the source files for changes and then automatically recompile the assets, run:
+
+.. code-block:: bash
+
+    $ npm start
