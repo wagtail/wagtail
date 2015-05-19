@@ -11,13 +11,11 @@ We'd also recommend:
  * `Virtualenv <https://virtualenv.pypa.io/en/latest/installation.html>`_
 
 
-With the above installed and enabled, the quickest way to install Wagtail is::
+Before we install Wagtail we should install Pillow for image manipulation. Before you run ``pip install Pillow`` note that most platforms require you install additional libraries first: `Platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#os-x-installation>`_
 
-    pip install wagtail
+With the above installed, the quickest way to install Wagtail is::
 
-.. note::
-
-    Wagtail depends on the Pillow package for image manipulation. On some platforms Pillow requires additional steps to get images working in Wagtail. `More information here <http://pillow.readthedocs.org/en/latest/installation.html#os-x-installation>`_
+    pip install wagtail  
 
 Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` which stubs out a new site/project::
 
