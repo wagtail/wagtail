@@ -9,6 +9,21 @@ from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
 
 
 # Panels for the homepage
+
+class UpgradeNotificationPanel(object):
+    name = 'upgrade_notification'
+    order = 100
+
+    def __init__(self, request):
+        self.request = request
+
+    def render(self):
+        if self.request.user.is_superuser and getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True):
+            return render_to_string('wagtailadmin/home/upgrade_notification.html', {}, request=self.request)
+        else:
+            return ""
+
+
 class PagesForModerationPanel(object):
     name = 'pages_for_moderation'
     order = 200
@@ -49,6 +64,7 @@ def home(request):
 
     panels = [
         SiteSummaryPanel(request),
+        UpgradeNotificationPanel(request),
         PagesForModerationPanel(request),
         RecentEditsPanel(request),
     ]
