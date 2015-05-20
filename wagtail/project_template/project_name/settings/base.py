@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'wagtail.wagtailembeds',
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
+
+    '{{ project_name }}.home',
 )
 
 MIDDLEWARE_CLASSES = (
