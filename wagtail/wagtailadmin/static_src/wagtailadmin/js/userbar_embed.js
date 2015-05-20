@@ -50,4 +50,4 @@
     t = d.getElementsByTagName('title')[0];
     t.parentNode.insertBefore(l, t.nextSibling);
     d.body.appendChild(f);
-}(window,document));
+} (window, document));
