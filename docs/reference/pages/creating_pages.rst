@@ -40,7 +40,7 @@ This example represents a typical blog post:
             related_name='+'
         )
 
-        content_panels = Page.content_panels [
+        content_panels = Page.content_panels + [
             FieldPanel('date'),
             FieldPanel('body', classname="full"),
         ]
