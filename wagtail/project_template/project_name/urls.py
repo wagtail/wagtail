@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
+    url(r'^search/$', '{{ project_name }}.search.views.search', name='search'),
+
     url(r'', include(wagtail_urls)),
 ]
 
