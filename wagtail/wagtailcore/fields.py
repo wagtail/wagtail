@@ -41,6 +41,43 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
+class LazyField(object):
+    """
+    An object descriptor that lazily prepares the contents of a field by
+    calling `field.to_python` when the field is first accessed. This helps
+    reduce unnecessary load when fields are costly to prepare, but not always
+    used.
+    """
+    # Adapted from `django-json-field`s `json_field.fields.Creator`, itself
+    # adapted from `django`s `django.db.models.fields.subclassing.Creator`.
+
+    _state_key = '_streamfield_state'
+
+    def __init__(self, field):
+        self.field = field
+
+    def __get__(self, obj, type=None):
+        if obj is None:
+            return self
+
+        state = getattr(obj, self._state_key, None)
+        if state is None:
+            state = {}
+            setattr(obj, self._state_key, state)
+
+        if state.get(self.field.name, False):
+            return obj.__dict__[self.field.name]
+
+        value = self.field.to_python(obj.__dict__[self.field.name])
+        obj.__dict__[self.field.name] = value
+        state[self.field.name] = True
+
+        return value
+
+    def __set__(self, obj, value):
+        obj.__dict__[self.field.name] = value
+
+
 class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
@@ -107,3 +144,17 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
 
     def get_searchable_content(self, value):
         return self.stream_block.get_searchable_content(value)
+
+
+# SubfieldBase does some trickery that overrides `contribute_to_class`.
+# We need to subvert that process, and handle it ourselves to get the lazy
+# functionality working. This requires working around the metaclass, hence why
+# this is done outside the class decleration.
+def contribute_to_class(self, cls, name):
+    super(StreamField, self).contribute_to_class(cls, name)
+    # Use `LazyField` to parse `StreamField` content only as it is needed.
+    # This stops the `StreamField` from doing database lookups and other
+    # expensive operations when the parent model is loaded, but the
+    # `StreamField` is not accessed.
+    setattr(cls, name, LazyField(self))
+StreamField.contribute_to_class = contribute_to_class
