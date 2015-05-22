@@ -173,12 +173,12 @@ class BaseStreamBlock(Block):
 
     def to_python(self, value):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field.
-        # Convert this to a StreamValue backed by a list of (type, value) tuples
+        # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
+        # block types from the list
         return StreamValue(self, [
-            (child_data['type'], self.child_blocks[child_data['type']].to_python(child_data['value']))
-            for child_data in value
+            child_data for child_data in value
             if child_data['type'] in self.child_blocks
-        ])
+        ], is_lazy=True)
 
     def get_prep_value(self, value):
         if value is None:
@@ -246,15 +246,36 @@ class StreamValue(collections.Sequence):
             """
             return self.block.name
 
-    def __init__(self, stream_block, stream_data):
+    def __init__(self, stream_block, stream_data, is_lazy=False):
+        """
+        Construct a StreamValue linked to the given StreamBlock,
+        with child values given in stream_data.
+
+        Passing is_lazy=True means that stream_data is raw JSONish data as stored
+        in the database, and needs to be converted to native values
+        (using block.to_python()) when accessed. In this mode, stream_data is a
+        list of dicts, each containing 'type' and 'value' keys.
+
+        Passing is_lazy=False means that stream_data consists of immediately usable
+        native values. In this mode, stream_data is a list of (type_name, value)
+        tuples.
+        """
+        self.is_lazy = is_lazy
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.stream_data = stream_data  # a list of (type_name, value) tuples
         self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
 
     def __getitem__(self, i):
         if i not in self._bound_blocks:
-            type_name, value = self.stream_data[i]
-            child_block = self.stream_block.child_blocks[type_name]
+            if self.is_lazy:
+                raw_value = self.stream_data[i]
+                type_name = raw_value['type']
+                child_block = self.stream_block.child_blocks[type_name]
+                value = child_block.to_python(raw_value['value'])
+            else:
+                type_name, value = self.stream_data[i]
+                child_block = self.stream_block.child_blocks[type_name]
+
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value)
 
         return self._bound_blocks[i]

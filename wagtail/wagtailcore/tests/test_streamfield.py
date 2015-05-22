@@ -27,9 +27,13 @@ class TestLazyStreamField(TestCase):
             # Get the instance. The StreamField should *not* load the image yet
             instance = StreamModel.objects.get(pk=self.with_image.pk)
 
-        with self.assertNumQueries(1):
-            # Access the body. The StreamField should now get the image.
+        with self.assertNumQueries(0):
+            # Access the body. The StreamField should still not get the image.
             body = instance.body
+
+        with self.assertNumQueries(1):
+            # Access the image item from the stream. The image is fetched now
+            body[0].value
 
         with self.assertNumQueries(0):
             # Everything has been fetched now, no further database queries.
@@ -62,7 +66,7 @@ class TestLazyStreamField(TestCase):
             instances_lookup = {instance.pk: instance for instance in instances}
 
         with self.assertNumQueries(1):
-            instances_lookup[self.with_image.pk].body
+            instances_lookup[self.with_image.pk].body[0]
 
         with self.assertNumQueries(0):
-            instances_lookup[self.no_image.pk].body
+            instances_lookup[self.no_image.pk].body[0]
