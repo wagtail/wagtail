@@ -10,7 +10,8 @@ from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore.blocks import CharBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
@@ -19,6 +20,7 @@ from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.models import AbstractImage, Image
+from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
 EVENT_AUDIENCE_CHOICES = (
@@ -400,3 +402,10 @@ class CustomImageWithAdminFormFields(AbstractImage):
     admin_form_fields = Image.admin_form_fields + (
         'caption',
     )
+
+
+class StreamModel(models.Model):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('image', ImageChooserBlock()),
+    ])
