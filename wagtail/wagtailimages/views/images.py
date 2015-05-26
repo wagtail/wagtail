@@ -50,7 +50,7 @@ def index(request):
         form = SearchForm(placeholder=_("Search images"))
 
     # Pagination
-    p = request.GET.get('p', 1)
+    p = request.GET.get('page', 1)
     paginator = Paginator(images, 20)
 
     try:
@@ -260,7 +260,7 @@ def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     # Pagination
-    p = request.GET.get('p', 1)
+    p = request.GET.get('page', 1)
     paginator = Paginator(image.get_usage(), 20)
 
     try:

@@ -95,7 +95,7 @@ def list(request, content_type_app_name, content_type_model_name):
     items = model.objects.all()
 
     # Pagination
-    p = request.GET.get('p', 1)
+    p = request.GET.get('page', 1)
     paginator = Paginator(items, 20)
 
     try:

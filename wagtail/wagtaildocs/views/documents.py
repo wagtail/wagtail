@@ -47,7 +47,7 @@ def index(request):
         form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
-    p = request.GET.get('p', 1)
+    p = request.GET.get('page', 1)
     paginator = Paginator(documents, 20)
 
     try:

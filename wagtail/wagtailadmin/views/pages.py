@@ -49,10 +49,10 @@ def index(request, parent_page_id=None):
             ordering_no_minus = ordering[1:]
         pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
 
-        p = request.GET.get('p', 1)
+        page_number = request.GET.get('page', 1)
         paginator = Paginator(pages, 50)
         try:
-            pages = paginator.page(p)
+            pages = paginator.page(page_number)
         except PageNotAnInteger:
             pages = paginator.page(1)
         except EmptyPage:
@@ -92,8 +92,6 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     except ContentType.DoesNotExist:
         raise Http404
 
-    p = request.GET.get("p", 1)
-
     page_class = content_type.model_class()
 
     # page_class must be a Page type and not some other random model
@@ -102,10 +100,10 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
 
     pages = page_class.objects.all()
 
+    page_number = request.GET.get('page', 1)
     paginator = Paginator(pages, 10)
-
     try:
-        pages = paginator.page(p)
+        pages = paginator.page(page_number)
     except PageNotAnInteger:
         pages = paginator.page(1)
     except EmptyPage:
@@ -681,23 +679,21 @@ def get_page_edit_handler(page_class):
 
 @vary_on_headers('X-Requested-With')
 def search(request):
-    pages = []
-    q = None
-    is_searching = False
+    pages = Page.objects.none()
+    search_query = None
+
     if 'q' in request.GET:
         form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data['q']
 
-            # page number
-            p = request.GET.get("p", 1)
-            is_searching = True
-            pages = Page.search(q, show_unpublished=True, search_title_only=True, prefetch_related=['content_type'])
+        if form.is_valid():
+            search_query = form.cleaned_data['q']
+            pages = Page.objects.all().prefetch_related('content_type').search(search_query, fields=['title'])
 
             # Pagination
+            page_number = request.GET.get('page', 1)
             paginator = Paginator(pages, 20)
             try:
-                pages = paginator.page(p)
+                pages = paginator.page(page_number)
             except PageNotAnInteger:
                 pages = paginator.page(1)
             except EmptyPage:
@@ -708,15 +704,15 @@ def search(request):
     if request.is_ajax():
         return render(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
-            'is_searching': is_searching,
-            'query_string': q,
+            'is_searching': search_query is not None,
+            'query_string': search_query,
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
-            'is_searching': is_searching,
-            'query_string': q,
+            'is_searching': search_query is not None,
+            'query_string': search_query,
         })
 
 

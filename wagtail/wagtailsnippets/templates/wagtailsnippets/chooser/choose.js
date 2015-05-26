@@ -19,7 +19,7 @@ function initModal(modal) {
 
         $.ajax({
             url: listingUrl,
-            data: { p: page },
+            data: { page: page },
             dataType: 'html',
             success: function(data, status, xhr) {
                 var response = eval('(' + data + ')');

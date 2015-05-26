@@ -44,13 +44,13 @@ def chooser(request):
         uploadform = None
 
     q = None
-    if 'q' in request.GET or 'p' in request.GET:
+    if 'q' in request.GET or 'page' in request.GET:
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
             # page number
-            p = request.GET.get("p", 1)
+            p = request.GET.get('page', 1)
 
             images = Image.search(q, results_per_page=10, page=p)
 
@@ -58,7 +58,7 @@ def chooser(request):
 
         else:
             images = Image.objects.order_by('-created_at')
-            p = request.GET.get("p", 1)
+            p = request.GET.get('page', 1)
             paginator = Paginator(images, 10)
 
             try:
@@ -80,7 +80,7 @@ def chooser(request):
         searchform = SearchForm()
 
         images = Image.objects.order_by('-created_at')
-        p = request.GET.get("p", 1)
+        p = request.GET.get('page', 1)
         paginator = Paginator(images, 10)
 
         try:
