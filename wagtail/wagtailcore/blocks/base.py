@@ -164,12 +164,10 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         Validate value and return a cleaned version of it, or throw a ValidationError if validation fails.
         The thrown ValidationError instance will subsequently be passed to render() to display the
-        error message; nested blocks therefore need to wrap child validations like this:
-        https://docs.djangoproject.com/en/dev/ref/forms/validation/#raising-multiple-errors
-
-        NB The ValidationError must have an error_list property (which can be achieved by passing a
-        list or an individual error message to its constructor), NOT an error_dict -
-        Django has problems nesting ValidationErrors with error_dicts.
+        error message; the ValidationError must therefore include all detail necessary to perform that
+        rendering, such as identifying the specific child block(s) with errors, in the case of nested
+        blocks. (It is suggested that you use the 'params' attribute for this; using error_list /
+        error_dict is unreliable because Django tends to hack around with these when nested.)
         """
         return value
 
