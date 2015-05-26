@@ -8,6 +8,8 @@ Changelog
  * Added Wagtail API, a module for creating a RESTful API for your content
  * MySQL support
  * Django 1.8 support
+ * Removed dependency on libsass (Tim Heap)
+ * Added update notifications
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
  * Menu items of custom apps are now highlighted when being used (Josh Barr)
