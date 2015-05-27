@@ -2,6 +2,84 @@
 Advanced topics
 ===============
 
+.. _custom_image_model:
+
+Custom image model
+==================
+
+The ``Image`` model can be customised, allowing additional fields to be added
+to images.
+
+To do this, you need to add two models to your project:
+
+ - The image model itself that inherits from
+   ``wagtail.wagtailimages.models.AbstractImage``. This is where you would add
+   your additional fields
+ - The renditions model that inherits from
+   ``wagtail.wagtailimages.models.AbstractRendition``. This is used to store
+   renditions for the new model.
+
+Here's an example:
+
+.. code-block:: python
+
+    # models.py
+    from django.db import models
+    from django.db.models.signals import pre_delete
+    from django.dispatch import receiver
+    
+    from wagtail.wagtailimages.models import AbstractImage, AbstractRendition
+
+
+    class CustomImage(AbstractImage):
+        # Add any extra fields to image here
+
+        # eg. To add a caption field:
+        # caption = models.CharField(max_length=255)
+
+
+    class CustomRendition(AbstractRendition):
+        image = models.ForeignKey(CustomImage, related_name='renditions')
+
+        class Meta:
+            unique_together = (
+                ('image', 'filter', 'focal_point_key'),
+            )
+
+
+    # Delete the source image file when an image is deleted
+    @receiver(pre_delete, sender=CustomImage)
+    def image_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+
+    # Delete the rendition image file when a rendition is deleted
+    @receiver(pre_delete, sender=CustomRendition)
+    def rendition_delete(sender, instance, **kwargs):
+        instance.file.delete(False)
+
+.. note::
+
+    If you are using image feature detection, follow these instructions to
+    enable it on your custom image model: :ref:`feature_detection_custom_image_model`
+
+Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
+
+.. code-block:: python
+
+    WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'
+
+
+.. topic:: Migrating from the builtin image model
+
+    When changing an existing site to use a custom image model. No images will
+    be copied to the new model automatically. Copying old images to the new
+    model would need to be done manually with a
+    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+
+    Any templates that reference the builtin image model will still continue to
+    work as before but would need to be updated in order to see any new images.
+
 Animated GIF support
 ====================
 
@@ -100,3 +178,28 @@ You can manually run feature detection on all images by running the following co
         if not image.has_focal_point():
             image.set_focal_point(image.get_suggested_focal_point())
             image.save()
+
+.. _feature_detection_custom_image_model:
+
+Feature detection and custom image models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using a :ref:`custom_image_model`, you need to add a signal handler to
+the model to trigger feature detection whenever a new image is uploaded:
+
+.. code-block:: python
+
+    # Do feature detection when a user saves an image without a focal point
+    @receiver(pre_save, sender=CustomImage)
+    def image_feature_detection(sender, instance, **kwargs):
+        # Make sure the image doesn't already have a focal point
+        if not instance.has_focal_point():
+            # Set the focal point
+            instance.set_focal_point(instance.get_suggested_focal_point())
+
+.. note::
+
+    This example will always run feature detection regardless of whether the
+    ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting is set.
+
+    Add a check for this setting if you still want it to have effect.
