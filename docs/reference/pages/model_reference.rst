@@ -1,55 +1,82 @@
 Page model Reference
 ====================
 
+
+``Page`` Class Reference
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. automodule:: wagtail.wagtailcore.models
+.. autoclass:: Page
 
+    The following Django model fields are provided for all pages and are queryable from ``Page.objects``.
 
-Fields
-------
+    .. attribute:: title
 
-.. glossary::
+        (text)
 
-    ``title`` (text)
+        Human-readable title of the page.
 
-        The title of the page (set in the admin).
+    .. attribute:: slug
 
-    ``slug`` (text)
+        (text)
 
-        The slug of the page (set in the admin). This is used for constructing the page's URL.
+        The slug of the page. This is used for constructing the page's URL.
 
-    ``content_type`` (foreign key)
+        For example: ``http://domain.com/blog/[my-slug]/``
+
+    .. attribute:: content_type
+
+        (foreign key to ``django.contrib.contenttypes.models.ContentType``)
 
         A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this page.
 
-    ``live`` (boolean)
+    .. attribute:: live
+
+        (boolean)
 
         A boolean that is set to ``True`` if the page is published.
 
         Note: this field defaults to ``True`` meaning that any pages that are created programmatically will be published by default.
 
-    ``has_unpublished_changes`` (boolean)
+    .. attribute:: has_unpublished_changes
+
+        (boolean)
 
         A boolean that is set to ``True`` when the page is either in draft or published with draft changes.
 
-    ``owner`` (foreign key)
+    .. attribute:: owner
+
+        (foreign key to user model)
 
         A foreign key to the user that created the page.
 
-    ``first_published_at`` (date/time)
+    .. attribute:: first_published_at
+
+        (date/time)
 
         The date/time when the page was first published.
 
-..    ``seo_title`` (text)
-..    ``show_in_menus`` (boolean)
-..    ``search_description`` (text)
+    .. attribute:: seo_title
 
+        (text)
 
-Other methods, attributes and properties
-----------------------------------------
+        Alternate SEO-crafted title, for use in the page's ``<title>`` HTML tag.
 
-In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
+    .. attribute:: search_description
 
-.. autoclass:: Page
+        (text)
+
+        SEO-crafted description of the content, used for search indexing. This is also suitable for the page's ``<meta name="description">`` HTML tag.
+
+    .. attribute:: show_in_menus
+
+        (boolean)
+
+        Toggles whether the page should be included in site-wide menus.
+
+        This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
+
+    In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
 
     .. autoattribute:: specific
 
@@ -126,46 +153,194 @@ In addition to the model fields provided, ``Page`` has many properties and metho
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
 
-Other models
-------------
+Other core models
+-----------------
 
 ``Site``
 ~~~~~~~~
 
+The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
+
+This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object.
+
 .. autoclass:: Site
+
+    **Database fields:**
+
+    .. attribute:: hostname
+
+        (text)
+
+        This is the hostname of the site, excluding the scheme, port and path.
+
+        For example: ``www.mysite.com``
+
+        .. note::
+
+            If you're looking for how to get the root url of a site, use the :attr:`~Site.root_url` attribute.
+
+    .. attribute:: port
+
+        (number)
+
+        This is the port number that the site responds on.
+
+    .. attribute:: root_page
+
+        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+
+        This is a link to the root page of the site. This page will be what appears at the ``/`` URL on the site and would usually be a homepage.
+
+    .. attribute:: is_default_site
+
+        (boolean)
+
+        This is set to ``True`` if the site is the default. Only one site can be the default.
+
+        The default site is used as a fallback in situations where a site with the required hostname/port couldn't be found.
+
+    **Methods and attributes:**
 
     .. automethod:: find_for_request
 
     .. autoattribute:: root_url
+
+        This returns the URL of the site. It is calculated from the :attr:`~Site.hostname` and the :attr:`~Site.port` fields.
+
+        The scheme part of the URL is calculated based on value of the :attr:`~Site.port` field:
+
+         - 80 = ``http://``
+         - 443 = ``https://``
+         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
 
 ``PageRevision``
 ~~~~~~~~~~~~~~~~
 
+The ``PageRevision`` model contains all the past revisions of a page. Every time a page is created or updated, a new revision is created. Revisions can be created manually by calling the :meth:`~Page.create_revision` method.
+
+Revisions are used by Wagtail for keeping draft changes out of the live database. Every revision has the content of the page serialised and stored in the :attr:`~PageRevision.content_json` field.
+
+It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method.
+
 .. autoclass:: PageRevision
+
+    **Database fields:**
+
+    .. attribute:: page
+
+        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+
+    .. attribute:: submitted_for_moderation
+
+        (boolean)
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        This is the time the revision was created
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        This is the user that created the revision
+
+    .. attribute:: content_json
+
+        (text)
+
+        This field contains the JSON content for the page at the time the revision was created
+
+    **Methods and attributes:**
+
+    .. attribute:: objects
+
+        (manager)
+
+        This manager is used to retrieve all of the ``PageRevision`` objects in the database
+
+        Example:
+
+        .. code-block:: python
+
+            PageRevision.objects.all()
+
+    .. attribute:: submitted_revisions
+
+        (manager)
+
+        This manager is used to retrieve all of the ``PageRevision`` objects that are awaiting moderator approval
+
+        Example:
+
+        .. code-block:: python
+
+            PageRevision.submitted_revisions.all()
 
     .. automethod:: as_page_object
 
+        This method retrieves this revision as an instance of its :class:`~wagtail.wagtailcore.models.Page` subclass.
+
     .. automethod:: approve_moderation
+
+        Calling this on a revision that's in moderation will mark it as approved and publish it
 
     .. automethod:: reject_moderation
 
+        Calling this on a revision that's in moderation will mark it as rejected
+
     .. automethod:: is_latest_revision
 
+        Returns ``True`` if this revision is its page's latest revision
+
     .. automethod:: publish
+
+        Calling this will copy the content of this revision into the live page object. If the page is in draft, it will be published.
 
 ``GroupPagePermission``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: GroupPagePermission
 
+    **Database fields:**
+
+    .. attribute:: group
+
+        (foreign key to ``django.contrib.auth.models.Group``)
+
+    .. attribute:: page
+
+        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+
+    .. attribute:: permission_type
+
+        (choice list)
+
 ``PageViewRestriction``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: PageViewRestriction
 
+    **Database fields:**
+
+    .. attribute:: page
+
+        (foreign key to :class:`~wagtail.wagtailcore.models.Page`)
+
+    .. attribute:: password
+
+        (text)
+
 ``Orderable`` (abstract)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: Orderable
+
+    **Database fields:**
+
+    .. attribute:: sort_order
+
+        (number)

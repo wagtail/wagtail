@@ -47,7 +47,7 @@ Let's look at an example of a panel definition:
       MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     ]
 
-After the ``Page``-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
+After the :class:`~wagtail.wagtailcore.models.Page`-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
 
 Available panel types
 ~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ MultiFieldPanel
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several ``FieldPanel`` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel`` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
@@ -145,7 +145,7 @@ PageChooserPanel
 
 .. class:: PageChooserPanel(field_name, model=None)
 
-    You can explicitly link ``Page``-derived models together using the ``Page`` model and ``PageChooserPanel``.
+    You can explicitly link :class:`~wagtail.wagtailcore.models.Page`-derived models together using the :class:`~wagtail.wagtailcore.models.Page` model and ``PageChooserPanel``.
 
     .. code-block:: python
 
@@ -173,7 +173,7 @@ ImageChooserPanel
 
 .. class:: ImageChooserPanel(field_name)
 
-    Wagtail includes a unified image library, which you can access in your models through the ``Image`` model and the ``ImageChooserPanel`` chooser. Here's how:
+    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.wagtailimages.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
 
     .. code-block:: python
 
@@ -205,7 +205,7 @@ DocumentChooserPanel
 
 .. class:: DocumentChooserPanel(field_name)
 
-    For files in other formats, Wagtail provides a generic file store through the ``Document`` model:
+    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.wagtaildocs.models.Document` model:
 
     .. code-block:: python
 
@@ -257,7 +257,7 @@ SnippetChooserPanel
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into ``FieldPanel()`` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.wagtailadmin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
@@ -273,7 +273,7 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Full-Width Input
 ----------------
 
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a ``MultiFieldPanel``, which places its child fields into a formset.
+Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.wagtailadmin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
 
 
 Titles
@@ -305,7 +305,7 @@ Inline Panels and Model Clusters
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page. For instance, you can create objects related through a ``ForeignKey`` relationship on the fly and save them to a draft revision of a ``Page`` object. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before linking them to a Page.
 
-Let's look at the example of adding related links to a ``Page``-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+Let's look at the example of adding related links to a :class:`~wagtail.wagtailcore.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
 .. code-block:: python
 
@@ -338,7 +338,7 @@ Let's look at the example of adding related links to a ``Page``-derived model. W
       InlinePanel('related_links', label="Related Links"),
     ]
 
-The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an ``InlinePanel`` to provide an interface for it all. Let's look again at the parameters that ``InlinePanel`` accepts:
+The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel` accepts:
 
 .. code-block:: python
 
@@ -348,7 +348,7 @@ The ``relation_name`` is the ``related_name`` label given to the cluster's ``Par
 
 .. versionchanged:: 1.0
 
-    In previous versions, it was necessary to pass the base model as the first parameter to ``InlinePanel``; this is no longer required.
+    In previous versions, it was necessary to pass the base model as the first parameter to :class:`~wagtail.wagtailadmin.edit_handlers.InlinePanel`; this is no longer required.
 
 For another example of using model clusters, see :ref:`tagging`
 
@@ -394,7 +394,7 @@ As standard, Wagtail organises panels into three tabs: 'Content', 'Promote' and 
 Rich Text (HTML)
 ~~~~~~~~~~~~~~~~
 
-Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the ``RichTextField()`` function when defining a model field:
+Wagtail provides a general-purpose WYSIWYG editor for creating rich text content (HTML) and embedding media such as images, video, and documents. To include this in your models, use the :class:`~wagtail.wagtailcore.fields.RichTextField` function when defining a model field:
 
 .. code-block:: python
 
@@ -409,9 +409,9 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
             FieldPanel('body', classname="full"),
         ]
 
-``RichTextField`` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into ``RichTextField`` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
+:class:`~wagtail.wagtailcore.fields.RichTextField` inherits from Django's basic ``TextField`` field, so you can pass any field parameters into :class:`~wagtail.wagtailcore.fields.RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with ``FieldPanel``.
 
-However, template output from ``RichTextField`` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
+However, template output from :class:`~wagtail.wagtailcore.fields.RichTextField` is special and need to be filtered to preserve embedded content. See :ref:`rich-text-filter`.
 
 If you're interested in extending the capabilities of the Wagtail WYSIWYG editor (``hallo.js``), See :ref:`extending_wysiwyg`.
 
@@ -433,7 +433,7 @@ For information on developing custom ``hallo.js`` plugins, see the project's pag
 Image Formats in the Rich Text Editor
 -------------------------------------
 
-On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customise the formatting options shown to the editor when inserting images in the ``RichTextField`` editor.
+On loading, Wagtail will search for any app with the file ``image_formats.py`` and execute the contents. This provides a way to customise the formatting options shown to the editor when inserting images in the :class:`~wagtail.wagtailcore.fields.RichTextField` editor.
 
 As an example, add a "thumbnail" format:
 
@@ -451,7 +451,7 @@ To begin, import the the ``Format`` class, ``register_image_format`` function, a
   The unique key used to identify the format. To unregister this format, call ``unregister_image_format`` with this string as the only argument.
 
 ``label``
-  The label used in the chooser form when inserting the image into the ``RichTextField``.
+  The label used in the chooser form when inserting the image into the :class:`~wagtail.wagtailcore.fields.RichTextField`.
 
 ``classnames``
   The string to assign to the ``class`` attribute of the generated ``<img>`` tag.
