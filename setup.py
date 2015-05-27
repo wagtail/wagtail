@@ -38,7 +38,7 @@ install_requires = [
     "Unidecode>=0.04.14",
     "six>=1.7.0",
     'requests>=2.0.0',
-    "Willow==0.2",
+    "Willow==0.2.1",
 ]
 
 
