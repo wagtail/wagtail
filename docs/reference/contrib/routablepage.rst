@@ -63,7 +63,7 @@ The ``RoutablePageMixin`` class
 
         .. code-block:: python
 
-            view, args, kwargs = page.resolve_subpage('/archive/')
+            view, args, kwargs = page.resolve_subpage('/past/')
             response = view(request, *args, **kwargs)
 
     .. automethod:: reverse_subpage
@@ -72,7 +72,7 @@ The ``RoutablePageMixin`` class
 
         .. code-block:: python
 
-            url = page.url + page.reverse_subpage('archive', kwargs={'year': '2014'})
+            url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
 
 
  .. _routablepageurl_template_tag:
