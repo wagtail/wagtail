@@ -6,8 +6,6 @@ Reference
     :maxdepth: 2
 
     pages/index
-    images/index
-    search/index
     snippets
     form_builder
     contrib/index

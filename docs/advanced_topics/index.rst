@@ -1,5 +1,5 @@
-How to
-======
+Advanced topics
+===============
 
 
 .. toctree::

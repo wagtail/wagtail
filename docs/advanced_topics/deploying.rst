@@ -4,7 +4,7 @@ Deploying Wagtail
 On your server
 ~~~~~~~~~~~~~~
 
-Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </howto/performance>` for the non-Python services we recommend. If you are running Debian or Ubuntu, this installation script for our Vagrant box may be useful:
+Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend. If you are running Debian or Ubuntu, this installation script for our Vagrant box may be useful:
 
 `github.com/torchbox/wagtaildemo/blob/master/etc/install/install.sh <https://github.com/torchbox/wagtaildemo/blob/master/etc/install/install.sh>`_
 

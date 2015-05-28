@@ -36,7 +36,7 @@ Your site is now accessible at ``http://localhost:8000``, with the admin backend
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
- * :doc:`Elasticsearch </howto/performance>`.
+ * :doc:`Elasticsearch </advanced_topics/performance>`.
  * :ref:`image_feature_detection`.
 
 
