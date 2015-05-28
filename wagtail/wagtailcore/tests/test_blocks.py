@@ -454,6 +454,24 @@ class TestStructBlock(unittest.TestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
+    def test_default_is_returned_as_structvalue(self):
+        """When returning the default value of a StructBlock (e.g. because it's
+        a child of another StructBlock, and the outer value is missing that key)
+        we should receive it as a StructValue, not just a plain dict"""
+        class PersonBlock(blocks.StructBlock):
+            first_name = blocks.CharBlock()
+            surname = blocks.CharBlock()
+
+        class EventBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            guest_speaker = PersonBlock(default={'first_name': 'Ed', 'surname': 'Balls'})
+
+        event_block = EventBlock()
+
+        event = event_block.to_python({'title': 'Birthday party'})
+
+        self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
+        self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
 
 
 class TestListBlock(unittest.TestCase):
@@ -638,6 +656,34 @@ class TestListBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
         self.assertEqual(block_value[2], "item 2")
+
+    def test_can_specify_default(self):
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">', form_html)
+        self.assertIn('value="peas"', form_html)
+
+    def test_default_default(self):
+        """
+        if no explicit 'default' is set on the ListBlock, it should fall back on
+        a single instance of the child block in its default state.
+        """
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">', form_html)
+        self.assertIn('value="chocolate"', form_html)
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -919,7 +965,57 @@ class TestStreamBlock(unittest.TestCase):
         content = block.get_searchable_content(value)
 
         self.assertEqual(content, [
-             "My title",
-             "My first paragraph",
-             "My second paragraph",
+            "My title",
+            "My first paragraph",
+            "My second paragraph",
         ])
+
+    def test_meta_default(self):
+        """Test that we can specify a default value in the Meta of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock()
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A default heading')
+
+    def test_constructor_default(self):
+        """Test that we can specify a default value in the constructor of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock(default=[('heading', 'A different default heading')])
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A different default heading')

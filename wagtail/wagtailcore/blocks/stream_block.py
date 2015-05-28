@@ -22,13 +22,8 @@ __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
 
 
 class BaseStreamBlock(Block):
-    # TODO: decide what it means to pass a 'default' arg to StreamBlock's constructor. Logically we want it to be
-    # of type StreamValue, but we can't construct one of those because it needs a reference back to the StreamBlock
-    # that we haven't constructed yet...
     class Meta:
-        @property
-        def default(self):
-            return StreamValue(self, [])
+        default = []
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -42,6 +37,17 @@ class BaseStreamBlock(Block):
                 self.child_blocks[name] = block
 
         self.dependencies = self.child_blocks.values()
+
+    def get_default(self):
+        """
+        Default values set on a StreamBlock should be a list of (type_name, value) tuples -
+        we can't use StreamValue directly, because that would require a reference back to
+        the StreamBlock that hasn't been built yet.
+
+        For consistency, then, we need to convert it to a StreamValue here for StreamBlock
+        to work with.
+        """
+        return StreamValue(self, self.meta.default)
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None):
         """
@@ -65,7 +71,7 @@ class BaseStreamBlock(Block):
                 (
                     self.definition_prefix,
                     name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.meta.default, '__PREFIX__', '')))
+                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
                 )
                 for name, child_block in self.child_blocks.items()
             ]

@@ -28,7 +28,7 @@ class ListBlock(Block):
 
         if not hasattr(self.meta, 'default'):
             # Default to a list consisting of one empty (i.e. default-valued) child item
-            self.meta.default = [self.child_block.meta.default]
+            self.meta.default = [self.child_block.get_default()]
 
         self.dependencies = [self.child_block]
         self.child_js_initializer = self.child_block.js_initializer()
@@ -54,7 +54,7 @@ class ListBlock(Block):
         # this is the output of render_list_member as rendered with the prefix '__PREFIX__'
         # (to be replaced dynamically when adding the new item) and the child block's default value
         # as its value.
-        list_member_html = self.render_list_member(self.child_block.meta.default, '__PREFIX__', '')
+        list_member_html = self.render_list_member(self.child_block.get_default(), '__PREFIX__', '')
 
         return format_html(
             '<script type="text/template" id="{0}-newmember">{1}</script>',
