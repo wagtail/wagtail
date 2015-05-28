@@ -17,7 +17,7 @@ Below are some useful links to help you get started with Wagtail.
   * :doc:`topics/writing_templates`
   * :doc:`topics/images/index`
   * :doc:`topics/search/index`
-  * :doc:`howto/third_party_tutorials`
+  * :doc:`advanced_topics/third_party_tutorials`
 
 
 * **Using Wagtail**
@@ -35,7 +35,7 @@ Index
 
    getting_started/index
    topics/index
-   howto/index
+   advanced_topics/index
    reference/index
    support
    editor_manual/index
