@@ -17,6 +17,7 @@ from .base import Block
 
 
 class FieldBlock(Block):
+    """A block that wraps a Django form field"""
     class Meta:
         default = None
 
@@ -33,11 +34,13 @@ class FieldBlock(Block):
 
         widget_attrs = {'id': prefix, 'placeholder': self.label}
 
+        field_value = self.value_for_form(value)
+
         if hasattr(widget, 'render_with_errors'):
-            widget_html = widget.render_with_errors(prefix, value, attrs=widget_attrs, errors=errors)
+            widget_html = widget.render_with_errors(prefix, field_value, attrs=widget_attrs, errors=errors)
             widget_has_rendered_errors = True
         else:
-            widget_html = widget.render(prefix, value, attrs=widget_attrs)
+            widget_html = widget.render(prefix, field_value, attrs=widget_attrs)
             widget_has_rendered_errors = False
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
@@ -50,11 +53,34 @@ class FieldBlock(Block):
             'errors': errors if (not widget_has_rendered_errors) else None
         })
 
+    def value_from_form(self, value):
+        """
+        The value that we get back from the form field might not be the type
+        that this block works with natively; for example, the block may want to
+        wrap a simple value such as a string in an object that provides a fancy
+        HTML rendering (e.g. EmbedBlock).
+
+        We therefore provide this method to perform any necessary conversion
+        from the form field value to the block's native value. As standard,
+        this returns the form field value unchanged.
+        """
+        return value
+
+    def value_for_form(self, value):
+        """
+        Reverse of value_from_form; convert a value of this block's native value type
+        to one that can be rendered by the form field
+        """
+        return value
+
     def value_from_datadict(self, data, files, prefix):
-        return self.to_python(self.field.widget.value_from_datadict(data, files, prefix))
+        return self.value_from_form(self.field.widget.value_from_datadict(data, files, prefix))
 
     def clean(self, value):
-        return self.field.clean(value)
+        # We need an annoying value_for_form -> value_from_form round trip here to account for
+        # the possibility that the form field is set up to validate a different value type to
+        # the one this block works with natively
+        return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
 
 class CharBlock(FieldBlock):
@@ -248,7 +274,8 @@ class ChooserBlock(FieldBlock):
         return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget, required=self.required)
 
     def to_python(self, value):
-        if value is None or isinstance(value, self.target_model):
+        # the incoming serialised value should be None or an ID
+        if value is None:
             return value
         else:
             try:
@@ -257,10 +284,21 @@ class ChooserBlock(FieldBlock):
                 return None
 
     def get_prep_value(self, value):
-        if isinstance(value, self.target_model):
-            return value.id
+        # the native value (a model instance or None) should serialise to an ID or None
+        if value is None:
+            return None
         else:
+            return value.id
+
+    def value_from_form(self, value):
+        # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
+        if value is None or isinstance(value, self.target_model):
             return value
+        else:
+            try:
+                return self.target_model.objects.get(pk=value)
+            except self.target_model.DoesNotExist:
+                return None
 
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
@@ -273,6 +311,7 @@ class ChooserBlock(FieldBlock):
         if isinstance(value, self.target_model):
             value = value.pk
         return super(ChooserBlock, self).clean(value)
+
 
 class PageChooserBlock(ChooserBlock):
     @cached_property

@@ -3,8 +3,12 @@ import unittest
 from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
+from django.test import TestCase
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.models import Page
+
+import base64
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -80,6 +84,26 @@ class TestFieldBlock(unittest.TestCase):
         content = block.get_searchable_content("choice-1")
 
         self.assertEqual(content, ["Choice 1"])
+
+    def test_form_handling_is_independent_of_serialisation(self):
+        class Base64EncodingCharBlock(blocks.CharBlock):
+            """A CharBlock with a deliberately perverse JSON (de)serialisation format
+            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't"""
+
+            def to_python(self, jsonish_value):
+                # decode as base64 on the way out of the JSON serialisation
+                return base64.b64decode(jsonish_value)
+
+            def get_prep_value(self, native_value):
+                # encode as base64 on the way into the JSON serialisation
+                return base64.b64encode(native_value)
+
+        block = Base64EncodingCharBlock()
+        form_html = block.render_form('hello world', 'title')
+        self.assertIn('value="hello world"', form_html)
+
+        value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
+        self.assertEqual('hello world', value_from_form)
 
 
 class TestChoiceBlock(unittest.TestCase):
@@ -1019,3 +1043,60 @@ class TestStreamBlock(unittest.TestCase):
         self.assertEqual(len(stream_value), 1)
         self.assertEqual(stream_value[0].block_type, 'heading')
         self.assertEqual(stream_value[0].value, 'A different default heading')
+
+
+class TestPageChooserBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_serialize(self):
+        """The value of a PageChooserBlock (a Page object) should serialize to an ID"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.get_prep_value(christmas_page), christmas_page.id)
+
+        # None should serialize to None
+        self.assertEqual(block.get_prep_value(None), None)
+
+    def test_deserialize(self):
+        """The serialized value of a PageChooserBlock (an ID) should deserialize to a Page object"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.to_python(christmas_page.id), christmas_page)
+
+        # None should deserialize to None
+        self.assertEqual(block.to_python(None), None)
+
+    def test_form_render(self):
+        block = blocks.PageChooserBlock()
+
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+
+        christmas_page = Page.objects.get(slug='christmas')
+        christmas_form_html = block.render_form(christmas_page, 'page')
+        expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
+        self.assertIn(expected_html, christmas_form_html)
+
+    def test_form_response(self):
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        value = block.value_from_datadict({'page': str(christmas_page.id)}, {}, 'page')
+        self.assertEqual(value, christmas_page)
+
+        empty_value = block.value_from_datadict({'page': ''}, {}, 'page')
+        self.assertEqual(empty_value, None)
+
+    def test_clean(self):
+        required_block = blocks.PageChooserBlock()
+        nonrequired_block = blocks.PageChooserBlock(required=False)
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(required_block.clean(christmas_page), christmas_page)
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
+
+        self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
+        self.assertEqual(nonrequired_block.clean(None), None)
