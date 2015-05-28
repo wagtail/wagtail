@@ -48,8 +48,6 @@ Location: ``/Vagrantfile`` and ``/vagrant/``
 
 If you have Vagrant installed, these files let you easily setup a development environment with PostgreSQL and Elasticsearch inside a virtual machine.
 
-See :doc:`../getting_started/using_vagrant` for info on how to use Vagrant in development
-
 If you do not want to use Vagrant, you can just delete these files.
 
 

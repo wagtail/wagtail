@@ -44,7 +44,7 @@ Middleware (``settings.py``)
 Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
 
 ``SiteMiddleware``
-  Wagtail routes pre-defined hosts to pages within the Wagtail tree using this middleware. For configuring sites, see :ref:`wagtail_site_admin`.
+  Wagtail routes pre-defined hosts to pages within the Wagtail tree using this middleware.
 
 ``RedirectMiddleware``
   Wagtail provides a simple interface for adding arbitrary redirects to your site and this module makes it happen.

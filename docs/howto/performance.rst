@@ -33,6 +33,23 @@ Search
 
 Wagtail has strong support for `Elasticsearch <http://www.elasticsearch.org/>`_ - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like `Searchly <http://www.searchly.com/>`_.
 
+Once the Elasticsearch server is installed and running. Install the ``elasticsearch`` Python module with::
+
+    pip install elasticsearch
+
+then add the following to your settings::
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+            'INDEX': '{{ project_name }}',
+        },
+    }
+
+Once Elasticsearch is configured, you can index any existing content you may have::
+
+    ./manage.py update_index
+
 
 Database
 --------

@@ -8,10 +8,8 @@ Below are some useful links to help you get started with Wagtail.
 
 * **First steps**
 
+  * :doc:`getting_started/index`
   * :doc:`getting_started/demo_site`
-  * :doc:`getting_started/installation`
-  * :doc:`getting_started/creating_your_project`
-
 
 * **Creating your Wagtail site**
 
