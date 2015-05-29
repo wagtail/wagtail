@@ -1,14 +1,17 @@
-Page model Reference
-====================
-
-
-``Page`` Class Reference
-~~~~~~~~~~~~~~~~~~~~~~~~
+Model Reference
+===============
 
 .. automodule:: wagtail.wagtailcore.models
+
+This document contains reference information for the model classes inside the ``wagtailcore`` module.
+
+
+``Page``
+~~~~~~~~
+
 .. autoclass:: Page
 
-    The following Django model fields are provided for all pages and are queryable from ``Page.objects``.
+    **Database fields:**
 
     .. attribute:: title
 
@@ -20,7 +23,7 @@ Page model Reference
 
         (text)
 
-        The slug of the page. This is used for constructing the page's URL.
+        This is used for constructing the page's URL.
 
         For example: ``http://domain.com/blog/[my-slug]/``
 
@@ -85,12 +88,6 @@ Page model Reference
     .. autoattribute:: url
 
     .. autoattribute:: full_url
-    
-    .. automethod:: get_verbose_name
-
-    .. automethod:: relative_url
-
-    .. automethod:: is_navigable
 
     .. automethod:: route
 
@@ -109,8 +106,6 @@ Page model Reference
     .. automethod:: get_descendants
 
     .. automethod:: get_siblings
-
-    .. automethod:: search
 
     .. attribute:: search_fields
         
@@ -152,9 +147,6 @@ Page model Reference
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
-
-Other core models
------------------
 
 ``Site``
 ~~~~~~~~
@@ -218,11 +210,12 @@ This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMi
 ``PageRevision``
 ~~~~~~~~~~~~~~~~
 
-The ``PageRevision`` model contains all the past revisions of a page. Every time a page is created or updated, a new revision is created. Revisions can be created manually by calling the :meth:`~Page.create_revision` method.
+Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
-Revisions are used by Wagtail for keeping draft changes out of the live database. Every revision has the content of the page serialised and stored in the :attr:`~PageRevision.content_json` field.
+ - Revisions can be created from any class:`~wagtail.wagtailcore.models.Page` object calling its :meth:`~Page.create_revision` method
+ - The content of the class:`~wagtail.wagtailcore.models.Page` is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
+ - You can retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
-It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method.
 
 .. autoclass:: PageRevision
 
@@ -236,6 +229,8 @@ It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.
 
         (boolean)
 
+        ``True`` if this revision is in moderation
+
     .. attribute:: created_at
 
         (date/time)
@@ -246,7 +241,7 @@ It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.
 
         (foreign key to user model)
 
-        This is the user that created the revision
+        This links to the user that created the revision
 
     .. attribute:: content_json
 
@@ -254,11 +249,9 @@ It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.
 
         This field contains the JSON content for the page at the time the revision was created
 
-    **Methods and attributes:**
+    **Managers:**
 
     .. attribute:: objects
-
-        (manager)
 
         This manager is used to retrieve all of the ``PageRevision`` objects in the database
 
@@ -270,8 +263,6 @@ It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.
 
     .. attribute:: submitted_revisions
 
-        (manager)
-
         This manager is used to retrieve all of the ``PageRevision`` objects that are awaiting moderator approval
 
         Example:
@@ -279,6 +270,8 @@ It is possible to retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.
         .. code-block:: python
 
             PageRevision.submitted_revisions.all()
+
+    **Methods and attributes:**
 
     .. automethod:: as_page_object
 
