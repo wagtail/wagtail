@@ -28,7 +28,7 @@ Here's an example:
     from django.db.models.signals import pre_delete
     from django.dispatch import receiver
     
-    from wagtail.wagtailimages.models import AbstractImage, AbstractRendition
+    from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 
     class CustomImage(AbstractImage):
@@ -36,6 +36,11 @@ Here's an example:
 
         # eg. To add a caption field:
         # caption = models.CharField(max_length=255)
+
+        admin_form_fields = Image.admin_form_fields + (
+            # Then add the field names here to make them appear in the form:
+            # 'caption',
+        )
 
 
     class CustomRendition(AbstractRendition):
