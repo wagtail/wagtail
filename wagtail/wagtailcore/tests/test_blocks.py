@@ -497,6 +497,21 @@ class TestStructBlock(unittest.TestCase):
         self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
         self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
 
+    def test_clean(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'http://www.torchbox.com/'})
+        clean_value = block.clean(value)
+        self.assertTrue(isinstance(clean_value, blocks.StructValue))
+        self.assertEqual(clean_value['title'], 'Torchbox')
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
+
 
 class TestListBlock(unittest.TestCase):
     def test_initialise_with_class(self):

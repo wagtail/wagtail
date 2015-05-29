@@ -94,11 +94,11 @@ class BaseStructBlock(Block):
         ])
 
     def clean(self, value):
-        result = {}
+        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
-                result[name] = self.child_blocks[name].clean(val)
+                result.append((name, self.child_blocks[name].clean(val)))
             except ValidationError as e:
                 errors[name] = ErrorList([e])
 
@@ -107,7 +107,7 @@ class BaseStructBlock(Block):
             # and delegate the errors contained in the 'params' dict to the child blocks instead
             raise ValidationError('Validation error in StructBlock', params=errors)
 
-        return result
+        return StructValue(self, result)
 
     def to_python(self, value):
         # recursively call to_python on children and return as a StructValue
