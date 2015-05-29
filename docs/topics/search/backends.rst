@@ -7,13 +7,45 @@ Backends
 
 Wagtailsearch has support for multiple backends giving you the choice between using the database for search or an external service such as Elasticsearch.
 
-You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setting.
+You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setting:
 
+.. code-block:: python
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+      }
+  }
+
+
+``AUTO_UPDATE``
+===============
+
+By default, Wagtail will automatically keep all indexes up to date. This could impact performance when editing content, especially if your index is hosted on an external service.
+
+The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
+
+.. code-block:: python
+
+  WAGTAILSEARCH_BACKENDS = {
+      'default': {
+          'BACKEND': ...,
+          'AUTO_UPDATE': False,
+      }
+  }
+
+If you have disabled auto update, you must run the :ref:`update_index` command on a regular basis to keep the index in sync with the database.
+
+
+``BACKEND``
+===========
+
+Here's a list of backends that Wagtail supports out of the box.
 
 .. _wagtailsearch_backends_database:
 
 Database Backend (default)
-==========================
+--------------------------
 
 ``wagtail.wagtailsearch.backends.db.DBSearch``
 
@@ -29,7 +61,7 @@ If any of these features are important to you, we recommend using Elasticsearch 
 
 
 Elasticsearch Backend
-=====================
+---------------------
 
 ``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
 
@@ -71,6 +103,6 @@ If you prefer not to run an Elasticsearch server in development or production, t
 
 
 Rolling Your Own
-================
+----------------
 
 Wagtail search backends implement the interface defined in ``wagtail/wagtail/wagtailsearch/backends/base.py``. At a minimum, the backend's ``search()`` method must return a collection of objects or ``model.objects.none()``. For a fully-featured search backend, examine the Elasticsearch backend code in ``elasticsearch.py``.
