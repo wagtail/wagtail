@@ -15,4 +15,3 @@ The presentation of your content, the actual webpages, includes the normal use o
     editing_api
     model_reference
     queryset_reference
-    advanced_topics/privacy

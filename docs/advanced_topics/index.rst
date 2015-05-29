@@ -9,5 +9,6 @@ Advanced topics
     deploying
     performance
     multilingual_sites
+    privacy
     customisation/index
     third_party_tutorials
