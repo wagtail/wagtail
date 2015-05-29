@@ -1,7 +1,6 @@
 
 .. _wagtailsearch_indexing:
 
-
 ========
 Indexing
 ========
@@ -111,6 +110,8 @@ Options
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
 
+
+.. _wagtailsearch_indexing_callable_fields:
 
 Indexing callables and other attributes
 ---------------------------------------

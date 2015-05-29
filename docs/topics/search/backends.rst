@@ -5,24 +5,38 @@
 Backends
 ========
 
+Wagtailsearch has support for multiple backends giving you the choice between using the database for search or an external service such as Elasticsearch.
 
-Wagtail can degrade to a database-backed text search, but we strongly recommend `Elasticsearch`_.
-
-.. _Elasticsearch: http://www.elasticsearch.org/
+You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setting.
 
 
 .. _wagtailsearch_backends_database:
 
-Database Backend
-================
+Database Backend (default)
+==========================
 
-The default DB search backend uses Django's ``__icontains`` filter.
+``wagtail.wagtailsearch.backends.db.DBSearch``
+
+The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance making it not very useful when searching a large amount of pages.
+
+It also doesn't support:
+
+ - Searching on fields in subclasses of ``Page`` (unless the class is being searched directly)
+ - :ref:`wagtailsearch_indexing_callable_fields`
+ - Converting accented characters to ASCII
+
+If any of these features are important to you, we recommend using Elasticsearch instead.
 
 
 Elasticsearch Backend
 =====================
 
-Prerequisites are the Elasticsearch service itself and, via pip, the `elasticsearch-py`_ package:
+``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
+
+Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
+
+.. _Elasticsearch: https://www.elastic.co/products/elasticsearch
+
 
 .. code-block:: guess
 
