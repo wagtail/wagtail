@@ -163,8 +163,8 @@ Callables also provide a way to index fields from related models. In the example
 
 .. _wagtailsearch_indexing_models:
 
-Indexing non-page models
-========================
+Indexing custom models
+======================
 
 Any Django model can be indexed and searched.
 
