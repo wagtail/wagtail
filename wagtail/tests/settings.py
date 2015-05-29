@@ -150,6 +150,7 @@ try:
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
         'TIMEOUT': 10,
         'max_retries': 1,
+        'AUTO_UPDATE': False,
     }
 
     if 'ELASTICSEARCH_URL' in os.environ:
