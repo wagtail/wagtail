@@ -119,6 +119,7 @@ Search
 ------
 
  * Search view accepts "page" GET parameter in line with pagination
+ * Added ``AUTO_UPDATE`` flag to search backend settings to enable/disable automatically updating the search index on model changes
 
 
 Routable pages
