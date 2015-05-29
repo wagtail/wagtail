@@ -9,7 +9,7 @@ from django.core import management
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.search import models
-from wagtail.wagtailsearch.backends import get_search_backend, InvalidSearchBackendError
+from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends, InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch
 
 
@@ -132,9 +132,11 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
 
 
-@override_settings(WAGTAILSEARCH_BACKENDS={
-    'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
-})
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
+    }
+)
 class TestBackendLoader(TestCase):
     def test_import_by_name(self):
         db = get_search_backend(backend='default')
@@ -149,3 +151,56 @@ class TestBackendLoader(TestCase):
 
     def test_invalid_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")
+
+    def test_get_search_backends(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)
+        self.assertIsInstance(backends[0], DBSearch)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+            },
+            'another-backend': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+            },
+        }
+    )
+    def test_get_search_backends_multiple(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 2)
+
+    def test_get_search_backends_with_auto_update(self):
+        backends = list(get_search_backends(with_auto_update=True))
+
+        # Auto update is the default
+        self.assertEqual(len(backends), 1)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'AUTO_UPDATE': False,
+            },
+        }
+    )
+    def test_get_search_backends_with_auto_update_disabled(self):
+        backends = list(get_search_backends(with_auto_update=True))
+
+        self.assertEqual(len(backends), 0)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'AUTO_UPDATE': False,
+            },
+        }
+    )
+    def test_get_search_backends_without_auto_update_disabled(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)
