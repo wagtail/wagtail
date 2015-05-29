@@ -18,6 +18,8 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
   }
 
 
+.. _wagtailsearch_backends_auto_update:
+
 ``AUTO_UPDATE``
 ===============
 
