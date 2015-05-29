@@ -402,3 +402,40 @@ body.explorer-open {
         }
     }
 }
+
+/* Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback */
+@media all and (-ms-high-contrast: none), 
+       all and (-ms-high-contrast: active) {
+    .wrapper{
+        @include transition(left 0.2s ease);
+        left:0px;
+    }
+    body.nav-open{
+        .wrapper{
+            @include transform(none);
+            left:$menu-width;
+            position:relative        
+        }
+    }
+    body.explorer-open {
+        .wrapper{
+            @include transform(none);
+            left:$menu-width*2;
+        }
+        .nav-wrapper{
+            width: $menu-width*2;
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none), 
+       all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active){
+    body.explorer-open{
+        .wrapper {
+            left:0px;
+        }
+        .nav-wrapper{
+            width:$menu-width;
+        }
+    }
+}
