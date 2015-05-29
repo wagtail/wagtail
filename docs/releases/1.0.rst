@@ -159,6 +159,16 @@ It is no longer necessary to pass the base model as a parameter, so this declara
 
 The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
 
+Custom image models should now set the ``admin_form_fields`` attribute
+----------------------------------------------------------------------
+
+Django 1.8 now requires that all the fields in a ``ModelForm`` must be defined in its ``Meta.fields`` attribute.
+
+As Wagtail uses Django's ``ModelForm`` for creating image model forms, we've added a new attribute called ``admin_form_fields``
+that should be set to a ``tuple`` of field names on the image model.
+
+See :ref:`custom_image_model` for an example.
+
 You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
