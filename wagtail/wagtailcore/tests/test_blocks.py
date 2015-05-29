@@ -3,8 +3,12 @@ import unittest
 from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
+from django.test import TestCase
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.models import Page
+
+import base64
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -80,6 +84,26 @@ class TestFieldBlock(unittest.TestCase):
         content = block.get_searchable_content("choice-1")
 
         self.assertEqual(content, ["Choice 1"])
+
+    def test_form_handling_is_independent_of_serialisation(self):
+        class Base64EncodingCharBlock(blocks.CharBlock):
+            """A CharBlock with a deliberately perverse JSON (de)serialisation format
+            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't"""
+
+            def to_python(self, jsonish_value):
+                # decode as base64 on the way out of the JSON serialisation
+                return base64.b64decode(jsonish_value)
+
+            def get_prep_value(self, native_value):
+                # encode as base64 on the way into the JSON serialisation
+                return base64.b64encode(native_value)
+
+        block = Base64EncodingCharBlock()
+        form_html = block.render_form('hello world', 'title')
+        self.assertIn('value="hello world"', form_html)
+
+        value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
+        self.assertEqual('hello world', value_from_form)
 
 
 class TestChoiceBlock(unittest.TestCase):
@@ -454,6 +478,24 @@ class TestStructBlock(unittest.TestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
+    def test_default_is_returned_as_structvalue(self):
+        """When returning the default value of a StructBlock (e.g. because it's
+        a child of another StructBlock, and the outer value is missing that key)
+        we should receive it as a StructValue, not just a plain dict"""
+        class PersonBlock(blocks.StructBlock):
+            first_name = blocks.CharBlock()
+            surname = blocks.CharBlock()
+
+        class EventBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            guest_speaker = PersonBlock(default={'first_name': 'Ed', 'surname': 'Balls'})
+
+        event_block = EventBlock()
+
+        event = event_block.to_python({'title': 'Birthday party'})
+
+        self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
+        self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
 
 
 class TestListBlock(unittest.TestCase):
@@ -638,6 +680,34 @@ class TestListBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
         self.assertEqual(block_value[2], "item 2")
+
+    def test_can_specify_default(self):
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">', form_html)
+        self.assertIn('value="peas"', form_html)
+
+    def test_default_default(self):
+        """
+        if no explicit 'default' is set on the ListBlock, it should fall back on
+        a single instance of the child block in its default state.
+        """
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">', form_html)
+        self.assertIn('value="chocolate"', form_html)
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -919,7 +989,114 @@ class TestStreamBlock(unittest.TestCase):
         content = block.get_searchable_content(value)
 
         self.assertEqual(content, [
-             "My title",
-             "My first paragraph",
-             "My second paragraph",
+            "My title",
+            "My first paragraph",
+            "My second paragraph",
         ])
+
+    def test_meta_default(self):
+        """Test that we can specify a default value in the Meta of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock()
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A default heading')
+
+    def test_constructor_default(self):
+        """Test that we can specify a default value in the constructor of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock(default=[('heading', 'A different default heading')])
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A different default heading')
+
+
+class TestPageChooserBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_serialize(self):
+        """The value of a PageChooserBlock (a Page object) should serialize to an ID"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.get_prep_value(christmas_page), christmas_page.id)
+
+        # None should serialize to None
+        self.assertEqual(block.get_prep_value(None), None)
+
+    def test_deserialize(self):
+        """The serialized value of a PageChooserBlock (an ID) should deserialize to a Page object"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.to_python(christmas_page.id), christmas_page)
+
+        # None should deserialize to None
+        self.assertEqual(block.to_python(None), None)
+
+    def test_form_render(self):
+        block = blocks.PageChooserBlock()
+
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+
+        christmas_page = Page.objects.get(slug='christmas')
+        christmas_form_html = block.render_form(christmas_page, 'page')
+        expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
+        self.assertIn(expected_html, christmas_form_html)
+
+    def test_form_response(self):
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        value = block.value_from_datadict({'page': str(christmas_page.id)}, {}, 'page')
+        self.assertEqual(value, christmas_page)
+
+        empty_value = block.value_from_datadict({'page': ''}, {}, 'page')
+        self.assertEqual(empty_value, None)
+
+    def test_clean(self):
+        required_block = blocks.PageChooserBlock()
+        nonrequired_block = blocks.PageChooserBlock(required=False)
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(required_block.clean(christmas_page), christmas_page)
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
+
+        self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
+        self.assertEqual(nonrequired_block.clean(None), None)

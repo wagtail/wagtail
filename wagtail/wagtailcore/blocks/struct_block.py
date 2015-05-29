@@ -42,6 +42,14 @@ class BaseStructBlock(Block):
 
         self.dependencies = self.child_blocks.values()
 
+    def get_default(self):
+        """
+        Any default value passed in the constructor or self.meta is going to be a dict
+        rather than a StructValue; for consistency, we need to convert it to a StructValue
+        for StructBlock to work with
+        """
+        return StructValue(self, self.meta.default.items())
+
     def js_initializer(self):
         # skip JS setup entirely if no children have js_initializers
         if not self.child_js_initializers:
@@ -64,7 +72,7 @@ class BaseStructBlock(Block):
             error_dict = {}
 
         child_renderings = [
-            block.render_form(value.get(name, block.meta.default), prefix="%s-%s" % (prefix, name),
+            block.render_form(value.get(name, block.get_default()), prefix="%s-%s" % (prefix, name),
                 errors=error_dict.get(name))
             for name, block in self.child_blocks.items()
         ]
@@ -106,7 +114,9 @@ class BaseStructBlock(Block):
         return StructValue(self, [
             (
                 name,
-                child_block.to_python(value.get(name, child_block.meta.default))
+                (child_block.to_python(value[name]) if name in value else child_block.get_default())
+                # NB the result of get_default is NOT passed through to_python, as it's expected
+                # to be in the block's native type already
             )
             for name, child_block in self.child_blocks.items()
         ])
@@ -122,7 +132,7 @@ class BaseStructBlock(Block):
         content = []
 
         for name, block in self.child_blocks.items():
-            content.extend(block.get_searchable_content(value.get(name, block.meta.default)))
+            content.extend(block.get_searchable_content(value.get(name, block.get_default())))
 
         return content
 
