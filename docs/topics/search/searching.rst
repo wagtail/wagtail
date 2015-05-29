@@ -36,14 +36,13 @@ All methods of ``PageQuerySet`` are supported by ``wagtailsearch``:
 An example page search view
 ===========================
 
-You can add a "Search" page to your site using a Django view. Here's an example that you can use:
+Here's an example Django view that could be used to add a "search" page to your site:
 
 .. code-block:: python
 
     # views.py
 
     from django.shortcuts import render
-    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
     from wagtail.wagtailcore.models import Page
     from wagtail.wagtailsearch.models import Query
@@ -59,16 +58,6 @@ You can add a "Search" page to your site using a Django view. Here's an example 
             Query.get(search_query).add_hit()
         else:
             search_results = Page.objects.none()
-
-        # Pagination
-        page = request.GET.get('page', 1)
-        paginator = Paginator(search_results, 10)
-        try:
-            search_results = paginator.page(page)
-        except PageNotAnInteger:
-            search_results = paginator.page(1)
-        except EmptyPage:
-            search_results = paginator.page(paginator.num_pages)
 
         # Render template
         return render(request, 'search_results.html', {
@@ -103,14 +92,6 @@ And here's a template to go with it:
                     </li>
                 {% endfor %}
             </ul>
-
-            {% if search_results.has_previous %}
-                <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-            {% endif %}
-
-            {% if search_results.has_next %}
-                <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-            {% endif %}
         {% elif search_query %}
             No results found
         {% else %}
