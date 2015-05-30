@@ -9,5 +9,5 @@ Advanced topics
     deploying
     performance
     multilingual_sites
-    custom_branding
+    customisation/index
     third_party_tutorials
