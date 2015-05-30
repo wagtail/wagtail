@@ -106,6 +106,23 @@ class TestFieldBlock(unittest.TestCase):
         self.assertEqual('hello world', value_from_form)
 
 
+class TestRichTextBlock(unittest.TestCase):
+
+    def test_validate_required_richtext_block(self):
+        block = blocks.RichTextBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean('')
+
+        with self.assertRaises(ValidationError):
+            block.clean(None)
+
+    def test_validate_non_required_richtext_block(self):
+        block = blocks.RichTextBlock(required=False)
+        self.assertEqual(block.clean(''), '')
+        self.assertEqual(block.clean(None), '')
+
+
 class TestChoiceBlock(unittest.TestCase):
     def setUp(self):
         from django.db.models.fields import BLANK_CHOICE_DASH
