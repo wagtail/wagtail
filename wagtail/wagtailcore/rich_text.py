@@ -1,6 +1,7 @@
 import re  # parsing HTML with regexes LIKE A BOSS.
 
 from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailcore.whitelist import Whitelister
 from wagtail.wagtailcore.models import Page
@@ -170,3 +171,17 @@ def expand_db_html(html, for_editor=False):
     html = FIND_A_TAG.sub(replace_a_tag, html)
     html = FIND_EMBED_TAG.sub(replace_embed_tag, html)
     return html
+
+
+class RichText(object):
+    """
+    A custom object used to represent a renderable rich text value.
+    Provides a 'source' property to access the original source code,
+    and renders to the front-end HTML rendering.
+    Used as the native value of a wagtailcore.blocks.field_block.RichTextBlock.
+    """
+    def __init__(self, source):
+        self.source = (source or '')
+
+    def __str__(self):
+        return mark_safe('<div class="rich-text">' + expand_db_html(self.source) + '</div>')

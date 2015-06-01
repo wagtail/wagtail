@@ -6,7 +6,8 @@ from wagtail.wagtailcore.rich_text import (
     PageLinkHandler,
     DbWhitelister,
     extract_attrs,
-    expand_db_html
+    expand_db_html,
+    RichText
 )
 from bs4 import BeautifulSoup
 
@@ -115,3 +116,22 @@ class TestExpandDbHtml(TestCase):
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)
         self.assertIn('test html', result)
+
+
+class TestRichTextValue(TestCase):
+    fixtures = ['test.json']
+
+    def test_construct(self):
+        value = RichText(None)
+        self.assertEqual(value.source, '')
+
+        value = RichText('')
+        self.assertEqual(value.source, '')
+
+        value = RichText('<p>hello world</p>')
+        self.assertEqual(value.source, '<p>hello world</p>')
+
+    def test_render(self):
+        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
+        result = str(value)
+        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
