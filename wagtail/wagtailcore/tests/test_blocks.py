@@ -4,6 +4,7 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.utils.safestring import mark_safe, SafeText
 
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
@@ -265,6 +266,77 @@ class TestChoiceBlock(unittest.TestCase):
                 },
             )
         )
+
+
+class TestRawHTMLBlock(unittest.TestCase):
+    def test_get_default_with_fallback_value(self):
+        default_value = blocks.RawHTMLBlock().get_default()
+        self.assertEqual(default_value, '')
+        self.assertTrue(isinstance(default_value, SafeText))
+
+    def test_get_default_with_none(self):
+        default_value = blocks.RawHTMLBlock(default=None).get_default()
+        self.assertEqual(default_value, '')
+        self.assertTrue(isinstance(default_value, SafeText))
+
+    def test_get_default_with_empty_string(self):
+        default_value = blocks.RawHTMLBlock(default='').get_default()
+        self.assertEqual(default_value, '')
+        self.assertTrue(isinstance(default_value, SafeText))
+
+    def test_get_default_with_nonempty_string(self):
+        default_value = blocks.RawHTMLBlock(default='<blink>BOOM</blink>').get_default()
+        self.assertEqual(default_value, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(default_value, SafeText))
+
+    def test_serialize(self):
+        block = blocks.RawHTMLBlock()
+        result = block.get_prep_value(mark_safe('<blink>BOOM</blink>'))
+        self.assertEqual(result, '<blink>BOOM</blink>')
+
+    def test_deserialize(self):
+        block = blocks.RawHTMLBlock()
+        result = block.to_python('<blink>BOOM</blink>')
+        self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(result, SafeText))
+
+    def test_render(self):
+        block = blocks.RawHTMLBlock()
+        result = block.render(mark_safe('<blink>BOOM</blink>'))
+        self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(result, SafeText))
+
+    def test_render_form(self):
+        block = blocks.RawHTMLBlock()
+        result = block.render_form(mark_safe('<blink>BOOM</blink>'), prefix='rawhtml')
+        self.assertIn('<textarea ', result)
+        self.assertIn('name="rawhtml"', result)
+        self.assertIn('&lt;blink&gt;BOOM&lt;/blink&gt;', result)
+
+    def test_form_response(self):
+        block = blocks.RawHTMLBlock()
+        result = block.value_from_datadict({'rawhtml': '<blink>BOOM</blink>'}, {}, prefix='rawhtml')
+        self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(result, SafeText))
+
+    def test_clean_required_field(self):
+        block = blocks.RawHTMLBlock()
+        result = block.clean(mark_safe('<blink>BOOM</blink>'))
+        self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(result, SafeText))
+
+        with self.assertRaises(ValidationError):
+            block.clean(mark_safe(''))
+
+    def test_clean_nonrequired_field(self):
+        block = blocks.RawHTMLBlock(required=False)
+        result = block.clean(mark_safe('<blink>BOOM</blink>'))
+        self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertTrue(isinstance(result, SafeText))
+
+        result = block.clean(mark_safe(''))
+        self.assertEqual(result, '')
+        self.assertTrue(isinstance(result, SafeText))
 
 
 class TestMeta(unittest.TestCase):
