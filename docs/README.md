@@ -1,6 +1,6 @@
 # Wagtail docs
 
-These are Sphinx docs, automatically built at http://docs.wagtail.io when the master branch is committed to Github. To build them locally, install Wagatail's development requirements (in the root Wagtail directory):
+These are Sphinx docs, automatically built at http://docs.wagtail.io when the master branch is committed to Github. To build them locally, install Wagtail's development requirements (in the root Wagtail directory):
 
     pip install requirements-dev.txt
 
