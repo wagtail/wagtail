@@ -320,7 +320,7 @@ class TestEmbedBlock(TestCase):
         block = EmbedBlock(required=False)
 
         block_val = block.to_python('http://www.example.com/foo')
-        self.assertTrue(isinstance(block_val, EmbedValue))
+        self.assertIsInstance(block_val, EmbedValue)
         self.assertEqual(block_val.url, 'http://www.example.com/foo')
 
         # empty values should yield None
@@ -398,7 +398,7 @@ class TestEmbedBlock(TestCase):
         block = EmbedBlock(required=False)
 
         block_val = block.value_from_datadict({'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed')
-        self.assertTrue(isinstance(block_val, EmbedValue))
+        self.assertIsInstance(block_val, EmbedValue)
         self.assertEqual(block_val.url, 'http://www.example.com/foo')
 
         # empty value should result in None
@@ -416,11 +416,11 @@ class TestEmbedBlock(TestCase):
         self.assertEqual(block3.get_default(), None)
 
         block4 = EmbedBlock(default='http://www.example.com/foo')
-        self.assertTrue(isinstance(block4.get_default(), EmbedValue))
+        self.assertIsInstance(block4.get_default(), EmbedValue)
         self.assertEqual(block4.get_default().url, 'http://www.example.com/foo')
 
         block5 = EmbedBlock(default=EmbedValue('http://www.example.com/foo'))
-        self.assertTrue(isinstance(block5.get_default(), EmbedValue))
+        self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
 
     def test_clean(self):
@@ -429,11 +429,11 @@ class TestEmbedBlock(TestCase):
 
         # a valid EmbedValue should return the same value on clean
         cleaned_value = required_block.clean(EmbedValue('http://www.example.com/foo'))
-        self.assertTrue(isinstance(cleaned_value, EmbedValue))
+        self.assertIsInstance(cleaned_value, EmbedValue)
         self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
 
         cleaned_value = nonrequired_block.clean(EmbedValue('http://www.example.com/foo'))
-        self.assertTrue(isinstance(cleaned_value, EmbedValue))
+        self.assertIsInstance(cleaned_value, EmbedValue)
         self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
 
         # None should only be accepted for nonrequired blocks
