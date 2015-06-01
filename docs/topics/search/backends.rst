@@ -23,6 +23,8 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 ``AUTO_UPDATE``
 ===============
 
+ .. versionadded:: 1.0
+
 By default, Wagtail will automatically keep all indexes up to date. This could impact performance when editing content, especially if your index is hosted on an external service.
 
 The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
