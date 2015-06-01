@@ -127,7 +127,7 @@ class TestRichTextBlock(TestCase):
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '<p>foo</p>')
 
-        default_value = blocks.RichTextBlock(default=blocks.RichText('<p>foo</p>')).get_default()
+        default_value = blocks.RichTextBlock(default=RichText('<p>foo</p>')).get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '<p>foo</p>')
 
@@ -151,7 +151,7 @@ class TestRichTextBlock(TestCase):
         block = blocks.RichTextBlock()
 
         with self.assertRaises(ValidationError):
-            block.clean(blocks.RichText(''))
+            block.clean(RichText(''))
 
     def test_validate_non_required_richtext_block(self):
         block = blocks.RichTextBlock(required=False)
