@@ -43,4 +43,5 @@ There are a few optional packages which are not installed by default but are rec
 .. toctree::
     :maxdepth: 2
 
+    tutorial
     demo_site
