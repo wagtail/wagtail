@@ -110,23 +110,27 @@ class TestFieldBlock(unittest.TestCase):
 class TestRichTextBlock(TestCase):
     fixtures = ['test.json']
 
-    def test_get_default(self):
+    def test_get_default_with_fallback_value(self):
         default_value = blocks.RichTextBlock().get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '')
 
+    def test_get_default_with_default_none(self):
         default_value = blocks.RichTextBlock(default=None).get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '')
 
+    def test_get_default_with_empty_string(self):
         default_value = blocks.RichTextBlock(default='').get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '')
 
+    def test_get_default_with_nonempty_string(self):
         default_value = blocks.RichTextBlock(default='<p>foo</p>').get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '<p>foo</p>')
 
+    def test_get_default_with_richtext_value(self):
         default_value = blocks.RichTextBlock(default=RichText('<p>foo</p>')).get_default()
         self.assertTrue(isinstance(default_value, RichText))
         self.assertEqual(default_value.source, '<p>foo</p>')

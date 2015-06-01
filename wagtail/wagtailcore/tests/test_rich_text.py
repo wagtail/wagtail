@@ -121,13 +121,15 @@ class TestExpandDbHtml(TestCase):
 class TestRichTextValue(TestCase):
     fixtures = ['test.json']
 
-    def test_construct(self):
+    def test_construct_with_none(self):
         value = RichText(None)
         self.assertEqual(value.source, '')
 
+    def test_construct_with_empty_string(self):
         value = RichText('')
         self.assertEqual(value.source, '')
 
+    def test_construct_with_nonempty_string(self):
         value = RichText('<p>hello world</p>')
         self.assertEqual(value.source, '<p>hello world</p>')
 
