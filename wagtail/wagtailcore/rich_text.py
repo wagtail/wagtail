@@ -1,5 +1,8 @@
+from __future__ import unicode_literals  # ensure that RichText.__str__ returns unicode
+
 import re  # parsing HTML with regexes LIKE A BOSS.
 
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
@@ -173,6 +176,7 @@ def expand_db_html(html, for_editor=False):
     return html
 
 
+@python_2_unicode_compatible
 class RichText(object):
     """
     A custom object used to represent a renderable rich text value.
