@@ -13,8 +13,8 @@ Your first Wagtail site
    ``django-admin.py startproject``. Running ``wagtail start mysite`` in
    your project will generate a new ``mysite`` folder with a few
    Wagtail-specific extras, including the required project settings, a
-   ``requirements.txt`` file to track your project's dependencies, and a
-   "core" app with a blank ``HomePage`` model and basic templates
+   "home" app with a blank ``HomePage`` model and basic templates and a sample
+   "search" app.
 
 3. Create the database:
 
@@ -41,7 +41,7 @@ Your first Wagtail site
 Extend the HomePage model
 -------------------------
 
-Out of the box you get a blank HomePage model and the core app has a
+Out of the box you get a blank ``HomePage`` model and the "home" app has a
 migration that creates a homepage and configures Wagtail to use it.
 
 This example extends the HomePage model to add a body field.
@@ -59,12 +59,11 @@ This example extends the HomePage model to add a body field.
         body = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
-            FieldPanel('intro')
+            FieldPanel('body')
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
-can use any of the Django core fields. ``content_panels`` define the
+can use any of the `Django core fields <https://docs.djangoproject.com/en/1.8/ref/models/fields/>`__. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/creating_pages>`
 
 
@@ -85,7 +84,7 @@ becomes home\_page.html).
 
     {% load static core_tags wagtailcore_tags %}
 
-    {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+    {% block body_class %}template-homepage{% endblock %}
 
     {% block content %}
         {{ self.body|richtext }}
@@ -97,12 +96,12 @@ becomes home\_page.html).
 A basic blog
 ------------
 
-We are now ready to create a blog. To do so run
-``python manage.py startapp blog`` to create a new app in your Wagtail
-site.
+We are now ready to create a blog. To do so, run
+``python manage.py startapp blog`` to create a new app in your Wagtail site.
 
-The following example defines a basic blog post model in
-``blog/models.py``
+Add the new ``blog`` app to ``INSTALLED_APPS`` in ``mysite/settings/base.py``.
+
+The following example defines a basic blog post model in ``blog/models.py``
 
 .. code:: python
 
@@ -125,15 +124,12 @@ The following example defines a basic blog post model in
         )
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
             FieldPanel('date'),
             FieldPanel('intro'),
             FieldPanel('body', classname="full")
         ]
 
-Add the new ``blog`` app to ``INSTALLED_APPS`` in
-``mysite/settings/base.py``. Run ``python manage.py makemigrations`` and
-``python manage.py migrate``.
+Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 .. figure:: ../_static/images/tutorial/tutorial_4.png
    :alt: Create page screen
@@ -176,7 +172,6 @@ model:
         )
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
             FieldPanel('date'),
             ImageChooserPanel('main_image'),
             FieldPanel('intro'),
@@ -211,7 +206,7 @@ Adjust your BlogPage template to output the image:
    :alt: A blog post sample
 
 You can read more about using images in templates in the
-:doc:`docs <../topics/images>`.
+:doc:`docs <../topics/images/index>`.
 
 Blog Index
 ~~~~~~~~~~
@@ -224,7 +219,6 @@ Let us extend the Blog app to provide an index.
         intro = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
             FieldPanel('intro', classname="full")
         ]
 
@@ -285,7 +279,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
         )
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
             FieldPanel('date'),
             ImageChooserPanel('main_image'),
             FieldPanel('intro'),
@@ -340,7 +333,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
         intro = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
-            FieldPanel('title', classname="full title"),
             InlinePanel('related_links', label="Related links"),
         ]
 
