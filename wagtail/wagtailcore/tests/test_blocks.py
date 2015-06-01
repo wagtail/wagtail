@@ -112,27 +112,27 @@ class TestRichTextBlock(TestCase):
 
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RichTextBlock().get_default()
-        self.assertTrue(isinstance(default_value, RichText))
+        self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, '')
 
     def test_get_default_with_default_none(self):
         default_value = blocks.RichTextBlock(default=None).get_default()
-        self.assertTrue(isinstance(default_value, RichText))
+        self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, '')
 
     def test_get_default_with_empty_string(self):
         default_value = blocks.RichTextBlock(default='').get_default()
-        self.assertTrue(isinstance(default_value, RichText))
+        self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, '')
 
     def test_get_default_with_nonempty_string(self):
         default_value = blocks.RichTextBlock(default='<p>foo</p>').get_default()
-        self.assertTrue(isinstance(default_value, RichText))
+        self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, '<p>foo</p>')
 
     def test_get_default_with_richtext_value(self):
         default_value = blocks.RichTextBlock(default=RichText('<p>foo</p>')).get_default()
-        self.assertTrue(isinstance(default_value, RichText))
+        self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, '<p>foo</p>')
 
     def test_render(self):
@@ -160,7 +160,7 @@ class TestRichTextBlock(TestCase):
     def test_validate_non_required_richtext_block(self):
         block = blocks.RichTextBlock(required=False)
         result = block.clean(RichText(''))
-        self.assertTrue(isinstance(result, RichText))
+        self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
 
 
