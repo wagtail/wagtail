@@ -293,6 +293,7 @@ class TestRawHTMLBlock(unittest.TestCase):
         block = blocks.RawHTMLBlock()
         result = block.get_prep_value(mark_safe('<blink>BOOM</blink>'))
         self.assertEqual(result, '<blink>BOOM</blink>')
+        self.assertNotIsInstance(result, SafeData)
 
     def test_deserialize(self):
         block = blocks.RawHTMLBlock()
