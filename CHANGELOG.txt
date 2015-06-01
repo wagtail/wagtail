@@ -54,6 +54,7 @@ Changelog
  * Collapsible blocks stay open on any form error (Salvador Faria)
  * Document upload modal no longer switches tabs on form errors (Salvador Faria)
  * Added `AUTO_UPDATE` flag to search backend settings to enable/disable automatically updating the search index on model changes
+ * Made the built-in project template follow the Django one, with several Wagtail-specific additions. The template comes with two apps (home and search)
 
 
 0.8.8 (xx.xx.2015)

@@ -36,6 +36,13 @@ Django 1.8 support
 Wagtail now officially supports running under Django 1.8.
 
 
+Vanilla project template
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The built-in project template is more like the Django built-in one with several
+Wagtail-specific additions. It includes bare minimum settings and two apps (home and search).
+
+
 Minor changes
 ~~~~~~~~~~~~~
 
@@ -105,14 +112,6 @@ Docs
  * Support for ``django-sendfile`` added
  * Documents now served with correct mime-type
  * Support for ``If-Modified-Since`` HTTP header
-
-
-Project template
-----------------
-
- * The Vagrantfile now listens on port 8000
- * Removed ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings (as Wagtail no longer requires these)
- * Removed example Celery configuration from ``production.py`` and ``requirements.txt``
 
 
 Search
