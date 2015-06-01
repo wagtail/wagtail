@@ -171,7 +171,7 @@ PageChooserPanel
 ImageChooserPanel
 -----------------
 
-.. class:: ImageChooserPanel(field_name)
+.. class:: wagtail.wagtailimages.edit_handlers.ImageChooserPanel(field_name)
 
     Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.wagtailimages.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
 
@@ -203,7 +203,7 @@ ImageChooserPanel
 DocumentChooserPanel
 --------------------
 
-.. class:: DocumentChooserPanel(field_name)
+.. class:: wagtail.wagtaildocs.edit_handlers.DocumentChooserPanel(field_name)
 
     For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.wagtaildocs.models.Document` model:
 
@@ -231,7 +231,7 @@ DocumentChooserPanel
 SnippetChooserPanel
 -------------------
 
-.. class:: SnippetChooserPanel(field_name, model)
+.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, model)
 
     Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
 
