@@ -1,7 +1,5 @@
 {% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
 
-{% templatetag openblock %} load static core_tags {% templatetag closeblock %}
-
 {% templatetag openblock %} block body_class {% templatetag closeblock %}template-{% templatetag openvariable %} self.get_verbose_name|slugify {% templatetag closevariable %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
 {% templatetag openblock %} block content {% templatetag closeblock %}

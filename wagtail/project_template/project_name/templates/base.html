@@ -12,10 +12,8 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {% templatetag openblock %} compress css {% templatetag closeblock %}
-            {# Global stylesheets #}
-            <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
-        {% templatetag openblock %} endcompress {% templatetag closeblock %}
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
 
         {% templatetag openblock %} block extra_css {% templatetag closeblock %}
             {# Override this in templates to add extra stylesheets #}
@@ -27,10 +25,8 @@
 
         {% templatetag openblock %} block content {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
-        {% templatetag openblock %} compress js {% templatetag closeblock %}
-            {# Global javascript #}
-            <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
-        {% templatetag openblock %} endcompress {% templatetag closeblock %}
+        {# Global javascript #}
+        <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
 
         {% templatetag openblock %} block extra_js {% templatetag closeblock %}
             {# Override this in templates to add extra javascript #}
