@@ -74,7 +74,7 @@ class Document(models.Model, TagSearchable):
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=Document)
-def image_delete(sender, instance, **kwargs):
+def document_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
 
