@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*
+from __future__ import unicode_literals
+
 import unittest
 
 from django import forms
@@ -285,45 +288,45 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertIsInstance(default_value, SafeData)
 
     def test_get_default_with_nonempty_string(self):
-        default_value = blocks.RawHTMLBlock(default='<blink>BOOM</blink>').get_default()
-        self.assertEqual(default_value, '<blink>BOOM</blink>')
+        default_value = blocks.RawHTMLBlock(default='<blink>BÖÖM</blink>').get_default()
+        self.assertEqual(default_value, '<blink>BÖÖM</blink>')
         self.assertIsInstance(default_value, SafeData)
 
     def test_serialize(self):
         block = blocks.RawHTMLBlock()
-        result = block.get_prep_value(mark_safe('<blink>BOOM</blink>'))
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.get_prep_value(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertNotIsInstance(result, SafeData)
 
     def test_deserialize(self):
         block = blocks.RawHTMLBlock()
-        result = block.to_python('<blink>BOOM</blink>')
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.to_python('<blink>BÖÖM</blink>')
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
     def test_render(self):
         block = blocks.RawHTMLBlock()
-        result = block.render(mark_safe('<blink>BOOM</blink>'))
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.render(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
     def test_render_form(self):
         block = blocks.RawHTMLBlock()
-        result = block.render_form(mark_safe('<blink>BOOM</blink>'), prefix='rawhtml')
+        result = block.render_form(mark_safe('<blink>BÖÖM</blink>'), prefix='rawhtml')
         self.assertIn('<textarea ', result)
         self.assertIn('name="rawhtml"', result)
-        self.assertIn('&lt;blink&gt;BOOM&lt;/blink&gt;', result)
+        self.assertIn('&lt;blink&gt;BÖÖM&lt;/blink&gt;', result)
 
     def test_form_response(self):
         block = blocks.RawHTMLBlock()
-        result = block.value_from_datadict({'rawhtml': '<blink>BOOM</blink>'}, {}, prefix='rawhtml')
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.value_from_datadict({'rawhtml': '<blink>BÖÖM</blink>'}, {}, prefix='rawhtml')
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
     def test_clean_required_field(self):
         block = blocks.RawHTMLBlock()
-        result = block.clean(mark_safe('<blink>BOOM</blink>'))
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.clean(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
         with self.assertRaises(ValidationError):
@@ -331,8 +334,8 @@ class TestRawHTMLBlock(unittest.TestCase):
 
     def test_clean_nonrequired_field(self):
         block = blocks.RawHTMLBlock(required=False)
-        result = block.clean(mark_safe('<blink>BOOM</blink>'))
-        self.assertEqual(result, '<blink>BOOM</blink>')
+        result = block.clean(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
         result = block.clean(mark_safe(''))
