@@ -186,7 +186,7 @@ Adjust your BlogPage template to output the image:
 
     {% load static core_tags wagtailcore_tags wagtailimages_tags %}
 
-    {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+    {% block body_class %}templage-blogpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
@@ -232,7 +232,7 @@ The above creates an index type to collect all our blog posts.
 
     {% load static core_tags wagtailcore_tags %}
 
-    {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+    {% block body_class %}template-blogindexpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
@@ -262,29 +262,7 @@ can be BlogPages or external links. Change ``blog/models.py`` to
     from wagtail.wagtailsearch import index
 
 
-    class BlogPage(Page):
-        main_image = models.ForeignKey(
-            'wagtailimages.Image',
-            null=True, blank=True,
-            on_delete=models.SET_NULL,
-            related_name='+'
-        )
-        date = models.DateField("Post date")
-        intro = models.CharField(max_length=250)
-        body = RichTextField(blank=True)
-
-        search_fields = Page.search_fields + (
-            index.SearchField('intro'),
-            index.SearchField('body'),
-        )
-
-        content_panels = Page.content_panels + [
-            FieldPanel('date'),
-            ImageChooserPanel('main_image'),
-            FieldPanel('intro'),
-            FieldPanel('body'),
-        ]
-
+    # ...
 
     class LinkFields(models.Model):
         link_external = models.URLField("External link", blank=True)
@@ -312,7 +290,6 @@ can be BlogPages or external links. Change ``blog/models.py`` to
 
 
     # Related links
-
     class RelatedLink(LinkFields):
         title = models.CharField(max_length=255, help_text="Link title")
 
