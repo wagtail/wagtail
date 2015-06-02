@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.rich_text import RichText
 from wagtail.wagtailcore.models import Page
 
 import base64
@@ -106,21 +107,61 @@ class TestFieldBlock(unittest.TestCase):
         self.assertEqual('hello world', value_from_form)
 
 
-class TestRichTextBlock(unittest.TestCase):
+class TestRichTextBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_default_with_fallback_value(self):
+        default_value = blocks.RichTextBlock().get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_default_none(self):
+        default_value = blocks.RichTextBlock(default=None).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_empty_string(self):
+        default_value = blocks.RichTextBlock(default='').get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_nonempty_string(self):
+        default_value = blocks.RichTextBlock(default='<p>foo</p>').get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '<p>foo</p>')
+
+    def test_get_default_with_richtext_value(self):
+        default_value = blocks.RichTextBlock(default=RichText('<p>foo</p>')).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '<p>foo</p>')
+
+    def test_render(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
+        result = block.render(value)
+        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
+
+    def test_render_form(self):
+        """
+        render_form should produce the editor-specific rendition of the rich text value
+        (which includes e.g. 'data-linktype' attributes on <a> elements)
+        """
+        block = blocks.RichTextBlock()
+        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
+        result = block.render_form(value, prefix='richtext')
+        self.assertIn('&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot; href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;', result)
 
     def test_validate_required_richtext_block(self):
         block = blocks.RichTextBlock()
 
         with self.assertRaises(ValidationError):
-            block.clean('')
-
-        with self.assertRaises(ValidationError):
-            block.clean(None)
+            block.clean(RichText(''))
 
     def test_validate_non_required_richtext_block(self):
         block = blocks.RichTextBlock(required=False)
-        self.assertEqual(block.clean(''), '')
-        self.assertEqual(block.clean(None), '')
+        result = block.clean(RichText(''))
+        self.assertIsInstance(result, RichText)
+        self.assertEqual(result.source, '')
 
 
 class TestChoiceBlock(unittest.TestCase):
