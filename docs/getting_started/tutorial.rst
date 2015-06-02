@@ -324,7 +324,7 @@ Extend ``blog_index_page.html`` to show related items
 
     {% load static core_tags wagtailcore_tags %}
 
-    {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+    {% block body_class %}template-blogindexpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
