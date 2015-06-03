@@ -64,6 +64,7 @@ Changelog
 * Fix: Multiple image uploader now escapes HTML in filenames (Mac Chapman)
 * Fix: Retrieving an individual item from a sliced BaseSearchResults object now properly takes the slice offset into account
 * Fix: Removed dependency on unicodecsv which fixes a crash on Python 3
+* Fix: Submitting unicode text in form builder form no longer crashes with UnicodeEncodeError on Python 2
 
 
 0.8.7 (29.04.2015)
