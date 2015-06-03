@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.test import TestCase, override_settings
 from django.utils.http import urlquote
@@ -96,7 +95,6 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertFormError(response, 'form', 'file', "This field is required.")
 
-    @unittest.expectedFailure
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
     def test_add_too_large_file(self):
         response = self.post({
