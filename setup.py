@@ -34,7 +34,7 @@ install_requires = [
     "django-libsass>=0.2",
     "django-modelcluster>=0.4",
     "django-taggit==0.12.3",
-    "django-treebeard==2.0",
+    "django-treebeard>=2.0,<=3.0",
     "Pillow>=2.6.1",
     "beautifulsoup4>=4.3.2",
     "html5lib==0.999",
