@@ -52,6 +52,7 @@ Contributors
 * Damian Moore
 * signalkraft
 * Mac Chapman
+* Brett Grace
 
 Translators
 ===========
