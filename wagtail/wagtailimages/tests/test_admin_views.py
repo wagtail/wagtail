@@ -1,6 +1,7 @@
 import json
+import unittest
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission
@@ -94,6 +95,22 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # The form should have an error
         self.assertFormError(response, 'form', 'file', "This field is required.")
+
+    @unittest.expectedFailure
+    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
+    def test_add_too_large_file(self):
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        # Note: \xa0 = non-blocking space
+        self.assertFormError(response, 'form', 'file', "This file is too big (1.9\xa0KB). Maximum filesize 1\xa0byte.")
 
 
 class TestImageEditView(TestCase, WagtailTestUtils):
