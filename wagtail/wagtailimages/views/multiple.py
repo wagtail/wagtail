@@ -12,13 +12,7 @@ from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form
-from wagtail.wagtailimages.fields import (
-    MAX_UPLOAD_SIZE,
-    IMAGE_FIELD_HELP_TEXT,
-    INVALID_IMAGE_ERROR,
-    ALLOWED_EXTENSIONS,
-    FILE_TOO_LARGE_ERROR,
-)
+from wagtail.wagtailimages.fields import ALLOWED_EXTENSIONS
 from wagtail.utils.compat import render_to_string
 
 
@@ -87,13 +81,15 @@ def add(request):
                 # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
                 'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
+    else:
+        form = ImageForm()
 
     return render(request, 'wagtailimages/multiple/add.html', {
-        'max_filesize': MAX_UPLOAD_SIZE,
-        'help_text': IMAGE_FIELD_HELP_TEXT,
+        'max_filesize': form.fields['file'].max_upload_size,
+        'help_text': form.fields['file'].help_text,
         'allowed_extensions': ALLOWED_EXTENSIONS,
-        'error_max_file_size': FILE_TOO_LARGE_ERROR,
-        'error_accepted_file_types': INVALID_IMAGE_ERROR,
+        'error_max_file_size': form.fields['file'].error_messages['file_too_large'],
+        'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
     })
 
 
