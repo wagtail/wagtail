@@ -24,8 +24,6 @@ except ImportError:
 # the build process on multicore systems, which breaks installation of libsass
 os.environ['MAX_CONCURRENCY'] = '1'
 
-PY3 = sys.version_info[0] == 3
-
 
 install_requires = [
     "Django>=1.6.2,<1.8",
@@ -42,12 +40,6 @@ install_requires = [
     "six>=1.7.0",
     'requests>=2.0.0',
 ]
-
-
-if not PY3:
-    install_requires += [
-        "unicodecsv>=0.9.4"
-    ]
 
 
 setup(

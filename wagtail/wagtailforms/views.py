@@ -1,17 +1,13 @@
 import datetime
 
-try:
-    import unicodecsv as csv
-    using_unicodecsv = True
-except ImportError:
-    import csv
-    using_unicodecsv = False
+import csv
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import permission_required
+from django.utils.encoding import smart_str
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
@@ -72,10 +68,7 @@ def list_submissions(request, page_id):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment;filename=export.csv'
 
-        if using_unicodecsv:
-            writer = csv.writer(response, encoding='utf-8')
-        else:
-            writer = csv.writer(response)
+        writer = csv.writer(response)
 
         header_row = ['Submission date'] + [label for name, label in data_fields]
 
@@ -84,7 +77,7 @@ def list_submissions(request, page_id):
             data_row = [s.submit_time]
             form_data = s.get_data()
             for name, label in data_fields:
-                data_row.append(form_data.get(name))
+                data_row.append(smart_str(form_data.get(name)))
             writer.writerow(data_row)
         return response
 

@@ -7,6 +7,7 @@ Changelog
 * Fix: Image upload form no longer breaks when using i10n thousand separators (@signalkraft)
 * Fix: Multiple image uploader now escapes HTML in filenames (Mac Chapman)
 * Fix: Retrieving an individual item from a sliced BaseSearchResults object now properly takes the slice offset into account
+* Fix: Removed dependency on unicodecsv which fixes a crash on Python 3
 
 
 0.8.7 (29.04.2015)
