@@ -22,9 +22,6 @@ except ImportError:
     pass
 
 
-PY3 = sys.version_info[0] == 3
-
-
 install_requires = [
     "Django>=1.7.1,<1.9",
     "django-compressor>=1.4",
@@ -39,12 +36,6 @@ install_requires = [
     'requests>=2.0.0',
     "Willow==0.2.1",
 ]
-
-
-if not PY3:
-    install_requires += [
-        "unicodecsv>=0.9.4"
-    ]
 
 
 setup(
