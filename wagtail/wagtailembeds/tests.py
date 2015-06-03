@@ -15,6 +15,7 @@ except ImportError:
 
 from django import template
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -26,8 +27,9 @@ from wagtail.wagtailembeds.embeds import (
     embedly as wagtail_embedly,
     oembed as wagtail_oembed,
 )
+from wagtail.wagtailcore import blocks
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
-from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
 from wagtail.wagtailembeds.models import Embed
 
 
@@ -310,18 +312,136 @@ class TestEmbedFilter(TestCase):
 
 
 class TestEmbedBlock(TestCase):
+    def test_deserialize(self):
+        """
+        Deserialising the JSONish value of an EmbedBlock (a URL) should give us an EmbedValue
+        for that URL
+        """
+        block = EmbedBlock(required=False)
+
+        block_val = block.to_python('http://www.example.com/foo')
+        self.assertIsInstance(block_val, EmbedValue)
+        self.assertEqual(block_val.url, 'http://www.example.com/foo')
+
+        # empty values should yield None
+        empty_block_val = block.to_python('')
+        self.assertEqual(empty_block_val, None)
+
+    def test_serialize(self):
+        block = EmbedBlock(required=False)
+
+        block_val = EmbedValue('http://www.example.com/foo')
+        serialized_val = block.get_prep_value(block_val)
+        self.assertEqual(serialized_val, 'http://www.example.com/foo')
+
+        serialized_empty_val = block.get_prep_value(None)
+        self.assertEqual(serialized_empty_val, '')
+
     @patch('wagtail.wagtailembeds.format.get_embed')
     def test_render(self, get_embed):
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
         block = EmbedBlock()
-        html = block.render('http://www.example.com')
+        block_val = block.to_python('http://www.example.com/foo')
 
-        # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com')
+        temp = template.Template('embed: {{ embed }}')
+        context = template.Context({'embed': block_val})
+        result = temp.render(context)
 
         # Check that the embed was in the returned HTML
-        self.assertIn('<h1>Hello world!</h1>', html)
+        self.assertIn('<h1>Hello world!</h1>', result)
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call('http://www.example.com/foo')
+
+    @patch('wagtail.wagtailembeds.format.get_embed')
+    def test_render_within_structblock(self, get_embed):
+        """
+        When rendering the value of an EmbedBlock directly in a template
+        (as happens when accessing it as a child of a StructBlock), the
+        proper embed output should be rendered, not the URL.
+        """
+        get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
+
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('embed', EmbedBlock()),
+        ])
+
+        block_val = block.to_python({'title': 'A test', 'embed': 'http://www.example.com/foo'})
+
+        temp = template.Template('embed: {{ self.embed }}')
+        context = template.Context({'self': block_val})
+        result = temp.render(context)
+
+        self.assertIn('<h1>Hello world!</h1>', result)
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call('http://www.example.com/foo')
+
+    def test_render_form(self):
+        """
+        The form field for an EmbedBlock should be a text input containing
+        the URL
+        """
+        block = EmbedBlock()
+
+        form_html = block.render_form(EmbedValue('http://www.example.com/foo'), prefix='myembed')
+        self.assertIn('<input ', form_html)
+        self.assertIn('value="http://www.example.com/foo"', form_html)
+
+    def test_value_from_form(self):
+        """
+        EmbedBlock should be able to turn a URL submitted as part of a form
+        back into an EmbedValue
+        """
+        block = EmbedBlock(required=False)
+
+        block_val = block.value_from_datadict({'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed')
+        self.assertIsInstance(block_val, EmbedValue)
+        self.assertEqual(block_val.url, 'http://www.example.com/foo')
+
+        # empty value should result in None
+        empty_val = block.value_from_datadict({'myembed': ''}, {}, prefix='myembed')
+        self.assertEqual(empty_val, None)
+
+    def test_default(self):
+        block1 = EmbedBlock()
+        self.assertEqual(block1.get_default(), None)
+
+        block2 = EmbedBlock(default='')
+        self.assertEqual(block2.get_default(), None)
+
+        block3 = EmbedBlock(default=None)
+        self.assertEqual(block3.get_default(), None)
+
+        block4 = EmbedBlock(default='http://www.example.com/foo')
+        self.assertIsInstance(block4.get_default(), EmbedValue)
+        self.assertEqual(block4.get_default().url, 'http://www.example.com/foo')
+
+        block5 = EmbedBlock(default=EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(block5.get_default(), EmbedValue)
+        self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
+
+    def test_clean(self):
+        required_block = EmbedBlock()
+        nonrequired_block = EmbedBlock(required=False)
+
+        # a valid EmbedValue should return the same value on clean
+        cleaned_value = required_block.clean(EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(cleaned_value, EmbedValue)
+        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+
+        cleaned_value = nonrequired_block.clean(EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(cleaned_value, EmbedValue)
+        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+
+        # None should only be accepted for nonrequired blocks
+        cleaned_value = nonrequired_block.clean(None)
+        self.assertEqual(cleaned_value, None)
+
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
 
 
 class TestMediaEmbedHandler(TestCase):
