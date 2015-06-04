@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+import hashlib
+import os
+
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
@@ -461,7 +464,6 @@ class StreamModel(models.Model):
         ('image', ImageChooserBlock()),
     ])
 
-
 class StreamPage(Page):
     body = StreamField([
         ('text', CharBlock()),
@@ -536,3 +538,34 @@ class GenericSnippetPage(Page):
     snippet_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True)
     snippet_object_id = models.PositiveIntegerField(null=True)
     snippet_content_object = GenericForeignKey('snippet_content_type', 'snippet_object_id')
+
+
+class CustomImageFilePath(AbstractImage):
+    def get_upload_to(self, filename):
+        """Create a path that's file-system friendly.
+
+        By hashing the file's contents we guarantee an equal distribution
+        of files within our root directories. This also gives us a
+        better chance of uploading images with the same filename, but
+        different contents - this isn't guaranteed as we're only using
+        the first three characters of the checksum.
+        """
+        original_filepath = super(CustomImageFilePath, self).get_upload_to(filename)
+        folder_name, filename = original_filepath.split(os.path.sep)
+
+        # Ensure that we consume the entire file, we can't guarantee that
+        # the stream has not be partially (or entirely) consumed by
+        # another process
+        original_position = self.file.tell()
+        self.file.seek(0)
+        hash256 = hashlib.sha256()
+
+        while True:
+            data = self.file.read(256)
+            if not data:
+                break
+            hash256.update(data)
+        checksum = hash256.hexdigest()
+
+        self.file.seek(original_position)
+        return os.path.join(folder_name, checksum[:3], filename)

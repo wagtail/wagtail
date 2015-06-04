@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 
 from taggit.forms import TagField, TagWidget
 
-from wagtail.tests.testapp.models import CustomImage
+from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailimages.utils import generate_signature, verify_signature
 from wagtail.wagtailimages.rect import Rect, Vector
@@ -374,3 +374,21 @@ class TestRenditionFilenames(TestCase):
         rendition = image.get_rendition('fill-100x100')
 
         self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
+
+
+class TestDifferentUpload(TestCase):
+    def test_upload_path(self):
+        image = CustomImageFilePath.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        second_image = CustomImageFilePath.objects.create(
+            title="Test Image",
+            file=get_test_image_file(colour='black'),
+
+        )
+
+        # The files should be uploaded based on it's content, not just
+        # it's filename
+        self.assertFalse(image.file.url == second_image.file.url)

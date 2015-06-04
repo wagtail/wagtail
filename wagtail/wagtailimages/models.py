@@ -48,19 +48,9 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 def get_upload_to(instance, filename):
-    folder_name = 'original_images'
-    filename = instance.file.field.storage.get_valid_name(filename)
+    # Dumb proxy to instance method.
+    return instance.get_upload_to(filename)
 
-    # do a unidecode in the filename and then
-    # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-    filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
-
-    # Truncate filename so it fits in the 100 character limit
-    # https://code.djangoproject.com/ticket/9893
-    while len(os.path.join(folder_name, filename)) >= 95:
-        prefix, dot, extension = filename.rpartition('.')
-        filename = prefix[:-1] + dot + extension
-    return os.path.join(folder_name, filename)
 
 
 @python_2_unicode_compatible
@@ -105,6 +95,21 @@ class AbstractImage(models.Model, TagSearchable):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    def get_upload_to(self, filename):
+        folder_name = 'original_images'
+        filename = self.file.field.storage.get_valid_name(filename)
+
+        # do a unidecode in the filename and then
+        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+
+        # Truncate filename so it fits in the 100 character limit
+        # https://code.djangoproject.com/ticket/9893
+        while len(os.path.join(folder_name, filename)) >= 95:
+            prefix, dot, extension = filename.rpartition('.')
+            filename = prefix[:-1] + dot + extension
+        return os.path.join(folder_name, filename)
 
     def get_usage(self):
         return get_object_usage(self)
