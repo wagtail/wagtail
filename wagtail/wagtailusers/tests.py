@@ -11,6 +11,7 @@ from django.contrib.auth.models import Group, Permission
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailusers.models import UserProfile
+from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailcore.models import Page, GroupPagePermission
 
 
@@ -434,3 +435,65 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # See that the non-registered permission is still there
         self.assertEqual(self.test_group.permissions.count(), 1)
         self.assertEqual(self.test_group.permissions.all()[0], self.non_registered_perm)
+
+
+class TestUserCreationForm(TestCase):
+    def build_form(self, is_superuser):
+        return {
+            'is_superuser': is_superuser,
+            'first_name': 'test',
+            'last_name': 'user',
+            'email': 'test@example.org',
+            'username': 'testuser',
+            'password1': 'test1234',
+            'password2': 'test1234'
+        }
+
+    def test_admin_user_can_create_admin_user(self):
+        admin = get_user_model()(is_superuser=True)
+        form = UserCreationForm(admin, self.build_form(True))
+
+        self.assertTrue(form.is_valid())
+
+    def test_normal_user_can_not_create_admin_user(self):
+        normal = get_user_model()(is_superuser=False)
+        form = UserCreationForm(normal, self.build_form(True))
+
+        self.assertFalse(form.is_valid())
+
+    def test_normal_user_can_create_normal_user(self):
+        normal = get_user_model()(is_superuser=False)
+        form = UserCreationForm(normal, self.build_form(False))
+
+        self.assertTrue(form.is_valid())
+
+
+class TestUserEditForm(TestCase):
+    def build_form(self, is_superuser):
+        return {
+            'is_superuser': is_superuser,
+            'first_name': 'test',
+            'last_name': 'user',
+            'email': 'test@example.org',
+            'username': 'testuser',
+            'password1': 'test1234',
+            'password2': 'test1234'
+        }
+
+    def test_admin_user_can_edit_admin_user(self):
+        admin = get_user_model()(is_superuser=True)
+        form = UserEditForm(admin, self.build_form(True))
+
+        self.assertTrue(form.is_valid())
+
+    def test_normal_user_can_not_edit_admin_user(self):
+        normal = get_user_model()(is_superuser=False)
+        form = UserEditForm(normal, self.build_form(True))
+
+        self.assertFalse(form.is_valid())
+
+    def test_normal_user_can_edit_normal_user(self):
+        normal = get_user_model()(is_superuser=False)
+        form = UserEditForm(normal, self.build_form(False))
+
+        self.assertTrue(form.is_valid())

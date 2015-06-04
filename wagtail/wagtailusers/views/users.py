@@ -80,7 +80,7 @@ def index(request):
 @permission_required(change_user_perm)
 def create(request):
     if request.POST:
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
@@ -90,7 +90,7 @@ def create(request):
         else:
             messages.error(request, _("The user could not be created due to errors."))
     else:
-        form = UserCreationForm()
+        form = UserCreationForm(request.user)
 
     return render(request, 'wagtailusers/users/create.html', {
         'form': form,
@@ -101,7 +101,7 @@ def create(request):
 def edit(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.POST:
-        form = UserEditForm(request.POST, instance=user)
+        form = UserEditForm(request.user, request.POST, instance=user)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
@@ -111,7 +111,7 @@ def edit(request, user_id):
         else:
             messages.error(request, _("The user could not be saved due to errors."))
     else:
-        form = UserEditForm(instance=user)
+        form = UserEditForm(request.user, instance=user)
 
     return render(request, 'wagtailusers/users/edit.html', {
         'user': user,
