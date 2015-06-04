@@ -1,11 +1,13 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
 from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from wagtail.wagtailsnippets.views.snippets import (
     get_snippet_edit_handler
@@ -184,6 +186,31 @@ class TestSnippetChooserPanel(TestCase):
     def test_render_js(self):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
                       self.snippet_chooser_panel.render_as_field())
+
+    def test_target_content_type(self):
+        result = SnippetChooserPanel(
+            'barbecue',
+            'wagtailcore.site'
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'Site')
+
+    def test_target_content_type_malformed_type(self):
+        result = SnippetChooserPanel(
+            'barbecue',
+            'snowman'
+        ).bind_to_model(SnippetChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
+
+    def test_target_content_type_nonexistent_type(self):
+        result = SnippetChooserPanel(
+            'barbecue',
+            'snowman.lorry'
+        ).bind_to_model(SnippetChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
+
+
 
 
 class TestSnippetRegistering(TestCase):
