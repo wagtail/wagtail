@@ -284,13 +284,6 @@
             display:none;
         }
 
-        .widget-text_input input, .richtext, textarea{
-            border:0;
-            padding:0;
-            background-color:transparent;
-            max-width:1024px;
-        }
-
         .widget-admin_image_chooser{
             label{
                 display:none;
@@ -322,6 +315,20 @@
                 }
             }
         }
+
+        /*
+        Text inputs, rich text fields and textareas that are direct children of streamfield
+        should be borderless and full-width
+        */
+        .stream-member-inner > .widget-text_input > .field-content > .input > input,
+        .stream-member-inner > .field > .field-content > .input > .richtext,
+        .stream-member-inner > .field > .field-content > .input > textarea{
+            border:0;
+            padding:0;
+            background-color:transparent;
+            max-width:1024px;
+        }
+
     }
 
     /* Object controls */
