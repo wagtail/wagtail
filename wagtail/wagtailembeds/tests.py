@@ -24,6 +24,7 @@ from wagtail.wagtailembeds.embeds import (
     oembed as wagtail_oembed,
 )
 from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
+from wagtail.wagtailembeds.models import Embed
 
 
 class TestEmbeds(TestCase):
@@ -266,39 +267,19 @@ class TestOembed(TestCase):
 
 
 class TestEmbedFilter(TestCase):
-    def setUp(self):
-        class DummyResponse(object):
-            def read(self):
-                return b"foo"
-        self.dummy_response = DummyResponse()
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_direct_call(self, get_embed):
+        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_valid_embed(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'photo',
-                              'url': 'http://www.example.com'}
         result = embed_filter('http://www.youtube.com/watch/')
+
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_render_filter(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'photo',
-                              'url': 'http://www.example.com'}
-        temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        context = template.Context()
-        result = temp.render(context)
-        self.assertEqual(result, '<img src="http://www.example.com" />')
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_call_from_template(self, get_embed):
+        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_render_filter_nonexistent_type(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'foo',
-                              'url': 'http://www.example.com'}
         temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        context = template.Context()
-        result = temp.render(context)
-        self.assertEqual(result, '')
+        result = temp.render(template.Context())
+
+        self.assertEqual(result, '<img src="http://www.example.com" />')
