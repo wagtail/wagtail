@@ -44,6 +44,7 @@ Contributors
 * Arne Schauf
 * signalkraft
 * Mac Chapman
+* Nar Chhantyal
 
 Translators
 ===========
