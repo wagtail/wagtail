@@ -247,8 +247,11 @@ class TestObjectList(TestCase):
         # result should contain ObjectList furniture
         self.assertIn('<ul class="objects">', result)
 
-        # result should contain h2 headings for children
-        self.assertIn('<h2>Start date</h2>', result)
+        # result should contain h2 headings (including labels) for children
+        self.assertInHTML('<h2><label for="id_date_from">Start date</label></h2>', result)
+
+        # result should include help text for children
+        self.assertIn('<div class="object-help help">Not required if event is on a single day</div>', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
@@ -278,12 +281,13 @@ class TestFieldPanel(TestCase):
         )
         result = field_panel.render_as_object()
 
-        # check that label appears in the 'object' wrapper as well as the field
+        # check that label appears as a legend in the 'object' wrapper,
+        # but not as a field label (that would be provided by ObjectList instead)
         self.assertIn('<legend>End date</legend>', result)
-        self.assertIn('<label for="id_date_to">End date:</label>', result)
+        self.assertNotIn('<label for="id_date_to">End date:</label>', result)
 
-        # check that help text is included
-        self.assertIn('Not required if event is on a single day', result)
+        # check that help text is not included (it's provided by ObjectList instead)
+        self.assertNotIn('Not required if event is on a single day', result)
 
         # check that the populated form field is included
         self.assertIn('value="2014-07-22"', result)

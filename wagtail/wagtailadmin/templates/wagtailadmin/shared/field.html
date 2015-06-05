@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags %}
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}">
-    {{ field.label_tag }}
+    {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
         <div class="input {{ input_classes }} ">
             {% block form_field %}
@@ -10,7 +10,7 @@
             {# This span only used on rare occasions by certain types of input #}
             <span></span>
         </div>
-        {% if field.help_text %}
+        {% if show_help_text|default_if_none:True and field.help_text %}
             <p class="help">{{ field.help_text }}</p>
         {% endif %}
 
