@@ -77,7 +77,7 @@
         opacity:1;
     }
 
-    > h2, &.single-field label{
+    > h2{
         -webkit-font-smoothing: auto;
         background:$color-salmon-light;
         text-transform:uppercase;
@@ -93,7 +93,17 @@
         z-index:1;
         overflow:hidden;
 
-        &:before{
+        label{
+            display: inline;
+            text-transform: inherit;
+            font-weight: inherit;
+            float: none;
+            width: auto;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        &:before, label:before{
             text-shadow:none;
             font-family:wagtail;
             text-transform:none;
@@ -127,18 +137,20 @@
         }
     }
 
-    &.single-field{
-        h2, .object-help{
-            display:none; /* The field label is used instead */
+    &.required{
+        > h2 label:after{
+            content:"*";
+            color:$color-red;
+            font-weight:bold;
+            display:inline-block;
+            margin-left:0.5em;
+            line-height:1em;
+            font-size:13px;
         }
     }
 
     /* Special full-width, one-off fields i.e a single text or textarea input */
     &.full{
-        h2{
-            display:none; /* The field label is used instead */
-        }
-
         .object-help{
             display:block;
         }
@@ -146,10 +158,6 @@
         fieldset{
             display:block;
             float:none;
-
-            .help{
-                display:none;
-            }
         }
         li{
             padding:0;
@@ -542,7 +550,7 @@
     &.empty{
         border-bottom:1px solid white;
 
-        > h2, &.single-field label{
+        > h2{
             margin:0 0;
             border-bottom:1px solid white;
         }
@@ -731,13 +739,6 @@ footer .preview{
 
         &.empty .add{
             margin:0 0 0 -50px;
-        }
-
-        &.single-field label{
-            display: block;
-            float: none;
-            width: auto;
-            padding:auto;
         }
     }
 }

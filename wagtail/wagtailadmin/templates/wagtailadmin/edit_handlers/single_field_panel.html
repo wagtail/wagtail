@@ -1,6 +1,27 @@
+{% load wagtailadmin_tags %}
 <fieldset>
     <legend>{{ self.heading }}</legend>
     <ul class="fields">
-        <li>{{ field_content }}</li>
+        <li>
+            {# render field with markup as per wagtailadmin/shared/field.html, but with label/help text omitted (those are handled by object_list.html) #}
+            <div class="field {{ field|fieldtype }} {{ field|widgettype }}">
+                <div class="field-content">
+                    <div class="input">
+                        {{ field|render_with_errors }}
+
+                        {# This span only used on rare occasions by certain types of input #}
+                        <span></span>
+                    </div>
+
+                    {% if field|has_unrendered_errors %}
+                        <p class="error-message">
+                            {% for error in field.errors %}
+                                <span>{{ error|escape }}</span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
     </ul>
 </fieldset>
