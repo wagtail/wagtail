@@ -1,5 +1,6 @@
 import datetime
 import json
+import unittest
 
 import pytz
 
@@ -677,3 +678,27 @@ class TestIssue756(TestCase):
 
         # Check that latest_revision_created_at is still set
         self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
+
+
+class TestPageProxy(TestCase):
+    @unittest.expectedFailure
+    def test_page_proxy(self):
+        from django.apps import apps
+        wagtailcore_models = apps.all_models['wagtailcore'].copy()
+
+        try:
+            # See #1265
+            # Proxy models can sometimes return None from their _meta.get_fields method
+            # This caused the check method to break as it didn't expect this
+            class PageProxy(Page):
+                class Meta:
+                    proxy = True
+                    app_label = 'wagtailcore'
+
+            # Shouldn't raise an error
+            PageProxy.check()
+        finally:
+            # Django registers models as they're initialised
+            # Unregister PageProxy to prevent breaking the migrations test
+            apps.all_models['wagtailcore'] = wagtailcore_models
+            apps.clear_cache()
