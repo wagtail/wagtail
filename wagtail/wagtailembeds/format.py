@@ -8,20 +8,18 @@ from wagtail.wagtailembeds import embeds
 def embed_to_frontend_html(url):
     try:
         embed = embeds.get_embed(url)
-        if embed is not None:
-            # Work out ratio
-            if embed.width and embed.height:
-                ratio = str(embed.height / embed.width * 100) + "%"
-            else:
-                ratio = "0"
 
-            # Render template
-            return render_to_string('wagtailembeds/embed_frontend.html', {
-                'embed': embed,
-                'ratio': ratio,
-            })
+        # Work out ratio
+        if embed.width and embed.height:
+            ratio = str(embed.height / embed.width * 100) + "%"
         else:
-            return ''
+            ratio = "0"
+
+        # Render template
+        return render_to_string('wagtailembeds/embed_frontend.html', {
+            'embed': embed,
+            'ratio': ratio,
+        })
     except embeds.EmbedNotFoundException:
         return ''
 
@@ -29,8 +27,6 @@ def embed_to_frontend_html(url):
 def embed_to_editor_html(url):
     try:
         embed = embeds.get_embed(url)
-        if embed is None:
-            return
 
         # Render template
         return render_to_string('wagtailembeds/embed_editor.html', {
