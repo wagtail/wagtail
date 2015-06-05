@@ -23,10 +23,17 @@ from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
 
 
+class EmbedException(Exception):
+    pass
 
-class EmbedNotFoundException(Exception): pass
-class EmbedlyException(Exception): pass
-class AccessDeniedEmbedlyException(EmbedlyException): pass
+class EmbedNotFoundException(EmbedException):
+    pass
+
+class EmbedlyException(EmbedException):
+    pass
+
+class AccessDeniedEmbedlyException(EmbedlyException):
+    pass
 
 
 # Pinched from django 1.7 source code.

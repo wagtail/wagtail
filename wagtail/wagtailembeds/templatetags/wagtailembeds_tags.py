@@ -14,5 +14,5 @@ def embed(url, max_width=None):
     try:
         embed = embeds.get_embed(url, max_width=max_width)
         return mark_safe(embed.html)
-    except embeds.EmbedNotFoundException:
+    except embeds.EmbedException:
         return ''
