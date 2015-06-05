@@ -53,6 +53,7 @@ Contributors
 * signalkraft
 * Mac Chapman
 * Brett Grace
+* Nar Chhantyal
 
 Translators
 ===========

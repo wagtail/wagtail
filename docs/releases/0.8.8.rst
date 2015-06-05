@@ -18,3 +18,4 @@ Bug fixes
 * Retrieving an individual item from a sliced ``BaseSearchResults`` object now properly takes the slice offset into account
 * Removed dependency on unicodecsv which fixes a crash on Python 3
 * Submitting unicode text in form builder form no longer crashes with ``UnicodeEncodeError`` on Python 2
+* Creating a proxy model from a Page class no longer crashes in the system check
