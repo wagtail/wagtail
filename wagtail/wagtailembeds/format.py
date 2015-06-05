@@ -2,12 +2,12 @@ from __future__ import division  # Use true division
 
 from django.template.loader import render_to_string
 
-from wagtail.wagtailembeds.embeds import get_embed
+from wagtail.wagtailembeds import embeds
 
 
 def embed_to_frontend_html(url):
     try:
-        embed = get_embed(url)
+        embed = embeds.get_embed(url)
         if embed is not None:
             # Work out ratio
             if embed.width and embed.height:
@@ -27,7 +27,7 @@ def embed_to_frontend_html(url):
 
 
 def embed_to_editor_html(url):
-    embed = get_embed(url)
+    embed = embeds.get_embed(url)
     if embed is None:
         return
 

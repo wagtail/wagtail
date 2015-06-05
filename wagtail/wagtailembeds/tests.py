@@ -317,7 +317,7 @@ class TestEmbedBlock(TestCase):
         serialized_empty_val = block.get_prep_value(None)
         self.assertEqual(serialized_empty_val, '')
 
-    @patch('wagtail.wagtailembeds.format.get_embed')
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_render(self, get_embed):
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
@@ -334,7 +334,7 @@ class TestEmbedBlock(TestCase):
         # Check that get_embed was called correctly
         get_embed.assert_any_call('http://www.example.com/foo')
 
-    @patch('wagtail.wagtailembeds.format.get_embed')
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_render_within_structblock(self, get_embed):
         """
         When rendering the value of an EmbedBlock directly in a template
@@ -434,18 +434,21 @@ class TestMediaEmbedHandler(TestCase):
         self.assertEqual(result,
                          {'url': 'test-url'})
 
-    @patch('wagtail.wagtailembeds.embeds.oembed')
-    def test_expand_db_attributes_for_editor(self, oembed):
-        oembed.return_value = {
-            'title': 'test title',
-            'author_name': 'test author name',
-            'provider_name': 'test provider name',
-            'type': 'test type',
-            'thumbnail_url': 'test thumbnail url',
-            'width': 'test width',
-            'height': 'test height',
-            'html': 'test html'
-        }
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes_for_editor(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='http://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
         result = MediaEmbedHandler.expand_db_attributes(
             {'url': 'http://www.youtube.com/watch/'},
             True
@@ -455,20 +458,23 @@ class TestMediaEmbedHandler(TestCase):
         self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
         self.assertIn('<p>Provider: test provider name</p>', result)
         self.assertIn('<p>Author: test author name</p>', result)
-        self.assertIn('<img src="test thumbnail url" alt="test title">', result)
+        self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
 
-    @patch('wagtail.wagtailembeds.embeds.oembed')
-    def test_expand_db_attributes_not_for_editor(self, oembed):
-        oembed.return_value = {
-            'title': 'test title',
-            'author_name': 'test author name',
-            'provider_name': 'test provider name',
-            'type': 'test type',
-            'thumbnail_url': 'test thumbnail url',
-            'width': 'test width',
-            'height': 'test height',
-            'html': 'test html'
-        }
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='htto://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
         result = MediaEmbedHandler.expand_db_attributes(
             {'url': 'http://www.youtube.com/watch/'},
             False
