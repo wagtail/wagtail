@@ -22,7 +22,7 @@ def embed_to_frontend_html(url):
             })
         else:
             return ''
-    except:
+    except embeds.EmbedNotFoundException:
         return ''
 
 
