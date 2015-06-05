@@ -9,5 +9,8 @@ register = template.Library()
 
 @register.filter
 def embed(url, max_width=None):
-    embed = embeds.get_embed(url, max_width=max_width)
-    return mark_safe(embed.html)
+    try:
+        embed = embeds.get_embed(url, max_width=max_width)
+        return mark_safe(embed.html)
+    except embeds.EmbedNotFoundException:
+        return ''

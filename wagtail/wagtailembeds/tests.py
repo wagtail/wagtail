@@ -290,7 +290,6 @@ class TestEmbedFilter(TestCase):
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @unittest.expectedFailure
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
@@ -470,7 +469,6 @@ class TestMediaEmbedHandler(TestCase):
         self.assertIn('<p>Author: test author name</p>', result)
         self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
 
-    @unittest.expectedFailure
     @patch('wagtail.wagtailembeds.embeds.get_embed')
     def test_test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
