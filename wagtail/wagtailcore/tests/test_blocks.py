@@ -733,8 +733,8 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for=links-0-value-title>Title</label>', html)
-        self.assertIn('<label for=links-0-value-link>Link</label>', html)
+        self.assertIn('<label for="links-0-value-title">Title</label>', html)
+        self.assertIn('<label for="links-0-value-link">Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()

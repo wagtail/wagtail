@@ -272,6 +272,13 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
         return errors
 
+    def id_for_label(self, prefix):
+        """
+        Return the ID to be used as the 'for' attribute of <label> elements that refer to this block,
+        when the given field prefix is in use. Return None if no 'for' attribute should be used.
+        """
+        return None
+
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__

@@ -22,16 +22,11 @@ class FieldBlock(Block):
     class Meta:
         default = None
 
+    def id_for_label(self, prefix):
+        return self.field.widget.id_for_label(prefix)
+
     def render_form(self, value, prefix='', errors=None):
         widget = self.field.widget
-
-        if self.label:
-            label_html = format_html(
-                """<label for={label_id}>{label}</label> """,
-                label_id=widget.id_for_label(prefix), label=self.label
-            )
-        else:
-            label_html = ''
 
         widget_attrs = {'id': prefix, 'placeholder': self.label}
 
@@ -47,9 +42,9 @@ class FieldBlock(Block):
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
             'label': self.label,
+            'id_for_label': self.id_for_label(prefix),
             'classes': self.meta.classname,
             'widget': widget_html,
-            'label_tag': label_html,
             'field': self.field,
             'errors': errors if (not widget_has_rendered_errors) else None
         })
