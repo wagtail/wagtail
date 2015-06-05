@@ -3,7 +3,6 @@ mock>=1.0.0
 python-dateutil>=2.2
 pytz>=2014.7
 Pillow>=2.7.0
-django-sendfile==0.3.6
 
 # For coverage and PEP8 linting
 coverage>=3.7.0

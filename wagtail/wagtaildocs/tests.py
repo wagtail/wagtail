@@ -591,6 +591,26 @@ class TestServeView(TestCase):
         from wagtail.utils.sendfile import _get_sendfile
         _get_sendfile.clear()
 
+
+class TestServeViewWithSendfile(TestCase):
+    def setUp(self):
+        # Import using a try-catch block to prevent crashes if the
+        # django-sendfile module is not installed
+        try:
+            import sendfile  # noqa
+        except ImportError:
+            raise unittest.SkipTest("django-sendfile not installed")
+
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def get(self):
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'example.doc')))
+
+    def clear_sendfile_cache(self):
+        from wagtail.utils.sendfile import _get_sendfile
+        _get_sendfile.clear()
+
     @override_settings(SENDFILE_BACKEND='sendfile.backends.xsendfile')
     def test_sendfile_xsendfile_backend(self):
         self.clear_sendfile_cache()

@@ -83,7 +83,6 @@ INSTALLED_APPS = (
 
     'taggit',
     'compressor',
-    'sendfile',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -112,8 +111,6 @@ INSTALLED_APPS = (
     # app which uses AppConfigs to test that hooks load properly
     'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
 )
-
-
 
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.
