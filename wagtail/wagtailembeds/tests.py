@@ -2,7 +2,9 @@ import six.moves.urllib.request
 from six.moves.urllib.error import URLError
 
 from mock import patch
-import warnings
+from bs4 import BeautifulSoup
+
+from wagtail.wagtailcore.rich_text import MediaEmbedHandler
 
 try:
     import embedly
@@ -283,3 +285,84 @@ class TestEmbedFilter(TestCase):
         result = temp.render(template.Context())
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
+
+
+class TestMediaEmbedHandler(TestCase):
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup(
+            '<b data-url="test-url">foo</b>'
+        )
+        tag = soup.b
+        result = MediaEmbedHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'url': 'test-url'})
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes_for_editor(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='http://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            True
+        )
+        self.assertIn('<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="http://www.youtube.com/watch/">', result)
+        self.assertIn('<h3>test title</h3>', result)
+        self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
+        self.assertIn('<p>Provider: test provider name</p>', result)
+        self.assertIn('<p>Author: test author name</p>', result)
+        self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
+
+    @unittest.expectedFailure
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            True
+        )
+
+        self.assertEqual(result, '')
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='htto://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            False
+        )
+        self.assertIn('test html', result)
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes_catches_embed_not_found(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            False
+        )
+
+        self.assertEqual(result, '')
