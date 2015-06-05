@@ -9,7 +9,7 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
+from wagtail.wagtailusers.forms import get_user_creation_form, get_user_edit_form
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 User = get_user_model()
@@ -79,6 +79,8 @@ def index(request):
 
 @permission_required(change_user_perm)
 def create(request):
+    UserCreationForm = get_user_creation_form(User)
+
     if request.POST:
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -99,7 +101,10 @@ def create(request):
 
 @permission_required(change_user_perm)
 def edit(request, user_id):
+    UserEditForm = get_user_edit_form(User)
+
     user = get_object_or_404(User, id=user_id)
+
     if request.POST:
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
