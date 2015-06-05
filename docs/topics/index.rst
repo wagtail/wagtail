@@ -10,4 +10,5 @@ Topics
     writing_templates
     images/index
     search/index
+    snippets
     streamfield

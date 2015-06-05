@@ -7,11 +7,18 @@ Wagtail ships with a variety of extra optional modules.
 .. toctree::
     :maxdepth: 2
 
+    forms
     staticsitegen
     sitemaps
     frontendcache
     routablepage
     api/index
+
+
+:doc:`form_builder`
+-------------------
+
+Allows forms to be created by admins and provides an interface for browsing form submissions.
 
 
 :doc:`staticsitegen`
