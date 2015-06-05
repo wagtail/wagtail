@@ -1,10 +1,12 @@
 <div class="struct-block">
-    {% if label %}
-        <h3><label{% if id_for_label %} for="{{ id_for_label }}"{% endif %}>{{ label }}</label></h3>
-    {% endif %}
     <ul>
-        {% for block in bound_child_blocks %}
-            <li>{{ block.render_form }}</li>
+        {% for child in bound_child_blocks %}
+            <li>
+                {% if child.block.label %}
+                    <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+                {% endif %}
+                {{ child.render_form }}
+            </li>
         {% endfor %}
     </ul>
 </div>

@@ -125,7 +125,6 @@ class BaseStreamBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'label': self.label,
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),

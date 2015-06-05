@@ -79,8 +79,6 @@ class BaseStructBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/struct.html', {
-            'label': self.label,
-            'id_for_label': self.id_for_label(prefix),
             'bound_child_blocks': bound_child_blocks
         })
 

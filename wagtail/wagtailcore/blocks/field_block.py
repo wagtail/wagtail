@@ -41,8 +41,6 @@ class FieldBlock(Block):
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
-            'label': self.label,
-            'id_for_label': self.id_for_label(prefix),
             'classes': self.meta.classname,
             'widget': widget_html,
             'field': self.field,
