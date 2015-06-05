@@ -1218,7 +1218,7 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.to_python(None), None)
 
     def test_form_render(self):
-        block = blocks.PageChooserBlock()
+        block = blocks.PageChooserBlock(help_text="pick a page, any page")
 
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
@@ -1227,6 +1227,7 @@ class TestPageChooserBlock(TestCase):
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
         self.assertIn(expected_html, christmas_form_html)
+        self.assertIn("pick a page, any page", christmas_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()

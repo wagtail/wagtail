@@ -306,14 +306,17 @@ class RawHTMLBlock(FieldBlock):
 
 
 class ChooserBlock(FieldBlock):
-    def __init__(self, required=True, **kwargs):
+    def __init__(self, required=True, help_text=None, **kwargs):
         self.required = required
+        self.help_text = help_text
         super(ChooserBlock, self).__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget, required=self.required)
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all(), widget=self.widget, required=self.required,
+            help_text=self.help_text)
 
     def to_python(self, value):
         # the incoming serialised value should be None or an ID
