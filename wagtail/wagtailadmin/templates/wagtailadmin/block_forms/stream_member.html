@@ -7,7 +7,7 @@
 
 {% block header_controls %}
     <div class="stream-controls">
-        <h3>{{ block_type_name }}</h3>{# TODO: this should be the label, not the name, the latter being a machine-name #}
+        <h3><label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label></h3>
         <div class="buttons">
             <button type="button" id="{{ prefix }}-moveup" title="{% trans 'Move up' %}" class="icon button-nobg button-neutral text-replace icon-order-up">{% trans 'Move up' %}</button>
             <button type="button" id="{{ prefix }}-movedown" title="{% trans 'Move down' %}" class="icon button-nobg button-neutral text-replace icon-order-down">{% trans 'Move down' %}</button>

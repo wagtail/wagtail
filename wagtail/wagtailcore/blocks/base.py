@@ -379,6 +379,9 @@ class BoundBlock(object):
     def render(self):
         return self.block.render(self.value)
 
+    def id_for_label(self):
+        return self.block.id_for_label(self.prefix)
+
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):
     """
