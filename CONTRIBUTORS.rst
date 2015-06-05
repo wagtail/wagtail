@@ -70,7 +70,7 @@ Translators
 * Galician: fooflare, fonso
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston
 * Greek: Serafeim Papastefanos, Jim Dal
-* Italian: Andrea Tagliazucchi
+* Italian: Andrea Tagliazucchi, Claudio Bantaloukas
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga
 * Polish: Łukasz Bołdys
@@ -81,3 +81,4 @@ Translators
 * Spanish: Unai Zalakain, fooflare, Yusuf (Josè) Luis
 * Ukrainian: Andrey Tykhonov, Mykola Zamkovoi
 * Vietnamese: binhle, Luan Nguyen
+* Korean: Ji Han Chung
