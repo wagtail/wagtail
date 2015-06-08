@@ -260,7 +260,7 @@ class StreamValue(collections.Sequence):
             """
             return self.block.name
 
-    def __init__(self, stream_block, stream_data, is_lazy=False):
+    def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
         with child values given in stream_data.
@@ -273,11 +273,18 @@ class StreamValue(collections.Sequence):
         Passing is_lazy=False means that stream_data consists of immediately usable
         native values. In this mode, stream_data is a list of (type_name, value)
         tuples.
+
+        raw_text exists solely as a way of representing StreamField content that is
+        not valid JSON; this may legitimately occur if an existing text field is
+        migrated to a StreamField. In this situation we return a blank StreamValue
+        with the raw text accessible under the `raw_text` attribute, so that migration
+        code can be rewritten to convert it as desired.
         """
         self.is_lazy = is_lazy
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.stream_data = stream_data  # a list of (type_name, value) tuples
         self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
+        self.raw_text = raw_text
 
     def __getitem__(self, i):
         if i not in self._bound_blocks:

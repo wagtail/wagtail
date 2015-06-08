@@ -5,7 +5,7 @@ import json
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass
+from django.utils.six import with_metaclass, string_types
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
@@ -69,17 +69,16 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
-        else:  # assume string
+        elif isinstance(value, string_types):
             try:
                 unpacked_value = json.loads(value)
             except ValueError:
                 # value is not valid JSON; most likely, this field was previously a
                 # rich text field before being migrated to StreamField, and the data
-                # was left intact in the migration. Return an empty stream instead.
-
-                # TODO: keep this raw text data around as a property of the StreamValue
-                # so that it can be retrieved in data migrations
-                return StreamValue(self.stream_block, [])
+                # was left intact in the migration. Return an empty stream instead
+                # (but keep the raw text available as an attribute, so that it can be
+                # used to migrate that data to StreamField)
+                return StreamValue(self.stream_block, [], raw_text=value)
 
             if unpacked_value is None:
                 # we get here if value is the literal string 'null'. This should probably
@@ -88,9 +87,27 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
                 return StreamValue(self.stream_block, [])
 
             return self.stream_block.to_python(unpacked_value)
+        else:
+            # See if it looks like the standard non-smart representation of a
+            # StreamField value: a list of (block_name, value) tuples
+            try:
+                [None for (x, y) in value]
+            except (TypeError, ValueError):
+                # Give up trying to make sense of the value
+                raise TypeError("Cannot handle %r (type %r) as a value of StreamField" % (value, type(value)))
+
+            # Test succeeded, so return as a StreamValue-ified version of that value
+            return StreamValue(self.stream_block, value)
 
     def get_prep_value(self, value):
-        return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
+        if isinstance(value, StreamValue) and not(value) and value.raw_text is not None:
+            # An empty StreamValue with a nonempty raw_text attribute should have that
+            # raw_text attribute written back to the db. (This is probably only useful
+            # for reverse migrations that convert StreamField data back into plain text
+            # fields.)
+            return value.raw_text
+        else:
+            return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
 
     def formfield(self, **kwargs):
         """
