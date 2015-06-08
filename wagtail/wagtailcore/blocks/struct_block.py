@@ -79,7 +79,8 @@ class BaseStructBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/struct.html', {
-            'bound_child_blocks': bound_child_blocks
+            'bound_child_blocks': bound_child_blocks,
+            'help_text': getattr(self.meta, 'help_text', None),
         })
 
     def value_from_datadict(self, data, files, prefix):

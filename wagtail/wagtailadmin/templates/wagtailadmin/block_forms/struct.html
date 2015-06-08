@@ -1,4 +1,7 @@
 <div class="struct-block">
+    {% if help_text %}
+        <div class="object-help help">{{ help_text }}</div>
+    {% endif %}
     <ul>
         {% for child in bound_child_blocks %}
             <li>

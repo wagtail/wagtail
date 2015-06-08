@@ -560,6 +560,31 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
 
+    def test_render_form_with_help_text(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                help_text = "Self-promotion is encouraged"
+
+        block = LinkBlock()
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
+
+        # check it can be overridden in the block constructor
+        block = LinkBlock(help_text="Self-promotion is discouraged")
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
+
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
             media = forms.Media(js=['scripted_char_block.js'])
