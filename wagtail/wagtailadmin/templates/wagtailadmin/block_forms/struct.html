@@ -1,9 +1,9 @@
-<div class="struct-block">
+<div class="{{ classname }}">
     {% if help_text %}
         <div class="object-help help">{{ help_text }}</div>
     {% endif %}
     <ul>
-        {% for child in bound_child_blocks %}
+        {% for child in children.values %}
             <li>
                 {% if child.block.label %}
                     <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>

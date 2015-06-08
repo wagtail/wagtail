@@ -23,6 +23,8 @@ class BaseStructBlock(Block):
     class Meta:
         default = {}
         template = "wagtailadmin/blocks/struct.html"
+        form_classname = 'struct-block'
+        form_template = 'wagtailadmin/block_forms/struct.html'
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -72,15 +74,19 @@ class BaseStructBlock(Block):
         else:
             error_dict = {}
 
-        bound_child_blocks = [
-            block.bind(value.get(name, block.get_default()), prefix="%s-%s" % (prefix, name),
-                errors=error_dict.get(name))
+        bound_child_blocks = collections.OrderedDict([
+            (
+                name,
+                block.bind(value.get(name, block.get_default()),
+                    prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
+            )
             for name, block in self.child_blocks.items()
-        ]
+        ])
 
-        return render_to_string('wagtailadmin/block_forms/struct.html', {
-            'bound_child_blocks': bound_child_blocks,
+        return render_to_string(self.meta.form_template, {
+            'children': bound_child_blocks,
             'help_text': getattr(self.meta, 'help_text', None),
+            'classname': self.meta.form_classname,
         })
 
     def value_from_datadict(self, data, files, prefix):
