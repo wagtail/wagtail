@@ -9,7 +9,7 @@
     <h1>Search</h1>
 
     <form action="{% templatetag openblock %} url 'search' {% templatetag closeblock %}" method="get">
-        <input type="text" name="query"{% templatetag openblock %} if search_query {% templatetag closeblock %} value="{% templatetag openvariable %} search_query {% templatetag closevariable %}{% templatetag openblock %} endif {% templatetag closeblock %}">
+        <input type="text" name="query"{% templatetag openblock %} if search_query {% templatetag closeblock %} value="{% templatetag openvariable %} search_query {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %}>
         <input type="submit" value="Search">
     </form>
 
