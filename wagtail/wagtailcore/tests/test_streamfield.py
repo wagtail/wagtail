@@ -9,6 +9,8 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.wagtailcore.blocks import StreamValue
+from wagtail.wagtailcore.rich_text import RichText
 
 
 class TestLazyStreamField(TestCase):
@@ -21,6 +23,7 @@ class TestLazyStreamField(TestCase):
             {'type': 'text', 'value': 'foo'}]))
         self.no_image = StreamModel.objects.create(body=json.dumps([
             {'type': 'text', 'value': 'foo'}]))
+        self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
 
     def test_lazy_load(self):
         """
@@ -99,3 +102,29 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
         self.assertEqual(errors[0].obj, InvalidStreamModel._meta.get_field('body'))
+
+
+class TestStreamValueAccess(TestCase):
+    def setUp(self):
+        self.json_body = StreamModel.objects.create(body=json.dumps([
+            {'type': 'text', 'value': 'foo'}]))
+        self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
+
+    def test_can_read_non_json_content(self):
+        """StreamField columns should handle non-JSON database content gracefully"""
+        self.assertIsInstance(self.nonjson_body.body, StreamValue)
+        # the main list-like content of the StreamValue should be blank
+        self.assertFalse(self.nonjson_body.body)
+        # the unparsed text content should be available in raw_text
+        self.assertEqual(self.nonjson_body.body.raw_text, "<h1>hello world</h1>")
+
+    def test_can_assign_as_list(self):
+        self.json_body.body = [('rich_text', RichText("<h2>hello world</h2>"))]
+        self.json_body.save()
+
+        # the body should now be a stream consisting of a single rich_text block
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 1)
+        self.assertIsInstance(fetched_body[0].value, RichText)
+        self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
