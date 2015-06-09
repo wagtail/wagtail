@@ -1,4 +1,4 @@
-{% templatetag openblock %} load compress static wagtailuserbar {% templatetag closeblock %}
+{% templatetag openblock %} load static wagtailuserbar {% templatetag closeblock %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -12,11 +12,11 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
+        {% templatetag opencomment %} Global stylesheets {% templatetag closecomment %}
         <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
 
         {% templatetag openblock %} block extra_css {% templatetag closeblock %}
-            {# Override this in templates to add extra stylesheets #}
+            {% templatetag opencomment %} Override this in templates to add extra stylesheets {% templatetag closecomment %}
         {% templatetag openblock %} endblock {% templatetag closeblock %}
     </head>
 
@@ -25,11 +25,11 @@
 
         {% templatetag openblock %} block content {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
-        {# Global javascript #}
+        {% templatetag opencomment %} Global javascript {% templatetag closecomment %}
         <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
 
         {% templatetag openblock %} block extra_js {% templatetag closeblock %}
-            {# Override this in templates to add extra javascript #}
+            {% templatetag opencomment %} Override this in templates to add extra javascript {% templatetag closecomment %}
         {% templatetag openblock %} endblock {% templatetag closeblock %}
     </body>
 </html>
