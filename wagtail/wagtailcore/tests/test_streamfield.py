@@ -1,8 +1,11 @@
 import json
 
 from django.test import TestCase
+from django.db import models
 
 from wagtail.tests.testapp.models import StreamModel
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.tests.utils import get_test_image_file
 
@@ -70,3 +73,15 @@ class TestLazyStreamField(TestCase):
 
         with self.assertNumQueries(0):
             instances_lookup[self.no_image.pk].body[0]
+
+    def test_system_check_validates_block(self):
+        class InvalidStreamModel(models.Model):
+            body = StreamField([
+                ('heading', blocks.CharBlock()),
+                ('rich text', blocks.RichTextBlock()),
+            ])
+
+        errors = InvalidStreamModel.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain spaces")

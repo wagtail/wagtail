@@ -150,6 +150,14 @@ class BaseStructBlock(Block):
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
+    def check(self, **kwargs):
+        errors = super(BaseStructBlock, self).check(**kwargs)
+        for name, child_block in self.child_blocks.items():
+            errors.extend(child_block.check(**kwargs))
+            errors.extend(child_block._check_name(**kwargs))
+
+        return errors
+
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):
     pass
