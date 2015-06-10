@@ -15,10 +15,13 @@ from wagtail.wagtailembeds.oembed_providers import get_oembed_provider
 from wagtail.wagtailembeds.models import Embed
 
 
-class EmbedNotFoundException(Exception):
+class EmbedException(Exception):
     pass
 
-class EmbedlyException(Exception):
+class EmbedNotFoundException(EmbedException):
+    pass
+
+class EmbedlyException(EmbedException):
     pass
 
 class AccessDeniedEmbedlyException(EmbedlyException):
