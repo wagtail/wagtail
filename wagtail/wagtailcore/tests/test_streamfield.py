@@ -1,5 +1,6 @@
 import json
 
+from django.apps import apps
 from django.test import TestCase
 from django.db import models
 
@@ -73,6 +74,17 @@ class TestLazyStreamField(TestCase):
 
         with self.assertNumQueries(0):
             instances_lookup[self.no_image.pk].body[0]
+
+class TestSystemCheck(TestCase):
+    def tearDown(self):
+        # unregister InvalidStreamModel from the overall model registry
+        # so that it doesn't break tests elsewhere
+        for package in ('wagtailcore', 'wagtail.wagtailcore.tests'):
+            try:
+                del apps.all_models[package]['invalidstreammodel']
+            except KeyError:
+                pass
+        apps.clear_cache()
 
     def test_system_check_validates_block(self):
         class InvalidStreamModel(models.Model):
