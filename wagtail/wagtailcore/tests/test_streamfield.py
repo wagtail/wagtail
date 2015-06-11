@@ -75,6 +75,7 @@ class TestLazyStreamField(TestCase):
         with self.assertNumQueries(0):
             instances_lookup[self.no_image.pk].body[0]
 
+
 class TestSystemCheck(TestCase):
     def tearDown(self):
         # unregister InvalidStreamModel from the overall model registry
