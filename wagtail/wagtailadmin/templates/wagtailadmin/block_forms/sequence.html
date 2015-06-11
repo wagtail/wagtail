@@ -12,11 +12,11 @@
 
 
 {% endcomment %}
-<div class="sequence">
+<div class="sequence-container sequence-type-{% block sequence_type_class %}{% endblock %}">
     <input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
     
     {% block header %}{% endblock %}
-    <div class="sequence-inner">
+    <div class="sequence-container-inner">
         <ul id="{{ prefix }}-list" class="sequence">
             {% for list_member_html in list_members_html %}
                 {{ list_member_html }}

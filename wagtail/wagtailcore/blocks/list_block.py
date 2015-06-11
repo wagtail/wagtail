@@ -86,6 +86,7 @@ class ListBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/list.html', {
+            'help_text': getattr(self.meta, 'help_text', None),
             'prefix': prefix,
             'list_members_html': list_members_html,
         })
