@@ -18,6 +18,10 @@ li.sequence-member{
         }
     }
 
+    &:hover .object-help{
+        opacity:1;
+    }
+
    
     .struct-block .fields{
         @include column(10);
@@ -66,8 +70,8 @@ li.sequence-member{
     }
 }
 
-/* Image chooser has special display in streamfields */
-.widget-admin_image_chooser{
+/* Image chooser as direct descendant of top-level streamfield has special display */
+.sequence-member-inner > .widget-admin_image_chooser{
     label{
         display:none;
     }
@@ -97,6 +101,10 @@ li.sequence-member{
             margin:0;
         }
     }
+    .actions li{
+        display:inline-block;
+        float:none;
+    }
 }
 
 /*
@@ -114,8 +122,8 @@ should be borderless and full-width
     }
 }
 
-/* Object controls */
-.stream-controls{
+/* Controls for ordering and deletion of items in a sequence */
+.sequence-controls{
     @include border-radius(5px);
     @include transition(opacity 0.2s ease);
     opacity:0;
@@ -176,7 +184,7 @@ should be borderless and full-width
     }       
 }
 
-/* list controls are slightly different as they require close proximity to their associated fields */
+/* list controls are slightly different as they require closer proximity to their associated fields */
 .list-controls{
     top:1.5em
 }
@@ -343,8 +351,7 @@ should be borderless and full-width
     visibility:hidden;
 }
 .sequence-member:hover{
-    .stream-controls, 
-    .list-controls{
+    .sequence-controls{
         visibility:visible;
         opacity:1;
     }
@@ -352,4 +359,11 @@ should be borderless and full-width
         visibility:visible;
         opacity:1;
     }
+}
+
+@media screen and (min-width: $breakpoint-mobile){
+    .object li.sequence-member:hover .object-help{
+        opacity:1;
+    }
+
 }
