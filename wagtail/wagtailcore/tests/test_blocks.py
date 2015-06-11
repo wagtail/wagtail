@@ -737,7 +737,7 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-list">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -1021,7 +1021,7 @@ class TestStreamBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
