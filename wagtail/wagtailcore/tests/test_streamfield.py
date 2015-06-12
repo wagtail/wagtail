@@ -98,3 +98,4 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, InvalidStreamModel._meta.get_field('body'))

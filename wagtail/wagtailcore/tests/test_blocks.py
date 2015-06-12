@@ -1262,6 +1262,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block name cannot be empty")
+        self.assertEqual(errors[0].obj, block.child_blocks[''])
 
     def test_name_cannot_contain_spaces(self):
         block = blocks.StreamBlock([
@@ -1273,6 +1274,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, block.child_blocks['rich text'])
 
     def test_name_cannot_contain_dashes(self):
         block = blocks.StreamBlock([
@@ -1284,6 +1286,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain dashes")
+        self.assertEqual(errors[0].obj, block.child_blocks['rich-text'])
 
     def test_name_cannot_begin_with_digit(self):
         block = blocks.StreamBlock([
@@ -1295,13 +1298,15 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot begin with a digit")
+        self.assertEqual(errors[0].obj, block.child_blocks['99richtext'])
 
     def test_system_checks_recurse_into_lists(self):
+        failing_block = blocks.RichTextBlock()
         block = blocks.StreamBlock([
             ('paragraph_list', blocks.ListBlock(
                 blocks.StructBlock([
                     ('heading', blocks.CharBlock()),
-                    ('rich text', blocks.RichTextBlock()),
+                    ('rich text', failing_block),
                 ])
             ))
         ])
@@ -1310,13 +1315,15 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block)
 
     def test_system_checks_recurse_into_streams(self):
+        failing_block = blocks.RichTextBlock()
         block = blocks.StreamBlock([
             ('carousel', blocks.StreamBlock([
                 ('text', blocks.StructBlock([
                     ('heading', blocks.CharBlock()),
-                    ('rich text', blocks.RichTextBlock()),
+                    ('rich text', failing_block),
                 ]))
             ]))
         ])
@@ -1325,17 +1332,20 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block)
 
     def test_system_checks_recurse_into_structs(self):
+        failing_block_1 = blocks.RichTextBlock()
+        failing_block_2 = blocks.RichTextBlock()
         block = blocks.StreamBlock([
             ('two_column', blocks.StructBlock([
                 ('left', blocks.StructBlock([
                     ('heading', blocks.CharBlock()),
-                    ('rich text', blocks.RichTextBlock()),
+                    ('rich text', failing_block_1),
                 ])),
                 ('right', blocks.StructBlock([
                     ('heading', blocks.CharBlock()),
-                    ('rich text', blocks.RichTextBlock()),
+                    ('rich text', failing_block_2),
                 ]))
             ]))
         ])
@@ -1344,5 +1354,7 @@ class TestSystemCheck(TestCase):
         self.assertEqual(len(errors), 2)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block_1)
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block_2)
