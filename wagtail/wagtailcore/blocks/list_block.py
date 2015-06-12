@@ -153,6 +153,11 @@ class ListBlock(Block):
 
         return content
 
+    def check(self, **kwargs):
+        errors = super(ListBlock, self).check(**kwargs)
+        errors.extend(self.child_block.check(**kwargs))
+        return errors
+
 DECONSTRUCT_ALIASES = {
     ListBlock: 'wagtail.wagtailcore.blocks.ListBlock',
 }

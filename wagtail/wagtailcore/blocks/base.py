@@ -6,6 +6,7 @@ from __future__ import absolute_import, unicode_literals
 import collections
 from importlib import import_module
 
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -222,6 +223,54 @@ class Block(six.with_metaclass(BaseBlock, object)):
         Returns a list of strings containing text content within this block to be used in a search engine.
         """
         return []
+
+    def check(self, **kwargs):
+        """
+        Hook for the Django system checks framework -
+        returns a list of django.core.checks.Error objects indicating validity errors in the block
+        """
+        return []
+
+    def _check_name(self, **kwargs):
+        """
+        Helper method called by container blocks as part of the system checks framework,
+        to validate that this block's name is a valid identifier.
+        (Not called universally, because not all blocks need names)
+        """
+        errors = []
+        if not self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                hint="Block name cannot be empty",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if ' ' in self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                hint="Block names cannot contain spaces",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if '-' in self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                "Block names cannot contain dashes",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if self.name and self.name[0].isdigit():
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                "Block names cannot begin with a digit",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        return errors
 
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible

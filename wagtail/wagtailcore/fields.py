@@ -107,3 +107,8 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
 
     def get_searchable_content(self, value):
         return self.stream_block.get_searchable_content(value)
+
+    def check(self, **kwargs):
+        errors = super(StreamField, self).check(**kwargs)
+        errors.extend(self.stream_block.check(field=self, **kwargs))
+        return errors
