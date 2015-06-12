@@ -20,3 +20,4 @@ Bug fixes
 * Submitting unicode text in form builder form no longer crashes with ``UnicodeEncodeError`` on Python 2
 * Creating a proxy model from a Page class no longer crashes in the system check
 * Unrecognised embed URLs passed to the ``|embed`` filter no longer cause the whole page to crash with an ``EmbedNotFoundException``
+* Underscores no longer get stripped from page slugs
