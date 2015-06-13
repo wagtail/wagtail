@@ -442,8 +442,59 @@ For block types that simply wrap an existing Django form field, Wagtail provides
 Migrations
 ----------
 
+StreamField definitions within migrations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 As with any model field in Django, any changes to a model definition that affect a StreamField will result in a migration file that contains a 'frozen' copy of that field definition. Since a StreamField definition is more complex than a typical model field, there is an increased likelihood of definitions from your project being imported into the migration - which would cause problems later on if those definitions are moved or deleted.
 
 To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock - in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
 
 If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/1.7/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type - for example, if you add extra arguments to the constructor - you will need to provide your own ``deconstruct`` method.
+
+Migrating RichTextFields to StreamField
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you change an existing RichTextField to a StreamField, and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, and so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from __future__ import unicode_literals
+
+    from django.db import models, migrations
+    from wagtail.wagtailcore.rich_text import RichText
+
+
+    def convert_to_streamfield(apps, schema_editor):
+        BlogPage = apps.get_model("demo", "BlogPage")
+        for page in BlogPage.objects.all():
+            if page.body.raw_text and not page.body:
+                page.body = [('rich_text', RichText(page.body.raw_text))]
+                page.save()
+
+
+    def convert_to_richtext(apps, schema_editor):
+        BlogPage = apps.get_model("demo", "BlogPage")
+        for page in BlogPage.objects.all():
+            if page.body.raw_text is None:
+                raw_text = ''.join([
+                    child.value.source for child in page.body
+                    if child.block_type == 'rich_text'
+                ])
+                page.body = raw_text
+                page.save()
+
+
+    class Migration(migrations.Migration):
+
+        dependencies = [
+            # leave the dependency line from the generated migration intact!
+            ('demo', '0001_initial'),
+        ]
+
+        operations = [
+            migrations.RunPython(
+                convert_to_streamfield,
+                convert_to_richtext,
+            ),
+        ]

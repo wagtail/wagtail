@@ -11,7 +11,7 @@ from modelcluster.tags import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.blocks import CharBlock
+from wagtail.wagtailcore.blocks import CharBlock, RichTextBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel, TabbedInterface, ObjectList
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
@@ -407,5 +407,6 @@ class CustomImageWithAdminFormFields(AbstractImage):
 class StreamModel(models.Model):
     body = StreamField([
         ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
         ('image', ImageChooserBlock()),
     ])
