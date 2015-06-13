@@ -46,4 +46,29 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
+        migrations.CreateModel(
+            name='EmailUser',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('password', models.CharField(max_length=128, verbose_name='password')),
+                (
+                    'last_login',
+                    models.DateTimeField(null=True, verbose_name='last login', blank=True)
+                    if django.VERSION >= (1, 8) else
+                    models.DateTimeField(default=django.utils.timezone.now, verbose_name='last login')
+                ),
+                ('email', models.EmailField(unique=True, max_length=255)),
+                ('is_staff', models.BooleanField(default=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('first_name', models.CharField(max_length=50, blank=True)),
+                ('last_name', models.CharField(max_length=50, blank=True)),
+                ('is_superuser', models.BooleanField(default=False)),
+                ('groups', models.ManyToManyField(related_name='+', to='auth.Group', blank=True)),
+                ('user_permissions', models.ManyToManyField(related_name='+', to='auth.Permission', blank=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
     ]
