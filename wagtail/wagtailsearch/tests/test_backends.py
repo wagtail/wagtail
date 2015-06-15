@@ -1,14 +1,15 @@
 from six import StringIO
-import warnings
+import unittest
+import time
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
 
-from wagtail.tests.utils import unittest, WagtailTestUtils
-from wagtail.tests import models
-from wagtail.wagtailsearch.backends import get_search_backend, InvalidSearchBackendError
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.search import models
+from wagtail.wagtailsearch.backends import get_search_backend, get_search_backends, InvalidSearchBackendError
 from wagtail.wagtailsearch.backends.db import DBSearch
 
 
@@ -20,6 +21,7 @@ class BackendTests(WagtailTestUtils):
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
             if backend_conf['BACKEND'] == self.backend_path:
                 self.backend = get_search_backend(backend_name)
+                self.backend_name = backend_name
                 break
         else:
             # no conf entry found - skip tests for this backend
@@ -45,117 +47,96 @@ class BackendTests(WagtailTestUtils):
         testb.live = True
         testb.save()
         self.backend.add(testb)
+        self.testb = testb
 
         testc = models.SearchTestChild()
         testc.title = "Hello"
         testc.live = True
         testc.save()
         self.backend.add(testc)
+        self.testc = testc
 
         testd = models.SearchTestChild()
         testd.title = "World"
         testd.save()
         self.backend.add(testd)
+        self.testd = testd
 
         # Refresh the index
         self.backend.refresh_index()
 
     def test_blank_search(self):
-        # Get results for blank terms
         results = self.backend.search("", models.SearchTest)
-
-        # Should return no results
-        self.assertEqual(len(results), 0)
+        self.assertEqual(set(results), set())
 
     def test_search(self):
-        # Get results for "Hello"
         results = self.backend.search("Hello", models.SearchTest)
+        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr})
 
-        # Should return three results
-        self.assertEqual(len(results), 3)
-
-        # Get results for "World"
         results = self.backend.search("World", models.SearchTest)
-
-        # Should return two results
-        self.assertEqual(len(results), 2)
-
-    @unittest.skip("Need something to prefetch")
-    def test_prefetch_related(self):
-        # Get results
-        results = self.backend.search("Hello", models.SearchTest, prefetch_related=['prefetch_field'])
-
-        # Test both single result and multiple result (different code for each), only checking that this doesnt crash
-        single_result = results[0]
-        multi_result = results[:2]
+        self.assertEqual(set(results), {self.testa, self.testd.searchtest_ptr})
 
     def test_callable_indexed_field(self):
-        # Get results
         results = self.backend.search("Callable", models.SearchTest)
-
-        # Should get all 4 results as they all have the callable indexed field
-        self.assertEqual(len(results), 4)
+        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
 
     def test_filters(self):
-        # Get only results with live=True set
-        results = self.backend.search("Hello", models.SearchTest, filters=dict(live=True))
+        results = self.backend.search(None, models.SearchTest, filters=dict(live=True))
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
 
-        # Should return two results
-        self.assertEqual(len(results), 2)
+    def test_filters_with_in_lookup(self):
+        live_page_titles = models.SearchTest.objects.filter(live=True).values_list('title', flat=True)
+        results = self.backend.search(None, models.SearchTest, filters=dict(title__in=live_page_titles))
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr})
 
     def test_single_result(self):
-        # Get a single result
-        result = self.backend.search("Hello", models.SearchTest)[0]
-
-        # Check that the result is a SearchTest object
+        result = self.backend.search(None, models.SearchTest)[0]
         self.assertIsInstance(result, models.SearchTest)
 
     def test_sliced_results(self):
-        # Get results and slice them
-        sliced_results = self.backend.search("Hello", models.SearchTest)[1:3]
+        sliced_results = self.backend.search(None, models.SearchTest)[1:3]
 
-        # Slice must have a length of 2
         self.assertEqual(len(sliced_results), 2)
 
-        # Check that the results are SearchTest objects
         for result in sliced_results:
             self.assertIsInstance(result, models.SearchTest)
 
     def test_child_model(self):
-        # Get results for child model
-        results = self.backend.search("Hello", models.SearchTestChild)
-
-        # Should return one object
-        self.assertEqual(len(results), 1)
+        results = self.backend.search(None, models.SearchTestChild)
+        self.assertEqual(set(results), {self.testc, self.testd})
 
     def test_delete(self):
         # Delete one of the objects
         self.backend.delete(self.testa)
         self.testa.delete()
-
-        # Refresh index
         self.backend.refresh_index()
 
-        # Check that there are only two results
-        results = self.backend.search("Hello", models.SearchTest)
-        self.assertEqual(len(results), 2)
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), {self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
 
     def test_update_index_command(self):
         # Reset the index, this should clear out the index
         self.backend.reset_index()
 
+        # Give Elasticsearch some time to catch up...
+        time.sleep(1)
+
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), set())
+
         # Run update_index command
         with self.ignore_deprecation_warnings():  # ignore any DeprecationWarnings thrown by models with old-style indexed_fields definitions
-            management.call_command('update_index', backend=self.backend, interactive=False, stdout=StringIO())
+            management.call_command('update_index', backend_name=self.backend_name, interactive=False, stdout=StringIO())
 
-        # Check that there are still 3 results
-        results = self.backend.search("Hello", models.SearchTest)
-        self.assertEqual(len(results), 3)
+        results = self.backend.search(None, models.SearchTest)
+        self.assertEqual(set(results), {self.testa, self.testb, self.testc.searchtest_ptr, self.testd.searchtest_ptr})
 
 
-@override_settings(WAGTAILSEARCH_BACKENDS={
-    'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
-})
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
+    }
+)
 class TestBackendLoader(TestCase):
     def test_import_by_name(self):
         db = get_search_backend(backend='default')
@@ -165,8 +146,61 @@ class TestBackendLoader(TestCase):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
         self.assertIsInstance(db, DBSearch)
 
-    def test_nonexistant_backend_import(self):
+    def test_nonexistent_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
 
     def test_invalid_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")
+
+    def test_get_search_backends(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)
+        self.assertIsInstance(backends[0], DBSearch)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+            },
+            'another-backend': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+            },
+        }
+    )
+    def test_get_search_backends_multiple(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 2)
+
+    def test_get_search_backends_with_auto_update(self):
+        backends = list(get_search_backends(with_auto_update=True))
+
+        # Auto update is the default
+        self.assertEqual(len(backends), 1)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'AUTO_UPDATE': False,
+            },
+        }
+    )
+    def test_get_search_backends_with_auto_update_disabled(self):
+        backends = list(get_search_backends(with_auto_update=True))
+
+        self.assertEqual(len(backends), 0)
+
+    @override_settings(
+        WAGTAILSEARCH_BACKENDS={
+            'default': {
+                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'AUTO_UPDATE': False,
+            },
+        }
+    )
+    def test_get_search_backends_without_auto_update_disabled(self):
+        backends = list(get_search_backends())
+
+        self.assertEqual(len(backends), 1)

@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-29 17:39+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Texto duma só linha"
+
+msgid "Multi-line text"
+msgstr "Texto multi-linha"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Caixa de seleção"
+
+msgid "Checkboxes"
+msgstr "Caixas de seleção"
+
+msgid "Drop down"
+msgstr "Lista pendente"
+
+msgid "Radio buttons"
+msgstr "Botões de opção"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/hora"
+
+msgid "Submit time"
+msgstr "Hora de envio"
+
+msgid "Form Submission"
+msgstr "Envio de Formulário"
+
+msgid "Label"
+msgstr "Etiqueta"
+
+msgid "The label of the form field"
+msgstr "A etiqueta do campo de formulário"
+
+msgid "Field type"
+msgstr "Tipo de campo"
+
+msgid "Required"
+msgstr "Obrigatório"
+
+msgid "Choices"
+msgstr "Escolhas"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Lista de escolhas separadas por vírgula. Só utilizável nas caixas de "
+"seleção, botões e listas pendentes."
+
+msgid "Default value"
+msgstr "Valor pré-definido"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Valor pré-definido. Valores separados por vírgula admitidos nas caixas de "
+"seleção."
+
+msgid "Help text"
+msgstr "Texto de ajuda"
+
+msgid "To address"
+msgstr "Endereço do destinatário"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+"Opcional - os formulários recebidos serão enviados por e-mail para este "
+"endereço"
+
+msgid "From address"
+msgstr "Endereço do remetente"
+
+msgid "Subject"
+msgstr "Assunto"
+
+msgid "Forms"
+msgstr "Formulários"
+
+msgid "Pages"
+msgstr "Páginas"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Envios de %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Dados do formulário <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Download CSV"
+msgstr "Descarregar CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Não houve envios do formulário '%(title)s'."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Origem"
+
+msgid "Submission Date"
+msgstr "Data de Envio"
+
+msgid "No form pages have been created."
+msgstr "Nenhuma página de formulário foi criada."

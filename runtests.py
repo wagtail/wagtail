@@ -2,8 +2,8 @@
 import sys
 import os
 import shutil
+import warnings
 
-from django.conf import settings
 from django.core.management import execute_from_command_line
 
 from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT
@@ -13,6 +13,14 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
 def runtests():
+    # Don't ignore DeprecationWarnings
+    warnings.simplefilter('default', DeprecationWarning)
+    warnings.simplefilter('default', PendingDeprecationWarning)
+
+    # Don't ignore ResourceWarnings (Python 3 only)
+    if sys.version_info >= (3, 0):
+        warnings.simplefilter('default', ResourceWarning)
+
     argv = sys.argv[:1] + ['test'] + sys.argv[1:]
     try:
         execute_from_command_line(argv)

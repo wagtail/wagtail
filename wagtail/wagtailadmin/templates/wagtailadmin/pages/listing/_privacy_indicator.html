@@ -1,0 +1,12 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Expects a variable 'page', a page object.
+    Tests whether that page is protected from public view, and if so, outputs a 'protected' icon.
+{% endcomment %}
+
+{% test_page_is_public page as is_public %}
+{% if not is_public %}
+    <span class="indicator privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
+{% endif %}

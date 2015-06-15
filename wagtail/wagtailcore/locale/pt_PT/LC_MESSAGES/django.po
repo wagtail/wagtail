@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-29 17:35+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hostname"
+msgstr "Nome do servidor"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Atribua um valor diferente de 80 se precisar que apareça um número de porta "
+"específico nos URLs (ex. desenvolvimento na porta 8000). Não afeta o "
+"tratamento de pedidos (pelo que o redirecionamento de portas continua a "
+"funcionar)."
+
+msgid "Root page"
+msgstr "Página raiz"
+
+msgid "Is default site"
+msgstr "Site pré-definido"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se verdadeiro, este site irá processar pedidos de todos os outros nomes de "
+"servidor que não tenham um site próprio"
+
+msgid "Site"
+msgstr "Site"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"O %(hostname)s já está configurado como site pré-definido. Tem de alterar "
+"essa configuração antes de poder guardar este site como pré-definido."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "O título da página como você gostaria que fosse visto pelo público"
+
+msgid "Slug"
+msgstr "“Slug”"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"O nome da página tal como irá aparecer nos URLs, p. ex. http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "Content type"
+msgstr "Tipo de conteúdo"
+
+msgid "Live"
+msgstr "Publicada"
+
+msgid "Has unpublished changes"
+msgstr "Tem alterações por publicar"
+
+msgid "URL path"
+msgstr "Caminho do URL"
+
+msgid "Owner"
+msgstr "Dono"
+
+msgid "Page title"
+msgstr "Título da página"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Opcional. Título otimizado para motores de busca. Irá aparecer no topo da "
+"janela do navegador."
+
+msgid "Show in menus"
+msgstr "Mostrar nos menus"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Determina se um link para esta página irá aparecer nos menus gerados "
+"automaticamente"
+
+msgid "Search description"
+msgstr "Descrição da pesquisa"
+
+msgid "Go live date/time"
+msgstr "Data/hora de publicação agendada"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Por favor adicione uma data-hora no formato YYYY-MM-DD hh:mm."
+
+msgid "Expiry date/time"
+msgstr "Data/hora terminal"
+
+msgid "Expired"
+msgstr "Expirado"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+msgid "First published at"
+msgstr "Publicado pela primeira vez a"
+
+msgid "Latest revision created at"
+msgstr "Última versão criada a"
+
+msgid "expired"
+msgstr "expirado"
+
+msgid "scheduled"
+msgstr "agendado"
+
+msgid "draft"
+msgstr "rascunho"
+
+msgid "live + draft"
+msgstr "publicado + rascunho"
+
+msgid "live"
+msgstr "publicado"
+
+msgid "Default"
+msgstr "Pré-definido"
+
+msgid "Page"
+msgstr "Página"
+
+msgid "Submitted for moderation"
+msgstr "Enviada para moderação"
+
+msgid "Created at"
+msgstr "Criado a"
+
+msgid "User"
+msgstr "Utilizador"
+
+msgid "Content JSON"
+msgstr "Conteúdo JSON"
+
+msgid "Approved go live at"
+msgstr "Aprovado para publicação a"
+
+msgid "Page Revision"
+msgstr "Versão da Página"
+
+msgid "Add/edit pages you own"
+msgstr "Crie/altere as suas páginas"
+
+msgid "Add/edit any page"
+msgstr "Crie/altere qualquer página"
+
+msgid "Publish any page"
+msgstr "Publicar qualquer página"
+
+msgid "Lock/unlock any page"
+msgstr "Bloquear/desbloquear qualquer página"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Permission type"
+msgstr "Tipo de permissão"
+
+msgid "Group Page Permission"
+msgstr "Permissão de Página de Grupo"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Page View Restriction"
+msgstr "Restrição de Visualização de Página"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "O valor não pode conter apenas espaços em branco"

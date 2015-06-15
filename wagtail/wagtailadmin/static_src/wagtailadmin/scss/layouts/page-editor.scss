@@ -1,0 +1,744 @@
+@import "wagtailadmin/scss/variables.scss";
+@import "wagtailadmin/scss/mixins.scss";
+@import "wagtailadmin/scss/grid.scss";
+
+.page-editor {
+    .content-wrapper{
+        margin-bottom:10em;
+    }
+    .breadcrumb{
+        margin-top:-1.2em;
+        margin-bottom:2em;
+    }
+    .modal .breadcrumb{
+        margin:0;
+        background-color:transparent;
+
+        a{
+            color:$color-grey-2;
+        }
+        li:hover{
+            background-color:$color-grey-4;
+        }
+        .home{
+            padding-left:0;
+        }
+    }
+}
+
+/* An object is the basic wrapper around any field or group of fields in the editor interface */
+.object{
+    position:relative;
+    overflow:hidden;
+    @include nice-padding();
+
+    &:first-child{
+        border:0;
+    }
+
+    &.focused{
+        border-color: darken($color-input-focus, 40%);
+    }
+
+    fieldset{
+        padding-top:4em;
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .object-help{
+        display:block;
+        position:relative;
+        z-index:1;
+        top:1em;
+        padding-right:$grid-gutter-width/2;
+        margin-top:4em;
+        opacity:1;
+        padding-left:3em;
+
+        &:before{
+            display:block;
+            float:left;
+            content:"?";
+            border:1px solid $color-grey-2;
+            color:$color-grey-2;
+            @include border-radius(100%);
+            height:15px;
+            width:15px;
+            line-height:15px;
+            text-align:center;
+            font-size:1.1em;
+            margin-left:-2em;
+            margin-top:0.3em;
+        }
+    }
+
+    &:hover .object-help{
+        opacity:1;
+    }
+
+    > h2{
+        -webkit-font-smoothing: auto;
+        background:$color-salmon-light;
+        text-transform:uppercase;
+        padding:0.9em 0 0.9em 4.1em;
+        font-size:0.95em;
+        margin:0 0 0.2em 0;
+        line-height:1.5em;
+        font-weight:normal;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        z-index:1;
+        overflow:hidden;
+
+        label{
+            display: inline;
+            text-transform: inherit;
+            font-weight: inherit;
+            float: none;
+            width: auto;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        &:before, label:before{
+            text-shadow:none;
+            font-family:wagtail;
+            text-transform:none;
+            content:"q";
+            text-align:center;
+            display:block;
+            position:absolute;
+            z-index:2;
+            font-size:2em;
+            top:0px;
+            line-height:1.8em;
+            left:0px;
+            width:1.7em;
+            color:white;
+            padding:0;
+            margin:0;
+            cursor:pointer;
+            background-color:$color-salmon;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    .richtext{
+        padding-top:1em; /* to provide space for editor buttons */
+        padding-bottom:1em;
+
+        &.inEditMode{
+            padding-top:5em; /* to provide space for editor buttons */
+            padding-bottom:2em;
+        }
+    }
+
+    &.required{
+        > h2 label:after{
+            content:"*";
+            color:$color-red;
+            font-weight:bold;
+            display:inline-block;
+            margin-left:0.5em;
+            line-height:1em;
+            font-size:13px;
+        }
+    }
+
+    /* Special full-width, one-off fields i.e a single text or textarea input */
+    &.full{
+        .object-help{
+            display:block;
+        }
+
+        fieldset{
+            display:block;
+            float:none;
+        }
+        li{
+            padding:0;
+        }
+
+        .richtext{
+            padding-top:3em; /* to provide space for editor buttons */
+            padding-bottom:3em;
+
+            &.inEditMode{
+                padding-top:5em; /* to provide space for editor buttons */
+                padding-bottom:5em;
+            }
+        }
+
+        .error-message{
+            @include nice-padding();
+            padding-bottom:2em;
+        }
+
+        .error,
+        .error input,
+        .error textarea,
+        .error .richtext{
+            background-color:$color-input-error-bg;
+        }
+    }
+
+    &.stream-field {
+        padding:0;
+
+        label{
+            white-space: nowrap;
+        }
+
+        &.required .field > label:after{
+            display:none;
+        }
+
+        > fieldset{
+            @include column(12);
+            max-width:none;
+            padding-left:0;
+            padding-right:0;
+        }
+        
+        .fields > li > .field > label{
+            display:none;
+        }
+
+        /* Despite "BlockField" being generic and available for use outside StreamField,
+        this is the most unique handle available to undo the width set on .field-content 
+        everywhere else in wagtail. If other types of field become available for use as 
+        a direct child of Streamfield, this will need updating */
+        .block_field > .field-content{ 
+            width:100%;
+            display:block;
+        }
+
+        .sequence{
+            position:relative;
+            @include clearfix;
+        }
+
+        .sequence-member{
+            @include clearfix;
+            position:relative;
+
+            .sequence-member-inner{
+                @include clearfix;
+                position:relative;
+                padding:1.5em 50px;
+
+                > .sequence .sequence-inner{
+                    @include column(10);
+                    padding-left:0;
+                    padding-right:0;
+                }
+
+                > .struct-block > label,
+                > .char_field > label,
+                .sequence > label{
+                    @include transition(opacity 0.2s ease);
+                    opacity:0;
+                    display:block;
+                    font-style:italic;
+                    font-weight:normal;                    
+                    position:absolute;
+                    top:1em; right:4em;
+                    float:none;
+                    width:auto;
+                    padding:0;
+                    color:$color-grey-2;
+                    line-height:2.2em;
+                }
+            }
+
+            &:hover{
+                background-color:$color-input-focus;
+            }
+
+            &:hover .sequence-member-inner{
+                > .struct-block > label,
+                > .char_field > label,
+                .sequence > label{
+                    opacity:1;
+                }
+            }
+        }       
+
+        .struct-block > ul > li{ /* duplicates forms.scss ln.568 */
+            @include clearfix();
+            padding-top:0.5em;
+            padding-bottom:1.2em;
+        }
+
+        .struct-block .widget-text_input > label,
+        .struct-block .widget-textarea > label,
+        .struct-block .widget-admin_auto_height_text_input > label{
+            display:none;
+        }
+
+        .widget-text_input input, .richtext, textarea{
+            border:0;
+            padding:0;
+            background-color:transparent;
+            max-width:1024px;
+        }
+
+        .widget-admin_image_chooser{
+            label{
+                display:none;
+            }
+            .field-content{
+                display:block;
+                float:none;
+                width:100%;
+                text-align:center;
+                max-width:500px;
+                margin:auto;
+                border:1px solid $color-grey-4;
+                padding:1em;
+            }
+            .chooser{
+                .chosen{
+                    padding:0;
+                }
+                .unchosen{
+                    &:before{
+                        float:none;
+                        font-size:4em;
+                        margin:0;
+                    }
+                }
+                .preview-image{
+                    float:none;
+                    margin:0;
+                }
+            }
+        }
+    }
+
+    /* Object controls */
+    .stream-controls, .list-controls{
+        @include transition(opacity 0.2s ease);
+        opacity:0;
+        visibility:hidden;
+        position:absolute;
+        top:1em; right:1em;
+        z-index:1;
+        color:white;
+        overflow:hidden;
+        @include border-radius(2px);
+        
+        li{
+            background-color: $color-teal;
+            float:left;
+            cursor:pointer;
+            margin-right:1px;
+
+            &:last-child{
+                margin-right:0;
+            }
+        }
+       
+        .disabled{
+            display:none;
+        }
+    }
+
+    /* Menu of other blocks to be added at each position */
+    .stream-menu{
+        @include transition(all 0.2s ease);
+        @include box-shadow(inset 0 0 45px rgba(0,0,0,0.3));
+        position:relative;
+        background-color:$color-grey-1;
+        opacity:1;
+        z-index:5;
+
+        .toggle{
+            @include transition(color 0.2s ease);
+            @include border-radius(50px);
+            position:absolute;
+            top:-0.5em;
+            left:0;
+            right:0;
+            margin:0 auto;
+            cursor:pointer;
+            font-size:1.7em;
+            width:1em;
+            height:1em;
+            display:block;
+            z-index:5;
+            color:$color-grey-1;
+            background-color:white;
+
+            span{
+                @include visuallyhidden();
+            }
+
+            &:before{
+                @include transform(rotate(-45deg));
+                position:absolute;
+                font-family:wagtail;
+                content:"B";
+                line-height:1em;
+                text-align:center;
+            }
+        }
+
+        .stream-menu-inner{
+            max-width:50em;
+            margin: auto;
+            overflow:hidden;
+        }
+
+        ul{
+            @include transition(all 0.2s ease);
+            @include transform(scale(1));
+            @include clearfix;
+            visibility:visible;
+            opacity:1;
+            padding:1em 1em 0 1em;
+            overflow:hidden;
+        }
+
+        li{
+            @include column(3);
+            padding-bottom:$grid-gutter-width;
+            padding-left:0;
+            padding-right:0;
+
+            &:nth-child(4n+1){
+                clear:left;
+            }
+        }
+        
+
+        button{
+            @include transition(all 0.2s ease);
+            background-color:transparent;
+            border:0;
+            color:darken($color-grey-3, 5%);
+            height:auto;
+            display:block;
+            width:100%;
+            padding:0 0 0.5em 0;
+            outline:$color-teal;
+
+            span{
+                text-transform:none;
+                white-space: pre-wrap;
+                width:100%;
+                display:block;
+                overflow:hidden;
+                padding:0 1em;
+                box-sizing: border-box;
+            }
+
+            &:before{
+                display:block;
+                font-family:wagtail;
+                font-size:2em;
+                width:100%;
+                height:2em;
+                line-height:2em;
+                text-align:center;
+            }
+
+            &:hover,
+            &:focus{
+                background-color:$color-teal;
+                color:white;
+            }
+        }
+
+
+        &.stream-menu-closed{
+            @include box-shadow(none);
+
+            .stream-menu-inner ul{
+                @include transform(scale(0.9));
+                opacity:0;
+            }
+
+            .toggle{
+                color:$color-grey-3;
+                background-color:white;
+                &:before{
+                    @include transform(rotate(0deg));
+                }
+                &:focus{
+                    color:$color-teal;
+                }
+            }        
+
+            &:hover{
+                border-top-color:$color-teal;
+
+                .toggle{
+                    color:$color-teal;
+                }
+            }   
+        }
+
+        @media screen and (min-width: $breakpoint-mobile){
+            li{
+                @include column(2);
+                &:nth-child(4n+1){
+                    clear:none;
+                }
+                &:nth-child(6n+1){
+                    clear:left;
+                }
+            }
+        }
+    }
+    .sequence-member .stream-menu{
+        margin:auto auto 0em auto;
+    }
+    .sequence-member .stream-menu-closed{
+        opacity:0;
+        visibility:hidden;
+    }
+    .sequence-member:hover{
+        .stream-controls, .list-controls{
+            visibility:visible;
+            opacity:1;
+        }
+        .stream-menu{
+            visibility:visible;
+            opacity:1;
+        }
+    }
+
+
+    /* special panel for the publishing fields, requires a bit more pizzazz */
+    &.publishing{
+        h2:before{
+            content:"7";
+            font-size:1.8rem;
+            line-height:1.4em;
+            width:1.4em;
+        }
+       
+    }
+
+    .multiple{
+        padding:4.5em 0 0 0;
+
+        fieldset{
+            padding-top:0;
+            padding-bottom:0;
+        }
+    }
+
+    .fields{
+        max-width:100%;
+    }
+
+    /* removes top padding from multiples used within another panel */
+    .fields .multiple{
+        padding-top:0;
+    }
+
+    .add{
+        padding-top:1em;
+    }
+
+    &.empty{
+        border-bottom:1px solid white;
+
+        > h2{
+            margin:0 0;
+            border-bottom:1px solid white;
+        }
+
+        /* wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields */
+        .add{
+            @include transition(background-color 0.2s ease);
+            position:relative;
+            z-index:2;
+            top:0px;
+            left:0px;
+            width:3.3em;
+            padding:0;
+            margin:0 0 0 -20px;
+            cursor:pointer;
+
+            .button{
+                @include border-radius(0);
+                overflow: visible;
+                background-color:$color-salmon-light;
+                font-size:0; /* helps fake the effect of t.ext-replace class, which can't be used here. */
+                width:2em;
+
+                &:before{
+                    position:relative;
+                    padding:0;
+                    line-height:1.8em; /* specific height required as parent 'a' has no height */
+                    font-size:1.4rem;
+                    width:1.8em;
+                    background-color:$color-salmon;
+                }
+
+                &:hover:before{
+                    background-color:darken($color-salmon, 5%);
+                }
+            }
+        }
+
+        .multiple{
+            padding:0;
+        }
+    }
+
+    &.collapsible {
+        /* li.collapsed gets its height from the fieldset only, which is now hidden
+        and h2 has position:absolute which doesn't add to it either, so it would be 0 without this */
+        min-height: 41px;
+
+        h2{
+            cursor: pointer;
+        }
+        h2:before{
+            content: '6';
+            text-shadow:none;
+            line-height: 40px;
+            padding-right: 1px;
+            opacity: 1;
+            color: #666;
+            background-color: transparent;
+            @include transition(background-color 0.2s ease, color 0.2s ease);
+        }
+        h2:hover:before{
+        }
+
+        &.collapsed{
+            background: #fff;
+            h2{
+                 @include box-shadow(none);
+            }
+            h2:before{
+                content: '5';
+                color: #fff;
+                background-color:$color-teal;
+            }
+            h2:hover:before{
+                background-color:$color-teal-darker;
+            }
+        }
+    }
+}
+
+/* Custom styles that make some fields look more important */
+.full input, 
+.full textarea, 
+.full .richtext{
+    @include nice-padding();
+    @include border-radius(0px);
+    padding-top:2em;
+    padding-bottom:2em;
+    font-size:1.2em;
+    line-height:1.6em;
+}
+
+.title input,
+.title textarea,
+.title .richtext{
+    font-size:2em;
+    font-family:Bitter, Georgia, serif;
+}
+
+/* Footer control bar for perfoming actions on the page */
+footer .preview{
+    button, .button{
+        background-color:lighten($color-grey-2,10%);
+        border-color:lighten($color-grey-2,10%);
+
+        &:hover{
+            background-color:$color-grey-2;
+            border-color:$color-grey-2;
+        }
+    }
+    .dropdown{
+        input[type=button], input[type=submit], button, .button{
+            background-color:lighten($color-grey-2,10%);
+            border-color:lighten($color-grey-2,10%);
+
+            &:hover{
+                background-color:$color-grey-2;
+                border-color:$color-grey-2;
+            }
+        }
+        ul, .dropdown-toggle{
+            background-color:lighten($color-grey-2,10%);
+        }
+        .dropdown-toggle:hover,
+        &.open > .button + .dropdown-toggle{
+            background-color:$color-grey-2;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-mobile){
+    .page-editor .breadcrumb{
+        margin-top:-1.8em;
+    }
+    .object{
+        fieldset{
+            max-width:1024px;
+            @include column(10);
+            padding-left:0;
+            padding-right:0;
+
+            fieldset{
+                width:100%;
+            }
+        }
+
+        .object-help{
+            @include column(2);
+            display:block;
+            position:absolute;
+            z-index:1;
+            right:0;
+            top:1em;
+            padding-right:$grid-gutter-width/2;
+            float:right;
+            margin-top:4em;
+            opacity:0;
+            padding-left:3em;
+        }
+
+        &.full{
+            fieldset{
+                @include column(11);
+                margin-left:-51px;
+                padding:3.2em 0 0 0;
+            }
+            input, textarea, .richtext{
+                border-width:0 1px;
+            }
+            .field{
+                padding:0;
+            }
+            .field-content{
+                display: block;
+                float: none;
+                width: auto;
+                padding: inherit; 
+            }
+        }
+        .multiple{
+            @include column(10);
+            padding-left:0;
+            padding-right:0;
+        }
+
+        &.empty .add{
+            margin:0 0 0 -50px;
+        }
+    }
+}

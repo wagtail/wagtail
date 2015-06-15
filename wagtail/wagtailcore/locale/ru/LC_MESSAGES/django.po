@@ -1,0 +1,205 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ajk, 2014
+# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-28 07:26+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Hostname"
+msgstr "Имя хоста"
+
+msgid "Port"
+msgstr "Порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
+"порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
+"обработку запроса (так форвардинг портов до сих пор работает)."
+
+msgid "Root page"
+msgstr "Корневая страница"
+
+msgid "Is default site"
+msgstr "Сайт по умолчанию"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
+"хостов, не закрепленных за другими сайтами"
+
+msgid "Site"
+msgstr "Сайт"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала у него "
+"отключить флажок, прежде, чем вы можете сохранить этот сайт по умолчанию."
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заголовок страницы видимый всем"
+
+msgid "Slug"
+msgstr "Слаг"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Имя страницы, которое будет отображаться в URL, например http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "Content type"
+msgstr "Тип содержимого"
+
+msgid "Live"
+msgstr "Опубликовано"
+
+msgid "Has unpublished changes"
+msgstr "Имеет неопубликованные изменения"
+
+msgid "URL path"
+msgstr "Путь URL"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Page title"
+msgstr "Заголовок страницы"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Не обязательно. 'Дружелюбный для Поисковых Сервисов' заголовок. Он появится "
+"вверху окна браузера."
+
+msgid "Show in menus"
+msgstr "Показывать в меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
+"меню"
+
+msgid "Search description"
+msgstr "Описание для поиска/SEO"
+
+msgid "Go live date/time"
+msgstr "Дата/время публикации"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Пожалуйста, добавьте дату и время в формате YYYY-MM-DD hh:mm."
+
+msgid "Expiry date/time"
+msgstr "Дата/время окончания действия"
+
+msgid "Expired"
+msgstr "Истекло время действия"
+
+msgid "Locked"
+msgstr "Заблокировано"
+
+msgid "First published at"
+msgstr "Впервые опубликовано"
+
+msgid "Latest revision created at"
+msgstr "Последняя ревизия создана"
+
+msgid "expired"
+msgstr "истекло время действия"
+
+msgid "scheduled"
+msgstr "запланированное"
+
+msgid "draft"
+msgstr "черновик"
+
+msgid "live + draft"
+msgstr "опубликовано + черновик"
+
+msgid "live"
+msgstr "опубликовано"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Submitted for moderation"
+msgstr "Добавлено на модерацию"
+
+msgid "Created at"
+msgstr "Создано"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Content JSON"
+msgstr "Сожержимое JSON"
+
+msgid "Approved go live at"
+msgstr "Подтверждено к публикации"
+
+msgid "Page Revision"
+msgstr "Ревизия Страницы"
+
+msgid "Add/edit pages you own"
+msgstr "Добавить/редактировать свои страницы"
+
+msgid "Add/edit any page"
+msgstr "Добавить/редактировать любую страницу"
+
+msgid "Publish any page"
+msgstr "Опубликовать любую страницу"
+
+msgid "Lock/unlock any page"
+msgstr "Заблокировать/разблокировать любую страницу"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Permission type"
+msgstr "Тип прав"
+
+msgid "Group Page Permission"
+msgstr "Права на страницу у группы"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Page View Restriction"
+msgstr "Ограничения на просмотр страницы"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "Значение не может состоять полностью из пробельных символов"

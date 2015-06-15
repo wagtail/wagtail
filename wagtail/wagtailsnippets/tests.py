@@ -1,14 +1,16 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.models import Advert, AlphaSnippet, ZuluSnippet
+from wagtail.tests.testapp.models import Advert, SnippetChooserModel
+from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
     get_snippet_edit_handler
 )
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailcore.models import Page
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -40,6 +42,14 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+    def test_simple_pagination(self):
+
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
@@ -80,7 +90,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(id=1)
@@ -102,13 +112,11 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_non_existant_model(self):
-        response = self.client.get(reverse('wagtailsnippets_edit',
-                                            args=('tests', 'foo', self.test_snippet.id)))
+        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'foo', self.test_snippet.id)))
         self.assertEqual(response.status_code, 404)
 
     def test_nonexistant_id(self):
-        response = self.client.get(reverse('wagtailsnippets_edit',
-                                            args=('tests', 'advert', 999999)))
+        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'advert', 999999)))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
@@ -127,7 +135,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(id=1)
@@ -149,29 +157,43 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
 
 class TestSnippetChooserPanel(TestCase):
-    fixtures = ['wagtail/tests/fixtures/test.json']
+    fixtures = ['test.json']
 
     def setUp(self):
-        content_type = Advert
-        test_snippet = Advert.objects.get(id=1)
+        model = SnippetChooserModel
+        self.advert_text = 'Test advert text'
+        test_snippet = model.objects.create(
+            advert=Advert.objects.create(text=self.advert_text))
 
-        edit_handler_class = get_snippet_edit_handler(Advert)
-        form_class = edit_handler_class.get_form_class(Advert)
+        edit_handler_class = get_snippet_edit_handler(model)
+        form_class = edit_handler_class.get_form_class(model)
         form = form_class(instance=test_snippet)
+        edit_handler = edit_handler_class(instance=test_snippet, form=form)
 
-        self.snippet_chooser_panel_class = SnippetChooserPanel('text', content_type)
-        self.snippet_chooser_panel = self.snippet_chooser_panel_class(instance=test_snippet,
-                                                                      form=form)
+        self.snippet_chooser_panel = [
+            panel for panel in edit_handler.children
+            if getattr(panel, 'field_name', None) == 'advert'][0]
 
     def test_create_snippet_chooser_panel_class(self):
-        self.assertEqual(self.snippet_chooser_panel_class.__name__, '_SnippetChooserPanel')
+        self.assertEqual(type(self.snippet_chooser_panel).__name__,
+                         '_SnippetChooserPanel')
 
     def test_render_as_field(self):
-        self.assertTrue('test_advert' in self.snippet_chooser_panel.render_as_field())
+        self.assertTrue(self.advert_text in self.snippet_chooser_panel.render_as_field())
 
     def test_render_js(self):
-        self.assertTrue("createSnippetChooser(fixPrefix('id_text'), 'tests/advert');"
-                        in self.snippet_chooser_panel.render_js())
+        self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
+                      self.snippet_chooser_panel.render_as_field())
+
+
+class TestSnippetRegistering(TestCase):
+    def test_register_function(self):
+        self.assertIn(RegisterFunction, SNIPPET_MODELS)
+
+    def test_register_decorator(self):
+        # Misbehaving decorators often return None
+        self.assertIsNotNone(RegisterDecorator)
+        self.assertIn(RegisterDecorator, SNIPPET_MODELS)
 
 
 class TestSnippetOrdering(TestCase):
@@ -185,3 +207,66 @@ class TestSnippetOrdering(TestCase):
         # may get registered elsewhere during test
         self.assertLess(SNIPPET_MODELS.index(AlphaSnippet),
                         SNIPPET_MODELS.index(ZuluSnippet))
+
+
+class TestUsageCount(TestCase):
+    fixtures = ['test.json']
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_snippet_usage_count(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(advert.get_usage().count(), 2)
+
+
+class TestUsedBy(TestCase):
+    fixtures = ['test.json']
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_snippet_used_by(self):
+        advert = Advert.objects.get(id=1)
+        self.assertEqual(type(advert.get_usage()[0]), Page)
+
+
+class TestSnippetChoose(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, params=None):
+        return self.client.get(reverse('wagtailsnippets_choose',
+                                       args=('tests', 'advert')),
+                               params or {})
+
+    def test_simple(self):
+        response = self.get()
+        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+    def test_simple_pagination(self):
+
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+
+class TestSnippetChosen(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, pk, params=None):
+        return self.client.get(reverse('wagtailsnippets_chosen',
+                                       args=('tests', 'advert', pk)),
+                               params or {})
+
+    def test_choose_a_page(self):
+        response = self.get(pk=Advert.objects.all()[0].pk)
+        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+
+    def test_choose_a_non_existing_page(self):
+
+        response = self.get(999999)
+        self.assertEqual(response.status_code, 404)

@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-explorer page-editor create{% endblock %}
+{% block bodyclass %}menu-explorer page-editor create model-{{ content_type.model }}{% endblock %}
 
 {% block content %}
 
@@ -66,4 +66,10 @@
 {% endblock %}
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script>
+        $(function(){
+            $('#page-edit-form .tab-content section.active input').first().focus();
+        });
+    </script>
 {% endblock %}

@@ -1,0 +1,13 @@
+{% load wagtailuserbar %}
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block html_title %}{{ self.title }}{% endblock %}</title>
+    </head>
+    <body>
+        {% wagtailuserbar %}
+        <h1>{{ self.title }}</h1>
+        {% block content %}{% endblock %}
+    </body>
+</html>

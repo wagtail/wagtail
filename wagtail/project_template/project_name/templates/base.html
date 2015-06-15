@@ -1,0 +1,35 @@
+{% templatetag openblock %} load static wagtailuserbar {% templatetag closeblock %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>{% templatetag openblock %} block title %}{% templatetag openblock %} if self.seo_title %}{% templatetag openvariable %} self.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} self.title {% templatetag closevariable %}{% templatetag openblock %} endif {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}{% templatetag openblock %} block title_suffix {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {% templatetag opencomment %} Global stylesheets {% templatetag closecomment %}
+        <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
+
+        {% templatetag openblock %} block extra_css {% templatetag closeblock %}
+            {% templatetag opencomment %} Override this in templates to add extra stylesheets {% templatetag closecomment %}
+        {% templatetag openblock %} endblock {% templatetag closeblock %}
+    </head>
+
+    <body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}">
+        {% templatetag openblock %} wagtailuserbar {% templatetag closeblock %}
+
+        {% templatetag openblock %} block content {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+        {% templatetag opencomment %} Global javascript {% templatetag closecomment %}
+        <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
+
+        {% templatetag openblock %} block extra_js {% templatetag closeblock %}
+            {% templatetag opencomment %} Override this in templates to add extra javascript {% templatetag closecomment %}
+        {% templatetag openblock %} endblock {% templatetag closeblock %}
+    </body>
+</html>

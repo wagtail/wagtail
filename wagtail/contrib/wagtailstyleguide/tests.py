@@ -6,7 +6,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TestStyleGuide(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login();
+        self.login()
 
     def test_styleguide(self):
         response = self.client.get(reverse('wagtailstyleguide'))

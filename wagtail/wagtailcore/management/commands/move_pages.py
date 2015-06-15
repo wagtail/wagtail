@@ -4,6 +4,8 @@ from wagtail.wagtailcore.models import Page
 
 
 class Command(BaseCommand):
+    args = "<from id> <to id>"
+
     def handle(self, _from_id, _to_id, **options):
         # Convert args to integers
         from_id = int(_from_id)

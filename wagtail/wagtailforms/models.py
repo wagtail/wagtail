@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import json
 import re
 
@@ -10,26 +12,27 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.serializers.json import DjangoJSONEncoder
 
 from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailadmin import tasks
+from wagtail.wagtailadmin.utils import send_mail
 
 from .forms import FormBuilder
 
 
 FORM_FIELD_CHOICES = (
-    ('singleline',   _('Single line text')),
-    ('multiline',    _('Multi-line text')),
-    ('email',        _('Email')),
-    ('number',       _('Number')),
-    ('url',          _('URL')),
-    ('checkbox',     _('Checkbox')),
-    ('checkboxes',   _('Checkboxes')),
-    ('dropdown',     _('Drop down')),
-    ('radio',        _('Radio buttons')),
-    ('date',         _('Date')),
-    ('datetime',     _('Date/time')),
+    ('singleline', _('Single line text')),
+    ('multiline', _('Multi-line text')),
+    ('email', _('Email')),
+    ('number', _('Number')),
+    ('url', _('URL')),
+    ('checkbox', _('Checkbox')),
+    ('checkboxes', _('Checkboxes')),
+    ('dropdown', _('Drop down')),
+    ('radio', _('Radio buttons')),
+    ('date', _('Date')),
+    ('datetime', _('Date/time')),
 )
 
 
@@ -43,7 +46,7 @@ class FormSubmission(models.Model):
     form_data = models.TextField()
     page = models.ForeignKey(Page)
 
-    submit_time = models.DateTimeField(auto_now_add=True)
+    submit_time = models.DateTimeField(verbose_name=_('Submit time'), auto_now_add=True)
 
     def get_data(self):
         return json.loads(self.form_data)
@@ -51,27 +54,30 @@ class FormSubmission(models.Model):
     def __str__(self):
         return self.form_data
 
+    class Meta:
+        verbose_name = _('Form Submission')
+
 
 class AbstractFormField(Orderable):
     """Database Fields required for building a Django Form field."""
 
-    label = models.CharField(
+    label = models.CharField(verbose_name=_('Label'),
         max_length=255,
         help_text=_('The label of the form field')
     )
-    field_type = models.CharField(max_length=16, choices=FORM_FIELD_CHOICES)
-    required = models.BooleanField(default=True)
-    choices = models.CharField(
+    field_type = models.CharField(verbose_name=_('Field type'), max_length=16, choices=FORM_FIELD_CHOICES)
+    required = models.BooleanField(verbose_name=_('Required'), default=True)
+    choices = models.CharField(verbose_name=_('Choices'),
         max_length=512,
         blank=True,
-        help_text=_('Comma seperated list of choices. Only applicable in checkboxes, radio and dropdown.')
+        help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
-    default_value = models.CharField(
+    default_value = models.CharField(verbose_name=_('Default value'),
         max_length=255,
         blank=True,
-        help_text=_('Default value. Comma seperated values supported for checkboxes.')
+        help_text=_('Default value. Comma separated values supported for checkboxes.')
     )
-    help_text = models.CharField(max_length=255, blank=True)
+    help_text = models.CharField(verbose_name=_('Help text'), max_length=255, blank=True)
 
     @property
     def clean_name(self):
@@ -131,14 +137,8 @@ class AbstractForm(Page):
         return {}
 
     def process_form_submission(self, form):
-        # remove csrf_token from form.data
-        form_data = dict(
-            i for i in form.data.items()
-            if i[0] != 'csrfmiddlewaretoken'
-        )
-
         FormSubmission.objects.create(
-            form_data=json.dumps(form_data),
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
 
@@ -188,16 +188,16 @@ class AbstractEmailForm(AbstractForm):
     """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
     is_abstract = True  # Don't display me in "Add"
 
-    to_address = models.CharField(max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
-    from_address = models.CharField(max_length=255, blank=True)
-    subject = models.CharField(max_length=255, blank=True)
+    to_address = models.CharField(verbose_name=_('To address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
+    from_address = models.CharField(verbose_name=_('From address'), max_length=255, blank=True)
+    subject = models.CharField(verbose_name=_('Subject'), max_length=255, blank=True)
 
     def process_form_submission(self, form):
         super(AbstractEmailForm, self).process_form_submission(form)
 
         if self.to_address:
-            content = '\n'.join([x[1].label + ': ' + form.data.get(x[0]) for x in form.fields.items()])
-            tasks.send_email_task.delay(self.subject, content, [self.to_address], self.from_address,)
+            content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
+            send_mail(self.subject, content, [self.to_address], self.from_address,)
 
 
     class Meta:

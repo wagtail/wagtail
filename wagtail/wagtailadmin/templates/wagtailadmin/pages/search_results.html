@@ -17,7 +17,7 @@
                 <ul class="filter-options">
                     <li><a href="{% url 'wagtailimages_index' %}?q={{ query_string|urlencode }}" class="icon icon-image">{% trans "Images" %}</a></li>
                     <li><a href="{% url 'wagtaildocs_index' %}?q={{ query_string|urlencode }}" class="icon icon-doc-full-inverse">{% trans "Documents" %}</a></li>
-                    <li><a href="{% url 'wagtailusers_index' %}?q={{ query_string|urlencode }}" class="icon icon-user">{% trans "Users" %}</a></li>
+                    <li><a href="{% url 'wagtailusers_users_index' %}?q={{ query_string|urlencode }}" class="icon icon-user">{% trans "Users" %}</a></li>
                 </ul>
             </nav>
         {% endif %}

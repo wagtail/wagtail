@@ -76,7 +76,7 @@ OEMBED_ENDPOINTS = {
     ],
     "http://api.instagram.com/oembed": [
         "^http://instagr\\.am/p/.+$",
-        "^http://instagram\\.com/p/.+$"
+        "^http[s]?://instagram\\.com/p/.+$"
     ],
     "https://www.slideshare.net/api/oembed/2": [
         "^http://www\\.slideshare\\.net/.+$"
@@ -291,7 +291,12 @@ OEMBED_ENDPOINTS = {
     ],
     "http://www.ifttt.com/oembed/": [
         "^http(?:s)?://ifttt\\.com/recipes/.+$"
-    ]
+    ],
+
+    # Added 11th December 2014 - http://developers.issuu.com/api/oembed.html
+    "http://issuu.com/oembed": [
+        "^http(?:s)?://(?:www\\.)?issuu\\.com/[^#?/]+/docs/.+$"
+    ],
 }
 
 

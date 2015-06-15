@@ -1,133 +1,69 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from django.db import models, migrations
+import wagtail.wagtailimages.models
+import taggit.managers
+from django.conf import settings
+import wagtail.wagtailadmin.taggable
 
-from wagtail.wagtailcore.compat import AUTH_USER_MODEL, AUTH_USER_MODEL_NAME
 
+class Migration(migrations.Migration):
 
-class Migration(SchemaMigration):
+    dependencies = [
+        ('taggit', '__latest__'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-    depends_on = (
-        ("wagtailcore", "0002_initial_data"),
-    )
-
-    def forwards(self, orm):
-        # Adding model 'Image'
-        db.create_table('wagtailimages_image', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('file', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('width', self.gf('django.db.models.fields.IntegerField')()),
-            ('height', self.gf('django.db.models.fields.IntegerField')()),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')
-             (auto_now_add=True, blank=True)),
-            ('uploaded_by_user', self.gf('django.db.models.fields.related.ForeignKey')
-             (to=orm[AUTH_USER_MODEL], null=True, blank=True)),
-        ))
-        db.send_create_signal('wagtailimages', ['Image'])
-
-        # Adding model 'Filter'
-        db.create_table('wagtailimages_filter', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('spec', self.gf('django.db.models.fields.CharField')
-             (max_length=255, db_index=True)),
-        ))
-        db.send_create_signal('wagtailimages', ['Filter'])
-
-        # Adding model 'Rendition'
-        db.create_table('wagtailimages_rendition', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('filter', self.gf('django.db.models.fields.related.ForeignKey')
-             (related_name='+', to=orm['wagtailimages.Filter'])),
-            ('file', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('width', self.gf('django.db.models.fields.IntegerField')()),
-            ('height', self.gf('django.db.models.fields.IntegerField')()),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')
-             (related_name='renditions', to=orm['wagtailimages.Image'])),
-        ))
-        db.send_create_signal('wagtailimages', ['Rendition'])
-
-        # Adding unique constraint on 'Rendition', fields ['image', 'filter']
-        db.create_unique('wagtailimages_rendition', ['image_id', 'filter_id'])
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'Rendition', fields ['image', 'filter']
-        db.delete_unique('wagtailimages_rendition', ['image_id', 'filter_id'])
-
-        # Deleting model 'Image'
-        db.delete_table('wagtailimages_image')
-
-        # Deleting model 'Filter'
-        db.delete_table('wagtailimages_filter')
-
-        # Deleting model 'Rendition'
-        db.delete_table('wagtailimages_rendition')
-
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        AUTH_USER_MODEL: {
-            'Meta': {'object_name': AUTH_USER_MODEL_NAME},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'user_set'", 'blank': 'True', 'to': "orm['auth.Group']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'user_set'", 'blank': 'True', 'to': "orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'wagtailimages.filter': {
-            'Meta': {'object_name': 'Filter'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'spec': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'})
-        },
-        'wagtailimages.image': {
-            'Meta': {'object_name': 'Image'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'file': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'height': ('django.db.models.fields.IntegerField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'uploaded_by_user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['%s']" % AUTH_USER_MODEL, 'null': 'True', 'blank': 'True'}),
-            'width': ('django.db.models.fields.IntegerField', [], {})
-        },
-        'wagtailimages.rendition': {
-            'Meta': {'unique_together': "(('image', 'filter'),)", 'object_name': 'Rendition'},
-            'file': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'filter': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['wagtailimages.Filter']"}),
-            'height': ('django.db.models.fields.IntegerField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'renditions'", 'to': "orm['wagtailimages.Image']"}),
-            'width': ('django.db.models.fields.IntegerField', [], {})
-        }
-    }
-
-    complete_apps = ['wagtailimages']
+    operations = [
+        migrations.CreateModel(
+            name='Filter',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('spec', models.CharField(db_index=True, max_length=255)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Image',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('title', models.CharField(verbose_name='Title', max_length=255)),
+                ('file', models.ImageField(width_field='width', upload_to=wagtail.wagtailimages.models.get_upload_to, verbose_name='File', height_field='height')),
+                ('width', models.IntegerField(editable=False)),
+                ('height', models.IntegerField(editable=False)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('focal_point_x', models.PositiveIntegerField(editable=False, null=True)),
+                ('focal_point_y', models.PositiveIntegerField(editable=False, null=True)),
+                ('focal_point_width', models.PositiveIntegerField(editable=False, null=True)),
+                ('focal_point_height', models.PositiveIntegerField(editable=False, null=True)),
+                ('tags', taggit.managers.TaggableManager(verbose_name='Tags', blank=True, help_text=None, to='taggit.Tag', through='taggit.TaggedItem')),
+                ('uploaded_by_user', models.ForeignKey(editable=False, blank=True, null=True, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model, wagtail.wagtailadmin.taggable.TagSearchable),
+        ),
+        migrations.CreateModel(
+            name='Rendition',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('file', models.ImageField(width_field='width', upload_to='images', height_field='height')),
+                ('width', models.IntegerField(editable=False)),
+                ('height', models.IntegerField(editable=False)),
+                ('focal_point_key', models.CharField(editable=False, max_length=255, null=True)),
+                ('filter', models.ForeignKey(related_name='+', to='wagtailimages.Filter')),
+                ('image', models.ForeignKey(related_name='renditions', to='wagtailimages.Image')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='rendition',
+            unique_together=set([('image', 'filter', 'focal_point_key')]),
+        ),
+    ]

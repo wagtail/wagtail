@@ -2,14 +2,15 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailsearch import models
 
 
 class QueryForm(forms.Form):
-    query_string = forms.CharField(label=_('Search term(s)/phrase'), 
-        help_text=_("""Enter the full search string to match. An 
-        exact match is required for your Editors Picks to be 
-        displayed, wildcards are NOT allowed."""), 
+    query_string = forms.CharField(label=_("Search term(s)/phrase"),
+        help_text=_("Enter the full search string to match. An "
+        "exact match is required for your Editors Picks to be "
+        "displayed, wildcards are NOT allowed."),
         required=True)
 
 
@@ -18,10 +19,11 @@ class EditorsPickForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditorsPickForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = forms.HiddenInput()
+        self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
         model = models.EditorsPick
+        fields = ('query', 'page', 'description')
 
         widgets = {
             'description': forms.Textarea(attrs=dict(rows=3)),
@@ -34,6 +36,7 @@ EditorsPickFormSetBase = inlineformset_factory(models.Query, models.EditorsPick,
 class EditorsPickFormSet(EditorsPickFormSetBase):
     minimum_forms = 1
     minimum_forms_message = _("Please specify at least one recommendation for this search term.")
+
     def add_fields(self, form, *args, **kwargs):
         super(EditorsPickFormSet, self).add_fields(form, *args, **kwargs)
 

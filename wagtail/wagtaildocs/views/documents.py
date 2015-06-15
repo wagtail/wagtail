@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.backends import get_search_backends
+from wagtail.wagtailadmin import messages
 
 from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
@@ -82,7 +84,14 @@ def add(request):
         form = DocumentForm(request.POST, request.FILES, instance=doc)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Document '{0}' added.").format(doc.title))
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
+            messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
+                messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
+            ])
             return redirect('wagtaildocs_index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
@@ -94,7 +103,6 @@ def add(request):
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -111,20 +119,42 @@ def edit(request, document_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
             doc = form.save()
-            messages.success(request, _("Document '{0}' updated").format(doc.title))
+
+            # Reindex the document to make sure all tags are indexed
+            for backend in get_search_backends():
+                backend.add(doc)
+
+            messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
+                messages.button(reverse('wagtaildocs_edit_document', args=(doc.id,)), _('Edit'))
+            ])
             return redirect('wagtaildocs_index')
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
         form = DocumentForm(instance=doc)
 
+    filesize = None
+
+    # Get file size when there is a file associated with the Document object
+    if doc.file:
+        try:
+            filesize = doc.file.size
+        except OSError:
+            # File doesn't exist
+            pass
+
+    if not filesize:
+        messages.error(request, _("The file could not be found. Please change the source or delete the document"), buttons=[
+            messages.button(reverse('wagtaildocs_delete_document', args=(doc.id,)), _('Delete'))
+        ])
+
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
-        'form': form,
+        'filesize': filesize,
+        'form': form
     })
 
 
-@permission_required('wagtailadmin.access_admin')  # more specific permission tests are applied within the view
 def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
@@ -138,4 +168,24 @@ def delete(request, document_id):
 
     return render(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+    })
+
+
+def usage(request, document_id):
+    doc = get_object_or_404(Document, id=document_id)
+
+    # Pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(doc.get_usage(), 20)
+
+    try:
+        used_by = paginator.page(p)
+    except PageNotAnInteger:
+        used_by = paginator.page(1)
+    except EmptyPage:
+        used_by = paginator.page(paginator.num_pages)
+
+    return render(request, "wagtaildocs/documents/usage.html", {
+        'document': doc,
+        'used_by': used_by
     })

@@ -1,12 +1,11 @@
-### gravatar.py ###############
-### place inside a 'templatetags' directory inside the top level of a Django app (not project, must be inside an app)
-### at the top of your page template include this:
-### {% load gravatar %}
-### and to use the url do this:
-### <img src="{% gravatar_url 'someone@somewhere.com' %}">
-### or
-### <img src="{% gravatar_url sometemplatevariable %}">
-### just make sure to update the "default" image path below
+# place inside a 'templatetags' directory inside the top level of a Django app (not project, must be inside an app)
+# at the top of your page template include this:
+# {% load gravatar %}
+# and to use the url do this:
+# <img src="{% gravatar_url 'someone@somewhere.com' %}">
+# or
+# <img src="{% gravatar_url sometemplatevariable %}">
+# just make sure to update the "default" image path below
 
 import hashlib
 

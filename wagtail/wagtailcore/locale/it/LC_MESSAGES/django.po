@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alessio Di Stasio <aledista@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-05-08 22:15+0000\n"
+"Last-Translator: Alessio Di Stasio <aledista@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hostname"
+msgstr "Hostname"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid "Root page"
+msgstr "Pagina di root"
+
+msgid "Is default site"
+msgstr "è sito di default"
+
+msgid "Site"
+msgstr "Sito"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Owner"
+msgstr "Proprietario"
+
+msgid "Page title"
+msgstr "Titolo pagina"
+
+msgid "Search description"
+msgstr "Descrizione della ricerca"
+
+msgid "Expired"
+msgstr "Scaduto"
+
+msgid "Locked"
+msgstr "Bloccato"
+
+msgid "expired"
+msgstr "scaduto"
+
+msgid "scheduled"
+msgstr "schedulato"
+
+msgid "draft"
+msgstr "bozza"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Created at"
+msgstr "Creato alle"
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Page Revision"
+msgstr "Revisione pagina"
+
+msgid "Publish any page"
+msgstr "Pubblica ogni pagina"
+
+msgid "Lock/unlock any page"
+msgstr "Blocca/sblocca ogni pagina"
+
+msgid "Group"
+msgstr "Gruppo"
+
+msgid "Permission type"
+msgstr "Tipo di permesso"
+
+msgid "Group Page Permission"
+msgstr "Permesso della pagina del gruppo"
+
+msgid "Password"
+msgstr "Parola chiave"

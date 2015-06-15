@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
-from wagtail.tests.models import EventPage
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestPageQuerySet(TestCase):
@@ -87,7 +87,6 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
     def test_not_descendant_of(self):
-        homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
         pages = Page.objects.not_descendant_of(events_index)
 
@@ -99,7 +98,6 @@ class TestPageQuerySet(TestCase):
         self.assertTrue(pages.filter(id=events_index.id).exists())
 
     def test_not_descendant_of_inclusive(self):
-        homepage = Page.objects.get(url_path='/home/')
         events_index = Page.objects.get(url_path='/home/events/')
         pages = Page.objects.not_descendant_of(events_index, inclusive=True)
 
@@ -259,6 +257,19 @@ class TestPageQuerySet(TestCase):
         # Check that "someone elses event" is in the results
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_type_includes_subclasses(self):
+        from wagtail.wagtailforms.models import AbstractEmailForm
+        pages = Page.objects.type(AbstractEmailForm)
+
+        # Check that all objects are instances of AbstractEmailForm
+        for page in pages:
+            self.assertIsInstance(page.specific, AbstractEmailForm)
+
+        # Check that the contact form page is in the results
+        contact_us = Page.objects.get(url_path='/home/contact-us/')
+        self.assertTrue(pages.filter(id=contact_us.id).exists())
+
 
     def test_not_type(self):
         pages = Page.objects.not_type(EventPage)

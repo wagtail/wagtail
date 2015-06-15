@@ -1,20 +1,20 @@
 {% load wagtailadmin_tags %}
-<div class="field {{ field.field_classnames }} {{ field|fieldtype }} {{ field_classes }}">
-    {{ field.label_tag }}
+<div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}">
+    {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
-        <div class="input {{ field.input_classnames }} {{ input_classes }} ">
+        <div class="input {{ input_classes }} ">
             {% block form_field %}
-                {{ field }}
+                {{ field|render_with_errors }}
             {% endblock %}
             
             {# This span only used on rare occasions by certain types of input #}
             <span></span>
         </div>
-        {% if field.help_text %}
+        {% if show_help_text|default_if_none:True and field.help_text %}
             <p class="help">{{ field.help_text }}</p>
         {% endif %}
 
-        {% if field.errors %}
+        {% if field|has_unrendered_errors %}
             <p class="error-message">
                 {% for error in field.errors %}
                     <span>{{ error|escape }}</span>

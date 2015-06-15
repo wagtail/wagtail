@@ -2,27 +2,35 @@ import six.moves.urllib.request
 from six.moves.urllib.error import URLError
 
 from mock import patch
-import warnings
+import unittest
+from bs4 import BeautifulSoup
+
+from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 
 try:
-    import embedly
+    import embedly  # noqa
     no_embedly = False
 except ImportError:
     no_embedly = True
 
 from django import template
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 
-from wagtail.tests.utils import WagtailTestUtils, unittest
+from wagtail.tests.utils import WagtailTestUtils
 
-from wagtail.wagtailembeds import get_embed
 from wagtail.wagtailembeds.embeds import (
     EmbedNotFoundException,
     EmbedlyException,
     AccessDeniedEmbedlyException,
+    get_embed,
+    embedly as wagtail_embedly,
+    oembed as wagtail_oembed,
 )
-from wagtail.wagtailembeds.embeds import embedly as wagtail_embedly, oembed as wagtail_oembed
-from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter, embedly as embedly_filter
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailembeds.templatetags.wagtailembeds_tags import embed as embed_filter
+from wagtail.wagtailembeds.blocks import EmbedBlock, EmbedValue
+from wagtail.wagtailembeds.models import Embed
 
 
 class TestEmbeds(TestCase):
@@ -83,7 +91,7 @@ class TestEmbeds(TestCase):
         # Width must be set to None
         self.assertEqual(embed.width, None)
 
-    def test_no_html(self) :
+    def test_no_html(self):
         def no_html_finder(url, max_width=None):
             """
             A finder which returns everything but HTML
@@ -213,7 +221,7 @@ class TestOembed(TestCase):
     def setUp(self):
         class DummyResponse(object):
             def read(self):
-                return "foo"
+                return b"foo"
         self.dummy_response = DummyResponse()
 
     def test_oembed_invalid_provider(self):
@@ -221,13 +229,13 @@ class TestOembed(TestCase):
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
-        with patch.object(six.moves.urllib.request, 'urlopen', **config) as urlopen:
+        with patch.object(six.moves.urllib.request, 'urlopen', **config):
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 
     @patch('six.moves.urllib.request.urlopen')
     @patch('json.loads')
-    def test_oembed_photo_request(self, loads, urlopen) :
+    def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
         loads.return_value = {'type': 'photo',
                               'url': 'http://www.example.com'}
@@ -265,39 +273,241 @@ class TestOembed(TestCase):
 
 
 class TestEmbedFilter(TestCase):
-    def setUp(self):
-        class DummyResponse(object):
-            def read(self):
-                return "foo"
-        self.dummy_response = DummyResponse()
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_direct_call(self, get_embed):
+        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_valid_embed(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'photo',
-                              'url': 'http://www.example.com'}
         result = embed_filter('http://www.youtube.com/watch/')
+
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_render_filter(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'photo',
-                              'url': 'http://www.example.com'}
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_call_from_template(self, get_embed):
+        get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
+
         temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        context = template.Context()
-        result = temp.render(context)
+        result = temp.render(template.Context())
+
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('six.moves.urllib.request.urlopen')
-    @patch('json.loads')
-    def test_render_filter_nonexistent_type(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'foo',
-                              'url': 'http://www.example.com'}
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_catches_embed_not_found(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
+
         temp = template.Template('{% load wagtailembeds_tags %}{{ "http://www.youtube.com/watch/"|embed }}')
-        context = template.Context()
+        result = temp.render(template.Context())
+
+        self.assertEqual(result, '')
+
+
+class TestEmbedBlock(TestCase):
+    def test_deserialize(self):
+        """
+        Deserialising the JSONish value of an EmbedBlock (a URL) should give us an EmbedValue
+        for that URL
+        """
+        block = EmbedBlock(required=False)
+
+        block_val = block.to_python('http://www.example.com/foo')
+        self.assertIsInstance(block_val, EmbedValue)
+        self.assertEqual(block_val.url, 'http://www.example.com/foo')
+
+        # empty values should yield None
+        empty_block_val = block.to_python('')
+        self.assertEqual(empty_block_val, None)
+
+    def test_serialize(self):
+        block = EmbedBlock(required=False)
+
+        block_val = EmbedValue('http://www.example.com/foo')
+        serialized_val = block.get_prep_value(block_val)
+        self.assertEqual(serialized_val, 'http://www.example.com/foo')
+
+        serialized_empty_val = block.get_prep_value(None)
+        self.assertEqual(serialized_empty_val, '')
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_render(self, get_embed):
+        get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
+
+        block = EmbedBlock()
+        block_val = block.to_python('http://www.example.com/foo')
+
+        temp = template.Template('embed: {{ embed }}')
+        context = template.Context({'embed': block_val})
         result = temp.render(context)
+
+        # Check that the embed was in the returned HTML
+        self.assertIn('<h1>Hello world!</h1>', result)
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call('http://www.example.com/foo')
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_render_within_structblock(self, get_embed):
+        """
+        When rendering the value of an EmbedBlock directly in a template
+        (as happens when accessing it as a child of a StructBlock), the
+        proper embed output should be rendered, not the URL.
+        """
+        get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
+
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('embed', EmbedBlock()),
+        ])
+
+        block_val = block.to_python({'title': 'A test', 'embed': 'http://www.example.com/foo'})
+
+        temp = template.Template('embed: {{ self.embed }}')
+        context = template.Context({'self': block_val})
+        result = temp.render(context)
+
+        self.assertIn('<h1>Hello world!</h1>', result)
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call('http://www.example.com/foo')
+
+    def test_render_form(self):
+        """
+        The form field for an EmbedBlock should be a text input containing
+        the URL
+        """
+        block = EmbedBlock()
+
+        form_html = block.render_form(EmbedValue('http://www.example.com/foo'), prefix='myembed')
+        self.assertIn('<input ', form_html)
+        self.assertIn('value="http://www.example.com/foo"', form_html)
+
+    def test_value_from_form(self):
+        """
+        EmbedBlock should be able to turn a URL submitted as part of a form
+        back into an EmbedValue
+        """
+        block = EmbedBlock(required=False)
+
+        block_val = block.value_from_datadict({'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed')
+        self.assertIsInstance(block_val, EmbedValue)
+        self.assertEqual(block_val.url, 'http://www.example.com/foo')
+
+        # empty value should result in None
+        empty_val = block.value_from_datadict({'myembed': ''}, {}, prefix='myembed')
+        self.assertEqual(empty_val, None)
+
+    def test_default(self):
+        block1 = EmbedBlock()
+        self.assertEqual(block1.get_default(), None)
+
+        block2 = EmbedBlock(default='')
+        self.assertEqual(block2.get_default(), None)
+
+        block3 = EmbedBlock(default=None)
+        self.assertEqual(block3.get_default(), None)
+
+        block4 = EmbedBlock(default='http://www.example.com/foo')
+        self.assertIsInstance(block4.get_default(), EmbedValue)
+        self.assertEqual(block4.get_default().url, 'http://www.example.com/foo')
+
+        block5 = EmbedBlock(default=EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(block5.get_default(), EmbedValue)
+        self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
+
+    def test_clean(self):
+        required_block = EmbedBlock()
+        nonrequired_block = EmbedBlock(required=False)
+
+        # a valid EmbedValue should return the same value on clean
+        cleaned_value = required_block.clean(EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(cleaned_value, EmbedValue)
+        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+
+        cleaned_value = nonrequired_block.clean(EmbedValue('http://www.example.com/foo'))
+        self.assertIsInstance(cleaned_value, EmbedValue)
+        self.assertEqual(cleaned_value.url, 'http://www.example.com/foo')
+
+        # None should only be accepted for nonrequired blocks
+        cleaned_value = nonrequired_block.clean(None)
+        self.assertEqual(cleaned_value, None)
+
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
+
+
+class TestMediaEmbedHandler(TestCase):
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup(
+            '<b data-url="test-url">foo</b>'
+        )
+        tag = soup.b
+        result = MediaEmbedHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'url': 'test-url'})
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes_for_editor(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='http://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            True
+        )
+        self.assertIn('<div class="embed-placeholder" contenteditable="false" data-embedtype="media" data-url="http://www.youtube.com/watch/">', result)
+        self.assertIn('<h3>test title</h3>', result)
+        self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
+        self.assertIn('<p>Provider: test provider name</p>', result)
+        self.assertIn('<p>Author: test author name</p>', result)
+        self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            True
+        )
+
+        self.assertEqual(result, '')
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes(self, get_embed):
+        get_embed.return_value = Embed(
+            url='http://www.youtube.com/watch/',
+            max_width=None,
+            type='video',
+            html='test html',
+            title='test title',
+            author_name='test author name',
+            provider_name='test provider name',
+            thumbnail_url='htto://test/thumbnail.url',
+            width=1000,
+            height=1000,
+        )
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            False
+        )
+        self.assertIn('test html', result)
+
+    @patch('wagtail.wagtailembeds.embeds.get_embed')
+    def test_expand_db_attributes_catches_embed_not_found(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
+
+        result = MediaEmbedHandler.expand_db_attributes(
+            {'url': 'http://www.youtube.com/watch/'},
+            False
+        )
+
         self.assertEqual(result, '')

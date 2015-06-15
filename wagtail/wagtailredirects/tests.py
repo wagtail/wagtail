@@ -96,7 +96,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailredirects_add_redirect'), params)
- 
+
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailredirects_add_redirect'), post_data)
 
@@ -142,7 +142,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), params)
- 
+
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
@@ -190,7 +190,7 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), params)
- 
+
     def post(self, post_data={}, redirect_id=None):
         return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 

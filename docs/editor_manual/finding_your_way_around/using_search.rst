@@ -1,7 +1,7 @@
 Using search
 ~~~~~~~~~~~~
 
-.. image:: ../../images/screen04_search_screen.png
+.. image:: ../../_static/images/screen04_search_screen.png
 
 * A very easy way to find the page that you want is to use the main search feature, accessible from the left-hand menu.
 * Simply type in part or all of the name of the page you are looking for, and the results below will automatically update as you type.

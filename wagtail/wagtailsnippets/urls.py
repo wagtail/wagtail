@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^(\w+)/(\w+)/new/$', snippets.create, name='wagtailsnippets_create'),
     url(r'^(\w+)/(\w+)/(\d+)/$', snippets.edit, name='wagtailsnippets_edit'),
     url(r'^(\w+)/(\w+)/(\d+)/delete/$', snippets.delete, name='wagtailsnippets_delete'),
+    url(r'^(\w+)/(\w+)/(\d+)/usage/$', snippets.usage, name='wagtailsnippets_usage'),
 ]

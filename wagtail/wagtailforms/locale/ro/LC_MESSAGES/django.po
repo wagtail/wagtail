@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-21 08:41+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/wagtail/"
+"language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Single line text"
+msgstr "Linie de text"
+
+msgid "Multi-line text"
+msgstr "Linii de text"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Număr"
+
+msgid "URL"
+msgstr "Adresă de internet"
+
+msgid "Checkbox"
+msgstr "Casetă"
+
+msgid "Checkboxes"
+msgstr "Casete"
+
+msgid "Drop down"
+msgstr "Listă derulantă"
+
+msgid "Radio buttons"
+msgstr "Butoane radio"
+
+msgid "Date"
+msgstr "Dată"
+
+msgid "Date/time"
+msgstr "Dată/Timp"
+
+msgid "The label of the form field"
+msgstr "Etichetă pentru câmp de formular"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio "
+"și liste derulante."
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+"Opțional. Depunerile de formular vor fi trimise la această adresă de email."
+
+msgid "Forms"
+msgstr "Formulare"
+
+msgid "Pages"
+msgstr "Pagini"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Depuneri pentru %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Datele pentru formularul <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+msgid "Download CSV"
+msgstr "Descarcă CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nu sunt depunero pentru formularul '%(title)s'"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Submission Date"
+msgstr "Data trimiterii"
+
+msgid "No form pages have been created."
+msgstr "Nu a fost creată nici o pagină de formular"

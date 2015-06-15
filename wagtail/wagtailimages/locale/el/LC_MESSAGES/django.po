@@ -3,74 +3,112 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# jim dal <dimitrisdal@gmail.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
+# serafeim <serafeim@torchbox.com>, 2014
+# Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:53+0000\n"
-"PO-Revision-Date: 2014-03-14 21:17+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/wagtail/language/"
 "el/)\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:29
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr ""
+"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Μη έγκυρη %s εικόνα."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_upload_size)s."
+msgstr ""
+"Αυτό το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
+msgstr ""
+"Αυτό το αρχείο είναι πολύ μεγάλο (%%(max_upload_size)s). Μέγιστο μέγεθος "
+"αρχείου %s."
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Υποστηριζόμενες μορφες: %(supported_formats)s. Μέγιστο μέγεθος αρχείου:  "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Υποστηριζόμενες μορφές: %(supported_formats)s."
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
+msgid "Original size"
+msgstr "Γνήσιο μέγεθος"
+
+msgid "Resize to width"
+msgstr "Αλλαγή μεγέθους σε πλάτος"
+
+msgid "Resize to height"
+msgstr "Αλλαγή μεγέθους σε ύψος"
+
+msgid "Resize to min"
+msgstr "Αλλαγή μεγέθους σε ελάχ"
+
+msgid "Resize to max"
+msgstr "Αλλαγή μεγέθους έως μέγ"
+
+msgid "Resize to fill"
+msgstr "Αλλαγή μεγέθους για να αναπληρώσει"
+
+msgid "Width"
+msgstr "Πλάτος"
+
+msgid "Height"
+msgstr "Υψος"
+
+msgid "Closeness"
+msgstr "Εγγύτητα"
+
 msgid "Title"
 msgstr "Τίτλος"
 
-#: models.py:44
 msgid "File"
 msgstr "Αρχείο"
 
-#: models.py:50
 msgid "Tags"
 msgstr "Ετικέτες"
 
-#: utils.py:17
-#, fuzzy
-msgid ""
-"Not a valid image. Please use a gif, jpeg or png file with the correct file "
-"extension."
-msgstr "Πρέπει να ανεβάσετε αρχείο εικόνας τύπου gif, gpeg ή png."
-
-#: utils.py:28
-#, fuzzy, python-format
-msgid ""
-"Not a valid %s image. Please use a gif, jpeg or png file with the correct "
-"file extension."
-msgstr "Πρέπει να ανεβάσετε αρχείο εικόνας τύπου gif, gpeg ή png."
-
-#: wagtail_hooks.py:23 templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:18
-msgid "Images"
-msgstr "Εικόνες"
-
-#: templates/wagtailimages/chooser/chooser.html:3
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:19
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
 
-#: templates/wagtailimages/chooser/chooser.html:8
-#: templates/wagtailimages/chooser/chooser.html:20
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: templates/wagtailimages/chooser/chooser.html:9
-#: templates/wagtailimages/chooser/chooser.html:43
 msgid "Upload"
 msgstr "Ανέβασμα"
 
-#: templates/wagtailimages/chooser/chooser.html:23
 msgid "Popular tags"
 msgstr "Δημοφιλείς ετικέτες"
 
-#: templates/wagtailimages/chooser/results.html:6
-#: templates/wagtailimages/images/results.html:6
 #, python-format
 msgid ""
 "\n"
@@ -88,75 +126,94 @@ msgstr[1] ""
 "            Βρέθηκαν %(counter)s αποτελέσματα\n"
 "        "
 
-#: templates/wagtailimages/chooser/results.html:13
-#: templates/wagtailimages/images/results.html:13
 msgid "Latest images"
 msgstr "Τελευταίες εικόνες"
 
-#: templates/wagtailimages/chooser/select_format.html:3
 msgid "Choose a format"
 msgstr "Επιλογή τύπου"
 
-#: templates/wagtailimages/chooser/select_format.html:17
 msgid "Insert image"
 msgstr "Εισαγωγή εικόνας"
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:17
-msgid "Clear image"
-msgstr "καθαρισμός εικόνας"
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"                <span>%(total)s</span> Εικόνα\n"
+"            "
+msgstr[1] ""
+"\n"
+"                <span>%(total)s</span> Εικόνες\n"
+"            "
 
-#: templates/wagtailimages/edit_handlers/image_chooser_panel.html:18
-msgid "Choose another image"
-msgstr "Επιλογή άλλης εικόνας"
+msgid "Change image file:"
+msgstr "Αλλαγή αρχείου εικόνας:"
 
-#: templates/wagtailimages/images/_file_field.html:6
-msgid "Change image:"
-msgstr "Αλλαγή εικόνας:"
-
-#: templates/wagtailimages/images/add.html:4
-#: templates/wagtailimages/images/index.html:19
 msgid "Add an image"
 msgstr "Προσθήκη εικόνας"
 
-#: templates/wagtailimages/images/add.html:15
 msgid "Add image"
 msgstr "Προσθήκη εικόνας"
 
-#: templates/wagtailimages/images/add.html:25
-#: templates/wagtailimages/images/edit.html:33
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: templates/wagtailimages/images/confirm_delete.html:4
-#: templates/wagtailimages/images/confirm_delete.html:8
-#: templates/wagtailimages/images/edit.html:33
 msgid "Delete image"
 msgstr "Διαγραφή εικόνας"
 
-#: templates/wagtailimages/images/confirm_delete.html:16
 msgid "Are you sure you want to delete this image?"
 msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτή η εικόνα;"
 
-#: templates/wagtailimages/images/confirm_delete.html:19
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
-#: templates/wagtailimages/images/edit.html:4
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Επεξεργασία εικόνας %(title)s"
 
-#: templates/wagtailimages/images/edit.html:15
 msgid "Editing"
 msgstr "Διόρθωση"
 
-#: templates/wagtailimages/images/results.html:31
+msgid "Focal point (optional)"
+msgstr "Κομβικό σημείο (οπτική)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Για να ορίσετε αυτή η εικόνα είναι πιο σημαντική περιοχή, σύρετε ένα πλαίσιο "
+"πάνω από την εικόνα πιο κάτω."
+
+msgid "Current focal point shown"
+msgstr "Τρέχον εστιακό σημείο παρουσιάζεται"
+
+msgid "URL Generator"
+msgstr "Παραγωγή URL"
+
+msgid "Max dimensions"
+msgstr "Μέγιστες διαστάσεις"
+
+msgid "Filesize"
+msgstr "Μέγεθος Αρχείου"
+
+msgid "File not found"
+msgstr "Το αρχείο δεν βρέθηκε"
+
+msgid "Images"
+msgstr "Εικόνες"
+
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Λυπούμαστε, καμία εικόνα δε ταιριάζει με το \"<em>%(query_string)s</em>\""
 
-#: templates/wagtailimages/images/results.html:34
 #, python-format
 msgid ""
 "You've not uploaded any images. Why not <a href="
@@ -165,26 +222,110 @@ msgstr ""
 "Δεν υπάρχουν εικόνες. Θέλετε να <a href=\"%(wagtailimages_add_image_url)s"
 "\">προσθέσετε μερικές</a>;"
 
-#: views/images.py:31 views/images.py:42
+msgid "Generating URL"
+msgstr "Δημιουργία URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Σημειώστε ότι οι εικόνες που δημιουργούνται μεγαλύτερες από την οθόνη θα "
+"εμφανιστουν μικρότερες κατά την προεπισκόπηση εδώ, έτσι ώστε να χωρέσει στην "
+"οθόνη."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Χρήση του  %(title)s"
+
+msgid "Usage of"
+msgstr "Χρήση του "
+
+msgid "Parent"
+msgstr "Πατρική"
+
+msgid "Type"
+msgstr "Τύπος"
+
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgid "Edit this page"
+msgstr "Επεξεργασία αυτής της σελίδας"
+
+msgid "Add multiple images"
+msgstr "Προσθήκη πολλαπλών εικόνων"
+
+msgid "Add images"
+msgstr "Προσθήκη εικόνων"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+"Μεταφέρετε και αποθέστε εικόνες σε αυτόν τον τομέα για να τις ανεβάσετε "
+"αμέσως."
+
+msgid "Or choose from your computer"
+msgstr "Ή επιλέξτε από τον υπολογιστή σας"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Μεταφόρτωση επιτυχής. Ενημερώστε την εικόνα με ένα πιο κατάλληλο τίτλο, αν "
+"είναι απαραίτητο. Μπορείτε επίσης να διαγράψετε την εικόνα εντελώς, αν η "
+"αποστολή δεν ήταν απαραίτητη."
+
+msgid "Sorry, upload failed."
+msgstr "Συγγνώμη, η μεταφόρτωση απέτυχε."
+
+msgid "Update"
+msgstr "Ενημέρωση"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Search images"
 msgstr "Αναζήτηση εικόνων"
 
-#: views/images.py:94
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Η εικόνα '{0}' ενημερώθηκε."
 
-#: views/images.py:97
+msgid "Edit again"
+msgstr "Επεξεργασία ξανά"
+
 msgid "The image could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."
 
-#: views/images.py:116
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
+"αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
+
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Η εικόνα '{0}' διαγράφηκε."
 
-#: views/images.py:134
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Η εικόνα '{0}' δημιουργήθηκε."
 
-#: views/images.py:137
+msgid "Edit"
+msgstr "Επεξεργασία"
+
 msgid "The image could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
+
+msgid "Choose another image"
+msgstr "Επιλογή άλλης εικόνας"
+
+msgid "Edit this image"
+msgstr "Επεξεργασία αυτής της εικόνας"

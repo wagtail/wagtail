@@ -8,17 +8,18 @@ from wagtail.wagtailsearch.urls import admin as admin_urls
 from wagtail.wagtailadmin.menu import MenuItem
 
 
+@hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
         url(r'^search/', include(admin_urls)),
     ]
-hooks.register('register_admin_urls', register_admin_urls)
 
 
-def construct_main_menu(request, menu_items):
-    # TEMPORARY: Only show if the user is a superuser
-    if request.user.is_superuser:
-        menu_items.append(
-            MenuItem(_('Editors picks'), urlresolvers.reverse('wagtailsearch_editorspicks_index'), classnames='icon icon-pick', order=900)
-        )
-hooks.register('construct_main_menu', construct_main_menu)
+class EditorsPicksMenuItem(MenuItem):
+    def is_shown(self, request):
+        # TEMPORARY: Only show if the user is a superuser
+        return request.user.is_superuser
+
+@hooks.register('register_settings_menu_item')
+def register_editors_picks_menu_item():
+    return EditorsPicksMenuItem(_('Promoted search results'), urlresolvers.reverse('wagtailsearch_editorspicks_index'), classnames='icon icon-pick', order=900)

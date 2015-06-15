@@ -1,0 +1,326 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2014-2015
+# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-29 17:38+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Formato de imagem não suportado. Formatos suportados: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Imagem %s inválida."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_upload_size)s."
+msgstr "O ficheiro é demasiado grande. Tamanho máximo %(max_upload_size)s."
+
+#, python-format
+msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
+msgstr ""
+"Este ficheiro é demasiado grande (%%(max_upload_size)s). Tamanho máximo %s."
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Formatos suportados: %(supported_formats)s. Tamanho máximo do ficheiro: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos suportados: %(supported_formats)s."
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Original size"
+msgstr "Dimensão original"
+
+msgid "Resize to width"
+msgstr "Redimensionar pela largura"
+
+msgid "Resize to height"
+msgstr "Redimensionar pela altura"
+
+msgid "Resize to min"
+msgstr "Redimensionar pelo mínimo"
+
+msgid "Resize to max"
+msgstr "Redimensionar pelo máximo"
+
+msgid "Resize to fill"
+msgstr "Redimensionar para preencher"
+
+msgid "Width"
+msgstr "Largura"
+
+msgid "Height"
+msgstr "Altura"
+
+msgid "Closeness"
+msgstr "Proximidade"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "File"
+msgstr "Ficheiro"
+
+msgid "Created at"
+msgstr "Criada a"
+
+msgid "Uploaded by user"
+msgstr "Carregado pelo utilizador"
+
+msgid "Tags"
+msgstr "Palavras-chave"
+
+msgid "Choose an image"
+msgstr "Escolher uma imagem"
+
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Upload"
+msgstr "Carregar"
+
+msgid "Popular tags"
+msgstr "Palavras-chave populares"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Encontrado um resultado"
+msgstr[1] ""
+"\n"
+"Encontrados %(counter)s resultados\n"
+"        "
+
+msgid "Latest images"
+msgstr "Últimas imagens"
+
+msgid "Choose a format"
+msgstr "Escolher um formato"
+
+msgid "Insert image"
+msgstr "Inserir imagem"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Imagem"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Imagens"
+
+msgid "Change image file:"
+msgstr "Alterar ficheiro de imagem:"
+
+msgid "Add an image"
+msgstr "Adicionar uma imagem"
+
+msgid "Add image"
+msgstr "Adicionar imagem"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Delete image"
+msgstr "Apagar imagem"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Tem a certeza que quer apagar esta imagem?"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "A editar imagem %(title)s"
+
+msgid "Editing"
+msgstr "A editar"
+
+msgid "Focal point (optional)"
+msgstr "Ponto de enfoque (opcional)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr ""
+"Para definir a região mais importante desta imagem, arraste uma caixa por "
+"cima da imagem abaixo."
+
+msgid "Current focal point shown"
+msgstr "A apresentar ponto de enfoque atual"
+
+msgid "URL Generator"
+msgstr "Gerador de URL"
+
+msgid "Max dimensions"
+msgstr "Dimensões máximas"
+
+msgid "Filesize"
+msgstr "Tamanho do ficheiro"
+
+msgid "File not found"
+msgstr "Ficheiro não encontrado"
+
+msgid "Images"
+msgstr "Imagens"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhuma imagem corresponde a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You've not uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr ""
+"Ainda não carregou qualquer imagem. Porque não <a href="
+"\"%(wagtailimages_add_image_url)s\">carregar uma agora</a>?"
+
+msgid "Generating URL"
+msgstr "A gerar URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Pré-visualizar"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Note que as imagens criadas com dimensões superiores às do ecrã irão "
+"aparecer reduzidas, de forma a caberem no ecrã."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilização de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilização de"
+
+msgid "Parent"
+msgstr "Mãe"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Edit this page"
+msgstr "Editar esta página"
+
+msgid "Add multiple images"
+msgstr "Adicionar múltiplas imagens"
+
+msgid "Add images"
+msgstr "Adicionar imagens"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Arraste e largue imagens nesta área para carregar imediatamente."
+
+msgid "Or choose from your computer"
+msgstr "Ou escolha no seu computador"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Carregada com sucesso. Por favor atualize esta imagem com um título mais "
+"apropriado, se necessário. Também pode eliminar completamente a imagem se o "
+"carregamento não era pretendido."
+
+msgid "Sorry, upload failed."
+msgstr "Desculpe, o carregamento falhou."
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Search images"
+msgstr "Pesquisar imagens"
+
+#, python-brace-format
+msgid "Image '{0}' updated."
+msgstr "Imagem '{0}' atualizada."
+
+msgid "Edit again"
+msgstr "Editar de novo"
+
+msgid "The image could not be saved due to errors."
+msgstr "A imagem não pôde ser guardada devido a erros."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"O ficheiro da imagem fonte não foi encontrado. Por favor altere a fonte ou "
+"apague a imagem."
+
+#, python-brace-format
+msgid "Image '{0}' deleted."
+msgstr "Imagem '{0}' apagada."
+
+#, python-brace-format
+msgid "Image '{0}' added."
+msgstr "Imagem '{0}' adicionada."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The image could not be created due to errors."
+msgstr "A imagem não pôde ser criada devido a erros."
+
+msgid "Choose another image"
+msgstr "Escolher outra imagem"
+
+msgid "Edit this image"
+msgstr "Editar esta imagem"

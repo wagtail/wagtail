@@ -1,65 +1,71 @@
-from django.core.management.base import BaseCommand
-from django.db import models
+from optparse import make_option
 
-from wagtail.wagtailsearch import Indexed, get_search_backend
+from django.core.management.base import BaseCommand
+from django.conf import settings
+
+from wagtail.wagtailsearch.index import get_indexed_models
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 class Command(BaseCommand):
-    def handle(self, **options):
+    def get_object_list(self):
+        # Return list of (model_name, queryset) tuples
+        return [
+            (model, model.get_indexed_objects())
+            for model in get_indexed_models()
+        ]
+
+    def update_backend(self, backend_name, object_list):
         # Print info
-        self.stdout.write("Getting object list")
+        self.stdout.write("Updating backend: " + backend_name)
 
-        # Get list of indexed models
-        indexed_models = [model for model in models.get_models() if issubclass(model, Indexed)]
-
-        # Object set
-        object_set = {}
-
-        # Add all objects to object set and detect any duplicates
-        # Duplicates are caused when both a model and a derived model are indexed
-        # Eg, if BlogPost inherits from Page and both of these models are indexed
-        # If we were to add all objects from both models into the index, all the BlogPosts will have two entries
-        for model in indexed_models:
-            # Get toplevel content type
-            toplevel_content_type = model.indexed_get_toplevel_content_type()
-
-            # Loop through objects
-            for obj in model.get_indexed_objects():
-                # Get key for this object
-                key = toplevel_content_type + ':' + str(obj.pk)
-
-                # Check if this key already exists
-                if key in object_set:
-                    # Conflict, work out who should get this space
-                    # The object with the longest content type string gets the space
-                    # Eg, "wagtailcore.Page-myapp.BlogPost" kicks out "wagtailcore.Page"
-                    if len(obj.indexed_get_content_type()) > len(object_set[key].indexed_get_content_type()):
-                        # Take the spot
-                        object_set[key] = obj
-                else:
-                    # Space free, take it
-                    object_set[key] = obj
-
-        # Search backend
-        if 'backend' in options:
-            s = options['backend']
-        else:
-            s = get_search_backend()
+        # Get backend
+        backend = get_search_backend(backend_name)
 
         # Reset the index
-        self.stdout.write("Reseting index")
-        s.reset_index()
+        self.stdout.write(backend_name + ": Reseting index")
+        backend.reset_index()
 
-        # Add types
-        self.stdout.write("Adding types")
-        for model in indexed_models:
-            s.add_type(model)
+        for model, queryset in object_list:
+            self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
+                model._meta.app_label,
+                model.__name__,
+            ))
 
-        # Add objects to index
-        self.stdout.write("Adding objects")
-        for result in s.add_bulk(object_set.values()):
-            self.stdout.write(result[0] + ' ' + str(result[1]))
+            # Add type
+            backend.add_type(model)
+
+            # Add objects
+            backend.add_bulk(model, queryset)
 
         # Refresh index
-        self.stdout.write("Refreshing index")
-        s.refresh_index()
+        self.stdout.write(backend_name + ": Refreshing index")
+        backend.refresh_index()
+
+    option_list = BaseCommand.option_list + (
+        make_option('--backend',
+            action='store',
+            dest='backend_name',
+            default=None,
+            help="Specify a backend to update",
+        ),
+    )
+
+    def handle(self, **options):
+        # Get object list
+        object_list = self.get_object_list()
+
+        # Get list of backends to index
+        if options['backend_name']:
+            # index only the passed backend
+            backend_names = [options['backend_name']]
+        elif hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+            # index all backends listed in settings
+            backend_names = settings.WAGTAILSEARCH_BACKENDS.keys()
+        else:
+            # index the 'default' backend only
+            backend_names = ['default']
+
+        # Update backends
+        for backend_name in backend_names:
+            self.update_backend(backend_name, object_list)

@@ -1,53 +1,68 @@
-import warnings
-
 from django.test import TestCase
 
-from wagtail.wagtailsearch import indexed
-from wagtail.tests import models
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.wagtailsearch import index
+from wagtail.tests.search import models
 
 
 class TestContentTypeNames(TestCase):
     def test_base_content_type_name(self):
         name = models.SearchTestChild.indexed_get_toplevel_content_type()
-        self.assertEqual(name, 'tests_searchtest')
+        self.assertEqual(name, 'searchtests_searchtest')
 
     def test_qualified_content_type_name(self):
         name = models.SearchTestChild.indexed_get_content_type()
-        self.assertEqual(name, 'tests_searchtest_tests_searchtestchild')
+        self.assertEqual(name, 'searchtests_searchtest_searchtests_searchtestchild')
 
 
-class TestIndexedFieldsBackwardsCompatibility(TestCase, WagtailTestUtils):
-    def test_indexed_fields_backwards_compatibility(self):
-        # Get search fields
-        with self.ignore_deprecation_warnings():
-            search_fields = models.SearchTestOldConfig.get_search_fields()
+class TestSearchFields(TestCase):
+    def make_dummy_type(self, search_fields):
+        return type('DummyType', (index.Indexed, ), dict(search_fields=search_fields))
 
-        search_fields_dict = dict(
-            ((field.field_name, type(field)), field)
-            for field in search_fields
-        )
+    def test_basic(self):
+        cls = self.make_dummy_type([
+            index.SearchField('test', boost=100, partial_match=False),
+            index.FilterField('filter_test'),
+        ])
 
-        # Check that the fields were found
-        self.assertEqual(len(search_fields_dict), 2)
-        self.assertIn(('title', indexed.SearchField), search_fields_dict.keys())
-        self.assertIn(('live', indexed.FilterField), search_fields_dict.keys())
+        self.assertEqual(len(cls.get_search_fields()), 2)
+        self.assertEqual(len(cls.get_searchable_search_fields()), 1)
+        self.assertEqual(len(cls.get_filterable_search_fields()), 1)
 
-        # Check that the title field has the correct settings
-        self.assertTrue(search_fields_dict[('title', indexed.SearchField)].partial_match)
-        self.assertEqual(search_fields_dict[('title', indexed.SearchField)].boost, 100)
+    def test_overriding(self):
+        # If there are two fields with the same type and name
+        # the last one should override all the previous ones. This ensures that the
+        # standard convention of:
+        #
+        #     class SpecificPageType(Page):
+        #         search_fields = Page.search_fields + (some_other_definitions)
+        #
+        # ...causes the definitions in some_other_definitions to override Page.search_fields
+        # as intended.
+        cls = self.make_dummy_type([
+            index.SearchField('test', boost=100, partial_match=False),
+            index.SearchField('test', partial_match=True),
+        ])
 
-    def test_indexed_fields_backwards_compatibility_list(self):
-        # Get search fields
-        with self.ignore_deprecation_warnings():
-            search_fields = models.SearchTestOldConfigList.get_search_fields()
+        self.assertEqual(len(cls.get_search_fields()), 1)
+        self.assertEqual(len(cls.get_searchable_search_fields()), 1)
+        self.assertEqual(len(cls.get_filterable_search_fields()), 0)
 
-        search_fields_dict = dict(
-            ((field.field_name, type(field)), field)
-            for field in search_fields
-        )
+        field = cls.get_search_fields()[0]
+        self.assertIsInstance(field, index.SearchField)
 
-        # Check that the fields were found
-        self.assertEqual(len(search_fields_dict), 2)
-        self.assertIn(('title', indexed.SearchField), search_fields_dict.keys())
-        self.assertIn(('content', indexed.SearchField), search_fields_dict.keys())
+        # Boost should be reset to the default if it's not specified by the override
+        self.assertIsNone(field.boost)
+
+        # Check that the partial match was overridden
+        self.assertTrue(field.partial_match)
+
+    def test_different_field_types_dont_override(self):
+        # A search and filter field with the same name should be able to coexist
+        cls = self.make_dummy_type([
+            index.SearchField('test', boost=100, partial_match=False),
+            index.FilterField('test'),
+        ])
+
+        self.assertEqual(len(cls.get_search_fields()), 2)
+        self.assertEqual(len(cls.get_searchable_search_fields()), 1)
+        self.assertEqual(len(cls.get_filterable_search_fields()), 1)

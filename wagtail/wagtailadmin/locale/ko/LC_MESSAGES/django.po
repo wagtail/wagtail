@@ -1,0 +1,397 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ji Han Chung <jihanchung20@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-06-05 15:46+0000\n"
+"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Scheduled publishing"
+msgstr "예정된 퍼블리싱"
+
+msgid "Common page configuration"
+msgstr "기본 페이지 설정"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Search term"
+msgstr "검색어"
+
+msgid "Enter password"
+msgstr "패스워드 입력"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "당신의 %s 입력"
+
+msgid "Enter your email address to reset your password"
+msgstr "비밀번호 재설정을 위한 당신의 이메일을 적어주세요"
+
+msgid "Please fill your email address."
+msgstr "당신의 이메일을 적어주세요"
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr ""
+"죄송합니다. 사용자 계정이 다른 서버에서 관리 중이므로, 비밀번호를 재설정 할 "
+"수 없습니다"
+
+msgid "This email address is not recognised."
+msgstr "적용이 불가능한 이메일 주소입니다"
+
+msgid "New title"
+msgstr "새로운 제목"
+
+msgid "New slug"
+msgstr "새로운 슬러그"
+
+msgid "New parent page"
+msgstr "새로운 상위 페이지"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "이 문서는 현재 주어진 상위 페이지에 포함될 것입니다"
+
+msgid "Copy subpages"
+msgstr "하위페이지 다중 복사"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "이는 %(count)s 개의 하위 페이지들을 복사할 것입니다"
+
+msgid "Publish copied page"
+msgstr "복사된 페이지 퍼블리싱"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"이 페이지는 활성화되어 있습니다. 이 페이지의 복사본도 퍼블리싱 하길 원하시나"
+"요?"
+
+msgid "Publish copies"
+msgstr "복사본 퍼블리싱"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s 개의 복사본이 활성화되어 있습니다. 이 복사본을 퍼블리싱 할까요?"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 사용되어지고 있습니다"
+
+msgid "Public"
+msgstr "공개"
+
+msgid "Private, accessible with the following password"
+msgstr "비공개, 다음의 비밀번호로 접근 가능"
+
+msgid "This field is required."
+msgstr "필수 작성 항목입니다"
+
+msgid "Account"
+msgstr "계정"
+
+msgid "Set gravatar"
+msgstr "그라바타 설정"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"당신의 아바타 이미지는 이메일과 연동된 그라바타에 의해서 제공되었습니다. 그라"
+"바타 계정이 있으면 이와 연동된 다른 이메일 계정에 대해서도 아바타를 설정할 "
+"수 있습니다."
+
+msgid "Change password"
+msgstr "비밀번호 변경"
+
+msgid "Change the password you use to log in."
+msgstr "로그인을 위한 비밀번호 변경"
+
+msgid "Notification preferences"
+msgstr "알림 선호 순위"
+
+msgid "Choose which email notifications to receive."
+msgstr "알림을 받기 위한 이메일 선택"
+
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "비밀번호를 변경할 수 없습니다. 사이트 관리자에게 문의해 주세요."
+
+msgid "Notification Preferences"
+msgstr "알림 선호 순위"
+
+msgid "Update"
+msgstr "업데이트"
+
+msgid "Reset password"
+msgstr "비밀번호 초기화"
+
+msgid "Password change successful"
+msgstr "비밀번호가 성공적으로 변경되었습니다"
+
+msgid "Login"
+msgstr "로그인"
+
+msgid "Set your new password"
+msgstr "새로운 비밀번호를 설정해 주세요"
+
+msgid "The passwords do not match. Please try again."
+msgstr "비밀번호가 맞지 않습니다. 다시 시도해 주세요"
+
+msgid "Check your email"
+msgstr "이메일을 확인하여 주세요"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "비밀번호 초기화를 위한 링크를 이메일로 보냈습니다"
+
+msgid "Please follow the link below to reset your password"
+msgstr "비밀번호 초기화를 위해 아래의 링크를 클릭하여 주세요"
+
+msgid "Password reset"
+msgstr "비밀번호 초기화"
+
+msgid "Reset your password"
+msgstr "비밀번호 초기화 하였습니다"
+
+msgid "Dashboard"
+msgstr "게시판"
+
+msgid "Menu"
+msgstr "메뉴"
+
+msgid "Add another"
+msgstr "추가"
+
+msgid "Explorer"
+msgstr "검색"
+
+msgid "Internal link"
+msgstr "내부 링크"
+
+msgid "External link"
+msgstr "외부 링크"
+
+msgid "Email link"
+msgstr "이메일 링크"
+
+#, python-format
+msgid ""
+"\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
+"results will exclude pages of other types.\n"
+"    "
+msgstr ""
+"\n"
+" \"%(type)s\" 형태의 페이지가 이 필드를 위해 선택되었습니다. 검색 결과는 다"
+"른 형태의 페이지들을 제외시켰습니다."
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"%(counter)s 개의 매치된 결과가 있습니다"
+
+msgid "Choose"
+msgstr "선택"
+
+msgid "Choose a page"
+msgstr "페이지 선택"
+
+msgid "Add an email link"
+msgstr "이메일 링크 추가"
+
+msgid "Insert link"
+msgstr "링크 삽입"
+
+msgid "Add an external link"
+msgstr "외부 링크 추가"
+
+msgid "Move up"
+msgstr "위로 이동"
+
+msgid "Move down"
+msgstr "아래로 이동"
+
+msgid "Delete"
+msgstr "삭제"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)s 와그테일 CMS에 오신 것을 환영합니다"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"이 게시판에는 당신이 생성한 콘텐츠에 관한 유용한 정보가 표시될 것입니다."
+
+msgid "Pages awaiting moderation"
+msgstr "검토를 기다리는 페이지"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Parent"
+msgstr "상위"
+
+msgid "Type"
+msgstr "타입"
+
+msgid "Edited"
+msgstr "수정된"
+
+msgid "Edit this page"
+msgstr "페이지 수정"
+
+msgid "Approve"
+msgstr "승인"
+
+msgid "Reject"
+msgstr "거절"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Preview"
+msgstr "프리뷰"
+
+msgid "Your most recent edits"
+msgstr "최신 수정된 기록"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Draft"
+msgstr "초안"
+
+msgid "Live"
+msgstr "라이브"
+
+msgid "Site summary"
+msgstr "사이트 요약"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> 페이지들"
+
+msgid "Sign in"
+msgstr "로그인"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s 과 비밀번호가 맞지 않습니다. 다시 시도해 주세요"
+
+msgid "Sign in to Wagtail"
+msgstr "와그테일에 로그인"
+
+msgid "Forgotten it?"
+msgstr "잊어버리셨나요?"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "\"%(title)s\" 페이지가 승인 되었습니다"
+
+msgid "You can view the page here:"
+msgstr "여기서 페이지를 볼 수 있습니다"
+
+msgid "Edit your notification preferences here:"
+msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\"%(title)s\" 페이지가 거절되었습니다"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "\"%(title)s\" 가 거절되었습니다"
+
+msgid "You can edit the page here:"
+msgstr "여기서 페이지를 수정할 수 있습니다"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
+
+msgid "You can preview the page here:"
+msgstr "여기서 페이지를 미리 볼 수 있습니다:"
+
+msgid "Page privacy"
+msgstr "비공개 페이지"
+
+msgid "This page has been made private by a parent page."
+msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
+
+msgid "You can edit the privacy settings on:"
+msgstr "당신은 비공개 설정을 여기서 설정할 수 있습니다:"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"비공개 설정 변경은 이 페이지에 종속된 모든 하위페이지에 적용될 수 있습니다"
+
+msgid "Edit lock"
+msgstr "수정 잠금"
+
+msgid "Locked"
+msgstr "잠김"
+
+msgid "Unlocked"
+msgstr "잠금 해제"
+
+msgid "Privacy"
+msgstr "비공개"
+
+msgid "Private"
+msgstr "비공개"

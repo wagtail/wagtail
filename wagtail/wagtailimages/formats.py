@@ -1,11 +1,7 @@
-from django.conf import settings
 from django.utils.html import escape
 
-try:
-    from importlib import import_module
-except ImportError:
-    # for Python 2.6, fall back on django.utils.importlib (deprecated as of Django 1.7)
-    from django.utils.importlib import import_module
+from wagtail.utils.apps import get_app_submodules
+from wagtail.wagtailimages.models import SourceImageIOError
 
 
 class Format(object):
@@ -30,7 +26,15 @@ class Format(object):
         )
 
     def image_to_html(self, image, alt_text, extra_attributes=''):
-        rendition = image.get_rendition(self.filter_spec)
+        try:
+            rendition = image.get_rendition(self.filter_spec)
+        except SourceImageIOError:
+            # Image file is (probably) missing from /media/original_images - generate a dummy
+            # rendition so that we just output a broken image, rather than crashing out completely
+            # during rendering
+            Rendition = image.renditions.model  # pick up any custom Image / Rendition classes that may be in use
+            rendition = Rendition(image=image, width=0, height=0)
+            rendition.file.name = 'not-found'
 
         if self.classnames:
             class_attr = 'class="%s" ' % escape(self.classnames)
@@ -85,12 +89,7 @@ _searched_for_image_formats = False
 def search_for_image_formats():
     global _searched_for_image_formats
     if not _searched_for_image_formats:
-        for app_module in settings.INSTALLED_APPS:
-            try:
-                import_module('%s.image_formats' % app_module)
-            except ImportError:
-                continue
-
+        list(get_app_submodules('image_formats'))
         _searched_for_image_formats = True
 
 

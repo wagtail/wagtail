@@ -38,7 +38,11 @@
                 {% csrf_token %}
                 <ul class="fields">
                     {% for field in uploadform %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% if field.is_hidden %}
+                            {{ field }}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% endif %}
                     {% endfor %}
                     <li><input type="submit" value="{% trans 'Upload' %}" /></li>
                 </ul>

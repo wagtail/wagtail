@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/wagtail/"
+"language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Single line text"
+msgstr "一行テキスト"
+
+msgid "Multi-line text"
+msgstr "複数行テキスト"
+
+msgid "Email"
+msgstr "Eメール"
+
+msgid "Number"
+msgstr "数値"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "チェックボックス"
+
+msgid "Checkboxes"
+msgstr " 複数のチェックボックス"
+
+msgid "Drop down"
+msgstr "セレクトボックス"
+
+msgid "Radio buttons"
+msgstr "ラジオボタン"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Date/time"
+msgstr "日時"
+
+msgid "The label of the form field"
+msgstr "フォームフィールドのラベル"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"カンマ区切りの選択肢。複数のチェックボックス、ラジオボタン、セレクトボックス"
+"のみ有効です。"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"初期値。複数のチェックボックスの場合にはカンマ区切りの値を指定できます。"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+"オプション - フォームで送信された内容が指定したメールアドレスに送信されます。"
+
+msgid "Forms"
+msgstr "フォーム"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Download CSV"
+msgstr "CSVをダウンロードする"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "「%(title)s」のフォームには、送信されたデータがありません。"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Submission Date"
+msgstr "送信日"
+
+msgid "No form pages have been created."
+msgstr "まだフォームページはありません。"

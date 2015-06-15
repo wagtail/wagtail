@@ -3,23 +3,30 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015
+# nahuel, 2014
 # nahuel, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-11 10:42+0000\n"
-"PO-Revision-Date: 2014-03-18 22:47+0000\n"
-"Last-Translator: nahuel\n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-21 15:56+0000\n"
+"Last-Translator: Benoît Bar <bar.benoit@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/wagtail/language/"
 "fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: models.py:44
+msgid "Hostname"
+msgstr "Nom d'hôte"
+
+msgid "Port"
+msgstr "Port"
+
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -30,24 +37,39 @@ msgstr ""
 "Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
 "continuent de fonctionner)."
 
-#: models.py:46
+msgid "Root page"
+msgstr "Page racine"
+
+msgid "Is default site"
+msgstr "Site par défaut"
+
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
+"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
+"pas de site défini."
 
-#: models.py:107
+msgid "Site"
+msgstr "Site"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
+"%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
+"ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
-#: models.py:275
+msgid "Title"
+msgstr "Titre"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
 
-#: models.py:276
+msgid "Slug"
+msgstr "Slug"
+
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
@@ -55,36 +77,129 @@ msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
 
-#: models.py:285
+msgid "Content type"
+msgstr "Type de contenu"
+
+msgid "Live"
+msgstr "Publiée"
+
+msgid "Has unpublished changes"
+msgstr "Contient des changements non publiés"
+
+msgid "URL path"
+msgstr "URL"
+
+msgid "Owner"
+msgstr "Auteur"
+
 msgid "Page title"
 msgstr "Titre de la page"
 
-#: models.py:285
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
+"Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
+"navigateur."
 
-#: models.py:286
+msgid "Show in menus"
+msgstr "Faire apparaître dans les menus"
+
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si un lien vers cette page devra apparaître dans les menus générés "
 "automatiquement"
 
-#: models.py:289
+msgid "Search description"
+msgstr "Description pour moteurs de recherche"
+
 msgid "Go live date/time"
-msgstr ""
+msgstr "Date/heure de publication"
 
-#: models.py:289 models.py:290
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr ""
+msgstr "Veuillez ajouter une date/heure au format YYYY-MM-DD hh:mm."
 
-#: models.py:290
 msgid "Expiry date/time"
-msgstr ""
+msgstr "Date/heure d'expiration"
 
-#: models.py:559
-#, fuzzy
-msgid "name '{0}' (used in subpage_types list) is not defined."
-msgstr "le nom '%s' (utilisé dans la liste subpage_types) n'est pas défini."
+msgid "Expired"
+msgstr "Expirée"
+
+msgid "Locked"
+msgstr "Verrouillé"
+
+msgid "First published at"
+msgstr "Première publication le"
+
+msgid "Latest revision created at"
+msgstr "Dernière version créée le"
+
+msgid "expired"
+msgstr "expirée"
+
+msgid "scheduled"
+msgstr "programmée"
+
+msgid "draft"
+msgstr "brouillon"
+
+msgid "live + draft"
+msgstr "publiée + brouillon"
+
+msgid "live"
+msgstr "publiée"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Submitted for moderation"
+msgstr "Soumettre pour modération"
+
+msgid "Created at"
+msgstr "Créé le"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Content JSON"
+msgstr "Contenu JSON"
+
+msgid "Approved go live at"
+msgstr "Approuvée le"
+
+msgid "Page Revision"
+msgstr "Version de page"
+
+msgid "Add/edit pages you own"
+msgstr "Ajouter/modifier vos pages"
+
+msgid "Add/edit any page"
+msgstr "Ajouter/modifier n'importe quelle page"
+
+msgid "Publish any page"
+msgstr "Publier n'importe quelle page"
+
+msgid "Lock/unlock any page"
+msgstr "Verrouiller/déverrouiller n'importe quelle page"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Permission type"
+msgstr "Type de permission"
+
+msgid "Group Page Permission"
+msgstr "Permission de page par groupe"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Page View Restriction"
+msgstr "Confidentialité de page"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "La valeur ne peut pas uniquement être des espaces blancs"

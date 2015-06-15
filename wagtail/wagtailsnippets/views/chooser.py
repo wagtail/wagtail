@@ -1,16 +1,16 @@
 import json
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from six import text_type
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
 
 
-@permission_required('wagtailadmin.access_admin')
 def choose(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     model = content_type.model_class()
@@ -18,18 +18,27 @@ def choose(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
+    p = request.GET.get("p", 1)
+    paginator = Paginator(items, 25)
+
+    try:
+        paginated_items = paginator.page(p)
+    except PageNotAnInteger:
+        paginated_items = paginator.page(1)
+    except EmptyPage:
+        paginated_items = paginator.page(paginator.num_pages)
+
     return render_modal_workflow(
         request,
         'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
         {
             'content_type': content_type,
             'snippet_type_name': snippet_type_name,
-            'items': items,
+            'items': paginated_items,
         }
     )
 
 
-@permission_required('wagtailadmin.access_admin')
 def chosen(request, content_type_app_name, content_type_model_name, id):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     model = content_type.model_class()
@@ -38,6 +47,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
     snippet_json = json.dumps({
         'id': item.id,
         'string': text_type(item),
+        'edit_link': reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, item.id,))
     })
 
     return render_modal_workflow(

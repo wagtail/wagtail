@@ -1,13 +1,2 @@
-{% extends "wagtailadmin/edit_handlers/chooser_panel.html" %}
-{% load i18n %}
-{% comment %}
-    TODO: make it possible to specify button labels that are better tuned to the
-        particular use case: e.g. "Choose an author", "Choose a location"
-{% endcomment %}
-
-{% block chosen_state_view %}
-    <span class="title">{{ page.title }}</span>
-{% endblock %}
-
-{% block choose_another_button_label %}{% trans "Choose another page" %}{% endblock %}
-{% block choose_button_label %}{% trans "Choose a page" %}{% endblock %}
+{# Page chooser is now implemented as an entirely standard form widget - page_chooser_panel.html is redundant #}
+{% include "wagtailadmin/shared/field.html" %}

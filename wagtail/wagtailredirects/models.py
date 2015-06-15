@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,8 +10,8 @@ from six.moves.urllib.parse import urlparse
 
 class Redirect(models.Model):
     old_path = models.CharField(verbose_name=_("Redirect from"), max_length=255, unique=True, db_index=True)
-    site = models.ForeignKey('wagtailcore.Site', null=True, blank=True, related_name='redirects', db_index=True, editable=False)
-    is_permanent = models.BooleanField(verbose_name=_("Permanent"), default=True, help_text=_("Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead.") )
+    site = models.ForeignKey('wagtailcore.Site', verbose_name=_('Site'), null=True, blank=True, related_name='redirects', db_index=True, editable=False)
+    is_permanent = models.BooleanField(verbose_name=_("Permanent"), default=True, help_text=_("Recommended. Permanent redirects ensure search engines forget the old page (the 'Redirect from') and index the new page instead."))
     redirect_page = models.ForeignKey('wagtailcore.Page', verbose_name=_("Redirect to a page"), null=True, blank=True)
     redirect_link = models.URLField(verbose_name=_("Redirect to any URL"), blank=True)
 
@@ -64,6 +66,9 @@ class Redirect(models.Model):
     def clean(self):
         # Normalise old path
         self.old_path = Redirect.normalise_path(self.old_path)
+
+    class Meta:
+        verbose_name = _('Redirect')
 
 Redirect.content_panels = [
     MultiFieldPanel([

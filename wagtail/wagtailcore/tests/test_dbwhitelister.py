@@ -25,15 +25,22 @@ class TestDbWhitelister(TestCase):
         self.assertHtmlEqual(expected, output_html)
 
     def test_image_embed_is_rewritten(self):
-        input_html = '<p>OMG look at this picture of a kitten: <figure data-embedtype="image" data-id="5" data-format="image-with-caption" data-alt="A cute kitten" class="fancy-image"><img src="/media/images/kitten.jpg" width="320" height="200" alt="A cute kitten" /><figcaption>A kitten, yesterday.</figcaption></figure></p>'
+        input_html = '<p>OMG look at this picture of a kitten:</p><figure data-embedtype="image" data-id="5" data-format="image-with-caption" data-alt="A cute kitten" class="fancy-image"><img src="/media/images/kitten.jpg" width="320" height="200" alt="A cute kitten" /><figcaption>A kitten, yesterday.</figcaption></figure>'
         output_html = DbWhitelister.clean(input_html)
-        expected = '<p>OMG look at this picture of a kitten: <embed embedtype="image" id="5" format="image-with-caption" alt="A cute kitten" /></p>'
+        expected = '<p>OMG look at this picture of a kitten:</p><embed embedtype="image" id="5" format="image-with-caption" alt="A cute kitten" />'
         self.assertHtmlEqual(expected, output_html)
 
     def test_media_embed_is_rewritten(self):
         input_html = '<p>OMG look at this video of a kitten: <iframe data-embedtype="media" data-url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></p>'
         output_html = DbWhitelister.clean(input_html)
         expected = '<p>OMG look at this video of a kitten: <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p>'
+        self.assertHtmlEqual(expected, output_html)
+
+    def test_div_conversion(self):
+        # DIVs should be converted to P, and all whitelist / conversion rules still applied
+        input_html = '<p>before</p><div class="shiny">OMG <b>look</b> at this <blink>video</blink> of a kitten: <iframe data-embedtype="media" data-url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><p>after</p>'
+        output_html = DbWhitelister.clean(input_html)
+        expected = '<p>before</p><p>OMG <b>look</b> at this video of a kitten: <embed embedtype="media" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" /></p><p>after</p>'
         self.assertHtmlEqual(expected, output_html)
 
     def test_whitelist_hooks(self):

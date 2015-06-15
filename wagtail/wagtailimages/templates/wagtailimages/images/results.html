@@ -17,7 +17,7 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
-                    <div class="image">{% image image max-165x165 %}</div>
+                    <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
@@ -30,7 +30,7 @@
     {% if is_searching %}
         <p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailimages_add_image' as wagtailimages_add_image_url %}
+        {% url 'wagtailimages_add_multiple' as wagtailimages_add_image_url %}
         <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

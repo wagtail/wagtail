@@ -78,7 +78,7 @@ function(modal) {
     });
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
-    
+
     /* Add tag entry interface (with autocompletion) to the tag field of the image upload form */
     $('#id_tags', modal.body).tagit({
         autocomplete: {source: "{{ autocomplete_url|addslashes }}"}

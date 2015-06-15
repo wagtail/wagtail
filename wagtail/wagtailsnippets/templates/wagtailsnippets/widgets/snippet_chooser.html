@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+
+{% block chooser_class %}snippet-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <span class="title">{{ item }}</span>
+{% endblock %}
+
+{% block edit_chosen_item_url %}{% if item %}{% url 'wagtailsnippets_edit' widget.target_content_type.app_label widget.target_content_type.model item.id %}{% endif %}{% endblock %}

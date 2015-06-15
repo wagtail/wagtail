@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.cache import cache
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction, Site
-from wagtail.tests.models import SimplePage
+from wagtail.tests.testapp.models import SimplePage, EventIndex
 
 from .sitemap_generator import Sitemap
 
@@ -47,6 +47,20 @@ class TestSitemapGenerator(TestCase):
         self.assertIn('http://localhost/', urls) # Homepage
         self.assertIn('http://localhost/hello-world/', urls) # Child page
 
+    def test_get_urls_uses_specific(self):
+        # Add an event page which has an extra url in the sitemap
+        self.home_page.add_child(instance=EventIndex(
+            title="Events",
+            slug='events',
+            live=True,
+        ))
+
+        sitemap = Sitemap(self.site)
+        urls = [url['location'] for url in sitemap.get_urls()]
+
+        self.assertIn('http://localhost/events/', urls) # Main view
+        self.assertIn('http://localhost/events/past/', urls) # Sub view
+
     def test_render(self):
         sitemap = Sitemap(self.site)
         xml = sitemap.render()
@@ -73,7 +87,7 @@ class TestSitemapView(TestCase):
         cache_key = 'wagtail-sitemap:%d' % Site.objects.get(is_default_site=True).id
 
         # Check that the key is not in the cache
-        self.assertFalse(cache.has_key(cache_key))
+        self.assertNotIn(cache_key, cache)
 
         # Hit the view
         first_response = self.client.get('/sitemap.xml')
@@ -82,7 +96,7 @@ class TestSitemapView(TestCase):
         self.assertTemplateUsed(first_response, 'wagtailsitemaps/sitemap.xml')
 
         # Check that the key is in the cache
-        self.assertTrue(cache.has_key(cache_key))
+        self.assertIn(cache_key, cache)
 
         # Hit the view again. Should come from the cache this time
         second_response = self.client.get('/sitemap.xml')

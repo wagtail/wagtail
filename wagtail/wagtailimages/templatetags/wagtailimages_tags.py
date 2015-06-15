@@ -1,11 +1,9 @@
 from django import template
+from django.utils.functional import cached_property
 
-from wagtail.wagtailimages.models import Filter
+from wagtail.wagtailimages.models import Filter, SourceImageIOError
 
 register = template.Library()
-
-# Local cache of filters, avoid hitting the DB
-filters = {}
 
 
 @register.tag(name="image")
@@ -37,10 +35,12 @@ class ImageNode(template.Node):
         self.image_var = template.Variable(image_var_name)
         self.output_var_name = output_var_name
         self.attrs = attrs
+        self.filter_spec = filter_spec
 
-        if filter_spec not in filters:
-            filters[filter_spec], _ = Filter.objects.get_or_create(spec=filter_spec)
-        self.filter = filters[filter_spec]
+    @cached_property
+    def filter(self):
+        _filter, _ = Filter.objects.get_or_create(spec=self.filter_spec)
+        return _filter
 
     def render(self, context):
         try:
@@ -53,10 +53,10 @@ class ImageNode(template.Node):
 
         try:
             rendition = image.get_rendition(self.filter)
-        except IOError:
+        except SourceImageIOError:
             # It's fairly routine for people to pull down remote databases to their
             # local dev versions without retrieving the corresponding image files.
-            # In such a case, we would get an IOError at the point where we try to
+            # In such a case, we would get a SourceImageIOError at the point where we try to
             # create the resized version of a non-existent image. Since this is a
             # bit catastrophic for a missing image, we'll substitute a dummy
             # Rendition object so that we just output a broken link instead.

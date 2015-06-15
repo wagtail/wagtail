@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Single line text"
+msgstr "单行文本"
+
+msgid "Multi-line text"
+msgstr "多行文本"
+
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "Number"
+msgstr "数量"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "复选框"
+
+msgid "Checkboxes"
+msgstr "复选框"
+
+msgid "Drop down"
+msgstr "下拉"
+
+msgid "Radio buttons"
+msgstr "单选按钮"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Date/time"
+msgstr "日期/时间"
+
+msgid "Forms"
+msgstr "表单"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Download CSV"
+msgstr "下载为CSV"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Submission Date"
+msgstr "提交日期"
+
+msgid "No form pages have been created."
+msgstr "还没有创建表单页面。"

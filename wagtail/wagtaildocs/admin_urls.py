@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^chooser/$', chooser.chooser, name='wagtaildocs_chooser'),
     url(r'^chooser/(\d+)/$', chooser.document_chosen, name='wagtaildocs_document_chosen'),
     url(r'^chooser/upload/$', chooser.chooser_upload, name='wagtaildocs_chooser_upload'),
+    url(r'^usage/(\d+)/$', documents.usage, name='wagtaildocs_document_usage'),
 ]

@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jose Lourenco <jose@lourenco.ws>, 2015
+# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-04-29 17:34+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "File"
+msgstr "Ficheiro"
+
+msgid "Created at"
+msgstr "Criado a"
+
+msgid "Uploaded by user"
+msgstr "Carregado pelo utilizador"
+
+msgid "Tags"
+msgstr "Palavras-chave"
+
+msgid "Document"
+msgstr "Documento"
+
+msgid "Choose a document"
+msgstr "Escolher um documento"
+
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Upload"
+msgstr "Carregar"
+
+msgid "Save"
+msgstr "Guardar"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Encontrado um resultado\n"
+"        "
+msgstr[1] ""
+"\n"
+"Encontrados %(counter)s resultados\n"
+"        "
+
+msgid "Latest documents"
+msgstr "Últimos documentos"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
+
+msgid "Change document:"
+msgstr "Alterar documento:"
+
+msgid "Add a document"
+msgstr "Adicionar um documento"
+
+msgid "Add document"
+msgstr "Adicionar documento"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Apagar %(title)s"
+
+msgid "Delete document"
+msgstr "Apagar documento"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Tem certeza que quer apagar este documento?"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "A editar %(title)s"
+
+msgid "Editing"
+msgstr "A editar"
+
+msgid "Filesize"
+msgstr "Tamanho do ficheiro"
+
+msgid "File not found"
+msgstr "Ficheiro não encontrado"
+
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Uploaded"
+msgstr "Carregado"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ainda não carregou nenhum documento. Porque não <a href="
+"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilização de %(title)s"
+
+msgid "Usage of"
+msgstr "Utilização de"
+
+msgid "Parent"
+msgstr "Mãe"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Edit this page"
+msgstr "Editar esta página"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Documento"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Documentos"
+
+msgid "Search documents"
+msgstr "Pesquisar documentos"
+
+#, python-brace-format
+msgid "Document '{0}' added."
+msgstr "Documento '{0}' adicionado."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The document could not be saved due to errors."
+msgstr "O documento não pôde ser guardado devido a erros."
+
+#, python-brace-format
+msgid "Document '{0}' updated"
+msgstr "Documento '{0}' atualizado"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"O ficheiro não foi encontrado. Por favor altere a fonte ou apague o documento"
+
+msgid "Delete"
+msgstr "Apagar"
+
+#, python-brace-format
+msgid "Document '{0}' deleted."
+msgstr "Documento '{0}' apagado."
+
+msgid "Choose another document"
+msgstr "Escolher outro documento"
+
+msgid "Edit this document"
+msgstr "Editar este documento"

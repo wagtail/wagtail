@@ -1,0 +1,284 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ajk, 2014
+# Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# HNKNTA <hnknta@gmail.com>, 2014
+# Sergey Komarov <sjkomarov@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-04-28 07:04+0000\n"
+"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "If ticked, this user has the ability to manage user accounts."
+msgstr ""
+"Если выбрано, этот пользователь имеет возможность управлять "
+"пользовательскими аккаунтами."
+
+msgid "Email"
+msgstr "Адрес электронной почты"
+
+msgid "First Name"
+msgstr "Имя"
+
+msgid "Last Name"
+msgstr "Фамилия"
+
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем пользователя уже существует. "
+
+msgid "The two password fields didn't match."
+msgstr "Два поля с паролями не совпадают."
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Обязательное. 30 символов или меньше. Только буквы, цифры и символы @/./+/-/"
+"_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Leave blank if not changing."
+msgstr "Оставьте пустым, если не изменяется."
+
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Введите такой же пароль, как выше, для подтверждения."
+
+msgid "Administrators have the ability to manage user accounts."
+msgstr "Администраторы имеют возможность управлять аккаунтами пользователей."
+
+msgid "A group with that name already exists."
+msgstr "Группа с таким названием уже существует."
+
+msgid "Submitted notifications"
+msgstr "Уведомления при добавлении"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Принимать уведомление, когда страница отправлена на модерацию."
+
+msgid "Approved notifications"
+msgstr "Уведомления при утверждении"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Принимать уведомление, когда ваша редакция страницы одобрена."
+
+msgid "Rejected notifications"
+msgstr "Уведомления при отклонении"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Принимать уведомление, когда ваша редакция страницы отклонена."
+
+msgid "User Profile"
+msgstr "Профиль Пользователя"
+
+msgid "Delete group"
+msgstr "Удалить группу"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr ""
+"В группе '%(group_name)s' состоит <strong>%(group_user_count)s</strong> "
+"назначенных пользователей."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Удаление этой группы приведет к удалению прав, которые давала эта группа "
+"всем ее участникам."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Вы уверены что хотите удалить эту группу?"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "Add group"
+msgstr "Добавить группу"
+
+msgid "Editing"
+msgstr "Редактирование"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Object permissions"
+msgstr "Разрешения для объекта"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Change"
+msgstr "Изменить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Other permissions"
+msgstr "Другие разрешения"
+
+msgid "Page permissions"
+msgstr "Права у страницы"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Permission type"
+msgstr "Тип прав"
+
+msgid "Add a page permission"
+msgstr "Добавить разрешения страницы"
+
+msgid "groups"
+msgstr "группы"
+
+msgid "Add a group"
+msgstr "Добавить группу"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Группы еще не созданы. Почему бы не <a href="
+"\"%(wagtailusers_create_group_url)s\">добавить</a>?"
+
+msgid "Add user"
+msgstr "Добавить пользователя"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Roles"
+msgstr "Роли"
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "Add a user"
+msgstr "Добавить пользователя"
+
+msgid "Level"
+msgstr "Уровень"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Active"
+msgstr "Активный"
+
+msgid "Inactive"
+msgstr "Неактивный"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Найдено одно совпадение"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, подходящих пользователей не найдено \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Нету настроенных пользователей. Почему бы не <a href="
+"\"%(wagtailusers_create_url)s\">добавить</a>?"
+
+msgid "Search groups"
+msgstr "Поиск групп"
+
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Группа '{0}' создана."
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "The group could not be created due to errors."
+msgstr "Группа не может быть создана из-за ошибок."
+
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Группа '{0}' обновлена."
+
+msgid "The group could not be saved due to errors."
+msgstr "Группа не может быть сохранена из-за ошибок."
+
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Группа '{0}' удалена."
+
+msgid "Search users"
+msgstr "Поиск пользователей"
+
+#, python-brace-format
+msgid "User '{0}' created."
+msgstr "Пользователь '{0}' создан."
+
+msgid "The user could not be created due to errors."
+msgstr "Пользователь не может быть создан из-за ошибок."
+
+#, python-brace-format
+msgid "User '{0}' updated."
+msgstr "Пользователь '{0}' обновлен."
+
+msgid "The user could not be saved due to errors."
+msgstr "Пользователь но может быть сохранен из-за ошибок."
+
+msgid "Groups"
+msgstr "Группы"

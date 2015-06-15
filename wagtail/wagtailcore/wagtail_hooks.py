@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
 
+@hooks.register('before_serve_page')
 def check_view_restrictions(page, request, serve_args, serve_kwargs):
     """
     Check whether there are any view restrictions on this page which are
@@ -21,5 +22,3 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                     initial={'return_url': request.get_full_path()})
                 action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
                 return page.serve_password_required_response(request, form, action_url)
-
-hooks.register('before_serve_page', check_view_restrictions)

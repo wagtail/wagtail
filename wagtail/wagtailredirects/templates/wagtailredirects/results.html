@@ -16,7 +16,7 @@
 {% else %}
      {% if query_string %}
          <p>{% blocktrans %}Sorry, no redirects match "<em>{{ query_string }}</em>"{% endblocktrans %}
-    {% else %}
+     {% else %}
         {% url 'wagtailredirects_add_redirect' as wagtailredirects_add_redirect_url %}
         <p>{% blocktrans %}No redirects have been created. Why not <a href="{{ wagtailredirects_add_redirect_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}

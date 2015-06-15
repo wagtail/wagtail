@@ -1,1 +1,1 @@
-from wagtail.wagtailsearch.views.frontend import search
+from wagtail.wagtailsearch.views.frontend import search  # noqa

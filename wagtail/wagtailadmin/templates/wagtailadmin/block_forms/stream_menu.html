@@ -1,0 +1,10 @@
+<div class="stream-menu {% if state == 'closed' %}stream-menu-closed{% endif %}" id="{{ menu_id }}">
+    <a href="#" class="toggle"><span>Insert block</span></a>
+    <div class="stream-menu-inner">
+        <ul>
+            {% for child_block in child_blocks %}
+                <li><button type="button" class="action-add-block-{{ child_block.name }} icon icon-{{ child_block.meta.icon }}"><span>{{ child_block.label }}</span></button></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -12,7 +12,7 @@ class Sitemap(object):
 
     def get_urls(self):
         for page in self.get_pages():
-            for url in page.get_sitemap_urls():
+            for url in page.specific.get_sitemap_urls():
                 yield url
 
     def render(self):
