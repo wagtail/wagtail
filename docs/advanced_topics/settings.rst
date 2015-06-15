@@ -207,6 +207,24 @@ Images
 This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
 
 
+
+Password Management
+-------------------
+
+.. code-block:: python
+
+  WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = True
+
+This allows users to change their passwords.
+
+.. code-block:: python
+
+  WAGTAIL_PASSWORD_RESET_ENABLED = True
+
+This allows users to reset their passwords.
+
+
+
 Email Notifications
 -------------------
 
