@@ -9,6 +9,7 @@ Changelog
  * MySQL support
  * Django 1.8 support
  * Removed dependency on libsass (Tim Heap)
+ * Users without usernames can now be created and edited in the admin interface (Tim Heap)
  * Added update notifications
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
