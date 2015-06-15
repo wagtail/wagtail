@@ -57,6 +57,9 @@
                                     if (pageData.id) {
                                         a.setAttribute('data-id', pageData.id);
                                         a.setAttribute('data-linktype', 'page');
+                                    } else {
+                                        // add target="_blank" to non page URLs.
+                                        a.setAttribute('target', '_blank');
                                     }
 
                                     if ((!lastSelection.collapsed) && lastSelection.canSurroundContents()) {
