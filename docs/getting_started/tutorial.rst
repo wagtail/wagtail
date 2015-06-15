@@ -196,7 +196,7 @@ Adjust your BlogPage template to output the image:
           {% image self.main_image width-400 %}
         {% endif %}
 
-        <div class="intro">{% self.intro %}</div>
+        <div class="intro">{{ self.intro }}</div>
 
         {{ self.body | richtext }}
 
