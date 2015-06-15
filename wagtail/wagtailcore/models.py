@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import logging
 import json
 
-import six
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
@@ -28,6 +27,9 @@ from django.core.exceptions import ValidationError, ImproperlyConfigured, Object
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
+
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from treebeard.mp_tree import MP_Node
 
