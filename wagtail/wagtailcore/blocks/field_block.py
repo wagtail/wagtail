@@ -1,11 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-import six
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
+from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.dateparse import parse_date, parse_time, parse_datetime
 from django.utils.functional import cached_property

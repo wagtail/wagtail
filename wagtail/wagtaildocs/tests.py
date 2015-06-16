@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from six import b
 import unittest
 import mock
 from bs4 import BeautifulSoup
@@ -14,6 +13,7 @@ from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.test.utils import override_settings
 from django.conf import settings
+from django.utils.six import b
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Page

@@ -5,7 +5,6 @@ import hashlib
 from contextlib import contextmanager
 import warnings
 
-from six import BytesIO, text_type
 
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
@@ -16,6 +15,7 @@ from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, text_type
 from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _

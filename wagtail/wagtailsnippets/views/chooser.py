@@ -1,10 +1,9 @@
 import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from six import text_type
-
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.utils.six import text_type
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 

@@ -1,10 +1,9 @@
 from datetime import timedelta
 
-from six import StringIO
-
 from django.test import TestCase
 from django.core import management
 from django.utils import timezone
+from django.utils.six import StringIO
 from django.db import models
 
 from wagtail.wagtailcore.models import Page, PageRevision

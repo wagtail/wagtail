@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import json
 
-from six.moves.urllib.parse import urlparse
+from django.utils.six.moves.urllib.parse import urlparse
 
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk

@@ -1,8 +1,8 @@
 import re
-from six import string_types
 
 from django.db.models import Model
 from django.apps import apps
+from django.utils.six import string_types
 
 
 def camelcase_to_underscore(str):
