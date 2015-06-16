@@ -302,6 +302,13 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
 
+    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
+    def test_add_max_file_size_context_variables(self):
+        response = self.client.get(reverse('wagtailimages_add_multiple'))
+
+        self.assertEqual(response.context['max_filesize'], 1000)
+        self.assertEqual(response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes.")
+
     def test_add_post(self):
         """
         This tests that a POST request to the add view saves the image and returns an edit form
