@@ -7,6 +7,7 @@ from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.defaultfilters import filesizeformat
 
 # Get the chars that Django considers safe to leave unescaped in a URL
 # This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
@@ -99,9 +100,11 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
     def test_add_too_large_file(self):
+        file_content = get_test_image_file().file.getvalue()
+
         response = self.post({
             'title': "Test image",
-            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'file': SimpleUploadedFile('test.png', file_content),
         })
 
         # Shouldn't redirect anywhere
@@ -109,8 +112,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
 
         # The form should have an error
-        # Note: \xa0 = non-blocking space
-        self.assertFormError(response, 'form', 'file', "This file is too big (1.9\xa0KB). Maximum filesize 1\xa0byte.")
+        self.assertFormError(response, 'form', 'file', "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+            file_size=filesizeformat(len(file_content)),
+            max_file_size=filesizeformat(1),
+        ))
 
 
 class TestImageEditView(TestCase, WagtailTestUtils):
