@@ -18,6 +18,7 @@ Changelog
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
  * FieldPanel now accepts an optional 'widget' parameter to override the field's default form widget (Alejandro Giacometti)
+ * Page URL paths can now be longer than 255 characters
  * Dropped Django 1.6 support
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
