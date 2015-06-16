@@ -274,7 +274,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     content_type = models.ForeignKey('contenttypes.ContentType', verbose_name=_('Content type'), related_name='pages')
     live = models.BooleanField(verbose_name=_('Live'), default=True, editable=False)
     has_unpublished_changes = models.BooleanField(verbose_name=_('Has unpublished changes'), default=False, editable=False)
-    url_path = models.CharField(verbose_name=_('URL path'), max_length=255, blank=True, editable=False)
+    url_path = models.TextField(verbose_name=_('URL path'), blank=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'), null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
 
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
