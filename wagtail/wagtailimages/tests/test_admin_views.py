@@ -1,10 +1,13 @@
+from __future__ import unicode_literals
+
 import json
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.defaultfilters import filesizeformat
 
 # Get the chars that Django considers safe to leave unescaped in a URL
 # This list changed in Django 1.8:  https://github.com/django/django/commit/e167e96cfea670422ca75d0b35fe7c4195f25b63
@@ -94,6 +97,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # The form should have an error
         self.assertFormError(response, 'form', 'file', "This field is required.")
+
+    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
+    def test_add_too_large_file(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', file_content),
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        self.assertFormError(response, 'form', 'file', "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
+            file_size=filesizeformat(len(file_content)),
+            max_file_size=filesizeformat(1),
+        ))
 
 
 class TestImageEditView(TestCase, WagtailTestUtils):
@@ -284,6 +306,13 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
+    def test_add_max_file_size_context_variables(self):
+        response = self.client.get(reverse('wagtailimages_add_multiple'))
+
+        self.assertEqual(response.context['max_filesize'], 1000)
+        self.assertEqual(response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes.")
 
     def test_add_post(self):
         """

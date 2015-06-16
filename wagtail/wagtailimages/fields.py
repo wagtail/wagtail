@@ -12,60 +12,46 @@ from django.conf import settings
 ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png']
 SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG")
 
-INVALID_IMAGE_ERROR = _(
-    "Not a supported image format. Supported formats: %s."
-) % SUPPORTED_FORMATS_TEXT
-
-INVALID_IMAGE_KNOWN_FORMAT_ERROR = _(
-    "Not a valid %s image."
-)
-
-MAX_UPLOAD_SIZE = getattr(settings, 'WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024)
-
-if MAX_UPLOAD_SIZE is not None:
-    MAX_UPLOAD_SIZE_TEXT = filesizeformat(MAX_UPLOAD_SIZE)
-
-    FILE_TOO_LARGE_ERROR = _(
-        "This file is too big. Maximum filesize %(max_upload_size)s."
-    ) % {
-        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
-    }
-
-    FILE_TOO_LARGE_KNOWN_SIZE_ERROR = _(
-        "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-    ) % {
-        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
-    }
-
-    IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
-    ) % {
-        'supported_formats': SUPPORTED_FORMATS_TEXT,
-        'max_upload_size': MAX_UPLOAD_SIZE_TEXT,
-    }
-else:
-    MAX_UPLOAD_SIZE_TEXT = ""
-    FILE_TOO_LARGE_ERROR = ""
-    FILE_TOO_LARGE_KNOWN_SIZE_ERROR = ""
-
-    IMAGE_FIELD_HELP_TEXT = _(
-        "Supported formats: %(supported_formats)s."
-    ) % {
-        'supported_formats': SUPPORTED_FORMATS_TEXT,
-    }
-
 
 class WagtailImageField(ImageField):
-    default_error_messages = {
-        'invalid_image': INVALID_IMAGE_ERROR,
-        'invalid_image_known_format': INVALID_IMAGE_KNOWN_FORMAT_ERROR,
-        'file_too_large': FILE_TOO_LARGE_KNOWN_SIZE_ERROR,
-    }
-
     def __init__(self, *args, **kwargs):
         super(WagtailImageField, self).__init__(*args, **kwargs)
 
-        self.help_text = IMAGE_FIELD_HELP_TEXT
+        # Get max upload size from settings
+        self.max_upload_size = getattr(settings, 'WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024)
+        max_upload_size_text = filesizeformat(self.max_upload_size)
+
+        # Help text
+        if self.max_upload_size is not None:
+            self.help_text = _(
+                "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
+            ) % {
+                'supported_formats': SUPPORTED_FORMATS_TEXT,
+                'max_upload_size': max_upload_size_text,
+            }
+        else:
+            self.help_text = _(
+                "Supported formats: %(supported_formats)s."
+            ) % {
+                'supported_formats': SUPPORTED_FORMATS_TEXT,
+            }
+
+        # Error messages
+        self.error_messages['invalid_image'] = _(
+            "Not a supported image format. Supported formats: %s."
+        ) % SUPPORTED_FORMATS_TEXT
+
+        self.error_messages['invalid_image_known_format'] = _(
+            "Not a valid %s image."
+        )
+
+        self.error_messages['file_too_large'] = _(
+            "This file is too big (%%s). Maximum filesize %s."
+        ) % max_upload_size_text
+
+        self.error_messages['file_too_large_unknown_size'] = _(
+            "This file is too big. Maximum filesize %s."
+        ) % max_upload_size_text
 
     def check_image_file_format(self, f):
         # Check file extension
@@ -111,11 +97,11 @@ class WagtailImageField(ImageField):
 
     def check_image_file_size(self, f):
         # Upload size checking can be disabled by setting max upload size to None
-        if MAX_UPLOAD_SIZE is None:
+        if self.max_upload_size is None:
             return
 
         # Check the filesize
-        if f.size > MAX_UPLOAD_SIZE:
+        if f.size > self.max_upload_size:
             raise ValidationError(self.error_messages['file_too_large'] % (
                 filesizeformat(f.size),
             ), code='file_too_large')
