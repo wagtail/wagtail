@@ -88,7 +88,7 @@ def add(request):
         'max_filesize': form.fields['file'].max_upload_size,
         'help_text': form.fields['file'].help_text,
         'allowed_extensions': ALLOWED_EXTENSIONS,
-        'error_max_file_size': form.fields['file'].error_messages['file_too_large'],
+        'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
         'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
     })
 

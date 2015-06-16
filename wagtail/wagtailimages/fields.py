@@ -49,6 +49,10 @@ class WagtailImageField(ImageField):
             "This file is too big (%%s). Maximum filesize %s."
         ) % max_upload_size_text
 
+        self.error_messages['file_too_large_unknown_size'] = _(
+            "This file is too big. Maximum filesize %s."
+        ) % max_upload_size_text
+
     def check_image_file_format(self, f):
         # Check file extension
         extension = os.path.splitext(f.name)[1].lower()[1:]
