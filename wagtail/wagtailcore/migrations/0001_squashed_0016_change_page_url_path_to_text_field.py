@@ -4,19 +4,114 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from django.conf import settings
 import django.db.models.deletion
+from django import VERSION as DJANGO_VERSION
 import wagtail.wagtailsearch.index
 
 
-# Functions from the following migrations need manual copying.
-# Move them and any dependencies into this file, then update the
-# RunPython operations to refer to the local versions:
-# wagtail.wagtailcore.migrations.0005_add_page_lock_permission_to_moderators
-# wagtail.wagtailcore.migrations.0002_initial_data
-# wagtail.wagtailcore.migrations.0008_populate_latest_revision_created_at
+def initial_data(apps, schema_editor):
+    ContentType = apps.get_model('contenttypes.ContentType')
+    Group = apps.get_model('auth.Group')
+    Page = apps.get_model('wagtailcore.Page')
+    Site = apps.get_model('wagtailcore.Site')
+    GroupPagePermission = apps.get_model('wagtailcore.GroupPagePermission')
+
+    # Create page content type
+    page_content_type, created = ContentType.objects.get_or_create(
+        model='page',
+        app_label='wagtailcore',
+        defaults={'name': 'page'} if DJANGO_VERSION < (1, 8) else {}
+    )
+
+    # Create root page
+    root = Page.objects.create(
+        title="Root",
+        slug='root',
+        content_type=page_content_type,
+        path='0001',
+        depth=1,
+        numchild=1,
+        url_path='/',
+    )
+
+    # Create homepage
+    homepage = Page.objects.create(
+        title="Welcome to your new Wagtail site!",
+        slug='home',
+        content_type=page_content_type,
+        path='00010001',
+        depth=2,
+        numchild=0,
+        url_path='/home/',
+    )
+
+    # Create default site
+    Site.objects.create(
+        hostname='localhost',
+        root_page_id=homepage.id,
+        is_default_site=True
+    )
+
+    # Create auth groups
+    moderators_group = Group.objects.create(name='Moderators')
+    editors_group = Group.objects.create(name='Editors')
+
+    # Create group permissions
+    GroupPagePermission.objects.create(
+        group=moderators_group,
+        page=root,
+        permission_type='add',
+    )
+    GroupPagePermission.objects.create(
+        group=moderators_group,
+        page=root,
+        permission_type='edit',
+    )
+    GroupPagePermission.objects.create(
+        group=moderators_group,
+        page=root,
+        permission_type='publish',
+    )
+
+    GroupPagePermission.objects.create(
+        group=editors_group,
+        page=root,
+        permission_type='add',
+    )
+    GroupPagePermission.objects.create(
+        group=editors_group,
+        page=root,
+        permission_type='edit',
+    )
+
+
+    # 0005 - add_page_lock_permission_to_moderators
+    GroupPagePermission.objects.create(
+        group=moderators_group,
+        page=root,
+        permission_type='lock',
+    )
+
 
 class Migration(migrations.Migration):
 
-    replaces = [('wagtailcore', '0001_initial'), ('wagtailcore', '0002_initial_data'), ('wagtailcore', '0003_add_uniqueness_constraint_on_group_page_permission'), ('wagtailcore', '0004_page_locked'), ('wagtailcore', '0005_add_page_lock_permission_to_moderators'), ('wagtailcore', '0006_add_lock_page_permission'), ('wagtailcore', '0007_page_latest_revision_created_at'), ('wagtailcore', '0008_populate_latest_revision_created_at'), ('wagtailcore', '0009_remove_auto_now_add_from_pagerevision_created_at'), ('wagtailcore', '0010_change_page_owner_to_null_on_delete'), ('wagtailcore', '0011_page_first_published_at'), ('wagtailcore', '0012_extend_page_slug_field'), ('wagtailcore', '0013_update_golive_expire_help_text'), ('wagtailcore', '0014_add_verbose_name'), ('wagtailcore', '0015_add_more_verbose_names'), ('wagtailcore', '0016_change_page_url_path_to_text_field')]
+    replaces = [
+        ('wagtailcore', '0001_initial'),
+        ('wagtailcore', '0002_initial_data'),
+        ('wagtailcore', '0003_add_uniqueness_constraint_on_group_page_permission'),
+        ('wagtailcore', '0004_page_locked'),
+        ('wagtailcore', '0005_add_page_lock_permission_to_moderators'),
+        ('wagtailcore', '0006_add_lock_page_permission'),
+        ('wagtailcore', '0007_page_latest_revision_created_at'),
+        ('wagtailcore', '0008_populate_latest_revision_created_at'),
+        ('wagtailcore', '0009_remove_auto_now_add_from_pagerevision_created_at'),
+        ('wagtailcore', '0010_change_page_owner_to_null_on_delete'),
+        ('wagtailcore', '0011_page_first_published_at'),
+        ('wagtailcore', '0012_extend_page_slug_field'),
+        ('wagtailcore', '0013_update_golive_expire_help_text'),
+        ('wagtailcore', '0014_add_verbose_name'),
+        ('wagtailcore', '0015_add_more_verbose_names'),
+        ('wagtailcore', '0016_change_page_url_path_to_text_field')
+    ]
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -98,9 +193,6 @@ class Migration(migrations.Migration):
             name='page',
             field=models.ForeignKey(related_name='group_permissions', to='wagtailcore.Page'),
         ),
-        migrations.RunPython(
-            code=wagtail.wagtailcore.migrations.0002_initial_data.initial_data,
-        ),
         migrations.AlterField(
             model_name='grouppagepermission',
             name='permission_type',
@@ -115,9 +207,6 @@ class Migration(migrations.Migration):
             name='locked',
             field=models.BooleanField(editable=False, default=False),
         ),
-        migrations.RunPython(
-            code=wagtail.wagtailcore.migrations.0005_add_page_lock_permission_to_moderators.add_page_lock_permission_to_moderators,
-        ),
         migrations.AlterField(
             model_name='grouppagepermission',
             name='permission_type',
@@ -127,9 +216,6 @@ class Migration(migrations.Migration):
             model_name='page',
             name='latest_revision_created_at',
             field=models.DateTimeField(null=True, editable=False),
-        ),
-        migrations.RunPython(
-            code=wagtail.wagtailcore.migrations.0008_populate_latest_revision_created_at.populate_latest_revision_created_at,
         ),
         migrations.AlterField(
             model_name='pagerevision',
@@ -316,5 +402,8 @@ class Migration(migrations.Migration):
             model_name='page',
             name='url_path',
             field=models.TextField(verbose_name='URL path', editable=False, blank=True),
+        ),
+        migrations.RunPython(
+            initial_data,
         ),
     ]
