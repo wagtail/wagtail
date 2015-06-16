@@ -58,6 +58,7 @@ Changelog
  * Added `AUTO_UPDATE` flag to search backend settings to enable/disable automatically updating the search index on model changes
  * Made the built-in project template follow the Django one, with several Wagtail-specific additions. The template comes with two apps (home and search)
  * `with_metaclass` is now imported from Django's bundled copy of the `six` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
+ * Added new translations for Croatian and Finnish
 
 
 0.8.8 (xx.xx.2015)

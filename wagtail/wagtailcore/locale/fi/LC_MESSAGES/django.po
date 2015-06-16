@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Glen Somerville <glen.somerville@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-06-11 14:56+0000\n"
+"Last-Translator: Glen Somerville <glen.somerville@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/wagtail/language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:53
+msgid "Hostname"
+msgstr "Palvelin"
+
+#: models.py:54
+msgid "Port"
+msgstr "Portti"
+
+#: models.py:54
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr "Aseta tämä joksikin muuksi kuin 80 jos tarvitset tietyn portin käyttöön URL:eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen käsittelyyn (porttiohjaus toimii edelleen)."
+
+#: models.py:55
+msgid "Root page"
+msgstr "Juuri sivu"
+
+#: models.py:56
+msgid "Is default site"
+msgstr "Oletussivusto"
+
+#: models.py:56
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "Mikäli valittu, tämä sivusto käsittelee kaikkien palvelinnimien kutsut joilla ei ole omaa sivusto määritystä"
+
+#: models.py:60
+msgid "Site"
+msgstr "Sivusto"
+
+#: models.py:118
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr "%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys ennen kuin määrität tämän sivuston oletussivustoksi."
+
+#: models.py:266
+msgid "Title"
+msgstr "Otsikko"
+
+#: models.py:266
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Sivun otsikko sellaisena kuin haluat sen näkyvän julkisesti"
+
+#: models.py:267
+msgid "Slug"
+msgstr "Polkutunnus"
+
+#: models.py:267
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog"
+"/[my-slug]/"
+msgstr "Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/[polkutunnus]/"
+
+#: models.py:270
+msgid "Content type"
+msgstr "Sisällön tyyppi"
+
+#: models.py:271
+msgid "Live"
+msgstr "Julkaistu"
+
+#: models.py:272
+msgid "Has unpublished changes"
+msgstr "Sisältää julkaisemattomia muutoksia"
+
+#: models.py:273
+msgid "URL path"
+msgstr "URL polku"
+
+#: models.py:274
+msgid "Owner"
+msgstr "Omistaja"
+
+#: models.py:276
+msgid "Page title"
+msgstr "Sivun otsikko"
+
+#: models.py:276
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the"
+" browser window."
+msgstr "Vapaaehtoinen. Hakukoneystävällinen otsikko. Tämä näkyy selainikkunan otsikkona."
+
+#: models.py:277
+msgid "Show in menus"
+msgstr "Näytä valikoissa"
+
+#: models.py:277
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Näytä linkki tälle sivulle automaattisesti tuotetuissa valikoissa"
+
+#: models.py:278
+msgid "Search description"
+msgstr "Kuvaus"
+
+#: models.py:280
+msgid "Go live date/time"
+msgstr "Julkaisu pvm/aika"
+
+#: models.py:280 models.py:281
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Täytä päivämäärä ja aika muodossa VVVV-KK-PP tt:mm"
+
+#: models.py:281
+msgid "Expiry date/time"
+msgstr "Päättymis pvm/aika"
+
+#: models.py:282
+msgid "Expired"
+msgstr "Vanhentunut"
+
+#: models.py:284
+msgid "Locked"
+msgstr "Lukittu"
+
+#: models.py:286
+msgid "First published at"
+msgstr "Alunperin julkaistu"
+
+#: models.py:287
+msgid "Latest revision created at"
+msgstr "Viimeisin versio luotu"
+
+#: models.py:710
+msgid "expired"
+msgstr "vanhentunut"
+
+#: models.py:712
+msgid "scheduled"
+msgstr "ajoitettu"
+
+#: models.py:714
+msgid "draft"
+msgstr "luonnos"
+
+#: models.py:717
+msgid "live + draft"
+msgstr "julkaistu + luonnos"
+
+#: models.py:719
+msgid "live"
+msgstr "julkaistu"
+
+#: models.py:885
+msgid "Default"
+msgstr "Oletus"
+
+#: models.py:1061 models.py:1178 models.py:1405
+msgid "Page"
+msgstr "Sivu"
+
+#: models.py:1062
+msgid "Submitted for moderation"
+msgstr "Lähetetty moderoitavaksi"
+
+#: models.py:1063
+msgid "Created at"
+msgstr "Luotu"
+
+#: models.py:1064
+msgid "User"
+msgstr "Käyttäjä"
+
+#: models.py:1065
+msgid "Content JSON"
+msgstr "Sisältö JSON muodossa"
+
+#: models.py:1066
+msgid "Approved go live at"
+msgstr "Julkaisu hyväksytty"
+
+#: models.py:1165
+msgid "Page Revision"
+msgstr "Sivun versio"
+
+#: models.py:1169
+msgid "Add/edit pages you own"
+msgstr "Lisää/muokkaa sivuja jota omistat"
+
+#: models.py:1170
+msgid "Add/edit any page"
+msgstr "Lisää/muokkaa kaikkia sivuja"
+
+#: models.py:1171
+msgid "Publish any page"
+msgstr "Julkaise kaikkia sivuja"
+
+#: models.py:1172
+msgid "Lock/unlock any page"
+msgstr "Lukitse/poista lukitus kaikille sivuille"
+
+#: models.py:1177
+msgid "Group"
+msgstr "Ryhmä"
+
+#: models.py:1179
+msgid "Permission type"
+msgstr "Oikeudet"
+
+#: models.py:1183
+msgid "Group Page Permission"
+msgstr "Ryhmä "
+
+#: models.py:1406
+msgid "Password"
+msgstr "Salasana"
+
+#: models.py:1409
+msgid "Page View Restriction"
+msgstr "Sivun katselurajoitus"
+
+#: validators.py:15
+msgid "Value cannot be entirely whitespace characters"
+msgstr "Arvo ei voi sisältää pelkästään välilyöntejä tai muita näkymättömiä merkkejä."

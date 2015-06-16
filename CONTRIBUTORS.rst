@@ -64,8 +64,10 @@ Translators
 * Chinese: Victoria Chan, Leway Colin, hanfeng, qiulin, Tulpar Turamat, wwj718
 * Chinese (China): hanfeng, Lihan Li, ufoym
 * Chinese (Taiwan): wdv4758h, jshc
+* Croatian: Luka Matijević
 * Czech: Jiri Stepanek
 * Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
+* Finnish: Glen Somerville
 * French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel, Benoît Bar
 * Galician: fooflare, fonso
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston

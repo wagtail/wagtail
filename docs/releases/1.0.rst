@@ -51,6 +51,7 @@ Minor changes
  * Dropped Elasticsearch 0.90.x support
  * Removed dependency on ``libsass``
  * Users without usernames can now be created and edited in the admin interface
+ * Added new translations for Croatian and Finnish
 
 
 Core
