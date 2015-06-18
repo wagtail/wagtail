@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.8 (xx.xx.2015)
+0.8.8 (18.06.2015)
 ~~~~~~~~~~~~~~~~~~
 * Fix: Formbuilder no longer raises TypeError when submitting unchecked boolean field (Arne Schauf)
 * Fix: Image upload form no longer breaks when using i10n thousand separators (@signalkraft)
