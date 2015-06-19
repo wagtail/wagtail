@@ -19,10 +19,20 @@ Performing a ``GET`` request against one of the endpoints will get you a listing
         },
         "endpoint_name": [
             {
-
+                "id": 1,
+                "meta": {
+                    "type": "app_name.ModelName",
+                    "detail_url": "http://api.example.com/api/v1/endpoint_name/1/"
+                },
+                "field": "value"
             },
             {
-
+                "id": 2,
+                "meta": {
+                    "type": "app_name.ModelName",
+                    "detail_url": "http://api.example.com/api/v1/endpoint_name/2/"
+                },
+                "field": "different value"
             }
         ]
     }
