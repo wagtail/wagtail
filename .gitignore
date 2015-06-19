@@ -3,6 +3,7 @@
 .DS_Store
 /.coverage
 /dist/
+/build/
 /MANIFEST
 /wagtail.egg-info/
 /docs/_build/
