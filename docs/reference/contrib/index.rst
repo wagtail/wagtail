@@ -15,8 +15,8 @@ Wagtail ships with a variety of extra optional modules.
     api/index
 
 
-:doc:`form_builder`
--------------------
+:doc:`forms`
+------------
 
 Allows forms to be created by admins and provides an interface for browsing form submissions.
 
