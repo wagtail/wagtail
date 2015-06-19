@@ -15,7 +15,7 @@ As all page types are Django models, you can use any field type that Django prov
 
 
 An example Wagtail Page Model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================
 
 This example represents a typical blog post:
 
@@ -109,10 +109,10 @@ Let's look at an example of a panel definition:
 After the :class:`~wagtail.wagtailcore.models.Page`-derived class definition, just add lists of panel definitions to order and organise the Wagtail page editing interface for your model.
 
 Tips
-~~~~
+====
 
 Friendly model names
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Make your model names more friendly to users of Wagtail using Django's internal ``Meta`` class with a ``verbose_name`` e.g
 
