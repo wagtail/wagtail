@@ -1,3 +1,4 @@
+import os
 import json
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -117,6 +118,19 @@ def edit(request, image_id):
         url_generator_enabled = True
     except NoReverseMatch:
         url_generator_enabled = False
+
+    try:
+        local_path = image.file.path
+    except NotImplementedError:
+        # Image is hosted externally (eg, S3)
+        local_path = None
+
+    if local_path:
+        # Give error if image file doesn't exist
+        if not os.path.isfile(local_path):
+            messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
+                messages.button(reverse('wagtailimages_delete_image', args=(image.id,)), _('Delete'))
+            ])
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
