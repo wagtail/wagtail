@@ -1,7 +1,7 @@
 .. _editing-api:
 
 Available panel types
-~~~~~~~~~~~~~~~~~~~~~
+=====================
 
 .. module:: wagtail.wagtailadmin.edit_handers
 
