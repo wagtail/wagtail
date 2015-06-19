@@ -71,6 +71,20 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_width = models.PositiveIntegerField(null=True, blank=True)
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
 
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    def get_file_size(self):
+        if self.file_size is None:
+            try:
+                self.file_size = self.file.size
+            except OSError:
+                # File doesn't exist
+                return
+
+            self.save(update_fields=['file_size'])
+
+        return self.file_size
+
     def get_usage(self):
         return get_object_usage(self)
 
