@@ -142,7 +142,7 @@ class AbstractForm(Page):
             page=self,
         )
 
-    def serve(self, request):
+    def serve(self, request, *args, **kwargs):
         fb = self.form_builder(self.form_fields.all())
         form_class = fb.get_form_class()
         form_params = self.get_form_parameters()
@@ -165,10 +165,14 @@ class AbstractForm(Page):
         else:
             form = form_class(**form_params)
 
-        return render(request, self.template, {
+        # The serve method is overwritten but the super call is missing, which means get_context is never called
+        # let's do it here and update the context with self & form
+        context = self.get_context(request)
+        context.update({
             'self': self,
             'form': form,
         })
+        return render(request, self.template, context)
 
     preview_modes = [
         ('form', 'Form'),
@@ -177,9 +181,10 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(request, self.landing_page_template, {
-                'self': self,
-            })
+            # Super call is missing, get_context is never called this way. Do it here and update the dict.
+            context = self.get_context(request)
+            context.update(dict(self=self))
+            return render(request, self.landing_page_template, context)
         else:
             return super(AbstractForm, self).serve_preview(request, mode)
 
