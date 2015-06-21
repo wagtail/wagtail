@@ -136,6 +136,25 @@ The following example defines a basic blog post model in ``blog/models.py``
             FieldPanel('body', classname="full")
         ]
 
+Create a template at ``blog/templates/blog/blog_page.html``:
+
+.. code:: html+django
+
+    {% extends "base.html" %}
+
+    {% load static core_tags wagtailcore_tags %}
+
+    {% block body_class %}templage-blogpage{% endblock %}
+
+    {% block content %}
+        <h1>{{ self.title }}</h1>
+        <p class="meta">{{ self.date }}</p>
+
+        <div class="intro">{{ self.intro }}</div>
+
+        {{ self.body | richtext }}
+    {% endblock %}
+
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
 .. figure:: ../_static/images/tutorial/tutorial_4.png
@@ -185,7 +204,7 @@ model:
             FieldPanel('body'),
         ]
 
-Adjust your BlogPage template to output the image:
+Adjust your blog page template to include the image:
 
 .. code:: html+django
 
@@ -206,7 +225,6 @@ Adjust your BlogPage template to output the image:
         <div class="intro">{{ self.intro }}</div>
 
         {{ self.body | richtext }}
-
     {% endblock %}
 
 .. figure:: ../_static/images/tutorial/tutorial_6.png
