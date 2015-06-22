@@ -1,13 +1,6 @@
 Writing templates
 =================
 
-.. contents:: Contents
-    :local:
-
-========================
-Overview
-========================
-
 Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation: 
 https://docs.djangoproject.com/en/dev/topics/templates/
 
