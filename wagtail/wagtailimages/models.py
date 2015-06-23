@@ -31,7 +31,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class SourceImageIOError(IOError):
@@ -336,7 +336,7 @@ class Filter(models.Model):
                     warnings.warn(
                         "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
                         "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
-                        RemovedInWagtail11Warning)
+                        RemovedInWagtail12Warning)
                 else:
                     quality = 85
 
