@@ -43,6 +43,10 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('alt="Test image"' in result)
 
+    def test_image_tag_none(self):
+        result = self.render_image_tag(None, "width-500")
+        self.assertEqual(result, '')
+
     def render_image_tag_as(self, image, filter_spec):
         temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + ' as test_img %}<img {{ test_img.attrs }} />')
         context = template.Context({'image_obj': image})
@@ -69,6 +73,16 @@ class TestImageTag(TestCase):
         self.assertTrue('height="300"' in result)
         self.assertTrue('class="photo"' in result)
         self.assertTrue('title="my wonderful title"' in result)
+
+    def render_image_tag_with_filters(self, image):
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_primary|default:image_alternate width-400 %}')
+        context = template.Context({'image_primary': None, 'image_alternate': image})
+        return temp.render(context)
+
+    def test_image_tag_with_filters(self):
+        result = self.render_image_tag_with_filters(self.image)
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
 
 
 class TestMissingImage(TestCase):
