@@ -1,0 +1,17 @@
+==========================================
+Wagtail 1.1 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+ * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
