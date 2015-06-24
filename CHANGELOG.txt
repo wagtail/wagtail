@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~
+
+ * The `{% image %}` tag now supports filters on the image variable, e.g. `{% image primary_img|default:secondary_img width-500 %}`
+
+
 1.0 (xx.xx.xxxx)
 ~~~~~~~~~~~~~~~~
 

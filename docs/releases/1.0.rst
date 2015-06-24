@@ -1,6 +1,6 @@
-==========================================
-Wagtail 1.0 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 1.0 release notes
+=========================
 
 .. contents::
     :local:
@@ -318,3 +318,9 @@ Previously you could customize the Wagtail userbar using the ``construct_wagtail
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.
+
+
+``IMAGE_COMPRESSION_QUALITY`` setting has been renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``IMAGE_COMPRESSION_QUALITY`` setting, which determines the quality of saved JPEG images as a value from 1 to 100, has been renamed to ``WAGTAILIMAGES_JPEG_QUALITY``. If you have used this setting, please update your settings file accordingly.
