@@ -6,9 +6,7 @@ from django.template import Node, TemplateSyntaxError
 from django.template.base import parse_bits, Library
 from django.template.loader import render_to_string
 
-register = Library()
-
-NAMESPACE = 'wui'
+from .config import NAMESPACE
 
 class Button(Node):
     """
@@ -134,5 +132,3 @@ class Button(Node):
         parser.delete_first_token()
 
         return cls(inner, kwargs)
-
-register.tag(Button.TAG_NAME, Button.handle)
