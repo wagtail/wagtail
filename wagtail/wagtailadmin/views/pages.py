@@ -683,7 +683,7 @@ def get_page_edit_handler(page_class):
 def search(request):
     pages = []
     q = None
-    is_searching = False
+
     if 'q' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
@@ -691,7 +691,6 @@ def search(request):
 
             # page number
             p = request.GET.get("p", 1)
-            is_searching = True
             pages = Page.search(q, show_unpublished=True, search_title_only=True, prefetch_related=['content_type'])
 
             # Pagination
@@ -708,14 +707,12 @@ def search(request):
     if request.is_ajax():
         return render(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
-            'is_searching': is_searching,
             'query_string': q,
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
-            'is_searching': is_searching,
             'query_string': q,
         })
 
