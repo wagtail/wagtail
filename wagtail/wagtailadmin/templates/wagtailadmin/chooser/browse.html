@@ -6,7 +6,7 @@
     {% trans "Choose a page" as choose_str %}
 {% endif %}
 
-{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=subtitle search_url="wagtailadmin_choose_page" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=subtitle search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
