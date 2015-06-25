@@ -59,20 +59,25 @@ class FormSubmission(models.Model):
 
 
 class AbstractFormField(Orderable):
-    """Database Fields required for building a Django Form field."""
+    """
+    Database Fields required for building a Django Form field.
+    """
 
-    label = models.CharField(verbose_name=_('Label'),
+    label = models.CharField(
+        verbose_name=_('Label'),
         max_length=255,
         help_text=_('The label of the form field')
     )
     field_type = models.CharField(verbose_name=_('Field type'), max_length=16, choices=FORM_FIELD_CHOICES)
     required = models.BooleanField(verbose_name=_('Required'), default=True)
-    choices = models.CharField(verbose_name=_('Choices'),
+    choices = models.CharField(
+        verbose_name=_('Choices'),
         max_length=512,
         blank=True,
         help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
     )
-    default_value = models.CharField(verbose_name=_('Default value'),
+    default_value = models.CharField(
+        verbose_name=_('Default value'),
         max_length=255,
         blank=True,
         help_text=_('Default value. Comma separated values supported for checkboxes.')
@@ -102,6 +107,7 @@ class AbstractFormField(Orderable):
 
 _FORM_CONTENT_TYPES = None
 
+
 def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
@@ -113,13 +119,17 @@ def get_form_types():
 
 
 def get_forms_for_user(user):
-    """Return a queryset of form pages that this user is allowed to access the submissions for"""
+    """
+    Return a queryset of form pages that this user is allowed to access the submissions for
+    """
     editable_pages = UserPagePermissionsProxy(user).editable_pages()
     return editable_pages.filter(content_type__in=get_form_types())
 
 
 class AbstractForm(Page):
-    """A Form Page. Pages implementing a form should inhert from it"""
+    """
+    A Form Page. Pages implementing a form should inhert from it
+    """
 
     form_builder = FormBuilder
     is_abstract = True  # Don't display me in "Add"
@@ -133,8 +143,19 @@ class AbstractForm(Page):
     class Meta:
         abstract = True
 
+    def get_form_class(self):
+        fb = self.form_builder(self.form_fields.all())
+        return fb.get_form_class()
+
     def get_form_parameters(self):
         return {}
+
+    def get_form(self, *args, **kwargs):
+        form_class = self.get_form_class()
+        form_params = self.get_form_parameters()
+        form_params.update(kwargs)
+
+        return form_class(*args, **form_params)
 
     def process_form_submission(self, form):
         FormSubmission.objects.create(
@@ -143,19 +164,11 @@ class AbstractForm(Page):
         )
 
     def serve(self, request):
-        fb = self.form_builder(self.form_fields.all())
-        form_class = fb.get_form_class()
-        form_params = self.get_form_parameters()
-
         if request.method == 'POST':
-            form = form_class(request.POST, **form_params)
+            form = self.get_form(request.POST)
 
             if form.is_valid():
                 self.process_form_submission(form)
-                # If we have a form_processing_backend call its process method
-                if hasattr(self, 'form_processing_backend'):
-                    form_processor = self.form_processing_backend()
-                    form_processor.process(self, form)
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
@@ -163,7 +176,7 @@ class AbstractForm(Page):
                     'self': self,
                 })
         else:
-            form = form_class(**form_params)
+            form = self.get_form()
 
         return render(request, self.template, {
             'self': self,
@@ -185,7 +198,9 @@ class AbstractForm(Page):
 
 
 class AbstractEmailForm(AbstractForm):
-    """A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it"""
+    """
+    A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
+    """
     is_abstract = True  # Don't display me in "Add"
 
     to_address = models.CharField(verbose_name=_('To address'), max_length=255, blank=True, help_text=_("Optional - form submissions will be emailed to this address"))
@@ -198,7 +213,6 @@ class AbstractEmailForm(AbstractForm):
         if self.to_address:
             content = '\n'.join([x[1].label + ': ' + text_type(form.data.get(x[0])) for x in form.fields.items()])
             send_mail(self.subject, content, [self.to_address], self.from_address,)
-
 
     class Meta:
         abstract = True
