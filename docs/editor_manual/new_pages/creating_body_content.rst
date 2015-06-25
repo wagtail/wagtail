@@ -1,17 +1,17 @@
 Creating page body content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail supports a number of basic fields for creating content, as well as our unique Streamfield feature which allows you to construct complex layouts by combining these basic fields in any order.
+Wagtail supports a number of basic fields for creating content, as well as our unique StreamField feature which allows you to construct complex layouts by combining these basic fields in any order.
 
 ===========
-Streamfield
+StreamField
 ===========
 
-Streamfield allows you to create complex layouts of content on a page by combining a number of different arrangements of content, 'blocks', in any order.
+StreamField allows you to create complex layouts of content on a page by combining a number of different arrangements of content, 'blocks', in any order.
 
 .. image:: ../../_static/images/screen11_empty_streamfield.png
 
-When you first edit a page, you will be presented with the empty streamfield area, with the option to choose one of several block types. The block types on your website may be different from the screenshot here, but the principles are the same.
+When you first edit a page, you will be presented with the empty StreamField area, with the option to choose one of several block types. The block types on your website may be different from the screenshot here, but the principles are the same.
 
 Click the block type, and the options will disappear, revealing the entry field for that block.
 
@@ -65,7 +65,7 @@ Below is a summary of what the different buttons represent:
 
 **Insert link / document:** Allows you to insert a link or a document into the rich text field. See Inserting links and Inserting documents for more details. See `Inserting links section <inserting_links.html>`.
 
-Adding further blocks in streamfield
+Adding further blocks in StreamField
 ==============================================
 
 .. image:: ../../_static/images/screen11.8_adding_new_blocks.png
@@ -74,14 +74,14 @@ Adding further blocks in streamfield
 * You'll then be presented once again with the different blocks from which you may choose.
 * You can cancel the addition of a new block by clicking the cross at the top of the block selection interface.
 
-Reordering and deleting content in streamfield
+Reordering and deleting content in StreamField
 ==============================================
 
 .. image:: ../../_static/images/screen11.9_streamfield_reordering.png
 
-* Click the arrows on the right-hand side of each block to move blocks up and down in the streamfield order of content.
+* Click the arrows on the right-hand side of each block to move blocks up and down in the StreamField order of content.
 * The blocks will be displayed in the front-end in the order that they are placed in this interface.
 * Click the rubbish bin on the far right to delete a field
 
 .. Warning::
-	Once a streamfield field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you acidentally delete a field you can reload the page to undo your latest edit.
+	Once a StreamField field is deleted it cannot be retrieved if the page has not been saved. Save your pages regularly so that if you acidentally delete a field you can reload the page to undo your latest edit.
