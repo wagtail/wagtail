@@ -14,5 +14,3 @@ The second, *Promote*, is where you can set all the 'metadata' (data about data!
 
 .. Note::
 	You may see more fields than this in your promote tab. These are just the default fields, but you are free to add other fields to this section as necessary.
-
-..  ADD IN IMAGE OF PROMOTE TAB >>
