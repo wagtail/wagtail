@@ -1,9 +1,5 @@
 {% load i18n %}
 
-{% if page_types_restricted %}
-    {% include "wagtailadmin/chooser/_page_type_restricted_warning.html" with page_type_name=page_type.get_verbose_name %}
-{% endif %}
-
 <h2>{% trans "Explorer" %}</h2>
 {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
 

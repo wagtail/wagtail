@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if page_types_restricted %}
     {% trans "Choose" as choose_str %}
-    {% trans page_type.get_verbose_name as subtitle %}
+    {% trans page_type_name as subtitle %}
 {% else %}
     {% trans "Choose a page" as choose_str %}
 {% endif %}
@@ -10,6 +10,14 @@
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
+
+    {% if page_types_restricted %}
+        <p class="help-block help-warning">
+            {% blocktrans with type=page_type_name %}
+                Only pages of type "{{ type }}" may be chosen for this field. Search results will exclude pages of other types.
+            {% endblocktrans %}
+        </p>
+    {% endif %}
 
     <div class="page-results">
         {% include 'wagtailadmin/chooser/_browse_results.html' %}

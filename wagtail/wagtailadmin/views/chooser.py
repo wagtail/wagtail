@@ -57,7 +57,7 @@ def browse(request, parent_page_id=None):
         'pages': shown_pages,
         'search_form': search_form,
         'page_type_string': page_type,
-        'page_type': desired_class,
+        'page_type_name': desired_class.get_verbose_name(),
         'page_types_restricted': (page_type != 'wagtailcore.page')
     })
 
@@ -89,8 +89,6 @@ def search(request, parent_page_id=None):
         'querystring': get_querystring(request),
         'searchform': search_form,
         'pages': shown_pages,
-        'page_type': desired_class,
-        'page_types_restricted': (page_type != 'wagtailcore.page')
     })
 
 
