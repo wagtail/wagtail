@@ -1,47 +1,43 @@
-@font-face {
-    font-family: "Open Sans";
-    src:url("#{$font-root}OpenSans-Light-webfont.eot");
-    src:url("#{$font-root}OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
-        url("#{$font-root}OpenSans-Light-webfont.ttf") format("truetype"),
-        url("#{$font-root}OpenSans-Light-webfont.svg#opensans_italic_webfont") format("svg"),
-        url("#{$font-root}OpenSans-Light-webfont.woff") format("woff");
-    font-weight: 300;
-    font-style: normal;
+/* 
+    NB: Due to Wagtail's browser support the following @font-face formats are required:
+    - WOFF for modern browsers
+    - WOFF2 For super-modern browsers
+    - TTF for older Android & iOS
+
+    This example is all we need now:
+
+    @font-face {
+      font-family: 'MyWebFont';
+      src: url('myfont.woff2') format('woff2'),
+           url('myfont.woff') format('woff'),
+           url('myfont.ttf') format('truetype');
+    }
+
+    See https://css-tricks.com/snippets/css/using-font-face/ for more information.
+*/
+
+@mixin webfont($fontname, $filestub, $weight, $style:normal){
+    @font-face {
+        font-family: '#{$fontname}';
+        src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
+           url('#{$font-root}#{$filestub}.woff') format('woff'),
+           url('#{$font-root}#{$filestub}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: $style;
+    }
 }
 
-@font-face {
-    font-family: "Open Sans";
-    src:url("#{$font-root}OpenSans-Regular-webfont.eot");
-    src:url("#{$font-root}OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
-        url("#{$font-root}OpenSans-Regular-webfont.ttf") format("truetype"),
-        url("#{$font-root}OpenSans-Regular-webfont.svg#opensans_regular_webfont") format("svg"),
-        url("#{$font-root}OpenSans-Regular-webfont.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-}
+@include webfont(Open Sans, opensans-light, 300, normal);
+//@include webfont(Open Sans, opensans-lightitalic, 300, italic);
+@include webfont(Open Sans, opensans-regular, 400, normal);
+//@include webfont(Open Sans, opensans-italic, 400, italic);
+@include webfont(Open Sans, opensans-semibold, 600, normal);
+//@include webfont(Open Sans, opensans-semibolditalic, 600, italic);
+@include webfont(Open Sans, opensans-bold, 700, normal);
+//@include webfont(Open Sans, opensans-bolditalic, 700, italic);
 
-@font-face {
-    font-family: "Open Sans";
-    src:url("#{$font-root}OpenSans-Semibold-webfont.eot");
-    src:url("#{$font-root}OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"),
-        url("#{$font-root}OpenSans-Semibold-webfont.ttf") format("truetype"),
-        url("#{$font-root}OpenSans-Semibold-webfont.svg#opensans_semibold_webfont") format("svg"),
-        url("#{$font-root}OpenSans-Semibold-webfont.woff") format("woff");
-    font-weight: 600;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: "Open Sans";
-    src:url("#{$font-root}OpenSans-Bold-webfont.eot");
-    src:url("#{$font-root}OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"),
-        url("#{$font-root}OpenSans-Bold-webfont.ttf") format("truetype"),
-        url("#{$font-root}OpenSans-Bold-webfont.svg#opensans_bold_webfont") format("svg"),
-        url("#{$font-root}OpenSans-Bold-webfont.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-}
-
+/* The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin. */
 @font-face {
     font-family: "wagtail";
     src:url("#{$font-root}wagtail.eot");
@@ -52,7 +48,8 @@
     font-weight: normal;
     font-style: normal;
 }
-/* fix to make chrome on windows use svg, which renders better */
+
+/* One exception to the limited font formats used above is the Wagtail icon font for Windows, where using the SVG version improves antialiasing */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     @font-face {
         font-family: "wagtail";
