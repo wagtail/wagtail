@@ -84,7 +84,7 @@ The backend is configured in settings:
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
