@@ -20,23 +20,8 @@
 
         {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
-        <div class="pagination">
-            <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}
-                Page {{ page_number }} of {{ num_pages }}.
-            {% endblocktrans %}</p>
-            <ul>
-                <li class="prev">
-                    {% if pages.has_previous %}
-                        <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.previous_page_number }}" class="icon icon-arrow-left">{% trans "Previous" %}</a>
-                    {% endif %}
-                </li>
-                <li class="next">
-                    {% if pages.has_next %}
-                        <a href="{% url 'wagtailadmin_pages_search' %}?q={{ query_string|urlencode }}&amp;p={{ pages.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
+        {% url 'wagtailadmin_pages_search' as pagination_base_url %}
+        {% include "wagtailadmin/pages/listing/_pagination.html" with page=pages base_url=pagination_base_url query_params=pagination_query_params only %}
     {% else %}
         {% if query_string %}
             <p>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</p>

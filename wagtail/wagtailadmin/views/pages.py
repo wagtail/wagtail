@@ -61,6 +61,7 @@ def index(request, parent_page_id=None):
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
         'ordering': ordering,
+        'pagination_query_params': "ordering=%s" % ordering,
         'pages': pages,
     })
 
@@ -708,12 +709,14 @@ def search(request):
         return render(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'query_string': q,
+            'pagination_query_params': ('q=%s' % q) if q else ''
         })
     else:
         return render(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
             'query_string': q,
+            'pagination_query_params': ('q=%s' % q) if q else ''
         })
 
 
