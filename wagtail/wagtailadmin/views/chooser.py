@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
@@ -48,6 +49,16 @@ def browse(request, parent_page_id=None):
 
         if page.can_choose or page.can_descend:
             shown_pages.append(page)
+
+    # Apply pagination
+    p = request.GET.get('p', 1)
+    paginator = Paginator(shown_pages, 25)
+    try:
+        shown_pages = paginator.page(p)
+    except PageNotAnInteger:
+        shown_pages = paginator.page(1)
+    except EmptyPage:
+        shown_pages = paginator.page(paginator.num_pages)
 
     return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
         'allow_external_link': request.GET.get('allow_external_link'),
