@@ -6,7 +6,7 @@ from .test_backends import BackendTests
 
 
 class TestDBBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.wagtailsearch.backends.db.DBSearch'
+    backend_path = 'wagtail.wagtailsearch.backends.db'
 
     @unittest.expectedFailure
     def test_callable_indexed_field(self):
