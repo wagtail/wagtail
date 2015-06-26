@@ -93,3 +93,6 @@ class DBSearch(BaseSearch):
 
     def _search(self, queryset, query_string, fields=None):
         return DBSearchResults(self, DBSearchQuery(queryset, query_string, fields=fields))
+
+
+SearchBackend = DBSearch

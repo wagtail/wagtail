@@ -465,3 +465,6 @@ class ElasticSearch(BaseSearch):
 
     def _search(self, queryset, query_string, fields=None):
         return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
+
+
+SearchBackend = ElasticSearch
