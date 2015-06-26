@@ -20,6 +20,8 @@ def get_querystring(request):
 
 
 def browse(request, parent_page_id=None):
+    ITEMS_PER_PAGE = 25
+
     page_type = request.GET.get('page_type') or 'wagtailcore.page'
     content_type_app_name, content_type_model_name = page_type.split('.')
 
@@ -38,34 +40,51 @@ def browse(request, parent_page_id=None):
     search_form = SearchForm()
     pages = parent_page.get_children()
 
-    # restrict the page listing to just those pages that:
-    # - are of the given content type (taking into account class inheritance)
-    # - or can be navigated into (i.e. have children)
+    if desired_class == Page:
+        # apply pagination first, since we know that the page listing won't
+        # have to be filtered, and that saves us walking the entire list
+        p = request.GET.get('p', 1)
+        paginator = Paginator(pages, ITEMS_PER_PAGE)
+        try:
+            pages = paginator.page(p)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
 
-    shown_pages = []
-    for page in pages:
-        page.can_choose = issubclass(page.specific_class or Page, desired_class)
-        page.can_descend = page.get_children_count()
+        for page in pages:
+            page.can_choose = True
+            page.can_descend = page.get_children_count()
 
-        if page.can_choose or page.can_descend:
-            shown_pages.append(page)
+    else:
+        # restrict the page listing to just those pages that:
+        # - are of the given content type (taking into account class inheritance)
+        # - or can be navigated into (i.e. have children)
 
-    # Apply pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(shown_pages, 25)
-    try:
-        shown_pages = paginator.page(p)
-    except PageNotAnInteger:
-        shown_pages = paginator.page(1)
-    except EmptyPage:
-        shown_pages = paginator.page(paginator.num_pages)
+        shown_pages = []
+        for page in pages:
+            page.can_choose = issubclass(page.specific_class or Page, desired_class)
+            page.can_descend = page.get_children_count()
+
+            if page.can_choose or page.can_descend:
+                shown_pages.append(page)
+
+        # Apply pagination
+        p = request.GET.get('p', 1)
+        paginator = Paginator(shown_pages, ITEMS_PER_PAGE)
+        try:
+            pages = paginator.page(p)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
 
     return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
         'querystring': get_querystring(request),
         'parent_page': parent_page,
-        'pages': shown_pages,
+        'pages': pages,
         'search_form': search_form,
         'page_type_string': page_type,
         'page_type_name': desired_class.get_verbose_name(),
