@@ -15,3 +15,4 @@ Minor features
 ~~~~~~~~~~~~~~
 
  * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
+ * Moved the style guide menu item into the Settings sub-menu
