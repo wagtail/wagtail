@@ -986,6 +986,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
+    user_group_restricted_template = getattr(settings, 'USER_GROUP_RESTRICTED_TEMPLATE', 'wagtailcore/user_group_restricted.html')
 
     def serve_password_required_response(self, request, form, action_url):
         """
@@ -999,6 +1000,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         context['form'] = form
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
+
+    def serve_user_group_restricted_response(self, request):
+        context = self.get_context(request)
+        return TemplateResponse(request, self.user_group_restricted_template, context)
 
 
 def get_navigation_menu_items():
@@ -1415,8 +1420,23 @@ class PagePermissionTester(object):
 
 
 class PageViewRestriction(models.Model):
+
+    NONE = 'none'
+    PASSWORD = 'password'
+    USERS_GROUPS = 'users_groups'
+
+    RESTRICTION_CHOICES = (
+        (NONE, _("Public")),
+        (PASSWORD, _("Private, accessible with the following password")),
+        (USERS_GROUPS, _("Private, visible to specific users and groups"))
+    )
+
+    restriction_type = models.CharField(
+        max_length=20, default=PASSWORD, choices=RESTRICTION_CHOICES)
     page = models.ForeignKey('Page', verbose_name=_('Page'), related_name='view_restrictions')
-    password = models.CharField(verbose_name=_('Password'), max_length=255)
+    password = models.CharField(verbose_name=_('Password'), max_length=255, blank=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True)
+    groups = models.ManyToManyField(Group, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Page View Restriction')

@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.models import PageViewRestriction
+
 
 @hooks.register('before_serve_page')
 def check_view_restrictions(page, request, serve_args, serve_kwargs):
@@ -15,8 +17,25 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 
     if restrictions:
         passed_restrictions = request.session.get('passed_page_view_restrictions', [])
-        for restriction in restrictions:
-            if restriction.id not in passed_restrictions:
+
+        unpassed_restrictions = [
+            restriction for restriction in restrictions
+            if restriction.id not in passed_restrictions
+        ]
+
+        for restriction in unpassed_restrictions:
+            if restriction.restriction_type == PageViewRestriction.USERS_GROUPS:
+
+                view_conditions = [
+                    request.user in restriction.users.all(),
+                    request.user.groups.filter(
+                        id__in=restriction.groups.all().values_list('id', flat=True)
+                    ).exists()
+                ]
+
+                if not any(view_conditions):
+                    return page.serve_user_group_restricted_response(request)
+            else:
                 from wagtail.wagtailcore.forms import PasswordPageViewRestrictionForm
                 form = PasswordPageViewRestrictionForm(instance=restriction,
                     initial={'return_url': request.get_full_path()})

@@ -6,7 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageViewRestriction
+
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
@@ -169,18 +170,18 @@ class CopyForm(forms.Form):
         return cleaned_data
 
 
-class PageViewRestrictionForm(forms.Form):
-    restriction_type = forms.ChoiceField(label="Visibility", choices=[
-        ('none', ugettext_lazy("Public")),
-        ('password', ugettext_lazy("Private, accessible with the following password")),
-    ], widget=forms.RadioSelect)
-    password = forms.CharField(required=False)
+class PageViewRestrictionForm(forms.ModelForm):
+    restriction_type = forms.ChoiceField(
+        label="Visibility", choices=PageViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect)
 
-    def clean(self):
-        cleaned_data = super(PageViewRestrictionForm, self).clean()
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if (self.cleaned_data.get('restriction_type') == 'password'
+                and not password):
+            raise forms.ValidationError('This field is required.')
+        return password
 
-        if cleaned_data.get('restriction_type') == 'password' and not cleaned_data.get('password'):
-            self._errors["password"] = self.error_class([_('This field is required.')])
-            del cleaned_data['password']
-
-        return cleaned_data
+    class Meta:
+        model = PageViewRestriction
+        fields = ('restriction_type', 'password', 'users', 'groups')
