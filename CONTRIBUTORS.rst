@@ -72,7 +72,8 @@ Translators
 * Galician: fooflare, fonso
 * German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston
 * Greek: Serafeim Papastefanos, Jim Dal
-* Italian: Andrea Tagliazucchi, Claudio Bantaloukas
+* Hebrew (Israel): bjesus, Lior Abazon
+* Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga
 * Polish: Łukasz Bołdys
