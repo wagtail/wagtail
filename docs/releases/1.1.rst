@@ -10,6 +10,10 @@ Wagtail 1.1 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+``specific()`` method on PageQuerySet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usually, an operation that retrieves a queryset of pages (such as ``homepage.get_children()``) will return them as basic Page instances, which only include the core page data such as title. The ``specific()`` method (e.g. ``homepage.get_children().specific()``) now allows them to be retrieved as their most specific type, using the minimum number of queries.
 
 Minor features
 ~~~~~~~~~~~~~~
