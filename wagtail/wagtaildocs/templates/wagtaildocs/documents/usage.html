@@ -34,11 +34,7 @@
                             {{ page.content_type.model_class.get_verbose_name }}
                         </td>
                         <td>
-                            {% if page.live %}
-                                <a href="{{ page.url }}" target="_blank" class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</a>
-                            {% else %}
-                                <span class="status-tag {% if page.status_string != "draft" %}primary{% endif %}">{{ page.status_string }}</span>
-                            {% endif %}
+                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                         </td>
                     </tr>
                 {% endfor %}

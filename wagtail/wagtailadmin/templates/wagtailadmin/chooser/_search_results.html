@@ -13,5 +13,5 @@
 </h2>
 
 {% if pages %}
-    {% include "wagtailadmin/pages/list.html" with choosing=1 show_parent=1 pages=pages parent_page=parent_page %}
+    {% include "wagtailadmin/pages/listing/_list_choose.html" with show_parent=1 pages=pages parent_page=parent_page %}
 {% endif %}
