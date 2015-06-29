@@ -1,0 +1,1161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# bjesus <bjesus@gmail.com>, 2015
+# lior abazon <abazon@v15.org.il>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-06-20 12:57+0000\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: edit_handlers.py:704
+msgid "Scheduled publishing"
+msgstr "פרסום מתוזמן"
+
+#: edit_handlers.py:718
+msgid "Common page configuration"
+msgstr "הגדרת עמוד בסיסית"
+
+#: forms.py:34 templates/wagtailadmin/base.html:16
+#: templates/wagtailadmin/base.html:17 templates/wagtailadmin/base.html:18
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:16
+msgid "Search"
+msgstr "חיפוש"
+
+#: forms.py:38
+msgid "Search term"
+msgstr "ערך לחיפוש"
+
+#: forms.py:65
+msgid "Enter password"
+msgstr "הזינו סיסמה"
+
+#: forms.py:72
+#, python-format
+msgid "Enter your %s"
+msgstr "הזינו את ה%s שלכם"
+
+#: forms.py:77
+msgid "Enter your email address to reset your password"
+msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
+
+#: forms.py:86
+msgid "Please fill your email address."
+msgstr "אנא הזינו את כתובת הדוא\"ל שלכם"
+
+#: forms.py:99
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "שגיאה. אין אפשרות לאתחל את הסיסמה משום שהחשבון מנוהל בשרת אחר."
+
+#: forms.py:102
+msgid "This email address is not recognised."
+msgstr "כתובת הדוא\"ל הזו איננה מזוהה"
+
+#: forms.py:114
+msgid "New title"
+msgstr "כותרת חדשה"
+
+#: forms.py:115
+msgid "New slug"
+msgstr ""
+
+#: forms.py:120
+msgid "New parent page"
+msgstr "עמוד הורה חדש."
+
+#: forms.py:121
+msgid "This copy will be a child of this given parent page."
+msgstr "העותק הזה יהיה צאצא של עמוד ההורה הנבחר"
+
+#: forms.py:128
+msgid "Copy subpages"
+msgstr "העתק תת- דף"
+
+#: forms.py:130
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:139
+msgid "Publish copied page"
+msgstr "פרסם עמוד מועתק"
+
+#: forms.py:140
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "עמוד זה באוויר. האם תרצו לפרסם גם את העתקו?"
+
+#: forms.py:142
+msgid "Publish copies"
+msgstr "פרסום העתקים"
+
+#: forms.py:144
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:164
+#, python-format
+msgid "This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+
+#: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
+#: templates/wagtailadmin/pages/_privacy_switch.html:18
+msgid "Public"
+msgstr "ציבורי"
+
+#: forms.py:175
+msgid "Private, accessible with the following password"
+msgstr "פרטי, זמין עם הסיסמא הבאה"
+
+#: forms.py:183
+msgid "This field is required."
+msgstr "שדה חובה"
+
+#: templates/wagtailadmin/account/account.html:4
+#: templates/wagtailadmin/account/account.html:6
+msgid "Account"
+msgstr "חשבון"
+
+#: templates/wagtailadmin/account/account.html:13
+msgid "Set gravatar"
+msgstr ""
+
+#: templates/wagtailadmin/account/account.html:17
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+
+#: templates/wagtailadmin/account/account.html:24
+#: templates/wagtailadmin/account/change_password.html:4
+#: templates/wagtailadmin/account/change_password.html:6
+msgid "Change password"
+msgstr "שינוי סיסמא"
+
+#: templates/wagtailadmin/account/account.html:28
+msgid "Change the password you use to log in."
+msgstr "שינוי הסיסמא עבור התחברות"
+
+#: templates/wagtailadmin/account/account.html:35
+msgid "Notification preferences"
+msgstr "העדפות התראות"
+
+#: templates/wagtailadmin/account/account.html:39
+msgid "Choose which email notifications to receive."
+msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
+
+#: templates/wagtailadmin/account/change_password.html:18
+msgid "Change Password"
+msgstr "שינוי סיסמא"
+
+#: templates/wagtailadmin/account/change_password.html:21
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "אי אפשר לשנות את הסיסמא. נא לפנות למנהל האתר."
+
+#: templates/wagtailadmin/account/notification_preferences.html:4
+#: templates/wagtailadmin/account/notification_preferences.html:6
+msgid "Notification Preferences"
+msgstr "העדפות התראות"
+
+#: templates/wagtailadmin/account/notification_preferences.html:16
+msgid "Update"
+msgstr "עדכן"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:4
+#: templates/wagtailadmin/account/password_reset/confirm.html:42
+#: templates/wagtailadmin/account/password_reset/done.html:4
+#: templates/wagtailadmin/account/password_reset/form.html:4
+#: templates/wagtailadmin/account/password_reset/form.html:37
+msgid "Reset password"
+msgstr "איתחול סיסמא"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:15
+msgid "Password change successful"
+msgstr "שינוי סיסמא בוצע בהצלחה"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:16
+msgid "Login"
+msgstr "התחברות"
+
+#: templates/wagtailadmin/account/password_reset/confirm.html:4
+#: templates/wagtailadmin/account/password_reset/confirm.html:26
+msgid "Set your new password"
+msgstr "הגדרת סיסמא חדשה"
+
+#: templates/wagtailadmin/account/password_reset/confirm.html:19
+msgid "The passwords do not match. Please try again."
+msgstr "הסיסמאות לא מתאימות. נא לנסות שוב."
+
+#: templates/wagtailadmin/account/password_reset/done.html:15
+msgid "Check your email"
+msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
+
+#: templates/wagtailadmin/account/password_reset/done.html:16
+msgid "A link to reset your password has been emailed to you."
+msgstr "קישור לאיתחול הסיסמא נשלח אליכם"
+
+#: templates/wagtailadmin/account/password_reset/email.txt:2
+msgid "Please follow the link below to reset your password"
+msgstr "אנא לחצו על הקישור הבא על מנת לאתחל את סיסמתכם"
+
+#: templates/wagtailadmin/account/password_reset/email_subject.txt:2
+msgid "Password reset"
+msgstr "איתחול סיסמא"
+
+#: templates/wagtailadmin/account/password_reset/form.html:27
+msgid "Reset your password"
+msgstr "אתחלו את סיסמתכם"
+
+#: templates/wagtailadmin/base.html:11 templates/wagtailadmin/home.html:4
+msgid "Dashboard"
+msgstr "לוח מחוונים"
+
+#: templates/wagtailadmin/base.html:43
+msgid "Menu"
+msgstr "תפריט"
+
+#: templates/wagtailadmin/block_forms/list.html:5
+msgid "Add another"
+msgstr "הוסיפו עוד"
+
+#: templates/wagtailadmin/chooser/_browse_results.html:7 wagtail_hooks.py:17
+msgid "Explorer"
+msgstr "חוקר"
+
+#: templates/wagtailadmin/chooser/_link_types.html:5
+#: templates/wagtailadmin/chooser/_link_types.html:7
+msgid "Internal link"
+msgstr "קישור פנימי"
+
+#: templates/wagtailadmin/chooser/_link_types.html:11
+#: templates/wagtailadmin/chooser/_link_types.html:13
+msgid "External link"
+msgstr "קישור חיצוני"
+
+#: templates/wagtailadmin/chooser/_link_types.html:17
+#: templates/wagtailadmin/chooser/_link_types.html:19
+msgid "Email link"
+msgstr "קישור דואר אלקטרוני"
+
+#: templates/wagtailadmin/chooser/_page_type_restricted_warning.html:4
+#, python-format
+msgid ""
+"\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
+"    "
+msgstr ""
+
+#: templates/wagtailadmin/chooser/_search_results.html:8
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/chooser/browse.html:3
+msgid "Choose"
+msgstr "בחרו"
+
+#: templates/wagtailadmin/chooser/browse.html:6 widgets.py:114
+msgid "Choose a page"
+msgstr "בחרו עמוד"
+
+#: templates/wagtailadmin/chooser/email_link.html:2
+msgid "Add an email link"
+msgstr "הוסיפו קישור לדואר אלקטרוני"
+
+#: templates/wagtailadmin/chooser/email_link.html:14
+#: templates/wagtailadmin/chooser/external_link.html:14
+msgid "Insert link"
+msgstr "הכניסו קישור"
+
+#: templates/wagtailadmin/chooser/external_link.html:2
+msgid "Add an external link"
+msgstr "הוסיפו קישור חיצוני"
+
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:5
+msgid "Move up"
+msgstr "עברו מעלה"
+
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:6
+msgid "Move down"
+msgstr "עברו מטה"
+
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
+#: templates/wagtailadmin/pages/confirm_delete.html:7
+#: templates/wagtailadmin/pages/edit.html:48
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:33
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:33
+msgid "Delete"
+msgstr "מחיקה"
+
+#: templates/wagtailadmin/home.html:22
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr ""
+
+#: templates/wagtailadmin/home.html:33
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:5
+msgid "Pages awaiting moderation"
+msgstr "עמוד ממתין לעריכה"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:13
+#: templates/wagtailadmin/home/recent_edits.html:12
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:30
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:33
+msgid "Title"
+msgstr "כותרת"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:14
+#: templates/wagtailadmin/pages/list.html:23
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:37
+msgid "Parent"
+msgstr "הורה"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:15
+#: templates/wagtailadmin/pages/list.html:26
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:51
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:54
+msgid "Type"
+msgstr "סוג"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:16
+msgid "Edited"
+msgstr "ערוך"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:24
+#: templates/wagtailadmin/home/recent_edits.html:22
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:7
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:18
+#: widgets.py:116
+msgid "Edit this page"
+msgstr "ערכו עמוד זה"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:33
+#: templates/wagtailadmin/userbar/item_page_approve.html:8
+msgid "Approve"
+msgstr "אשרו"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:39
+#: templates/wagtailadmin/userbar/item_page_reject.html:8
+msgid "Reject"
+msgstr "דחו"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:42
+#: templates/wagtailadmin/home/recent_edits.html:28
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:18
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:20
+#: templates/wagtailadmin/userbar/item_page_edit.html:5 views/pages.py:226
+#: views/pages.py:231 views/pages.py:362 views/pages.py:367 views/pages.py:556
+#: views/pages.py:608 views/pages.py:796 views/pages.py:815
+msgid "Edit"
+msgstr "עריכה"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:43
+#: templates/wagtailadmin/pages/create.html:41
+#: templates/wagtailadmin/pages/edit.html:60
+#: templates/wagtailadmin/pages/preview.html:5
+msgid "Preview"
+msgstr "תצוגה מקדימה"
+
+#: templates/wagtailadmin/home/recent_edits.html:5
+msgid "Your most recent edits"
+msgstr "עריכות אחרונות"
+
+#: templates/wagtailadmin/home/recent_edits.html:13
+msgid "Date"
+msgstr "תאריך"
+
+#: templates/wagtailadmin/home/recent_edits.html:14
+#: templates/wagtailadmin/pages/edit.html:18
+#: templates/wagtailadmin/pages/list.html:27
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:60
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:63
+msgid "Status"
+msgstr "מצב"
+
+#: templates/wagtailadmin/home/recent_edits.html:30
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:21
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:23
+msgid "Draft"
+msgstr "טיוטה"
+
+#: templates/wagtailadmin/home/recent_edits.html:33
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
+msgid "Live"
+msgstr "חי"
+
+#: templates/wagtailadmin/home/site_summary.html:3
+msgid "Site summary"
+msgstr "סיכום אתר"
+
+#: templates/wagtailadmin/home/site_summary_pages.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/login.html:4 templates/wagtailadmin/login.html:61
+msgid "Sign in"
+msgstr "התחברות "
+
+#: templates/wagtailadmin/login.html:18
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+
+#: templates/wagtailadmin/login.html:29
+msgid "Sign in to Wagtail"
+msgstr "התחברות לWagtail"
+
+#: templates/wagtailadmin/login.html:48
+msgid "Forgotten it?"
+msgstr "שכחתם את זה?"
+
+#: templates/wagtailadmin/notifications/approved.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr ""
+
+#: templates/wagtailadmin/notifications/approved.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr ""
+
+#: templates/wagtailadmin/notifications/approved.html:4
+msgid "You can view the page here:"
+msgstr "ניתן לראות את העמוד כאן"
+
+#: templates/wagtailadmin/notifications/base_notification.html:3
+msgid "Edit your notification preferences here:"
+msgstr "ערכו הגדרות התראות כאן"
+
+#: templates/wagtailadmin/notifications/rejected.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr ""
+
+#: templates/wagtailadmin/notifications/rejected.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr ""
+
+#: templates/wagtailadmin/notifications/rejected.html:4
+#: templates/wagtailadmin/notifications/submitted.html:5
+msgid "You can edit the page here:"
+msgstr "ניתן לערוך את העמוד כאן"
+
+#: templates/wagtailadmin/notifications/submitted.html:1
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr ""
+
+#: templates/wagtailadmin/notifications/submitted.html:2
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr ""
+
+#: templates/wagtailadmin/notifications/submitted.html:4
+msgid "You can preview the page here:"
+msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:2
+#: templates/wagtailadmin/page_privacy/set_privacy.html:2
+msgid "Page privacy"
+msgstr "הגדרות פרטיות של העמוד"
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:6
+msgid "This page has been made private by a parent page."
+msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
+msgid "You can edit the privacy settings on:"
+msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
+
+#: templates/wagtailadmin/page_privacy/set_privacy.html:6
+msgid "Privacy changes apply to all children of this page too."
+msgstr "שינויי פרטיות תקפים על כל הילדים של עמוד זה"
+
+#: templates/wagtailadmin/pages/_lock_switch.html:8
+msgid "Edit lock"
+msgstr "ערוך נעילה"
+
+#: templates/wagtailadmin/pages/_lock_switch.html:15
+msgid "Locked"
+msgstr "נעול"
+
+#: templates/wagtailadmin/pages/_lock_switch.html:25
+msgid "Unlocked"
+msgstr "בלתי נעול"
+
+#: templates/wagtailadmin/pages/_privacy_switch.html:9
+msgid "Privacy"
+msgstr "פרטיות"
+
+#: templates/wagtailadmin/pages/_privacy_switch.html:14
+#: templates/wagtailadmin/pages/_privacy_switch.html:20
+msgid "Private"
+msgstr "פרטי"
+
+#: templates/wagtailadmin/pages/add_subpage.html:6
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/add_subpage.html:9
+msgid "Create a page in"
+msgstr "צור עמוד בתוך"
+
+#: templates/wagtailadmin/pages/add_subpage.html:13
+msgid "Choose which type of page you'd like to create."
+msgstr "בחרו איזה סוג עמוד תרצו ליצור"
+
+#: templates/wagtailadmin/pages/add_subpage.html:26
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_delete.html:12
+msgid "Are you sure you want to delete this page?"
+msgstr "בטוח למחוק עמוד זה?"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:14
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
+"                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/pages/confirm_delete.html:22
+msgid ""
+"Alternatively you can unpublish the page. This removes the page from public "
+"view and you can edit or publish it again later."
+msgstr "לחילופין, ניתן להסיר מפרסום את העמוד. הדבר יסיר את העמוד מתצוגה פומבית ויאפשר עריכה ופרסום שלו שוב לאחר מכן."
+
+#: templates/wagtailadmin/pages/confirm_delete.html:26
+msgid "Delete it"
+msgstr "מחק זו"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:26
+msgid "Unpublish it"
+msgstr "ביטול פרסום"
+
+#: templates/wagtailadmin/pages/confirm_move.html:3
+#, python-format
+msgid "Move %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_move.html:6
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:27
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:30
+msgid "Move"
+msgstr "העברה"
+
+#: templates/wagtailadmin/pages/confirm_move.html:11
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_move.html:13
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_move.html:18
+msgid "Yes, move this page"
+msgstr "כן, העבר את העמוד"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:3
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:6
+#: templates/wagtailadmin/pages/edit.html:45
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:36
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:36
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:10
+msgid "Are you sure you want to unpublish this page?"
+msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:13
+msgid "Yes, unpublish it"
+msgstr "כן, בטל את הפרסום"
+
+#: templates/wagtailadmin/pages/content_type_use.html:7
+msgid "Pages using"
+msgstr "עמודים משמשים"
+
+#: templates/wagtailadmin/pages/copy.html:3
+#, python-format
+msgid "Copy %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/copy.html:6
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:30
+msgid "Copy"
+msgstr "העתק"
+
+#: templates/wagtailadmin/pages/copy.html:27
+msgid "Copy this page"
+msgstr "העתק עמוד זה"
+
+#: templates/wagtailadmin/pages/create.html:5
+#, python-format
+msgid "New %(page_type)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/create.html:15
+msgid "New"
+msgstr "חדש "
+
+#: templates/wagtailadmin/pages/create.html:29
+msgid "Save as draft"
+msgstr "שמור כטיוטה"
+
+#: templates/wagtailadmin/pages/create.html:33
+#: templates/wagtailadmin/pages/edit.html:51
+msgid "Publish"
+msgstr "פרסם"
+
+#: templates/wagtailadmin/pages/create.html:35
+#: templates/wagtailadmin/pages/edit.html:53
+msgid "Submit for moderation"
+msgstr "הזן לעריכה"
+
+#: templates/wagtailadmin/pages/edit.html:5
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/edit.html:15
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr ""
+
+#: templates/wagtailadmin/pages/edit.html:39
+msgid "Page locked"
+msgstr "עמוד נעול"
+
+#: templates/wagtailadmin/pages/edit.html:39
+msgid "Save draft"
+msgstr "שמור טיוטה"
+
+#: templates/wagtailadmin/pages/edit.html:81
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/edit.html:83
+#, python-format
+msgid "by %(modified_by)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/index.html:3
+#, python-format
+msgid "Exploring %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/list.html:25
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:42
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:45
+msgid "Updated"
+msgstr "עדכן"
+
+#: templates/wagtailadmin/pages/list.html:66
+msgid "Drag"
+msgstr "גרור"
+
+#: templates/wagtailadmin/pages/list.html:106
+msgid "No pages have been created."
+msgstr "אפס עמודים נוצרו "
+
+#: templates/wagtailadmin/pages/list.html:106
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
+msgstr ""
+
+#: templates/wagtailadmin/pages/list.html:113
+#, python-format
+msgid ""
+"\n"
+"            Page %(page_number)s of %(num_pages)s.\n"
+"        "
+msgstr ""
+
+#: templates/wagtailadmin/pages/list.html:119
+#: templates/wagtailadmin/pages/search_results.html:35
+#: templates/wagtailadmin/pages/search_results.html:37
+#: templates/wagtailadmin/pages/usage_results.html:13
+#: templates/wagtailadmin/shared/pagination_nav.html:21
+#: templates/wagtailadmin/shared/pagination_nav.html:23
+#: templates/wagtailadmin/shared/pagination_nav.html:25
+msgid "Previous"
+msgstr "קודם"
+
+#: templates/wagtailadmin/pages/list.html:124
+#: templates/wagtailadmin/pages/search_results.html:44
+#: templates/wagtailadmin/pages/search_results.html:46
+#: templates/wagtailadmin/pages/usage_results.html:18
+#: templates/wagtailadmin/shared/pagination_nav.html:32
+#: templates/wagtailadmin/shared/pagination_nav.html:34
+#: templates/wagtailadmin/shared/pagination_nav.html:36
+msgid "Next"
+msgstr "הבא"
+
+#: templates/wagtailadmin/pages/listing/_locked_indicator.html:10
+msgid "This page is locked to further editing"
+msgstr "עמוד זה נעול לעריכה"
+
+#: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
+#: templates/wagtailadmin/pages/listing/_navigation_move.html:9
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr ""
+
+#: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#: templates/wagtailadmin/pages/listing/_navigation_move.html:9
+msgid "Explore"
+msgstr "לחקור"
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr ""
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr ""
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
+msgid "Add subpage"
+msgstr "הוסף תת עמוד"
+
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
+msgid ""
+"This page is published but does not exist within a configured Site, so "
+"cannot be viewed."
+msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין אפשרות להציג אותו"
+
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:39
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:39
+msgid "Add child page"
+msgstr "הוסף עמוד ילד"
+
+#: templates/wagtailadmin/pages/listing/_privacy_indicator.html:11
+msgid "This page is protected from public view"
+msgstr "עמוד זה מוגן מתצוגה פומבית"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
+msgid "Disable ordering of child pages"
+msgstr "ביטול פקודה של עמוד ילד"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:23
+msgid "Order"
+msgstr "פקוד"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:23
+msgid "Enable ordering of child pages"
+msgstr "ביטול פקודה של עמודי ילדים"
+
+#: templates/wagtailadmin/pages/move_choose_destination.html:3
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr ""
+
+#: templates/wagtailadmin/pages/move_choose_destination.html:7
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr ""
+
+#: templates/wagtailadmin/pages/search_results.html:6
+#, python-format
+msgid ""
+"\n"
+"                    There is one matching page\n"
+"                "
+msgid_plural ""
+"\n"
+"                    There are %(counter)s matching pages\n"
+"                "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/pages/search_results.html:16
+msgid "Other searches"
+msgstr "חיפושים אחרים"
+
+#: templates/wagtailadmin/pages/search_results.html:18
+msgid "Images"
+msgstr "תמונות"
+
+#: templates/wagtailadmin/pages/search_results.html:19
+msgid "Documents"
+msgstr "מסמכים"
+
+#: templates/wagtailadmin/pages/search_results.html:20
+msgid "Users"
+msgstr "משתמשים"
+
+#: templates/wagtailadmin/pages/search_results.html:28
+#: templates/wagtailadmin/pages/usage_results.html:7
+#, python-format
+msgid ""
+"\n"
+"                Page %(page_number)s of %(num_pages)s.\n"
+"            "
+msgstr ""
+
+#: templates/wagtailadmin/pages/search_results.html:54
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr ""
+
+#: templates/wagtailadmin/pages/search_results.html:56
+msgid "Enter a search term above"
+msgstr "הכנס מונח לחיפוש"
+
+#: templates/wagtailadmin/pages/usage_results.html:24
+msgid "No pages use"
+msgstr "אף עמוד בשימוש"
+
+#: templates/wagtailadmin/shared/breadcrumb.html:6
+msgid "Home"
+msgstr "לעמוד הבית "
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:6
+msgid "January"
+msgstr "ינואר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:7
+msgid "February"
+msgstr "פברואר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:8
+msgid "March"
+msgstr "מרץ"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:9
+msgid "April"
+msgstr "אפריל"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:10
+msgid "May"
+msgstr "מאי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:11
+msgid "June"
+msgstr "יוני"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:12
+msgid "July"
+msgstr "יולי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:13
+msgid "August"
+msgstr "אוגוסט"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:14
+msgid "September"
+msgstr "ספטמבר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:15
+msgid "October"
+msgstr "אוקטובר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:16
+msgid "November"
+msgstr "נובמבר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:17
+msgid "December"
+msgstr "דצמבר"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:20
+msgid "Sun"
+msgstr "ראשון"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:21
+msgid "Mon"
+msgstr "שני"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:22
+msgid "Tue"
+msgstr "שלישי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:23
+msgid "Wed"
+msgstr "רביעי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:24
+msgid "Thu"
+msgstr "חמישי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:25
+msgid "Fri"
+msgstr "שישי"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:26
+msgid "Sat"
+msgstr "שבת"
+
+#: templates/wagtailadmin/shared/header.html:41
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailadmin/shared/main_nav.html:8
+msgid "Edit your account"
+msgstr "ערכו את חשבונכם"
+
+#: templates/wagtailadmin/shared/main_nav.html:9
+msgid "Log out"
+msgstr "התנתקות"
+
+#: templates/wagtailadmin/shared/pagination_nav.html:16
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr ""
+
+#: templates/wagtailadmin/skeleton.html:21
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
+msgstr ""
+
+#: templates/wagtailadmin/skeleton.html:23
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr "יש צורך בJavascript על מנת להתשמש בWagtail, אך הוא מכובה כרגע"
+
+#: templates/wagtailadmin/userbar/base.html:4
+msgid "User bar"
+msgstr "סרגל משתמש"
+
+#: templates/wagtailadmin/userbar/base.html:14
+msgid "Go to Wagtail admin interface"
+msgstr "כניסה למערך המנהל של Wagtail "
+
+#: templates/wagtailadmin/userbar/item_page_add.html:5
+msgid "Add a child page"
+msgstr "הוסף עמוד ילד"
+
+#: templates/wagtailadmin/userbar/item_page_add.html:5
+msgid "Add"
+msgstr "הוסף"
+
+#: views/account.py:38
+msgid "Your password has been changed successfully!"
+msgstr "סיסמתכם שונתה בהצלחה!"
+
+#: views/account.py:58
+msgid "Your preferences have been updated successfully!"
+msgstr "העדופיתכם עודכנו בהצלחה!"
+
+#: views/pages.py:155 views/pages.py:289
+msgid "This slug is already in use"
+msgstr "שדה זה כבר בשימוש"
+
+#: views/pages.py:182 views/pages.py:317
+msgid "Go live date/time must be before expiry date/time"
+msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
+
+#: views/pages.py:192 views/pages.py:327
+msgid "Expiry date/time must be in the future"
+msgstr "זמן תפוגה חייב להיות בעתיד"
+
+#: views/pages.py:224
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "עמוד {0} נוצר ופורסם"
+
+#: views/pages.py:225 views/pages.py:361 views/pages.py:795
+msgid "View live"
+msgstr "תצוגה בחי"
+
+#: views/pages.py:229
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "עמוד {0} נוצר והוזן לעריכה"
+
+#: views/pages.py:230 views/pages.py:366
+msgid "View draft"
+msgstr "הצג טיוטה"
+
+#: views/pages.py:235
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "עמוד {0} נוצר"
+
+#: views/pages.py:249
+msgid "The page could not be created due to validation errors"
+msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
+
+#: views/pages.py:360 views/pages.py:794
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "עמוד {0} פורסם"
+
+#: views/pages.py:365
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "עמוד {0} הוזן לעריכה"
+
+#: views/pages.py:371
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "עמוד {0} עודכן"
+
+#: views/pages.py:386
+msgid "The page could not be saved as it is locked"
+msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
+
+#: views/pages.py:388
+msgid "The page could not be saved due to validation errors"
+msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
+
+#: views/pages.py:401
+msgid "This page is currently awaiting moderation"
+msgstr "העמוד ממתין לעריכה"
+
+#: views/pages.py:422
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "עמוד {0} נמחק"
+
+#: views/pages.py:555
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "פרסום עמוד {0} בוטל"
+
+#: views/pages.py:607
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "עמוד {0} הוזז"
+
+#: views/pages.py:702
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "עמוד {0} ותת העמודים {1} הועתקו "
+
+#: views/pages.py:704
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "עמוד {0} הועתק "
+
+#: views/pages.py:729
+msgid "Content"
+msgstr "תוכן"
+
+#: views/pages.py:731
+msgid "Promote"
+msgstr "קידום"
+
+#: views/pages.py:733 wagtail_hooks.py:27
+msgid "Settings"
+msgstr "הגדרות"
+
+#: views/pages.py:789 views/pages.py:809 views/pages.py:829
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
+
+#: views/pages.py:814
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "עמוד {0} נדחה עבור פרסום"
+
+#: views/pages.py:855
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "עמוד {0} נעול כעת"
+
+#: views/pages.py:879
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "עמוד {0} בלתי נעול כעת"
+
+#: widgets.py:65
+msgid "Choose an item"
+msgstr "בחרו פריט"
+
+#: widgets.py:66
+msgid "Choose another item"
+msgstr "בחרו פריט נוסף"
+
+#: widgets.py:67
+msgid "Clear choice"
+msgstr "נקה בחירה"
+
+#: widgets.py:68
+msgid "Edit this item"
+msgstr "ערוך פריט זה"
+
+#: widgets.py:115
+msgid "Choose another page"
+msgstr "בחרו עמוד נוסף"
