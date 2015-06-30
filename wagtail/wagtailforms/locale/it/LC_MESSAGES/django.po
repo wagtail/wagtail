@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-06-30 06:29+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Testo linea singola"
+
+msgid "Multi-line text"
+msgstr "Testo multi-linea"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Number"
+msgstr "Numero"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "Checkboxes"
+msgstr "Checkboxes"
+
+msgid "Drop down"
+msgstr "Drop down"
+
+msgid "Radio buttons"
+msgstr "Radio buttons"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/ora"
+
+msgid "Submit time"
+msgstr "Ora di invio"
+
+msgid "Form Submission"
+msgstr "Invio Form"
+
+msgid "Label"
+msgstr "Etichetta"
+
+msgid "The label of the form field"
+msgstr "Etichetta per il campo del form"
+
+msgid "Field type"
+msgstr "Tipo di campo"
+
+msgid "Required"
+msgstr "Richiesto"
+
+msgid "Choices"
+msgstr "Voci"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Lista di voci separate da virgola. Applicabile soltanto a checkboxes, radio "
+"e dropdown"
+
+msgid "Default value"
+msgstr "Valore di default"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "Valore di default. Valori separati da virgola per checkboxes."
+
+msgid "Help text"
+msgstr "Testo di aiuto"
+
+msgid "To address"
+msgstr "Indirizzo destinazione"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+"Optional - All'invio il form verrà spedito per email a questo indirizzo"
+
+msgid "From address"
+msgstr "Indirizzo mittente"
+
+msgid "Subject"
+msgstr "Oggetto"
+
+msgid "Forms"
+msgstr "Forms"
+
+msgid "Pages"
+msgstr "Pagine"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Invio di %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Form data <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Download CSV"
+msgstr "Scarica CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non ci sono invii del form '%(title)s' "
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Submission Date"
+msgstr "Data di invio"
+
+msgid "No form pages have been created."
+msgstr "Nessuna pagina form è stata creata."

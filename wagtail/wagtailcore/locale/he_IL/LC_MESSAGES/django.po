@@ -4,13 +4,14 @@
 #
 # Translators:
 # bjesus <bjesus@gmail.com>, 2015
+# lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-26 15:18+0000\n"
-"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"PO-Revision-Date: 2015-06-20 13:13+0000\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,26 @@ msgstr ""
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Hostname"
+msgstr "שם מארח"
+
+msgid "Port"
+msgstr "מעגן"
+
+msgid "Root page"
+msgstr "עמוד שורש"
+
+msgid "Is default site"
+msgstr "הוא אתר ברירת המחדל"
+
 msgid "Site"
 msgstr "אתר"
 
 msgid "Title"
 msgstr "כותרת"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "כותרת העמוד כפי שתרצו שתוצג בציבור"
 
 msgid "Content type"
 msgstr "סוג תוכן"
@@ -46,17 +62,33 @@ msgstr "כותרת העמוד"
 msgid "Show in menus"
 msgstr "הצגה בתפריטים"
 
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "האם קישור לעמוד זה יופיע בתפריטים המיוצרים אוטומטית"
+
 msgid "Search description"
 msgstr "תיאור עבור מנועי חיפוש"
 
 msgid "Go live date/time"
 msgstr "מועד עליה לאוויר"
 
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "אנא הכניסו תאריך ושעה בצורה YYYY-MM-DD hh:mm."
+
+msgid "Expiry date/time"
+msgstr "תאריך וזמן תפוגה"
+
 msgid "Expired"
 msgstr "פג תוקף"
 
 msgid "Locked"
 msgstr "נעול"
+
+msgid "First published at"
+msgstr "פורסם לראשונה ב:"
+
+msgid "Latest revision created at"
+msgstr "גרסא אחרונה נוצרה ב:"
 
 msgid "expired"
 msgstr "פק תוקף"
@@ -79,8 +111,17 @@ msgstr "ברירת מחדל"
 msgid "Page"
 msgstr "עמוד"
 
+msgid "Submitted for moderation"
+msgstr "הוזן לבדיקה"
+
+msgid "Created at"
+msgstr "נוצר ב:"
+
 msgid "User"
 msgstr "משתמש"
+
+msgid "Approved go live at"
+msgstr "מאושר לעלייה לאוויר ב:"
 
 msgid "Page Revision"
 msgstr "מהדורת עמוד"
@@ -90,3 +131,27 @@ msgstr "הוספת/עריכת דפים שאתה הבעלים שלהם"
 
 msgid "Add/edit any page"
 msgstr "הוספת/עריכת כל עמוד"
+
+msgid "Publish any page"
+msgstr "פרסום כל עמוד"
+
+msgid "Lock/unlock any page"
+msgstr "נעל/ בטל נעילה כל עמוד"
+
+msgid "Group"
+msgstr "קבוצה "
+
+msgid "Permission type"
+msgstr "סוג הרשאה "
+
+msgid "Group Page Permission"
+msgstr "הרשאה לעמוד קבוצה"
+
+msgid "Password"
+msgstr "סיסמא"
+
+msgid "Page View Restriction"
+msgstr "מגבלות תצוגת דף"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "אין להזין רווח בין התווים"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Claudio Bantaloukas <rockdreamer@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-05 12:57+0000\n"
-"Last-Translator: Claudio Bantaloukas <rockdreamer@gmail.com>\n"
+"PO-Revision-Date: 2015-06-30 06:15+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,14 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Cerca termine(i)/frase"
 
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Si prega di specificare almeno una raccomandazione per questo termine di "
+"ricerca."
+
+msgid "Query Daily Hits"
+msgstr "Query giornaliere"
+
 msgid "Page"
 msgstr "Pagina"
 
@@ -31,11 +40,22 @@ msgstr "Descrizione"
 msgid "Save"
 msgstr "Salva"
 
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Elimina %(query)s"
+
 msgid "Delete"
 msgstr "Elimina"
 
 msgid "Yes, delete"
 msgstr "Si, elimina"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Modifica %(query)s"
+
+msgid "Editing"
+msgstr "Modifica"
 
 msgid "Move up"
 msgstr "Vai su"
@@ -43,14 +63,44 @@ msgstr "Vai su"
 msgid "Move down"
 msgstr "Vai giù"
 
+msgid "Add recommended page"
+msgstr "Aggiungi pagina raccomandata"
+
 msgid "Search Terms"
 msgstr "Termini di ricerca"
 
 msgid "Search term(s)"
 msgstr "Termine(i) di ricerca"
 
+msgid "Views (past week)"
+msgstr "Viste (scorsa settimana)"
+
+msgid "Edit this pick"
+msgstr "Modifica questa scelta"
+
 msgid "None"
 msgstr "Nessuno"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è una corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
+msgid "Popular search terms"
+msgstr "Termini di ricerca popolari"
 
 msgid "Search"
 msgstr "Cerca"
@@ -63,6 +113,9 @@ msgstr "Nessun risultato"
 
 msgid "Date"
 msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Scegli tra un termine di ricerca popolare"
 
 msgid "Edit"
 msgstr "Modifica"
