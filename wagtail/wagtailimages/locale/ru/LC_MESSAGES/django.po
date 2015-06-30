@@ -5,14 +5,15 @@
 # Translators:
 # ajk, 2014
 # Eugene MechanisM <contact@mechanism.name>, 2014-2015
+# mattwestcott <matthew@torchbox.com>, 2015
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-28 06:54+0000\n"
-"Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
+"PO-Revision-Date: 2015-06-29 18:49+0000\n"
+"Last-Translator: mattwestcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -161,9 +162,12 @@ msgstr[0] ""
 "    "
 msgstr[1] ""
 "\n"
-"        <span>%(total)s</span> Изображений\n"
+"        <span>%(total)s</span> Изображения\n"
 "    "
 msgstr[2] ""
+"\n"
+"        <span>%(total)s</span> Изображений\n"
+"    "
 msgstr[3] ""
 "\n"
 "        <span>%(total)s</span> Изображений\n"

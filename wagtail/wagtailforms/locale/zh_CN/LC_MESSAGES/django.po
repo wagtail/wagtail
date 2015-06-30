@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 16:42+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,24 @@ msgstr "日期"
 
 msgid "Date/time"
 msgstr "日期/时间"
+
+msgid "Submit time"
+msgstr "提交时间"
+
+msgid "Field type"
+msgstr "字段类型"
+
+msgid "Required"
+msgstr "必需"
+
+msgid "Choices"
+msgstr "选择"
+
+msgid "Default value"
+msgstr "默认值"
+
+msgid "Help text"
+msgstr "帮助文本"
 
 msgid "Forms"
 msgstr "表单"

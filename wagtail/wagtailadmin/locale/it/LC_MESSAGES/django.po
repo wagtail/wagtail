@@ -5,13 +5,14 @@
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # andrea tagliazucchi <andreatagliazucchi@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-05-08 22:10+0000\n"
-"Last-Translator: Alessio Di Stasio <aledista@gmail.com>\n"
+"PO-Revision-Date: 2015-06-30 06:21+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +50,7 @@ msgid ""
 "Sorry, you cannot reset your password here as your user account is managed "
 "by another server."
 msgstr ""
-"Non puoi resterai la password perché il tuo account è gestito da un altro "
+"Non puoi resettare la password perché il tuo account è gestito da un altro "
 "server"
 
 msgid "This email address is not recognised."
@@ -215,6 +216,24 @@ msgstr ""
 "Solo pagine del tipo \"%(type)s\" possono esser scelte per questo campo. I "
 "risultati della ricerca escluderanno pagina di altro tipo."
 
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        C'è una corrispondenza\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Ci sono %(counter)s corrispondenze\n"
+"    "
+
 msgid "Choose"
 msgstr "Scegli"
 
@@ -298,14 +317,32 @@ msgstr "Live"
 msgid "Site summary"
 msgstr "Sommario del sito"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Pagina\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Pagine\n"
+"    "
+
 msgid "Sign in"
 msgstr "Loggati"
 
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
-"Il tuo %(username_field)s e password sono corrispondono. Per favore prova "
-"nuovamente"
+"Il tuo %(username_field)s e password non corrispondono. Per favore prova "
+"nuovamente."
 
 msgid "Sign in to Wagtail"
 msgstr "Loggati in Wagtail"
@@ -358,6 +395,11 @@ msgstr "Questa pagina è stata resa privata dalla pagina padre."
 msgid "You can edit the privacy settings on:"
 msgstr "Puoi modificare le tue preferenze di privacy su:"
 
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Modifiche della privacy applicate anche a tutte le pagine figlio di questa "
+"pagina."
+
 msgid "Edit lock"
 msgstr "Modifica blocco"
 
@@ -393,6 +435,26 @@ msgstr "Elimina %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Sei sicuro di voler eliminare questa pagina?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Questo cancellerà anche una sottopagina.\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Questo cancellerà anche %(descendant_count)s altre "
+"sottopagine.\n"
+"                "
 
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
@@ -509,6 +571,16 @@ msgstr "Nessuna pagina è stata creata."
 msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
 msgstr "Perché non <a href=\"%(add_page_url)s\">l'aggiungi</a>?"
 
+#, python-format
+msgid ""
+"\n"
+"            Page %(page_number)s of %(num_pages)s.\n"
+"        "
+msgstr ""
+"\n"
+"            Pagina %(page_number)s di %(num_pages)s.\n"
+"        "
+
 msgid "Previous"
 msgstr "Precedente"
 
@@ -566,6 +638,24 @@ msgstr "Seleziona una nuova pagina padre per %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Seleziona una nuova pagina padre per <span>%(title)s</span>"
 
+#, python-format
+msgid ""
+"\n"
+"                    There is one matching page\n"
+"                "
+msgid_plural ""
+"\n"
+"                    There are %(counter)s matching pages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    C'è una pagina corrispondente\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Ci sono %(counter)s pagine corrispondenti\n"
+"                "
+
 msgid "Other searches"
 msgstr "Altre ricerche"
 
@@ -577,6 +667,16 @@ msgstr "Documenti"
 
 msgid "Users"
 msgstr "Utenti"
+
+#, python-format
+msgid ""
+"\n"
+"                Page %(page_number)s of %(num_pages)s.\n"
+"            "
+msgstr ""
+"\n"
+"                Pagina %(page_number)s di %(num_pages)s.\n"
+"            "
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -744,6 +844,63 @@ msgstr "La pagina non può esser salvata perché è bloccata"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La pagina non può esser salvata a causa di errori di validazione"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Questa pagina è attualmente in attesa di moderazione"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Pagina '{0}' eliminata."
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Pagina '{0}' non pubblicata."
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Page '{0}' spostata."
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Pagina '{0}' e {1} sottopagine copiate."
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "Pagina '{0}' copiata."
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "Promote"
+msgstr "Promuovi"
+
+msgid "Settings"
+msgstr "Settings"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "La pagina '{0}' non è al momento in attesa di moderazione."
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "Pagina '{0}' respinta per la pubblicazione."
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Pagina '{0}' bloccata."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' sbloccata."
+
+msgid "Choose an item"
+msgstr "Scegli un elemento"
+
+msgid "Choose another item"
+msgstr "Scegli un' altro elemento"
+
+msgid "Edit this item"
+msgstr "Modifica questo elemento"
 
 msgid "Choose another page"
 msgstr "Scegli un'altra pagina"

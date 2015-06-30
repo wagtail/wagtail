@@ -7,14 +7,15 @@
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-28 22:38+0000\n"
+"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,15 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Editor's Pick"
+msgstr "Redaktionsempfehlung"
 
 msgid "Add editor's pick"
 msgstr "Redaktionsempfehlung hinzufügen"

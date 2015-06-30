@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 17:18+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr "请输入一个有效的URL"
 msgid "URL"
 msgstr "URL"
 
+msgid "Embed"
+msgstr "Embed"
+
 msgid "Insert embed"
 msgstr "插入embed"
 
@@ -39,3 +42,8 @@ msgstr "embedly API key有问题，请检查设置"
 
 msgid "Cannot find an embed for this URL."
 msgstr "无法在URL中找到embed"
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr "在执行嵌入此URL时出现错误，请稍后再试。"
