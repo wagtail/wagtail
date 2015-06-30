@@ -11,6 +11,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.contrib.wagtailapi import signal_handlers
 
 from wagtail.tests.demosite import models
+from wagtail.tests.testapp.models import StreamPage
 
 
 def get_total_page_count():
@@ -592,6 +593,31 @@ class TestPageDetail(TestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
+
+
+class TestPageDetailWithStreamField(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        homepage = Page.objects.get(url_path='/home/')
+        self.stream_page = StreamPage(
+            title='stream page', slug='stream-page',
+            body='[{"type": "text", "value": "foo"}]')
+        homepage.add_child(instance=self.stream_page)
+
+    def test_can_fetch_streamfield_content(self):
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(self.stream_page.id, ))
+        response = self.client.get(response_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('id', content)
+        self.assertEqual(content['id'], self.stream_page.id)
+        self.assertIn('body', content)
+        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
 
 
 @override_settings(
