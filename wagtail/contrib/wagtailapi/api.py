@@ -10,6 +10,7 @@ from taggit.managers import _TaggableManager
 from taggit.models import Tag
 
 from wagtail.utils.urlpatterns import decorate_urlpatterns
+from wagtail.wagtailcore.blocks import StreamValue
 
 from .endpoints import URLPath, ObjectDetailURL, PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
 from .utils import BadRequestError, get_base_url
@@ -47,6 +48,8 @@ class API(object):
                         return get_full_url(request, reverse(view, args=(o.pk, )))
                     else:
                         return None
+                elif isinstance(o, StreamValue):
+                    return o.stream_block.get_prep_value(o)
                 else:
                     return super(WagtailAPIJSONEncoder, self).default(o)
 

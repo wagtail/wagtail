@@ -410,3 +410,13 @@ class StreamModel(models.Model):
         ('rich_text', RichTextBlock()),
         ('image', ImageChooserBlock()),
     ])
+
+
+class StreamPage(Page):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+    api_fields = ('body',)
