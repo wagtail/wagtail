@@ -1,148 +1,242 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
-"de/)\n"
+"PO-Revision-Date: 2015-06-29 13:28+0000\n"
+"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: models.py:53
 msgid "Hostname"
 msgstr "Hostname"
 
+#: models.py:54
 msgid "Port"
 msgstr "Port"
 
+#: models.py:54
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
-msgstr ""
-"Geben Sie hier einen anderen Wert als 80 ein, wenn dieser in URLs auftauchen "
-"soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request "
-"Handling, so dass Port Forwarding weiterhin funktioniert."
+msgstr "Geben Sie hier einen anderen Wert als 80 ein, wenn dieser in URLs auftauchen soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request Handling, so dass Port Forwarding weiterhin funktioniert."
 
+#: models.py:55
 msgid "Root page"
 msgstr "Ursprungsseite"
 
+#: models.py:56
 msgid "Is default site"
 msgstr "Ist die standardmäßige Website"
 
+#: models.py:56
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
-msgstr ""
-"Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die "
-"keinen eigenen Seiteneintrag haben."
+msgstr "Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die keinen eigenen Seiteneintrag haben."
 
+#: models.py:60
+msgid "Site"
+msgstr "Webseite"
+
+#: models.py:118
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
-msgstr ""
-"%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
-"Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
+msgstr "%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
 
+#: models.py:266
 msgid "Title"
 msgstr "Titel"
 
+#: models.py:266
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
 
+#: models.py:267
 msgid "Slug"
 msgstr "Kugel"
 
+#: models.py:267
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
-msgstr ""
-"Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain."
-"com/blog/[my-slug]/"
+"The name of the page as it will appear in URLs e.g http://domain.com/blog"
+"/[my-slug]/"
+msgstr "Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain.com/blog/[my-slug]/"
 
+#: models.py:270
+msgid "Content type"
+msgstr "Inhaltstyp"
+
+#: models.py:271
+msgid "Live"
+msgstr "Veröffentlicht"
+
+#: models.py:272
+msgid "Has unpublished changes"
+msgstr "Hat unveröffentlichte Änderungen"
+
+#: models.py:273
+msgid "URL path"
+msgstr "URL Pfad"
+
+#: models.py:274
+msgid "Owner"
+msgstr "Eigner"
+
+#: models.py:276
 msgid "Page title"
 msgstr "Seitentitel"
 
+#: models.py:276
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des "
-"Browsers angezeigt."
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the"
+" browser window."
+msgstr "Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des Browsers angezeigt."
 
+#: models.py:277
 msgid "Show in menus"
 msgstr "In Menüs anzeigen"
 
+#: models.py:277
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
-msgstr ""
-"Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
+msgstr "Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
 
+#: models.py:278
 msgid "Search description"
 msgstr "Suchbeschreibung"
 
+#: models.py:280
 msgid "Go live date/time"
 msgstr "Veröffentlichungszeitpunkt"
 
+#: models.py:280 models.py:281
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
 msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ei."
 
+#: models.py:281
 msgid "Expiry date/time"
 msgstr "Verfallszeitpunkt"
 
+#: models.py:282
+msgid "Expired"
+msgstr "Abgelaufen"
+
+#: models.py:284
+msgid "Locked"
+msgstr "Gesperrt"
+
+#: models.py:286
+msgid "First published at"
+msgstr "Zuerst publiziert am"
+
+#: models.py:287
+msgid "Latest revision created at"
+msgstr "Neuste Revision erstellt am"
+
+#: models.py:710
 msgid "expired"
 msgstr "abgelaufen"
 
+#: models.py:712
 msgid "scheduled"
 msgstr "geplant"
 
+#: models.py:714
 msgid "draft"
 msgstr "Entwurf"
 
+#: models.py:717
 msgid "live + draft"
 msgstr "Veröffentlicht + Entwurf"
 
+#: models.py:719
 msgid "live"
 msgstr "Veröffentlicht"
 
+#: models.py:885
 msgid "Default"
 msgstr "Standard"
 
+#: models.py:1061 models.py:1178 models.py:1405
 msgid "Page"
 msgstr "Seite"
 
+#: models.py:1062
+msgid "Submitted for moderation"
+msgstr "Zur Freischaltung eingereicht"
+
+#: models.py:1063
+msgid "Created at"
+msgstr "Erstellt am"
+
+#: models.py:1064
+msgid "User"
+msgstr "Benutzer"
+
+#: models.py:1065
+msgid "Content JSON"
+msgstr "Inhalts-JSON"
+
+#: models.py:1066
+msgid "Approved go live at"
+msgstr "Freigegeben zur Veröffentlichung am"
+
+#: models.py:1165
+msgid "Page Revision"
+msgstr "Seitenrevision"
+
+#: models.py:1169
 msgid "Add/edit pages you own"
 msgstr "Bearbeiten/Hinzufügen von Seiten, die Sie besitzen"
 
+#: models.py:1170
 msgid "Add/edit any page"
 msgstr "Hinzufügen/jede Seite bearbeiten"
 
+#: models.py:1171
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
 
+#: models.py:1172
 msgid "Lock/unlock any page"
 msgstr "Sperren/Entsperren jeder Seite"
 
+#: models.py:1177
 msgid "Group"
 msgstr "Gruppe"
 
+#: models.py:1179
 msgid "Permission type"
 msgstr "Berechtigungstyp"
 
+#: models.py:1183
+msgid "Group Page Permission"
+msgstr ""
+
+#: models.py:1406
 msgid "Password"
 msgstr "Passwort"
 
+#: models.py:1409
+msgid "Page View Restriction"
+msgstr ""
+
+#: validators.py:15
 msgid "Value cannot be entirely whitespace characters"
 msgstr "Der Wert darf nicht vollständig Leerzeichen enthalten"

@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# lior abazon <abazon@v15.org.il>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-06-20 14:04+0000\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/wagtailsnippets/chooser/choose.html:2
+msgid "Choose"
+msgstr "בחרו"
+
+#: templates/wagtailsnippets/chooser/choose.html:10
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one"
+" now"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/list.html:11
+#: templates/wagtailsnippets/snippets/list.html:8
+#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Title"
+msgstr "כותרת "
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:3
+#, python-format
+msgid "Delete %(snippet_type_name)s - %(instance)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:6
+#: templates/wagtailsnippets/snippets/edit.html:20
+msgid "Delete"
+msgstr "מחק"
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:10
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:13
+msgid "Yes, delete"
+msgstr "כן, מחק"
+
+#: templates/wagtailsnippets/snippets/create.html:3
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:6
+msgid "New"
+msgstr "חדש"
+
+#: templates/wagtailsnippets/snippets/create.html:17
+#: templates/wagtailsnippets/snippets/edit.html:17
+msgid "Save"
+msgstr "שמור"
+
+#: templates/wagtailsnippets/snippets/edit.html:3
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:6
+msgid "Editing"
+msgstr "עריכה"
+
+#: templates/wagtailsnippets/snippets/index.html:3 wagtail_hooks.py:29
+msgid "Snippets"
+msgstr "קטעים"
+
+#: templates/wagtailsnippets/snippets/type_index.html:3
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:10
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:13
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:23
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr "שימוש ב:"
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr "הורה"
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr "סוג"
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr "סטטוס"
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr "ערוך עמוד זה"
+
+#: views/snippets.py:136
+#, python-brace-format
+msgid "{snippet_type} '{instance}' created."
+msgstr ""
+
+#: views/snippets.py:141 views/snippets.py:184
+msgid "Edit"
+msgstr "ערוך"
+
+#: views/snippets.py:146
+msgid "The snippet could not be created due to errors."
+msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
+
+#: views/snippets.py:179
+#, python-brace-format
+msgid "{snippet_type} '{instance}' updated."
+msgstr ""
+
+#: views/snippets.py:189
+msgid "The snippet could not be saved due to errors."
+msgstr "לא ניתן לשמור את הקטע עקב שגיאה"
+
+#: views/snippets.py:217
+#, python-brace-format
+msgid "{snippet_type} '{instance}' deleted."
+msgstr ""
+
+#: widgets.py:17
+#, python-format
+msgid "Choose %s"
+msgstr "בחר %s"
+
+#: widgets.py:18
+#, python-format
+msgid "Choose another %s"
+msgstr "בחר %s נוסף"
+
+#: widgets.py:19
+#, python-format
+msgid "Edit this %s"
+msgstr "ערוך את %s זה"
