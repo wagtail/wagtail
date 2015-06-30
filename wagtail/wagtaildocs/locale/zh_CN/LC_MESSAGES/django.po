@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 17:08+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +25,17 @@ msgstr "标题"
 msgid "File"
 msgstr "文件"
 
+msgid "Created at"
+msgstr "创建于"
+
+msgid "Uploaded by user"
+msgstr "用户上传"
+
 msgid "Tags"
 msgstr "标签"
+
+msgid "Document"
+msgstr "文档"
 
 msgid "Choose a document"
 msgstr "选择一个文档"
@@ -90,6 +99,12 @@ msgstr "编辑%(title)s"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
 msgid "Documents"
 msgstr "文档"
 
@@ -103,6 +118,13 @@ msgid ""
 msgstr ""
 "还没有文档呢。<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</a>吧？"
 
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s的使用情况"
+
+msgid "Usage of"
+msgstr "使用情况"
+
 msgid "Parent"
 msgstr "父节点"
 
@@ -115,12 +137,29 @@ msgstr "状态"
 msgid "Edit this page"
 msgstr "编辑页面"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> 文档\n"
+"    "
+
 msgid "Search documents"
 msgstr "搜索文档"
 
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}' 已添加"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "The document could not be saved due to errors."
 msgstr "无法保存文档，出现错误。"
@@ -129,9 +168,19 @@ msgstr "无法保存文档，出现错误。"
 msgid "Document '{0}' updated"
 msgstr "文档'{0}' 已更新"
 
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "无法找到文件。请修改源或者删除文档。"
+
+msgid "Delete"
+msgstr "删除"
+
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
 
 msgid "Choose another document"
 msgstr "选择另一个文档"
+
+msgid "Edit this document"
+msgstr "编辑此文档"

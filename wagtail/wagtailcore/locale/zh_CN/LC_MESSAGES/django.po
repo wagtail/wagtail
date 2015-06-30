@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-06-29 16:54+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Hostname"
+msgstr "主机名"
+
+msgid "Port"
+msgstr "端口"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"将此处设置为一个非80的值，如果你需要指定显示在URL中的端口（如8000）。不影响请"
+"求处理（端口转发依旧有效）。"
+
+msgid "Root page"
+msgstr "根页面"
+
+msgid "Is default site"
+msgstr "是默认站点"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "如果勾选，此站点将处理通过其它主机名访问的，尚没有站点内容的请求。"
+
+msgid "Site"
+msgstr "站点"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s已被配置为默认站点。在您将此站点设置为默认前，您必须取消原来的默"
+"认站点。"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "页面标题，向公众展示。"
+
+msgid "Slug"
+msgstr "缩写"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "用于URL的页面名称，如http://domain.com/work/[my-work]/"
+
+msgid "Content type"
+msgstr "内容类型"
+
+msgid "Live"
+msgstr "发布"
+
+msgid "Has unpublished changes"
+msgstr "已取消发布更改"
+
+msgid "URL path"
+msgstr "URL路径"
+
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Page title"
+msgstr "页面标题"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr "可选。“对搜索引擎友好”的标题。这将出现在浏览器顶部"
+
+msgid "Show in menus"
+msgstr "在菜单中显示"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "是否需要在自动生成的菜单中出现此页面的链接。"
+
+msgid "Search description"
+msgstr "搜索描述"
+
+msgid "Go live date/time"
+msgstr "发布 日期/时间"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "请输入一个YYYY-MM-DD hh:mm:ss格式的日期时间。如 1989-06-04 01:23:45"
+
+msgid "Expiry date/time"
+msgstr "过期 日期/时间"
+
+msgid "Expired"
+msgstr "已过期"
+
+msgid "Locked"
+msgstr "已锁定"
+
+msgid "First published at"
+msgstr "第一次发布于"
+
+msgid "Latest revision created at"
+msgstr "最近修订版本创建于"
+
+msgid "expired"
+msgstr "已过期"
+
+msgid "scheduled"
+msgstr "已计划"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + draft"
+msgstr "上线+草稿"
+
+msgid "live"
+msgstr "发布"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Submitted for moderation"
+msgstr "已提交审核"
+
+msgid "Created at"
+msgstr "创建于"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Content JSON"
+msgstr "内容JSON"
+
+msgid "Approved go live at"
+msgstr "批准上线于"
+
+msgid "Page Revision"
+msgstr "页面修订版本"
+
+msgid "Add/edit pages you own"
+msgstr "增加/编辑所属的页面"
+
+msgid "Add/edit any page"
+msgstr "添加/编辑任意页面"
+
+msgid "Publish any page"
+msgstr "发布任意页面"
+
+msgid "Lock/unlock any page"
+msgstr "锁定/解锁任意页面"
+
+msgid "Group"
+msgstr "组"
+
+msgid "Permission type"
+msgstr "权限类型"
+
+msgid "Group Page Permission"
+msgstr "群页面权限"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Page View Restriction"
+msgstr "页面查看限制"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "值不能为空白字符"

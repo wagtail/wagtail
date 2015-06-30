@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 17:01+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,32 @@ msgstr ""
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "不支持的图片格式。支持类型如下： %s"
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "无效的 %s图像"
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_upload_size)s."
+msgstr "文件过大。最大限制为%(max_upload_size)s"
+
+#, python-format
+msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
+msgstr "文件过大 (%%(max_upload_size)s)。最大文件大小为%s。"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr "支持的格式：%(supported_formats)s。最大文件大小：%(max_upload_size)s。"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "支持的格式：%(supported_formats)s。"
 
 msgid "Filter"
 msgstr "过滤器"
@@ -54,6 +80,12 @@ msgstr "标题"
 
 msgid "File"
 msgstr "文件"
+
+msgid "Created at"
+msgstr "创建于"
+
+msgid "Uploaded by user"
+msgstr "用户上传"
 
 msgid "Tags"
 msgstr "标签"
@@ -93,6 +125,23 @@ msgstr "选择格式"
 msgid "Insert image"
 msgstr "插入图像"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> 图像\n"
+"    "
+
+msgid "Change image file:"
+msgstr "修改图像文件"
+
 msgid "Add an image"
 msgstr "增加图像"
 
@@ -117,6 +166,26 @@ msgstr "编辑图像%(title)s"
 
 msgid "Editing"
 msgstr "编辑"
+
+msgid "Focal point (optional)"
+msgstr "焦点（可选）"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr "定义此图像的重要区域，拖动下面的盒子到图像上。"
+
+msgid "URL Generator"
+msgstr "URL生成器"
+
+msgid "Max dimensions"
+msgstr "最大尺寸"
+
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
 
 msgid "Images"
 msgstr "图像"
@@ -146,6 +215,13 @@ msgid ""
 "previewed here, so they fit the screen."
 msgstr ""
 "备注：生成的图片大于屏幕时，在预览时可能显示会小一些。因为是适应屏幕的。"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s的使用情况"
+
+msgid "Usage of"
+msgstr "使用情况"
 
 msgid "Parent"
 msgstr "父节点"
@@ -194,8 +270,16 @@ msgstr "搜索图片"
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新。"
 
+msgid "Edit again"
+msgstr "再次编辑"
+
 msgid "The image could not be saved due to errors."
 msgstr "图片无法保存。出现错误。"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "无法找到源图像文件。请修改源或者删除图像。"
 
 #, python-brace-format
 msgid "Image '{0}' deleted."
@@ -205,8 +289,14 @@ msgstr "图片'{0}' 已删除。"
 msgid "Image '{0}' added."
 msgstr "图片'{0}'已添加"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "The image could not be created due to errors."
 msgstr "无法创建图像，出现错误。"
 
 msgid "Choose another image"
 msgstr "选择另一个图像"
+
+msgid "Edit this image"
+msgstr "编辑此图像"

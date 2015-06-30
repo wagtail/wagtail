@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 17:09+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Redirect from"
 msgstr "转向源"
+
+msgid "Site"
+msgstr "站点"
 
 msgid "Permanent"
 msgstr "永久"
@@ -36,6 +39,9 @@ msgstr "转向到页面"
 
 msgid "Redirect to any URL"
 msgstr "转向到任意URL"
+
+msgid "Redirect"
+msgstr "转向"
 
 msgid "Add redirect"
 msgstr "增加转向"
@@ -116,6 +122,9 @@ msgstr "搜索转向"
 #, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "转向'{0}'已更新"
+
+msgid "Edit"
+msgstr "已编辑"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "转向不能保存。出现错误。"

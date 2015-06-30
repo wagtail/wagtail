@@ -8,14 +8,15 @@
 # karlsander <karlsander@gmail.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-28 22:34+0000\n"
+"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,8 +31,17 @@ msgstr "Titel"
 msgid "File"
 msgstr "Datei"
 
+msgid "Created at"
+msgstr "Erstellt am"
+
+msgid "Uploaded by user"
+msgstr "Hochgeladen von Benutzer"
+
 msgid "Tags"
 msgstr "Schlagwörter"
+
+msgid "Document"
+msgstr "Dokument"
 
 msgid "Choose a document"
 msgstr "Dokument auswählen"
