@@ -13,7 +13,7 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+          'BACKEND': 'wagtail.wagtailsearch.backends.db',
       }
   }
 
@@ -51,7 +51,11 @@ Here's a list of backends that Wagtail supports out of the box.
 Database Backend (default)
 --------------------------
 
-``wagtail.wagtailsearch.backends.db.DBSearch``
+``wagtail.wagtailsearch.backends.db``
+
+.. versionchanged:: 1.1
+
+    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.db.DBSearch``
 
 The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance making it not very useful when searching a large amount of pages.
 
@@ -67,7 +71,11 @@ If any of these features are important to you, we recommend using Elasticsearch 
 Elasticsearch Backend
 ---------------------
 
-``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
+``wagtail.wagtailsearch.backends.elasticsearch``
+
+.. versionchanged:: 1.1
+
+    Before 1.1, the full path to the backend class had to be specified: ``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``
 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package:
 
