@@ -97,6 +97,10 @@ def edit(request, image_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
+
+                # Set new image file size
+                image.file_size = image.file.size
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed
@@ -238,6 +242,9 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
+            # Set image file size
+            image.file_size = image.file.size
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed
