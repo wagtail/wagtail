@@ -1,9 +1,9 @@
 from django.db import models
 
-from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
+from wagtail.wagtailsearch.backends.base import BaseSearchBackend, BaseSearchQuery, BaseSearchResults
 
 
-class DBSearchQuery(BaseSearchQuery):
+class DatabaseSearchQuery(BaseSearchQuery):
     def _process_lookup(self, field, lookup, value):
         return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
 
@@ -55,7 +55,7 @@ class DBSearchQuery(BaseSearchQuery):
         return q
 
 
-class DBSearchResults(BaseSearchResults):
+class DatabaseSearchResults(BaseSearchResults):
     def get_queryset(self):
         model = self.query.queryset.model
         q = self.query.get_q()
@@ -69,9 +69,9 @@ class DBSearchResults(BaseSearchResults):
         return self.get_queryset().count()
 
 
-class DBSearch(BaseSearch):
+class DatabaseSearchBackend(BaseSearchBackend):
     def __init__(self, params):
-        super(DBSearch, self).__init__(params)
+        super(BaseSearchBackend, self).__init__(params)
 
     def reset_index(self):
         pass # Not needed
@@ -92,7 +92,7 @@ class DBSearch(BaseSearch):
         pass # Not needed
 
     def _search(self, queryset, query_string, fields=None):
-        return DBSearchResults(self, DBSearchQuery(queryset, query_string, fields=fields))
+        return DatabaseSearchResults(self, DatabaseSearchQuery(queryset, query_string, fields=fields))
 
 
-SearchBackend = DBSearch
+SearchBackend = DatabaseSearchBackend
