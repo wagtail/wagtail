@@ -33,6 +33,10 @@ def post_delete_signal_handler(instance, **kwargs):
 
 
 def register_signal_handlers():
+    # Don't register signal handlers if there are no backends that need them
+    if not list(get_search_backends(with_auto_update=True)):
+        return
+
     # Loop through list and register signal handlers for each one
     for model in get_indexed_models():
         post_save.connect(post_save_signal_handler, sender=model)
