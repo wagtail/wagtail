@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 import json
-import re
+import os
 
 from six import text_type
 
@@ -34,9 +34,6 @@ FORM_FIELD_CHOICES = (
     ('date', _('Date')),
     ('datetime', _('Date/time')),
 )
-
-
-HTML_EXTENSION_RE = re.compile(r"(.*)\.html")
 
 
 @python_2_unicode_compatible
@@ -133,15 +130,18 @@ class AbstractForm(Page):
 
     form_builder = FormBuilder
     is_abstract = True  # Don't display me in "Add"
-
-    def __init__(self, *args, **kwargs):
-        super(AbstractForm, self).__init__(*args, **kwargs)
-        if not hasattr(self, 'landing_page_template'):
-            template_wo_ext = re.match(HTML_EXTENSION_RE, self.template).group(1)
-            self.landing_page_template = template_wo_ext + '_landing.html'
+    landing_page_template = None
 
     class Meta:
         abstract = True
+
+    def get_landing_page_template(self, request):
+        if self.landing_page_template:
+            return self.landing_page_template
+
+        main_template = self.get_template(request)
+        main_template_wo_ext = os.path.splitext(main_template)[0]
+        return main_template_wo_ext + '_landing.html'
 
     def get_form_class(self):
         fb = self.form_builder(self.form_fields.all())
@@ -172,13 +172,13 @@ class AbstractForm(Page):
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
-                return render(request, self.landing_page_template, {
+                return render(request, self.get_landing_page_template(request), {
                     'self': self,
                 })
         else:
             form = self.get_form()
 
-        return render(request, self.template, {
+        return render(request, self.get_template(request), {
             'self': self,
             'form': form,
         })
@@ -190,7 +190,7 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(request, self.landing_page_template, {
+            return render(request, self.get_landing_page_template(request), {
                 'self': self,
             })
         else:
