@@ -599,25 +599,41 @@ class TestPageDetailWithStreamField(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        homepage = Page.objects.get(url_path='/home/')
-        self.stream_page = StreamPage(
-            title='stream page', slug='stream-page',
-            body='[{"type": "text", "value": "foo"}]')
-        homepage.add_child(instance=self.stream_page)
+        self.homepage = Page.objects.get(url_path='/home/')
+
+    def make_stream_page(self, body):
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body=body
+        )
+        return self.homepage.add_child(instance=stream_page)
 
     def test_can_fetch_streamfield_content(self):
-        response_url = reverse('wagtailapi_v1:pages:detail', args=(self.stream_page.id, ))
+        stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-type'], 'application/json')
+        self.assertEqual(response['content-type'], 'application/json')
 
-        content = json.loads(response.content.decode('UTF-8'))
+        content = json.loads(response.content.decode('utf-8'))
 
         self.assertIn('id', content)
-        self.assertEqual(content['id'], self.stream_page.id)
+        self.assertEqual(content['id'], stream_page.id)
         self.assertIn('body', content)
         self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+
+    def test_image_block(self):
+        stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
+        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
 
 
 @override_settings(
