@@ -77,12 +77,12 @@ def get_search_backend(backend='default', **kwargs):
     return backend_cls(params)
 
 
-def get_search_backends(with_auto_update=False):
+def get_search_backends(for_auto_update=False):
     if hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
         for backend, params in settings.WAGTAILSEARCH_BACKENDS.items():
             backend_class = get_search_backend(backend)
 
-            if with_auto_update:
+            if for_auto_update:
                 # Skip backends where auto update has been disabled by the user
                 if params.get('AUTO_UPDATE', True) is False:
                     continue

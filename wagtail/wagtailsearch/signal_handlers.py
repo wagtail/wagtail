@@ -20,7 +20,7 @@ def post_save_signal_handler(instance, **kwargs):
     indexed_instance = get_indexed_instance(instance)
 
     if indexed_instance:
-        for backend in get_search_backends(with_auto_update=True):
+        for backend in get_search_backends(for_auto_update=True):
             backend.add(indexed_instance)
 
 
@@ -28,13 +28,13 @@ def post_delete_signal_handler(instance, **kwargs):
     indexed_instance = get_indexed_instance(instance)
 
     if indexed_instance:
-        for backend in get_search_backends(with_auto_update=True):
+        for backend in get_search_backends(for_auto_update=True):
             backend.delete(indexed_instance)
 
 
 def register_signal_handlers():
     # Don't register signal handlers if there are no backends that need them
-    if not list(get_search_backends(with_auto_update=True)):
+    if not list(get_search_backends(for_auto_update=True)):
         return
 
     # Loop through list and register signal handlers for each one

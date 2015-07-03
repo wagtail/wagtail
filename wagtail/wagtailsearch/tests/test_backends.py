@@ -177,8 +177,8 @@ class TestBackendLoader(TestCase):
 
         self.assertEqual(len(backends), 2)
 
-    def test_get_search_backends_with_auto_update(self):
-        backends = list(get_search_backends(with_auto_update=True))
+    def test_get_search_backends_for_auto_update(self):
+        backends = list(get_search_backends(for_auto_update=True))
 
         # Auto update is the default
         self.assertEqual(len(backends), 1)
@@ -191,8 +191,8 @@ class TestBackendLoader(TestCase):
             },
         }
     )
-    def test_get_search_backends_with_auto_update_update_not_required(self):
-        backends = list(get_search_backends(with_auto_update=True))
+    def test_get_search_backends_for_auto_update_update_not_required(self):
+        backends = list(get_search_backends(for_auto_update=True))
 
         # Backends where the update_required flag is set to False should be filtered out
         self.assertEqual(len(backends), 0)
@@ -205,8 +205,8 @@ class TestBackendLoader(TestCase):
             },
         }
     )
-    def test_get_search_backends_with_auto_update_disabled(self):
-        backends = list(get_search_backends(with_auto_update=True))
+    def test_get_search_backends_for_auto_update_disabled(self):
+        backends = list(get_search_backends(for_auto_update=True))
 
         self.assertEqual(len(backends), 0)
 
