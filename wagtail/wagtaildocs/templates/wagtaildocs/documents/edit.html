@@ -4,10 +4,12 @@
 {% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_css %}
+    {{ block.super }}
     {% include "wagtailadmin/shared/tag_field_css.html" %}
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/shared/tag_field_js.html" %}
 {% endblock %}
 

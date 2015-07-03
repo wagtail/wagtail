@@ -28,8 +28,10 @@
 {% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
 {% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}

@@ -3,6 +3,8 @@
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
+    {{ block.super }}
+
     {% include "wagtailadmin/shared/tag_field_css.html" %}
 
     <!-- Focal point chooser -->
@@ -13,6 +15,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/shared/tag_field_js.html" %}
 
     <!-- Focal point chooser -->

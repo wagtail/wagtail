@@ -3,6 +3,8 @@
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block bodyclass %}menu-images{% endblock %}
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
     {% endcompress %}
@@ -54,6 +56,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% compress js %}
         <!-- this exact order of plugins is vital -->
         <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>

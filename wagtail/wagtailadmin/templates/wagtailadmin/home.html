@@ -4,6 +4,8 @@
 {% block bodyclass %}homepage{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
     {% endcompress %}

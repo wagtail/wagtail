@@ -3,6 +3,8 @@
 {% block titletag %}{% trans 'Search' %}{% endblock %}
 {% block bodyclass %}menu-search{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
+
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailadmin_pages_search' %}",

@@ -5,6 +5,7 @@
 {% block bodyclass %}menu-groups{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
     {% endcompress %}
@@ -42,6 +43,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     <script>

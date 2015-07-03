@@ -2,6 +2,8 @@
 {% load wagtailadmin_tags compress i18n static gravatar %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
     {% endcompress %}
@@ -567,6 +569,8 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/pages/_editor_js.html" %}
     <script>
         $(function(){

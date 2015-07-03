@@ -4,6 +4,7 @@
 {% block bodyclass %}menu-editorspicks{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailsearch_editorspicks_index' %}",

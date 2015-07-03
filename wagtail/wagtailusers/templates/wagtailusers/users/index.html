@@ -4,6 +4,7 @@
 {% block titletag %}{% trans "Users" %}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailusers_users_index' %}",

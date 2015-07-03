@@ -37,6 +37,7 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% compress js %}
         <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
         <script src="{% static 'wagtailimages/js/image-url-generator.js' %}"></script>

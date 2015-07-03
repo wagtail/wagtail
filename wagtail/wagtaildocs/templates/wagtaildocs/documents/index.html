@@ -3,6 +3,7 @@
 {% block titletag %}Documents{% endblock %}
 {% block bodyclass %}menu-documents{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtaildocs_index' %}",

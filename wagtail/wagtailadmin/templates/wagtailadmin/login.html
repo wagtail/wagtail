@@ -4,6 +4,8 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
     {% endcompress %}
@@ -64,6 +66,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{{ block.super }}
 <script>
     $(function(){
         $('form input[name=username]').focus();

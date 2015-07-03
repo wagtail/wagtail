@@ -3,6 +3,7 @@
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-forms{% endblock %}
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
 
     <script>

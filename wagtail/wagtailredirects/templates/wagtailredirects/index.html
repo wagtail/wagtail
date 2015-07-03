@@ -4,6 +4,7 @@
 {% block bodyclass %}menu-redirects{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url 'wagtailredirects_index' %}",
