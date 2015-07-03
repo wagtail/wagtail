@@ -165,10 +165,10 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+                'BACKEND': 'wagtail.wagtailsearch.backends.db'
             },
             'another-backend': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+                'BACKEND': 'wagtail.wagtailsearch.backends.db'
             },
         }
     )
@@ -186,7 +186,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'BACKEND': 'wagtail.wagtailsearch.backends.db',
                 'AUTO_UPDATE': False,
             },
         }
@@ -199,7 +199,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'BACKEND': 'wagtail.wagtailsearch.backends.db',
                 'AUTO_UPDATE': False,
             },
         }
