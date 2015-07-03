@@ -1,3 +1,3 @@
-from .db import DatabaseSearchQuery as DBSearchQuery, DatabaseSearchResults as DBSearchResults, DatabaseSearchBackend as DBSearch
+from .db import DatabaseSearchQuery as DBSearchQuery, DatabaseSearchResults as DBSearchResults, DatabaseSearchBackend as DBSearch  # noqa
 
 SearchBackend = DBSearch
