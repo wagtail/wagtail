@@ -17,6 +17,10 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
+
+        'TEST': {
+            'NAME': os.environ.get('DATABASE_NAME', None),
+        }
     }
 }
 
