@@ -22,6 +22,11 @@ class Command(BaseCommand):
         # Get backend
         backend = get_search_backend(backend_name)
 
+        # Skip backend if it doesn't require update
+        if not backend.update_required:
+            self.stdout.write("Skipping. Backend doesn't require update")
+            return
+
         # Reset the index
         self.stdout.write(backend_name + ": Reseting index")
         backend.reset_index()

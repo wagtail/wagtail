@@ -173,6 +173,9 @@ class BaseSearchResults(object):
 
 
 class BaseSearch(object):
+    # Set this to False if this backend doesn't require updating
+    update_required = True
+
     def __init__(self, params):
         pass
 

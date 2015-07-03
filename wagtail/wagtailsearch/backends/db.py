@@ -70,6 +70,8 @@ class DBSearchResults(BaseSearchResults):
 
 
 class DBSearch(BaseSearch):
+    update_required = False
+
     def __init__(self, params):
         super(DBSearch, self).__init__(params)
 
