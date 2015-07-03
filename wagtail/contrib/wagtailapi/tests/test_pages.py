@@ -11,6 +11,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.contrib.wagtailapi import signal_handlers
 
 from wagtail.tests.demosite import models
+from wagtail.tests.testapp.models import StreamPage
 
 
 def get_total_page_count():
@@ -592,6 +593,47 @@ class TestPageDetail(TestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
+
+
+class TestPageDetailWithStreamField(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.homepage = Page.objects.get(url_path='/home/')
+
+    def make_stream_page(self, body):
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body=body
+        )
+        return self.homepage.add_child(instance=stream_page)
+
+    def test_can_fetch_streamfield_content(self):
+        stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response = self.client.get(response_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['content-type'], 'application/json')
+
+        content = json.loads(response.content.decode('utf-8'))
+
+        self.assertIn('id', content)
+        self.assertEqual(content['id'], stream_page.id)
+        self.assertIn('body', content)
+        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+
+    def test_image_block(self):
+        stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
+        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
 
 
 @override_settings(
