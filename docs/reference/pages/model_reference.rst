@@ -1,3 +1,4 @@
+===============
 Model Reference
 ===============
 
@@ -7,7 +8,7 @@ This document contains reference information for the model classes inside the ``
 
 
 ``Page``
-~~~~~~~~
+========
 
 .. autoclass:: Page
 
@@ -149,7 +150,7 @@ This document contains reference information for the model classes inside the ``
 
 
 ``Site``
-~~~~~~~~
+========
 
 The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
@@ -208,7 +209,7 @@ This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMi
     .. automethod:: get_site_root_paths
 
 ``PageRevision``
-~~~~~~~~~~~~~~~~
+================
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
@@ -294,7 +295,7 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
         Calling this will copy the content of this revision into the live page object. If the page is in draft, it will be published.
 
 ``GroupPagePermission``
-~~~~~~~~~~~~~~~~~~~~~~~
+=======================
 
 .. autoclass:: GroupPagePermission
 
@@ -313,7 +314,7 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
         (choice list)
 
 ``PageViewRestriction``
-~~~~~~~~~~~~~~~~~~~~~~~
+=======================
 
 .. autoclass:: PageViewRestriction
 
@@ -328,7 +329,7 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
         (text)
 
 ``Orderable`` (abstract)
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 
 .. autoclass:: Orderable
 
