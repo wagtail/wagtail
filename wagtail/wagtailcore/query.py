@@ -202,7 +202,7 @@ class PageQuerySet(MP_NodeQuerySet):
         This runs a search query on all the pages in the QuerySet
         """
         search_backend = get_search_backend(backend)
-        return search_backend.search(query_string, self, fields=None)
+        return search_backend.search(query_string, self, fields=fields)
 
     def unpublish(self):
         """
