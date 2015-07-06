@@ -5,7 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.wagtailsearch import models, forms as search_forms
+from wagtail.wagtailsearch import forms as search_forms
+from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 
@@ -18,7 +19,7 @@ def index(request):
     page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")
 
-    queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
+    queries = Query.objects.filter(editors_picks__isnull=False).distinct()
 
     # Search
     if query_string:
@@ -75,7 +76,7 @@ def add(request):
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         if query_form.is_valid():
-            query = models.Query.get(query_form['query_string'].value())
+            query = Query.get(query_form['query_string'].value())
 
             # Save search picks
             searchpicks_formset = forms.SearchPicksFormSet(request.POST, instance=query)
@@ -102,7 +103,7 @@ def add(request):
 
 
 def edit(request, query_id):
-    query = get_object_or_404(models.Query, id=query_id)
+    query = get_object_or_404(Query, id=query_id)
 
     if request.POST:
         # Get query
@@ -111,7 +112,7 @@ def edit(request, query_id):
         searchpicks_formset = forms.SearchPicksFormSet(request.POST, instance=query)
 
         if query_form.is_valid():
-            new_query = models.Query.get(query_form['query_string'].value())
+            new_query = Query.get(query_form['query_string'].value())
 
             # Save search picks
             if save_searchpicks(query, new_query, searchpicks_formset):
@@ -137,7 +138,7 @@ def edit(request, query_id):
 
 
 def delete(request, query_id):
-    query = get_object_or_404(models.Query, id=query_id)
+    query = get_object_or_404(Query, id=query_id)
 
     if request.POST:
         query.editors_picks.all().delete()

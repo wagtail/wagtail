@@ -2,49 +2,50 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailsearch import models
+from wagtail.wagtailsearch.models import Query
+from wagtail.contrib.wagtailsearchpicks.models import SearchPick
 
 
 class TestSearchPicks(TestCase):
     def test_search_pick_create(self):
         # Create a search pick to the root page
-        models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+        SearchPick.objects.create(
+            query=Query.get("root page"),
             page_id=1,
             sort_order=0,
             description="First search pick",
         )
 
         # Check
-        self.assertEqual(models.Query.get("root page").editors_picks.count(), 1)
-        self.assertEqual(models.Query.get("root page").editors_picks.first().page_id, 1)
+        self.assertEqual(Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(Query.get("root page").editors_picks.first().page_id, 1)
 
     def test_search_pick_ordering(self):
         # Add 3 search picks in a different order to their sort_order values
         # They should be ordered by their sort order values and not their insertion order
-        models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+        SearchPick.objects.create(
+            query=Query.get("root page"),
             page_id=1,
             sort_order=0,
             description="First search pick",
         )
-        models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+        SearchPick.objects.create(
+            query=Query.get("root page"),
             page_id=1,
             sort_order=2,
             description="Last search pick",
         )
-        models.EditorsPick.objects.create(
-            query=models.Query.get("root page"),
+        SearchPick.objects.create(
+            query=Query.get("root page"),
             page_id=1,
             sort_order=1,
             description="Middle search pick",
         )
 
         # Check
-        self.assertEqual(models.Query.get("root page").editors_picks.count(), 3)
-        self.assertEqual(models.Query.get("root page").editors_picks.first().description, "First search pick")
-        self.assertEqual(models.Query.get("root page").editors_picks.last().description, "Last search pick")
+        self.assertEqual(Query.get("root page").editors_picks.count(), 3)
+        self.assertEqual(Query.get("root page").editors_picks.first().description, "First search pick")
+        self.assertEqual(Query.get("root page").editors_picks.last().description, "Last search pick")
 
 
 class TestSearchPicksIndexView(TestCase, WagtailTestUtils):
@@ -63,8 +64,8 @@ class TestSearchPicksIndexView(TestCase, WagtailTestUtils):
 
     def make_search_picks(self):
         for i in range(50):
-            models.EditorsPick.objects.create(
-                query=models.Query.get("query " + str(i)),
+            SearchPick.objects.create(
+                query=Query.get("query " + str(i)),
                 page_id=1,
                 sort_order=0,
                 description="First search pick",
@@ -134,7 +135,7 @@ class TestSearchPicksAddView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsearchpicks:index'))
 
         # Check that the search pick was created
-        self.assertTrue(models.Query.get('test').editors_picks.filter(page_id=1).exists())
+        self.assertTrue(Query.get('test').editors_picks.filter(page_id=1).exists())
 
     def test_post_without_recommendations(self):
         # Submit
@@ -156,7 +157,7 @@ class TestSearchPicksEditView(TestCase, WagtailTestUtils):
         self.login()
 
         # Create an search pick to edit
-        self.query = models.Query.get("Hello")
+        self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(page_id=1, description="Root page")
         self.search_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
@@ -189,12 +190,12 @@ class TestSearchPicksEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsearchpicks:index'))
 
         # Check that the search pick description was edited
-        self.assertEqual(models.EditorsPick.objects.get(id=self.search_pick.id).description, "Description has changed")
+        self.assertEqual(SearchPick.objects.get(id=self.search_pick.id).description, "Description has changed")
 
     def test_post_reorder(self):
         # Check order before reordering
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.search_pick)
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.search_pick_2)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.search_pick_2)
 
         # Submit
         post_data = {
@@ -219,12 +220,12 @@ class TestSearchPicksEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsearchpicks:index'))
 
         # Check that the ordering has been saved correctly
-        self.assertEqual(models.EditorsPick.objects.get(id=self.search_pick.id).sort_order, 1)
-        self.assertEqual(models.EditorsPick.objects.get(id=self.search_pick_2.id).sort_order, 0)
+        self.assertEqual(SearchPick.objects.get(id=self.search_pick.id).sort_order, 1)
+        self.assertEqual(SearchPick.objects.get(id=self.search_pick_2.id).sort_order, 0)
 
         # Check that the recommendations were reordered
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[0], self.search_pick_2)
-        self.assertEqual(models.Query.get("Hello").editors_picks.all()[1], self.search_pick)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick_2)
+        self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.search_pick)
 
     def test_post_delete_recommendation(self):
         # Submit
@@ -250,10 +251,10 @@ class TestSearchPicksEditView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsearchpicks:index'))
 
         # Check that the recommendation was deleted
-        self.assertFalse(models.EditorsPick.objects.filter(id=self.search_pick_2.id).exists())
+        self.assertFalse(SearchPick.objects.filter(id=self.search_pick_2.id).exists())
 
         # The other recommendation should still exist
-        self.assertTrue(models.EditorsPick.objects.filter(id=self.search_pick.id).exists())
+        self.assertTrue(SearchPick.objects.filter(id=self.search_pick.id).exists())
 
     def test_post_without_recommendations(self):
         # Submit
@@ -285,7 +286,7 @@ class TestSearchPicksDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
         # Create an search pick to delete
-        self.query = models.Query.get("Hello")
+        self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(page_id=1, description="Root page")
         self.search_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
 
@@ -305,7 +306,7 @@ class TestSearchPicksDeleteView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailsearchpicks:index'))
 
         # Check that both recommendations were deleted
-        self.assertFalse(models.EditorsPick.objects.filter(id=self.search_pick_2.id).exists())
+        self.assertFalse(SearchPick.objects.filter(id=self.search_pick_2.id).exists())
 
         # The other recommendation should still exist
-        self.assertFalse(models.EditorsPick.objects.filter(id=self.search_pick.id).exists())
+        self.assertFalse(SearchPick.objects.filter(id=self.search_pick.id).exists())

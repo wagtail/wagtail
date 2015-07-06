@@ -3,7 +3,8 @@ from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
-from wagtail.wagtailsearch import models
+from wagtail.wagtailsearch.models import Query
+from wagtail.contrib.wagtailsearchpicks.models import SearchPick
 
 
 class SearchPickForm(forms.ModelForm):
@@ -14,7 +15,7 @@ class SearchPickForm(forms.ModelForm):
         self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
-        model = models.EditorsPick
+        model = SearchPick
         fields = ('query', 'page', 'description')
 
         widgets = {
@@ -22,7 +23,7 @@ class SearchPickForm(forms.ModelForm):
         }
 
 
-SearchPicksFormSetBase = inlineformset_factory(models.Query, models.EditorsPick, form=SearchPickForm, can_order=True, can_delete=True, extra=0)
+SearchPicksFormSetBase = inlineformset_factory(Query, SearchPick, form=SearchPickForm, can_order=True, can_delete=True, extra=0)
 
 
 class SearchPicksFormSet(SearchPicksFormSetBase):
