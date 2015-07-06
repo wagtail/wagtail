@@ -21,7 +21,7 @@ class TagSearchable(index.Indexed):
 
     @property
     def get_tags(self):
-        return ' '.join([tag.name for tag in self.prefetched_tags()])
+        return ' '.join([tag.name for tag in self.tags.all()])
 
     @classmethod
     def get_indexed_objects(cls):
@@ -47,12 +47,6 @@ class TagSearchable(index.Indexed):
                 return paginator.page(paginator.num_pages)
         else:
             return results
-
-    def prefetched_tags(self):
-        # a hack to do the equivalent of self.tags.all() but take advantage of the
-        # prefetch_related('tagged_items__tag') in the above search method, so that we can
-        # output the list of tags on each result without doing a further query
-        return [tagged_item.tag for tagged_item in self.tagged_items.all()]
 
     @classmethod
     def popular_tags(cls):
