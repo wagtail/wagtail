@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.models import Query
 from wagtail.contrib.wagtailsearchpicks.models import SearchPick
+from wagtail.contrib.wagtailsearchpicks.templatetags.wagtailsearchpicks_tags import get_search_picks
 
 
 class TestSearchPicks(TestCase):
@@ -46,6 +47,29 @@ class TestSearchPicks(TestCase):
         self.assertEqual(Query.get("root page").editors_picks.count(), 3)
         self.assertEqual(Query.get("root page").editors_picks.first().description, "First search pick")
         self.assertEqual(Query.get("root page").editors_picks.last().description, "Last search pick")
+
+
+class TestGetSearchPicksTemplateTag(TestCase):
+    def test_get_search_picks_template_tag(self):
+        # Create a search pick to the root page
+        pick = SearchPick.objects.create(
+            query=Query.get("root page"),
+            page_id=1,
+            sort_order=0,
+            description="First search pick",
+        )
+
+        # Create another search pick against a different query
+        SearchPick.objects.create(
+            query=Query.get("root page again"),
+            page_id=1,
+            sort_order=0,
+            description="Second search pick",
+        )
+
+        # Check
+        search_picks = list(get_search_picks("root page"))
+        self.assertEqual(search_picks, [pick])
 
 
 class TestSearchPicksIndexView(TestCase, WagtailTestUtils):
