@@ -117,7 +117,7 @@ def search(request, parent_page_id=None):
     if search_form.is_valid() and search_form.cleaned_data['q']:
         pages = desired_class.objects.exclude(
             depth=1  # never include root
-        ).filter(title__icontains=search_form.cleaned_data['q'])[:10]
+        ).search(search_form.cleaned_data['q'], fields=['title'])[:10]
     else:
         pages = desired_class.objects.none()
 
