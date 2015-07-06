@@ -41,6 +41,9 @@ class Redirect(models.Model):
 
     @staticmethod
     def normalise_path(url):
+        # Strip whitespace
+        url = url.strip()
+
         # Parse url
         url_parsed = urlparse(url)
 
