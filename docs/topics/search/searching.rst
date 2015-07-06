@@ -100,28 +100,12 @@ And here's a template to go with it:
     {% endblock %}
 
 
-.. _editors-picks:
+Promoted search results
+=======================
 
+"Promoted search results" allow editors to explicitly link relevant content to search terms, so results pages can contain curated content in addition to results from the search engine.
 
-Editor's picks
-==============
-
-Editor's picks are a way of explicitly linking relevant content to search terms, so results pages can contain curated content in addition to results from the search algorithm.
-
-You can get a list of editors picks for a particular query using the ``Query`` class:
-
-.. code-block:: python
-
-    editors_picks = Query.get(search_query).editors_picks.all()
-
-
-Each editors pick contains the following fields:
-
-  ``page``
-    The page object associated with the pick. Use ``{% pageurl editors_pick.page %}`` to generate a URL or provide other properties of the page object.
-
-  ``description``
-    The description entered when choosing the pick, perhaps explaining why the page is relevant to the search terms.
+This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpicks` contrib module.
 
 
 Searching Images, Documents and custom models
