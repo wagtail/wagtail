@@ -119,6 +119,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/')
+        self.assertEqual(redirects.first().site, None)
 
     def test_add_validation_error(self):
         response = self.post({

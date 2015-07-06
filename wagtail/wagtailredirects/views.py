@@ -108,9 +108,7 @@ def add(request):
     if request.POST:
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
-            theredirect = form.save(commit=False)
-            theredirect.site = request.site
-            theredirect.save()
+            theredirect = form.save()
 
             messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
                 messages.button(reverse('wagtailredirects_edit_redirect', args=(theredirect.id,)), _('Edit'))
