@@ -7,7 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from taggit.models import TaggedItemBase
 
 from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
+from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
