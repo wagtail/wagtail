@@ -25,6 +25,16 @@ from wagtail.wagtaildocs import models
 from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 
 
+class TestImageQuerySet(TestCase):
+    def test_search_method(self):
+        # Make a test document
+        document = models.Document.objects.create(title="Test document")
+
+        # Search for it
+        results = models.Document.objects.search("Test")
+        self.assertEqual(list(results), [document])
+
+
 class TestDocumentPermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
