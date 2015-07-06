@@ -1,6 +1,8 @@
 from django.db import models
 from django.apps import apps
 
+from taggit.managers import _TaggableManager
+
 
 class Indexed(object):
     @classmethod
@@ -114,13 +116,21 @@ class BaseField(object):
         try:
             field = self.get_field(obj.__class__)
             value = field._get_val_from_obj(obj)
+
+            if isinstance(value, _TaggableManager):
+                value = [tag.name for tag in value.all()]
+
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
+
             return value
+
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
+
             if hasattr(value, '__call__'):
                 value = value()
+
             return value
 
     def __repr__(self):
