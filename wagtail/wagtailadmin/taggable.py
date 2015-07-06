@@ -1,3 +1,5 @@
+import warnings
+
 from taggit.models import Tag
 
 from django.contrib.contenttypes.models import ContentType
@@ -5,7 +7,7 @@ from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailsearch import index
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 
 
 class TagSearchable(index.Indexed):
@@ -29,12 +31,20 @@ class TagSearchable(index.Indexed):
 
     @classmethod
     def search(cls, q, results_per_page=None, page=1, prefetch_tags=False, filters={}):
-        # Run search query
-        search_backend = get_search_backend()
+        warnings.warn(
+            "The {class_name}.search() method is deprecated. "
+            "Please use the {class_name}.objects.search() method instead.".format(class_name=cls.__name__),
+            RemovedInWagtail13Warning, stacklevel=2)
+
+        results = cls.objects.all()
+
         if prefetch_tags:
-            results = search_backend.search(q, cls, prefetch_related=['tagged_items__tag'], filters=filters)
-        else:
-            results = search_backend.search(q, cls, filters=filters)
+            results = results.prefetch_related('tagged_items__tag')
+
+        if filters:
+            results = results.filter(**filters)
+
+        results = results.search(q)
 
         # If results_per_page is set, return a paginator
         if results_per_page is not None:
