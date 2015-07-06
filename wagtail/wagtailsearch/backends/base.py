@@ -172,7 +172,7 @@ class BaseSearchResults(object):
         return repr(data)
 
 
-class BaseSearch(object):
+class BaseSearchBackend(object):
     def __init__(self, params):
         pass
 
