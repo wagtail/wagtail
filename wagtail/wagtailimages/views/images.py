@@ -40,11 +40,7 @@ def index(request):
         if form.is_valid():
             query_string = form.cleaned_data['q']
 
-            if not request.user.has_perm('wagtailimages.change_image'):
-                # restrict to the user's own images
-                images = Image.search(query_string, filters={'uploaded_by_user_id': request.user.id})
-            else:
-                images = Image.search(query_string)
+            images = images.search(query_string)
     else:
         form = SearchForm(placeholder=_("Search images"))
 
