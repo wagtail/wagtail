@@ -48,26 +48,22 @@ def chooser(request):
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
 
-            # page number
-            p = request.GET.get("p", 1)
-
-            images = Image.search(q, results_per_page=12, page=p)
-
+            images = Image.objects.search(q)
             is_searching = True
-
         else:
             images = Image.objects.order_by('-created_at')
-            p = request.GET.get("p", 1)
-            paginator = Paginator(images, 12)
-
-            try:
-                images = paginator.page(p)
-            except PageNotAnInteger:
-                images = paginator.page(1)
-            except EmptyPage:
-                images = paginator.page(paginator.num_pages)
-
             is_searching = False
+
+        # Pagination
+        page_number = request.GET.get("p", 1)
+        paginator = Paginator(images, 12)
+
+        try:
+            images = paginator.page(page_number)
+        except PageNotAnInteger:
+            images = paginator.page(1)
+        except EmptyPage:
+            images = paginator.page(paginator.num_pages)
 
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
