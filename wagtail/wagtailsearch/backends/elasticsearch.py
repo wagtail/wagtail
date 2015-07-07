@@ -7,6 +7,8 @@ from six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+from django.utils.crypto import get_random_string
+
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
 
@@ -402,6 +404,47 @@ class ElasticSearchIndexRebuilder(object):
         self.es.indices.refresh(self.index_name)
 
 
+class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
+    def __init__(self, es, alias_name):
+        self.es = es
+        self.alias_name = alias_name
+        self.index_name = alias_name + '_' + get_random_string(7).lower()
+
+    def start(self):
+        # Create new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+        # Make sure there isn't currently an index that clashes with alias_name
+        # This can happen when the atomic rebuilder is first enabled
+        if not self.es.indices.exists_alias(self.alias_name):
+            try:
+                self.es.indices.delete(self.alias_name)
+
+                # An index was deleted so there couldn't have been an alias there.
+                # Create an alias now so the site search doesn't break
+                self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+            except NotFoundError:
+                pass
+
+    def finish(self):
+        # Refresh index
+        self.es.indices.refresh(self.index_name)
+
+        # Find index that alias currently points to
+        old_index = set(self.es.indices.get_alias(name=self.alias_name).keys()) - {self.index_name}
+
+        # Update alias to point to new index
+        self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+        # Delete old index
+        # es.indicies.get_alias can return multiple indicies. Delete them all
+        if old_index:
+            try:
+                self.es.indices.delete(','.join(old_index))
+            except NotFoundError:
+                pass
+
+
 class ElasticSearch(BaseSearch):
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
@@ -410,6 +453,11 @@ class ElasticSearch(BaseSearch):
         self.es_hosts = params.pop('HOSTS', None)
         self.es_index = params.pop('INDEX', 'wagtail')
         self.es_timeout = params.pop('TIMEOUT', 10)
+
+        if params.pop('ATOMIC_REBUILD', False):
+            self.rebuilder_class = ElasticSearchAtomicIndexRebuilder
+        else:
+            self.rebuilder_class = ElasticSearchIndexRebuilder
 
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop('URLS', ['http://localhost:9200'])
@@ -442,7 +490,7 @@ class ElasticSearch(BaseSearch):
             **params)
 
     def get_rebuilder(self):
-        return ElasticSearchIndexRebuilder(self.es, self.es_index)
+        return self.rebuilder_class(self.es, self.es_index)
 
     def reset_index(self):
         # Delete old index
