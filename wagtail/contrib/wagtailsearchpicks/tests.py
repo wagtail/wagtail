@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.models import Query
 from wagtail.contrib.wagtailsearchpicks.models import SearchPromotion
-from wagtail.contrib.wagtailsearchpicks.templatetags.wagtailsearchpicks_tags import get_search_picks
+from wagtail.contrib.wagtailsearchpicks.templatetags.wagtailsearchpicks_tags import get_search_promotions
 
 
 class TestSearchPromotions(TestCase):
@@ -50,7 +50,7 @@ class TestSearchPromotions(TestCase):
 
 
 class TestGetSearchPromotionsTemplateTag(TestCase):
-    def test_get_search_picks_template_tag(self):
+    def test_get_search_promotions_template_tag(self):
         # Create a search pick to the root page
         pick = SearchPromotion.objects.create(
             query=Query.get("root page"),
@@ -68,7 +68,7 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         )
 
         # Check
-        search_picks = list(get_search_picks("root page"))
+        search_picks = list(get_search_promotions("root page"))
         self.assertEqual(search_picks, [pick])
 
 

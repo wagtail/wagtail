@@ -41,7 +41,7 @@ Once installed, a new menu item called "Promoted search results" should appear i
 Displaying on a search results page
 -----------------------------------
 
-To retrieve a list of promoted search results for a particular search query, you can use the ``{% get_search_picks %}`` template tag from the ``wagtailsearchpicks_tags`` templatetag library:
+To retrieve a list of promoted search results for a particular search query, you can use the ``{% get_search_promotions %}`` template tag from the ``wagtailsearchpicks_tags`` templatetag library:
 
 .. code-block:: HTML+Django
 
@@ -49,14 +49,14 @@ To retrieve a list of promoted search results for a particular search query, you
 
     ...
 
-    {% get_search_picks search_query as search_picks %}
+    {% get_search_promotions search_query as search_promotions %}
 
     <ul>
-        {% for search_pick in search_picks %}
+        {% for search_promotion in search_promotions %}
             <li>
-                <a href="{% pageurl search_pick.page %}">
-                    <h2>{{ search_pick.page.title }}</h2>
-                    <p>{{ search_pick.description }}</p>
+                <a href="{% pageurl search_promotion.page %}">
+                    <h2>{{ search_promotion.page.title }}</h2>
+                    <p>{{ search_promotion.description }}</p>
                 </a>
             </li>
         {% endfor %}
