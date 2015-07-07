@@ -6,13 +6,13 @@ Model Reference
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
-
 ``Page``
 ========
 
-.. autoclass:: Page
+Database fields
+~~~~~~~~~~~~~~~
 
-    **Database fields:**
+.. class:: Page
 
     .. attribute:: title
 
@@ -80,7 +80,12 @@ This document contains reference information for the model classes inside the ``
 
         This is used by the :meth:`~wagtail.wagtailcore.query.PageQuerySet.in_menu` QuerySet filter.
 
-    In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
+Methods and properies
+~~~~~~~~~~~~~~~~~~~~~
+
+In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models. Those listed here are relatively straightforward to use, but consult the Wagtail source code for a full view of what's possible.
+
+.. class:: Page
 
     .. autoattribute:: specific
 
@@ -148,7 +153,6 @@ This document contains reference information for the model classes inside the ``
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
-
 ``Site``
 ========
 
@@ -156,9 +160,10 @@ The ``Site`` model is useful for multi-site installations as it allows an admini
 
 This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object.
 
-.. autoclass:: Site
+Database fields
+~~~~~~~~~~~~~~~
 
-    **Database fields:**
+.. class:: Site
 
     .. attribute:: hostname
 
@@ -192,7 +197,10 @@ This configuration is used by the :class:`~wagtail.wagtailcore.middleware.SiteMi
 
         The default site is used as a fallback in situations where a site with the required hostname/port couldn't be found.
 
-    **Methods and attributes:**
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: Site
 
     .. automethod:: find_for_request
 
@@ -217,10 +225,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
  - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
  - You can retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
+Database fields
+~~~~~~~~~~~~~~~
 
-.. autoclass:: PageRevision
-
-    **Database fields:**
+.. class:: PageRevision
 
     .. attribute:: page
 
@@ -250,7 +258,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
 
         This field contains the JSON content for the page at the time the revision was created
 
-    **Managers:**
+Managers
+~~~~~~~~
+
+.. class:: PageRevision
 
     .. attribute:: objects
 
@@ -272,7 +283,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
 
             PageRevision.submitted_revisions.all()
 
-    **Methods and attributes:**
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: PageRevision
 
     .. automethod:: as_page_object
 
@@ -297,9 +311,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
 ``GroupPagePermission``
 =======================
 
-.. autoclass:: GroupPagePermission
+Database fields
+~~~~~~~~~~~~~~~
 
-    **Database fields:**
+.. class:: GroupPagePermission
 
     .. attribute:: group
 
@@ -316,9 +331,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
 ``PageViewRestriction``
 =======================
 
-.. autoclass:: PageViewRestriction
+Database fields
+~~~~~~~~~~~~~~~
 
-    **Database fields:**
+.. class:: PageViewRestriction
 
     .. attribute:: page
 
@@ -331,9 +347,10 @@ Every time a page is edited a new ``PageRevision`` is created and saved to the d
 ``Orderable`` (abstract)
 ========================
 
-.. autoclass:: Orderable
+Database fields
+~~~~~~~~~~~~~~~
 
-    **Database fields:**
+.. class:: Orderable
 
     .. attribute:: sort_order
 
