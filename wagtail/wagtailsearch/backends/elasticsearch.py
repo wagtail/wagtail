@@ -11,6 +11,51 @@ from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, Bas
 from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
 
 
+INDEX_SETTINGS = {
+    'settings': {
+        'analysis': {
+            'analyzer': {
+                'ngram_analyzer': {
+                    'type': 'custom',
+                    'tokenizer': 'lowercase',
+                    'filter': ['asciifolding', 'ngram']
+                },
+                'edgengram_analyzer': {
+                    'type': 'custom',
+                    'tokenizer': 'lowercase',
+                    'filter': ['asciifolding', 'edgengram']
+                }
+            },
+            'tokenizer': {
+                'ngram_tokenizer': {
+                    'type': 'nGram',
+                    'min_gram': 3,
+                    'max_gram': 15,
+                },
+                'edgengram_tokenizer': {
+                    'type': 'edgeNGram',
+                    'min_gram': 2,
+                    'max_gram': 15,
+                    'side': 'front'
+                }
+            },
+            'filter': {
+                'ngram': {
+                    'type': 'nGram',
+                    'min_gram': 3,
+                    'max_gram': 15
+                },
+                'edgengram': {
+                    'type': 'edgeNGram',
+                    'min_gram': 1,
+                    'max_gram': 15
+                }
+            }
+        }
+    }
+}
+
+
 class ElasticSearchMapping(object):
     TYPE_MAP = {
         'AutoField': 'integer',
@@ -352,51 +397,6 @@ class ElasticSearch(BaseSearch):
             self.es.indices.delete(self.es_index)
         except NotFoundError:
             pass
-
-        # Settings
-        INDEX_SETTINGS = {
-            'settings': {
-                'analysis': {
-                    'analyzer': {
-                        'ngram_analyzer': {
-                            'type': 'custom',
-                            'tokenizer': 'lowercase',
-                            'filter': ['asciifolding', 'ngram']
-                        },
-                        'edgengram_analyzer': {
-                            'type': 'custom',
-                            'tokenizer': 'lowercase',
-                            'filter': ['asciifolding', 'edgengram']
-                        }
-                    },
-                    'tokenizer': {
-                        'ngram_tokenizer': {
-                            'type': 'nGram',
-                            'min_gram': 3,
-                            'max_gram': 15,
-                        },
-                        'edgengram_tokenizer': {
-                            'type': 'edgeNGram',
-                            'min_gram': 2,
-                            'max_gram': 15,
-                            'side': 'front'
-                        }
-                    },
-                    'filter': {
-                        'ngram': {
-                            'type': 'nGram',
-                            'min_gram': 3,
-                            'max_gram': 15
-                        },
-                        'edgengram': {
-                            'type': 'edgeNGram',
-                            'min_gram': 1,
-                            'max_gram': 15
-                        }
-                    }
-                }
-            }
-        }
 
         # Create new index
         self.es.indices.create(self.es_index, INDEX_SETTINGS)
