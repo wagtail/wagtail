@@ -22,7 +22,7 @@
             </nav>
         {% endif %}
 
-        {% include "wagtailadmin/pages/list.html" with show_parent=1 allow_navigation=0 %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
         <div class="pagination">
             <p>{% blocktrans with page_number=pages.number num_pages=pages.paginator.num_pages%}

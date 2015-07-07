@@ -232,6 +232,9 @@ class PageManager(models.Manager):
     def search(self, query_string, fields=None, backend='default'):
         return self.get_queryset().search(query_string, fields=fields, backend=backend)
 
+    def specific(self):
+        return self.get_queryset().specific()
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""

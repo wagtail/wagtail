@@ -49,6 +49,8 @@ def get_upload_to(instance, filename):
     # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
     filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
 
+    # Truncate filename so it fits in the 100 character limit
+    # https://code.djangoproject.com/ticket/9893
     while len(os.path.join(folder_name, filename)) >= 95:
         prefix, dot, extension = filename.rpartition('.')
         filename = prefix[:-1] + dot + extension

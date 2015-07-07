@@ -10,9 +10,14 @@ Wagtail 1.1 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+``specific()`` method on PageQuerySet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usually, an operation that retrieves a queryset of pages (such as ``homepage.get_children()``) will return them as basic Page instances, which only include the core page data such as title. The ``specific()`` method (e.g. ``homepage.get_children().specific()``) now allows them to be retrieved as their most specific type, using the minimum number of queries.
 
 Minor features
 ~~~~~~~~~~~~~~
 
  * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
  * Moved the style guide menu item into the Settings sub-menu
+ * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)

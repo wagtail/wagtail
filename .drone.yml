@@ -2,4 +2,6 @@ image: wagtail-ci
 script:
  - python3.4 setup.py install
  - pip3.4 install -r requirements-dev.txt
- - python3.4 runtests.py
+ - python3.4 runtests.py --keepdb
+env:
+ - DATABASE_NAME=/base-dbs/wagtail.v1.0.sqlite

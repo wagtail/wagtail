@@ -4,13 +4,14 @@
 #
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-05-08 22:15+0000\n"
-"Last-Translator: Alessio Di Stasio <aledista@gmail.com>\n"
+"PO-Revision-Date: 2015-06-30 06:10+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -31,11 +32,41 @@ msgstr "Pagina di root"
 msgid "Is default site"
 msgstr "è sito di default"
 
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
+
 msgid "Site"
 msgstr "Sito"
 
 msgid "Title"
 msgstr "Titolo"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Il titolo della pagina che sarà visibile al pubblico"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
+"slug]/"
+
+msgid "Content type"
+msgstr "Tipo di contenuto"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Has unpublished changes"
+msgstr "Ha modifiche non pubblicate"
+
+msgid "URL path"
+msgstr "URL path"
 
 msgid "Owner"
 msgstr "Proprietario"
@@ -43,14 +74,39 @@ msgstr "Proprietario"
 msgid "Page title"
 msgstr "Titolo pagina"
 
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
+"titolo del browser."
+
+msgid "Show in menus"
+msgstr "Mostra nel menu"
+
 msgid "Search description"
 msgstr "Descrizione della ricerca"
+
+msgid "Go live date/time"
+msgstr "Go live date/time"
+
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Aggiungi una data nel formato YYYY-MM-DD hh:mm."
+
+msgid "Expiry date/time"
+msgstr "Scadenza data/ora"
 
 msgid "Expired"
 msgstr "Scaduto"
 
 msgid "Locked"
 msgstr "Bloccato"
+
+msgid "First published at"
+msgstr "Primo pubblicato a"
+
+msgid "Latest revision created at"
+msgstr "Ultima revisione fatta alle"
 
 msgid "expired"
 msgstr "scaduto"
@@ -61,8 +117,20 @@ msgstr "schedulato"
 msgid "draft"
 msgstr "bozza"
 
+msgid "live + draft"
+msgstr "live + bozza"
+
+msgid "live"
+msgstr "live"
+
+msgid "Default"
+msgstr "Default"
+
 msgid "Page"
 msgstr "Pagina"
+
+msgid "Submitted for moderation"
+msgstr "Inviato per la moderazione"
 
 msgid "Created at"
 msgstr "Creato alle"
@@ -70,8 +138,20 @@ msgstr "Creato alle"
 msgid "User"
 msgstr "Utente"
 
+msgid "Content JSON"
+msgstr "Contenuto JSON"
+
+msgid "Approved go live at"
+msgstr "Approvata alle"
+
 msgid "Page Revision"
 msgstr "Revisione pagina"
+
+msgid "Add/edit pages you own"
+msgstr "Aggiungi/modifica pagine di tua proprietà"
+
+msgid "Add/edit any page"
+msgstr "Aggiungi/modifica ogni pagina"
 
 msgid "Publish any page"
 msgstr "Pubblica ogni pagina"
@@ -90,3 +170,6 @@ msgstr "Permesso della pagina del gruppo"
 
 msgid "Password"
 msgstr "Parola chiave"
+
+msgid "Value cannot be entirely whitespace characters"
+msgstr "Il valore non può contenere spazi bianchi"

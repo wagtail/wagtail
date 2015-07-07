@@ -445,7 +445,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
         from django.conf import settings
         from wagtail.wagtailsearch.backends import get_search_backend
 
-        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
@@ -679,7 +679,7 @@ class TestDocumentRichTextLinkHandler(TestCase):
             True
         )
         self.assertEqual(result,
-                         '<a data-linktype="document" data-id="1" href="/documents/1/">')
+                         '<a data-linktype="document" data-id="1" href="/documents/1/test.pdf">')
 
     def test_expand_db_attributes_not_for_editor(self):
         result = DocumentLinkHandler.expand_db_attributes(
@@ -687,4 +687,4 @@ class TestDocumentRichTextLinkHandler(TestCase):
             False
         )
         self.assertEqual(result,
-                         '<a href="/documents/1/">')
+                         '<a href="/documents/1/test.pdf">')

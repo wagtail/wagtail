@@ -16,11 +16,7 @@
             </div>
             <div class="right col3">
                 {% trans "Status" %}
-                {% if page.live %}
-                    <a href="{{ page.url }}" class="status-tag {% if page.live %}primary{% endif %}">{{ page.status_string }}</a>
-                {% else %}
-                    <span class="status-tag">{{ page.status_string }}</span>
-                {% endif %}
+                {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
 
                 {% include "wagtailadmin/pages/_privacy_switch.html" with page=page page_perms=page_perms only %}
                 {% include "wagtailadmin/pages/_lock_switch.html" %}

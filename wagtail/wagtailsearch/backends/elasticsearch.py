@@ -313,15 +313,15 @@ class ElasticSearch(BaseSearch):
 
         # Get settings
         self.es_hosts = params.pop('HOSTS', None)
-        self.es_urls = params.pop('URLS', ['http://localhost:9200'])
         self.es_index = params.pop('INDEX', 'wagtail')
         self.es_timeout = params.pop('TIMEOUT', 10)
 
         # If HOSTS is not set, convert URLS setting to HOSTS
+        es_urls = params.pop('URLS', ['http://localhost:9200'])
         if self.es_hosts is None:
             self.es_hosts = []
 
-            for url in self.es_urls:
+            for url in es_urls:
                 parsed_url = urlparse(url)
 
                 use_ssl = parsed_url.scheme == 'https'
@@ -465,3 +465,6 @@ class ElasticSearch(BaseSearch):
 
     def _search(self, queryset, query_string, fields=None):
         return ElasticSearchResults(self, ElasticSearchQuery(queryset, query_string, fields=fields))
+
+
+SearchBackend = ElasticSearch

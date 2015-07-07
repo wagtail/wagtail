@@ -17,6 +17,10 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
+
+        'TEST': {
+            'NAME': os.environ.get('DATABASE_NAME', None),
+        }
     }
 }
 
@@ -132,7 +136,7 @@ COMPRESS_ENABLED = False  # disable compression so that we can run tests on the 
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
     }
 }
 
@@ -144,7 +148,7 @@ try:
 
     # Import succeeded, add an Elasticsearch backend
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
