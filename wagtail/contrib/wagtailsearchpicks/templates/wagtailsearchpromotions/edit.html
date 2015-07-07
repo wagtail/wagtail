@@ -13,7 +13,7 @@
                 {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}   
             </li>
             <li> 
-                {% include "wagtailsearchpicks/includes/searchpicks_formset.html" with formset=searchpicks_formset only %}
+                {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
             </li>
             <li>
                 <input type="submit" value="{% trans 'Save' %}" />
@@ -30,7 +30,7 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     <script type="text/javascript">
-        {% include "wagtailsearchpicks/includes/searchpicks_formset.js" with formset=searchpicks_formset only  %}
+        {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only  %}
         {% include "wagtailsearch/queries/chooser_field.js" only %}
 
         $(function() {

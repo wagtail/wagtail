@@ -2,13 +2,13 @@
 {{ formset.management_form }}
 <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
     {% for form in formset.forms %}
-        {% include "wagtailsearchpicks/includes/searchpick_form.html" with form=form only %}
+        {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=form only %}
     {% endfor %}
 </ul>
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
 {% escapescript %}
-{% include "wagtailsearchpicks/includes/searchpick_form.html" with form=formset.empty_form only %}
+{% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=formset.empty_form only %}
 {% endescapescript %}
 </script>
 

@@ -79,7 +79,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearchpicks:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/index.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
     def test_search(self):
         response = self.client.get(reverse('wagtailsearchpicks:index'), {'q': "Hello"})
@@ -102,7 +102,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/index.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
         # Check that we got the correct page
         self.assertEqual(response.context['queries'].number, 2)
@@ -114,7 +114,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/index.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
         # Check that we got page one
         self.assertEqual(response.context['queries'].number, 1)
@@ -126,7 +126,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/index.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
         # Check that we got the last page
         self.assertEqual(response.context['queries'].number, response.context['queries'].paginator.num_pages)
@@ -139,7 +139,7 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearchpicks:add'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/add.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/add.html')
 
     def test_post(self):
         # Submit
@@ -188,7 +188,7 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearchpicks:edit', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/edit.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/edit.html')
 
     def test_post(self):
         # Submit
@@ -317,7 +317,7 @@ class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtailsearchpicks:delete', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearchpicks/confirm_delete.html')
+        self.assertTemplateUsed(response, 'wagtailsearchpromotions/confirm_delete.html')
 
     def test_post(self):
         # Submit

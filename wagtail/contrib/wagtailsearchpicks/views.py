@@ -36,13 +36,13 @@ def index(request):
         queries = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, "wagtailsearchpicks/results.html", {
+        return render(request, "wagtailsearchpromotions/results.html", {
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
         })
     else:
-        return render(request, 'wagtailsearchpicks/index.html', {
+        return render(request, 'wagtailsearchpromotions/index.html', {
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
@@ -96,7 +96,7 @@ def add(request):
         query_form = search_forms.QueryForm()
         searchpicks_formset = forms.SearchPromotionsFormSet()
 
-    return render(request, 'wagtailsearchpicks/add.html', {
+    return render(request, 'wagtailsearchpromotions/add.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
     })
@@ -130,7 +130,7 @@ def edit(request, query_id):
         query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
-    return render(request, 'wagtailsearchpicks/edit.html', {
+    return render(request, 'wagtailsearchpromotions/edit.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'query': query,
@@ -145,6 +145,6 @@ def delete(request, query_id):
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpicks:index')
 
-    return render(request, 'wagtailsearchpicks/confirm_delete.html', {
+    return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,
     })
