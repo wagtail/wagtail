@@ -1,5 +1,7 @@
 from django.db import models
 
+from taggit.managers import TaggableManager
+
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 
 
@@ -43,7 +45,11 @@ class DBSearchQuery(BaseSearchQuery):
                 for field_name in fields:
                     # Check if the field exists (this will filter out indexed callables)
                     try:
-                        model._meta.get_field(field_name)
+                        field = model._meta.get_field(field_name)
+
+                        if isinstance(field, TaggableManager):
+                            # TODO: Searching on tags in database backend not currently supported
+                            continue
                     except models.fields.FieldDoesNotExist:
                         continue
 
