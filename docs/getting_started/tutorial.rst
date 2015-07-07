@@ -51,7 +51,7 @@ Extend the HomePage model
 Out of the box you get a blank ``HomePage`` model and the "home" app has a
 migration that creates a homepage and configures Wagtail to use it.
 
-This example extends the HomePage model to add a body field.
+This example extends the HomePage model to add a body field. The file to edit is ``home/models.py``.
 
 .. code:: python
 
@@ -80,7 +80,7 @@ changes. You must run the above commands each time you make changes to
 the model definition.
 
 To reflect the model changes, edit
-``core/templates/core/home_page.html``. Wagtail uses normal Django
+``home/templates/home/home_page.html``. Wagtail uses normal Django
 templates to render each page type. It automatically generates a
 suggestion by separating capital letters with underscores (e.g. HomePage
 becomes home\_page.html).
@@ -89,7 +89,7 @@ becomes home\_page.html).
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load static wagtailcore_tags %}
 
     {% block body_class %}template-homepage{% endblock %}
 
@@ -142,7 +142,7 @@ Create a template at ``blog/templates/blog/blog_page.html``:
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load static wagtailcore_tags %}
 
     {% block body_class %}templage-blogpage{% endblock %}
 
@@ -210,7 +210,7 @@ Adjust your blog page template to include the image:
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags wagtailimages_tags %}
+    {% load static wagtailcore_tags wagtailimages_tags %}
 
     {% block body_class %}templage-blogpage{% endblock %}
 
@@ -255,7 +255,7 @@ The above creates an index type to collect all our blog posts.
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load static wagtailcore_tags %}
 
     {% block body_class %}template-blogindexpage{% endblock %}
 
@@ -347,7 +347,7 @@ Extend ``blog_index_page.html`` to show related items
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load static wagtailcore_tags %}
 
     {% block body_class %}template-blogindexpage{% endblock %}
 
