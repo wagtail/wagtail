@@ -7,7 +7,7 @@
 
     <div class="nice-padding">       
         <p>{% trans "Are you sure you want to delete all promoted results for this search term?" %}</p>
-        <form action="{% url 'wagtailsearchpicks:delete' query.id %}" method="POST">
+        <form action="{% url 'wagtailsearchpromotions:delete' query.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
         </form>

@@ -12,12 +12,12 @@
 
     {% include "wagtailsearchpromotions/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearchpicks_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_searching=is_searching linkurl="wagtailsearchpromotions:index" %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no promoted results match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailsearchpicks:add' as wagtailsearchpicks_add_url %}
-        <p>{% blocktrans %}No promoted results have been created. Why not <a href="{{ wagtailsearchpicks_add_url }}">add one</a>?{% endblocktrans %}</p>
+        {% url 'wagtailsearchpromotions:add' as wagtailsearchpromotions_add_url %}
+        <p>{% blocktrans %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

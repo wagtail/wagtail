@@ -82,9 +82,9 @@ def add(request):
             searchpicks_formset = forms.SearchPromotionsFormSet(request.POST, instance=query)
             if save_searchpicks(query, query, searchpicks_formset):
                 messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons=[
-                    messages.button(reverse('wagtailsearchpicks:edit', args=(query.id,)), _('Edit'))
+                    messages.button(reverse('wagtailsearchpromotions:edit', args=(query.id,)), _('Edit'))
                 ])
-                return redirect('wagtailsearchpicks:index')
+                return redirect('wagtailsearchpromotions:index')
             else:
                 if len(searchpicks_formset.non_form_errors()):
                     messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
@@ -117,9 +117,9 @@ def edit(request, query_id):
             # Save search picks
             if save_searchpicks(query, new_query, searchpicks_formset):
                 messages.success(request, _("Editor's picks for '{0}' updated.").format(new_query), buttons=[
-                    messages.button(reverse('wagtailsearchpicks:edit', args=(query.id,)), _('Edit'))
+                    messages.button(reverse('wagtailsearchpromotions:edit', args=(query.id,)), _('Edit'))
                 ])
-                return redirect('wagtailsearchpicks:index')
+                return redirect('wagtailsearchpromotions:index')
             else:
                 if len(searchpicks_formset.non_form_errors()):
                     messages.error(request, " ".join(error for error in searchpicks_formset.non_form_errors()))  # formset level error (e.g. no forms submitted)
@@ -143,7 +143,7 @@ def delete(request, query_id):
     if request.POST:
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
-        return redirect('wagtailsearchpicks:index')
+        return redirect('wagtailsearchpromotions:index')
 
     return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,

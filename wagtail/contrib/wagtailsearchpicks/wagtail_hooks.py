@@ -11,7 +11,7 @@ from wagtail.wagtailadmin.menu import MenuItem
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpicks')),
+        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
     ]
 
 
@@ -23,4 +23,4 @@ class SearchPicksMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_search_picks_menu_item():
-    return SearchPicksMenuItem(_('Promoted search results'), urlresolvers.reverse('wagtailsearchpicks:index'), classnames='icon icon-pick', order=900)
+    return SearchPicksMenuItem(_('Promoted search results'), urlresolvers.reverse('wagtailsearchpromotions:index'), classnames='icon icon-pick', order=900)
