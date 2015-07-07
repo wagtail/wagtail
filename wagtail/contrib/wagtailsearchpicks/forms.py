@@ -4,18 +4,18 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailsearch.models import Query
-from wagtail.contrib.wagtailsearchpicks.models import SearchPick
+from wagtail.contrib.wagtailsearchpicks.models import SearchPromotion
 
 
-class SearchPickForm(forms.ModelForm):
+class SearchPromotionForm(forms.ModelForm):
     sort_order = forms.IntegerField(required=False)
 
     def __init__(self, *args, **kwargs):
-        super(SearchPickForm, self).__init__(*args, **kwargs)
+        super(SearchPromotionForm, self).__init__(*args, **kwargs)
         self.fields['page'].widget = AdminPageChooser()
 
     class Meta:
-        model = SearchPick
+        model = SearchPromotion
         fields = ('query', 'page', 'description')
 
         widgets = {
@@ -23,15 +23,15 @@ class SearchPickForm(forms.ModelForm):
         }
 
 
-SearchPicksFormSetBase = inlineformset_factory(Query, SearchPick, form=SearchPickForm, can_order=True, can_delete=True, extra=0)
+SearchPromotionsFormSetBase = inlineformset_factory(Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0)
 
 
-class SearchPicksFormSet(SearchPicksFormSetBase):
+class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
     minimum_forms = 1
     minimum_forms_message = _("Please specify at least one recommendation for this search term.")
 
     def add_fields(self, form, *args, **kwargs):
-        super(SearchPicksFormSet, self).add_fields(form, *args, **kwargs)
+        super(SearchPromotionsFormSet, self).add_fields(form, *args, **kwargs)
 
         # Hide delete and order fields
         form.fields['DELETE'].widget = forms.HiddenInput()

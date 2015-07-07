@@ -4,15 +4,15 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailsearch.models import Query
 
 
-class SearchPick(models.Model):
+class SearchPromotion(models.Model):
     query = models.ForeignKey(Query, db_index=True, related_name='editors_picks')
     page = models.ForeignKey('wagtailcore.Page', verbose_name=_('Page'))
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     description = models.TextField(verbose_name=_('Description'), blank=True)
 
     def __repr__(self):
-        return 'SearchPick(query="' + self.query.query_string + '", page="' + self.page.title + '")'
+        return 'SearchPromotion(query="' + self.query.query_string + '", page="' + self.page.title + '")'
 
     class Meta:
         ordering = ('sort_order', )
-        verbose_name = _("Editor's Pick")
+        verbose_name = _("Search promotion")

@@ -38,6 +38,10 @@ class Migration(migrations.Migration):
         ),
         migrations.RenameModel(
             old_name='EditorsPick',
-            new_name='SearchPick'
-        )
+            new_name='SearchPromotion'
+        ),
+        migrations.AlterModelOptions(
+            name='searchpromotion',
+            options={'ordering': ('sort_order',), 'verbose_name': 'Search promotion'},
+        ),
     ]

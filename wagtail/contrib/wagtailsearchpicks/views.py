@@ -79,7 +79,7 @@ def add(request):
             query = Query.get(query_form['query_string'].value())
 
             # Save search picks
-            searchpicks_formset = forms.SearchPicksFormSet(request.POST, instance=query)
+            searchpicks_formset = forms.SearchPromotionsFormSet(request.POST, instance=query)
             if save_searchpicks(query, query, searchpicks_formset):
                 messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons=[
                     messages.button(reverse('wagtailsearchpicks:edit', args=(query.id,)), _('Edit'))
@@ -91,10 +91,10 @@ def add(request):
                 else:
                     messages.error(request, _("Recommendations have not been created due to errors"))  # specific errors will be displayed within form fields
         else:
-            searchpicks_formset = forms.SearchPicksFormSet()
+            searchpicks_formset = forms.SearchPromotionsFormSet()
     else:
         query_form = search_forms.QueryForm()
-        searchpicks_formset = forms.SearchPicksFormSet()
+        searchpicks_formset = forms.SearchPromotionsFormSet()
 
     return render(request, 'wagtailsearchpicks/add.html', {
         'query_form': query_form,
@@ -109,7 +109,7 @@ def edit(request, query_id):
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         # and the recommendations
-        searchpicks_formset = forms.SearchPicksFormSet(request.POST, instance=query)
+        searchpicks_formset = forms.SearchPromotionsFormSet(request.POST, instance=query)
 
         if query_form.is_valid():
             new_query = Query.get(query_form['query_string'].value())
@@ -128,7 +128,7 @@ def edit(request, query_id):
 
     else:
         query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
-        searchpicks_formset = forms.SearchPicksFormSet(instance=query)
+        searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
     return render(request, 'wagtailsearchpicks/edit.html', {
         'query_form': query_form,
