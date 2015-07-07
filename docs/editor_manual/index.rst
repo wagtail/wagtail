@@ -14,3 +14,4 @@ This section of the documentation is written for the users of a Wagtail-powered 
    new_pages/index
    editing_existing_pages
    documents_images_snippets/index
+   administrator_tasks/index
