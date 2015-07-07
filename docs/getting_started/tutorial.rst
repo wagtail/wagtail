@@ -79,7 +79,7 @@ Run ``python manage.py makemigrations``, then
 changes. You must run the above commands each time you make changes to
 the model definition.
 
-You can now edit the homepage within the Wagtail admin area (go to Explorer, Homepage, then Edit) to see the new Body field. Enter some text into the body field, and publish the page.
+You can now edit the homepage within the Wagtail admin area (go to Explorer, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
 
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
