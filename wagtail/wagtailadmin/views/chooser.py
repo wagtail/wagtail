@@ -45,7 +45,7 @@ def browse(request, parent_page_id=None):
         else:
             parent_page = Page.get_first_root_node()
 
-        parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
+        parent_page.can_choose = issubclass(parent_page.specific_class, desired_class) and not parent_page.is_root()
         search_form = SearchForm()
         pages = parent_page.get_children()
 
