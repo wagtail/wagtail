@@ -352,6 +352,56 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
+class ElasticSearchIndexRebuilder(object):
+    def __init__(self, es, index_name):
+        self.es = es
+        self.index_name = index_name
+
+    def start(self):
+        # Delete old index
+        try:
+            self.es.indices.delete(self.index_name)
+        except NotFoundError:
+            pass
+
+        # Create new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+    def add_model(self, model):
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
+
+        # Put mapping
+        self.es.indices.put_mapping(index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+
+    def add_items(self, model, obj_list):
+        if not class_is_indexed(model):
+            return
+
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
+        doc_type = mapping.get_document_type()
+
+        # Create list of actions
+        actions = []
+        for obj in obj_list:
+            # Create the action
+            action = {
+                '_index': self.index_name,
+                '_type': doc_type,
+                '_id': mapping.get_document_id(obj),
+            }
+            action.update(mapping.get_document(obj))
+            actions.append(action)
+
+        # Run the actions
+        bulk(self.es, actions)
+
+    def finish(self):
+        # Refresh index
+        self.es.indices.refresh(self.index_name)
+
+
 class ElasticSearch(BaseSearch):
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
@@ -390,6 +440,9 @@ class ElasticSearch(BaseSearch):
             hosts=self.es_hosts,
             timeout=self.es_timeout,
             **params)
+
+    def get_rebuilder(self):
+        return ElasticSearchIndexRebuilder(self.es, self.es_index)
 
     def reset_index(self):
         # Delete old index

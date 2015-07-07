@@ -22,9 +22,16 @@ class Command(BaseCommand):
         # Get backend
         backend = get_search_backend(backend_name)
 
-        # Reset the index
-        self.stdout.write(backend_name + ": Reseting index")
-        backend.reset_index()
+        # Get rebuilder
+        rebuilder = backend.get_rebuilder()
+
+        if not rebuilder:
+            self.stdout.write(backend_name + ": Backend doesn't support rebuild. Skipping")
+            return
+
+        # Start rebuild
+        self.stdout.write(backend_name + ": Starting rebuild")
+        rebuilder.start()
 
         for model, queryset in object_list:
             self.stdout.write(backend_name + ": Indexing model '%s.%s'" % (
@@ -32,15 +39,15 @@ class Command(BaseCommand):
                 model.__name__,
             ))
 
-            # Add type
-            backend.add_type(model)
+            # Add model
+            rebuilder.add_model(model)
 
-            # Add objects
-            backend.add_bulk(model, queryset)
+            # Add items
+            rebuilder.add_items(model, queryset)
 
-        # Refresh index
-        self.stdout.write(backend_name + ": Refreshing index")
-        backend.refresh_index()
+        # Finish rebuild
+        self.stdout.write(backend_name + ": Finishing rebuild")
+        rebuilder.finish()
 
     option_list = BaseCommand.option_list + (
         make_option('--backend',
