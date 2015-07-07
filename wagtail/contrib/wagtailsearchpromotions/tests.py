@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.models import Query
-from wagtail.contrib.wagtailsearchpicks.models import SearchPromotion
-from wagtail.contrib.wagtailsearchpicks.templatetags.wagtailsearchpicks_tags import get_search_promotions
+from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+from wagtail.contrib.wagtailsearchpromotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
 
 
 class TestSearchPromotions(TestCase):

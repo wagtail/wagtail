@@ -10,7 +10,7 @@ from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
 
-from wagtail.contrib.wagtailsearchpicks import forms
+from wagtail.contrib.wagtailsearchpromotions import forms
 
 
 @vary_on_headers('X-Requested-With')

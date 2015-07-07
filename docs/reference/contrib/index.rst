@@ -13,7 +13,7 @@ Wagtail ships with a variety of extra optional modules.
     frontendcache
     routablepage
     api/index
-    searchpicks
+    searchpromotions
 
 
 :doc:`forms`
@@ -52,7 +52,7 @@ Provides a way of embedding Django URLconfs into pages.
 A module for adding a read only, JSON based web API to your Wagtail site
 
 
-:doc:`searchpicks`
-------------------
+:doc:`searchpromotions`
+-----------------------
 
 A module for managing "Promoted Search Results"

@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
-from wagtail.contrib.wagtailsearchpicks import admin_urls
+from wagtail.contrib.wagtailsearchpromotions import admin_urls
 
 from wagtail.wagtailadmin.menu import MenuItem
 

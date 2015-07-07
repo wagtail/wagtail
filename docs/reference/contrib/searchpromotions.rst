@@ -4,13 +4,13 @@
 Promoted search results
 =======================
 
-.. module:: wagtail.contrib.wagtailsearchpicks
+.. module:: wagtail.contrib.wagtailsearchpromotions
 
 .. versionchanged:: 1.1
 
     Before Wagtail 1.1, promoted search results were implemented in the :mod:`wagtail.wagtailsearch` core module and called "editors picks".
 
-The ``searchpicks`` module provides the models and user interface for managing "Promoted search results" and displaying them in a search results page.
+The ``searchpromotions`` module provides the models and user interface for managing "Promoted search results" and displaying them in a search results page.
 
 "Promoted search results" allow editors to explicitly link relevant content to search terms, so results pages can contain curated content in addition to results from the search engine.
 
@@ -18,7 +18,7 @@ The ``searchpicks`` module provides the models and user interface for managing "
 Installation
 ============
 
-The ``searchpicks`` module is not enabled by default. To install it, add ``wagtail.contrib.wagtailsearchpicks`` to ``INSTALLED_APPS`` in your project's Django settings file.
+The ``searchpromotions`` module is not enabled by default. To install it, add ``wagtail.contrib.wagtailsearchpromotions`` to ``INSTALLED_APPS`` in your project's Django settings file.
 
 
 .. code-block:: python
@@ -26,7 +26,7 @@ The ``searchpicks`` module is not enabled by default. To install it, add ``wagta
     INSTALLED_APPS = [
         ...
 
-        'wagtail.contrib.wagtailsearchpicks',
+        'wagtail.contrib.wagtailsearchpromotions',
     ]
 
 This app contains migrations so make sure you run the ``migrate`` django-admin command after installing.
@@ -41,11 +41,11 @@ Once installed, a new menu item called "Promoted search results" should appear i
 Displaying on a search results page
 -----------------------------------
 
-To retrieve a list of promoted search results for a particular search query, you can use the ``{% get_search_promotions %}`` template tag from the ``wagtailsearchpicks_tags`` templatetag library:
+To retrieve a list of promoted search results for a particular search query, you can use the ``{% get_search_promotions %}`` template tag from the ``wagtailsearchpromotions_tags`` templatetag library:
 
 .. code-block:: HTML+Django
 
-    {% load wagtailcore_tags wagtailsearchpicks_tags %}
+    {% load wagtailcore_tags wagtailsearchpromotions_tags %}
 
     ...
 

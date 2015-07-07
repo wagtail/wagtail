@@ -105,7 +105,7 @@ Promoted search results
 
 "Promoted search results" allow editors to explicitly link relevant content to search terms, so results pages can contain curated content in addition to results from the search engine.
 
-This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpicks` contrib module.
+This functionality is provided by the :mod:`~wagtail.contrib.wagtailsearchpromotions` contrib module.
 
 
 Searching Images, Documents and custom models

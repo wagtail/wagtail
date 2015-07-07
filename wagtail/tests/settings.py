@@ -94,7 +94,7 @@ INSTALLED_APPS = (
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.wagtailfrontendcache',
     'wagtail.contrib.wagtailapi',
-    'wagtail.contrib.wagtailsearchpicks',
+    'wagtail.contrib.wagtailsearchpromotions',
     'wagtail.wagtailforms',
     'wagtail.wagtailsearch',
     'wagtail.wagtailembeds',

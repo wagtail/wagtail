@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from wagtail.contrib.wagtailsearchpicks import views
+from wagtail.contrib.wagtailsearchpromotions import views
 
 
 urlpatterns = [
