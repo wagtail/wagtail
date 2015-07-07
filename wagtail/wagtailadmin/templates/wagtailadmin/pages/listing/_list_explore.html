@@ -22,7 +22,7 @@
 
 {% block no_results %}
     {% url 'wagtailadmin_pages_add_subpage' parent_page.id as add_page_url%}
-    <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans %}Why not <a href="{{ add_page_url }}">add one</a>?{% endblocktrans %}{% endif %}</td></tr>
+    <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created at this location." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans %}Why not <a href="{{ add_page_url }}">create one</a>?{% endblocktrans %}{% endif %}</td></tr>
 {% endblock %}
 
 {% block pagination_links %}
