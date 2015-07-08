@@ -359,7 +359,7 @@ class ElasticSearchIndexRebuilder(object):
         self.es = es
         self.index_name = index_name
 
-    def start(self):
+    def reset_index(self):
         # Delete old index
         try:
             self.es.indices.delete(self.index_name)
@@ -368,6 +368,10 @@ class ElasticSearchIndexRebuilder(object):
 
         # Create new index
         self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+    def start(self):
+        # Reset the index
+        self.reset_index()
 
     def add_model(self, model):
         # Get mapping
@@ -409,6 +413,20 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
         self.es = es
         self.alias_name = alias_name
         self.index_name = alias_name + '_' + get_random_string(7).lower()
+
+    def reset_index(self):
+        # Delete old index using the alias
+        # This should delete both the alias and the index
+        try:
+            self.es.indices.delete(self.alias_name)
+        except NotFoundError:
+            pass
+
+        # Create new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+        # Create a new alias
+        self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
 
     def start(self):
         # Create new index
@@ -493,14 +511,8 @@ class ElasticSearch(BaseSearch):
         return self.rebuilder_class(self.es, self.es_index)
 
     def reset_index(self):
-        # Delete old index
-        try:
-            self.es.indices.delete(self.es_index)
-        except NotFoundError:
-            pass
-
-        # Create new index
-        self.es.indices.create(self.es_index, INDEX_SETTINGS)
+        # Use the rebuilder to reset the index
+        self.get_rebuilder().reset_index()
 
     def add_type(self, model):
         # Get mapping
