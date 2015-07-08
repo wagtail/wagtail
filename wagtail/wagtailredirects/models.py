@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-
-from six.moves.urllib.parse import urlparse
 
 
 class Redirect(models.Model):

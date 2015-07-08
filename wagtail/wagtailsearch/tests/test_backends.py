@@ -1,4 +1,3 @@
-from six import StringIO
 import unittest
 import time
 
@@ -6,6 +5,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
+from django.utils.six import StringIO
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.search import models

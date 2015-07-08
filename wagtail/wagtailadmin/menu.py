@@ -1,13 +1,11 @@
 from __future__ import unicode_literals
 
-from six import text_type
-
 from django.forms import MediaDefiningClass, Media
 from django.forms.utils import flatatt
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+from django.utils.six import text_type
 
-# Must be imported from Django so we get the new implementation of with_metaclass
 from django.utils.six import with_metaclass
 
 from wagtail.utils.compat import render_to_string

@@ -3,9 +3,6 @@ from __future__ import unicode_literals
 import logging
 import json
 
-from six import StringIO
-from six.moves.urllib.parse import urlparse
-
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
@@ -22,6 +19,8 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
+from django.utils.six import StringIO
+from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
 from django.utils.functional import cached_property

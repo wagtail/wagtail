@@ -1,7 +1,7 @@
 import PIL.Image
-from six import BytesIO
 
 from django.core.files.images import ImageFile
+from django.utils.six import BytesIO
 
 from wagtail.wagtailimages.models import get_image_model
 
