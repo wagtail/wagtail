@@ -1,5 +1,5 @@
 Authors
-================
+=======
 
 * Matthew Westcott matthew.westcott@torchbox.com twitter: @gasmanic
 * David Cranwell david.cranwell@torchbox.com twitter: @davecranwell
