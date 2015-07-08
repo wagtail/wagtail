@@ -1,9 +1,9 @@
 import logging
-import requests
+import json
 
-from django.utils.six.moves.urllib.parse import urlparse
-
-from requests.adapters import HTTPAdapter
+from django.utils.six.moves.urllib.parse import urlparse, urlunparse, urlencode
+from django.utils.six.moves.urllib.request import Request, urlopen
+from django.utils.six.moves.urllib.error import URLError, HTTPError
 
 
 logger = logging.getLogger('wagtail.frontendcache')
@@ -15,44 +15,40 @@ class BaseBackend(object):
 
 
 class HTTPBackend(BaseBackend):
-
-    class CustomHTTPAdapter(HTTPAdapter):
-        """
-        Requests will always send requests to whatever server is in the netloc
-        part of the URL. This is a problem with purging the cache as this netloc
-        may point to a different server (such as an nginx instance running in
-        front of the cache).
-
-        This class allows us to send a purge request directly to the cache server
-        with the host header still set correctly. It does this by changing the "url"
-        parameter of get_connection to always point to the cache server. Requests
-        will then use this connection to purge the page.
-        """
-        def __init__(self, cache_url):
-            self.cache_url = cache_url
-            super(HTTPBackend.CustomHTTPAdapter, self).__init__()
-
-        def get_connection(self, url, proxies=None):
-            return super(HTTPBackend.CustomHTTPAdapter, self).get_connection(self.cache_url, proxies)
-
-
     def __init__(self, params):
-        self.cache_location = params.pop('LOCATION')
-
-        self.session = requests.Session()
-        self.session.mount('http://', self.CustomHTTPAdapter(self.cache_location))
+        location_url_parsed = urlparse(params.pop('LOCATION'))
+        self.cache_scheme = location_url_parsed.scheme
+        self.cache_netloc = location_url_parsed.netloc
 
     def purge(self, url):
-        try:
-            response = self.session.request('PURGE', url)
-        except requests.ConnectionError:
-            logger.error("Couldn't purge '%s' from HTTP cache: Connection error", url)
-            return
+        url_parsed = urlparse(url)
+        host = url_parsed.hostname
 
-        # Check for error
-        if response.status_code != 200:
-            logger.error("Couldn't purge '%s' from HTTP cache: Didn't recieve a 200 response (instead, we got '%d %s')", url, response.status_code, response.reason)
-            return
+        # Append port to host if it is set in the original URL
+        if url_parsed.port:
+            host += (':' + str(url_parsed.port))
+
+        request = Request(
+            url=urlunparse([
+                self.cache_scheme,
+                self.cache_netloc,
+                url_parsed.path,
+                url_parsed.params,
+                url_parsed.query,
+                url_parsed.fragment
+            ]),
+            headers={
+                'Host': host,
+            },
+            method='PURGE'
+        )
+
+        try:
+            urlopen(request)
+        except HTTPError as e:
+            logger.error("Couldn't purge '%s' from HTTP cache. HTTPError: %d %s", url, e.code, e.reason)
+        except URLError as e:
+            logger.error("Couldn't purge '%s' from HTTP cache. URLError: %s", url, e.reason)
 
 
 class CloudflareBackend(BaseBackend):
@@ -62,23 +58,21 @@ class CloudflareBackend(BaseBackend):
 
     def purge(self, url):
         try:
-            response = requests.post('https://www.cloudflare.com/api_json.html', {
+            response = urlopen('https://www.cloudflare.com/api_json.html', data=urlencode({
                 'email': self.cloudflare_email,
                 'tkn': self.cloudflare_token,
                 'a': 'zone_file_purge',
                 'z': urlparse(url).netloc,
                 'url': url
-            })
-        except requests.ConnectionError:
-            logger.error("Couldn't purge '%s' from Cloudflare: Connection error", url)
+            }).encode('utf-8'))
+        except HTTPError as e:
+            logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.code, e.reason)
+            return
+        except URLError as e:
+            logger.error("Couldn't purge '%s' from Cloudflare. URLError: %s", url, e.reason)
             return
 
-        # Check for error
-        if response.status_code != 200:
-            logger.error("Couldn't purge '%s' from Cloudflare: Didn't recieve a 200 response (instead, we got '%d %s')", url, response.status_code, response.reason)
-            return
-
-        response_json = response.json()
+        response_json = json.loads(response.read().decode('utf-8'))
         if response_json['result'] == 'error':
-            logger.error("Couldn't purge '%s' from Cloudflare: Cloudflare error '%s'", url, response_json['msg'])
+            logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare error '%s'", url, response_json['msg'])
             return
