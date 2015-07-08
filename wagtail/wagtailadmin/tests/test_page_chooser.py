@@ -21,24 +21,27 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page'), params)
 
+    def search(self, params={}):
+        return self.client.get(reverse('wagtailadmin_choose_page_search'), params)
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
     def test_search(self):
-        response = self.get({'q': "foobarbaz"})
+        response = self.search({'q': "foobarbaz"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There is one match")
         self.assertContains(response, "foobarbaz")
 
     def test_search_no_results(self):
-        response = self.get({'q': "quux"})
+        response = self.search({'q': "quux"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are 0 matches")
 
     def test_get_invalid(self):
-        response = self.get({'page_type': 'foo.bar'})
+        response = self.search({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
 
 
@@ -66,17 +69,6 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
-
-    def test_search(self):
-        response = self.get({'q': "foobarbaz"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There is one match")
-        self.assertContains(response, "foobarbaz")
-
-    def test_search_no_results(self):
-        response = self.get({'q': "quux"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There are 0 matches")
 
     def test_get_invalid(self):
         self.assertEqual(self.get_invalid().status_code, 404)

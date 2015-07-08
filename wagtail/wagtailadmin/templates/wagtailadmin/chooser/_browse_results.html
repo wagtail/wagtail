@@ -1,12 +1,11 @@
 {% load i18n %}
 
-{% if page_types_restricted %}
-    {% include "wagtailadmin/chooser/_page_type_restricted_warning.html" with page_type_name=page_type.get_verbose_name %}
-{% endif %}
-
 <h2>{% trans "Explorer" %}</h2>
 {% include "wagtailadmin/shared/breadcrumb.html" with page=parent_page choosing=1 %}
 
 {% if pages %}
     {% include "wagtailadmin/pages/listing/_list_choose.html" with allow_navigation=1 orderable=0 pages=pages parent_page=parent_page %}
+
+    {% url 'wagtailadmin_choose_page_child' parent_page.id as pagination_base_url %}
+    {% include "wagtailadmin/pages/listing/_pagination.html" with page=pages base_url=pagination_base_url query_params=querystring classnames="navigate-pages" only %}
 {% endif %}
