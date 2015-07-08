@@ -654,6 +654,7 @@ class TestElasticSearchMapping(TestCase):
         # Create ES document
         self.obj = models.SearchTest(title="Hello")
         self.obj.save()
+        self.obj.tags.add("a tag")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest')
@@ -674,7 +675,14 @@ class TestElasticSearchMapping(TestCase):
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
-                    'callable_indexed_field': {'type': 'string', 'include_in_all': True}
+                    'callable_indexed_field': {'type': 'string', 'include_in_all': True},
+                    'tags': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                        }
+                    }
                 }
             }
         }
@@ -688,17 +696,27 @@ class TestElasticSearchMapping(TestCase):
         # Get document
         document = self.es_mapping.get_document(self.obj)
 
+        # Sort partials
+        if '_partials' in document:
+            document['_partials'].sort()
+
         # Check
         expected_result = {
             'pk': str(self.obj.pk),
             'content_type': 'searchtests_searchtest',
-            '_partials': ['Hello'],
+            '_partials': ['Hello', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
             'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
+            'tags': [
+                {
+                    'name': 'a tag',
+                    'slug_filter': 'a-tag',
+                }
+            ],
         }
 
         self.assertDictEqual(document, expected_result)
@@ -726,6 +744,7 @@ class TestElasticSearchMappingInheritance(TestCase):
         # Create ES document
         self.obj = models.SearchTestChild(title="Hello", subtitle="World")
         self.obj.save()
+        self.obj.tags.add("a tag")
 
     def test_get_document_type(self):
         self.assertEqual(self.es_mapping.get_document_type(), 'searchtests_searchtest_searchtests_searchtestchild')
@@ -751,7 +770,14 @@ class TestElasticSearchMappingInheritance(TestCase):
                     'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                     'title_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                     'content': {'type': 'string', 'include_in_all': True},
-                    'callable_indexed_field': {'type': 'string', 'include_in_all': True}
+                    'callable_indexed_field': {'type': 'string', 'include_in_all': True},
+                    'tags': {
+                        'type': 'nested',
+                        'properties': {
+                            'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
+                        }
+                    }
                 }
             }
         }
@@ -783,13 +809,19 @@ class TestElasticSearchMappingInheritance(TestCase):
 
             # Inherited
             'pk': str(self.obj.pk),
-            '_partials': ['Hello', 'World'],
+            '_partials': ['Hello', 'World', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
             'title_filter': 'Hello',
             'callable_indexed_field': 'Callable',
             'content': '',
+            'tags': [
+                {
+                    'name': 'a tag',
+                    'slug_filter': 'a-tag',
+                }
+            ],
         }
 
         self.assertDictEqual(document, expected_result)

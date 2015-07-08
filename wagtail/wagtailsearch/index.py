@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields.related import RelatedField
 from django.apps import apps
 
 
@@ -136,3 +137,21 @@ class SearchField(BaseField):
 
 class FilterField(BaseField):
     suffix = '_filter'
+
+
+class RelatedFields(object):
+    def __init__(self, field_name, fields):
+        self.field_name = field_name
+        self.fields = fields
+
+    def get_index_name(self, cls):
+        return self.field_name
+
+    def get_field(self, cls):
+        return cls._meta.get_field(self.field_name)
+
+    def get_value(self, obj):
+        field = self.get_field(obj.__class__)
+
+        if isinstance(field, RelatedField):
+            return getattr(obj, self.field_name)

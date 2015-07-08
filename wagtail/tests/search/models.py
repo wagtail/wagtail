@@ -1,5 +1,7 @@
 from django.db import models
 
+from taggit.managers import TaggableManager
+
 from wagtail.wagtailsearch import index
 
 
@@ -8,9 +10,14 @@ class SearchTest(models.Model, index.Indexed):
     content = models.TextField()
     live = models.BooleanField(default=False)
     published_date = models.DateField(null=True)
+    tags = TaggableManager()
 
     search_fields = [
         index.SearchField('title', partial_match=True),
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True),
+            index.FilterField('slug'),
+        ]),
         index.SearchField('content'),
         index.SearchField('callable_indexed_field'),
         index.FilterField('title'),
