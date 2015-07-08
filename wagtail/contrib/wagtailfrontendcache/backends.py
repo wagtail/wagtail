@@ -5,6 +5,8 @@ from django.utils.six.moves.urllib.parse import urlparse, urlunparse, urlencode
 from django.utils.six.moves.urllib.request import Request, urlopen
 from django.utils.six.moves.urllib.error import URLError, HTTPError
 
+from wagtail.wagtailcore import __version__
+
 
 logger = logging.getLogger('wagtail.frontendcache')
 
@@ -39,6 +41,7 @@ class HTTPBackend(BaseBackend):
             ]),
             headers={
                 'Host': host,
+                'User-Agent': 'Wagtail-frontendcache/' + __version__
             },
             method='PURGE'
         )
