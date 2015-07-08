@@ -10,6 +10,8 @@ import mock
 from django.test import TestCase
 from django.db.models import Q
 
+from wagtail.wagtailsearch.backends import get_search_backend
+
 from wagtail.tests.search import models
 from .test_backends import BackendTests
 
@@ -748,3 +750,152 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backend.es_hosts[3]['port'], 443)
         self.assertEqual(backend.es_hosts[3]['use_ssl'], True)
         self.assertEqual(backend.es_hosts[3]['url_prefix'], '/hello')
+
+
+class TestRebuilder(TestCase):
+    def assertDictEqual(self, a, b):
+        default = self.JSONSerializer().default
+        self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default))
+
+    def setUp(self):
+        # Import using a try-catch block to prevent crashes if the elasticsearch-py
+        # module is not installed
+        try:
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchMapping
+            from elasticsearch import NotFoundError, JSONSerializer
+        except ImportError:
+            raise unittest.SkipTest("elasticsearch-py not installed")
+
+        self.ElasticSearch = ElasticSearch
+        self.ElasticSearchMapping = ElasticSearchMapping
+        self.NotFoundError = NotFoundError
+        self.JSONSerializer = JSONSerializer
+
+        self.backend = get_search_backend('elasticsearch')
+        self.es = self.backend.es
+        self.rebuilder = self.backend.get_rebuilder()
+
+        self.backend.reset_index()
+
+    def test_start_creates_index(self):
+        # First, make sure the index is deleted
+        try:
+            self.es.indices.delete(self.backend.es_index)
+        except self.NotFoundError:
+            pass
+
+        self.assertFalse(self.es.indices.exists(self.backend.es_index))
+
+        # Run start
+        self.rebuilder.start()
+
+        # Check the index exists
+        self.assertTrue(self.es.indices.exists(self.backend.es_index))
+
+    def test_start_deletes_existing_index(self):
+        # Put an alias into the index so we can check it was deleted
+        self.es.indices.put_alias(name='this_index_should_be_deleted', index=self.backend.es_index)
+        self.assertTrue(self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index))
+
+        # Run start
+        self.rebuilder.start()
+
+        # The alias should be gone (proving the index was deleted and recreated)
+        self.assertFalse(self.es.indices.exists_alias(name='this_index_should_be_deleted', index=self.backend.es_index))
+
+    def test_add_model(self):
+        self.rebuilder.start()
+
+        # Add model
+        self.rebuilder.add_model(models.SearchTest)
+
+        # Check the mapping went into Elasticsearch correctly
+        mapping = self.ElasticSearchMapping(models.SearchTest)
+        response = self.es.indices.get_mapping(self.backend.es_index, mapping.get_document_type())
+
+        # Make some minor tweaks to the mapping so it matches what is in ES
+        # These are generally minor issues with the way Wagtail is generating the mapping that are being cleaned up by Elasticsearch
+        # TODO: Would be nice to fix these
+        expected_mapping = mapping.get_mapping()
+        expected_mapping['searchtests_searchtest']['properties']['pk']['store'] = True
+        expected_mapping['searchtests_searchtest']['properties']['live_filter'].pop('index')
+        expected_mapping['searchtests_searchtest']['properties']['live_filter'].pop('include_in_all')
+        expected_mapping['searchtests_searchtest']['properties']['published_date_filter']['format'] = 'dateOptionalTime'
+        expected_mapping['searchtests_searchtest']['properties']['published_date_filter'].pop('index')
+
+        self.assertDictEqual(expected_mapping, response[self.backend.es_index]['mappings'])
+
+
+class TestAtomicRebuilder(TestCase):
+    def setUp(self):
+        # Import using a try-catch block to prevent crashes if the elasticsearch-py
+        # module is not installed
+        try:
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearch
+            from wagtail.wagtailsearch.backends.elasticsearch import ElasticSearchAtomicIndexRebuilder
+            from elasticsearch import NotFoundError
+        except ImportError:
+            raise unittest.SkipTest("elasticsearch-py not installed")
+
+        self.ElasticSearch = ElasticSearch
+        self.NotFoundError = NotFoundError
+
+        self.backend = get_search_backend('elasticsearch')
+        self.backend.rebuilder_class = ElasticSearchAtomicIndexRebuilder
+        self.es = self.backend.es
+        self.rebuilder = self.backend.get_rebuilder()
+
+        self.backend.reset_index()
+
+    def test_start_creates_new_index(self):
+        # Rebuilder should make up a new index name that doesn't currently exist
+        self.assertFalse(self.es.indices.exists(self.rebuilder.index_name))
+
+        # Run start
+        self.rebuilder.start()
+
+        # Check the index exists
+        self.assertTrue(self.es.indices.exists(self.rebuilder.index_name))
+
+    def test_start_doesnt_delete_current_index(self):
+        # Get current index name
+        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias_name).keys())[0]
+
+        # Run start
+        self.rebuilder.start()
+
+        # The index should still exist
+        self.assertTrue(self.es.indices.exists(current_index_name))
+
+        # And the alias should still point to it
+        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=current_index_name))
+
+    def test_finish_updates_alias(self):
+        # Run start
+        self.rebuilder.start()
+
+        # Check that the alias doesn't point to new index
+        self.assertFalse(self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=self.rebuilder.index_name))
+
+        # Run finish
+        self.rebuilder.finish()
+
+        # Check that the alias now points to the new index
+        self.assertTrue(self.es.indices.exists_alias(name=self.rebuilder.alias_name, index=self.rebuilder.index_name))
+
+    def test_finish_deletes_old_index(self):
+        # Get current index name
+        current_index_name = list(self.es.indices.get_alias(name=self.rebuilder.alias_name).keys())[0]
+
+        # Run start
+        self.rebuilder.start()
+
+        # Index should still exist
+        self.assertTrue(self.es.indices.exists(current_index_name))
+
+        # Run finish
+        self.rebuilder.finish()
+
+        # Index should be gone
+        self.assertFalse(self.es.indices.exists(current_index_name))
