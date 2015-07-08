@@ -7,6 +7,9 @@ from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
+INDENT = ' ' * 8
+
+
 class Command(BaseCommand):
     def get_object_list(self):
         # Return list of (model_name, queryset) tuples
@@ -42,8 +45,45 @@ class Command(BaseCommand):
             # Add model
             rebuilder.add_model(model)
 
-            # Add items
-            rebuilder.add_items(model, queryset)
+            # Add items (1000 at a time)
+            i = 0
+            count = 0
+            self.stdout.write(INDENT, ending='')
+            while True:
+                # Get next batch of items
+                items = list(queryset[i * 1000:][:1000])
+                i += 1
+
+                # Exit loop if there are no items left to index
+                if not items:
+                    self.stdout.write('')
+                    self.stdout.write(INDENT + "Indexed %d %s" % (
+                        count,
+                        model._meta.verbose_name_plural,
+                    ))
+                    self.stdout.write('')
+
+                    break
+
+                # Add the items
+                rebuilder.add_items(model, items)
+
+                # Increment count
+                count += len(items)
+
+                # Print a progress dot
+                self.stdout.write('.', ending='')
+
+                # Print space after every 10 dots
+                if i % 10 == 0:
+                    self.stdout.write(' ', ending='')
+
+                # Print newline after every 50 dots
+                if i % 50 == 0:
+                    self.stdout.write('')
+                    self.stdout.write(INDENT, ending='')
+
+                self.stdout.flush()
 
         # Finish rebuild
         self.stdout.write(backend_name + ": Finishing rebuild")
