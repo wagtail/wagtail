@@ -11,11 +11,11 @@ from django.views.decorators.cache import never_cache
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
+from wagtail.wagtailcore.models import get_user_permissions
 
 
 def account(request):
-    user_perms = UserPagePermissionsProxy(request.user)
+    user_perms = get_user_permissions(request.user)
     show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
 
     return render(request, 'wagtailadmin/account/account.html', {

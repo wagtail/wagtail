@@ -6,7 +6,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import stringfilter
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
+from wagtail.wagtailcore.models import get_navigation_menu_items, get_user_permissions, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
 from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailadmin.menu import admin_menu
@@ -92,10 +92,10 @@ def page_permissions(context, page):
     Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
     what actions the current logged-in user can perform on the given page.
     """
-    # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
+    # Create a user permissions proxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
     if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+        context['user_page_permissions'] = get_user_permissions(context['request'].user)
 
     # Now retrieve a PagePermissionTester from it, specific to the given page
     return context['user_page_permissions'].for_page(page)

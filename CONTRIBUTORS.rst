@@ -58,6 +58,7 @@ Contributors
 * Mitchel Cabuloy
 * Piet Delport
 * Tom Christie
+* Richard Mitchell (Isotoma Limited)
 
 Translators
 ===========

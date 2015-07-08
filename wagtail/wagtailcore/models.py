@@ -25,6 +25,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.module_loading import import_string
 from django.core import checks
 
 # Must be imported from Django so we get the new implementation of with_metaclass
@@ -854,7 +855,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
         """
-        user_perms = UserPagePermissionsProxy(user)
+        user_perms = get_user_permissions(user)
         return user_perms.for_page(self)
 
     def dummy_request(self):
@@ -1281,6 +1282,15 @@ class UserPagePermissionsProxy(object):
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
+
+
+def get_user_permissions(user):
+    """Return a helper for user permissions on pages."""
+    permissions_proxy_class = getattr(settings, 'WAGTAILCORE_USER_PERMISSIONS_PROXY',
+                                      UserPagePermissionsProxy)
+    if isinstance(six.string_types, permissions_proxy_class):
+        permissions_proxy_class = import_string(permissions_proxy_class)
+    return permissions_proxy_class(user)
 
 
 class PagePermissionTester(object):

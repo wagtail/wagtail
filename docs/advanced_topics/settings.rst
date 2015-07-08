@@ -239,6 +239,15 @@ Private Pages
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
 
 
+Authorization
+-------------
+
+.. code-block:: python
+
+  WAGTAILCORE_USER_PERMISSIONS_PROXY = 'wagtail.wagtailcore.models.UserPagePermissionsProxy'
+
+This is the permissions proxy class used by Wagtail to determine user permissions on pages.
+
 Other Django Settings Used by Wagtail
 -------------------------------------
 
