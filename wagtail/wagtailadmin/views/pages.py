@@ -2,7 +2,6 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.contrib.contenttypes.models import ContentType
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -11,6 +10,7 @@ from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.db.models import Count
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.edit_handlers import TabbedInterface, ObjectList
 from wagtail.wagtailadmin.forms import SearchForm, CopyForm
 from wagtail.wagtailadmin.utils import send_notification
@@ -49,14 +49,7 @@ def index(request, parent_page_id=None):
             ordering_no_minus = ordering[1:]
         pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
 
-        p = request.GET.get('p', 1)
-        paginator = Paginator(pages, 50)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
+        paginator, pages = paginate(request, pages, per_page=50)
 
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page,
@@ -93,8 +86,6 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     except ContentType.DoesNotExist:
         raise Http404
 
-    p = request.GET.get("p", 1)
-
     page_class = content_type.model_class()
 
     # page_class must be a Page type and not some other random model
@@ -103,14 +94,7 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
 
     pages = page_class.objects.all()
 
-    paginator = Paginator(pages, 10)
-
-    try:
-        pages = paginator.page(p)
-    except PageNotAnInteger:
-        pages = paginator.page(1)
-    except EmptyPage:
-        pages = paginator.page(paginator.num_pages)
+    paginator, pages = paginate(request, pages, per_page=10)
 
     return render(request, 'wagtailadmin/pages/content_type_use.html', {
         'pages': pages,
@@ -690,18 +674,8 @@ def search(request):
         if form.is_valid():
             q = form.cleaned_data['q']
 
-            # page number
-            p = request.GET.get("p", 1)
             pages = Page.objects.all().prefetch_related('content_type').search(q, fields=['title'])
-
-            # Pagination
-            paginator = Paginator(pages, 20)
-            try:
-                pages = paginator.page(p)
-            except PageNotAnInteger:
-                pages = paginator.page(1)
-            except EmptyPage:
-                pages = paginator.page(paginator.num_pages)
+            paginator, pages = paginate(request, pages)
     else:
         form = SearchForm()
 

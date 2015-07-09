@@ -5,8 +5,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core import mail
-from django.core.paginator import Paginator
+from django.core import mail, paginator
 from django.db.models.signals import pre_delete, post_delete
 from django.utils import timezone
 
@@ -80,7 +79,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['ordering'], 'ord')
 
         # Pages must not be paginated
-        self.assertNotIsInstance(response.context['pages'], Paginator)
+        self.assertNotIsInstance(response.context['pages'], paginator.Page)
 
     def make_pages(self):
         for i in range(150):

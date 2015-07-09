@@ -1,13 +1,13 @@
 import os
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.http import HttpResponse, JsonResponse
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
@@ -44,16 +44,7 @@ def index(request):
     else:
         form = SearchForm(placeholder=_("Search images"))
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(images, 20)
-
-    try:
-        images = paginator.page(p)
-    except PageNotAnInteger:
-        images = paginator.page(1)
-    except EmptyPage:
-        images = paginator.page(paginator.num_pages)
+    paginator, images = paginate(request, images)
 
     # Create response
     if request.is_ajax():
@@ -253,16 +244,7 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(image.get_usage(), 20)
-
-    try:
-        used_by = paginator.page(p)
-    except PageNotAnInteger:
-        used_by = paginator.page(1)
-    except EmptyPage:
-        used_by = paginator.page(paginator.num_pages)
+    paginator, used_by = paginate(request, image.get_usage())
 
     return render(request, "wagtailimages/images/usage.html", {
         'image': image,

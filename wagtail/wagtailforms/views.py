@@ -2,30 +2,22 @@ import datetime
 
 import csv
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
+
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 from wagtail.wagtailforms.forms import SelectDateForm
 from wagtail.wagtailadmin import messages
 
 def index(request):
-    p = request.GET.get("p", 1)
-
     form_pages = get_forms_for_user(request.user)
 
-    paginator = Paginator(form_pages, 20)
-
-    try:
-        form_pages = paginator.page(p)
-    except PageNotAnInteger:
-        form_pages = paginator.page(1)
-    except EmptyPage:
-        form_pages = paginator.page(paginator.num_pages)
+    paginator, form_pages = paginate(request, form_pages)
 
     return render(request, 'wagtailforms/index.html', {
         'form_pages': form_pages,
@@ -95,15 +87,7 @@ def list_submissions(request, page_id):
             writer.writerow(data_row)
         return response
 
-    p = request.GET.get('p', 1)
-    paginator = Paginator(submissions, 20)
-
-    try:
-        submissions = paginator.page(p)
-    except PageNotAnInteger:
-        submissions = paginator.page(1)
-    except EmptyPage:
-        submissions = paginator.page(paginator.num_pages)
+    paginator, submissions = paginate(request, submissions)
 
     data_headings = [label for name, label in data_fields]
     data_rows = []

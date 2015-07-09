@@ -1,8 +1,8 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 from django.utils.http import urlencode
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
@@ -86,14 +86,7 @@ def browse(request, parent_page_id=None):
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
     # in the block below
-    p = request.GET.get('p', 1)
-    paginator = Paginator(pages, 25)
-    try:
-        pages = paginator.page(p)
-    except PageNotAnInteger:
-        pages = paginator.page(1)
-    except EmptyPage:
-        pages = paginator.page(paginator.num_pages)
+    paginator, pages = paginate(request, pages, per_page=25)
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
