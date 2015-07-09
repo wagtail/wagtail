@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0 (xx.xx.xxxx)
+1.0 (09.07.2015)
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField, a model field for freeform page content
