@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 class WagtailAPIAppConfig(AppConfig):
-    name = 'wagtail.contrib.wagtailapi'
+    name = 'wagtail.contrib.api'
     label = 'wagtailapi'
     verbose_name = "Wagtail API"
 
@@ -12,7 +12,7 @@ class WagtailAPIAppConfig(AppConfig):
         # Install cache purging signal handlers
         if getattr(settings, 'WAGTAILAPI_USE_FRONTENDCACHE', False):
             if apps.is_installed('wagtail.contrib.wagtailfrontendcache'):
-                from wagtail.contrib.wagtailapi.signal_handlers import register_signal_handlers
+                from .signal_handlers import register_signal_handlers
                 register_signal_handlers()
             else:
                 raise ImproperlyConfigured("The setting 'WAGTAILAPI_USE_FRONTENDCACHE' is True but 'wagtail.contrib.wagtailfrontendcache' is not in INSTALLED_APPS.")
