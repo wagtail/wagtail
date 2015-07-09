@@ -8,9 +8,6 @@ from wagtail.wagtailsearch.index import get_indexed_models
 from wagtail.wagtailsearch.backends import get_search_backend
 
 
-INDENT = ' ' * 8
-
-
 class Command(BaseCommand):
     def get_object_list(self):
         # Return list of (model_name, queryset) tuples
@@ -48,12 +45,13 @@ class Command(BaseCommand):
 
             # Add items (1000 at a time)
             count = 0
-            for chunk in self.progress(self.queryset_chunks(queryset)):
+            for chunk in self.print_iter_progress(self.queryset_chunks(queryset)):
                 rebuilder.add_items(model, chunk)
                 count += len(chunk)
 
-            self.stdout.write(INDENT + "Indexed %d %s" % (
+            self.stdout.write("Indexed %d %s" % (
                 count, model._meta.verbose_name_plural))
+            self.print_newline()
 
         # Finish rebuild
         self.stdout.write(backend_name + ": Finishing rebuild")
@@ -87,7 +85,10 @@ class Command(BaseCommand):
         for backend_name in backend_names:
             self.update_backend(backend_name, object_list)
 
-    def progress(self, iterable, gap=10, new_line=5, indent=INDENT):
+    def print_newline(self):
+        self.stdout.write('')
+
+    def print_iter_progress(self, iterable):
         """
         Print a progress meter while iterating over an iterable. Use it as part
         of a ``for`` loop::
@@ -96,20 +97,20 @@ class Command(BaseCommand):
                 self.do_expensive_computation(item)
 
         A ``.`` character is printed for every value in the iterable,
-        a space every ``gap`` items, and a new line every ``new_line`` gaps.
-        Each line of output is prefixed with ``indent``
+        a space every 10 items, and a new line every 50 items.
         """
-        self.stdout.write(indent, ending='')
         for i, value in enumerate(iterable, start=1):
             yield value
             self.stdout.write('.', ending='')
-            if i % (gap * new_line) == 0:
-                self.stdout.write('')
-                self.stdout.write(indent, ending='')
-            elif i % gap == 0:
+            if i % 50 == 0:
+                self.print_newline()
+
+            elif i % 10 == 0:
                 self.stdout.write(' ', ending='')
+
             self.stdout.flush()
-        self.stdout.write('')
+
+        self.print_newline()
 
     # Atomic so the count of models doesnt change as it is iterated
     @transaction.atomic
