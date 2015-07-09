@@ -2,9 +2,9 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailsearch.backends import get_search_backends
@@ -57,15 +57,7 @@ def chooser(request):
 
         else:
             images = Image.objects.order_by('-created_at')
-            p = request.GET.get("p", 1)
-            paginator = Paginator(images, 10)
-
-            try:
-                images = paginator.page(p)
-            except PageNotAnInteger:
-                images = paginator.page(1)
-            except EmptyPage:
-                images = paginator.page(paginator.num_pages)
+            paginator, images = paginate(request, images, per_page=10)
 
             is_searching = False
 
@@ -79,15 +71,7 @@ def chooser(request):
         searchform = SearchForm()
 
         images = Image.objects.order_by('-created_at')
-        p = request.GET.get("p", 1)
-        paginator = Paginator(images, 10)
-
-        try:
-            images = paginator.page(p)
-        except PageNotAnInteger:
-            images = paginator.page(1)
-        except EmptyPage:
-            images = paginator.page(paginator.num_pages)
+        paginator, images = paginate(request, images, per_page=10)
 
     return render_modal_workflow(request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js', {
         'images': images,

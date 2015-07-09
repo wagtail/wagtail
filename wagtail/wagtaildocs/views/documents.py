@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
@@ -47,15 +47,7 @@ def index(request):
         form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(documents, 20)
-
-    try:
-        documents = paginator.page(p)
-    except PageNotAnInteger:
-        documents = paginator.page(1)
-    except EmptyPage:
-        documents = paginator.page(paginator.num_pages)
+    paginator, documents = paginate(request, documents)
 
     # Create response
     if request.is_ajax():
@@ -174,16 +166,7 @@ def delete(request, document_id):
 def usage(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(doc.get_usage(), 20)
-
-    try:
-        used_by = paginator.page(p)
-    except PageNotAnInteger:
-        used_by = paginator.page(1)
-    except EmptyPage:
-        used_by = paginator.page(paginator.num_pages)
+    paginator, used_by = paginate(request, doc.get_usage())
 
     return render(request, "wagtaildocs/documents/usage.html", {
         'document': doc,

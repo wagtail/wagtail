@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailsearch import models, forms
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
@@ -13,7 +13,6 @@ from wagtail.wagtailadmin import messages
 @vary_on_headers('X-Requested-With')
 def index(request):
     is_searching = False
-    page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")
 
     queries = models.Query.objects.filter(editors_picks__isnull=False).distinct()
@@ -23,14 +22,7 @@ def index(request):
         queries = queries.filter(query_string__icontains=query_string)
         is_searching = True
 
-    # Pagination
-    paginator = Paginator(queries, 20)
-    try:
-        queries = paginator.page(page)
-    except PageNotAnInteger:
-        queries = paginator.page(1)
-    except EmptyPage:
-        queries = paginator.page(paginator.num_pages)
+    paginator, queries = paginate(request, queries)
 
     if request.is_ajax():
         return render(request, "wagtailsearch/editorspicks/results.html", {

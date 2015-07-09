@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm
 
@@ -22,16 +22,7 @@ def chooser(request, get_results=False):
     else:
         searchform = SearchForm()
 
-    # Pagination
-    p = request.GET.get('p', 1)
-
-    paginator = Paginator(queries, 10)
-    try:
-        queries = paginator.page(p)
-    except PageNotAnInteger:
-        queries = paginator.page(1)
-    except EmptyPage:
-        queries = paginator.page(paginator.num_pages)
+    paginator, queries = paginate(request, queries, per_page=10)
 
     # Render
     if get_results:
