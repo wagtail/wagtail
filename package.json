@@ -19,7 +19,8 @@
     "gulp-sass": "~1.0.0",
     "gulp-sourcemaps": "~1.2.2",
     "gulp-util": "~2.2.14",
-    "jscs": "^1.12.0"
+    "jscs": "^1.12.0",
+    "require-dir": "^0.3.0"
   },
   "dependencies": {},
   "scripts": {
