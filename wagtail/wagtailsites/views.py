@@ -29,9 +29,9 @@ def create(request):
         if form.is_valid():
             site = form.save()
             messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons=[
-                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+                messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
-            return redirect('wagtailsites_index')
+            return redirect('wagtailsites:index')
         else:
             messages.error(request, _("The site could not be created due to errors."))
     else:
@@ -51,9 +51,9 @@ def edit(request, site_id):
         if form.is_valid():
             site = form.save()
             messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons=[
-                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+                messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
-            return redirect('wagtailsites_index')
+            return redirect('wagtailsites:index')
         else:
             messages.error(request, _("The site could not be saved due to errors."))
     else:
@@ -72,7 +72,7 @@ def delete(request, site_id):
     if request.POST:
         site.delete()
         messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
-        return redirect('wagtailsites_index')
+        return redirect('wagtailsites:index')
 
     return render(request, "wagtailsites/confirm_delete.html", {
         'site': site,
