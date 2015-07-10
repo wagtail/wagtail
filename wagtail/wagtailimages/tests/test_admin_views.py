@@ -192,10 +192,10 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         )
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages:delete_image', args=(self.image.id,)), params)
+        return self.client.get(reverse('wagtailimages:delete', args=(self.image.id,)), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailimages:delete_image', args=(self.image.id,)), post_data)
+        return self.client.post(reverse('wagtailimages:delete', args=(self.image.id,)), post_data)
 
     def test_simple(self):
         response = self.get()

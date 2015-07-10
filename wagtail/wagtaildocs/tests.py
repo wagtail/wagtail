@@ -205,7 +205,7 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         self.document = models.Document.objects.create(title="Test document")
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs:delete_document', args=(self.document.id,)))
+        response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
 
@@ -214,7 +214,7 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         post_data = {
             'foo': 'bar'
         }
-        response = self.client.post(reverse('wagtaildocs:delete_document', args=(self.document.id,)), post_data)
+        response = self.client.post(reverse('wagtaildocs:delete', args=(self.document.id,)), post_data)
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))

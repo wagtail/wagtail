@@ -42,7 +42,7 @@
                         {% endif %}
 
                     {% endfor %}
-                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages:delete_image' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                    <li><input type="submit" value="{% trans 'Save' %}" /><a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
         </div>

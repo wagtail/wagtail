@@ -189,10 +189,10 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, redirect_id=None):
-        return self.client.get(reverse('wagtailredirects:delete_redirect', args=(redirect_id or self.redirect.id, )), params)
+        return self.client.get(reverse('wagtailredirects:delete', args=(redirect_id or self.redirect.id, )), params)
 
     def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects:delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
+        return self.client.post(reverse('wagtailredirects:delete', args=(redirect_id or self.redirect.id, )), post_data)
 
     def test_simple(self):
         response = self.get()

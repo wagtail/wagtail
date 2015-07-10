@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^$', documents.index, name='index'),
     url(r'^add/$', documents.add, name='add'),
     url(r'^edit/(\d+)/$', documents.edit, name='edit'),
-    url(r'^delete/(\d+)/$', documents.delete, name='delete_document'),
+    url(r'^delete/(\d+)/$', documents.delete, name='delete'),
 
     url(r'^chooser/$', chooser.chooser, name='chooser'),
     url(r'^chooser/(\d+)/$', chooser.document_chosen, name='document_chosen'),

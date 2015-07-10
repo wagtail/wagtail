@@ -133,7 +133,7 @@ def edit(request, image_id):
         # Give error if image file doesn't exist
         if not os.path.isfile(local_path):
             messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:delete_image', args=(image.id,)), _('Delete'))
+                messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
 
     return render(request, "wagtailimages/images/edit.html", {
