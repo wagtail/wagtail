@@ -79,7 +79,7 @@ def add_subpage(request, parent_page_id):
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
         content_type = page_types[0]
-        return redirect('wagtailadmin_pages:create', content_type.app_label, content_type.model, parent_page.id)
+        return redirect('wagtailadmin_pages:add', content_type.app_label, content_type.model, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,

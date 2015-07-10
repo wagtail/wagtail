@@ -21,8 +21,8 @@ urlpatterns = [
     url(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
 
     url(r'^pages/', include([
-        url(r'^new/(\w+)/(\w+)/(\d+)/$', pages.create, name='create'),
-        url(r'^new/(\w+)/(\w+)/(\d+)/preview/$', pages.preview_on_create, name='preview_on_create'),
+        url(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),
+        url(r'^add/(\w+)/(\w+)/(\d+)/preview/$', pages.preview_on_create, name='preview_on_add'),
         url(r'^usage/(\w+)/(\w+)/$', pages.content_type_use, name='type_use'),
 
         url(r'^(\d+)/edit/$', pages.edit, name='edit'),

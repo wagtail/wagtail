@@ -72,7 +72,7 @@
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         window.fileupload_opts = {
-            simple_upload_url: "{% url 'wagtailimages:add_image' %}",
+            simple_upload_url: "{% url 'wagtailimages:add' %}",
             accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
             max_file_size: {{ max_filesize|stringformat:"s"|default:"null" }}, //numeric format
             errormessages: {

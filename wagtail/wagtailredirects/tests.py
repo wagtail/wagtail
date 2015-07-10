@@ -95,10 +95,10 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailredirects:add_redirect'), params)
+        return self.client.get(reverse('wagtailredirects:add'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailredirects:add_redirect'), post_data)
+        return self.client.post(reverse('wagtailredirects:add'), post_data)
 
     def test_simple(self):
         response = self.get()

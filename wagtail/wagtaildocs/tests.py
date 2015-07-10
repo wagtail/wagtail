@@ -124,7 +124,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs:add_document'))
+        response = self.client.get(reverse('wagtaildocs:add'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
 
@@ -138,7 +138,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
             'title': "Test document",
             'file': fake_file,
         }
-        response = self.client.post(reverse('wagtaildocs:add_document'), post_data)
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))
@@ -470,7 +470,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'file': fake_file,
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtaildocs:add_document'), post_data)
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))

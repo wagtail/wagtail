@@ -34,10 +34,10 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.localhost = Site.objects.all()[0]
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsites:create'), params)
+        return self.client.get(reverse('wagtailsites:add'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsites:create'), post_data)
+        return self.client.post(reverse('wagtailsites:add'), post_data)
 
     def create_site(self, hostname='testsite', port=80, is_default_site=False, root_page=None):
         root_page = root_page or self.home_page
