@@ -14,7 +14,7 @@ from wagtail.wagtailusers.urls import users, groups
 def register_admin_urls():
     return [
         url(r'^users/', include(users, namespace='wagtailusers_users')),
-        url(r'^groups/', include(groups)),
+        url(r'^groups/', include(groups, namespace='wagtailusers_groups')),
     ]
 
 
@@ -28,7 +28,7 @@ def register_users_menu_item():
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
-    return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups_index'), classnames='icon icon-group', order=601)
+    return AuthMenuItem(_('Groups'), urlresolvers.reverse('wagtailusers_groups:index'), classnames='icon icon-group', order=601)
 
 
 @hooks.register('register_permissions')
