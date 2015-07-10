@@ -5,7 +5,7 @@
 {% block extra_js %}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtaildocs_index' %}",
+            url: "{% url 'wagtaildocs:index' %}",
             termInput: "#id_q",
             targetOutput: "#document-results"
         }
@@ -15,7 +15,7 @@
 {% block content %}
     {% trans "Documents" as doc_str %}
     {% trans "Add a document" as add_doc_str %}
-    {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs_add_document" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs_index" %}
+    {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs:add_document" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs:index" %}
 
     <div class="nice-padding">
         <div id="document-results" class="documents">

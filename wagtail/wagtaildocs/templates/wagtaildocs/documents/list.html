@@ -7,7 +7,7 @@
         <tr class="table-headers">
             <th>
                 {% if not is_searching %}
-                    <a href="{% url 'wagtaildocs_index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
+                    <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
                         {% trans "Title" %}
                     </a>
                 {% else %}
@@ -17,7 +17,7 @@
             <th>{% trans "File" %}</th>
             <th>
                 {% if not is_searching %}
-                    <a href="{% url 'wagtaildocs_index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">
+                    <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">
                         {% trans "Uploaded" %}
                     </a>
                 {% else %}
@@ -31,9 +31,9 @@
             <tr>
                 <td class="title">
                     {% if choosing %}
-                        <h2><a href="{% url 'wagtaildocs_document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></h2>
+                        <h2><a href="{% url 'wagtaildocs:document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></h2>
                     {% else %}
-                        <h2><a href="{% url 'wagtaildocs_edit_document' doc.id %}">{{ doc.title }}</a></h2>
+                        <h2><a href="{% url 'wagtaildocs:edit_document' doc.id %}">{{ doc.title }}</a></h2>
                     {% endif %}
                 </td>
                 <td><a href="{{ doc.url }}" class="nolink">{{ doc.filename }}</a></td>
