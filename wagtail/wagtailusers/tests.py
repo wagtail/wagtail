@@ -21,7 +21,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_users_index'), params)
+        return self.client.get(reverse('wagtailusers_users:index'), params)
 
     def test_simple(self):
         response = self.get()
@@ -54,10 +54,10 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_users_create'), params)
+        return self.client.get(reverse('wagtailusers_users:create'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailusers_users_create'), post_data)
+        return self.client.post(reverse('wagtailusers_users:create'), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -75,7 +75,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
         users = get_user_model().objects.filter(username='testuser')
@@ -92,10 +92,10 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, user_id=None):
-        return self.client.get(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), params)
+        return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), params)
 
     def post(self, post_data={}, user_id=None):
-        return self.client.post(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -116,7 +116,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was edited
         user = get_user_model().objects.get(id=self.test_user.id)

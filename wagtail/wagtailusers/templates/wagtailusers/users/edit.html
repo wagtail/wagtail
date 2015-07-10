@@ -13,7 +13,7 @@
         <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>   
 
-    <form action="{% url 'wagtailusers_users_edit' user.id %}" method="POST">
+    <form action="{% url 'wagtailusers_users:edit' user.id %}" method="POST">
         <div class="tab-content">
             {% csrf_token %}
 
