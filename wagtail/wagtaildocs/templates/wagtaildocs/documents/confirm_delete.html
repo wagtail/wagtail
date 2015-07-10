@@ -8,7 +8,7 @@
 
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to delete this document?" %}</p>
-        <form action="{% url 'wagtaildocs_delete_document' document.id %}" method="POST">
+        <form action="{% url 'wagtaildocs:delete_document' document.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value='{% trans "Yes, delete" %}' class="serious" />
         </form>

@@ -62,12 +62,12 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_index'))
+        response = self.client.get(reverse('wagtaildocs:index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
 
     def test_search(self):
-        response = self.client.get(reverse('wagtaildocs_index'), {'q': "Hello"})
+        response = self.client.get(reverse('wagtaildocs:index'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -79,7 +79,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 2})
+        response = self.client.get(reverse('wagtaildocs:index'), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -91,7 +91,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaildocs:index'), {'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -103,7 +103,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_index'), {'p': 99999})
+        response = self.client.get(reverse('wagtaildocs:index'), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -115,7 +115,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_ordering(self):
         orderings = ['title', '-created_at']
         for ordering in orderings:
-            response = self.client.get(reverse('wagtaildocs_index'), {'ordering': ordering})
+            response = self.client.get(reverse('wagtaildocs:index'), {'ordering': ordering})
             self.assertEqual(response.status_code, 200)
 
 
@@ -124,7 +124,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_add_document'))
+        response = self.client.get(reverse('wagtaildocs:add_document'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
 
@@ -138,10 +138,10 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
             'title': "Test document",
             'file': fake_file,
         }
-        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
+        response = self.client.post(reverse('wagtaildocs:add_document'), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
@@ -159,7 +159,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.document = models.Document.objects.create(title="Test document", file=fake_file)
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_edit_document', args=(self.document.id,)))
+        response = self.client.get(reverse('wagtaildocs:edit_document', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
@@ -173,10 +173,10 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
             'title': "Test document changed!",
             'file': fake_file,
         }
-        response = self.client.post(reverse('wagtaildocs_edit_document', args=(self.document.id,)), post_data)
+        response = self.client.post(reverse('wagtaildocs:edit_document', args=(self.document.id,)), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document title should be changed
         self.assertEqual(models.Document.objects.get(id=self.document.id).title, "Test document changed!")
@@ -190,7 +190,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         document = models.Document.objects.create(title="Test missing source document", file=fake_file)
         document.file.delete(False)
 
-        response = self.client.get(reverse('wagtaildocs_edit_document', args=(document.id,)), {})
+        response = self.client.get(reverse('wagtaildocs:edit_document', args=(document.id,)), {})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
 
@@ -205,7 +205,7 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         self.document = models.Document.objects.create(title="Test document")
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_delete_document', args=(self.document.id,)))
+        response = self.client.get(reverse('wagtaildocs:delete_document', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')
 
@@ -214,10 +214,10 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         post_data = {
             'foo': 'bar'
         }
-        response = self.client.post(reverse('wagtaildocs_delete_document', args=(self.document.id,)), post_data)
+        response = self.client.post(reverse('wagtaildocs:delete_document', args=(self.document.id,)), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
@@ -228,13 +228,13 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_chooser'))
+        response = self.client.get(reverse('wagtaildocs:chooser'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
 
     def test_search(self):
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'q': "Hello"})
+        response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -246,7 +246,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 2})
+        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -258,7 +258,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -270,7 +270,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs_chooser'), {'p': 99999})
+        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -288,7 +288,7 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
         self.document = models.Document.objects.create(title="Test document")
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_document_chosen', args=(self.document.id,)))
+        response = self.client.get(reverse('wagtaildocs:document_chosen', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
 
@@ -298,7 +298,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs_chooser_upload'))
+        response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.js')
@@ -313,7 +313,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
             'title': "Test document",
             'file': fake_file,
         }
-        response = self.client.post(reverse('wagtaildocs_chooser_upload'), post_data)
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
         # Check that the response is a javascript file saying the document was chosen
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
@@ -372,7 +372,7 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs_edit_document',
+        response = self.client.get(reverse('wagtaildocs:edit_document',
                                            args=(1,)))
         self.assertNotContains(response, 'Used 1 time')
 
@@ -384,13 +384,13 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs_edit_document',
+        response = self.client.get(reverse('wagtaildocs:edit_document',
                                            args=(1,)))
         self.assertContains(response, 'Used 1 time')
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_count_zero_appears(self):
-        response = self.client.get(reverse('wagtaildocs_edit_document',
+        response = self.client.get(reverse('wagtaildocs:edit_document',
                                            args=(1,)))
         self.assertContains(response, 'Used 0 times')
 
@@ -428,13 +428,13 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        response = self.client.get(reverse('wagtaildocs_document_usage',
+        response = self.client.get(reverse('wagtaildocs:document_usage',
                                            args=(1,)))
         self.assertContains(response, 'Christmas')
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_page_no_usage(self):
-        response = self.client.get(reverse('wagtaildocs_document_usage',
+        response = self.client.get(reverse('wagtaildocs:document_usage',
                                            args=(1,)))
         # There's no usage so there should be no table rows
         self.assertRegex(response.content, b'<tbody>(\s|\n)*</tbody>')
@@ -470,10 +470,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'file': fake_file,
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtaildocs_add_document'), post_data)
+        response = self.client.post(reverse('wagtaildocs:add_document'), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be created
         doc = models.Document.objects.filter(title=post_data['title'])
@@ -498,10 +498,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'file': another_fake_file,
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtaildocs_edit_document', args=(document.id,)), post_data)
+        response = self.client.post(reverse('wagtaildocs:edit_document', args=(document.id,)), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs_index'))
+        self.assertRedirects(response, reverse('wagtaildocs:index'))
 
         # Document should be changed
         doc = models.Document.objects.filter(title=post_data['title'])
