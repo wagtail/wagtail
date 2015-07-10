@@ -7,7 +7,7 @@
         <tr>
             <th class="title">
                 {% if not is_searching %}
-                    <a href="{% url 'wagtailredirects_index' %}{% if not ordering == "old_path" %}?ordering=old_path{% endif %}" class="icon icon-arrow-down-after {% if ordering == "old_path" %}teal{% endif %}">
+                    <a href="{% url 'wagtailredirects:index' %}{% if not ordering == "old_path" %}?ordering=old_path{% endif %}" class="icon icon-arrow-down-after {% if ordering == "old_path" %}teal{% endif %}">
                         {% trans "From" %}
                     </a>
                 {% else %}
@@ -22,7 +22,7 @@
         {% for redirect in redirects %}
             <tr>
                 <td class="title">
-                    <h2><a href="{% url 'wagtailredirects_edit_redirect' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></h2>
+                    <h2><a href="{% url 'wagtailredirects:edit_redirect' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></h2>
                 </td>
                 <td>
                     {% if redirect.redirect_page %}

@@ -8,7 +8,7 @@
 
     <div class="row row-flush nice-padding">       
         <p>{% trans "Are you sure you want to delete this redirect?" %}</p>
-        <form action="{% url 'wagtailredirects_delete_redirect' redirect.id %}" method="POST">
+        <form action="{% url 'wagtailredirects:delete_redirect' redirect.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
         </form>
