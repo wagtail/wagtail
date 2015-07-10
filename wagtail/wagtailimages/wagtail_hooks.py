@@ -19,7 +19,7 @@ from wagtail.wagtailimages.rich_text import ImageEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^images/', include(admin_urls)),
+        url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
     ]
 
 
@@ -41,7 +41,7 @@ def check_old_style_urlconf():
 
     # A faulty urls.py will place wagtail.wagtailimages.urls at the same path that
     # wagtail.wagtailimages.admin_urls is loaded to, resulting in the wagtailimages_serve path
-    # being equal to wagtailimages_index followed by three arbitrary args
+    # being equal to wagtailimages:index followed by three arbitrary args
     try:
         wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args=['123', '456', '789'])
     except urlresolvers.NoReverseMatch:
@@ -49,7 +49,7 @@ def check_old_style_urlconf():
         OLD_STYLE_URLCONF_CHECK_PASSED = True
         return
 
-    wagtailimages_index_path = urlresolvers.reverse('wagtailimages_index')
+    wagtailimages_index_path = urlresolvers.reverse('wagtailimages:index')
     if wagtailimages_serve_path == wagtailimages_index_path + '123/456/789/':
         raise ImproperlyConfigured("""Your urls.py contains an entry for %s that needs to be removed.
             See http://wagtail.readthedocs.org/en/latest/releases/0.5.html#urlconf-entries-for-admin-images-admin-embeds-etc-need-to-be-removed"""
@@ -71,7 +71,7 @@ class ImagesMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
-    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages_index'), name='images', classnames='icon icon-image', order=300)
+    return ImagesMenuItem(_('Images'), urlresolvers.reverse('wagtailimages:index'), name='images', classnames='icon icon-image', order=300)
 
 
 @hooks.register('insert_editor_js')
@@ -90,7 +90,7 @@ def editor_js():
             registerHalloPlugin('hallowagtailimage');
         </script>
         """,
-        urlresolvers.reverse('wagtailimages_chooser')
+        urlresolvers.reverse('wagtailimages:chooser')
     )
 
 

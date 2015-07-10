@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form action="{% url 'wagtailimages_edit_multiple' image.id %}" method="POST" enctype="multipart/form-data">
+<form action="{% url 'wagtailimages:edit_multiple' image.id %}" method="POST" enctype="multipart/form-data">
     <ul class="fields">
         {% csrf_token %}
         {% for field in form %}
@@ -12,7 +12,7 @@
         {% endfor %}
         <li>
             <input type="submit" value="{% trans 'Update' %}" />
-            <a href="{% url 'wagtailimages_delete_multiple' image.id %}" class="delete button button-secondary no">{% trans "Delete" %}</a>
+            <a href="{% url 'wagtailimages:delete_multiple' image.id %}" class="delete button button-secondary no">{% trans "Delete" %}</a>
         </li>
     </ul>
 </form>

@@ -7,7 +7,7 @@
 {% block extra_js %}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailimages_index' %}",
+            url: "{% url 'wagtailimages:index' %}",
             termInput: "#id_q",
             targetOutput: "#image-results"
         }
@@ -17,7 +17,7 @@
 {% block content %}
     {% trans "Images" as im_str %}
     {% trans "Add an image" as add_img_str %}
-    {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages_add_multiple" icon="image" add_text=add_img_str search_url="wagtailimages_index" %}
+    {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add_multiple" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
 
     <div class="nice-padding">
         <div id="image-results">

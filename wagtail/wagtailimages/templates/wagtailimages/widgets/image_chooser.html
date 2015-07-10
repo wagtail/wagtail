@@ -13,4 +13,4 @@
     </div>
 {% endblock %}
 
-{% block edit_chosen_item_url %}{% if image %}{% url 'wagtailimages_edit_image' image.id %}{% endif %}{% endblock %}
+{% block edit_chosen_item_url %}{% if image %}{% url 'wagtailimages:edit_image' image.id %}{% endif %}{% endblock %}
