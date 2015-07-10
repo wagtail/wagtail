@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 
 from wagtail.wagtailimages.models import get_image_model
 
-from wagtail.contrib.wagtailapi import signal_handlers
+from wagtail.contrib.api import signal_handlers
 
 
 class TestImageListing(TestCase):
