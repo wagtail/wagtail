@@ -13,7 +13,7 @@
         <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>   
 
-    <form action="{% url 'wagtailusers_users_create' %}" method="POST">
+    <form action="{% url 'wagtailusers_users:create' %}" method="POST">
         <div class="tab-content">
             {% csrf_token %}
             <section id="account" class="active nice-padding">
