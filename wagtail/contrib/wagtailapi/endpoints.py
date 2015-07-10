@@ -409,7 +409,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
                 ancestor_page = self.get_queryset(request).get(id=ancestor_page_id)
                 return queryset.descendant_of(ancestor_page)
             except Page.DoesNotExist:
-                raise self.BadRequestError("ancestor page doesn't exist")
+                raise BadRequestError("ancestor page doesn't exist")
 
         return queryset
 
