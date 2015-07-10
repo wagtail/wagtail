@@ -398,12 +398,12 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     def do_descendant_of_filter(self, request, queryset):
         if 'descendant_of' in request.GET:
             if getattr(queryset, '_filtered_by_child_of', False):
-                raise self.BadRequestError("filtering by descendant_of with child_of is not supported")
+                raise BadRequestError("filtering by descendant_of with child_of is not supported")
             try:
                 ancestor_page_id = int(request.GET['descendant_of'])
                 assert ancestor_page_id >= 0
             except (ValueError, AssertionError):
-                raise self.BadRequestError("descendant_of must be a positive integer")
+                raise BadRequestError("descendant_of must be a positive integer")
 
             try:
                 ancestor_page = self.get_queryset(request).get(id=ancestor_page_id)
