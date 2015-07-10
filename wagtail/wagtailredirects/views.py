@@ -70,7 +70,7 @@ def edit(request, redirect_id):
         if form.is_valid():
             form.save()
             messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects:edit_redirect', args=(theredirect.id,)), _('Edit'))
+                messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
             ])
             return redirect('wagtailredirects:index')
         else:
@@ -113,7 +113,7 @@ def add(request):
             theredirect.save()
 
             messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects:edit_redirect', args=(theredirect.id,)), _('Edit'))
+                messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
             ])
             return redirect('wagtailredirects:index')
         else:

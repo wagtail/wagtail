@@ -108,7 +108,7 @@ def edit(request, image_id):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit again'))
+                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
             ])
             return redirect('wagtailimages:index')
         else:
@@ -252,7 +252,7 @@ def add(request):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit'))
+                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
             ])
             return redirect('wagtailimages:index')
         else:

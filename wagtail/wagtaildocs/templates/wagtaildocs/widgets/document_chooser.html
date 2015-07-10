@@ -5,4 +5,4 @@
     <span class="title">{{ document.title }}</span>
 {% endblock %}
 
-{% block edit_chosen_item_url %}{% if document %}{% url 'wagtaildocs:edit_document' document.id %}{% endif %}{% endblock %}
+{% block edit_chosen_item_url %}{% if document %}{% url 'wagtaildocs:edit' document.id %}{% endif %}{% endblock %}

@@ -90,7 +90,7 @@ def add(request):
                 backend.add(doc)
 
             messages.success(request, _("Document '{0}' added.").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit_document', args=(doc.id,)), _('Edit'))
+                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
             ])
             return redirect('wagtaildocs:index')
         else:
@@ -125,7 +125,7 @@ def edit(request, document_id):
                 backend.add(doc)
 
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit_document', args=(doc.id,)), _('Edit'))
+                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
             ])
             return redirect('wagtaildocs:index')
         else:

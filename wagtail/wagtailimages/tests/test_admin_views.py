@@ -132,10 +132,10 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         )
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailimages:edit_image', args=(self.image.id,)), params)
+        return self.client.get(reverse('wagtailimages:edit', args=(self.image.id,)), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailimages:edit_image', args=(self.image.id,)), post_data)
+        return self.client.post(reverse('wagtailimages:edit', args=(self.image.id,)), post_data)
 
     def test_simple(self):
         response = self.get()
