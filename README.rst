@@ -29,7 +29,7 @@ Features
 * Straightforward integration with existing Django apps
 * Simple, configurable permissions
 * Workflow support
-* An extensible `form builder <http://docs.wagtail.io/en/latest/form_builder.html>`_
+* An extensible `form builder <http://docs.wagtail.io/en/latest/reference/contrib/forms.html>`_
 * Multi-site and multi-language support
 * Optional `static site generation <http://docs.wagtail.io/en/latest/reference/contrib/staticsitegen.html>`_
 * Excellent `test coverage <https://coveralls.io/r/torchbox/wagtail?branch=master>`_
