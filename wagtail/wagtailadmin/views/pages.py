@@ -79,7 +79,7 @@ def add_subpage(request, parent_page_id):
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
         content_type = page_types[0]
-        return redirect('wagtailadmin_pages_create', content_type.app_label, content_type.model, parent_page.id)
+        return redirect('wagtailadmin_pages:create', content_type.app_label, content_type.model, parent_page.id)
 
     return render(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
@@ -176,12 +176,12 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             if is_publishing:
                 messages.success(request, _("Page '{0}' created and published.").format(page.title), buttons=[
                     messages.button(page.url, _('View live')),
-                    messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                 ])
             elif is_submitting:
                 messages.success(request, _("Page '{0}' created and submitted for moderation.").format(page.title), buttons=[
-                    messages.button(reverse('wagtailadmin_pages_view_draft', args=(page.id,)), _('View draft')),
-                    messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+                    messages.button(reverse('wagtailadmin_pages:view_draft', args=(page.id,)), _('View draft')),
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
                 ])
                 send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
@@ -197,7 +197,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                 return redirect('wagtailadmin_explore', page.get_parent().id)
             else:
                 # Just saving - remain on edit page for further edits
-                return redirect('wagtailadmin_pages_edit', page.id)
+                return redirect('wagtailadmin_pages:edit', page.id)
         else:
             messages.error(request, _("The page could not be created due to validation errors"))
             edit_handler = edit_handler_class(instance=page, form=form)
@@ -256,12 +256,12 @@ def edit(request, page_id):
             if is_publishing:
                 messages.success(request, _("Page '{0}' published.").format(page.title), buttons=[
                     messages.button(page.url, _('View live')),
-                    messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                 ])
             elif is_submitting:
                 messages.success(request, _("Page '{0}' submitted for moderation.").format(page.title), buttons=[
-                    messages.button(reverse('wagtailadmin_pages_view_draft', args=(page_id,)), _('View draft')),
-                    messages.button(reverse('wagtailadmin_pages_edit', args=(page_id,)), _('Edit'))
+                    messages.button(reverse('wagtailadmin_pages:view_draft', args=(page_id,)), _('View draft')),
+                    messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                 ])
                 send_notification(page.get_latest_revision().id, 'submitted', request.user.id)
             else:
@@ -277,7 +277,7 @@ def edit(request, page_id):
                 return redirect('wagtailadmin_explore', page.get_parent().id)
             else:
                 # Just saving - remain on edit page for further edits
-                return redirect('wagtailadmin_pages_edit', page.id)
+                return redirect('wagtailadmin_pages:edit', page.id)
         else:
             if page.locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
@@ -494,7 +494,7 @@ def unpublish(request, page_id):
         page.unpublish()
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.title), buttons=[
-            messages.button(reverse('wagtailadmin_pages_edit', args=(page.id,)), _('Edit'))
+            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
         ])
 
         return redirect('wagtailadmin_explore', page.get_parent().id)
@@ -546,7 +546,7 @@ def move_confirm(request, page_to_move_id, destination_id):
         page_to_move.move(destination, pos='last-child')
 
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.title), buttons=[
-            messages.button(reverse('wagtailadmin_pages_edit', args=(page_to_move.id,)), _('Edit'))
+            messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
         ])
 
         return redirect('wagtailadmin_explore', destination.id)
@@ -733,7 +733,7 @@ def approve_moderation(request, revision_id):
         revision.approve_moderation()
         messages.success(request, _("Page '{0}' published.").format(revision.page.title), buttons=[
             messages.button(revision.page.url, _('View live')),
-            messages.button(reverse('wagtailadmin_pages_edit', args=(revision.page.id,)), _('Edit'))
+            messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
         send_notification(revision.id, 'approved', request.user.id)
 
@@ -752,7 +752,7 @@ def reject_moderation(request, revision_id):
     if request.method == 'POST':
         revision.reject_moderation()
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.title), buttons=[
-            messages.button(reverse('wagtailadmin_pages_edit', args=(revision.page.id,)), _('Edit'))
+            messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
         send_notification(revision.id, 'rejected', request.user.id)
 

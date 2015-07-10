@@ -36,7 +36,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         This tests that a blank form is returned when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id, )))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -50,7 +50,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         This tests that the restriction type and password fields as set correctly when a user opens the set_privacy view on a public page
         """
-        response = self.client.get(reverse('wagtailadmin_pages_set_privacy', args=(self.private_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id, )))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -65,7 +65,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         This tests that the set_privacy view tells the user that the password restriction has been applied to an ancestor
         """
-        response = self.client.get(reverse('wagtailadmin_pages_set_privacy', args=(self.private_child_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:set_privacy', args=(self.private_child_page.id, )))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -80,7 +80,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             'restriction_type': 'password',
             'password': 'helloworld',
         }
-        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id, )), post_data)
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -100,7 +100,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             'restriction_type': 'password',
             'password': '',
         }
-        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.public_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id, )), post_data)
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -116,7 +116,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             'restriction_type': 'none',
             'password': '',
         }
-        response = self.client.post(reverse('wagtailadmin_pages_set_privacy', args=(self.private_page.id, )), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id, )), post_data)
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -222,7 +222,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         """
         This tests that the privacy indicator on the public pages edit view is set to "PUBLIC"
         """
-        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.public_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.public_page.id, )))
 
         # Check the response
         self.assertEqual(response.status_code, 200)
@@ -236,7 +236,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         """
         This tests that the privacy indicator on the private pages edit view is set to "PRIVATE"
         """
-        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.private_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.private_page.id, )))
 
         # Check the response
         self.assertEqual(response.status_code, 200)
@@ -250,7 +250,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         """
         This tests that the privacy indicator on the private child pages edit view is set to "PRIVATE"
         """
-        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.private_child_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.private_child_page.id, )))
 
         # Check the response
         self.assertEqual(response.status_code, 200)

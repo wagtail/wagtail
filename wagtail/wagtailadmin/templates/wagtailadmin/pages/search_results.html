@@ -20,7 +20,7 @@
 
         {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 allow_navigation=0 %}
 
-        {% url 'wagtailadmin_pages_search' as pagination_base_url %}
+        {% url 'wagtailadmin_pages:search' as pagination_base_url %}
         {% include "wagtailadmin/pages/listing/_pagination.html" with page=pages base_url=pagination_base_url query_params=pagination_query_params only %}
     {% else %}
         {% if query_string %}

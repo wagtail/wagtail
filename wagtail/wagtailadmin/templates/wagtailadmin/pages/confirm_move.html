@@ -13,7 +13,7 @@
             <p>{% blocktrans with title=destination.title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}</p>
         {% endif %}
 
-        <form action="{% url 'wagtailadmin_pages_move_confirm' page_to_move.id destination.id %}" method="POST">
+        <form action="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id destination.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, move this page' %}">
         </form>
