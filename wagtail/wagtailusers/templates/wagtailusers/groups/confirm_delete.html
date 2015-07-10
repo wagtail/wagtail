@@ -18,7 +18,7 @@
         </p>
 
         <p>{% trans "Are you sure you want to delete this group?" %}</p>
-        <form action="{% url 'wagtailusers_groups_delete' group.id %}" method="POST">
+        <form action="{% url 'wagtailusers_groups:delete' group.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
         </form>

@@ -3,8 +3,8 @@
 
     {% include "wagtailusers/groups/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=groups is_searching=is_searching linkurl="wagtailusers_groups_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=groups is_searching=is_searching linkurl="wagtailusers_groups:index" %}
 {% else %}
-    {% url 'wagtailusers_groups_create' as wagtailusers_create_group_url %}
+    {% url 'wagtailusers_groups:create' as wagtailusers_create_group_url %}
     <p>{% blocktrans %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
 {% endif %}
