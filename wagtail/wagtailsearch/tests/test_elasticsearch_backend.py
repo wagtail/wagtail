@@ -749,7 +749,7 @@ class TestElasticSearchMapping(TestCase):
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         }
-                    }
+                    },
                 }
             }
         }
@@ -801,7 +801,7 @@ class TestElasticSearchMappingInheritance(TestCase):
         self.es_mapping = ElasticSearchMapping(models.SearchTestChild)
 
         # Create ES document
-        self.obj = models.SearchTestChild(title="Hello", subtitle="World")
+        self.obj = models.SearchTestChild(title="Hello", subtitle="World", page_id=1)
         self.obj.save()
         self.obj.tags.add("a tag")
 
@@ -819,6 +819,14 @@ class TestElasticSearchMappingInheritance(TestCase):
                     # New
                     'extra_content': {'type': 'string', 'include_in_all': True},
                     'subtitle': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                    'page': {
+                        'type': 'nested',
+                        'properties': {
+                            'title': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
+                            'search_description': {'type': 'string', 'include_in_all': True},
+                            'live_filter': {'index': 'not_analyzed', 'type': 'boolean', 'include_in_all': False},
+                        }
+                    },
 
                     # Inherited
                     'pk': {'index': 'not_analyzed', 'type': 'string', 'store': 'yes', 'include_in_all': False},
@@ -836,7 +844,7 @@ class TestElasticSearchMappingInheritance(TestCase):
                             'name': {'type': 'string', 'include_in_all': True, 'index_analyzer': 'edgengram_analyzer'},
                             'slug_filter': {'index': 'not_analyzed', 'type': 'string', 'include_in_all': False},
                         }
-                    }
+                    },
                 }
             }
         }
@@ -862,13 +870,18 @@ class TestElasticSearchMappingInheritance(TestCase):
             # New
             'extra_content': '',
             'subtitle': 'World',
+            'page': {
+                'title': 'Root',
+                'search_description': '',
+                'live_filter': True,
+            },
 
             # Changed
             'content_type': 'searchtests_searchtest_searchtests_searchtestchild',
 
             # Inherited
             'pk': str(self.obj.pk),
-            '_partials': ['Hello', 'World', 'a tag'],
+            '_partials': ['Hello', 'Root', 'World', 'a tag'],
             'live_filter': False,
             'published_date_filter': None,
             'title': 'Hello',
