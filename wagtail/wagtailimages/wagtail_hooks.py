@@ -34,7 +34,6 @@ def register_images_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
         'wagtailimages/js/image-chooser.js',
     ]
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
@@ -44,7 +43,6 @@ def editor_js():
         """
         <script>
             window.chooserUrls.imageChooser = '{0}';
-            registerHalloPlugin('hallowagtailimage');
         </script>
         """,
         urlresolvers.reverse('wagtailimages:chooser')

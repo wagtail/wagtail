@@ -18,15 +18,24 @@ def register_admin_urls():
 @hooks.register('insert_editor_js')
 def editor_js():
     return format_html("""
+            <script>
+                window.chooserUrls.embedsChooser = '{0}';
+            </script>
+        """,
+        urlresolvers.reverse('wagtailembeds_chooser')
+    )
+
+
+@hooks.register('insert_hallo_js')
+def embeds_richtexteditor_js():
+    return format_html("""
             <script src="{0}{1}"></script>
             <script>
-                window.chooserUrls.embedsChooser = '{2}';
                 registerHalloPlugin('hallowagtailembeds');
             </script>
         """,
         settings.STATIC_URL,
         'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
-        urlresolvers.reverse('wagtailembeds:chooser')
     )
 
 

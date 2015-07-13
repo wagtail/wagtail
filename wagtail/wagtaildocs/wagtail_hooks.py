@@ -34,7 +34,6 @@ def register_documents_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
         'wagtaildocs/js/document-chooser.js',
     ]
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
@@ -44,7 +43,6 @@ def editor_js():
         """
         <script>
             window.chooserUrls.documentChooser = '{0}';
-            registerHalloPlugin('hallowagtaildoclink');
         </script>
         """,
         urlresolvers.reverse('wagtaildocs:chooser')
