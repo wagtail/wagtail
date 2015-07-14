@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
+    <form id="page-edit-form" enctype="multipart/form-data" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
