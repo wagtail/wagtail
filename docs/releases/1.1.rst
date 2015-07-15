@@ -23,3 +23,8 @@ Minor features
  * Moved the style guide menu item into the Settings sub-menu
  * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
  * Added ``descendant_of`` filter to the API
+
+Bug fixes
+~~~~~~~~~
+
+ * Text areas in the non-default tab of the page editor now resize to the correct height
