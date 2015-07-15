@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import permission_required, user_passes_test
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailusers.forms import GroupForm, GroupPagePermissionFormSet
@@ -22,7 +22,6 @@ def user_has_group_model_perm(user):
 @vary_on_headers('X-Requested-With')
 def index(request):
     q = None
-    p = request.GET.get("p", 1)
     is_searching = False
 
     if 'q' in request.GET:
@@ -49,14 +48,7 @@ def index(request):
     else:
         ordering = 'name'
 
-    paginator = Paginator(groups, 20)
-
-    try:
-        groups = paginator.page(p)
-    except PageNotAnInteger:
-        groups = paginator.page(1)
-    except EmptyPage:
-        groups = paginator.page(paginator.num_pages)
+    paginator, groups = paginate(request, groups)
 
     if request.is_ajax():
         return render(request, "wagtailusers/groups/results.html", {

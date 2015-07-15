@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.edit_handlers import ObjectList
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
-
 from wagtail.wagtailredirects import models
 
 
@@ -18,7 +17,6 @@ REDIRECT_EDIT_HANDLER = ObjectList(models.Redirect.content_panels).bind_to_model
 @permission_required('wagtailredirects.change_redirect')
 @vary_on_headers('X-Requested-With')
 def index(request):
-    page = request.GET.get('p', 1)
     query_string = request.GET.get('q', "")
     ordering = request.GET.get('ordering', 'old_path')
 
@@ -36,13 +34,7 @@ def index(request):
         redirects = redirects.order_by(ordering)
 
     # Pagination
-    paginator = Paginator(redirects, 20)
-    try:
-        redirects = paginator.page(page)
-    except PageNotAnInteger:
-        redirects = paginator.page(1)
-    except EmptyPage:
-        redirects = paginator.page(paginator.num_pages)
+    paginator, redirects = paginate(request, redirects)
 
     # Render template
     if request.is_ajax():

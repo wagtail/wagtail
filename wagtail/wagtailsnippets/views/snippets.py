@@ -6,8 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
 from wagtail.wagtailsnippets.models import get_snippet_content_types
@@ -94,16 +94,7 @@ def list(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(items, 20)
-
-    try:
-        paginated_items = paginator.page(p)
-    except PageNotAnInteger:
-        paginated_items = paginator.page(1)
-    except EmptyPage:
-        paginated_items = paginator.page(paginator.num_pages)
+    paginator, paginated_items = paginate(request, items)
 
     return render(request, 'wagtailsnippets/snippets/type_index.html', {
         'content_type': content_type,
@@ -233,16 +224,7 @@ def usage(request, content_type_app_name, content_type_model_name, id):
     model = content_type.model_class()
     instance = get_object_or_404(model, id=id)
 
-    # Pagination
-    p = request.GET.get('p', 1)
-    paginator = Paginator(instance.get_usage(), 20)
-
-    try:
-        used_by = paginator.page(p)
-    except PageNotAnInteger:
-        used_by = paginator.page(1)
-    except EmptyPage:
-        used_by = paginator.page(paginator.num_pages)
+    paginator, used_by = paginate(request, instance.get_usage())
 
     return render(request, "wagtailsnippets/snippets/usage.html", {
         'instance': instance,

@@ -1,10 +1,10 @@
 import json
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.six import text_type
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
@@ -17,15 +17,7 @@ def choose(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
-    p = request.GET.get("p", 1)
-    paginator = Paginator(items, 25)
-
-    try:
-        paginated_items = paginator.page(p)
-    except PageNotAnInteger:
-        paginated_items = paginator.page(1)
-    except EmptyPage:
-        paginated_items = paginator.page(paginator.num_pages)
+    paginator, paginated_items = paginate(request, items, per_page=25)
 
     return render_modal_workflow(
         request,

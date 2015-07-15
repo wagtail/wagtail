@@ -1,9 +1,9 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 from django.utils.http import urlencode
 
+from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
@@ -43,14 +43,7 @@ def browse(request, parent_page_id=None):
     if desired_class == Page:
         # apply pagination first, since we know that the page listing won't
         # have to be filtered, and that saves us walking the entire list
-        p = request.GET.get('p', 1)
-        paginator = Paginator(pages, ITEMS_PER_PAGE)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
+        paginator, pages = paginate(request, pages, per_page=ITEMS_PER_PAGE)
 
         for page in pages:
             page.can_choose = True
@@ -69,15 +62,7 @@ def browse(request, parent_page_id=None):
             if page.can_choose or page.can_descend:
                 shown_pages.append(page)
 
-        # Apply pagination
-        p = request.GET.get('p', 1)
-        paginator = Paginator(shown_pages, ITEMS_PER_PAGE)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
+        paginator, pages = paginate(request, shown_pages, per_page=ITEMS_PER_PAGE)
 
     return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
         'allow_external_link': request.GET.get('allow_external_link'),
