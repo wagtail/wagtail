@@ -316,6 +316,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
         'type',
         'child_of',
+        'descendant_of',
     ])
 
     def get_queryset(self, request, model=Page):
@@ -386,9 +387,29 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
             try:
                 parent_page = self.get_queryset(request).get(id=parent_page_id)
-                return queryset.child_of(parent_page)
+                queryset = queryset.child_of(parent_page)
+                queryset._filtered_by_child_of = True
+                return queryset
             except Page.DoesNotExist:
                 raise BadRequestError("parent page doesn't exist")
+
+        return queryset
+
+    def do_descendant_of_filter(self, request, queryset):
+        if 'descendant_of' in request.GET:
+            if getattr(queryset, '_filtered_by_child_of', False):
+                raise BadRequestError("filtering by descendant_of with child_of is not supported")
+            try:
+                ancestor_page_id = int(request.GET['descendant_of'])
+                assert ancestor_page_id >= 0
+            except (ValueError, AssertionError):
+                raise BadRequestError("descendant_of must be a positive integer")
+
+            try:
+                ancestor_page = self.get_queryset(request).get(id=ancestor_page_id)
+                return queryset.descendant_of(ancestor_page)
+            except Page.DoesNotExist:
+                raise BadRequestError("ancestor page doesn't exist")
 
         return queryset
 
@@ -403,6 +424,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         # Filtering
         queryset = self.do_field_filtering(request, queryset)
         queryset = self.do_child_of_filter(request, queryset)
+        queryset = self.do_descendant_of_filter(request, queryset)
 
         # Ordering
         queryset = self.do_ordering(request, queryset)
