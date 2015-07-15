@@ -22,3 +22,4 @@ Minor features
  * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
  * Moved the style guide menu item into the Settings sub-menu
  * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
+ * Added ``descendant_of`` filter to the API
