@@ -3,10 +3,12 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.template.defaultfilters import stringfilter
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.models import get_navigation_menu_items, UserPagePermissionsProxy, PageViewRestriction
 from wagtail.wagtailcore.utils import camelcase_to_underscore, escape_script
+from wagtail.wagtailcore.utils import cautious_slugify as _cautious_slugify
 from wagtail.wagtailadmin.menu import admin_menu
 
 
@@ -183,3 +185,9 @@ def has_unrendered_errors(bound_field):
     the widget does not support the render_with_errors method
     """
     return bound_field.errors and not hasattr(bound_field.field.widget, 'render_with_errors')
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def cautious_slugify(value):
+    return _cautious_slugify(value)
