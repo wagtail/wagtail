@@ -150,6 +150,13 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
+Wagtail version upgrade notifications are enabled by default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Starting from Wagtail 1.0, the admin dashboard will (for admin users only) perform a check to see if newer releases are available. This also provides the Wagtail team with extremely basic information about where Wagtail is in use. If you’d rather not receive update notifications, or if you’d like your site to remain unknown, you can disable it by adding this line to your settings file::
+
+    WAGTAIL_ENABLE_UPDATE_CHECK = False
+
 ``InlinePanel`` definitions no longer need to specify the base model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
