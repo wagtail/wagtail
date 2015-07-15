@@ -146,7 +146,7 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
     {% image self.photo width-400 as tmp_photo %}
 
     <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}" 
-        height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
+        height="{{ tmp_photo.height }}" alt="{{ self.photo.title }}" class="my-custom-class" />
         
 
 This syntax exposes the underlying image "Rendition" (``tmp_photo``) to the developer. A "Rendition" contains just the information specific to the way you've requested to format the image i.e dimensions and source URL.
