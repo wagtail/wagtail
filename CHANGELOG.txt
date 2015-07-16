@@ -13,7 +13,7 @@ Changelog
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
 
 
-1.0 (xx.xx.xxxx)
+1.0 (16.07.2015)
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField, a model field for freeform page content
