@@ -1,6 +1,6 @@
-==========================================
-Wagtail 1.0 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 1.0 release notes
+=========================
 
 .. contents::
     :local:
@@ -36,6 +36,13 @@ Django 1.8 support
 Wagtail now officially supports running under Django 1.8.
 
 
+Vanilla project template
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The built-in project template is more like the Django built-in one with several
+Wagtail-specific additions. It includes bare minimum settings and two apps (home and search).
+
+
 Minor changes
 ~~~~~~~~~~~~~
 
@@ -43,6 +50,8 @@ Minor changes
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
  * Removed dependency on ``libsass``
+ * Users without usernames can now be created and edited in the admin interface
+ * Added new translations for Croatian and Finnish
 
 
 Core
@@ -51,6 +60,7 @@ Core
  * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
  * Increased the maximum length of a page slug from 50 to 255 characters
  * Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
+ * Page URL paths can now be longer than 255 characters
 
 
 Admin
@@ -107,18 +117,11 @@ Docs
  * Support for ``If-Modified-Since`` HTTP header
 
 
-Project template
-----------------
-
- * The Vagrantfile now listens on port 8000
- * Removed ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings (as Wagtail no longer requires these)
- * Removed example Celery configuration from ``production.py`` and ``requirements.txt``
-
-
 Search
 ------
 
  * Search view accepts "page" GET parameter in line with pagination
+ * Added :ref:`wagtailsearch_backends_auto_update` flag to search backend settings to enable/disable automatically updating the search index on model changes
 
 
 Routable pages
@@ -134,6 +137,7 @@ Bug fixes
  * Image edit page no longer throws ``OSError`` when the original image is missing
  * Collapsible blocks stay open on any form error
  * Document upload modal no longer switches tabs on form errors
+ * ``with_metaclass`` is now imported from Django's bundled copy of the ``six`` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
 
 
 Upgrade considerations
@@ -146,10 +150,59 @@ This release drops support for Django 1.6, Python 2.6/3.2 and Elasticsearch 0.90
 
 If you are upgrading from Elasticsearch 0.90.x, you may also need to update the ``elasticsearch`` pip package to a version greater than ``1.0`` as well.
 
+Wagtail version upgrade notifications are enabled by default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Starting from Wagtail 1.0, the admin dashboard will (for admin users only) perform a check to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you’d rather not receive update notifications, or if you’d like your site to remain unknown, you can disable it by adding this line to your settings file::
+
+    WAGTAIL_ENABLE_UPDATE_CHECK = False
+
+``InlinePanel`` definitions no longer need to specify the base model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
+
+    InlinePanel(HomePage, 'carousel_items', label="Carousel items")
+
+It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to::
+
+    InlinePanel('carousel_items', label="Carousel items")
+
+The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
+
+Custom image models should now set the ``admin_form_fields`` attribute
+----------------------------------------------------------------------
+
+Django 1.8 now requires that all the fields in a ``ModelForm`` must be defined in its ``Meta.fields`` attribute.
+
+As Wagtail uses Django's ``ModelForm`` for creating image model forms, we've added a new attribute called ``admin_form_fields``
+that should be set to a ``tuple`` of field names on the image model.
+
+See :ref:`custom_image_model` for an example.
+
+You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are upgrading from an older version of Wagtail, you probably want to remove these from your project settings.
+
+Prevously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
+respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
+should work fine without them.
+
+``RoutablePage`` now uses decorator syntax for defining views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, page types that used the :class:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin` had endpoints configured by setting their :attr:`~wagtail.contrib.wagtailroutablepage.models.RoutablePageMixin.subpage_urls` attribute to a list of urls with view names. This will not work on Django 1.8 as view names can no longer be passed into a url (see: https://docs.djangoproject.com/en/1.8/releases/1.8/#django-conf-urls-patterns).
+
+Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
+
+The old ``subpage_urls`` convention will continue to work on Django versions prior to 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
+
 Upgrading from the external ``wagtailapi`` module.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you were previously using the external ``wagtailapi`` module, it is important to note these two backwards-incompatible changes.
+If you were previously using the external ``wagtailapi`` module (which has now become ``wagtail.contrib.wagtailapi``). Please be aware of the following backwards-incompatible changes:
+
 
 **1. Representation of foreign keys has changed**
 
@@ -203,28 +256,6 @@ keys are represented applies to this field too::
         ...
     }
 
-
-
-``InlinePanel`` definitions no longer need to specify the base model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In previous versions of Wagtail, inline child blocks on a page or snippet were defined using a declaration like::
-
-    InlinePanel(HomePage, 'carousel_items', label="Carousel items")
-
-It is no longer necessary to pass the base model as a parameter, so this declaration should be changed to::
-
-    InlinePanel('carousel_items', label="Carousel items")
-
-The old format is now deprecated; all existing ``InlinePanel`` declarations should be updated to the new format.
-
-``RoutablePage`` now uses decorator syntax for defining views
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In previous versions of Wagtail, ``RoutablePage`` models were configured by setting a ``subpage_urls`` attribute within the page model. This fails in Django 1.8, because it relies on passing the view function name as a string which is not an absolute module path. To address this, Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
-
-The old ``subpage_urls`` convention will continue to work on Django versions prior to 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
-
 Celery no longer automatically used for sending notification emails
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -235,15 +266,6 @@ functionality has now been removed.
 
 If you would like to keep using Celery for sending notification emails, have a
 look at: `django-celery-email <https://pypi.python.org/pypi/django-celery-email>`_
-
-You no longer need ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` to point to Wagtail admin.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you are upgrading from an older version of Wagtail, you probably want to remove these from your project settings.
-
-Prevously, these two settings needed to be set to ``wagtailadmin_login`` and ``wagtailadmin_dashboard``
-respectively or Wagtail would become very tricky to log in to. This is no longer the case and Wagtail
-should work fine without them.
 
 Login/Password reset views renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -303,3 +325,9 @@ Previously you could customize the Wagtail userbar using the ``construct_wagtail
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.
+
+
+``IMAGE_COMPRESSION_QUALITY`` setting has been renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``IMAGE_COMPRESSION_QUALITY`` setting, which determines the quality of saved JPEG images as a value from 1 to 100, has been renamed to ``WAGTAILIMAGES_JPEG_QUALITY``. If you have used this setting, please update your settings file accordingly.

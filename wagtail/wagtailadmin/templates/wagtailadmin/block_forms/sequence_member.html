@@ -20,7 +20,7 @@
 
     {% block header_controls %}{% endblock %}
 
-    <div class="sequence-member-inner">{{ child.render_form }}</div>
+    <div class="sequence-member-inner {% block sequence_member_inner_classes %}{% endblock %}">{{ child.render_form }}</div>
 
     {% block footer_controls %}{% endblock %}
 </li>

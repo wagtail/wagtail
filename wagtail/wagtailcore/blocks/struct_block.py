@@ -5,11 +5,12 @@ import collections
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
-from django.utils.html import format_html, format_html_join
 
-import six
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
@@ -22,6 +23,8 @@ class BaseStructBlock(Block):
     class Meta:
         default = {}
         template = "wagtailadmin/blocks/struct.html"
+        form_classname = 'struct-block'
+        form_template = 'wagtailadmin/block_forms/struct.html'
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -41,6 +44,14 @@ class BaseStructBlock(Block):
                 self.child_js_initializers[name] = js_initializer
 
         self.dependencies = self.child_blocks.values()
+
+    def get_default(self):
+        """
+        Any default value passed in the constructor or self.meta is going to be a dict
+        rather than a StructValue; for consistency, we need to convert it to a StructValue
+        for StructBlock to work with
+        """
+        return StructValue(self, self.meta.default.items())
 
     def js_initializer(self):
         # skip JS setup entirely if no children have js_initializers
@@ -63,21 +74,20 @@ class BaseStructBlock(Block):
         else:
             error_dict = {}
 
-        child_renderings = [
-            block.render_form(value.get(name, block.meta.default), prefix="%s-%s" % (prefix, name),
-                errors=error_dict.get(name))
+        bound_child_blocks = collections.OrderedDict([
+            (
+                name,
+                block.bind(value.get(name, block.get_default()),
+                    prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
+            )
             for name, block in self.child_blocks.items()
-        ]
-
-        list_items = format_html_join('\n', "<li>{0}</li>", [
-            [child_rendering]
-            for child_rendering in child_renderings
         ])
 
-        if self.label:
-            return format_html('<div class="struct-block"><label>{0}</label> <ul>{1}</ul></div>', self.label, list_items)
-        else:
-            return format_html('<div class="struct-block"><ul>{0}</ul></div>', list_items)
+        return render_to_string(self.meta.form_template, {
+            'children': bound_child_blocks,
+            'help_text': getattr(self.meta, 'help_text', None),
+            'classname': self.meta.form_classname,
+        })
 
     def value_from_datadict(self, data, files, prefix):
         return StructValue(self, [
@@ -86,11 +96,11 @@ class BaseStructBlock(Block):
         ])
 
     def clean(self, value):
-        result = {}
+        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
-                result[name] = self.child_blocks[name].clean(val)
+                result.append((name, self.child_blocks[name].clean(val)))
             except ValidationError as e:
                 errors[name] = ErrorList([e])
 
@@ -99,14 +109,16 @@ class BaseStructBlock(Block):
             # and delegate the errors contained in the 'params' dict to the child blocks instead
             raise ValidationError('Validation error in StructBlock', params=errors)
 
-        return result
+        return StructValue(self, result)
 
     def to_python(self, value):
         # recursively call to_python on children and return as a StructValue
         return StructValue(self, [
             (
                 name,
-                child_block.to_python(value.get(name, child_block.meta.default))
+                (child_block.to_python(value[name]) if name in value else child_block.get_default())
+                # NB the result of get_default is NOT passed through to_python, as it's expected
+                # to be in the block's native type already
             )
             for name, child_block in self.child_blocks.items()
         ])
@@ -122,7 +134,7 @@ class BaseStructBlock(Block):
         content = []
 
         for name, block in self.child_blocks.items():
-            content.extend(block.get_searchable_content(value.get(name, block.meta.default)))
+            content.extend(block.get_searchable_content(value.get(name, block.get_default())))
 
         return content
 
@@ -139,6 +151,14 @@ class BaseStructBlock(Block):
         args = [self.child_blocks.items()]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
+
+    def check(self, **kwargs):
+        errors = super(BaseStructBlock, self).check(**kwargs)
+        for name, child_block in self.child_blocks.items():
+            errors.extend(child_block.check(**kwargs))
+            errors.extend(child_block._check_name(**kwargs))
+
+        return errors
 
 
 class StructBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStructBlock)):

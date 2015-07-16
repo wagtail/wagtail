@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import six
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -11,50 +12,69 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.rich_text import expand_db_html
+from wagtail.wagtailcore.rich_text import RichText
 
 from .base import Block
 
 
 class FieldBlock(Block):
+    """A block that wraps a Django form field"""
     class Meta:
         default = None
+
+    def id_for_label(self, prefix):
+        return self.field.widget.id_for_label(prefix)
 
     def render_form(self, value, prefix='', errors=None):
         widget = self.field.widget
 
-        if self.label:
-            label_html = format_html(
-                """<label for={label_id}>{label}</label> """,
-                label_id=widget.id_for_label(prefix), label=self.label
-            )
-        else:
-            label_html = ''
-
         widget_attrs = {'id': prefix, 'placeholder': self.label}
 
+        field_value = self.value_for_form(value)
+
         if hasattr(widget, 'render_with_errors'):
-            widget_html = widget.render_with_errors(prefix, value, attrs=widget_attrs, errors=errors)
+            widget_html = widget.render_with_errors(prefix, field_value, attrs=widget_attrs, errors=errors)
             widget_has_rendered_errors = True
         else:
-            widget_html = widget.render(prefix, value, attrs=widget_attrs)
+            widget_html = widget.render(prefix, field_value, attrs=widget_attrs)
             widget_has_rendered_errors = False
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
-            'label': self.label,
             'classes': self.meta.classname,
             'widget': widget_html,
-            'label_tag': label_html,
             'field': self.field,
             'errors': errors if (not widget_has_rendered_errors) else None
         })
 
+    def value_from_form(self, value):
+        """
+        The value that we get back from the form field might not be the type
+        that this block works with natively; for example, the block may want to
+        wrap a simple value such as a string in an object that provides a fancy
+        HTML rendering (e.g. EmbedBlock).
+
+        We therefore provide this method to perform any necessary conversion
+        from the form field value to the block's native value. As standard,
+        this returns the form field value unchanged.
+        """
+        return value
+
+    def value_for_form(self, value):
+        """
+        Reverse of value_from_form; convert a value of this block's native value type
+        to one that can be rendered by the form field
+        """
+        return value
+
     def value_from_datadict(self, data, files, prefix):
-        return self.to_python(self.field.widget.value_from_datadict(data, files, prefix))
+        return self.value_from_form(self.field.widget.value_from_datadict(data, files, prefix))
 
     def clean(self, value):
-        return self.field.clean(value)
+        # We need an annoying value_for_form -> value_from_form round trip here to account for
+        # the possibility that the form field is set up to validate a different value type to
+        # the one this block works with natively
+        return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
 
 class CharBlock(FieldBlock):
@@ -209,18 +229,44 @@ class ChoiceBlock(FieldBlock):
         return ('wagtail.wagtailcore.blocks.ChoiceBlock', [], self._constructor_kwargs)
 
 
-
 class RichTextBlock(FieldBlock):
+
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field_options = {'required': required, 'help_text': help_text}
+        super(RichTextBlock, self).__init__(**kwargs)
+
+    def get_default(self):
+        if isinstance(self.meta.default, RichText):
+            return self.meta.default
+        else:
+            return RichText(self.meta.default)
+
+    def to_python(self, value):
+        # convert a source-HTML string from the JSONish representation
+        # to a RichText object
+        return RichText(value)
+
+    def get_prep_value(self, value):
+        # convert a RichText object back to a source-HTML string to go into
+        # the JSONish representation
+        return value.source
+
     @cached_property
     def field(self):
         from wagtail.wagtailcore.fields import RichTextArea
-        return forms.CharField(widget=RichTextArea)
+        return forms.CharField(widget=RichTextArea, **self.field_options)
 
-    def render_basic(self, value):
-        return mark_safe('<div class="rich-text">' + expand_db_html(value) + '</div>')
+    def value_for_form(self, value):
+        # RichTextArea takes the source-HTML string as input (and takes care
+        # of expanding it for the purposes of the editor)
+        return value.source
+
+    def value_from_form(self, value):
+        # RichTextArea returns a source-HTML string; concert to a RichText object
+        return RichText(value)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_text(value.source)]
 
 
 class RawHTMLBlock(FieldBlock):
@@ -230,25 +276,44 @@ class RawHTMLBlock(FieldBlock):
             widget=forms.Textarea)
         super(RawHTMLBlock, self).__init__(**kwargs)
 
-    def render_basic(self, value):
-        return mark_safe(value)  # if it isn't safe, that's the site admin's problem for allowing raw HTML blocks in the first place...
+    def get_default(self):
+        return mark_safe(self.meta.default or '')
+
+    def to_python(self, value):
+        return mark_safe(value)
+
+    def get_prep_value(self, value):
+        # explicitly convert to a plain string, just in case we're using some serialisation method
+        # that doesn't cope with SafeText values correctly
+        return six.text_type(value)
+
+    def value_for_form(self, value):
+        # need to explicitly mark as unsafe, or it'll output unescaped HTML in the textarea
+        return six.text_type(value)
+
+    def value_from_form(self, value):
+        return mark_safe(value)
 
     class Meta:
         icon = 'code'
 
 
 class ChooserBlock(FieldBlock):
-    def __init__(self, required=True, **kwargs):
+    def __init__(self, required=True, help_text=None, **kwargs):
         self.required = required
+        self.help_text = help_text
         super(ChooserBlock, self).__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget, required=self.required)
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all(), widget=self.widget, required=self.required,
+            help_text=self.help_text)
 
     def to_python(self, value):
-        if value is None or isinstance(value, self.target_model):
+        # the incoming serialised value should be None or an ID
+        if value is None:
             return value
         else:
             try:
@@ -257,10 +322,21 @@ class ChooserBlock(FieldBlock):
                 return None
 
     def get_prep_value(self, value):
-        if isinstance(value, self.target_model):
-            return value.id
+        # the native value (a model instance or None) should serialise to an ID or None
+        if value is None:
+            return None
         else:
+            return value.id
+
+    def value_from_form(self, value):
+        # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
+        if value is None or isinstance(value, self.target_model):
             return value
+        else:
+            try:
+                return self.target_model.objects.get(pk=value)
+            except self.target_model.DoesNotExist:
+                return None
 
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
@@ -273,6 +349,7 @@ class ChooserBlock(FieldBlock):
         if isinstance(value, self.target_model):
             value = value.pk
         return super(ChooserBlock, self).clean(value)
+
 
 class PageChooserBlock(ChooserBlock):
     @cached_property

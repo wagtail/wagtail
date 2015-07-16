@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# hanfeng <appweb.cn@gmail.com>, 2014
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"PO-Revision-Date: 2015-06-29 17:12+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -69,14 +69,26 @@ msgstr "管理员可以管理用户账户。"
 msgid "A group with that name already exists."
 msgstr "此组名已被占用。"
 
+msgid "Submitted notifications"
+msgstr "提交通知"
+
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "当存在页面提交审查时接收提醒。"
+
+msgid "Approved notifications"
+msgstr "批准通知"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "当您的页面编辑动作通过时接收提醒。"
 
+msgid "Rejected notifications"
+msgstr "已拒绝通知"
+
 msgid "Receive notification when your page edit is rejected"
 msgstr "当您的页面编辑动作被拒绝时接收提醒。"
+
+msgid "User Profile"
+msgstr "用户资料"
 
 msgid "Delete group"
 msgstr "删除组"
@@ -86,6 +98,11 @@ msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
 "assigned."
 msgstr "该组 '%(group_name)s' 有 <strong>%(group_user_count)s</strong> 用户。"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "删除组将会从所有组成员移除群权限"
 
 msgid "Are you sure you want to delete this group?"
 msgstr "确定要删除该组？"
@@ -119,6 +136,15 @@ msgstr "删除"
 
 msgid "Other permissions"
 msgstr "其他权限"
+
+msgid "Page permissions"
+msgstr "页面权限"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Permission type"
+msgstr "权限类型"
 
 msgid "Add a page permission"
 msgstr "添加一个页面权限"
@@ -197,6 +223,9 @@ msgstr "搜索组"
 #, python-brace-format
 msgid "Group '{0}' created."
 msgstr "组 '{0}' 已创建"
+
+msgid "Edit"
+msgstr "已编辑"
 
 msgid "The group could not be created due to errors."
 msgstr "无法创建该组。出现错误。"

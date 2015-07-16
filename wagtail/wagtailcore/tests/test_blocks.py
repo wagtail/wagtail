@@ -1,10 +1,19 @@
+# -*- coding: utf-8 -*
+from __future__ import unicode_literals
+
 import unittest
 
 from django import forms
 from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+from django.utils.safestring import mark_safe, SafeData
 
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.rich_text import RichText
+from wagtail.wagtailcore.models import Page
+
+import base64
 
 
 class TestFieldBlock(unittest.TestCase):
@@ -80,6 +89,83 @@ class TestFieldBlock(unittest.TestCase):
         content = block.get_searchable_content("choice-1")
 
         self.assertEqual(content, ["Choice 1"])
+
+    def test_form_handling_is_independent_of_serialisation(self):
+        class Base64EncodingCharBlock(blocks.CharBlock):
+            """A CharBlock with a deliberately perverse JSON (de)serialisation format
+            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't"""
+
+            def to_python(self, jsonish_value):
+                # decode as base64 on the way out of the JSON serialisation
+                return base64.b64decode(jsonish_value)
+
+            def get_prep_value(self, native_value):
+                # encode as base64 on the way into the JSON serialisation
+                return base64.b64encode(native_value)
+
+        block = Base64EncodingCharBlock()
+        form_html = block.render_form('hello world', 'title')
+        self.assertIn('value="hello world"', form_html)
+
+        value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
+        self.assertEqual('hello world', value_from_form)
+
+
+class TestRichTextBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_default_with_fallback_value(self):
+        default_value = blocks.RichTextBlock().get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_default_none(self):
+        default_value = blocks.RichTextBlock(default=None).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_empty_string(self):
+        default_value = blocks.RichTextBlock(default='').get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '')
+
+    def test_get_default_with_nonempty_string(self):
+        default_value = blocks.RichTextBlock(default='<p>foo</p>').get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '<p>foo</p>')
+
+    def test_get_default_with_richtext_value(self):
+        default_value = blocks.RichTextBlock(default=RichText('<p>foo</p>')).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, '<p>foo</p>')
+
+    def test_render(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
+        result = block.render(value)
+        self.assertEqual(result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>')
+
+    def test_render_form(self):
+        """
+        render_form should produce the editor-specific rendition of the rich text value
+        (which includes e.g. 'data-linktype' attributes on <a> elements)
+        """
+        block = blocks.RichTextBlock()
+        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
+        result = block.render_form(value, prefix='richtext')
+        self.assertIn('&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot; href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;', result)
+
+    def test_validate_required_richtext_block(self):
+        block = blocks.RichTextBlock()
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText(''))
+
+    def test_validate_non_required_richtext_block(self):
+        block = blocks.RichTextBlock(required=False)
+        result = block.clean(RichText(''))
+        self.assertIsInstance(result, RichText)
+        self.assertEqual(result.source, '')
 
 
 class TestChoiceBlock(unittest.TestCase):
@@ -224,6 +310,78 @@ class TestChoiceBlock(unittest.TestCase):
                 },
             )
         )
+
+
+class TestRawHTMLBlock(unittest.TestCase):
+    def test_get_default_with_fallback_value(self):
+        default_value = blocks.RawHTMLBlock().get_default()
+        self.assertEqual(default_value, '')
+        self.assertIsInstance(default_value, SafeData)
+
+    def test_get_default_with_none(self):
+        default_value = blocks.RawHTMLBlock(default=None).get_default()
+        self.assertEqual(default_value, '')
+        self.assertIsInstance(default_value, SafeData)
+
+    def test_get_default_with_empty_string(self):
+        default_value = blocks.RawHTMLBlock(default='').get_default()
+        self.assertEqual(default_value, '')
+        self.assertIsInstance(default_value, SafeData)
+
+    def test_get_default_with_nonempty_string(self):
+        default_value = blocks.RawHTMLBlock(default='<blink>BÖÖM</blink>').get_default()
+        self.assertEqual(default_value, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(default_value, SafeData)
+
+    def test_serialize(self):
+        block = blocks.RawHTMLBlock()
+        result = block.get_prep_value(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertNotIsInstance(result, SafeData)
+
+    def test_deserialize(self):
+        block = blocks.RawHTMLBlock()
+        result = block.to_python('<blink>BÖÖM</blink>')
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(result, SafeData)
+
+    def test_render(self):
+        block = blocks.RawHTMLBlock()
+        result = block.render(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(result, SafeData)
+
+    def test_render_form(self):
+        block = blocks.RawHTMLBlock()
+        result = block.render_form(mark_safe('<blink>BÖÖM</blink>'), prefix='rawhtml')
+        self.assertIn('<textarea ', result)
+        self.assertIn('name="rawhtml"', result)
+        self.assertIn('&lt;blink&gt;BÖÖM&lt;/blink&gt;', result)
+
+    def test_form_response(self):
+        block = blocks.RawHTMLBlock()
+        result = block.value_from_datadict({'rawhtml': '<blink>BÖÖM</blink>'}, {}, prefix='rawhtml')
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(result, SafeData)
+
+    def test_clean_required_field(self):
+        block = blocks.RawHTMLBlock()
+        result = block.clean(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(result, SafeData)
+
+        with self.assertRaises(ValidationError):
+            block.clean(mark_safe(''))
+
+    def test_clean_nonrequired_field(self):
+        block = blocks.RawHTMLBlock(required=False)
+        result = block.clean(mark_safe('<blink>BÖÖM</blink>'))
+        self.assertEqual(result, '<blink>BÖÖM</blink>')
+        self.assertIsInstance(result, SafeData)
+
+        result = block.clean(mark_safe(''))
+        self.assertEqual(result, '')
+        self.assertIsInstance(result, SafeData)
 
 
 class TestMeta(unittest.TestCase):
@@ -402,6 +560,31 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
 
+    def test_render_form_with_help_text(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                help_text = "Self-promotion is encouraged"
+
+        block = LinkBlock()
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
+
+        # check it can be overridden in the block constructor
+        block = LinkBlock(help_text="Self-promotion is discouraged")
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
+
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
             media = forms.Media(js=['scripted_char_block.js'])
@@ -454,6 +637,39 @@ class TestStructBlock(unittest.TestCase):
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
 
+    def test_default_is_returned_as_structvalue(self):
+        """When returning the default value of a StructBlock (e.g. because it's
+        a child of another StructBlock, and the outer value is missing that key)
+        we should receive it as a StructValue, not just a plain dict"""
+        class PersonBlock(blocks.StructBlock):
+            first_name = blocks.CharBlock()
+            surname = blocks.CharBlock()
+
+        class EventBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            guest_speaker = PersonBlock(default={'first_name': 'Ed', 'surname': 'Balls'})
+
+        event_block = EventBlock()
+
+        event = event_block.to_python({'title': 'Birthday party'})
+
+        self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
+        self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
+
+    def test_clean(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'http://www.torchbox.com/'})
+        clean_value = block.clean(value)
+        self.assertTrue(isinstance(clean_value, blocks.StructValue))
+        self.assertEqual(clean_value['title'], 'Torchbox')
+
+        value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
+        with self.assertRaises(ValidationError):
+            block.clean(value)
 
 
 class TestListBlock(unittest.TestCase):
@@ -521,7 +737,7 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-list">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -542,8 +758,8 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for=links-0-value-title>Title</label>', html)
-        self.assertIn('<label for=links-0-value-link>Link</label>', html)
+        self.assertIn('<label for="links-0-value-title">Title</label>', html)
+        self.assertIn('<label for="links-0-value-link">Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
@@ -638,6 +854,34 @@ class TestListBlock(unittest.TestCase):
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
         self.assertEqual(block_value[2], "item 2")
+
+    def test_can_specify_default(self):
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">', form_html)
+        self.assertIn('value="peas"', form_html)
+
+    def test_default_default(self):
+        """
+        if no explicit 'default' is set on the ListBlock, it should fall back on
+        a single instance of the child block in its default state.
+        """
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+
+        block = ShoppingListBlock()
+        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
+        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+
+        self.assertIn('<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">', form_html)
+        self.assertIn('value="chocolate"', form_html)
 
 
 class TestStreamBlock(unittest.TestCase):
@@ -777,7 +1021,7 @@ class TestStreamBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -919,7 +1163,224 @@ class TestStreamBlock(unittest.TestCase):
         content = block.get_searchable_content(value)
 
         self.assertEqual(content, [
-             "My title",
-             "My first paragraph",
-             "My second paragraph",
+            "My title",
+            "My first paragraph",
+            "My second paragraph",
         ])
+
+    def test_meta_default(self):
+        """Test that we can specify a default value in the Meta of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock()
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A default heading')
+
+    def test_constructor_default(self):
+        """Test that we can specify a default value in the constructor of a StreamBlock"""
+
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                default = [('heading', 'A default heading')]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock(default=[('heading', 'A different default heading')])
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({'author': 'Bob'})
+        stream_value = struct_value['article']
+
+        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, 'heading')
+        self.assertEqual(stream_value[0].value, 'A different default heading')
+
+
+class TestPageChooserBlock(TestCase):
+    fixtures = ['test.json']
+
+    def test_serialize(self):
+        """The value of a PageChooserBlock (a Page object) should serialize to an ID"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.get_prep_value(christmas_page), christmas_page.id)
+
+        # None should serialize to None
+        self.assertEqual(block.get_prep_value(None), None)
+
+    def test_deserialize(self):
+        """The serialized value of a PageChooserBlock (an ID) should deserialize to a Page object"""
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(block.to_python(christmas_page.id), christmas_page)
+
+        # None should deserialize to None
+        self.assertEqual(block.to_python(None), None)
+
+    def test_form_render(self):
+        block = blocks.PageChooserBlock(help_text="pick a page, any page")
+
+        empty_form_html = block.render_form(None, 'page')
+        self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
+
+        christmas_page = Page.objects.get(slug='christmas')
+        christmas_form_html = block.render_form(christmas_page, 'page')
+        expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
+        self.assertIn(expected_html, christmas_form_html)
+        self.assertIn("pick a page, any page", christmas_form_html)
+
+    def test_form_response(self):
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug='christmas')
+
+        value = block.value_from_datadict({'page': str(christmas_page.id)}, {}, 'page')
+        self.assertEqual(value, christmas_page)
+
+        empty_value = block.value_from_datadict({'page': ''}, {}, 'page')
+        self.assertEqual(empty_value, None)
+
+    def test_clean(self):
+        required_block = blocks.PageChooserBlock()
+        nonrequired_block = blocks.PageChooserBlock(required=False)
+        christmas_page = Page.objects.get(slug='christmas')
+
+        self.assertEqual(required_block.clean(christmas_page), christmas_page)
+        with self.assertRaises(ValidationError):
+            required_block.clean(None)
+
+        self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
+        self.assertEqual(nonrequired_block.clean(None), None)
+
+
+class TestSystemCheck(TestCase):
+    def test_name_must_be_nonempty(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('', blocks.RichTextBlock()),
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block name cannot be empty")
+        self.assertEqual(errors[0].obj, block.child_blocks[''])
+
+    def test_name_cannot_contain_spaces(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('rich text', blocks.RichTextBlock()),
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, block.child_blocks['rich text'])
+
+    def test_name_cannot_contain_dashes(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('rich-text', blocks.RichTextBlock()),
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain dashes")
+        self.assertEqual(errors[0].obj, block.child_blocks['rich-text'])
+
+    def test_name_cannot_begin_with_digit(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('99richtext', blocks.RichTextBlock()),
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot begin with a digit")
+        self.assertEqual(errors[0].obj, block.child_blocks['99richtext'])
+
+    def test_system_checks_recurse_into_lists(self):
+        failing_block = blocks.RichTextBlock()
+        block = blocks.StreamBlock([
+            ('paragraph_list', blocks.ListBlock(
+                blocks.StructBlock([
+                    ('heading', blocks.CharBlock()),
+                    ('rich text', failing_block),
+                ])
+            ))
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block)
+
+    def test_system_checks_recurse_into_streams(self):
+        failing_block = blocks.RichTextBlock()
+        block = blocks.StreamBlock([
+            ('carousel', blocks.StreamBlock([
+                ('text', blocks.StructBlock([
+                    ('heading', blocks.CharBlock()),
+                    ('rich text', failing_block),
+                ]))
+            ]))
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block)
+
+    def test_system_checks_recurse_into_structs(self):
+        failing_block_1 = blocks.RichTextBlock()
+        failing_block_2 = blocks.RichTextBlock()
+        block = blocks.StreamBlock([
+            ('two_column', blocks.StructBlock([
+                ('left', blocks.StructBlock([
+                    ('heading', blocks.CharBlock()),
+                    ('rich text', failing_block_1),
+                ])),
+                ('right', blocks.StructBlock([
+                    ('heading', blocks.CharBlock()),
+                    ('rich text', failing_block_2),
+                ]))
+            ]))
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 2)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block_1)
+        self.assertEqual(errors[1].id, 'wagtailcore.E001')
+        self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
+        self.assertEqual(errors[0].obj, failing_block_2)

@@ -10,11 +10,11 @@ This document describes how to render your Wagtail site into static HTML files o
 Installing ``django-medusa``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, install ``django-medusa`` from pip:
+First, install ``django-medusa`` and ``django-sendfile`` from pip:
 
 .. code::
 
-    pip install django-medusa
+    pip install django-medusa django-sendfile
 
 Then add ``django_medusa`` and ``wagtail.contrib.wagtailmedusa`` to ``INSTALLED_APPS``:
 
@@ -58,20 +58,16 @@ Example:
 
 .. code:: python
 
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin
+    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 
     class BlogIndex(Page, RoutablePageMixin):
         ...
 
-        subpage_urls = (
-            url(r'^$', 'serve_page', {'page': 1}),
-            url(r'^page/(?P<page>\d+)/$', 'serve_page', name='page'),
-        )
-
+        @route(r'^$', name='main')
+        @route(r'^page/(?P<page>\d+)/$', name='page')
         def serve_page(self, request, page=1):
             ...
-
 
 Then in the template, you can use the ``{% routablepageurl %}`` tag to link between the pages:
 

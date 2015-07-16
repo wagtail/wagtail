@@ -235,6 +235,14 @@ class EditHandler(object):
         """
         return ""
 
+    def id_for_label(self):
+        """
+        The ID to be used as the 'for' attribute of any <label> elements that refer
+        to this object but are rendered outside of it. Leave blank if this object does not render
+        as a single input field.
+        """
+        return ""
+
     def render_as_object(self):
         """
         Render this object as it should appear within an ObjectList. Should not
@@ -438,19 +446,21 @@ class BaseFieldPanel(EditHandler):
             classes.append("error")
 
         classes.append(self.field_type())
-        classes.append("single-field")
 
         return classes
 
     def field_type(self):
         return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
 
+    def id_for_label(self):
+        return self.bound_field.id_for_label
+
     object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
             'self': self,
-            'field_content': self.render_as_field(),
+            'field': self.bound_field,
         }))
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
@@ -728,13 +738,6 @@ class BaseStreamFieldPanel(BaseFieldPanel):
         classes = super(BaseStreamFieldPanel, self).classes()
         classes.append("stream-field")
 
-        # BaseFieldPanel is essentially for single fields, which are rendered on the front end
-        # with the assumption that the label (singular) will always be promoted to the full-width
-        # divider bar thing.
-        # This results in all the other labels being promoted similarly, so it's better not to
-        # treat this as a single field, and remove the "single-field" class.
-        classes.remove("single-field")
-
         # In case of a validation error, BlockWidget will take care of outputting the error on the
         # relevant sub-block, so we don't want the stream block as a whole to be wrapped in an 'error' class.
         if 'error' in classes:
@@ -745,6 +748,12 @@ class BaseStreamFieldPanel(BaseFieldPanel):
     @classmethod
     def html_declarations(cls):
         return cls.block_def.all_html_declarations()
+
+    def id_for_label(self):
+        # a StreamField may consist of many input fields, so it's not meaningful to
+        # attach the label to any specific one
+        return ""
+
 
 class StreamFieldPanel(object):
     def __init__(self, field_name):

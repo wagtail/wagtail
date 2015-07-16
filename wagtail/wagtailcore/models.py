@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import logging
 import json
 
-import six
 from six import StringIO
 from six.moves.urllib.parse import urlparse
 
@@ -28,6 +27,9 @@ from django.core.exceptions import ValidationError, ImproperlyConfigured, Object
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
+
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from treebeard.mp_tree import MP_Node
 
@@ -272,7 +274,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     content_type = models.ForeignKey('contenttypes.ContentType', verbose_name=_('Content type'), related_name='pages')
     live = models.BooleanField(verbose_name=_('Live'), default=True, editable=False)
     has_unpublished_changes = models.BooleanField(verbose_name=_('Has unpublished changes'), default=False, editable=False)
-    url_path = models.CharField(verbose_name=_('URL path'), max_length=255, blank=True, editable=False)
+    url_path = models.TextField(verbose_name=_('URL path'), blank=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'), null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
 
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))
@@ -388,7 +390,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         # get names of foreign keys pointing to parent classes (such as page_ptr)
         field_exceptions = [field.name
                             for model in [cls] + list(cls._meta.get_parent_list())
-                            for field in model._meta.parents.values()]
+                            for field in model._meta.parents.values() if field]
 
         field_exceptions += ['content_type']
 

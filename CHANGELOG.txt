@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0 (xx.xx.xxxx)
+1.0 (16.07.2015)
 ~~~~~~~~~~~~~~~~
 
  * Added StreamField, a model field for freeform page content
@@ -9,6 +9,7 @@ Changelog
  * MySQL support
  * Django 1.8 support
  * Removed dependency on libsass (Tim Heap)
+ * Users without usernames can now be created and edited in the admin interface (Tim Heap)
  * Added update notifications
  * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
@@ -17,6 +18,7 @@ Changelog
  * Added contextual links to admin notification messages
  * When copying pages, it is now possible to specify a place to copy to (Timo Rieber)
  * FieldPanel now accepts an optional 'widget' parameter to override the field's default form widget (Alejandro Giacometti)
+ * Page URL paths can now be longer than 255 characters
  * Dropped Django 1.6 support
  * Dropped Python 2.6 and 3.2 support
  * Dropped Elasticsearch 0.90.x support
@@ -53,13 +55,23 @@ Changelog
  * Added a new decorator-based syntax for RoutablePage, compatible with Django 1.8
  * Collapsible blocks stay open on any form error (Salvador Faria)
  * Document upload modal no longer switches tabs on form errors (Salvador Faria)
+ * Added `AUTO_UPDATE` flag to search backend settings to enable/disable automatically updating the search index on model changes
+ * Made the built-in project template follow the Django one, with several Wagtail-specific additions. The template comes with two apps (home and search)
+ * `with_metaclass` is now imported from Django's bundled copy of the `six` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
+ * Added new translations for Croatian, Finnish and Hebrew (Israel)
 
 
-0.8.8 (xx.xx.2015)
+0.8.8 (18.06.2015)
 ~~~~~~~~~~~~~~~~~~
 * Fix: Formbuilder no longer raises TypeError when submitting unchecked boolean field (Arne Schauf)
 * Fix: Image upload form no longer breaks when using i10n thousand separators (@signalkraft)
 * Fix: Multiple image uploader now escapes HTML in filenames (Mac Chapman)
+* Fix: Retrieving an individual item from a sliced BaseSearchResults object now properly takes the slice offset into account
+* Fix: Removed dependency on unicodecsv which fixes a crash on Python 3
+* Fix: Submitting unicode text in form builder form no longer crashes with UnicodeEncodeError on Python 2
+* Fix: Creating a proxy model from a Page class no longer crashes in the system check (Nar Chhantyal)
+* Fix: Unrecognised embed URLs passed to the |embed filter no longer cause the whole page to crash with an EmbedNotFoundException
+* Fix: Underscores no longer get stripped from page slugs
 
 
 0.8.7 (29.04.2015)

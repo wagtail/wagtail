@@ -10,7 +10,8 @@ from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
-import six
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from wagtail.wagtailcore.utils import escape_script
 
@@ -22,13 +23,8 @@ __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue']
 
 
 class BaseStreamBlock(Block):
-    # TODO: decide what it means to pass a 'default' arg to StreamBlock's constructor. Logically we want it to be
-    # of type StreamValue, but we can't construct one of those because it needs a reference back to the StreamBlock
-    # that we haven't constructed yet...
     class Meta:
-        @property
-        def default(self):
-            return StreamValue(self, [])
+        default = []
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -42,6 +38,17 @@ class BaseStreamBlock(Block):
                 self.child_blocks[name] = block
 
         self.dependencies = self.child_blocks.values()
+
+    def get_default(self):
+        """
+        Default values set on a StreamBlock should be a list of (type_name, value) tuples -
+        we can't use StreamValue directly, because that would require a reference back to
+        the StreamBlock that hasn't been built yet.
+
+        For consistency, then, we need to convert it to a StreamValue here for StreamBlock
+        to work with.
+        """
+        return StreamValue(self, self.meta.default)
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None):
         """
@@ -65,7 +72,7 @@ class BaseStreamBlock(Block):
                 (
                     self.definition_prefix,
                     name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.meta.default, '__PREFIX__', '')))
+                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
                 )
                 for name, child_block in self.child_blocks.items()
             ]
@@ -118,7 +125,6 @@ class BaseStreamBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'label': self.label,
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),
@@ -217,6 +223,14 @@ class BaseStreamBlock(Block):
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
+    def check(self, **kwargs):
+        errors = super(BaseStreamBlock, self).check(**kwargs)
+        for name, child_block in self.child_blocks.items():
+            errors.extend(child_block.check(**kwargs))
+            errors.extend(child_block._check_name(**kwargs))
+
+        return errors
+
 
 class StreamBlock(six.with_metaclass(DeclarativeSubBlocksMetaclass, BaseStreamBlock)):
     pass
@@ -246,7 +260,7 @@ class StreamValue(collections.Sequence):
             """
             return self.block.name
 
-    def __init__(self, stream_block, stream_data, is_lazy=False):
+    def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
         with child values given in stream_data.
@@ -259,11 +273,18 @@ class StreamValue(collections.Sequence):
         Passing is_lazy=False means that stream_data consists of immediately usable
         native values. In this mode, stream_data is a list of (type_name, value)
         tuples.
+
+        raw_text exists solely as a way of representing StreamField content that is
+        not valid JSON; this may legitimately occur if an existing text field is
+        migrated to a StreamField. In this situation we return a blank StreamValue
+        with the raw text accessible under the `raw_text` attribute, so that migration
+        code can be rewritten to convert it as desired.
         """
         self.is_lazy = is_lazy
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.stream_data = stream_data  # a list of (type_name, value) tuples
         self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
+        self.raw_text = raw_text
 
     def __getitem__(self, i):
         if i not in self._bound_blocks:

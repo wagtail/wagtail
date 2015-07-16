@@ -2,7 +2,11 @@
     {% for child in self.children %}
         <li class="object {{ child.classes|join:" " }}">
             {% if child.heading %}
-                <h2>{{ child.heading }}</h2>
+                <h2>
+                    <label {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
+                        {{ child.heading }}
+                    </label>
+                </h2>
             {% endif %}
             {% if child.help_text %}
                 <div class="object-help help">{{ child.help_text }}</div>

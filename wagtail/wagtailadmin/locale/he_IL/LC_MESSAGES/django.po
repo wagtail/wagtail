@@ -1,0 +1,612 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# bjesus <bjesus@gmail.com>, 2015
+# lior abazon <abazon@v15.org.il>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-06-20 12:57+0000\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/"
+"language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Scheduled publishing"
+msgstr "פרסום מתוזמן"
+
+msgid "Common page configuration"
+msgstr "הגדרת עמוד בסיסית"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Search term"
+msgstr "ערך לחיפוש"
+
+msgid "Enter password"
+msgstr "הזינו סיסמה"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "הזינו את ה%s שלכם"
+
+msgid "Enter your email address to reset your password"
+msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
+
+msgid "Please fill your email address."
+msgstr "אנא הזינו את כתובת הדוא\"ל שלכם"
+
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "שגיאה. אין אפשרות לאתחל את הסיסמה משום שהחשבון מנוהל בשרת אחר."
+
+msgid "This email address is not recognised."
+msgstr "כתובת הדוא\"ל הזו איננה מזוהה"
+
+msgid "New title"
+msgstr "כותרת חדשה"
+
+msgid "New parent page"
+msgstr "עמוד הורה חדש."
+
+msgid "This copy will be a child of this given parent page."
+msgstr "העותק הזה יהיה צאצא של עמוד ההורה הנבחר"
+
+msgid "Copy subpages"
+msgstr "העתק תת- דף"
+
+msgid "Publish copied page"
+msgstr "פרסם עמוד מועתק"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "עמוד זה באוויר. האם תרצו לפרסם גם את העתקו?"
+
+msgid "Publish copies"
+msgstr "פרסום העתקים"
+
+msgid "Public"
+msgstr "ציבורי"
+
+msgid "Private, accessible with the following password"
+msgstr "פרטי, זמין עם הסיסמא הבאה"
+
+msgid "This field is required."
+msgstr "שדה חובה"
+
+msgid "Account"
+msgstr "חשבון"
+
+msgid "Change password"
+msgstr "שינוי סיסמא"
+
+msgid "Change the password you use to log in."
+msgstr "שינוי הסיסמא עבור התחברות"
+
+msgid "Notification preferences"
+msgstr "העדפות התראות"
+
+msgid "Choose which email notifications to receive."
+msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
+
+msgid "Change Password"
+msgstr "שינוי סיסמא"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "אי אפשר לשנות את הסיסמא. נא לפנות למנהל האתר."
+
+msgid "Notification Preferences"
+msgstr "העדפות התראות"
+
+msgid "Update"
+msgstr "עדכן"
+
+msgid "Reset password"
+msgstr "איתחול סיסמא"
+
+msgid "Password change successful"
+msgstr "שינוי סיסמא בוצע בהצלחה"
+
+msgid "Login"
+msgstr "התחברות"
+
+msgid "Set your new password"
+msgstr "הגדרת סיסמא חדשה"
+
+msgid "The passwords do not match. Please try again."
+msgstr "הסיסמאות לא מתאימות. נא לנסות שוב."
+
+msgid "Check your email"
+msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
+
+msgid "A link to reset your password has been emailed to you."
+msgstr "קישור לאיתחול הסיסמא נשלח אליכם"
+
+msgid "Please follow the link below to reset your password"
+msgstr "אנא לחצו על הקישור הבא על מנת לאתחל את סיסמתכם"
+
+msgid "Password reset"
+msgstr "איתחול סיסמא"
+
+msgid "Reset your password"
+msgstr "אתחלו את סיסמתכם"
+
+msgid "Dashboard"
+msgstr "לוח מחוונים"
+
+msgid "Menu"
+msgstr "תפריט"
+
+msgid "Add another"
+msgstr "הוסיפו עוד"
+
+msgid "Explorer"
+msgstr "חוקר"
+
+msgid "Internal link"
+msgstr "קישור פנימי"
+
+msgid "External link"
+msgstr "קישור חיצוני"
+
+msgid "Email link"
+msgstr "קישור דואר אלקטרוני"
+
+msgid "Choose"
+msgstr "בחרו"
+
+msgid "Choose a page"
+msgstr "בחרו עמוד"
+
+msgid "Add an email link"
+msgstr "הוסיפו קישור לדואר אלקטרוני"
+
+msgid "Insert link"
+msgstr "הכניסו קישור"
+
+msgid "Add an external link"
+msgstr "הוסיפו קישור חיצוני"
+
+msgid "Move up"
+msgstr "עברו מעלה"
+
+msgid "Move down"
+msgstr "עברו מטה"
+
+msgid "Delete"
+msgstr "מחיקה"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
+
+msgid "Pages awaiting moderation"
+msgstr "עמוד ממתין לעריכה"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "Parent"
+msgstr "הורה"
+
+msgid "Type"
+msgstr "סוג"
+
+msgid "Edited"
+msgstr "ערוך"
+
+msgid "Edit this page"
+msgstr "ערכו עמוד זה"
+
+msgid "Approve"
+msgstr "אשרו"
+
+msgid "Reject"
+msgstr "דחו"
+
+msgid "Edit"
+msgstr "עריכה"
+
+msgid "Preview"
+msgstr "תצוגה מקדימה"
+
+msgid "Your most recent edits"
+msgstr "עריכות אחרונות"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Status"
+msgstr "מצב"
+
+msgid "Draft"
+msgstr "טיוטה"
+
+msgid "Live"
+msgstr "חי"
+
+msgid "Site summary"
+msgstr "סיכום אתר"
+
+msgid "Sign in"
+msgstr "התחברות "
+
+msgid "Sign in to Wagtail"
+msgstr "התחברות לWagtail"
+
+msgid "Forgotten it?"
+msgstr "שכחתם את זה?"
+
+msgid "You can view the page here:"
+msgstr "ניתן לראות את העמוד כאן"
+
+msgid "Edit your notification preferences here:"
+msgstr "ערכו הגדרות התראות כאן"
+
+msgid "You can edit the page here:"
+msgstr "ניתן לערוך את העמוד כאן"
+
+msgid "You can preview the page here:"
+msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
+
+msgid "Page privacy"
+msgstr "הגדרות פרטיות של העמוד"
+
+msgid "This page has been made private by a parent page."
+msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
+
+msgid "You can edit the privacy settings on:"
+msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "שינויי פרטיות תקפים על כל הילדים של עמוד זה"
+
+msgid "Edit lock"
+msgstr "ערוך נעילה"
+
+msgid "Locked"
+msgstr "נעול"
+
+msgid "Unlocked"
+msgstr "בלתי נעול"
+
+msgid "Privacy"
+msgstr "פרטיות"
+
+msgid "Private"
+msgstr "פרטי"
+
+msgid "Create a page in"
+msgstr "צור עמוד בתוך"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "בחרו איזה סוג עמוד תרצו ליצור"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "בטוח למחוק עמוד זה?"
+
+msgid ""
+"Alternatively you can unpublish the page. This removes the page from public "
+"view and you can edit or publish it again later."
+msgstr ""
+"לחילופין, ניתן להסיר מפרסום את העמוד. הדבר יסיר את העמוד מתצוגה פומבית "
+"ויאפשר עריכה ופרסום שלו שוב לאחר מכן."
+
+msgid "Delete it"
+msgstr "מחק זו"
+
+msgid "Unpublish it"
+msgstr "ביטול פרסום"
+
+msgid "Move"
+msgstr "העברה"
+
+msgid "Yes, move this page"
+msgstr "כן, העבר את העמוד"
+
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
+
+msgid "Yes, unpublish it"
+msgstr "כן, בטל את הפרסום"
+
+msgid "Pages using"
+msgstr "עמודים משמשים"
+
+msgid "Copy"
+msgstr "העתק"
+
+msgid "Copy this page"
+msgstr "העתק עמוד זה"
+
+msgid "New"
+msgstr "חדש "
+
+msgid "Save as draft"
+msgstr "שמור כטיוטה"
+
+msgid "Publish"
+msgstr "פרסם"
+
+msgid "Submit for moderation"
+msgstr "הזן לעריכה"
+
+msgid "Page locked"
+msgstr "עמוד נעול"
+
+msgid "Save draft"
+msgstr "שמור טיוטה"
+
+msgid "Updated"
+msgstr "עדכן"
+
+msgid "Drag"
+msgstr "גרור"
+
+msgid "No pages have been created."
+msgstr "אפס עמודים נוצרו "
+
+msgid "Previous"
+msgstr "קודם"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "This page is locked to further editing"
+msgstr "עמוד זה נעול לעריכה"
+
+msgid "Explore"
+msgstr "לחקור"
+
+msgid "Add subpage"
+msgstr "הוסף תת עמוד"
+
+msgid ""
+"This page is published but does not exist within a configured Site, so "
+"cannot be viewed."
+msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין אפשרות להציג אותו"
+
+msgid "Add child page"
+msgstr "הוסף עמוד ילד"
+
+msgid "This page is protected from public view"
+msgstr "עמוד זה מוגן מתצוגה פומבית"
+
+msgid "Disable ordering of child pages"
+msgstr "ביטול פקודה של עמוד ילד"
+
+msgid "Order"
+msgstr "פקוד"
+
+msgid "Enable ordering of child pages"
+msgstr "ביטול פקודה של עמודי ילדים"
+
+msgid "Other searches"
+msgstr "חיפושים אחרים"
+
+msgid "Images"
+msgstr "תמונות"
+
+msgid "Documents"
+msgstr "מסמכים"
+
+msgid "Users"
+msgstr "משתמשים"
+
+msgid "Enter a search term above"
+msgstr "הכנס מונח לחיפוש"
+
+msgid "No pages use"
+msgstr "אף עמוד בשימוש"
+
+msgid "Home"
+msgstr "לעמוד הבית "
+
+msgid "January"
+msgstr "ינואר"
+
+msgid "February"
+msgstr "פברואר"
+
+msgid "March"
+msgstr "מרץ"
+
+msgid "April"
+msgstr "אפריל"
+
+msgid "May"
+msgstr "מאי"
+
+msgid "June"
+msgstr "יוני"
+
+msgid "July"
+msgstr "יולי"
+
+msgid "August"
+msgstr "אוגוסט"
+
+msgid "September"
+msgstr "ספטמבר"
+
+msgid "October"
+msgstr "אוקטובר"
+
+msgid "November"
+msgstr "נובמבר"
+
+msgid "December"
+msgstr "דצמבר"
+
+msgid "Sun"
+msgstr "ראשון"
+
+msgid "Mon"
+msgstr "שני"
+
+msgid "Tue"
+msgstr "שלישי"
+
+msgid "Wed"
+msgstr "רביעי"
+
+msgid "Thu"
+msgstr "חמישי"
+
+msgid "Fri"
+msgstr "שישי"
+
+msgid "Sat"
+msgstr "שבת"
+
+msgid "Edit your account"
+msgstr "ערכו את חשבונכם"
+
+msgid "Log out"
+msgstr "התנתקות"
+
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr "יש צורך בJavascript על מנת להתשמש בWagtail, אך הוא מכובה כרגע"
+
+msgid "User bar"
+msgstr "סרגל משתמש"
+
+msgid "Go to Wagtail admin interface"
+msgstr "כניסה למערך המנהל של Wagtail "
+
+msgid "Add a child page"
+msgstr "הוסף עמוד ילד"
+
+msgid "Add"
+msgstr "הוסף"
+
+msgid "Your password has been changed successfully!"
+msgstr "סיסמתכם שונתה בהצלחה!"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "העדופיתכם עודכנו בהצלחה!"
+
+msgid "This slug is already in use"
+msgstr "שדה זה כבר בשימוש"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
+
+msgid "Expiry date/time must be in the future"
+msgstr "זמן תפוגה חייב להיות בעתיד"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "עמוד {0} נוצר ופורסם"
+
+msgid "View live"
+msgstr "תצוגה בחי"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "עמוד {0} נוצר והוזן לעריכה"
+
+msgid "View draft"
+msgstr "הצג טיוטה"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "עמוד {0} נוצר"
+
+msgid "The page could not be created due to validation errors"
+msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "עמוד {0} פורסם"
+
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "עמוד {0} הוזן לעריכה"
+
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "עמוד {0} עודכן"
+
+msgid "The page could not be saved as it is locked"
+msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
+
+msgid "The page could not be saved due to validation errors"
+msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
+
+msgid "This page is currently awaiting moderation"
+msgstr "העמוד ממתין לעריכה"
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "עמוד {0} נמחק"
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "פרסום עמוד {0} בוטל"
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "עמוד {0} הוזז"
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "עמוד {0} ותת העמודים {1} הועתקו "
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "עמוד {0} הועתק "
+
+msgid "Content"
+msgstr "תוכן"
+
+msgid "Promote"
+msgstr "קידום"
+
+msgid "Settings"
+msgstr "הגדרות"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "עמוד {0} נדחה עבור פרסום"
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "עמוד {0} נעול כעת"
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "עמוד {0} בלתי נעול כעת"
+
+msgid "Choose an item"
+msgstr "בחרו פריט"
+
+msgid "Choose another item"
+msgstr "בחרו פריט נוסף"
+
+msgid "Clear choice"
+msgstr "נקה בחירה"
+
+msgid "Edit this item"
+msgstr "ערוך פריט זה"
+
+msgid "Choose another page"
+msgstr "בחרו עמוד נוסף"

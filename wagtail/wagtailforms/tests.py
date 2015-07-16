@@ -360,6 +360,24 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         data_line = response.content.decode().split("\n")[1]
         self.assertIn('new@example.com', data_line)
 
+    def test_list_submissions_csv_export_with_unicode(self):
+        unicode_form_submission = FormSubmission.objects.create(
+            page=self.form_page,
+            form_data=json.dumps({
+                'your-email': "unicode@example.com",
+                'your-message': 'こんにちは、世界',
+            }),
+        )
+        unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
+        unicode_form_submission.save()
+
+        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'date_from': '01/02/2014', 'action': 'CSV'})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_line = response.content.decode('utf-8').split("\n")[1]
+        self.assertIn('こんにちは、世界', data_line)
+
 
 class TestIssue798(TestCase):
     fixtures = ['test.json']

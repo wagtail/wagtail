@@ -6,6 +6,7 @@ from __future__ import absolute_import, unicode_literals
 import collections
 from importlib import import_module
 
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -152,13 +153,23 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         return BoundBlock(self, value, prefix=prefix, errors=errors)
 
+    def get_default(self):
+        """
+        Return this block's default value (conventionally found in self.meta.default),
+        converted to the value type expected by this block. This caters for the case
+        where that value type is not something that can be expressed statically at
+        model definition type (e.g. something like StructValue which incorporates a
+        pointer back to the block definion object).
+        """
+        return self.meta.default
+
     def prototype_block(self):
         """
         Return a BoundBlock that can be used as a basis for new empty block instances to be added on the fly
         (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
         a real prefix when it's inserted into the page) and a value equal to the block's default value.
         """
-        return self.bind(self.meta.default, '__PREFIX__')
+        return self.bind(self.get_default(), '__PREFIX__')
 
     def clean(self, value):
         """
@@ -212,6 +223,61 @@ class Block(six.with_metaclass(BaseBlock, object)):
         Returns a list of strings containing text content within this block to be used in a search engine.
         """
         return []
+
+    def check(self, **kwargs):
+        """
+        Hook for the Django system checks framework -
+        returns a list of django.core.checks.Error objects indicating validity errors in the block
+        """
+        return []
+
+    def _check_name(self, **kwargs):
+        """
+        Helper method called by container blocks as part of the system checks framework,
+        to validate that this block's name is a valid identifier.
+        (Not called universally, because not all blocks need names)
+        """
+        errors = []
+        if not self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                hint="Block name cannot be empty",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if ' ' in self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                hint="Block names cannot contain spaces",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if '-' in self.name:
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                "Block names cannot contain dashes",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if self.name and self.name[0].isdigit():
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                "Block names cannot begin with a digit",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        return errors
+
+    def id_for_label(self, prefix):
+        """
+        Return the ID to be used as the 'for' attribute of <label> elements that refer to this block,
+        when the given field prefix is in use. Return None if no 'for' attribute should be used.
+        """
+        return None
 
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible
@@ -312,6 +378,9 @@ class BoundBlock(object):
 
     def render(self):
         return self.block.render(self.value)
+
+    def id_for_label(self):
+        return self.block.id_for_label(self.prefix)
 
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):

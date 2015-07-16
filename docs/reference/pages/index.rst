@@ -12,11 +12,7 @@ The presentation of your content, the actual webpages, includes the normal use o
     :maxdepth: 2
 
     theory
-    creating_pages
-    writing_templates
     model_recipes
     editing_api
-    streamfield
     model_reference
     queryset_reference
-    advanced_topics/privacy
