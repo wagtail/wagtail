@@ -73,6 +73,7 @@ Apps (``settings.py``)
     'wagtail.wagtailusers',
     'wagtail.wagtailimages',
     'wagtail.wagtailembeds',
+    'wagtail.wagtailhallo',
     'wagtail.wagtailsearch',
     'wagtail.wagtailsites',
     'wagtail.wagtailredirects',
@@ -120,6 +121,9 @@ Wagtail Apps
 
 ``wagtailusers``
   User editing interface.
+
+``wagtailhallo``
+  Rich text editing using the Hallo.js editor.
 
 ``wagtailimages``
   The Wagtail image content type.
@@ -451,6 +455,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.wagtailusers',
       'wagtail.wagtailimages',
       'wagtail.wagtailembeds',
+      'wagtail.wagtailhallo',
       'wagtail.wagtailsearch',
       'wagtail.wagtailredirects',
       'wagtail.wagtailforms',

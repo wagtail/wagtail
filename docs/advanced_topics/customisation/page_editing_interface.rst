@@ -63,10 +63,10 @@ If you're interested in extending the capabilities of the Wagtail WYSIWYG editor
 
 .. _extending_wysiwyg:
 
-Extending the WYSIWYG Editor (``hallo.js``)
--------------------------------------------
+Extending the default WYSIWYG Editor (``hallo.js``)
+---------------------------------------------------
 
-To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_js <insert_editor_js>` hook. Once you have the hook in place and your ``hallo.js`` plugin loads into the Wagtail page editor, use the following JavaScript to register the plugin with ``hallo.js``.
+To inject JavaScript into the Wagtail page editor, see the :ref:`insert_hallo_js <insert_hallo_js>` hook. Once you have the hook in place and your ``hallo.js`` plugin loads into the Wagtail page editor, use the following JavaScript to register the plugin with ``hallo.js``.
 
 .. code-block:: javascript
 
@@ -75,6 +75,13 @@ To inject JavaScript into the Wagtail page editor, see the :ref:`insert_editor_j
 ``hallo.js`` plugin names are prefixed with the ``"IKS."`` namespace, but the ``name`` you pass into ``registerHalloPlugin()`` should be without the prefix. ``opts`` is an object passed into the plugin.
 
 For information on developing custom ``hallo.js`` plugins, see the project's page: https://github.com/bergie/hallo
+
+.. _replacing_wysiwyg:
+
+Replacing the default WYSIWYG Editor
+------------------------------------
+
+To replace the ``hallo.js`` editor, remove the ``wagtail.wagtailhallo`` app from your ``INSTALLED_APPS`` setting and replace it with an alternative WYSIWYG editor app.
 
 .. _rich_text_image_formats:
 
