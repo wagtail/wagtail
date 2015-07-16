@@ -49,6 +49,23 @@ def editor_js():
     )
 
 
+@hooks.register('insert_hallo_js')
+def docs_richtexteditor_js():
+    js_files = [
+        'wagtailrichtexteditor/js/hallo-plugins/hallo-wagtaildoclink.js',
+    ]
+    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
+        ((settings.STATIC_URL, filename) for filename in js_files)
+    )
+    return js_includes + format_html(
+        """
+        <script>
+            registerHalloPlugin('hallowagtaildoclink');
+        </script>
+        """
+    )
+
+
 @hooks.register('register_permissions')
 def register_permissions():
     return Permission.objects.filter(content_type__app_label='wagtaildocs',

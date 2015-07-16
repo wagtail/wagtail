@@ -1,54 +1,20 @@
 from django.conf import settings
-from django.utils.html import format_html, format_html_join
+from django.utils.html import format_html_join
 
+from wagtail.wagtailadmin.templatetags.wagtailadmin_tags import hook_output
 from wagtail.wagtailcore import hooks
 
 
-@hooks.register('insert_richtexteditor_js')
-def docs_richtexteditor_js():
+@hooks.register('insert_editor_js')
+def insert_editor_js():
     js_files = [
-        'wagtailrichtexteditor/js/hallo-plugins/hallo-wagtaildoclink.js',
+        'wagtailhallo/js/vendor/hallo.js',
+        'wagtailhallo/js/hallo-plugins/hallo-wagtaillink.js',
+        'wagtailhallo/js/hallo-plugins/hallo-hr.js',
+        'wagtailhallo/js/hallo-plugins/hallo-requireparagraphs.js',
+        'wagtailhallo/js/rich-text-editor.js',
     ]
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
     )
-    return js_includes + format_html(
-        """
-        <script>
-            registerHalloPlugin('hallowagtaildoclink');
-        </script>
-        """
-    )
-
-
-# embeds
-
-
-@hooks.register('insert_richtexteditor_js')
-def embeds_richtexteditor_js():
-    return format_html("""
-            <script src="{0}{1}"></script>
-            <script>
-                registerHalloPlugin('hallowagtailembeds');
-            </script>
-        """,
-        settings.STATIC_URL,
-        'wagtailrichtexteditor/js/hallo-plugins/hallo-wagtailembeds.js',
-    )
-
-
-@hooks.register('insert_richtexteditor_js')
-def images_richtexteditor_js():
-    js_files = [
-        'wagtailrichtexteditor/js/hallo-plugins/hallo-wagtailimage.js',
-    ]
-    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-        ((settings.STATIC_URL, filename) for filename in js_files)
-    )
-    return js_includes + format_html(
-        """
-        <script>
-            registerHalloPlugin('hallowagtailimage');
-        </script>
-        """,
-    )
+    return js_includes + hook_output('insert_hallo_js')
