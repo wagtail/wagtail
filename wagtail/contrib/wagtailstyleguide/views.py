@@ -1,6 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
+from django.core.paginator import Paginator
 from wagtail.wagtailadmin import messages
 from django.contrib.auth.decorators import permission_required
 
@@ -58,19 +59,11 @@ def index(request):
         messages.button('', _('Edit'))
     ])
 
-    fake_pagination = {
-        'number': 1,
-        'previous_page_number': 1,
-        'next_page_number': 2,
-        'has_previous': True,
-        'has_next': True,
-        'paginator': {
-            'num_pages': 10,
-        },
-    }
+    paginator = Paginator(list(range(100)), 10)
+    page = paginator.page(2)
 
     return render(request, 'wagtailstyleguide/base.html', {
         'search_form': form,
         'example_form': example_form,
-        'fake_pagination': fake_pagination,
+        'example_page': page,
     })
