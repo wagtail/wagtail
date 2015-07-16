@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <table class="listing chooser">
     <col width="50%"/>
     <col width="50%"/>
@@ -24,4 +24,4 @@
     </tbody>
 </table>
 
-{% include "wagtailadmin/shared/pagination_nav.html" with items=queries is_ajax=1 %}
+{% paginate queries %}

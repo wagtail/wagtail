@@ -1,22 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
-from django.utils.http import urlencode
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
 from wagtail.wagtailcore.models import Page
-
-
-def get_querystring(request):
-    return urlencode({
-        'page_type': request.GET.get('page_type', ''),
-        'allow_external_link': request.GET.get('allow_external_link', ''),
-        'allow_email_link': request.GET.get('allow_email_link', ''),
-        'prompt_for_link_text': request.GET.get('prompt_for_link_text', ''),
-    })
 
 
 def browse(request, parent_page_id=None):
@@ -67,7 +57,6 @@ def browse(request, parent_page_id=None):
     return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
-        'querystring': get_querystring(request),
         'parent_page': parent_page,
         'pages': pages,
         'search_form': search_form,
@@ -101,7 +90,6 @@ def search(request, parent_page_id=None):
         shown_pages.append(page)
 
     return render(request, 'wagtailadmin/chooser/_search_results.html', {
-        'querystring': get_querystring(request),
         'searchform': search_form,
         'pages': shown_pages,
     })
@@ -133,7 +121,6 @@ def external_link(request):
         request,
         'wagtailadmin/chooser/external_link.html', 'wagtailadmin/chooser/external_link.js',
         {
-            'querystring': get_querystring(request),
             'allow_email_link': request.GET.get('allow_email_link'),
             'form': form,
         }
@@ -166,7 +153,6 @@ def email_link(request):
         request,
         'wagtailadmin/chooser/email_link.html', 'wagtailadmin/chooser/email_link.js',
         {
-            'querystring': get_querystring(request),
             'allow_external_link': request.GET.get('allow_external_link'),
             'form': form,
         }

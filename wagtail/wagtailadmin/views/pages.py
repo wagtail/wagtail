@@ -43,12 +43,12 @@ def index(request, parent_page_id=None):
         ordering = '-latest_revision_created_at'
 
     # Pagination
-    if ordering != 'ord':
-        ordering_no_minus = ordering
-        if ordering_no_minus.startswith('-'):
-            ordering_no_minus = ordering[1:]
+    # Don't paginate if sorting by page order - all pages must be shown to
+    # allow drag-and-drop reordering
+    do_paginate = ordering != 'ord'
+    if do_paginate:
+        ordering_no_minus = ordering.lstrip('-')
         pages = pages.order_by(ordering).annotate(null_position=Count(ordering_no_minus)).order_by('-null_position', ordering)
-
         paginator, pages = paginate(request, pages, per_page=50)
 
     return render(request, 'wagtailadmin/pages/index.html', {
@@ -56,6 +56,7 @@ def index(request, parent_page_id=None):
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
         'pages': pages,
+        'do_paginate': do_paginate,
     })
 
 
