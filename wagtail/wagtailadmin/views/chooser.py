@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
-from django.utils.http import urlencode
 
 from wagtail.utils.pagination import paginate
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
@@ -10,20 +9,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import resolve_model_string
 
 
-def get_querystring(request):
-    return urlencode({
-        'page_type': request.GET.get('page_type', ''),
-        'allow_external_link': request.GET.get('allow_external_link', ''),
-        'allow_email_link': request.GET.get('allow_email_link', ''),
-        'prompt_for_link_text': request.GET.get('prompt_for_link_text', ''),
-    })
-
-
 def shared_context(request, extra_context={}):
     context = {
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
-        'querystring': get_querystring(request),
     }
     context.update(extra_context)
     return context

@@ -28,13 +28,11 @@ def chooser(request, get_results=False):
     if get_results:
         return render(request, "wagtailsearch/queries/chooser/results.html", {
             'queries': queries,
-            'query_string': query_string,
         })
     else:
         return render_modal_workflow(request, 'wagtailsearch/queries/chooser/chooser.html', 'wagtailsearch/queries/chooser/chooser.js', {
             'queries': queries,
             'searchform': searchform,
-            'query_string': query_string,
         })
 
 
