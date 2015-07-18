@@ -2,8 +2,6 @@
 from __future__ import print_function, absolute_import
 
 import os
-import errno
-import sys
 
 from optparse import OptionParser
 from django.core.management import ManagementUtility
