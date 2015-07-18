@@ -13,10 +13,14 @@ def create_project(parser, options, args):
     # Validate args
     if len(args) < 2:
         parser.error("Please specify a name for your wagtail installation")
-    elif len(args) > 2:
+    elif len(args) > 3:
         parser.error("Too many arguments")
 
     project_name = args[1]
+    try:
+        dest_dir = args[2]
+    except IndexError:
+        dest_dir = None
 
     # Make sure given name is not already in use by another python package/module.
     try:
@@ -28,12 +32,6 @@ def create_project(parser, options, args):
                      "Python module and cannot be used as a project "
                      "name. Please try another name." % project_name)
 
-    # Make sure directory does not already exist
-    if os.path.exists(project_name):
-        print('A directory called %(project_name)s already exists. \
-            Please choose another name for your wagtail project or remove the existing directory.' % {'project_name': project_name})
-        sys.exit(errno.EEXIST)
-
     print("Creating a wagtail project called %(project_name)s" % {'project_name': project_name})
 
     # Create the project from the wagtail template using startapp
@@ -44,12 +42,17 @@ def create_project(parser, options, args):
     template_path = os.path.join(wagtail_path, 'project_template')
 
     # Call django-admin startproject
-    utility = ManagementUtility([
-        'django-admin.py', 'startproject',
-        '--template=' + template_path,
-        '--name=Vagrantfile', '--ext=html,rst',
-        project_name
-    ])
+    utility_args = ['django-admin.py',
+                    'startproject',
+                    '--template=' + template_path,
+                    '--name=Vagrantfile',
+                    '--ext=html,rst',
+                    project_name]
+
+    if dest_dir:
+        utility_args.append(dest_dir)
+
+    utility = ManagementUtility(utility_args)
     utility.execute()
 
     print("Success! %(project_name)s is created" % {'project_name': project_name})
@@ -61,7 +64,7 @@ COMMANDS = {
 
 def main():
     # Parse options
-    parser = OptionParser(usage="Usage: %prog start project_name")
+    parser = OptionParser(usage="Usage: %prog start project_name [directory]")
     (options, args) = parser.parse_args()
 
     # Find command
