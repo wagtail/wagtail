@@ -115,7 +115,7 @@ MultiFieldPanel
 InlinePanel
 -----------
 
-.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='')
+.. class:: InlinePanel(relation_name, panels=None, classname=None, label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
@@ -342,9 +342,9 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
 
 .. code-block:: python
 
-    InlinePanel( relation_name, panels=None, label='', help_text='' )
+    InlinePanel( relation_name, panels=None, label='', help_text='', min_num=None, max_num=None )
 
-The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. Finally, ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor.
+The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. ``label`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor. Finally, ``min_num`` and ``max_num`` allow you to set the minimum/maximum number of forms that the user must submit.
 
 .. versionchanged:: 1.0
 

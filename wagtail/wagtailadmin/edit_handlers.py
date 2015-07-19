@@ -612,6 +612,10 @@ class BaseInlinePanel(EditHandler):
             cls.relation_name: {
                 'fields': child_edit_handler_class.required_fields(),
                 'widgets': child_edit_handler_class.widget_overrides(),
+                'min_num': cls.min_num,
+                'validate_min': cls.min_num is not None,
+                'max_num': cls.max_num,
+                'validate_max': cls.max_num is not None
             }
         }
 
@@ -686,6 +690,8 @@ class InlinePanel(object):
         self.panels = kwargs.pop('panels', None)
         self.label = kwargs.pop('label', '')
         self.help_text = kwargs.pop('help_text', '')
+        self.min_num = kwargs.pop('min_num', None)
+        self.max_num = kwargs.pop('max_num', None)
 
         if kwargs:
             raise TypeError("InlinePanel got an unexpected keyword argument '%s'" % kwargs.keys()[0])
@@ -698,6 +704,8 @@ class InlinePanel(object):
             'panels': self.panels,
             'heading': self.label,
             'help_text': self.help_text,  # TODO: can we pick this out of the foreign key definition as an alternative? (with a bit of help from the inlineformset object, as we do for label/heading)
+            'min_num': self.min_num,
+            'max_num': self.max_num
         })
 
 
