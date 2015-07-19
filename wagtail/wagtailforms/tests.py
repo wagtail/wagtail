@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import json
-import unittest
 import mock
 
 from django.test import TestCase
@@ -66,7 +65,6 @@ class TestFormSubmission(TestCase):
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
-    @unittest.expectedFailure
     @mock.patch.object(AbstractForm, 'get_context', autospec=True)
     def test_get_form_calls_get_context(self, get_context):
         get_context.side_effect = Page.get_context
