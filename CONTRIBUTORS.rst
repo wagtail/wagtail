@@ -55,6 +55,7 @@ Contributors
 * Brett Grace
 * Nar Chhantyal
 * Michael Fillier
+* Mitchel Cabuloy
 
 Translators
 ===========
