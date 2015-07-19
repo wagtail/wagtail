@@ -99,11 +99,10 @@ def list_submissions(request, page_id):
     for s in submissions:
         form_data = s.get_data()
         data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
-        data_rows.append(
-          {
+        data_rows.append({
             "model_id": s.id,
             "fields": data_row
-          })
+        })
 
     return render(request, 'wagtailforms/index_submissions.html', {
          'form_page': form_page,
