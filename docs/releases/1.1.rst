@@ -23,6 +23,7 @@ Minor features
  * Moved the style guide menu item into the Settings sub-menu
  * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
  * Added ``descendant_of`` filter to the API
+ * Added optional directory argument to "wagtail start" command
 
 Bug fixes
 ~~~~~~~~~
