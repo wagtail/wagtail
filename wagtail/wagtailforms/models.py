@@ -171,16 +171,21 @@ class AbstractForm(Page):
 
                 # render the landing_page
                 # TODO: It is much better to redirect to it
-                return render(request, self.landing_page_template, {
-                    'self': self,
-                })
+                return render(
+                    request,
+                    self.landing_page_template,
+                    self.get_context(request)
+                )
         else:
             form = self.get_form()
 
-        return render(request, self.template, {
-            'self': self,
-            'form': form,
-        })
+        context = self.get_context(request)
+        context['form'] = form
+        return render(
+            request,
+            self.template,
+            context
+        )
 
     preview_modes = [
         ('form', 'Form'),
@@ -189,9 +194,11 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
-            return render(request, self.landing_page_template, {
-                'self': self,
-            })
+            return render(
+                request,
+                self.landing_page_template,
+                self.get_context(request)
+            )
         else:
             return super(AbstractForm, self).serve_preview(request, mode)
 
