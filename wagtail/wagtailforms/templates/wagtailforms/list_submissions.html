@@ -10,16 +10,22 @@
             {% for heading in data_headings %}
                 <th>{{ heading }}</th>
             {% endfor %}
+            <th>{% trans "Delete Submission" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for row in data_rows %}
             <tr>
-                {% for cell in row %}
+                {% for cell in row.fields %}
                     <td>
                         {{ cell }}
                     </td>
                 {% endfor %}
+                <td>
+                <a class="button" href="
+                    {% url 'wagtailforms_delete_submission' form_page.id row.model_id %}">
+                    delete</a>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

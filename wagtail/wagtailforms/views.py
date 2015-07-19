@@ -5,7 +5,7 @@ import csv
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.encoding import smart_str
 
 from wagtail.wagtailcore.models import Page
@@ -31,6 +31,12 @@ def index(request):
         'form_pages': form_pages,
     })
 
+def delete_submission(request, page_id, submission_id):
+    if not get_forms_for_user(request.user).filter(id=page_id).exists():
+        raise PermissionDenied
+    FormSubmission.objects.get(id=submission_id).delete()
+
+    return redirect('wagtailforms_list_submissions', page_id)
 
 def list_submissions(request, page_id):
     form_page = get_object_or_404(Page, id=page_id).specific
@@ -93,7 +99,11 @@ def list_submissions(request, page_id):
     for s in submissions:
         form_data = s.get_data()
         data_row = [s.submit_time] + [form_data.get(name) for name, label in data_fields]
-        data_rows.append(data_row)
+        data_rows.append(
+          {
+            "model_id": s.id,
+            "fields": data_row
+          })
 
     return render(request, 'wagtailforms/index_submissions.html', {
          'form_page': form_page,
