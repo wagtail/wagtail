@@ -7,11 +7,11 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.encoding import smart_str
-
+from django.utils.translation import ugettext as _
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import FormSubmission, get_forms_for_user
 from wagtail.wagtailforms.forms import SelectDateForm
-
+from wagtail.wagtailadmin import messages
 
 def index(request):
     p = request.GET.get("p", 1)
@@ -34,9 +34,20 @@ def index(request):
 def delete_submission(request, page_id, submission_id):
     if not get_forms_for_user(request.user).filter(id=page_id).exists():
         raise PermissionDenied
-    FormSubmission.objects.get(id=submission_id).delete()
 
-    return redirect('wagtailforms_list_submissions', page_id)
+    submission = get_object_or_404(FormSubmission, id=submission_id)
+    page = get_object_or_404(Page, id=page_id)
+
+    if request.method == 'POST':
+        submission.delete()
+
+        messages.success(request, _("Submission deleted."))
+        return redirect('wagtailforms_list_submissions', page_id)
+
+    return render(request, 'wagtailforms/confirm_delete.html', {
+        'page': page,
+        'submission': submission
+    })
 
 def list_submissions(request, page_id):
     form_page = get_object_or_404(Page, id=page_id).specific
