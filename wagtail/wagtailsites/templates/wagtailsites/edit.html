@@ -10,7 +10,7 @@
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=site.hostname icon="site" %}
 
     <div class="nice-padding">
-        <form action="{% url 'wagtailsites_edit' site.id %}" method="POST">
+        <form action="{% url 'wagtailsites:edit' site.id %}" method="POST">
             {% csrf_token %}
         
             <ul class="fields">
@@ -22,7 +22,7 @@
                 <li>
                     <input type="submit" value="{% trans 'Save' %}" />
                     {% if perms.site.delete_site %}
-                        <a href="{% url 'wagtailsites_delete' site.id %}" class="button button-secondary no">{% trans "Delete site" %}</a>
+                        <a href="{% url 'wagtailsites:delete' site.id %}" class="button button-secondary no">{% trans "Delete site" %}</a>
                     {% endif %}
                 </li>
             </ul>

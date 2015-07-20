@@ -4,4 +4,4 @@
     <span class="title">{{ page.title }}</span>
 {% endblock %}
 
-{% block edit_chosen_item_url %}{% if page %}{% url 'wagtailadmin_pages_edit' page.id %}{% endif %}{% endblock %}
+{% block edit_chosen_item_url %}{% if page %}{% url 'wagtailadmin_pages:edit' page.id %}{% endif %}{% endblock %}

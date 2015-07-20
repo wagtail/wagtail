@@ -70,9 +70,9 @@ def edit(request, redirect_id):
         if form.is_valid():
             form.save()
             messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects_edit_redirect', args=(theredirect.id,)), _('Edit'))
+                messages.button(reverse('wagtailredirects:edit_redirect', args=(theredirect.id,)), _('Edit'))
             ])
-            return redirect('wagtailredirects_index')
+            return redirect('wagtailredirects:index')
         else:
             messages.error(request, _("The redirect could not be saved due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)
@@ -93,7 +93,7 @@ def delete(request, redirect_id):
     if request.POST:
         theredirect.delete()
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
-        return redirect('wagtailredirects_index')
+        return redirect('wagtailredirects:index')
 
     return render(request, "wagtailredirects/confirm_delete.html", {
         'redirect': theredirect,
@@ -113,9 +113,9 @@ def add(request):
             theredirect.save()
 
             messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects_edit_redirect', args=(theredirect.id,)), _('Edit'))
+                messages.button(reverse('wagtailredirects:edit_redirect', args=(theredirect.id,)), _('Edit'))
             ])
-            return redirect('wagtailredirects_index')
+            return redirect('wagtailredirects:index')
         else:
             messages.error(request, _("The redirect could not be created due to errors."))
             edit_handler = REDIRECT_EDIT_HANDLER(instance=theredirect, form=form)

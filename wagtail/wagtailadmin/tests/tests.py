@@ -44,13 +44,13 @@ class TestEditorHooks(TestCase, WagtailTestUtils):
         self.login()
 
     def test_editor_css_and_js_hooks_on_add(self):
-        response = self.client.get(reverse('wagtailadmin_pages_create', args=('tests', 'simplepage', self.homepage.id)))
+        response = self.client.get(reverse('wagtailadmin_pages:create', args=('tests', 'simplepage', self.homepage.id)))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<link rel="stylesheet" href="/path/to/my/custom.css">')
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')
 
     def test_editor_css_and_js_hooks_on_edit(self):
-        response = self.client.get(reverse('wagtailadmin_pages_edit', args=(self.homepage.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.homepage.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<link rel="stylesheet" href="/path/to/my/custom.css">')
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')

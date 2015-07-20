@@ -8,7 +8,7 @@
 <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
     {% trans "Privacy" %}
     {% if page_perms.can_set_view_restrictions %}
-        <a href="{% url 'wagtailadmin_pages_set_privacy' page.id %}" class="status-tag primary  action-set-privacy">
+        <a href="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary  action-set-privacy">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
             <span class="label-public icon icon-view">{% trans 'Public' %}</span>
             <span class="label-private icon icon-no-view">{% trans 'Private' %}</span>

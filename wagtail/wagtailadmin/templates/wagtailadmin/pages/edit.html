@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages_edit' page.id %}" method="POST">
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
@@ -38,10 +38,10 @@
                             <div class="dropdown-toggle icon icon-arrow-up"></div>
                             <ul role="menu">
                                 {% if page_perms.can_unpublish %}
-                                    <li><a href="{% url 'wagtailadmin_pages_unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:unpublish' page.id %}">{% trans 'Unpublish' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_delete %}
-                                    <li><a href="{% url 'wagtailadmin_pages_delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:delete' page.id %}" class="shortcut">{% trans 'Delete' %}</a></li>
                                 {% endif %}
                                 {% if page_perms.can_publish %}
                                     <li><input type="submit" name="action-publish" value="{% trans 'Publish' %}" class="button" /></li>
