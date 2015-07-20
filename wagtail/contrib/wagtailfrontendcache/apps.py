@@ -1,11 +1,11 @@
-from django.apps import AppConfig
-from wagtail.contrib.wagtailfrontendcache.signal_handlers import register_signal_handlers
+import warnings
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 
 
-class WagtailFrontendCacheAppConfig(AppConfig):
-    name = 'wagtail.contrib.wagtailfrontendcache'
-    label = 'wagtailfrontendcache'
-    verbose_name = "Wagtail frontend cache"
+warnings.warn(
+    "The wagtail.contrib.wagtailfrontendcache module has been renamed to "
+    "wagtail.contrib.frontendcache. Please update your INSTALLED_APPS setting.",
+    RemovedInWagtail13Warning)
 
-    def ready(self):
-        register_signal_handlers()
+
+from wagtail.contrib.frontendcache.apps import WagtailFrontendCacheAppConfig  # noqa

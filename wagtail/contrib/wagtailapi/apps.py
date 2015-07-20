@@ -11,7 +11,7 @@ class WagtailAPIAppConfig(AppConfig):
     def ready(self):
         # Install cache purging signal handlers
         if getattr(settings, 'WAGTAILAPI_USE_FRONTENDCACHE', False):
-            if apps.is_installed('wagtail.contrib.wagtailfrontendcache'):
+            if apps.is_installed('wagtail.contrib.frontendcache'):
                 from wagtail.contrib.wagtailapi.signal_handlers import register_signal_handlers
                 register_signal_handlers()
             else:
