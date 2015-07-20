@@ -1,12 +1,12 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.forms import SetPasswordForm
+from wagtail.wagtailadmin import messages
 from django.contrib.auth.views import logout as auth_logout, login as auth_login
 from django.contrib.auth import update_session_auth_hash
 from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
+from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin import forms
 from wagtail.wagtailusers.forms import NotificationPreferencesForm
@@ -19,32 +19,40 @@ def account(request):
     show_notification_preferences = user_perms.can_edit_pages() or user_perms.can_publish_pages()
 
     return render(request, 'wagtailadmin/account/account.html', {
-        'show_change_password': getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True) and request.user.has_usable_password(),
         'show_notification_preferences': show_notification_preferences
     })
 
 
-def change_password(request):
-    can_change_password = request.user.has_usable_password()
+def edit(request):
+    disable_password_fields = not getattr(
+        settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True
+    ) or not request.user.has_usable_password()
 
-    if can_change_password:
-        if request.POST:
-            form = SetPasswordForm(request.user, request.POST)
-
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
-
-                messages.success(request, _("Your password has been changed successfully!"))
-                return redirect('wagtailadmin_account')
+    if request.POST:
+        form = forms.SingleUserEditForm(
+            request.POST,
+            instance=request.user,
+            disable_password_fields=disable_password_fields
+        )
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, _("User '{0}' updated.").format(user), buttons=[
+                messages.button(reverse('wagtailadmin_account_edit'), _('Edit'))
+            ])
+            return redirect('wagtailadmin_account')
         else:
-            form = SetPasswordForm(request.user)
+            messages.error(request, _("The user could not be saved due to errors."))
     else:
-        form = None
+        form = forms.SingleUserEditForm(
+            instance=request.user,
+            disable_password_fields=disable_password_fields
+        )
 
-    return render(request, 'wagtailadmin/account/change_password.html', {
+    return render(request, 'wagtailadmin/account/edit.html', {
+        'user': request.user,
         'form': form,
-        'can_change_password': can_change_password,
+        'disable_password_fields': disable_password_fields
     })
 
 
