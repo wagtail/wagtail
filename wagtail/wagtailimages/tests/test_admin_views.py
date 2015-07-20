@@ -86,6 +86,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
+        # Test that the file_size field was set
+        self.assertTrue(image.file_size)
+
     def test_add_no_file_selected(self):
         response = self.post({
             'title': "Test image",
@@ -150,6 +153,25 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)
         self.assertEqual(image.title, "Edited")
+
+    def test_edit_with_new_image_file(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        # Change the file size of the image
+        self.image.file_size = 100000
+        self.image.save()
+
+        response = self.post({
+            'title': "Edited",
+            'file': SimpleUploadedFile('new.png', file_content),
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages_index'))
+
+        # Check that the image file size changed (assume it changed to the correct value)
+        image = Image.objects.get(id=self.image.id)
+        self.assertNotEqual(image.file_size, 100000)
 
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
@@ -330,6 +352,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check image
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'].title, 'test.png')
+        self.assertTrue(response.context['image'].file_size)
 
         # Check form
         self.assertIn('form', response.context)

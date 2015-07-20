@@ -1,3 +1,4 @@
+import os
 import json
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -96,6 +97,10 @@ def edit(request, image_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
+
+                # Set new image file size
+                image.file_size = image.file.size
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed
@@ -118,21 +123,24 @@ def edit(request, image_id):
     except NoReverseMatch:
         url_generator_enabled = False
 
-    # Get file size
     try:
-        filesize = image.file.size
-    except OSError:
-        # File doesn't exist
-        filesize = None
-        messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
-            messages.button(reverse('wagtailimages_delete_image', args=(image.id,)), _('Delete'))
-        ])
+        local_path = image.file.path
+    except NotImplementedError:
+        # Image is hosted externally (eg, S3)
+        local_path = None
+
+    if local_path:
+        # Give error if image file doesn't exist
+        if not os.path.isfile(local_path):
+            messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
+                messages.button(reverse('wagtailimages_delete_image', args=(image.id,)), _('Delete'))
+            ])
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
-        'filesize': filesize,
+        'filesize': image.get_file_size(),
     })
 
 
@@ -234,6 +242,9 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
+            # Set image file size
+            image.file_size = image.file.size
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed
