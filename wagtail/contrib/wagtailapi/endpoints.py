@@ -181,6 +181,15 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
+    def get_fields(self, request):
+        """
+        Return the set of fields that should be returned in the output
+        representation for listing views.
+        """
+        if 'fields' in request.GET:
+            return set(request.GET['fields'].split(','))
+        return {'title'}
+
     @classmethod
     def get_urlpatterns(cls):
         """
@@ -288,10 +297,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
-        if 'fields' in request.GET:
-            fields = set(request.GET['fields'].split(','))
-        else:
-            fields = {'title'}
+        fields = self.get_fields(request)
 
         data = [
             self.serialize_object(request, page, fields=fields)
@@ -330,10 +336,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
-        if 'fields' in request.GET:
-            fields = set(request.GET['fields'].split(','))
-        else:
-            fields = {'title'}
+        fields = self.get_fields(request)
 
         data = [
             self.serialize_object(request, image, fields=fields)
@@ -377,10 +380,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
-        if 'fields' in request.GET:
-            fields = set(request.GET['fields'].split(','))
-        else:
-            fields = {'title'}
+        fields = self.get_fields(request)
 
         data = [
             self.serialize_object(request, document, fields=fields)
