@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0004_streammodel_richtext'),
+        ('tests', '0005_streampage'),
     ]
 
     operations = [
