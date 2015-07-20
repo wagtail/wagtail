@@ -10,6 +10,10 @@ from django.utils.encoding import force_text
 from django.shortcuts import get_object_or_404
 from django.conf.urls import url
 from django.conf import settings
+from django.http import Http404
+
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from wagtail.wagtailcore.models import Page
@@ -19,29 +23,8 @@ from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.utils.compat import get_related_model
 
-from .utils import BadRequestError
-
-
-class URLPath(object):
-    """
-    This class represents a URL path that should be converted to a full URL.
-
-    It is used when the domain that should be used is not known at the time
-    the URL was generated. It will get resolved to a full URL during
-    serialisation in api.py.
-
-    One example use case is the documents endpoint adding download URLs into
-    the JSON. The endpoint does not know the domain name to use at the time so
-    returns one of these instead.
-    """
-    def __init__(self, path):
-        self.path = path
-
-
-class ObjectDetailURL(object):
-    def __init__(self, model, pk):
-        self.model = model
-        self.pk = pk
+from .renderers import WagtailJSONRenderer
+from .utils import BadRequestError, URLPath, ObjectDetailURL
 
 
 def get_api_data(obj, fields):
@@ -96,6 +79,8 @@ def get_api_data(obj, fields):
 
 
 class BaseAPIEndpoint(ViewSet):
+    renderer_classes = [WagtailJSONRenderer]
+
     known_query_parameters = frozenset([
         'limit',
         'offset',
@@ -103,6 +88,15 @@ class BaseAPIEndpoint(ViewSet):
         'order',
         'search',
     ])
+
+    def handle_exception(self, exc):
+        if isinstance(exc, Http404):
+            data = {'message': str(exc)}
+            return Response(data, status=status.HTTP_404_NOT_FOUND)
+        elif isinstance(exc, BadRequestError):
+            data = {'message': str(exc)}
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        return super(BaseAPIEndpoint, self).handle_exception(exc)
 
     def listing_view(self, request):
         return NotImplemented
@@ -300,14 +294,27 @@ class BaseAPIEndpoint(ViewSet):
 
         return queryset[start:stop]
 
-    def get_urlpatterns(self):
+    @classmethod
+    def get_urlpatterns(cls):
         """
         This returns a list of URL patterns for the endpoint
         """
         return [
-            url(r'^$', self.listing_view, name='listing'),
-            url(r'^(\d+)/$', self.detail_view, name='detail'),
+            url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
+            url(r'^(\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
+
+    def find_model_detail_view(self, model):
+        # TODO: Needs refactoring. This is currently duplicated, and also
+        #       does a bit of a dance around instantiating these classes.
+        endpoints = {
+            'pages': PagesAPIEndpoint(),
+            'images': ImagesAPIEndpoint(),
+            'documents': DocumentsAPIEndpoint(),
+        }
+        for endpoint_name, endpoint in endpoints.items():
+            if endpoint.has_model(model):
+                return 'wagtailapi_v1:%s:detail' % endpoint_name
 
     def has_model(self, model):
         return False
@@ -443,7 +450,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        return OrderedDict([
+        data = OrderedDict([
             ('meta', OrderedDict([
                 ('total_count', total_count),
             ])),
@@ -452,10 +459,12 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
                 for page in queryset
             ]),
         ])
+        return Response(data)
 
     def detail_view(self, request, pk):
         page = get_object_or_404(self.get_queryset(request), pk=pk).specific
-        return self.serialize_object(request, page, all_fields=True, show_details=True)
+        data = self.serialize_object(request, page, all_fields=True, show_details=True)
+        return Response(data)
 
     def has_model(self, model):
         return issubclass(model, Page)
@@ -497,7 +506,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        return OrderedDict([
+        data = OrderedDict([
             ('meta', OrderedDict([
                 ('total_count', total_count),
             ])),
@@ -506,10 +515,12 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
                 for image in queryset
             ]),
         ])
+        return Response(data)
 
     def detail_view(self, request, pk):
         image = get_object_or_404(self.get_queryset(request), pk=pk)
-        return self.serialize_object(request, image, all_fields=True)
+        data = self.serialize_object(request, image, all_fields=True)
+        return Response(data)
 
     def has_model(self, model):
         return model == self.model
@@ -555,7 +566,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        return OrderedDict([
+        data = OrderedDict([
             ('meta', OrderedDict([
                 ('total_count', total_count),
             ])),
@@ -564,10 +575,12 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
                 for document in queryset
             ]),
         ])
+        return Response(data)
 
     def detail_view(self, request, pk):
         document = get_object_or_404(Document, pk=pk)
-        return self.serialize_object(request, document, all_fields=True, show_details=True)
+        data = self.serialize_object(request, document, all_fields=True, show_details=True)
+        return Response(data)
 
     def has_model(self, model):
         return model == Document
