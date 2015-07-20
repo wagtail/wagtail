@@ -12,6 +12,7 @@ Changelog
  * Added ``descendant_of`` filter to the API (Michael Fillier)
  * Added optional directory argument to "wagtail start" command (Mitchel Cabuloy)
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
+ * Updated URLs within the admin backend to use namespaces
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
 
 

@@ -25,6 +25,7 @@ Minor features
  * Added ``descendant_of`` filter to the API
  * Added optional directory argument to "wagtail start" command
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
+ * Updated URLs within the admin backend to use namespaces
 
 Bug fixes
 ~~~~~~~~~
