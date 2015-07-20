@@ -27,6 +27,7 @@ from .filters import (
     ChildOfFilter, DescendantOfFilter
 )
 from .renderers import WagtailJSONRenderer
+from .pagination import WagtailPagination
 from .utils import BadRequestError, URLPath, ObjectDetailURL
 
 
@@ -83,6 +84,7 @@ def get_api_data(obj, fields):
 
 class BaseAPIEndpoint(GenericViewSet):
     renderer_classes = [WagtailJSONRenderer]
+    pagination_class = WagtailPagination
     filter_classes = []
 
     known_query_parameters = frozenset([
@@ -179,34 +181,6 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
-    def do_pagination(self, request, queryset):
-        """
-        This performs limit/offset based pagination on the result set
-        Eg: ?limit=10&offset=20 -- Returns 10 items starting at item 20
-        """
-        limit_max = getattr(settings, 'WAGTAILAPI_LIMIT_MAX', 20)
-
-        try:
-            offset = int(request.GET.get('offset', 0))
-            assert offset >= 0
-        except (ValueError, AssertionError):
-            raise BadRequestError("offset must be a positive integer")
-
-        try:
-            limit = int(request.GET.get('limit', min(20, limit_max)))
-
-            if limit > limit_max:
-                raise BadRequestError("limit cannot be higher than %d" % limit_max)
-
-            assert limit >= 0
-        except (ValueError, AssertionError):
-            raise BadRequestError("limit must be a positive integer")
-
-        start = offset
-        stop = offset + limit
-
-        return queryset[start:stop]
-
     @classmethod
     def get_urlpatterns(cls):
         """
@@ -234,6 +208,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
+    name = 'pages'
     known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
         'type',
         'child_of',
@@ -310,8 +285,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = self.filter_queryset(queryset)
 
         # Pagination
-        total_count = queryset.count()
-        queryset = self.do_pagination(request, queryset)
+        queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
         if 'fields' in request.GET:
@@ -319,16 +293,11 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        data = OrderedDict([
-            ('meta', OrderedDict([
-                ('total_count', total_count),
-            ])),
-            ('pages', [
-                self.serialize_object(request, page, fields=fields)
-                for page in queryset
-            ]),
-        ])
-        return Response(data)
+        data = [
+            self.serialize_object(request, page, fields=fields)
+            for page in queryset
+        ]
+        return self.get_paginated_response(data)
 
     def detail_view(self, request, pk):
         page = get_object_or_404(self.get_queryset(request), pk=pk).specific
@@ -340,6 +309,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
+    name = 'images'
     model = get_image_model()
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
@@ -357,8 +327,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         queryset = self.filter_queryset(queryset)
 
         # Pagination
-        total_count = queryset.count()
-        queryset = self.do_pagination(request, queryset)
+        queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
         if 'fields' in request.GET:
@@ -366,16 +335,11 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        data = OrderedDict([
-            ('meta', OrderedDict([
-                ('total_count', total_count),
-            ])),
-            ('images', [
-                self.serialize_object(request, image, fields=fields)
-                for image in queryset
-            ]),
-        ])
-        return Response(data)
+        data = [
+            self.serialize_object(request, image, fields=fields)
+            for image in queryset
+        ]
+        return self.get_paginated_response(data)
 
     def detail_view(self, request, pk):
         image = get_object_or_404(self.get_queryset(request), pk=pk)
@@ -387,6 +351,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
+    name = 'documents'
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
 
@@ -409,8 +374,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         queryset = self.filter_queryset(queryset)
 
         # Pagination
-        total_count = queryset.count()
-        queryset = self.do_pagination(request, queryset)
+        queryset = self.paginate_queryset(queryset)
 
         # Get list of fields to show in results
         if 'fields' in request.GET:
@@ -418,16 +382,11 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         else:
             fields = {'title'}
 
-        data = OrderedDict([
-            ('meta', OrderedDict([
-                ('total_count', total_count),
-            ])),
-            ('documents', [
-                self.serialize_object(request, document, fields=fields)
-                for document in queryset
-            ]),
-        ])
-        return Response(data)
+        data = [
+            self.serialize_object(request, document, fields=fields)
+            for document in queryset
+        ]
+        return self.get_paginated_response(data)
 
     def detail_view(self, request, pk):
         document = get_object_or_404(Document, pk=pk)
