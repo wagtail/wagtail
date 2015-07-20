@@ -8,7 +8,7 @@
         {% image image max-800x600 %}
     </div>
     <div class="col6">
-        <form action="{% url 'wagtailimages_chooser_select_format' image.id %}" method="POST">
+        <form action="{% url 'wagtailimages:chooser_select_format' image.id %}" method="POST">
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}

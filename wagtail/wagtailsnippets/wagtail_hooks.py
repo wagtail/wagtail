@@ -16,7 +16,7 @@ from wagtail.wagtailsnippets.models import get_snippet_content_types
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^snippets/', include(urls)),
+        url(r'^snippets/', include(urls, namespace='wagtailsnippets')),
     ]
 
 
@@ -26,7 +26,7 @@ class SnippetsMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def register_snippets_menu_item():
-    return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets_index'), classnames='icon icon-snippet', order=500)
+    return SnippetsMenuItem(_('Snippets'), urlresolvers.reverse('wagtailsnippets:index'), classnames='icon icon-snippet', order=500)
 
 
 @hooks.register('insert_editor_js')
@@ -37,7 +37,7 @@ def editor_js():
         """,
         settings.STATIC_URL,
         'wagtailsnippets/js/snippet-chooser.js',
-        urlresolvers.reverse('wagtailsnippets_choose_generic')
+        urlresolvers.reverse('wagtailsnippets:choose_generic')
     )
 
 

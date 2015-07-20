@@ -9,7 +9,7 @@
     {% trans "Add site" as add_site_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_site_str icon="site" %}
 
-    <form action="{% url 'wagtailsites_create' %}" method="POST">
+    <form action="{% url 'wagtailsites:create' %}" method="POST">
         {% csrf_token %}
         <div class="nice-padding">
             <ul class="fields">

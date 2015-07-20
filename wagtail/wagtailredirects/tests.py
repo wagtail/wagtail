@@ -71,7 +71,7 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailredirects_index'), params)
+        return self.client.get(reverse('wagtailredirects:index'), params)
 
     def test_simple(self):
         response = self.get()
@@ -95,10 +95,10 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailredirects_add_redirect'), params)
+        return self.client.get(reverse('wagtailredirects:add_redirect'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailredirects_add_redirect'), post_data)
+        return self.client.post(reverse('wagtailredirects:add_redirect'), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -113,7 +113,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -141,10 +141,10 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, redirect_id=None):
-        return self.client.get(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), params)
+        return self.client.get(reverse('wagtailredirects:edit_redirect', args=(redirect_id or self.redirect.id, )), params)
 
     def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects_edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
+        return self.client.post(reverse('wagtailredirects:edit_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -162,7 +162,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
 
         # Check that the redirect was edited
         redirects = models.Redirect.objects.filter(old_path='/test')
@@ -189,10 +189,10 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, redirect_id=None):
-        return self.client.get(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), params)
+        return self.client.get(reverse('wagtailredirects:delete_redirect', args=(redirect_id or self.redirect.id, )), params)
 
     def post(self, post_data={}, redirect_id=None):
-        return self.client.post(reverse('wagtailredirects_delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
+        return self.client.post(reverse('wagtailredirects:delete_redirect', args=(redirect_id or self.redirect.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -208,7 +208,7 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailredirects_index'))
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
 
         # Check that the redirect was deleted
         redirects = models.Redirect.objects.filter(old_path='/test')

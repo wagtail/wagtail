@@ -19,15 +19,15 @@
                         <tr>
                             <td class="title" valign="top">
                                 <h2>
-                                    <a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a>
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
                                 </h2>
                                 <ul class="actions">
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
                                     {% if revision.page.has_unpublished_changes %}
-                                        <li><a href="{% url 'wagtailadmin_pages_view_draft' revision.page.id %}" class="button button-small button-secondary">{% trans 'Draft' %}</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' revision.page.id %}" class="button button-small button-secondary">{% trans 'Draft' %}</a></li>
                                     {% endif %}
                                     {% if revision.page.live %}
                                         <li><a href="{{ revision.page.url }}" class="button button-small button-secondary">{% trans 'Live' %}</a></li>
