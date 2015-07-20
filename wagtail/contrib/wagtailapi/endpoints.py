@@ -10,6 +10,7 @@ from django.utils.encoding import force_text
 from django.shortcuts import get_object_or_404
 from django.conf.urls import url
 from django.conf import settings
+from rest_framework.viewsets import ViewSet
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import get_image_model
@@ -94,7 +95,7 @@ def get_api_data(obj, fields):
             continue
 
 
-class BaseAPIEndpoint(object):
+class BaseAPIEndpoint(ViewSet):
     known_query_parameters = frozenset([
         'limit',
         'offset',
