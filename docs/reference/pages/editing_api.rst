@@ -163,10 +163,15 @@ PageChooserPanel
             )
 
             content_panels = Page.content_panels + [
-                PageChooserPanel('related_page', 'demo.PublisherPage'),
+                PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.EventPage']),
             ]
 
-    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
+    ``PageChooserPanel`` takes two arguments: a field name and an optional page type.
+
+    The page type parameter restricts which page types can be selected in this field. It defaults to the model that the ``ForeignKey`` is pointing at (in this case, ``wagtailcore.Page``).
+
+    This paramater will take a model class, a string (in the form of an ``"appname.modelname"`` string) or a list of strings/model classes.
+
 
 ImageChooserPanel
 -----------------
