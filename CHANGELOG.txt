@@ -11,6 +11,7 @@ Changelog
  * Search backends can now be specified by module (e.g. `wagtail.wagtailsearch.backends.elasticsearch`), rather than a specific class (`wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch`)
  * Added ``descendant_of`` filter to the API (Michael Fillier)
  * Added optional directory argument to "wagtail start" command (Mitchel Cabuloy)
+ * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
 
 
