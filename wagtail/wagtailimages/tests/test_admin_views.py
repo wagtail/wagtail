@@ -167,7 +167,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages:index'))
 
         # Check that the image file size changed (assume it changed to the correct value)
         image = Image.objects.get(id=self.image.id)
