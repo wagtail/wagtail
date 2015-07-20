@@ -1,10 +1,9 @@
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth import views as django_auth_views
 from django.views.decorators.cache import cache_control
 
-from wagtail.wagtailadmin.forms import PasswordResetForm
 from wagtail.wagtailadmin.urls import pages as wagtailadmin_pages_urls
+from wagtail.wagtailadmin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.wagtailadmin.views import account, chooser, home, pages, tags, userbar
 from wagtail.wagtailcore import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -65,32 +64,7 @@ urlpatterns += [
     url(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
 
     # Password reset
-    url(
-        r'^password_reset/$', django_auth_views.password_reset, {
-            'template_name': 'wagtailadmin/account/password_reset/form.html',
-            'email_template_name': 'wagtailadmin/account/password_reset/email.txt',
-            'subject_template_name': 'wagtailadmin/account/password_reset/email_subject.txt',
-            'password_reset_form': PasswordResetForm,
-            'post_reset_redirect': 'wagtailadmin_password_reset_done',
-        }, name='wagtailadmin_password_reset'
-    ),
-    url(
-        r'^password_reset/done/$', django_auth_views.password_reset_done, {
-            'template_name': 'wagtailadmin/account/password_reset/done.html'
-        }, name='wagtailadmin_password_reset_done'
-    ),
-    url(
-        r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        django_auth_views.password_reset_confirm, {
-            'template_name': 'wagtailadmin/account/password_reset/confirm.html',
-            'post_reset_redirect': 'wagtailadmin_password_reset_complete',
-        }, name='wagtailadmin_password_reset_confirm',
-    ),
-    url(
-        r'^password_reset/complete/$', django_auth_views.password_reset_complete, {
-            'template_name': 'wagtailadmin/account/password_reset/complete.html'
-        }, name='wagtailadmin_password_reset_complete'
-    ),
+    url(r'^password_reset/', include(wagtailadmin_password_reset_urls)),
 ]
 
 # Decorate all views with cache settings to prevent caching
