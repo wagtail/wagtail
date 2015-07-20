@@ -92,6 +92,7 @@ class BaseAPIEndpoint(GenericViewSet):
         'order',
         'search',
     ])
+    extra_api_fields = []
 
     def handle_exception(self, exc):
         if isinstance(exc, Http404):
@@ -113,7 +114,7 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of field names that are allowed to
         be used in the API (excluding the id field).
         """
-        api_fields = []
+        api_fields = self.extra_api_fields[:]
 
         if hasattr(model, 'api_fields'):
             api_fields.extend(model.api_fields)
@@ -238,6 +239,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'child_of',
         'descendant_of',
     ])
+    extra_api_fields = ['title']
     filter_backends = [
         FieldsFilter, ChildOfFilter, DescendantOfFilter,
         OrderingFilter, SearchFilter
@@ -251,11 +253,6 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
 
         return queryset
-
-    def get_api_fields(self, model):
-        api_fields = ['title']
-        api_fields.extend(super(PagesAPIEndpoint, self).get_api_fields(model))
-        return api_fields
 
     def serialize_object_metadata(self, request, page, show_details=False):
         data = super(PagesAPIEndpoint, self).serialize_object_metadata(request, page, show_details=show_details)
@@ -345,14 +342,10 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     model = get_image_model()
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
+    extra_api_fields = ['title', 'tags', 'width', 'height']
 
     def get_queryset(self, request):
         return self.model.objects.all().order_by('id')
-
-    def get_api_fields(self, model):
-        api_fields = ['title', 'tags', 'width', 'height']
-        api_fields.extend(super(ImagesAPIEndpoint, self).get_api_fields(model))
-        return api_fields
 
     def listing_view(self, request):
         queryset = self.get_queryset(request)
@@ -395,11 +388,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
-
-    def get_api_fields(self, model):
-        api_fields = ['title', 'tags']
-        api_fields.extend(super(DocumentsAPIEndpoint, self).get_api_fields(model))
-        return api_fields
+    extra_api_fields = ['title', 'tags']
 
     def serialize_object_metadata(self, request, document, show_details=False):
         data = super(DocumentsAPIEndpoint, self).serialize_object_metadata(request, document, show_details=show_details)
