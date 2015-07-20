@@ -27,6 +27,8 @@ class Document(models.Model, TagSearchable):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
 
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+
     search_fields = TagSearchable.search_fields + (
         index.FilterField('uploaded_by_user'),
     )
@@ -49,6 +51,18 @@ class Document(models.Model, TagSearchable):
     @property
     def url(self):
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
+
+    def get_file_size(self):
+        if self.file_size is None:
+            try:
+                self.file_size = self.file.size
+            except OSError:
+                # File doesn't exist
+                return
+
+            self.save(update_fields=['file_size'])
+
+        return self.file_size
 
     def get_usage(self):
         return get_object_usage(self)
