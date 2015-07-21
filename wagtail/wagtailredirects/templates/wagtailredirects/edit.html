@@ -6,13 +6,13 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title icon="redirect" %}
 
-    <form action="{% url 'wagtailredirects:edit_redirect' redirect.id %}" method="POST" class="nice-padding">
+    <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
         <div>
             <input type="submit" value="{% trans 'Save' %}" />
-            <a href="{% url 'wagtailredirects:delete_redirect' redirect.id %}" class="button button-secondary no">{% trans "Delete redirect" %}</a>
+            <a href="{% url 'wagtailredirects:delete' redirect.id %}" class="button button-secondary no">{% trans "Delete redirect" %}</a>
         </div>
     </form>
     

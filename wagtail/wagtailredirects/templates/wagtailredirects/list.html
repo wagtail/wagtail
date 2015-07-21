@@ -22,7 +22,7 @@
         {% for redirect in redirects %}
             <tr>
                 <td class="title">
-                    <h2><a href="{% url 'wagtailredirects:edit_redirect' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></h2>
+                    <h2><a href="{% url 'wagtailredirects:edit' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></h2>
                 </td>
                 <td>
                     {% if redirect.redirect_page %}

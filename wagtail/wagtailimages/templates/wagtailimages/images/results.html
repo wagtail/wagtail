@@ -16,7 +16,7 @@
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% url 'wagtailimages:edit_image' image.id %}">
+                <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
                     <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>

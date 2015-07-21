@@ -60,12 +60,12 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets:create',
+        return self.client.get(reverse('wagtailsnippets:add',
                                        args=('tests', 'advert')),
                                params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets:create',
+        return self.client.post(reverse('wagtailsnippets:add',
                                args=('tests', 'advert')),
                                post_data)
 

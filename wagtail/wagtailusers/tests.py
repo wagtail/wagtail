@@ -54,10 +54,10 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_users:create'), params)
+        return self.client.get(reverse('wagtailusers_users:add'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailusers_users:create'), post_data)
+        return self.client.post(reverse('wagtailusers_users:add'), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -182,7 +182,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_groups:create'), params)
+        return self.client.get(reverse('wagtailusers_groups:add'), params)
 
     def post(self, post_data={}):
         post_defaults = {
@@ -192,7 +192,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
-        return self.client.post(reverse('wagtailusers_groups:create'), post_data)
+        return self.client.post(reverse('wagtailusers_groups:add'), post_data)
 
     def test_simple(self):
         response = self.get()

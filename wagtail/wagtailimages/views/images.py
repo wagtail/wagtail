@@ -108,7 +108,7 @@ def edit(request, image_id):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit again'))
+                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
             ])
             return redirect('wagtailimages:index')
         else:
@@ -133,7 +133,7 @@ def edit(request, image_id):
         # Give error if image file doesn't exist
         if not os.path.isfile(local_path):
             messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:delete_image', args=(image.id,)), _('Delete'))
+                messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
 
     return render(request, "wagtailimages/images/edit.html", {
@@ -252,7 +252,7 @@ def add(request):
                 backend.add(image)
 
             messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit_image', args=(image.id,)), _('Edit'))
+                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
             ])
             return redirect('wagtailimages:index')
         else:
