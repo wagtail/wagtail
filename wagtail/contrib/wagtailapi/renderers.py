@@ -2,6 +2,7 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
+from django.utils.six import text_type
 
 from rest_framework import renderers
 
@@ -53,4 +54,9 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
                 else:
                     return super(WagtailAPIJSONEncoder, self).default(o)
 
-        return json.dumps(data, indent=4, cls=WagtailAPIJSONEncoder)
+        ret = json.dumps(data, indent=4, cls=WagtailAPIJSONEncoder)
+
+        # Deal with inconsistent py2/py3 behavior, and always return bytes.
+        if isinstance(ret, text_type):
+            return bytes(ret.encode('utf-8'))
+        return ret
