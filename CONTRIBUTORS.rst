@@ -56,6 +56,7 @@ Contributors
 * Nar Chhantyal
 * Michael Fillier
 * Mitchel Cabuloy
+* Piet Delport
 
 Translators
 ===========
