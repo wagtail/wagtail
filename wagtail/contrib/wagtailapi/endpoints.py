@@ -175,7 +175,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    queryset =  get_image_model().objects.all().order_by('id')
+    queryset = get_image_model().objects.all().order_by('id')
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
     name = 'images'
