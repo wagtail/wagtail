@@ -32,6 +32,7 @@ class BaseAPIEndpoint(GenericViewSet):
     pagination_class = WagtailPagination
     serializer_class = WagtailSerializer
     filter_classes = []
+    queryset = None  # Set on subclasses or implement `get_queryset()`.
 
     known_query_parameters = frozenset([
         'limit',
@@ -41,6 +42,7 @@ class BaseAPIEndpoint(GenericViewSet):
         'search',
     ])
     extra_api_fields = []
+    name = None  # Set on subclass.
 
     def listing_view(self, request):
         queryset = self.get_queryset()
@@ -88,26 +90,24 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
-    def get_fields(self, request):
-        """
-        Return the set of fields that should be returned in the output
-        representation for listing views.
-        """
-        if 'fields' in request.GET:
-            return set(request.GET['fields'].split(','))
-        return {'title'}
-
     def get_serializer_context(self):
         """
         The serialization context differs between listing and detail views.
         """
         request = self.request
         if self.action == 'listing_view':
+
+            if 'fields' in request.GET:
+                fields = set(request.GET['fields'].split(','))
+            else:
+                fields = {'title'}
+
             return {
                 'request': request,
                 'view': self,
-                'fields': self.get_fields(request)
+                'fields': fields
             }
+
         return {
             'request': request,
             'view': self,
