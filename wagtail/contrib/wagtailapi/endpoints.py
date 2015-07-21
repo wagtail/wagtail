@@ -137,7 +137,18 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ]
     serializer_class = PageSerializer
 
-    def get_queryset(self, request, model=Page):
+    def get_queryset(self, request):
+        if 'type' not in request.GET:
+            model = Page
+        else:
+            model_name = request.GET['type']
+            try:
+                model = resolve_model_string(model_name)
+            except LookupError:
+                raise BadRequestError("type doesn't exist")
+            if not issubclass(model, Page):
+                raise BadRequestError("type doesn't exist")
+
         # Get live pages that are not in a private section
         queryset = model.objects.public().live()
 
@@ -146,25 +157,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
         return queryset
 
-    def get_model(self, request):
-        if 'type' not in request.GET:
-            return Page
-
-        model_name = request.GET['type']
-        try:
-            model = resolve_model_string(model_name)
-
-            if not issubclass(model, Page):
-                raise BadRequestError("type doesn't exist")
-
-            return model
-        except LookupError:
-            raise BadRequestError("type doesn't exist")
-
     def listing_view(self, request):
         # Get model and queryset
-        model = self.get_model(request)
-        queryset = self.get_queryset(request, model=model)
+        queryset = self.get_queryset(request)
 
         # Check query paramters
         self.check_query_parameters(request, queryset)
