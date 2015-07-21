@@ -69,11 +69,11 @@ class BaseAPIEndpoint(GenericViewSet):
 
         return api_fields
 
-    def check_query_parameters(self, request, queryset):
+    def check_query_parameters(self, queryset):
         """
         Ensure that only valid query paramters are included in the URL.
         """
-        query_parameters = set(request.GET.keys())
+        query_parameters = set(self.request.GET.keys())
 
         # All query paramters must be either a field or an operation
         allowed_query_parameters = set(self.get_api_fields(queryset.model)).union(self.known_query_parameters).union({'id'})
@@ -115,7 +115,7 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         return [
             url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
+            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
 
     @classmethod
@@ -137,7 +137,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ]
     serializer_class = PageSerializer
 
-    def get_queryset(self, request):
+    def get_queryset(self):
+        request = self.request
+
         if 'type' not in request.GET:
             model = Page
         else:
@@ -159,10 +161,10 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
     def listing_view(self, request):
         # Get model and queryset
-        queryset = self.get_queryset(request)
+        queryset = self.get_queryset()
 
         # Check query paramters
-        self.check_query_parameters(request, queryset)
+        self.check_query_parameters(queryset)
 
         # Filtering, Ancestor/Descendant, Ordering, Search.
         queryset = self.filter_queryset(queryset)
@@ -174,7 +176,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         return self.get_paginated_response(serializer.data)
 
     def detail_view(self, request, pk):
-        page = get_object_or_404(self.get_queryset(request), pk=pk).specific
+        page = self.get_object().specific
         serializer = self.get_serializer(page)
         return Response(serializer.data)
 
@@ -188,15 +190,13 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     model = get_image_model()
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
-
-    def get_queryset(self, request):
-        return self.model.objects.all().order_by('id')
+    queryset =  get_image_model().objects.all().order_by('id')
 
     def listing_view(self, request):
-        queryset = self.get_queryset(request)
+        queryset = self.get_queryset()
 
         # Check query paramters
-        self.check_query_parameters(request, queryset)
+        self.check_query_parameters(queryset)
 
         # Filtering, Ordering, Search.
         queryset = self.filter_queryset(queryset)
@@ -208,13 +208,13 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         return self.get_paginated_response(serializer.data)
 
     def detail_view(self, request, pk):
-        image = get_object_or_404(self.get_queryset(request), pk=pk)
+        image = self.get_object()
         serializer = self.get_serializer(image)
         return Response(serializer.data)
 
     @classmethod
     def has_model(cls, model):
-        return model == cls.model
+        return model == get_image_model()
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
@@ -222,12 +222,13 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
     serializer_class = DocumentSerializer
+    queryset = Document.objects.all().order_by('id')
 
     def listing_view(self, request):
-        queryset = Document.objects.all().order_by('id')
+        queryset = self.get_queryset()
 
         # Check query paramters
-        self.check_query_parameters(request, queryset)
+        self.check_query_parameters(queryset)
 
         # Filtering, Ordering, Search.
         queryset = self.filter_queryset(queryset)
@@ -239,7 +240,7 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         return self.get_paginated_response(serializer.data)
 
     def detail_view(self, request, pk):
-        document = get_object_or_404(Document, pk=pk)
+        document = self.get_object()
         serializer = self.get_serializer(document)
         return Response(serializer.data)
 

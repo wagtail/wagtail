@@ -145,7 +145,12 @@ class PageSerializer(WagtailSerializer):
             parent = page.get_parent()
 
             # Make sure the parent is visible in the API
-            if self.context['view'].get_queryset(request).filter(id=parent.id).exists():
+            # Get live pages that are not in a private section
+            pages = Page.objects.public().live()
+            # Filter by site
+            pages = pages.descendant_of(request.site.root_page, inclusive=True)
+
+            if pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
                 extra_data += (
