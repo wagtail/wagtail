@@ -244,9 +244,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_posting_deletes_site(self):
-        response = self.post({
-            'trivial_key': 'trivial_value'
-        })
+        response = self.post()
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))
@@ -325,9 +323,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
 
     def test_delete(self):
         delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
-        response = self.client.post(delete_url, {
-            'trivial_key': 'trivial_value'
-        })
+        response = self.client.post(delete_url)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))

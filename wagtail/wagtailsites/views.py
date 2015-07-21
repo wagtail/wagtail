@@ -25,7 +25,7 @@ def index(request):
 
 @permission_required('wagtailcore.add_site')
 def create(request):
-    if request.POST:
+    if request.method == 'POST':
         form = SiteForm(request.POST)
         if form.is_valid():
             site = form.save()
@@ -47,7 +47,7 @@ def create(request):
 def edit(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
             site = form.save()
@@ -70,7 +70,7 @@ def edit(request, site_id):
 def delete(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
-    if request.POST:
+    if request.method == 'POST':
         site.delete()
         messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
         return redirect('wagtailsites:index')
