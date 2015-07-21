@@ -42,15 +42,6 @@ class BaseAPIEndpoint(GenericViewSet):
     ])
     extra_api_fields = []
 
-    def handle_exception(self, exc):
-        if isinstance(exc, Http404):
-            data = {'message': str(exc)}
-            return Response(data, status=status.HTTP_404_NOT_FOUND)
-        elif isinstance(exc, BadRequestError):
-            data = {'message': str(exc)}
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        return super(BaseAPIEndpoint, self).handle_exception(exc)
-
     def listing_view(self, request):
         queryset = self.get_queryset()
         self.check_query_parameters(queryset)
@@ -63,6 +54,15 @@ class BaseAPIEndpoint(GenericViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+    def handle_exception(self, exc):
+        if isinstance(exc, Http404):
+            data = {'message': str(exc)}
+            return Response(data, status=status.HTTP_404_NOT_FOUND)
+        elif isinstance(exc, BadRequestError):
+            data = {'message': str(exc)}
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        return super(BaseAPIEndpoint, self).handle_exception(exc)
 
     def get_api_fields(self, model):
         """
@@ -131,18 +131,21 @@ class BaseAPIEndpoint(GenericViewSet):
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
-    name = 'pages'
+    serializer_class = PageSerializer
+    filter_backends = [
+        FieldsFilter,
+        ChildOfFilter,
+        DescendantOfFilter,
+        OrderingFilter,
+        SearchFilter
+    ]
     known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
         'type',
         'child_of',
         'descendant_of',
     ])
     extra_api_fields = ['title']
-    filter_backends = [
-        FieldsFilter, ChildOfFilter, DescendantOfFilter,
-        OrderingFilter, SearchFilter
-    ]
-    serializer_class = PageSerializer
+    name = 'pages'
 
     def get_queryset(self):
         request = self.request
@@ -177,11 +180,10 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    name = 'images'
-    model = get_image_model()
+    queryset =  get_image_model().objects.all().order_by('id')
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
-    queryset =  get_image_model().objects.all().order_by('id')
+    name = 'images'
 
     @classmethod
     def has_model(cls, model):
@@ -189,11 +191,11 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    name = 'documents'
+    queryset = Document.objects.all().order_by('id')
+    serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
-    serializer_class = DocumentSerializer
-    queryset = Document.objects.all().order_by('id')
+    name = 'documents'
 
     @classmethod
     def has_model(cls, model):
