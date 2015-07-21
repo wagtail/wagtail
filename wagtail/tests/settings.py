@@ -78,42 +78,42 @@ MIDDLEWARE_CLASSES = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.auth',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
+    # Install wagtailredirects with its appconfig
+    # Theres nothing special about wagtailredirects, we just need to have one
+    # app which uses AppConfigs to test that hooks load properly
+    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
 
-    'taggit',
-    'compressor',
-
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailforms',
-    'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailsitemaps',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailapi',
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
     'wagtail.tests.customuser',
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
+    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.wagtailsitemaps',
+    'wagtail.contrib.wagtailroutablepage',
+    'wagtail.contrib.wagtailfrontendcache',
+    'wagtail.contrib.wagtailapi',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
 
-    # Install wagtailredirects with its appconfig
-    # Theres nothing special about wagtailredirects, we just need to have one
-    # app which uses AppConfigs to test that hooks load properly
-    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+    'taggit',
+    'compressor',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 )
 
 
