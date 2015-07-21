@@ -52,10 +52,17 @@ class BaseAPIEndpoint(GenericViewSet):
         return super(BaseAPIEndpoint, self).handle_exception(exc)
 
     def listing_view(self, request):
-        return NotImplemented
+        queryset = self.get_queryset()
+        self.check_query_parameters(queryset)
+        queryset = self.filter_queryset(queryset)
+        queryset = self.paginate_queryset(queryset)
+        serializer = self.get_serializer(queryset, many=True)
+        return self.get_paginated_response(serializer.data)
 
     def detail_view(self, request, pk):
-        return NotImplemented
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def get_api_fields(self, model):
         """
@@ -164,27 +171,6 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         base = super(PagesAPIEndpoint, self).get_object()
         return base.specific
 
-    def listing_view(self, request):
-        # Get model and queryset
-        queryset = self.get_queryset()
-
-        # Check query paramters
-        self.check_query_parameters(queryset)
-
-        # Filtering, Ancestor/Descendant, Ordering, Search.
-        queryset = self.filter_queryset(queryset)
-
-        # Pagination
-        queryset = self.paginate_queryset(queryset)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
-
-    def detail_view(self, request, pk):
-        page = self.get_object()
-        serializer = self.get_serializer(page)
-        return Response(serializer.data)
-
     @classmethod
     def has_model(cls, model):
         return issubclass(model, Page)
@@ -197,26 +183,6 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     extra_api_fields = ['title', 'tags', 'width', 'height']
     queryset =  get_image_model().objects.all().order_by('id')
 
-    def listing_view(self, request):
-        queryset = self.get_queryset()
-
-        # Check query paramters
-        self.check_query_parameters(queryset)
-
-        # Filtering, Ordering, Search.
-        queryset = self.filter_queryset(queryset)
-
-        # Pagination
-        queryset = self.paginate_queryset(queryset)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
-
-    def detail_view(self, request, pk):
-        image = self.get_object()
-        serializer = self.get_serializer(image)
-        return Response(serializer.data)
-
     @classmethod
     def has_model(cls, model):
         return model == get_image_model()
@@ -228,26 +194,6 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     extra_api_fields = ['title', 'tags']
     serializer_class = DocumentSerializer
     queryset = Document.objects.all().order_by('id')
-
-    def listing_view(self, request):
-        queryset = self.get_queryset()
-
-        # Check query paramters
-        self.check_query_parameters(queryset)
-
-        # Filtering, Ordering, Search.
-        queryset = self.filter_queryset(queryset)
-
-        # Pagination
-        queryset = self.paginate_queryset(queryset)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
-
-    def detail_view(self, request, pk):
-        document = self.get_object()
-        serializer = self.get_serializer(document)
-        return Response(serializer.data)
 
     @classmethod
     def has_model(cls, model):
