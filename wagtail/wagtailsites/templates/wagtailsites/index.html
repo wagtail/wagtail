@@ -3,7 +3,7 @@
 {% block titletag %}{% trans "Sites" %}{% endblock %}
 {% block content %}
     {% trans "Sites" as sites_str %}
-    {% if perms.site.add_site %}
+    {% if perms.wagtailcore.add_site %}
         {% trans "Add a site" as add_a_site_str %}
         {% include "wagtailadmin/shared/header.html" with title=sites_str add_link="wagtailsites:add" add_text=add_a_site_str icon="site" %}
     {% else %}

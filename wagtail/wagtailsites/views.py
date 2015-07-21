@@ -7,9 +7,10 @@ from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
 from wagtail.wagtailadmin import messages
 
+
 def user_has_site_model_perm(user):
     for verb in ['add', 'change', 'delete']:
-        if user.has_perm('site.%s_site' % verb):
+        if user.has_perm('wagtailcore.%s_site' % verb):
             return True
     return False
 
@@ -22,7 +23,7 @@ def index(request):
     })
 
 
-@permission_required('site.add_site')
+@permission_required('wagtailcore.add_site')
 def create(request):
     if request.POST:
         form = SiteForm(request.POST)
@@ -42,7 +43,7 @@ def create(request):
     })
 
 
-@permission_required('site.change_site')
+@permission_required('wagtailcore.change_site')
 def edit(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
@@ -65,7 +66,7 @@ def edit(request, site_id):
     })
 
 
-@permission_required('site.delete_site')
+@permission_required('wagtailcore.delete_site')
 def delete(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
