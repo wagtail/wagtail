@@ -31,3 +31,5 @@ Bug fixes
 ~~~~~~~~~
 
  * Text areas in the non-default tab of the page editor now resize to the correct height
+ * Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
+ * H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel

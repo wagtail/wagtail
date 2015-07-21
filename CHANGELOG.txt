@@ -14,6 +14,8 @@ Changelog
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
  * Updated URLs within the admin backend to use namespaces
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
+ * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
+ * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
 
 
 1.0 (16.07.2015)
