@@ -117,8 +117,13 @@ class ChildOfFilter(BaseFilterBackend):
             except (ValueError, AssertionError):
                 raise BadRequestError("child_of must be a positive integer")
 
+            # Get live pages that are not in a private section
+            pages = Page.objects.public().live()
+            # Filter by site
+            pages = pages.descendant_of(request.site.root_page, inclusive=True)
+
             try:
-                parent_page = view.get_queryset(request).get(id=parent_page_id)
+                parent_page = pages.get(id=parent_page_id)
                 queryset = queryset.child_of(parent_page)
                 queryset._filtered_by_child_of = True
                 return queryset
@@ -139,8 +144,13 @@ class DescendantOfFilter(BaseFilterBackend):
             except (ValueError, AssertionError):
                 raise BadRequestError("descendant_of must be a positive integer")
 
+            # Get live pages that are not in a private section
+            pages = Page.objects.public().live()
+            # Filter by site
+            pages = pages.descendant_of(request.site.root_page, inclusive=True)
+
             try:
-                ancestor_page = view.get_queryset(request).get(id=ancestor_page_id)
+                ancestor_page = pages.get(id=ancestor_page_id)
                 return queryset.descendant_of(ancestor_page)
             except Page.DoesNotExist:
                 raise BadRequestError("ancestor page doesn't exist")

@@ -91,6 +91,9 @@ class BaseAPIEndpoint(GenericViewSet):
         return {'title'}
 
     def get_serializer_context(self):
+        """
+        The serialization context differs between listing and detail views.
+        """
         request = self.request
         if self.action == 'listing_view':
             return {
