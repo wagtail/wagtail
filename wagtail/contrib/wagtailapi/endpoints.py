@@ -140,6 +140,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     def get_queryset(self):
         request = self.request
 
+        # Allow pages to be filtered to a specific type
         if 'type' not in request.GET:
             model = Page
         else:
@@ -159,6 +160,10 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
         return queryset
 
+    def get_object(self):
+        base = super(PagesAPIEndpoint, self).get_object()
+        return base.specific
+
     def listing_view(self, request):
         # Get model and queryset
         queryset = self.get_queryset()
@@ -176,7 +181,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         return self.get_paginated_response(serializer.data)
 
     def detail_view(self, request, pk):
-        page = self.get_object().specific
+        page = self.get_object()
         serializer = self.get_serializer(page)
         return Response(serializer.data)
 
