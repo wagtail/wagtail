@@ -1,11 +1,6 @@
 from __future__ import absolute_import
 
-from collections import OrderedDict
-
-from django.db import models
-from django.shortcuts import get_object_or_404
 from django.conf.urls import url
-from django.conf import settings
 from django.http import Http404
 
 from rest_framework import status
@@ -24,7 +19,7 @@ from .filters import (
 from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
 from .serializers import WagtailSerializer, PageSerializer, DocumentSerializer
-from .utils import BadRequestError, URLPath, ObjectDetailURL
+from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):

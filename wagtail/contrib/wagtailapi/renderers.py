@@ -31,7 +31,6 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
     charset = None
 
     def render(self, data, media_type=None, renderer_context=None):
-        endpoint = renderer_context['view']
         request = renderer_context['request']
 
         class WagtailAPIJSONEncoder(DjangoJSONEncoder):
