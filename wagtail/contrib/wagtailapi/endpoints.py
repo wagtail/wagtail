@@ -115,20 +115,9 @@ class BaseAPIEndpoint(GenericViewSet):
             url(r'^(\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
 
-    def find_model_detail_view(self, model):
-        # TODO: Needs refactoring. This is currently duplicated, and also
-        #       does a bit of a dance around instantiating these classes.
-        endpoints = {
-            'pages': PagesAPIEndpoint(),
-            'images': ImagesAPIEndpoint(),
-            'documents': DocumentsAPIEndpoint(),
-        }
-        for endpoint_name, endpoint in endpoints.items():
-            if endpoint.has_model(model):
-                return 'wagtailapi_v1:%s:detail' % endpoint_name
-
-    def has_model(self, model):
-        return False
+    @classmethod
+    def has_model(cls, model):
+        return NotImplemented
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
@@ -191,7 +180,8 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         serializer = self.get_serializer(page)
         return Response(serializer.data)
 
-    def has_model(self, model):
+    @classmethod
+    def has_model(cls, model):
         return issubclass(model, Page)
 
 
@@ -224,8 +214,9 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
         serializer = self.get_serializer(image)
         return Response(serializer.data)
 
-    def has_model(self, model):
-        return model == self.model
+    @classmethod
+    def has_model(cls, model):
+        return model == cls.model
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
@@ -254,5 +245,6 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
         serializer = self.get_serializer(document)
         return Response(serializer.data)
 
-    def has_model(self, model):
+    @classmethod
+    def has_model(cls, model):
         return model == Document
