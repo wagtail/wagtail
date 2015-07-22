@@ -12,7 +12,7 @@ from rest_framework.serializers import BaseSerializer
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore.models import Page
 
-from .utils import ObjectDetailURL, URLPath, BadRequestError
+from .utils import ObjectDetailURL, URLPath, BadRequestError, pages_for_site
 
 
 def get_api_data(obj, fields):
@@ -144,13 +144,8 @@ class PageSerializer(WagtailSerializer):
         if show_details:
             parent = page.get_parent()
 
-            # Make sure the parent is visible in the API
-            # Get live pages that are not in a private section
-            pages = Page.objects.public().live()
-            # Filter by site
-            pages = pages.descendant_of(request.site.root_page, inclusive=True)
-
-            if pages.filter(id=parent.id).exists():
+            site_pages = pages_for_site(request.site)
+            if site_pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
                 extra_data += (
