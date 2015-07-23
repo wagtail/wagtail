@@ -19,10 +19,8 @@ def get_full_url(request, path):
     return base_url + path
 
 
-def find_model_detail_view(model):
-    from .endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
-
-    for endpoint in [PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint]:
+def find_model_detail_view(model, endpoints):
+    for endpoint in endpoints:
         if endpoint.has_model(model):
             return 'wagtailapi_v1:%s:detail' % endpoint.name
 
@@ -33,6 +31,7 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
 
     def render(self, data, media_type=None, renderer_context=None):
         request = renderer_context['request']
+        endpoints = renderer_context['endpoints']
 
         class WagtailAPIJSONEncoder(DjangoJSONEncoder):
             def default(self, o):
@@ -43,10 +42,10 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
                 elif isinstance(o, URLPath):
                     return get_full_url(request, o.path)
                 elif isinstance(o, ObjectDetailURL):
-                    view = find_model_detail_view(o.model)
+                    detail_view = find_model_detail_view(o.model, endpoints)
 
-                    if view:
-                        return get_full_url(request, reverse(view, args=(o.pk, )))
+                    if detail_view:
+                        return get_full_url(request, reverse(detail_view, args=(o.pk, )))
                     else:
                         return None
                 elif isinstance(o, StreamValue):

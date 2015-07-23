@@ -110,6 +110,15 @@ class BaseAPIEndpoint(GenericViewSet):
             'show_details': True
         }
 
+    def get_renderer_context(self):
+        context = super(BaseAPIEndpoint, self).get_renderer_context()
+        context['endpoints'] = [
+            PagesAPIEndpoint,
+            ImagesAPIEndpoint,
+            DocumentsAPIEndpoint
+        ]
+        return context
+
     @classmethod
     def get_urlpatterns(cls):
         """
