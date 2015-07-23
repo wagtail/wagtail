@@ -764,13 +764,19 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
-        # Make a copy
-        page_copy = Page.objects.get(id=self.id).specific
-        page_copy.pk = None
-        page_copy.id = None
-        page_copy.depth = None
-        page_copy.numchild = 0
-        page_copy.path = None
+        """
+        Copy of a given page instance based on a fresh instance to enforce proper multiple inheritance
+        """
+        # Fill dict with self.specific values
+        specific_self = self.specific
+        specific_dict = {}
+
+        for field in specific_self._meta.fields:
+            if field.name not in ['id', 'path', 'depth', 'numchild', 'url_path', 'path'] and not field.name.endswith("_ptr"):
+                specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # Make a new instance from prepared dict values
+        page_copy = self.specific_class(**specific_dict)
 
         if not keep_live:
             page_copy.live = False
