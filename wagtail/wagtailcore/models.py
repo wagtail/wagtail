@@ -767,11 +767,12 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Copy of a given page instance based on a fresh instance to enforce proper multiple inheritance
         """
         # Fill dict with self.specific values
+        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
         specific_self = self.specific
         specific_dict = {}
 
         for field in specific_self._meta.fields:
-            if field.name not in ['id', 'path', 'depth', 'numchild', 'url_path', 'path'] and not field.name.endswith("_ptr"):
+            if field.name not in exclude_fields and not (field.rel is not None and field.rel.parent_link):
                 specific_dict[field.name] = getattr(specific_self, field.name)
 
         # Make a new instance from prepared dict values
