@@ -1,0 +1,33 @@
+{% load i18n wagtailadmin_tags %}
+{% if embeds %}
+    {% if is_searching %}
+        <h2>
+        {% blocktrans count counter=embeds.paginator.count %}
+            There is one match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
+    {% else %}
+        <h2>{% trans "Latest embeds" %}</h2>
+    {% endif %}
+
+   <ul class="listing horiz embeds">
+        {% for embed in embeds %}
+            <li>
+                <a class="embed-choice" href="{% url 'wagtailembeds:embed_chosen' embed.id %}">
+                    <div class="embed"><img src="{{ embed.thumbnail_url }}"></div>
+                    <h3>{{ embed.title|ellipsistrim:60 }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=embeds is_searching=is_searching query_string=query_string linkurl="wagtailembeds:index" %}
+{% else %}
+    {% if is_searching %}
+        <p>{% blocktrans %}Sorry, no embeds match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+        <p>{% blocktrans %}You've not created any embeds. Why not <a href="{{ wagtailembeds_add_embed_url }}">add one now</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endif %}

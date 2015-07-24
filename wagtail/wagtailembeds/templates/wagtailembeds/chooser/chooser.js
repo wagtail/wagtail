@@ -16,4 +16,9 @@ function(modal) {
 
         return false;
     });
+    $('ul.embeds a.embed-choice').click(function(event){
+        event.preventDefault();
+        modal.loadUrl(this.href);
+        return false;
+    });
 }
