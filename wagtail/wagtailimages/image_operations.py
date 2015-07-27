@@ -1,6 +1,7 @@
 from __future__ import division
 
 import inspect
+import math
 
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
@@ -158,7 +159,7 @@ class FillOperation(Operation):
             bottom = image_height
 
         # Crop!
-        willow.crop((int(left), int(top), int(right), int(bottom)))
+        willow.crop((math.floor(left), math.floor(top), math.ceil(right), math.ceil(bottom)))
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
