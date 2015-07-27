@@ -1,5 +1,7 @@
 from __future__ import division
 
+import math
+
 
 class Vector(object):
     def __init__(self, x, y):
@@ -85,6 +87,77 @@ class Rect(object):
         # No longer needed, this class should behave like a tuple
         # Included for backwards compatibility
         return self.left, self.top, self.right, self.bottom
+
+    def clone(self):
+        return type(self)(self.left, self.top, self.right, self.bottom)
+
+    def round(self):
+        """
+        Returns a new rect with all attributes rounded to integers
+        """
+        clone = self.clone()
+
+        # Round down left and top
+        clone.left = int(math.floor(clone.left))
+        clone.top = int(math.floor(clone.top))
+
+        # Round up right and bottom
+        clone.right = int(math.ceil(clone.right))
+        clone.bottom = int(math.ceil(clone.bottom))
+
+        return clone
+
+    def move_to_clamp(self, other):
+        """
+        Moves this rect so it is completely covered by the rect in "other" and
+        returns a new Rect instance.
+        """
+        other = Rect(*other)
+        clone = self.clone()
+
+        if clone.left < other.left:
+            clone.right -= clone.left - other.left
+            clone.left = other.left
+
+        if clone.top < other.top:
+            clone.bottom -= clone.top - other.top
+            clone.top = other.top
+
+        if clone.right > other.right:
+            clone.left -= clone.right - other.right
+            clone.right = other.right
+
+        if clone.bottom > other.bottom:
+            clone.top -= clone.bottom - other.bottom
+            clone.bottom = other.bottom
+
+        return clone
+
+    def move_to_cover(self, other):
+        """
+        Moves this rect so it completely covers the rect specified in the
+        "other" parameter and returns a new Rect instance.
+        """
+        other = Rect(*other)
+        clone = self.clone()
+
+        if clone.left > other.left:
+            clone.right -= clone.left - other.left
+            clone.left = other.left
+
+        if clone.top > other.top:
+            clone.bottom -= clone.top - other.top
+            clone.top = other.top
+
+        if clone.right < other.right:
+            clone.left += other.right - clone.right
+            clone.right = other.right
+
+        if clone.bottom < other.bottom:
+            clone.top += other.bottom - clone.bottom
+            clone.bottom = other.bottom
+
+        return clone
 
     def __iter__(self):
         return iter((self.left, self.top, self.right, self.bottom))

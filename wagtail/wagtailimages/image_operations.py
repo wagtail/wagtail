@@ -1,9 +1,9 @@
 from __future__ import division
 
 import inspect
-import math
 
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
+from wagtail.wagtailimages.rect import Rect
 
 
 class Operation(object):
@@ -118,48 +118,17 @@ class FillOperation(Operation):
         crop_y = fp_y - (fp_v - 0.5) * crop_height
 
         # Convert crop box into rect
-        left = crop_x - crop_width / 2
-        top = crop_y - crop_height / 2
-        right = crop_x + crop_width / 2
-        bottom = crop_y + crop_height / 2
+        rect = Rect.from_point(crop_x, crop_y, crop_width, crop_height)
 
         # Make sure the entire focal point is in the crop box
         if focal_point is not None:
-            if left > focal_point.left:
-                right -= left - focal_point.left
-                left = focal_point.left
-
-            if top > focal_point.top:
-                bottom -= top - focal_point.top
-                top = focal_point.top
-
-            if right < focal_point.right:
-                left += focal_point.right - right
-                right = focal_point.right
-
-            if bottom < focal_point.bottom:
-                top += focal_point.bottom - bottom
-                bottom = focal_point.bottom
+            rect = rect.move_to_cover(focal_point)
 
         # Don't allow the crop box to go over the image boundary
-        if left < 0:
-            right -= left
-            left = 0
-
-        if top < 0:
-            bottom -= top
-            top = 0
-
-        if right > image_width:
-            left -= right - image_width
-            right = image_width
-
-        if bottom > image_height:
-            top -= bottom - image_height
-            bottom = image_height
+        rect = rect.move_to_clamp(Rect(0, 0, image_width, image_height))
 
         # Crop!
-        willow.crop((math.floor(left), math.floor(top), math.ceil(right), math.ceil(bottom)))
+        willow.crop(rect.round())
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
