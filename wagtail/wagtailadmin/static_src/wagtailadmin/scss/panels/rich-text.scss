@@ -163,6 +163,14 @@
             margin-left: 16px;
         }
     }
+
+    /*
+    Set some styles to make embedded contents easily recognizable from the text editor interface.
+    */
+    .embed-placeholder {
+        border: 3px dashed rgba(0,0,0,0.15);
+        padding: 0 2em 0 2em;
+    }
 }
 
 @media screen and (min-width: $breakpoint-mobile){

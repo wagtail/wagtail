@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags static %}
 {% if embeds %}
     {% if is_searching %}
         <h2>
@@ -16,7 +16,16 @@
         {% for embed in embeds %}
             <li>
                 <a class="embed-choice" href="{% url 'wagtailembeds:embed_chosen' embed.id %}">
-                    <div class="embed"><img src="{{ embed.thumbnail_url }}"></div>
+                    <div class="embed">
+                    {% if embed.thumbnail_url %}
+                    <img src="{{ embed.thumbnail_url }}" class="show-transparency">
+                    {% else %}
+                        {% comment %}
+                            TODO: set embed provider default placeholder instead of WT logo
+                        {% endcomment %}
+                        <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}">
+                    {% endif %}
+                    </div>
                     <h3>{{ embed.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>

@@ -356,6 +356,10 @@ ul.listing{
         @include transition(border-color 0.2s ease);
         border: 3px solid white;
     }
+    &.embeds img{
+        @include transition(border-color 0.2s ease);
+        border: 3px solid white;
+    }
 }
 ul.listing{
     border-top:1px dashed $color-input-border;
@@ -508,6 +512,53 @@ table.listing{
                     img{
                         display:inline-block;
                         vertical-align: middle;
+                    }
+                }
+
+                &:hover{
+                    background-color:#FDFDFD;
+
+                    img{
+                        border-color:$color-teal;
+                    }
+                }
+            }
+            a{
+                color:inherit;
+            }
+
+        }
+        &.embeds {
+            @include clearfix();
+            border: 1px solid $color-grey-4;
+            border-width:0 0 0 1px !important;
+
+            > li{
+                padding:1.3em;
+                width:200px;
+                height:220px;
+                text-align:center;
+                margin-top:-1px;
+                border:1px solid $color-grey-4;
+                border-width:1px 1px 1px 0px;
+
+                .embed{
+                    text-align:center;
+                    height:180px;
+
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        height: 100%;
+                        vertical-align: middle;
+                        margin-right: -0.25em;
+                    }
+
+                    img{
+                        display:inline-block;
+                        vertical-align: middle;
+                        max-height: 165px;
+                        max-width: 165px;
                     }
                 }
 
