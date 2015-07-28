@@ -30,10 +30,10 @@
                     return ModalWorkflow({
                         url: window.chooserUrls.embedsChooser,
                         responses: {
-                            embedChosen: function(embedData) {
+                            embedChosen: function(embed) {
                                 var elem;
 
-                                elem = $(embedData).get(0);
+                                elem = $(embed.html).get(0);
                                 lastSelection.insertNode(elem);
                                 if (elem.getAttribute('contenteditable') === 'false') {
                                     insertRichTextDeleteControl(elem);

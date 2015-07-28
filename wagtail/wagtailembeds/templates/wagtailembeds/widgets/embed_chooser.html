@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+
+{% block chooser_class %}embed-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <div class="preview-embed">
+        {% if embed.thumbnail_url %}
+            <img src="{{ embed.thumbnail_url }}" >
+        {% else %}
+            <img>
+        {% endif %}
+    </div>
+    <span class="title">{% if embed.title %}{{ embed.title }}{% endif %}</span>
+{% endblock %}

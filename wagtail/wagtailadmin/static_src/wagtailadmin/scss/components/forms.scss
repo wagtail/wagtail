@@ -809,6 +809,36 @@ ul.inline li:first-child, li.inline:first-child{
     }
 }
 
+.embed-chooser {
+    .unchosen, .chosen{
+        &:before{
+            content:"o";
+        }
+    }
+    .chosen{
+        padding-left:$thumbnail-width;   
+
+        &:before{
+            content:"";
+        }
+        .preview-embed{
+            float:left;
+            margin-left:-($thumbnail-width);
+            margin-right:1em;
+            img {
+                max-width: 130px;
+                max-height: 130px;
+            }
+        }
+
+        .actions {
+            .edit-link {
+                display: none;
+            }
+        }
+    }
+}
+
 /* taggit tagging */
 .tagit{
     padding:0.6em 1.2em;

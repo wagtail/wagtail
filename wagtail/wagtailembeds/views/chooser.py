@@ -20,7 +20,6 @@ def get_embed_json(embed):
     helper function: given an embed, return the json to pass back to the
     chooser panel
     """
-
     return json.dumps({
         'id': embed.id,
         'title': embed.title,
@@ -127,7 +126,11 @@ def chooser_upload(request):
 def embed_chosen(request, embed_id):
     embed = get_object_or_404(Embed, id=embed_id)
     embed_html = embed_to_editor_html(embed.url)
+    embed_json = get_embed_json(embed)
     return render_modal_workflow(
         request, None, 'wagtailembeds/chooser/embed_chosen.js',
-        {'embed_html': embed_html}
+        {
+            'embed_html': embed_html,
+            'embed_json': embed_json,
+        }
     )
