@@ -25,6 +25,7 @@ Minor features
  * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
  * Added ``descendant_of`` filter to the API
  * Added optional directory argument to "wagtail start" command
+ * Non-superusers can now view/edit/delete sites if they have the correct permissions
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
  * Updated URLs within the admin backend to use namespaces
 
