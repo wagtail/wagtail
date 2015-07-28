@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.utils import six
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailcore.models import Site, Page
@@ -242,9 +244,86 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_posting_deletes_site(self):
-        response = self.post({
-            'trivial_key': 'trivial_value'
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailsites:index'))
+
+        # Check that the site was edited
+        with self.assertRaises(Site.DoesNotExist):
+            Site.objects.get(id=self.localhost.id)
+
+
+class TestLimitedPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a user
+        user = get_user_model().objects.create_user(username='test', email='test@email.com', password='password')
+        user.user_permissions.add(
+            Permission.objects.get(codename='access_admin'),
+            Permission.objects.get(codename='add_site'),
+            Permission.objects.get(codename='change_site'),
+            Permission.objects.get(codename='delete_site')
+        )
+
+        # Login
+        self.client.login(username='test', password='password')
+
+        self.home_page = Page.objects.get(id=2)
+        self.localhost = Site.objects.all()[0]
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtailsites:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsites/index.html')
+
+    def test_get_create_view(self):
+        response = self.client.get(reverse('wagtailsites:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsites/create.html')
+
+    def test_create(self):
+        response = self.client.post(reverse('wagtailsites:add'), {
+            'hostname': "testsite",
+            'port': "80",
+            'root_page': str(self.home_page.id),
         })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailsites:index'))
+
+        # Check that the site was created
+        self.assertEqual(Site.objects.filter(hostname='testsite').count(), 1)
+
+    def test_get_edit_view(self):
+        edit_url = reverse('wagtailsites:edit', args=(self.localhost.id,))
+        response = self.client.get(edit_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsites/edit.html')
+
+    def test_edit(self):
+        edit_url = reverse('wagtailsites:edit', args=(self.localhost.id,))
+        edited_hostname = 'edited'
+        response = self.client.post(edit_url, {
+            'hostname': edited_hostname,
+            'port': 80,
+            'root_page': self.home_page.id,
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailsites:index'))
+
+        # Check that the site was edited
+        self.assertEqual(Site.objects.get(id=self.localhost.id).hostname, edited_hostname)
+
+    def test_get_delete_view(self):
+        delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsites/confirm_delete.html')
+
+    def test_delete(self):
+        delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
+        response = self.client.post(delete_url)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))

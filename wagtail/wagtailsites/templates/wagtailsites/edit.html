@@ -21,7 +21,7 @@
                 
                 <li>
                     <input type="submit" value="{% trans 'Save' %}" />
-                    {% if perms.site.delete_site %}
+                    {% if perms.wagtailcore.delete_site %}
                         <a href="{% url 'wagtailsites:delete' site.id %}" class="button button-secondary no">{% trans "Delete site" %}</a>
                     {% endif %}
                 </li>
