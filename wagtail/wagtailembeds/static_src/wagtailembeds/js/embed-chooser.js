@@ -21,7 +21,7 @@ function createEmbedChooser(id) {
                         // Should be setting provider default placeholder image, may be..
                         // could be a css class with svg icons too
                         previewImage.attr({
-                            src: ""
+                            src: ''
                         });
                     }
 
