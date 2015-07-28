@@ -763,9 +763,6 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
-        """
-        Copy of a given page instance based on a fresh instance to enforce proper multiple inheritance
-        """
         # Fill dict with self.specific values
         exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
         specific_self = self.specific
@@ -775,7 +772,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             if field.name not in exclude_fields and not (field.rel is not None and field.rel.parent_link):
                 specific_dict[field.name] = getattr(specific_self, field.name)
 
-        # Make a new instance from prepared dict values
+        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
 
         if not keep_live:
