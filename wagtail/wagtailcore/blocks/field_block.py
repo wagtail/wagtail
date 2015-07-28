@@ -77,6 +77,18 @@ class FieldBlock(Block):
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
 
+class IntegerBlock(FieldBlock):
+    def __init__(self, required=True, help_text=None, **kwargs):
+        self.field = forms.IntegerField(
+            required=required,
+            help_text=help_text,
+        )
+        super(IntegerBlock, self).__init__(**kwargs)
+
+    def get_searchable_content(self, value):
+        return [force_text(value)]
+
+
 class CharBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
         # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively (via 'label' and 'default')
