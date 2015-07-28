@@ -11,7 +11,7 @@ function createEmbedChooser(id) {
                 embedChosen: function(embed) {
                     input.val(embed.json.id);
                     embedTitle.text(embed.json.title);
-                    if (embed.json.hasOwnProperty('thumbnail_url') && embed.json.thumbnail_url != null ) {
+                    if (embed.json.hasOwnProperty('thumbnail_url') && embed.json.thumbnail_url != null) {
                         previewImage.attr({
                             src: embed.json.thumbnail_url,
                             alt: embed.json.title
@@ -21,9 +21,10 @@ function createEmbedChooser(id) {
                         // Should be setting provider default placeholder image, may be..
                         // could be a css class with svg icons too
                         previewImage.attr({
-                            src: "",
+                            src: ""
                         });
                     }
+
                     chooserElement.removeClass('blank');
                 }
             }
