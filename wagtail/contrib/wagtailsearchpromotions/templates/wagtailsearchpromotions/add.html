@@ -1,8 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% trans "Add editor's pick" %}{% endblock %}
+{% block titletag %}{% trans "Add search pick" %}{% endblock %}
 {% block content %}
-    {% trans "Add editor's pick" as add_str %}
+    {% trans "Add search pick" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="pick" %}
 
     <div class="nice-padding">
@@ -15,7 +15,7 @@
                 <p>The "Search term(s)/phrase" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>
             {% endblocktrans %}
         </div>
-        <form action="{% url 'wagtailsearch_editorspicks_add' %}" method="POST">
+        <form action="{% url 'wagtailsearchpromotions:add' %}" method="POST">
             {% csrf_token %}
 
             <ul class="fields">
@@ -23,7 +23,7 @@
                     {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}   
                 </li>
                 <li>
-                    {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.html" with formset=editors_pick_formset only %}
+                    {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
                 </li>
                 <li><input type="submit" value="{% trans 'Save' %}" /></li>
             </ul>
@@ -38,7 +38,7 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     <script type="text/javascript">
-        {% include "wagtailsearch/editorspicks/includes/editorspicks_formset.js" with formset=editors_pick_formset only %}
+        {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only %}
         {% include "wagtailsearch/queries/chooser_field.js" only %}
 
         $(function() {

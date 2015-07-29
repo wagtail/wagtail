@@ -12,7 +12,7 @@
         "**/*.min.js",
         "**/vendor/**/*.js",
         "./wagtail/wagtailadmin/templates/wagtailadmin/edit_handlers/inline_panel.js",
-        "./wagtail/wagtailsearch/templates/wagtailsearch/editorspicks/includes/editorspicks_formset.js",
+        "./wagtail/contrib/wagtailsearchpromotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js",
         "./wagtail/wagtailusers/templates/wagtailusers/groups/includes/page_permissions_formset.js",
         "./wagtail/wagtailsnippets/templates/wagtailsnippets/chooser/chosen.js",
         "./wagtail/wagtailimages/templates/wagtailimages/chooser/image_chosen.js",

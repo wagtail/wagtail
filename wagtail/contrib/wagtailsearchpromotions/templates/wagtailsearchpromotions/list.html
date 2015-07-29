@@ -14,11 +14,11 @@
         {% for query in queries %}
             <tr>
                 <td class="title">
-                    <h2><a href="{% url 'wagtailsearch_editorspicks_edit' query.id %}" title="{% trans 'Edit this pick' %}">{{ query.query_string }}</a></h2>
+                    <h2><a href="{% url 'wagtailsearchpromotions:edit' query.id %}" title="{% trans 'Edit this pick' %}">{{ query.query_string }}</a></h2>
                 </td>
                 <td>
-                    {% for editors_pick in query.editors_picks.all %}
-                        <a href="{% url 'wagtailadmin_pages:edit' editors_pick.page.id %}" class="nolink">{{ editors_pick.page.title }}</a>{% if not forloop.last %}, {% endif %}
+                    {% for searchpick in query.editors_picks.all %}
+                        <a href="{% url 'wagtailadmin_pages:edit' searchpick.page.id %}" class="nolink">{{ searchpick.page.title }}</a>{% if not forloop.last %}, {% endif %}
                     {% empty %}
                         {% trans "None" %}
                     {% endfor %}
