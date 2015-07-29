@@ -22,6 +22,8 @@ def get_embed_json(embed):
     """
     return json.dumps({
         'id': embed.id,
+        'url': embed.url,
+        'type': embed.type,
         'title': embed.title,
         'thumbnail_url': embed.thumbnail_url,
     })
@@ -98,9 +100,14 @@ def chooser_upload(request):
             error = None
             try:
                 embed_html = embed_to_editor_html(form.cleaned_data['url'])
+                embed = get_object_or_404(Embed, url=form.cleaned_data['url'])
+                embed_json = get_embed_json(embed)
                 return render_modal_workflow(
                     request, None, 'wagtailembeds/chooser/embed_chosen.js',
-                    {'embed_html': embed_html}
+                    {
+                        'embed_html': embed_html,
+                        'embed_json': embed_json,
+                    }
                 )
             except AccessDeniedEmbedlyException:
                 error = _("There seems to be a problem with your embedly API key. Please check your settings.")

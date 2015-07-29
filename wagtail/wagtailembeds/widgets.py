@@ -17,7 +17,7 @@ class AdminEmbedChooser(AdminChooser):
         super(AdminEmbedChooser, self).__init__(**kwargs)
 
     def render_html(self, name, value, attrs):
-        instance, value = self.get_instance_and_id(Embed, value)
+        instance, value = self.get_instance_and_url(Embed, value)
         original_field_html = super(AdminEmbedChooser, self).render_html(name, value, attrs)
 
         return render_to_string("wagtailembeds/widgets/embed_chooser.html", {
@@ -30,3 +30,14 @@ class AdminEmbedChooser(AdminChooser):
 
     def render_js_init(self, id_, name, value):
         return "createEmbedChooser({0});".format(json.dumps(id_))
+
+    def get_instance_and_url(self, model_class, value):
+        if value is None:
+            return (None, None)
+        elif isinstance(value, model_class):
+            return (value, value.url)
+        else:
+            try:
+                return (model_class.objects.get(url=value), value)
+            except model_class.DoesNotExist:
+                return (None, None)

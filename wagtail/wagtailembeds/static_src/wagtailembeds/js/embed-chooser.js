@@ -9,7 +9,7 @@ function createEmbedChooser(id) {
             url: window.chooserUrls.embedsChooser,
             responses: {
                 embedChosen: function(embed) {
-                    input.val(embed.json.id);
+                    input.val(embed.json.url);
                     embedTitle.text(embed.json.title);
                     if (embed.json.hasOwnProperty('thumbnail_url') && embed.json.thumbnail_url != null) {
                         previewImage.attr({
