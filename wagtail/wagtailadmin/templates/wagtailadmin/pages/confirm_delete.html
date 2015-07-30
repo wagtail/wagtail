@@ -1,7 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=page.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-explorer{% endblock %}
 
 {% block content %}
     {% trans "Delete" as del_str %}

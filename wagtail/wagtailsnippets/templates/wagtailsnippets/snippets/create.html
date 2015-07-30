@@ -1,7 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block titletag %}{% blocktrans %}New  {{ snippet_type_name}}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=snippet_type_name icon="snippet" %}

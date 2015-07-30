@@ -3,8 +3,6 @@
 
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 
-{% block bodyclass %}menu-images{% endblock %}
-
 {% block content %}
     {% trans "Generating URL" as title_str %}
     {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}

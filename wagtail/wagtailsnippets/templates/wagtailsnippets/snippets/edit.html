@@ -1,7 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block titletag %}{% blocktrans %}Editing {{ snippet_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-snippets{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" usage_object=instance %}

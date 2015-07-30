@@ -1,6 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block bodyclass %}menu-redirects{% endblock %}
 {% block titletag %}{% blocktrans with title=redirect.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
