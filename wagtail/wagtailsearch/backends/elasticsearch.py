@@ -458,7 +458,7 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
             self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
 
             # Delete old index
-            # es.indicies.get_alias can return multiple indicies. Delete them all
+            # es.indices.get_alias can return multiple indices. Delete them all
             if old_index:
                 try:
                     self.es.indices.delete(','.join(old_index))
