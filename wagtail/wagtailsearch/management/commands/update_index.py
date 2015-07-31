@@ -93,7 +93,7 @@ class Command(BaseCommand):
         Print a progress meter while iterating over an iterable. Use it as part
         of a ``for`` loop::
 
-            for item in self.progress(big_long_list):
+            for item in self.print_iter_progress(big_long_list):
                 self.do_expensive_computation(item)
 
         A ``.`` character is printed for every value in the iterable,
@@ -116,7 +116,7 @@ class Command(BaseCommand):
     @transaction.atomic
     def queryset_chunks(self, qs, chunk_size=1000):
         """
-        Yield a queryset in chunks of at most ``chunk_size``. The chunk yeilded
+        Yield a queryset in chunks of at most ``chunk_size``. The chunk yielded
         will be a list, not a queryset. Iterating over the chunks is done in a
         transaction so that the order and count of items in the queryset
         remains stable.
