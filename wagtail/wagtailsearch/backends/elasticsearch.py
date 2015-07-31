@@ -429,38 +429,41 @@ class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
         self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
 
     def start(self):
-        # Create new index
+        # Create the new index
         self.es.indices.create(self.index_name, INDEX_SETTINGS)
 
-        # Make sure there isn't currently an index that clashes with alias_name
-        # This can happen when the atomic rebuilder is first enabled
-        if not self.es.indices.exists_alias(self.alias_name):
-            try:
-                self.es.indices.delete(self.alias_name)
-
-                # An index was deleted so there couldn't have been an alias there.
-                # Create an alias now so the site search doesn't break
-                self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
-            except NotFoundError:
-                pass
-
     def finish(self):
-        # Refresh index
+        # Refresh the new index
         self.es.indices.refresh(self.index_name)
 
-        # Find index that alias currently points to
-        old_index = set(self.es.indices.get_alias(name=self.alias_name).keys()) - {self.index_name}
-
-        # Update alias to point to new index
-        self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
-
-        # Delete old index
-        # es.indicies.get_alias can return multiple indicies. Delete them all
-        if old_index:
+        # Create the alias if it doesnt exist yet
+        if not self.es.indices.exists_alias(self.alias_name):
+            # Make sure there isn't currently an index that clashes with alias_name
+            # This can happen when the atomic rebuilder is first enabled
             try:
-                self.es.indices.delete(','.join(old_index))
+                self.es.indices.delete(self.alias_name)
             except NotFoundError:
                 pass
+
+            # Create the alias
+            self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+        else:
+            # Alias already exists, update it and delete old index
+
+            # Find index that alias currently points to, so we can delete it later
+            old_index = set(self.es.indices.get_alias(name=self.alias_name).keys()) - {self.index_name}
+
+            # Update alias to point to new index
+            self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+            # Delete old index
+            # es.indicies.get_alias can return multiple indicies. Delete them all
+            if old_index:
+                try:
+                    self.es.indices.delete(','.join(old_index))
+                except NotFoundError:
+                    pass
 
 
 class ElasticSearch(BaseSearch):
