@@ -21,6 +21,11 @@ Usually, an operation that retrieves a queryset of pages (such as ``homepage.get
 Previously, this was implemented in :mod:`~wagtail.wagtailsearch` but now has
 been moved into a separate module: :mod:`wagtail.contrib.wagtailsearchpromotions`
 
+Atomic rebuilding of Elasticsearch indexes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Elasticsearch search backend now accepts an experimental ``ATOMIC_REBUILD`` flag which ensures that the existing search index continues to be available while the ``update_index`` task is running. See :ref:`wagtailsearch_backends_atomic_rebuild`.
+
 Minor features
 ~~~~~~~~~~~~~~
 

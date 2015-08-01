@@ -41,6 +41,22 @@ The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
 If you have disabled auto update, you must run the :ref:`update_index` command on a regular basis to keep the index in sync with the database.
 
 
+.. _wagtailsearch_backends_atomic_rebuild:
+
+``ATOMIC_REBUILD``
+==================
+
+.. versionadded:: 1.1
+
+By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
+
+Setting the ``ATOMIC_REBUILD`` setting to ``True`` makes Wagtail rebuild into a separate index while keep the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
+
+.. warning:: Experimental feature
+
+    This feature is currently experimental. Please use it with caution.
+
+
 ``BACKEND``
 ===========
 
