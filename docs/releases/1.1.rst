@@ -39,6 +39,7 @@ Minor features
  * Non-superusers can now view/edit/delete sites if they have the correct permissions
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
  * Updated URLs within the admin backend to use namespaces
+ * The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
 
 Bug fixes
 ~~~~~~~~~

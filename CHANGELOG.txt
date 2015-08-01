@@ -17,6 +17,7 @@ Changelog
  * Non-superusers can now view/edit/delete sites if they have the correct permissions
  * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
  * Updated URLs within the admin backend to use namespaces
+ * The `update_index` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
