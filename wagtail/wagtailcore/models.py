@@ -44,6 +44,8 @@ from wagtail.wagtailsearch.backends import get_search_backend
 
 logger = logging.getLogger('wagtail.core')
 
+PAGE_TEMPLATE_VAR = 'page'
+
 
 class SiteManager(models.Manager):
     def get_by_natural_key(self, hostname, port):
@@ -549,6 +551,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
     def get_context(self, request, *args, **kwargs):
         return {
+            PAGE_TEMPLATE_VAR: self,
             'self': self,
             'request': request,
         }
