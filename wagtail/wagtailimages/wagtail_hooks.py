@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.core import urlresolvers
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Permission
@@ -21,48 +20,6 @@ def register_admin_urls():
     return [
         url(r'^images/', include(admin_urls, namespace='wagtailimages', app_name='wagtailimages')),
     ]
-
-
-# Check for the presence of a pre-Wagtail-0.3-style urlconf, and fail loudly if one is found.
-# Prior to Wagtail 0.3, the standard Wagtail urls.py contained an entry for
-# wagtail.wagtailimages.urls rooted at '/admin/images/' or equivalent. As of Wagtail 0.5,
-# the wagtailimages admin views are defined by wagtail.wagtailimages.admin_urls, and
-# wagtail.wagtailimages.urls is used for front-end views instead - which means that those URLs
-# will clash with the admin.
-# This check can only be performed after the ROOT_URLCONF module has been fully imported. Since
-# importing a urlconf module generally involves recursively importing a whole load of other things
-# including models.py and wagtail_hooks.py, there is no obvious place to put this code at the
-# module level without causing a circular import. We therefore put it in construct_main_menu, which
-# is run frequently enough to ensure that the error message will not be missed. Yes, it's hacky :-(
-
-OLD_STYLE_URLCONF_CHECK_PASSED = False
-def check_old_style_urlconf():
-    global OLD_STYLE_URLCONF_CHECK_PASSED
-
-    # A faulty urls.py will place wagtail.wagtailimages.urls at the same path that
-    # wagtail.wagtailimages.admin_urls is loaded to, resulting in the wagtailimages_serve path
-    # being equal to wagtailimages:index followed by three arbitrary args
-    try:
-        wagtailimages_serve_path = urlresolvers.reverse('wagtailimages_serve', args=['123', '456', '789'])
-    except urlresolvers.NoReverseMatch:
-        # wagtailimages_serve is not defined at all, so there's no collision
-        OLD_STYLE_URLCONF_CHECK_PASSED = True
-        return
-
-    wagtailimages_index_path = urlresolvers.reverse('wagtailimages:index')
-    if wagtailimages_serve_path == wagtailimages_index_path + '123/456/789/':
-        raise ImproperlyConfigured("""Your urls.py contains an entry for %s that needs to be removed.
-            See http://wagtail.readthedocs.org/en/latest/releases/0.5.html#urlconf-entries-for-admin-images-admin-embeds-etc-need-to-be-removed"""
-            % wagtailimages_index_path
-        )
-    else:
-        OLD_STYLE_URLCONF_CHECK_PASSED = True
-
-
-@hooks.register('construct_main_menu')
-def construct_main_menu(request, menu_items):
-    if not OLD_STYLE_URLCONF_CHECK_PASSED:
-        check_old_style_urlconf()
 
 
 class ImagesMenuItem(MenuItem):
