@@ -41,6 +41,8 @@ The ``AUTO_UPDATE`` setting allows you to disable this on a per-index basis:
 If you have disabled auto update, you must run the :ref:`update_index` command on a regular basis to keep the index in sync with the database.
 
 
+.. _wagtailsearch_backends_atomic_rebuild:
+
 ``ATOMIC_REBUILD``
 ==================
 
