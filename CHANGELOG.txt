@@ -5,6 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Implemented the `specific()` method on PageQuerySet, to return pages as their most specific type
+ * "Promoted search results" has moved into its own module
+ * Elasticsearch backend now supports an experimental `ATOMIC_REBUILD` flag to keep the existing index available while the `update_index` task is running
  * Implemented pagination in the page chooser modal
  * Changed INSTALLED_APPS in project template to list apps in precedence order (Piet Delport)
  * The `{% image %}` tag now supports filters on the image variable, e.g. `{% image primary_img|default:secondary_img width-500 %}`
