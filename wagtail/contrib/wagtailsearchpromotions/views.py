@@ -46,7 +46,7 @@ def index(request):
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
-            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search editor's picks")),
+            'search_form': SearchForm(data=dict(q=query_string) if query_string else None, placeholder=_("Search promoted results")),
         })
 
 
