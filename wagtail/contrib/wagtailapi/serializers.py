@@ -101,19 +101,17 @@ def get_serializer_class(model_, fields_):
 
 class WagtailSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
-        request = self.context['request']
         fields = self.context.get('fields', frozenset())
         all_fields = self.context.get('all_fields', False)
         show_details = self.context.get('show_details', False)
         return self.serialize_object(
-            request,
             instance,
             fields=fields,
             all_fields=all_fields,
             show_details=show_details
         )
 
-    def serialize_object_metadata(self, request, obj, show_details=False):
+    def serialize_object_metadata(self, obj, show_details=False):
         """
         This returns a JSON-serialisable dict to use for the "meta"
         section of a particlular object.
@@ -126,7 +124,7 @@ class WagtailSerializer(serializers.BaseSerializer):
 
         return data
 
-    def serialize_object(self, request, obj, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
+    def serialize_object(self, obj, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
         """
         This converts an object into JSON-serialisable dict so it can
         be used in the API.
@@ -136,7 +134,7 @@ class WagtailSerializer(serializers.BaseSerializer):
         ]
 
         # Add meta
-        metadata = self.serialize_object_metadata(request, obj, show_details=show_details)
+        metadata = self.serialize_object_metadata(obj, show_details=show_details)
         if metadata:
             data.append(('meta', metadata))
 
@@ -167,20 +165,20 @@ class WagtailSerializer(serializers.BaseSerializer):
 
 
 class PageSerializer(WagtailSerializer):
-    def serialize_object_metadata(self, request, page, show_details=False):
-        data = super(PageSerializer, self).serialize_object_metadata(request, page, show_details=show_details)
+    def serialize_object_metadata(self, page, show_details=False):
+        data = super(PageSerializer, self).serialize_object_metadata(page, show_details=show_details)
 
         # Add type
         data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
 
         return data
 
-    def serialize_object(self, request, page, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
+    def serialize_object(self, page, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
         # Add parent
         if show_details:
             parent = page.get_parent()
 
-            site_pages = pages_for_site(request.site)
+            site_pages = pages_for_site(self.context['request'].site)
             if site_pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
@@ -194,12 +192,12 @@ class PageSerializer(WagtailSerializer):
                     ])),
                 )
 
-        return super(PageSerializer, self).serialize_object(request, page, fields=fields, extra_data=extra_data, all_fields=all_fields, show_details=show_details)
+        return super(PageSerializer, self).serialize_object(page, fields=fields, extra_data=extra_data, all_fields=all_fields, show_details=show_details)
 
 
 class DocumentSerializer(WagtailSerializer):
-    def serialize_object_metadata(self, request, document, show_details=False):
-        data = super(DocumentSerializer, self).serialize_object_metadata(request, document, show_details=show_details)
+    def serialize_object_metadata(self, document, show_details=False):
+        data = super(DocumentSerializer, self).serialize_object_metadata(document, show_details=show_details)
 
         # Download URL
         if show_details:
