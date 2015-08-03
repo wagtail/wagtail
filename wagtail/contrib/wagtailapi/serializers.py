@@ -104,11 +104,6 @@ def get_serializer_class(model, fields):
     })
 
 
-def get_api_data(obj, fields):
-    serializer_class = get_serializer_class(type(obj), fields)
-    return serializer_class().to_representation(obj).items()
-
-
 class WagtailSerializer(BaseSerializer):
     def to_representation(self, instance):
         request = self.context['request']
@@ -168,7 +163,10 @@ class WagtailSerializer(BaseSerializer):
             # Reorder fields so it matches the order of api_fields
             fields = [field for field in api_fields if field in fields]
 
-        data.extend(get_api_data(obj, fields))
+        # Serialize the fields
+        serializer_class = get_serializer_class(type(obj), fields)
+        serializer = serializer_class()
+        data.extend(serializer.to_representation(obj).items())
 
         return OrderedDict(data)
 
