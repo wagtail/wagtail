@@ -16,7 +16,7 @@
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% url 'wagtailimages_edit_image' image.id %}">
+                <a class="image-choice" href="{% url 'wagtailimages:edit' image.id %}">
                     <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
@@ -24,13 +24,13 @@
         {% endfor %}
     </ul>
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string linkurl="wagtailimages_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_searching=is_searching query_string=query_string linkurl="wagtailimages:index" %}
 
 {% else %}
     {% if is_searching %}
         <p>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailimages_add_multiple' as wagtailimages_add_image_url %}
+        {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
         <p>{% blocktrans %}You've not uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">add one now</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

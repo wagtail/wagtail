@@ -6,7 +6,7 @@
 {% block extra_js %}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailsearch_editorspicks_index' %}",
+            url: "{% url 'wagtailsearchpromotions:index' %}",
             termInput: "#id_q",
             targetOutput: "#editorspicks-results"
         }
@@ -16,11 +16,11 @@
 {% block content %}
     {% trans "Promoted search results" as sp_title_str %}
     {% trans "Add new promoted result" as sp_text_str %}
-    {% include "wagtailadmin/shared/header.html" with title=sp_title_str add_link="wagtailsearch_editorspicks_add" icon="pick" add_text=sp_text_str search_url="wagtailsearch_editorspicks_index" %}
+    {% include "wagtailadmin/shared/header.html" with title=sp_title_str add_link="wagtailsearchpromotions:add" icon="pick" add_text=sp_text_str search_url="wagtailsearchpromotions:index" %}
 
      <div class="nice-padding">
         <div id="editorspicks-results" class="redirects">
-            {% include "wagtailsearch/editorspicks/results.html" %}
+            {% include "wagtailsearchpromotions/results.html" %}
         </div>
     </div>
 {% endblock %}

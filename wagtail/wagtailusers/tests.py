@@ -21,7 +21,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_users_index'), params)
+        return self.client.get(reverse('wagtailusers_users:index'), params)
 
     def test_simple(self):
         response = self.get()
@@ -54,10 +54,10 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_users_create'), params)
+        return self.client.get(reverse('wagtailusers_users:add'), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailusers_users_create'), post_data)
+        return self.client.post(reverse('wagtailusers_users:add'), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -75,7 +75,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
         users = get_user_model().objects.filter(username='testuser')
@@ -92,10 +92,10 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, user_id=None):
-        return self.client.get(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), params)
+        return self.client.get(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), params)
 
     def post(self, post_data={}, user_id=None):
-        return self.client.post(reverse('wagtailusers_users_edit', args=(user_id or self.test_user.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_users:edit', args=(user_id or self.test_user.id, )), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -116,7 +116,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         })
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_users_index'))
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was edited
         user = get_user_model().objects.get(id=self.test_user.id)
@@ -158,7 +158,7 @@ class TestGroupIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_groups_index'), params)
+        return self.client.get(reverse('wagtailusers_groups:index'), params)
 
     def test_simple(self):
         response = self.get()
@@ -182,7 +182,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailusers_groups_create'), params)
+        return self.client.get(reverse('wagtailusers_groups:add'), params)
 
     def post(self, post_data={}):
         post_defaults = {
@@ -192,7 +192,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
-        return self.client.post(reverse('wagtailusers_groups_create'), post_data)
+        return self.client.post(reverse('wagtailusers_groups:add'), post_data)
 
     def test_simple(self):
         response = self.get()
@@ -203,7 +203,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         response = self.post({'name': "test group"})
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
 
         # Check that the user was created
         groups = Group.objects.filter(name='test group')
@@ -221,7 +221,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['2'],
         })
 
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         # The test group now exists, with two page permissions
         new_group = Group.objects.get(name='test group')
         self.assertEqual(new_group.page_permissions.all().count(), 2)
@@ -267,7 +267,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}, group_id=None):
-        return self.client.get(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), params)
+        return self.client.get(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), params)
 
     def post(self, post_data={}, group_id=None):
         post_defaults = {
@@ -282,7 +282,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         }
         for k, v in six.iteritems(post_defaults):
             post_data[k] = post_data.get(k, v)
-        return self.client.post(reverse('wagtailusers_groups_edit', args=(group_id or self.test_group.id, )), post_data)
+        return self.client.post(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.id, )), post_data)
 
     def add_non_registered_perm(self):
         # Some groups may have django permissions assigned that are not
@@ -306,7 +306,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         response = self.post({'name': "test group edited"})
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
 
         # Check that the group was edited
         group = Group.objects.get(id=self.test_group.id)
@@ -332,7 +332,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['3'],
         })
 
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         # The test group now has three page permissions
         self.assertEqual(self.test_group.page_permissions.count(), 3)
 
@@ -344,7 +344,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'page_permissions-0-DELETE': ['1'],
         })
 
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         # The test group now has zero page permissions
         self.assertEqual(self.test_group.page_permissions.count(), 0)
 
@@ -390,7 +390,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         response = self.post({
             'permissions': [self.existing_permission.id, self.another_permission.id]
         })
-        self.assertRedirects(response, reverse('wagtailusers_groups_index'))
+        self.assertRedirects(response, reverse('wagtailusers_groups:index'))
         self.assertEqual(self.test_group.permissions.count(), 2)
 
     def test_group_form_includes_non_registered_permissions_in_initial_data(self):

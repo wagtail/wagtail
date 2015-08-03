@@ -46,7 +46,7 @@ def chosen(request, content_type_app_name, content_type_model_name, id):
     snippet_json = json.dumps({
         'id': item.id,
         'string': text_type(item),
-        'edit_link': reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, item.id,))
+        'edit_link': reverse('wagtailsnippets:edit', args=(content_type_app_name, content_type_model_name, item.id,))
     })
 
     return render_modal_workflow(

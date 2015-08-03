@@ -6,7 +6,7 @@
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=snippet_type_name icon="snippet" %}
 
-    <form action="{% url 'wagtailsnippets_create' content_type.app_label content_type.model %}" method="POST">
+    <form action="{% url 'wagtailsnippets:add' content_type.app_label content_type.model %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
         

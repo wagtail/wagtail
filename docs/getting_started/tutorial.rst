@@ -147,7 +147,7 @@ Create a template at ``blog/templates/blog/blog_page.html``:
 
     {% load wagtailcore_tags %}
 
-    {% block body_class %}templage-blogpage{% endblock %}
+    {% block body_class %}template-blogpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
@@ -217,7 +217,7 @@ Adjust your blog page template to include the image:
 
     {% load wagtailcore_tags wagtailimages_tags %}
 
-    {% block body_class %}templage-blogpage{% endblock %}
+    {% block body_class %}template-blogpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>

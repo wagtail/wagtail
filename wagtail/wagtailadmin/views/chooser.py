@@ -20,6 +20,16 @@ def get_querystring(request):
     })
 
 
+def shared_context(request, extra_context={}):
+    context = {
+        'allow_external_link': request.GET.get('allow_external_link'),
+        'allow_email_link': request.GET.get('allow_email_link'),
+        'querystring': get_querystring(request),
+    }
+    context.update(extra_context)
+    return context
+
+
 def browse(request, parent_page_id=None):
     ITEMS_PER_PAGE = 25
 
@@ -82,17 +92,18 @@ def browse(request, parent_page_id=None):
         except EmptyPage:
             pages = paginator.page(paginator.num_pages)
 
-    return render_modal_workflow(request, 'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js', {
-        'allow_external_link': request.GET.get('allow_external_link'),
-        'allow_email_link': request.GET.get('allow_email_link'),
-        'querystring': get_querystring(request),
-        'parent_page': parent_page,
-        'pages': pages,
-        'search_form': search_form,
-        'page_type_string': ','.join(page_types),
-        'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
-        'page_types_restricted': (page_type != 'wagtailcore.page')
-    })
+    return render_modal_workflow(
+        request,
+        'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
+        shared_context(request, {
+            'parent_page': parent_page,
+            'pages': pages,
+            'search_form': search_form,
+            'page_type_string': ','.join(page_types),
+            'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
+            'page_types_restricted': (page_type != 'wagtailcore.page')
+        })
+    )
 
 
 def search(request, parent_page_id=None):
@@ -130,11 +141,13 @@ def search(request, parent_page_id=None):
         page.can_choose = True
         shown_pages.append(page)
 
-    return render(request, 'wagtailadmin/chooser/_search_results.html', {
-        'querystring': get_querystring(request),
-        'searchform': search_form,
-        'pages': shown_pages,
-    })
+    return render(
+        request, 'wagtailadmin/chooser/_search_results.html',
+        shared_context(request, {
+            'searchform': search_form,
+            'pages': shown_pages,
+        })
+    )
 
 
 def external_link(request):
@@ -162,11 +175,9 @@ def external_link(request):
     return render_modal_workflow(
         request,
         'wagtailadmin/chooser/external_link.html', 'wagtailadmin/chooser/external_link.js',
-        {
-            'querystring': get_querystring(request),
-            'allow_email_link': request.GET.get('allow_email_link'),
+        shared_context(request, {
             'form': form,
-        }
+        })
     )
 
 
@@ -195,9 +206,7 @@ def email_link(request):
     return render_modal_workflow(
         request,
         'wagtailadmin/chooser/email_link.html', 'wagtailadmin/chooser/email_link.js',
-        {
-            'querystring': get_querystring(request),
-            'allow_external_link': request.GET.get('allow_external_link'),
+        shared_context(request, {
             'form': form,
-        }
+        })
     )

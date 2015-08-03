@@ -17,7 +17,7 @@
         </div>
     </header>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages_create' content_type.app_label content_type.model parent_page.id %}" method="POST">
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST">
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

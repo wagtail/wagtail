@@ -7,8 +7,55 @@ from django.utils.six.moves.urllib.parse import urlparse
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+from django.utils.crypto import get_random_string
+
 from wagtail.wagtailsearch.backends.base import BaseSearch, BaseSearchQuery, BaseSearchResults
 from wagtail.wagtailsearch.index import SearchField, FilterField, class_is_indexed
+
+
+INDEX_SETTINGS = {
+    'settings': {
+        'analysis': {
+            'analyzer': {
+                'ngram_analyzer': {
+                    'type': 'custom',
+                    'tokenizer': 'lowercase',
+                    'filter': ['asciifolding', 'ngram']
+                },
+                'edgengram_analyzer': {
+                    'type': 'custom',
+                    'tokenizer': 'lowercase',
+                    'filter': ['asciifolding', 'edgengram']
+                }
+            },
+            'tokenizer': {
+                'ngram_tokenizer': {
+                    'type': 'nGram',
+                    'min_gram': 3,
+                    'max_gram': 15,
+                },
+                'edgengram_tokenizer': {
+                    'type': 'edgeNGram',
+                    'min_gram': 2,
+                    'max_gram': 15,
+                    'side': 'front'
+                }
+            },
+            'filter': {
+                'ngram': {
+                    'type': 'nGram',
+                    'min_gram': 3,
+                    'max_gram': 15
+                },
+                'edgengram': {
+                    'type': 'edgeNGram',
+                    'min_gram': 1,
+                    'max_gram': 15
+                }
+            }
+        }
+    }
+}
 
 
 class ElasticSearchMapping(object):
@@ -307,6 +354,118 @@ class ElasticSearchResults(BaseSearchResults):
         return max(hit_count, 0)
 
 
+class ElasticSearchIndexRebuilder(object):
+    def __init__(self, es, index_name):
+        self.es = es
+        self.index_name = index_name
+
+    def reset_index(self):
+        # Delete old index
+        try:
+            self.es.indices.delete(self.index_name)
+        except NotFoundError:
+            pass
+
+        # Create new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+    def start(self):
+        # Reset the index
+        self.reset_index()
+
+    def add_model(self, model):
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
+
+        # Put mapping
+        self.es.indices.put_mapping(index=self.index_name, doc_type=mapping.get_document_type(), body=mapping.get_mapping())
+
+    def add_items(self, model, obj_list):
+        if not class_is_indexed(model):
+            return
+
+        # Get mapping
+        mapping = ElasticSearchMapping(model)
+        doc_type = mapping.get_document_type()
+
+        # Create list of actions
+        actions = []
+        for obj in obj_list:
+            # Create the action
+            action = {
+                '_index': self.index_name,
+                '_type': doc_type,
+                '_id': mapping.get_document_id(obj),
+            }
+            action.update(mapping.get_document(obj))
+            actions.append(action)
+
+        # Run the actions
+        bulk(self.es, actions)
+
+    def finish(self):
+        # Refresh index
+        self.es.indices.refresh(self.index_name)
+
+
+class ElasticSearchAtomicIndexRebuilder(ElasticSearchIndexRebuilder):
+    def __init__(self, es, alias_name):
+        self.es = es
+        self.alias_name = alias_name
+        self.index_name = alias_name + '_' + get_random_string(7).lower()
+
+    def reset_index(self):
+        # Delete old index using the alias
+        # This should delete both the alias and the index
+        try:
+            self.es.indices.delete(self.alias_name)
+        except NotFoundError:
+            pass
+
+        # Create new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+        # Create a new alias
+        self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+    def start(self):
+        # Create the new index
+        self.es.indices.create(self.index_name, INDEX_SETTINGS)
+
+    def finish(self):
+        # Refresh the new index
+        self.es.indices.refresh(self.index_name)
+
+        # Create the alias if it doesnt exist yet
+        if not self.es.indices.exists_alias(self.alias_name):
+            # Make sure there isn't currently an index that clashes with alias_name
+            # This can happen when the atomic rebuilder is first enabled
+            try:
+                self.es.indices.delete(self.alias_name)
+            except NotFoundError:
+                pass
+
+            # Create the alias
+            self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+        else:
+            # Alias already exists, update it and delete old index
+
+            # Find index that alias currently points to, so we can delete it later
+            old_index = set(self.es.indices.get_alias(name=self.alias_name).keys()) - {self.index_name}
+
+            # Update alias to point to new index
+            self.es.indices.put_alias(name=self.alias_name, index=self.index_name)
+
+            # Delete old index
+            # es.indices.get_alias can return multiple indices. Delete them all
+            if old_index:
+                try:
+                    self.es.indices.delete(','.join(old_index))
+                except NotFoundError:
+                    pass
+
+
 class ElasticSearch(BaseSearch):
     def __init__(self, params):
         super(ElasticSearch, self).__init__(params)
@@ -315,6 +474,11 @@ class ElasticSearch(BaseSearch):
         self.es_hosts = params.pop('HOSTS', None)
         self.es_index = params.pop('INDEX', 'wagtail')
         self.es_timeout = params.pop('TIMEOUT', 10)
+
+        if params.pop('ATOMIC_REBUILD', False):
+            self.rebuilder_class = ElasticSearchAtomicIndexRebuilder
+        else:
+            self.rebuilder_class = ElasticSearchIndexRebuilder
 
         # If HOSTS is not set, convert URLS setting to HOSTS
         es_urls = params.pop('URLS', ['http://localhost:9200'])
@@ -346,60 +510,12 @@ class ElasticSearch(BaseSearch):
             timeout=self.es_timeout,
             **params)
 
+    def get_rebuilder(self):
+        return self.rebuilder_class(self.es, self.es_index)
+
     def reset_index(self):
-        # Delete old index
-        try:
-            self.es.indices.delete(self.es_index)
-        except NotFoundError:
-            pass
-
-        # Settings
-        INDEX_SETTINGS = {
-            'settings': {
-                'analysis': {
-                    'analyzer': {
-                        'ngram_analyzer': {
-                            'type': 'custom',
-                            'tokenizer': 'lowercase',
-                            'filter': ['asciifolding', 'ngram']
-                        },
-                        'edgengram_analyzer': {
-                            'type': 'custom',
-                            'tokenizer': 'lowercase',
-                            'filter': ['asciifolding', 'edgengram']
-                        }
-                    },
-                    'tokenizer': {
-                        'ngram_tokenizer': {
-                            'type': 'nGram',
-                            'min_gram': 3,
-                            'max_gram': 15,
-                        },
-                        'edgengram_tokenizer': {
-                            'type': 'edgeNGram',
-                            'min_gram': 2,
-                            'max_gram': 15,
-                            'side': 'front'
-                        }
-                    },
-                    'filter': {
-                        'ngram': {
-                            'type': 'nGram',
-                            'min_gram': 3,
-                            'max_gram': 15
-                        },
-                        'edgengram': {
-                            'type': 'edgeNGram',
-                            'min_gram': 1,
-                            'max_gram': 15
-                        }
-                    }
-                }
-            }
-        }
-
-        # Create new index
-        self.es.indices.create(self.es_index, INDEX_SETTINGS)
+        # Use the rebuilder to reset the index
+        self.get_rebuilder().reset_index()
 
     def add_type(self, model):
         # Get mapping

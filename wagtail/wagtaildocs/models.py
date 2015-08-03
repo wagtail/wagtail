@@ -55,7 +55,7 @@ class Document(models.Model, TagSearchable):
 
     @property
     def usage_url(self):
-        return reverse('wagtaildocs_document_usage',
+        return reverse('wagtaildocs:document_usage',
                        args=(self.id,))
 
     def is_editable_by_user(self, user):

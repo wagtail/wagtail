@@ -12,12 +12,12 @@
 
     {% include "wagtaildocs/documents/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching linkurl="wagtaildocs_index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_searching=is_searching linkurl="wagtaildocs:index" %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtaildocs_add_document' as wagtaildocs_add_document_url %}
+        {% url 'wagtaildocs:add' as wagtaildocs_add_document_url %}
         <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

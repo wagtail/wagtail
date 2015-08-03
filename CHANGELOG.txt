@@ -5,13 +5,23 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Implemented the `specific()` method on PageQuerySet, to return pages as their most specific type
+ * "Promoted search results" has moved into its own module
+ * Elasticsearch backend now supports an experimental `ATOMIC_REBUILD` flag to keep the existing index available while the `update_index` task is running
+ * The wagtailapi module has been refactored to use Django REST Framework
  * Implemented pagination in the page chooser modal
+ * Changed INSTALLED_APPS in project template to list apps in precedence order (Piet Delport)
  * The `{% image %}` tag now supports filters on the image variable, e.g. `{% image primary_img|default:secondary_img width-500 %}`
  * Moved the style guide menu item into the Settings sub-menu
  * Search backends can now be specified by module (e.g. `wagtail.wagtailsearch.backends.elasticsearch`), rather than a specific class (`wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch`)
  * Added ``descendant_of`` filter to the API (Michael Fillier)
  * Added optional directory argument to "wagtail start" command (Mitchel Cabuloy)
+ * Non-superusers can now view/edit/delete sites if they have the correct permissions
+ * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
+ * Updated URLs within the admin backend to use namespaces
+ * The `update_index` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
+ * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
+ * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
 
 
 1.0 (16.07.2015)
