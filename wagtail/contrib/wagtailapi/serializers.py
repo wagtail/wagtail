@@ -89,7 +89,7 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
-    def serialize_object_metadata(self, obj):
+    def serialize_meta(self, obj):
         """
         This returns a JSON-serialisable dict to use for the "meta"
         section of a particlular object.
@@ -112,7 +112,7 @@ class BaseSerializer(serializers.ModelSerializer):
         ]
 
         # Add meta
-        metadata = self.serialize_object_metadata(obj)
+        metadata = self.serialize_meta(obj)
         if metadata:
             data.append(('meta', metadata))
 
@@ -126,8 +126,8 @@ class BaseSerializer(serializers.ModelSerializer):
 
 
 class PageSerializer(BaseSerializer):
-    def serialize_object_metadata(self, page):
-        data = super(PageSerializer, self).serialize_object_metadata(page)
+    def serialize_meta(self, page):
+        data = super(PageSerializer, self).serialize_meta(page)
 
         # Add type
         data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
@@ -157,8 +157,8 @@ class PageSerializer(BaseSerializer):
 
 
 class DocumentSerializer(BaseSerializer):
-    def serialize_object_metadata(self, document):
-        data = super(DocumentSerializer, self).serialize_object_metadata(document)
+    def serialize_meta(self, document):
+        data = super(DocumentSerializer, self).serialize_meta(document)
 
         # Download URL
         if self.context.get('show_details', False):
