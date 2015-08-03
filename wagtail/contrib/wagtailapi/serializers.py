@@ -56,7 +56,7 @@ class TagsField(Field):
         return list(value.all().values_list('name', flat=True))
 
 
-def get_serializer_fields(model, fields):
+def get_serializer_field(model, field_name):
     # Find any child relations (pages only)
     child_relations = {}
     if issubclass(model, Page):
@@ -65,42 +65,40 @@ def get_serializer_fields(model, fields):
             for child_relation in get_all_child_relations(model)
         }
 
-    # Loop through fields
-    for field_name in fields:
-        # Check child relations
-        if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
-            yield field_name, ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
-            continue
+    # Check child relations
+    if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
+        return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
 
-        # Check django fields
-        try:
-            field = model._meta.get_field(field_name)
+    # Check django fields
+    try:
+        field = model._meta.get_field(field_name)
 
-            if field.rel and isinstance(field.rel, models.ManyToOneRel):
-                yield field_name, RelatedObjectField, {}
-            elif isinstance(field, wagtailcore_fields.StreamField):
-                yield field_name, StreamField, {}
-            elif isinstance(field, TaggableManager):
-                yield field_name, TagsField, {}
-            else:
-                yield field_name, ReadOnlyField, {}
+        if field.rel and isinstance(field.rel, models.ManyToOneRel):
+            return RelatedObjectField, {}
+        elif isinstance(field, wagtailcore_fields.StreamField):
+            return StreamField, {}
+        elif isinstance(field, TaggableManager):
+            return TagsField, {}
+        else:
+            return ReadOnlyField, {}
 
-            continue
-        except models.fields.FieldDoesNotExist:
-            pass
+    except models.fields.FieldDoesNotExist:
+        pass
 
-        # Check attributes
-        if hasattr(model, field_name):
-            yield field_name, ReadOnlyField, {}
-            continue
+    # Check attributes
+    if hasattr(model, field_name):
+        return ReadOnlyField, {}
 
 
 def get_serializer_class(model, fields):
-    serializer_fields = get_serializer_fields(model, fields)
+    serializer_fields = [
+        (field_name, get_serializer_field(model, field_name))
+        for field_name in fields
+    ]
 
     return type(model.__name__ + 'Serializer', (Serializer, ), {
         field_name: field_class(**field_kwargs)
-        for field_name, field_class, field_kwargs in serializer_fields
+        for field_name, (field_class, field_kwargs) in serializer_fields
     })
 
 
