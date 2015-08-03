@@ -89,9 +89,6 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
-    def to_representation(self, instance):
-        return self.serialize_object(instance)
-
     def serialize_object_metadata(self, obj):
         """
         This returns a JSON-serialisable dict to use for the "meta"
@@ -105,7 +102,7 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return data
 
-    def serialize_object(self, obj, extra_data=()):
+    def to_representation(self, obj, extra_data=()):
         """
         This converts an object into JSON-serialisable dict so it can
         be used in the API.
@@ -137,7 +134,7 @@ class PageSerializer(BaseSerializer):
 
         return data
 
-    def serialize_object(self, page, extra_data=()):
+    def to_representation(self, page, extra_data=()):
         # Add parent
         if self.context.get('show_details', False):
             parent = page.get_parent()
@@ -156,7 +153,7 @@ class PageSerializer(BaseSerializer):
                     ])),
                 )
 
-        return super(PageSerializer, self).serialize_object(page, extra_data=extra_data)
+        return super(PageSerializer, self).to_representation(page, extra_data=extra_data)
 
 
 class DocumentSerializer(BaseSerializer):
