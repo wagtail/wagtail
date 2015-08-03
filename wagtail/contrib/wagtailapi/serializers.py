@@ -8,7 +8,7 @@ from modelcluster.models import get_all_child_relations
 
 from taggit.managers import TaggableManager
 
-from rest_framework.serializers import BaseSerializer
+from rest_framework.serializers import BaseSerializer, Serializer
 from rest_framework.fields import Field, ReadOnlyField
 
 from wagtail.utils.compat import get_related_model
@@ -24,8 +24,11 @@ class ChildRelationField(Field):
         super(ChildRelationField, self).__init__(*args, **kwargs)
 
     def to_representation(self, value):
+        serializer_class = get_serializer_class(value.model, self.child_fields)
+        serializer = serializer_class()
+
         return [
-            dict(get_api_data(child_object, self.child_fields))
+            serializer.to_representation(child_object)
             for child_object in value.all()
         ]
 
@@ -92,19 +95,18 @@ def get_serializer_fields(model, fields):
             continue
 
 
+def get_serializer_class(model, fields):
+    serializer_fields = get_serializer_fields(model, fields)
+
+    return type(model.__name__ + 'Serializer', (Serializer, ), {
+        field_name: field_class(**field_kwargs)
+        for field_name, field_class, field_kwargs in serializer_fields
+    })
+
+
 def get_api_data(obj, fields):
-    serializer_fields = get_serializer_fields(type(obj), fields)
-
-    for field_name, field_class, field_kwargs in serializer_fields:
-        field = field_class(**field_kwargs)
-        field.bind(field_name, None)
-
-        value = field.get_attribute(obj)
-
-        if value is not None:
-            yield field.field_name, field.to_representation(value)
-        else:
-            yield field.field_name, None
+    serializer_class = get_serializer_class(type(obj), fields)
+    return serializer_class().to_representation(obj).items()
 
 
 class WagtailSerializer(BaseSerializer):
