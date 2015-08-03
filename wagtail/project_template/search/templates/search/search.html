@@ -13,17 +13,6 @@
         <input type="submit" value="Search">
     </form>
 
-    {% templatetag openblock %} if search_picks {% templatetag closeblock %}
-         <ul>
-            {% templatetag openblock %} for pick in search_picks {% templatetag closeblock %}
-                <li>
-                    <h2><a href="{% templatetag openvariable %} pick.page.url {% templatetag closevariable %}">{% templatetag openvariable %} pick.page {% templatetag closevariable %}</a></h2>
-                    <p>{% templatetag openvariable %} pick.description {% templatetag closevariable %}</p>
-                </li>
-             {% templatetag openblock %} endfor {% templatetag closeblock %}
-         </ul>
-    {% templatetag openblock %} endif {% templatetag closeblock %}
-
     {% templatetag openblock %} if search_results {% templatetag closeblock %}
         <ul>
             {% templatetag openblock %} for result in search_results {% templatetag closeblock %}
