@@ -14,7 +14,7 @@ from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
-from .utils import ObjectDetailURL, URLPath, BadRequestError, pages_for_site
+from .utils import ObjectDetailURL, URLPath, pages_for_site
 
 
 class ChildRelationField(Field):
@@ -27,7 +27,8 @@ class ChildRelationField(Field):
         serializer = serializer_class()
 
         return [
-            serializer.to_representation(child_object)
+            # Use rest frameworks to_representation method so we don't add id/meta attributes
+            super(BaseSerializer, serializer).to_representation(child_object)
             for child_object in value.all()
         ]
 
@@ -88,24 +89,8 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
-
-def get_serializer_class(model_, fields_):
-    class Meta:
-        model = model_
-        fields = fields_
-
-    return type(model_.__name__ + 'Serializer', (BaseSerializer, ), {
-        'Meta': Meta
-    })
-
-
-class WagtailSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
-        fields = self.context.get('fields')
-        return self.serialize_object(
-            instance,
-            fields=fields,
-        )
+        return self.serialize_object(instance)
 
     def serialize_object_metadata(self, obj):
         """
@@ -120,7 +105,7 @@ class WagtailSerializer(serializers.BaseSerializer):
 
         return data
 
-    def serialize_object(self, obj, fields, extra_data=()):
+    def serialize_object(self, obj, extra_data=()):
         """
         This converts an object into JSON-serialisable dict so it can
         be used in the API.
@@ -138,14 +123,12 @@ class WagtailSerializer(serializers.BaseSerializer):
         data.extend(extra_data)
 
         # Serialize the fields
-        serializer_class = get_serializer_class(type(obj), fields)
-        serializer = serializer_class()
-        data.extend(serializer.to_representation(obj).items())
+        data.extend(super(BaseSerializer, self).to_representation(obj).items())
 
         return OrderedDict(data)
 
 
-class PageSerializer(WagtailSerializer):
+class PageSerializer(BaseSerializer):
     def serialize_object_metadata(self, page):
         data = super(PageSerializer, self).serialize_object_metadata(page)
 
@@ -154,7 +137,7 @@ class PageSerializer(WagtailSerializer):
 
         return data
 
-    def serialize_object(self, page, fields, extra_data=()):
+    def serialize_object(self, page, extra_data=()):
         # Add parent
         if self.context.get('show_details', False):
             parent = page.get_parent()
@@ -173,10 +156,10 @@ class PageSerializer(WagtailSerializer):
                     ])),
                 )
 
-        return super(PageSerializer, self).serialize_object(page, fields, extra_data=extra_data)
+        return super(PageSerializer, self).serialize_object(page, extra_data=extra_data)
 
 
-class DocumentSerializer(WagtailSerializer):
+class DocumentSerializer(BaseSerializer):
     def serialize_object_metadata(self, document):
         data = super(DocumentSerializer, self).serialize_object_metadata(document)
 
@@ -185,3 +168,13 @@ class DocumentSerializer(WagtailSerializer):
             data['download_url'] = URLPath(document.url)
 
         return data
+
+
+def get_serializer_class(model_, fields_, base=BaseSerializer):
+    class Meta:
+        model = model_
+        fields = fields_
+
+    return type(model_.__name__ + 'Serializer', (base, ), {
+        'Meta': Meta
+    })
