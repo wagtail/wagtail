@@ -56,7 +56,7 @@ class StreamField(Field):
 
 class TagsField(Field):
     def to_representation(self, value):
-        return list(value.all().values_list('name', flat=True))
+        return list(value.all().order_by('name').values_list('name', flat=True))
 
 
 class BaseSerializer(serializers.ModelSerializer):
