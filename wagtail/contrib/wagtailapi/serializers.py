@@ -101,12 +101,10 @@ def get_serializer_class(model_, fields_):
 
 class WagtailSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
-        fields = self.context.get('fields', frozenset())
-        all_fields = self.context.get('all_fields', False)
+        fields = self.context.get('fields')
         return self.serialize_object(
             instance,
             fields=fields,
-            all_fields=all_fields,
         )
 
     def serialize_object_metadata(self, obj):
@@ -122,7 +120,7 @@ class WagtailSerializer(serializers.BaseSerializer):
 
         return data
 
-    def serialize_object(self, obj, fields=frozenset(), extra_data=(), all_fields=False):
+    def serialize_object(self, obj, fields, extra_data=()):
         """
         This converts an object into JSON-serialisable dict so it can
         be used in the API.
@@ -138,21 +136,6 @@ class WagtailSerializer(serializers.BaseSerializer):
 
         # Add extra data
         data.extend(extra_data)
-
-        # Add other fields
-        api_fields = self.context['view'].get_api_fields(type(obj))
-        api_fields = list(OrderedDict.fromkeys(api_fields)) # Removes any duplicates in case the user put "title" in api_fields
-
-        if all_fields:
-            fields = api_fields
-        else:
-            unknown_fields = fields - set(api_fields)
-
-            if unknown_fields:
-                raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
-
-            # Reorder fields so it matches the order of api_fields
-            fields = [field for field in api_fields if field in fields]
 
         # Serialize the fields
         serializer_class = get_serializer_class(type(obj), fields)
@@ -171,7 +154,7 @@ class PageSerializer(WagtailSerializer):
 
         return data
 
-    def serialize_object(self, page, fields=frozenset(), extra_data=(), all_fields=False):
+    def serialize_object(self, page, fields, extra_data=()):
         # Add parent
         if self.context.get('show_details', False):
             parent = page.get_parent()
@@ -190,7 +173,7 @@ class PageSerializer(WagtailSerializer):
                     ])),
                 )
 
-        return super(PageSerializer, self).serialize_object(page, fields=fields, extra_data=extra_data, all_fields=all_fields)
+        return super(PageSerializer, self).serialize_object(page, fields, extra_data=extra_data)
 
 
 class DocumentSerializer(WagtailSerializer):

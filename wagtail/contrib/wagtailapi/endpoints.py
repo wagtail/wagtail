@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
+
 from django.conf.urls import url
 from django.http import Http404
 
@@ -90,12 +92,25 @@ class BaseAPIEndpoint(GenericViewSet):
         The serialization context differs between listing and detail views.
         """
         request = self.request
+
         if self.action == 'listing_view':
+            model = self.get_queryset().model
+
+            all_fields = self.get_api_fields(model)
+            all_fields = list(OrderedDict.fromkeys(all_fields)) # Removes any duplicates in case the developer put "title" in api_fields
 
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
             else:
                 fields = {'title'}
+
+            unknown_fields = fields - set(all_fields)
+
+            if unknown_fields:
+                raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
+
+            # Reorder fields so it matches the order of all_fields
+            fields = [field for field in all_fields if field in fields]
 
             return {
                 'request': request,
@@ -103,10 +118,15 @@ class BaseAPIEndpoint(GenericViewSet):
                 'fields': fields
             }
 
+        model = type(self.get_object())
+
+        all_fields = self.get_api_fields(model)
+        all_fields = list(OrderedDict.fromkeys(all_fields)) # Removes any duplicates in case the developer put "title" in api_fields
+
         return {
             'request': request,
             'view': self,
-            'all_fields': True,
+            'fields': all_fields,
             'show_details': True
         }
 
