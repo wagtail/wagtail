@@ -6,11 +6,6 @@ from django.utils.six import text_type
 
 from rest_framework import renderers
 
-from taggit.managers import _TaggableManager
-from taggit.models import Tag
-
-from wagtail.wagtailcore.blocks import StreamValue
-
 from .utils import URLPath, ObjectDetailURL, get_base_url
 
 
@@ -35,11 +30,7 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
 
         class WagtailAPIJSONEncoder(DjangoJSONEncoder):
             def default(self, o):
-                if isinstance(o, _TaggableManager):
-                    return list(o.all())
-                elif isinstance(o, Tag):
-                    return o.name
-                elif isinstance(o, URLPath):
+                if isinstance(o, URLPath):
                     return get_full_url(request, o.path)
                 elif isinstance(o, ObjectDetailURL):
                     detail_view = find_model_detail_view(o.model, endpoints)
@@ -48,8 +39,6 @@ class WagtailJSONRenderer(renderers.BaseRenderer):
                         return get_full_url(request, reverse(detail_view, args=(o.pk, )))
                     else:
                         return None
-                elif isinstance(o, StreamValue):
-                    return o.stream_block.get_prep_value(o)
                 else:
                     return super(WagtailAPIJSONEncoder, self).default(o)
 
