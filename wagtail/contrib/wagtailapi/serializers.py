@@ -11,7 +11,6 @@ from rest_framework.fields import Field
 from rest_framework.relations import RelatedField
 
 from wagtail.utils.compat import get_related_model
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore import fields as wagtailcore_fields
 
 from .utils import ObjectDetailURL, URLPath, pages_for_site
@@ -70,23 +69,6 @@ class BaseSerializer(serializers.ModelSerializer):
             return TagsField, {}
 
         return super(BaseSerializer, self).build_property_field(field_name, model_class)
-
-    def build_relational_field(self, field_name, relation_info):
-        if relation_info.to_many:
-            # Find child relations (pages only)
-            model = getattr(self.Meta, 'model')
-            child_relations = {}
-            if issubclass(model, Page):
-                child_relations = {
-                    child_relation.field.rel.related_name: get_related_model(child_relation)
-                    for child_relation in get_all_child_relations(model)
-                }
-
-            # Check child relations
-            if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
-                return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
-
-        return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
     def serialize_meta(self, obj):
         """
@@ -156,6 +138,21 @@ class PageSerializer(BaseSerializer):
                 )
 
         return OrderedDict(data)
+
+    def build_relational_field(self, field_name, relation_info):
+        if relation_info.to_many:
+            # Find child relations
+            model = getattr(self.Meta, 'model')
+            child_relations = {
+                child_relation.field.rel.related_name: get_related_model(child_relation)
+                for child_relation in get_all_child_relations(model)
+            }
+
+            # Check child relations
+            if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
+                return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
+
+        return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
 
 class DocumentSerializer(BaseSerializer):
