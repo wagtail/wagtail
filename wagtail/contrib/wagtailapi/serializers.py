@@ -8,7 +8,7 @@ from taggit.managers import _TaggableManager
 
 from rest_framework import serializers
 from rest_framework.fields import Field
-from rest_framework.relations import RelatedField
+from rest_framework import relations
 
 from wagtail.utils.compat import get_related_model
 from wagtail.wagtailcore import fields as wagtailcore_fields
@@ -16,22 +16,7 @@ from wagtail.wagtailcore import fields as wagtailcore_fields
 from .utils import ObjectDetailURL, URLPath, pages_for_site
 
 
-class ChildRelationField(Field):
-    def __init__(self, *args, **kwargs):
-        self.child_fields = kwargs.pop('child_fields')
-        super(ChildRelationField, self).__init__(*args, **kwargs)
-
-    def to_representation(self, value):
-        serializer_class = get_serializer_class(value.model, self.child_fields)
-        serializer = serializer_class()
-
-        return [
-            serializer.serialize_fields(child_object)
-            for child_object in value.all()
-        ]
-
-
-class RelatedObjectField(RelatedField):
+class RelatedField(relations.RelatedField):
     def to_representation(self, value):
         model = type(value)
 
@@ -42,6 +27,26 @@ class RelatedObjectField(RelatedField):
                  ('detail_url', ObjectDetailURL(model, value.pk)),
             ])),
         ])
+
+
+class ChildRelationField(Field):
+    """
+    Child objects are part of the pages content so we nest them on the page.
+    """
+    def __init__(self, *args, **kwargs):
+        self.child_fields = kwargs.pop('child_fields')
+        super(ChildRelationField, self).__init__(*args, **kwargs)
+
+    def to_representation(self, value):
+        serializer_class = get_serializer_class(value.model, self.child_fields)
+        serializer = serializer_class()
+
+        return [
+            # We don't call to_representation here as we don't want the id or meta
+            # to be added to the child objects
+            serializer.serialize_fields(child_object)
+            for child_object in value.all()
+        ]
 
 
 class StreamField(Field):
@@ -60,7 +65,7 @@ class BaseSerializer(serializers.ModelSerializer):
     serializer_field_mapping.update({
         wagtailcore_fields.StreamField: StreamField,
     })
-    serializer_related_field = RelatedObjectField
+    serializer_related_field = RelatedField
 
     def build_property_field(self, field_name, model_class):
         # TaggableManager is not a Django field so it gets treated as a property
@@ -72,8 +77,8 @@ class BaseSerializer(serializers.ModelSerializer):
 
     def serialize_meta(self, obj):
         """
-        This returns a JSON-serialisable dict to use for the "meta"
-        section of a particlular object.
+        This generates an OrderedDict representing the "meta" section of
+        the object
         """
         data = OrderedDict()
 
@@ -88,10 +93,6 @@ class BaseSerializer(serializers.ModelSerializer):
         return super(BaseSerializer, self).to_representation(obj)
 
     def to_representation(self, obj):
-        """
-        This converts an object into JSON-serialisable dict so it can
-        be used in the API.
-        """
         data = [
             ('id', obj.id),
         ]
@@ -119,7 +120,7 @@ class PageSerializer(BaseSerializer):
     def serialize_fields(self, page):
         data = list(super(PageSerializer, self).serialize_fields(page).items())
 
-        # Add parent field to the beginning
+        # Add parent field to the beginning of the fields section
         if self.context.get('show_details', False):
             parent = page.get_parent()
 
@@ -140,15 +141,15 @@ class PageSerializer(BaseSerializer):
         return OrderedDict(data)
 
     def build_relational_field(self, field_name, relation_info):
+        # Find all relation fields that point to child class and make them use
+        # the ChildRelationField class.
         if relation_info.to_many:
-            # Find child relations
             model = getattr(self.Meta, 'model')
             child_relations = {
                 child_relation.field.rel.related_name: get_related_model(child_relation)
                 for child_relation in get_all_child_relations(model)
             }
 
-            # Check child relations
             if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
                 return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
 
@@ -159,7 +160,7 @@ class DocumentSerializer(BaseSerializer):
     def serialize_meta(self, document):
         data = super(DocumentSerializer, self).serialize_meta(document)
 
-        # Download URL
+        # Add download URL to meta
         if self.context.get('show_details', False):
             data['download_url'] = URLPath(document.url)
 
