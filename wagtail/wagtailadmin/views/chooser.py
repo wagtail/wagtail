@@ -7,6 +7,7 @@ from django.utils.http import urlencode
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
+from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtailcore.models import Page
 
 
@@ -26,14 +27,12 @@ def browse(request, parent_page_id=None):
 
     desired_classes = []
     for page_type in page_types:
-        content_type_app_name, content_type_model_name = page_type.split('.')
-
         try:
-            content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-        except ContentType.DoesNotExist:
+            content_type = resolve_model_string(page_type)
+        except LookupError:
             raise Http404
 
-        desired_classes.append(content_type.model_class())
+        desired_classes.append(content_type)
 
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
@@ -102,13 +101,11 @@ def search(request, parent_page_id=None):
 
     # Convert page_types string into list of ContentType objects
     if page_types:
-        for page_type in page_types.split(','):
-            content_type_app_name, content_type_model_name = page_type.split('.')
-
-            try:
-                content_types.append(ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name))
-            except ContentType.DoesNotExist:
-                raise Http404
+        try:
+            content_types = ContentType.objects.get_for_models(*[
+                resolve_model_string(page_type) for page_type in page_types.split(',')])
+        except LookupError:
+            raise Http404
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
