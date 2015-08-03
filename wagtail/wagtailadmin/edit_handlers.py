@@ -557,15 +557,15 @@ class BasePageChooserPanel(BaseChooserPanel):
             if cls.page_types:
                 models = []
 
-                for page_type in cls.page_types:
+                for index, page_type in enumerate(cls.page_types):
                     try:
                         models.append(resolve_model_string(page_type))
                     except LookupError:
-                        raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                            cls.__name__, page_type))
+                        raise ImproperlyConfigured("{0}.page_types[{1}] must be of the form 'app_label.model_name', given {2!r}".format(
+                            cls.__name__, index, page_type))
                     except ValueError:
-                        raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
-                            cls.__name__, page_type))
+                        raise ImproperlyConfigured("{0}.page_types[{1}] refers to model {2!r} that has not been installed".format(
+                            cls.__name__, index, page_type))
 
                 # Get a mapping of ContentType objects for the models
                 content_types = ContentType.objects.get_for_models(*models)
