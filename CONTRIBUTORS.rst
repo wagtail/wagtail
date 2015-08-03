@@ -57,6 +57,7 @@ Contributors
 * Michael Fillier
 * Mitchel Cabuloy
 * Piet Delport
+* Tom Christie
 
 Translators
 ===========

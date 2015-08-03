@@ -29,6 +29,7 @@ The Elasticsearch search backend now accepts an experimental ``ATOMIC_REBUILD`` 
 Minor features
 ~~~~~~~~~~~~~~
 
+ * The :mod:`~wagtail.contrib.wagtailapi` module has been refactored to use Django REST Framework
  * Implemented pagination in the page chooser modal
  * Changed INSTALLED_APPS in project template to list apps in precedence order
  * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
