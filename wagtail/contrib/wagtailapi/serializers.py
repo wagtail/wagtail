@@ -27,8 +27,7 @@ class ChildRelationField(Field):
         serializer = serializer_class()
 
         return [
-            # Use rest frameworks to_representation method so we don't add id/meta attributes
-            super(BaseSerializer, serializer).to_representation(child_object)
+            serializer.serialize_fields(child_object)
             for child_object in value.all()
         ]
 
@@ -102,7 +101,11 @@ class BaseSerializer(serializers.ModelSerializer):
 
         return data
 
-    def to_representation(self, obj, extra_data=()):
+    def serialize_fields(self, obj):
+        # Call rest frameworks built in to_representation method
+        return super(BaseSerializer, self).to_representation(obj)
+
+    def to_representation(self, obj):
         """
         This converts an object into JSON-serialisable dict so it can
         be used in the API.
@@ -111,16 +114,13 @@ class BaseSerializer(serializers.ModelSerializer):
             ('id', obj.id),
         ]
 
-        # Add meta
+        # Serialize meta
         metadata = self.serialize_meta(obj)
         if metadata:
             data.append(('meta', metadata))
 
-        # Add extra data
-        data.extend(extra_data)
-
-        # Serialize the fields
-        data.extend(super(BaseSerializer, self).to_representation(obj).items())
+        # Serialize fields
+        data.extend(self.serialize_fields(obj).items())
 
         return OrderedDict(data)
 
@@ -134,8 +134,10 @@ class PageSerializer(BaseSerializer):
 
         return data
 
-    def to_representation(self, page, extra_data=()):
-        # Add parent
+    def serialize_fields(self, page):
+        data = list(super(PageSerializer, self).serialize_fields(page).items())
+
+        # Add parent field to the beginning
         if self.context.get('show_details', False):
             parent = page.get_parent()
 
@@ -143,17 +145,17 @@ class PageSerializer(BaseSerializer):
             if site_pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
-                extra_data += (
+                data.insert(0,
                     ('parent', OrderedDict([
                         ('id', parent.id),
                         ('meta', OrderedDict([
                              ('type', parent_class._meta.app_label + '.' + parent_class.__name__),
                              ('detail_url', ObjectDetailURL(parent_class, parent.id)),
                         ])),
-                    ])),
+                    ]))
                 )
 
-        return super(PageSerializer, self).to_representation(page, extra_data=extra_data)
+        return OrderedDict(data)
 
 
 class DocumentSerializer(BaseSerializer):
