@@ -31,4 +31,3 @@ def register_forms_menu_item():
 @hooks.register('insert_editor_js')
 def editor_js():
     return """<script src="%swagtailforms/js/page-editor.js"></script>""" % settings.STATIC_URL
-
