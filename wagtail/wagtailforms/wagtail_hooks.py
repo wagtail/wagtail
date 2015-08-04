@@ -32,7 +32,3 @@ def register_forms_menu_item():
 def editor_js():
     return """<script src="%swagtailforms/js/page-editor.js"></script>""" % settings.STATIC_URL
 
-
-@hooks.register('insert_richtexteditor_js')
-def forms_richtexteditor_js():
-    return """<script src="%swagtailforms/js/rich-text-editor.js"></script>""" % settings.STATIC_URL
