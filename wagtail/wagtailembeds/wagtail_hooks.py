@@ -22,7 +22,7 @@ def editor_js():
                 window.chooserUrls.embedsChooser = '{0}';
             </script>
         """,
-        urlresolvers.reverse('wagtailembeds_chooser')
+        urlresolvers.reverse('wagtailembeds:chooser')
     )
 
 
