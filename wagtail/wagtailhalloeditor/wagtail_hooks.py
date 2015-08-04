@@ -18,11 +18,11 @@ def insert_editor_css():
 @hooks.register('insert_editor_js')
 def insert_editor_js():
     js_files = [
-        'wagtailhallo/js/vendor/hallo.js',
-        'wagtailhallo/js/hallo-plugins/hallo-wagtaillink.js',
-        'wagtailhallo/js/hallo-plugins/hallo-hr.js',
-        'wagtailhallo/js/hallo-plugins/hallo-requireparagraphs.js',
-        'wagtailhallo/js/rich-text-editor.js',
+        'wagtailhalloeditor/js/vendor/hallo.js',
+        'wagtailhalloeditor/js/hallo-plugins/hallo-wagtaillink.js',
+        'wagtailhalloeditor/js/hallo-plugins/hallo-hr.js',
+        'wagtailhalloeditor/js/hallo-plugins/hallo-requireparagraphs.js',
+        'wagtailhalloeditor/js/rich-text-editor.js',
     ]
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)

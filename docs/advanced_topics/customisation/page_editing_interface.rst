@@ -81,7 +81,7 @@ For information on developing custom ``hallo.js`` plugins, see the project's pag
 Replacing the default WYSIWYG Editor
 ------------------------------------
 
-To replace the ``hallo.js`` editor, remove the ``wagtail.wagtailhallo`` app from your ``INSTALLED_APPS`` setting and replace it with an alternative WYSIWYG editor app.
+To replace the ``hallo.js`` editor, remove the ``wagtail.wagtailhalloeditor`` app from your ``INSTALLED_APPS`` setting and replace it with an alternative WYSIWYG editor app.
 
 .. _rich_text_image_formats:
 
