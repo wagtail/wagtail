@@ -3,7 +3,7 @@
 UI Styleguide
 =============
 
-Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
+Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the ``wagtail.contrib.styleguide`` module.
 
 To install the styleguide module on your site, add it to the list of ``INSTALLED_APPS`` in your settings:
 
@@ -11,7 +11,7 @@ To install the styleguide module on your site, add it to the list of ``INSTALLED
 
     INSTALLED_APPS = (
        ...
-       'wagtail.contrib.wagtailstyleguide',
+       'wagtail.contrib.styleguide',
        ...
     )
 
