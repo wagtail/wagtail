@@ -395,7 +395,7 @@ class TestDeleteFormSubmission(TestCase):
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed('wagtaiforms/confirm_delete')
 
-        # Check that the deletion has not happend with GET request
+        # Check that the deletion has not happened with GET request
         self.assertEqual(FormSubmission.objects.count(), 2)
 
     def test_delete_submission_with_permissions(self):
@@ -407,7 +407,7 @@ class TestDeleteFormSubmission(TestCase):
 
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
-        # Should be redirected to list of submission
+        # Should be redirected to list of submissions
         self.assertRedirects(response, reverse("wagtailforms_list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
@@ -423,7 +423,7 @@ class TestDeleteFormSubmission(TestCase):
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
 
-        # Check that the deletion has not happend
+        # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
 
 class TestIssue798(TestCase):
