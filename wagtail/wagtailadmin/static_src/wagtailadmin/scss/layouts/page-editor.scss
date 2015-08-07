@@ -293,33 +293,18 @@
         min-height: 41px;
 
         h2{
-            cursor: pointer;
+            &:before, label:before{
+                content: '6';
+                cursor: pointer;
+            }
         }
-        h2:before{
-            content: '6';
-            text-shadow:none;
-            line-height: 40px;
-            padding-right: 1px;
-            opacity: 1;
-            color: #666;
-            background-color: transparent;
-            @include transition(background-color 0.2s ease, color 0.2s ease);
-        }
-        h2:hover:before{
-        }
+        
 
         &.collapsed{
-            background: #fff;
             h2{
-                 @include box-shadow(none);
-            }
-            h2:before{
-                content: '5';
-                color: #fff;
-                background-color:$color-teal;
-            }
-            h2:hover:before{
-                background-color:$color-teal-darker;
+                &:before, label:before{
+                    content: '5';
+                }
             }
         }
     }

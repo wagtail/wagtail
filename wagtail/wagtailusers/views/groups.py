@@ -85,9 +85,9 @@ def create(request):
             formset.instance = group
             formset.save()
             messages.success(request, _("Group '{0}' created.").format(group), buttons=[
-                messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
+                messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
             ])
-            return redirect('wagtailusers_groups_index')
+            return redirect('wagtailusers_groups:index')
         else:
             messages.error(request, _("The group could not be created due to errors."))
     else:
@@ -110,9 +110,9 @@ def edit(request, group_id):
             group = form.save()
             formset.save()
             messages.success(request, _("Group '{0}' updated.").format(group), buttons=[
-                messages.button(reverse('wagtailusers_groups_edit', args=(group.id,)), _('Edit'))
+                messages.button(reverse('wagtailusers_groups:edit', args=(group.id,)), _('Edit'))
             ])
-            return redirect('wagtailusers_groups_index')
+            return redirect('wagtailusers_groups:index')
         else:
             messages.error(request, _("The group could not be saved due to errors."))
     else:
@@ -133,7 +133,7 @@ def delete(request, group_id):
     if request.POST:
         group.delete()
         messages.success(request, _("Group '{0}' deleted.").format(group.name))
-        return redirect('wagtailusers_groups_index')
+        return redirect('wagtailusers_groups:index')
 
     return render(request, "wagtailusers/groups/confirm_delete.html", {
         'group': group,

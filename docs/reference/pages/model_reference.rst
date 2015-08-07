@@ -221,7 +221,7 @@ Methods and properties
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
- - Revisions can be created from any :class:`~wagtail.wagtailcore.models.Page` object calling its :meth:`~Page.create_revision` method
+ - Revisions can be created from any :class:`~wagtail.wagtailcore.models.Page` object by calling its :meth:`~Page.save_revision` method
  - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
  - You can retrieve a ``PageRevision`` as a :class:`~wagtail.wagtailcore.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 

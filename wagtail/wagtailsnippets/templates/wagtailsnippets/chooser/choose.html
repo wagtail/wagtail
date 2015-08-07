@@ -6,7 +6,7 @@
     {% if items %}
     	{% include "wagtailsnippets/chooser/list.html" with choosing=1 %}
     {% else %}
-    	{% url 'wagtailsnippets_create' content_type.app_label content_type.model as wagtailsnippets_create_snippet_url %}
+    	{% url 'wagtailsnippets:add' content_type.app_label content_type.model as wagtailsnippets_create_snippet_url %}
     	<p>{% blocktrans %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank">create one now{% endblocktrans %}</p>
     {% endif %}
 

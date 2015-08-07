@@ -367,7 +367,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -400,8 +400,22 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+
+        self.assertIn(expected_js, result)
+
+    def test_multiple_page_types(self):
+        # Model has a foreign key to Page, but we specify EventPage, and SimplePage in
+        # the PageChooserPanel to restrict the chooser to that page type
+        MyPageChooserPanel = PageChooserPanel('page', ['tests.EventPage', 'tests.SimplePage']).bind_to_model(EventPageChooserModel)
+        PageChooserForm = MyPageChooserPanel.get_form_class(EventPageChooserModel)
+        form = PageChooserForm(instance=self.test_instance)
+        page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
+
+        result = page_chooser_panel.render_as_field()
+        expected_js = 'createPageChooser("{id}", ["{model1}", "{model2}"], {parent});'.format(
+            id="id_page", model1="tests.eventpage", model2="tests.simplepage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
 
@@ -414,33 +428,41 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.MyPageChooserPanel(instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", "{model}", {parent});'.format(
+        expected_js = 'createPageChooser("{id}", ["{model}"], {parent});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
 
-    def test_target_content_type(self):
+    def test_target_content_types(self):
         result = PageChooserPanel(
             'barbecue',
-            'wagtailcore.site'
-        ).bind_to_model(PageChooserModel).target_content_type()
-        self.assertEqual(result.name, 'Site')
+            'tests.simplepage'
+        ).bind_to_model(PageChooserModel).target_content_types()
+        self.assertEqual(result[0].name, 'simple page')
 
-    def test_target_content_type_malformed_type(self):
+    def test_target_content_types_multiple_page_types(self):
+        result = PageChooserPanel(
+            'barbecue',
+            ['tests.simplepage', 'tests.eventpage'],
+        ).bind_to_model(PageChooserModel).target_content_types()
+        self.assertEqual(result[0].name, 'simple page')
+        self.assertEqual(result[1].name, 'event page')
+
+    def test_target_content_types_malformed_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_content_types)
 
-    def test_target_content_type_nonexistent_type(self):
+    def test_target_content_types_nonexistent_type(self):
         result = PageChooserPanel(
             'barbecue',
             'snowman.lorry'
         ).bind_to_model(PageChooserModel)
         self.assertRaises(ImproperlyConfigured,
-                          result.target_content_type)
+                          result.target_content_types)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):

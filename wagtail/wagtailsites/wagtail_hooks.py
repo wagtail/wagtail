@@ -11,14 +11,19 @@ from wagtail.wagtailsites import urls
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^sites/', include(urls)),
+        url(r'^sites/', include(urls, namespace='wagtailsites')),
     ]
 
 
 class SitesMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.is_superuser
+        return (
+            request.user.has_perm('wagtailcore.add_site')
+            or request.user.has_perm('wagtailcore.edit_site')
+            or request.user.has_perm('wagtailcore.delete_site')
+        )
+
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites_index'), classnames='icon icon-site', order=602)
+    return SitesMenuItem(_('Sites'), urlresolvers.reverse('wagtailsites:index'), classnames='icon icon-site', order=602)

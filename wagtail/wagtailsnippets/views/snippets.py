@@ -138,10 +138,10 @@ def create(request, content_type_app_name, content_type_model_name):
                     instance=instance
                 ),
                 buttons=[
-                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
+                    messages.button(reverse('wagtailsnippets:edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
                 ]
             )
-            return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+            return redirect('wagtailsnippets:list', content_type.app_label, content_type.model)
         else:
             messages.error(request, _("The snippet could not be created due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
@@ -181,10 +181,10 @@ def edit(request, content_type_app_name, content_type_model_name, id):
                     instance=instance
                 ),
                 buttons=[
-                    messages.button(reverse('wagtailsnippets_edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
+                    messages.button(reverse('wagtailsnippets:edit', args=(content_type_app_name, content_type_model_name, instance.id)), _('Edit'))
                 ]
             )
-            return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+            return redirect('wagtailsnippets:list', content_type.app_label, content_type.model)
         else:
             messages.error(request, _("The snippet could not be saved due to errors."))
             edit_handler = edit_handler_class(instance=instance, form=form)
@@ -219,7 +219,7 @@ def delete(request, content_type_app_name, content_type_model_name, id):
                 instance=instance
             )
         )
-        return redirect('wagtailsnippets_list', content_type.app_label, content_type.model)
+        return redirect('wagtailsnippets:list', content_type.app_label, content_type.model)
 
     return render(request, 'wagtailsnippets/snippets/confirm_delete.html', {
         'content_type': content_type,

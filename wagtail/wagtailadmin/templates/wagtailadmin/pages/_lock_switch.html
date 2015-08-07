@@ -9,9 +9,9 @@
     
     {% if page.locked %}
         {% if page_perms.can_lock %}
-            <form action="{% url 'wagtailadmin_pages_unlock' page.id %}" method="POST" class="status-tag primary">
+            <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="POST" class="status-tag primary">
                 {% csrf_token %}
-                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
+                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}">
                 <input type="submit" class="unbutton" value="{% trans "Locked" %}">
             </form>
         {% else %}
@@ -19,9 +19,9 @@
         {% endif %}
     {% else %}
         {% if page_perms.can_lock %}
-            <form action="{% url 'wagtailadmin_pages_lock' page.id %}" method="POST" class="status-tag secondary">
+            <form action="{% url 'wagtailadmin_pages:lock' page.id %}" method="POST" class="status-tag secondary">
                 {% csrf_token %}
-                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages_edit' page.id %}">
+                <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}">
                 <input type="submit" class="unbutton" value="{% trans "Unlocked" %}">
             </form>
         {% else %}

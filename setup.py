@@ -28,6 +28,7 @@ install_requires = [
     "django-modelcluster>=0.6",
     "django-taggit>=0.13.0",
     "django-treebeard==3.0",
+    "djangorestframework==3.1.3",
     "Pillow>=2.6.1",
     "beautifulsoup4>=4.3.2",
     "html5lib==0.999",

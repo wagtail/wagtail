@@ -58,7 +58,7 @@
 
                         // Build url
                         // TODO: Find better way to inject movedPageId
-                        var url = "{% url 'wagtailadmin_pages_set_page_position' '999999' %}".replace('999999', movedPageId);
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', movedPageId);
                         if (newPosition != null) {
                             url += '?position=' + newPosition;
                         }

@@ -11,7 +11,7 @@ from wagtail.wagtailembeds.rich_text import MediaEmbedHandler
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls)),
+        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
     ]
 
 
@@ -26,7 +26,7 @@ def editor_js():
         """,
         settings.STATIC_URL,
         'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
-        urlresolvers.reverse('wagtailembeds_chooser')
+        urlresolvers.reverse('wagtailembeds:chooser')
     )
 
 
