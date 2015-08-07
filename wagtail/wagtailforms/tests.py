@@ -387,12 +387,12 @@ class TestDeleteFormSubmission(TestCase):
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_cofirmation(self):
-        self.client.get(reverse(
+        response = self.client.get(reverse(
             'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
         ))
         # Check show confirm page when HTTP method is GET
-        self.assertTemplateUsed('wagtaiforms/confirm_delete')
+        self.assertTemplateUsed(response, 'wagtailforms/confirm_delete.html')
 
         # Check that the deletion has not happened with GET request
         self.assertEqual(FormSubmission.objects.count(), 2)
