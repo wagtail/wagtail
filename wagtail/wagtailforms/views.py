@@ -42,7 +42,7 @@ def delete_submission(request, page_id, submission_id):
         submission.delete()
 
         messages.success(request, _("Submission deleted."))
-        return redirect('wagtailforms_list_submissions', page_id)
+        return redirect('wagtailforms:list_submissions', page_id)
 
     return render(request, 'wagtailforms/confirm_delete.html', {
         'page': page,

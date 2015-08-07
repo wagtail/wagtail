@@ -388,7 +388,7 @@ class TestDeleteFormSubmission(TestCase):
 
     def test_delete_submission_show_cofirmation(self):
         reponse = self.client.get(reverse(
-            'wagtailforms_delete_submission',
+            'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
             )
         )
@@ -400,7 +400,7 @@ class TestDeleteFormSubmission(TestCase):
 
     def test_delete_submission_with_permissions(self):
         response = self.client.post(reverse(
-            'wagtailforms_delete_submission',
+            'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
             )
         )
@@ -408,14 +408,14 @@ class TestDeleteFormSubmission(TestCase):
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
         # Should be redirected to list of submissions
-        self.assertRedirects(response, reverse("wagtailforms_list_submissions", args=(self.form_page.id, )))
+        self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id, )))
 
     def test_delete_submission_bad_permissions(self):
         self.form_page = make_form_page()
         self.client.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(
-            'wagtailforms_delete_submission',
+            'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
             )
         )

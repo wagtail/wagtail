@@ -11,7 +11,7 @@
         <p>
             {% trans 'Are you sure you want to delete this form submission?' %}
         </p>
-        <form action="{% url 'wagtailforms_delete_submission' page.id submission.id %}" method="POST">
+        <form action="{% url 'wagtailforms:delete_submission' page.id submission.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Delete it' %}" class="serious">
         </form>
