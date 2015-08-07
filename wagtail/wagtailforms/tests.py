@@ -387,11 +387,10 @@ class TestDeleteFormSubmission(TestCase):
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_cofirmation(self):
-        reponse = self.client.get(reverse(
+        self.client.get(reverse(
             'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
-            )
-        )
+        ))
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed('wagtaiforms/confirm_delete')
 
@@ -402,8 +401,7 @@ class TestDeleteFormSubmission(TestCase):
         response = self.client.post(reverse(
             'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
-            )
-        )
+        ))
 
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
@@ -417,8 +415,7 @@ class TestDeleteFormSubmission(TestCase):
         response = self.client.post(reverse(
             'wagtailforms:delete_submission',
             args=(self.form_page.id, FormSubmission.objects.first().id)
-            )
-        )
+        ))
 
         # Check that the user recieved a 403 response
         self.assertEqual(response.status_code, 403)
