@@ -589,7 +589,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         Return None if the page is not routable.
         """
         root_paths = Site.get_site_root_paths()
-        for (id, root_path, root_url) in Site.get_site_root_paths():
+        for (id, root_path, root_url) in root_paths:
             if self.url_path.startswith(root_path):
                 return ('' if len(root_paths) == 1 else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
