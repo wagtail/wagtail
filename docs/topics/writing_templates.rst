@@ -118,6 +118,16 @@ Only fields using ``RichTextField`` need this applied in the template.
     ...
     {{ self.body|richtext }}
 
+
+By default the ``RichTextField`` wraps the HTML content in a ``div``. To use the direct contents of the field refer to its source property.
+
+.. code-block:: django
+
+    {% load wagtailcore_tags %}
+    ...
+    {{ self.body.source|safe }}
+
+
 Responsive Embeds
 -----------------
 
