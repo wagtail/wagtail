@@ -7,13 +7,12 @@ from django.utils.http import urlencode
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
-from wagtail.wagtailcore.utils import resolve_model_string
 from wagtail.wagtailcore.models import Page
 
 
 def get_querystring(request):
     return urlencode({
-        'page_types': request.GET.get('page_types', ''),
+        'page_type': request.GET.get('page_type', ''),
         'allow_external_link': request.GET.get('allow_external_link', ''),
         'allow_email_link': request.GET.get('allow_email_link', ''),
         'prompt_for_link_text': request.GET.get('prompt_for_link_text', ''),
@@ -33,27 +32,25 @@ def shared_context(request, extra_context={}):
 def browse(request, parent_page_id=None):
     ITEMS_PER_PAGE = 25
 
-    page_types = request.GET.get('page_types', 'wagtailcore.page').split(',')
+    page_type = request.GET.get('page_type') or 'wagtailcore.page'
+    content_type_app_name, content_type_model_name = page_type.split('.')
 
-    desired_classes = []
-    for page_type in page_types:
-        try:
-            content_type = resolve_model_string(page_type)
-        except LookupError:
-            raise Http404
-
-        desired_classes.append(content_type)
+    try:
+        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+    except ContentType.DoesNotExist:
+        raise Http404
+    desired_class = content_type.model_class()
 
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
     else:
         parent_page = Page.get_first_root_node()
 
-    parent_page.can_choose = issubclass(parent_page.specific_class, tuple(desired_classes))
+    parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
     search_form = SearchForm()
     pages = parent_page.get_children()
 
-    if desired_classes == [Page]:
+    if desired_class == Page:
         # apply pagination first, since we know that the page listing won't
         # have to be filtered, and that saves us walking the entire list
         p = request.GET.get('p', 1)
@@ -76,7 +73,7 @@ def browse(request, parent_page_id=None):
 
         shown_pages = []
         for page in pages:
-            page.can_choose = issubclass(page.specific_class or Page, tuple(desired_classes))
+            page.can_choose = issubclass(page.specific_class or Page, desired_class)
             page.can_descend = page.get_children_count()
 
             if page.can_choose or page.can_descend:
@@ -99,42 +96,30 @@ def browse(request, parent_page_id=None):
             'parent_page': parent_page,
             'pages': pages,
             'search_form': search_form,
-            'page_type_string': ','.join(page_types),
-            'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
+            'page_type_string': page_type,
+            'page_type_name': desired_class.get_verbose_name(),
             'page_types_restricted': (page_type != 'wagtailcore.page')
         })
     )
 
 
 def search(request, parent_page_id=None):
-    page_types = request.GET.get('page_types')
-    content_types = []
+    page_type = request.GET.get('page_type') or 'wagtailcore.page'
+    content_type_app_name, content_type_model_name = page_type.split('.')
 
-    # Convert page_types string into list of ContentType objects
-    if page_types:
-        try:
-            content_types = ContentType.objects.get_for_models(*[
-                resolve_model_string(page_type) for page_type in page_types.split(',')])
-        except LookupError:
-            raise Http404
+    try:
+        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+    except ContentType.DoesNotExist:
+        raise Http404
+    desired_class = content_type.model_class()
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = Page.objects.exclude(
+        pages = desired_class.objects.exclude(
             depth=1  # never include root
-        )
-
-        # Restrict content types
-        if content_types:
-            pages = pages.filter(content_type__in=content_types)
-
-        # Do search
-        pages = pages.filter(title__icontains=search_form.cleaned_data['q'])
-
-        # Truncate results
-        pages = pages[:10]
+        ).filter(title__icontains=search_form.cleaned_data['q'])[:10]
     else:
-        pages = Page.objects.none()
+        pages = desired_class.objects.none()
 
     shown_pages = []
     for page in pages:
