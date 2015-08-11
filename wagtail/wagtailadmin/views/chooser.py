@@ -126,7 +126,7 @@ def search(request, parent_page_id=None):
 
         # Restrict content types
         if content_types:
-            pages = pages.filter(content_type__in=content_types)
+            pages = pages.filter(content_type__in=content_types.values())
 
         # Do search
         pages = pages.filter(title__icontains=search_form.cleaned_data['q'])
