@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags static compress i18n %}
 {% block titletag %}{% blocktrans with title=parent_page.title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-explorer page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
+{% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
     <header class="merged no-border nice-padding no-v-padding">

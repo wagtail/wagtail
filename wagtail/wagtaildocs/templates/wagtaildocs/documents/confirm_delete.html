@@ -1,7 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% block titletag %}{% blocktrans with title=document.title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}menu-documents{% endblock %}
 {% block content %}
     {% trans "Delete document" as del_str %}
     {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=document.title icon="doc-full-inverse" %}
