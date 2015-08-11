@@ -1,4 +1,4 @@
-function createPageChooser(id, pageTypes, openAtParentId) {
+function createPageChooser(id, pageType, openAtParentId) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
     var input = $('#' + id);
@@ -12,7 +12,7 @@ function createPageChooser(id, pageTypes, openAtParentId) {
 
         ModalWorkflow({
             url: initialUrl,
-            urlParams: { page_types: pageTypes.join(',') },
+            urlParams: { page_type: pageType },
             responses: {
                 pageChosen: function(pageData) {
                     input.val(pageData.id);
