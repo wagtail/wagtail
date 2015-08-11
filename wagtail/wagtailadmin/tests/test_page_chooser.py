@@ -41,7 +41,7 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
         self.assertContains(response, "There are 0 matches")
 
     def test_get_invalid(self):
-        response = self.search({'page_types': 'foo.bar'})
+        response = self.search({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
 
 
