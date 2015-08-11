@@ -7,7 +7,7 @@ from django.forms.models import inlineformset_factory
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
+from wagtail.wagtailcore.models import get_user_permissions, GroupPagePermission
 
 
 User = get_user_model()
@@ -264,7 +264,7 @@ GroupPagePermissionFormSet = inlineformset_factory(
 class NotificationPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NotificationPreferencesForm, self).__init__(*args, **kwargs)
-        user_perms = UserPagePermissionsProxy(self.instance.user)
+        user_perms = get_user_permissions(self.instance.user)
         if not user_perms.can_publish_pages():
             del self.fields['submitted_notifications']
         if not user_perms.can_edit_pages():

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
+from wagtail.wagtailcore.models import PageRevision, get_user_permissions
 from wagtail.utils.compat import render_to_string
 
 from wagtail.wagtailadmin.site_summary import SiteSummaryPanel
@@ -30,7 +30,7 @@ class PagesForModerationPanel(object):
 
     def __init__(self, request):
         self.request = request
-        user_perms = UserPagePermissionsProxy(request.user)
+        user_perms = get_user_permissions(request.user)
         self.page_revisions_for_moderation = user_perms.revisions_for_moderation().select_related('page', 'user').order_by('-created_at')
 
     def render(self):

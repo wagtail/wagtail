@@ -13,7 +13,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import text_type
 from django.core.serializers.json import DjangoJSONEncoder
 
-from wagtail.wagtailcore.models import Page, Orderable, UserPagePermissionsProxy, get_page_types
+from wagtail.wagtailcore.models import Page, Orderable, get_user_permissions, get_page_types
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.utils import send_mail
 
@@ -121,7 +121,7 @@ def get_forms_for_user(user):
     """
     Return a queryset of form pages that this user is allowed to access the submissions for
     """
-    editable_pages = UserPagePermissionsProxy(user).editable_pages()
+    editable_pages = get_user_permissions(user).editable_pages()
     return editable_pages.filter(content_type__in=get_form_types())
 
 
