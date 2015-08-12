@@ -544,44 +544,66 @@ class BaseChooserPanel(BaseFieldPanel):
 class BasePageChooserPanel(BaseChooserPanel):
     object_type_name = "page"
 
-    _target_content_type = None
+    _target_content_types = None
 
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: widgets.AdminPageChooser(
-            content_type=cls.target_content_type())}
+            content_types=cls.target_content_types())}
 
     @classmethod
-    def target_content_type(cls):
-        if cls._target_content_type is None:
-            if cls.page_type:
-                try:
-                    model = resolve_model_string(cls.page_type)
-                except LookupError:
-                    raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                        cls.__name__, cls.page_type))
-                except ValueError:
-                    raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
-                        cls.__name__, cls.page_type))
+    def target_content_types(cls):
+        if cls._target_content_types is None:
+            if cls.page_types:
+                models = []
 
-                cls._target_content_type = ContentType.objects.get_for_model(model)
+                for index, page_type in enumerate(cls.page_types):
+                    try:
+                        models.append(resolve_model_string(page_type))
+                    except LookupError:
+                        raise ImproperlyConfigured("{0}.page_types[{1}] must be of the form 'app_label.model_name', given {2!r}".format(
+                            cls.__name__, index, page_type))
+                    except ValueError:
+                        raise ImproperlyConfigured("{0}.page_types[{1}] refers to model {2!r} that has not been installed".format(
+                            cls.__name__, index, page_type))
+
+                # Get a mapping of ContentType objects for the models
+                content_types = ContentType.objects.get_for_models(*models)
+
+                # Convert content types into a list and set it to _target_content_types
+                # As the content types were in a dict, the order would be randomised but
+                # we need the ordering on _target_content_types to be deterministic to
+                # simplify testing
+                cls._target_content_types = [
+                    content_types[model]
+                    for model in models
+                ]
             else:
-                target_model = cls.model._meta.get_field(cls.field_name).rel.to
-                cls._target_content_type = ContentType.objects.get_for_model(target_model)
+                # Find model by introspecting the ForeignKey
+                model = cls.model._meta.get_field(cls.field_name).rel.to
+                cls._target_content_types = [ContentType.objects.get_for_model(model)]
 
-        return cls._target_content_type
+        return cls._target_content_types
 
 
 class PageChooserPanel(object):
-    def __init__(self, field_name, page_type=None):
+    def __init__(self, field_name, page_types=None):
         self.field_name = field_name
-        self.page_type = page_type
+
+        # Make sure page_types is a list
+        if page_types is None:
+            page_types = []
+
+        if not isinstance(page_types, (list, tuple)):
+            page_types = [page_types]
+
+        self.page_types = page_types
 
     def bind_to_model(self, model):
         return type(str('_PageChooserPanel'), (BasePageChooserPanel,), {
             'model': model,
             'field_name': self.field_name,
-            'page_type': self.page_type,
+            'page_types': self.page_types,
         })
 
 
