@@ -3,12 +3,15 @@ $submenu-color:darken($color-grey-1, 5%);
 
 .nav-wrapper{
     position: relative;
-    background: $color-grey-1;
     margin-left: -$menu-width;
     width: $menu-width;
     float: left;
     height:100%;
     min-height:800px;
+
+    .inner {
+      background: $color-grey-1;
+    }
 }
     #nav-toggle{
         left: $mobile-nice-padding;
@@ -278,7 +281,6 @@ body.explorer-open {
 
         .footer{
             padding-top:1em;
-            background-color:$color-grey-1;
             position:fixed;
             width:$menu-width - 7;
             bottom:0;
