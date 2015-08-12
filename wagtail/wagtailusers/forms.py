@@ -229,7 +229,8 @@ class GroupForm(forms.ModelForm):
 
 
 class GroupPagePermissionForm(forms.ModelForm):
-    page = forms.ModelChoiceField(queryset=Page.objects.all(), widget=AdminPageChooser())
+    page = forms.ModelChoiceField(queryset=Page.objects.all(),
+        widget=AdminPageChooser(show_edit_link=False))
 
     class Meta:
         model = GroupPagePermission
