@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import json
-import unittest
 
 from django.test import TestCase, override_settings
 from django.utils.http import urlquote
@@ -156,7 +155,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
-    @unittest.expectedFailure
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
@@ -352,7 +350,6 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertFormError(response, 'uploadform', 'file', "This field is required.")
 
-    @unittest.expectedFailure
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_upload_with_external_storage(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
