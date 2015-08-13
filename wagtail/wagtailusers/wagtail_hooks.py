@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.contrib.auth.models import Permission
@@ -57,6 +58,11 @@ def register_groups_menu_item():
 
 @hooks.register('register_permissions')
 def register_permissions():
-    auth_content_types = ContentType.objects.filter(app_label='auth', model__in=['group', 'user'])
-    relevant_content_types = auth_content_types
-    return Permission.objects.filter(content_type__in=relevant_content_types)
+    user_permissions = Q(content_type__app_label=AUTH_USER_APP_LABEL, codename__in=[
+        'add_%s' % AUTH_USER_MODEL_NAME.lower(),
+        'change_%s' % AUTH_USER_MODEL_NAME.lower(),
+        'delete_%s' % AUTH_USER_MODEL_NAME.lower(),
+    ])
+    group_permissions = Q(content_type__app_label='auth', codename__in=['add_group', 'change_group', 'delete_group'])
+
+    return Permission.objects.filter(user_permissions | group_permissions)
