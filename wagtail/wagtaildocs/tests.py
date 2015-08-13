@@ -65,6 +65,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
+        self.assertContains(response, "Add a document")
 
     def test_search(self):
         response = self.client.get(reverse('wagtaildocs:index'), {'q': "Hello"})
@@ -688,3 +689,46 @@ class TestDocumentRichTextLinkHandler(TestCase):
         )
         self.assertEqual(result,
                          '<a href="/documents/1/test.pdf">')
+
+
+class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Build a fake file
+        fake_file = ContentFile(b("A boring example document"))
+        fake_file.name = 'test.txt'
+
+        # Create a document to edit
+        self.document = models.Document.objects.create(title="Test document", file=fake_file)
+
+        # Create a user with change_document permission but not add_document
+        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        change_permission = Permission.objects.get(content_type__app_label='wagtaildocs', codename='change_document')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        user.user_permissions.add(change_permission, admin_permission)
+        self.client.login(username='changeonly', password='password')
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtaildocs:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
+
+        # user should not get an "Add a document" button
+        self.assertNotContains(response, "Add a document")
+
+        # user should be able to see documents not owned by them
+        self.assertContains(response, "Test document")
+
+    def test_get_add(self):
+        response = self.client.get(reverse('wagtaildocs:add'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_edit(self):
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+    def test_get_delete(self):
+        response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/confirm_delete.html')

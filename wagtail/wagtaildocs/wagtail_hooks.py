@@ -23,7 +23,7 @@ def register_admin_urls():
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtaildocs.add_document')
+        return request.user.has_perm('wagtaildocs.add_document') or request.user.has_perm('wagtaildocs.change_document')
 
 
 @hooks.register('register_admin_menu_item')

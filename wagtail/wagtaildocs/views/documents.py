@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
@@ -14,7 +14,7 @@ from wagtail.wagtaildocs.models import Document
 from wagtail.wagtaildocs.forms import DocumentForm
 
 
-@permission_required('wagtaildocs.add_document')
+@any_permission_required('wagtaildocs.add_document', 'wagtaildocs.change_document')
 @vary_on_headers('X-Requested-With')
 def index(request):
     # Get documents
@@ -77,7 +77,7 @@ def index(request):
         })
 
 
-@permission_required('wagtaildocs.add_document')
+@any_permission_required('wagtaildocs.add_document')
 def add(request):
     if request.POST:
         doc = Document(uploaded_by_user=request.user)
