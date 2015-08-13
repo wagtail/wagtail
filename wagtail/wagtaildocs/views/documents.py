@@ -6,7 +6,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import any_permission_required
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailadmin import messages
 
@@ -77,7 +77,7 @@ def index(request):
         })
 
 
-@any_permission_required('wagtaildocs.add_document')
+@permission_required('wagtaildocs.add_document')
 def add(request):
     if request.POST:
         doc = Document(uploaded_by_user=request.user)

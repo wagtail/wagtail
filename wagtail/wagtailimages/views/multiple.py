@@ -7,7 +7,7 @@ from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils.encoding import force_text
 
-from wagtail.wagtailadmin.utils import any_permission_required
+from wagtail.wagtailadmin.utils import permission_required
 
 from wagtail.wagtailsearch.backends import get_search_backends
 
@@ -39,7 +39,7 @@ def get_image_edit_form(ImageModel):
     return ImageEditForm
 
 
-@any_permission_required('wagtailimages.add_image')
+@permission_required('wagtailimages.add_image')
 @vary_on_headers('X-Requested-With')
 def add(request):
     Image = get_image_model()

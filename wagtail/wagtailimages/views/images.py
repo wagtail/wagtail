@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import any_permission_required
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
@@ -233,7 +233,7 @@ def delete(request, image_id):
     })
 
 
-@any_permission_required('wagtailimages.add_image')
+@permission_required('wagtailimages.add_image')
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)

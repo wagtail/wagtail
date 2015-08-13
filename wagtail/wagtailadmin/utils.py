@@ -64,13 +64,44 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
     return User.objects.filter(is_active=True).filter(q).distinct()
 
 
+def permission_denied(request):
+    "Return a standard 'permission denied' response"
+    from wagtail.wagtailadmin import messages
+
+    messages.error(request, _('Sorry, you do not have permission to access this area.'))
+    return redirect('wagtailadmin_home')
+
+
+def permission_required(permission_name):
+    """
+    Replacement for django.contrib.auth.decorators.permission_required which returns a
+    more meaningful 'permission denied' response than just redirecting to the login page.
+    (The latter doesn't work anyway because Wagtail doesn't define LOGIN_URL...)
+    """
+    # Construct and return a decorator function specific to the permission name
+    # that has been passed in
+    def decorator(view_func):
+        # decorator takes the view function, and returns the view wrapped in
+        # a permission check
+
+        def wrapped_view_func(request, *args, **kwargs):
+            if request.user.has_perm(permission_name):
+                # permission check succeeds; run the view function as normal
+                return view_func(request, *args, **kwargs)
+            else:
+                # permission check failed
+                return permission_denied(request)
+
+        return wrapped_view_func
+
+    return decorator
+
+
 def any_permission_required(*perms):
     """
     Decorator that accepts a list of permission names, and allows the user
     to pass if they have *any* of the permissions in the list
     """
-    from wagtail.wagtailadmin import messages
-
     # Construct and return a decorator function specific to the permission list
     # that has been passed in
     def decorator(view_func):
@@ -84,8 +115,7 @@ def any_permission_required(*perms):
                     return view_func(request, *args, **kwargs)
 
             # if we get here, none of the permission checks have passed
-            messages.error(request, _('Sorry, you do not have permission to access this area.'))
-            return redirect('wagtailadmin_home')
+            return permission_denied(request)
 
         return wrapped_view_func
 
