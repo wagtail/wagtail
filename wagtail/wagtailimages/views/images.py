@@ -3,7 +3,6 @@ import json
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -13,6 +12,7 @@ from django.http import HttpResponse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.utils import any_permission_required
 from wagtail.wagtailsearch.backends import get_search_backends
 
 from wagtail.wagtailimages.models import get_image_model, Filter
@@ -21,7 +21,7 @@ from wagtail.wagtailimages.utils import generate_signature
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 
 
-@permission_required('wagtailimages.add_image')
+@any_permission_required('wagtailimages.add_image', 'wagtailimages.change_image')
 @vary_on_headers('X-Requested-With')
 def index(request):
     Image = get_image_model()
@@ -233,7 +233,7 @@ def delete(request, image_id):
     })
 
 
-@permission_required('wagtailimages.add_image')
+@any_permission_required('wagtailimages.add_image')
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)

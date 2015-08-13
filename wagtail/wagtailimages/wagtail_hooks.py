@@ -23,7 +23,7 @@ def register_admin_urls():
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_perm('wagtailimages.add_image')
+        return request.user.has_perm('wagtailimages.add_image') or request.user.has_perm('wagtailimages.change_image')
 
 
 @hooks.register('register_admin_menu_item')

@@ -5,6 +5,7 @@ import json
 from django.test import TestCase, override_settings
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -14,7 +15,7 @@ from django.template.defaultfilters import filesizeformat
 try:
     from django.utils.http import RFC3986_SUBDELIMS
     urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
-except ImportError: # < Django 1,8
+except ImportError:  # < Django 1,8
     urlquote_safechars = '/'
 
 from wagtail.tests.utils import WagtailTestUtils
@@ -34,6 +35,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/index.html')
+        self.assertContains(response, "Add an image")
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -687,3 +689,50 @@ class TestPreviewView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+
+class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # Create a user with change_image permission but not add_image
+        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        user.user_permissions.add(change_permission, admin_permission)
+        self.client.login(username='changeonly', password='password')
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtailimages:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/index.html')
+
+        # user should not get an "Add an image" button
+        self.assertNotContains(response, "Add an image")
+
+        # user should be able to see images not owned by them
+        self.assertContains(response, "Test image")
+
+    def test_get_add(self):
+        response = self.client.get(reverse('wagtailimages:add'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_edit(self):
+        response = self.client.get(reverse('wagtailimages:edit', args=(self.image.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+    def test_get_delete(self):
+        response = self.client.get(reverse('wagtailimages:delete', args=(self.image.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
+
+    def test_get_add_multiple(self):
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
