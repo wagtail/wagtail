@@ -75,6 +75,17 @@ class AbstractImage(models.Model, TagSearchable):
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
 
+    def is_stored_locally(self):
+        """
+        Returns True if the image is hosted on the local filesystem
+        """
+        try:
+            self.file.path
+
+            return True
+        except NotImplementedError:
+            return False
+
     def get_file_size(self):
         if self.file_size is None:
             try:
