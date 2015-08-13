@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import json
+import unittest
 
 from django.test import TestCase, override_settings
 from django.utils.http import urlquote
@@ -89,6 +90,19 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # Test that the file_size field was set
         self.assertTrue(image.file_size)
 
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_add_with_external_file_storage(self):
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Check that the image was created
+        self.assertTrue(Image.objects.filter(title="Test image").exists())
+
     def test_add_no_file_selected(self):
         response = self.post({
             'title': "Test image",
@@ -142,6 +156,20 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
 
+    @unittest.expectedFailure
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_simple_with_external_storage(self):
+        # The view calls get_file_size on the image that closes the file if
+        # file_size wasn't prevously populated.
+
+        # The view then attempts to reopen the file when rendering the template
+        # which caused crashes when certian storage backends were in use.
+        # See #1397
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
     def test_edit(self):
         response = self.post({
             'title': "Edited",
@@ -155,6 +183,26 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(image.title, "Edited")
 
     def test_edit_with_new_image_file(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        # Change the file size of the image
+        self.image.file_size = 100000
+        self.image.save()
+
+        response = self.post({
+            'title': "Edited",
+            'file': SimpleUploadedFile('new.png', file_content),
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailimages:index'))
+
+        # Check that the image file size changed (assume it changed to the correct value)
+        image = Image.objects.get(id=self.image.id)
+        self.assertNotEqual(image.file_size, 100000)
+
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
 
         # Change the file size of the image
@@ -303,6 +351,20 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # The form should have an error
         self.assertFormError(response, 'uploadform', 'file', "This field is required.")
+
+    @unittest.expectedFailure
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_upload_with_external_storage(self):
+        response = self.client.post(reverse('wagtailimages:chooser_upload'), {
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the image was created
+        self.assertTrue(Image.objects.filter(title="Test image").exists())
 
 
 class TestMultipleImageUploader(TestCase, WagtailTestUtils):
