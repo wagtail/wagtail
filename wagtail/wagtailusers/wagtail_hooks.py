@@ -22,9 +22,11 @@ class AuthMenuItem(MenuItem):
     def is_shown(self, request):
         return request.user.has_module_perms('auth')
 
+
 @hooks.register('register_settings_menu_item')
 def register_users_menu_item():
     return AuthMenuItem(_('Users'), urlresolvers.reverse('wagtailusers_users:index'), classnames='icon icon-user', order=600)
+
 
 @hooks.register('register_settings_menu_item')
 def register_groups_menu_item():
@@ -33,7 +35,6 @@ def register_groups_menu_item():
 
 @hooks.register('register_permissions')
 def register_permissions():
-    user_profile_content_types = ContentType.objects.filter(app_label='wagtailusers', model='userprofile')
     auth_content_types = ContentType.objects.filter(app_label='auth', model__in=['group', 'user'])
-    relevant_content_types = user_profile_content_types | auth_content_types
+    relevant_content_types = auth_content_types
     return Permission.objects.filter(content_type__in=relevant_content_types)
