@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail.wagtailusers.urls import users, groups
@@ -18,9 +19,21 @@ def register_admin_urls():
     ]
 
 
+# Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
+# 'auth.delete_user') for user management actions, but this may vary according to
+# the AUTH_USER_MODEL setting
+add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+
+
 class UsersMenuItem(MenuItem):
     def is_shown(self, request):
-        return request.user.has_module_perms('auth')
+        return (
+            request.user.has_perm(add_user_perm)
+            or request.user.has_perm(change_user_perm)
+            or request.user.has_perm(delete_user_perm)
+        )
 
 
 @hooks.register('register_settings_menu_item')
