@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load wagtailadmin_tags %}
 <table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
-    {% if orderable %}
+    {% if show_ordering_column %}
         <col width="50px" />
     {% endif %}
     <col />
@@ -19,7 +19,7 @@
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
-                <td class="title" {% if orderable %}colspan="2"{% endif %}>
+                <td class="title" {% if show_ordering_column %}colspan="2"{% endif %}>
                     {% block parent_page_title %}
                     {% endblock %}
                 </td>
@@ -42,8 +42,8 @@
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id }}" data-page-title="{{ page.title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
-                    {% if orderable %}
-                        <td class="ord">{% if ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
+                    {% if show_ordering_column %}
+                        <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
                     <td class="title" valign="top">
                         {% block page_title %}
