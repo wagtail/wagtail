@@ -99,6 +99,8 @@ def list(request, content_type_app_name, content_type_model_name):
 
     # Search
     is_searchable = class_is_indexed(model)
+    is_searching = False
+    search_query = None
     if is_searchable and 'q' in request.GET:
         search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
             'snippet_type_name': snippet_type_name_plural
@@ -109,6 +111,7 @@ def list(request, content_type_app_name, content_type_model_name):
 
             search_backend = get_search_backend()
             items = search_backend.search(search_query, items)
+            is_searching = True
 
     else:
         search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
@@ -126,13 +129,21 @@ def list(request, content_type_app_name, content_type_model_name):
     except EmptyPage:
         paginated_items = paginator.page(paginator.num_pages)
 
-    return render(request, 'wagtailsnippets/snippets/type_index.html', {
+    # Template
+    if request.is_ajax():
+        template = 'wagtailsnippets/snippets/results.html'
+    else:
+        template = 'wagtailsnippets/snippets/type_index.html'
+
+    return render(request, template, {
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'snippet_type_name_plural': snippet_type_name_plural,
         'items': paginated_items,
         'is_searchable': is_searchable,
         'search_form': search_form,
+        'is_searching': is_searching,
+        'query_string': search_query,
     })
 
 
