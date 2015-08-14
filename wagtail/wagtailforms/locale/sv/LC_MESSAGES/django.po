@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-07-16 20:52+0000\n"
+"Last-Translator: Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Text, enkelrad"
+
+msgid "Multi-line text"
+msgstr "Text, flera rader"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Number"
+msgstr "Siffra"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Kryssruta"
+
+msgid "Checkboxes"
+msgstr "Kryssrutor"
+
+msgid "Drop down"
+msgstr "Dropdown"
+
+msgid "Radio buttons"
+msgstr "Radioknappar"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Datum/tid"
+
+msgid "Submit time"
+msgstr "Mottaget"
+
+msgid "Form Submission"
+msgstr "Mottaget formulär"
+
+msgid "Label"
+msgstr "Fält-namn"
+
+msgid "The label of the form field"
+msgstr "Namn på fältet"
+
+msgid "Field type"
+msgstr "Fälttyp"
+
+msgid "Required"
+msgstr "Obligatoriskt"
+
+msgid "Choices"
+msgstr "Val"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Kommaseparerad lista med val. Används bara för kryssrutor, radioknappar och "
+"dropdowns."
+
+msgid "Default value"
+msgstr "Startvärde"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "Startvärde. Kommaseparerade värden för kryssrutor."
+
+msgid "Help text"
+msgstr "Stödtext"
+
+msgid "To address"
+msgstr "Mottagaradress"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr "Valfritt - ifyllda formulär e-postas till denna adress"
+
+msgid "From address"
+msgstr "Avsändaradress"
+
+msgid "Subject"
+msgstr "Ämne"
+
+msgid "Forms"
+msgstr "Formulär"
+
+msgid "Pages"
+msgstr "Sidor"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Mottagna från %(form_title)s "
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Formulärdata <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtrera"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Det finns inga mottagna formulär från '%(title)s'."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Källa"
+
+msgid "Submission Date"
+msgstr "Mottaget"
+
+msgid "No form pages have been created."
+msgstr "Inga formulär har skapats."
