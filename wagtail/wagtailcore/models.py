@@ -302,6 +302,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('depth'),
         index.FilterField('locked'),
     )
+    
+    class Meta:
+        verbose_name = _('Page')
+        verbose_name_plural = _('Pages')
 
     def __init__(self, *args, **kwargs):
         super(Page, self).__init__(*args, **kwargs)
