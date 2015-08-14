@@ -1,7 +1,5 @@
 function initModal(modal) {
 
-    var listingUrl = $('#snippet-chooser-list', modal.body).data('url');
-
     function ajaxifyLinks(context) {
         $('a.snippet-choice', modal.body).click(function() {
             modal.loadUrl(this.href);
@@ -15,24 +13,17 @@ function initModal(modal) {
         });
     }
 
+    var searchUrl = $('form.snippet-search', modal.body).attr('action');
+
     function setPage(page) {
-
         $.ajax({
-            url: listingUrl,
-            data: { p: page },
-            dataType: 'html',
-            success: function(data, status, xhr) {
-                var response = eval('(' + data + ')');
-                $(modal.body).html(response.html);
-
-                if (response.onload) {
-                    response.onload(self);
-                }
-
-                ajaxifyLinks($('#snippet-chooser-list'));
+            url: searchUrl,
+            data: {p: page, results: 'true'},
+            success: function(data, status) {
+                $('#search-results').html(data);
+                ajaxifyLinks($('#search-results'));
             }
         });
-
         return false;
     }
 
