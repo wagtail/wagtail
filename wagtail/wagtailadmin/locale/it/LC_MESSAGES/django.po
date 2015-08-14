@@ -11,9 +11,9 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-06-30 06:21+0000\n"
+"PO-Revision-Date: 2015-07-07 21:03+0000\n"
 "Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/wagtail/language/"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -467,14 +467,14 @@ msgid "Delete it"
 msgstr "Cancellalo"
 
 msgid "Unpublish it"
-msgstr "Rendila non pubblica"
+msgstr "Annulla pubblicazione"
 
 #, python-format
 msgid "Move %(title)s"
-msgstr "Muovi %(title)s"
+msgstr "Sposta %(title)s"
 
 msgid "Move"
-msgstr "Muovi"
+msgstr "Sposta"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -492,16 +492,16 @@ msgstr "Si, va a questa pagina"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Rendi non pubblico %(title)s"
+msgstr "Annulla pubblicazione %(title)s"
 
 msgid "Unpublish"
-msgstr "Non pubblicare"
+msgstr "Annulla pubblicazione"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler non pubblicare questa pagina?"
 
 msgid "Yes, unpublish it"
-msgstr "Si, rendila non pubblica"
+msgstr "Si, annulla la pubblicazione"
 
 msgid "Pages using"
 msgstr "Pagina usate"

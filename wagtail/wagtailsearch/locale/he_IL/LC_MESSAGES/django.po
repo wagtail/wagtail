@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# bjesus <bjesus@gmail.com>, 2015
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-20 14:00+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/"
+"PO-Revision-Date: 2015-08-10 16:08+0000\n"
+"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +41,9 @@ msgstr "הוסף בחירת עורך"
 msgid "Save"
 msgstr "שמור"
 
+msgid "Delete"
+msgstr "מחיקה"
+
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
@@ -47,6 +51,10 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "כן, מחק"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "עריכת %(query)s"
 
 msgid "Editing"
 msgstr "עריכה"

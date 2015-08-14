@@ -1,0 +1,458 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+# saevarom <saevar@saevar.is>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"PO-Revision-Date: 2015-07-01 09:25+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Scheduled publishing"
+msgstr "Tímasetning birtingar"
+
+msgid "Common page configuration"
+msgstr "Algengar síðustillingar"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Search term"
+msgstr "Leitarfrasi"
+
+msgid "Enter password"
+msgstr "Sláðu inn lykilorð"
+
+msgid "Enter your email address to reset your password"
+msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
+
+msgid "Please fill your email address."
+msgstr "Vinsamlegast sláðu inn netfangið þitt."
+
+msgid "This email address is not recognised."
+msgstr "Þetta netfang er ekki á skrá."
+
+msgid "New title"
+msgstr "Titill"
+
+msgid "New slug"
+msgstr "Slóð"
+
+msgid "New parent page"
+msgstr "Ný yfirsíða"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Þetta afrit verður undirsíða þessarar yfirsíðu"
+
+msgid "Copy subpages"
+msgstr "Afrita undirsíður"
+
+msgid "Publish copied page"
+msgstr "Setja afritaðar síður í birtingu."
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Þessi síða er í birtingu. Viltu setja afritið í birtingu líka?"
+
+msgid "Publish copies"
+msgstr "Setja afrit í birtingu"
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private, accessible with the following password"
+msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
+
+msgid "Set gravatar"
+msgstr "Setja notandamynd"
+
+msgid "Change password"
+msgstr "Breyta lykilorði"
+
+msgid "Change the password you use to log in."
+msgstr "Breyta lykilorðinu sem þú notar til að skrá þig inn."
+
+msgid "Change Password"
+msgstr "Breyta lykilorði"
+
+msgid "Update"
+msgstr "Uppfæra"
+
+msgid "Reset password"
+msgstr "Endursetja lykilorð"
+
+msgid "Password change successful"
+msgstr "Tókst að breyta lykilorði"
+
+msgid "Login"
+msgstr "Innskrá"
+
+msgid "Set your new password"
+msgstr "Sláðu inn nýtt lykilorð"
+
+msgid "The passwords do not match. Please try again."
+msgstr "Lykilorðin eru ekki þau sömu. Vinsamlegast reynið aftur"
+
+msgid "Password reset"
+msgstr "Endursetja lykilorð"
+
+msgid "Reset your password"
+msgstr "Endursettu lykilorðið þitt"
+
+msgid "Menu"
+msgstr "Valmynd"
+
+msgid "Choose"
+msgstr "Veldu"
+
+msgid "Choose a page"
+msgstr "Veldu síðu"
+
+msgid "Add an email link"
+msgstr "Bæta við hlekk á netfang"
+
+msgid "Move up"
+msgstr "Færa upp"
+
+msgid "Move down"
+msgstr "Færa niður"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "Parent"
+msgstr "Yfirsíða"
+
+msgid "Type"
+msgstr "Tegund"
+
+msgid "Edited"
+msgstr "Breytt"
+
+msgid "Edit this page"
+msgstr "Breyta þessari síðu"
+
+msgid "Approve"
+msgstr "Samþykkja"
+
+msgid "Reject"
+msgstr "Hafna"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Preview"
+msgstr "Forskoða"
+
+msgid "Your most recent edits"
+msgstr "Síðustu breytingar sem þú hefur gert"
+
+msgid "Date"
+msgstr "Dagsetning"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Draft"
+msgstr "Uppkast"
+
+msgid "Live"
+msgstr "Í birtingu"
+
+msgid "Sign in"
+msgstr "Innskrá"
+
+msgid "Forgotten it?"
+msgstr "Búin(n) að gleyma því?"
+
+msgid "You can view the page here:"
+msgstr "Þú getur skoðað síðuna hér:"
+
+msgid "You can edit the page here:"
+msgstr "Þú getur breytt síðunni hér:"
+
+msgid "You can preview the page here:"
+msgstr "Þú getur forskoðað síðuna hér:"
+
+msgid "Locked"
+msgstr "Læst"
+
+msgid "Unlocked"
+msgstr "Aflæst"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Eyða %(title)s"
+
+msgid "Yes, move this page"
+msgstr "Já, færðu þessa síðu"
+
+msgid "Pages using"
+msgstr "Síður sem nota"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Afrita %(title)s"
+
+msgid "Copy"
+msgstr "Afrita"
+
+msgid "Copy this page"
+msgstr "Afrita þessa síðu"
+
+msgid "New"
+msgstr "Ný"
+
+msgid "Save as draft"
+msgstr "Vista sem uppkast"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
+
+msgid "Page locked"
+msgstr "Síða læst"
+
+msgid "Save draft"
+msgstr "Vista uppkast"
+
+msgid "Drag"
+msgstr "Draga"
+
+#, python-format
+msgid ""
+"\n"
+"            Page %(page_number)s of %(num_pages)s.\n"
+"        "
+msgstr ""
+"\n"
+"            Síða %(page_number)s af %(num_pages)s.\n"
+"        "
+
+msgid "Previous"
+msgstr "Fyrra"
+
+msgid "Next"
+msgstr "Næsta"
+
+msgid "Add subpage"
+msgstr "Bæta við undirsíðu"
+
+msgid "Add child page"
+msgstr "Bæða við undirsíðu"
+
+msgid "Disable ordering of child pages"
+msgstr "Óvirkja röðun á undirsíðum"
+
+msgid "Order"
+msgstr "Röðun"
+
+msgid "Enable ordering of child pages"
+msgstr "Virkja röðun á undirsíðum"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
+
+msgid "Other searches"
+msgstr "Aðrar leitir"
+
+msgid "Images"
+msgstr "Myndir"
+
+msgid "Documents"
+msgstr "Skjöl"
+
+msgid "Users"
+msgstr "Notendur"
+
+msgid "Enter a search term above"
+msgstr "Sláðu inn leitarorð hér að ofan"
+
+msgid "Home"
+msgstr "Heim"
+
+msgid "January"
+msgstr "Janúar"
+
+msgid "February"
+msgstr "Febrúar"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Maí"
+
+msgid "June"
+msgstr "Júní"
+
+msgid "July"
+msgstr "Júlí"
+
+msgid "August"
+msgstr "Ágúst"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "Nóvember"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sun"
+msgstr "Sun"
+
+msgid "Mon"
+msgstr "Mán"
+
+msgid "Tue"
+msgstr "Þri"
+
+msgid "Wed"
+msgstr "Mið"
+
+msgid "Thu"
+msgstr "Fim"
+
+msgid "Fri"
+msgstr "Fös"
+
+msgid "Sat"
+msgstr "Lau"
+
+msgid "Go to Wagtail admin interface"
+msgstr "Fara á Wagtail stjórnborð"
+
+msgid "Add a child page"
+msgstr "Bæta við undirsíðu"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
+
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Síða '{0}' vistuð og birt."
+
+msgid "View live"
+msgstr "Skoða á vef"
+
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Síða '{0}' vistuð og send til samþykkis."
+
+msgid "View draft"
+msgstr "Skoða uppkast"
+
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "Síða '{0}' vistuð."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
+
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Síða '{0}' hefur verið birt."
+
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "Síða '{0}' send til samþykkis."
+
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "Síða '{0}' uppfærð."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Ekki var hægt að vista síðuna, hún er læst"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Þessi síða bíður samþykkis til birtingar."
+
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Síðu '{0}' eytt."
+
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Síða '{0}' tekin úr birtingu."
+
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Síða '{0}' færð."
+
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Síða '{0}' og {1} undirsíður afritaðar."
+
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "Síða '{0}' afrituð."
+
+msgid "Content"
+msgstr "Efni"
+
+msgid "Promote"
+msgstr "Sýnileiki"
+
+msgid "Settings"
+msgstr "Stillingar"
+
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "'{0}' bíður nú samþykkis til birtingar."
+
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "Birtingu '{0}' var hafnað."
+
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Síða '{0}' er nú læst."
+
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Síða '{0}' er nú ólæst."
+
+msgid "Choose an item"
+msgstr "Veldu"
+
+msgid "Choose another item"
+msgstr "Veldu annað"
+
+msgid "Clear choice"
+msgstr "Hreinsa"
+
+msgid "Edit this item"
+msgstr "Breyta þessu"
+
+msgid "Choose another page"
+msgstr "Veldu aðra síðu"

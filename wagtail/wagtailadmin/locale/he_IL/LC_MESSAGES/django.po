@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-06-20 12:57+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/wagtail/"
+"PO-Revision-Date: 2015-08-10 16:03+0000\n"
+"Last-Translator: bjesus <bjesus@gmail.com>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,6 +56,9 @@ msgstr "כתובת הדוא\"ל הזו איננה מזוהה"
 msgid "New title"
 msgstr "כותרת חדשה"
 
+msgid "New slug"
+msgstr "כתובת אינטרנט"
+
 msgid "New parent page"
 msgstr "עמוד הורה חדש."
 
@@ -64,6 +67,12 @@ msgstr "העותק הזה יהיה צאצא של עמוד ההורה הנבחר"
 
 msgid "Copy subpages"
 msgstr "העתק תת- דף"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "זה יעתיק תת-עמוד %(count)s."
+msgstr[1] "זה יעתיק %(count)s תת-עמודים."
 
 msgid "Publish copied page"
 msgstr "פרסם עמוד מועתק"
@@ -74,11 +83,29 @@ msgstr "עמוד זה באוויר. האם תרצו לפרסם גם את העת�
 msgid "Publish copies"
 msgstr "פרסום העתקים"
 
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"דף %(count)s שמועתק מופיע עכשו באתר. האם אתם רוצים לפרסם את העותק שלו?"
+msgstr[1] ""
+"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
+"שלהם?"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט של עמוד ההורה \"%s\""
+
 msgid "Public"
 msgstr "ציבורי"
 
 msgid "Private, accessible with the following password"
-msgstr "פרטי, זמין עם הסיסמא הבאה"
+msgstr "פרטי, זמין עם הסיסמה הבאה"
 
 msgid "This field is required."
 msgstr "שדה חובה"
@@ -86,11 +113,22 @@ msgstr "שדה חובה"
 msgid "Account"
 msgstr "חשבון"
 
+msgid "Set gravatar"
+msgstr "הגדרת Gravatar"
+
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+"התמונה שלכם מגיעה מהשירות Gravatar והיא מחוברת לכתובת הדוא\"ל שלכם. באמצעות "
+"חשבון Gravatar אתם יכולים להגדיר תמונה עבור כל כתובת דוא\"ל שנמצאת ברשותכם."
+
 msgid "Change password"
-msgstr "שינוי סיסמא"
+msgstr "שינוי סיסמה"
 
 msgid "Change the password you use to log in."
-msgstr "שינוי הסיסמא עבור התחברות"
+msgstr "שינוי הסיסמה עבור התחברות"
 
 msgid "Notification preferences"
 msgstr "העדפות התראות"
@@ -99,11 +137,11 @@ msgid "Choose which email notifications to receive."
 msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
 
 msgid "Change Password"
-msgstr "שינוי סיסמא"
+msgstr "שינוי סיסמה"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
-msgstr "אי אפשר לשנות את הסיסמא. נא לפנות למנהל האתר."
+msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
 
 msgid "Notification Preferences"
 msgstr "העדפות התראות"
@@ -112,31 +150,31 @@ msgid "Update"
 msgstr "עדכן"
 
 msgid "Reset password"
-msgstr "איתחול סיסמא"
+msgstr "איתחול סיסמה"
 
 msgid "Password change successful"
-msgstr "שינוי סיסמא בוצע בהצלחה"
+msgstr "שינוי סיסמה בוצע בהצלחה"
 
 msgid "Login"
 msgstr "התחברות"
 
 msgid "Set your new password"
-msgstr "הגדרת סיסמא חדשה"
+msgstr "הגדרת סיסמה חדשה"
 
 msgid "The passwords do not match. Please try again."
-msgstr "הסיסמאות לא מתאימות. נא לנסות שוב."
+msgstr "הסיסמאות לא תואמות. נא לנסות שוב."
 
 msgid "Check your email"
 msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
 
 msgid "A link to reset your password has been emailed to you."
-msgstr "קישור לאיתחול הסיסמא נשלח אליכם"
+msgstr "קישור לאיתחול הסיסמה נשלח לתיבת הדואר האלקטרוני שלכם."
 
 msgid "Please follow the link below to reset your password"
 msgstr "אנא לחצו על הקישור הבא על מנת לאתחל את סיסמתכם"
 
 msgid "Password reset"
-msgstr "איתחול סיסמא"
+msgstr "איתחול סיסמה"
 
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
@@ -151,7 +189,7 @@ msgid "Add another"
 msgstr "הוסיפו עוד"
 
 msgid "Explorer"
-msgstr "חוקר"
+msgstr "סיור"
 
 msgid "Internal link"
 msgstr "קישור פנימי"
@@ -161,6 +199,33 @@ msgstr "קישור חיצוני"
 
 msgid "Email link"
 msgstr "קישור דואר אלקטרוני"
+
+#, python-format
+msgid ""
+"\n"
+"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
+"results will exclude pages of other types.\n"
+"    "
+msgstr ""
+"\n"
+"ניתן לבחור רק בעמודים מהסוג \"%(type)s\" עבור השדה הזה. תוצאות החיפוש לא "
+"יכללו דפים מסוגים אחרים."
+
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"יש תוצאה אחת"
+msgstr[1] ""
+"\n"
+"יש %(counter)s תוצאות"
 
 msgid "Choose"
 msgstr "בחרו"
@@ -185,6 +250,10 @@ msgstr "עברו מטה"
 
 msgid "Delete"
 msgstr "מחיקה"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "ברוך הבא לנחליאלי CMS של %(site_name)s"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -239,8 +308,28 @@ msgstr "חי"
 msgid "Site summary"
 msgstr "סיכום אתר"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"עמוד <span>%(total)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> עמודים"
+
 msgid "Sign in"
 msgstr "התחברות "
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s שלכם והסיסמה לא תאמו. אנא נסו שוב."
 
 msgid "Sign in to Wagtail"
 msgstr "התחברות לWagtail"
@@ -248,14 +337,38 @@ msgstr "התחברות לWagtail"
 msgid "Forgotten it?"
 msgstr "שכחתם את זה?"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "העמוד \"%(title)s\" אושר"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "העמוד \"%(title)s\" אושר."
+
 msgid "You can view the page here:"
 msgstr "ניתן לראות את העמוד כאן"
 
 msgid "Edit your notification preferences here:"
 msgstr "ערכו הגדרות התראות כאן"
 
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "העמוד \"%(title)s\" נדחה"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "העמוד \"%(title)s\" נדחה."
+
 msgid "You can edit the page here:"
 msgstr "ניתן לערוך את העמוד כאן"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "העמוד \"%(page)s\" הועבר לאישור"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr "העמוד \"%(page)s\" הועבר לאישור."
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
@@ -270,7 +383,7 @@ msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr "שינויי פרטיות תקפים על כל הילדים של עמוד זה"
+msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
 msgid "Edit lock"
 msgstr "ערוך נעילה"
@@ -287,14 +400,43 @@ msgstr "פרטיות"
 msgid "Private"
 msgstr "פרטי"
 
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "יצירת עמוד חדש ב%(title)s"
+
 msgid "Create a page in"
 msgstr "צור עמוד בתוך"
 
 msgid "Choose which type of page you'd like to create."
 msgstr "בחרו איזה סוג עמוד תרצו ליצור"
 
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "עמודים מסוג %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "מחיקת %(title)s"
+
 msgid "Are you sure you want to delete this page?"
 msgstr "בטוח למחוק עמוד זה?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"פעולה זו תמחק בנוסף תת-עמוד אחד."
+msgstr[1] ""
+"\n"
+"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
 
 msgid ""
 "Alternatively you can unpublish the page. This removes the page from public "
@@ -309,11 +451,29 @@ msgstr "מחק זו"
 msgid "Unpublish it"
 msgstr "ביטול פרסום"
 
+#, python-format
+msgid "Move %(title)s"
+msgstr "הזזת %(title)s"
+
 msgid "Move"
 msgstr "העברה"
 
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "בטוחים שברצונכם להזיז את העמוד הזה אל תוך '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "בטוחים שברצונכם להעביר את העמוד הזה וכל תת-העמודים שלו אל '%(title)s'?"
+
 msgid "Yes, move this page"
 msgstr "כן, העבר את העמוד"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "הסתר את %(title)s"
 
 msgid "Unpublish"
 msgstr "ביטול פרסום"
@@ -327,11 +487,19 @@ msgstr "כן, בטל את הפרסום"
 msgid "Pages using"
 msgstr "עמודים משמשים"
 
+#, python-format
+msgid "Copy %(title)s"
+msgstr "העתקת %(title)s"
+
 msgid "Copy"
 msgstr "העתק"
 
 msgid "Copy this page"
 msgstr "העתק עמוד זה"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "%(page_type)s חדש"
 
 msgid "New"
 msgstr "חדש "
@@ -345,11 +513,31 @@ msgstr "פרסם"
 msgid "Submit for moderation"
 msgstr "הזן לעריכה"
 
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "עריכת %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "עריכת %(page_type)s <span>%(title)s</span>"
+
 msgid "Page locked"
 msgstr "עמוד נעול"
 
 msgid "Save draft"
 msgstr "שמור טיוטה"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "שינוי אחרון: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "מאת %(modified_by)s"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "מסייר ב%(title)s"
 
 msgid "Updated"
 msgstr "עדכן"
@@ -360,6 +548,19 @@ msgstr "גרור"
 msgid "No pages have been created."
 msgstr "אפס עמודים נוצרו "
 
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
+msgstr "למה לא <a href=\"%(add_page_url)s\">להוסיף אחד</a>?"
+
+#, python-format
+msgid ""
+"\n"
+"            Page %(page_number)s of %(num_pages)s.\n"
+"        "
+msgstr ""
+"\n"
+" עמוד %(page_number)s מתוך %(num_pages)s."
+
 msgid "Previous"
 msgstr "קודם"
 
@@ -369,11 +570,23 @@ msgstr "הבא"
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "מסייר בתת עמודים של '%(title)s'"
+
 msgid "Explore"
-msgstr "לחקור"
+msgstr "לסייר"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "מסייר בעמודים שבתוך '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "הוספת תת-עמוד אל '%(title)s'"
 
 msgid "Add subpage"
-msgstr "הוסף תת עמוד"
+msgstr "הוספת תת עמוד"
 
 msgid ""
 "This page is published but does not exist within a configured Site, so "
@@ -381,19 +594,43 @@ msgid ""
 msgstr "עמוד זה מפורסם אך לא קיים באתר, לכן אין אפשרות להציג אותו"
 
 msgid "Add child page"
-msgstr "הוסף עמוד ילד"
+msgstr "הוספת תת-עמוד"
 
 msgid "This page is protected from public view"
 msgstr "עמוד זה מוגן מתצוגה פומבית"
 
 msgid "Disable ordering of child pages"
-msgstr "ביטול פקודה של עמוד ילד"
+msgstr "כיבוי סידור של תתי-עמודים"
 
 msgid "Order"
 msgstr "פקוד"
 
 msgid "Enable ordering of child pages"
-msgstr "ביטול פקודה של עמודי ילדים"
+msgstr "הפעלת סידור של תתי-עמודים"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "בחירת עמוד הורה חדש עבור %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
+
+#, python-format
+msgid ""
+"\n"
+"                    There is one matching page\n"
+"                "
+msgid_plural ""
+"\n"
+"                    There are %(counter)s matching pages\n"
+"                "
+msgstr[0] ""
+"\n"
+"יש עמוד תואם אחד"
+msgstr[1] ""
+"\n"
+"יש  %(counter)s דפים תואמים"
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"
@@ -406,6 +643,19 @@ msgstr "מסמכים"
 
 msgid "Users"
 msgstr "משתמשים"
+
+#, python-format
+msgid ""
+"\n"
+"                Page %(page_number)s of %(num_pages)s.\n"
+"            "
+msgstr ""
+"\n"
+" עמוד %(page_number)s מתוך %(num_pages)s."
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "מצערים, לא נמצאו עמודים שתואמים <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
@@ -473,11 +723,29 @@ msgstr "שישי"
 msgid "Sat"
 msgstr "שבת"
 
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "היה בשימוש פעם %(useage_count)s"
+msgstr[1] "היה בשימוש %(useage_count)s פעמים"
+
 msgid "Edit your account"
 msgstr "ערכו את חשבונכם"
 
 msgid "Log out"
 msgstr "התנתקות"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"הדפדפן שלכם <strong>מיושן</strong> ולא נתמך ע\"י התוכנה הזו. אנא <a href="
+"\"http://browsehappy.com/\">עברו לדפדפן מודרני</a>."
 
 msgid "Javascript is required to use Wagtail, but it is currently disabled"
 msgstr "יש צורך בJavascript על מנת להתשמש בWagtail, אך הוא מכובה כרגע"
@@ -489,10 +757,10 @@ msgid "Go to Wagtail admin interface"
 msgstr "כניסה למערך המנהל של Wagtail "
 
 msgid "Add a child page"
-msgstr "הוסף עמוד ילד"
+msgstr "הוספת תת-עמוד"
 
 msgid "Add"
-msgstr "הוסף"
+msgstr "הוספה"
 
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
