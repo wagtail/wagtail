@@ -3,15 +3,15 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailadmin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.wagtailadmin.utils import permission_denied
 
 from wagtail.wagtailsnippets.models import get_snippet_content_types
-from wagtail.wagtailsnippets.permissions import user_can_edit_snippet_type
+from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
 from wagtail.wagtailadmin import messages
 
 
@@ -86,10 +86,15 @@ def index(request):
 
 def list(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
-
     model = content_type.model_class()
+
+    permissions = [
+        get_permission_name(action, model)
+        for action in ['add', 'change', 'delete']
+    ]
+    if not any([request.user.has_perm(perm) for perm in permissions]):
+        return permission_denied(request)
+
     snippet_type_name, snippet_type_name_plural = get_snippet_type_name(content_type)
 
     items = model.objects.all()
@@ -110,15 +115,18 @@ def list(request, content_type_app_name, content_type_model_name):
         'snippet_type_name': snippet_type_name,
         'snippet_type_name_plural': snippet_type_name_plural,
         'items': paginated_items,
+        'can_add_snippet': request.user.has_perm(get_permission_name('add', model)),
     })
 
 
 def create(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
-
     model = content_type.model_class()
+
+    permission = get_permission_name('add', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
+
     snippet_type_name = get_snippet_type_name(content_type)[0]
 
     instance = model()
@@ -158,10 +166,12 @@ def create(request, content_type_app_name, content_type_model_name):
 
 def edit(request, content_type_app_name, content_type_model_name, id):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
-
     model = content_type.model_class()
+
+    permission = get_permission_name('change', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
+
     snippet_type_name = get_snippet_type_name(content_type)[0]
 
     instance = get_object_or_404(model, id=id)
@@ -202,10 +212,12 @@ def edit(request, content_type_app_name, content_type_model_name, id):
 
 def delete(request, content_type_app_name, content_type_model_name, id):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
-    if not user_can_edit_snippet_type(request.user, content_type):
-        raise PermissionDenied
-
     model = content_type.model_class()
+
+    permission = get_permission_name('delete', model)
+    if not request.user.has_perm(permission):
+        return permission_denied(request)
+
     snippet_type_name = get_snippet_type_name(content_type)[0]
 
     instance = get_object_or_404(model, id=id)

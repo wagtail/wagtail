@@ -1,6 +1,11 @@
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 
 from wagtail.wagtailsnippets.models import get_snippet_content_types
+
+
+def get_permission_name(action, model):
+    return "%s.%s" % (model._meta.app_label, get_permission_codename(action, model._meta))
 
 
 def user_can_edit_snippet_type(user, content_type):
