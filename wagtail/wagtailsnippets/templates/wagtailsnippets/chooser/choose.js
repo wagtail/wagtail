@@ -15,10 +15,10 @@ function initModal(modal) {
 
     var searchUrl = $('form.snippet-search', modal.body).attr('action');
 
-    function setPage(page) {
+    function search() {
         $.ajax({
             url: searchUrl,
-            data: {p: page, results: 'true'},
+            data: {q: $('#id_q').val(), results: 'true'},
             success: function(data, status) {
                 $('#search-results').html(data);
                 ajaxifyLinks($('#search-results'));
@@ -27,6 +27,31 @@ function initModal(modal) {
         return false;
     }
 
-    ajaxifyLinks(modal.body);
+    function setPage(page) {
+        var dataObj = {p: page, results: 'true'};
 
+        if ($('#id_q').val().length) {
+            dataObj.q = $('#id_q').val();
+        }
+
+        $.ajax({
+            url: searchUrl,
+            data: dataObj,
+            success: function(data, status) {
+                $('#search-results').html(data);
+                ajaxifyLinks($('#search-results'));
+            }
+        });
+        return false;
+    }
+
+    $('form.snippet-search', modal.body).submit(search);
+
+    $('#id_q').on('input', function() {
+        clearTimeout($.data(this, 'timer'));
+        var wait = setTimeout(search, 50);
+        $(this).data('timer', wait);
+    });
+
+    ajaxifyLinks(modal.body);
 }
