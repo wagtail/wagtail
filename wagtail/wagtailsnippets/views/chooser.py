@@ -4,8 +4,12 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.six import text_type
+from django.utils.translation import ugettext as _
 
 from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailsearch.backends import get_search_backend
 
 from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_params, get_snippet_type_name
 
@@ -13,10 +17,29 @@ from wagtail.wagtailsnippets.views.snippets import get_content_type_from_url_par
 def choose(request, content_type_app_name, content_type_model_name):
     content_type = get_content_type_from_url_params(content_type_app_name, content_type_model_name)
     model = content_type.model_class()
-    snippet_type_name = get_snippet_type_name(content_type)[0]
+    snippet_type_name, snippet_type_name_plural = get_snippet_type_name(content_type)
 
     items = model.objects.all()
 
+    # Search
+    is_searchable = class_is_indexed(model)
+    if is_searchable and 'q' in request.GET:
+        search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': snippet_type_name_plural
+        })
+
+        if search_form.is_valid():
+            search_query = search_form.cleaned_data['q']
+
+            search_backend = get_search_backend()
+            items = search_backend.search(search_query, items)
+
+    else:
+        search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': snippet_type_name_plural
+        })
+
+    # Pagination
     p = request.GET.get("p", 1)
     paginator = Paginator(items, 25)
 
@@ -34,6 +57,8 @@ def choose(request, content_type_app_name, content_type_model_name):
             'content_type': content_type,
             'snippet_type_name': snippet_type_name,
             'items': paginated_items,
+            'is_searchable': is_searchable,
+            'search_form': search_form,
         }
     )
 
