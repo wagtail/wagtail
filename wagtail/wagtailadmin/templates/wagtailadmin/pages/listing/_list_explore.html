@@ -9,6 +9,33 @@
 {% endblock %}
 
 {% block post_parent_page_headers %}
+
+    {% if parent_page.is_root %}
+        <tr><td colspan="6"><div class="help-block help-info">
+            {% if perms.wagtailcore.add_site %}
+                {% blocktrans %}
+                    The root level is where you can add new sites to your Wagtail installation. Pages created here will not be available at any URL until they are associated with a site through the Settings -> Sites area. To add pages to an existing site, create them as children of the homepage.
+                {% endblocktrans %}
+            {% else %}
+                {% blocktrans %}
+                    Pages created here will not be available at any URL. To add pages to an existing site, create them as children of the homepage.
+                {% endblocktrans %}
+            {% endif %}
+        </div></td></tr>
+    {% elif not parent_page.url %}
+        <tr><td colspan="6"><div class="help-block help-warning">
+            {% if perms.wagtailcore.add_site %}
+                {% blocktrans %}
+                    There is no site record for this location. Pages created here will not be available at any URL until a site is configured through the Settings -> Sites area.
+                {% endblocktrans %}
+            {% else %}
+                {% blocktrans %}
+                    There is no site record for this location. Pages created here will not be available at any URL.
+                {% endblocktrans %}
+            {% endif %}
+        </div></td></tr>
+    {% endif %}
+
     {% include "wagtailadmin/pages/listing/_table_headers_explore.html" %}
 {% endblock %}
 
