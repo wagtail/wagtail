@@ -19,24 +19,29 @@ class Index(View):
         })
 
 
-@permission_required('wagtailcore.add_site')
-def create(request):
-    if request.method == 'POST':
-        form = SiteForm(request.POST)
-        if form.is_valid():
-            site = form.save()
+class Create(View):
+    @method_decorator(permission_required('wagtailcore.add_site'))
+    def get(self, request):
+        self.form = SiteForm()
+        return self.render_to_response()
+
+    @method_decorator(permission_required('wagtailcore.add_site'))
+    def post(self, request):
+        self.form = SiteForm(request.POST)
+        if self.form.is_valid():
+            site = self.form.save()
+
             messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons=[
                 messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
             return redirect('wagtailsites:index')
         else:
-            messages.error(request, _("The site could not be created due to errors."))
-    else:
-        form = SiteForm()
+            return self.render_to_response()
 
-    return render(request, 'wagtailsites/create.html', {
-        'form': form,
-    })
+    def render_to_response(self):
+        return render(self.request, 'wagtailsites/create.html', {
+            'form': self.form,
+        })
 
 
 @permission_required('wagtailcore.change_site')
