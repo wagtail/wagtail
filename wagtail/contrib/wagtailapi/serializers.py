@@ -61,6 +61,15 @@ class RelatedField(relations.RelatedField):
         ])
 
 
+class PageParentField(RelatedField):
+    def get_attribute(self, instance):
+        parent = instance.get_parent().specific
+
+        site_pages = pages_for_site(self.context['request'].site)
+        if site_pages.filter(id=parent.id).exists():
+            return parent
+
+
 class ChildRelationField(Field):
     """
     Child objects are part of the pages content so we nest them on the page.
@@ -122,29 +131,7 @@ class BaseSerializer(serializers.ModelSerializer):
 
 class PageSerializer(BaseSerializer):
     meta = PageMetaField()
-
-    def serialize_fields(self, page):
-        data = list(super(PageSerializer, self).serialize_fields(page).items())
-
-        # Add parent field to the beginning of the fields section
-        if self.context.get('show_details', False):
-            parent = page.get_parent()
-
-            site_pages = pages_for_site(self.context['request'].site)
-            if site_pages.filter(id=parent.id).exists():
-                parent_class = parent.specific_class
-
-                data.insert(2,
-                    ('parent', OrderedDict([
-                        ('id', parent.id),
-                        ('meta', OrderedDict([
-                             ('type', parent_class._meta.app_label + '.' + parent_class.__name__),
-                             ('detail_url', ObjectDetailURL(parent_class, parent.id)),
-                        ])),
-                    ]))
-                )
-
-        return OrderedDict(data)
+    parent = PageParentField(read_only=True)
 
     def build_relational_field(self, field_name, relation_info):
         # Find all relation fields that point to child class and make them use

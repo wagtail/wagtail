@@ -121,6 +121,10 @@ class BaseAPIEndpoint(GenericViewSet):
         # Always show id and meta first
         fields = ['id', 'meta'] + fields
 
+        # If showing details, add the parent field
+        if isinstance(self, PagesAPIEndpoint) and self.get_serializer_context().get('show_details', False):
+            fields.insert(2, 'parent')
+
         return get_serializer_class(model, fields, base=self.base_serializer_class)
 
     def get_serializer_context(self):
