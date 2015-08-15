@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.views.generic.base import View
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
@@ -8,12 +10,13 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 
 
-@any_permission_required('wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site')
-def index(request):
-    sites = Site.objects.all()
-    return render(request, 'wagtailsites/index.html', {
-        'sites': sites,
-    })
+class Index(View):
+    @method_decorator(any_permission_required('wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site'))
+    def get(self, request):
+        sites = Site.objects.all()
+        return render(request, 'wagtailsites/index.html', {
+            'sites': sites,
+        })
 
 
 @permission_required('wagtailcore.add_site')
