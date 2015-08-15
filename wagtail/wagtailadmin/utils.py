@@ -65,7 +65,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
 
 def permission_denied(request):
-    "Return a standard 'permission denied' response"
+    """Return a standard 'permission denied' response"""
     from wagtail.wagtailadmin import messages
 
     messages.error(request, _('Sorry, you do not have permission to access this area.'))
