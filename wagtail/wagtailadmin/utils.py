@@ -1,3 +1,5 @@
+from functools import wraps
+
 from django.template.loader import render_to_string
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
@@ -84,6 +86,7 @@ def permission_required(permission_name):
         # decorator takes the view function, and returns the view wrapped in
         # a permission check
 
+        @wraps(view_func)
         def wrapped_view_func(request, *args, **kwargs):
             if request.user.has_perm(permission_name):
                 # permission check succeeds; run the view function as normal
@@ -108,6 +111,7 @@ def any_permission_required(*perms):
         # decorator takes the view function, and returns the view wrapped in
         # a permission check
 
+        @wraps(view_func)
         def wrapped_view_func(request, *args, **kwargs):
             for perm in perms:
                 if request.user.has_perm(perm):
