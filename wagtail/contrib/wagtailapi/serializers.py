@@ -49,21 +49,20 @@ class DocumentMetaField(MetaField):
 
 
 class RelatedField(relations.RelatedField):
-    def to_representation(self, value):
-        model = type(value)
+    meta_field_serializer_class = MetaField
 
+    def to_representation(self, value):
         return OrderedDict([
             ('id', value.pk),
-            ('meta', OrderedDict([
-                 ('type', model._meta.app_label + '.' + model.__name__),
-                 ('detail_url', ObjectDetailURL(model, value.pk)),
-            ])),
+            ('meta', self.meta_field_serializer_class().to_representation(value)),
         ])
 
 
 class PageParentField(RelatedField):
+    meta_field_serializer_class = PageMetaField
+
     def get_attribute(self, instance):
-        parent = instance.get_parent().specific
+        parent = instance.get_parent()
 
         site_pages = pages_for_site(self.context['request'].site)
         if site_pages.filter(id=parent.id).exists():
