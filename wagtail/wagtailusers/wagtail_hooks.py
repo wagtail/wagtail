@@ -2,7 +2,6 @@ from django.db.models import Q
 from django.conf.urls import include, url
 from django.core import urlresolvers
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import hooks
