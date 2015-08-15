@@ -93,17 +93,14 @@ class BaseSerializer(serializers.ModelSerializer):
         return super(BaseSerializer, self).to_representation(obj)
 
     def to_representation(self, obj):
-        data = [
-            ('id', obj.id),
-        ]
+        # Serialize fields
+        data = list(self.serialize_fields(obj).items())
 
         # Serialize meta
         metadata = self.serialize_meta(obj)
         if metadata:
-            data.append(('meta', metadata))
-
-        # Serialize fields
-        data.extend(self.serialize_fields(obj).items())
+            # Insert meta just after id
+            data.insert(1, ('meta', metadata))
 
         return OrderedDict(data)
 
@@ -128,7 +125,7 @@ class PageSerializer(BaseSerializer):
             if site_pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
-                data.insert(0,
+                data.insert(1,
                     ('parent', OrderedDict([
                         ('id', parent.id),
                         ('meta', OrderedDict([
