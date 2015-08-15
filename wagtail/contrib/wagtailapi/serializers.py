@@ -251,6 +251,10 @@ class PageSerializer(BaseSerializer):
         return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
 
 
+class ImageSerializer(BaseSerializer):
+    pass
+
+
 class DocumentSerializer(BaseSerializer):
     meta = DocumentMetaField()
 

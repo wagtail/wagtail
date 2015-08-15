@@ -20,7 +20,7 @@ from .filters import (
 )
 from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
-from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, get_serializer_class
+from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
 from .utils import BadRequestError
 
 
@@ -220,6 +220,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     queryset = get_image_model().objects.all().order_by('id')
+    base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
     name = 'images'
