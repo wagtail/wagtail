@@ -21,6 +21,10 @@ def get_snippet_content_types():
     return SNIPPET_CONTENT_TYPES
 
 
+def get_snippet_models():
+    return SNIPPET_MODELS
+
+
 def register_snippet(model):
     if model not in SNIPPET_MODELS:
         model.get_usage = get_object_usage
