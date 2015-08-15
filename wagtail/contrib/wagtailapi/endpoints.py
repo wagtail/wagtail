@@ -118,8 +118,8 @@ class BaseAPIEndpoint(GenericViewSet):
             # Detail views show all fields all the time
             fields = all_fields
 
-        # Always show id first
-        fields = ['id'] + fields
+        # Always show id and meta first
+        fields = ['id', 'meta'] + fields
 
         return get_serializer_class(model, fields, base=self.base_serializer_class)
 

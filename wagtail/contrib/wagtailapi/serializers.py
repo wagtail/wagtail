@@ -16,6 +16,38 @@ from wagtail.wagtailcore import fields as wagtailcore_fields
 from .utils import ObjectDetailURL, URLPath, pages_for_site
 
 
+class MetaField(Field):
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, obj):
+        return OrderedDict([
+            ('type', type(obj)._meta.app_label + '.' + type(obj).__name__),
+            ('detail_url', ObjectDetailURL(type(obj), obj.pk)),
+        ])
+
+
+class PageMetaField(MetaField):
+    def to_representation(self, page):
+        data = super(PageMetaField, self).to_representation(page)
+
+        # Change type to the specific page class instead
+        data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
+
+        return data
+
+
+class DocumentMetaField(MetaField):
+    def to_representation(self, document):
+        data = super(DocumentMetaField, self).to_representation(document)
+
+        # Add download url
+        if self.context.get('show_details', False):
+            data['download_url'] = URLPath(document.url)
+
+        return data
+
+
 class RelatedField(relations.RelatedField):
     def to_representation(self, value):
         model = type(value)
@@ -67,6 +99,8 @@ class BaseSerializer(serializers.ModelSerializer):
     })
     serializer_related_field = RelatedField
 
+    meta = MetaField()
+
     def build_property_field(self, field_name, model_class):
         # TaggableManager is not a Django field so it gets treated as a property
         field = getattr(model_class, field_name)
@@ -74,19 +108,6 @@ class BaseSerializer(serializers.ModelSerializer):
             return TagsField, {}
 
         return super(BaseSerializer, self).build_property_field(field_name, model_class)
-
-    def serialize_meta(self, obj):
-        """
-        This generates an OrderedDict representing the "meta" section of
-        the object
-        """
-        data = OrderedDict()
-
-        # Add type
-        data['type'] = type(obj)._meta.app_label + '.' + type(obj).__name__
-        data['detail_url'] = ObjectDetailURL(type(obj), obj.pk)
-
-        return data
 
     def serialize_fields(self, obj):
         # Call rest frameworks built in to_representation method
@@ -96,23 +117,11 @@ class BaseSerializer(serializers.ModelSerializer):
         # Serialize fields
         data = list(self.serialize_fields(obj).items())
 
-        # Serialize meta
-        metadata = self.serialize_meta(obj)
-        if metadata:
-            # Insert meta just after id
-            data.insert(1, ('meta', metadata))
-
         return OrderedDict(data)
 
 
 class PageSerializer(BaseSerializer):
-    def serialize_meta(self, page):
-        data = super(PageSerializer, self).serialize_meta(page)
-
-        # Add type
-        data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
-
-        return data
+    meta = PageMetaField()
 
     def serialize_fields(self, page):
         data = list(super(PageSerializer, self).serialize_fields(page).items())
@@ -125,7 +134,7 @@ class PageSerializer(BaseSerializer):
             if site_pages.filter(id=parent.id).exists():
                 parent_class = parent.specific_class
 
-                data.insert(1,
+                data.insert(2,
                     ('parent', OrderedDict([
                         ('id', parent.id),
                         ('meta', OrderedDict([
@@ -154,14 +163,7 @@ class PageSerializer(BaseSerializer):
 
 
 class DocumentSerializer(BaseSerializer):
-    def serialize_meta(self, document):
-        data = super(DocumentSerializer, self).serialize_meta(document)
-
-        # Add download URL to meta
-        if self.context.get('show_details', False):
-            data['download_url'] = URLPath(document.url)
-
-        return data
+    meta = DocumentMetaField()
 
 
 def get_serializer_class(model_, fields_, base=BaseSerializer):
