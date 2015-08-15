@@ -83,9 +83,7 @@ class ChildRelationField(Field):
         serializer = serializer_class()
 
         return [
-            # We don't call to_representation here as we don't want the id or meta
-            # to be added to the child objects
-            serializer.serialize_fields(child_object)
+            serializer.to_representation(child_object)
             for child_object in value.all()
         ]
 
@@ -117,16 +115,6 @@ class BaseSerializer(serializers.ModelSerializer):
             return TagsField, {}
 
         return super(BaseSerializer, self).build_property_field(field_name, model_class)
-
-    def serialize_fields(self, obj):
-        # Call rest frameworks built in to_representation method
-        return super(BaseSerializer, self).to_representation(obj)
-
-    def to_representation(self, obj):
-        # Serialize fields
-        data = list(self.serialize_fields(obj).items())
-
-        return OrderedDict(data)
 
 
 class PageSerializer(BaseSerializer):
