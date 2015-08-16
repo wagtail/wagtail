@@ -30,10 +30,14 @@ class Edit(EditView):
     form_class = SiteForm
     success_message = __("Site '{0}' updated.")
     error_message = __("The site could not be saved due to errors.")
+    delete_item_label = __("Delete site")
     edit_url_name = 'wagtailsites:edit'
     index_url_name = 'wagtailsites:index'
+    delete_url_name = 'wagtailsites:delete'
+    delete_permission_name = 'wagtailcore.delete_site'
     context_object_name = 'site'
     template = 'wagtailsites/edit.html'
+    header_icon = 'site'
 
 
 class Delete(DeleteView):

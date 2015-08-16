@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ugettext_lazy as __
 from django.views.generic.base import View
 
 from wagtail.wagtailadmin import messages
@@ -73,6 +73,17 @@ class CreateView(PermissionCheckedView):
 
 
 class EditView(PermissionCheckedView):
+    page_title = __("Editing")
+
+    def get_page_subtitle(self):
+        return str(self.instance)
+
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(self.instance.id,))
+
+    def get_delete_url(self):
+        return reverse(self.delete_url_name, args=(self.instance.id,))
+
     def get(self, request, instance_id):
         self.instance = get_object_or_404(self.model, id=instance_id)
         self.form = self.form_class(instance=self.instance)
@@ -94,8 +105,10 @@ class EditView(PermissionCheckedView):
 
     def render_to_response(self):
         return render(self.request, self.template, {
+            'view': self,
             self.context_object_name: self.instance,
             'form': self.form,
+            'can_delete': self.request.user.has_perm(self.delete_permission_name),
         })
 
 
