@@ -1,30 +1,7 @@
-{% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% extends "wagtailadmin/generic/edit.html" %}
 
-{% block titletag %}{{ view.page_title }} {{ view.get_page_subtitle }}{% endblock %}
-
-{% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
-
-    <div class="nice-padding">
-        <form action="{{ view.get_edit_url }}" method="POST">
-            {% csrf_token %}
-        
-            <ul class="fields">
-                {% block form %}
-                    {% include "wagtailsites/_form.html" %}
-                {% endblock %}
-                
-                <li>
-                    <input type="submit" value="{% trans 'Save' %}" />
-                    {% if can_delete %}
-                        <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </form>
-    </div>
+{% block form %}
+    {% include "wagtailsites/_form.html" %}
 {% endblock %}
 
 {% block extra_js %}
