@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block content %}
+
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
+
+    <form action="{% url view.add_url_name %}" method="POST">
+        {% csrf_token %}
+        <div class="nice-padding">
+            <ul class="fields">
+                {% block form %}
+                {% endblock %}
+                <li><input type="submit" value="{% trans 'Save' %}" /></li>
+            </ul>
+        </div>
+    </form>
+{% endblock %}
