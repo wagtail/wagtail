@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from django.views.generic.base import View
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import permission_required, any_permission_required
+from wagtail.wagtailadmin.views.generic import PermissionCheckedView
 
 
-class Index(View):
-    @method_decorator(any_permission_required('wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site'))
+class Index(PermissionCheckedView):
+    any_permission_required = ['wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site']
+
     def get(self, request):
         sites = Site.objects.all()
         return render(request, 'wagtailsites/index.html', {
@@ -19,13 +18,13 @@ class Index(View):
         })
 
 
-class Create(View):
-    @method_decorator(permission_required('wagtailcore.add_site'))
+class Create(PermissionCheckedView):
+    permission_required = 'wagtailcore.add_site'
+
     def get(self, request):
         self.form = SiteForm()
         return self.render_to_response()
 
-    @method_decorator(permission_required('wagtailcore.add_site'))
     def post(self, request):
         self.form = SiteForm(request.POST)
         if self.form.is_valid():
@@ -44,14 +43,14 @@ class Create(View):
         })
 
 
-class Edit(View):
-    @method_decorator(permission_required('wagtailcore.change_site'))
+class Edit(PermissionCheckedView):
+    permission_required = 'wagtailcore.change_site'
+
     def get(self, request, site_id):
         self.site = get_object_or_404(Site, id=site_id)
         self.form = SiteForm(instance=self.site)
         return self.render_to_response()
 
-    @method_decorator(permission_required('wagtailcore.change_site'))
     def post(self, request, site_id):
         self.site = get_object_or_404(Site, id=site_id)
         self.form = SiteForm(request.POST, instance=self.site)
@@ -73,15 +72,15 @@ class Edit(View):
         })
 
 
-class Delete(View):
-    @method_decorator(permission_required('wagtailcore.delete_site'))
+class Delete(PermissionCheckedView):
+    permission_required = 'wagtailcore.delete_site'
+
     def get(self, request, site_id):
         site = get_object_or_404(Site, id=site_id)
         return render(request, "wagtailsites/confirm_delete.html", {
             'site': site,
         })
 
-    @method_decorator(permission_required('wagtailcore.delete_site'))
     def post(self, request, site_id):
         site = get_object_or_404(Site, id=site_id)
         site.delete()
