@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic.base import View
 
 from wagtail.wagtailadmin.utils import permission_denied
@@ -31,3 +32,14 @@ class PermissionCheckedView(View):
                 return permission_denied(request)
 
         return super(PermissionCheckedView, self).dispatch(request, *args, **kwargs)
+
+
+class IndexView(PermissionCheckedView):
+    def get_queryset(self):
+        return self.model.objects.all()
+
+    def get(self, request):
+        object_list = self.get_queryset()
+        return render(request, self.template, {
+            self.context_object_name: object_list,
+        })

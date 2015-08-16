@@ -5,17 +5,14 @@ from django.core.urlresolvers import reverse
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
 from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.views.generic import PermissionCheckedView
+from wagtail.wagtailadmin.views.generic import PermissionCheckedView, IndexView
 
 
-class Index(PermissionCheckedView):
+class Index(IndexView):
     any_permission_required = ['wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site']
-
-    def get(self, request):
-        sites = Site.objects.all()
-        return render(request, 'wagtailsites/index.html', {
-            'sites': sites,
-        })
+    model = Site
+    context_object_name = 'sites'
+    template = 'wagtailsites/index.html'
 
 
 class Create(PermissionCheckedView):
