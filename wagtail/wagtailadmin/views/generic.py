@@ -67,6 +67,7 @@ class CreateView(PermissionCheckedView):
 
     def render_to_response(self):
         return render(self.request, self.template, {
+            'view': self,
             'form': self.form,
         })
 

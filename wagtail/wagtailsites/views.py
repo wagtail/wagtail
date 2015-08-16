@@ -15,10 +15,13 @@ class Index(IndexView):
 class Create(CreateView):
     permission_required = 'wagtailcore.add_site'
     form_class = SiteForm
+    page_title = __("Add site")
     success_message = __("Site '{0}' created.")
+    add_url_name = 'wagtailsites:add'
     edit_url_name = 'wagtailsites:edit'
     index_url_name = 'wagtailsites:index'
     template = 'wagtailsites/create.html'
+    header_icon = 'site'
 
 
 class Edit(EditView):
