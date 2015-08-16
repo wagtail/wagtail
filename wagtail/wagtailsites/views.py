@@ -10,6 +10,11 @@ class Index(IndexView):
     model = Site
     context_object_name = 'sites'
     template = 'wagtailsites/index.html'
+    add_url_name = 'wagtailsites:add'
+    add_permission_name = 'wagtailcore.add_site'
+    page_title = __("Sites")
+    add_item_label = __("Add a site")
+    header_icon = 'site'
 
 
 class Create(CreateView):
