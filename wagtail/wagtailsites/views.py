@@ -52,7 +52,6 @@ class Delete(DeleteView):
     index_url_name = 'wagtailsites:index'
     delete_url_name = 'wagtailsites:delete'
     context_object_name = 'site'
-    template = 'wagtailsites/confirm_delete.html'
     page_title = __("Delete site")
     confirmation_message = __("Are you sure you want to delete this site?")
     header_icon = 'site'

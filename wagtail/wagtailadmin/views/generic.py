@@ -115,6 +115,8 @@ class EditView(PermissionCheckedView):
 
 
 class DeleteView(PermissionCheckedView):
+    template = 'wagtailadmin/generic/confirm_delete.html'
+
     def get_page_subtitle(self):
         return str(self.instance)
 
