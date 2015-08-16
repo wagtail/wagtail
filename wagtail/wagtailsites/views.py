@@ -44,27 +44,33 @@ class Create(View):
         })
 
 
-@permission_required('wagtailcore.change_site')
-def edit(request, site_id):
-    site = get_object_or_404(Site, id=site_id)
+class Edit(View):
+    @method_decorator(permission_required('wagtailcore.change_site'))
+    def get(self, request, site_id):
+        self.site = get_object_or_404(Site, id=site_id)
+        self.form = SiteForm(instance=self.site)
+        return self.render_to_response()
 
-    if request.method == 'POST':
-        form = SiteForm(request.POST, instance=site)
-        if form.is_valid():
-            site = form.save()
+    @method_decorator(permission_required('wagtailcore.change_site'))
+    def post(self, request, site_id):
+        self.site = get_object_or_404(Site, id=site_id)
+        self.form = SiteForm(request.POST, instance=self.site)
+        if self.form.is_valid():
+            site = self.form.save()
             messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons=[
                 messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
             return redirect('wagtailsites:index')
         else:
             messages.error(request, _("The site could not be saved due to errors."))
-    else:
-        form = SiteForm(instance=site)
 
-    return render(request, 'wagtailsites/edit.html', {
-        'site': site,
-        'form': form,
-    })
+        return self.render_to_response()
+
+    def render_to_response(self):
+        return render(self.request, 'wagtailsites/edit.html', {
+            'site': self.site,
+            'form': self.form,
+        })
 
 
 @permission_required('wagtailcore.delete_site')
