@@ -73,15 +73,17 @@ class Edit(View):
         })
 
 
-@permission_required('wagtailcore.delete_site')
-def delete(request, site_id):
-    site = get_object_or_404(Site, id=site_id)
+class Delete(View):
+    @method_decorator(permission_required('wagtailcore.delete_site'))
+    def get(self, request, site_id):
+        site = get_object_or_404(Site, id=site_id)
+        return render(request, "wagtailsites/confirm_delete.html", {
+            'site': site,
+        })
 
-    if request.method == 'POST':
+    @method_decorator(permission_required('wagtailcore.delete_site'))
+    def post(self, request, site_id):
+        site = get_object_or_404(Site, id=site_id)
         site.delete()
         messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
         return redirect('wagtailsites:index')
-
-    return render(request, "wagtailsites/confirm_delete.html", {
-        'site': site,
-    })
