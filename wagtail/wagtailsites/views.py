@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ugettext_lazy as __
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Site
@@ -17,25 +17,30 @@ class Index(IndexView):
 
 class Create(PermissionCheckedView):
     permission_required = 'wagtailcore.add_site'
+    form_class = SiteForm
+    success_message = __("Site '{0}' created.")
+    edit_url_name = 'wagtailsites:edit'
+    index_url_name = 'wagtailsites:index'
+    template = 'wagtailsites/create.html'
 
     def get(self, request):
-        self.form = SiteForm()
+        self.form = self.form_class()
         return self.render_to_response()
 
     def post(self, request):
-        self.form = SiteForm(request.POST)
+        self.form = self.form_class(request.POST)
         if self.form.is_valid():
-            site = self.form.save()
+            instance = self.form.save()
 
-            messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons=[
-                messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
+            messages.success(request, self.success_message.format(instance), buttons=[
+                messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
             ])
-            return redirect('wagtailsites:index')
+            return redirect(self.index_url_name)
         else:
             return self.render_to_response()
 
     def render_to_response(self):
-        return render(self.request, 'wagtailsites/create.html', {
+        return render(self.request, self.template, {
             'form': self.form,
         })
 

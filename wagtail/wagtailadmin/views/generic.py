@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
+from django.utils.translation import ugettext as _
 from django.views.generic.base import View
 
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_denied
 
 
@@ -42,4 +45,27 @@ class IndexView(PermissionCheckedView):
         object_list = self.get_queryset()
         return render(request, self.template, {
             self.context_object_name: object_list,
+        })
+
+
+class CreateView(PermissionCheckedView):
+    def get(self, request):
+        self.form = self.form_class()
+        return self.render_to_response()
+
+    def post(self, request):
+        self.form = self.form_class(request.POST)
+        if self.form.is_valid():
+            instance = self.form.save()
+
+            messages.success(request, self.success_message.format(instance), buttons=[
+                messages.button(reverse(self.edit_url_name, args=(instance.id,)), _('Edit'))
+            ])
+            return redirect(self.index_url_name)
+        else:
+            return self.render_to_response()
+
+    def render_to_response(self):
+        return render(self.request, self.template, {
+            'form': self.form,
         })
