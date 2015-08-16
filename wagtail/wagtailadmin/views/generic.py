@@ -96,3 +96,17 @@ class EditView(PermissionCheckedView):
             self.context_object_name: self.instance,
             'form': self.form,
         })
+
+
+class DeleteView(PermissionCheckedView):
+    def get(self, request, instance_id):
+        instance = get_object_or_404(self.model, id=instance_id)
+        return render(request, self.template, {
+            self.context_object_name: instance,
+        })
+
+    def post(self, request, instance_id):
+        instance = get_object_or_404(self.model, id=instance_id)
+        instance.delete()
+        messages.success(request, self.success_message.format(instance))
+        return redirect(self.index_url_name)

@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.utils.translation import ugettext_lazy as __
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.views.generic import PermissionCheckedView, IndexView, CreateView, EditView
+from wagtail.wagtailadmin.views.generic import IndexView, CreateView, EditView, DeleteView
 
 
 class Index(IndexView):
@@ -35,17 +33,10 @@ class Edit(EditView):
     template = 'wagtailsites/edit.html'
 
 
-class Delete(PermissionCheckedView):
+class Delete(DeleteView):
     permission_required = 'wagtailcore.delete_site'
-
-    def get(self, request, site_id):
-        site = get_object_or_404(Site, id=site_id)
-        return render(request, "wagtailsites/confirm_delete.html", {
-            'site': site,
-        })
-
-    def post(self, request, site_id):
-        site = get_object_or_404(Site, id=site_id)
-        site.delete()
-        messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
-        return redirect('wagtailsites:index')
+    model = Site
+    success_message = __("Site '{0}' deleted.")
+    index_url_name = 'wagtailsites:index'
+    context_object_name = 'site'
+    template = 'wagtailsites/confirm_delete.html'
