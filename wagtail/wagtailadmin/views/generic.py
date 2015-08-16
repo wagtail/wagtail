@@ -115,14 +115,21 @@ class EditView(PermissionCheckedView):
 
 
 class DeleteView(PermissionCheckedView):
+    def get_page_subtitle(self):
+        return str(self.instance)
+
+    def get_delete_url(self):
+        return reverse(self.delete_url_name, args=(self.instance.id,))
+
     def get(self, request, instance_id):
-        instance = get_object_or_404(self.model, id=instance_id)
+        self.instance = get_object_or_404(self.model, id=instance_id)
         return render(request, self.template, {
-            self.context_object_name: instance,
+            'view': self,
+            self.context_object_name: self.instance,
         })
 
     def post(self, request, instance_id):
-        instance = get_object_or_404(self.model, id=instance_id)
-        instance.delete()
-        messages.success(request, self.success_message.format(instance))
+        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.instance.delete()
+        messages.success(request, self.success_message.format(self.instance))
         return redirect(self.index_url_name)
