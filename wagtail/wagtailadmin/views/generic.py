@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.generic.base import View
 
@@ -67,5 +67,32 @@ class CreateView(PermissionCheckedView):
 
     def render_to_response(self):
         return render(self.request, self.template, {
+            'form': self.form,
+        })
+
+
+class EditView(PermissionCheckedView):
+    def get(self, request, instance_id):
+        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.form = self.form_class(instance=self.instance)
+        return self.render_to_response()
+
+    def post(self, request, instance_id):
+        self.instance = get_object_or_404(self.model, id=instance_id)
+        self.form = self.form_class(request.POST, instance=self.instance)
+        if self.form.is_valid():
+            self.form.save()
+            messages.success(request, self.success_message.format(self.instance), buttons=[
+                messages.button(reverse(self.edit_url_name, args=(self.instance.id,)), _('Edit'))
+            ])
+            return redirect(self.index_url_name)
+        else:
+            messages.error(request, self.error_message)
+
+        return self.render_to_response()
+
+    def render_to_response(self):
+        return render(self.request, self.template, {
+            self.context_object_name: self.instance,
             'form': self.form,
         })
