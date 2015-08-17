@@ -105,6 +105,10 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         response = self.get({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
 
+    def test_with_bad_page_type(self):
+        response = self.get({'page_type': 'wagtailcore.site'})
+        self.assertEqual(response.status_code, 404)
+
     def test_with_invalid_page_type(self):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
@@ -197,6 +201,10 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
 
     def test_with_unknown_page_type(self):
         response = self.get({'page_type': 'foo.bar'})
+        self.assertEqual(response.status_code, 404)
+
+    def test_with_bad_page_type(self):
+        response = self.get({'page_type': 'wagtailcore.site'})
         self.assertEqual(response.status_code, 404)
 
     def test_with_invalid_page_type(self):

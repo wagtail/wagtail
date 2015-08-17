@@ -48,6 +48,9 @@ def browse(request, parent_page_id=None):
         except (ValueError, LookupError):
             raise Http404
 
+        if not issubclass(desired_class, Page):
+            raise Http404
+
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
@@ -102,6 +105,9 @@ def search(request, parent_page_id=None):
     try:
         desired_class = resolve_model_string(page_type_string)
     except (ValueError, LookupError):
+        raise Http404
+
+    if not issubclass(desired_class, Page):
         raise Http404
 
     search_form = SearchForm(request.GET)
