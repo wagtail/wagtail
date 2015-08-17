@@ -33,7 +33,11 @@ def browse(request, parent_page_id=None):
     ITEMS_PER_PAGE = 25
 
     page_type = request.GET.get('page_type') or 'wagtailcore.page'
-    content_type_app_name, content_type_model_name = page_type.split('.')
+
+    try:
+        content_type_app_name, content_type_model_name = page_type.split('.')
+    except ValueError:
+        raise Http404
 
     try:
         content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
