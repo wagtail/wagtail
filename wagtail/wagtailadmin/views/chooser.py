@@ -8,6 +8,7 @@ from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.utils import resolve_model_string
 
 
 def get_querystring(request):
@@ -43,16 +44,9 @@ def browse(request, parent_page_id=None):
     page_type_string = request.GET.get('page_type', 'wagtailcore.page')
     if page_type_string != 'wagtailcore.page':
         try:
-            content_type_app_name, content_type_model_name = page_type_string.split('.')
-        except ValueError:
+            desired_class = resolve_model_string(page_type_string)
+        except (ValueError, LookupError):
             raise Http404
-
-        try:
-            content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-        except ContentType.DoesNotExist:
-            raise Http404
-
-        desired_class = content_type.model_class()
 
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
@@ -103,18 +97,12 @@ def browse(request, parent_page_id=None):
 
 
 def search(request, parent_page_id=None):
-    page_type = request.GET.get('page_type') or 'wagtailcore.page'
+    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
 
     try:
-        content_type_app_name, content_type_model_name = page_type.split('.')
-    except ValueError:
+        desired_class = resolve_model_string(page_type_string)
+    except (ValueError, LookupError):
         raise Http404
-
-    try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
-    desired_class = content_type.model_class()
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
@@ -134,7 +122,7 @@ def search(request, parent_page_id=None):
         shared_context(request, {
             'searchform': search_form,
             'pages': shown_pages,
-            'page_type_string': page_type,
+            'page_type_string': page_type_string,
         })
     )
 
