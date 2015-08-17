@@ -49,7 +49,6 @@ def browse(request, parent_page_id=None):
         parent_page = Page.get_first_root_node()
 
     parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
-    search_form = SearchForm()
     pages = parent_page.get_children()
 
     if desired_class != Page:
@@ -86,7 +85,7 @@ def browse(request, parent_page_id=None):
         shared_context(request, {
             'parent_page': parent_page,
             'pages': pages,
-            'search_form': search_form,
+            'search_form': SearchForm(),
             'page_type_string': page_type,
             'page_type_name': desired_class.get_verbose_name(),
             'page_types_restricted': (page_type != 'wagtailcore.page')
