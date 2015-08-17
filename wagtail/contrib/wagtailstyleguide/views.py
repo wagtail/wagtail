@@ -2,12 +2,12 @@ from django import forms
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from wagtail.wagtailadmin import messages
-from django.contrib.auth.decorators import permission_required
 
 from wagtail.wagtailadmin.forms import SearchForm
 from wagtail.wagtailadmin.widgets import AdminPageChooser, AdminDateInput, AdminTimeInput, AdminDateTimeInput
 from wagtail.wagtailimages.widgets import AdminImageChooser
 from wagtail.wagtaildocs.widgets import AdminDocumentChooser
+
 
 class ExampleForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -37,8 +37,6 @@ class ExampleForm(forms.Form):
     document_chooser = forms.BooleanField(required=True)
 
 
-
-@permission_required('wagtailadmin.access_admin')
 def index(request):
 
     form = SearchForm(placeholder=_("Search something"))

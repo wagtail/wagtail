@@ -1,12 +1,13 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.vary import vary_on_headers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils.encoding import force_text
+
+from wagtail.wagtailadmin.utils import permission_required
 
 from wagtail.wagtailsearch.backends import get_search_backends
 

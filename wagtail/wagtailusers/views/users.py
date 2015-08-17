@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -9,18 +8,21 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.utils import permission_required, any_permission_required
 from wagtail.wagtailusers.forms import UserCreationForm, UserEditForm
 from wagtail.wagtailcore.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 User = get_user_model()
 
-# Typically we would check the permission 'auth.change_user' for user
-# management actions, but this may vary according to the AUTH_USER_MODEL
-# setting
+# Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
+# 'auth.delete_user') for user management actions, but this may vary according to
+# the AUTH_USER_MODEL setting
+add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
 change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
 
 
-@permission_required(change_user_perm)
+@any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers('X-Requested-With')
 def index(request):
     q = None
@@ -81,7 +83,7 @@ def index(request):
         })
 
 
-@permission_required(change_user_perm)
+@permission_required(add_user_perm)
 def create(request):
     if request.POST:
         form = UserCreationForm(request.POST)
