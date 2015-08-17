@@ -1,3 +1,5 @@
+import unittest
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -21,28 +23,10 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page'), params)
 
-    def search(self, params={}):
-        return self.client.get(reverse('wagtailadmin_choose_page_search'), params)
-
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
-
-    def test_search(self):
-        response = self.search({'q': "foobarbaz"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There is one match")
-        self.assertContains(response, "foobarbaz")
-
-    def test_search_no_results(self):
-        response = self.search({'q': "quux"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There are 0 matches")
-
-    def test_get_invalid(self):
-        response = self.search({'page_type': 'foo.bar'})
-        self.assertEqual(response.status_code, 404)
 
 
 class TestChooserBrowseChild(TestCase, WagtailTestUtils):
@@ -160,6 +144,67 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         response = self.get({'p': 100})
         self.assertEqual(response.context['pages'].number, 5)
+
+
+class TestChooserSearch(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage()
+        self.child_page.title = "foobarbaz"
+        self.child_page.slug = "foobarbaz"
+        self.root_page.add_child(instance=self.child_page)
+
+        self.login()
+
+    def get(self, params=None):
+        return self.client.get(reverse('wagtailadmin_choose_page_search'), params or {})
+
+    def test_simple(self):
+        response = self.get({'q': "foobarbaz"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertContains(response, "There is one match")
+        self.assertContains(response, "foobarbaz")
+
+    def test_search_no_results(self):
+        response = self.get({'q': "quux"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are 0 matches")
+
+    def test_with_page_type(self):
+        # Add a page that is not a SimplePage
+        event_page = EventPage(
+            title="foo",
+            slug="foo",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        # Send request
+        response = self.get({'q': "foo", 'page_type': 'tests.simplepage'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertEqual(response.context['page_type_string'], 'tests.simplepage')
+
+        pages = {
+            page.id: page
+            for page in response.context['pages']
+        }
+
+        self.assertIn(self.child_page.id, pages)
+
+        # Not a simple page
+        self.assertNotIn(event_page.id, pages)
+
+    def test_with_unknown_page_type(self):
+        response = self.get({'page_type': 'foo.bar'})
+        self.assertEqual(response.status_code, 404)
+
+    @unittest.expectedFailure
+    def test_with_invalid_page_type(self):
+        response = self.get({'page_type': 'foo'})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestChooserExternalLink(TestCase, WagtailTestUtils):

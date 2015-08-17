@@ -130,6 +130,7 @@ def search(request, parent_page_id=None):
         shared_context(request, {
             'searchform': search_form,
             'pages': shown_pages,
+            'page_type_string': page_type,
         })
     )
 
