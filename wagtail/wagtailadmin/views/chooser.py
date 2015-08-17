@@ -75,13 +75,10 @@ def browse(request, parent_page_id=None):
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
 
-        shown_pages = []
-        for page in pages:
-            page.can_choose = issubclass(page.specific_class, desired_class)
-            page.can_descend = page.get_children_count()
+        choosable_pages = pages.type(desired_class)
+        descendable_pages = pages.filter(numchild__gt=0)
 
-            if page.can_choose or page.can_descend:
-                shown_pages.append(page)
+        shown_pages = choosable_pages | descendable_pages
 
         # Apply pagination
         p = request.GET.get('p', 1)
@@ -92,6 +89,10 @@ def browse(request, parent_page_id=None):
             pages = paginator.page(1)
         except EmptyPage:
             pages = paginator.page(paginator.num_pages)
+
+        for page in pages:
+            page.can_choose = issubclass(page.specific_class, desired_class)
+            page.can_descend = page.get_children_count()
 
     return render_modal_workflow(
         request,
