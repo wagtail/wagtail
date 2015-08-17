@@ -30,37 +30,45 @@ def shared_context(request, extra_context={}):
 
 
 def browse(request, parent_page_id=None):
-    page_type = request.GET.get('page_type') or 'wagtailcore.page'
-
-    try:
-        content_type_app_name, content_type_model_name = page_type.split('.')
-    except ValueError:
-        raise Http404
-
-    try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
-    desired_class = content_type.model_class()
-
+    # Find parent page
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
     else:
         parent_page = Page.get_first_root_node()
 
-    parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
+    # Get children of parent page
     pages = parent_page.get_children()
 
-    if desired_class != Page:
+    # Filter them by page type
+    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
+    if page_type_string != 'wagtailcore.page':
+        try:
+            content_type_app_name, content_type_model_name = page_type_string.split('.')
+        except ValueError:
+            raise Http404
+
+        try:
+            content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+        except ContentType.DoesNotExist:
+            raise Http404
+
+        desired_class = content_type.model_class()
+
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
         choosable_pages = pages.type(desired_class)
         descendable_pages = pages.filter(numchild__gt=0)
-
         pages = choosable_pages | descendable_pages
+    else:
+        desired_class = Page
 
-    # apply pagination first, as it saves us walking the entire list
+    # Parent page can be chosen if it is a instance of desired_class
+    parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
+
+    # Pagination
+    # We apply pagination first so we don't need to walk the entire list
+    # in the block below
     p = request.GET.get('p', 1)
     paginator = Paginator(pages, 25)
     try:
@@ -79,6 +87,7 @@ def browse(request, parent_page_id=None):
 
         page.can_descend = page.get_children_count()
 
+    # Render
     return render_modal_workflow(
         request,
         'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
@@ -86,9 +95,9 @@ def browse(request, parent_page_id=None):
             'parent_page': parent_page,
             'pages': pages,
             'search_form': SearchForm(),
-            'page_type_string': page_type,
+            'page_type_string': page_type_string,
             'page_type_name': desired_class.get_verbose_name(),
-            'page_types_restricted': (page_type != 'wagtailcore.page')
+            'page_types_restricted': (page_type_string != 'wagtailcore.page')
         })
     )
 
