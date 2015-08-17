@@ -24,16 +24,16 @@ Here's an example snippet from the Wagtail demo website:
 
   @register_snippet
   class Advert(models.Model):
-    url = models.URLField(null=True, blank=True)
-    text = models.CharField(max_length=255)
-
-    panels = [
-      FieldPanel('url'),
-      FieldPanel('text'),
-    ]
-
-    def __unicode__(self):
-      return self.text
+      url = models.URLField(null=True, blank=True)
+      text = models.CharField(max_length=255)
+  
+      panels = [
+          FieldPanel('url'),
+          FieldPanel('text'),
+      ]
+      
+      def __unicode__(self):
+          return self.text
 
 The ``Advert`` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the panels property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
 
@@ -60,10 +60,10 @@ First, add a new python file to a ``templatetags`` folder within your app. The d
   # Advert snippets
   @register.inclusion_tag('demo/tags/adverts.html', takes_context=True)
   def adverts(context):
-    return {
-      'adverts': Advert.objects.all(),
-      'request': context['request'],
-    }
+      return {
+          'adverts': Advert.objects.all(),
+          'request': context['request'],
+      }
 
 ``@register.inclusion_tag()`` takes two variables: a template and a boolean on whether that template should be passed a request context. It's a good idea to include request contexts in your custom template tags, since some Wagtail-specific template tags like ``pageurl`` need the context to work properly. The template tag function could take arguments and filter the adverts to return a specific model, but for brevity we'll just use ``Advert.objects.all()``.
 
@@ -102,17 +102,18 @@ In the above example, the list of adverts is a fixed list, displayed as part of 
   from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
   # ...
   class BookPage(Page):
-    advert = models.ForeignKey(
-      'demo.Advert',
-      null=True,
-      blank=True,
-      on_delete=models.SET_NULL,
-      related_name='+'
-    )
-
+      advert = models.ForeignKey(
+          'demo.Advert',
+          null=True,
+          blank=True,
+          on_delete=models.SET_NULL,
+          related_name='+'
+      )
+  
+  
   BookPage.content_panels = [
-    SnippetChooserPanel('advert', Advert),
-    # ...
+      SnippetChooserPanel('advert', Advert),
+      # ...
   ]
 
 
@@ -133,27 +134,30 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   ...
 
   class BookPageAdvertPlacement(Orderable, models.Model):
-    page = ParentalKey('demo.BookPage', related_name='advert_placements')
-    advert = models.ForeignKey('demo.Advert', related_name='+')
-
-    class Meta:
-      verbose_name = "Advert Placement"
-      verbose_name_plural = "Advert Placements"
-
-    panels = [
-      SnippetChooserPanel('advert', Advert),
-    ]
-
-    def __unicode__(self):
-      return self.page.title + " -> " + self.advert.text
-
+      page = ParentalKey('demo.BookPage', related_name='advert_placements')
+      advert = models.ForeignKey('demo.Advert', related_name='+')
+  
+      class Meta:
+          verbose_name = "Advert Placement"
+          verbose_name_plural = "Advert Placements"
+  
+      panels = [
+          SnippetChooserPanel('advert', Advert),
+      ]
+  
+      def __unicode__(self):
+          return self.page.title + " -> " + self.advert.text
+  
+  
   class BookPage(Page):
-    ...
-
+      ...
+  
+  
   BookPage.content_panels = [
-    InlinePanel('advert_placements', label="Adverts"),
-    # ...
+      InlinePanel('advert_placements', label="Adverts"),
+      # ...
   ]
+
 
 
 These child objects are now accessible through the page's ``advert_placements`` property, and from there we can access the linked Advert snippet as ``advert``. In the template for ``BookPage``, we could include the following:
