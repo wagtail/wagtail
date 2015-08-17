@@ -30,8 +30,6 @@ def shared_context(request, extra_context={}):
 
 
 def browse(request, parent_page_id=None):
-    ITEMS_PER_PAGE = 25
-
     page_type = request.GET.get('page_type') or 'wagtailcore.page'
 
     try:
@@ -54,45 +52,33 @@ def browse(request, parent_page_id=None):
     search_form = SearchForm()
     pages = parent_page.get_children()
 
-    if desired_class == Page:
-        # apply pagination first, since we know that the page listing won't
-        # have to be filtered, and that saves us walking the entire list
-        p = request.GET.get('p', 1)
-        paginator = Paginator(pages, ITEMS_PER_PAGE)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
-
-        for page in pages:
-            page.can_choose = True
-            page.can_descend = page.get_children_count()
-
-    else:
+    if desired_class != Page:
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
-
         choosable_pages = pages.type(desired_class)
         descendable_pages = pages.filter(numchild__gt=0)
 
-        shown_pages = choosable_pages | descendable_pages
+        pages = choosable_pages | descendable_pages
 
-        # Apply pagination
-        p = request.GET.get('p', 1)
-        paginator = Paginator(shown_pages, ITEMS_PER_PAGE)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
+    # apply pagination first, as it saves us walking the entire list
+    p = request.GET.get('p', 1)
+    paginator = Paginator(pages, 25)
+    try:
+        pages = paginator.page(p)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
 
-        for page in pages:
+    # Annotate each page with can_choose/can_decend flags
+    for page in pages:
+        if desired_class == Page:
+            page.can_choose = True
+        else:
             page.can_choose = issubclass(page.specific_class, desired_class)
-            page.can_descend = page.get_children_count()
+
+        page.can_descend = page.get_children_count()
 
     return render_modal_workflow(
         request,
