@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.cache import cache_control
