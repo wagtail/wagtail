@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -201,7 +199,6 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         response = self.get({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
 
-    @unittest.expectedFailure
     def test_with_invalid_page_type(self):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
