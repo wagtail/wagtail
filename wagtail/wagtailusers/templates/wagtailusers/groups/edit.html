@@ -41,21 +41,5 @@
 {% endblock %}
 
 {% block extra_js %}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-
-    <script>
-        $(function() {
-            buildExpandingFormset('id_page_permissions', {
-                'onInit': function(index) {
-                    var deleteInputId = 'id_page_permissions-' + index + '-DELETE';
-                    var childId = 'inline_child_page_permissions-' + index;
-                    $('#' + deleteInputId + '-button').click(function() {
-                        /* set 'deleted' form field to true */
-                        $('#' + deleteInputId).val('1');
-                        $('#' + childId).fadeOut();
-                    });
-                }
-            });
-        });
-    </script>
+    {% include "wagtailusers/groups/includes/group_form_js.html" %}
 {% endblock %}
