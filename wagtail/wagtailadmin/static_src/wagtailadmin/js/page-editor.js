@@ -335,7 +335,7 @@ function initCollapsibleBlocks() {
             $fieldset.hide();
         }
 
-        $li.find('h2').click(function() {
+        $li.find('> h2').click(function() {
             if (!$li.hasClass('collapsed')) {
                 $li.addClass('collapsed');
                 $fieldset.hide('slow');

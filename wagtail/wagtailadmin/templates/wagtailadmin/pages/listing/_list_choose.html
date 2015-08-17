@@ -1,0 +1,38 @@
+{% extends "wagtailadmin/pages/listing/_list.html" %}
+
+{% load i18n %}
+
+{# Page listing include, customised for 'choose' mode #}
+
+{% block table_classname %}chooser{% endblock %}
+
+{% block pre_parent_page_headers %}
+    <tr class="table-headers">
+        <th class="title">Title</th>
+        {% if show_parent %}
+            <th class="parent">{% trans 'Parent' %}</th>
+        {% endif %}
+        <th class="updated">{% trans 'Updated' %}</th>
+        <th class="type">{% trans 'Type' %}</th>
+        <th class="status">{% trans 'Status' %}</th>
+        <th></th>
+    </tr>
+{% endblock %}
+
+{% block parent_page_row_classname %}{% if not parent_page.can_choose %}disabled{% endif %}{% endblock %}
+
+{% block parent_page_title %}
+    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
+{% endblock %}
+
+{% block post_parent_page_headers %}{% endblock %}
+
+{% block page_row_classname %}{% if not page.can_choose %}disabled{% endif %}{% endblock %}
+
+{% block page_title %}
+    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page %}
+{% endblock %}
+
+{% block page_navigation %}
+    {% include "wagtailadmin/pages/listing/_navigation_choose.html" %}
+{% endblock %}

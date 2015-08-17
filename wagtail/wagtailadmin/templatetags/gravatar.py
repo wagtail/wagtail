@@ -9,10 +9,9 @@
 
 import hashlib
 
-from six import b
-from six.moves.urllib.parse import urlencode
-
 from django import template
+from django.utils.six import b
+from django.utils.six.moves.urllib.parse import urlencode
 
 register = template.Library()
 

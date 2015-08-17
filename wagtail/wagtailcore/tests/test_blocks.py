@@ -560,6 +560,31 @@ class TestStructBlock(unittest.TestCase):
         self.assertIn('<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html)
         self.assertIn('<input id="mylink-link" name="mylink-link" placeholder="Link" type="url" value="http://www.torchbox.com" />', html)
 
+    def test_render_form_with_help_text(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+            class Meta:
+                help_text = "Self-promotion is encouraged"
+
+        block = LinkBlock()
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is encouraged</div>', html)
+
+        # check it can be overridden in the block constructor
+        block = LinkBlock(help_text="Self-promotion is discouraged")
+        html = block.render_form({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }, prefix='mylink')
+
+        self.assertIn('<div class="object-help help">Self-promotion is discouraged</div>', html)
+
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
             media = forms.Media(js=['scripted_char_block.js'])
@@ -712,7 +737,7 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-list">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -733,8 +758,8 @@ class TestListBlock(unittest.TestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for=links-0-value-title>Title</label>', html)
-        self.assertIn('<label for=links-0-value-link>Link</label>', html)
+        self.assertIn('<label for="links-0-value-title">Title</label>', html)
+        self.assertIn('<label for="links-0-value-link">Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
@@ -996,7 +1021,7 @@ class TestStreamBlock(unittest.TestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence">', html)
+        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -1218,7 +1243,7 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.to_python(None), None)
 
     def test_form_render(self):
-        block = blocks.PageChooserBlock()
+        block = blocks.PageChooserBlock(help_text="pick a page, any page")
 
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
@@ -1227,6 +1252,7 @@ class TestPageChooserBlock(TestCase):
         christmas_form_html = block.render_form(christmas_page, 'page')
         expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
         self.assertIn(expected_html, christmas_form_html)
+        self.assertIn("pick a page, any page", christmas_form_html)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()

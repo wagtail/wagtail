@@ -8,13 +8,12 @@ from importlib import import_module
 
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.encoding import force_text
 from django.template.loader import render_to_string
 from django import forms
-
-import six
 
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
@@ -272,6 +271,13 @@ class Block(six.with_metaclass(BaseBlock, object)):
 
         return errors
 
+    def id_for_label(self, prefix):
+        """
+        Return the ID to be used as the 'for' attribute of <label> elements that refer to this block,
+        when the given field prefix is in use. Return None if no 'for' attribute should be used.
+        """
+        return None
+
     def deconstruct(self):
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__
@@ -371,6 +377,9 @@ class BoundBlock(object):
 
     def render(self):
         return self.block.render(self.value)
+
+    def id_for_label(self):
+        return self.block.id_for_label(self.prefix)
 
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):

@@ -32,7 +32,7 @@ def register_snippet(model):
 
 def get_snippet_usage_url(self):
     content_type = ContentType.objects.get_for_model(self)
-    return reverse('wagtailsnippets_usage',
+    return reverse('wagtailsnippets:usage',
                    args=(content_type.app_label,
                          content_type.model,
                          self.id,))

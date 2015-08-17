@@ -269,6 +269,24 @@ This defines ``PersonBlock()`` as a block type that can be re-used as many times
     ])
 
 
+To customise the styling of the block as it appears in the page editor, your subclass can specify a ``form_classname`` attribute in ``Meta`` to override the default value of ``struct-block``:
+
+.. code-block:: python
+
+    class PersonBlock(blocks.StructBlock):
+        first_name = blocks.CharBlock(required=True)
+        surname = blocks.CharBlock(required=True)
+        photo = ImageChooserBlock()
+        biography = blocks.RichTextBlock()
+
+        class Meta:
+            icon = 'user'
+            form_classname = 'person-block struct-block'
+
+
+You can then provide custom CSS for this block, targeted at the specified classname, by using the ``insert_editor_css`` hook (see :doc:`Hooks </reference/hooks>`). For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta``.
+
+
 ListBlock
 ~~~~~~~~~
 

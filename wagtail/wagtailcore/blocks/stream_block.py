@@ -10,7 +10,8 @@ from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
-import six
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from wagtail.wagtailcore.utils import escape_script
 
@@ -124,7 +125,6 @@ class BaseStreamBlock(Block):
         ]
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'label': self.label,
             'prefix': prefix,
             'list_members_html': list_members_html,
             'child_blocks': self.child_blocks.values(),

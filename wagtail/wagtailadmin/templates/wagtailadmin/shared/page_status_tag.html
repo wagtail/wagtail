@@ -1,0 +1,5 @@
+{% if page.live %}
+    <a href="{{ page.url }}" target="_blank" class="status-tag primary">{{ page.status_string }}</a>
+{% else %}
+    <span class="status-tag">{{ page.status_string }}</span>
+{% endif %}

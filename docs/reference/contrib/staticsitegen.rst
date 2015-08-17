@@ -58,20 +58,16 @@ Example:
 
 .. code:: python
 
-    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin
+    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 
     class BlogIndex(Page, RoutablePageMixin):
         ...
 
-        subpage_urls = (
-            url(r'^$', 'serve_page', {'page': 1}),
-            url(r'^page/(?P<page>\d+)/$', 'serve_page', name='page'),
-        )
-
+        @route(r'^$', name='main')
+        @route(r'^page/(?P<page>\d+)/$', name='page')
         def serve_page(self, request, page=1):
             ...
-
 
 Then in the template, you can use the ``{% routablepageurl %}`` tag to link between the pages:
 

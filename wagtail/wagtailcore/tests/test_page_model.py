@@ -677,3 +677,30 @@ class TestIssue756(TestCase):
 
         # Check that latest_revision_created_at is still set
         self.assertIsNotNone(Page.objects.get(id=1).latest_revision_created_at)
+
+
+class TestIssue1216(TestCase):
+    """
+    Test that url paths greater than 255 characters are supported
+    """
+    fixtures = ['test.json']
+
+    def test_url_path_can_exceed_255_characters(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Change the christmas_event slug first - this way, we test that the process for
+        # updating child url paths also handles >255 character paths correctly
+        new_christmas_slug = "christmas-%s-christmas" % ("0123456789" * 20)
+        christmas_event.slug = new_christmas_slug
+        christmas_event.save_revision().publish()
+
+        # Change the event index slug and publish it
+        new_event_index_slug = "events-%s-events" % ("0123456789" * 20)
+        event_index.slug = new_event_index_slug
+        event_index.save_revision().publish()
+
+        # Check that the url path updated correctly
+        new_christmas_event = EventPage.objects.get(id=christmas_event.id)
+        expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
+        self.assertEqual(new_christmas_event.url_path, expected_url_path)

@@ -3,10 +3,6 @@ from __future__ import unicode_literals
 import logging
 import json
 
-import six
-from six import StringIO
-from six.moves.urllib.parse import urlparse
-
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from django.db import models, connection, transaction
@@ -23,11 +19,16 @@ from django.contrib.auth.models import Group
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.utils import timezone
+from django.utils.six import StringIO
+from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError, ImproperlyConfigured, ObjectDoesNotExist
 from django.utils.functional import cached_property
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import checks
+
+# Must be imported from Django so we get the new implementation of with_metaclass
+from django.utils import six
 
 from treebeard.mp_tree import MP_Node
 
@@ -230,6 +231,9 @@ class PageManager(models.Manager):
     def search(self, query_string, fields=None, backend='default'):
         return self.get_queryset().search(query_string, fields=fields, backend=backend)
 
+    def specific(self):
+        return self.get_queryset().specific()
+
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
@@ -272,7 +276,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     content_type = models.ForeignKey('contenttypes.ContentType', verbose_name=_('Content type'), related_name='pages')
     live = models.BooleanField(verbose_name=_('Live'), default=True, editable=False)
     has_unpublished_changes = models.BooleanField(verbose_name=_('Has unpublished changes'), default=False, editable=False)
-    url_path = models.CharField(verbose_name=_('URL path'), max_length=255, blank=True, editable=False)
+    url_path = models.TextField(verbose_name=_('URL path'), blank=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Owner'), null=True, blank=True, editable=False, on_delete=models.SET_NULL, related_name='owned_pages')
 
     seo_title = models.CharField(verbose_name=_("Page title"), max_length=255, blank=True, help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window."))

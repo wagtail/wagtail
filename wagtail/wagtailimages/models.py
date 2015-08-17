@@ -5,7 +5,6 @@ import hashlib
 from contextlib import contextmanager
 import warnings
 
-from six import BytesIO, text_type
 
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
@@ -16,6 +15,7 @@ from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
+from django.utils.six import BytesIO, text_type
 from django.utils.html import escape, format_html_join
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -31,7 +31,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.rect import Rect
 from wagtail.wagtailimages.exceptions import InvalidFilterSpecError
 from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.utils.deprecation import RemovedInWagtail11Warning
+from wagtail.utils.deprecation import RemovedInWagtail12Warning
 
 
 class SourceImageIOError(IOError):
@@ -49,6 +49,8 @@ def get_upload_to(instance, filename):
     # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
     filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
 
+    # Truncate filename so it fits in the 100 character limit
+    # https://code.djangoproject.com/ticket/9893
     while len(os.path.join(folder_name, filename)) >= 95:
         prefix, dot, extension = filename.rpartition('.')
         filename = prefix[:-1] + dot + extension
@@ -70,6 +72,20 @@ class AbstractImage(models.Model, TagSearchable):
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
     focal_point_width = models.PositiveIntegerField(null=True, blank=True)
     focal_point_height = models.PositiveIntegerField(null=True, blank=True)
+
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+
+    def get_file_size(self):
+        if self.file_size is None:
+            try:
+                self.file_size = self.file.size
+            except OSError:
+                # File doesn't exist
+                return
+
+            self.save(update_fields=['file_size'])
+
+        return self.file_size
 
     def get_usage(self):
         return get_object_usage(self)
@@ -336,7 +352,7 @@ class Filter(models.Model):
                     warnings.warn(
                         "The IMAGE_COMPRESSION_QUALITY setting has been renamed to "
                         "WAGTAILIMAGES_JPEG_QUALITY. Please update your settings.",
-                        RemovedInWagtail11Warning)
+                        RemovedInWagtail12Warning)
                 else:
                     quality = 85
 

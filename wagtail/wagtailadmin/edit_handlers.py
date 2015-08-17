@@ -3,13 +3,12 @@ from __future__ import unicode_literals
 import copy
 import warnings
 
-from six import text_type
-
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+from django.utils.six import text_type
 from django import forms
 from django.forms.models import fields_for_model
 from django.contrib.contenttypes.models import ContentType

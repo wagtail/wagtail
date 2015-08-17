@@ -162,7 +162,7 @@ Search
   # Replace the search backend
   WAGTAILSEARCH_BACKENDS = {
     'default': {
-      'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+      'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
       'INDEX': 'myapp'
     }
   }
@@ -244,7 +244,7 @@ Wagtail update notifications
 
   WAGTAIL_ENABLE_UPDATE_CHECK = True
 
-For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with extremely basic information about where Wagtail is in use. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
+For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 
 Private Pages
@@ -523,7 +523,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+  #    'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
   #    'INDEX': 'myapp'
   #  }
   #}

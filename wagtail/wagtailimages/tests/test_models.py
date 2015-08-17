@@ -287,7 +287,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
         from django.conf import settings
         from wagtail.wagtailsearch.backends import get_search_backend
 
-        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch'
+        backend_path = 'wagtail.wagtailsearch.backends.elasticsearch'
 
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
@@ -307,10 +307,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtailimages_add_image'), post_data)
+        response = self.client.post(reverse('wagtailimages:add'), post_data)
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages:index'))
 
         # Check that the image was created
         images = Image.objects.filter(title="Test image")
@@ -335,10 +335,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
             'title': "Edited",
         }
         post_data.update(params)
-        response = self.client.post(reverse('wagtailimages_edit_image', args=(self.image.id,)), post_data)
+        response = self.client.post(reverse('wagtailimages:edit', args=(self.image.id,)), post_data)
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailimages_index'))
+        self.assertRedirects(response, reverse('wagtailimages:index'))
 
         # Check that the image was edited
         image = Image.objects.get(id=self.image.id)

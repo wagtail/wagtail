@@ -12,7 +12,6 @@ from wagtail.wagtailsearch.backends import get_search_backends
 from wagtail.wagtailimages.models import get_image_model
 from wagtail.wagtailimages.forms import get_image_form, ImageInsertionForm
 from wagtail.wagtailimages.formats import get_image_format
-from wagtail.wagtailimages.fields import MAX_UPLOAD_SIZE
 
 
 def get_image_json(image):
@@ -24,7 +23,7 @@ def get_image_json(image):
 
     return json.dumps({
         'id': image.id,
-        'edit_link': reverse('wagtailimages_edit_image', args=(image.id,)),
+        'edit_link': reverse('wagtailimages:edit', args=(image.id,)),
         'title': image.title,
         'preview': {
             'url': preview_image.url,
@@ -147,7 +146,7 @@ def chooser_upload(request):
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', 'wagtailimages/chooser/chooser.js',
-        {'images': images, 'uploadform': form, 'searchform': searchform, 'max_filesize': MAX_UPLOAD_SIZE}
+        {'images': images, 'uploadform': form, 'searchform': searchform}
     )
 
 
@@ -167,7 +166,7 @@ def chooser_select_format(request, image_id):
                 'format': format.name,
                 'alt': form.cleaned_data['alt_text'],
                 'class': format.classnames,
-                'edit_link': reverse('wagtailimages_edit_image', args=(image.id,)),
+                'edit_link': reverse('wagtailimages:edit', args=(image.id,)),
                 'preview': {
                     'url': preview_image.url,
                     'width': preview_image.width,

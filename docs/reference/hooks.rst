@@ -156,7 +156,7 @@ The available hooks are:
 
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.wagtailadmin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
-  :name: an internal name used to identify the menu item; defaults to the slugified form of the label. Also applied as a CSS class to the wrapping ``<li>``, as ``"menu-{name}"``.
+  :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
   :classnames: additional classnames applied to the link, used to give it an icon
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu

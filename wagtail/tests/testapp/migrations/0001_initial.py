@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import django.db.models.deletion
 from django.conf import settings
-import modelcluster.tags
+import modelcluster.contrib.taggit
 import wagtail.wagtailimages.models
 import wagtail.wagtailadmin.taggable
 import modelcluster.fields
@@ -328,7 +328,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='taggedpage',
             name='tags',
-            field=modelcluster.tags.ClusterTaggableManager(verbose_name='Tags', to='taggit.Tag', blank=True, through='tests.TaggedPageTag', help_text='A comma-separated list of tags.'),
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(verbose_name='Tags', to='taggit.Tag', blank=True, through='tests.TaggedPageTag', help_text='A comma-separated list of tags.'),
             preserve_default=True,
         ),
         migrations.AddField(

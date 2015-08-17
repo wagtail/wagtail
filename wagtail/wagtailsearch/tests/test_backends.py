@@ -1,4 +1,3 @@
-from six import StringIO
 import unittest
 import time
 
@@ -6,6 +5,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.conf import settings
 from django.core import management
+from django.utils.six import StringIO
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.search import models
@@ -134,7 +134,7 @@ class BackendTests(WagtailTestUtils):
 
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'}
+        'default': {'BACKEND': 'wagtail.wagtailsearch.backends.db'}
     }
 )
 class TestBackendLoader(TestCase):
@@ -143,11 +143,15 @@ class TestBackendLoader(TestCase):
         self.assertIsInstance(db, DBSearch)
 
     def test_import_by_path(self):
+        db = get_search_backend(backend='wagtail.wagtailsearch.backends.db')
+        self.assertIsInstance(db, DBSearch)
+
+    def test_import_by_full_path(self):
         db = get_search_backend(backend='wagtail.wagtailsearch.backends.db.DBSearch')
         self.assertIsInstance(db, DBSearch)
 
     def test_nonexistent_backend_import(self):
-        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist.DoesntExist')
+        self.assertRaises(InvalidSearchBackendError, get_search_backend, backend='wagtail.wagtailsearch.backends.doesntexist')
 
     def test_invalid_backend_import(self):
         self.assertRaises(InvalidSearchBackendError, get_search_backend, backend="I'm not a backend!")
@@ -161,10 +165,10 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+                'BACKEND': 'wagtail.wagtailsearch.backends.db'
             },
             'another-backend': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch'
+                'BACKEND': 'wagtail.wagtailsearch.backends.db'
             },
         }
     )
@@ -182,7 +186,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'BACKEND': 'wagtail.wagtailsearch.backends.db',
                 'AUTO_UPDATE': False,
             },
         }
@@ -195,7 +199,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+                'BACKEND': 'wagtail.wagtailsearch.backends.db',
                 'AUTO_UPDATE': False,
             },
         }

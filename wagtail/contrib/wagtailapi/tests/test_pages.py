@@ -11,6 +11,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.contrib.wagtailapi import signal_handlers
 
 from wagtail.tests.demosite import models
+from wagtail.tests.testapp.models import StreamPage
 
 
 def get_total_page_count():
@@ -289,6 +290,52 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "parent page doesn't exist"})
+
+
+    # DESCENDANT OF FILTER
+
+    def test_descendant_of_filter(self):
+        response = self.get_response(descendant_of=6)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
+
+    def test_descendant_of_with_type(self):
+        response = self.get_response(type='tests.EventPage', descendant_of=6)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [])
+
+    def test_descendant_of_unknown_page_gives_error(self):
+        response = self.get_response(descendant_of=1000)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "ancestor page doesn't exist"})
+
+    def test_descendant_of_not_integer_gives_error(self):
+        response = self.get_response(descendant_of='abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "descendant_of must be a positive integer"})
+
+    def test_descendant_of_page_thats_not_in_same_site_gives_error(self):
+        # Root page is not in any site, so pretend it doesn't exist
+        response = self.get_response(descendant_of=1)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "ancestor page doesn't exist"})
+
+    def test_descendant_of_when_filtering_by_child_of_gives_error(self):
+        response = self.get_response(descendant_of=6, child_of=5)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "filtering by descendant_of with child_of is not supported"})
 
 
     # ORDERING
@@ -592,6 +639,47 @@ class TestPageDetail(TestCase):
 
         self.assertIn('related_links', content)
         self.assertEqual(content['feed_image'], None)
+
+
+class TestPageDetailWithStreamField(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.homepage = Page.objects.get(url_path='/home/')
+
+    def make_stream_page(self, body):
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body=body
+        )
+        return self.homepage.add_child(instance=stream_page)
+
+    def test_can_fetch_streamfield_content(self):
+        stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response = self.client.get(response_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['content-type'], 'application/json')
+
+        content = json.loads(response.content.decode('utf-8'))
+
+        self.assertIn('id', content)
+        self.assertEqual(content['id'], stream_page.id)
+        self.assertIn('body', content)
+        self.assertEqual(content['body'], [{'type': 'text', 'value': 'foo'}])
+
+    def test_image_block(self):
+        stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
+
+        response_url = reverse('wagtailapi_v1:pages:detail', args=(stream_page.id, ))
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode('utf-8'))
+
+        # ForeignKeys in a StreamField shouldn't be translated into dictionary representation
+        self.assertEqual(content['body'], [{'type': 'image', 'value': 1}])
 
 
 @override_settings(

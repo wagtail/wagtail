@@ -2,12 +2,10 @@ from datetime import datetime
 import json
 
 # Needs to be imported like this to allow @patch to work in tests
-from six.moves.urllib import request as urllib_request
-
-from six.moves.urllib.request import Request
-from six.moves.urllib.error import URLError
-from six.moves.urllib.parse import urlencode
-
+from django.utils.six.moves.urllib import request as urllib_request
+from django.utils.six.moves.urllib.request import Request
+from django.utils.six.moves.urllib.error import URLError
+from django.utils.six.moves.urllib.parse import urlencode
 from django.utils.module_loading import import_string
 from django.conf import settings
 

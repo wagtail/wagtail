@@ -196,3 +196,15 @@ Reference
 
             # Unpublish current_page and all of its children
             Page.objects.descendant_of(current_page, inclusive=True).unpublish()
+
+    .. automethod:: specific
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the specific instance of all children of the hompage,
+            # in a minimum number of database queries.
+            homepage.get_children().specific()
+
+        See also: :py:attr:`Page.specific <wagtail.wagtailcore.models.Page.specific>`

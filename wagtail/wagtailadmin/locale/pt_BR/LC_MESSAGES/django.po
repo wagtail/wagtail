@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-05-02 04:13+0000\n"
+"PO-Revision-Date: 2015-08-12 05:24+0000\n"
 "Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,10 +64,10 @@ msgid "New slug"
 msgstr "Novo slug"
 
 msgid "New parent page"
-msgstr "Nova página pai"
+msgstr "Nova página raíz"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "Esta cópia será uma filha desta página pai"
+msgstr "Esta cópia será uma subpágina desta página raíz."
 
 msgid "Copy subpages"
 msgstr "Copiar subpáginas"
@@ -82,7 +82,7 @@ msgid "Publish copied page"
 msgstr "Publicar página copiada"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "Esta página está ao vivo. Gostaria de publicar sua cópia também?"
+msgstr "Esta página está publicada. Gostaria de publicar sua cópia também?"
 
 msgid "Publish copies"
 msgstr "Publicar cópias"
@@ -98,13 +98,13 @@ msgstr[0] ""
 "%(count)s página está sendo copiada ao vivo. Você gostaria de publicar sua "
 "cópia?"
 msgstr[1] ""
-"%(count)s das páginas que estão sendo copiadas, estão ao vivo. Você gostaria "
-"de publicar suas cópias?"
+"%(count)s das páginas que estão sendo copiadas, estão publicadas. Você "
+"gostaria de publicar suas cópias?"
 
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr "Este endereço já está em uso no contexto desta página pai \"%s\""
+msgstr "Este endereço já está em uso no contexto desta página raíz \"%s\""
 
 msgid "Public"
 msgstr "Público"
@@ -126,9 +126,9 @@ msgid ""
 "address. With a Gravatar account you can set an avatar for any number of "
 "other email addresses you use."
 msgstr ""
-"Sua imagem é fornecido pelo Gravatar e está ligado ao seu e-mail. Com sua "
-"conta do Gravatar você pode definir um avatar para qualquer quantidade de e-"
-"mails que você usa."
+"Sua imagem de exibição é fornecida pelo Gravatar e está conectada ao seu "
+"endereço de e-mail. Com uma conta Gravatar você pode definir uma imagem de "
+"exibição para qualquer e-mail que você usa."
 
 msgid "Change password"
 msgstr "Alterar senha"
@@ -275,7 +275,7 @@ msgid "Title"
 msgstr "Título"
 
 msgid "Parent"
-msgstr "Pai"
+msgstr "Página Raíz"
 
 msgid "Type"
 msgstr "Tipo"
@@ -311,7 +311,7 @@ msgid "Draft"
 msgstr "Rascunho"
 
 msgid "Live"
-msgstr "Ao vivo"
+msgstr "Online"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -386,14 +386,15 @@ msgid "Page privacy"
 msgstr "Página privada"
 
 msgid "This page has been made private by a parent page."
-msgstr "Essa página foi feita privativa por uma página principal."
+msgstr "Essa página foi feita privativa por uma página raíz."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Você pode editar as configurações de privacidade em:"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
-"Alterações na privacidade também se aplicam a todas as filhas desta página"
+"Alterações na privacidade também se aplicam a todas as subpáginas desta "
+"página."
 
 msgid "Edit lock"
 msgstr "Editar bloqueio"
@@ -627,11 +628,11 @@ msgstr "Habilitar ordenação de subpáginas"
 
 #, python-format
 msgid "Select a new parent page for %(title)s"
-msgstr "Selecione uma nova página pai para %(title)s"
+msgstr "Selecione uma nova página raíz para %(title)s"
 
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Selecione uma nova página pai <span>%(title)s</span>"
+msgstr "Selecione uma nova página raíz para <span>%(title)s</span>"
 
 #, python-format
 msgid ""
@@ -796,7 +797,7 @@ msgid "This slug is already in use"
 msgstr "Esse endereço já existe"
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "Data/hora para ficar online  deve ser antes da data/hora de expiração"
+msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Data/hora de expiração deve ser no futuro."

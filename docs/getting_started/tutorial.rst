@@ -1,13 +1,14 @@
 Your first Wagtail site
 =======================
 
-1. Install Wagtail and its dependencies:
+1. Install Wagtail and its dependencies::
 
-   ``pip install wagtail``
+    pip install wagtail
 
-2. Start your site:
+2. Start your site::
 
-   ``wagtail start mysite``
+    wagtail start mysite
+    cd mysite
 
    Wagtail provides a ``start`` command similar to
    ``django-admin.py startproject``. Running ``wagtail start mysite`` in
@@ -16,18 +17,24 @@ Your first Wagtail site
    "home" app with a blank ``HomePage`` model and basic templates and a sample
    "search" app.
 
-3. Create the database:
+3. Install project dependencies::
 
-   ``python manage.py migrate``
+    pip install -r requirements.txt
+
+   This ensures that you have the relevant version of Django for the project you've just created.
+
+4. Create the database::
+
+    python manage.py migrate
 
    If you haven't updated the project settings, this will be a SQLite
    database file in the project directory.
 
-4. Create an admin user:
+5. Create an admin user::
 
-   ``python manage.py createsuperuser``.
+    python manage.py createsuperuser
 
-5. ``python manage.py runserver`` If everything worked,
+6. ``python manage.py runserver`` If everything worked,
    http://127.0.0.1:8000 will show you a welcome page
 
    .. figure:: ../_static/images/tutorial/tutorial_1.png
@@ -41,12 +48,13 @@ Your first Wagtail site
 Extend the HomePage model
 -------------------------
 
-Out of the box you get a blank ``HomePage`` model and the "home" app has a
-migration that creates a homepage and configures Wagtail to use it.
+Out of the box, the "home" app defines a blank ``HomePage`` model in ``models.py``, along with a migration that creates a homepage and configures Wagtail to use it.
 
-This example extends the HomePage model to add a body field.
+Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
 
 .. code:: python
+
+    from __future__ import unicode_literals
 
     from django.db import models
 
@@ -59,30 +67,32 @@ This example extends the HomePage model to add a body field.
         body = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
-            FieldPanel('body')
+            FieldPanel('body', classname="full")
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
 can use any of the `Django core fields <https://docs.djangoproject.com/en/1.8/ref/models/fields/>`__. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/creating_pages>`
 
-
 Run ``python manage.py makemigrations``, then
 ``python manage.py migrate`` to update the database with your model
 changes. You must run the above commands each time you make changes to
 the model definition.
 
-To reflect the model changes, edit
-``core/templates/core/home_page.html``. Wagtail uses normal Django
-templates to render each page type. It automatically generates a
-suggestion by separating capital letters with underscores (e.g. HomePage
-becomes home\_page.html).
+You can now edit the homepage within the Wagtail admin area (go to Explorer, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
+
+The page template now needs to be updated to reflect the changes made
+to the model. Wagtail uses normal Django templates to render each page
+type. It automatically generates a template filename from the model name
+by separating capital letters with underscores (e.g. HomePage becomes
+home\_page.html). Edit
+``home/templates/home/home_page.html`` to contain the following:
 
 .. code:: html+django
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load wagtailcore_tags %}
 
     {% block body_class %}template-homepage{% endblock %}
 
@@ -101,7 +111,7 @@ We are now ready to create a blog. To do so, run
 
 Add the new ``blog`` app to ``INSTALLED_APPS`` in ``mysite/settings/base.py``.
 
-The following example defines a basic blog post model in ``blog/models.py``
+The following example defines a basic blog post model in ``blog/models.py``:
 
 .. code:: python
 
@@ -128,6 +138,25 @@ The following example defines a basic blog post model in ``blog/models.py``
             FieldPanel('intro'),
             FieldPanel('body', classname="full")
         ]
+
+Create a template at ``blog/templates/blog/blog_page.html``:
+
+.. code:: html+django
+
+    {% extends "base.html" %}
+
+    {% load wagtailcore_tags %}
+
+    {% block body_class %}template-blogpage{% endblock %}
+
+    {% block content %}
+        <h1>{{ self.title }}</h1>
+        <p class="meta">{{ self.date }}</p>
+
+        <div class="intro">{{ self.intro }}</div>
+
+        {{ self.body|richtext }}
+    {% endblock %}
 
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 
@@ -178,15 +207,17 @@ model:
             FieldPanel('body'),
         ]
 
-Adjust your BlogPage template to output the image:
+Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
+
+Adjust your blog page template to include the image:
 
 .. code:: html+django
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags wagtailimages_tags %}
+    {% load wagtailcore_tags wagtailimages_tags %}
 
-    {% block body_class %}templage-blogpage{% endblock %}
+    {% block body_class %}template-blogpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
@@ -196,10 +227,9 @@ Adjust your BlogPage template to output the image:
           {% image self.main_image width-400 %}
         {% endif %}
 
-        <div class="intro">{% self.intro %}</div>
+        <div class="intro">{{ self.intro }}</div>
 
-        {{ self.body | richtext }}
-
+        {{ self.body|richtext }}
     {% endblock %}
 
 .. figure:: ../_static/images/tutorial/tutorial_6.png
@@ -230,14 +260,14 @@ The above creates an index type to collect all our blog posts.
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load wagtailcore_tags %}
 
     {% block body_class %}template-blogindexpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
 
-        <div class="intro">{{ self.intro }}</div>
+        <div class="intro">{{ self.intro|richtext }}</div>
     {% endblock %}
 
 Related items
@@ -310,6 +340,7 @@ can be BlogPages or external links. Change ``blog/models.py`` to
         intro = RichTextField(blank=True)
 
         content_panels = Page.content_panels + [
+            FieldPanel('intro', classname="full"),
             InlinePanel('related_links', label="Related links"),
         ]
 
@@ -322,14 +353,14 @@ Extend ``blog_index_page.html`` to show related items
 
     {% extends "base.html" %}
 
-    {% load static core_tags wagtailcore_tags %}
+    {% load wagtailcore_tags %}
 
     {% block body_class %}template-blogindexpage{% endblock %}
 
     {% block content %}
         <h1>{{ self.title }}</h1>
 
-        <div class="intro">{{ self.intro }}</div>
+        <div class="intro">{{ self.intro|richtext }}</div>
 
         {% if self.related_links.all %}
             <ul>

@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with query=query.query_string %}Delete {{ query }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Delete" as delete_str %}
+    {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=query.query_string %}
+
+    <div class="nice-padding">       
+        <p>{% trans "Are you sure you want to delete all promoted results for this search term?" %}</p>
+        <form action="{% url 'wagtailsearchpromotions:delete' query.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="serious" />
+        </form>
+    </div>
+{% endblock %}

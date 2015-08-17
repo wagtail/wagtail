@@ -1,5 +1,5 @@
-import six.moves.urllib.request
-from six.moves.urllib.error import URLError
+import django.utils.six.moves.urllib.request
+from django.utils.six.moves.urllib.error import URLError
 
 from mock import patch
 import unittest
@@ -229,11 +229,11 @@ class TestOembed(TestCase):
 
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
-        with patch.object(six.moves.urllib.request, 'urlopen', **config):
+        with patch.object(django.utils.six.moves.urllib.request, 'urlopen', **config):
             self.assertRaises(EmbedNotFoundException, wagtail_oembed,
                               "http://www.youtube.com/watch/")
 
-    @patch('six.moves.urllib.request.urlopen')
+    @patch('django.utils.six.moves.urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
@@ -244,7 +244,7 @@ class TestOembed(TestCase):
         self.assertEqual(result['html'], '<img src="http://www.example.com" />')
         loads.assert_called_with("foo")
 
-    @patch('six.moves.urllib.request.urlopen')
+    @patch('django.utils.six.moves.urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_return_values(self, loads, urlopen):
         urlopen.return_value = self.dummy_response

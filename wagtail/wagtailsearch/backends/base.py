@@ -1,8 +1,8 @@
-from six import text_type
 
 from django.db.models.query import QuerySet
 from django.db.models.lookups import Lookup
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
+from django.utils.six import text_type
 
 from wagtail.wagtailsearch.index import class_is_indexed
 
@@ -175,6 +175,9 @@ class BaseSearchResults(object):
 class BaseSearch(object):
     def __init__(self, params):
         pass
+
+    def get_rebuilder(self):
+        return None
 
     def reset_index(self):
         raise NotImplementedError

@@ -1,14 +1,18 @@
 {% extends "wagtailadmin/block_forms/sequence_member.html" %}
+{% load i18n %}
 
 {% block hidden_fields %}
     <input type="hidden" id="{{ prefix }}-type" name="{{ prefix }}-type" value="{{ child.block.name }}">
 {% endblock %}
 
 {% block header_controls %}
-    <div class="stream-controls">
-        <button type="button" id="{{ prefix }}-moveup" class="icon text-replace icon-order-up button-secondary button-nostroke">move up</button>
-        <button type="button" id="{{ prefix }}-movedown" class="icon text-replace icon-order-down button-secondary button-nostroke">move down</button>
-        <button type="button" id="{{ prefix }}-delete" class="stream-control icon text-replace no icon-bin button-secondary button-nostroke">delete</button>
+    <div class="sequence-controls">
+        <h3><label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label></h3>
+        <div class="buttons">
+            <button type="button" id="{{ prefix }}-moveup" title="{% trans 'Move up' %}" class="icon button-nobg button-neutral text-replace icon-order-up">{% trans 'Move up' %}</button>
+            <button type="button" id="{{ prefix }}-movedown" title="{% trans 'Move down' %}" class="icon button-nobg button-neutral text-replace icon-order-down">{% trans 'Move down' %}</button>
+            <button type="button" id="{{ prefix }}-delete" title="{% trans 'Delete' %}" class="icon button-nobg button-neutral text-replace no icon-bin">{% trans 'Delete' %}</button>
+        </div>
     </div>
 {% endblock %}
 

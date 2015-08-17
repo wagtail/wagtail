@@ -17,6 +17,10 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
+
+        'TEST': {
+            'NAME': os.environ.get('DATABASE_NAME', None),
+        }
     }
 }
 
@@ -74,42 +78,43 @@ MIDDLEWARE_CLASSES = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.auth',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
+    # Install wagtailredirects with its appconfig
+    # Theres nothing special about wagtailredirects, we just need to have one
+    # app which uses AppConfigs to test that hooks load properly
+    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
 
-    'taggit',
-    'compressor',
-
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailforms',
-    'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.wagtailsitemaps',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.contrib.wagtailfrontendcache',
-    'wagtail.contrib.wagtailapi',
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
     'wagtail.tests.customuser',
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
+    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.wagtailsitemaps',
+    'wagtail.contrib.wagtailroutablepage',
+    'wagtail.contrib.wagtailfrontendcache',
+    'wagtail.contrib.wagtailapi',
+    'wagtail.contrib.wagtailsearchpromotions',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
 
-    # Install wagtailredirects with its appconfig
-    # Theres nothing special about wagtailredirects, we just need to have one
-    # app which uses AppConfigs to test that hooks load properly
-    'wagtail.wagtailredirects.apps.WagtailRedirectsAppConfig',
+    'taggit',
+    'compressor',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 )
 
 
@@ -132,7 +137,7 @@ COMPRESS_ENABLED = False  # disable compression so that we can run tests on the 
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
     }
 }
 
@@ -144,7 +149,7 @@ try:
 
     # Import succeeded, add an Elasticsearch backend
     WAGTAILSEARCH_BACKENDS['elasticsearch'] = {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,

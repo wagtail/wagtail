@@ -1,11 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-import six
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
+from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.dateparse import parse_date, parse_time, parse_datetime
 from django.utils.functional import cached_property
@@ -22,16 +22,11 @@ class FieldBlock(Block):
     class Meta:
         default = None
 
+    def id_for_label(self, prefix):
+        return self.field.widget.id_for_label(prefix)
+
     def render_form(self, value, prefix='', errors=None):
         widget = self.field.widget
-
-        if self.label:
-            label_html = format_html(
-                """<label for={label_id}>{label}</label> """,
-                label_id=widget.id_for_label(prefix), label=self.label
-            )
-        else:
-            label_html = ''
 
         widget_attrs = {'id': prefix, 'placeholder': self.label}
 
@@ -46,10 +41,8 @@ class FieldBlock(Block):
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
-            'label': self.label,
             'classes': self.meta.classname,
             'widget': widget_html,
-            'label_tag': label_html,
             'field': self.field,
             'errors': errors if (not widget_has_rendered_errors) else None
         })
@@ -306,14 +299,17 @@ class RawHTMLBlock(FieldBlock):
 
 
 class ChooserBlock(FieldBlock):
-    def __init__(self, required=True, **kwargs):
+    def __init__(self, required=True, help_text=None, **kwargs):
         self.required = required
+        self.help_text = help_text
         super(ChooserBlock, self).__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
     @cached_property
     def field(self):
-        return forms.ModelChoiceField(queryset=self.target_model.objects.all(), widget=self.widget, required=self.required)
+        return forms.ModelChoiceField(
+            queryset=self.target_model.objects.all(), widget=self.widget, required=self.required,
+            help_text=self.help_text)
 
     def to_python(self, value):
         # the incoming serialised value should be None or an ID

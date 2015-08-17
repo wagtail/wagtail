@@ -1,12 +1,6 @@
+=================
 Writing templates
 =================
-
-.. contents:: Contents
-    :local:
-
-========================
-Overview
-========================
 
 Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation: 
 https://docs.djangoproject.com/en/dev/topics/templates/
@@ -16,9 +10,8 @@ https://docs.djangoproject.com/en/dev/ref/templates/api/
 
 You should be familiar with Django templating basics before continuing with this documentation.
 
-==========================
 Templates
-==========================
+=========
 
 Every type of page or "content type" in Wagtail is defined as a "model" in a file called ``models.py``. If your site has a blog, you might have a ``BlogPage``  model and another called ``BlogPageListing``. The names of the models are up to the Django developer.
 
@@ -48,9 +41,8 @@ The data/content entered into each page is accessed/output through Django's ``{{
 
 Additionally ``request.`` is available and contains Django's request object.
 
-==============
 Static assets
-==============
+=============
 
 Static files e.g CSS, JS and images are typically stored here::
     
@@ -79,9 +71,8 @@ Images from the library must be requested using this syntax, but a developer's s
 Read more about the image manipulation syntax here :ref:`image_tag`.
 
 
-========================
 Template tags & filters
-========================
+=======================
 
 In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be ``load``-ed `as you would any other <https://docs.djangoproject.com/en/dev/topics/templates/#custom-tag-and-filter-libraries>`_
 
@@ -196,9 +187,8 @@ Notice that the full path name is not required and the path snippet you enter on
 
 
 
-========================
 Wagtail User Bar
-========================
+================
 
 This tag provides a contextual flyout menu on the top-right of a page for logged-in users. The menu gives editors the ability to edit the current page or add another at the same level. Moderators are also given the ability to accept or reject a page previewed as part of content moderation.
 

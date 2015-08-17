@@ -7,9 +7,10 @@ from wagtail.wagtailcore.models import Site
 from wagtail.wagtailsites.forms import SiteForm
 from wagtail.wagtailadmin import messages
 
+
 def user_has_site_model_perm(user):
     for verb in ['add', 'change', 'delete']:
-        if user.has_perm('site.%s_site' % verb):
+        if user.has_perm('wagtailcore.%s_site' % verb):
             return True
     return False
 
@@ -22,16 +23,16 @@ def index(request):
     })
 
 
-@permission_required('site.add_site')
+@permission_required('wagtailcore.add_site')
 def create(request):
-    if request.POST:
+    if request.method == 'POST':
         form = SiteForm(request.POST)
         if form.is_valid():
             site = form.save()
             messages.success(request, _("Site '{0}' created.").format(site.hostname), buttons=[
-                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+                messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
-            return redirect('wagtailsites_index')
+            return redirect('wagtailsites:index')
         else:
             messages.error(request, _("The site could not be created due to errors."))
     else:
@@ -42,18 +43,18 @@ def create(request):
     })
 
 
-@permission_required('site.change_site')
+@permission_required('wagtailcore.change_site')
 def edit(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
             site = form.save()
             messages.success(request, _("Site '{0}' updated.").format(site.hostname), buttons=[
-                messages.button(reverse('wagtailsites_edit', args=(site.id,)), _('Edit'))
+                messages.button(reverse('wagtailsites:edit', args=(site.id,)), _('Edit'))
             ])
-            return redirect('wagtailsites_index')
+            return redirect('wagtailsites:index')
         else:
             messages.error(request, _("The site could not be saved due to errors."))
     else:
@@ -65,14 +66,14 @@ def edit(request, site_id):
     })
 
 
-@permission_required('site.delete_site')
+@permission_required('wagtailcore.delete_site')
 def delete(request, site_id):
     site = get_object_or_404(Site, id=site_id)
 
-    if request.POST:
+    if request.method == 'POST':
         site.delete()
         messages.success(request, _("Site '{0}' deleted.").format(site.hostname))
-        return redirect('wagtailsites_index')
+        return redirect('wagtailsites:index')
 
     return render(request, "wagtailsites/confirm_delete.html", {
         'site': site,

@@ -33,7 +33,11 @@ def index(request):
             q = form.cleaned_data['q']
 
             is_searching = True
-            users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
+
+            if User.USERNAME_FIELD == 'username':
+                users = User.objects.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
+            else:
+                users = User.objects.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
     else:
         form = SearchForm(placeholder=_("Search users"))
 
@@ -84,9 +88,9 @@ def create(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
-                messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
+                messages.button(reverse('wagtailusers_users:edit', args=(user.id,)), _('Edit'))
             ])
-            return redirect('wagtailusers_users_index')
+            return redirect('wagtailusers_users:index')
         else:
             messages.error(request, _("The user could not be created due to errors."))
     else:
@@ -105,9 +109,9 @@ def edit(request, user_id):
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user), buttons=[
-                messages.button(reverse('wagtailusers_users_edit', args=(user.id,)), _('Edit'))
+                messages.button(reverse('wagtailusers_users:edit', args=(user.id,)), _('Edit'))
             ])
-            return redirect('wagtailusers_users_index')
+            return redirect('wagtailusers_users:index')
         else:
             messages.error(request, _("The user could not be saved due to errors."))
     else:

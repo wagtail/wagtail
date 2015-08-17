@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"PO-Revision-Date: 2015-07-01 09:36+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Email"
+msgstr "Netfang"
+
+msgid "Number"
+msgstr "Tala"
+
+msgid "URL"
+msgstr "Slóð"
+
+msgid "Checkbox"
+msgstr "Hakreitur"
+
+msgid "Checkboxes"
+msgstr "Hakreitir"
+
+msgid "Drop down"
+msgstr "Valmynd"
+
+msgid "Radio buttons"
+msgstr "Einvalsreitur"
+
+msgid "Date"
+msgstr "Dagsetning"
+
+msgid "Date/time"
+msgstr "Dagsetning/Tími"
+
+msgid "Label"
+msgstr "Merkimiði"
+
+msgid "Field type"
+msgstr "Tegund reitar"
+
+msgid "Choices"
+msgstr "Valmöguleikar"
+
+msgid "Default value"
+msgstr "Sjálfgefið gildi"
+
+msgid "Help text"
+msgstr "Hjálpartexti"
+
+msgid "To address"
+msgstr "Til"
+
+msgid "Optional - form submissions will be emailed to this address"
+msgstr ""
+"Valfrjálst - upplýsingar úr innsendum formum verða send á þetta netfang"
+
+msgid "From address"
+msgstr "Frá"
+
+msgid "Subject"
+msgstr "Viðfang"
+
+msgid "Forms"
+msgstr "Skráningarform"
+
+msgid "Pages"
+msgstr "Síður"
+
+msgid "Filter"
+msgstr "Sía"
+
+msgid "Download CSV"
+msgstr "Hlaða niður CSV"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "Submission Date"
+msgstr "Dagsetning innsendingar"
+
+msgid "No form pages have been created."
+msgstr "Engin skráningarform hafa verið búin til"

@@ -194,7 +194,7 @@ class TestFormsIndex(TestCase):
             ))
 
     def test_forms_index(self):
-        response = self.client.get(reverse('wagtailforms_index'))
+        response = self.client.get(reverse('wagtailforms:index'))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -205,7 +205,7 @@ class TestFormsIndex(TestCase):
         self.make_form_pages()
 
         # Get page two
-        response = self.client.get(reverse('wagtailforms_index'), {'p': 2})
+        response = self.client.get(reverse('wagtailforms:index'), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -219,7 +219,7 @@ class TestFormsIndex(TestCase):
         self.make_form_pages()
 
         # Get page two
-        response = self.client.get(reverse('wagtailforms_index'), {'p': 'Hello world!'})
+        response = self.client.get(reverse('wagtailforms:index'), {'p': 'Hello world!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -233,7 +233,7 @@ class TestFormsIndex(TestCase):
         self.make_form_pages()
 
         # Get page two
-        response = self.client.get(reverse('wagtailforms_index'), {'p': 99999})
+        response = self.client.get(reverse('wagtailforms:index'), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -246,13 +246,13 @@ class TestFormsIndex(TestCase):
         # Login with as a user without permission to see forms
         self.client.login(username='eventeditor', password='password')
 
-        response = self.client.get(reverse('wagtailforms_index'))
+        response = self.client.get(reverse('wagtailforms:index'))
 
         # Check that the user cannot see the form page
         self.assertFalse(self.form_page in response.context['form_pages'])
 
     def test_can_see_forms_with_permission(self):
-        response = self.client.get(reverse('wagtailforms_index'))
+        response = self.client.get(reverse('wagtailforms:index'))
 
         # Check that the user can see the form page
         self.assertIn(self.form_page, response.context['form_pages'])
@@ -301,7 +301,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
             submission.save()
 
     def test_list_submissions(self):
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )))
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -309,7 +309,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
     def test_list_submissions_filtering(self):
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -319,7 +319,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'p': 2})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -331,7 +331,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -343,7 +343,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
 
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'p': 99999})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -353,7 +353,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['submissions'].number, response.context['submissions'].paginator.num_pages)
 
     def test_list_submissions_csv_export(self):
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014', 'action': 'CSV'})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/01/2014', 'action': 'CSV'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -371,7 +371,7 @@ class TestFormsSubmissions(TestCase, WagtailTestUtils):
         unicode_form_submission.submit_time = '2014-01-02T12:00:00.000Z'
         unicode_form_submission.save()
 
-        response = self.client.get(reverse('wagtailforms_list_submissions', args=(self.form_page.id, )), {'date_from': '01/02/2014', 'action': 'CSV'})
+        response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id, )), {'date_from': '01/02/2014', 'action': 'CSV'})
 
         # Check response
         self.assertEqual(response.status_code, 200)

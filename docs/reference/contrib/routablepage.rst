@@ -41,13 +41,61 @@ Here's an example of an ``EventPage`` with three views:
             """
             ...
 
+        # Multiple routes!
         @route(r'^year/(\d+)/$')
+        @route(r'^year/current/$')
+        def events_for_year(self, request, year=None):
+            """
+            View function for the events for year page
+            """
+            ...
+
+Reversing URLs
+==============
+
+:class:`~models.RoutablePageMixin` adds a :meth:`~models.RoutablePageMixin.reverse_subpage` method to your page model which you can use for reversing URLs. For example:
+
+.. code-block:: python
+
+    # The URL name defaults to the view method name.
+    >>> event_page.reverse_subpage('events_for_year', args=(2015, ))
+    'year/2015/'
+
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.wagtailcore.models.Page.url` or the :attr:`~wagtail.wagtailcore.models.Page.full_url` attribute on your page:
+
+.. code-block:: python
+
+    >>> event_page.url + event_page.reverse_subpage('events_for_year', args=(2015, ))
+    '/events/year/2015/'
+
+    >>> event_page.full_url + event_page.reverse_subpage('events_for_year', args=(2015, ))
+    'http://example.com/events/year/2015/'
+
+Changing route names
+--------------------
+
+The route name defaults to the name of the view. You can override this name with the ``name`` keyword argument on ``@route``:
+
+.. code-block:: python
+
+    from wagtail.wagtailcore.models import Page
+    from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+
+
+    class EventPage(RoutablePageMixin, Page):
+        ...
+
+        @route(r'^year/(\d+)/$', name='year')
         def events_for_year(self, request, year):
             """
             View function for the events for year page
             """
             ...
 
+.. code-block:: python
+
+    >>> event_page.reverse_subpage('year', args=(2015, ))
+    '/events/year/2015/'
 
 The ``RoutablePageMixin`` class
 ===============================

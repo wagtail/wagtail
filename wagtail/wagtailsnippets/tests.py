@@ -18,7 +18,7 @@ class TestSnippetIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets_index'), params)
+        return self.client.get(reverse('wagtailsnippets:index'), params)
 
     def test_simple(self):
         response = self.get()
@@ -34,7 +34,7 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets_list',
+        return self.client.get(reverse('wagtailsnippets:list',
                                        args=('tests', 'advert')),
                                params)
 
@@ -60,12 +60,12 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets_create',
+        return self.client.get(reverse('wagtailsnippets:add',
                                        args=('tests', 'advert')),
                                params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets_create',
+        return self.client.post(reverse('wagtailsnippets:add',
                                args=('tests', 'advert')),
                                post_data)
 
@@ -82,7 +82,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
                                         'url': 'http://www.example.com/'})
-        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='test_advert')
         self.assertEqual(snippets.count(), 1)
@@ -97,12 +97,12 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailsnippets_edit',
+        return self.client.get(reverse('wagtailsnippets:edit',
                                        args=('tests', 'advert', self.test_snippet.id)),
                                params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailsnippets_edit',
+        return self.client.post(reverse('wagtailsnippets:edit',
                                         args=('tests', 'advert', self.test_snippet.id)),
                                 post_data)
 
@@ -112,11 +112,11 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
 
     def test_non_existant_model(self):
-        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'foo', self.test_snippet.id)))
+        response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', self.test_snippet.id)))
         self.assertEqual(response.status_code, 404)
 
     def test_nonexistant_id(self):
-        response = self.client.get(reverse('wagtailsnippets_edit', args=('tests', 'advert', 999999)))
+        response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'advert', 999999)))
         self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
@@ -127,7 +127,7 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
                                         'url': 'http://www.example.com/edited'})
-        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
 
         snippets = Advert.objects.filter(text='edited_test_advert')
         self.assertEqual(snippets.count(), 1)
@@ -142,15 +142,15 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.login()
 
     def test_delete_get(self):
-        response = self.client.get(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )))
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
         post_data = {'foo': 'bar'} # For some reason, this test doesn't work without a bit of POST data
-        response = self.client.post(reverse('wagtailsnippets_delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
+        response = self.client.post(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
 
         # Should be redirected to explorer page
-        self.assertRedirects(response, reverse('wagtailsnippets_list', args=('tests', 'advert')))
+        self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
 
         # Check that the page is gone
         self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
@@ -234,7 +234,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params=None):
-        return self.client.get(reverse('wagtailsnippets_choose',
+        return self.client.get(reverse('wagtailsnippets:choose',
                                        args=('tests', 'advert')),
                                params or {})
 
@@ -258,7 +258,7 @@ class TestSnippetChosen(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, pk, params=None):
-        return self.client.get(reverse('wagtailsnippets_chosen',
+        return self.client.get(reverse('wagtailsnippets:chosen',
                                        args=('tests', 'advert', pk)),
                                params or {})
 

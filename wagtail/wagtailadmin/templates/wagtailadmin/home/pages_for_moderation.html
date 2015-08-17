@@ -21,26 +21,26 @@
                         <tr>
                             <td class="title" valign="top">
                                 <h2>
-                                    <a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.title }}</a>
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
                                 </h2>
                                 <ul class="actions">
                                     <li>
-                                         <form action="{% url 'wagtailadmin_pages_approve_moderation' revision.id %}" method="POST">
+                                         <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
                                             <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
                                         </form>
                                     </li>
                                     <li class="no-border">
-                                        <form action="{% url 'wagtailadmin_pages_reject_moderation' revision.id %}" method="POST">
+                                        <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
                                             <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
                                         </form>
                                     </li>
-                                    <li><a href="{% url 'wagtailadmin_pages_edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
-                                    <li><a href="{% url 'wagtailadmin_pages_preview_for_moderation' revision.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                    <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a></li>
                                 </ul>
                             </td>
                             <td valign="top">

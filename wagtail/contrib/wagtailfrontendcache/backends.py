@@ -1,8 +1,8 @@
 import logging
-
-from six.moves.urllib.parse import urlparse
-
 import requests
+
+from django.utils.six.moves.urllib.parse import urlparse
+
 from requests.adapters import HTTPAdapter
 
 

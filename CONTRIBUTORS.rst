@@ -54,6 +54,10 @@ Contributors
 * Mac Chapman
 * Brett Grace
 * Nar Chhantyal
+* Michael Fillier
+* Mitchel Cabuloy
+* Piet Delport
+* Tom Christie
 
 Translators
 ===========
@@ -64,13 +68,16 @@ Translators
 * Chinese: Victoria Chan, Leway Colin, hanfeng, qiulin, Tulpar Turamat, wwj718
 * Chinese (China): hanfeng, Lihan Li, ufoym
 * Chinese (Taiwan): wdv4758h, jshc
+* Croatian: Luka Matijević
 * Czech: Jiri Stepanek
 * Dutch: t.vandemeer, mahulst, Samuel Leeuwenburg
+* Finnish: Glen Somerville
 * French: Sylvain Fankhauser, sephii, Adrihein, Bertrand Bordage, Romain Hardouin, linibou, nahuel, Benoît Bar
 * Galician: fooflare, fonso
-* German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston
+* German: Karl Sander, Johannes Spielmann, m0rph3u5, pcraston, Tammo van Lessen
 * Greek: Serafeim Papastefanos, Jim Dal
-* Italian: Andrea Tagliazucchi, Claudio Bantaloukas
+* Hebrew (Israel): bjesus, Lior Abazon
+* Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga
 * Polish: Łukasz Bołdys
