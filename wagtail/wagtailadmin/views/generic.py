@@ -7,7 +7,7 @@ from wagtail.wagtailadmin import messages
 from wagtail.wagtailadmin.utils import permission_denied
 
 
-class PermissionCheckedView(View):
+class PermissionCheckedMixin(object):
     """
     Mixin for class-based views to enforce permission checks.
     Subclasses should set either of the following class properties:
@@ -34,10 +34,10 @@ class PermissionCheckedView(View):
             if not has_permission:
                 return permission_denied(request)
 
-        return super(PermissionCheckedView, self).dispatch(request, *args, **kwargs)
+        return super(PermissionCheckedMixin, self).dispatch(request, *args, **kwargs)
 
 
-class IndexView(PermissionCheckedView):
+class IndexView(PermissionCheckedMixin, View):
     def get_queryset(self):
         return self.model.objects.all()
 
@@ -50,7 +50,7 @@ class IndexView(PermissionCheckedView):
         })
 
 
-class CreateView(PermissionCheckedView):
+class CreateView(PermissionCheckedMixin, View):
     def get(self, request):
         self.form = self.form_class()
         return self.render_to_response()
@@ -74,7 +74,7 @@ class CreateView(PermissionCheckedView):
         })
 
 
-class EditView(PermissionCheckedView):
+class EditView(PermissionCheckedMixin, View):
     page_title = __("Editing")
 
     def get_page_subtitle(self):
@@ -114,7 +114,7 @@ class EditView(PermissionCheckedView):
         })
 
 
-class DeleteView(PermissionCheckedView):
+class DeleteView(PermissionCheckedMixin, View):
     template_name = 'wagtailadmin/generic/confirm_delete.html'
 
     def get_page_subtitle(self):
