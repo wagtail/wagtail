@@ -12,7 +12,7 @@ function createPageChooser(id, pageType, openAtParentId) {
 
         ModalWorkflow({
             url: initialUrl,
-            urlParams: { page_type: pageType },
+            urlParams: { page_type: pageType.join(',') },
             responses: {
                 pageChosen: function(pageData) {
                     input.val(pageData.id);
