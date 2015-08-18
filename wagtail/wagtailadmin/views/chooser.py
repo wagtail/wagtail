@@ -29,6 +29,15 @@ def shared_context(request, extra_context={}):
     return context
 
 
+def page_model_from_string(string):
+    page_model = resolve_model_string(string)
+
+    if not issubclass(page_model, Page):
+        raise ValueError("Model is not a page")
+
+    return page_model
+
+
 def browse(request, parent_page_id=None):
     # Find parent page
     if parent_page_id:
@@ -43,11 +52,8 @@ def browse(request, parent_page_id=None):
     page_type_string = request.GET.get('page_type', 'wagtailcore.page')
     if page_type_string != 'wagtailcore.page':
         try:
-            desired_class = resolve_model_string(page_type_string)
+            desired_class = page_model_from_string(page_type_string)
         except (ValueError, LookupError):
-            raise Http404
-
-        if not issubclass(desired_class, Page):
             raise Http404
 
         # restrict the page listing to just those pages that:
@@ -102,11 +108,8 @@ def search(request, parent_page_id=None):
     page_type_string = request.GET.get('page_type', 'wagtailcore.page')
 
     try:
-        desired_class = resolve_model_string(page_type_string)
+        desired_class = page_model_from_string(page_type_string)
     except (ValueError, LookupError):
-        raise Http404
-
-    if not issubclass(desired_class, Page):
         raise Http404
 
     search_form = SearchForm(request.GET)
