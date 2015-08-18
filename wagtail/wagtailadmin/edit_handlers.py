@@ -555,19 +555,22 @@ class BasePageChooserPanel(BaseChooserPanel):
     def target_content_type(cls):
         if cls._target_content_type is None:
             if cls.page_type:
-                try:
-                    model = resolve_model_string(cls.page_type)
-                except LookupError:
-                    raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                        cls.__name__, cls.page_type))
-                except ValueError:
-                    raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
-                        cls.__name__, cls.page_type))
+                target_models = []
 
-                cls._target_content_type = ContentType.objects.get_for_model(model)
+                for page_type in cls.page_type:
+                    try:
+                        target_models.append(resolve_model_string(page_type))
+                    except LookupError:
+                        raise ImproperlyConfigured("{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
+                            cls.__name__, page_type))
+                    except ValueError:
+                        raise ImproperlyConfigured("{0}.page_type refers to model {1!r} that has not been installed".format(
+                            cls.__name__, page_type))
+
+                cls._target_content_type = list(ContentType.objects.get_for_models(*target_models).values())
             else:
                 target_model = cls.model._meta.get_field(cls.field_name).rel.to
-                cls._target_content_type = ContentType.objects.get_for_model(target_model)
+                cls._target_content_type = [ContentType.objects.get_for_model(target_model)]
 
         return cls._target_content_type
 
@@ -575,6 +578,14 @@ class BasePageChooserPanel(BaseChooserPanel):
 class PageChooserPanel(object):
     def __init__(self, field_name, page_type=None):
         self.field_name = field_name
+
+        if page_type:
+            # Convert single string/model into list
+            if not isinstance(page_type, (list, tuple)):
+                page_type = [page_type]
+        else:
+            page_type = []
+
         self.page_type = page_type
 
     def bind_to_model(self, model):
