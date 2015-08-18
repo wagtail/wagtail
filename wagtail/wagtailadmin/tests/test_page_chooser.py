@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -103,7 +101,6 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertFalse(pages[event_index_page.id].can_choose)
         self.assertTrue(pages[event_index_page.id].can_descend)
 
-    @unittest.expectedFailure
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
@@ -229,7 +226,6 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         # Not a simple page
         self.assertNotIn(event_page.id, pages)
 
-    @unittest.expectedFailure
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
