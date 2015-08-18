@@ -7,7 +7,7 @@
 
     {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
 
-    <form action="{% url view.add_url_name %}" method="POST">
+    <form action="{{ view.get_add_url }}" method="POST">
         {% csrf_token %}
         <div class="nice-padding">
             <ul class="fields">

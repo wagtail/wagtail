@@ -51,6 +51,9 @@ class IndexView(PermissionCheckedMixin, View):
 
 
 class CreateView(PermissionCheckedMixin, View):
+    def get_add_url(self):
+        return reverse(self.add_url_name)
+
     def get(self, request):
         self.form = self.form_class()
         return self.render_to_response()
