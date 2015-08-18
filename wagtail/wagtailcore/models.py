@@ -1182,7 +1182,7 @@ class PageRevision(models.Model):
 
 PAGE_PERMISSION_TYPE_CHOICES = [
     ('add', _('Add/edit pages you own')),
-    ('edit', _('Add/edit any page')),
+    ('edit', _('Edit any page')),
     ('publish', _('Publish any page')),
     ('lock', _('Lock/unlock any page')),
 ]

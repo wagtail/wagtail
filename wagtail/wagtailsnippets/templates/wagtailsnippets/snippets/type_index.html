@@ -9,8 +9,10 @@
                 <h1 class="icon icon-snippet">{% blocktrans with snippet_type_name_plural=snippet_type_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
             </div>
             <div class="right col3">
-                <a href="{% url 'wagtailsnippets:add' content_type.app_label content_type.model %}" class="button bicolor icon icon-plus">{% blocktrans %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
-                {# TODO: figure out a way of saying "Add a/an [foo]" #}
+                {% if can_add_snippet %}
+                    <a href="{% url 'wagtailsnippets:add' content_type.app_label content_type.model %}" class="button bicolor icon icon-plus">{% blocktrans %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
+                    {# TODO: figure out a way of saying "Add a/an [foo]" #}
+                {% endif %}
             </div>
         </div>
     </header>

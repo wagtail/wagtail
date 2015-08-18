@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
@@ -270,3 +272,123 @@ class TestSnippetChosen(TestCase, WagtailTestUtils):
 
         response = self.get(999999)
         self.assertEqual(response.status_code, 404)
+
+
+class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
+
+        # Create a user with add_advert permission but not change_advert
+        user = get_user_model().objects.create_user(username='addonly', email='addonly@example.com', password='password')
+        add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        user.user_permissions.add(add_permission, admin_permission)
+        self.client.login(username='addonly', password='password')
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtailsnippets:list',
+            args=('tests', 'advert')))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+        # user should get an "Add advert" button
+        self.assertContains(response, "Add advert")
+
+    def test_get_add(self):
+        response = self.client.get(reverse('wagtailsnippets:add',
+            args=('tests', 'advert')))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
+
+    def test_get_edit(self):
+        response = self.client.get(reverse('wagtailsnippets:edit',
+            args=('tests', 'advert', self.test_snippet.id)))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_delete(self):
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
+
+        # Create a user with change_advert permission but not add_advert
+        user = get_user_model().objects.create_user(username='changeonly', email='changeonly@example.com', password='password')
+        change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        user.user_permissions.add(change_permission, admin_permission)
+        self.client.login(username='changeonly', password='password')
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtailsnippets:list',
+            args=('tests', 'advert')))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+        # user should not get an "Add advert" button
+        self.assertNotContains(response, "Add advert")
+
+    def test_get_add(self):
+        response = self.client.get(reverse('wagtailsnippets:add',
+            args=('tests', 'advert')))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_edit(self):
+        response = self.client.get(reverse('wagtailsnippets:edit',
+            args=('tests', 'advert', self.test_snippet.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
+
+    def test_get_delete(self):
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+
+class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.test_snippet = Advert.objects.get(id=1)
+
+        # Create a user with delete_advert permission
+        user = get_user_model().objects.create_user(username='deleteonly', email='deleteeonly@example.com', password='password')
+        change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        user.user_permissions.add(change_permission, admin_permission)
+        self.client.login(username='deleteonly', password='password')
+
+    def test_get_index(self):
+        response = self.client.get(reverse('wagtailsnippets:list',
+            args=('tests', 'advert')))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+        # user should not get an "Add advert" button
+        self.assertNotContains(response, "Add advert")
+
+    def test_get_add(self):
+        response = self.client.get(reverse('wagtailsnippets:add',
+            args=('tests', 'advert')))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_edit(self):
+        response = self.client.get(reverse('wagtailsnippets:edit',
+            args=('tests', 'advert', self.test_snippet.id)))
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
+    def test_get_delete(self):
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
