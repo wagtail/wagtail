@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from wagtail.wagtailadmin import widgets
 
 from wagtail.wagtailcore.models import Page
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.testapp.models import SimplePage, EventPage
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -28,7 +28,7 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", \"wagtailcore.page\", null);")
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null);")
 
     def test_render_html_with_value(self):
         widget = widgets.AdminPageChooser()
@@ -40,7 +40,7 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
 
         js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", \"wagtailcore.page\", %d);" % self.root_page.id)
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d);" % self.root_page.id)
 
     # def test_render_html_init_with_content_type omitted as HTML does not
     # change when selecting a content type
@@ -50,4 +50,15 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser(content_type=content_type)
 
         js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", \"tests.simplepage\", null);")
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null);")
+
+    def test_render_js_init_with_multiple_content_types(self):
+        content_types = [
+            # Not using get_for_models as we need deterministic ordering
+            ContentType.objects.get_for_model(SimplePage),
+            ContentType.objects.get_for_model(EventPage),
+        ]
+        widget = widgets.AdminPageChooser(content_type=content_types)
+
+        js_init = widget.render_js_init('test-id', 'test', None)
+        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null);")
