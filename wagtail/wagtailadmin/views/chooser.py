@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 from django.utils.http import urlencode
