@@ -9,7 +9,7 @@ class Index(IndexView):
     any_permission_required = ['wagtailcore.add_site', 'wagtailcore.change_site', 'wagtailcore.delete_site']
     model = Site
     context_object_name = 'sites'
-    template = 'wagtailsites/index.html'
+    template_name = 'wagtailsites/index.html'
     add_url_name = 'wagtailsites:add'
     add_permission_name = 'wagtailcore.add_site'
     page_title = __("Sites")
@@ -25,7 +25,7 @@ class Create(CreateView):
     add_url_name = 'wagtailsites:add'
     edit_url_name = 'wagtailsites:edit'
     index_url_name = 'wagtailsites:index'
-    template = 'wagtailsites/create.html'
+    template_name = 'wagtailsites/create.html'
     header_icon = 'site'
 
 
@@ -41,7 +41,7 @@ class Edit(EditView):
     delete_url_name = 'wagtailsites:delete'
     delete_permission_name = 'wagtailcore.delete_site'
     context_object_name = 'site'
-    template = 'wagtailsites/edit.html'
+    template_name = 'wagtailsites/edit.html'
     header_icon = 'site'
 
 

@@ -43,7 +43,7 @@ class IndexView(PermissionCheckedView):
 
     def get(self, request):
         object_list = self.get_queryset()
-        return render(request, self.template, {
+        return render(request, self.template_name, {
             'view': self,
             self.context_object_name: object_list,
             'can_add': self.request.user.has_perm(self.add_permission_name),
@@ -68,7 +68,7 @@ class CreateView(PermissionCheckedView):
             return self.render_to_response()
 
     def render_to_response(self):
-        return render(self.request, self.template, {
+        return render(self.request, self.template_name, {
             'view': self,
             'form': self.form,
         })
@@ -106,7 +106,7 @@ class EditView(PermissionCheckedView):
         return self.render_to_response()
 
     def render_to_response(self):
-        return render(self.request, self.template, {
+        return render(self.request, self.template_name, {
             'view': self,
             self.context_object_name: self.instance,
             'form': self.form,
@@ -115,7 +115,7 @@ class EditView(PermissionCheckedView):
 
 
 class DeleteView(PermissionCheckedView):
-    template = 'wagtailadmin/generic/confirm_delete.html'
+    template_name = 'wagtailadmin/generic/confirm_delete.html'
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -125,7 +125,7 @@ class DeleteView(PermissionCheckedView):
 
     def get(self, request, instance_id):
         self.instance = get_object_or_404(self.model, id=instance_id)
-        return render(request, self.template, {
+        return render(request, self.template_name, {
             'view': self,
             self.context_object_name: self.instance,
         })
