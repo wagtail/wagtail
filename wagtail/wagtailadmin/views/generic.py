@@ -38,16 +38,23 @@ class PermissionCheckedMixin(object):
 
 
 class IndexView(PermissionCheckedMixin, View):
+    context_object_name = None
+
     def get_queryset(self):
         return self.model.objects.all()
 
     def get(self, request):
         object_list = self.get_queryset()
-        return render(request, self.template_name, {
+
+        context = {
             'view': self,
-            self.context_object_name: object_list,
+            'object_list': object_list,
             'can_add': self.request.user.has_perm(self.add_permission_name),
-        })
+        }
+        if self.context_object_name:
+            context[self.context_object_name] = object_list
+
+        return render(request, self.template_name, context)
 
 
 class CreateView(PermissionCheckedMixin, View):
@@ -79,6 +86,7 @@ class CreateView(PermissionCheckedMixin, View):
 
 class EditView(PermissionCheckedMixin, View):
     page_title = __("Editing")
+    context_object_name = None
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -109,16 +117,21 @@ class EditView(PermissionCheckedMixin, View):
         return self.render_to_response()
 
     def render_to_response(self):
-        return render(self.request, self.template_name, {
+        context = {
             'view': self,
-            self.context_object_name: self.instance,
+            'object': self.instance,
             'form': self.form,
             'can_delete': self.request.user.has_perm(self.delete_permission_name),
-        })
+        }
+        if self.context_object_name:
+            context[self.context_object_name] = self.instance
+
+        return render(self.request, self.template_name, context)
 
 
 class DeleteView(PermissionCheckedMixin, View):
     template_name = 'wagtailadmin/generic/confirm_delete.html'
+    context_object_name = None
 
     def get_page_subtitle(self):
         return str(self.instance)
@@ -128,10 +141,15 @@ class DeleteView(PermissionCheckedMixin, View):
 
     def get(self, request, instance_id):
         self.instance = get_object_or_404(self.model, id=instance_id)
-        return render(request, self.template_name, {
+
+        context = {
             'view': self,
-            self.context_object_name: self.instance,
-        })
+            'object': self.instance,
+        }
+        if self.context_object_name:
+            context[self.context_object_name] = self.instance
+
+        return render(request, self.template_name, context)
 
     def post(self, request, instance_id):
         self.instance = get_object_or_404(self.model, id=instance_id)
