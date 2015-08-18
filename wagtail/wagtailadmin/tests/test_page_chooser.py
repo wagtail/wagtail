@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -110,7 +108,6 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
-    @unittest.expectedFailure
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
@@ -245,7 +242,6 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertContains(response, "There is one match")
         self.assertContains(response, "foobarbaz")
 
-    @unittest.expectedFailure
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(

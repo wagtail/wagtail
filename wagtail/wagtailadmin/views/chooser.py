@@ -29,13 +29,27 @@ def shared_context(request, extra_context={}):
     return context
 
 
-def page_model_from_string(string):
-    page_model = resolve_model_string(string)
+def page_models_from_string(string):
+    page_models = []
 
-    if not issubclass(page_model, Page):
-        raise ValueError("Model is not a page")
+    for sub_string in string.split(','):
+        page_model = resolve_model_string(sub_string)
 
-    return page_model
+        if not issubclass(page_model, Page):
+            raise ValueError("Model is not a page")
+
+        page_models.append(page_model)
+
+    return tuple(page_models)
+
+
+def filter_page_type(queryset, page_models):
+    qs = queryset.none()
+
+    for model in page_models:
+        qs |= queryset.type(model)
+
+    return qs
 
 
 def browse(request, parent_page_id=None):
@@ -53,21 +67,21 @@ def browse(request, parent_page_id=None):
     page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
     if page_type_string != 'wagtailcore.page':
         try:
-            desired_class = page_model_from_string(page_type_string)
+            desired_classes = page_models_from_string(page_type_string)
         except (ValueError, LookupError):
             raise Http404
 
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
-        choosable_pages = pages.type(desired_class)
+        choosable_pages = filter_page_type(pages, desired_classes)
         descendable_pages = pages.filter(numchild__gt=0)
         pages = choosable_pages | descendable_pages
     else:
-        desired_class = Page
+        desired_classes = (Page, )
 
-    # Parent page can be chosen if it is a instance of desired_class
-    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_class)
+    # Parent page can be chosen if it is a instance of desired_classes
+    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_classes)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -83,10 +97,10 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        if desired_class == Page:
+        if desired_classes == (Page, ):
             page.can_choose = True
         else:
-            page.can_choose = issubclass(page.specific_class or Page, desired_class)
+            page.can_choose = issubclass(page.specific_class or Page, desired_classes)
 
         page.can_descend = page.get_children_count()
 
@@ -99,7 +113,7 @@ def browse(request, parent_page_id=None):
             'pages': pages,
             'search_form': SearchForm(),
             'page_type_string': page_type_string,
-            'page_type_name': desired_class.get_verbose_name(),
+            'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
             'page_types_restricted': (page_type_string != 'wagtailcore.page')
         })
     )
@@ -110,17 +124,19 @@ def search(request, parent_page_id=None):
     page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
 
     try:
-        desired_class = page_model_from_string(page_type_string)
+        desired_classes = page_models_from_string(page_type_string)
     except (ValueError, LookupError):
         raise Http404
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = desired_class.objects.exclude(
+        pages = Page.objects.exclude(
             depth=1  # never include root
-        ).filter(title__icontains=search_form.cleaned_data['q'])[:10]
+        ).filter(title__icontains=search_form.cleaned_data['q'])
+        pages = filter_page_type(pages, desired_classes)
+        pages = pages[:10]
     else:
-        pages = desired_class.objects.none()
+        pages = Page.objects.none()
 
     shown_pages = []
     for page in pages:
