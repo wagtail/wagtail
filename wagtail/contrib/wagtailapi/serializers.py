@@ -44,14 +44,19 @@ class PageMetaField(MetaField):
     A subclass of MetaField for Page objects.
 
     Changes the "type" field to use the name of the specific model of the page.
+
+    Example:
+
+    "meta": {
+        "type": "blog.BlogPage",
+        "detail_url": "http://api.example.com/v1/pages/1/"
+    }
     """
     def to_representation(self, page):
-        data = super(PageMetaField, self).to_representation(page)
-
-        # Change type to the specific page class instead
-        data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
-
-        return data
+        return OrderedDict([
+            ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
+            ('detail_url', ObjectDetailURL(type(page), page.pk)),
+        ])
 
 
 class DocumentMetaField(MetaField):
