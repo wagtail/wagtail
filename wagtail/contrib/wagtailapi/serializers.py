@@ -64,9 +64,18 @@ class DocumentMetaField(MetaField):
     A subclass of MetaField for Document objects.
 
     Adds a "download_url" field.
+
+    "meta": {
+        "type": "wagtaildocs.Document",
+        "detail_url": "http://api.example.com/v1/documents/1/",
+        "download_url": "http://api.example.com/documents/1/my_document.pdf"
+    }
     """
     def to_representation(self, document):
-        data = super(DocumentMetaField, self).to_representation(document)
+        data = OrderedDict([
+            ('type', "wagtaildocs.Document"),
+            ('detail_url', ObjectDetailURL(type(document), document.pk)),
+        ])
 
         # Add download url
         if self.context.get('show_details', False):
