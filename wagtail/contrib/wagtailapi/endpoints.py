@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
+
 from django.conf.urls import url
 from django.http import Http404
 
@@ -18,14 +20,14 @@ from .filters import (
 )
 from .renderers import WagtailJSONRenderer
 from .pagination import WagtailPagination
-from .serializers import WagtailSerializer, PageSerializer, DocumentSerializer
+from .serializers import BaseSerializer, PageSerializer, DocumentSerializer, ImageSerializer, get_serializer_class
 from .utils import BadRequestError
 
 
 class BaseAPIEndpoint(GenericViewSet):
     renderer_classes = [WagtailJSONRenderer]
     pagination_class = WagtailPagination
-    serializer_class = WagtailSerializer
+    base_serializer_class = BaseSerializer
     filter_classes = []
     queryset = None  # Set on subclasses or implement `get_queryset()`.
 
@@ -85,28 +87,61 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
 
-    def get_serializer_context(self):
-        """
-        The serialization context differs between listing and detail views.
-        """
+    def get_serializer_class(self):
         request = self.request
-        if self.action == 'listing_view':
 
+        # Get model
+        if self.action == 'listing_view':
+            model = self.get_queryset().model
+        else:
+            model = type(self.get_object())
+
+        # Get all available fields
+        all_fields = self.get_api_fields(model)
+        all_fields = list(OrderedDict.fromkeys(all_fields)) # Removes any duplicates in case the developer put "title" in api_fields
+
+        if self.action == 'listing_view':
+            # Listing views just show the title field and any other allowed field the user specified
             if 'fields' in request.GET:
                 fields = set(request.GET['fields'].split(','))
             else:
                 fields = {'title'}
 
+            unknown_fields = fields - set(all_fields)
+
+            if unknown_fields:
+                raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
+
+            # Reorder fields so it matches the order of all_fields
+            fields = [field for field in all_fields if field in fields]
+        else:
+            # Detail views show all fields all the time
+            fields = all_fields
+
+        # Always show id and meta first
+        fields = ['id', 'meta'] + fields
+
+        # If showing details, add the parent field
+        if isinstance(self, PagesAPIEndpoint) and self.get_serializer_context().get('show_details', False):
+            fields.insert(2, 'parent')
+
+        return get_serializer_class(model, fields, base=self.base_serializer_class)
+
+    def get_serializer_context(self):
+        """
+        The serialization context differs between listing and detail views.
+        """
+        request = self.request
+
+        if self.action == 'listing_view':
             return {
                 'request': request,
                 'view': self,
-                'fields': fields
             }
 
         return {
             'request': request,
             'view': self,
-            'all_fields': True,
             'show_details': True
         }
 
@@ -135,7 +170,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
-    serializer_class = PageSerializer
+    base_serializer_class = PageSerializer
     filter_backends = [
         FieldsFilter,
         ChildOfFilter,
@@ -185,6 +220,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     queryset = get_image_model().objects.all().order_by('id')
+    base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
     name = 'images'
@@ -196,7 +232,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
     queryset = Document.objects.all().order_by('id')
-    serializer_class = DocumentSerializer
+    base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
     name = 'documents'

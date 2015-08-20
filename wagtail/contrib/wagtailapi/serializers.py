@@ -2,171 +2,282 @@ from __future__ import absolute_import
 
 from collections import OrderedDict
 
-from django.db import models
-from django.utils.encoding import force_text
-
 from modelcluster.models import get_all_child_relations
 
-from rest_framework.serializers import BaseSerializer
+from taggit.managers import _TaggableManager
+
+from rest_framework import serializers
+from rest_framework.fields import Field
+from rest_framework import relations
 
 from wagtail.utils.compat import get_related_model
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore import fields as wagtailcore_fields
 
-from .utils import ObjectDetailURL, URLPath, BadRequestError, pages_for_site
-
-
-def get_api_data(obj, fields):
-    # Find any child relations (pages only)
-    child_relations = {}
-    if isinstance(obj, Page):
-        child_relations = {
-            child_relation.field.rel.related_name: get_related_model(child_relation)
-            for child_relation in get_all_child_relations(type(obj))
-        }
-
-    # Loop through fields
-    for field_name in fields:
-        # Check child relations
-        if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
-            yield field_name, [
-                dict(get_api_data(child_object, child_relations[field_name].api_fields))
-                for child_object in getattr(obj, field_name).all()
-            ]
-            continue
-
-        # Check django fields
-        try:
-            field = obj._meta.get_field(field_name)
-
-            if field.rel and isinstance(field.rel, models.ManyToOneRel):
-                # Foreign key
-                val = field._get_val_from_obj(obj)
-
-                if val:
-                    yield field_name, OrderedDict([
-                        ('id', field._get_val_from_obj(obj)),
-                        ('meta', OrderedDict([
-                             ('type', field.rel.to._meta.app_label + '.' + field.rel.to.__name__),
-                             ('detail_url', ObjectDetailURL(field.rel.to, val)),
-                        ])),
-                    ])
-                else:
-                    yield field_name, None
-            else:
-                yield field_name, field._get_val_from_obj(obj)
-
-            continue
-        except models.fields.FieldDoesNotExist:
-            pass
-
-        # Check attributes
-        if hasattr(obj, field_name):
-            value = getattr(obj, field_name)
-            yield field_name, force_text(value, strings_only=True)
-            continue
+from .utils import ObjectDetailURL, URLPath, pages_for_site
 
 
-class WagtailSerializer(BaseSerializer):
-    def to_representation(self, instance):
-        request = self.context['request']
-        fields = self.context.get('fields', frozenset())
-        all_fields = self.context.get('all_fields', False)
-        show_details = self.context.get('show_details', False)
-        return self.serialize_object(
-            request,
-            instance,
-            fields=fields,
-            all_fields=all_fields,
-            show_details=show_details
-        )
+class MetaField(Field):
+    """
+    Serializes the "meta" section of each object.
 
-    def serialize_object_metadata(self, request, obj, show_details=False):
-        """
-        This returns a JSON-serialisable dict to use for the "meta"
-        section of a particlular object.
-        """
-        data = OrderedDict()
+    This section is used for storing non-field data such as model name, urls, etc.
 
-        # Add type
-        data['type'] = type(obj)._meta.app_label + '.' + type(obj).__name__
-        data['detail_url'] = ObjectDetailURL(type(obj), obj.pk)
+    Example:
 
-        return data
+    "meta": {
+        "type": "wagtailimages.Image",
+        "detail_url": "http://api.example.com/v1/images/1/"
+    }
+    """
+    def get_attribute(self, instance):
+        return instance
 
-    def serialize_object(self, request, obj, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
-        """
-        This converts an object into JSON-serialisable dict so it can
-        be used in the API.
-        """
-        data = [
-            ('id', obj.id),
-        ]
-
-        # Add meta
-        metadata = self.serialize_object_metadata(request, obj, show_details=show_details)
-        if metadata:
-            data.append(('meta', metadata))
-
-        # Add extra data
-        data.extend(extra_data)
-
-        # Add other fields
-        api_fields = self.context['view'].get_api_fields(type(obj))
-        api_fields = list(OrderedDict.fromkeys(api_fields)) # Removes any duplicates in case the user put "title" in api_fields
-
-        if all_fields:
-            fields = api_fields
-        else:
-            unknown_fields = fields - set(api_fields)
-
-            if unknown_fields:
-                raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
-
-            # Reorder fields so it matches the order of api_fields
-            fields = [field for field in api_fields if field in fields]
-
-        data.extend(get_api_data(obj, fields))
-
-        return OrderedDict(data)
+    def to_representation(self, obj):
+        return OrderedDict([
+            ('type', type(obj)._meta.app_label + '.' + type(obj).__name__),
+            ('detail_url', ObjectDetailURL(type(obj), obj.pk)),
+        ])
 
 
-class PageSerializer(WagtailSerializer):
-    def serialize_object_metadata(self, request, page, show_details=False):
-        data = super(PageSerializer, self).serialize_object_metadata(request, page, show_details=show_details)
+class PageMetaField(MetaField):
+    """
+    A subclass of MetaField for Page objects.
 
-        # Add type
-        data['type'] = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
+    Changes the "type" field to use the name of the specific model of the page.
 
-        return data
+    Example:
 
-    def serialize_object(self, request, page, fields=frozenset(), extra_data=(), all_fields=False, show_details=False):
-        # Add parent
-        if show_details:
-            parent = page.get_parent()
-
-            site_pages = pages_for_site(request.site)
-            if site_pages.filter(id=parent.id).exists():
-                parent_class = parent.specific_class
-
-                extra_data += (
-                    ('parent', OrderedDict([
-                        ('id', parent.id),
-                        ('meta', OrderedDict([
-                             ('type', parent_class._meta.app_label + '.' + parent_class.__name__),
-                             ('detail_url', ObjectDetailURL(parent_class, parent.id)),
-                        ])),
-                    ])),
-                )
-
-        return super(PageSerializer, self).serialize_object(request, page, fields=fields, extra_data=extra_data, all_fields=all_fields, show_details=show_details)
+    "meta": {
+        "type": "blog.BlogPage",
+        "detail_url": "http://api.example.com/v1/pages/1/"
+    }
+    """
+    def to_representation(self, page):
+        return OrderedDict([
+            ('type', page.specific_class._meta.app_label + '.' + page.specific_class.__name__),
+            ('detail_url', ObjectDetailURL(type(page), page.pk)),
+        ])
 
 
-class DocumentSerializer(WagtailSerializer):
-    def serialize_object_metadata(self, request, document, show_details=False):
-        data = super(DocumentSerializer, self).serialize_object_metadata(request, document, show_details=show_details)
+class DocumentMetaField(MetaField):
+    """
+    A subclass of MetaField for Document objects.
 
-        # Download URL
-        if show_details:
+    Adds a "download_url" field.
+
+    "meta": {
+        "type": "wagtaildocs.Document",
+        "detail_url": "http://api.example.com/v1/documents/1/",
+        "download_url": "http://api.example.com/documents/1/my_document.pdf"
+    }
+    """
+    def to_representation(self, document):
+        data = OrderedDict([
+            ('type', "wagtaildocs.Document"),
+            ('detail_url', ObjectDetailURL(type(document), document.pk)),
+        ])
+
+        # Add download url
+        if self.context.get('show_details', False):
             data['download_url'] = URLPath(document.url)
 
         return data
+
+
+class RelatedField(relations.RelatedField):
+    """
+    Serializes related objects (eg, foreign keys).
+
+    Example:
+
+    "feed_image": {
+        "id": 1,
+        "meta": {
+            "type": "wagtailimages.Image",
+            "detail_url": "http://api.example.com/v1/images/1/"
+        }
+    }
+    """
+    meta_field_serializer_class = MetaField
+
+    def to_representation(self, value):
+        return OrderedDict([
+            ('id', value.pk),
+            ('meta', self.meta_field_serializer_class().to_representation(value)),
+        ])
+
+
+class PageParentField(RelatedField):
+    """
+    Serializes the "parent" field on Page objects.
+
+    Pages don't have a "parent" field so some extra logic is needed to find the
+    parent page. That logic is implemented in this class.
+
+    The representation is the same as the RelatedField class.
+    """
+    meta_field_serializer_class = PageMetaField
+
+    def get_attribute(self, instance):
+        parent = instance.get_parent()
+
+        site_pages = pages_for_site(self.context['request'].site)
+        if site_pages.filter(id=parent.id).exists():
+            return parent
+
+
+class ChildRelationField(Field):
+    """
+    Serializes child relations.
+
+    Child relations are any model that is related to a Page using a ParentalKey.
+    They are used for repeated fields on a page such as carousel items or related
+    links.
+
+    Child objects are part of the pages content so we nest them. The relation is
+    represented as a list of objects.
+
+    Example:
+
+    "carousel_items": [
+        {
+            "title": "First carousel item",
+            "image": {
+                "id": 1,
+                "meta": {
+                    "type": "wagtailimages.Image",
+                    "detail_url": "http://api.example.com/v1/images/1/"
+                }
+            }
+        },
+        "carousel_items": [
+        {
+            "title": "Second carousel item (no image)",
+            "image": null
+        }
+    ]
+    """
+    def __init__(self, *args, **kwargs):
+        self.child_fields = kwargs.pop('child_fields')
+        super(ChildRelationField, self).__init__(*args, **kwargs)
+
+    def to_representation(self, value):
+        serializer_class = get_serializer_class(value.model, self.child_fields)
+        serializer = serializer_class()
+
+        return [
+            serializer.to_representation(child_object)
+            for child_object in value.all()
+        ]
+
+
+class StreamField(Field):
+    """
+    Serializes StreamField values.
+
+    Stream fields are stored in JSON format in the database. We reuse that in
+    the API.
+
+    Example:
+
+    "body": [
+        {
+            "type": "heading",
+            "value": {
+                "text": "Hello world!",
+                "size": "h1"
+            }
+        },
+        {
+            "type": "paragraph",
+            "value": "Some content"
+        }
+        {
+            "type": "image",
+            "value": 1
+        }
+    ]
+
+    Where "heading" is a struct block containing "text" and "size" fields, and
+    "paragraph" is a simple text block.
+
+    Note that foreign keys are represented slightly differently in stream fields
+    to other parts of the API. In stream fields, a foreign key is represented
+    by an integer (the ID of the related object) but elsewhere in the API,
+    foreign objects are nested objects with id and meta as attributes.
+    """
+    def to_representation(self, value):
+        return value.stream_block.get_prep_value(value)
+
+
+class TagsField(Field):
+    """
+    Serializes django-taggit TaggableManager fields.
+
+    These fields are a common way to link tags to objects in Wagtail. The API
+    serializes these as a list of strings taken from the name attribute of each
+    tag.
+
+    Example:
+
+    "tags": ["bird", "wagtail"]
+    """
+    def to_representation(self, value):
+        return list(value.all().order_by('name').values_list('name', flat=True))
+
+
+class BaseSerializer(serializers.ModelSerializer):
+    # Add StreamField to serializer_field_mapping
+    serializer_field_mapping = serializers.ModelSerializer.serializer_field_mapping.copy()
+    serializer_field_mapping.update({
+        wagtailcore_fields.StreamField: StreamField,
+    })
+    serializer_related_field = RelatedField
+
+    meta = MetaField()
+
+    def build_property_field(self, field_name, model_class):
+        # TaggableManager is not a Django field so it gets treated as a property
+        field = getattr(model_class, field_name)
+        if isinstance(field, _TaggableManager):
+            return TagsField, {}
+
+        return super(BaseSerializer, self).build_property_field(field_name, model_class)
+
+
+class PageSerializer(BaseSerializer):
+    meta = PageMetaField()
+    parent = PageParentField(read_only=True)
+
+    def build_relational_field(self, field_name, relation_info):
+        # Find all relation fields that point to child class and make them use
+        # the ChildRelationField class.
+        if relation_info.to_many:
+            model = getattr(self.Meta, 'model')
+            child_relations = {
+                child_relation.field.rel.related_name: get_related_model(child_relation)
+                for child_relation in get_all_child_relations(model)
+            }
+
+            if field_name in child_relations and hasattr(child_relations[field_name], 'api_fields'):
+                return ChildRelationField, {'child_fields': child_relations[field_name].api_fields}
+
+        return super(BaseSerializer, self).build_relational_field(field_name, relation_info)
+
+
+class ImageSerializer(BaseSerializer):
+    pass
+
+
+class DocumentSerializer(BaseSerializer):
+    meta = DocumentMetaField()
+
+
+def get_serializer_class(model_, fields_, base=BaseSerializer):
+    class Meta:
+        model = model_
+        fields = fields_
+
+    return type(model_.__name__ + 'Serializer', (base, ), {
+        'Meta': Meta
+    })
