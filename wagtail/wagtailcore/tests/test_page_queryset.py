@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
@@ -413,7 +411,6 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/events/').specific,
             Page.objects.get(url_path='/home/about-us/').specific])
 
-    @unittest.expectedFailure
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
