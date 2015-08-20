@@ -1074,7 +1074,7 @@ class SubmittedRevisionsManager(models.Manager):
 @python_2_unicode_compatible
 class PageRevision(models.Model):
     page = models.ForeignKey('Page', verbose_name=_('Page'), related_name='revisions')
-    submitted_for_moderation = models.BooleanField(verbose_name=_('Submitted for moderation'), default=False)
+    submitted_for_moderation = models.BooleanField(verbose_name=_('Submitted for moderation'), default=False, db_index=True)
     created_at = models.DateTimeField(verbose_name=_('Created at'))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), null=True, blank=True)
     content_json = models.TextField(verbose_name=_('Content JSON'))
