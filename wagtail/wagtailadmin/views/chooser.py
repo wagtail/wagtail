@@ -66,7 +66,7 @@ def browse(request, parent_page_id=None):
         desired_class = Page
 
     # Parent page can be chosen if it is a instance of desired_class
-    parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
+    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_class)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -85,7 +85,7 @@ def browse(request, parent_page_id=None):
         if desired_class == Page:
             page.can_choose = True
         else:
-            page.can_choose = issubclass(page.specific_class, desired_class)
+            page.can_choose = issubclass(page.specific_class or Page, desired_class)
 
         page.can_descend = page.get_children_count()
 
