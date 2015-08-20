@@ -1,12 +1,14 @@
 from __future__ import unicode_literals
 
 import datetime
+import warnings
 
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 from wagtail.wagtailsearch.utils import normalise_query_string, MAX_QUERY_STRING_LENGTH
 
 
@@ -71,3 +73,43 @@ class QueryDailyHits(models.Model):
             ('query', 'date'),
         )
         verbose_name = _('Query Daily Hits')
+
+
+# Backwards compatibility
+def _make_fake_editors_pick_class():
+    """
+    Imports the SearchPromotion model (which was previously defined here as EditorsPick)
+    and adds some code in to make it raise DeprecationWarnings when it is used.
+
+    This is a function to prevent the SearchPromotion class leaking into the
+    module scope.
+    """
+    from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+
+    class EditorsPickQuerySet(models.QuerySet):
+        def __init__(self, *args, **kwargs):
+            warnings.warn(
+                "The wagtailsearch.EditorsPick module has been moved to "
+                "contrib.wagtailsearchpromotions.SearchPromotion",
+                RemovedInWagtail13Warning, stacklevel=2)
+
+            super(EditorsPickQuerySet, self).__init__(*args, **kwargs)
+
+    class EditorsPick(SearchPromotion):
+        def __init__(self, *args, **kwargs):
+            warnings.warn(
+                "The wagtailsearch.EditorsPick module has been moved to "
+                "contrib.wagtailsearchpromotions.SearchPromotion",
+                RemovedInWagtail13Warning, stacklevel=2)
+
+            super(EditorsPick, self).__init__(*args, **kwargs)
+
+        objects = EditorsPickQuerySet.as_manager()
+
+        class Meta:
+            proxy = True
+
+    return EditorsPick
+
+
+EditorsPick = _make_fake_editors_pick_class()

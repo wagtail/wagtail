@@ -1,12 +1,14 @@
+import unittest
+import warnings
 
 from django.test import TestCase
 from django.core import management
 from django.utils.six import StringIO
 
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 from wagtail.wagtailsearch import models
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.wagtailsearch.utils import normalise_query_string
-
 
 
 class TestHitCounter(TestCase):
@@ -137,3 +139,61 @@ class TestQueryChooserView(TestCase, WagtailTestUtils):
         for page in pages:
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
+
+
+class TestEditorsPickModelDeprecation(TestCase, WagtailTestUtils):
+    """
+    In Wagtail 1.1, the EditorsPick model was moved to a new
+    "contrib.searchpromotions" module.
+
+    The EditorsPick model was previously referenced in the search view in
+    the project template in Wagtail 1.0.
+
+    To help people upgrade, we've added a redirect to the new model which
+    raises a DeprecationWarning. This TestCase tests that redirect.
+    """
+    def test_editors_pick_importable(self):
+        from wagtail.wagtailsearch.models import EditorsPick
+        # If the above line doesn't raise ImportError, this test passed
+
+    def test_editors_pick_objects_attribute(self):
+        """
+        The Wagtail 1.0 project template used the .objects attribute so here,
+        we test that still works as expected.
+        """
+        try:
+            from wagtail.wagtailsearch.models import EditorsPick
+        except ImportError:
+            raise unittest.SkipTest("EditorsPick is not importable")
+
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            queryset = EditorsPick.objects.all()
+
+            # Check that a RemovedInWagtail13Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail13Warning))
+            self.assertTrue("The wagtailsearch.EditorsPick module has been moved to contrib.wagtailsearchpromotions.SearchPromotion" in str(w[-1].message))
+
+        # Queryset must be of search promotions
+        from wagtail.contrib.wagtailsearchpromotions.models import SearchPromotion
+        self.assertTrue(issubclass(queryset.model, SearchPromotion))
+
+    def test_editors_pick_init(self):
+        """
+        Just incase anyone manages to create an EditorsPick instance, make
+        sure they get a warning
+        """
+        try:
+            from wagtail.wagtailsearch.models import EditorsPick
+        except ImportError:
+            raise unittest.SkipTest("EditorsPick is not importable")
+
+        self.reset_warning_registry()
+        with warnings.catch_warnings(record=True) as w:
+            ep = EditorsPick()
+
+            # Check that a RemovedInWagtail13Warning has been triggered
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, RemovedInWagtail13Warning))
+            self.assertTrue("The wagtailsearch.EditorsPick module has been moved to contrib.wagtailsearchpromotions.SearchPromotion" in str(w[-1].message))
