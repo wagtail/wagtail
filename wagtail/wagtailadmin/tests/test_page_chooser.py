@@ -101,6 +101,33 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertFalse(pages[event_index_page.id].can_choose)
         self.assertTrue(pages[event_index_page.id].can_descend)
 
+    def test_with_multiple_page_types(self):
+        # Add a page that is not a SimplePage
+        event_page = EventPage(
+            title="event",
+            slug="event",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        # Send request
+        response = self.get({'page_type': 'tests.simplepage,tests.eventpage'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+        self.assertEqual(response.context['page_type_string'], 'tests.simplepage,tests.eventpage')
+
+        pages = {
+            page.id: page
+            for page in response.context['pages'].object_list
+        }
+
+        # Simple page in results, as before
+        self.assertIn(self.child_page.id, pages)
+        self.assertTrue(pages[self.child_page.id].can_choose)
+
+        # Event page should now also be choosable
+        self.assertIn(event_page.id, pages)
+        self.assertTrue(pages[self.child_page.id].can_choose)
+
     def test_with_unknown_page_type(self):
         response = self.get({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
@@ -198,6 +225,31 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
 
         # Not a simple page
         self.assertNotIn(event_page.id, pages)
+
+    def test_with_multiple_page_types(self):
+        # Add a page that is not a SimplePage
+        event_page = EventPage(
+            title="foo",
+            slug="foo",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        # Send request
+        response = self.get({'q': "foo", 'page_type': 'tests.simplepage,tests.eventpage'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertEqual(response.context['page_type_string'], 'tests.simplepage,tests.eventpage')
+
+        pages = {
+            page.id: page
+            for page in response.context['pages']
+        }
+
+        # Simple page in results, as before
+        self.assertIn(self.child_page.id, pages)
+
+        # Event page should now also be choosable
+        self.assertIn(event_page.id, pages)
 
     def test_with_unknown_page_type(self):
         response = self.get({'page_type': 'foo.bar'})
