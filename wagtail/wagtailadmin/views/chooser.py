@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 from django.utils.http import urlencode
@@ -8,6 +7,7 @@ from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from wagtail.wagtailadmin.forms import SearchForm, ExternalLinkChooserForm, ExternalLinkChooserWithLinkTextForm, EmailLinkChooserForm, EmailLinkChooserWithLinkTextForm
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.utils import resolve_model_string
 
 
 def get_querystring(request):
@@ -29,89 +29,88 @@ def shared_context(request, extra_context={}):
     return context
 
 
+def page_model_from_string(string):
+    page_model = resolve_model_string(string)
+
+    if not issubclass(page_model, Page):
+        raise ValueError("Model is not a page")
+
+    return page_model
+
+
 def browse(request, parent_page_id=None):
-    ITEMS_PER_PAGE = 25
-
-    page_type = request.GET.get('page_type') or 'wagtailcore.page'
-    content_type_app_name, content_type_model_name = page_type.split('.')
-
-    try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
-        raise Http404
-    desired_class = content_type.model_class()
-
+    # Find parent page
     if parent_page_id:
         parent_page = get_object_or_404(Page, id=parent_page_id)
     else:
         parent_page = Page.get_first_root_node()
 
-    parent_page.can_choose = issubclass(parent_page.specific_class, desired_class)
-    search_form = SearchForm()
+    # Get children of parent page
     pages = parent_page.get_children()
 
-    if desired_class == Page:
-        # apply pagination first, since we know that the page listing won't
-        # have to be filtered, and that saves us walking the entire list
-        p = request.GET.get('p', 1)
-        paginator = Paginator(pages, ITEMS_PER_PAGE)
+    # Filter them by page type
+    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
+    if page_type_string != 'wagtailcore.page':
         try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
+            desired_class = page_model_from_string(page_type_string)
+        except (ValueError, LookupError):
+            raise Http404
 
-        for page in pages:
-            page.can_choose = True
-            page.can_descend = page.get_children_count()
-
-    else:
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
+        choosable_pages = pages.type(desired_class)
+        descendable_pages = pages.filter(numchild__gt=0)
+        pages = choosable_pages | descendable_pages
+    else:
+        desired_class = Page
 
-        shown_pages = []
-        for page in pages:
+    # Parent page can be chosen if it is a instance of desired_class
+    parent_page.can_choose = issubclass(parent_page.specific_class or Page, desired_class)
+
+    # Pagination
+    # We apply pagination first so we don't need to walk the entire list
+    # in the block below
+    p = request.GET.get('p', 1)
+    paginator = Paginator(pages, 25)
+    try:
+        pages = paginator.page(p)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
+
+    # Annotate each page with can_choose/can_decend flags
+    for page in pages:
+        if desired_class == Page:
+            page.can_choose = True
+        else:
             page.can_choose = issubclass(page.specific_class or Page, desired_class)
-            page.can_descend = page.get_children_count()
 
-            if page.can_choose or page.can_descend:
-                shown_pages.append(page)
+        page.can_descend = page.get_children_count()
 
-        # Apply pagination
-        p = request.GET.get('p', 1)
-        paginator = Paginator(shown_pages, ITEMS_PER_PAGE)
-        try:
-            pages = paginator.page(p)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
-
+    # Render
     return render_modal_workflow(
         request,
         'wagtailadmin/chooser/browse.html', 'wagtailadmin/chooser/browse.js',
         shared_context(request, {
             'parent_page': parent_page,
             'pages': pages,
-            'search_form': search_form,
-            'page_type_string': page_type,
+            'search_form': SearchForm(),
+            'page_type_string': page_type_string,
             'page_type_name': desired_class.get_verbose_name(),
-            'page_types_restricted': (page_type != 'wagtailcore.page')
+            'page_types_restricted': (page_type_string != 'wagtailcore.page')
         })
     )
 
 
 def search(request, parent_page_id=None):
-    page_type = request.GET.get('page_type') or 'wagtailcore.page'
-    content_type_app_name, content_type_model_name = page_type.split('.')
+    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
 
     try:
-        content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
-    except ContentType.DoesNotExist:
+        desired_class = page_model_from_string(page_type_string)
+    except (ValueError, LookupError):
         raise Http404
-    desired_class = content_type.model_class()
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
@@ -131,6 +130,7 @@ def search(request, parent_page_id=None):
         shared_context(request, {
             'searchform': search_form,
             'pages': shown_pages,
+            'page_type_string': page_type_string,
         })
     )
 
