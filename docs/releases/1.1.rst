@@ -85,5 +85,5 @@ To re-enable it, add :mod:`wagtail.contrib.wagtailsearchpromotions` to your ``IN
 If you have references to the ``wagtail.wagtailsearch.models.EditorsPick`` model in your
 project, you will need to update these to point to the :mod:`wagtail.contrib.wagtailsearchpromotions.models.SearchPromotion` model instead.
 
-If you created your project using the ``wagtail start`` command with Wagtail 1.0.
-You will probably have references to this model in the ``search/views.py`` file.
+If you created your project using the ``wagtail start`` command with Wagtail 1.0,
+you will probably have references to this model in the ``search/views.py`` file.
