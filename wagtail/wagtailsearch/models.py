@@ -91,7 +91,7 @@ def _make_fake_editors_pick_class():
             warnings.warn(
                 "The wagtailsearch.EditorsPick module has been moved to "
                 "contrib.wagtailsearchpromotions.SearchPromotion",
-                RemovedInWagtail13Warning, stacklevel=2)
+                RemovedInWagtail13Warning, stacklevel=5)
 
             super(EditorsPickQuerySet, self).__init__(*args, **kwargs)
 
