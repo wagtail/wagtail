@@ -1,3 +1,5 @@
+import unittest
+
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page, PageViewRestriction
@@ -410,3 +412,18 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/events/christmas/').specific,
             Page.objects.get(url_path='/home/events/').specific,
             Page.objects.get(url_path='/home/about-us/').specific])
+
+    @unittest.expectedFailure
+    def test_specific_query_with_search(self):
+        # 1276 - The database search backend didn't return results with the
+        # specific type when searching a specific queryset.
+
+        pages = list(Page.objects.specific().live().in_menu().search(None, backend='wagtail.wagtailsearch.backends.db'))
+
+        # Check that each page is in the queryset with the correct type.
+        # We don't care about order here
+        self.assertEqual(len(pages), 4)
+        self.assertIn(Page.objects.get(url_path='/home/other/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
