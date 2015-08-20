@@ -26,6 +26,17 @@ Atomic rebuilding of Elasticsearch indexes
 
 The Elasticsearch search backend now accepts an experimental ``ATOMIC_REBUILD`` flag which ensures that the existing search index continues to be available while the ``update_index`` task is running. See :ref:`wagtailsearch_backends_atomic_rebuild`.
 
+Permissions fixes in the admin interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A number of inconsistencies around permissions in the admin interface were fixed in this release:
+
+ * Removed all permissions for "User profile" (not used)
+ * Removed "delete" permission for Images and documents (not used)
+ * Users can now access images and documents when they only have the "change" permission (previously required "add" permission as well)
+ * Permissions for Users now taken from custom user model, if set (previously always used permissions on Djangos builtin User model)
+ * Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
+
 Minor features
 ~~~~~~~~~~~~~~
 
@@ -43,17 +54,6 @@ Minor features
  * Updated URLs within the admin backend to use namespaces
  * The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
  * Added database indexes on PageRevision and Image to improve performance on large sites
-
-Permissions fixes in the admin interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A number of inconsistencies around permissions in the admin interface were fixed in this release:
-
- * Removed all permissions for "User profile" (not used)
- * Removed "delete" permission for Images and documents (not used)
- * Users can now access images and documents when they only have the "change" permission (previously required "add" permission as well)
- * Permissions for Users now taken from custom user model, if set (previously always used permissions on Djangos builtin User model)
- * Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
 
 Bug fixes
 ~~~~~~~~~
