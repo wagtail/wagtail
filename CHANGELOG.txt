@@ -21,6 +21,7 @@ Changelog
  * Page URL lookups hit the cache/database less often (Michael van Tellingen)
  * Updated URLs within the admin backend to use namespaces
  * The `update_index` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
+ * Added database indexes on PageRevision and Image to improve performance on large sites
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
