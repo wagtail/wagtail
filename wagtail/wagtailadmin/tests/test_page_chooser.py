@@ -101,6 +101,13 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertFalse(pages[event_index_page.id].can_choose)
         self.assertTrue(pages[event_index_page.id].can_descend)
 
+    def test_with_blank_page_type(self):
+        # a blank page_type parameter should be equivalent to an absent parameter
+        # (or an explicit page_type of wagtailcore.page)
+        response = self.get({'page_type': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
     def test_with_unknown_page_type(self):
         response = self.get({'page_type': 'foo.bar'})
         self.assertEqual(response.status_code, 404)
@@ -198,6 +205,15 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
 
         # Not a simple page
         self.assertNotIn(event_page.id, pages)
+
+    def test_with_blank_page_type(self):
+        # a blank page_type parameter should be equivalent to an absent parameter
+        # (or an explicit page_type of wagtailcore.page)
+        response = self.get({'q': "foobarbaz", 'page_type': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
+        self.assertContains(response, "There is one match")
+        self.assertContains(response, "foobarbaz")
 
     def test_with_unknown_page_type(self):
         response = self.get({'page_type': 'foo.bar'})

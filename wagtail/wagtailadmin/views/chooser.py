@@ -49,7 +49,8 @@ def browse(request, parent_page_id=None):
     pages = parent_page.get_children()
 
     # Filter them by page type
-    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
+    # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
+    page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
     if page_type_string != 'wagtailcore.page':
         try:
             desired_class = page_model_from_string(page_type_string)
@@ -105,7 +106,8 @@ def browse(request, parent_page_id=None):
 
 
 def search(request, parent_page_id=None):
-    page_type_string = request.GET.get('page_type', 'wagtailcore.page')
+    # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
+    page_type_string = request.GET.get('page_type') or 'wagtailcore.page'
 
     try:
         desired_class = page_model_from_string(page_type_string)
