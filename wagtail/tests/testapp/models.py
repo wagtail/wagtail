@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
 
 from taggit.models import TaggedItemBase
+from taggit.managers import TaggableManager
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -302,14 +303,22 @@ class AdvertPlacement(models.Model):
     advert = models.ForeignKey('tests.Advert', related_name='+')
     colour = models.CharField(max_length=255)
 
+
+class AdvertTag(TaggedItemBase):
+    content_object = ParentalKey('Advert', related_name='tagged_items')
+
+
 @python_2_unicode_compatible
 class Advert(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
 
+    tags = TaggableManager(through=AdvertTag, blank=True)
+
     panels = [
         FieldPanel('url'),
         FieldPanel('text'),
+        FieldPanel('tags'),
     ]
 
     def __str__(self):
