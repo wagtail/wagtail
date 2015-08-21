@@ -43,14 +43,14 @@ Enabling multiple language support
 
 Firstly, make sure the `USE_I18N <https://docs.djangoproject.com/en/1.8/ref/settings/#use-i18n>`_ Django setting is set to ``True``.
 
-To enable multi-language support, add ``django.middleware.i18n.LocaleMiddleware`` to your ``MIDDLEWARE_CLASSES``:
+To enable multi-language support, add ``django.middleware.locale.LocaleMiddleware`` to your ``MIDDLEWARE_CLASSES``:
 
 .. code-block:: python
 
     MIDDLEWARE_CLASSES = (
         ...
 
-        'django.middleware.i18n.LocaleMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
     )
 
 This middleware class looks at the users browser language and sets the `language of the site accordingly <https://docs.djangoproject.com/en/1.8/topics/i18n/translation/#how-django-discovers-language-preference>`_.
