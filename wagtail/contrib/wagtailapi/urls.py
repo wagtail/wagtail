@@ -2,16 +2,11 @@ from __future__ import absolute_import
 
 from django.conf.urls import url, include
 
-from .endpoints import PagesAPIEndpoint, ImagesAPIEndpoint, DocumentsAPIEndpoint
-
-
-v1 = [
-    url(r'^pages/', include(PagesAPIEndpoint.get_urlpatterns(), namespace='pages')),
-    url(r'^images/', include(ImagesAPIEndpoint.get_urlpatterns(), namespace='images')),
-    url(r'^documents/', include(DocumentsAPIEndpoint.get_urlpatterns(), namespace='documents'))
-]
+from .endpoints import endpoints
 
 
 urlpatterns = [
-    url(r'^v1/', include(v1, namespace='wagtailapi_v1')),
+    url(r'^v1/pages/', include(endpoints[0].get_urlpatterns(), namespace='wagtailapi_v1_pages')),
+    url(r'^v1/images/', include(endpoints[1].get_urlpatterns(), namespace='wagtailapi_v1_images')),
+    url(r'^v1/documents/', include(endpoints[2].get_urlpatterns(), namespace='wagtailapi_v1_documents'))
 ]
