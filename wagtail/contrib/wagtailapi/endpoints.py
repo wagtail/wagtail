@@ -29,6 +29,7 @@ class BaseAPIEndpoint(GenericViewSet):
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
     filter_classes = []
+    model = None # Set on subclass
     queryset = None  # Set on subclasses or implement `get_queryset()`.
 
     known_query_parameters = frozenset([
@@ -164,10 +165,6 @@ class BaseAPIEndpoint(GenericViewSet):
             url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
         ]
 
-    @classmethod
-    def has_model(cls, model):
-        return NotImplemented
-
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = PageSerializer
@@ -185,6 +182,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
     ])
     extra_api_fields = ['title']
     name = 'pages'
+    model = Page
 
     def get_queryset(self):
         request = self.request
@@ -213,10 +211,6 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         base = super(PagesAPIEndpoint, self).get_object()
         return base.specific
 
-    @classmethod
-    def has_model(cls, model):
-        return issubclass(model, Page)
-
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
     queryset = get_image_model().objects.all().order_by('id')
@@ -224,10 +218,7 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
     name = 'images'
-
-    @classmethod
-    def has_model(cls, model):
-        return model == get_image_model()
+    model = get_image_model()
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
@@ -236,7 +227,4 @@ class DocumentsAPIEndpoint(BaseAPIEndpoint):
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
     name = 'documents'
-
-    @classmethod
-    def has_model(cls, model):
-        return model == Document
+    model = Document

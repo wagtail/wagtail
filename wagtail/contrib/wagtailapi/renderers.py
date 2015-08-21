@@ -16,7 +16,7 @@ def get_full_url(request, path):
 
 def find_model_detail_view(model, endpoints):
     for endpoint in endpoints:
-        if endpoint.has_model(model):
+        if issubclass(model, endpoint.model):
             return 'wagtailapi_v1:%s:detail' % endpoint.name
 
 
