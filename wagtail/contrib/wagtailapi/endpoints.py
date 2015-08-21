@@ -28,9 +28,7 @@ class BaseAPIEndpoint(GenericViewSet):
     renderer_classes = [WagtailJSONRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
-    filter_classes = []
-    model = None # Set on subclass
-    queryset = None  # Set on subclasses or implement `get_queryset()`.
+    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
 
     known_query_parameters = frozenset([
         'limit',
@@ -40,7 +38,13 @@ class BaseAPIEndpoint(GenericViewSet):
         'search',
     ])
     extra_api_fields = []
-    name = None  # Set on subclass.
+
+    def __init__(self, url_namespace, model):
+        self.url_namespace = url_namespace
+        self.model = model
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('id')
 
     def listing_view(self, request):
         queryset = self.get_queryset()
@@ -155,34 +159,28 @@ class BaseAPIEndpoint(GenericViewSet):
         ]
         return context
 
-    @classmethod
-    def get_urlpatterns(cls):
+    def get_urlpatterns(self):
         """
         This returns a list of URL patterns for the endpoint
         """
         return [
-            url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
+            url(r'^$', self.as_view({'get': 'listing_view'}), name='listing'),
+            url(r'^(?P<pk>\d+)/$', self.as_view({'get': 'detail_view'}), name='detail'),
         ]
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
     base_serializer_class = PageSerializer
     filter_backends = [
-        FieldsFilter,
         ChildOfFilter,
         DescendantOfFilter,
-        OrderingFilter,
-        SearchFilter
-    ]
+    ] + BaseAPIEndpoint.filter_backends
     known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
         'type',
         'child_of',
         'descendant_of',
     ])
     extra_api_fields = ['title']
-    name = 'pages'
-    model = Page
 
     def get_queryset(self):
         request = self.request
@@ -213,18 +211,17 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    queryset = get_image_model().objects.all().order_by('id')
     base_serializer_class = ImageSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
-    name = 'images'
-    model = get_image_model()
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    queryset = Document.objects.all().order_by('id')
     base_serializer_class = DocumentSerializer
-    filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
-    name = 'documents'
-    model = Document
+
+
+endpoints = [
+    PagesAPIEndpoint('wagtailapi_v1_pages', Page),
+    ImagesAPIEndpoint('wagtailapi_v1_images', get_image_model()),
+    DocumentsAPIEndpoint('wagtailapi_v1_documents', Document),
+]
