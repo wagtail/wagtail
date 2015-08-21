@@ -10,8 +10,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.testapp.models import SingleEventPage, EventPage, EventIndex, SimplePage, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
+from wagtail.wagtailcore.models import Page, Site, PAGE_MODEL_CLASSES
+from wagtail.tests.testapp.models import (
+    SingleEventPage, EventPage, EventIndex, SimplePage,
+    BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex,
+    MTIBasePage, MTIChildPage, AbstractPage)
 
 
 class TestSiteRouting(TestCase):
@@ -731,3 +734,30 @@ class TestIssue1216(TestCase):
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
         expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
+
+
+class TestIsCreatable(TestCase):
+    def test_is_creatable_default(self):
+        """By default, pages should be creatable"""
+        self.assertTrue(SimplePage.is_creatable)
+        self.assertIn(SimplePage, PAGE_MODEL_CLASSES)
+
+    def test_is_creatable_false(self):
+        """Page types should be able to disable their creation"""
+        self.assertFalse(MTIBasePage.is_creatable)
+        self.assertNotIn(MTIBasePage, PAGE_MODEL_CLASSES)
+
+    def test_is_creatable_not_inherited(self):
+        """
+        is_creatable should not be inherited in the normal manner, and should
+        default to True unless set otherwise
+        """
+        self.assertTrue(MTIChildPage.is_creatable)
+        self.assertIn(MTIChildPage, PAGE_MODEL_CLASSES)
+
+    def test_abstract_pages(self):
+        """
+        Abstract models should not be creatable
+        """
+        self.assertFalse(AbstractPage.is_creatable)
+        self.assertNotIn(AbstractPage, PAGE_MODEL_CLASSES)
