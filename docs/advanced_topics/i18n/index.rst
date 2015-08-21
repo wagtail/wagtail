@@ -10,7 +10,6 @@ Wagtail uses Django's `Internationalisation framework <https://docs.djangoprojec
 .. contents::
 
 
-
 Wagtail admin translations
 ==========================
 
@@ -59,13 +58,14 @@ This middleware class looks at the users browser language and sets the `language
 Serving different languages from different URLs
 -----------------------------------------------
 
-The above will make Django switch to the language that the users browser is set to.
+Just enabling the multi-language support in Django sometimes may not be enough. By default, Django will serve different languages of the same page with the same URL. This has a couple of drawbacks:
 
-This has a couple of shortcomings:
- - You can't switch language without changing your browser settings
+ - Users cannot change language without changing their browser settings
  - It may not work well with various caching setups (as content varies based on browser settings)
 
-If you need any of these, you can use Djangos ``i18n_patterns`` in your ``urls.py`` which puts the language code at the beginning of each URL (eg ``/en/about-us``):
+Django's ``i18n_patterns`` feature, when enabled, prefixes the URLs with the language code (eg ``/en/about-us``). Users are forwarded to their preferred version, based on browser language, when they first visit the site.
+
+This feature is enabled through the projects root URL configuration. Just put the views you would like to have this enabled for in an ``i18n_patterns`` list and append that to the other url patterns:
 
 .. code-block:: python
 
@@ -103,7 +103,7 @@ You can implement switching between languages by changing the part at the beginn
 Translating templates
 ---------------------
 
-Static text in templates needs to be marked up in a way that allows Djangos ``makemessages`` command to find and export the strings for translators and also allow them to switch to translated versions on the fly.
+Static text in templates needs to be marked up in a way that allows Djangos ``makemessages`` command to find and export the strings for translators and also allow them to switch to translated versions on the when the template is being served.
 
 As Wagtail uses Djangos templates, inserting this markup and the workflow for exporting and translating the strings is the same as any other Django project.
 
@@ -120,14 +120,13 @@ This section will descibe how to implement this method manually but there is a t
 
 **Duplicating the fields in your model**
 
-Each text field in your Page model can be duplicated and suffixed with the language of that field:
+For each field you would like to be translatable, duplicate it for every language you support and suffix it with the language code:
 
 .. code-block:: python
 
     class BlogPage(Page):
 
-        frontend_title_en = models.CharField(max_length=255)
-        frontend_title_fr = models.CharField(max_length=255)
+        title_fr = models.CharField(max_length=255)
 
         body_en = StreamField(...)
         body_fr = StreamField(...)
@@ -137,12 +136,14 @@ Each text field in your Page model can be duplicated and suffixed with the langu
 
 .. note::
 
-    We define a separate ``frontend_title`` field here instead of using Wagtails builtin ``title`` field. This is because we can't change the name of the builtin field, or add an "fr" version to the base ``Page`` model.
+    We only define the French version of the ``title`` field as Wagtail already provides the English version for us.
 
 
 **Organising the fields in the admin interface**
 
-You can either put all the fields with their translations next to each other on the "content" tab or put the translations for other languages on different tabs. See :ref:`customising_the_tabbed_interface` for information on how to do that.
+You can either put all the fields with their translations next to each other on the "content" tab or put the translations for other languages on different tabs.
+
+See :ref:`customising_the_tabbed_interface` for information on how to add more tabs to the admin interface.
 
 
 **Accessing the fields from the template**
@@ -183,9 +184,9 @@ For example, here's how we would apply this to the above ``BlogPage`` model:
     class BlogPage(Page):
         ...
 
-        frontend_title = TranslatedField(
-            'frontend_title_en',
-            'frontend_title_fr',
+        translated_title = TranslatedField(
+            'title',
+            'title_fr',
         )
         body = TranslatedField(
             'body_en',
@@ -197,7 +198,7 @@ Finally, in the template, reference the accessors instead of the underlying data
 
 .. code-block:: html+Django
 
-    {{ self.frontend_title }}
+    {{ self.translated_title }}
 
     {{ self.body }}
 
