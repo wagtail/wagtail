@@ -10,9 +10,9 @@ Whichever way you insert a link, you will be presented with the form displayed b
 * Search for an existing page to link to using the search bar at the top of the pop-up.
 * Below the search bar you can select the type of link you want to insert. The following types are available:
 
-  * Internal link: A link to an existing page within the RCA website.
+  * Internal link: A link to an existing page within your website.
   * External link: A link to a page on another website.
-  * Email link: A link that will open the users default email client with the email address prepopulated.
+  * Email link: A link that will open the user's default email client with the email address prepopulated.
 
 * You can also navigate through the website to find an internal link via the explorer.
 
