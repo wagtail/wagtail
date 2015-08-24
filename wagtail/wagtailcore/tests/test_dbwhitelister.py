@@ -1,8 +1,10 @@
+from bs4 import BeautifulSoup
+
 from django.test import TestCase
+
 from wagtail.wagtailcore.rich_text import DbWhitelister
 from wagtail.wagtailcore.whitelist import Whitelister
 
-from bs4 import BeautifulSoup
 
 class TestDbWhitelister(TestCase):
     def assertHtmlEqual(self, str1, str2):
@@ -10,7 +12,7 @@ class TestDbWhitelister(TestCase):
         Assert that two HTML strings are equal at the DOM level
         (necessary because we can't guarantee the order that attributes are output in)
         """
-        self.assertEqual(BeautifulSoup(str1), BeautifulSoup(str2))
+        self.assertEqual(BeautifulSoup(str1, 'html5lib'), BeautifulSoup(str2, 'html5lib'))
 
     def test_page_link_is_rewritten(self):
         input_html = '<p>Look at the <a data-linktype="page" data-id="2" href="/">lovely homepage</a> of my <a href="http://wagtail.io/">Wagtail</a> site</p>'

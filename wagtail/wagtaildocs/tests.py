@@ -659,9 +659,7 @@ class TestDocumentRichTextLinkHandler(TestCase):
     fixtures = ['test.json']
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup(
-            '<a data-id="test-id">foo</a>'
-        )
+        soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
         tag = soup.a
         result = DocumentLinkHandler.get_db_attributes(tag)
         self.assertEqual(result,

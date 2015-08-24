@@ -3,8 +3,6 @@ A generic HTML whitelisting engine, designed to accommodate subclassing to overr
 specific rules.
 """
 import re
-
-
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 
