@@ -4,7 +4,6 @@ import json
 import sys
 
 from django import forms
-from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
