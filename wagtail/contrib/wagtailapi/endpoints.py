@@ -30,7 +30,6 @@ class BaseAPIEndpoint(GenericViewSet):
     base_serializer_class = BaseSerializer
     filter_classes = []
     model = None # Set on subclass
-    queryset = None  # Set on subclasses or implement `get_queryset()`.
 
     known_query_parameters = frozenset([
         'limit',
@@ -41,6 +40,9 @@ class BaseAPIEndpoint(GenericViewSet):
     ])
     extra_api_fields = []
     name = None  # Set on subclass.
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('id')
 
     def listing_view(self, request):
         queryset = self.get_queryset()
@@ -213,7 +215,6 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class ImagesAPIEndpoint(BaseAPIEndpoint):
-    queryset = get_image_model().objects.all().order_by('id')
     base_serializer_class = ImageSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags', 'width', 'height']
@@ -222,7 +223,6 @@ class ImagesAPIEndpoint(BaseAPIEndpoint):
 
 
 class DocumentsAPIEndpoint(BaseAPIEndpoint):
-    queryset = Document.objects.all().order_by('id')
     base_serializer_class = DocumentSerializer
     filter_backends = [FieldsFilter, OrderingFilter, SearchFilter]
     extra_api_fields = ['title', 'tags']
