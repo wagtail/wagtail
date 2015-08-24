@@ -32,7 +32,7 @@ If there is a translation available for your language, the Wagtail admin backend
 Creating sites with multiple languages
 ======================================
 
-You can create sites with multiple language support by levaraging Django's `translation features <https://docs.djangoproject.com/en/1.8/topics/i18n/translation/>`_.
+You can create sites with multiple language support by leveraging Django's `translation features <https://docs.djangoproject.com/en/1.8/topics/i18n/translation/>`_.
 
 This section of the documentation will show you how to use Django's translation features with Wagtail and also describe a couple of methods for storing/retrieving translated content using Wagtail pages.
 
@@ -65,7 +65,7 @@ Just enabling the multi-language support in Django sometimes may not be enough. 
 
 Django's ``i18n_patterns`` feature, when enabled, prefixes the URLs with the language code (eg ``/en/about-us``). Users are forwarded to their preferred version, based on browser language, when they first visit the site.
 
-This feature is enabled through the projects root URL configuration. Just put the views you would like to have this enabled for in an ``i18n_patterns`` list and append that to the other url patterns:
+This feature is enabled through the project's root URL configuration. Just put the views you would like to have this enabled for in an ``i18n_patterns`` list and append that to the other URL patterns:
 
 .. code-block:: python
 
@@ -97,7 +97,7 @@ This feature is enabled through the projects root URL configuration. Just put th
         url(r'', include(wagtail_urls)),
     )
 
-You can implement switching between languages by changing the part at the beginning of the URL. As each language has it's own URL, it also works well with just about any caching setup.
+You can implement switching between languages by changing the part at the beginning of the URL. As each language has its own URL, it also works well with just about any caching setup.
 
 
 Translating templates
