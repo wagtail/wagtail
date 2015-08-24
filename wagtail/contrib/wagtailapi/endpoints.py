@@ -28,7 +28,7 @@ class BaseAPIEndpoint(GenericViewSet):
     renderer_classes = [WagtailJSONRenderer]
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
-    filter_classes = []
+    filter_backends = []
     model = None # Set on subclass
 
     known_query_parameters = frozenset([
