@@ -134,19 +134,15 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         The serialization context differs between listing and detail views.
         """
-        request = self.request
-
-        if self.action == 'listing_view':
-            return {
-                'request': request,
-                'view': self,
-            }
-
-        return {
-            'request': request,
+        context = {
+            'request': self.request,
             'view': self,
-            'show_details': True
         }
+
+        if self.action == 'detail_view':
+            context['show_details'] = True
+
+        return context
 
     def get_renderer_context(self):
         context = super(BaseAPIEndpoint, self).get_renderer_context()
