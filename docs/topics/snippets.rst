@@ -32,7 +32,7 @@ Here's an example snippet from the Wagtail demo website:
           FieldPanel('text'),
       ]
       
-      def __str__(self):
+      def __str__(self):              # __unicode__ on Python 2
           return self.text
 
 The ``Advert`` model uses the basic Django model class and defines two properties: text and URL. The editing interface is very close to that provided for ``Page``-derived models, with fields assigned in the panels property. Snippets do not use multiple tabs of fields, nor do they provide the "save as draft" or "submit for moderation" features.
@@ -145,7 +145,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
           SnippetChooserPanel('advert', Advert),
       ]
   
-      def __str__(self):
+      def __str__(self):              # __unicode__ on Python 2
           return self.page.title + " -> " + self.advert.text
   
   
