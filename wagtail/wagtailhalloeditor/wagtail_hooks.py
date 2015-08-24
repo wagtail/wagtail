@@ -22,7 +22,7 @@ def insert_editor_js():
         'wagtailhalloeditor/js/hallo-plugins/hallo-wagtaillink.js',
         'wagtailhalloeditor/js/hallo-plugins/hallo-hr.js',
         'wagtailhalloeditor/js/hallo-plugins/hallo-requireparagraphs.js',
-        'wagtailhalloeditor/js/rich-text-editor.js',
+        'wagtailhalloeditor/js/hallo-editor.js',
     ]
     js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
         ((settings.STATIC_URL, filename) for filename in js_files)
