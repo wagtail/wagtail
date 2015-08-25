@@ -55,6 +55,7 @@ Minor features
  * The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
  * Added database indexes on PageRevision and Image to improve performance on large sites
  * Search in page chooser now uses Wagtail's search framework, to order results by relevance
+ * ``PageChooserPanel`` now supports passing a list (or tuple) of accepted page types
 
 Bug fixes
 ~~~~~~~~~

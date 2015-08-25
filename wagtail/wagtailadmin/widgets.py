@@ -110,17 +110,24 @@ class AdminChooser(WidgetWithScript, widgets.Input):
 
 
 class AdminPageChooser(AdminChooser):
-    target_content_type = None
     choose_one_text = _('Choose a page')
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
     def __init__(self, content_type=None, **kwargs):
         super(AdminPageChooser, self).__init__(**kwargs)
-        self.target_content_type = content_type or ContentType.objects.get_for_model(Page)
+
+        self.target_content_types = content_type or ContentType.objects.get_for_model(Page)
+        # Make sure target_content_types is a list or tuple
+        if not isinstance(self.target_content_types, (list, tuple)):
+            self.target_content_types = [self.target_content_types]
 
     def render_html(self, name, value, attrs):
-        model_class = self.target_content_type.model_class()
+        if len(self.target_content_types) == 1:
+            model_class = self.target_content_types[0].model_class()
+        else:
+            model_class = Page
+
         instance, value = self.get_instance_and_id(model_class, value)
 
         original_field_html = super(AdminPageChooser, self).render_html(name, value, attrs)
@@ -134,17 +141,25 @@ class AdminPageChooser(AdminChooser):
         })
 
     def render_js_init(self, id_, name, value):
-        model_class = self.target_content_type.model_class()
-        if isinstance(value, model_class):
+        if isinstance(value, Page):
             page = value
         else:
+            # Value is an ID look up object
+            if len(self.target_content_types) == 1:
+                model_class = self.target_content_types[0].model_class()
+            else:
+                model_class = Page
+
             page = self.get_instance(model_class, value)
+
         parent = page.get_parent() if page else None
-        content_type = self.target_content_type
 
         return "createPageChooser({id}, {content_type}, {parent});".format(
             id=json.dumps(id_),
-            content_type=json.dumps('{app}.{model}'.format(
-                app=content_type.app_label,
-                model=content_type.model)),
+            content_type=json.dumps([
+                '{app}.{model}'.format(
+                    app=content_type.app_label,
+                    model=content_type.model)
+                for content_type in self.target_content_types
+            ]),
             parent=json.dumps(parent.id if parent else None))
