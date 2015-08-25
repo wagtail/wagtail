@@ -132,9 +132,9 @@ def search(request, parent_page_id=None):
     if search_form.is_valid() and search_form.cleaned_data['q']:
         pages = Page.objects.exclude(
             depth=1  # never include root
-        ).search(search_form.cleaned_data['q'], fields=['title'])[:10]
+        )
         pages = filter_page_type(pages, desired_classes)
-        pages = pages[:10]
+        pages = pages.search(search_form.cleaned_data['q'], fields=['title'])[:10]
     else:
         pages = Page.objects.none()
 
