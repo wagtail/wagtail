@@ -54,6 +54,7 @@ Minor features
  * Updated URLs within the admin backend to use namespaces
  * The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
  * Added database indexes on PageRevision and Image to improve performance on large sites
+ * Search in page chooser now uses Wagtail's search framework, to order results by relevance
 
 Bug fixes
 ~~~~~~~~~
