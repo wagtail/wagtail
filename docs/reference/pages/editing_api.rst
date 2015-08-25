@@ -143,7 +143,7 @@ FieldRowPanel
 PageChooserPanel
 ----------------
 
-.. class:: PageChooserPanel(field_name, model=None)
+.. class:: PageChooserPanel(field_name, page_type=None)
 
     You can explicitly link :class:`~wagtail.wagtailcore.models.Page`-derived models together using the :class:`~wagtail.wagtailcore.models.Page` model and ``PageChooserPanel``.
 
@@ -166,7 +166,9 @@ PageChooserPanel
                 PageChooserPanel('related_page', 'demo.PublisherPage'),
             ]
 
-    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type.
+    ``PageChooserPanel`` takes two arguments: a field name and an optional page type. Specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types::
+
+        PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
 
 ImageChooserPanel
 -----------------
