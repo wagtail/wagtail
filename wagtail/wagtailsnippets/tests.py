@@ -6,7 +6,7 @@ from django.contrib.auth.models import Permission
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
-from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction
+from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
 
 from wagtail.wagtailsnippets.views.snippets import (
@@ -55,6 +55,56 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
+
+    def test_not_searchable(self):
+        self.assertFalse(self.get().context['is_searchable'])
+
+
+class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = SearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = SearchableSnippet.objects.create(text="World")
+        self.snippet_c = SearchableSnippet.objects.create(text="Hello World")
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailsnippets:list',
+                                       args=('snippetstests', 'searchablesnippet')),
+                               params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+        # All snippets should be in items
+        items = list(response.context['items'].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+    def test_is_searchable(self):
+        self.assertTrue(self.get().context['is_searchable'])
+
+    def test_search_hello(self):
+        response = self.get({'q': "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context['items'].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+    def test_search_world(self):
+        response = self.get({'q': "World"})
+
+        # Just snippets with "World" should be in items
+        items = list(response.context['items'].object_list)
+        self.assertNotIn(self.snippet_a, items)
+        self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
 
 
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
@@ -251,6 +301,55 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
             response = self.get({'p': page})
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+    def test_not_searchable(self):
+        self.assertFalse(self.get().context['is_searchable'])
+
+
+class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = SearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = SearchableSnippet.objects.create(text="World")
+        self.snippet_c = SearchableSnippet.objects.create(text="Hello World")
+
+    def get(self, params=None):
+        return self.client.get(reverse('wagtailsnippets:choose',
+                                       args=('snippetstests', 'searchablesnippet')),
+                               params or {})
+
+    def test_simple(self):
+        response = self.get()
+        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+        # All snippets should be in items
+        items = list(response.context['items'].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+    def test_is_searchable(self):
+        self.assertTrue(self.get().context['is_searchable'])
+
+    def test_search_hello(self):
+        response = self.get({'q': "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context['items'].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+    def test_search_world(self):
+        response = self.get({'q': "World"})
+
+        # Just snippets with "World" should be in items
+        items = list(response.context['items'].object_list)
+        self.assertNotIn(self.snippet_a, items)
+        self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
 
 
 class TestSnippetChosen(TestCase, WagtailTestUtils):
