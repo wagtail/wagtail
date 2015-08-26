@@ -1,5 +1,8 @@
 language: python
 
+# Cache pip downloads between builds
+cache: pip
+
 # Use container-based infrastructure
 sudo: false
 
@@ -25,7 +28,9 @@ services:
   - elasticsearch
 
 # Package installation
+# Upgrade pip to version >7 to use wheel files
 install:
+  - pip install --upgrade pip wheel
   - pip install tox coveralls
 
 # Pre-test configuration
@@ -53,5 +58,3 @@ notifications:
       - secure: "dQZBPlCC2OQE2L7EqOMkKsQxCJm05BhFrfmKmJ0AnKqxiEyZDKd2JiQaMg8X7XtIdJ87dlnBZH5h3erPSMgI3mIfNCWKKs/f6idgWIXPpklzU95KmPOrCoOyT3lkDTEOXCYXhgvOExp8qLHc4qjEWbSoIfPwqYyPlGry3Z76UBM="
     on_success: change
     on_failure: always
-
-# bump Travis: 1
