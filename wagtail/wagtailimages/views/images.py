@@ -123,15 +123,9 @@ def edit(request, image_id):
     except NoReverseMatch:
         url_generator_enabled = False
 
-    try:
-        local_path = image.file.path
-    except NotImplementedError:
-        # Image is hosted externally (eg, S3)
-        local_path = None
-
-    if local_path:
+    if image.is_stored_locally():
         # Give error if image file doesn't exist
-        if not os.path.isfile(local_path):
+        if not os.path.isfile(image.file.path):
             messages.error(request, _("The source image file could not be found. Please change the source or delete the image.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
