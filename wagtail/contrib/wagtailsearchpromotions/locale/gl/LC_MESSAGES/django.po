@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:46+0100\n"
+"PO-Revision-Date: 2015-08-26 14:14+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Save"
+msgstr "Gardar"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Eliminar %(query)s"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Editando %(query)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Add recommended page"
+msgstr "Engadir páxina recomendada"
+
+msgid "Search Terms"
+msgstr "Termos de busca"
+
+msgid "Search term(s)"
+msgstr "Termos(s) de busca"
+
+msgid "Views (past week)"
+msgstr "Vistas (semana pasada)"
+
+msgid "Edit this pick"
+msgstr "Editar esta selección"
+
+msgid "None"
+msgstr "Ningunha"
+
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Hai unha coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hai %(counter)s coincidencias\n"
+"        "
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' created."
+msgstr "Seleccións do editor para '{0}' creadas."
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' updated."
+msgstr "Seleccións do editor para '{0}' actualizadas."
+
+msgid "Editor's picks deleted."
+msgstr "Seleccións do editor para '{0}' eliminadas."

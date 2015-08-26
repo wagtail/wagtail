@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -22,69 +22,6 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Cerca paraula(es)/frases"
 
-msgid "Add editor's pick"
-msgstr "afegeix selecció dels editors"
-
-msgid "Save"
-msgstr "Desa"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Esborra %(query)s"
-
-msgid "Delete"
-msgstr "Esborra"
-
-msgid "Yes, delete"
-msgstr "Si, esborra"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editant %(query)s"
-
-msgid "Editing"
-msgstr "Editant"
-
-msgid "Move up"
-msgstr "Puja"
-
-msgid "Move down"
-msgstr "Baixa"
-
-msgid "Add recommended page"
-msgstr "Afegeix una pàgina recomanada"
-
-msgid "Search Terms"
-msgstr "Termini de cerca"
-
-msgid "Search term(s)"
-msgstr "Cerca paraula(es)"
-
-msgid "Views (past week)"
-msgstr "Vistes(la setmana pasada)"
-
-msgid "Edit this pick"
-msgstr "Edita aquesta selecció"
-
-msgid "None"
-msgstr "Cap"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Hi ha una coincidència"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s coincidències"
-
 msgid "Popular search terms"
 msgstr "terminis de cerca populars"
 
@@ -94,19 +31,8 @@ msgstr "Cercar"
 msgid "Terms"
 msgstr "Termes"
 
+msgid "Views (past week)"
+msgstr "Vistes(la setmana pasada)"
+
 msgid "No results found"
 msgstr "No s'han trobat resultats"
-
-msgid "Search editor's picks"
-msgstr "Cercar selecció del editor"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Selecció de l'editor per a '{0}' creada."
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Selecció de l'editor per '{0}' actualitzada."
-
-msgid "Editor's picks deleted."
-msgstr "Selecció de l'editor esborrada."

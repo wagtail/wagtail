@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-21 08:40+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,11 +22,29 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
+
 msgid "Administrator"
 msgstr "Administrator"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "Acest utilizator poate gestiona conturi de utilizator dacă este bifat."
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "Leave blank if not changing."
+msgstr "Lăsați liber dacă nu schimbați."
+
+msgid "Password confirmation"
+msgstr "Confirmare parolă"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Introduceți aceeași parolă ca mai sus pentru verificare"
 
 msgid "Email"
 msgstr "E-mail"
@@ -42,27 +60,6 @@ msgstr "Un utilizator cu acest nume există deja."
 
 msgid "The two password fields didn't match."
 msgstr "Câmpurile de parolă nu se potrivesc."
-
-msgid "Username"
-msgstr "Nume utlizator"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
-
-msgid "Password"
-msgstr "Parolă"
-
-msgid "Leave blank if not changing."
-msgstr "Lăsați liber dacă nu schimbați."
-
-msgid "Password confirmation"
-msgstr "Confirmare parolă"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Introduceți aceeași parolă ca mai sus pentru verificare"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Administratorii pot gestiona conturi de utilizator."
@@ -154,6 +151,9 @@ msgstr "Utilizatori"
 
 msgid "Add a user"
 msgstr "Adaugă un utilizator"
+
+msgid "Username"
+msgstr "Nume utlizator"
 
 msgid "Level"
 msgstr "Nivel"

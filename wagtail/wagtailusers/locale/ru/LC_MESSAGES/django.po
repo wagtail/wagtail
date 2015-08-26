@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-28 07:04+0000\n"
 "Last-Translator: Eugene MechanisM <contact@mechanism.name>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,6 +24,14 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Обязательное. 30 символов или меньше. Только буквы, цифры и символы @/./+/-/"
+"_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
+
 msgid "Administrator"
 msgstr "Администратор"
 
@@ -31,6 +39,18 @@ msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Если выбрано, этот пользователь имеет возможность управлять "
 "пользовательскими аккаунтами."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Leave blank if not changing."
+msgstr "Оставьте пустым, если не изменяется."
+
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Введите такой же пароль, как выше, для подтверждения."
 
 msgid "Email"
 msgstr "Адрес электронной почты"
@@ -46,29 +66,6 @@ msgstr "Пользователь с таким именем пользовате
 
 msgid "The two password fields didn't match."
 msgstr "Два поля с паролями не совпадают."
-
-msgid "Username"
-msgstr "Имя пользователя"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Обязательное. 30 символов или меньше. Только буквы, цифры и символы @/./+/-/"
-"_."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
-
-msgid "Password"
-msgstr "Пароль"
-
-msgid "Leave blank if not changing."
-msgstr "Оставьте пустым, если не изменяется."
-
-msgid "Password confirmation"
-msgstr "Подтверждение пароля"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Введите такой же пароль, как выше, для подтверждения."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "Администраторы имеют возможность управлять аккаунтами пользователей."
@@ -188,6 +185,9 @@ msgstr "Пользователи"
 
 msgid "Add a user"
 msgstr "Добавить пользователя"
+
+msgid "Username"
+msgstr "Имя пользователя"
 
 msgid "Level"
 msgstr "Уровень"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-29 17:14+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -23,52 +23,8 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "检索词"
 
-msgid "Page"
-msgstr "页面"
-
-msgid "Description"
-msgstr "描述"
-
-msgid "Editor's Pick"
-msgstr "编辑精选"
-
-msgid "Add editor's pick"
-msgstr "增加编辑精选 "
-
-msgid "Save"
-msgstr "保存"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "删除%(query)s"
-
-msgid "Delete"
-msgstr "删除"
-
-msgid "Yes, delete"
-msgstr "是，删除"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "编辑%(query)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Search Terms"
-msgstr "检索词"
-
 msgid "Search"
 msgstr "搜索"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Edit"
-msgstr "编辑"

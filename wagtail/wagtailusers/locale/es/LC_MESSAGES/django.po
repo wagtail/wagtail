@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-04-22 02:21+0000\n"
 "Last-Translator: José Alaguna <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -25,6 +25,14 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obligatorio. 30 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Este valor debe contener sólo letras, números y los caracteres @/./+/-/_."
+
 msgid "Administrator"
 msgstr "Administrador"
 
@@ -32,6 +40,18 @@ msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Si está marcado, este usuario tiene la capacidad de gestionar cuentas de "
 "usuario."
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Leave blank if not changing."
+msgstr "Deja en blanco si no cambia."
+
+msgid "Password confirmation"
+msgstr "Confirmación de contraseña"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Introduce la misma contraseña que arriba, para verificación."
 
 msgid "Email"
 msgstr "Correo electrónico"
@@ -47,29 +67,6 @@ msgstr "Un usuario con ese nombre ya existe."
 
 msgid "The two password fields didn't match."
 msgstr "Los dos campos de contraseña no coinciden."
-
-msgid "Username"
-msgstr "Nombre de usuario"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Obligatorio. 30 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr ""
-"Este valor debe contener sólo letras, números y los caracteres @/./+/-/_."
-
-msgid "Password"
-msgstr "Contraseña"
-
-msgid "Leave blank if not changing."
-msgstr "Deja en blanco si no cambia."
-
-msgid "Password confirmation"
-msgstr "Confirmación de contraseña"
-
-msgid "Enter the same password as above, for verification."
-msgstr "Introduce la misma contraseña que arriba, para verificación."
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
@@ -190,6 +187,9 @@ msgstr "Usuarios"
 
 msgid "Add a user"
 msgstr "Añadir un usuario"
+
+msgid "Username"
+msgstr "Nombre de usuario"
 
 msgid "Level"
 msgstr "Nivel"

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-29 22:21+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -28,25 +28,6 @@ msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Nicht unterstütztes Bildformat. Unterstützte Bildformate: %s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Kein gültiges %s Bild."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-"Die Datei ist zu groß. Die maximale Dateigröße beträgt %(max_upload_size)s."
-
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-"Die Datei ist zu groß (%%(max_upload_size)s). Die maximale Dateigröße "
-"beträgt %s."
-
-#, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
@@ -57,6 +38,14 @@ msgstr ""
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Unterstütze Formate: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Nicht unterstütztes Bildformat. Unterstützte Bildformate: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Kein gültiges %s Bild."
 
 msgid "Filter"
 msgstr "Filter"

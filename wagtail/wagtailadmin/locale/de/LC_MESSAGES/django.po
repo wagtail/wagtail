@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-04-17 12:44+0000\n"
-"Last-Translator: Wasilis Mandratzis-Walz\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -204,6 +204,15 @@ msgstr "Menü"
 msgid "Add another"
 msgstr "Ein anderes hinzufügen"
 
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Delete"
+msgstr "Löschen"
+
 msgid "Explorer"
 msgstr "Explorer"
 
@@ -215,17 +224,6 @@ msgstr "Externer Link"
 
 msgid "Email link"
 msgstr "Email-Link"
-
-#, python-format
-msgid ""
-"\n"
-"        Only pages of type \"%(type)s\" may be chosen for this field. Search "
-"results will exclude pages of other types.\n"
-"    "
-msgstr ""
-"\n"
-"Nur Seiten des Typs \"%(type)s\" können hier ausgewählt werden. Andere Typen "
-"werden nicht im Suchergebnis angezeigt."
 
 #, python-format
 msgid ""
@@ -258,15 +256,6 @@ msgstr "Link einfügen"
 
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
-
-msgid "Move up"
-msgstr "Nach oben"
-
-msgid "Move down"
-msgstr "Nach unten"
-
-msgid "Delete"
-msgstr "Löschen"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -566,33 +555,11 @@ msgstr "von %(modified_by)s"
 msgid "Exploring %(title)s"
 msgstr "%(title)s durchstöbern"
 
-msgid "Updated"
-msgstr "Aktualisiert"
-
 msgid "Drag"
 msgstr "Ziehen"
 
-msgid "No pages have been created."
-msgstr "Es wurden keine Seiten erstellt."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">add one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">Fügen Sie doch eine hinzu!</a>"
-
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"Seite %(page_number)s von %(num_pages)s."
-
-msgid "Previous"
-msgstr "Vorherige"
-
-msgid "Next"
-msgstr "Nächste"
+msgid "Updated"
+msgstr "Aktualisiert"
 
 msgid "This page is locked to further editing"
 msgstr "Diese Seite ist gesperrt für weiteres Bearbeiten"
@@ -625,6 +592,12 @@ msgstr ""
 msgid "Add child page"
 msgstr "Untergeordnete Seite hinzufügen"
 
+msgid "Previous"
+msgstr "Vorherige"
+
+msgid "Next"
+msgstr "Nächste"
+
 msgid "This page is protected from public view"
 msgstr "Diese Seite ist geschützt vor öffentlichen Zugang"
 
@@ -645,22 +618,6 @@ msgstr "Wählen Sie eine neue übergeordnete Seite für %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                    There is one matching page\n"
-"                "
-msgid_plural ""
-"\n"
-"                    There are %(counter)s matching pages\n"
-"                "
-msgstr[0] ""
-"\n"
-"Es gibt einen Treffer."
-msgstr[1] ""
-"\n"
-"Es gibt %(counter)s Treffer."
-
 msgid "Other searches"
 msgstr "Andere Suchbegriffe"
 
@@ -672,15 +629,6 @@ msgstr "Dokumente"
 
 msgid "Users"
 msgstr "Benutzer"
-
-#, python-format
-msgid ""
-"\n"
-"                Page %(page_number)s of %(num_pages)s.\n"
-"            "
-msgstr ""
-"\n"
-"Seite %(page_number)s von %(num_pages)s."
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -801,15 +749,6 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 msgid "Your preferences have been updated successfully!"
 msgstr "Ihre Einstellungen wurden gesichert!"
 
-msgid "This slug is already in use"
-msgstr "Der Kurztitel wird bereits verwendet"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Das Veröffentlichungsdatum muss vor dem Verfallsdatum liegen"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Das Verfallsdatum muss in der Zukunft sein"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Die Seite '{0}' erstellt und veröffentlicht."
@@ -853,6 +792,15 @@ msgstr ""
 
 msgid "This page is currently awaiting moderation"
 msgstr "Diese Seite wartet derzeit auf Freischaltung"
+
+msgid "This slug is already in use"
+msgstr "Der Kurztitel wird bereits verwendet"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Das Veröffentlichungsdatum muss vor dem Verfallsdatum liegen"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Das Verfallsdatum muss in der Zukunft sein"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."

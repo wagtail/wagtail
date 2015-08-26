@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-07-01 09:33+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -24,30 +24,6 @@ msgstr "Veldu rótar síðu"
 
 msgid "Choose a different root page"
 msgstr "Veldu aðra rótar síðu"
-
-msgid "Delete site"
-msgstr "Eyða vefsvæði"
-
-msgid "Are you sure you want to delete this site?"
-msgstr "Ertu viss um að þú viljir eyða þessu vefsvæði?"
-
-msgid "Yes, delete"
-msgstr "Já, eyða"
-
-msgid "Add site"
-msgstr "Bæta við vefsvæði"
-
-msgid "Save"
-msgstr "Vista"
-
-msgid "Editing"
-msgstr "Breyti"
-
-msgid "Sites"
-msgstr "Vefsvæði"
-
-msgid "Add a site"
-msgstr "Bæta við vefsvæði"
 
 msgid "Site"
 msgstr "Vefsvæði"
@@ -64,23 +40,5 @@ msgstr "Sjálfgefin?"
 msgid "Default"
 msgstr "Sjálfgefin"
 
-#, python-brace-format
-msgid "Site '{0}' created."
-msgstr "Vefsvæði '{0}' stofnað."
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "The site could not be created due to errors."
-msgstr "Ekki var hægt að vista vefsvæðið, villur komu upp."
-
-#, python-brace-format
-msgid "Site '{0}' updated."
-msgstr "Vefsvæði '{0}' uppfært"
-
-msgid "The site could not be saved due to errors."
-msgstr "Ekki var hægt að vista vefsvæðið, villur komu upp."
-
-#, python-brace-format
-msgid "Site '{0}' deleted."
-msgstr "Vefsvæði '{0}' eytt."
+msgid "Sites"
+msgstr "Vefsvæði"

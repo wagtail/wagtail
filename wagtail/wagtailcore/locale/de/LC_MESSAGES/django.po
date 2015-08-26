@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Florian <flori@vorlif.org>, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-06-29 13:28+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +117,7 @@ msgid "Go live date/time"
 msgstr "Veröffentlichungszeitpunkt"
 
 msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
-msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ei."
+msgstr "Bitte geben ein Datum im Format JJJJ-MM-DD hh:mm:ss ein."
 
 msgid "Expiry date/time"
 msgstr "Verfallszeitpunkt"
@@ -164,7 +165,7 @@ msgid "User"
 msgstr "Benutzer"
 
 msgid "Content JSON"
-msgstr "Inhalts-JSON"
+msgstr "JSON Inhalt"
 
 msgid "Approved go live at"
 msgstr "Freigegeben zur Veröffentlichung am"
@@ -174,9 +175,6 @@ msgstr "Seitenrevision"
 
 msgid "Add/edit pages you own"
 msgstr "Bearbeiten/Hinzufügen von Seiten, die Sie besitzen"
-
-msgid "Add/edit any page"
-msgstr "Hinzufügen/jede Seite bearbeiten"
 
 msgid "Publish any page"
 msgstr "Jede Seite veröffentlichen"
@@ -189,6 +187,9 @@ msgstr "Gruppe"
 
 msgid "Permission type"
 msgstr "Berechtigungstyp"
+
+msgid "Group Page Permission"
+msgstr "Gruppen Seitenberechtigungen"
 
 msgid "Password"
 msgstr "Passwort"

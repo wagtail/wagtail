@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-06-28 22:38+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,154 +27,6 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Suchbegriffe/Phrase"
 
-msgid ""
-"Enter the full search string to match. An exact match is required for your "
-"Editors Picks to be displayed, wildcards are NOT allowed."
-msgstr ""
-"Geben sie den vollständigen Suchbegriff ein.Um ihre Redaktionsempfehlungen "
-"anzuzeigen, wird eine genaue Übereinstimmung benötigt.Wildcards sind NICHT "
-"erlaubt."
-
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
-
-msgid "Page"
-msgstr "Seite"
-
-msgid "Description"
-msgstr "Beschreibung"
-
-msgid "Editor's Pick"
-msgstr "Redaktionsempfehlung"
-
-msgid "Add editor's pick"
-msgstr "Redaktionsempfehlung hinzufügen"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"        <p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte "
-"Seiten zu empfehlen die von sich aus nicht sehr weit oben in den "
-"Suchergebnissen auftauchen würden. So könnte zum Beispiel ihre Spendenseite "
-"auftauchen wenn nach dem Suchbegriff \"<em>unterstützen</em>\" gesucht wird."
-"</p>\n"
-"        "
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"        <p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen sie den "
-"vollständigen und genauen Suchbegriff, inklusive eventueller "
-"Rechtschreibfehler, eingeben, für den sie Seiten empfehlen möchten. Zur "
-"Unterstützung können sie aus häufig verwendeten Suchbegriffen wählen.</p>\n"
-"        "
-
-msgid "Save"
-msgstr "Speichern"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "%(query)s löschen"
-
-msgid "Delete"
-msgstr "Löschen"
-
-msgid ""
-"Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
-"Sind Sie sicher, dass Sie alle hervorgehobenen Suchergebnisse für diesen "
-"Suchbegriff löschen wollen?"
-
-msgid "Yes, delete"
-msgstr "Ja, löschen"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "%(query)s bearbeiten"
-
-msgid "Editing"
-msgstr "Bearbeiten"
-
-msgid "Move up"
-msgstr "Nach oben"
-
-msgid "Move down"
-msgstr "Nach unten"
-
-msgid "Promoted search result"
-msgstr "Hervorgehobenes Suchergebnis"
-
-msgid "Add recommended page"
-msgstr "Empfohlene Seite hinzufügen"
-
-msgid "Search Terms"
-msgstr "Suchbegriffe"
-
-msgid "Promoted search results"
-msgstr "Hervorgehobene Suchergebnisse"
-
-msgid "Add new promoted result"
-msgstr "Neues hervorgehobenes Suchergebnis hinzufügen"
-
-msgid "Search term(s)"
-msgstr "Suchbegriff/e"
-
-msgid "Promoted results"
-msgstr "Hervorgehobene Suchergebnisse"
-
-msgid "Views (past week)"
-msgstr "Aufrufe (letze Woche)"
-
-msgid "Edit this pick"
-msgstr "Diese Empfehlung bearbeiten"
-
-msgid "None"
-msgstr "Keine"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Es gibt ein Ergebnis\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu \"<em>"
-"%(query_string)s</em>\" passen."
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">fügen Sie nicht einen hinzu</a>?"
-
 msgid "Popular search terms"
 msgstr "Häufige Suchbegriffe"
 
@@ -184,6 +36,9 @@ msgstr "Suche"
 msgid "Terms"
 msgstr "Begriffe"
 
+msgid "Views (past week)"
+msgstr "Aufrufe (letze Woche)"
+
 msgid "No results found"
 msgstr "Keine Ergebnisse gefunden"
 
@@ -192,26 +47,3 @@ msgstr "Datum"
 
 msgid "Choose from popular search terms"
 msgstr "Wählen Sie aus populären Suchbegriffen"
-
-msgid "Search editor's picks"
-msgstr "Nach Redaktionsempfehlungen suchen"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Redaktionsempfehlungen für '{0}' erstellt."
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Redaktionsempfehlungen für '{0}' geändert."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Empfehlungen wurden wegen eines Fehlers nicht gespeichert"
-
-msgid "Editor's picks deleted."
-msgstr "Redaktionsempfehlungen gelöscht."

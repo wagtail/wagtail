@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -25,136 +25,6 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Termeni/frază de căutare"
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
-
-msgid "Add editor's pick"
-msgstr "Adaugă selecție editorială"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Rezultatele de căutare promovate reprezintă o modalitate de recomandare a "
-"paginilor care pot să nu apară în topul rezultatelor de căutare în mod "
-"organic. De exemplu, recomandărea paginii principale de donații unui "
-"utilizator care caută termenul mai puțin frecvent \"<em>dare</em>\".</p>\n"
-"            "
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Câmpul \"Termeni/frază de căutare\" de mai jos trebuie să conțină șirul "
-"exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</"
-"em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de "
-"căutare populari printre utilizatorii sitului dvs.</p>"
-
-msgid "Save"
-msgstr "Salvează"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Șterge %(query)s"
-
-msgid "Delete"
-msgstr "Șterge"
-
-msgid ""
-"Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
-"Sigur doriți să ștergeți toate rezultatele promovate pentru acest termen de "
-"căutare?"
-
-msgid "Yes, delete"
-msgstr "Da, șterge"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editare %(query)s"
-
-msgid "Editing"
-msgstr "Editare"
-
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-msgid "Move down"
-msgstr "Deplasează în jos"
-
-msgid "Promoted search result"
-msgstr "Rezultat de căutare promovat"
-
-msgid "Add recommended page"
-msgstr "Adaugă pagină recomandată"
-
-msgid "Search Terms"
-msgstr "Termeni de căutare"
-
-msgid "Promoted search results"
-msgstr "Rezultate de căutare promovate"
-
-msgid "Add new promoted result"
-msgstr "Adaugă rezultat promovat"
-
-msgid "Search term(s)"
-msgstr "Termen de căutare"
-
-msgid "Promoted results"
-msgstr "Rezultate promovate"
-
-msgid "Views (past week)"
-msgstr "Vizualizări (ultima săptămână)"
-
-msgid "Edit this pick"
-msgstr "Editează selecția"
-
-msgid "None"
-msgstr "Nici una"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Există o potrivire"
-msgstr[1] ""
-"\n"
-"Sunt %(counter)s potriviri"
-msgstr[2] ""
-"\n"
-"Sunt %(counter)s potriviri"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
-"rezultat promovat"
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">add one</a>?"
-msgstr ""
-"Nu a fost creată nici o selecție editorială. De ce să nu <a href="
-"\"%(wagtailsearch_editorspicks_add_url)s\">adăugați una</a>?"
-
 msgid "Popular search terms"
 msgstr "Termeni populari de căutare"
 
@@ -164,25 +34,8 @@ msgstr "Căutare"
 msgid "Terms"
 msgstr "Termeni"
 
+msgid "Views (past week)"
+msgstr "Vizualizări (ultima săptămână)"
+
 msgid "No results found"
 msgstr "Nu sunt rezultate"
-
-msgid "Search editor's picks"
-msgstr "Caută selecții editoriale"
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Selecțiile editoriale pentru '{0}' au fost create."
-
-msgid "Recommendations have not been created due to errors"
-msgstr "Recomandările nu au fost create din cauza erorilor."
-
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Selecțiile editoriale pentru '{0}' au fost actualizate."
-
-msgid "Recommendations have not been saved due to errors"
-msgstr "Recomandările nu au fost salvate din cauza erorilor."
-
-msgid "Editor's picks deleted."
-msgstr "Selecțiile editoriale au fost șterse"

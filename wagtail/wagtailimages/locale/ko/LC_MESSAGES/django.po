@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-07-23 10:53+0000\n"
-"Last-Translator: Ji Han Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -23,26 +23,6 @@ msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "지원하지 않는 이미지 포맷입니다. 지원 포맷은 %s 입니다."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "%s 는 사용 가능한 이미지가 아닙니다."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %(max_upload_size)s."
-msgstr ""
-"파일 사이즈가 너무 큽니다. 최대 허용 가능한 파일 사이즈는 "
-"%(max_upload_size)s 입니다."
-
-#, python-format
-msgid "This file is too big (%%(max_upload_size)s). Maximum filesize %s."
-msgstr ""
-"이 파일 사이즈는 너무 큽니다(%%(max_upload_size)s). 최대 허용 가능한 파일 사"
-"이즈는 %s 입니다."
-
-#, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
@@ -52,6 +32,14 @@ msgstr ""
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "지원 포맷: %(supported_formats)s"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "지원하지 않는 이미지 포맷입니다. 지원 포맷은 %s 입니다."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "%s 는 사용 가능한 이미지가 아닙니다."
 
 msgid "Filter"
 msgstr "필터"

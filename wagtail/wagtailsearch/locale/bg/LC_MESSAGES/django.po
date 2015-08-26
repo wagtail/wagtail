@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
-"PO-Revision-Date: 2015-04-21 08:40+0000\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
 "Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -22,68 +22,6 @@ msgstr ""
 msgid "Search term(s)/phrase"
 msgstr "Дума/Фраза за търсене"
 
-msgid "Add editor's pick"
-msgstr "Добави \"Избрано от Редактора\""
-
-msgid "Save"
-msgstr "Запази"
-
-#, python-format
-msgid "Delete %(query)s"
-msgstr "Изтрий %(query)s"
-
-msgid "Delete"
-msgstr "Изтрий"
-
-msgid "Yes, delete"
-msgstr "Да, изтрий го"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Редакция на %(query)s"
-
-msgid "Editing"
-msgstr "Редактиране"
-
-msgid "Move up"
-msgstr "Нагоре"
-
-msgid "Move down"
-msgstr "Надолу"
-
-msgid "Add recommended page"
-msgstr "Добави препоръчана страница"
-
-msgid "Search Terms"
-msgstr "Фрази за търсене"
-
-msgid "Search term(s)"
-msgstr "Дума/Фраза за търсене"
-
-msgid "Views (past week)"
-msgstr "Преглед (последната седмица)"
-
-msgid "None"
-msgstr "Нищо"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Има едно съвпадение\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Има %(counter)s съвпадения\n"
-"        "
-
 msgid "Popular search terms"
 msgstr "Популярни думи за търсене"
 
@@ -92,6 +30,9 @@ msgstr "Търсене"
 
 msgid "Terms"
 msgstr "Думи"
+
+msgid "Views (past week)"
+msgstr "Преглед (последната седмица)"
 
 msgid "No results found"
 msgstr "Не са намерени резултати"

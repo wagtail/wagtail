@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-08-13 07:05+0000\n"
 "Last-Translator: dotoree <vdotoree@yahoo.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,16 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Απαραίτητο. Λιγότερο από 30 χαρακτήρες. Επιτρέπονται μόνο γράμματα, αριθμοί "
+"και οι χαρακτήρες @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./"
+"+/-/_."
+
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
@@ -30,6 +40,18 @@ msgid "If ticked, this user has the ability to manage user accounts."
 msgstr ""
 "Αν επιλεγεί, ο συγκεκριμένος χρήστης έχει τη δυνατότητα διαχείρισης "
 "λογαριασμών χρηστών."
+
+msgid "Password"
+msgstr "Κωδικός"
+
+msgid "Leave blank if not changing."
+msgstr "Αφήστε κενό αν δεν το αλλάζετε."
+
+msgid "Password confirmation"
+msgstr "Επιβεβαίωση κωδικού."
+
+msgid "Enter the same password as above, for verification."
+msgstr "Εισάγετε τον ίδιο κωδικό για επιβεβαίωση"
 
 msgid "Email"
 msgstr "Email"
@@ -45,31 +67,6 @@ msgstr "Υπάρχει ήδη χρήστης με το συγκεκριμένο 
 
 msgid "The two password fields didn't match."
 msgstr "Τα δύο πεδία κωδικών δεν είναι ίδια."
-
-msgid "Username"
-msgstr "Όνομα χρήστη"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Απαραίτητο. Λιγότερο από 30 χαρακτήρες. Επιτρέπονται μόνο γράμματα, αριθμοί "
-"και οι χαρακτήρες @/./+/-/_."
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr ""
-"Η τιμή επιτρέπεται να έχει μόνο γράμματα, αριθμούς και τους χαρακτήρες @/./"
-"+/-/_."
-
-msgid "Password"
-msgstr "Κωδικός"
-
-msgid "Leave blank if not changing."
-msgstr "Αφήστε κενό αν δεν το αλλάζετε."
-
-msgid "Password confirmation"
-msgstr "Επιβεβαίωση κωδικού."
-
-msgid "Enter the same password as above, for verification."
-msgstr "Εισάγετε τον ίδιο κωδικό για επιβεβαίωση"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr ""
@@ -191,6 +188,9 @@ msgstr "Χρήστες"
 
 msgid "Add a user"
 msgstr "Προσθήκη χρήστη"
+
+msgid "Username"
+msgstr "Όνομα χρήστη"
 
 msgid "Level"
 msgstr "Επίπεδο"

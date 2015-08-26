@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:39+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: 2015-06-29 17:12+0000\n"
 "Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -21,11 +21,29 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "必填。30字符以内。只能使用字母，数字和@/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "只能使用字母，数字和@/./+/-/_字符。"
+
 msgid "Administrator"
 msgstr "管理员"
 
 msgid "If ticked, this user has the ability to manage user accounts."
 msgstr "选中则此用户可以管理账户"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Leave blank if not changing."
+msgstr "如不修改则留空"
+
+msgid "Password confirmation"
+msgstr "确认密码"
+
+msgid "Enter the same password as above, for verification."
+msgstr "键入同样的密码，以备验证。"
 
 msgid "Email"
 msgstr "电子邮件"
@@ -41,27 +59,6 @@ msgstr "此用户名已被占用"
 
 msgid "The two password fields didn't match."
 msgstr "密码字段不匹配"
-
-msgid "Username"
-msgstr "用户名"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "必填。30字符以内。只能使用字母，数字和@/./+/-/_"
-
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "只能使用字母，数字和@/./+/-/_字符。"
-
-msgid "Password"
-msgstr "密码"
-
-msgid "Leave blank if not changing."
-msgstr "如不修改则留空"
-
-msgid "Password confirmation"
-msgstr "确认密码"
-
-msgid "Enter the same password as above, for verification."
-msgstr "键入同样的密码，以备验证。"
 
 msgid "Administrators have the ability to manage user accounts."
 msgstr "管理员可以管理用户账户。"
@@ -176,6 +173,9 @@ msgstr "用户"
 
 msgid "Add a user"
 msgstr "添加用户"
+
+msgid "Username"
+msgstr "用户名"
 
 msgid "Level"
 msgstr "等级"

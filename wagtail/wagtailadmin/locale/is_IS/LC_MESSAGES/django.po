@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
-"PO-Revision-Date: 2015-07-01 09:25+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-08-26 13:37+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -113,15 +113,6 @@ msgstr "Endursettu lykilorðið þitt"
 msgid "Menu"
 msgstr "Valmynd"
 
-msgid "Choose"
-msgstr "Veldu"
-
-msgid "Choose a page"
-msgstr "Veldu síðu"
-
-msgid "Add an email link"
-msgstr "Bæta við hlekk á netfang"
-
 msgid "Move up"
 msgstr "Færa upp"
 
@@ -130,6 +121,15 @@ msgstr "Færa niður"
 
 msgid "Delete"
 msgstr "Eyða"
+
+msgid "Choose"
+msgstr "Veldu"
+
+msgid "Choose a page"
+msgstr "Veldu síðu"
+
+msgid "Add an email link"
+msgstr "Bæta við hlekk á netfang"
 
 msgid "Title"
 msgstr "Titill"
@@ -232,27 +232,17 @@ msgstr "Vista uppkast"
 msgid "Drag"
 msgstr "Draga"
 
-#, python-format
-msgid ""
-"\n"
-"            Page %(page_number)s of %(num_pages)s.\n"
-"        "
-msgstr ""
-"\n"
-"            Síða %(page_number)s af %(num_pages)s.\n"
-"        "
+msgid "Add subpage"
+msgstr "Bæta við undirsíðu"
+
+msgid "Add child page"
+msgstr "Bæða við undirsíðu"
 
 msgid "Previous"
 msgstr "Fyrra"
 
 msgid "Next"
 msgstr "Næsta"
-
-msgid "Add subpage"
-msgstr "Bæta við undirsíðu"
-
-msgid "Add child page"
-msgstr "Bæða við undirsíðu"
 
 msgid "Disable ordering of child pages"
 msgstr "Óvirkja röðun á undirsíðum"
@@ -352,9 +342,6 @@ msgstr "Fara á Wagtail stjórnborð"
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
-
 #, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Síða '{0}' vistuð og birt."
@@ -396,6 +383,9 @@ msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villupróf
 
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 #, python-brace-format
 msgid "Page '{0}' deleted."
