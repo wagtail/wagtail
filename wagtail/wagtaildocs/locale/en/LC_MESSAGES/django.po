@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 09:38+0100\n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,18 +47,18 @@ msgstr ""
 msgid "Choose a document"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:7
-#: templates/wagtaildocs/chooser/chooser.html:19
+#: templates/wagtaildocs/chooser/chooser.html:8
+#: templates/wagtaildocs/chooser/chooser.html:20
 msgid "Search"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:8
+#: templates/wagtaildocs/chooser/chooser.html:9
 msgid "Upload"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:34
-#: templates/wagtaildocs/documents/add.html:25
-#: templates/wagtaildocs/documents/edit.html:31
+#: templates/wagtaildocs/chooser/chooser.html:35
+#: templates/wagtaildocs/documents/add.html:24
+#: templates/wagtaildocs/documents/edit.html:30
 msgid "Save"
 msgstr ""
 
@@ -91,11 +91,11 @@ msgid "Change document:"
 msgstr ""
 
 #: templates/wagtaildocs/documents/add.html:4
-#: templates/wagtaildocs/documents/index.html:17
+#: templates/wagtaildocs/documents/index.html:18
 msgid "Add a document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:15
+#: templates/wagtaildocs/documents/add.html:14
 msgid "Add document"
 msgstr ""
 
@@ -104,16 +104,16 @@ msgstr ""
 msgid "Delete %(title)s"
 msgstr ""
 
-#: templates/wagtaildocs/documents/confirm_delete.html:6
-#: templates/wagtaildocs/documents/edit.html:31
+#: templates/wagtaildocs/documents/confirm_delete.html:5
+#: templates/wagtaildocs/documents/edit.html:30
 msgid "Delete document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/confirm_delete.html:10
+#: templates/wagtaildocs/documents/confirm_delete.html:9
 msgid "Are you sure you want to delete this document?"
 msgstr ""
 
-#: templates/wagtaildocs/documents/confirm_delete.html:13
+#: templates/wagtaildocs/documents/confirm_delete.html:12
 msgid "Yes, delete"
 msgstr ""
 
@@ -122,19 +122,19 @@ msgstr ""
 msgid "Editing %(title)s"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:15
+#: templates/wagtaildocs/documents/edit.html:14
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:38
+#: templates/wagtaildocs/documents/edit.html:37
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:39
+#: templates/wagtaildocs/documents/edit.html:38
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:16 wagtail_hooks.py:31
+#: templates/wagtaildocs/documents/index.html:15 wagtail_hooks.py:31
 msgid "Documents"
 msgstr ""
 
