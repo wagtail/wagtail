@@ -66,6 +66,7 @@ Bug fixes
  * H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
  * The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
  * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
+ * The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
 
 
 Upgrade considerations
