@@ -254,6 +254,29 @@ SnippetChooserPanel
 
     See :ref:`snippets` for more information.
 
+
+EmbedChooserPanel
+-------------------
+
+.. class:: wagtail.wagtailembeds.edit_handlers.EmbedChooserPanel(field_name)
+
+    You can explicitly link your :class:`~wagtail.wagtailcore.models.Page`-derived models to :class:`~wagtail.wagtailembeds.models.Embed` model using this panel. Relation is set using a URLField like:
+
+    .. code-block:: python
+
+      from wagtail.wagtailembeds.edit_handlers import EmbedChooserPanel
+
+      class VideoPage(Page):
+          video_url = models.URLField(
+              null=True,
+              blank=True
+          )
+
+          content_panels = Page.content_panels + [
+              EmbedChooserPanel('video_url'),
+          ]
+
+
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
