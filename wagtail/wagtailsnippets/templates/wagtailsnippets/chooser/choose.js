@@ -30,7 +30,7 @@ function initModal(modal) {
     function setPage(page) {
         var dataObj = {p: page, results: 'true'};
 
-        if ($('#id_q').val().length) {
+        if ($('#id_q').length && $('#id_q').val().length) {
             dataObj.q = $('#id_q').val();
         }
 
