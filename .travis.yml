@@ -1,5 +1,8 @@
 language: python
 
+# Cache pip downloads between builds
+cache: pip
+
 # Use container-based infrastructure
 sudo: false
 
@@ -25,7 +28,9 @@ services:
   - elasticsearch
 
 # Package installation
+# Upgrade pip to version >7 to use wheel files
 install:
+  - pip install --upgrade pip wheel
   - pip install tox coveralls
 
 # Pre-test configuration
