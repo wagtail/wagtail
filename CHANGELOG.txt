@@ -28,6 +28,7 @@ Changelog
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
  * Fix: The wagtailimages module is now compatible with remote storage backends that do not allow reopening closed files
+ * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
 
 
 1.0 (16.07.2015)

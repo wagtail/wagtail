@@ -59,6 +59,8 @@ Contributors
 * Piet Delport
 * Tom Christie
 * Michael van Tellingen
+* Scot Hacker
+
 
 Translators
 ===========

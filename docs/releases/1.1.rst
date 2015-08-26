@@ -64,6 +64,7 @@ Bug fixes
  * Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
  * The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
+ * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
 
 
 Upgrade considerations
