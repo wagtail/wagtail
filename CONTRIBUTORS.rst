@@ -60,6 +60,7 @@ Contributors
 * Tom Christie
 * Michael van Tellingen
 * Scot Hacker
+* Kyungil Choi
 
 
 Translators
