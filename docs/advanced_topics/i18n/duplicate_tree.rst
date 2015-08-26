@@ -1,10 +1,8 @@
-===========================
-Creating multilingual sites
-===========================
+===========================================================
+Creating a multilingual site (by duplicating the page tree)
+===========================================================
 
-This tutorial will show you a method of creating multilingual sites in Wagtail.
-
-Currently, Wagtail doesn't support multiple languages in the same page. The recommended way of creating multilingual websites in Wagtail at the moment is to create one section of your website for each language.
+This tutorial will show you a method of creating multilingual sites in Wagtail by duplicating the page tree.
 
 For example::
 
