@@ -216,6 +216,13 @@ EventPage.promote_panels = [
 ]
 
 
+# Just to be able to test multi table inheritance
+class SingleEventPage(EventPage):
+    excerpt = models.TextField(max_length=255, blank=True, null=True, help_text="Short text to describe what is this action about")
+
+SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+
+
 # Event index (has a separate AJAX template, and a custom template context)
 class EventIndex(Page):
     intro = RichTextField(blank=True)
