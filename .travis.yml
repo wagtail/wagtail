@@ -1,5 +1,8 @@
 language: python
 
+# Use container-based infrastructure
+sudo: false
+
 matrix:
   include:
    - env: TOXENV=py27-dj17-postgres
