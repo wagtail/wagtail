@@ -200,7 +200,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
-        post_data = {'foo': 'bar'} # For some reason, this test doesn't work without a bit of POST data
+        post_data = {'foo': 'bar'}  # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
 
         # Should be redirected to explorer page
@@ -261,8 +261,6 @@ class TestSnippetChooserPanel(TestCase):
         ).bind_to_model(SnippetChooserModel)
         self.assertRaises(ImproperlyConfigured,
                           result.target_content_type)
-
-
 
 
 class TestSnippetRegistering(TestCase):
