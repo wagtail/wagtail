@@ -233,7 +233,10 @@ class TestSnippetChooserPanel(TestCase):
                          '_SnippetChooserPanel')
 
     def test_render_as_field(self):
-        self.assertTrue(self.advert_text in self.snippet_chooser_panel.render_as_field())
+        field_html = self.snippet_chooser_panel.render_as_field()
+        self.assertIn(self.advert_text, field_html)
+        self.assertIn("Choose advert", field_html)
+        self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
