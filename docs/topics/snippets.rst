@@ -169,6 +169,7 @@ These child objects are now accessible through the page's ``advert_placements`` 
   {% endfor %}
 
 
+.. _wagtailsnippets_making_snippets_searchable:
 
 Making Snippets Searchable
 --------------------------
