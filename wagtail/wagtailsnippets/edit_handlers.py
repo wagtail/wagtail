@@ -55,7 +55,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
 
 
 class SnippetChooserPanel(object):
-    def __init__(self, field_name, snippet_type):
+    def __init__(self, field_name, snippet_type=None):
         self.field_name = field_name
         self.snippet_type = snippet_type
 

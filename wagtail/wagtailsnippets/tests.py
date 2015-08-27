@@ -239,10 +239,23 @@ class TestSnippetChooserPanel(TestCase):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
                       self.snippet_chooser_panel.render_as_field())
 
-    def test_target_content_type(self):
+    def test_target_content_type_from_string(self):
         result = SnippetChooserPanel(
             'advert',
             'tests.advert'
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'advert')
+
+    def test_target_content_type_from_model(self):
+        result = SnippetChooserPanel(
+            'advert',
+            Advert
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'advert')
+
+    def test_target_content_type_autodetected(self):
+        result = SnippetChooserPanel(
+            'advert'
         ).bind_to_model(SnippetChooserModel).target_content_type()
         self.assertEqual(result.name, 'advert')
 
