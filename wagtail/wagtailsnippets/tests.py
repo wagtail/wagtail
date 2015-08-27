@@ -241,14 +241,14 @@ class TestSnippetChooserPanel(TestCase):
 
     def test_target_content_type(self):
         result = SnippetChooserPanel(
-            'barbecue',
-            'wagtailcore.site'
+            'advert',
+            'tests.advert'
         ).bind_to_model(SnippetChooserModel).target_content_type()
-        self.assertEqual(result.name, 'Site')
+        self.assertEqual(result.name, 'advert')
 
     def test_target_content_type_malformed_type(self):
         result = SnippetChooserPanel(
-            'barbecue',
+            'advert',
             'snowman'
         ).bind_to_model(SnippetChooserModel)
         self.assertRaises(ImproperlyConfigured,
@@ -256,7 +256,7 @@ class TestSnippetChooserPanel(TestCase):
 
     def test_target_content_type_nonexistent_type(self):
         result = SnippetChooserPanel(
-            'barbecue',
+            'advert',
             'snowman.lorry'
         ).bind_to_model(SnippetChooserModel)
         self.assertRaises(ImproperlyConfigured,
