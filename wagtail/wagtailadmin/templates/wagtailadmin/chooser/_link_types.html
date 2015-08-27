@@ -1,22 +1,15 @@
-{% load i18n wagtailadmin_tags %}
-{% if allow_external_link or allow_email_link or current == 'external' or current == 'email' %}
-    <p class="link-types">
-        {% if current == 'internal' %}
-            <b>{% trans "Internal link" %}</b>
+{% load wagtailadmin_tags %}
+
+{% if link_types|length > 1 %}
+<p class="link-types">
+    {% for link_type in link_types %}
+        {% if current == link_type.id %}
+            <b>{{ link_type.title }}</b>
         {% else %}
-            <a href="{% url 'wagtailadmin_choose_page' %}{% querystring p=None %}">{% trans "Internal link" %}</a>
+            <a data-link-type="{{ link_type.id }}" href="{% url link_type.url_name %}{% querystring p=None %}">{{ link_type.title }}</a>
         {% endif %}
 
-        {% if current == 'external' %}
-            | <b>{% trans "External link" %}</b>
-        {% elif allow_external_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_external_link' %}{% querystring p=None %}">{% trans "External link" %}</a>
-        {% endif %}
-
-        {% if current == 'email' %}
-            | <b>{% trans "Email link" %}</b>
-        {% elif allow_email_link %}
-            | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None %}">{% trans "Email link" %}</a>
-        {% endif %}
-    </p>
+        {% if not forloop.last %}|{% endif %}
+    {% endfor %}
+</p>
 {% endif %}

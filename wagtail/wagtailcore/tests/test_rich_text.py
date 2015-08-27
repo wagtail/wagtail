@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup
 from django.test import TestCase
 from mock import patch
 
-from wagtail.wagtailcore.rich_text import (
-    DbWhitelister, PageLinkHandler, RichText, expand_db_html, extract_attrs)
+from wagtail.wagtailadmin.link_choosers import InternalLinkChooser
+from wagtail.wagtailcore.rich_text import DbWhitelister, RichText, expand_db_html, extract_attrs
 
 
 class TestPageLinkHandler(TestCase):
@@ -12,31 +12,20 @@ class TestPageLinkHandler(TestCase):
     def test_get_db_attributes(self):
         soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
         tag = soup.a
-        result = PageLinkHandler.get_db_attributes(tag)
-        self.assertEqual(result,
-                         {'id': 'test-id'})
+        result = InternalLinkChooser.get_db_attributes(tag)
+        self.assertEqual(result, {'id': 'test-id'})
 
     def test_expand_db_attributes_page_does_not_exist(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 0},
-            False
-        )
-        self.assertEqual(result, '<a>')
+        result = InternalLinkChooser.expand_db_attributes({'id': '0'}, False)
+        self.assertEqual(result, {})
 
     def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            True
-        )
-        self.assertEqual(result,
-                         '<a data-linktype="page" data-id="1" href="None">')
+        result = InternalLinkChooser.expand_db_attributes({'id': '1'}, True)
+        self.assertEqual(result, {'href': None, 'data-id': 1})
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes(
-            {'id': 1},
-            False
-        )
-        self.assertEqual(result, '<a href="None">')
+        result = InternalLinkChooser.expand_db_attributes({'id': 1}, False)
+        self.assertEqual(result, {'href': None})
 
 
 class TestDbWhiteLister(TestCase):
@@ -90,6 +79,11 @@ class TestExpandDbHtml(TestCase):
         html = '<a id="1">foo</a>'
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
+
+    def test_expand_db_html_no_linktype_href(self):
+        html = '<a href="http://example.com/">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, '<a href="http://example.com/">foo</a>')
 
     @patch('wagtail.wagtailembeds.finders.oembed.find_embed')
     def test_expand_db_html_with_embed(self, oembed):

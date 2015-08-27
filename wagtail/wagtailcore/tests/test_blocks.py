@@ -165,13 +165,10 @@ class TestRichTextBlock(TestCase):
         block = blocks.RichTextBlock()
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render_form(value, prefix='richtext')
-        self.assertIn(
-            (
-                '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
-                ' href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;'
-            ),
-            result
-        )
+
+        self.assertIn('data-linktype=&quot;page&quot;', result)
+        self.assertIn('data-id=&quot;4&quot;', result)
+        self.assertIn('href=&quot;/events/christmas/&quot;', result)
 
     def test_validate_required_richtext_block(self):
         block = blocks.RichTextBlock()

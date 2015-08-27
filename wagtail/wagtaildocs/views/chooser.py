@@ -11,6 +11,7 @@ from wagtail.wagtailcore.models import Collection
 from wagtail.wagtaildocs.forms import get_document_form
 from wagtail.wagtaildocs.models import get_document_model
 from wagtail.wagtaildocs.permissions import permission_policy
+from wagtail.wagtaildocs.rich_text import DocumentLinkHandler
 from wagtail.wagtailsearch.backends import get_search_backends
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -23,9 +24,11 @@ def get_document_json(document):
     """
 
     return json.dumps({
-        'id': document.id,
+        'type': DocumentLinkHandler.id,
         'title': document.title,
+        'url': reverse('wagtaildocs_serve', args=(document.id, document.filename)),
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
+        'data': {'id': document.id},
     })
 
 

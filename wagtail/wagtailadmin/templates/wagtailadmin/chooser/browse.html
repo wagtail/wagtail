@@ -1,4 +1,5 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
+
 {% if page_types_restricted %}
     {% trans "Choose" as choose_str %}
 {% else %}
@@ -8,7 +9,7 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
 
 <div class="nice-padding">
-    {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
+    {% chooser_link_types current='page' %}
 
     {% if page_types_restricted %}
         <p class="help-block help-warning">

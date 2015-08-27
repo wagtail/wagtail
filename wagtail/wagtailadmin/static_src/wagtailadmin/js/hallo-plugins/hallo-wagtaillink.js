@@ -40,29 +40,38 @@
                         return widget.options.editable.element.trigger('change');
                     } else {
                         lastSelection = widget.options.editable.getSelection();
+
+                        url = window.chooserUrls.pageChooser;
                         if (lastSelection.collapsed) {
-                            url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true&prompt_for_link_text=true';
-                        } else {
-                            url = window.chooserUrls.pageChooser + '?allow_external_link=true&allow_email_link=true';
+                            url += '?prompt_for_link_text=true';
                         }
 
-                        return ModalWorkflow({
+                        modal = ModalWorkflow({
                             url: url,
+                            bind: {
+                                click: function(e) {
+                                    if (!$(e.target).is('p.link-types a')) return;
+                                    var link = e.target;
+                                    modal.loadUrl(link.href);
+                                    return false;
+                                }
+                            },
                             responses: {
-                                pageChosen: function(pageData) {
+                                linkChosen: function(link) {
                                     var a;
 
                                     a = document.createElement('a');
-                                    a.setAttribute('href', pageData.url);
-                                    if (pageData.id) {
-                                        a.setAttribute('data-id', pageData.id);
-                                        a.setAttribute('data-linktype', 'page');
-                                    }
+                                    a.setAttribute('href', link.url);
+                                    a.setAttribute('data-linktype', link.type);
+
+                                    Object.keys(link.data || {}).forEach(function(key) {
+                                        a.setAttribute('data-' + key, link.data[key]);
+                                    });
 
                                     if ((!lastSelection.collapsed) && lastSelection.canSurroundContents()) {
                                         lastSelection.surroundContents(a);
                                     } else {
-                                        a.appendChild(document.createTextNode(pageData.title));
+                                        a.appendChild(document.createTextNode(link.title));
                                         lastSelection.insertNode(a);
                                     }
 
@@ -70,6 +79,7 @@
                                 }
                             }
                         });
+                        return modal;
                     }
                 });
             }

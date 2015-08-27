@@ -1,7 +1,10 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% trans "Choose a document" as  choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="doc-full-inverse" %}
 
+<div class="nice-padding">
+    {% chooser_link_types current='document' %}
+</div>
 
 {% if uploadform %}
     <ul class="tab-nav merged">
@@ -12,6 +15,8 @@
 
 <div class="tab-content">
     <section id="search" class="{% if not uploadform.errors %}active {% endif %}nice-padding">
+
+
         <form class="document-search search-bar" action="{% url 'wagtaildocs:chooser' %}" method="GET">
             <ul class="fields">
                 {% for field in searchform %}
@@ -27,7 +32,11 @@
         </div>
     </section>
     {% if uploadform %}
+
         <section id="upload" class="{% if uploadform.errors %}active {% endif %}nice-padding">
+
+            {% chooser_link_types current='document' %}
+
             <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <ul class="fields">

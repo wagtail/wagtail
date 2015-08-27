@@ -1,4 +1,4 @@
 function(modal) {
-    modal.respond('documentChosen', {{ document_json|safe }});
+    modal.respond('linkChosen', {{ document_json|safe }});
     modal.close();
 }

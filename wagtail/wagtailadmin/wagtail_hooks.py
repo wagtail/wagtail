@@ -10,6 +10,8 @@ from wagtail.wagtailadmin.widgets import Button, ButtonWithDropdownFromHook, Pag
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.permissions import collection_permission_policy
 
+from .link_choosers import EmailLinkChooser, ExternalLinkChooser, InternalLinkChooser
+
 
 class ExplorerMenuItem(MenuItem):
     @property
@@ -95,3 +97,18 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
         yield Button(_('Delete'), reverse('wagtailadmin_pages:delete', args=[page.id]), priority=30)
     if page_perms.can_unpublish():
         yield Button(_('Unpublish'), reverse('wagtailadmin_pages:unpublish', args=[page.id]), priority=40)
+
+
+@hooks.register('register_link_chooser')
+def register_internal_link_chooser():
+    return InternalLinkChooser()
+
+
+@hooks.register('register_link_chooser')
+def register_external_link_chooser():
+    return ExternalLinkChooser()
+
+
+@hooks.register('register_link_chooser')
+def register_email_link_chooser():
+    return EmailLinkChooser()

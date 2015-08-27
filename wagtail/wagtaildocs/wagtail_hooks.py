@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.contrib.auth.models import Permission
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core import urlresolvers
 from django.utils.html import format_html, format_html_join
@@ -62,9 +63,15 @@ def editor_js():
     )
 
 
-@hooks.register('register_rich_text_link_handler')
-def register_document_link_handler():
-    return ('document', DocumentLinkHandler)
+@hooks.register('register_permissions')
+def register_permissions():
+    return Permission.objects.filter(content_type__app_label='wagtaildocs',
+                                     codename__in=['add_document', 'change_document'])
+
+
+@hooks.register('register_link_chooser')
+def register_document_link_chooser():
+    return DocumentLinkHandler()
 
 
 class DocumentsSummaryItem(SummaryItem):

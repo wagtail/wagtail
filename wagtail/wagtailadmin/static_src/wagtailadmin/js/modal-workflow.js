@@ -23,7 +23,11 @@ function ModalWorkflow(opts) {
     $('body').append(container);
     container.modal('hide');
 
+    // Bind any handlers in opts to the container element
+
     self.body = container.find('.modal-body');
+    self.body.data('modal', self);
+    self.body.on(opts.bind || {});
 
     self.loadUrl = function(url, urlParams) {
         $.get(url, urlParams, self.loadResponseText, 'text');

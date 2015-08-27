@@ -1,6 +1,6 @@
 function(modal) {
     /* Set up page navigation and link-types links to open in the modal */
-    $('a.navigate-pages, .link-types a', modal.body).click(function() {
+    $('a.navigate-pages', modal.body).click(function() {
         modal.loadUrl(this.href);
         return false;
     });
@@ -42,16 +42,24 @@ function(modal) {
         $(this).data('timer', wait);
     });
 
+    function choosePage() {
+        var pageData = $(this).data();
+        modal.respond('linkChosen', {
+            'type': 'page',
+            'url': pageData.url,
+            'title': pageData.title,
+            'data': {'id': pageData.id},
+        });
+        modal.close();
+
+        return false;
+    }
+
     /* Set up behaviour of choose-page links in the newly-loaded search results,
     to pass control back to the calling page */
     function ajaxifySearchResults() {
-        $('.page-results a.choose-page', modal.body).click(function() {
-            var pageData = $(this).data();
-            modal.respond('pageChosen', $(this).data());
-            modal.close();
+        $('.page-results a.choose-page', modal.body).click(choosePage);
 
-            return false;
-        });
         /* pagination links within search results should be AJAX-fetched
         and the result loaded into .page-results (and ajaxified) */
         $('.page-results a.navigate-pages', modal.body).click(function() {
@@ -60,19 +68,12 @@ function(modal) {
         });
     }
 
+    /* Set up behaviour of choose-page links, to pass control back to the calling page */
+    $('a.choose-page', modal.body).click(choosePage);
+
     /*
     Focus on the search box when opening the modal.
     FIXME: this doesn't seem to have any effect (at least on Chrome)
     */
     $('#id_q', modal.body).focus();
-
-    /* Set up behaviour of choose-page links, to pass control back to the calling page */
-    $('a.choose-page', modal.body).click(function() {
-        var pageData = $(this).data();
-        pageData.parentId = {{ parent_page.id }};
-        modal.respond('pageChosen', $(this).data());
-        modal.close();
-
-        return false;
-    });
 }

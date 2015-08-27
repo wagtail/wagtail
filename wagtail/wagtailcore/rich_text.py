@@ -1,15 +1,15 @@
-from __future__ import unicode_literals  # ensure that RichText.__str__ returns unicode
+from __future__ import unicode_literals
 
 import re  # parsing HTML with regexes LIKE A BOSS.
 
+from django.forms.utils import flatatt
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.html import escape
+from django.utils.lru_cache import lru_cache
 from django.utils.safestring import mark_safe
 
+from wagtail.wagtailadmin.link_choosers import registry as link_chooser_registry
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.whitelist import Whitelister
-
 
 # Define a set of 'embed handlers' and 'link handlers'. These handle the translation
 # of 'special' HTML elements in rich text - ones which we do not want to include
@@ -18,44 +18,8 @@ from wagtail.wagtailcore.whitelist import Whitelister
 # to DB representation and back again.
 
 
-class PageLinkHandler(object):
-    """
-    PageLinkHandler will be invoked whenever we encounter an <a> element in HTML content
-    with an attribute of data-linktype="page". The resulting element in the database
-    representation will be:
-    <a linktype="page" id="42">hello world</a>
-    """
-    @staticmethod
-    def get_db_attributes(tag):
-        """
-        Given an <a> tag that we've identified as a page link embed (because it has a
-        data-linktype="page" attribute), return a dict of the attributes we should
-        have on the resulting <a linktype="page"> element.
-        """
-        return {'id': tag['data-id']}
-
-    @staticmethod
-    def expand_db_attributes(attrs, for_editor):
-        try:
-            page = Page.objects.get(id=attrs['id'])
-
-            if for_editor:
-                editor_attrs = 'data-linktype="page" data-id="%d" ' % page.id
-            else:
-                editor_attrs = ''
-
-            return '<a %shref="%s">' % (editor_attrs, escape(page.url))
-        except Page.DoesNotExist:
-            return "<a>"
-
-
 EMBED_HANDLERS = {}
-LINK_HANDLERS = {
-    'page': PageLinkHandler,
-}
-
 has_loaded_embed_handlers = False
-has_loaded_link_handlers = False
 
 
 def get_embed_handler(embed_type):
@@ -71,17 +35,13 @@ def get_embed_handler(embed_type):
     return EMBED_HANDLERS[embed_type]
 
 
-def get_link_handler(link_type):
-    global LINK_HANDLERS, has_loaded_link_handlers
+@lru_cache()
+def get_link_choosers():
+    return {handler.id: handler for handler in link_chooser_registry}
 
-    if not has_loaded_link_handlers:
-        for hook in hooks.get_hooks('register_rich_text_link_handler'):
-            handler_name, handler = hook()
-            LINK_HANDLERS[handler_name] = handler
 
-        has_loaded_link_handlers = True
-
-    return LINK_HANDLERS[link_type]
+def get_link_chooser(link_type):
+    return get_link_choosers()[link_type]
 
 
 class DbWhitelister(Whitelister):
@@ -96,8 +56,8 @@ class DbWhitelister(Whitelister):
     * replaces any element with a 'data-embedtype' attribute with an <embed> element, with
       attributes supplied by the handler for that type as defined in EMBED_HANDLERS;
     * rewrites the attributes of any <a> element with a 'data-linktype' attribute, as
-      determined by the handler for that type defined in LINK_HANDLERS, while keeping the
-      element content intact.
+      determined by the handler for that type defined in the link handlers registry, while
+      keeping the element content intact.
     """
     has_loaded_custom_whitelist_rules = False
 
@@ -129,7 +89,7 @@ class DbWhitelister(Whitelister):
                 cls.clean_node(doc, child)
 
             link_type = tag['data-linktype']
-            link_handler = get_link_handler(link_type)
+            link_handler = get_link_chooser(link_type)
             link_attrs = link_handler.get_db_attributes(tag)
             link_attrs['linktype'] = link_type
             tag.attrs.clear()
@@ -166,8 +126,11 @@ def expand_db_html(html, for_editor=False):
         if 'linktype' not in attrs:
             # return unchanged
             return m.group(0)
-        handler = get_link_handler(attrs['linktype'])
-        return handler.expand_db_attributes(attrs, for_editor)
+        handler = get_link_chooser(attrs['linktype'])
+        attrs = handler.expand_db_attributes(attrs, for_editor)
+        if for_editor:
+            attrs['data-linktype'] = handler.id
+        return '<a{}>'.format(flatatt(attrs))
 
     def replace_embed_tag(m):
         attrs = extract_attrs(m.group(1))

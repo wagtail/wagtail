@@ -723,7 +723,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Check that the response is a javascript file saying the document was chosen
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/document_chosen.js')
-        self.assertContains(response, "modal.respond('documentChosen'")
+        self.assertContains(response, "modal.respond('linkChosen'")
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
@@ -1084,31 +1084,19 @@ class TestDocumentRichTextLinkHandler(TestCase):
         soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
         tag = soup.a
         result = DocumentLinkHandler.get_db_attributes(tag)
-        self.assertEqual(result,
-                         {'id': 'test-id'})
+        self.assertEqual(result, {'id': 'test-id'})
 
     def test_expand_db_attributes_document_does_not_exist(self):
-        result = DocumentLinkHandler.expand_db_attributes(
-            {'id': 0},
-            False
-        )
-        self.assertEqual(result, '<a>')
+        result = DocumentLinkHandler.expand_db_attributes({'id': '0'}, False)
+        self.assertEqual(result, {})
 
     def test_expand_db_attributes_for_editor(self):
-        result = DocumentLinkHandler.expand_db_attributes(
-            {'id': 1},
-            True
-        )
-        self.assertEqual(result,
-                         '<a data-linktype="document" data-id="1" href="/documents/1/test.pdf">')
+        result = DocumentLinkHandler.expand_db_attributes({'id': '1'}, True)
+        self.assertEqual(result, {'href': '/documents/1/test.pdf', 'data-id': 1})
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = DocumentLinkHandler.expand_db_attributes(
-            {'id': 1},
-            False
-        )
-        self.assertEqual(result,
-                         '<a href="/documents/1/test.pdf">')
+        result = DocumentLinkHandler.expand_db_attributes({'id': 1}, False)
+        self.assertEqual(result, {'href': '/documents/1/test.pdf'})
 
 
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):

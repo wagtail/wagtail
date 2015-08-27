@@ -9,6 +9,7 @@ from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
 from wagtail.utils.pagination import DEFAULT_PAGE_KEY
+from wagtail.wagtailadmin.link_choosers import registry
 from wagtail.wagtailadmin.menu import admin_menu
 from wagtail.wagtailadmin.search import admin_search_areas
 from wagtail.wagtailcore import hooks
@@ -292,3 +293,14 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
     return {'page': page, 'buttons': buttons}
+
+
+@register.inclusion_tag('wagtailadmin/chooser/_link_types.html',
+                        takes_context=True)
+def chooser_link_types(context, current):
+    return {
+        'request': context['request'],
+        'querystring': context.get('querystring', ''),
+        'current': current,
+        'link_types': registry,
+    }
