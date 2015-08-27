@@ -37,6 +37,12 @@ A number of inconsistencies around permissions in the admin interface were fixed
  * Permissions for Users now taken from custom user model, if set (previously always used permissions on Djangos builtin User model)
  * Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
 
+Searchable snippets
+~~~~~~~~~~~~~~~~~~~
+
+Snippets that inherit from ``wagtail.wagtailsearch.index.Indexed`` are now given a search box on the snippet chooser and listing pages. See :ref:`wagtailsnippets_making_snippets_searchable`.
+
+
 Minor features
 ~~~~~~~~~~~~~~
 

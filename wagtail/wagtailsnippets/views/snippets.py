@@ -13,6 +13,9 @@ from wagtail.wagtailadmin.utils import permission_denied
 from wagtail.wagtailsnippets.models import get_snippet_content_types
 from wagtail.wagtailsnippets.permissions import get_permission_name, user_can_edit_snippet_type
 from wagtail.wagtailadmin import messages
+from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailsearch.index import class_is_indexed
+from wagtail.wagtailsearch.backends import get_search_backend
 
 
 # == Helper functions ==
@@ -99,6 +102,27 @@ def list(request, content_type_app_name, content_type_model_name):
 
     items = model.objects.all()
 
+    # Search
+    is_searchable = class_is_indexed(model)
+    is_searching = False
+    search_query = None
+    if is_searchable and 'q' in request.GET:
+        search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': snippet_type_name_plural
+        })
+
+        if search_form.is_valid():
+            search_query = search_form.cleaned_data['q']
+
+            search_backend = get_search_backend()
+            items = search_backend.search(search_query, items)
+            is_searching = True
+
+    else:
+        search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
+            'snippet_type_name': snippet_type_name_plural
+        })
+
     # Pagination
     p = request.GET.get('p', 1)
     paginator = Paginator(items, 20)
@@ -110,12 +134,22 @@ def list(request, content_type_app_name, content_type_model_name):
     except EmptyPage:
         paginated_items = paginator.page(paginator.num_pages)
 
-    return render(request, 'wagtailsnippets/snippets/type_index.html', {
+    # Template
+    if request.is_ajax():
+        template = 'wagtailsnippets/snippets/results.html'
+    else:
+        template = 'wagtailsnippets/snippets/type_index.html'
+
+    return render(request, template, {
         'content_type': content_type,
         'snippet_type_name': snippet_type_name,
         'snippet_type_name_plural': snippet_type_name_plural,
         'items': paginated_items,
         'can_add_snippet': request.user.has_perm(get_permission_name('add', model)),
+        'is_searchable': is_searchable,
+        'search_form': search_form,
+        'is_searching': is_searching,
+        'query_string': search_query,
     })
 
 
