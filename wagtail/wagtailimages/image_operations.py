@@ -159,7 +159,12 @@ class FillOperation(Operation):
             bottom = image_height
 
         # Crop!
-        willow.crop((math.floor(left), math.floor(top), math.ceil(right), math.ceil(bottom)))
+        willow.crop((
+            int(math.floor(left)),
+            int(math.floor(top)),
+            int(math.ceil(right)),
+            int(math.ceil(bottom))
+        ))
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
