@@ -67,6 +67,7 @@ Bug fixes
  * The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
  * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
  * The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
+ * Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
 
 
 Upgrade considerations
