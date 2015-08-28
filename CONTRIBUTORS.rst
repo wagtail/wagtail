@@ -61,6 +61,7 @@ Contributors
 * Michael van Tellingen
 * Scot Hacker
 * Kyungil Choi
+* Joss Ingram
 
 
 Translators
