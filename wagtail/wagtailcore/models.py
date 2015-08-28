@@ -604,6 +604,18 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
             if self.url_path.startswith(root_path):
                 return ('' if current_site.id == id else root_url) + reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
+    def build_absolute_uri(self):
+        """
+        added to enable @login_required decorator.
+        """
+        return self.full_url
+
+    def get_full_path(self):
+        """
+        added to enable @login_required decorator
+        """
+        return self.full_url
+
     @classmethod
     def get_indexed_objects(cls):
         content_type = ContentType.objects.get_for_model(cls)
