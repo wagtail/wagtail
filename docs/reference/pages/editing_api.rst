@@ -233,9 +233,13 @@ DocumentChooserPanel
 SnippetChooserPanel
 -------------------
 
-.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, model)
+.. versionchanged:: 1.1
 
-    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. So using them as a field in a page requires specifying your own ``appname.modelname``. A chooser, ``SnippetChooserPanel``, is provided which takes the field name and snippet class.
+    Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
+
+.. class:: wagtail.wagtailsnippets.edit_handlers.SnippetChooserPanel(field_name, snippet_type=None)
+
+    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. A chooser, ``SnippetChooserPanel``, is provided which takes the field name as an argument.
 
     .. code-block:: python
 
@@ -251,7 +255,7 @@ SnippetChooserPanel
           )
 
           content_panels = Page.content_panels + [
-              SnippetChooserPanel('advert', Advert),
+              SnippetChooserPanel('advert'),
           ]
 
     See :ref:`snippets` for more information.

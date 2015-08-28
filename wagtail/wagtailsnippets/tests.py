@@ -3,11 +3,13 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core.exceptions import ImproperlyConfigured
 
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.testapp.models import Advert, SnippetChooserModel
 from wagtail.tests.snippets.models import AlphaSnippet, ZuluSnippet, RegisterDecorator, RegisterFunction, SearchableSnippet
 from wagtail.wagtailsnippets.models import register_snippet, SNIPPET_MODELS
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from wagtail.wagtailsnippets.views.snippets import (
     get_snippet_edit_handler
@@ -198,7 +200,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_post(self):
-        post_data = {'foo': 'bar'} # For some reason, this test doesn't work without a bit of POST data
+        post_data = {'foo': 'bar'}  # For some reason, this test doesn't work without a bit of POST data
         response = self.client.post(reverse('wagtailsnippets:delete', args=('tests', 'advert', self.test_snippet.id, )), post_data)
 
         # Should be redirected to explorer page
@@ -231,11 +233,50 @@ class TestSnippetChooserPanel(TestCase):
                          '_SnippetChooserPanel')
 
     def test_render_as_field(self):
-        self.assertTrue(self.advert_text in self.snippet_chooser_panel.render_as_field())
+        field_html = self.snippet_chooser_panel.render_as_field()
+        self.assertIn(self.advert_text, field_html)
+        self.assertIn("Choose advert", field_html)
+        self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
         self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
                       self.snippet_chooser_panel.render_as_field())
+
+    def test_target_content_type_from_string(self):
+        result = SnippetChooserPanel(
+            'advert',
+            'tests.advert'
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'advert')
+
+    def test_target_content_type_from_model(self):
+        result = SnippetChooserPanel(
+            'advert',
+            Advert
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'advert')
+
+    def test_target_content_type_autodetected(self):
+        result = SnippetChooserPanel(
+            'advert'
+        ).bind_to_model(SnippetChooserModel).target_content_type()
+        self.assertEqual(result.name, 'advert')
+
+    def test_target_content_type_malformed_type(self):
+        result = SnippetChooserPanel(
+            'advert',
+            'snowman'
+        ).bind_to_model(SnippetChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
+
+    def test_target_content_type_nonexistent_type(self):
+        result = SnippetChooserPanel(
+            'advert',
+            'snowman.lorry'
+        ).bind_to_model(SnippetChooserModel)
+        self.assertRaises(ImproperlyConfigured,
+                          result.target_content_type)
 
 
 class TestSnippetRegistering(TestCase):
