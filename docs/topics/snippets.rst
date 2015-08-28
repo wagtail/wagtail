@@ -112,7 +112,7 @@ In the above example, the list of adverts is a fixed list, displayed as part of 
   
   
   BookPage.content_panels = [
-      SnippetChooserPanel('advert', Advert),
+      SnippetChooserPanel('advert'),
       # ...
   ]
 
@@ -142,7 +142,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
           verbose_name_plural = "Advert Placements"
   
       panels = [
-          SnippetChooserPanel('advert', Advert),
+          SnippetChooserPanel('advert'),
       ]
   
       def __str__(self):              # __unicode__ on Python 2
