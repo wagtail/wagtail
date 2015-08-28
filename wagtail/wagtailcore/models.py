@@ -301,6 +301,7 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         index.FilterField('path'),
         index.FilterField('depth'),
         index.FilterField('locked'),
+        index.FilterField('show_in_menus'),
     )
 
     def __init__(self, *args, **kwargs):
