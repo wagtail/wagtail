@@ -22,10 +22,12 @@ class DBSearchQuery(BaseSearchQuery):
 
         return q
 
-    def get_q(self):
-        # Get filters as a q object
-        q = self._get_filters_from_queryset()
+    def get_extra_q(self):
+        # Run _get_filters_from_queryset to test that no fields that are not
+        # a FilterField have been used in the query.
+        self._get_filters_from_queryset()
 
+        q = models.Q()
         model = self.queryset.model
 
         if self.query_string is not None:
@@ -57,10 +59,10 @@ class DBSearchQuery(BaseSearchQuery):
 
 class DBSearchResults(BaseSearchResults):
     def get_queryset(self):
-        model = self.query.queryset.model
-        q = self.query.get_q()
+        queryset = self.query.queryset
+        q = self.query.get_extra_q()
 
-        return model.objects.filter(q).distinct()[self.start:self.stop]
+        return queryset.filter(q).distinct()[self.start:self.stop]
 
     def _do_search(self):
         return self.get_queryset()
