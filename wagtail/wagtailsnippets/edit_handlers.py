@@ -19,7 +19,7 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
     @classmethod
     def widget_overrides(cls):
         return {cls.field_name: AdminSnippetChooser(
-            content_type=cls.target_content_type(), snippet_type_name=cls.snippet_type_name)}
+            content_type=cls.target_content_type(), snippet_type_name=cls.get_snippet_type_name())}
 
     @classmethod
     def target_content_type(cls):
@@ -46,12 +46,12 @@ class BaseSnippetChooserPanel(BaseChooserPanel):
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
-            'snippet_type_name': self.snippet_type_name,
+            'snippet_type_name': self.get_snippet_type_name(),
         }))
 
-    @property
-    def snippet_type_name(self):
-        return force_text(self.target_content_type()._meta.verbose_name)
+    @classmethod
+    def get_snippet_type_name(cls):
+        return force_text(cls.target_content_type()._meta.verbose_name)
 
 
 class SnippetChooserPanel(object):
