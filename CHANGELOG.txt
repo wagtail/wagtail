@@ -26,6 +26,7 @@ Changelog
  * Added database indexes on PageRevision and Image to improve performance on large sites
  * Search in page chooser now uses Wagtail's search framework, to order results by relevance
  * `PageChooserPanel` now supports passing a list (or tuple) of accepted page types
+ * The snippet type parameter of `SnippetChooserPanel` can now be omitted, or passed as a model name string rather than a model class
  * Fix: Text areas in the non-default tab of the page editor now resize to the correct height
  * Fix: Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
  * Fix: H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel

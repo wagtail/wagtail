@@ -63,6 +63,7 @@ Minor features
  * Added database indexes on PageRevision and Image to improve performance on large sites
  * Search in page chooser now uses Wagtail's search framework, to order results by relevance
  * ``PageChooserPanel`` now supports passing a list (or tuple) of accepted page types
+ * The snippet type parameter of ``SnippetChooserPanel`` can now be omitted, or passed as a model name string rather than a model class
 
 Bug fixes
 ~~~~~~~~~
