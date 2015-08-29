@@ -248,13 +248,6 @@ class PageBase(models.base.ModelBase):
         # Add page manager
         PageManager().contribute_to_class(cls, 'objects')
 
-        if 'template' not in dct:
-            # Define a default template path derived from the app name and model name
-            cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
-
-        if 'ajax_template' not in dct:
-            cls.ajax_template = None
-
         cls._clean_subpage_types = None  # to be filled in on first call to cls.clean_subpage_types
         cls._clean_parent_page_types = None  # to be filled in on first call to cls.clean_parent_page_types
 
@@ -315,6 +308,8 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
     def __str__(self):
         return self.title
 
+    template = None
+    ajax_template = None
     is_abstract = True  # don't offer Page in the list of page types a superuser can create
 
     def set_url_path(self, parent):
@@ -552,10 +547,13 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         }
 
     def get_template(self, request, *args, **kwargs):
+        model = type(self)
+        default_template = "%s/%s.html" % (model._meta.app_label, camelcase_to_underscore(model.__name__))
+
         if request.is_ajax():
-            return self.ajax_template or self.template
+            return self.ajax_template or self.template or default_template
         else:
-            return self.template
+            return self.template or default_template
 
     def serve(self, request, *args, **kwargs):
         return TemplateResponse(
