@@ -37,7 +37,6 @@ class TestPagePrivacy(TestCase):
         response = self.client.get('/secret-plans/')
         self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
 
-
     def test_view_restrictions_apply_to_subpages(self):
         underpants_page = Page.objects.get(url_path='/home/secret-plans/steal-underpants/')
         response = self.client.get('/secret-plans/steal-underpants/')
@@ -68,3 +67,23 @@ class TestPagePrivacy(TestCase):
         # now requests to /secret-plans/ should pass authentication
         response = self.client.get('/secret-plans/steal-underpants/')
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
+
+    def test_view_restriction_for_allowed_user(self):
+        self.client.login(username='siteeditor', password='password')
+        response = self.client.get('/other-secret-plans/')
+        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')
+
+    def test_view_restriction_for_disallowed_user_group(self):
+        self.client.login(username='eventmoderator', password='password')
+        response = self.client.get('/other-secret-plans/')
+        self.assertEqual(
+            response.templates[0].name,
+            'wagtailcore/user_group_restricted.html')
+        self.assertContains(
+            response,
+            'This page can only be viewed by selected users and groups')
+
+    def test_view_restriction_for_allowed_group(self):
+        self.client.login(username='eventeditor', password='password')
+        response = self.client.get('/other-secret-plans/')
+        self.assertEqual(response.templates[0].name, 'tests/simple_page.html')

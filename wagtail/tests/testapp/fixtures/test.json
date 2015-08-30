@@ -23,7 +23,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Welcome to the Wagtail test site!",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -344,7 +344,28 @@
         "cost": "free"
     }
 },
-
+{
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Other secret plans",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simplepage"],
+        "path": "000100010006",
+        "url_path": "/home/other-secret-plans/",
+        "slug": "other-secret-plans"
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.simplepage",
+    "fields": {
+        "content": "<p>Other secret plans</p>"
+    }
+},
 {
     "pk": 1,
     "model": "wagtailcore.site",
@@ -625,7 +646,21 @@
     "model": "wagtailcore.pageviewrestriction",
     "fields": {
         "page": 11,
-        "password": "swordfish"
+        "password": "swordfish",
+        "restriction_type": "password"
+    }
+},
+{
+    "pk": 2,
+    "model": "wagtailcore.pageviewrestriction",
+    "fields": {
+        "page": 13,
+        "password": "",
+        "restriction_type": "users_groups",
+        "groups": [
+            ["Event editors"]
+        ],
+        "users": [5]
     }
 },
 {
