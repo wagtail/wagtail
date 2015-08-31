@@ -51,14 +51,14 @@ def chooser(request):
             # page number
             p = request.GET.get("p", 1)
 
-            images = Image.search(q, results_per_page=10, page=p)
+            images = Image.search(q, results_per_page=12, page=p)
 
             is_searching = True
 
         else:
             images = Image.objects.order_by('-created_at')
             p = request.GET.get("p", 1)
-            paginator = Paginator(images, 10)
+            paginator = Paginator(images, 12)
 
             try:
                 images = paginator.page(p)
@@ -80,7 +80,7 @@ def chooser(request):
 
         images = Image.objects.order_by('-created_at')
         p = request.GET.get("p", 1)
-        paginator = Paginator(images, 10)
+        paginator = Paginator(images, 12)
 
         try:
             images = paginator.page(p)
