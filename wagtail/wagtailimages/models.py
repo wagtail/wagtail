@@ -103,7 +103,7 @@ class AbstractImage(models.Model, TagSearchable):
 
     @property
     def usage_url(self):
-        return reverse('wagtailimages_image_usage',
+        return reverse('wagtailimages:image_usage',
                        args=(self.id,))
 
     search_fields = TagSearchable.search_fields + (
