@@ -39,7 +39,7 @@
     "model": "wagtailcore.page",
     "fields": {
         "title": "Events",
-        "numchild": 4,
+        "numchild": 5,
         "show_in_menus": true,
         "live": true,
         "depth": 3,
