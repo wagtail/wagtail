@@ -1,0 +1,389 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-02 14:44+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: fields.py:13
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#: fields.py:27
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr "Støttede formater: %(supported_formats)s. Maksimal filstørrelse: %(max_upload_size)s."
+
+#: fields.py:34
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Støttede formater: %(supported_formats)s."
+
+#: fields.py:41
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Ikke et støttet bildeformat. Støttede formater: %s."
+
+#: fields.py:45
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Ikke et gyldig %s-bilde."
+
+#: fields.py:49
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Denne fila er for stor (%%s). Maksimal filstørrelse er %s."
+
+#: fields.py:53
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Denne fila er for stor. Maksimal filstørrelse er %s."
+
+#: forms.py:64
+msgid "Filter"
+msgstr "Filter"
+
+#: forms.py:66
+msgid "Original size"
+msgstr "Original størrelse"
+
+#: forms.py:67
+msgid "Resize to width"
+msgstr "Endre til spesifisert bredde"
+
+#: forms.py:68
+msgid "Resize to height"
+msgstr "Endre til spesifisert høyde"
+
+#: forms.py:69
+msgid "Resize to min"
+msgstr "Dekk gitte dimensjoner"
+
+#: forms.py:70
+msgid "Resize to max"
+msgstr "Pass innen gitte dimensjoner"
+
+#: forms.py:71
+msgid "Resize to fill"
+msgstr "Endre til eksakte dimensjoner"
+
+#: forms.py:74 models.py:64
+msgid "Width"
+msgstr "Bredde"
+
+#: forms.py:75 models.py:65
+msgid "Height"
+msgstr "Høyde"
+
+#: forms.py:76
+msgid "Closeness"
+msgstr "Nærhet til fokuspunkt"
+
+#: models.py:62 templates/wagtailimages/images/usage.html:16
+msgid "Title"
+msgstr "Tittel"
+
+#: models.py:63
+msgid "File"
+msgstr "Fil"
+
+#: models.py:66
+msgid "Created at"
+msgstr "Opprettet"
+
+#: models.py:67
+msgid "Uploaded by user"
+msgstr "Opplastet av bruker"
+
+#: models.py:69
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
+msgid "Choose an image"
+msgstr "Velg et bilde"
+
+#: templates/wagtailimages/chooser/chooser.html:8
+#: templates/wagtailimages/chooser/chooser.html:20
+msgid "Search"
+msgstr "Søk"
+
+#: templates/wagtailimages/chooser/chooser.html:9
+#: templates/wagtailimages/chooser/chooser.html:47
+msgid "Upload"
+msgstr "Last opp"
+
+#: templates/wagtailimages/chooser/chooser.html:23
+msgid "Popular tags"
+msgstr "Populære tags"
+
+#: templates/wagtailimages/chooser/results.html:6
+#: templates/wagtailimages/images/results.html:6
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nDet er ett treff\n "
+msgstr[1] "\nDet er %(counter)s treff\n "
+
+#: templates/wagtailimages/chooser/results.html:13
+#: templates/wagtailimages/images/results.html:13
+msgid "Latest images"
+msgstr "Siste bilder"
+
+#: templates/wagtailimages/chooser/select_format.html:3
+msgid "Choose a format"
+msgstr "Velg et format"
+
+#: templates/wagtailimages/chooser/select_format.html:17
+msgid "Insert image"
+msgstr "Sett inn bilde"
+
+#: templates/wagtailimages/homepage/site_summary_images.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images\n"
+"    "
+msgstr[0] "\n<span>%(total)s</span> bilde\n "
+msgstr[1] "\n<span>%(total)s</span> bilder\n "
+
+#: templates/wagtailimages/images/_file_field.html:8
+msgid "Change image file:"
+msgstr "Endre bildefil:"
+
+#: templates/wagtailimages/images/add.html:4
+#: templates/wagtailimages/images/index.html:20
+msgid "Add an image"
+msgstr "Legg til et bilde"
+
+#: templates/wagtailimages/images/add.html:14
+msgid "Add image"
+msgstr "Legg til bilde"
+
+#: templates/wagtailimages/images/add.html:28
+#: templates/wagtailimages/images/edit.html:44
+msgid "Save"
+msgstr "Lagre"
+
+#: templates/wagtailimages/images/confirm_delete.html:4
+#: templates/wagtailimages/images/confirm_delete.html:7
+#: templates/wagtailimages/images/edit.html:44
+msgid "Delete image"
+msgstr "Slett bilde"
+
+#: templates/wagtailimages/images/confirm_delete.html:15
+msgid "Are you sure you want to delete this image?"
+msgstr "Er du sikker på at du vil slette dette bildet?"
+
+#: templates/wagtailimages/images/confirm_delete.html:18
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#: templates/wagtailimages/images/edit.html:3
+#: templates/wagtailimages/images/url_generator.html:4
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Endrer bilde %(title)s"
+
+#: templates/wagtailimages/images/edit.html:24
+msgid "Editing"
+msgstr "Endrer"
+
+#: templates/wagtailimages/images/edit.html:49
+msgid "Focal point (optional)"
+msgstr "Fokuspunkt (valgfritt)"
+
+#: templates/wagtailimages/images/edit.html:50
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"below."
+msgstr "For å definere bildets viktigste område, dra en boks over bildet under."
+
+#: templates/wagtailimages/images/edit.html:50
+msgid "Current focal point shown"
+msgstr "Nåværende fokuspunkt vises"
+
+#: templates/wagtailimages/images/edit.html:69
+msgid "URL Generator"
+msgstr "URL-generator"
+
+#: templates/wagtailimages/images/edit.html:76
+msgid "Max dimensions"
+msgstr "Maksimale dimensjoner"
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "Filesize"
+msgstr "Filstørrelse"
+
+#: templates/wagtailimages/images/edit.html:79
+msgid "File not found"
+msgstr "Fil ikke funnet"
+
+#: templates/wagtailimages/images/index.html:5
+#: templates/wagtailimages/images/index.html:17 wagtail_hooks.py:31
+msgid "Images"
+msgstr "Bilder"
+
+#: templates/wagtailimages/images/results.html:31
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
+
+#: templates/wagtailimages/images/results.html:34
+#, python-format
+msgid ""
+"You've not uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">add one now</a>?"
+msgstr "Du har ikke lastet opp noen bilder. Hvorfor ikke <a href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+
+#: templates/wagtailimages/images/url_generator.html:7
+msgid "Generating URL"
+msgstr "Genererer URL"
+
+#: templates/wagtailimages/images/url_generator.html:24
+msgid "URL"
+msgstr "URL"
+
+#: templates/wagtailimages/images/url_generator.html:27
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+#: templates/wagtailimages/images/url_generator.html:33
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr "Merk at bilder som genereres større enn skjermen vil fremstå mindre når de forhåndsvises her, så de har plass på skjermen."
+
+#: templates/wagtailimages/images/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Bruk av %(title)s"
+
+#: templates/wagtailimages/images/usage.html:5
+msgid "Usage of"
+msgstr "Bruk av"
+
+#: templates/wagtailimages/images/usage.html:17
+msgid "Parent"
+msgstr "Forelder"
+
+#: templates/wagtailimages/images/usage.html:18
+msgid "Type"
+msgstr "Type"
+
+#: templates/wagtailimages/images/usage.html:19
+msgid "Status"
+msgstr "Status"
+
+#: templates/wagtailimages/images/usage.html:26
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+#: templates/wagtailimages/multiple/add.html:3
+msgid "Add multiple images"
+msgstr "Legg til flere bilder"
+
+#: templates/wagtailimages/multiple/add.html:12
+msgid "Add images"
+msgstr "Legg til bilder"
+
+#: templates/wagtailimages/multiple/add.html:17
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dra og slipp bilder i dette feltet for å laste opp umiddelbart."
+
+#: templates/wagtailimages/multiple/add.html:22
+msgid "Or choose from your computer"
+msgstr "Eller velg fra din datamaskin"
+
+#: templates/wagtailimages/multiple/add.html:47
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr "Opplasting vellykket. Du kan oppdatere dette bildet me den mer passende tittel, om nødvendig. Du kan også slette bildet dersom opplastingen ikke var nødvendig."
+
+#: templates/wagtailimages/multiple/add.html:48
+msgid "Sorry, upload failed."
+msgstr "Beklager, opplasting feilet."
+
+#: templates/wagtailimages/multiple/edit_form.html:14
+msgid "Update"
+msgstr "Oppdater"
+
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:130
+msgid "Delete"
+msgstr "Slett"
+
+#: views/images.py:40 views/images.py:50
+msgid "Search images"
+msgstr "Søk i bilder"
+
+#: views/images.py:110
+#, python-brace-format
+msgid "Image '{0}' updated."
+msgstr "Bildet \"{0}\" er oppdatert."
+
+#: views/images.py:111
+msgid "Edit again"
+msgstr "Endre igjen"
+
+#: views/images.py:115
+msgid "The image could not be saved due to errors."
+msgstr "Bildet kunne ikke lagres grunnet feil."
+
+#: views/images.py:129
+msgid ""
+"The source image file could not be found. Please change the source or delete"
+" the image."
+msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
+
+#: views/images.py:222
+#, python-brace-format
+msgid "Image '{0}' deleted."
+msgstr "Bildet \"{0}\" er slettet."
+
+#: views/images.py:248
+#, python-brace-format
+msgid "Image '{0}' added."
+msgstr "Bildet \"{0}\" er lagt til."
+
+#: views/images.py:249
+msgid "Edit"
+msgstr "Endre"
+
+#: views/images.py:253
+msgid "The image could not be created due to errors."
+msgstr "Bildet kunne ikke opprettes grunnet feil."
+
+#: widgets.py:14
+msgid "Choose another image"
+msgstr "Velg et annet bilde"
+
+#: widgets.py:15
+msgid "Edit this image"
+msgstr "Endre dette bildet"
