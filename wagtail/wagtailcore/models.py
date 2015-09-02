@@ -59,7 +59,8 @@ class Site(models.Model):
 
     class Meta:
         unique_together = ('hostname', 'port')
-        verbose_name = _('Site')
+        verbose_name = _('site')
+        verbose_name_plural = _('sites')
 
     def natural_key(self):
         return (self.hostname, self.port)
@@ -1025,6 +1026,10 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+    class Meta:
+        verbose_name = _('page')
+        verbose_name_plural = _('pages')
+
 
 def get_navigation_menu_items():
     # Get all pages that appear in the navigation menu: ones which have children,
@@ -1200,7 +1205,8 @@ class PageRevision(models.Model):
         return '"' + six.text_type(self.page) + '" at ' + six.text_type(self.created_at)
 
     class Meta:
-        verbose_name = _('Page Revision')
+        verbose_name = _('page revision')
+        verbose_name_plural = _('page revisions')
 
 
 PAGE_PERMISSION_TYPE_CHOICES = [
@@ -1218,7 +1224,8 @@ class GroupPagePermission(models.Model):
 
     class Meta:
         unique_together = ('group', 'page', 'permission_type')
-        verbose_name = _('Group Page Permission')
+        verbose_name = _('group page permission')
+        verbose_name_plural = _('group page permissions')
 
 
 class UserPagePermissionsProxy(object):
@@ -1444,4 +1451,5 @@ class PageViewRestriction(models.Model):
     password = models.CharField(verbose_name=_('Password'), max_length=255)
 
     class Meta:
-        verbose_name = _('Page View Restriction')
+        verbose_name = _('page view restriction')
+        verbose_name_plural = _('page view restrictions')

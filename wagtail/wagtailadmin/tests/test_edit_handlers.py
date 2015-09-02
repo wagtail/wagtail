@@ -424,7 +424,7 @@ class TestPageChooserPanel(TestCase):
             'barbecue',
             'wagtailcore.site'
         ).bind_to_model(PageChooserModel).target_content_type()[0]
-        self.assertEqual(result.name, 'Site')
+        self.assertEqual(result.name, 'site')
 
     def test_target_content_type_malformed_type(self):
         result = PageChooserPanel(
