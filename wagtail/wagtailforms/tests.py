@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import json
-import mock
 
 from django.test import TestCase
 from django.core import mail
@@ -10,7 +9,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import FormSubmission, AbstractForm
+from wagtail.wagtailforms.models import FormSubmission
 from wagtail.wagtailforms.forms import FormBuilder
 from wagtail.tests.testapp.models import FormPage, FormField
 from wagtail.tests.utils import WagtailTestUtils
@@ -67,14 +66,6 @@ class TestFormSubmission(TestCase):
 
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
-
-    @mock.patch.object(AbstractForm, 'get_context', autospec=True)
-    def test_get_form_calls_get_context(self, get_context):
-        get_context.side_effect = Page.get_context
-
-        # 1429 - Serving form page should call the get_context method
-        self.client.get('/contact-us/')
-        self.assertTrue(get_context.called)
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
