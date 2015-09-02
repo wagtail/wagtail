@@ -1,3 +1,4 @@
+import unittest
 import datetime
 import json
 
@@ -423,6 +424,7 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied")
         self.assertEqual(christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass were removed from the original page")
 
+    @unittest.expectedFailure
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
@@ -447,6 +449,11 @@ class TestCopyPage(TestCase):
         new_revision_content = json.loads(new_revision.content_json)
         self.assertEqual(new_revision_content['pk'], new_christmas_event.id)
         self.assertEqual(new_revision_content['speakers'][0]['page'], new_christmas_event.id)
+
+        # Also, check that the child objects in the new revision are given new IDs
+        old_speakers_ids = set(christmas_event.speakers.values_list('id', flat=True))
+        new_speakers_ids = set(speaker['pk'] for speaker in new_revision_content['speakers'])
+        self.assertFalse(old_speakers_ids.intersection(new_speakers_ids), "Child objects in revisions were not given a new primary key")
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
