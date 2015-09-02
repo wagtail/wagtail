@@ -1,6 +1,7 @@
 import logging
 import warnings
 import json
+from collections import defaultdict
 
 import six
 from six import StringIO
@@ -766,17 +767,26 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         else:
             page_copy = self.add_sibling(instance=page_copy)
 
+        # A dict that maps child objects to their new ids
+        # Used to remap child object ids in revisions
+        child_object_id_map = defaultdict(dict)
+
         # Copy child objects
         specific_self = self.specific
         for child_relation in get_all_child_relations(specific_self):
+            accessor_name = child_relation.get_accessor_name()
             parental_key_name = child_relation.field.attname
-            child_objects = getattr(specific_self, child_relation.get_accessor_name(), None)
+            child_objects = getattr(specific_self, accessor_name, None)
 
             if child_objects:
                 for child_object in child_objects.all():
+                    old_pk = child_object.pk
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
                     child_object.save()
+
+                    # Add mapping to new primary key (so we can apply this change to revisions)
+                    child_object_id_map[accessor_name][old_pk] = child_object.pk
 
         # Copy revisions
         if copy_revisions:
@@ -791,8 +801,9 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
                 revision_content['pk'] = page_copy.pk
 
                 for child_relation in get_all_child_relations(specific_self):
+                    accessor_name = child_relation.get_accessor_name()
                     try:
-                        child_objects = revision_content[child_relation.get_accessor_name()]
+                        child_objects = revision_content[accessor_name]
                     except KeyError:
                         # KeyErrors are possible if the revision was created
                         # before this child relation was added to the database
@@ -800,6 +811,11 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
 
                     for child_object in child_objects:
                         child_object[child_relation.field.name] = page_copy.pk
+
+                        # Remap primary key to copied versions
+                        # If the primary key is not recognised (eg, the child object has been deleted from the database)
+                        # set the primary key to None
+                        child_object['pk'] = child_object_id_map[accessor_name].get(child_object['pk'], None)
 
                 revision.content_json = json.dumps(revision_content)
 

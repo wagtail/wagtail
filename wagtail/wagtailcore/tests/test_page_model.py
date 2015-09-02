@@ -1,4 +1,3 @@
-import unittest
 import datetime
 import json
 
@@ -419,7 +418,6 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied")
         self.assertEqual(christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass were removed from the original page")
 
-    @unittest.expectedFailure
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
