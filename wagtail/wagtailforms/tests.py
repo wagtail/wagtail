@@ -65,6 +65,9 @@ class TestFormSubmission(TestCase):
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
     @mock.patch.object(AbstractForm, 'get_context', autospec=True)
     def test_get_form_calls_get_context(self, get_context):
         get_context.side_effect = Page.get_context
@@ -96,6 +99,9 @@ class TestFormSubmission(TestCase):
         self.assertContains(response, "Thank you for your feedback.")
         self.assertTemplateNotUsed(response, 'tests/form_page.html')
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)

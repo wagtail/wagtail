@@ -288,8 +288,12 @@ EventIndex.content_panels = [
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
 
+
 class FormPage(AbstractEmailForm):
-    pass
+    def get_context(self, request):
+        context = super(FormPage, self).get_context(request)
+        context['greeting'] = "hello world"
+        return context
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
