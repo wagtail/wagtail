@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
 from wagtail.wagtailcore.models import Page, Site
-from wagtail.tests.testapp.models import EventPage, EventIndex, SimplePage, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
+from wagtail.tests.testapp.models import SingleEventPage, EventPage, EventIndex, SimplePage, BusinessIndex, BusinessSubIndex, BusinessChild, StandardIndex
 
 
 class TestSiteRouting(TestCase):
@@ -603,6 +603,28 @@ class TestCopyPage(TestCase):
 
         # Check that the user on the last revision is correct
         self.assertEqual(new_christmas_event.get_latest_revision().user, event_moderator)
+
+    def test_copy_multi_table_inheritance(self):
+        saint_patrick_event = SingleEventPage.objects.get(url_path='/home/events/saint-patrick/')
+
+        # Copy it
+        new_saint_patrick_event = saint_patrick_event.copy(update_attrs={'slug': 'new-saint-patrick'})
+
+        # Check that new_saint_patrick_event is correct
+        self.assertIsInstance(new_saint_patrick_event, SingleEventPage)
+        self.assertEqual(new_saint_patrick_event.excerpt, saint_patrick_event.excerpt)
+
+        # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
+        self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
+        self.assertNotEqual(saint_patrick_event.eventpage_ptr.id, new_saint_patrick_event.eventpage_ptr.id)
+        self.assertNotEqual(saint_patrick_event.eventpage_ptr.page_ptr.id, new_saint_patrick_event.eventpage_ptr.page_ptr.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_saint_patrick_event.url_path, '/home/events/new-saint-patrick/')
+
+        # Check that both parent instance exists
+        self.assertIsInstance(EventPage.objects.get(id=new_saint_patrick_event.id), EventPage)
+        self.assertIsInstance(Page.objects.get(id=new_saint_patrick_event.id), Page)
 
 
 class TestSubpageTypeBusinessRules(TestCase):

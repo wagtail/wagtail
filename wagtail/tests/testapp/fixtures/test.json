@@ -87,6 +87,41 @@
 },
 
 {
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Saint Patrick",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 4,
+        "content_type": ["tests", "singleeventpage"],
+        "path": "0001000100010005",
+        "url_path": "/home/events/saint-patrick/",
+        "slug": "saint-patrick",
+        "owner": 2
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.eventpage",
+    "fields": {
+        "date_from": "2014-12-25",
+        "audience": "private",
+        "location": "Wellington",
+        "body": "<p>The day when nothing makes sense.</p>",
+        "cost": "Semi-free"
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.singleeventpage",
+    "fields": {
+        "excerpt": "A little tiny excerpt for Saint Patrick."
+    }
+},
+
+{
     "pk": 1,
     "model": "tests.eventpagespeaker",
     "fields": {
