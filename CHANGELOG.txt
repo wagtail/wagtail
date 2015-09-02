@@ -36,6 +36,7 @@ Changelog
  * Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
  * Fix: The queryset returned from `search` operations when using the database search backend now correctly preserves additional properties of the original query, such as `prefetch_related` / `select_related`
  * Fix: Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
+ * Fix: Page copy now works with pages that use multiple inheritance (Jordi Joan)
 
 
 1.0 (16.07.2015)
