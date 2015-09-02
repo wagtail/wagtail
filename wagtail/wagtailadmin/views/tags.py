@@ -10,4 +10,4 @@ def autocomplete(request):
     else:
         tags = Tag.objects.none()
 
-    return JsonResponse([tag.name for tag in tags])
+    return JsonResponse([tag.name for tag in tags], safe=False)
