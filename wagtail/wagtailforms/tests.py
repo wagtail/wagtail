@@ -64,6 +64,9 @@ class TestFormSubmission(TestCase):
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
+
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
             'your-email': 'bob',
@@ -87,6 +90,9 @@ class TestFormSubmission(TestCase):
         self.assertContains(response, "Thank you for your feedback.")
         self.assertTemplateNotUsed(response, 'tests/form_page.html')
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
+
+        # check that variables defined in get_context are passed through to the template (#1429)
+        self.assertContains(response, "<p>hello world</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)

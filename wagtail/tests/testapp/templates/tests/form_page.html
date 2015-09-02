@@ -2,6 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
+    <p>{{ greeting }}</p>
     <form action="{% pageurl self %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
