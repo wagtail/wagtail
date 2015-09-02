@@ -85,6 +85,7 @@ Translators
 * Italian: Andrea Tagliazucchi, Claudio Bantaloukas, Alessio Di Stasio, Giacomo Ghizzani
 * Japanese: Daigo Shitara, Toshikazu Michisu
 * Mongolian: Delgermurun Purevkhuu, miiiga
+* Norwegian bokmål: Eirik Krogstad
 * Polish: Łukasz Bołdys
 * Portuguese (Brazil): Gilson Filho, Douglas Miranda, Thiago Cangussu, João Luiz Lorencetti, Gladson Brito, Marcelo J. Both
 * Portuguese (Portugal): Jose Lourenco, Tiago Henriques

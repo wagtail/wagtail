@@ -1,0 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-02 14:43+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:23 templates/wagtaildocs/documents/list.html:11
+#: templates/wagtaildocs/documents/list.html:14
+#: templates/wagtaildocs/documents/usage.html:16
+msgid "Title"
+msgstr "Tittel"
+
+#: models.py:24 templates/wagtaildocs/documents/list.html:17
+msgid "File"
+msgstr "Fil"
+
+#: models.py:25
+msgid "Created at"
+msgstr "Opprettet"
+
+#: models.py:26
+msgid "Uploaded by user"
+msgstr "Opplastet av bruker"
+
+#: models.py:28
+msgid "Tags"
+msgstr "Tags"
+
+#: models.py:72
+msgid "Document"
+msgstr "Dokument"
+
+#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
+msgid "Choose a document"
+msgstr "Velg et dokument"
+
+#: templates/wagtaildocs/chooser/chooser.html:8
+#: templates/wagtaildocs/chooser/chooser.html:20
+msgid "Search"
+msgstr "Søk"
+
+#: templates/wagtaildocs/chooser/chooser.html:9
+msgid "Upload"
+msgstr "Last opp"
+
+#: templates/wagtaildocs/chooser/chooser.html:35
+#: templates/wagtaildocs/documents/add.html:24
+#: templates/wagtaildocs/documents/edit.html:30
+msgid "Save"
+msgstr "Lagre"
+
+#: templates/wagtaildocs/chooser/results.html:5
+#: templates/wagtaildocs/documents/results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nDet er ett treff\n "
+msgstr[1] "\nDet er %(counter)s treff\n "
+
+#: templates/wagtaildocs/chooser/results.html:12
+msgid "Latest documents"
+msgstr "Siste dokumenter"
+
+#: templates/wagtaildocs/chooser/results.html:19
+#: templates/wagtaildocs/documents/results.html:18
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
+
+#: templates/wagtaildocs/documents/_file_field.html:5
+msgid "Change document:"
+msgstr "Endre dokument:"
+
+#: templates/wagtaildocs/documents/add.html:4
+#: templates/wagtaildocs/documents/index.html:18
+msgid "Add a document"
+msgstr "Legg til et dokument"
+
+#: templates/wagtaildocs/documents/add.html:14
+msgid "Add document"
+msgstr "Legg til dokument"
+
+#: templates/wagtaildocs/documents/confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Slett %(title)s"
+
+#: templates/wagtaildocs/documents/confirm_delete.html:5
+#: templates/wagtaildocs/documents/edit.html:30
+msgid "Delete document"
+msgstr "Slett dokument"
+
+#: templates/wagtaildocs/documents/confirm_delete.html:9
+msgid "Are you sure you want to delete this document?"
+msgstr "Er du sikker på at du vil slette dette dokumentet?"
+
+#: templates/wagtaildocs/documents/confirm_delete.html:12
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#: templates/wagtaildocs/documents/edit.html:4
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Endrer %(title)s"
+
+#: templates/wagtaildocs/documents/edit.html:14
+msgid "Editing"
+msgstr "Endrer"
+
+#: templates/wagtaildocs/documents/edit.html:37
+msgid "Filesize"
+msgstr "Filstørrelse"
+
+#: templates/wagtaildocs/documents/edit.html:38
+msgid "File not found"
+msgstr "Fil ikke funnet"
+
+#: templates/wagtaildocs/documents/index.html:15 wagtail_hooks.py:31
+msgid "Documents"
+msgstr "Dokumenter"
+
+#: templates/wagtaildocs/documents/list.html:21
+#: templates/wagtaildocs/documents/list.html:24
+msgid "Uploaded"
+msgstr "Opplastet"
+
+#: templates/wagtaildocs/documents/results.html:21
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr "Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+
+#: templates/wagtaildocs/documents/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Bruk av %(title)s"
+
+#: templates/wagtaildocs/documents/usage.html:5
+msgid "Usage of"
+msgstr "Bruk av"
+
+#: templates/wagtaildocs/documents/usage.html:17
+msgid "Parent"
+msgstr "Forelder"
+
+#: templates/wagtaildocs/documents/usage.html:18
+msgid "Type"
+msgstr "Type"
+
+#: templates/wagtaildocs/documents/usage.html:19
+msgid "Status"
+msgstr "Status"
+
+#: templates/wagtaildocs/documents/usage.html:26
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+#: templates/wagtaildocs/homepage/site_summary_documents.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] "\n<span>%(total)s</span> dokumenter\n "
+msgstr[1] "\n<span>%(total)s</span> dokumenter\n "
+
+#: views/documents.py:38 views/documents.py:47
+msgid "Search documents"
+msgstr "Søk i dokumenter"
+
+#: views/documents.py:92
+#, python-brace-format
+msgid "Document '{0}' added."
+msgstr "Dokumentet \"{0}\" er lagt til."
+
+#: views/documents.py:93 views/documents.py:128
+msgid "Edit"
+msgstr "Endre"
+
+#: views/documents.py:97 views/documents.py:132
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentet kunne ikke lagres grunnet feil."
+
+#: views/documents.py:127
+#, python-brace-format
+msgid "Document '{0}' updated"
+msgstr "Dokumentet \"{0}\" er oppdatert"
+
+#: views/documents.py:147
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
+
+#: views/documents.py:148
+msgid "Delete"
+msgstr "Slett"
+
+#: views/documents.py:166
+#, python-brace-format
+msgid "Document '{0}' deleted."
+msgstr "Dokumentet \"{0}\" er slettet."
+
+#: widgets.py:14
+msgid "Choose another document"
+msgstr "Velg et annet dokument"
+
+#: widgets.py:15
+msgid "Edit this document"
+msgstr "Endre dette dokumentet"

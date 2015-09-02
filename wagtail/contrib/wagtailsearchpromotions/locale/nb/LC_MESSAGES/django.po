@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:46+0100\n"
+"PO-Revision-Date: 2015-09-02 14:43+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:31
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Vennligst spesifiser minst en anbefaling for dette søkeordet."
+
+#: models.py:9
+msgid "Page"
+msgstr "Side"
+
+#: models.py:11
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: models.py:18
+msgid "Search promotion"
+msgstr "Søkepromotering"
+
+#: templates/wagtailsearchpromotions/add.html:3
+#: templates/wagtailsearchpromotions/add.html:5
+msgid "Add search pick"
+msgstr "Legg til søkevalg"
+
+#: templates/wagtailsearchpromotions/add.html:10
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending specific pages that might not organically come high up in search results. E.g recommending your primary donation page to a user searching with the less common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr "\n<p>Forfremmede søkeresultater er en måte å anbefale spesifikke sider som ikke nødvendigvis kommer høyt opp i søkeresultater. Feks. kan man anbefale kontaktsiden for en bruker som søker etter ordet <em>\"tilbakemelding\"</em>.</p>\n "
+
+#: templates/wagtailsearchpromotions/add.html:14
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain the full and exact search for which you wish to provide recommended results, <em>including</em> any misspellings/user error. To help, you can choose from search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr "\n<p>Feltet \"Søkeord/-frase\" under må inneholde den fullstendige og eksakte søkestrengen som du ønsker å gi anbefalinger for, <em>inkludert</em> vanlige feilstavinger eller andre brukerfeil. Det kan være nyttig å se på hvilke søkeord som har vært mye brukt på nettstedet.</p>\n "
+
+#: templates/wagtailsearchpromotions/add.html:28
+#: templates/wagtailsearchpromotions/edit.html:19
+msgid "Save"
+msgstr "Lagre"
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:3
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Slett %(query)s"
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:5
+#: templates/wagtailsearchpromotions/edit.html:20
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:6
+msgid "Delete"
+msgstr "Slett"
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:9
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "Er du sikker på at du vil slette alle forfremmede resultater for dette søkeordet?"
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:12
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#: templates/wagtailsearchpromotions/edit.html:3
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Endrer %(query)s"
+
+#: templates/wagtailsearchpromotions/edit.html:5
+msgid "Editing"
+msgstr "Endrer"
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:4
+msgid "Move up"
+msgstr "Flytt opp"
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:5
+msgid "Move down"
+msgstr "Flytt ned"
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
+msgid "Promoted search result"
+msgstr "Forfremmet søkeresultat"
+
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:16
+msgid "Add recommended page"
+msgstr "Legg til anbefalt side"
+
+#: templates/wagtailsearchpromotions/index.html:3
+msgid "Search Terms"
+msgstr "Søkeord"
+
+#: templates/wagtailsearchpromotions/index.html:16 wagtail_hooks.py:30
+msgid "Promoted search results"
+msgstr "Forfremmede søkeresultater"
+
+#: templates/wagtailsearchpromotions/index.html:17
+msgid "Add new promoted result"
+msgstr "Legg til nytt forfremmet resultat"
+
+#: templates/wagtailsearchpromotions/list.html:8
+msgid "Search term(s)"
+msgstr "Søkeord"
+
+#: templates/wagtailsearchpromotions/list.html:9
+msgid "Promoted results"
+msgstr "Forfremmede resultater"
+
+#: templates/wagtailsearchpromotions/list.html:10
+msgid "Views (past week)"
+msgstr "Visninger (siste uke)"
+
+#: templates/wagtailsearchpromotions/list.html:17
+msgid "Edit this pick"
+msgstr "Endre dette resultatet"
+
+#: templates/wagtailsearchpromotions/list.html:23
+msgid "None"
+msgstr "Ingen"
+
+#: templates/wagtailsearchpromotions/results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nDet er ett treff\n "
+msgstr[1] "\nDet er %(counter)s treff\n "
+
+#: templates/wagtailsearchpromotions/results.html:18
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen forfremmede resultater samsvarer med \"<em>%(query_string)s</em>\""
+
+#: templates/wagtailsearchpromotions/results.html:21
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr "Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href=\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
+
+#: views.py:51
+msgid "Search promoted results"
+msgstr "Søk i forfremmede resultater"
+
+#: views.py:87
+#, python-brace-format
+msgid "Editor's picks for '{0}' created."
+msgstr "Redaktørvalg for \"{0}\" er opprettet."
+
+#: views.py:88 views.py:124
+msgid "Edit"
+msgstr "Endre"
+
+#: views.py:95
+msgid "Recommendations have not been created due to errors"
+msgstr "Anbefalinger kunne ikke opprettes grunnet feil"
+
+#: views.py:123
+#, python-brace-format
+msgid "Editor's picks for '{0}' updated."
+msgstr "Redaktørvalg for \"{0}\" oppdatert."
+
+#: views.py:131
+msgid "Recommendations have not been saved due to errors"
+msgstr "Anbefalinger kunne ikke lagres grunnet feil"
+
+#: views.py:150
+msgid "Editor's picks deleted."
+msgstr "Redaktørvalg slettet."

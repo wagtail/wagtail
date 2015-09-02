@@ -1,0 +1,345 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-02 14:43+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:30
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Påkrevet. 30 tegn eller færre. Kun bokstaver, tall og tegnene @/./+/-/_."
+
+#: forms.py:34
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Denne verdien kan kun inneholde bokstaver, tall og tegnene @/./+/-/_."
+
+#: forms.py:49 forms.py:135 forms.py:196
+msgid "Administrator"
+msgstr "Administrator"
+
+#: forms.py:51
+msgid "If ticked, this user has the ability to manage user accounts."
+msgstr "Ved kryss har denne brukeren mulighet til å administrere brukerkontoer."
+
+#: forms.py:55 forms.py:125
+msgid "Password"
+msgstr "Passord"
+
+#: forms.py:58 forms.py:128
+msgid "Leave blank if not changing."
+msgstr "La stå blankt om du ikke vil endre."
+
+#: forms.py:60 forms.py:130
+msgid "Password confirmation"
+msgstr "Passord (bekreft)"
+
+#: forms.py:62 forms.py:132
+msgid "Enter the same password as above, for verification."
+msgstr "Skriv inn samme passord som over for å verifisere"
+
+#: forms.py:64 forms.py:120
+msgid "Email"
+msgstr "E-post"
+
+#: forms.py:65 forms.py:121
+msgid "First Name"
+msgstr "Fornavn"
+
+#: forms.py:66 forms.py:122
+msgid "Last Name"
+msgstr "Etternavn"
+
+#: forms.py:116
+msgid "A user with that username already exists."
+msgstr "En bruker med dette navnet eksisterer allerede."
+
+#: forms.py:117
+msgid "The two password fields didn't match."
+msgstr "Passordfeltene stemmer ikke overens."
+
+#: forms.py:137 forms.py:198
+msgid "Administrators have the ability to manage user accounts."
+msgstr "Administratorer har mulighet til å administrere brukerkontoer."
+
+#: forms.py:192
+msgid "A group with that name already exists."
+msgstr "En gruppe med det navnet eksisterer allerede."
+
+#: models.py:14
+msgid "Submitted notifications"
+msgstr "Varsel om sendt til godkjenning"
+
+#: models.py:16
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Motta varsel når en side blir sendt til godkjenning"
+
+#: models.py:20
+msgid "Approved notifications"
+msgstr "Varsel om godkjenning"
+
+#: models.py:22
+msgid "Receive notification when your page edit is approved"
+msgstr "Motta varsel når din sideredigering blir godkjent"
+
+#: models.py:26
+msgid "Rejected notifications"
+msgstr "Varsel om avvisning"
+
+#: models.py:28
+msgid "Receive notification when your page edit is rejected"
+msgstr "Motta varsel når din sideredigering blir avvist"
+
+#: models.py:39
+msgid "User Profile"
+msgstr "Brukerprofil"
+
+#: templates/wagtailusers/groups/confirm_delete.html:3
+#: templates/wagtailusers/groups/confirm_delete.html:6
+#: templates/wagtailusers/groups/edit.html:34
+msgid "Delete group"
+msgstr "Slett gruppe"
+
+#: templates/wagtailusers/groups/confirm_delete.html:11
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> users "
+"assigned."
+msgstr "Gruppen \"%(group_name)s\" har <strong>%(group_user_count)s</strong> brukere."
+
+#: templates/wagtailusers/groups/confirm_delete.html:15
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Ved å slette denne gruppen fratas alle medlemmer gruppens rettigheter."
+
+#: templates/wagtailusers/groups/confirm_delete.html:19
+msgid "Are you sure you want to delete this group?"
+msgstr "Er du sikker på at du vil slette denne gruppen?"
+
+#: templates/wagtailusers/groups/confirm_delete.html:22
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#: templates/wagtailusers/groups/create.html:4
+#: templates/wagtailusers/groups/create.html:14
+#: templates/wagtailusers/groups/create.html:29
+msgid "Add group"
+msgstr "Legg til gruppe"
+
+#: templates/wagtailusers/groups/edit.html:4
+#: templates/wagtailusers/groups/edit.html:14
+#: templates/wagtailusers/users/edit.html:4
+#: templates/wagtailusers/users/edit.html:7
+msgid "Editing"
+msgstr "Endrer"
+
+#: templates/wagtailusers/groups/edit.html:31
+#: templates/wagtailusers/users/edit.html:31
+#: templates/wagtailusers/users/edit.html:38
+msgid "Save"
+msgstr "Lagre"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:3
+msgid "Object permissions"
+msgstr "Objekttillatelser"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:53
+#: templates/wagtailusers/groups/list.html:6
+#: templates/wagtailusers/users/list.html:7
+msgid "Name"
+msgstr "Navn"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:12
+msgid "Add"
+msgstr "Legg til"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:13
+msgid "Change"
+msgstr "Endre"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:14
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:15
+msgid "Delete"
+msgstr "Slett"
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:47
+msgid "Other permissions"
+msgstr "Andre tillatelser"
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:2
+msgid "Page permissions"
+msgstr "Sidetillatelser"
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:12
+msgid "Page"
+msgstr "Side"
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:13
+msgid "Permission type"
+msgstr "Tillatelsestype"
+
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:42
+msgid "Add a page permission"
+msgstr "Legg til sidetillatelse"
+
+#: templates/wagtailusers/groups/index.html:4
+#: templates/wagtailusers/groups/index.html:16
+msgid "groups"
+msgstr "grupper"
+
+#: templates/wagtailusers/groups/index.html:17
+msgid "Add a group"
+msgstr "Legg til en gruppe"
+
+#: templates/wagtailusers/groups/results.html:9
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr "Det er ingen grupper konfigurert. Hvorfor ikke <a href=\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
+
+#: templates/wagtailusers/users/create.html:4
+#: templates/wagtailusers/users/create.html:7
+#: templates/wagtailusers/users/create.html:36
+msgid "Add user"
+msgstr "Legg til bruker"
+
+#: templates/wagtailusers/users/create.html:11
+#: templates/wagtailusers/users/edit.html:11
+msgid "Account"
+msgstr "Konto"
+
+#: templates/wagtailusers/users/create.html:12
+#: templates/wagtailusers/users/create.html:29
+#: templates/wagtailusers/users/edit.html:12
+msgid "Roles"
+msgstr "Roller"
+
+#: templates/wagtailusers/users/index.html:4
+#: templates/wagtailusers/users/index.html:16 wagtail_hooks.py:41
+msgid "Users"
+msgstr "Brukere"
+
+#: templates/wagtailusers/users/index.html:17
+msgid "Add a user"
+msgstr "Legg til en bruker"
+
+#: templates/wagtailusers/users/list.html:15
+msgid "Username"
+msgstr "Brukernavn"
+
+#: templates/wagtailusers/users/list.html:22
+msgid "Level"
+msgstr "Nivå"
+
+#: templates/wagtailusers/users/list.html:23
+msgid "Status"
+msgstr "Status"
+
+#: templates/wagtailusers/users/list.html:36
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/wagtailusers/users/list.html:37
+msgid "Active"
+msgstr "Aktiv"
+
+#: templates/wagtailusers/users/list.html:37
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: templates/wagtailusers/users/results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is one match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] "\nDet er ett treff\n "
+msgstr[1] "\nDet er %(counter)s treff\n "
+
+#: templates/wagtailusers/users/results.html:18
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen brukere samsvarer med <em>\"%(query_string)s\"</em>"
+
+#: templates/wagtailusers/users/results.html:21
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_create_url)s\">add some</a>?"
+msgstr "Det er ingen brukere konfigurert. Hvorfor ikke <a href=\"%(wagtailusers_create_url)s\">legge til noen</a>?"
+
+#: views/groups.py:22 views/groups.py:29
+msgid "Search groups"
+msgstr "Søk i grupper"
+
+#: views/groups.py:80
+#, python-brace-format
+msgid "Group '{0}' created."
+msgstr "Gruppa \"{0}\" er opprettet."
+
+#: views/groups.py:81 views/groups.py:106 views/users.py:93 views/users.py:114
+msgid "Edit"
+msgstr "Endre"
+
+#: views/groups.py:85
+msgid "The group could not be created due to errors."
+msgstr "Gruppa kunne ikke lagres grunnet feil."
+
+#: views/groups.py:105
+#, python-brace-format
+msgid "Group '{0}' updated."
+msgstr "Gruppa \"{0}\" er oppdatert."
+
+#: views/groups.py:110
+msgid "The group could not be saved due to errors."
+msgstr "Gruppa kunne ikke lagres grunnet feil."
+
+#: views/groups.py:128
+#, python-brace-format
+msgid "Group '{0}' deleted."
+msgstr "Gruppa \"{0}\" er slettet."
+
+#: views/users.py:33 views/users.py:44
+msgid "Search users"
+msgstr "Søk blant brukere"
+
+#: views/users.py:92
+#, python-brace-format
+msgid "User '{0}' created."
+msgstr "Brukeren \"{0}\" er opprettet."
+
+#: views/users.py:97
+msgid "The user could not be created due to errors."
+msgstr "Brukeren kunne ikke opprettes grunnet feil."
+
+#: views/users.py:113
+#, python-brace-format
+msgid "User '{0}' updated."
+msgstr "Brukeren \"{0}\" er oppdatert."
+
+#: views/users.py:118
+msgid "The user could not be saved due to errors."
+msgstr "Brukeren kunne ikke lagres grunnet feil."
+
+#: wagtail_hooks.py:55
+msgid "Groups"
+msgstr "Grupper"

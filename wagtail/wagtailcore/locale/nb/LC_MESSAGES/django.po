@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-02 09:55+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:54
+msgid "Hostname"
+msgstr "Vertsnavn"
+
+#: models.py:55
+msgid "Port"
+msgstr "Port"
+
+#: models.py:55
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr "Sett denne til noe annet enn 80 dersom du har behov for at en spesifikk port vises i URLer (feks. utvikling på port 8000). Dette påvirker ikke håndtering av forespørsler (så port forwarding fungerer fortsatt)."
+
+#: models.py:56
+msgid "Root page"
+msgstr "Rotside"
+
+#: models.py:57
+msgid "Is default site"
+msgstr "Er standard nettsted"
+
+#: models.py:57
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "Hvis merket vil denne siden håndtere forespørsler for alle andre vertsnavn som ikke har noen egen nettstedsoppføring."
+
+#: models.py:61
+msgid "Site"
+msgstr "Nettsted"
+
+#: models.py:121
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr "%(hostname)s er allerede satt opp som standard nettsted. Du må endre det før du kan konfigurere dette nettstedet som standard."
+
+#: models.py:272
+msgid "Title"
+msgstr "Tittel"
+
+#: models.py:272
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Tiittel på siden slik den vises offentlig"
+
+#: models.py:273
+msgid "Slug"
+msgstr "Permalenke"
+
+#: models.py:273
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog"
+"/[my-slug]/"
+msgstr "Navnet på siden slik det vil vises i URLer, feks. http://domene.no/blogg/min-slug/"
+
+#: models.py:276
+msgid "Content type"
+msgstr "Innholdstype"
+
+#: models.py:277
+msgid "Live"
+msgstr "Publisert"
+
+#: models.py:278
+msgid "Has unpublished changes"
+msgstr "Har upubliserte endringer"
+
+#: models.py:279
+msgid "URL path"
+msgstr "URL-sti"
+
+#: models.py:280
+msgid "Owner"
+msgstr "Eier"
+
+#: models.py:282
+msgid "Page title"
+msgstr "Sidetittel"
+
+#: models.py:282
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the"
+" browser window."
+msgstr "Valgfritt. \"Søkemotorvennlig\" tittel. Vises øverst på nettleservinduet."
+
+#: models.py:283
+msgid "Show in menus"
+msgstr "Vis i menyer"
+
+#: models.py:283
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
+
+#: models.py:284
+msgid "Search description"
+msgstr "Søkemotorbeskrivelse"
+
+#: models.py:286
+msgid "Go live date/time"
+msgstr "Tidspunkt for planlagt publisering"
+
+#: models.py:286 models.py:287
+msgid "Please add a date-time in the form YYYY-MM-DD hh:mm."
+msgstr "Legg inn et tidspunkt på formen ÅÅÅÅ-MM-DD tt:mm."
+
+#: models.py:287
+msgid "Expiry date/time"
+msgstr "Tidspunkt for avpublisering"
+
+#: models.py:288
+msgid "Expired"
+msgstr "Avpublisert"
+
+#: models.py:290
+msgid "Locked"
+msgstr "Låst"
+
+#: models.py:292
+msgid "First published at"
+msgstr "Først publisert"
+
+#: models.py:293
+msgid "Latest revision created at"
+msgstr "Siste utgave opprettet"
+
+#: models.py:725
+msgid "expired"
+msgstr "avpublisert"
+
+#: models.py:727
+msgid "scheduled"
+msgstr "planlagt"
+
+#: models.py:729
+msgid "draft"
+msgstr "kladd"
+
+#: models.py:732
+msgid "live + draft"
+msgstr "publisert + kladd"
+
+#: models.py:734
+msgid "live"
+msgstr "publisert"
+
+#: models.py:900
+msgid "Default"
+msgstr "Standard"
+
+#: models.py:1076 models.py:1193 models.py:1420
+msgid "Page"
+msgstr "Side"
+
+#: models.py:1077
+msgid "Submitted for moderation"
+msgstr "Sendt til godkjenning"
+
+#: models.py:1078
+msgid "Created at"
+msgstr "Opprettet"
+
+#: models.py:1079
+msgid "User"
+msgstr "Bruker"
+
+#: models.py:1080
+msgid "Content JSON"
+msgstr "JSON for innhold"
+
+#: models.py:1081
+msgid "Approved go live at"
+msgstr "Godkjent for publisering"
+
+#: models.py:1180
+msgid "Page Revision"
+msgstr "Sideutgave"
+
+#: models.py:1184
+msgid "Add/edit pages you own"
+msgstr "Legg til/rediger sider du eier"
+
+#: models.py:1185
+msgid "Edit any page"
+msgstr "Rediger enhver side"
+
+#: models.py:1186
+msgid "Publish any page"
+msgstr "Publiser enhver side"
+
+#: models.py:1187
+msgid "Lock/unlock any page"
+msgstr "Lås/lås opp enhver side"
+
+#: models.py:1192
+msgid "Group"
+msgstr "Gruppe"
+
+#: models.py:1194
+msgid "Permission type"
+msgstr "Tillatelsestype"
+
+#: models.py:1198
+msgid "Group Page Permission"
+msgstr "Gruppetillatelse for side"
+
+#: models.py:1421
+msgid "Password"
+msgstr "Passord"
+
+#: models.py:1424
+msgid "Page View Restriction"
+msgstr "Visningsbegrensning for side"
+
+#: validators.py:15
+msgid "Value cannot be entirely whitespace characters"
+msgstr "Verdien kan ikke være bare tomme tegn"

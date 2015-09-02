@@ -1,0 +1,1174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-26 14:28+0100\n"
+"PO-Revision-Date: 2015-09-02 15:01+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: edit_handlers.py:724
+msgid "Scheduled publishing"
+msgstr "Planlagt publisering"
+
+#: edit_handlers.py:738
+msgid "Common page configuration"
+msgstr "Felles sidekonfigurasjon"
+
+#: forms.py:34 templates/wagtailadmin/base.html:16
+#: templates/wagtailadmin/base.html:17 templates/wagtailadmin/base.html:18
+#: templates/wagtailadmin/pages/search.html:3
+#: templates/wagtailadmin/pages/search.html:15
+msgid "Search"
+msgstr "Søk"
+
+#: forms.py:38
+msgid "Search term"
+msgstr "Søkeord"
+
+#: forms.py:65
+msgid "Enter password"
+msgstr "Skriv inn passord"
+
+#: forms.py:72
+#, python-format
+msgid "Enter your %s"
+msgstr "Skriv inn %s"
+
+#: forms.py:77
+msgid "Enter your email address to reset your password"
+msgstr "Skriv inn din e-postadresse for å nullstille passord"
+
+#: forms.py:86
+msgid "Please fill your email address."
+msgstr "Vennligst fyll inn din e-postadresse."
+
+#: forms.py:99
+msgid ""
+"Sorry, you cannot reset your password here as your user account is managed "
+"by another server."
+msgstr "Beklager, du kan ikke nullstille passord her, din brukerkonto håndteres av en annen server."
+
+#: forms.py:102
+msgid "This email address is not recognised."
+msgstr "E-postadressen er ukjent."
+
+#: forms.py:114
+msgid "New title"
+msgstr "Ny tittel"
+
+#: forms.py:115
+msgid "New slug"
+msgstr "Ny permalenke"
+
+#: forms.py:120
+msgid "New parent page"
+msgstr "Ny foreldreside"
+
+#: forms.py:121
+msgid "This copy will be a child of this given parent page."
+msgstr "Denne kopien vil bli en underside av gitt foreldreside."
+
+#: forms.py:128
+msgid "Copy subpages"
+msgstr "Kopier undersider"
+
+#: forms.py:130
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Dette vil kopiere %(count)s underside."
+msgstr[1] "Dette vil kopiere %(count)s undersider."
+
+#: forms.py:139
+msgid "Publish copied page"
+msgstr "Publiser kopiert side"
+
+#: forms.py:140
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Denne siden er publisert. Vil du publisere kopien også?"
+
+#: forms.py:142
+msgid "Publish copies"
+msgstr "Publiser kopier"
+
+#: forms.py:144
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "%(count)s av sidene som blir kopiert er publisert. Vil du publisere kopien dens også?"
+msgstr[1] "%(count)s av sidene som blir kopiert er publisert. Vil du publisere kopiene deres også?"
+
+#: forms.py:164
+#, python-format
+msgid "This slug is already in use within the context of its parent page \"%s\""
+msgstr "Denne permalenken er allerede i bruk i konteksten til foreldresiden \"%s\""
+
+#: forms.py:174 templates/wagtailadmin/pages/_privacy_switch.html:13
+#: templates/wagtailadmin/pages/_privacy_switch.html:18
+msgid "Public"
+msgstr "Offentlig"
+
+#: forms.py:175
+msgid "Private, accessible with the following password"
+msgstr "Privat, tilgjengelig med følgende passord"
+
+#: forms.py:183
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
+
+#: templates/wagtailadmin/account/account.html:4
+#: templates/wagtailadmin/account/account.html:6
+msgid "Account"
+msgstr "Konto"
+
+#: templates/wagtailadmin/account/account.html:13
+msgid "Set gravatar"
+msgstr "Sett gravatar"
+
+#: templates/wagtailadmin/account/account.html:17
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr "Ditt avatar-bilde blir levert av Gravatar og er knyttet til din e-postadresse. Med en Gravatar-konto kan du sette en avatar for alle dine e-postadresser."
+
+#: templates/wagtailadmin/account/account.html:24
+#: templates/wagtailadmin/account/change_password.html:4
+#: templates/wagtailadmin/account/change_password.html:6
+msgid "Change password"
+msgstr "Endre passord"
+
+#: templates/wagtailadmin/account/account.html:28
+msgid "Change the password you use to log in."
+msgstr "Endre passordet du bruker for å logge inn."
+
+#: templates/wagtailadmin/account/account.html:35
+msgid "Notification preferences"
+msgstr "Varslingsinnstillinger"
+
+#: templates/wagtailadmin/account/account.html:39
+msgid "Choose which email notifications to receive."
+msgstr "Velg hvilke e-postvarsler du vil motta."
+
+#: templates/wagtailadmin/account/change_password.html:18
+msgid "Change Password"
+msgstr "Endre passord"
+
+#: templates/wagtailadmin/account/change_password.html:21
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Passordet ditt kan ikke endres her. Kontakt en administrator for nettstedet."
+
+#: templates/wagtailadmin/account/notification_preferences.html:4
+#: templates/wagtailadmin/account/notification_preferences.html:6
+msgid "Notification Preferences"
+msgstr "Varslingsinnstillinger"
+
+#: templates/wagtailadmin/account/notification_preferences.html:16
+msgid "Update"
+msgstr "Oppdater"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:3
+#: templates/wagtailadmin/account/password_reset/confirm.html:41
+#: templates/wagtailadmin/account/password_reset/done.html:3
+#: templates/wagtailadmin/account/password_reset/form.html:3
+#: templates/wagtailadmin/account/password_reset/form.html:36
+msgid "Reset password"
+msgstr "Nullstill passord"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:14
+msgid "Password change successful"
+msgstr "Passordendring utført"
+
+#: templates/wagtailadmin/account/password_reset/complete.html:15
+msgid "Login"
+msgstr "Logg inn"
+
+#: templates/wagtailadmin/account/password_reset/confirm.html:3
+#: templates/wagtailadmin/account/password_reset/confirm.html:25
+msgid "Set your new password"
+msgstr "Sett ditt nye passord"
+
+#: templates/wagtailadmin/account/password_reset/confirm.html:18
+msgid "The passwords do not match. Please try again."
+msgstr "Passordene stemmer ikke overens. Prøv igjen."
+
+#: templates/wagtailadmin/account/password_reset/done.html:14
+msgid "Check your email"
+msgstr "Sjekk e-posten din"
+
+#: templates/wagtailadmin/account/password_reset/done.html:15
+msgid "A link to reset your password has been emailed to you."
+msgstr "En lenke for å nullstille passordet ditt har blitt sendt til din e-postadresse."
+
+#: templates/wagtailadmin/account/password_reset/email.txt:2
+msgid "Please follow the link below to reset your password"
+msgstr "Vennligst følg lenken under for å nullstille ditt passord"
+
+#: templates/wagtailadmin/account/password_reset/email_subject.txt:2
+msgid "Password reset"
+msgstr "Passordnullstilling"
+
+#: templates/wagtailadmin/account/password_reset/form.html:26
+msgid "Reset your password"
+msgstr "Nullstill ditt passord"
+
+#: templates/wagtailadmin/base.html:11 templates/wagtailadmin/home.html:3
+msgid "Dashboard"
+msgstr "Dashbord"
+
+#: templates/wagtailadmin/base.html:43
+msgid "Menu"
+msgstr "Meny"
+
+#: templates/wagtailadmin/block_forms/list.html:13
+msgid "Add another"
+msgstr "Legg til en ny"
+
+#: templates/wagtailadmin/block_forms/list_member.html:6
+#: templates/wagtailadmin/block_forms/stream_member.html:12
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:5
+msgid "Move up"
+msgstr "Flytt opp"
+
+#: templates/wagtailadmin/block_forms/list_member.html:7
+#: templates/wagtailadmin/block_forms/stream_member.html:13
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:6
+msgid "Move down"
+msgstr "Flytt ned"
+
+#: templates/wagtailadmin/block_forms/list_member.html:8
+#: templates/wagtailadmin/block_forms/stream_member.html:14
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
+#: templates/wagtailadmin/pages/confirm_delete.html:6
+#: templates/wagtailadmin/pages/edit.html:44
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:33
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:33
+msgid "Delete"
+msgstr "Slett"
+
+#: templates/wagtailadmin/chooser/_browse_results.html:3 wagtail_hooks.py:17
+msgid "Explorer"
+msgstr "Utforsker"
+
+#: templates/wagtailadmin/chooser/_link_types.html:5
+#: templates/wagtailadmin/chooser/_link_types.html:7
+msgid "Internal link"
+msgstr "Intern lenke"
+
+#: templates/wagtailadmin/chooser/_link_types.html:11
+#: templates/wagtailadmin/chooser/_link_types.html:13
+msgid "External link"
+msgstr "Ekstern lenke"
+
+#: templates/wagtailadmin/chooser/_link_types.html:17
+#: templates/wagtailadmin/chooser/_link_types.html:19
+msgid "Email link"
+msgstr "E-postlenke"
+
+#: templates/wagtailadmin/chooser/_search_results.html:4
+#, python-format
+msgid ""
+"\n"
+"        There is one match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] "\nDet er ett treff"
+msgstr[1] "\nDet er %(counter)s treff"
+
+#: templates/wagtailadmin/chooser/browse.html:3
+msgid "Choose"
+msgstr "Velg"
+
+#: templates/wagtailadmin/chooser/browse.html:5 widgets.py:113
+msgid "Choose a page"
+msgstr "Velg en side"
+
+#: templates/wagtailadmin/chooser/browse.html:15
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: %(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] "\nKun sider av type \"%(type)s\" kan velges for dette feltet. Søkeresultater vil ekskludere alle andre sidetyper.\n "
+msgstr[1] "\nKun de følgende sidetypene kan velges for dette feltet: %(type)s. Søkeresultater vil ekskludere alle andre sidetyper.\n "
+
+#: templates/wagtailadmin/chooser/email_link.html:2
+msgid "Add an email link"
+msgstr "Legg til en e-postlenke"
+
+#: templates/wagtailadmin/chooser/email_link.html:14
+#: templates/wagtailadmin/chooser/external_link.html:14
+msgid "Insert link"
+msgstr "Sett inn lenke"
+
+#: templates/wagtailadmin/chooser/external_link.html:2
+msgid "Add an external link"
+msgstr "Legg til en ekstern lenke"
+
+#: templates/wagtailadmin/generic/confirm_delete.html:12
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#: templates/wagtailadmin/generic/create.html:16
+#: templates/wagtailadmin/generic/edit.html:19
+msgid "Save"
+msgstr "Lagre"
+
+#: templates/wagtailadmin/home.html:21
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Velkommen til %(site_name)s Wagtail CMS"
+
+#: templates/wagtailadmin/home.html:32
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "Dette er dashbordet ditt, hvor du kan se en oversikt over innholdet som er lagt inn."
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:5
+msgid "Pages awaiting moderation"
+msgstr "Sider som venter på godkjenning"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:13
+#: templates/wagtailadmin/home/recent_edits.html:12
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:30
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:33
+msgid "Title"
+msgstr "Tittel"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:14
+#: templates/wagtailadmin/pages/listing/_list_choose.html:13
+#: templates/wagtailadmin/pages/listing/_list_move.html:13
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:37
+msgid "Parent"
+msgstr "Forelder"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:15
+#: templates/wagtailadmin/pages/listing/_list_choose.html:16
+#: templates/wagtailadmin/pages/listing/_list_move.html:16
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:51
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:54
+msgid "Type"
+msgstr "Type"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:16
+msgid "Edited"
+msgstr "Redigert"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:24
+#: templates/wagtailadmin/home/recent_edits.html:22
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:7
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:18
+#: widgets.py:115
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:33
+#: templates/wagtailadmin/userbar/item_page_approve.html:8
+msgid "Approve"
+msgstr "Godkjenn"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:39
+#: templates/wagtailadmin/userbar/item_page_reject.html:8
+msgid "Reject"
+msgstr "Avslå"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:42
+#: templates/wagtailadmin/home/recent_edits.html:28
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:18
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:20
+#: templates/wagtailadmin/userbar/item_page_edit.html:5 views/generic.py:74
+#: views/generic.py:111 views/pages.py:179 views/pages.py:184
+#: views/pages.py:259 views/pages.py:264 views/pages.py:497 views/pages.py:549
+#: views/pages.py:736 views/pages.py:755
+msgid "Edit"
+msgstr "Rediger"
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:43
+#: templates/wagtailadmin/pages/create.html:41
+#: templates/wagtailadmin/pages/edit.html:56
+#: templates/wagtailadmin/pages/preview.html:5
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+#: templates/wagtailadmin/home/recent_edits.html:5
+msgid "Your most recent edits"
+msgstr "Dine siste endringer"
+
+#: templates/wagtailadmin/home/recent_edits.html:13
+msgid "Date"
+msgstr "Dato"
+
+#: templates/wagtailadmin/home/recent_edits.html:14
+#: templates/wagtailadmin/pages/edit.html:18
+#: templates/wagtailadmin/pages/listing/_list_choose.html:17
+#: templates/wagtailadmin/pages/listing/_list_move.html:17
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:60
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:63
+msgid "Status"
+msgstr "Status"
+
+#: templates/wagtailadmin/home/recent_edits.html:30
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:21
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:23
+msgid "Draft"
+msgstr "Kladd"
+
+#: templates/wagtailadmin/home/recent_edits.html:33
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
+msgid "Live"
+msgstr "Publisert"
+
+#: templates/wagtailadmin/home/site_summary.html:3
+msgid "Site summary"
+msgstr "Oppsummering for nettstedet"
+
+#: templates/wagtailadmin/home/site_summary_pages.html:5
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] "\n<span>%(total)s</span> side\n "
+msgstr[1] "\n<span>%(total)s</span> sider\n "
+
+#: templates/wagtailadmin/login.html:3 templates/wagtailadmin/login.html:60
+msgid "Sign in"
+msgstr "Logg inn"
+
+#: templates/wagtailadmin/login.html:17
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s og passord stemmer ikke overens. Vennligst prøv igjen."
+
+#: templates/wagtailadmin/login.html:28
+msgid "Sign in to Wagtail"
+msgstr "Logg inn på Wagtail"
+
+#: templates/wagtailadmin/login.html:47
+msgid "Forgotten it?"
+msgstr "Glemt?"
+
+#: templates/wagtailadmin/notifications/approved.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Siden \"%(title)s\" har blitt godkjent"
+
+#: templates/wagtailadmin/notifications/approved.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Siden \"%(title)s\" har blitt godkjent."
+
+#: templates/wagtailadmin/notifications/approved.html:4
+msgid "You can view the page here:"
+msgstr "Du kan besøke siden her:"
+
+#: templates/wagtailadmin/notifications/base_notification.html:3
+msgid "Edit your notification preferences here:"
+msgstr "Endre dine varslingsinnstillinger her:"
+
+#: templates/wagtailadmin/notifications/rejected.html:1
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Siden \"%(title)s\" har blitt avvist"
+
+#: templates/wagtailadmin/notifications/rejected.html:2
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Siden \"%(title)s\" har blitt avvist."
+
+#: templates/wagtailadmin/notifications/rejected.html:4
+#: templates/wagtailadmin/notifications/submitted.html:5
+msgid "You can edit the page here:"
+msgstr "Du kan redigere siden her:"
+
+#: templates/wagtailadmin/notifications/submitted.html:1
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
+
+#: templates/wagtailadmin/notifications/submitted.html:2
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation."
+msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning."
+
+#: templates/wagtailadmin/notifications/submitted.html:4
+msgid "You can preview the page here:"
+msgstr "Du kan forhåndsvise siden her:"
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:2
+#: templates/wagtailadmin/page_privacy/set_privacy.html:2
+msgid "Page privacy"
+msgstr "Sidevern"
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:6
+msgid "This page has been made private by a parent page."
+msgstr "Denne siden har blitt gjort privat av en foreldreside."
+
+#: templates/wagtailadmin/page_privacy/ancestor_privacy.html:7
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan endre sidevernsinnstillingene på:"
+
+#: templates/wagtailadmin/page_privacy/set_privacy.html:6
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Sidevernsendringer berører også alle undersider av denne siden."
+
+#: templates/wagtailadmin/pages/_lock_switch.html:8
+msgid "Edit lock"
+msgstr "Redigeringslås"
+
+#: templates/wagtailadmin/pages/_lock_switch.html:15
+msgid "Locked"
+msgstr "Låst"
+
+#: templates/wagtailadmin/pages/_lock_switch.html:25
+msgid "Unlocked"
+msgstr "Ulåst"
+
+#: templates/wagtailadmin/pages/_privacy_switch.html:9
+msgid "Privacy"
+msgstr "Sidevern"
+
+#: templates/wagtailadmin/pages/_privacy_switch.html:14
+#: templates/wagtailadmin/pages/_privacy_switch.html:20
+msgid "Private"
+msgstr "Privat"
+
+#: templates/wagtailadmin/pages/add_subpage.html:5
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Opprett en side i %(title)s"
+
+#: templates/wagtailadmin/pages/add_subpage.html:8
+msgid "Create a page in"
+msgstr "Opprett en side i"
+
+#: templates/wagtailadmin/pages/add_subpage.html:12
+msgid "Choose which type of page you'd like to create."
+msgstr "Velg hvilken sidetype du vil opprette."
+
+#: templates/wagtailadmin/pages/add_subpage.html:25
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Sider som bruker %(page_type)s"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Slett %(title)s"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:11
+msgid "Are you sure you want to delete this page?"
+msgstr "Er du sikker på at du vil slette denne siden?"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:13
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more subpages.\n"
+"                "
+msgstr[0] "\nDette vil også slette én underside.\n "
+msgstr[1] "\nDette vil også slette %(descendant_count)s undersider.\n "
+
+#: templates/wagtailadmin/pages/confirm_delete.html:21
+msgid ""
+"Alternatively you can unpublish the page. This removes the page from public "
+"view and you can edit or publish it again later."
+msgstr "Alternativt kan du avpublisere siden. Dette vil fjerne siden fra offentlig visning, og du kan redigere eller publisere den igjen senere."
+
+#: templates/wagtailadmin/pages/confirm_delete.html:25
+msgid "Delete it"
+msgstr "Slett den"
+
+#: templates/wagtailadmin/pages/confirm_delete.html:25
+msgid "Unpublish it"
+msgstr "Avpubliser den"
+
+#: templates/wagtailadmin/pages/confirm_move.html:3
+#, python-format
+msgid "Move %(title)s"
+msgstr "Flytt %(title)s"
+
+#: templates/wagtailadmin/pages/confirm_move.html:5
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:27
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:30
+msgid "Move"
+msgstr "Flytt"
+
+#: templates/wagtailadmin/pages/confirm_move.html:10
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Er du sikker på at du vil flytte denne siden under \"%(title)s\"?"
+
+#: templates/wagtailadmin/pages/confirm_move.html:12
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "Er du sikker på at du vil flytte denne siden og alle dens undersider inn under \"%(title)s\"?"
+
+#: templates/wagtailadmin/pages/confirm_move.html:17
+msgid "Yes, move this page"
+msgstr "Ja, flytt denne siden"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:3
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Avpubliser %(title)s"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:5
+#: templates/wagtailadmin/pages/edit.html:41
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:36
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:36
+msgid "Unpublish"
+msgstr "Avpubliser"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:9
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Er du sikker på at du vil avpublisere denne siden?"
+
+#: templates/wagtailadmin/pages/confirm_unpublish.html:12
+msgid "Yes, unpublish it"
+msgstr "Ja, avpubliser den"
+
+#: templates/wagtailadmin/pages/content_type_use.html:6
+msgid "Pages using"
+msgstr "Sider som bruker"
+
+#: templates/wagtailadmin/pages/copy.html:3
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopier %(title)s"
+
+#: templates/wagtailadmin/pages/copy.html:5
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:30
+msgid "Copy"
+msgstr "Kopier"
+
+#: templates/wagtailadmin/pages/copy.html:26
+msgid "Copy this page"
+msgstr "Kopier denne siden"
+
+#: templates/wagtailadmin/pages/create.html:5
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Ny %(page_type)s"
+
+#: templates/wagtailadmin/pages/create.html:15
+msgid "New"
+msgstr "Ny"
+
+#: templates/wagtailadmin/pages/create.html:29
+msgid "Save as draft"
+msgstr "Lagre som kladd"
+
+#: templates/wagtailadmin/pages/create.html:33
+#: templates/wagtailadmin/pages/edit.html:47
+msgid "Publish"
+msgstr "Publiser"
+
+#: templates/wagtailadmin/pages/create.html:35
+#: templates/wagtailadmin/pages/edit.html:49
+msgid "Submit for moderation"
+msgstr "Send til godkjenning"
+
+#: templates/wagtailadmin/pages/edit.html:5
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Redigerer %(page_type)s: %(title)s"
+
+#: templates/wagtailadmin/pages/edit.html:15
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Redigerer %(page_type)s: <span>%(title)s</span>"
+
+#: templates/wagtailadmin/pages/edit.html:35
+msgid "Page locked"
+msgstr "Siden er låst"
+
+#: templates/wagtailadmin/pages/edit.html:35
+msgid "Save draft"
+msgstr "Lagre kladd"
+
+#: templates/wagtailadmin/pages/edit.html:77
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Sist endret: %(last_mod)s"
+
+#: templates/wagtailadmin/pages/edit.html:79
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "av %(modified_by)s"
+
+#: templates/wagtailadmin/pages/index.html:3
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Utforsker %(title)s"
+
+#: templates/wagtailadmin/pages/listing/_list.html:46
+msgid "Drag"
+msgstr "Dra"
+
+#: templates/wagtailadmin/pages/listing/_list_choose.html:15
+#: templates/wagtailadmin/pages/listing/_list_move.html:15
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:42
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:45
+msgid "Updated"
+msgstr "Oppdatert"
+
+#: templates/wagtailadmin/pages/listing/_list_explore.html:25
+msgid "No pages have been created at this location."
+msgstr "Ingen sider har blitt opprettet på denne plasseringen."
+
+#: templates/wagtailadmin/pages/listing/_list_explore.html:25
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Hvorfor ikke <a href=\"%(add_page_url)s\">opprette en</a>?"
+
+#: templates/wagtailadmin/pages/listing/_locked_indicator.html:10
+msgid "This page is locked to further editing"
+msgstr "Denne siden er låst for videre redigering"
+
+#: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
+#: templates/wagtailadmin/pages/listing/_navigation_move.html:9
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Utforsk undersider av \"%(title)s\""
+
+#: templates/wagtailadmin/pages/listing/_navigation_choose.html:9
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#: templates/wagtailadmin/pages/listing/_navigation_move.html:9
+msgid "Explore"
+msgstr "Utforsk"
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:10
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Utforsk undersider av \"%(title)s\""
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Legg en underside til \"%(title)s\""
+
+#: templates/wagtailadmin/pages/listing/_navigation_explore.html:12
+msgid "Add subpage"
+msgstr "Legg til underside"
+
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:24
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:27
+msgid ""
+"This page is published but does not exist within a configured Site, so "
+"cannot be viewed."
+msgstr "Denne siden er publisert, men finnes ikke under et konfigurert Nettsted, så den kan ikke vises."
+
+#: templates/wagtailadmin/pages/listing/_page_title_explore.html:39
+#: templates/wagtailadmin/pages/listing/_parent_page_title_explore.html:39
+msgid "Add child page"
+msgstr "Legg til underside"
+
+#: templates/wagtailadmin/pages/listing/_pagination.html:18
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr "\nSide %(page_number)s av %(num_pages)s.\n "
+
+#: templates/wagtailadmin/pages/listing/_pagination.html:24
+#: templates/wagtailadmin/shared/pagination_nav.html:21
+#: templates/wagtailadmin/shared/pagination_nav.html:23
+#: templates/wagtailadmin/shared/pagination_nav.html:25
+msgid "Previous"
+msgstr "Forrige"
+
+#: templates/wagtailadmin/pages/listing/_pagination.html:29
+#: templates/wagtailadmin/shared/pagination_nav.html:32
+#: templates/wagtailadmin/shared/pagination_nav.html:34
+#: templates/wagtailadmin/shared/pagination_nav.html:36
+msgid "Next"
+msgstr "Neste"
+
+#: templates/wagtailadmin/pages/listing/_privacy_indicator.html:11
+msgid "This page is protected from public view"
+msgstr "Denne siden er unntatt offentlig visning"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
+msgid "Disable ordering of child pages"
+msgstr "Skru av rekkefølge på undersider"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:21
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:23
+msgid "Order"
+msgstr "Rekkefølge"
+
+#: templates/wagtailadmin/pages/listing/_table_headers_explore.html:23
+msgid "Enable ordering of child pages"
+msgstr "Skru på rekkefølge på undersider"
+
+#: templates/wagtailadmin/pages/move_choose_destination.html:3
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Velg en ny forelderside for %(title)s"
+
+#: templates/wagtailadmin/pages/move_choose_destination.html:6
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Velg en ny forelderside for <span>%(title)s</span>"
+
+#: templates/wagtailadmin/pages/search_results.html:5
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] "\nDet er én side som samsvarer\n "
+msgstr[1] "\nDet er %(counter)s samsvarende sider\n "
+
+#: templates/wagtailadmin/pages/search_results.html:13
+msgid "Other searches"
+msgstr "Andre søk"
+
+#: templates/wagtailadmin/pages/search_results.html:15
+msgid "Images"
+msgstr "Bilder"
+
+#: templates/wagtailadmin/pages/search_results.html:16
+msgid "Documents"
+msgstr "Dokumenter"
+
+#: templates/wagtailadmin/pages/search_results.html:17
+msgid "Users"
+msgstr "Brukere"
+
+#: templates/wagtailadmin/pages/search_results.html:27
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Beklager, ingen sider samsvarer med <em>\"%(query_string)s\"</em>"
+
+#: templates/wagtailadmin/pages/search_results.html:29
+msgid "Enter a search term above"
+msgstr "Skriv inn en søkestreng over"
+
+#: templates/wagtailadmin/pages/usage_results.html:9
+msgid "No pages use"
+msgstr "Ingen sider bruker"
+
+#: templates/wagtailadmin/shared/breadcrumb.html:6
+msgid "Home"
+msgstr "Hjem"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:6
+msgid "January"
+msgstr "Januar"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:7
+msgid "February"
+msgstr "Februar"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:8
+msgid "March"
+msgstr "Mars"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:9
+msgid "April"
+msgstr "April"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:10
+msgid "May"
+msgstr "Mai"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:11
+msgid "June"
+msgstr "Juni"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:12
+msgid "July"
+msgstr "Juli"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:13
+msgid "August"
+msgstr "August"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:14
+msgid "September"
+msgstr "September"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:15
+msgid "October"
+msgstr "Oktober"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:16
+msgid "November"
+msgstr "November"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:17
+msgid "December"
+msgstr "Desember"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:20
+msgid "Sun"
+msgstr "Søn"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:21
+msgid "Mon"
+msgstr "Man"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:22
+msgid "Tue"
+msgstr "Tir"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:23
+msgid "Wed"
+msgstr "Ons"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:24
+msgid "Thu"
+msgstr "Tor"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:25
+msgid "Fri"
+msgstr "Fre"
+
+#: templates/wagtailadmin/shared/datetimepicker_translations.html:26
+msgid "Sat"
+msgstr "Lør"
+
+#: templates/wagtailadmin/shared/header.html:41
+#, python-format
+msgid "Used %(useage_count)s time"
+msgid_plural "Used %(useage_count)s times"
+msgstr[0] "Brukt %(useage_count)s gang"
+msgstr[1] "Brukt %(useage_count)s ganger"
+
+#: templates/wagtailadmin/shared/main_nav.html:8
+msgid "Edit your account"
+msgstr "Endre din konto"
+
+#: templates/wagtailadmin/shared/main_nav.html:9
+msgid "Log out"
+msgstr "Logg ut"
+
+#: templates/wagtailadmin/shared/pagination_nav.html:16
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Side %(page_num)s av %(total_pages)s."
+
+#: templates/wagtailadmin/skeleton.html:21
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your "
+"browser</a>."
+msgstr "Du bruker en <strong>utdatert</strong> nettleser som ikke støttes av denne programvaren. Vær vennlig å <a href=\"http://browsehappy.com/\">oppgradere nettleseren din</a>."
+
+#: templates/wagtailadmin/skeleton.html:23
+msgid "Javascript is required to use Wagtail, but it is currently disabled"
+msgstr "JavaScript er påkrevet for å bruke Wagtail, men er deaktivert"
+
+#: templates/wagtailadmin/userbar/base.html:4
+msgid "User bar"
+msgstr "Brukerlinje"
+
+#: templates/wagtailadmin/userbar/base.html:14
+msgid "Go to Wagtail admin interface"
+msgstr "Gå til Wagtail administrasjonsgrensesnitt"
+
+#: templates/wagtailadmin/userbar/item_page_add.html:5
+msgid "Add a child page"
+msgstr "Legg til en underside"
+
+#: templates/wagtailadmin/userbar/item_page_add.html:5
+msgid "Add"
+msgstr "Legg til"
+
+#: utils.py:73
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Beklager, du har ikke tilgang på dette området."
+
+#: views/account.py:38
+msgid "Your password has been changed successfully!"
+msgstr "Passordet ditt er endret."
+
+#: views/account.py:58
+msgid "Your preferences have been updated successfully!"
+msgstr "Dine innstillinger har blitt oppdatert."
+
+#: views/pages.py:177
+#, python-brace-format
+msgid "Page '{0}' created and published."
+msgstr "Siden \"{0}\" er opprettet og publisert."
+
+#: views/pages.py:178 views/pages.py:258 views/pages.py:735
+msgid "View live"
+msgstr "Vis publisert"
+
+#: views/pages.py:182
+#, python-brace-format
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Siden \"{0}\" er opprettet og sendt til godkjenning."
+
+#: views/pages.py:183 views/pages.py:263
+msgid "View draft"
+msgstr "Vis kladd"
+
+#: views/pages.py:188
+#, python-brace-format
+msgid "Page '{0}' created."
+msgstr "Siden \"{0}\" er opprettet."
+
+#: views/pages.py:202
+msgid "The page could not be created due to validation errors"
+msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
+
+#: views/pages.py:257 views/pages.py:734
+#, python-brace-format
+msgid "Page '{0}' published."
+msgstr "Siden \"{0}\" er publisert."
+
+#: views/pages.py:262
+#, python-brace-format
+msgid "Page '{0}' submitted for moderation."
+msgstr "Siden \"{0}\" er sendt til godkjenning."
+
+#: views/pages.py:268
+#, python-brace-format
+msgid "Page '{0}' updated."
+msgstr "Siden \"{0}\" er oppdatert."
+
+#: views/pages.py:283
+msgid "The page could not be saved as it is locked"
+msgstr "Siden kunne ikke lagres fordi den er låst"
+
+#: views/pages.py:285
+msgid "The page could not be saved due to validation errors"
+msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
+
+#: views/pages.py:298
+msgid "This page is currently awaiting moderation"
+msgstr "Denne siden påventer godkjenning"
+
+#: views/pages.py:322
+msgid "This slug is already in use"
+msgstr "Denne permalenken er allerede i bruk"
+
+#: views/pages.py:345
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
+
+#: views/pages.py:351
+msgid "Expiry date/time must be in the future"
+msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
+
+#: views/pages.py:363
+#, python-brace-format
+msgid "Page '{0}' deleted."
+msgstr "Siden \"{0}\" er slettet."
+
+#: views/pages.py:496
+#, python-brace-format
+msgid "Page '{0}' unpublished."
+msgstr "Siden \"{0}\" er avpublisert."
+
+#: views/pages.py:548
+#, python-brace-format
+msgid "Page '{0}' moved."
+msgstr "Siden \"{0}\" er flyttet."
+
+#: views/pages.py:643
+#, python-brace-format
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Siden \"{0}\" og {1} undersider kopiert."
+
+#: views/pages.py:645
+#, python-brace-format
+msgid "Page '{0}' copied."
+msgstr "Siden \"{0}\" kopiert."
+
+#: views/pages.py:670
+msgid "Content"
+msgstr "Innhold"
+
+#: views/pages.py:672
+msgid "Promote"
+msgstr "Forfrem"
+
+#: views/pages.py:674 wagtail_hooks.py:27
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: views/pages.py:729 views/pages.py:749 views/pages.py:769
+#, python-brace-format
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Siden \"{0}\" påventer ikke godkjenning."
+
+#: views/pages.py:754
+#, python-brace-format
+msgid "Page '{0}' rejected for publication."
+msgstr "Siden \"{0}\" ble avvist for publikasjon."
+
+#: views/pages.py:795
+#, python-brace-format
+msgid "Page '{0}' is now locked."
+msgstr "Siden \"{0}\" er nå låst."
+
+#: views/pages.py:819
+#, python-brace-format
+msgid "Page '{0}' is now unlocked."
+msgstr "Siden \"{0}\" er nå ulåst."
+
+#: widgets.py:65
+msgid "Choose an item"
+msgstr "Velg et element"
+
+#: widgets.py:66
+msgid "Choose another item"
+msgstr "Velg et annet element"
+
+#: widgets.py:67
+msgid "Clear choice"
+msgstr "Nullstill valg"
+
+#: widgets.py:68
+msgid "Edit this item"
+msgstr "Endre dette elementet"
+
+#: widgets.py:114
+msgid "Choose another page"
+msgstr "Velg en annen side"
