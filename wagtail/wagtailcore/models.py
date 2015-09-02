@@ -5,6 +5,7 @@ import json
 
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
+import django
 from django.db import models, connection, transaction
 from django.db.models import Q
 from django.db.models.signals import post_save, pre_delete, post_delete
@@ -764,13 +765,34 @@ class Page(six.with_metaclass(PageBase, MP_Node, ClusterableModel, index.Indexed
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
-        # Make a copy
-        page_copy = Page.objects.get(id=self.id).specific
-        page_copy.pk = None
-        page_copy.id = None
-        page_copy.depth = None
-        page_copy.numchild = 0
-        page_copy.path = None
+        # Fill dict with self.specific values
+        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path']
+        specific_self = self.specific
+        specific_dict = {}
+
+        if django.VERSION >= (1, 8):
+            for field in specific_self._meta.get_fields():
+                # Ignore explicitly excluded fields
+                if field.name in exclude_fields:
+                    continue
+
+                # Ignore reverse relations
+                if field.auto_created:
+                    continue
+
+                # Ignore parent links (page_ptr)
+                if isinstance(field, models.OneToOneField) and field.parent_link:
+                    continue
+
+                specific_dict[field.name] = getattr(specific_self, field.name)
+        else:
+            # Django 1.7
+            for field in specific_self._meta.fields:
+                if field.name not in exclude_fields and not (field.rel is not None and field.rel.parent_link):
+                    specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
+        page_copy = self.specific_class(**specific_dict)
 
         if not keep_live:
             page_copy.live = False
