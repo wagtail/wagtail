@@ -62,6 +62,7 @@ Contributors
 * Scot Hacker
 * Kyungil Choi
 * Joss Ingram
+* Christoph Lipp
 
 
 Translators
