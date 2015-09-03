@@ -2,10 +2,10 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import warnings
+
 from collections import defaultdict
-
 from modelcluster.models import ClusterableModel, get_all_child_relations
-
 import django
 from django.db import models, connection, transaction
 from django.db.models import Q
@@ -41,6 +41,8 @@ from wagtail.wagtailcore.signals import page_published, page_unpublished
 
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsearch.backends import get_search_backend
+
+from wagtail.utils.deprecation import RemovedInWagtail13Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -266,7 +268,13 @@ class PageBase(models.base.ModelBase):
         # All pages should be creatable unless explicitly set otherwise.
         # This attribute is not inheritable.
         if 'is_creatable' not in dct:
-            cls.is_creatable = not cls._meta.abstract
+            if 'is_abstract' in dct:
+                warnings.warn(
+                    "The is_abstract flag is deprecated - use is_creatable instead.",
+                    RemovedInWagtail13Warning)
+                cls.is_creatable = not dct['is_abstract']
+            else:
+                cls.is_creatable = not cls._meta.abstract
 
         if cls.is_creatable:
             # register this type in the list of page content types
