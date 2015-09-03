@@ -7,7 +7,7 @@ from django.forms.models import inlineformset_factory
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.widgets import AdminPageChooser
 from wagtail.wagtailusers.models import UserProfile
-from wagtail.wagtailcore.models import UserPagePermissionsProxy, GroupPagePermission
+from wagtail.wagtailcore.models import Page, UserPagePermissionsProxy, GroupPagePermission
 
 
 User = get_user_model()
@@ -229,9 +229,8 @@ class GroupForm(forms.ModelForm):
 
 
 class GroupPagePermissionForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(GroupPagePermissionForm, self).__init__(*args, **kwargs)
-        self.fields['page'].widget = AdminPageChooser()
+    page = forms.ModelChoiceField(queryset=Page.objects.all(),
+        widget=AdminPageChooser(show_edit_link=False))
 
     class Meta:
         model = GroupPagePermission
