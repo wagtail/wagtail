@@ -71,6 +71,10 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         search_picks = list(get_search_promotions("root page"))
         self.assertEqual(search_picks, [pick])
 
+    def test_get_search_promotions_with_none_query_string(self):
+        search_picks = list(get_search_promotions(None))
+        self.assertEqual(search_picks, [])
+
 
 class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
