@@ -238,12 +238,6 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         }
     }
 
-    &:hover{
-        background-color: $color-button-hover;
-        color:white;
-        border-color:transparent;
-    }
-
     &.yes{
         background-color: $color-button-yes;
         border:1px solid $color-button-yes;
@@ -366,6 +360,16 @@ input[type=submit], input[type=reset], input[type=button], .button, button{
         border:0 !important;
     }
 
+    &:hover{
+        background-color: $color-button-hover;
+        color:white;
+        border-color:transparent;
+
+        &.hover-no{
+            background-color: $color-button-no;
+        }
+    }
+
     @media screen and (min-width: $breakpoint-mobile){
         font-size:0.95em;
         padding:0 1.4em;
@@ -439,6 +443,36 @@ input[type=submit], input[type=reset], input[type=button], button{
     }
 }
 
+
+.button-group{
+    @include clearfix;
+
+    input[type=submit], input[type=reset], input[type=button], .button, button {
+        @include border-radius(0);
+        float:left;
+        margin-right:1px;
+        margin-left:0;
+
+        &:only-child{
+            @include border-radius(3);
+        }
+        &:first-child{
+            @include border-radius(3px 0 0 3px);
+        }
+        &:last-child{
+            @include border-radius(0 3px 3px 0);
+            margin-right:0;
+        }
+    }
+
+    &.button-group-square{
+        &,input[type=submit], input[type=reset], input[type=button], .button, button{
+            @include border-radius(0);
+        }
+    }
+}
+
+
 .multiple{
     padding:0;
     max-width:1024px - 50px;
@@ -475,9 +509,7 @@ input[type=submit], input[type=reset], input[type=button], button{
         right:1em;
         top:1em;
         color:white;
-        overflow:hidden;
-        @include border-radius(2px);
-        
+
         li{
             float:left;
             margin-right:1px;
@@ -489,6 +521,7 @@ input[type=submit], input[type=reset], input[type=button], button{
 
         .disabled{
             display:none;
+            visibility:hidden;
         }
     }
 
