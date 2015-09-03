@@ -41,6 +41,7 @@ Changelog
  * Fix: Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Fix: Page copy now works with pages that use multiple inheritance (Jordi Joan)
  * Fix: Form builder pages now pick up template variables defined in the `get_context` method (Christoph Lipp)
+ * Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
 
 
 1.0 (16.07.2015)

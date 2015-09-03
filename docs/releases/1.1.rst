@@ -81,7 +81,8 @@ Bug fixes
  * The queryset returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
  * Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Page copy now works with pages that use multiple inheritance
- * Fix: Form builder pages now pick up template variables defined in the ``get_context`` method
+ * Form builder pages now pick up template variables defined in the ``get_context`` method
+ * When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
 
 
 Upgrade considerations
