@@ -13,24 +13,39 @@
     {% if parent_page.is_root %}
         <tr><td colspan="6"><div class="help-block help-info">
             {% if perms.wagtailcore.add_site %}
-                {% blocktrans %}
-                    The root level is where you can add new sites to your Wagtail installation. Pages created here will not be available at any URL until they are associated with a site through the Settings -> Sites area. To add pages to an existing site, create them as children of the homepage.
-                {% endblocktrans %}
+                {% url 'wagtailsites:index' as wagtailsites_index_url %}
+                <p>
+                    {% blocktrans %}
+                        The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.
+                    {% endblocktrans %}
+                    {% if wagtailsites_index_url %}
+                        <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                    {% endif %}
+                </p>
+                <p>
+                    {% blocktrans %}
+                        If you just want to add pages to an existing site, create them as children of the homepage instead.
+                    {% endblocktrans %}
+                </p>
             {% else %}
                 {% blocktrans %}
-                    Pages created here will not be available at any URL. To add pages to an existing site, create them as children of the homepage.
+                    Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.
                 {% endblocktrans %}
             {% endif %}
         </div></td></tr>
     {% elif not parent_page.url %}
         <tr><td colspan="6"><div class="help-block help-warning">
             {% if perms.wagtailcore.add_site %}
+                {% url 'wagtailsites:index' as wagtailsites_index_url %}
                 {% blocktrans %}
-                    There is no site record for this location. Pages created here will not be available at any URL until a site is configured through the Settings -> Sites area.
+                    There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.
                 {% endblocktrans %}
+                {% if wagtailsites_index_url %}
+                    <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                {% endif %}
             {% else %}
                 {% blocktrans %}
-                    There is no site record for this location. Pages created here will not be available at any URL.
+                    There is no site record for this location. Pages created here will not be accessible at any URL.
                 {% endblocktrans %}
             {% endif %}
         </div></td></tr>
