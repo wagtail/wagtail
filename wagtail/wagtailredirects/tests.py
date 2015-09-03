@@ -20,6 +20,8 @@ class TestRedirects(TestCase):
         self.assertEqual(path, normalise_path('Hello/world.html/?foo=Bar&Baz=quux2')) # Trailing slashes are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2#cool')) # Fragments are ignored
         self.assertEqual(path, normalise_path('/Hello/world.html?Baz=quux2&foo=Bar')) # Order of query string parameters are ignored
+        self.assertEqual(path, normalise_path('  /Hello/world.html?foo=Bar&Baz=quux2')) # Leading whitespace
+        self.assertEqual(path, normalise_path('/Hello/world.html?foo=Bar&Baz=quux2  ')) # Trailing whitespace
 
         # Test against different paths
         self.assertNotEqual(path, normalise_path('/hello/world.html?foo=Bar&Baz=quux2')) # 'hello' is lowercase
@@ -119,6 +121,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/')
+        self.assertEqual(redirects.first().site, None)
 
     def test_add_validation_error(self):
         response = self.post({
