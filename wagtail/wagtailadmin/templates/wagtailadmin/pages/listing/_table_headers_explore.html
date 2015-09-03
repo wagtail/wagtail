@@ -5,7 +5,8 @@
 Table headers for the page listing, when in 'explore' mode. Expects the following variables:
 
 sortable: if true, headings are links to wagtailadmin_explore with sort parameters applied.
-orderable: if true, an 'ordering' column is added (again with links to wagtailadmin_explore).
+show_ordering_column: if true, an 'ordering' column is added.
+orderable: if true, the 'ordering' column is populated (again with links to wagtailadmin_explore).
 
 If either sortable or orderable is true, the following variables are also required:
 
@@ -15,12 +16,14 @@ ordering: the current sort parameter
 {% endcomment %}
 
 <tr class="table-headers">
-    {% if orderable %}
+    {% if show_ordering_column %}
         <th class="ord">
-            {% if ordering == "ord" %}
-                <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a></th> 
-            {% else %}
-                <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+            {% if orderable %}
+                {% if ordering == "ord" %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+                {% else %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a></th>
+                {% endif %}
             {% endif %}
         </th>
     {% endif %}
