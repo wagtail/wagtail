@@ -41,6 +41,8 @@ class Block(six.with_metaclass(BaseBlock, object)):
     name = ''
     creation_counter = 0
 
+    TEMPLATE_VAR = 'value'
+
     class Meta:
         label = None
         icon = "placeholder"
@@ -206,7 +208,10 @@ class Block(six.with_metaclass(BaseBlock, object)):
         """
         template = getattr(self.meta, 'template', None)
         if template:
-            return render_to_string(template, {'self': value})
+            return render_to_string(template, {
+                'self': value,
+                self.TEMPLATE_VAR: value,
+            })
         else:
             return self.render_basic(value)
 

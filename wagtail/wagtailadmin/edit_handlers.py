@@ -421,6 +421,8 @@ class MultiFieldPanel(object):
 
 class BaseFieldPanel(EditHandler):
 
+    TEMPLATE_VAR = 'field_panel'
+
     @classmethod
     def widget_overrides(cls):
         """check if a specific widget has been defined for this field"""
@@ -459,6 +461,7 @@ class BaseFieldPanel(EditHandler):
     def render_as_object(self):
         return mark_safe(render_to_string(self.object_template, {
             'self': self,
+            self.TEMPLATE_VAR: self,
             'field': self.bound_field,
         }))
 
