@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('taggit', '0001_initial'),
-        ('tests', '0006_image_file_size'),
+        ('tests', '0008_merge'),
     ]
 
     operations = [
