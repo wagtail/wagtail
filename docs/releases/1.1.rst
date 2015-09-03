@@ -65,6 +65,7 @@ Minor features
  * ``PageChooserPanel`` now supports passing a list (or tuple) of accepted page types
  * The snippet type parameter of ``SnippetChooserPanel`` can now be omitted, or passed as a model name string rather than a model class
  * Added aliases for the ``self`` template variable to accommodate Jinja as a templating engine: ``page`` for pages, ``field_panel`` for field panels / edit handlers, and ``value`` for blocks
+ * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
 
 Bug fixes
 ~~~~~~~~~
