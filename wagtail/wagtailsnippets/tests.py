@@ -154,9 +154,12 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
                                                args=('tests', 'advert')))
 
         snippet = Advert.objects.get(text='test_advert')
+
+        expected_tags = list(Tag.objects.order_by('name').filter(name__in=tags))
+        self.assertEqual(len(expected_tags), 2)
         self.assertEqual(
             list(snippet.tags.order_by('name')),
-            list(Tag.objects.order_by('name').filter(name__in=tags)))
+            expected_tags)
 
 
 class TestSnippetEditView(TestCase, WagtailTestUtils):
@@ -213,9 +216,12 @@ class TestSnippetEditView(TestCase, WagtailTestUtils):
                                                args=('tests', 'advert')))
 
         snippet = Advert.objects.get(text='edited_test_advert')
+
+        expected_tags = list(Tag.objects.order_by('name').filter(name__in=tags))
+        self.assertEqual(len(expected_tags), 2)
         self.assertEqual(
             list(snippet.tags.order_by('name')),
-            list(Tag.objects.order_by('name').filter(name__in=tags)))
+            expected_tags)
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
